@@ -28,7 +28,7 @@ jobs:
 
   linters:
     needs: check-file-changes
-    if: ${{ needs.check-file-changes.outputs.folder == 'true' }}
+    if: needs.check-file-changes.outputs.folder != ''
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
