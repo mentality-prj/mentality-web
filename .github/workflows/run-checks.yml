@@ -1,0 +1,55 @@
+name: Frontend Run Checks
+
+on:
+  pull_request:
+    types: [opened, reopened, edited, synchronize]
+
+jobs:
+  check-file-changes:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: read
+    outputs:
+      folder: ${{ steps.filter.outputs.folder }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: dorny/paths-filter@v3
+        id: filter
+        with:
+          filters: |
+            folder:
+              - 'apps/client/**'
+              - 'components/**'
+              - 'pages/**'
+              - 'public/**'
+              - 'styles/**'
+              - 'utils/**'
+
+  linters:
+    needs: check-file-changes
+    if: ${{ needs.check-file-changes.outputs.folder == 'true' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install packages
+        run: yarn install --frozen-lockfile
+
+      - name: Lint
+        run: yarn lint
+
+      - name: Prettier Check
+        run: yarn prettier
+
+      - name: TS Check
+        run: yarn tsc
+
+      - name: Run Tests
+        run: yarn test
+
+      - uses: reviewdog/action-setup@v1
+        with:
+          reviewdog_version: latest
+
+      - name: Reviewdog Check
+        run: reviewdog -version
