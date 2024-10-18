@@ -3,9 +3,10 @@
     "next/core-web-vitals",
     "next/typescript",
     "next",
+    "prettier",
     "plugin:@typescript-eslint/recommended",
-    "plugin:tailwindcss/recommended",
-    "prettier"
+    "plugin:prettier/recommended",
+    "plugin:tailwindcss/recommended"
   ],
   "plugins": [
     "simple-import-sort",
