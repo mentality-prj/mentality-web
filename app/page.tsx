@@ -1,3 +1,4 @@
+import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 
 export default function Home() {
@@ -45,6 +46,7 @@ export default function Home() {
             Read our docs
           </a>
         </div>
+        <Button color="primary">Button from NextUI</Button>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a

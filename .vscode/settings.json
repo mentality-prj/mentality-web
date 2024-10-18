@@ -7,11 +7,14 @@
   },
   "workbench.editor.centeredLayoutAutoResize": true,
   "workbench.settings.editor": "ui",
-  "eslint.validate": ["typescript"],
+  "eslint.validate": [
+    "typescript"
+  ],
   "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
-  }
+  },
+  "prettier.configPath": ".prettierrc"
 }
