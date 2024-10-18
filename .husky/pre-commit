@@ -1,0 +1,4 @@
+yarn fix
+yarn format
+yarn lint
+yarn prettier

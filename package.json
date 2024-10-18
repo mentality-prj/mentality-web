@@ -9,7 +9,8 @@
     "lint": "next lint",
     "fix": "next lint --fix",
     "prettier": "prettier --check --ignore-path .gitignore --ignore-path .prettierignore .",
-    "format": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore ."
+    "format": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore .",
+    "prepare": "husky"
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
@@ -27,6 +28,8 @@
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-tailwindcss": "^3.17.5",
+    "husky": "^9.1.6",
+    "lint-staged": "^15.2.10",
     "postcss": "^8",
     "prettier": "^3.3.3",
     "prettier-plugin-tailwindcss": "^0.6.8",
