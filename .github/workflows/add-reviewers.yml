@@ -1,0 +1,33 @@
+name: Assign Reviewers
+
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install yq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+          sudo snap install yq
+
+      - name: Read reviewers from YAML
+        id: get-reviewers
+        run: |
+          REVIEWERS=$(yq eval -o=json '.reviewers' .github/reviewers.yml | jq -r '.[] | "\(.name)"' | tr '\n' ', ' | sed 's/, $//')
+          echo "REVIEWERS=${REVIEWERS}" >> $GITHUB_ENV
+
+      - name: Add Reviewers
+        uses: AveryCameronUofR/add-reviewer-gh-action@1.0.3
+        with:
+          reviewers: ${{ env.REVIEWERS }}
+          token: ${{ secrets.GITHUB_TOKEN }}
