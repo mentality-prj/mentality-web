@@ -2,7 +2,8 @@ name: Frontend Run Checks
 
 on:
   pull_request:
-    types: [opened, reopened, edited, synchronize]
+    branches:
+      - main
 
 jobs:
   check-file-changes:
@@ -19,9 +20,8 @@ jobs:
         with:
           filters: |
             folder:
-              - 'apps/client/**'
+              - 'app/**'
               - 'components/**'
-              - 'pages/**'
               - 'public/**'
               - 'styles/**'
               - 'utils/**'
@@ -47,9 +47,20 @@ jobs:
       - name: Run Tests
         run: yarn test
 
-      - uses: reviewdog/action-setup@v1
-        with:
-          reviewdog_version: latest
+  assign-reviewers:
+    runs-on: ubuntu-latest
+    needs: linters
+    permissions:
+      pull-requests: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
 
-      - name: Reviewdog Check
-        run: reviewdog -version
+      - name: Install dependencies
+        run: yarn add @actions/core @actions/github
+        working-directory: .github/scripts
+
+      - name: Add Reviewers
+        run: node .github/scripts/add-reviewers.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
