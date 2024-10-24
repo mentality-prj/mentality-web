@@ -1,0 +1,31 @@
+name: Run Cypress Tests on Label
+
+on:
+  pull_request_target:
+    types:
+      - labeled
+
+jobs:
+  cypress-tests:
+    if: github.event.label.name == 'Run_Cypress_Tests'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+
+      - name: Start the application
+        run: yarn dev &
+        env:
+          NODE_ENV: test
+
+      - name: Wait for the server to start
+        run: npx wait-on http://localhost:3000
+
+      - name: Run Cypress tests
+        run: yarn cypress run
+        env:
+          CYPRESS_BASE_URL: http://localhost:3000
