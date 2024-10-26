@@ -1,3 +1,4 @@
-yarn test
 yarn lint
 yarn prettier
+yarn tsc
+yarn test
