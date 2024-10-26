@@ -1,13 +1,13 @@
 name: Run Cypress Tests on Label
 
 on:
-  pull_request_target:
+  pull_request:
     types:
       - labeled
 
 jobs:
   cypress-tests:
-    if: github.event.label.name == 'Run_Cypress_Tests'
+    if: contains(github.event.pull_request.labels.*.name, 'Run Cypress Tests')
     runs-on: ubuntu-latest
 
     steps:
@@ -18,9 +18,9 @@ jobs:
         run: yarn install --frozen-lockfile
 
       - name: Start the application
-        run: yarn dev &
-        env:
-          NODE_ENV: test
+        run: |
+          nohup yarn dev &
+          sleep 5
 
       - name: Wait for the server to start
         run: npx wait-on http://localhost:3000

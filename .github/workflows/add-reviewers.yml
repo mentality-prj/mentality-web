@@ -1,0 +1,26 @@
+name: Add Reviewers
+
+on:
+  pull_request:
+    types:
+      - labeled
+
+jobs:
+  assign-reviewers:
+    if: contains(github.event.pull_request.labels.*.name, 'Add Reviewers')
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: yarn add @actions/core @actions/github
+        working-directory: .github/scripts
+
+      - name: Add Reviewers
+        run: node .github/scripts/add-reviewers.js
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
