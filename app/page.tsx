@@ -47,7 +47,6 @@ export default function Home() {
           </a>
         </div>
         <Button color="primary">Button from NextUI</Button>
-        {/* <ProfileButton /> */}
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a
