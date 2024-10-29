@@ -15,5 +15,7 @@ export const authConfig: AuthOptions = {
   ],
   pages: {
     signIn: '/signin',
+    signOut: '/signout',
+    error: '/error',
   },
 }
