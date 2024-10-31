@@ -9,6 +9,7 @@ export default async function ProfilePage() {
         <div className="flex flex-col gap-5">
           <div className="">{session.user.email}</div>
           <div className="">{session.user.name}</div>
+
           {session.user.image && <img src={session.user.image} />}
         </div>
       )}

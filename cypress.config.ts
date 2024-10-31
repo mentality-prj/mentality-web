@@ -12,6 +12,11 @@ const cypressConfig = defineConfig({
       return config
     },
   },
+  env: {
+    googleRefreshToken: process.env.GOOGLE_REFRESH_TOKEN,
+    googleClientId: process.env.AUTH_GOOGLE_ID,
+    googleClientSecret: process.env.AUTH_GOOGLE_SECRET,
+  },
 })
 
 export default cypressConfig
