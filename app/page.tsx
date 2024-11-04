@@ -1,5 +1,6 @@
 import { Button } from '@nextui-org/react'
 import Image from 'next/image'
+import Link from 'next/link'
 
 export default function Home() {
   return (
@@ -47,6 +48,8 @@ export default function Home() {
           </a>
         </div>
         <Button color="primary">Button from NextUI</Button>
+        <Link href="/signin">Sign In</Link>
+        <Link href="/profile">Profile</Link>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a
