@@ -1,7 +1,14 @@
 import { useTranslations } from 'next-intl'
 
+import LocalSwitcher from './localSwitcher'
+
 export default function TranslateText() {
   const t = useTranslations('HomePage')
 
-  return <p>{t('title')}</p>
+  return (
+    <div className="flex flex-col gap-4">
+      <LocalSwitcher />
+      <div>Translate: {t('title')}</div>
+    </div>
+  )
 }
