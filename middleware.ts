@@ -1,3 +1,9 @@
-export { auth as middleware } from '@/auth'
+import createMiddleware from 'next-intl/middleware'
 
-export const config = { matcher: ['/profile(.*)'] }
+import { routing } from './i18n/routing'
+
+export default createMiddleware(routing)
+
+export const config = {
+  matcher: ['/', '/(en|id)', '/profile', '/signin'],
+}
