@@ -18,6 +18,7 @@ export default function LocalSwitcher() {
   return (
     <label className="rounded">
       <div className="sr-only text-black">change language</div>
+
       <select
         data-test="language-select"
         defaultValue={localActive}
