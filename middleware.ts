@@ -9,7 +9,7 @@ export async function middleware(request: NextRequest) {
   const data = await auth()
 
   if (!data?.user && request.nextUrl.pathname.startsWith('/profile')) {
-    return Response.redirect(new URL('/signin', request.url)) // Перенаправляємо на сторінку авторизації
+    return Response.redirect(new URL('/signin', request.url))
   }
 
   return createMiddleware(routing)(request)
