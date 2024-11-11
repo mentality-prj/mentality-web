@@ -18,7 +18,13 @@ export default function LocalSwitcher() {
   return (
     <label className="rounded">
       <div className="sr-only text-black">change language</div>
-      <select defaultValue={localActive} disabled={isPending} className="bg-transparent py-2" onChange={onSelectChange}>
+      <select
+        data-test="language-select"
+        defaultValue={localActive}
+        disabled={isPending}
+        className="bg-transparent py-2"
+        onChange={onSelectChange}
+      >
         <option value="en " className="text-black">
           English
         </option>
