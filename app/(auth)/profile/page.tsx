@@ -1,16 +1,19 @@
 import { auth } from '@/auth'
 import { SignOut } from '@/components/signout-button'
+import { mockProfileData } from '@/mockApi.js'
 
 export default async function ProfilePage() {
   const session = await auth()
+  const data = session?.accessToken ? await mockProfileData(session?.accessToken) : null
+
   return (
     <div className="flex flex-col items-center gap-10">
-      {session?.user && (
+      {data && (
         <div className="flex flex-col gap-5">
-          <div className="">{session.user.email}</div>
-          <div className="">{session.user.name}</div>
+          <div className="">{data.name}</div>
+          <div className="">{data.email}</div>
 
-          {session.user.image && <img src={session.user.image} />}
+          {data.image && <img src={data.image} />}
         </div>
       )}
       <SignOut />
