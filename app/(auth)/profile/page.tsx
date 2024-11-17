@@ -1,45 +1,42 @@
-import axios from 'axios'
+import { Button } from '@nextui-org/react'
 
-import { auth, CustomSession } from '@/auth'
-import { SignOut } from '@/components/signout-button'
+import { auth } from '@/auth'
+import { DeleteAllCookiesButton, SignOutButton } from '@/components'
+import { cookiesKeys, saveCookies } from '@/constants/cookies'
 import { mockProfileData } from '@/mockApi.js'
+import { CustomSession } from '@/types/auth'
 
 export default async function ProfilePage() {
   const session = (await auth()) as CustomSession
   const data = session?.accessToken ? await mockProfileData(session?.accessToken) : null
 
-  const sendTokenToBackend = async () => {
-    'use server'
-    console.log('session', session)
-
-    if (session?.idToken) {
-      try {
-        const response = await axios.post('http://localhost:3200/api/auth/validate-token', {
-          token: session.idToken,
-          provider: session.provider,
-        })
-        console.log('User data from backend:', response.data)
-      } catch (error) {
-        console.error('Error validating token:', error)
-      }
-    }
-  }
-
   return (
     <div className="flex flex-col items-center gap-10">
       {data && (
         <div className="flex flex-col gap-5">
-          <div className="">{data.name}</div>
-          <div className="">{data.email}</div>
+          <h1>Welcome, {data.name}</h1>
+          <p>Your emain is: {data.email}</p>
+          {session && session.user && <p>Your role is: {session.user.role}</p>}
         </div>
       )}
+      <form
+        action={async () => {
+          'use server'
+          saveCookies([
+            { [cookiesKeys.UserName]: data.name },
+            { [cookiesKeys.UserEmail]: data.email },
+            { [cookiesKeys.UserRole]: session?.user?.role || 'user' },
+          ])
+        }}
+      >
+        <Button color="secondary" type="submit">
+          Add Data to Cookies
+        </Button>
+      </form>
 
-      {session && (
-        <form action={sendTokenToBackend}>
-          <button type="submit">Validate Token</button>
-        </form>
-      )}
-      <SignOut />
+      <DeleteAllCookiesButton />
+
+      <SignOutButton />
     </div>
   )
 }

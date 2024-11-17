@@ -1,56 +1,48 @@
-import NextAuth, { Session } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
+import NextAuth from 'next-auth'
+import { ProviderType } from 'next-auth/providers'
 import GitHub from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
 
-interface CustomJWT extends JWT {
-  accessToken?: string
-  expiresIn?: number
-  idToken?: string
-  provider?: string
-  tokenType?: string
-  type?: string
-}
-
-export interface CustomSession extends Session {
-  accessToken?: string
-  expiresIn?: number
-  idToken?: string
-  provider?: string
-  tokenType?: string
-  type?: string
-}
+import { Routes } from './constants/routes'
+import { extendToken, validateToken } from './helpers/auth'
+import { ExtendedSession, ExtendedToken, JWTParams, SessionParams } from './types/auth'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],
   pages: {
-    signIn: '/signin',
+    signIn: Routes.SIGNIN,
   },
   callbacks: {
     authorized: async ({ auth }) => {
       // Logged in users are authenticated, otherwise redirect to login page
       return !!auth
     },
-    async jwt({ token, account }) {
+    async jwt({ account, token }: JWTParams): Promise<ExtendedToken> {
       // If the OAuth token is successfully received, we add it to the session token
-
       if (account) {
-        token.accessToken = account.access_token as string
-        token.idToken = account.id_token as string
-        token.expiresIn = account.expires_in as number
-        token.provider = account.provider as string
-        token.tokenType = account.token_type as string
-        token.type = account.type as string
+        const customToken = extendToken(account, token)
+        return customToken
       }
-      return token as CustomJWT
+
+      return token
     },
-    async session({ session, token }: { session: CustomSession; token: CustomJWT }) {
+    async session({ session, token }: SessionParams): Promise<ExtendedSession> {
       // Add the token to the session so that it can be obtained on the frontend
-      const { idToken } = token as CustomJWT
-      if (idToken) {
-        session.idToken = idToken
+      let userToken = session.accessToken as string
+      if (token) {
+        if (token.idToken) {
+          // GitHub has no idToken
+          session.idToken = token.idToken as string
+          userToken = token.idToken as string
+        }
+
+        validateToken(session, userToken, token.provider as ProviderType)
+
+        session.accessToken = token.accessToken as string
+        session.provider = token.provider as string
       }
-      return session as CustomSession
+
+      return session
     },
   },
 })
