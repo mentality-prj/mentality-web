@@ -5,16 +5,32 @@
     "next",
     "prettier",
     "plugin:@typescript-eslint/recommended",
-    "plugin:prettier/recommended"
+    "plugin:prettier/recommended",
+    "plugin:security/recommended-legacy",
+    "plugin:jsx-a11y/recommended"
   ],
   "plugins": [
+    "@next/next",
     "simple-import-sort",
-    "import"
+    "import",
+    "security",
+    "jsx-a11y"
   ],
   "rules": {
+    "@next/next/no-html-link-for-pages": "warn",
     "import/first": "error",
     "import/newline-after-import": "error",
     "import/no-duplicates": "error",
+    "no-eval": "error",
+    "no-implied-eval": "error",
+    "no-unsafe-optional-chaining": "error",
+    "react/jsx-no-target-blank": [
+      "error",
+      {
+        "enforceDynamicLinks": "always"
+      }
+    ],
+    "security/detect-object-injection": "warn",
     "simple-import-sort/imports": [
       "error",
       {
