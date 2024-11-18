@@ -1,6 +1,6 @@
 export const Providers = {
   google: 'Google',
-  github: 'Github',
+  github: 'GitHub',
 }
 
 export type ProviderKey = keyof typeof Providers

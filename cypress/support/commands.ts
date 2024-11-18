@@ -20,19 +20,19 @@ Cypress.Commands.add('loginByGoogleApi', () => {
       headers: { Authorization: `Bearer ${access_token}` },
     }).then(({ body }) => {
       cy.log(body)
-      const userItem = {
-        token: id_token,
-        user: {
-          googleId: body.sub,
-          email: body.email,
-          givenName: body.given_name,
-          familyName: body.family_name,
-          imageUrl: body.picture,
-        },
-      }
+      // const userItem = {
+      //   token: id_token,
+      //   user: {
+      //     googleId: body.sub,
+      //     email: body.email,
+      //     givenName: body.given_name,
+      //     familyName: body.family_name,
+      //     imageUrl: body.picture,
+      //   },
+      // }
 
-      window.localStorage.setItem('googleCypress', JSON.stringify(userItem))
-      cy.visit('/')
+      // window.localStorage.setItem('googleCypress', JSON.stringify(userItem))
+      // cy.visit('/profile')
     })
   })
 })

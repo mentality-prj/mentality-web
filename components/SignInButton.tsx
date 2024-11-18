@@ -9,7 +9,7 @@ interface IProvider {
 }
 
 export default function SignInButton({ provider }: IProvider) {
-  const textBtn = Providers[provider]
+  const textBtn = String(`Signin with ${Providers[provider]}`)
 
   return (
     <form
@@ -20,7 +20,7 @@ export default function SignInButton({ provider }: IProvider) {
       }}
     >
       <Button color="primary" type="submit">
-        Signin with {textBtn}
+        {textBtn}
       </Button>
     </form>
   )

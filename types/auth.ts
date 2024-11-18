@@ -42,12 +42,14 @@ export interface JWTParams {
 
 interface CustomUser extends User {
   role?: UserRole
+  isAIAuthorized?: boolean
 }
 export interface CustomSession extends Session {
   user?: CustomUser
   accessToken?: string
   idToken?: string
   provider?: string
+  error?: { message: string; error: unknown } // debt: add type to error
 }
 
 export interface SessionParams {

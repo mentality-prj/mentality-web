@@ -36,8 +36,10 @@ export async function validateToken(session: CustomSession, userToken: string, p
       session.user.name = data.name
       session.user.email = data.email
       session.user.role = data.role
+      session.user.isAIAuthorized = true
     } catch (error) {
       console.error('Server token validation error:', error)
+      session.error = { message: 'Server token validation error:', error }
     }
   }
 }

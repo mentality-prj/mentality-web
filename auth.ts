@@ -28,15 +28,15 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
     },
     async session({ session, token }: SessionParams): Promise<ExtendedSession> {
       // Add the token to the session so that it can be obtained on the frontend
-      let userToken = session.accessToken as string
       if (token) {
+        let userToken = token.accessToken as string
         if (token.idToken) {
           // GitHub has no idToken
           session.idToken = token.idToken as string
           userToken = token.idToken as string
         }
 
-        validateToken(session, userToken, token.provider as ProviderType)
+        await validateToken(session, userToken, token.provider as ProviderType)
 
         session.accessToken = token.accessToken as string
         session.provider = token.provider as string
