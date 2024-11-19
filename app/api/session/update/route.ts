@@ -16,7 +16,7 @@ export async function POST(request: Request) {
     return NextResponse.json({ message: 'Role is required' }, { status: 400 })
   }
 
-  // Оновіть сесію (або базу даних, якщо необхідно)
+  // Update the session
   return NextResponse.json({
     message: 'Session updated',
     updatedSession: {
