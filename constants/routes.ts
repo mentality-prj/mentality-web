@@ -1,5 +1,5 @@
-export enum Routes {
-  MAIN = '/',
-  PROFILE = '/profile',
-  SIGNIN = '/signin',
-}
+export const Routes = Object.freeze({
+  MAIN: '/',
+  PROFILE: '/profile',
+  SIGNIN: '/signin',
+})
