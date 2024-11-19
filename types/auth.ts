@@ -46,8 +46,7 @@ interface CustomUser extends User {
 }
 export interface CustomSession extends Session {
   user?: CustomUser
-  accessToken?: string
-  idToken?: string
+  OAuthToken?: string
   provider?: string
   error?: { message: string; error: unknown } // debt: add type to error
 }

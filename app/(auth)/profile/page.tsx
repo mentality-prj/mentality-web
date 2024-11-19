@@ -9,7 +9,7 @@ import { CustomSession } from '@/types/auth'
 
 export default async function ProfilePage() {
   const session = (await auth()) as CustomSession
-  const data = session?.accessToken ? await mockProfileData(session?.accessToken) : null
+  const data = session?.OAuthToken ? await mockProfileData(session?.OAuthToken) : null
 
   return (
     <div className="mt-12 flex flex-col items-center gap-10">
