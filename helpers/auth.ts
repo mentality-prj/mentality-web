@@ -1,13 +1,11 @@
 import { Account } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
-import { defaultAPIUrl } from '@/constants/defaults'
 import { ProviderKey } from '@/constants/providers'
+import { APIUrl } from '@/requests/config'
 import { CustomSession, ExtendedToken, UserAI } from '@/types/auth'
 
 import { toCamelCase } from './gloabal'
-
-const APIUrl = process.env.NEXT_PUBLIC_API_URL || defaultAPIUrl
 
 export const extendToken = (account: Account, token: JWT): ExtendedToken => {
   Object.keys(account).forEach((key) => {

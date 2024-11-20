@@ -30,7 +30,7 @@
         "enforceDynamicLinks": "always"
       }
     ],
-    "security/detect-object-injection": "warn",
+    "security/detect-object-injection": "error",
     "simple-import-sort/imports": [
       "error",
       {
