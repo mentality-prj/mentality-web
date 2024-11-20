@@ -1,10 +1,9 @@
-import SignInButton from '@/components/signin-button'
+import { SignInButton } from '@/components'
+import { ProviderKey, Providers } from '@/constants/providers'
 
 export default function SignInPage() {
-  return (
-    <div>
-      <SignInButton provider="google" />
-      <SignInButton provider="github" />
-    </div>
-  )
+  const providersArray = Object.keys(Providers)
+  const providersMap = providersArray.map((pr) => <SignInButton key={pr} provider={pr as ProviderKey} />)
+
+  return <div>{providersMap}</div>
 }

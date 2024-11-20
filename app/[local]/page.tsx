@@ -2,6 +2,8 @@ import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 import Link from 'next/link'
 
+import { Routes } from '@/constants/routes'
+
 export default function Home() {
   return (
     <div className="grid min-h-screen grid-rows-[20px_1fr_20px] items-center justify-items-center gap-16 p-8 pb-20 font-[family-name:var(--font-geist-sans)] sm:p-20">
@@ -49,8 +51,8 @@ export default function Home() {
         </div>
         <Button color="primary">Button from NextUI</Button>
 
-        <Link href="/signin">Sign In</Link>
-        <Link href="/profile">Profile</Link>
+        <Link href={Routes.SIGNIN}>Sign In</Link>
+        <Link href={Routes.PROFILE}>Profile</Link>
       </main>
       <footer className="row-start-3 flex flex-wrap items-center justify-center gap-6">
         <a
