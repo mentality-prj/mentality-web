@@ -16,5 +16,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|id)', '/profile', '/signin'],
+  matcher: ['/', '/(en|uk|pl)', '/profile', '/signin'],
 }

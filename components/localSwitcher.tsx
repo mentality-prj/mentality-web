@@ -26,11 +26,14 @@ export default function LocalSwitcher() {
         className="bg-transparent py-2"
         onChange={onSelectChange}
       >
-        <option value="en " className="text-black">
+        <option value="en" className="text-black">
           English
         </option>
-        <option value="id " className="text-black">
-          Indonesian
+        <option value="uk" className="text-black">
+          Ukrainian
+        </option>
+        <option value="pl" className="text-black">
+          Polish
         </option>
       </select>
     </label>

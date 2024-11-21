@@ -8,7 +8,7 @@ export default function TranslateText() {
   return (
     <div className="flex flex-col gap-4">
       <LocalSwitcher />
-      <div>Translate: {t('title')}</div>
+      <div>Translate: {t('testText')}</div>
     </div>
   )
 }
