@@ -50,6 +50,7 @@ export default function Home() {
           </a>
         </div>
         <Button color="primary">Button from NextUI</Button>
+
         <Link href={Routes.SIGNIN}>Sign In</Link>
         <Link href={Routes.PROFILE}>Profile</Link>
       </main>
