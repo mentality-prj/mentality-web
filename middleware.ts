@@ -8,13 +8,14 @@ import { routing } from './i18n/routing'
 export async function middleware(request: NextRequest) {
   const data = await auth()
 
-  if (!data?.user && request.nextUrl.pathname.startsWith('/profile')) {
-    return Response.redirect(new URL('/signin', request.url))
-  }
+  // if (!data?.user && request.nextUrl.pathname.startsWith('/profile')) {
+  //   console.log('error midlleware')
+  //   return Response.redirect(new URL('/signin', request.url))
+  // }
 
   return createMiddleware(routing)(request)
 }
 
 export const config = {
-  matcher: ['/', '/(en|uk|pl)', '/profile', '/signin'],
+  matcher: ['/', '/(en|uk|pl)', '/profile', '/signin', '/signin(en|uk|pl)'],
 }
