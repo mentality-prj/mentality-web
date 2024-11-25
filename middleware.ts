@@ -9,6 +9,7 @@ export async function middleware(request: NextRequest) {
   const data = await auth()
 
   if (!data?.user && request.nextUrl.pathname.startsWith('/profile')) {
+    console.log('error midlleware')
     return Response.redirect(new URL('/signin', request.url))
   }
 
@@ -16,5 +17,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|uk|pl)', '/profile', '/signin'],
+  matcher: ['/', '/profile', '/signin', '/(en|uk|pl)', '/(en|uk|pl)/signin', '/(en|uk|pl)/profile'],
 }
