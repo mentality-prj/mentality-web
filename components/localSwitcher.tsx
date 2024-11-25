@@ -9,13 +9,15 @@ export default function LocalSwitcher() {
   const router = useRouter()
   const localActive = useLocale()
   const pathname = usePathname()
-  console.log(pathname)
+
   const onSelectChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const nextLocale = e.target.value
 
     const currentPath = pathname.replace(/^\/(en|uk|pl)/, '')
-
-    router.replace(`/${nextLocale}${currentPath}`)
+    console.log(nextLocale)
+    startTransition(() => {
+      router.replace(`/${nextLocale}${currentPath}`)
+    })
   }
   return (
     <label className="rounded">
@@ -24,8 +26,9 @@ export default function LocalSwitcher() {
       <select
         data-test="language-select"
         disabled={isPending}
+        defaultValue={localActive}
         className="bg-transparent py-2"
-        onChange={onSelectChange}
+        onChange={(e) => onSelectChange(e)}
       >
         <option value="en" className="text-black">
           English
