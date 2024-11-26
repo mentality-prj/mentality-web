@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react'
 import { z } from 'zod'
 
-import { CustomButton, CustomInput } from './atoms'
+import { CustomInput } from './atoms'
 
 //validation scheme
 const profileSchema = z.object({
@@ -53,7 +53,7 @@ const ProfileForm = () => {
     >
       <CustomInput type="text" label="Name" placeholder="Enter your name" ref={nameRef} />
       <CustomInput type="text" label="Last Name" placeholder="Enter your last name" ref={lastNameRef} />
-      <CustomButton text="Send" onClick={handleSubmit} type="submit" />
+      {/* <CustomButton text="Send" onClick={handleSubmit} type="submit" /> */}
     </form>
   )
 }

@@ -1,4 +1,4 @@
-import CustomButton from './Button'
-import CustomInput from './Input'
+import CustomButton from './CustomButton'
+import CustomInput from './CustomInput'
 
 export { CustomButton, CustomInput }

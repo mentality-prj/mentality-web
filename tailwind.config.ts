@@ -10,13 +10,33 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      screens: {
+        sm: '480px',
+        md: '768px',
+        lg: '976px',
+        xl: '1440px',
+      },
       colors: {
+        primary: {
+          DEFAULT: '#166534',
+          hover: '#14532d',
+          active: '#15803d',
+        },
+        secondary: {
+          DEFAULT: '#F9C97C',
+          hover: '#F7B750',
+          active: '#FBDBA7',
+        },
         background: 'var(--background)',
         foreground: 'var(--foreground)',
       },
     },
   },
-  darkMode: 'class',
-  plugins: [nextui()],
+  // darkMode: 'class',
+  plugins: [
+    nextui({
+      layout: {},
+    }),
+  ],
 }
 export default config
