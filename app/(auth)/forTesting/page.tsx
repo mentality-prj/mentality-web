@@ -13,7 +13,7 @@ export default function ForTestingPage() {
   return (
     <div>
       <CustomInput ref={inputRef} type="text" label="User Name" placeholder="Enter your username" className="my-2" />
-      <CustomButton onClick={handleFocus} color="primary" state="default" size="md" text-large>
+      <CustomButton onClick={handleFocus} variant="primary" state="default" size="md" text-large>
         BUTTON
       </CustomButton>
     </div>

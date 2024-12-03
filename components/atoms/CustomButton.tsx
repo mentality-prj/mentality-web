@@ -1,20 +1,16 @@
-import React from 'react'
-import { Button as NextUIButton, ButtonProps as NextUIButtonProps } from '@nextui-org/react'
+import { Button as NextUIButton } from '@nextui-org/react'
 
-type ButtonColor = 'primary' | 'secondary'
-type ButtonState = 'default' | 'hovered' | 'pressed' | 'disabled'
-type ButtonSize = 'sm' | 'md' | 'lg'
-
-interface CustomButtonProps extends NextUIButtonProps {
-  color?: ButtonColor
-  state?: ButtonState
-  size?: ButtonSize
+export interface CustomButtonProps {
+  variant?: 'primary' | 'secondary'
+  state?: 'default' | 'hovered' | 'pressed' | 'disabled'
+  size?: 'sm' | 'md' | 'lg'
   disabled?: boolean
+  onClick?: () => void
   children?: React.ReactNode
 }
 
 const CustomButton: React.FC<CustomButtonProps> = ({
-  color = 'primary',
+  variant = 'primary',
   state = 'default',
   size = 'md',
   disabled = false,
@@ -41,10 +37,9 @@ const CustomButton: React.FC<CustomButtonProps> = ({
 
   return (
     <NextUIButton
-      className={`${colorStyles[color]} ${sizeStyles[size]} ${
+      className={`${colorStyles[variant]} ${sizeStyles[size]} ${
         disabled ? stateStyles.disabled : stateStyles[state]
       } transition duration-200 ease-in-out focus:outline-none`}
-      size={size}
       disabled={disabled}
       {...props}
     >

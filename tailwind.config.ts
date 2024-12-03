@@ -7,6 +7,8 @@ const config: Config = {
     './components/**/*.{js,ts,jsx,tsx,mdx}',
     './app/**/*.{js,ts,jsx,tsx,mdx}',
     './node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}',
+    './.storybook/**/*.{js,jsx,ts,tsx}',
+    './stories/**/*.{js,jsx,ts,tsx}',
   ],
   theme: {
     extend: {
