@@ -3,6 +3,7 @@ import { Button } from '@nextui-org/react'
 import { signIn } from '@/auth'
 import { ProviderKey, Providers } from '@/constants/providers'
 import { Routes } from '@/constants/routes'
+import { Texts } from '@/constants/texts'
 
 interface IProvider {
   provider: ProviderKey
@@ -10,7 +11,7 @@ interface IProvider {
 
 export default function SignInButton({ provider }: IProvider) {
   const providerName = Providers[`${provider}`]
-  const textBtn = String(`Signin with ${providerName}`)
+  const textBtn = String(`${Texts.LOGIN_WITH} ${providerName}`)
 
   return (
     <form

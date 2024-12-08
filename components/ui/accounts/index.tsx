@@ -22,13 +22,13 @@ export const Accounts = () => {
           <Link href={'/'}>
             <span>Home</span>
           </Link>
-          <span> / </span>{' '}
+          <span> / </span>
         </li>
 
         <li className="flex gap-2">
           <UsersIcon />
           <span>Users</span>
-          <span> / </span>{' '}
+          <span> / </span>
         </li>
         <li className="flex gap-2">
           <span>List</span>
