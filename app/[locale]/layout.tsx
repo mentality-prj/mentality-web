@@ -2,8 +2,8 @@ import { ReactNode } from 'react'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
 
-import TranslateProvider from '@/components/Providers'
-import TranslateText from '@/components/translateText'
+import AppIntlProvider from '@/app/(providers)/AppIntlProvider'
+import Layout from '@/components/Layout'
 import { fontSans } from '@/config/fonts'
 
 import { Providers } from './providers'
@@ -25,12 +25,11 @@ export default function RootLayout({
   return (
     <html lang={locale}>
       <body className={clsx('font-sans antialiased', fontSans.className)}>
-        <TranslateProvider>
+        <AppIntlProvider>
           <Providers>
-            <TranslateText />
-            {children}
+            <Layout>{children}</Layout>
           </Providers>
-        </TranslateProvider>
+        </AppIntlProvider>
       </body>
     </html>
   )

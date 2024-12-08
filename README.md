@@ -134,13 +134,11 @@ Link to the template repository:: <https://github.com/Siumauricio/nextui-dashboa
 
 - Dark Mode Support
 - Full Responsive
-- Home Page with Charts
 - Accounts Page
 
 ```bash
 ├── components
 │   ├── accounts            # Accounts components
-│   ├── charts              # Charts components
 │   ├── breadcrumb          # component
 |   ├── home                # Home components
 |   ├── layout              # Layout components

@@ -1,4 +1,4 @@
-export const mockProfileData = async (accessToken) => {
+export const mockProfileData = async (accessToken: string) => {
   const profileData = {
     name: 'User name',
     email: 'user@example.com',
