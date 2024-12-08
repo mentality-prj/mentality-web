@@ -8,6 +8,8 @@ describe('OAuth', function () {
   it('OAuth GitHub', () => {
     cy.visit('/')
     cy.get('button').contains(Texts.LOGIN, { timeout: 10000 }).should('exist').click()
+    cy.visit('/uk/signin/')
+
     cy.contains('button', `${Texts.LOGIN_WITH} GitHub`, { timeout: 10000 })
     cy.get('button').contains(`${Texts.LOGIN_WITH} GitHub`).should('exist').should('be.visible').click()
 

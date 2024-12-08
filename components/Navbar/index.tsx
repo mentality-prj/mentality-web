@@ -4,6 +4,7 @@ import { Input, Link, Navbar, NavbarContent } from '@nextui-org/react'
 import LangSwitch from '@/components/Buttons/LangSwitch'
 import { SearchIcon } from '@/components/icons/searchicon'
 import Logo from '@/components/Logo'
+import MainMenu from '@/components/MainMenu'
 import { Routes } from '@/constants/routes'
 
 import AvatarContainer from './AvatarContainer'
@@ -46,6 +47,7 @@ export const NavbarWrapper = ({ children }: Props) => {
           <AvatarContainer />
         </NavbarContent>
       </Navbar>
+      <MainMenu />
       {children}
     </div>
   )
