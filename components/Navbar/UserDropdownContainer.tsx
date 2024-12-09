@@ -1,22 +1,25 @@
-'use client'
 import { useCallback } from 'react'
 import { Avatar, Button } from '@nextui-org/react'
-import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
-import GoToLoginPageButton from '@/components/Buttons/GoToLoginPageButton'
+import { GoToLoginPageButton } from '@/components/Buttons'
 import { Spinner } from '@/components/icons/navbar/spinner-icon'
 import { Routes } from '@/constants/routes'
+import { Roles } from '@/constants/security'
+import { useRouter } from '@/i18n/routing'
 import { CustomSession } from '@/types/auth'
 
-export default function AvatarContainer() {
+import UserDropdown from './UserDropdown'
+
+export default function UserDropdownContainer() {
   const router = useRouter()
   const { data, status } = useSession()
 
   const session = data as CustomSession
   const user = session?.OAuthToken && session.user ? session.user : null
+  const role = user?.role || Roles.GUEST
 
-  const handleProfile = useCallback(async () => {
+  const handleProfile = useCallback(() => {
     router.replace(Routes.PROFILE)
   }, [router])
 
@@ -30,6 +33,10 @@ export default function AvatarContainer() {
 
   if (!session || !user || status === 'unauthenticated') {
     return <GoToLoginPageButton />
+  }
+
+  if (role === Roles.ADMIN) {
+    return <UserDropdown />
   }
 
   return <Avatar as="button" color="secondary" size="md" src={user?.image || undefined} onClick={handleProfile} />
