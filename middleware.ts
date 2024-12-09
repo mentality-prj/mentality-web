@@ -37,9 +37,11 @@ export const config = {
     '/admin',
     '/profile',
     '/signin',
+    '/cart',
     '/(en|uk|pl)',
     '/(en|uk|pl)/admin',
     '/(en|uk|pl)/signin',
     '/(en|uk|pl)/profile',
+    '/(en|uk|pl)/cart',
   ],
 }
