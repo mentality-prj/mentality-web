@@ -17,5 +17,14 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/profile', '/signin', '/(en|uk|pl)', '/(en|uk|pl)/signin', '/(en|uk|pl)/profile'],
+  matcher: [
+    '/',
+    '/profile',
+    '/signin',
+    '/cart',
+    '/(en|uk|pl)',
+    '/(en|uk|pl)/signin',
+    '/(en|uk|pl)/profile',
+    '/(en|uk|pl)/cart',
+  ],
 }
