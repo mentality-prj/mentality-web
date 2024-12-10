@@ -14,8 +14,14 @@ export default function Menu() {
   const isPageActive = (key: string) => pathname.includes(key)
 
   const menuMap = menu.map((item) => (
-    <NavbarItem key={item.key} isActive={isPageActive(item.key)}>
-      <Link href={item.link}>{RoutesTitles[item.key]}</Link>
+    <NavbarItem
+      key={item.key}
+      isActive={isPageActive(item.link)}
+      className="m-0 rounded-lg px-4 py-3 data-[active=true]:bg-default-50"
+    >
+      <Link href={item.link} color="foreground">
+        {RoutesTitles[item.key]}
+      </Link>
     </NavbarItem>
   ))
 

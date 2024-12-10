@@ -1,12 +1,13 @@
 import { Routes } from '@/constants/routes'
+import { RoutesTitles } from '@/constants/texts'
 
+export type RoutesType = Readonly<Record<keyof typeof RoutesTitles | 'MAIN', string>>
 export type RouteKeyType = keyof typeof Routes
-export type RouteLinkType = (typeof Routes)[RouteKeyType]
-export type RouteTitleType = {
-  [key in RouteKeyType]: string
-}
+type RouteLinkType = (typeof Routes)[RouteKeyType]
+
+type RoutesTitlesKeyType = keyof typeof RoutesTitles
 
 export type MenuItemType = {
-  key: RouteKeyType
+  key: RoutesTitlesKeyType
   link: RouteLinkType
 }
