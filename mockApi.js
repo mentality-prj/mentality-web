@@ -17,7 +17,7 @@ export const mockProfileData = async (accessToken) => {
   })
 }
 
-export const mockCartData = async (accessToken) => {
+export const mockCartData = async () => {
   const cartData = [
     {
       id: '1',
@@ -39,10 +39,6 @@ export const mockCartData = async (accessToken) => {
         'Повсякденна футболка з коротким рукавом з круглим вирізом з трикотажної тканини з дизайном для медитації на всі пори року',
     },
   ]
-
-  if (!accessToken) {
-    throw new Error('Token is missing')
-  }
 
   return new Promise((resolve) => {
     setTimeout(() => {

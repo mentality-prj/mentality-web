@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/react'
 
 import CartItem from './CartItem'
@@ -17,13 +17,42 @@ interface CartListProps {
   data: CartItemProps[]
 }
 
+// Зчитування даних з куків
+const getCartFromCookies = (): CartItemProps[] => {
+  const cookies = document.cookie.split('; ').find((cookie) => cookie.startsWith('cart='))
+
+  if (cookies) {
+    try {
+      return JSON.parse(decodeURIComponent(cookies.split('=')[1]))
+    } catch (error) {
+      console.log(error)
+      return []
+    }
+  }
+  return []
+}
+
+// Запис даних до куків
+const setCartToCookies = (cartItems: CartItemProps[]) => {
+  document.cookie = `cart=${encodeURIComponent(JSON.stringify(cartItems))}; path=/;`
+}
+
 export default function CartList({ data }: CartListProps) {
-  const [cartItems, setCartItems] = useState<CartItemProps[]>(data)
+  const [cartItems, setCartItems] = useState<CartItemProps[]>([])
+
+  // Ініціалізуємо стан з куків при завантаженні
+  useEffect(() => {
+    const initialCart = getCartFromCookies()
+    setCartItems(initialCart.length > 0 ? initialCart : data)
+  }, [data])
 
   const handleQuantityChange = (updatedItem: CartItemProps) => {
-    setCartItems((prev) =>
-      prev.map((item) => (item.id === updatedItem.id ? { ...item, quantity: updatedItem.quantity } : item))
+    const updatedCartItems = cartItems.map((item) =>
+      item.id === updatedItem.id ? { ...item, quantity: updatedItem.quantity } : item
     )
+
+    setCartItems(updatedCartItems)
+    setCartToCookies(updatedCartItems)
   }
 
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
