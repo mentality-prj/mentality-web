@@ -1,20 +1,22 @@
 import { ReactNode } from 'react'
-import { Input, Link, Navbar, NavbarContent } from '@nextui-org/react'
+import { Input, Navbar, NavbarContent } from '@nextui-org/react'
 
 import LangSwitch from '@/components/Buttons/LangSwitch'
 import { SearchIcon } from '@/components/icons/searchicon'
 import Logo from '@/components/Logo'
+import Menu from '@/components/Menu'
 import { Routes } from '@/constants/routes'
+import { Link } from '@/i18n/routing'
 
-import AvatarContainer from './AvatarContainer'
 import { NotificationsDropdown } from './notifications-dropdown'
 import ThemeSwitch from './ThemeSwitch'
+import UserDropdownContainer from './UserDropdownContainer'
 
 interface Props {
   children: ReactNode
 }
 
-export const NavbarWrapper = ({ children }: Props) => {
+export default function NavbarWrapper({ children }: Props) {
   return (
     <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
       <Navbar
@@ -43,9 +45,10 @@ export const NavbarWrapper = ({ children }: Props) => {
           <LangSwitch />
           <ThemeSwitch />
           <NotificationsDropdown />
-          <AvatarContainer />
+          <UserDropdownContainer />
         </NavbarContent>
       </Navbar>
+      <Menu />
       {children}
     </div>
   )
