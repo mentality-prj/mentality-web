@@ -3,9 +3,10 @@ import createMiddleware from 'next-intl/middleware'
 
 import { auth } from '@/auth'
 import { Routes } from '@/constants/routes'
-import { Roles } from '@/constants/security'
 import { routing } from '@/i18n/routing'
 import { CustomSession } from '@/types/auth'
+
+import { Roles } from './types/security'
 
 export async function middleware(request: NextRequest) {
   const session = (await auth()) as CustomSession
@@ -30,7 +31,6 @@ export async function middleware(request: NextRequest) {
   return createMiddleware(routing)(request)
 }
 
-// debt: replace hardcoded strings with named constants
 export const config = {
   matcher: [
     '/',
