@@ -3,8 +3,8 @@ import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, NavbarIt
 import { useSession } from 'next-auth/react'
 
 import { SignOut } from '@/components/Buttons'
-import { Routes } from '@/constants/routes'
-import { RoutesTitles, Texts } from '@/constants/texts'
+import { Routes, RoutesTitles } from '@/constants/routes'
+import { Texts } from '@/constants/texts'
 import { useRouter } from '@/i18n/routing'
 import { CustomSession } from '@/types/auth'
 import { RouteKeyType } from '@/types/routes'
@@ -26,9 +26,10 @@ export default function UserDropdown() {
       <DropdownMenu
         aria-label="User menu actions"
         onAction={(key) => {
-          const actionKey = key as RouteKeyType
-          console.log('key', key)
-          router.replace(actionKey)
+          if (key !== 'logout') {
+            const actionKey = key as RouteKeyType
+            router.replace(actionKey)
+          }
         }}
       >
         <DropdownItem

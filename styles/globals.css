@@ -11,3 +11,7 @@ body {
 * {
   box-sizing: border-box;
 }
+
+.container {
+  @apply mx-auto my-4 flex w-full max-w-screen-md flex-col;
+}

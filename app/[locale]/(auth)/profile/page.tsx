@@ -12,7 +12,6 @@ export default async function ProfilePage() {
   return (
     <Card className="max-w-[400px]">
       {user?.name && <UserProfile name={user.name} image={user.image} email={user.email} />}
-
       {user?.isAIAuthorized && user.role && <Profile role={user.role} />}
     </Card>
   )

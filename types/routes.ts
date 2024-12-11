@@ -1,5 +1,4 @@
-import { Routes } from '@/constants/routes'
-import { RoutesTitles } from '@/constants/texts'
+import { Routes, RoutesTitles } from '@/constants/routes'
 
 export type RoutesType = Readonly<Record<keyof typeof RoutesTitles | 'MAIN', string>>
 export type RouteKeyType = keyof typeof Routes

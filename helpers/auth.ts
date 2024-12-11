@@ -1,8 +1,8 @@
 import { Account } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
-import { APIUrl } from '@/constants/apiURLs'
 import { ProviderKey } from '@/constants/providers'
+import { APIUrl } from '@/requests/config'
 import { CustomSession, ExtendedToken, UserAI } from '@/types/auth'
 
 import { toCamelCase } from './gloabal'

@@ -1,7 +1,14 @@
 import { transformToRoutes } from '@/helpers/gloabal'
 import { MenuItemType, RoutesType } from '@/types/routes'
 
-import { RoutesTitles } from './texts'
+export const RoutesTitles = Object.freeze({
+  ADMIN: 'Admin',
+  AFFIRMATIONS: 'Affirmations',
+  ARTICLES: 'Articles',
+  PROFILE: 'Profile',
+  SIGNIN: 'Signin',
+  TIPS: 'Tips',
+})
 
 export const Routes: RoutesType = Object.freeze({
   ...transformToRoutes(RoutesTitles),

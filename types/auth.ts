@@ -40,7 +40,7 @@ export interface JWTParams {
   token: JWT
 }
 
-interface CustomUser extends User {
+export interface CustomUser extends User {
   role?: UserRole
   isAIAuthorized?: boolean
 }
