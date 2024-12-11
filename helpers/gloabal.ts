@@ -1,4 +1,4 @@
-import { RoutesTitles } from '@/constants/texts'
+import { RoutesTitles } from '@/constants/routes'
 
 export function toCamelCase(str: string): string {
   return str.replace(/_([a-z])/g, (match, letter) => letter.toUpperCase())

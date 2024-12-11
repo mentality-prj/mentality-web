@@ -8,17 +8,22 @@ import { routing } from '@/i18n/routing'
 import { CustomSession } from '@/types/auth'
 
 export async function middleware(request: NextRequest) {
-  const data = (await auth()) as CustomSession
+  const session = (await auth()) as CustomSession
 
-  if (!data?.user && request.nextUrl.pathname.includes(Routes.PROFILE)) {
+  const protectedRoutes = {
+    ADMIN: request.nextUrl.pathname.includes(Routes.ADMIN),
+    PROFILE: request.nextUrl.pathname.includes(Routes.PROFILE),
+  }
+
+  if (!session?.user && (protectedRoutes.ADMIN || protectedRoutes.PROFILE)) {
     return NextResponse.redirect(new URL(Routes.SIGNIN, request.url))
   }
 
-  if (data?.user && request.nextUrl.pathname.includes(Routes.SIGNIN)) {
+  if (session?.user && request.nextUrl.pathname.includes(Routes.SIGNIN)) {
     return NextResponse.redirect(new URL(Routes.PROFILE, request.url))
   }
 
-  if (data?.user?.role !== Roles.ADMIN && request.nextUrl.pathname.includes(Routes.ADMIN)) {
+  if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {
     return NextResponse.redirect(new URL(Routes.PROFILE, request.url))
   }
 
@@ -27,5 +32,14 @@ export async function middleware(request: NextRequest) {
 
 // debt: replace hardcoded strings with named constants
 export const config = {
-  matcher: ['/', '/profile', '/signin', '/(en|uk|pl)', '/(en|uk|pl)/signin', '/(en|uk|pl)/profile'],
+  matcher: [
+    '/',
+    '/admin',
+    '/profile',
+    '/signin',
+    '/(en|uk|pl)',
+    '/(en|uk|pl)/admin',
+    '/(en|uk|pl)/signin',
+    '/(en|uk|pl)/profile',
+  ],
 }

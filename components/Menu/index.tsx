@@ -3,8 +3,7 @@ import { useState } from 'react'
 import { Navbar, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@nextui-org/react'
 import { usePathname } from 'next/navigation'
 
-import { menu } from '@/constants/routes'
-import { RoutesTitles } from '@/constants/texts'
+import { menu, RoutesTitles } from '@/constants/routes'
 import { Link } from '@/i18n/routing'
 
 export default function Menu() {
