@@ -38,10 +38,12 @@ export const config = {
     '/profile',
     '/signin',
     '/cart',
+    '/delivery-details',
     '/(en|uk|pl)',
     '/(en|uk|pl)/admin',
     '/(en|uk|pl)/signin',
     '/(en|uk|pl)/profile',
     '/(en|uk|pl)/cart',
+    '/(en|uk|pl)/delivery-details',
   ],
 }

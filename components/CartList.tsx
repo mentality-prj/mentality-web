@@ -1,6 +1,7 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/react'
+import { useRouter } from 'next/navigation'
 
 import CartItem from './CartItem'
 
@@ -38,6 +39,7 @@ const setCartToCookies = (cartItems: CartItemProps[]) => {
 }
 
 export default function CartList({ data }: CartListProps) {
+  const router = useRouter()
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
   // Ініціалізуємо стан з куків при завантаженні
@@ -64,9 +66,9 @@ export default function CartList({ data }: CartListProps) {
           <CartItem key={item.id} {...item} onQuantityChange={handleQuantityChange} />
         ))}
       </div>
-      <div className="border-1 p-1">
+      <div className="flex flex-col gap-3 border-1 p-1">
         <div className="">Total price: ${totalPrice}</div>
-        <Button>Checkout</Button>
+        <Button onClick={() => router.push('/delivery-details')}>Proceed to Checkout</Button>
       </div>
     </div>
   )
