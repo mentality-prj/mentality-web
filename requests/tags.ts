@@ -1,15 +1,19 @@
 import { CustomUser } from '@/types/auth'
+import { Roles } from '@/types/security'
+import { Tag } from '@/types/tags'
 
 import { APIUrl } from './config'
 
-export async function addTag(user: CustomUser, tagName: string) {
+export async function addTag(user: CustomUser, tag: Tag) {
   let error = new Error()
 
-  if (user && user.role === 'admin') {
+  const { key, translations } = tag
+
+  if (user && user.role === Roles.ADMIN) {
     try {
       const response = await fetch(`${APIUrl}/tags`, {
         method: 'POST',
-        body: JSON.stringify({ name: tagName }),
+        body: JSON.stringify({ key, translations }),
         headers: {
           'Content-Type': 'application/json',
           'Access-Control-Allow-Origin': '*',
@@ -38,7 +42,7 @@ export async function addTag(user: CustomUser, tagName: string) {
           console.log('addTag error', error)
         }
       } else {
-        console.log(`Tag ${tagName} successfully added`)
+        console.log(`Tag ${key} successfully added`)
       }
     } catch (err) {
       console.log('error', err)
