@@ -5,6 +5,7 @@ import { useSession } from 'next-auth/react'
 import { tagproperties } from '@/constants/tags'
 import { addTag } from '@/requests/tags'
 import { CustomSession } from '@/types/auth'
+import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/languages'
 import { TagProperties } from '@/types/tags'
 
 export default function AddTag() {
@@ -12,9 +13,17 @@ export default function AddTag() {
   const session = data as CustomSession
 
   const createTag = async (formData: FormData) => {
-    const name = formData.get('name')
-    if (session?.user && typeof name === 'string') {
-      await addTag(session.user, name)
+    const translations = SUPPORTED_LANGUAGES.reduce(
+      (acc, lang) => {
+        acc[`${lang}`] = formData.get(lang) as string
+        return acc
+      },
+      {} as Record<SupportedLanguage, string>
+    )
+    const tag = { key: formData.get('key') as string, translations }
+
+    if (session?.user) {
+      await addTag(session.user, tag)
     }
     return
   }
