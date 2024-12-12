@@ -12,6 +12,10 @@ body {
   box-sizing: border-box;
 }
 
+.content {
+  @apply h-full lg:px-6;
+}
+
 .container {
   @apply mx-auto my-4 flex w-full max-w-screen-md flex-col;
 }

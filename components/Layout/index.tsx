@@ -2,6 +2,7 @@
 import { ReactNode } from 'react'
 
 import NavbarWrapper from '@/components/Navbar'
+import Content from '@/components/wrappers/Content'
 
 interface MainLayoutProps {
   children: ReactNode
@@ -10,7 +11,9 @@ interface MainLayoutProps {
 const Layout = ({ children }: MainLayoutProps) => {
   return (
     <section className="flex">
-      <NavbarWrapper>{children}</NavbarWrapper>
+      <NavbarWrapper>
+        <Content>{children}</Content>
+      </NavbarWrapper>
     </section>
   )
 }

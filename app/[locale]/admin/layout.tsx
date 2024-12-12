@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import Container from '@/components/Container'
+import Container from '@/components/wrappers/Container'
 
 const AdminLayout = ({ children }: { children: ReactNode }) => {
   return <Container>{children}</Container>

@@ -49,7 +49,7 @@ export default function Menu() {
         {menuMap}
       </NavbarContent>
 
-      <NavbarMenu>{menuMobileMap}</NavbarMenu>
+      <NavbarMenu className="mt-16">{menuMobileMap}</NavbarMenu>
     </Navbar>
   )
 }

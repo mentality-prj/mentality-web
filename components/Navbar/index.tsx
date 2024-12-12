@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import { Input, Navbar, NavbarContent } from '@nextui-org/react'
+import { Input, Navbar, NavbarBrand, NavbarContent } from '@nextui-org/react'
 
 import LangSwitch from '@/components/Buttons/LangSwitch'
 import { SearchIcon } from '@/components/icons/searchicon'
@@ -26,10 +26,13 @@ export default function NavbarWrapper({ children }: Props) {
           wrapper: 'w-full max-w-full',
         }}
       >
-        <Link href={Routes.MAIN}>
-          <Logo />
-        </Link>
-        <NavbarContent className="w-full">
+        <NavbarBrand>
+          <Link href={Routes.MAIN}>
+            <Logo />
+          </Link>
+        </NavbarBrand>
+
+        <NavbarContent className="hidden w-full sm:flex">
           <Input
             startContent={<SearchIcon />}
             isClearable
@@ -43,7 +46,9 @@ export default function NavbarWrapper({ children }: Props) {
         </NavbarContent>
         <NavbarContent justify="end" className="w-fit data-[justify=end]:flex-grow-0">
           <LangSwitch />
-          <ThemeSwitch />
+          <div className="hidden sm:flex">
+            <ThemeSwitch />
+          </div>
           <NotificationsDropdown />
           <UserDropdownContainer />
         </NavbarContent>
