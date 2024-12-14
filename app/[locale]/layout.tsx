@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { Toaster } from 'react-hot-toast'
 import clsx from 'clsx'
 import type { Metadata } from 'next'
 
@@ -23,10 +24,11 @@ export default function RootLayout({
   params: { locale: string }
 }) {
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning={true}>
       <body className={clsx('font-sans antialiased', fontSans.className)}>
         <AppIntlProvider>
           <Providers>
+            <Toaster position="top-right" reverseOrder={false} />
             <Layout>{children}</Layout>
           </Providers>
         </AppIntlProvider>

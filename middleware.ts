@@ -36,17 +36,20 @@ export const config = {
     '/',
 
     '/admin',
-
     '/profile',
     '/signin',
     '/cart',
     '/delivery-details',
+    '/payment-info',
+    '/review',
+
     '/(en|uk|pl)',
     '/(en|uk|pl)/admin',
-
     '/(en|uk|pl)/signin',
     '/(en|uk|pl)/profile',
     '/(en|uk|pl)/cart',
     '/(en|uk|pl)/delivery-details',
+    '/(en|uk|pl)/payment-info',
+    '/(en|uk|pl)/review',
   ],
 }
