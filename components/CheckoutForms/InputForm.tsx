@@ -35,7 +35,18 @@ export default function InputForm({
 }: InputProps) {
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateNewCheckoutDetails({ [e.target.name]: e.target.value })
+    if (e.target.name === 'cardNumber') {
+      const value = e.target.value
+        .replace(/\D/g, '')
+        .replace(/(.{4})/g, '$1 ')
+        .trim()
+      updateNewCheckoutDetails({ [e.target.name]: value })
+    } else if (e.target.name === 'cvv') {
+      const value = e.target.value.replace(/\D/g, '').trim()
+      updateNewCheckoutDetails({ [e.target.name]: value })
+    } else {
+      updateNewCheckoutDetails({ [e.target.name]: e.target.value })
+    }
   }
   return (
     <div>
@@ -44,7 +55,7 @@ export default function InputForm({
         pattern={pattern}
         minLength={minLength}
         min={min}
-        max={max}
+        maxLength={max}
         id={id}
         name={id}
         onChange={handleInputChange}

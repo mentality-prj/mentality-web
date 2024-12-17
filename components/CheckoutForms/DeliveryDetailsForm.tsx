@@ -20,7 +20,7 @@ export default function DeliveryDetailsForm() {
       <div className="flex w-full flex-col lg:max-w-[700px]">
         <InputForm label="Full Name" id="fullName" type="text" errorMsg={serverErrors?.fullName} required />
         <InputForm label="City" id="city" type="text" required errorMsg={serverErrors?.city} />
-        <RadioButtonForm />
+        <RadioButtonForm errorMsg={serverErrors?.deliveryMethod} />
         <InputForm label="Delivery Date" id="deliveryDate" type="text" required errorMsg={serverErrors?.deliveryDate} />
       </div>
       <SubmitButton text="Submit" />

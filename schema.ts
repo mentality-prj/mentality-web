@@ -9,14 +9,19 @@ export const deliveryDetailsSchema = z.object({
     .string()
     .min(3, 'City must contain at least 3 characters')
     .regex(/^[a-zA-ZÀ-ÿÀ-Ÿа-яА-ЯієїґҐ' -]+$/, "City can contain only  letters, ', -"),
-  deliveryMethod: z.string().min(3, 'Name must be at least 3 characters long'),
+  deliveryMethod: z.string(),
   deliveryDate: z.string().min(3, 'Name must be at least 3 characters long'),
 })
 
 export const paymentInfoSchema = z.object({
-  cardNumber: z.string().min(16, 'Card Number must be at least 16 characters long'),
+  cardNumber: z.string().refine((value) => value.length === 19, {
+    message: 'The card number must contain exactly 16 characters',
+  }),
+
   expirationDate: z.string().min(3, 'Name must be at least 3 characters long'),
-  cvv: z.string().min(3, 'Name must be at least 3 characters long'),
+  cvv: z.string().refine((value) => value.length === 3, {
+    message: 'The cvv must contain exactly 3 characters',
+  }),
 })
 
 export const newCheckoutSchema = z.object({
