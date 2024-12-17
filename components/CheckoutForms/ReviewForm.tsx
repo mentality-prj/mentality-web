@@ -10,7 +10,7 @@ import { NewCheckout } from '@/schema'
 import SubmitButton from './SubmitButton'
 
 export default function ReviewForm() {
-  const { newCheckoutData, resetData } = useAddCheckoutContext()
+  const { newCheckoutData, resetLocalStorage } = useAddCheckoutContext()
   const router = useRouter()
   const { cardNumber, city, cvv, deliveryDate, deliveryMethod, expirationDate, fullName } = newCheckoutData
 
@@ -18,7 +18,8 @@ export default function ReviewForm() {
     const { success, errorMsg, redirect } = await reviewFormAction(newCheckoutData as NewCheckout)
     if (success) {
       toast.success('Order submitted successfully')
-      resetData()
+      resetLocalStorage()
+      document.cookie = `cart=${encodeURIComponent(JSON.stringify(''))}; path=/;`
     } else if (errorMsg) {
       toast.error(errorMsg)
     }
@@ -27,16 +28,18 @@ export default function ReviewForm() {
     }
   }
   return (
-    <form action={handleFormSubmit} className="flex flex-1 flex-col items-stretch gap-2 lg:max-w-[700px]">
-      <p className="text-xl md:text-3xl">Name: {fullName}</p>
-      <p className="text-xl md:text-3xl">Name: {cardNumber}</p>
-      <p className="text-xl md:text-3xl">Name: {city}</p>
-      <p className="text-xl md:text-3xl">Name: {cvv}</p>
-      <p className="text-xl md:text-3xl">Name: {deliveryDate}</p>
-      <p className="text-xl md:text-3xl">Name: {deliveryMethod}</p>
-      <p className="text-xl md:text-3xl">Name: {expirationDate}</p>
+    <form action={handleFormSubmit} className="flex flex-1 flex-col items-center gap-2">
+      <div className="flex w-full flex-col lg:max-w-[700px]">
+        <p className="text-xl md:text-3xl">full Name: {fullName}</p>
+        <p className="text-xl md:text-3xl">card Name: {cardNumber}</p>
+        <p className="text-xl md:text-3xl">city: {city}</p>
+        <p className="text-xl md:text-3xl">cvv: {cvv}</p>
+        <p className="text-xl md:text-3xl">delivery date: {deliveryDate}</p>
+        <p className="text-xl md:text-3xl">delivery method: {deliveryMethod}</p>
+        <p className="text-xl md:text-3xl">expiration date: {expirationDate}</p>
+      </div>
 
-      <SubmitButton text="Submit" />
+      <SubmitButton text="Confirm" />
     </form>
   )
 }

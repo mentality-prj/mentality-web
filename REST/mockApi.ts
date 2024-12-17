@@ -1,3 +1,5 @@
+import { CartItemProps } from '@/components/CartList'
+
 export const mockProfileData = async (accessToken: string) => {
   const profileData = {
     name: 'User name',
@@ -17,7 +19,7 @@ export const mockProfileData = async (accessToken: string) => {
   })
 }
 
-export const mockCartData = async () => {
+export const mockCartData = async (): Promise<CartItemProps[]> => {
   const cartData = [
     {
       id: '1',

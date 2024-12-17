@@ -1,6 +1,6 @@
 'use client'
 
-import React, { createContext, useCallback, useContext, useEffect, useState } from 'react'
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import { NewCheckout, newCheckoutInitialValuesSchema, newCheckoutInitialValuesType } from '@/schema'
 
@@ -14,65 +14,78 @@ const defaultCheckout: newCheckoutInitialValuesType = {
   cvv: '',
 }
 
+const LOCAL_STORAGE_KEY = 'new-checkout-data'
+
 type AddCheckoutContextType = {
   newCheckoutData: newCheckoutInitialValuesType
   updateNewCheckoutDetails: (checkoutDetails: Partial<NewCheckout>) => void
   dataLoaded: boolean
-  resetData: () => void
+  resetLocalStorage: () => void
 }
 
-const LOCALE_STORAGE_KEY = 'newCheckoutData'
-
 export const AddCheckoutContext = createContext<AddCheckoutContextType | null>(null)
+
 export const AddCheckoutContextProvider = ({ children }: { children: React.ReactNode }) => {
   const [newCheckoutData, setNewCheckoutData] = useState<newCheckoutInitialValuesType>(defaultCheckout)
   const [dataLoaded, setDataLoaded] = useState(false)
 
-  const readFromLocalStoarge = () => {
-    const dataString = localStorage.getItem(LOCALE_STORAGE_KEY)
-    if (!dataString) {
-      return setNewCheckoutData(defaultCheckout)
+  useEffect(() => {
+    readFromLocalStorage()
+    setDataLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (dataLoaded) {
+      saveDataToLocalStorage(newCheckoutData)
     }
+  }, [newCheckoutData, dataLoaded])
+
+  const updateNewCheckoutDetails = useCallback(
+    (checkoutDetails: Partial<NewCheckout>) => {
+      setNewCheckoutData({ ...newCheckoutData, ...checkoutDetails })
+    },
+    [newCheckoutData]
+  )
+
+  const saveDataToLocalStorage = (currentCheckoutData: newCheckoutInitialValuesType) => {
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentCheckoutData))
+  }
+
+  const readFromLocalStorage = () => {
+    const dataString = localStorage.getItem(LOCAL_STORAGE_KEY)
+    if (!dataString) return setNewCheckoutData(defaultCheckout)
+
     const validated = newCheckoutInitialValuesSchema.safeParse(JSON.parse(dataString))
+
     if (validated.success) {
+      console.log('validated true')
       setNewCheckoutData(validated.data)
     } else {
       setNewCheckoutData(defaultCheckout)
     }
   }
-  const writeToLocalStorage = useCallback(() => {
-    localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(newCheckoutData))
-  }, [newCheckoutData])
 
-  useEffect(() => {
-    readFromLocalStoarge()
-    setDataLoaded(true)
-  }, [])
-  useEffect(() => {
-    if (dataLoaded) {
-      writeToLocalStorage()
-    }
-  }, [newCheckoutData, dataLoaded, writeToLocalStorage])
-
-  const updateNewCheckoutDetails = (checkoutDetails: Partial<NewCheckout>) => {
-    setNewCheckoutData((prev) => ({ ...prev, ...checkoutDetails }))
-  }
-
-  const resetData = () => {
+  const resetLocalStorage = () => {
+    localStorage.removeItem(LOCAL_STORAGE_KEY)
     setNewCheckoutData(defaultCheckout)
-    localStorage.setItem(LOCALE_STORAGE_KEY, JSON.stringify(defaultCheckout))
   }
 
-  return (
-    <AddCheckoutContext.Provider value={{ newCheckoutData, updateNewCheckoutDetails, dataLoaded, resetData }}>
-      {children}
-    </AddCheckoutContext.Provider>
+  const contextValue = useMemo(
+    () => ({
+      newCheckoutData,
+      dataLoaded,
+      updateNewCheckoutDetails,
+      resetLocalStorage,
+    }),
+    [newCheckoutData, dataLoaded, updateNewCheckoutDetails]
   )
+
+  return <AddCheckoutContext.Provider value={contextValue}>{children}</AddCheckoutContext.Provider>
 }
 
 export function useAddCheckoutContext() {
   const context = useContext(AddCheckoutContext)
-  if (!context) {
+  if (context === null) {
     throw new Error('useAddCheckoutContext must be used within an AddDealContext')
   }
   return context

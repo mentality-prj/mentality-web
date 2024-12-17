@@ -50,9 +50,9 @@ export default function StepNavigation() {
               {i + 1}
             </span>
             <span
-              className={clsx('hidden text-white/75 transition-colors duration-200 group-hover:text-white lg:block', {
+              className={clsx('hidden transition-colors duration-200 lg:block', {
                 'font-light': currentPath !== step.route,
-                'font-semibold text-white': currentPath === step.route,
+                'font-semibold': currentPath === step.route,
               })}
             >
               {step.title}

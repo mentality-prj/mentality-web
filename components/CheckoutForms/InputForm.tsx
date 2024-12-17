@@ -1,6 +1,7 @@
 'use client'
 
 import React from 'react'
+import { Input } from '@nextui-org/react'
 
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
 import { NewCheckout } from '@/schema'
@@ -19,6 +20,7 @@ interface InputProps {
   max?: number
   errorMsg?: string
 }
+
 export default function InputForm({
   label,
   id,
@@ -32,31 +34,28 @@ export default function InputForm({
   errorMsg,
 }: InputProps) {
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()
-
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateNewCheckoutDetails({ [e.target.name as CheckoutDataKeys]: e.target.value })
+    updateNewCheckoutDetails({ [e.target.name]: e.target.value })
   }
   return (
     <div>
-      <label className="block text-lg" htmlFor={id}>
-        {label}
-        {description && <span className="mb-1 block text-sm text-slate-200">{description}</span>}
-      </label>
-      <input
-        className={`w-full rounded-md px-2 py-4 text-white ${
-          errorMsg ? 'border-red-500' : 'border-slate-300'
-        } border-2`}
-        type={type}
-        name={id}
-        onChange={handleInputChange}
-        defaultValue={newCheckoutData[id]}
-        id={id}
-        required={required}
+      <Input
+        isRequired={required}
         pattern={pattern}
         minLength={minLength}
         min={min}
         max={max}
+        id={id}
+        name={id}
+        onChange={handleInputChange}
+        value={newCheckoutData[id]}
+        label={label}
+        description={description}
+        type={type}
+        className={`w-full rounded-md px-2 py-4 ${errorMsg && 'border-red-500'} border-2`}
+        classNames={{ mainWrapper: 'w-full' }}
       />
+
       <div className="mt-1 min-h-8">{errorMsg && <span className="block text-sm text-red-500">{errorMsg}</span>}</div>
     </div>
   )

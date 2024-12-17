@@ -18,7 +18,6 @@ interface CartListProps {
   data: CartItemProps[]
 }
 
-// Зчитування даних з куків
 const getCartFromCookies = (): CartItemProps[] => {
   const cookies = document.cookie.split('; ').find((cookie) => cookie.startsWith('cart='))
 
@@ -33,7 +32,6 @@ const getCartFromCookies = (): CartItemProps[] => {
   return []
 }
 
-// Запис даних до куків
 const setCartToCookies = (cartItems: CartItemProps[]) => {
   document.cookie = `cart=${encodeURIComponent(JSON.stringify(cartItems))}; path=/;`
 }
@@ -42,7 +40,6 @@ export default function CartList({ data }: CartListProps) {
   const router = useRouter()
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
-  // Ініціалізуємо стан з куків при завантаженні
   useEffect(() => {
     const initialCart = getCartFromCookies()
     setCartItems(initialCart.length > 0 ? initialCart : data)
