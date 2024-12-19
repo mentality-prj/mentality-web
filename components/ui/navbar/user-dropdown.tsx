@@ -21,7 +21,7 @@ export const UserDropdown = () => {
           <Avatar as="button" color="secondary" size="md" src="https://i.pravatar.cc/150?u=a042581f4e29026704d" />
         </DropdownTrigger>
       </NavbarItem>
-      <DropdownMenu aria-label="User menu actions" onAction={(actionKey) => console.log({ actionKey })}>
+      <DropdownMenu aria-label="User menu actions">
         <DropdownItem key="profile" className="flex w-full flex-col items-start justify-start">
           <p>Signed in as</p>
           <p>zoey@example.com</p>

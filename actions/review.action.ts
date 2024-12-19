@@ -1,7 +1,7 @@
 'use server'
 
-import { CheckoutRoutes } from '@/components/CheckoutForms/types'
 import { deliveryDetailsSchema, NewCheckout, paymentInfoSchema } from '@/schema'
+import { CheckoutRoutes } from '@/types/form'
 
 export type SubmitCheckoutReturnType = {
   redirect?: CheckoutRoutes
@@ -28,6 +28,6 @@ export const reviewFormAction = async (checkout: NewCheckout): Promise<SubmitChe
 
   return {
     success: true,
-    redirect: CheckoutRoutes.DELIVERY_DETAILS,
+    redirect: CheckoutRoutes.THANKS,
   }
 }

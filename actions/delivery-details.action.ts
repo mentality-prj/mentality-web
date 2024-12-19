@@ -2,8 +2,8 @@
 
 import { redirect } from 'next/navigation'
 
-import { CheckoutRoutes, FormErrors } from '@/components/CheckoutForms/types'
 import { deliveryDetailsSchema } from '@/schema'
+import { CheckoutRoutes, FormErrors } from '@/types/form'
 
 export const deliveryDetailsFormAction = (
   prevState: FormErrors | undefined,
@@ -11,6 +11,7 @@ export const deliveryDetailsFormAction = (
 ): FormErrors | undefined => {
   const data = Object.fromEntries(formData.entries())
   const validated = deliveryDetailsSchema.safeParse(data)
+
   if (!validated.success) {
     const errors = validated.error.issues.reduce((acc: FormErrors, issue) => {
       acc[issue.path[0]] = issue.message

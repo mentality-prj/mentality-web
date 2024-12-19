@@ -1,4 +1,4 @@
-import { CartItemProps } from '@/components/CartList'
+import { CartItemProps } from '@/types/cart'
 
 export const mockProfileData = async (accessToken: string) => {
   const profileData = {

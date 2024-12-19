@@ -2,14 +2,15 @@
 
 import { redirect } from 'next/navigation'
 
-import { CheckoutRoutes, FormErrors } from '@/components/CheckoutForms/types'
 import { paymentInfoSchema } from '@/schema'
+import { CheckoutRoutes, FormErrors } from '@/types/form'
 
 export const paymentInfoFormAction = (
   prevState: FormErrors | undefined,
   formData: FormData
 ): FormErrors | undefined => {
   const data = Object.fromEntries(formData.entries())
+
   const validated = paymentInfoSchema.safeParse(data)
   if (!validated.success) {
     const errors = validated.error.issues.reduce((acc: FormErrors, issue) => {

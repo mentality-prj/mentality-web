@@ -1,19 +1,22 @@
 'use client'
 
 import { useFormState } from 'react-dom'
+import { Form } from '@nextui-org/react'
 
 import { paymentInfoFormAction } from '@/actions/payment-info.action'
+import { FormErrors } from '@/types/form'
 
+import DropdownForm from './DropdownForm'
 import InputForm from './InputForm'
 import SubmitButton from './SubmitButton'
-import { FormErrors } from './types'
 
 const initialState: FormErrors = {}
 
 export default function PaymentInfoForm() {
   const [serverErrors, formAction] = useFormState(paymentInfoFormAction, initialState)
+
   return (
-    <form action={formAction} className="flex flex-1 flex-col items-center">
+    <Form action={formAction} className="flex flex-1 flex-col items-center">
       <div className="flex w-full flex-col lg:max-w-[700px]">
         <InputForm
           label="Card Number"
@@ -23,13 +26,7 @@ export default function PaymentInfoForm() {
           required
           errorMsg={serverErrors?.cardNumber}
         />
-        <InputForm
-          label="Expiration Date"
-          id="expirationDate"
-          type="string"
-          required
-          errorMsg={serverErrors?.expirationDate}
-        />
+        <DropdownForm errorMsg={serverErrors?.expirationDate} />
         <InputForm
           label="CVV"
           description="3-digit code on the back of your card."
@@ -41,6 +38,6 @@ export default function PaymentInfoForm() {
         />
       </div>
       <SubmitButton text="Submit" />
-    </form>
+    </Form>
   )
 }

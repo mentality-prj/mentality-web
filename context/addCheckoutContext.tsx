@@ -53,12 +53,12 @@ export const AddCheckoutContextProvider = ({ children }: { children: React.React
 
   const readFromLocalStorage = () => {
     const dataString = localStorage.getItem(LOCAL_STORAGE_KEY)
+
     if (!dataString) return setNewCheckoutData(defaultCheckout)
 
     const validated = newCheckoutInitialValuesSchema.safeParse(JSON.parse(dataString))
 
     if (validated.success) {
-      console.log('validated true')
       setNewCheckoutData(validated.data)
     } else {
       setNewCheckoutData(defaultCheckout)

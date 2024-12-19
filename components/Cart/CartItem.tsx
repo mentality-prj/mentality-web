@@ -4,7 +4,7 @@ import { useState } from 'react'
 import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 
-import { CartItemProps } from './CartList'
+import { CartItemProps } from '@/types/cart'
 
 interface CartItemPropsWithHandler extends CartItemProps {
   onQuantityChange: (updatedItem: CartItemProps) => void
@@ -30,7 +30,7 @@ const CartItem = ({ id, name, price, quantity, image, description, onQuantityCha
   }
 
   return (
-    <div className="flex gap-2 border-1 p-1">
+    <div className="flex gap-2 p-1">
       <div className="flex w-full max-w-[200px] items-center justify-center">
         <Image className="object-contain" width={200} height={200} src={image} alt={name} />
       </div>
@@ -39,9 +39,9 @@ const CartItem = ({ id, name, price, quantity, image, description, onQuantityCha
         <div className="">Price: {price} $</div>
         <div className="">Description: {description}</div>
         <div className="flex items-center gap-1.5">
-          <Button onClick={() => handleUpdateQuntity('-')}>-</Button>
+          <Button onPress={() => handleUpdateQuntity('-')}>-</Button>
           <span>{quantityProduct}</span>
-          <Button onClick={() => handleUpdateQuntity('+')}>+</Button>
+          <Button onPress={() => handleUpdateQuntity('+')}>+</Button>
         </div>
       </div>
     </div>

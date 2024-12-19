@@ -42,6 +42,7 @@ export const config = {
     '/delivery-details',
     '/payment-info',
     '/review',
+    '/thanks',
 
     '/(en|uk|pl)',
     '/(en|uk|pl)/admin',
@@ -51,5 +52,6 @@ export const config = {
     '/(en|uk|pl)/delivery-details',
     '/(en|uk|pl)/payment-info',
     '/(en|uk|pl)/review',
+    '/(en|uk|pl)/thanks',
   ],
 }

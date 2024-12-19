@@ -3,37 +3,14 @@ import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 
+import { CartItemProps } from '@/types/cart'
+import { getCartFromCookiesClient, setCartToCookies } from '@/utils/cartUtils'
+
 import CartItem from './CartItem'
+import TotalPrice from './TotalPrice'
 
-export interface CartItemProps {
-  id: string
-  name: string
-  price: number
-  quantity: number
-  image: string
-  description: string
-}
-
-interface CartListProps {
+export interface CartListProps {
   data: CartItemProps[]
-}
-
-const getCartFromCookies = (): CartItemProps[] => {
-  const cookies = document.cookie.split('; ').find((cookie) => cookie.startsWith('cart='))
-
-  if (cookies) {
-    try {
-      return JSON.parse(decodeURIComponent(cookies.split('=')[1]))
-    } catch (error) {
-      console.log(error)
-      return []
-    }
-  }
-  return []
-}
-
-const setCartToCookies = (cartItems: CartItemProps[]) => {
-  document.cookie = `cart=${encodeURIComponent(JSON.stringify(cartItems))}; path=/;`
 }
 
 export default function CartList({ data }: CartListProps) {
@@ -41,7 +18,7 @@ export default function CartList({ data }: CartListProps) {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
   useEffect(() => {
-    const initialCart = getCartFromCookies()
+    const initialCart = getCartFromCookiesClient()
     setCartItems(initialCart.length > 0 ? initialCart : data)
   }, [data])
 
@@ -54,8 +31,6 @@ export default function CartList({ data }: CartListProps) {
     setCartToCookies(updatedCartItems)
   }
 
-  const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-
   return (
     <div className="mt-5 flex max-w-[1200px] gap-10">
       <div className="flex max-w-[800px] flex-col gap-3">
@@ -63,9 +38,9 @@ export default function CartList({ data }: CartListProps) {
           <CartItem key={item.id} {...item} onQuantityChange={handleQuantityChange} />
         ))}
       </div>
-      <div className="flex flex-col gap-3 border-1 p-1">
-        <div className="">Total price: ${totalPrice}</div>
-        <Button onClick={() => router.push('/delivery-details')}>Proceed to Checkout</Button>
+      <div className="flex flex-col gap-3 p-1">
+        <TotalPrice cartItems={cartItems} />
+        <Button onPress={() => router.push('/delivery-details')}>Proceed to Checkout</Button>
       </div>
     </div>
   )

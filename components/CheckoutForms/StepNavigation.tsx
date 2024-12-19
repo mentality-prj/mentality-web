@@ -4,7 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import path from 'path'
 
-import { CheckoutRoutes } from './types'
+import { CheckoutRoutes } from '@/types/form'
 
 const steps = [
   {

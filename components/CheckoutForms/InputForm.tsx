@@ -4,22 +4,7 @@ import React from 'react'
 import { Input } from '@nextui-org/react'
 
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
-import { NewCheckout } from '@/schema'
-
-type CheckoutDataKeys = keyof NewCheckout
-
-interface InputProps {
-  label: string
-  id: CheckoutDataKeys
-  description?: string
-  required?: boolean
-  pattern?: string
-  type: string
-  minLength?: number
-  min?: number
-  max?: number
-  errorMsg?: string
-}
+import { InputProps } from '@/types/checkout'
 
 export default function InputForm({
   label,
