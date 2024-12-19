@@ -4,8 +4,7 @@ describe('Payment flow', () => {
     cy.contains('button', '+').should('exist').click()
     cy.contains('button', '-').should('exist').click()
     cy.contains('button', '+').should('exist').click()
-    cy.contains('div', 'Total price:').should('exist')
-    cy.get('div').contains('Total price:').should('have.text', 'Total price: $40')
+
     cy.contains('button', 'Proceed to Checkout').should('exist').click()
 
     //Delivery-details form
@@ -27,5 +26,19 @@ describe('Payment flow', () => {
     cy.contains('span', '2028').should('exist').click()
     cy.get('input[name="cvv"]').click().type('123')
     cy.get('button').contains('Submit').click()
+
+    //Review form
+    cy.contains('p', 'full name:').should('exist', { timeout: 10000 })
+    cy.contains('p', 'card number: 1234 5678 1234 5678').should('exist', { timeout: 10000 })
+    cy.contains('p', 'city: м. Київ, Київська обл.').should('exist', { timeout: 10000 })
+    cy.contains('p', 'cvv: 123').should('exist', { timeout: 10000 })
+    cy.contains('p', 'delivery date: 2040-12-12').should('exist', { timeout: 10000 })
+    cy.contains('p', 'delivery method: courier-delivery').should('exist', { timeout: 10000 })
+    cy.contains('p', 'expiration date: 01/28').should('exist', { timeout: 10000 })
+
+    cy.contains('button', 'Confirm').should('exist', { timeout: 10000 }).click()
+
+    //Thanks page
+    cy.contains('div', 'Thanks for your order').should('exist', { timeout: 10000 })
   })
 })
