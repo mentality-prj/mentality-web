@@ -1,5 +1,5 @@
 describe('Payment flow', () => {
-  it('User can change quantity product', () => {
+  it('Payment flow', () => {
     cy.visit('/cart')
     cy.contains('button', '+').should('exist').click()
     cy.contains('button', '-').should('exist').click()
