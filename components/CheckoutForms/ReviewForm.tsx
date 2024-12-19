@@ -30,8 +30,8 @@ export default function ReviewForm() {
   return (
     <form action={handleFormSubmit} className="flex flex-1 flex-col items-center gap-2">
       <div className="flex w-full flex-col lg:max-w-[700px]">
-        <p className="text-xl md:text-3xl">full Name: {fullName}</p>
-        <p className="text-xl md:text-3xl">card Name: {cardNumber}</p>
+        <p className="text-xl md:text-3xl">full name: {fullName}</p>
+        <p className="text-xl md:text-3xl">card number: {cardNumber}</p>
         <p className="text-xl md:text-3xl">city: {city}</p>
         <p className="text-xl md:text-3xl">cvv: {cvv}</p>
         <p className="text-xl md:text-3xl">delivery date: {deliveryDate}</p>
