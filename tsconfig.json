@@ -29,8 +29,10 @@
     },
     "types": [
       "@testing-library/jest-dom",
-      "jest"
-    ]
+      "jest",
+      "react-dom/experimental"
+    ],
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",

@@ -5,6 +5,7 @@ export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
   AFFIRMATIONS: 'Affirmations',
   ARTICLES: 'Articles',
+  CART: 'Cart',
   PROFILE: 'Profile',
   SIGNIN: 'Signin',
   TIPS: 'Tips',
