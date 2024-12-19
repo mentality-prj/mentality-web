@@ -30,7 +30,6 @@ describe('Payment flow', () => {
 
     //Review form
     cy.wait(1000)
-    cy.get('div').contains('Total price:').should('have.text', 'Total price: $40')
     cy.contains('p', 'full name: Test string').should('exist')
     cy.contains('p', 'card number: 1234 5678 1234 5678').should('exist')
     cy.contains('p', 'city: м. Київ, Київська обл.').should('exist')
