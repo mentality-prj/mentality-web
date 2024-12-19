@@ -27,6 +27,7 @@ describe('Payment flow', () => {
     cy.get('body').click(0, 0)
     cy.wait(1000)
     cy.get('input[name="cvv"]').should('exist', { timeout: 10000 }).click().type('123')
+    cy.wait(500)
     cy.get('input[name="cvv"]').should('have.value', '123')
     cy.get('button').should('exist', { timeout: 10000 }).contains('Submit').click()
 
