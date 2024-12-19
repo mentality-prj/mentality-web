@@ -4,7 +4,7 @@ describe('Payment flow', () => {
     cy.contains('button', '+').should('exist').click()
     cy.contains('button', '-').should('exist').click()
     cy.contains('button', '+').should('exist').click()
-    cy.contains('div', 'Total price').should('exist')
+
     cy.get('div').contains('Total price:').should('have.text', 'Total price: $40')
     cy.contains('button', 'Proceed to Checkout').should('exist').click()
 
