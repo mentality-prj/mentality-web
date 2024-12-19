@@ -11,7 +11,6 @@ describe('Payment flow', () => {
     cy.get('input[name="fullName"]').click().type('Test string')
     cy.get('input[name="city"]').click().type('Київ')
     cy.contains('button', 'м. Київ, Київська обл.').should('exist').click()
-    cy.contains('button', 'м. Київ, Київська обл.').should('exist').click()
     cy.get('input[name="city"]').should('have.value', 'м. Київ, Київська обл.')
     cy.get('input[name="deliveryMethod"][value="courier-delivery"]').click()
     cy.get('input[name="deliveryMethod"][value="courier-delivery"]').should('be.checked')
