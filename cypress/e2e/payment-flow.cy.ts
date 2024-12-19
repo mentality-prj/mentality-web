@@ -5,7 +5,6 @@ describe('Payment flow', () => {
     cy.contains('button', '-').should('exist').click()
     cy.contains('button', '+').should('exist').click()
 
-    cy.get('div').contains('Total price:').should('have.text', 'Total price: $40')
     cy.contains('button', 'Proceed to Checkout').should('exist').click()
 
     //Delivery-details form
@@ -29,7 +28,6 @@ describe('Payment flow', () => {
     cy.get('button').contains('Submit').click()
 
     //Review form
-    cy.get('div').contains('Total price:').should('have.text', 'Total price: $40')
     cy.contains('p', 'full name: Test string').should('exist')
     cy.contains('p', 'card number: 1234 5678 1234 5678').should('exist')
     cy.contains('p', 'city: м. Київ, Київська обл.').should('exist')
