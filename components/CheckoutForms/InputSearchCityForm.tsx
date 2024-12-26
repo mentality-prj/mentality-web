@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Input } from '@nextui-org/react'
 
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
-import { InputProps } from '@/types/checkout'
+import { CheckoutFormInputProps } from '@/types/checkout'
 
 interface Address {
   Present: string
@@ -19,7 +19,7 @@ const InputSearchCityForm = ({
   max,
   description,
   errorMsg,
-}: InputProps) => {
+}: CheckoutFormInputProps) => {
   const [results, setResults] = useState<Address[]>([])
 
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()

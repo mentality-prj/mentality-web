@@ -1,4 +1,4 @@
-export interface CartItemProps {
+export type CartItemProps = {
   id: string
   name: string
   price: number

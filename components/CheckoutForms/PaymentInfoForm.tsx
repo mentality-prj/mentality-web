@@ -4,13 +4,13 @@ import { useFormState } from 'react-dom'
 import { Form } from '@nextui-org/react'
 
 import { paymentInfoFormAction } from '@/actions/payment-info.action'
-import { FormErrors } from '@/types/form'
+import { ErrorsMessage } from '@/types/form'
 
 import DropdownForm from './DropdownForm'
 import InputForm from './InputForm'
 import SubmitButton from './SubmitButton'
 
-const initialState: FormErrors = {}
+const initialState: ErrorsMessage = {}
 
 export default function PaymentInfoForm() {
   const [serverErrors, formAction] = useFormState(paymentInfoFormAction, initialState)

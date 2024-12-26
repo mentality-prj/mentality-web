@@ -4,7 +4,7 @@ import React from 'react'
 import { Input } from '@nextui-org/react'
 
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
-import { InputProps } from '@/types/checkout'
+import { CheckoutFormInputProps } from '@/types/checkout'
 
 export default function InputForm({
   label,
@@ -17,7 +17,7 @@ export default function InputForm({
   max,
   description,
   errorMsg,
-}: InputProps) {
+}: CheckoutFormInputProps) {
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.name === 'cardNumber') {

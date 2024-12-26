@@ -2,7 +2,7 @@ import { NewCheckout } from '@/schema'
 
 export type CheckoutDataKeys = keyof NewCheckout
 
-export interface InputProps {
+export type CheckoutFormInputProps = {
   label: string
   id: CheckoutDataKeys
   description?: string

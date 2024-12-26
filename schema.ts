@@ -1,7 +1,7 @@
 import { z } from 'zod'
 
 const currentDate = new Date()
-const currentMonth = currentDate.getMonth() + 1 // Місяць від 0 до 11, тому додаємо 1
+const currentMonth = currentDate.getMonth() + 1
 const currentYear = currentDate.getFullYear() % 100
 
 export const deliveryDetailsSchema = z.object({
@@ -23,7 +23,7 @@ export const paymentInfoSchema = z.object({
   }),
   expirationDate: z
     .string()
-    .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, 'please fill input')
+    .regex(/^(0[1-9]|1[0-2])\/\d{2}$/, 'Invalid date format')
     .refine((val) => {
       const [month, year] = val.split('/').map(Number)
       if (year < currentYear || (year === currentYear && month < currentMonth)) {

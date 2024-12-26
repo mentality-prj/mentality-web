@@ -40,7 +40,7 @@ export default function CartList({ data }: CartListProps) {
       </div>
       <div className="flex flex-col gap-3 p-1">
         <TotalPrice cartItems={cartItems} />
-        <Button onPress={() => router.push('/delivery-details')}>Proceed to Checkout</Button>
+        <Button onPress={() => router.push('/shop/delivery-details')}>Proceed to Checkout</Button>
       </div>
     </div>
   )

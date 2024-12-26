@@ -3,7 +3,7 @@
 import { useFormState } from 'react-dom'
 
 import { deliveryDetailsFormAction } from '@/actions/delivery-details.action'
-import { FormErrors } from '@/types/form'
+import { ErrorsMessage } from '@/types/form'
 
 import DatePickerForm from './DatePickerForm'
 import InputForm from './InputForm'
@@ -11,7 +11,7 @@ import InputSearchCityForm from './InputSearchCityForm'
 import RadioButtonForm from './RadioButtonForm'
 import SubmitButton from './SubmitButton'
 
-const initialState: FormErrors = {}
+const initialState: ErrorsMessage = {}
 
 export default function DeliveryDetailsForm() {
   const [serverErrors, formAction] = useFormState(deliveryDetailsFormAction, initialState)

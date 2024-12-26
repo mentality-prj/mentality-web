@@ -29,8 +29,7 @@
     },
     "types": [
       "@testing-library/jest-dom",
-      "jest",
-      "react-dom/experimental"
+      "jest"
     ],
     "target": "ES2017"
   },
