@@ -26,7 +26,9 @@ describe('Payment-info form', () => {
     cy.visit('/shop/payment-info')
     cy.get('input[name="cardNumber"]').should('exist').click().type('1234567812345678')
     cy.get('button').contains('select month').should('exist').click()
+    cy.wait(1000)
     cy.get('span').contains('01').should('exist').click()
+    cy.wait(1000)
 
     cy.contains('button', 'select year').should('exist').click()
     cy.contains('span', '2028').should('exist').click()
