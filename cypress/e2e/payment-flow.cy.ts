@@ -1,6 +1,6 @@
 describe('Cart', () => {
   it('User can change quantity', () => {
-    cy.visit('/cart')
+    cy.visit('/shop/cart')
     cy.contains('button', '+').should('exist').click()
     cy.contains('button', '-').should('exist').click()
     cy.contains('button', '+').should('exist').click()
