@@ -1,5 +1,8 @@
 {
-  "HomePage": {
-    "testText": "Text for the test"
+  "ShopPage": {
+    "Checkout": {
+      "DeliveryDetails": "Delivery Details",
+      "PaymentInfo": "Payment Info"
+    }
   }
 }

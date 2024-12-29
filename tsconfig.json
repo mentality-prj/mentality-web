@@ -30,7 +30,8 @@
     "types": [
       "@testing-library/jest-dom",
       "jest"
-    ]
+    ],
+    "target": "ES2017"
   },
   "include": [
     "next-env.d.ts",

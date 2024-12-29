@@ -1,5 +1,8 @@
 {
-  "HomePage": {
-    "testText": "Текст для тесту"
+  "ShopPage": {
+    "Checkout": {
+      "DeliveryDetails": "Деталі доставки",
+      "PaymentInfo": "Інформація про оплату"
+    }
   }
 }

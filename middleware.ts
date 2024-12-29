@@ -34,12 +34,26 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/',
+
     '/admin',
     '/profile',
     '/signin',
+    '/shop',
+    '/shop/cart',
+    '/shop/delivery-details',
+    '/shop/payment-info',
+    '/shop/review',
+    '/thanks',
+
     '/(en|uk|pl)',
     '/(en|uk|pl)/admin',
     '/(en|uk|pl)/signin',
+    '/(en|uk|pl)/shop',
     '/(en|uk|pl)/profile',
+    '/(en|uk|pl)/shop/cart',
+    '/(en|uk|pl)/shop/delivery-details',
+    '/(en|uk|pl)/shop/payment-info',
+    '/(en|uk|pl)/shop/review',
+    '/(en|uk|pl)/thanks',
   ],
 }
