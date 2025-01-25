@@ -41,10 +41,10 @@ export default function InputForm({
         minLength={minLength}
         min={min}
         maxLength={max}
-        id={id}
-        name={id}
+        id={String(id)}
+        name={String(id)}
         onChange={handleInputChange}
-        value={newCheckoutData[id]}
+        value={newCheckoutData[`${id}`]}
         label={label}
         description={description}
         type={type}
