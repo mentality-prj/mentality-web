@@ -30,11 +30,23 @@ export const Primary: Story = {
     primary: true,
     label: 'Button',
   },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=753-37007&t=8uoAoiMK27PeZtZh-4',
+    },
+  },
 }
 
 export const Secondary: Story = {
   args: {
     label: 'Button',
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=671-6739&t=8uoAoiMK27PeZtZh-4',
+    },
   },
 }
 
@@ -43,11 +55,23 @@ export const Large: Story = {
     size: 'large',
     label: 'Button',
   },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=671-6733&t=vLvcMycS2Qig5opd-4',
+    },
+  },
 }
 
 export const Small: Story = {
   args: {
     size: 'small',
     label: 'Button',
+  },
+  parameters: {
+    design: {
+      type: 'figma',
+      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=575-2060&t=vLvcMycS2Qig5opd-4',
+    },
   },
 }
