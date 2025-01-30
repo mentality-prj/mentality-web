@@ -5,5 +5,5 @@ export default function SignInPage() {
   const providersArray = Object.keys(Providers)
   const providersMap = providersArray.map((pr) => <SignInButton key={pr} provider={pr as ProviderKey} />)
 
-  return <div>{providersMap}</div>
+  return <section className="mt-12 flex flex-col items-center gap-10">{providersMap}</section>
 }
