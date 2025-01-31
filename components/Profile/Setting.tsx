@@ -22,7 +22,7 @@ export default function Setting({ user }: SettingProps) {
           aria-label="Options"
           selectedKey={'profile'}
           classNames={{
-            tab: 'text-purple-700 font-medium max-w-fit p-0 pb-3 h-[26px] px-2 data-[hover-unselected=true]:opacity-100  ',
+            tab: 'text-purple-700 font-medium max-w-fit p-0 pb-3 h-[26px] px-2 data-[hover-unselected=true]:opacity-100',
             cursor: 'w-full h-[1px]',
             tabList: 'border-b p-0 gap-4 border-divider relative w-full rounded-none',
             tabContent: 'group-data-[hover-unselected=true]:text-purple-800 text-gray-500',
