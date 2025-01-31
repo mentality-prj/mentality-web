@@ -1,13 +1,13 @@
 import { ReactNode } from 'react'
 
-import { SignOutButton } from '@/components/Buttons'
+import ProfileSidebar from '@/components/Profile/Sidebar'
 
 const ProfileLayout = ({ children }: { children: ReactNode }) => {
   return (
-    <>
+    <main className="flex">
+      <ProfileSidebar />
       {children}
-      <SignOutButton />
-    </>
+    </main>
   )
 }
 
