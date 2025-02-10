@@ -3,24 +3,19 @@ import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 
+import { getCartCookies, setCartCookies } from '@/actions/cart.action'
 import { CartItemProps } from '@/types/cart'
-import { getCartFromCookiesClient, setCartToCookies } from '@/utils/cartUtils'
 
 import CartItem from './CartItem'
 import TotalPrice from './TotalPrice'
 
-export interface CartListProps {
-  data: CartItemProps[]
-}
-
-export default function CartList({ data }: CartListProps) {
+export default function CartList() {
   const router = useRouter()
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
   useEffect(() => {
-    const initialCart = getCartFromCookiesClient()
-    setCartItems(initialCart.length > 0 ? initialCart : data)
-  }, [data])
+    getCartCookies().then((cart) => setCartItems(cart))
+  }, [])
 
   const handleQuantityChange = (updatedItem: CartItemProps) => {
     const updatedCartItems = cartItems.map((item) =>
@@ -28,7 +23,7 @@ export default function CartList({ data }: CartListProps) {
     )
 
     setCartItems(updatedCartItems)
-    setCartToCookies(updatedCartItems)
+    setCartCookies(updatedCartItems)
   }
 
   return (
