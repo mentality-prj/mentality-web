@@ -1,5 +1,21 @@
 describe('Cart', () => {
   it('User can change quantity', () => {
+    cy.clearCookie('cart').then(() => {
+      cy.setCookie(
+        'cart',
+        JSON.stringify([
+          {
+            id: 1,
+            name: 'Fjallraven',
+            price: 109.95,
+            description:
+              'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
+
+            image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+          },
+        ])
+      )
+    })
     cy.visit('/shop/cart')
     cy.contains('button', '+').should('exist').click()
     cy.contains('button', '-').should('exist').click()
