@@ -9,8 +9,9 @@ import { Link } from '@/i18n/routing'
 export default function Menu() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
+  const lastSegment = pathname.split('/').pop() || ''
 
-  const isPageActive = (key: string) => pathname.includes(key)
+  const isPageActive = (key: string) => key.endsWith(lastSegment)
 
   const menuMap = menu.map((item) => (
     <NavbarItem

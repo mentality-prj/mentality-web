@@ -8,6 +8,7 @@ export interface ShopListProps {
 
 const ShopList = ({ data }: ShopListProps) => {
   const dataShop = data
+
   return (
     <div className="grid grid-cols-8 gap-5 bg-gray-600 p-3">
       {dataShop.map((product) => (
