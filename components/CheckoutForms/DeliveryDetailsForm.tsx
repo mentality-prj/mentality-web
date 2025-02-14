@@ -1,6 +1,7 @@
 'use client'
 
 import { useFormState } from 'react-dom'
+import { useTranslations } from 'next-intl'
 
 import { deliveryDetailsFormAction } from '@/actions/delivery-details.action'
 import { ErrorsMessage } from '@/types/form'
@@ -15,6 +16,7 @@ const initialState: ErrorsMessage = {}
 
 export default function DeliveryDetailsForm() {
   const [serverErrors, formAction] = useFormState(deliveryDetailsFormAction, initialState)
+  const t = useTranslations()
 
   return (
     <form action={formAction} className="flex flex-1 flex-col items-center">
@@ -24,7 +26,7 @@ export default function DeliveryDetailsForm() {
         <RadioButtonForm />
         <DatePickerForm errorMsg={serverErrors?.deliveryDate} />
       </div>
-      <SubmitButton text="Submit" />
+      <SubmitButton text={t('ShopPage.Checkout.Submit')} />
     </form>
   )
 }

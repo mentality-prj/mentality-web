@@ -23,7 +23,7 @@ export const mockProfileData = async (accessToken: string) => {
 export const mockCartData = async (): Promise<CartItemProps[]> => {
   const cartData = [
     {
-      id: 1,
+      id: '1',
       name: 'Нековзний йога-коврик',
       price: 10,
       quantity: 1,
@@ -33,7 +33,7 @@ export const mockCartData = async (): Promise<CartItemProps[]> => {
         'Звукоізоляційний, ідеальний для скакалки та занять на відкритому повітрі, 68.58см x 182.88см, Синій',
     },
     {
-      id: 2,
+      id: '2',
       name: 'Футболка для йоги',
       price: 20,
       quantity: 1,
@@ -53,7 +53,7 @@ export const mockCartData = async (): Promise<CartItemProps[]> => {
 export const mockShopData = async (): Promise<ShopItemProps[]> => {
   const shopProducts = [
     {
-      id: 1,
+      id: '1',
       name: 'Fjallraven',
       price: 109.95,
       description:
@@ -62,7 +62,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
     },
     {
-      id: 2,
+      id: '2',
       name: 'T-Shirts ',
       price: 22.3,
       description:
@@ -71,7 +71,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71-3HjGNDUL._AC_SY879._SX._UX._SY._UY_.jpg',
     },
     {
-      id: 3,
+      id: '3',
       name: 'Jacket',
       price: 55.99,
       description:
@@ -80,7 +80,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71li-ujtlUL._AC_UX679_.jpg',
     },
     {
-      id: 4,
+      id: '4',
       name: 'Mens Casual Slim Fit',
       price: 15.99,
       description:
@@ -89,7 +89,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71YXzeOuslL._AC_UY879_.jpg',
     },
     {
-      id: 5,
+      id: '5',
       name: "John Hardy Women's Legends Naga Gold & Silver Dragon Station Chain Bracelet",
       price: 695,
       description:
@@ -98,7 +98,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71pWzhdJNwL._AC_UL640_QL65_ML3_.jpg',
     },
     {
-      id: 6,
+      id: '6',
       name: 'Solid Gold Petite Micropave ',
       price: 168,
       description:
@@ -107,7 +107,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/61sbMiUnoGL._AC_UL640_QL65_ML3_.jpg',
     },
     {
-      id: 7,
+      id: '7',
       name: 'White Gold Plated Princess',
       price: 9.99,
       description:
@@ -116,7 +116,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71YAIFU48IL._AC_UL640_QL65_ML3_.jpg',
     },
     {
-      id: 8,
+      id: '8',
       name: 'Pierced Owl Rose Gold Plated Stainless Steel Double',
       price: 10.99,
       description: 'Rose Gold Plated Double Flared Tunnel Plug Earrings. Made of 316L Stainless Steel',
@@ -124,7 +124,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/51UDEzMJVpL._AC_UL640_QL65_ML3_.jpg',
     },
     {
-      id: 9,
+      id: '9',
       name: 'WD 2TB Elements Portable External Hard Drive - USB 3.0 ',
       price: 64,
       description:
@@ -133,7 +133,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/61IBBVJvSDL._AC_SY879_.jpg',
     },
     {
-      id: 10,
+      id: '10',
       name: 'SanDisk SSD PLUS 1TB Internal SSD - SATA III 6 Gb/s',
       price: 109,
       description:
@@ -142,7 +142,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/61U7T1koQqL._AC_SX679_.jpg',
     },
     {
-      id: 11,
+      id: '11',
       name: 'Silicon Power 256GB SSD 3D NAND A55 SLC Cache Performance Boost SATA III 2.5',
       price: 109,
       description:
@@ -151,7 +151,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71kWymZ+c+L._AC_SX679_.jpg',
     },
     {
-      id: 12,
+      id: '12',
       name: 'WD 4TB Gaming Drive Works with Playstation 4 Portable External Hard Drive',
       price: 114,
       description:
@@ -160,7 +160,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/61mtL65D4cL._AC_SX679_.jpg',
     },
     {
-      id: 13,
+      id: '13',
       name: 'Acer SB220Q bi 21.5 inches Full HD (1920 x 1080) IPS Ultra-Thin',
       price: 599,
       description:
@@ -169,7 +169,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/81QpkIctqPL._AC_SX679_.jpg',
     },
     {
-      id: 14,
+      id: '14',
       name: 'Samsung 49-Inch CHG90 144Hz Curved Gaming Monitor (LC49HG90DMNXZA) – Super Ultrawide Screen QLED ',
       price: 999.99,
       description:
@@ -178,7 +178,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/81Zt42ioCgL._AC_SX679_.jpg',
     },
     {
-      id: 15,
+      id: '15',
       name: "BIYLACLESEN Women's 3-in-1 Snowboard Jacket Winter Coats",
       price: 56.99,
       description:
@@ -186,7 +186,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/51Y5NI-I5jL._AC_UX679_.jpg',
     },
     {
-      id: 16,
+      id: '16',
       name: "Lock and Love Women's Removable Hooded Faux Leather Moto Biker Jacket",
       price: 29.95,
       description:
@@ -194,7 +194,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/81XH0e8fefL._AC_UY879_.jpg',
     },
     {
-      id: 17,
+      id: '17',
       name: 'Rain Jacket Women Windbreaker Striped Climbing Raincoats',
       price: 39.99,
       description:
@@ -202,7 +202,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71HblAHs5xL._AC_UY879_-2.jpg',
     },
     {
-      id: 18,
+      id: '18',
       name: "MBJ Women's Solid Short Sleeve Boat Neck V ",
       price: 9.85,
       description:
@@ -210,7 +210,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/71z3kpMAYsL._AC_UY879_.jpg',
     },
     {
-      id: 19,
+      id: '19',
       name: "Opna Women's Short Sleeve Moisture",
       price: 7.95,
       description:
@@ -218,7 +218,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
       image: 'https://fakestoreapi.com/img/51eg55uWmdL._AC_UX679_.jpg',
     },
     {
-      id: 20,
+      id: '20',
       name: 'DANVOUY Womens T Shirt Casual Cotton Short',
       price: 12.99,
       description:

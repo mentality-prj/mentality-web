@@ -3,10 +3,10 @@ import { useTranslations } from 'next-intl'
 import DeliveryDetailsForm from '@/components/CheckoutForms/DeliveryDetailsForm'
 
 const DeliveryDetailsPage = () => {
-  const t = useTranslations('ShopPage.Checkout')
+  const t = useTranslations()
   return (
     <div>
-      <h2 className="text-center">{t('DeliveryDetails')}</h2>
+      <h2 className="text-center">{t('ShopPage.Checkout.DeliveryDetails')}</h2>
       <DeliveryDetailsForm />
     </div>
   )

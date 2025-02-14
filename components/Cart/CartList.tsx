@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import { getCartCookies, setCartCookies } from '@/actions/cart.action'
 import { CartItemProps } from '@/types/cart'
@@ -26,6 +27,8 @@ export default function CartList() {
     setCartCookies(updatedCartItems)
   }
 
+  const t = useTranslations()
+
   return (
     <div className="mt-5 flex max-w-[1200px] gap-10">
       <div className="flex max-w-[800px] flex-col gap-3">
@@ -35,7 +38,7 @@ export default function CartList() {
       </div>
       <div className="flex flex-col gap-3 p-1">
         <TotalPrice cartItems={cartItems} />
-        <Button onPress={() => router.push('/shop/delivery-details')}>Proceed to Checkout</Button>
+        <Button onPress={() => router.push('/shop/delivery-details')}>{t('CartPage.Checkout')}</Button>
       </div>
     </div>
   )

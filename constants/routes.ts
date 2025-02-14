@@ -5,7 +5,7 @@ export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
   AFFIRMATIONS: 'Affirmations',
   ARTICLES: 'Articles',
-  'SHOP/CART': 'Cart',
+  CART: 'Shop/Cart',
   PROFILE: 'Profile',
   SIGNIN: 'Signin',
   SHOP: 'Shop',
@@ -22,5 +22,5 @@ export const menu: Readonly<MenuItemType[]> = [
   { key: 'ARTICLES', link: Routes.ARTICLES },
   { key: 'TIPS', link: Routes.TIPS },
   { key: 'SHOP', link: Routes.SHOP },
-  { key: 'SHOP/CART', link: Routes['SHOP/CART'] },
+  { key: 'CART', link: Routes.CART },
 ]

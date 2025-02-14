@@ -2,6 +2,7 @@
 
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import { deleteCartCookies } from '@/actions/cart.action'
 import { reviewFormAction } from '@/actions/review.action'
@@ -28,6 +29,8 @@ export default function ReviewForm() {
       return router.push(redirect)
     }
   }
+
+  const t = useTranslations()
   return (
     <form action={handleFormSubmit} className="flex flex-1 flex-col items-center gap-2">
       <div className="flex w-full flex-col lg:max-w-[700px]">
@@ -40,7 +43,7 @@ export default function ReviewForm() {
         <p className="text-xl md:text-3xl">expiration date: {expirationDate}</p>
       </div>
 
-      <SubmitButton text="Confirm" />
+      <SubmitButton text={t('ShopPage.Checkout.Submit')} />
     </form>
   )
 }

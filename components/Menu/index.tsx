@@ -3,7 +3,8 @@ import { useState } from 'react'
 import { Navbar, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@nextui-org/react'
 import { usePathname } from 'next/navigation'
 
-import { menu, RoutesTitles } from '@/constants/routes'
+import { menu } from '@/constants/routes'
+import { capitalizeFirstLetter } from '@/helpers/gloabal'
 import { Link } from '@/i18n/routing'
 
 export default function Menu() {
@@ -20,7 +21,7 @@ export default function Menu() {
       className="m-0 rounded-lg px-4 py-3 data-[active=true]:bg-default-50"
     >
       <Link href={item.link} color="foreground">
-        {RoutesTitles[item.key]}
+        {capitalizeFirstLetter(item.key)}
       </Link>
     </NavbarItem>
   ))
@@ -28,7 +29,7 @@ export default function Menu() {
   const menuMobileMap = menu.map((item) => (
     <NavbarMenuItem key={item.key}>
       <Link className="w-full" href={item.link}>
-        {RoutesTitles[item.key]}
+        {capitalizeFirstLetter(item.key)}
       </Link>
     </NavbarMenuItem>
   ))

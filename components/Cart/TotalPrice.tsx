@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import { CartItemProps } from '@/types/cart'
 
 interface TotalPriceProps {
@@ -6,5 +8,10 @@ interface TotalPriceProps {
 
 export default function TotalPrice({ cartItems }: TotalPriceProps) {
   const totalPrice = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)
-  return <div className="text-2xl">Total price: ${totalPrice}</div>
+  const t = useTranslations()
+  return (
+    <div className="text-2xl">
+      {t('CartPage.TotalPrice')}: ${totalPrice}
+    </div>
+  )
 }
