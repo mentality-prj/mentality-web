@@ -3,7 +3,7 @@
 import toast from 'react-hot-toast'
 import { useRouter } from 'next/navigation'
 
-import { deleteCartCookie } from '@/actions/cart.action'
+import { deleteCartCookies } from '@/actions/cart.action'
 import { reviewFormAction } from '@/actions/review.action'
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
 import { NewCheckout } from '@/schema'
@@ -20,7 +20,7 @@ export default function ReviewForm() {
     if (success) {
       toast.success('Order submitted successfully')
       resetLocalStorage()
-      deleteCartCookie()
+      deleteCartCookies()
     } else if (errorMsg) {
       toast.error(errorMsg)
     }

@@ -30,6 +30,6 @@ export const setCartCookies = async (cartItems: CartItemProps[]) => {
   cookies().set('cart', JSON.stringify(updatedCart))
 }
 
-export const deleteCartCookie = async () => {
+export const deleteCartCookies = async () => {
   cookies().delete('cart')
 }
