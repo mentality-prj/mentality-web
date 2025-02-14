@@ -2,7 +2,22 @@
   "ShopPage": {
     "Checkout": {
       "DeliveryDetails": "Деталі доставки",
-      "PaymentInfo": "Інформація про оплату"
-    }
+      "PaymentInfo": "Інформація про оплату",
+      "Thanks": "Дякуємо за замовлення",
+      "Submit": "Відправити"
+    },
+    "ShopEmpty": "Магазин порожній",
+    "Price": "Ціна",
+    "AddToCart": "Додати в кошик",
+    "Added": "Додано"
+  },
+  "CartPage": {
+    "CartEmpty": "Ваш кошик порожній",
+    "Checkout": "Перейти до оформлення замовлення",
+    "TotalPrice": "Загальна вартість"
+  },
+  "Navigation": {
+    "BackToHome": "Повернутися до головної",
+    "BackToShop": "Повернутися до магазину"
   }
 }

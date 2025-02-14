@@ -1,5 +1,21 @@
 describe('Cart', () => {
   it('User can change quantity', () => {
+    cy.clearCookie('cart').then(() => {
+      cy.setCookie(
+        'cart',
+        JSON.stringify([
+          {
+            id: 1,
+            name: 'Fjallraven',
+            price: 109.95,
+            description:
+              'Your perfect pack for everyday use and walks in the forest. Stash your laptop (up to 15 inches) in the padded sleeve, your everyday',
+
+            image: 'https://fakestoreapi.com/img/81fPKd-2AYL._AC_SL1500_.jpg',
+          },
+        ])
+      )
+    })
     cy.visit('/shop/cart')
     cy.contains('button', '+').should('exist').click()
     cy.contains('button', '-').should('exist').click()
@@ -17,7 +33,7 @@ describe('Delivery details form', () => {
     cy.get('input[name="deliveryMethod"][value="courier-delivery"]').should('exist').click()
     cy.get('input[name="deliveryMethod"][value="courier-delivery"]').should('be.checked')
     cy.get('div').contains('mm').should('exist').click().type('12122040')
-    cy.get('button').contains('Submit').should('exist').click()
+    cy.get('button').contains('Відправити').should('exist').click()
   })
 })
 
@@ -38,6 +54,6 @@ describe('Payment-info form', () => {
     cy.get('input[name="cvv"]').should('exist').click().type('123')
     cy.wait(500)
     cy.get('input[name="cvv"]').should('have.value', '123')
-    cy.get('button').should('exist').contains('Submit').click()
+    cy.get('button').should('exist').contains('Відправити').click()
   })
 })

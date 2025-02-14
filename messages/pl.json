@@ -2,7 +2,22 @@
   "ShopPage": {
     "Checkout": {
       "DeliveryDetails": "Szczegóły dostawy",
-      "PaymentInfo": "Informacje o płatności"
-    }
+      "PaymentInfo": "Informacje o płatności",
+      "Thanks": "Dziękujemy za zamówienie",
+      "Submit": "Prześlij"
+    },
+    "ShopEmpty": "Sklep jest pusty",
+    "Price": "Cena",
+    "AddToCart": "Dodaj do koszyka",
+    "Added": "Dodano"
+  },
+  "CartPage": {
+    "CartEmpty": "Twój koszyk jest pusty",
+    "Checkout": "Przejdź do kasy",
+    "TotalPrice": "Cena całkowita"
+  },
+  "Navigation": {
+    "BackToHome": "Powrót do domu",
+    "BackToShop": "Powrót do sklepu"
   }
 }
