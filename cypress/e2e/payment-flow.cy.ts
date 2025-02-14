@@ -33,7 +33,7 @@ describe('Delivery details form', () => {
     cy.get('input[name="deliveryMethod"][value="courier-delivery"]').should('exist').click()
     cy.get('input[name="deliveryMethod"][value="courier-delivery"]').should('be.checked')
     cy.get('div').contains('mm').should('exist').click().type('12122040')
-    cy.get('button').contains('Submit').should('exist').click()
+    cy.get('button').contains('Відправити').should('exist').click()
   })
 })
 
@@ -54,6 +54,6 @@ describe('Payment-info form', () => {
     cy.get('input[name="cvv"]').should('exist').click().type('123')
     cy.wait(500)
     cy.get('input[name="cvv"]').should('have.value', '123')
-    cy.get('button').should('exist').contains('Submit').click()
+    cy.get('button').should('exist').contains('Відправити').click()
   })
 })
