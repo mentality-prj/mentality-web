@@ -4,7 +4,7 @@ import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
 
-export async function addTip(user: CustomUser, prompt?: string, lang?: SupportedLanguage) {
+export async function addTip(user: CustomUser, prompt: string, lang: SupportedLanguage) {
   let error = new Error()
 
   if (user && user.role === Roles.ADMIN) {
