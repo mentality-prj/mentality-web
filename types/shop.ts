@@ -5,3 +5,7 @@ export type ShopItemProps = {
   image: string
   description: string
 }
+
+export type ShopItemCookiesProps = {
+  id: string
+}

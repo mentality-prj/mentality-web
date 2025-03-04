@@ -4,20 +4,20 @@ import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
-import { getCartCookies, setCartCookies } from '@/actions/cart.action'
+import { getCartProducts, setCartCookies } from '@/actions/cart.action'
 import { CartItemProps } from '@/types/cart'
 import { ShopItemProps } from '@/types/shop'
 
-const ShopItem = ({ id, name, description, price, image }: ShopItemProps) => {
+const ShopItem = ({ id, name, price, image }: ShopItemProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
   useEffect(() => {
-    getCartCookies().then((cart) => setCartItems(cart))
+    getCartProducts().then((cart) => setCartItems(cart))
   }, [])
 
   const addToCart = () => {
-    setCartCookies([{ id, name, description, price, image, quantity: 1 }])
-    getCartCookies().then((cart) => setCartItems(cart))
+    setCartCookies([{ id, quantity: 1 }])
+    getCartProducts().then((cart) => setCartItems(cart))
   }
 
   const isAddedToCart = cartItems.some((item) => item.id === id)

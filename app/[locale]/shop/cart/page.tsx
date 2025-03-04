@@ -1,10 +1,10 @@
-import { getCartCookies } from '@/actions/cart.action'
+import { getCartProducts } from '@/actions/cart.action'
 import CartEmpty from '@/components/Cart/CartEmpty'
 import CartList from '@/components/Cart/CartList'
 import ServerMessage from '@/utils/serverMessage'
 
 export default async function CartPage() {
-  const data = await getCartCookies()
+  const data = await getCartProducts()
 
   return (
     <div className="mx-auto max-w-7xl">

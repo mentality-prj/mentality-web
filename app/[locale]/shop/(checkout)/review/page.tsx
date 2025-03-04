@@ -1,9 +1,9 @@
-import { getCartCookies } from '@/actions/cart.action'
+import { getCartProducts } from '@/actions/cart.action'
 import TotalPrice from '@/components/Cart/TotalPrice'
 import ReviewForm from '@/components/CheckoutForms/ReviewForm'
 
 const ReviewPage = async () => {
-  const cartItems = await getCartCookies()
+  const cartItems = await getCartProducts()
 
   return (
     <div className="flex flex-col items-center gap-4">

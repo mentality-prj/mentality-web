@@ -2,15 +2,34 @@
 
 import { cookies } from 'next/headers'
 
-import { CartItemProps } from '@/types/cart'
+import { mockShopData } from '@/REST/mockApi'
+import { CartItemCookiesProps } from '@/types/cart'
+
+export const getCartProducts = async () => {
+  const cart = await getCartCookies()
+  const allProducts = await mockShopData()
+
+  const products = cart
+    .map((cartItem) => {
+      const product = allProducts.find((product) => product.id === cartItem.id)
+      if (!product) return undefined
+      return {
+        ...product,
+        quantity: cartItem.quantity,
+      }
+    })
+    .filter((item): item is NonNullable<typeof item> => item !== undefined)
+
+  return products
+}
 
 export const getCartCookies = async () => {
-  const cart: CartItemProps[] | [] = JSON.parse(cookies().get('cart')?.value || '[]')
+  const cart: CartItemCookiesProps[] | [] = JSON.parse(cookies().get('cart')?.value || '[]')
 
   return cart
 }
 
-export const setCartCookies = async (cartItems: CartItemProps[]) => {
+export const setCartCookies = async (cartItems: CartItemCookiesProps[]) => {
   const currentCart = await getCartCookies()
   if (currentCart.length === 0) {
     cookies().set('cart', JSON.stringify(cartItems))

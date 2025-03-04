@@ -4,8 +4,8 @@ import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
-import { getCartCookies, setCartCookies } from '@/actions/cart.action'
-import { CartItemProps } from '@/types/cart'
+import { getCartProducts, setCartCookies } from '@/actions/cart.action'
+import { CartItemCookiesProps, CartItemProps } from '@/types/cart'
 
 import CartItem from './CartItem'
 import TotalPrice from './TotalPrice'
@@ -15,10 +15,10 @@ export default function CartList() {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
   useEffect(() => {
-    getCartCookies().then((cart) => setCartItems(cart))
+    getCartProducts().then((cart) => setCartItems(cart))
   }, [])
 
-  const handleQuantityChange = (updatedItem: CartItemProps) => {
+  const handleQuantityChange = (updatedItem: CartItemCookiesProps) => {
     const updatedCartItems = cartItems.map((item) =>
       item.id === updatedItem.id ? { ...item, quantity: updatedItem.quantity } : item
     )
