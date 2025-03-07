@@ -5,8 +5,12 @@ export function toCamelCase(str: string): string {
 }
 
 export function transformToRoutes(titles: typeof RoutesTitles): Record<keyof typeof RoutesTitles, string> {
-  return Object.fromEntries(Object.entries(titles).map(([key]) => [key, `/${key.toLowerCase()}`])) as Record<
+  return Object.fromEntries(Object.entries(titles).map(([key, link]) => [key, `/${link.toLowerCase()}`])) as Record<
     keyof typeof RoutesTitles,
     string
   >
+}
+
+export function capitalizeFirstLetter(str: string) {
+  return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase()
 }
