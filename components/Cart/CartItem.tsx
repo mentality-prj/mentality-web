@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 
-import { CartItemProps } from '@/types/cart'
+import { CartItemCookiesProps, CartItemProps } from '@/types/cart'
 
 interface CartItemPropsWithHandler extends CartItemProps {
-  onQuantityChange: (updatedItem: CartItemProps) => void
+  onQuantityChange: (updatedItem: CartItemCookiesProps) => void
 }
 
 const CartItem = ({ id, name, price, quantity, image, description, onQuantityChange }: CartItemPropsWithHandler) => {
@@ -21,12 +21,12 @@ const CartItem = ({ id, name, price, quantity, image, description, onQuantityCha
       if (quantityProduct > 1) {
         newQuantity = quantityProduct - 1
         setQuantityProduct(newQuantity)
-        onQuantityChange({ id, name, price, quantity: newQuantity, image, description })
+        onQuantityChange({ id, quantity: newQuantity })
       }
     }
 
     setQuantityProduct(newQuantity)
-    onQuantityChange({ id, name, price, quantity: newQuantity, image, description })
+    onQuantityChange({ id, quantity: newQuantity })
   }
 
   return (

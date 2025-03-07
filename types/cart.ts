@@ -1,8 +1,9 @@
-export type CartItemProps = {
-  id: string
-  name: string
-  price: number
+import { ShopItemCookiesProps, ShopItemProps } from '@/types/shop'
+
+export type CartItemProps = ShopItemProps & {
   quantity: number
-  image: string
-  description: string
+}
+
+export type CartItemCookiesProps = ShopItemCookiesProps & {
+  quantity: number
 }
