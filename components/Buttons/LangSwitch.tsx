@@ -1,10 +1,11 @@
 'use client'
 import { Key, useTransition } from 'react'
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
 import { Languages } from '@/constants/i18n'
+import { Button } from '@/ds/shadcn/button'
 
 export default function LangSwitch() {
   const [isPending, startTransition] = useTransition()
@@ -23,10 +24,10 @@ export default function LangSwitch() {
       <DropdownTrigger>
         <Button
           disabled={isPending}
-          variant="light"
-          radius="full"
-          size="sm"
-          className="h-10 min-h-10 w-10 min-w-10 p-1"
+          variant="secondary"
+          //radius="full"
+          //size="sm"
+          //className="h-10 min-h-10 w-10 min-w-10 p-1 text-secondary-foreground"
         >
           {localActive}
         </Button>

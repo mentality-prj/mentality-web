@@ -1,6 +1,5 @@
-import { Button } from '@nextui-org/react'
-
 import { CookiesKeys, saveCookies } from '@/actions/cookies.actions'
+import { Button } from '@/ds/shadcn/button'
 
 export default function SaveCookiesButton() {
   return (
@@ -14,7 +13,7 @@ export default function SaveCookiesButton() {
         ])
       }}
     >
-      <Button color="secondary" type="submit">
+      <Button variant="secondary" type="submit">
         Add Data to Cookies
       </Button>
     </form>

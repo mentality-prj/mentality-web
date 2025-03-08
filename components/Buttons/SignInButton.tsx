@@ -1,10 +1,9 @@
 'use server'
-import { Button } from '@nextui-org/react'
-
 import { signIn } from '@/auth'
 import { ProviderKey, Providers } from '@/constants/providers'
 import { Routes } from '@/constants/routes'
 import { Texts } from '@/constants/texts'
+import { Button } from '@/ds/shadcn/button'
 
 interface SignInButtonProps {
   provider: ProviderKey
@@ -21,9 +20,7 @@ export default async function SignInButton({ provider }: SignInButtonProps) {
 
   return (
     <form className="pt-10 text-center" action={handleLogin}>
-      <Button color="primary" type="submit">
-        {textBtn}
-      </Button>
+      <Button type="submit">{textBtn}</Button>
     </form>
   )
 }
