@@ -1,3 +1,5 @@
+// Rewrite the component completely
+
 import { Dropdown, DropdownItem, DropdownMenu, DropdownSection, DropdownTrigger, NavbarItem } from '@nextui-org/react'
 
 import { NotificationIcon } from '../ui/icons/navbar/notificationicon'
