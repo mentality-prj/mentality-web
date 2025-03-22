@@ -14,6 +14,7 @@
     "prettier": "cd apps/main & yarn prettier & cd apps/shop & yarn prettier",
     "format": "cd apps/main & yarn format & cd apps/shop & yarn format",
     "lint-staged": "cd apps/main & yarn lint-staged & cd apps/shop & yarn lint-staged",
+    "lint-staged --concurrent false": "cd apps/main & yarn lint-staged --concurrent false & cd apps/shop & yarn lint-staged --concurrent false",
     "prepare": "cd apps/main & yarn prepare & cd apps/shop & yarn prepare",
     "cy": "cd apps/main & yarn cy & cd apps/shop & yarn cy",
     "cyr": "cd apps/main & yarn cyr & cd apps/shop & yarn cyr",
