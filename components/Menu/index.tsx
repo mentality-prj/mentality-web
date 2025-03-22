@@ -1,13 +1,15 @@
 'use client'
+
 import { useState } from 'react'
-import { Navbar, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@nextui-org/react'
+import { Menu } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
 import { menu } from '@/constants/routes'
 import { capitalizeFirstLetter } from '@/helpers/gloabal'
 import { Link } from '@/i18n/routing'
+import { cn } from '@/lib/utils'
 
-export default function Menu() {
+export default function MenuComponent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
   const lastSegment = pathname.split('/').pop() || ''

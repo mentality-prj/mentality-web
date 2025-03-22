@@ -1,10 +1,9 @@
 import { useCallback } from 'react'
-import { Avatar, Button } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
 
 import { GoToLoginPageButton } from '@/components/Buttons'
-import { Spinner } from '@/components/icons/navbar/spinner-icon'
 import { Routes } from '@/constants/routes'
+import { Avatar, AvatarFallback, AvatarImage } from '@/ds/shadcn/avatar'
 import { useRouter } from '@/i18n/routing'
 import { CustomSession } from '@/types/auth'
 import { Roles } from '@/types/security'
@@ -23,14 +22,6 @@ export default function UserDropdownContainer() {
     router.replace(Routes.PROFILE)
   }, [router])
 
-  if (status === 'loading') {
-    return (
-      <Button isIconOnly color="danger" aria-label="Loading" isDisabled>
-        <Spinner />
-      </Button>
-    )
-  }
-
   if (!session || !user || status === 'unauthenticated') {
     return <GoToLoginPageButton />
   }
@@ -39,5 +30,10 @@ export default function UserDropdownContainer() {
     return <UserDropdown />
   }
 
-  return <Avatar as="button" color="secondary" size="md" src={user?.image || undefined} onClick={handleProfile} />
+  return (
+    <Avatar>
+      <AvatarImage src={user?.image || undefined} onClick={handleProfile} alt="your avatar" />
+      <AvatarFallback>Avatar</AvatarFallback>
+    </Avatar>
+  )
 }
