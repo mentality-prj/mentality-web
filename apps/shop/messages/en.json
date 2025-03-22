@@ -1,0 +1,23 @@
+{
+  "ShopPage": {
+    "Checkout": {
+      "DeliveryDetails": "Delivery Details",
+      "PaymentInfo": "Payment Info",
+      "Thanks": "Thanks for your order",
+      "Submit": "Submit"
+    },
+    "ShopEmpty": "Shop is empty",
+    "Price": "Price",
+    "AddToCart": "Add to cart",
+    "Added": "Added"
+  },
+  "CartPage": {
+    "CartEmpty": "Your cart is empty",
+    "Checkout": "Proceed to Checkout",
+    "TotalPrice": "Total price"
+  },
+  "Navigation": {
+    "BackToHome": "Back to home",
+    "BackToShop": "Back to shop"
+  }
+}
