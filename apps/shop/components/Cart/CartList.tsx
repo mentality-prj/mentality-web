@@ -38,7 +38,7 @@ export default function CartList() {
       </div>
       <div className="flex flex-col gap-3 p-1">
         <TotalPrice cartItems={cartItems} />
-        <Button onPress={() => router.push('/shop/delivery-details')}>{t('CartPage.Checkout')}</Button>
+        <Button onPress={() => router.push('/delivery-details')}>{t('CartPage.Checkout')}</Button>
       </div>
     </div>
   )

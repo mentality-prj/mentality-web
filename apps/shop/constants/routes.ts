@@ -5,10 +5,10 @@ export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
   AFFIRMATIONS: 'Affirmations',
   ARTICLES: 'Articles',
-  CART: 'Shop/Cart',
+  CART: 'Cart',
   PROFILE: 'Profile',
   SIGNIN: 'Signin',
-  SHOP: 'Shop',
+  SHOP: '/',
   TIPS: 'Tips',
 })
 

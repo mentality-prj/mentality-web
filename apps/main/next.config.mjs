@@ -8,7 +8,7 @@ const nextConfig = {
     return [
       {
         source: '/shop/:path*',
-        destination: 'http://localhost:3001/shop/:path*', // Proxy to the Shop app
+        destination: 'http://localhost:3000/shop/:path*',
       },
     ]
   },
