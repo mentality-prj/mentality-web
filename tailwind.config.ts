@@ -1,8 +1,14 @@
 import { nextui } from '@nextui-org/react'
 import type { Config } from 'tailwindcss'
+import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './ds/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './node_modules/@nextui-org/theme/dist/**/*.{ts,tsx}',
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './ds/**/*.{ts,tsx}',
@@ -52,6 +58,16 @@ const config: Config = {
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
         },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))',
+        },
       },
       borderRadius: {
         lg: 'var(--radius)',
@@ -60,6 +76,9 @@ const config: Config = {
       },
     },
   },
+  darkMode: ['class', 'class'],
+  // eslint-disable-next-line @typescript-eslint/no-require-imports
+  plugins: [nextui(), require('tailwindcss-animate')],
   darkMode: ['class', 'class'],
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [nextui(), require('tailwindcss-animate')],

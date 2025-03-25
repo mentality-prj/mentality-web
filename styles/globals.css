@@ -20,8 +20,6 @@ body {
   @apply mx-auto flex w-full flex-col;
 }
 
-/* violet standart theme from shadcn + some our colors */
-
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -83,6 +81,7 @@ body {
   * {
     @apply border-border;
   }
+
   body {
     @apply bg-background text-foreground;
   }
