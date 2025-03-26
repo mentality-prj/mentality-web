@@ -20,8 +20,6 @@ body {
   @apply mx-auto my-4 flex w-full max-w-screen-md flex-col;
 }
 
-
-
 /* violet standart theme from shadcn + some our colors */
 
 @layer base {
@@ -80,7 +78,6 @@ body {
     --chart-5: 340 75% 55%;
   }
 }
-
 
 @layer base {
   * {
