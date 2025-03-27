@@ -14,6 +14,7 @@ const config: Config = {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
+        // reversed: 'hsl(var(--reversed))',
         card: {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
@@ -25,10 +26,18 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           foreground: 'hsl(var(--primary-foreground))',
+          hover: 'hsl(var(--primary-hover))',
+          active: 'hsl(var(--primary-active))',
+          outline: 'hsl(var(--primary-outline))',
+          focus: 'hsl(var(--primary-focus))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
           foreground: 'hsl(var(--secondary-foreground))',
+          muted: 'hsl(var(--secondary-muted))',
+          active: 'hsl(var(--secondary-pressed))',
+          hover: 'hsl(var(--secondary-hover))',
+          state: 'hsl(var(--secondary-state))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -41,6 +50,8 @@ const config: Config = {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+          muted: 'hsl(var(--destructive-muted))',
+          outline: 'hsl(var(--destructive-outline))',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -51,16 +62,6 @@ const config: Config = {
           '3': 'hsl(var(--chart-3))',
           '4': 'hsl(var(--chart-4))',
           '5': 'hsl(var(--chart-5))',
-        },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
         },
       },
       borderRadius: {

@@ -5,14 +5,16 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md text-sm font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
+  'inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-md leading-none font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-primary-focus  disabled:pointer-events-none disabled:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0',
   {
     variants: {
       variant: {
-        default: 'bg-primary text-primary-foreground shadow hover:bg-[#734CCC] active:bg-[#563999]',
+        default:
+          'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active disabled:bg-secondary-muted focus-visible:ring-offset-4 focus-visible:bg-primary-focus disabled:bg-secondary-muted',
         // destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/80',
+        secondary:
+          'focus-visible:ring-1 focus-visible:ring-primary-focus focus-visible:ring-offset-4 focus-visible:border-primary-focus focus-visible:bg-secondary-state focus-visible:text-ring border border-primary bg-transparent text-primary hover:bg-secondary-hover hover:border-primary-hover hover:text-primary-hover active:bg-secondary-pressed active:text-primary-foreground active:border-secondary-pressed disabled:border-muted-foreground disabled:bg-secondary-muted ',
         outline: 'border border-input bg-background shadow-sm hover:bg-accent hover:text-accent-foreground',
-        secondary: 'bg-secondary text-secondary-foreground shadow-sm hover:bg-[#D4CCFF] active:bg-[#8066FF]',
         // ghost: 'hover:bg-accent hover:text-accent-foreground',
         // link: 'text-primary underline-offset-4 hover:underline',
       },
