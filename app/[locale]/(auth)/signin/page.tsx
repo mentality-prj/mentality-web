@@ -1,4 +1,4 @@
-import { SignInButton } from '@/components'
+import SignInButton from '@/components/Buttons/SignInButton'
 import { ProviderKey, Providers } from '@/constants/providers'
 
 export default function SignInPage() {

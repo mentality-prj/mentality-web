@@ -10,7 +10,7 @@ const buttonVariants = cva(
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-active disabled:bg-secondary-muted focus-visible:ring-offset-4 focus-visible:bg-primary-focus disabled:bg-secondary-muted',
+          'bg-primary text-primary-foreground hover:bg-primary-hover active:bg-primary-pressed disabled:bg-secondary-muted focus-visible:ring-offset-4 focus-visible:bg-primary-focus disabled:bg-secondary-muted',
         // destructive: 'bg-destructive text-destructive-foreground shadow-sm hover:bg-destructive/80',
         secondary:
           'focus-visible:ring-1 focus-visible:ring-primary-focus focus-visible:ring-offset-4 focus-visible:border-primary-focus focus-visible:bg-secondary-state focus-visible:text-ring border border-primary bg-transparent text-primary hover:bg-secondary-hover hover:border-primary-hover hover:text-primary-hover active:bg-secondary-pressed active:text-primary-foreground active:border-secondary-pressed disabled:border-muted-foreground disabled:bg-secondary-muted ',
