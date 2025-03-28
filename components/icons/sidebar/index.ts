@@ -1,0 +1,8 @@
+export { ArchiveIcon } from './archive-icon'
+export { BagIcon } from './bag-icon'
+export { ChartIcon } from './chart-icon'
+export { HomeIcon } from './home-icon'
+export { LogoutIcon } from './logout-icon'
+export { MoonIcon } from './moon-icon'
+export { SettingIcon } from './setting-icon'
+export { SupportIcon } from './support-icon'
