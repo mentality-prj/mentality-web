@@ -3,16 +3,12 @@ import { fn } from '@storybook/test'
 
 import { Button } from './Button'
 
-// More on how to set up stories at: https://storybook.js.org/docs/writing-stories#default-export
 const meta = {
   title: 'Example/Button',
   component: Button,
   parameters: {
-    // Optional parameter to center the component in the Canvas. More info: https://storybook.js.org/docs/configure/story-layout
     layout: 'centered',
   },
-  // This component will have an automatically generated Autodocs entry: https://storybook.js.org/docs/writing-docs/autodocs
-  tags: ['autodocs'],
   // More on argTypes: https://storybook.js.org/docs/api/argtypes
   argTypes: {
     backgroundColor: { control: 'color' },
@@ -24,7 +20,6 @@ const meta = {
 export default meta
 type Story = StoryObj<typeof meta>
 
-// More on writing stories with args: https://storybook.js.org/docs/writing-stories/args
 export const Primary: Story = {
   args: {
     primary: true,
@@ -32,8 +27,20 @@ export const Primary: Story = {
   },
   parameters: {
     design: {
-      type: 'figma',
-      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=753-37007&t=8uoAoiMK27PeZtZh-4',
+      type: 'figspec',
+      url: process.env.STORYBOOK_FIGMA_BUTTON_PRIMARY,
+    },
+  },
+}
+
+export const Primary_Hover: Story = {
+  args: {
+    label: 'Button',
+  },
+  parameters: {
+    design: {
+      type: 'figspec',
+      url: process.env.STORYBOOK_FIGMA_BUTTON_PRIMARY_HOVER,
     },
   },
 }
@@ -44,34 +51,20 @@ export const Secondary: Story = {
   },
   parameters: {
     design: {
-      type: 'figma',
-      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=671-6739&t=8uoAoiMK27PeZtZh-4',
+      type: 'figspec',
+      url: process.env.STORYBOOK_FIGMA_BUTTON_SECONDARY,
     },
   },
 }
 
-export const Large: Story = {
+export const Secondary_Hover: Story = {
   args: {
-    size: 'large',
     label: 'Button',
   },
   parameters: {
     design: {
-      type: 'figma',
-      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=671-6733&t=vLvcMycS2Qig5opd-4',
-    },
-  },
-}
-
-export const Small: Story = {
-  args: {
-    size: 'small',
-    label: 'Button',
-  },
-  parameters: {
-    design: {
-      type: 'figma',
-      url: 'https://www.figma.com/design/Fz2VScIigY730z8jH2Htxt/mentality_ua?node-id=575-2060&t=vLvcMycS2Qig5opd-4',
+      type: 'figspec',
+      url: process.env.STORYBOOK_FIGMA_BUTTON_SECONDARY_HOVER,
     },
   },
 }
