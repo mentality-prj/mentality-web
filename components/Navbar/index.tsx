@@ -1,14 +1,15 @@
 import { ReactNode } from 'react'
-import { Input, Navbar, NavbarBrand, NavbarContent } from '@nextui-org/react'
+import { Search } from 'lucide-react'
 
 import LangSwitch from '@/components/Buttons/LangSwitch'
-import { SearchIcon } from '@/components/icons/searchicon'
 import Logo from '@/components/Logo'
 import Menu from '@/components/Menu'
 import { Routes } from '@/constants/routes'
+import { Input } from '@/ds/shadcn/input'
+import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/ds/shadcn/navigation-menu'
 import { Link } from '@/i18n/routing'
 
-import { NotificationsDropdown } from './notifications-dropdown'
+// import { NotificationsDropdown } from './notifications-dropdown'
 import ThemeSwitch from './ThemeSwitch'
 import UserDropdownContainer from './UserDropdownContainer'
 
@@ -19,40 +20,38 @@ interface Props {
 export default function NavbarWrapper({ children }: Props) {
   return (
     <div className="relative flex flex-1 flex-col overflow-y-auto overflow-x-hidden">
-      <Navbar
-        isBordered
-        className="w-full"
-        classNames={{
-          wrapper: 'w-full max-w-full',
-        }}
-      >
-        <NavbarBrand>
-          <Link href={Routes.MAIN}>
-            <Logo />
-          </Link>
-        </NavbarBrand>
+      <NavigationMenu className="flex items-center justify-between border-b p-4">
+        {/* Left menu */}
+        <NavigationMenuList className="flex items-center gap-4">
+          <NavigationMenuItem>
+            <NavigationMenuLink asChild>
+              <Link href={Routes.MAIN}>
+                <Logo />
+              </Link>
+            </NavigationMenuLink>
+          </NavigationMenuItem>
+          <NavigationMenuItem className="hidden sm:flex">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 h-5 w-5 -translate-y-1/2 text-gray-400" />
+              <Input className="w-full pl-10" placeholder="Search..." />
+            </div>
+          </NavigationMenuItem>
+        </NavigationMenuList>
 
-        <NavbarContent className="hidden w-full sm:flex">
-          <Input
-            startContent={<SearchIcon />}
-            isClearable
-            className="w-full"
-            classNames={{
-              input: 'w-full',
-              mainWrapper: 'w-full',
-            }}
-            placeholder="Search..."
-          />
-        </NavbarContent>
-        <NavbarContent justify="end" className="w-fit data-[justify=end]:flex-grow-0">
-          <LangSwitch />
-          <div className="hidden sm:flex">
+        {/* Right menu. !! Why isn't on the right side? where exactly do the styles overlap?? */}
+        <NavigationMenuList className="flex w-full gap-4">
+          <NavigationMenuItem>
+            <LangSwitch />
+          </NavigationMenuItem>
+          <NavigationMenuItem>
             <ThemeSwitch />
-          </div>
-          <NotificationsDropdown />
-          <UserDropdownContainer />
-        </NavbarContent>
-      </Navbar>
+          </NavigationMenuItem>
+          <NavigationMenuItem>
+            <UserDropdownContainer />
+          </NavigationMenuItem>
+          {/* <NotificationsDropdown /> */}
+        </NavigationMenuList>
+      </NavigationMenu>
       <Menu />
       {children}
     </div>

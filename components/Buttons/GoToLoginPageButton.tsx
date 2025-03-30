@@ -1,8 +1,8 @@
-import { Button } from '@nextui-org/react'
 import { redirect } from 'next/navigation'
 
 import { Routes } from '@/constants/routes'
 import { Texts } from '@/constants/texts'
+import { Button } from '@/ds/shadcn/button'
 
 export default function GoToLoginPageButton() {
   return (
@@ -11,9 +11,7 @@ export default function GoToLoginPageButton() {
         redirect(Routes.SIGNIN)
       }}
     >
-      <Button color="primary" type="submit">
-        {Texts.LOGIN}
-      </Button>
+      <Button type="submit">{Texts.LOGIN}</Button>
     </form>
   )
 }

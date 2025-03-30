@@ -1,10 +1,11 @@
 'use client'
 import { Key, useTransition } from 'react'
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger } from '@nextui-org/react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
 import { Languages } from '@/constants/i18n'
+import { Button } from '@/ds/shadcn/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
 
 export default function LangSwitch() {
   const [isPending, startTransition] = useTransition()
@@ -18,28 +19,19 @@ export default function LangSwitch() {
       router.replace(`/${actionKey}${currentPath}`)
     })
   }
+
   return (
-    <Dropdown className="w-auto min-w-0">
-      <DropdownTrigger>
-        <Button
-          disabled={isPending}
-          variant="light"
-          radius="full"
-          size="sm"
-          className="h-10 min-h-10 w-10 min-w-10 p-1"
-        >
+    <DropdownMenu>
+      <DropdownMenuTrigger asChild>
+        <Button disabled={isPending} variant="secondary" className="group data-[state=open]:bg-[#A999FF]">
           {localActive}
         </Button>
-      </DropdownTrigger>
-      <DropdownMenu
-        aria-label="Language actions"
-        onAction={(actionKey) => onSelectChange(actionKey)}
-        className="w-auto"
-      >
-        <DropdownItem key="uk">{Languages.UKRAINIAN}</DropdownItem>
-        <DropdownItem key="en">{Languages.ENGLISH}</DropdownItem>
-        <DropdownItem key="pl">{Languages.POLISH}</DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+      </DropdownMenuTrigger>
+      <DropdownMenuContent align="start" aria-label="Language actions">
+        <DropdownMenuItem onSelect={() => onSelectChange('uk')}>{Languages.UKRAINIAN}</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onSelectChange('en')}>{Languages.ENGLISH}</DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => onSelectChange('pl')}>{Languages.POLISH}</DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
