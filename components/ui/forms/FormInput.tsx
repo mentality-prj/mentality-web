@@ -35,6 +35,7 @@ export const FormInput = ({
         value={value}
         onChange={(e) => onChangeValue(e.target.value)}
         id={name}
+        name={name}
         className={cn(`mt-2 ${error ? 'border-destructive-outline' : ''}`, inputClassName)}
       />
       {error && (
