@@ -1,55 +1,64 @@
 'use client'
+
 import { useState } from 'react'
-import { Navbar, NavbarContent, NavbarItem, NavbarMenu, NavbarMenuItem, NavbarMenuToggle } from '@nextui-org/react'
+import { Menu } from 'lucide-react'
 import { usePathname } from 'next/navigation'
 
 import { menu, RoutesTitles } from '@/constants/routes'
+import { Button } from '@/ds/shadcn/button'
+import { Sheet, SheetContent, SheetTrigger } from '@/ds/shadcn/sheet'
 import { Link } from '@/i18n/routing'
+import { cn } from '@/lib/utils'
 
-export default function Menu() {
+export default function MenuComponent() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const pathname = usePathname()
+  const lastSegment = pathname.split('/').pop() || ''
 
-  const isPageActive = (key: string) => pathname.includes(key)
-
-  const menuMap = menu.map((item) => (
-    <NavbarItem
-      key={item.key}
-      isActive={isPageActive(item.link)}
-      className="m-0 rounded-lg px-4 py-3 data-[active=true]:bg-default-50"
-    >
-      <Link href={item.link} color="foreground">
-        {RoutesTitles[item.key]}
-      </Link>
-    </NavbarItem>
-  ))
-
-  const menuMobileMap = menu.map((item) => (
-    <NavbarMenuItem key={item.key}>
-      <Link className="w-full" href={item.link}>
-        {RoutesTitles[item.key]}
-      </Link>
-    </NavbarMenuItem>
-  ))
+  const isPageActive = (key: string) => key.endsWith(lastSegment)
 
   return (
-    <Navbar
-      isBordered
-      onMenuOpenChange={setIsMenuOpen}
-      className="w-full"
-      classNames={{
-        wrapper: 'w-full max-w-full',
-      }}
-    >
-      <NavbarContent className="sm:hidden">
-        <NavbarMenuToggle aria-label={isMenuOpen ? 'Close menu' : 'Open menu'} />
-      </NavbarContent>
+    <nav className="w-full border-b p-4">
+      <div className="mx-auto flex max-w-6xl items-center justify-between">
+        <div className="hidden gap-4 sm:flex">
+          {menu.map((item) => (
+            <Link
+              key={item.key}
+              href={item.link}
+              className={cn(
+                'rounded-lg px-4 py-3 transition-colors',
+                isPageActive(item.link) ? 'bg-muted text-primary' : 'hover:bg-muted'
+              )}
+            >
+              {RoutesTitles[item.key]}
+            </Link>
+          ))}
+        </div>
 
-      <NavbarContent className="hidden gap-4 sm:flex" justify="center">
-        {menuMap}
-      </NavbarContent>
-
-      <NavbarMenu className="mt-16">{menuMobileMap}</NavbarMenu>
-    </Navbar>
+        <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
+          <SheetTrigger asChild>
+            <Button variant="secondary" className="sm:hidden">
+              <Menu className="h-6 w-6" />
+            </Button>
+          </SheetTrigger>
+          <SheetContent side="left" className="mt-16 w-64">
+            <div className="flex flex-col gap-4">
+              {menu.map((item) => (
+                <Link
+                  key={item.key}
+                  href={item.link}
+                  className={cn(
+                    'block w-full rounded-lg p-3 transition-colors',
+                    isPageActive(item.link) ? 'bg-muted text-primary' : 'hover:bg-muted'
+                  )}
+                >
+                  {RoutesTitles[item.key]}
+                </Link>
+              ))}
+            </div>
+          </SheetContent>
+        </Sheet>
+      </div>
+    </nav>
   )
 }

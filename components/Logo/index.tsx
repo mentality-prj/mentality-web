@@ -1,6 +1,6 @@
-import { AcmeIcon } from '../ui/icons/acme-icon'
+import { Sparkles } from 'lucide-react'
 
-const company = { name: 'Mentality', logo: <AcmeIcon /> }
+const company = { name: 'Mentality', logo: <Sparkles /> }
 
 const Logo = () => (
   <div className="flex items-center gap-2">

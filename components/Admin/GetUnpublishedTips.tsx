@@ -5,12 +5,10 @@ import { useSession } from 'next-auth/react'
 import { addTip, getUnpablishedTips } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
-import { Tip } from '@/types/tips'
 
 export default function AddTip() {
   const [lang] = useState<SupportedLanguage>('uk')
   const [prompt, setPrompt] = useState('')
-  const [tips, setTips] = useState([])
 
   const { data } = useSession()
   const session = data as CustomSession
@@ -22,18 +20,12 @@ export default function AddTip() {
     return
   }
 
-  const showUnpablishedTips = async () => {
+  const showUnpublishedTips = async () => {
     if (session?.user) {
-      const data = await getUnpablishedTips(session.user)
-      console.log('DATA: ', data)
-      setTips(data)
+      await getUnpablishedTips(session.user)
     }
     return
   }
-
-  const tipsMap = tips.map((tip: Tip) => {
-    return <li key={tip.id}>{tip.translations.uk}</li>
-  })
 
   return (
     <>
@@ -42,7 +34,7 @@ export default function AddTip() {
           <Button color="success" onClick={generateTip}>
             Generate Tip
           </Button>
-          <Button color="primary" onClick={showUnpablishedTips}>
+          <Button color="primary" onClick={showUnpublishedTips}>
             Show Unpablished
           </Button>
         </div>
@@ -60,7 +52,6 @@ export default function AddTip() {
         </em>
         <Textarea label="Tip Prompt" placeholder="Add a prompt if needed" onValueChange={setPrompt} value={prompt} />
       </div>
-      <ul>{tipsMap}</ul>
     </>
   )
 }

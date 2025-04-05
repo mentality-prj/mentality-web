@@ -1,13 +1,13 @@
 'use client'
-import { Avatar, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, NavbarItem } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
 
 import { SignOut } from '@/components/Buttons'
-import { Routes, RoutesTitles } from '@/constants/routes'
+import { Routes } from '@/constants/routes'
 import { Texts } from '@/constants/texts'
+import { Avatar, AvatarFallback, AvatarImage } from '@/ds/shadcn/avatar'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
 import { useRouter } from '@/i18n/routing'
 import { CustomSession } from '@/types/auth'
-import { RouteKeyType } from '@/types/routes'
 
 export default function UserDropdown() {
   const router = useRouter()
@@ -17,35 +17,21 @@ export default function UserDropdown() {
   const user = session?.OAuthToken && session.user ? session.user : null
 
   return (
-    <Dropdown>
-      <NavbarItem>
-        <DropdownTrigger>
-          <Avatar as="button" color="secondary" size="md" src={user?.image || undefined} />
-        </DropdownTrigger>
-      </NavbarItem>
-      <DropdownMenu
-        aria-label="User menu actions"
-        onAction={(key) => {
-          if (key !== 'logout') {
-            const actionKey = key as RouteKeyType
-            router.replace(actionKey)
-          }
-        }}
-      >
-        <DropdownItem
-          key={Routes.PROFILE}
-          textValue={RoutesTitles.PROFILE}
-          className="flex w-full flex-col items-start justify-start"
-        >
-          {user?.email}
-        </DropdownItem>
-        <DropdownItem key={Routes.ADMIN} textValue={RoutesTitles.ADMIN}>
-          {Texts.ADMIN}
-        </DropdownItem>
-        <DropdownItem key="logout" textValue={Texts.LOGOUT} color="danger" className="text-danger">
+    <DropdownMenu>
+      <DropdownMenuTrigger>
+        <Avatar>
+          <AvatarImage src={user?.image || undefined} alt="your avatar" />
+          <AvatarFallback>Avatar</AvatarFallback>
+        </Avatar>
+      </DropdownMenuTrigger>
+
+      <DropdownMenuContent align="end" aria-label="User menu actions">
+        <DropdownMenuItem onSelect={() => router.replace(Routes.PROFILE)}> {user?.email} </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => router.replace(Routes.ADMIN)}> {Texts.ADMIN} </DropdownMenuItem>
+        <DropdownMenuItem onSelect={() => console.log('Logout clicked')} className="text-danger">
           <SignOut />
-        </DropdownItem>
-      </DropdownMenu>
-    </Dropdown>
+        </DropdownMenuItem>
+      </DropdownMenuContent>
+    </DropdownMenu>
   )
 }
