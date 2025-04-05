@@ -1,7 +1,6 @@
+import { ErrorIcon } from '@/ds/icons/error-icons'
 import { Input, Label } from '@/ds/shadcn'
 import { cn } from '@/lib/utils'
-
-import { ErrorIcon } from '../../Profile/error-icons'
 
 interface FormInputProps {
   name: string

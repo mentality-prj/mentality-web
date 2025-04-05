@@ -2,19 +2,18 @@
 import { signOut } from 'next-auth/react'
 
 import { Routes } from '@/constants/routes'
-import { Switch } from '@/ds/shadcn/switch'
-
-import { LogoIcon } from '../../icons/logo-icon'
 import {
   ArchiveIcon,
   BagIcon,
   ChartIcon,
   HomeIcon,
+  LogoIcon,
   LogoutIcon,
   MoonIcon,
   SettingIcon,
   SupportIcon,
-} from '../../icons/sidebar'
+} from '@/ds/icons'
+import { Switch } from '@/ds/shadcn/switch'
 
 import { SidebarItem } from './sidebar-item'
 
