@@ -24,11 +24,20 @@ const config: Config = {
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
+          hover: 'hsl(var(--primary-hover))',
+          focus: 'hsl(var(--primary-focus))',
+          active: 'hsl(var(--primary-active))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: 'hsl(var(--primary))',
+          active: 'hsl(var(--secondary-active))',
+          hover: 'hsl(var(--secondary-hover))',
+          focus: 'hsl(var(--secondary-focus))',
+          foreground: 'hsl(var(--primary))',
+          'foreground-active': 'hsl(var(--primary-active))',
+          'foreground-hover': 'hsl(var(--primary-hover))',
+          'foreground-focus': 'hsl(var(--primary-focus))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -41,6 +50,10 @@ const config: Config = {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        disabled: {
+          DEFAULT: 'hsl(var(--disabled))',
+          foreground: 'hsl(var(--disabled-foreground))',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
