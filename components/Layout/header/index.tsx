@@ -13,7 +13,7 @@ export default async function Header() {
     .map((word) => word[0].toUpperCase())
     .join('')
   return (
-    <header className="flex items-center justify-between rounded-b-2xl bg-card px-6 py-2">
+    <header className="flex items-center justify-between rounded-b-2xl bg-white px-6 py-2">
       <p>Welcome back, {user?.name} </p>
       <div className="flex items-center gap-6">
         <BellIcon />
