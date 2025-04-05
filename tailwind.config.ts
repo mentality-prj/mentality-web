@@ -18,59 +18,41 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: 'hsl(var(--background))',
-        foreground: 'hsl(var(--foreground))',
-        // reversed: 'hsl(var(--reversed))',
-        card: {
-          DEFAULT: 'hsl(var(--card))',
-          foreground: 'hsl(var(--card-foreground))',
-        },
-        popover: {
-          DEFAULT: 'hsl(var(--popover))',
-          foreground: 'hsl(var(--popover-foreground))',
+        black: 'hsl(var(--black))',
+        white: 'hsl(var(--white))',
+        gray: {
+          '95': 'hsl(var(--gray-95))',
+          '90': 'hsl(var(--gray-90))',
+          '60': 'hsl(var(--gray-60))',
+          '30': 'hsl(var(--gray-30))',
+          '20': 'hsl(var(--gray-20))',
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
-          foreground: 'hsl(var(--primary-foreground))',
           hover: 'hsl(var(--primary-hover))',
           focus: 'hsl(var(--primary-focus))',
           pressed: 'hsl(var(--primary-pressed))',
-          outline: 'hsl(var(--primary-outline))',
         },
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
           hover: 'hsl(var(--secondary-hover))',
+          focus: 'hsl(var(--secondary-focus))',
           pressed: 'hsl(var(--secondary-pressed))',
-          state: 'hsl(var(--secondary-state))',
-          muted: 'hsl(var(--secondary-muted))',
         },
-        muted: {
-          DEFAULT: 'hsl(var(--muted))',
-          foreground: 'hsl(var(--muted-foreground))',
+        red: {
+          '70': 'hsl(var(--red-70))',
+          '50': 'hsl(var(--red-50))',
+          '30': 'hsl(var(--red-30))',
         },
-        accent: {
-          DEFAULT: 'hsl(var(--accent))',
-          foreground: 'hsl(var(--accent-foreground))',
+        green: {
+          '40': 'hsl(var(--green-40))',
+          '35': 'hsl(var(--green-35))',
+          '30': 'hsl(var(--green-30))',
         },
-        destructive: {
-          DEFAULT: 'hsl(var(--destructive))',
-          foreground: 'hsl(var(--destructive-foreground))',
-          muted: 'hsl(var(--destructive-muted))',
-          outline: 'hsl(var(--destructive-outline))',
-        },
-        container: {
-          primary: 'hsl(var(--container-primary))',
-        },
-        border: 'hsl(var(--border))',
-        input: 'hsl(var(--input))',
-        ring: 'hsl(var(--ring))',
-        chart: {
-          '1': 'hsl(var(--chart-1))',
-          '2': 'hsl(var(--chart-2))',
-          '3': 'hsl(var(--chart-3))',
-          '4': 'hsl(var(--chart-4))',
-          '5': 'hsl(var(--chart-5))',
+        yellow: {
+          '60': 'hsl(var(--yellow-60))',
+          '50': 'hsl(var(--yellow-50))',
+          '40': 'hsl(var(--yellow-40))',
         },
       },
       borderRadius: {

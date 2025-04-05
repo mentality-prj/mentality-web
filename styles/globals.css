@@ -22,42 +22,31 @@ body {
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
-    --foreground: 224 71.4% 4.1%;
-    --card: 240 7% 99%;
-    --card-foreground: 240 10% 10%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 224 71.4% 4.1%;
+    --black: 240 11% 10%;
+    --white: 240 20% 99%;
+    --gray-95: 270 8% 95%;
+    --gray-90: 250 11% 90%;
+    --gray-60: 240 11% 60%;
+    --gray-30: 240 11% 40%;
+    --gray-20: 240 11% 20%;
     --primary: 258 100% 69%;
-    --primary-foreground: 240 7% 99%;
     --primary-hover: 258 56% 55%;
     --primary-focus: 258 46% 41%;
-    --primary-pressed: 259 46% 27%;
-    --primary-outline: 240 12% 20%;
-    --secondary: 246 100% 98%;
-    --secondary-foreground: 220.9 39.3% 11%;
-    --secondary-hover: 249 100% 90%;
+    --primary-pressed: 258 46% 27%;
+    --secondary: 250 100% 98%;
+    --secondary-hover: 250 100% 90%;
     --secondary-focus: 250 100% 80%;
     --secondary-pressed: 250 100% 70%;
-    --secondary-muted: 252 10% 90%;
-    --muted: 220 14.3% 95.9%;
-    --muted-foreground: 240 11% 60%;
-    --accent: 220 14.3% 95.9%;
-    --accent-foreground: 220.9 39.3% 11%;
-    --destructive: 0 84% 60%;
-    --destructive-foreground: 210 20% 98%;
-    --destructive-muted: 0 70% 35%;
-    --destructive-outline: 0 74% 42%;
-    --container-primary: 270 8% 95%;
-    --border: 220 13% 91%;
-    --input: 220 13% 91%;
-    --ring: 258 46% 41%;
+    --red-70: 0 84% 60%;
+    --red-50: 0 74% 42%;
+    --red-30: 0 70% 35%;
+    --green-40: 142 71% 45%;
+    --green-35: 142 76% 36%;
+    --green-30: 142 72% 29%;
+    --yellow-60: 43 96% 56%;
+    --yellow-50: 38 92% 50%;
+    --yellow-40: 32 95% 44%;
     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
   }
 
   .dark {
@@ -80,20 +69,15 @@ body {
     --border: 215 27.9% 16.9%;
     --input: 215 27.9% 16.9%;
     --ring: 263.4 70% 50.4%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
   }
 }
 
 @layer base {
   * {
-    @apply border-border;
+    @apply border-gray-90;
   }
 
-  body {
+  /* body {
     @apply bg-background text-foreground;
-  }
+  } */
 }

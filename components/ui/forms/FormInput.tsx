@@ -35,17 +35,15 @@ export const FormInput = ({
         onChange={(e) => onChangeValue(e.target.value)}
         id={name}
         name={name}
-        className={cn(`mt-2 ${error ? 'border-destructive-outline' : ''}`, inputClassName)}
+        className={cn(`mt-2 ${error ? 'border-red-50' : ''}`, inputClassName)}
       />
       {error && (
-        <div className="mt-1 flex items-center gap-1 text-xs font-normal leading-none text-destructive-muted">
+        <div className="mt-1 flex items-center gap-1 text-xs font-normal leading-none text-red-30">
           <ErrorIcon />
           {error}
         </div>
       )}
-      {description && !error && (
-        <p className="mt-1 text-xs font-normal leading-none text-muted-foreground">{description}</p>
-      )}
+      {description && !error && <p className="mt-1 text-xs font-normal leading-none text-gray-30">{description}</p>}
     </div>
   )
 }

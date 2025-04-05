@@ -60,7 +60,7 @@ export default function Sidebar() {
     await signOut({ redirectTo: Routes.MAIN })
   }
   return (
-    <aside className="row-span-full w-full bg-card px-6 pt-4">
+    <aside className="row-span-full w-full bg-white px-6 pt-4">
       <LogoIcon className="mb-8 pl-4" />
       <nav className="mb-10 flex w-full flex-col">
         <ul className="flex flex-col gap-2 border-b pb-4">
