@@ -2,6 +2,7 @@
 
 import { useFormState } from 'react-dom'
 import { Form } from '@nextui-org/react'
+import { useTranslations } from 'next-intl'
 
 import { paymentInfoFormAction } from '@/actions/payment-info.action'
 import { ErrorsMessage } from '@/types/form'
@@ -14,6 +15,7 @@ const initialState: ErrorsMessage = {}
 
 export default function PaymentInfoForm() {
   const [serverErrors, formAction] = useFormState(paymentInfoFormAction, initialState)
+  const t = useTranslations()
 
   return (
     <Form action={formAction} className="flex flex-1 flex-col items-center">
@@ -37,7 +39,7 @@ export default function PaymentInfoForm() {
           errorMsg={serverErrors?.cvv}
         />
       </div>
-      <SubmitButton text="Submit" />
+      <SubmitButton text={t('ShopPage.Checkout.Submit')} />
     </Form>
   )
 }
