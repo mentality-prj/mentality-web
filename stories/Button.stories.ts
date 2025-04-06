@@ -2,12 +2,12 @@ import type { Meta, StoryObj } from '@storybook/react'
 
 import { Button } from '../ds/shadcn/button'
 
+const baseUrl = process.env.STORYBOOK_FIGMA_URL
+
 const meta = {
   title: 'Example/Button',
   component: Button,
-  parameters: {
-    layout: 'centered',
-  },
+  parameters: {},
   argTypes: {},
 } satisfies Meta<typeof Button>
 
@@ -21,43 +21,20 @@ export const Primary: Story = {
   parameters: {
     design: {
       type: 'figspec',
-      url: process.env.STORYBOOK_FIGMA_BUTTON_PRIMARY,
-    },
-  },
-}
-
-export const Primary_Hover: Story = {
-  args: {
-    children: 'Button',
-  },
-  parameters: {
-    design: {
-      type: 'figspec',
-      url: process.env.STORYBOOK_FIGMA_BUTTON_PRIMARY_HOVER,
+      url: `${baseUrl}?node-id=1254-3922&t=gzzgbK6Aad46oXFw-4`,
     },
   },
 }
 
 export const Secondary: Story = {
   args: {
+    variant: 'secondary',
     children: 'Button',
   },
   parameters: {
     design: {
       type: 'figspec',
-      url: process.env.STORYBOOK_FIGMA_BUTTON_SECONDARY,
-    },
-  },
-}
-
-export const Secondary_Hover: Story = {
-  args: {
-    children: 'Button',
-  },
-  parameters: {
-    design: {
-      type: 'figspec',
-      url: process.env.STORYBOOK_FIGMA_BUTTON_SECONDARY_HOVER,
+      url: `${baseUrl}?node-id=1254-3917&t=gzzgbK6Aad46oXFw-4`,
     },
   },
 }
