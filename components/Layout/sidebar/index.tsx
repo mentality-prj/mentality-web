@@ -15,7 +15,7 @@ import {
 } from '@/ds/icons'
 import { Switch } from '@/ds/shadcn/switch'
 
-import { SidebarItem } from './sidebar-item'
+import { SidebarItem, SidebarItemButton } from './sidebar-item'
 
 const testMenuItems = Array(3).fill({
   icon: <HomeIcon />,
@@ -84,13 +84,10 @@ export default function Sidebar() {
           <Switch />
         </li>
         <li>
-          <button
-            className="flex w-full items-center gap-2 rounded-lg bg-transparent py-2 pl-4 font-medium transition-colors hover:bg-secondary hover:text-primary-hover focus-visible:bg-secondary focus-visible:text-primary-focus focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary-focus active:bg-secondary-pressed active:text-primary-foreground [&_svg_circle]:transition-colors [&_svg_circle]:hover:stroke-primary-hover [&_svg_circle]:focus-visible:stroke-primary-focus [&_svg_circle]:active:stroke-primary-foreground [&_svg_path]:transition-colors [&_svg_path]:hover:stroke-primary-hover [&_svg_path]:focus-visible:stroke-primary-focus [&_svg_path]:active:stroke-primary-foreground"
-            onClick={handleSignOut}
-          >
+          <SidebarItemButton className="w-full" onClick={handleSignOut}>
             <LogoutIcon />
             Log out
-          </button>
+          </SidebarItemButton>
         </li>
       </ul>
     </aside>
