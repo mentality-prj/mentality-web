@@ -38,9 +38,13 @@ export const FormInput = ({
         id={name}
         name={name}
         className={cn(`mt-2 ${error ? 'border-red-50' : ''}`, inputClassName)}
+        data-testid={`input-${name}`}
       />
       {error && (
-        <div className="mt-1 flex items-center gap-1 text-xs font-normal leading-none text-red-30">
+        <div
+          className="mt-1 flex items-center gap-1 text-xs font-normal leading-none text-red-30"
+          data-testid="error-name"
+        >
           <ErrorIcon />
           {error}
         </div>
