@@ -1,4 +1,4 @@
-import { ErrorIcon } from '@/ds/icons/error-icons'
+import { ErrorIcon } from '@/ds/icons/errorIcon'
 import { Input, Label } from '@/ds/shadcn'
 import { cn } from '@/lib/utils'
 
