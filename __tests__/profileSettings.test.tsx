@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import Settings from '@/components/Profile/Settings'
+import Settings from '@/components/Profile/ProfileSettingsForm'
 
 const mockUser = {
   name: 'John Doe',

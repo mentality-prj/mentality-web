@@ -19,5 +19,17 @@
   "Navigation": {
     "BackToHome": "Powrót do domu",
     "BackToShop": "Powrót do sklepu"
+  },
+  "ProfileSettingsPage": {
+    "Title": "Ustawienia profilu",
+    "SubTitle": "Informacje osobiste",
+    "Description": "Zaktualizuj tutaj swoje dane osobowe",
+    "Form": {
+      "Name": "Imię",
+      "Surname": "Nazwisko",
+      "Email": "Adres e-mail",
+      "Cancel": "Anuluj",
+      "Save": "Zapisz"
+    }
   }
 }

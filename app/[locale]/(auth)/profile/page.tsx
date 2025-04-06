@@ -1,19 +1,27 @@
+import { getTranslations } from 'next-intl/server'
+
 import { auth } from '@/auth'
-import Settings from '@/components/Profile/Settings'
-import { Card } from '@/ds/shadcn'
-// import { Profile, UserProfile } from '@/components/Profile'
+import ProfileSettingsForm from '@/components/Profile/ProfileSettingsForm'
+import { CardContent, CardDescription, CardHeader, CardTitle } from '@/ds/shadcn'
 import { CustomSession } from '@/types/auth'
 
-export default async function ProfilePage() {
+export default async function ProfileSettingsPage() {
   const session = (await auth()) as CustomSession
 
   const user = session?.user
-
+  const t = await getTranslations('ProfileSettingsPage')
   return (
-    <Card className="h-fit w-full max-w-[1096px] border-none shadow-none">
-      <Settings user={user!} />
-      {/* {user?.name && <UserProfile name={user.name} image={user.image} email={user.email} />}
-      {user?.isAIAuthorized && user.role && <Profile role={user.role} />} */}
-    </Card>
+    <>
+      <CardHeader>
+        <CardTitle className="text-2xl">{t('Title')}</CardTitle>
+      </CardHeader>
+      <CardContent>
+        <div className="flex flex-col gap-4 border-b pb-5">
+          <h4 className="font-medium">{t('SubTitle')}</h4>
+          <CardDescription>{t('Description')}</CardDescription>
+        </div>
+        <ProfileSettingsForm user={user!} />
+      </CardContent>
+    </>
   )
 }
