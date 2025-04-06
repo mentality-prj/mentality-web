@@ -5,6 +5,7 @@ import { cn } from '@/lib/utils'
 interface FormInputProps {
   name: string
   value: string
+  label: string
   onChangeValue: (value: string) => void
   wrapperClassName?: string
   labelClassName?: string
@@ -18,6 +19,7 @@ export const FormInput = ({
   wrapperClassName,
   name,
   value,
+  label,
   onChangeValue,
   required = true,
   labelClassName,
@@ -28,7 +30,7 @@ export const FormInput = ({
   return (
     <div className={cn(`flex w-full flex-col ${!error ? 'focus-within:text-primary' : ''}`, wrapperClassName)}>
       <Label htmlFor={name} required={required} className={cn('transition-colors', labelClassName)}>
-        {name}
+        {label}
       </Label>
       <Input
         value={value}

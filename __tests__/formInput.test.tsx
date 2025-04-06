@@ -4,7 +4,8 @@ import { FormInput } from '@/components/ui/forms/FormInput'
 
 describe('FormInput', () => {
   const defaultProps = {
-    name: 'Email',
+    label: 'Email',
+    name: 'email',
     value: '',
     onChangeValue: jest.fn(),
     error: undefined,
