@@ -91,10 +91,16 @@ export default function ProfileSettingsForm({ user }: SettingProps) {
           variant="secondary"
           disabled={!isDirty}
           className="h-12 rounded-[80px] px-8 py-0"
+          data-testid="btn-cancel"
         >
           {t('Cancel')}
         </Button>
-        <Button type="submit" disabled={!isDirty || !!errors} className="h-12 rounded-[80px] px-8 py-0">
+        <Button
+          type="submit"
+          disabled={!isDirty || !!errors}
+          className="h-12 rounded-[80px] px-8 py-0"
+          data-testid="btn-save"
+        >
           {t('Save')}
         </Button>
       </div>
