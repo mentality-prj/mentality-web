@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import { BellIcon } from '@/components/icons/navbar/bell-icon'
+import { BellIcon } from '@/ds/icons/bellIcon'
 import { Avatar, AvatarFallback, AvatarImage } from '@/ds/shadcn/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
 import { CustomSession } from '@/types/auth'
