@@ -1,8 +1,9 @@
 import { useState } from 'react'
-import { Textarea } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
 
 import { Button } from '@/ds/shadcn/button'
+import { Label } from '@/ds/shadcn/label'
+import { Textarea } from '@/ds/shadcn/textarea'
 import { addTip, getUnpablishedTips } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
@@ -59,7 +60,13 @@ export default function AddTip() {
         <em>
           Генерація поради підтримує лише <strong>українську мову</strong>
         </em>
-        <Textarea label="Tip Prompt" placeholder="Add a prompt if needed" onValueChange={setPrompt} value={prompt} />
+        <Label htmlFor="tipPrompt">Tip Prompt</Label>
+        <Textarea
+          id="tipPrompt"
+          placeholder="Add a prompt if needed"
+          onChange={(e) => setPrompt(e.target.value)}
+          value={prompt}
+        />
       </div>
       <ul>{tipsMap}</ul>
     </>
