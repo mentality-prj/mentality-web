@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { Button, Textarea } from '@nextui-org/react'
+import { Textarea } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
 
+import { Button } from '@/ds/shadcn/button'
 import { addTip, getUnpablishedTips } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'

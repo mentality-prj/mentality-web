@@ -1,8 +1,9 @@
 'use client'
-import { Button, Input } from '@nextui-org/react'
+import { Input } from '@nextui-org/react'
 import { useSession } from 'next-auth/react'
 
 import { tagproperties } from '@/constants/tags'
+import { Button } from '@/ds/shadcn/button'
 import { addTag } from '@/requests/tags'
 import { CustomSession } from '@/types/auth'
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/languages'

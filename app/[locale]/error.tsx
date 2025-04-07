@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import { Button } from '@nextui-org/react'
 import Link from 'next/link'
 
 import { Routes } from '@/constants/routes'
+import { Button } from '@/ds/shadcn/button'
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {

@@ -1,13 +1,6 @@
-import {
-  Button,
-  Input,
-  Modal,
-  ModalBody,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  useDisclosure,
-} from '@nextui-org/react'
+import { Input, Modal, ModalBody, ModalContent, ModalFooter, ModalHeader, useDisclosure } from '@nextui-org/react'
+
+import { Button } from '@/ds/shadcn/button'
 
 export const AddUser = () => {
   const { isOpen, onOpen, onOpenChange } = useDisclosure()
@@ -15,7 +8,7 @@ export const AddUser = () => {
   return (
     <div>
       <>
-        <Button onPress={onOpen} color="primary">
+        <Button onClick={onOpen} color="primary">
           Add User
         </Button>
         <Modal isOpen={isOpen} onOpenChange={onOpenChange} placement="top-center">
@@ -33,10 +26,10 @@ export const AddUser = () => {
                   <Input label="Confirm Password" type="password" variant="bordered" />
                 </ModalBody>
                 <ModalFooter>
-                  <Button color="danger" variant="flat" onClick={onClose}>
+                  <Button color="danger" onClick={onClose}>
                     Close
                   </Button>
-                  <Button color="primary" onPress={onClose}>
+                  <Button color="primary" onClick={onClose}>
                     Add User
                   </Button>
                 </ModalFooter>

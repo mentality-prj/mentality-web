@@ -1,10 +1,11 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, SharedSelection } from '@nextui-org/react'
+import { Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, SharedSelection } from '@nextui-org/react'
 
 import { months, years } from '@/constants/form'
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
+import { Button } from '@/ds/shadcn/button'
 
 export default function DropdownForm({ errorMsg }: { errorMsg?: string }) {
   const [selectedMonth, setSelectedMonth] = useState('select month')
@@ -41,7 +42,7 @@ export default function DropdownForm({ errorMsg }: { errorMsg?: string }) {
       <div className="mt-1 min-h-8">{errorMsg && <span className="block text-sm text-red-500">{errorMsg}</span>}</div>
       <Dropdown>
         <DropdownTrigger>
-          <Button className="capitalize" variant="bordered">
+          <Button className="capitalize">
             {newCheckoutData.expirationDate?.length === 5 ? newCheckoutData.expirationDate.slice(0, 2) : selectedMonth}
           </Button>
         </DropdownTrigger>
@@ -60,7 +61,7 @@ export default function DropdownForm({ errorMsg }: { errorMsg?: string }) {
       {' / '}
       <Dropdown>
         <DropdownTrigger>
-          <Button className="capitalize" variant="bordered">
+          <Button className="capitalize">
             {newCheckoutData.expirationDate?.length === 5 ? newCheckoutData.expirationDate.slice(3, 5) : selectedYear}
           </Button>
         </DropdownTrigger>

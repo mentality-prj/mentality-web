@@ -1,5 +1,5 @@
 'use client'
-import { Button, Input } from '@nextui-org/react'
+import { Input } from '@nextui-org/react'
 import Link from 'next/link'
 
 import { DotsIcon } from '@/components/ui/icons/accounts/dots-icon'
@@ -10,6 +10,7 @@ import { HouseIcon } from '@/components/ui/icons/breadcrumb/house-icon'
 import { UsersIcon } from '@/components/ui/icons/breadcrumb/users-icon'
 import { SettingsIcon } from '@/components/ui/icons/sidebar/settings-icon'
 import { TableWrapper } from '@/components/ui/table/table'
+import { Button } from '@/ds/shadcn/button'
 
 import { AddUser } from './add-user'
 
@@ -52,7 +53,8 @@ export const Accounts = () => {
         </div>
         <div className="flex flex-row flex-wrap gap-3.5">
           <AddUser />
-          <Button color="primary" startContent={<ExportIcon />}>
+          <Button color="primary">
+            <ExportIcon />
             Export to CSV
           </Button>
         </div>
