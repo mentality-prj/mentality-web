@@ -1,9 +1,11 @@
 'use client'
-import { Input } from '@nextui-org/react'
+
 import { useSession } from 'next-auth/react'
 
 import { tagproperties } from '@/constants/tags'
 import { Button } from '@/ds/shadcn/button'
+import { Input } from '@/ds/shadcn/input'
+import { Label } from '@/ds/shadcn/label'
 import { addTag } from '@/requests/tags'
 import { CustomSession } from '@/types/auth'
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/languages'
@@ -30,16 +32,11 @@ export default function AddTag() {
   }
 
   const tagPropertiesMap = tagproperties.map((prop: TagProperties) => (
-    <Input
-      isRequired
-      key={prop.key}
-      name={prop.name}
-      label={prop.label}
-      description={prop.description}
-      type="text"
-      className="w-full max-w-xl"
-      classNames={{ mainWrapper: 'w-full' }}
-    />
+    <div key={prop.key}>
+      <Label htmlFor={prop.key}>{prop.label}</Label>
+      <Input required id={prop.key} name={prop.name} type="text" className="w-full max-w-xl" />
+      <span>{prop.description}</span>
+    </div>
   ))
 
   return (

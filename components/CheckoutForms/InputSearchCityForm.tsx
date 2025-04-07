@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Input } from '@nextui-org/react'
 
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
+import { Input } from '@/ds/shadcn/input'
+import { Label } from '@/ds/shadcn/label'
 import { CheckoutFormInputProps } from '@/types/checkout'
 
 interface Address {
@@ -50,8 +51,9 @@ const InputSearchCityForm = ({
   return (
     <div>
       <div className="mt-1 min-h-8">{errorMsg && <span className="block text-sm text-red-500">{errorMsg}</span>}</div>
+      <Label htmlFor={id}>{label}</Label>
       <Input
-        isRequired={required}
+        required={required}
         pattern={pattern}
         minLength={minLength}
         min={min}
@@ -60,12 +62,10 @@ const InputSearchCityForm = ({
         name={id}
         value={newCheckoutData.city}
         onChange={handleSearchChange}
-        label={label}
-        description={description}
         type={type}
         className={`w-full rounded-md px-2 py-4 ${errorMsg && 'border-red-500'} border-2`}
-        classNames={{ mainWrapper: 'w-full' }}
       />
+      <span>{description}</span>
 
       {results.length > 0 && (
         <ul className="mt-2 rounded border shadow">
