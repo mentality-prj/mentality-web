@@ -6,22 +6,31 @@ import { RadioGroup, RadioGroupItem } from '@/ds/shadcn/radio-group'
 
 export default function RadioButtonForm() {
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    updateNewCheckoutDetails({ ['deliveryMethod']: e.target.value })
+
+  const handleInputChange = (value: string) => {
+    updateNewCheckoutDetails({ deliveryMethod: value })
   }
+
   return (
     <div>
-      <Label htmlFor="deliveryMethod">Select your delivery</Label>
+      <Label htmlFor="deliveryMethod" className="mb-2 block">
+        Select your delivery
+      </Label>
       <RadioGroup
-        required
         id="deliveryMethod"
-        value={newCheckoutData.deliveryMethod}
-        orientation="horizontal"
         name="deliveryMethod"
-        onChange={handleInputChange}
+        defaultValue={newCheckoutData.deliveryMethod}
+        onValueChange={handleInputChange}
+        className="flex gap-4"
       >
-        <RadioGroupItem value="nova-poshta">Nova Poshta Branch</RadioGroupItem>
-        <RadioGroupItem value="courier-delivery">Courier Delivery</RadioGroupItem>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="courier-delivery" id="courier-delivery" />
+          <Label htmlFor="courier-delivery">Courier Delivery</Label>
+        </div>
+        <div className="flex items-center space-x-2">
+          <RadioGroupItem value="nova-poshta" id="nova-poshta" />
+          <Label htmlFor="nova-poshta">Nova Poshta Branch</Label>
+        </div>
       </RadioGroup>
     </div>
   )
