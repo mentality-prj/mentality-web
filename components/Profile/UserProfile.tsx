@@ -1,4 +1,4 @@
-import { Image } from '@nextui-org/react'
+import Image from 'next/image'
 
 import { CardHeader } from '@/ds/shadcn/card'
 
@@ -14,7 +14,7 @@ export default function UserProfile({ name, email, image }: UserProfileProps) {
         <Image
           alt={name}
           height={40}
-          radius="sm"
+          className="rounded-[8px]"
           src={image || 'https://avatars.githubusercontent.com/u/86160567?s=200&v=4'}
           width={40}
         />
