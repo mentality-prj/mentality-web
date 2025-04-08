@@ -1,8 +1,8 @@
 'use client'
 
-import { Radio, RadioGroup } from '@nextui-org/react'
-
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
+import { Label } from '@/ds/shadcn/label'
+import { RadioGroup, RadioGroupItem } from '@/ds/shadcn/radio-group'
 
 export default function RadioButtonForm() {
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()
@@ -11,17 +11,17 @@ export default function RadioButtonForm() {
   }
   return (
     <div>
+      <Label htmlFor="deliveryMethod">Select your delivery</Label>
       <RadioGroup
-        isRequired
+        required
         id="deliveryMethod"
         value={newCheckoutData.deliveryMethod}
         orientation="horizontal"
         name="deliveryMethod"
         onChange={handleInputChange}
-        label="Select your delivery"
       >
-        <Radio value="courier-delivery">Courier Delivery</Radio>
-        <Radio value="nova-poshta">Nova Poshta Branch</Radio>
+        <RadioGroupItem value="nova-poshta">Nova Poshta Branch</RadioGroupItem>
+        <RadioGroupItem value="courier-delivery">Courier Delivery</RadioGroupItem>
       </RadioGroup>
     </div>
   )
