@@ -1,14 +1,7 @@
-import { nextui } from '@nextui-org/react'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './ds/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{ts,tsx}',
-  ],
+  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './ds/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -75,6 +68,6 @@ const config: Config = {
   },
   darkMode: ['class', 'class'],
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [nextui(), require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate')],
 }
 export default config
