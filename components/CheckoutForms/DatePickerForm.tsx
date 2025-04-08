@@ -1,28 +1,42 @@
 'use client'
 import React from 'react'
-import { DateValue, getLocalTimeZone, parseDate, today } from '@internationalized/date'
-import { DatePicker } from '@nextui-org/react'
+import { format, isBefore, startOfDay } from 'date-fns'
+import { CalendarIcon } from 'lucide-react'
 
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
+import { Button } from '@/ds/shadcn/button'
+import { Calendar } from '@/ds/shadcn/calendar'
+import { Popover, PopoverContent, PopoverTrigger } from '@/ds/shadcn/popover'
+import { cn } from '@/lib/utils'
 
 export default function DatePickerForm({ errorMsg }: { errorMsg?: string }) {
-  const [value, setValue] = React.useState<DateValue | null>(null)
+  const [date, setDate] = React.useState<Date>()
+  const today = startOfDay(new Date())
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()
-  const handleInputChange = (e: DateValue | null) => {
-    setValue(e)
-    updateNewCheckoutDetails({ ['deliveryDate']: String(e) })
+  const handleInputChange = (e: Date | undefined) => {
+    setDate(e)
+    updateNewCheckoutDetails({ ['deliveryDate']: e?.toJSON().slice(0, 10) })
   }
 
   return (
     <div className="flex w-full flex-wrap gap-4 md:flex-nowrap">
-      <DatePicker
-        isRequired
-        className="max-w-[284px]"
-        value={newCheckoutData.deliveryDate?.length === 10 ? parseDate(newCheckoutData.deliveryDate) : value}
-        label="Date (controlled)"
-        onChange={handleInputChange}
-        minValue={today(getLocalTimeZone())}
-      />
+      <Popover>
+        <PopoverTrigger asChild>
+          <Button className={cn('w-[240px] justify-start text-left font-normal')}>
+            <CalendarIcon />
+            {date ? format(date, 'P') : <span>Pick a date</span>}
+          </Button>
+        </PopoverTrigger>
+        <PopoverContent className="w-auto p-0" align="start">
+          <Calendar
+            disabled={(date) => isBefore(startOfDay(date), today)}
+            mode="single"
+            selected={date}
+            onSelect={(e) => handleInputChange(e)}
+            initialFocus
+          />
+        </PopoverContent>
+      </Popover>
       <input
         type="hidden"
         name="deliveryDate"
