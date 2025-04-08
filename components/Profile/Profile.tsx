@@ -1,6 +1,7 @@
-import { Chip, Divider } from '@nextui-org/react'
+import { Divider } from '@nextui-org/react'
 
 import { CheckIcon } from '@/components/icons/check-icon'
+import { Badge } from '@/ds/shadcn/badge'
 import { CardContent, CardFooter } from '@/ds/shadcn/card'
 import { RoleType } from '@/types/security'
 
@@ -13,9 +14,9 @@ export default function Profile({ role }: { role: RoleType }) {
       </CardContent>
       <Divider />
       <CardFooter>
-        <Chip size="sm" startContent={<CheckIcon />} variant="faded" color="success">
-          AI connected
-        </Chip>
+        <Badge variant="outline" color="success">
+          <CheckIcon /> AI connected
+        </Badge>
       </CardFooter>
     </>
   )
