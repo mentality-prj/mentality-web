@@ -1,8 +1,9 @@
 'use client'
-import { Card, CardBody, Tab, Tabs } from '@nextui-org/react'
+import { Tab, Tabs } from '@nextui-org/react'
 
 import { AdminComponents } from '@/components/Admin'
 import { adminMenu, AdminRoutesTitles, AdminRoutesTitlesKeyType } from '@/constants/admin'
+import { Card, CardContent } from '@/ds/shadcn/card'
 
 export default function AdminPage() {
   const adminMenuMap = adminMenu.map((item: AdminRoutesTitlesKeyType) => {
@@ -10,9 +11,9 @@ export default function AdminPage() {
     return (
       <Tab key={item} title={AdminRoutesTitles[`${item}`]}>
         <Card>
-          <CardBody className="w-full">
+          <CardContent className="w-full">
             <Component />
-          </CardBody>
+          </CardContent>
         </Card>
       </Tab>
     )

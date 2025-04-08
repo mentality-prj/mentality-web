@@ -1,4 +1,6 @@
-import { CardHeader, Image } from '@nextui-org/react'
+import { Image } from '@nextui-org/react'
+
+import { CardHeader } from '@/ds/shadcn/card'
 
 interface UserProfileProps {
   name: string
