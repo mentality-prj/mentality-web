@@ -1,6 +1,7 @@
-import { ErrorIcon } from '@/ds/icons/errorIcon'
 import { Input, Label } from '@/ds/shadcn'
 import { cn } from '@/lib/utils'
+
+import { ErrorMessage } from './ErrorMessage'
 
 interface FormInputProps {
   name: string
@@ -40,15 +41,7 @@ export const FormInput = ({
         className={cn(`mt-2 ${error ? 'border-red-50' : ''}`, inputClassName)}
         data-testid={`input-${name}`}
       />
-      {error && (
-        <div
-          className="mt-1 flex items-center gap-1 text-xs font-normal leading-none text-red-30"
-          data-testid="error-name"
-        >
-          <ErrorIcon />
-          {error}
-        </div>
-      )}
+      {error && <ErrorMessage message={error} />}
       {description && !error && <p className="mt-1 text-xs font-normal leading-none text-gray-30">{description}</p>}
     </div>
   )
