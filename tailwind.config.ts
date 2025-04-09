@@ -1,14 +1,7 @@
-import { nextui } from '@nextui-org/react'
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: [
-    './pages/**/*.{ts,tsx}',
-    './components/**/*.{ts,tsx}',
-    './ds/**/*.{ts,tsx}',
-    './app/**/*.{ts,tsx}',
-    './node_modules/@nextui-org/theme/dist/**/*.{ts,tsx}',
-  ],
+  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './ds/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
@@ -24,11 +17,20 @@ const config: Config = {
         },
         primary: {
           DEFAULT: 'hsl(var(--primary))',
+          hover: 'hsl(var(--primary-hover))',
+          focus: 'hsl(var(--primary-focus))',
+          active: 'hsl(var(--primary-active))',
           foreground: 'hsl(var(--primary-foreground))',
         },
         secondary: {
-          DEFAULT: 'hsl(var(--secondary))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          DEFAULT: 'hsl(var(--primary))',
+          active: 'hsl(var(--secondary-active))',
+          hover: 'hsl(var(--secondary-hover))',
+          focus: 'hsl(var(--secondary-focus))',
+          foreground: 'hsl(var(--primary))',
+          'foreground-active': 'hsl(var(--primary-active))',
+          'foreground-hover': 'hsl(var(--primary-hover))',
+          'foreground-focus': 'hsl(var(--primary-focus))',
         },
         muted: {
           DEFAULT: 'hsl(var(--muted))',
@@ -41,6 +43,10 @@ const config: Config = {
         destructive: {
           DEFAULT: 'hsl(var(--destructive))',
           foreground: 'hsl(var(--destructive-foreground))',
+        },
+        disabled: {
+          DEFAULT: 'hsl(var(--disabled))',
+          foreground: 'hsl(var(--disabled-foreground))',
         },
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -62,6 +68,6 @@ const config: Config = {
   },
   darkMode: ['class', 'class'],
   // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [nextui(), require('tailwindcss-animate')],
+  plugins: [require('tailwindcss-animate')],
 }
 export default config

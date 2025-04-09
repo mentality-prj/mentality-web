@@ -1,9 +1,10 @@
 'use client'
 
 import React from 'react'
-import { Input } from '@nextui-org/react'
 
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
+import { Input } from '@/ds/shadcn/input'
+import { Label } from '@/ds/shadcn/label'
 import { CheckoutFormInputProps } from '@/types/checkout'
 
 export default function InputForm({
@@ -35,8 +36,9 @@ export default function InputForm({
   }
   return (
     <div>
+      <Label htmlFor={String(id)}>{label}</Label>
       <Input
-        isRequired={required}
+        required={required}
         pattern={pattern}
         minLength={minLength}
         min={min}
@@ -45,13 +47,10 @@ export default function InputForm({
         name={String(id)}
         onChange={handleInputChange}
         value={newCheckoutData[`${id}`]}
-        label={label}
-        description={description}
         type={type}
         className={`w-full rounded-md px-2 py-4 ${errorMsg && 'border-red-500'} border-2`}
-        classNames={{ mainWrapper: 'w-full' }}
       />
-
+      <span>{description}</span>
       <div className="mt-1 min-h-8">{errorMsg && <span className="block text-sm text-red-500">{errorMsg}</span>}</div>
     </div>
   )

@@ -9,7 +9,6 @@ import { Input } from '@/ds/shadcn/input'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/ds/shadcn/navigation-menu'
 import { Link } from '@/i18n/routing'
 
-// import { NotificationsDropdown } from './notifications-dropdown'
 import ThemeSwitch from './ThemeSwitch'
 import UserDropdownContainer from './UserDropdownContainer'
 
@@ -49,7 +48,6 @@ export default function NavbarWrapper({ children }: Props) {
           <NavigationMenuItem>
             <UserDropdownContainer />
           </NavigationMenuItem>
-          {/* <NotificationsDropdown /> */}
         </NavigationMenuList>
       </NavigationMenu>
       <Menu />

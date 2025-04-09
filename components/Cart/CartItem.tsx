@@ -1,9 +1,9 @@
 'use client'
 
 import { useState } from 'react'
-import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 
+import { Button } from '@/ds/shadcn/button'
 import { CartItemCookiesProps, CartItemProps } from '@/types/cart'
 
 interface CartItemPropsWithHandler extends CartItemProps {
@@ -39,9 +39,9 @@ const CartItem = ({ id, name, price, quantity, image, description, onQuantityCha
         <div className="">Price: {price} $</div>
         <div className="">Description: {description}</div>
         <div className="flex items-center gap-1.5">
-          <Button onPress={() => handleUpdateQuntity('-')}>-</Button>
+          <Button onClick={() => handleUpdateQuntity('-')}>-</Button>
           <span>{quantityProduct}</span>
-          <Button onPress={() => handleUpdateQuntity('+')}>+</Button>
+          <Button onClick={() => handleUpdateQuntity('+')}>+</Button>
         </div>
       </div>
     </div>

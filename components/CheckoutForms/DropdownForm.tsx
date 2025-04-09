@@ -1,81 +1,77 @@
 'use client'
 
 import { useState } from 'react'
-import { Button, Dropdown, DropdownItem, DropdownMenu, DropdownTrigger, SharedSelection } from '@nextui-org/react'
 
 import { months, years } from '@/constants/form'
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ds/shadcn/select'
 
 export default function DropdownForm({ errorMsg }: { errorMsg?: string }) {
-  const [selectedMonth, setSelectedMonth] = useState('select month')
-  const [selectedYear, setSelectedYear] = useState('select year')
+  const [selectedMonth, setSelectedMonth] = useState('')
+  const [selectedYear, setSelectedYear] = useState('')
 
   const { updateNewCheckoutDetails, newCheckoutData } = useAddCheckoutContext()
 
   const updateExpirationDate = (month: string, year: string) => {
-    if (month === 'select month') {
+    if (!month) {
       updateNewCheckoutDetails({ expirationDate: `/${year.slice(-2)}` })
-    } else if (year === 'select year') {
+    } else if (!year) {
       updateNewCheckoutDetails({ expirationDate: `${month}/` })
     } else {
-      updateNewCheckoutDetails({
-        expirationDate: `${month}/${year.slice(-2)}`,
-      })
+      updateNewCheckoutDetails({ expirationDate: `${month}/${year.slice(-2)}` })
     }
   }
 
-  const handleMonthSelection = (key: SharedSelection) => {
-    const monthValue = months[Number(key.currentKey)]
-    setSelectedMonth(monthValue)
-    updateExpirationDate(monthValue, selectedYear)
+  const handleMonthChange = (value: string) => {
+    setSelectedMonth(value)
+    updateExpirationDate(value, selectedYear)
   }
 
-  const handleYearSelection = (key: SharedSelection) => {
-    const yearValue = years[Number(key.currentKey)]
-    setSelectedYear(yearValue)
-    updateExpirationDate(selectedMonth, yearValue)
+  const handleYearChange = (value: string) => {
+    setSelectedYear(value)
+    updateExpirationDate(selectedMonth, value)
   }
 
   return (
     <div>
       <div className="mt-1 min-h-8">{errorMsg && <span className="block text-sm text-red-500">{errorMsg}</span>}</div>
-      <Dropdown>
-        <DropdownTrigger>
-          <Button className="capitalize" variant="bordered">
-            {newCheckoutData.expirationDate?.length === 5 ? newCheckoutData.expirationDate.slice(0, 2) : selectedMonth}
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          disallowEmptySelection
-          aria-label="Select a month"
-          selectionMode="single"
-          variant="flat"
-          onSelectionChange={(key) => handleMonthSelection(key)}
-        >
-          {months.map((month, index) => (
-            <DropdownItem key={index}>{month}</DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>
-      {' / '}
-      <Dropdown>
-        <DropdownTrigger>
-          <Button className="capitalize" variant="bordered">
-            {newCheckoutData.expirationDate?.length === 5 ? newCheckoutData.expirationDate.slice(3, 5) : selectedYear}
-          </Button>
-        </DropdownTrigger>
-        <DropdownMenu
-          disallowEmptySelection
-          aria-label="Select a year"
-          selectionMode="single"
-          variant="flat"
-          onSelectionChange={(key) => handleYearSelection(key)}
-        >
-          {years.map((year, index) => (
-            <DropdownItem key={index}>{year}</DropdownItem>
-          ))}
-        </DropdownMenu>
-      </Dropdown>
+      <div className="flex items-center gap-2">
+        <Select value={selectedMonth} onValueChange={handleMonthChange} defaultValue="">
+          <SelectTrigger className="w-[120px] capitalize">
+            <SelectValue
+              placeholder={
+                newCheckoutData.expirationDate?.length === 5
+                  ? newCheckoutData.expirationDate.slice(0, 2)
+                  : selectedMonth
+              }
+            />
+          </SelectTrigger>
+          <SelectContent>
+            {months.map((month, index) => (
+              <SelectItem key={index} value={month}>
+                {month}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <span>/</span>
+        <Select value={selectedYear} onValueChange={handleYearChange} defaultValue="">
+          <SelectTrigger className="w-[120px] capitalize">
+            <SelectValue
+              placeholder={
+                newCheckoutData.expirationDate?.length === 5 ? newCheckoutData.expirationDate.slice(3, 5) : selectedYear
+              }
+            />
+          </SelectTrigger>
+          <SelectContent>
+            {years.map((year, index) => (
+              <SelectItem key={index} value={year}>
+                {year.slice(2)}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+      </div>
       <input
         type="hidden"
         name="expirationDate"

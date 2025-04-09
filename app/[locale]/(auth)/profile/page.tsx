@@ -1,7 +1,6 @@
-import { Card } from '@nextui-org/react'
-
 import { auth } from '@/auth'
 import { Profile, UserProfile } from '@/components/Profile'
+import { Card } from '@/ds/shadcn/card'
 import { CustomSession } from '@/types/auth'
 
 export default async function ProfilePage() {

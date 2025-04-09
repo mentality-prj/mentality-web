@@ -1,4 +1,4 @@
-import { Button } from '@nextui-org/react'
+import { Button } from '@/ds/shadcn/button'
 
 interface SubmitButtonProps {
   text: string
@@ -6,7 +6,7 @@ interface SubmitButtonProps {
 
 export default function SubmitButton({ text }: SubmitButtonProps) {
   return (
-    <Button type="submit" className="mt-2 rounded-lg border-1 px-5 text-xl">
+    <Button type="submit" className="border-1 mt-2 rounded-lg px-5 text-xl">
       {text}
     </Button>
   )

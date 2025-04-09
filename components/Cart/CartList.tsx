@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Button } from '@nextui-org/react'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { getCartProducts, setCartCookies } from '@/actions/cart.action'
+import { Button } from '@/ds/shadcn/button'
 import { CartItemCookiesProps, CartItemProps } from '@/types/cart'
 
 import CartItem from './CartItem'
@@ -38,7 +38,7 @@ export default function CartList() {
       </div>
       <div className="flex flex-col gap-3 p-1">
         <TotalPrice cartItems={cartItems} />
-        <Button onPress={() => router.push('/shop/delivery-details')}>{t('CartPage.Checkout')}</Button>
+        <Button onClick={() => router.push('/shop/delivery-details')}>{t('CartPage.Checkout')}</Button>
       </div>
     </div>
   )
