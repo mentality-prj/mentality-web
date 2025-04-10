@@ -1,6 +1,5 @@
 import { nextui } from '@nextui-org/react'
 import type { Config } from 'tailwindcss'
-import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: [
@@ -62,9 +61,6 @@ const config: Config = {
       },
     },
   },
-  darkMode: ['class', 'class'],
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  plugins: [nextui(), require('tailwindcss-animate')],
   darkMode: ['class', 'class'],
   // eslint-disable-next-line @typescript-eslint/no-require-imports
   plugins: [nextui(), require('tailwindcss-animate')],
