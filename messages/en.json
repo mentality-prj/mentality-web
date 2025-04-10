@@ -19,5 +19,17 @@
   "Navigation": {
     "BackToHome": "Back to home",
     "BackToShop": "Back to shop"
+  },
+  "ProfileSettingsPage": {
+    "Title": "Settings",
+    "SubTitle": "Personal information",
+    "Description": "Update your personal information here.",
+    "Form": {
+      "Name": "Name",
+      "Surname": "Surname",
+      "Email": "Email address",
+      "Cancel": "Cancel",
+      "Save": "Save"
+    }
   }
 }
