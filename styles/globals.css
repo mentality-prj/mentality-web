@@ -22,7 +22,9 @@ body {
 
 @layer base {
   :root {
-    :disabled { opacity: 1 !important;} /* because tailwind overlaps disabled colors  */
+    :disabled {
+      opacity: 1 !important;
+    } /* because tailwind overlaps disabled colors  */
     /* --background: 240 20% 99%;
     --foreground:  */
     --disable: 250 11% 90%;
@@ -37,7 +39,6 @@ body {
     --secondary-hover: 249 100% 97%;
     --secondary-focus: 249 100% 95%;
     --secondary-pressed: 249 100% 90%;
-
 
     --text-primary: 240 11% 10%;
     --text-secondary: 240 11% 20%;
