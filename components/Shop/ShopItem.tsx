@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Button } from '@nextui-org/react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
 import { getCartProducts, setCartCookies } from '@/actions/cart.action'
+import { Button } from '@/ds/shadcn/button'
 import { CartItemProps } from '@/types/cart'
 import { ShopItemProps } from '@/types/shop'
 
@@ -35,7 +35,7 @@ const ShopItem = ({ id, name, price, image }: ShopItemProps) => {
         {isAddedToCart ? (
           <div>{t('ShopPage.Added')}</div>
         ) : (
-          <Button onPress={addToCart}>{t('ShopPage.AddToCart')}</Button>
+          <Button onClick={addToCart}>{t('ShopPage.AddToCart')}</Button>
         )}
       </div>
     </div>
