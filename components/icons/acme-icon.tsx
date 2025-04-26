@@ -8,7 +8,7 @@ export const AcmeIcon = () => {
       xmlns="http://www.w3.org/2000/svg"
       className="h-12 w-11"
     >
-      <rect className="fill-background stroke-divider" x="0.5" y="0.5" width="55" height="55" rx="7.5" />
+      <rect className="stroke-divider fill-background" x="0.5" y="0.5" width="55" height="55" rx="7.5" />
       <path
         className="fill-default-400"
         fillRule="evenodd"

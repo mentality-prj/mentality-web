@@ -26,7 +26,7 @@ export const Primary: Story = {
   },
 }
 
-export const Secondary: Story = {
+export const Primary_Hover: Story = {
   args: {
     variant: 'secondary',
     children: 'Button',
