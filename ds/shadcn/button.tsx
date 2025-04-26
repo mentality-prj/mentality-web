@@ -5,17 +5,21 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center  justify-center gap-2 whitespace-nowrap rounded-[80px] text-base leading-none font-semibold transition-colors focus-visible:outline-none focus-visible:ring-1  disabled:pointer-events-none ring-offset-[3px] ring-offset-background ring-ring [&_svg]:pointer-events-none [&_svg]:size-6 [&_svg]:shrink-0 disabled:text-disabled-foreground disabled:bg-disabled disabled:border-disabled-foreground border-primary hover:border-[#734CCC] focus:border-[#563999]  active:border-[#3A2666]',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-xxlg text-base font-semibold leading-none transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-4 disabled:pointer-events-none disabled:bg-disable disabled:text-textcolor-tertiary disabled:border-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:me-2',
   {
     variants: {
       variant: {
         default:
-          'bg-primary text-primary-foreground hover:bg-primary-hover focus:bg-primary-focus active:bg-primary-active',
+          'h-12 px-6 py-4 bg-primary text-reversed hover:bg-primary-hover focus:bg-primary-focus focus-visible:ring-primary-focus active:bg-primary-pressed [&_svg]:size-6 [&_svg]:ms-8',
         secondary:
-          'bg-transparent text-secondary-foreground border-1 hover:bg-secondary-hover hover:text-secondary-foreground-hover  focus:bg-secondary-focus focus:text-secondary-foreground-focus  active:bg-secondary-active active:text-secondary-foreground-active',
+          'h-12 px-6 py-4 bg-transparent text-primary border border-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary active:bg-secondary-pressed [&_svg]:size-8  [&_svg]:ms-6',
+        textIconButton:
+          'h-10 px-3 py-2 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus focus-visible:ring-offset-0 active:text-primary-pressed [&_svg]:size-6 [&_svg]:ms-3',
       },
+
       size: {
-        default: 'h-12 py-4 px-6',
+        default: 'gap-2',
+        // small: 'h-6',
       },
     },
     defaultVariants: {
