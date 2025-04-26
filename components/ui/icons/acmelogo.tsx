@@ -1,6 +1,6 @@
 export const AcmeLogo = () => (
   <svg
-    className="h-9 w-11 rounded-lg border border-divider bg-background"
+    className="border-divider bg-background h-9 w-11 rounded-lg border"
     fill="none"
     height="42"
     viewBox="0 0 32 32"

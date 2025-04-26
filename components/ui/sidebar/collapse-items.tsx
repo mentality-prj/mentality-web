@@ -33,7 +33,7 @@ export const CollapseItems = ({ icon, items, title }: Props) => {
         >
           <div className="pl-12">
             {items.map((item, index) => (
-              <span key={index} className="flex w-full text-default-500 transition-colors hover:text-default-900">
+              <span key={index} className="text-default-500 hover:text-default-900 flex w-full transition-colors">
                 {item}
               </span>
             ))}

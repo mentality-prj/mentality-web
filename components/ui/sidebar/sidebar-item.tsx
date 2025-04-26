@@ -20,7 +20,7 @@ export const SidebarItem = ({ icon, title, isActive, href = '' }: Props) => {
     }
   }
   return (
-    <NextLink href={href} className="max-w-full text-default-900 active:bg-none">
+    <NextLink href={href} className="text-default-900 max-w-full active:bg-none">
       <div
         role="button"
         tabIndex={0}

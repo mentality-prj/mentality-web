@@ -28,8 +28,8 @@ export const CompaniesDropdown = () => {
         <div className="flex items-center gap-2">
           {company.logo}
           <div className="flex flex-col gap-4">
-            <h3 className="m-0 -mb-4 whitespace-nowrap text-xl font-medium text-default-900">{company.name}</h3>
-            <span className="text-xs font-medium text-default-500">{company.location}</span>
+            <h3 className="text-default-900 m-0 -mb-4 whitespace-nowrap text-xl font-medium">{company.name}</h3>
+            <span className="text-default-500 text-xs font-medium">{company.location}</span>
           </div>
           <BottomIcon />
         </div>

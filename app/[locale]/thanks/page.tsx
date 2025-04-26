@@ -8,7 +8,7 @@ export default function ThanksPage() {
   return (
     <div className="flex flex-col items-center justify-center">
       <div className="mb-4 text-center text-3xl">{t('ShopPage.Checkout.Thanks')}</div>
-      <Link className="w-[120px] rounded-lg border-1 text-center" href={Routes.MAIN}>
+      <Link className="border-1 w-[120px] rounded-lg text-center" href={Routes.MAIN}>
         {t('Navigation.BackToHome')}
       </Link>
     </div>

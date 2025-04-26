@@ -40,11 +40,11 @@ const items = [
 
 export const CardTransactions = () => {
   return (
-    <Card className="rounded-xl bg-default-50 px-3 shadow-md">
+    <Card className="bg-default-50 rounded-xl px-3 shadow-md">
       <CardBody className="gap-4 py-5">
         <div className="flex justify-center gap-2.5">
-          <div className="flex flex-col rounded-xl border-2 border-dashed border-divider px-6 py-2">
-            <span className="text-xl font-semibold text-default-900">Latest Transactions</span>
+          <div className="border-divider flex flex-col rounded-xl border-2 border-dashed px-6 py-2">
+            <span className="text-default-900 text-xl font-semibold">Latest Transactions</span>
           </div>
         </div>
 
@@ -55,12 +55,12 @@ export const CardTransactions = () => {
                 <Avatar isBordered color="secondary" src="https://i.pravatar.cc/150?u=a042581f4e29026024d" />
               </div>
 
-              <span className="font-semibold text-default-900">{item.name}</span>
+              <span className="text-default-900 font-semibold">{item.name}</span>
               <div>
-                <span className="text-xs text-success">{item.amount}</span>
+                <span className="text-success text-xs">{item.amount}</span>
               </div>
               <div>
-                <span className="text-xs text-default-500">{item.date}</span>
+                <span className="text-default-500 text-xs">{item.date}</span>
               </div>
             </div>
           ))}
