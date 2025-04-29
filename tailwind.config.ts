@@ -27,6 +27,27 @@ const config: Config = {
           error: 'hsl(var(--text-error))',
           success: 'hsl(var(--text-success))',
         },
+        iconcolor: {
+          primary: 'hsl(var(--icon-primary))',
+          secondary: 'hsl(var(--icon-secondary))',
+          tertiary: 'hsl(var(--icon-tertiary))',
+          error: 'hsl(var(--icon-error))',
+          success: 'hsl(var(--icon-success))',
+        },
+        outline: {
+          primary: 'hsl(var(--outline-primary))',
+          secondary: 'hsl(var(--outline-secondary))',
+          tertiary: 'hsl(var(--outline-tertiary))',
+          error: 'hsl(var(--outline-error))',
+          success: 'hsl(var(--outline-success))',
+        },
+        surface: {
+          white: 'hsl(var(--surface))',
+          primary: 'hsl(var(--surface-primary))',
+          secondary: 'hsl(var(--surface-secondary))',
+          action: 'hsl(var(--surface-action))',
+          dark: 'hsl(var(--surface-dark))',
+        },
       },
       fontFamily: {
         sans: ['var(--font-sans)', 'sans-serif'],
