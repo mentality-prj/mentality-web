@@ -234,7 +234,7 @@ export const LinkButton: Story = {
 
 export const IconButton: Story = {
   args: {
-    variant: 'IconButton',
+    variant: 'iconButton',
     size: 'icon',
   },
   parameters: {
@@ -277,7 +277,7 @@ export const IconButton: Story = {
 
 export const IconButtonSmall: Story = {
   args: {
-    variant: 'IconButton',
+    variant: 'iconButton',
     size: 'iconSm',
   },
   parameters: {
