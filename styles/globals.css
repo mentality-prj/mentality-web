@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -65,6 +67,8 @@ body {
     --surface-dark: 240 11% 20%;
 
     --radius: 16px;
+
+    --font-sans: 'Inter', sans-serif;
   }
 
   /* dark mode needs to be changed */
