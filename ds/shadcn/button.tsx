@@ -5,21 +5,28 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-nowrap rounded-xxlg text-base font-semibold leading-none transition-colors focus:outline-none focus-visible:ring-1 focus-visible:ring-offset-4 disabled:pointer-events-none disabled:bg-disable disabled:text-textcolor-tertiary disabled:border-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg]:me-2',
+  'inline-flex items-center justify-center whitespace-nowrap rounded-xxlg text-base font-semibold leading-none transition-colors focus:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:text-textcolor-tertiary [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
         default:
-          'h-12 px-6 py-4 bg-primary text-reversed hover:bg-primary-hover focus:bg-primary-focus focus-visible:ring-primary-focus active:bg-primary-pressed [&_svg]:size-6 [&_svg]:ms-8',
+          'h-12 px-6 py-4 bg-primary text-reversed hover:bg-primary-hover focus:bg-primary-focus focus-visible:ring-primary-focus active:bg-primary-pressed focus-visible:ring-offset-4 disabled:bg-disable',
         secondary:
-          'h-12 px-6 py-4 bg-transparent text-primary border border-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary active:bg-secondary-pressed [&_svg]:size-8  [&_svg]:ms-6',
+          'h-12 px-6 py-4 bg-transparent text-primary border border-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed disabled:border disabled:border-outline-secondary focus-visible:ring-offset-4 disabled:bg-disable',
         textIconButton:
-          'h-10 px-3 py-2 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus focus-visible:ring-offset-0 active:text-primary-pressed [&_svg]:size-6 [&_svg]:ms-3',
+          'h-10 px-3 py-2 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus active:text-primary-pressed ',
+        textButton:
+          'h-8 px-3 bg-transparent text-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed disabled:bg-disable',
+        linkButton:
+          'px-2 py-1 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus focus-visible:ring-offset-1 active:text-primary-pressed underline [text-underline-offset:3px] decoration-1 ;',
+        IconButton:
+          'h-8 w-8 rounded bg-transparent text-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed [&_svg]:w-6 [&_svg]:h-6',
+        IconButtonSm:
+          'w-6 h-6 rounded bg-transparent text-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed [&_svg]:w-4 [&_svg]:h-4',
       },
 
       size: {
         default: 'gap-2',
-        // small: 'h-6',
       },
     },
     defaultVariants: {
