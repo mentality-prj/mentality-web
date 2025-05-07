@@ -1,19 +1,36 @@
 import * as React from 'react'
+import { TriangleAlert } from 'lucide-react'
 
 import { cn } from '@/lib/utils'
 
-const Input = React.forwardRef<HTMLInputElement, React.ComponentProps<'input'>>(
-  ({ className, type, ...props }, ref) => {
+type InputProps = React.ComponentProps<'input'> & {
+  errorMsg?: string
+  helperText?: string
+}
+
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  ({ className, type, errorMsg, helperText, ...props }, ref) => {
     return (
-      <input
-        type={type}
-        className={cn(
-          'border-input file:text-foreground placeholder:text-muted-foreground focus-visible:ring-ring flex h-9 w-full rounded-md border bg-transparent px-3 py-1 text-base shadow-sm transition-colors file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-1 disabled:cursor-not-allowed disabled:opacity-50 md:text-sm',
-          className
+      <div className="flex flex-col gap-1">
+        <input
+          type={type}
+          className={cn(
+            'h-12 w-full max-w-[360px] rounded-md border-[1px] border-outline-secondary bg-surface-white px-4 py-[14px] text-sm placeholder-textcolor-tertiary caret-primary outline-none hover:border-primary-hover focus:placeholder-transparent focus-visible:border-primary-focus disabled:border-disable [&:not(:placeholder-shown)]:border-primary [&:not(:placeholder-shown)]:caret-textcolor-primary',
+            className,
+            !!errorMsg && 'border-outline-error'
+          )}
+          ref={ref}
+          {...props}
+        />
+        {errorMsg && (
+          <div className="flex items-center gap-1 text-sm text-red-500">
+            <TriangleAlert className="h-4 w-4" />
+            {errorMsg}
+          </div>
         )}
-        ref={ref}
-        {...props}
-      />
+
+        {!errorMsg && helperText && <span className="block text-sm text-textcolor-tertiary">{helperText}</span>}
+      </div>
     )
   }
 )
