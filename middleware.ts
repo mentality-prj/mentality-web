@@ -44,6 +44,10 @@ export const config = {
     '/shop/payment-info',
     '/shop/review',
     '/thanks',
+    '/dashboard',
+    '/order-history',
+    '/settings',
+    '/support',
 
     '/(en|uk|pl)',
     '/(en|uk|pl)/admin',
@@ -55,5 +59,9 @@ export const config = {
     '/(en|uk|pl)/shop/payment-info',
     '/(en|uk|pl)/shop/review',
     '/(en|uk|pl)/thanks',
+    '/(en|uk|pl)/dashboard',
+    '/(en|uk|pl)/order-history',
+    '/(en|uk|pl)/settings',
+    '/(en|uk|pl)/support',
   ],
 }
