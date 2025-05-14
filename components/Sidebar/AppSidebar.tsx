@@ -24,6 +24,8 @@ import {
 } from '@/ds/shadcn/sidebar'
 import { usePathname } from '@/i18n/routing'
 
+import ThemeSwitch from './ThemeSwitch'
+
 export const sidebarList = [
   [
     { icon: <HomeIcon />, text: 'Home', link: '/' },
@@ -77,7 +79,7 @@ export const AppSidebar = () => {
         ))}
       </SidebarContent>
       <SidebarFooter className="gap-4 overflow-hidden bg-surface-white p-0">
-        {/* <ThemeSwitch /> */}
+        <ThemeSwitch />
         <div className="flex gap-2 px-4 py-2 group-data-[collapsible=icon]:px-1 group-data-[collapsible=icon]:py-0">
           <LogOutIcon />
           <span className="group-data-[collapsible=icon]:hidden">Log out</span>
