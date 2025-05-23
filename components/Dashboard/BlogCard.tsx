@@ -1,7 +1,7 @@
 import { Button } from '@/ds/shadcn/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
 
-type BlogCardProps = {
+export type BlogCardProps = {
   title: string
   textContent: string
 }

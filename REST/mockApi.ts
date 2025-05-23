@@ -1,5 +1,8 @@
+import { BlogCardProps } from '@/components/Dashboard/BlogCard'
 import { CartItemProps } from '@/types/cart'
 import { ShopItemProps } from '@/types/shop'
+
+import { DailyCardProps } from './../components/Dashboard/DailyCard'
 
 export const mockProfileData = async (accessToken: string) => {
   const profileData = {
@@ -230,6 +233,42 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(shopProducts)
+    }, 500)
+  })
+}
+
+export const mockDashboardDailyData = async (): Promise<DailyCardProps[]> => {
+  const dailyData: DailyCardProps[] = [
+    {
+      type: 'affirmation',
+      textContent: 'Every day, I grow stronger, wiser, and more confident in my journey.',
+    },
+    {
+      type: 'tip',
+      textContent: 'Start your day by setting one small, achievable goal—it builds momentum for bigger successes!',
+    },
+  ]
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(dailyData)
+    }, 500)
+  })
+}
+
+export const mockDashboardBlogData = async (): Promise<BlogCardProps[]> => {
+  const dailyData: BlogCardProps[] = [
+    {
+      title: 'Forem ipsum dolor sit amet, consectetur adipiscing elit.',
+      textContent: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulpel lkdoaj',
+    },
+    {
+      title: 'Forem ipsum dolor sit amet, consectetur adipiscing elit.',
+      textContent: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulpel lkdoaj',
+    },
+  ]
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(dailyData)
     }, 500)
   })
 }
