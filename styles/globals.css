@@ -29,42 +29,42 @@ body {
     } /* because tailwind overlaps disabled colors  */
     /* --background: 240 20% 99%;
     --foreground:  */
-    --disable: 250 11% 90%;
-    --reversed: 240 20% 99%;
+    --disable: #e4e3e8;
+    --reversed: #fcfcfd;
 
-    --primary: 258 100% 69%;
-    --primary-hover: 258 56% 55%;
-    --primary-focus: 258 46% 41%;
-    --primary-pressed: 258 46% 27%;
+    --primary: #905fff;
+    --primary-hover: #734ccc;
+    --primary-focus: #563999;
+    --primary-pressed: #3a2666;
 
-    --secondary: 250 100% 98%;
-    --secondary-hover: 249 100% 97%;
-    --secondary-focus: 249 100% 95%;
-    --secondary-pressed: 249 100% 90%;
+    --secondary: #f6f5ff;
+    --secondary-hover: #f0edff;
+    --secondary-focus: #e9e5ff;
+    --secondary-pressed: #d4ccff;
 
-    --text-primary: 240 11% 10%;
-    --text-secondary: 240 11% 20%;
-    --text-tertiary: 240 11% 60%;
-    --text-error: 0 70% 35%;
-    --text-success: 142 76% 36%;
+    --text-primary: #905fff;
+    --text-secondary: #f6f5ff;
+    --text-tertiary: #8e8ea4;
+    --text-error: #991b1b;
+    --text-success: #22c55e;
 
-    --icon-primary: 240 11% 10%;
-    --icon-secondary: 240 11% 20%;
-    --icon-tertiary: 240 11% 60%;
-    --icon-error: 0 70% 35%;
-    --icon-success: 142 76% 36%;
+    --icon-primary: #17171c;
+    --icon-secondary: #2d2d39;
+    --icon-tertiary: #8e8ea4;
+    --icon-error: #991b1b;
+    --icon-success: #22c55e;
 
-    --outline-primary: 240 11% 20%;
-    --outline-secondary: 240 11% 60%;
-    --outline-tertiary: 250 11% 90%;
-    --outline-error: 0 74% 42%;
-    --outline-success: 142 71% 45%;
+    --outline-primary: #2d2d39;
+    --outline-secondary: #8e8ea4;
+    --outline-tertiary: #e4e3e8;
+    --outline-error: #b91c1c;
+    --outline-success: #16a34a;
 
-    --surface: 240 20% 99%;
-    --surface-primary: 270 8% 95%;
-    --surface-secondary: 250 11% 90%;
-    --surface-action: 250 100% 98%;
-    --surface-dark: 240 11% 20%;
+    --surface: #fcfcfd;
+    --surface-primary: #f2f1f3;
+    --surface-secondary: #e4e3e8;
+    --surface-action: #f6f5ff;
+    --surface-dark: #2d2d39;
 
     --radius: 16px;
 
