@@ -13,8 +13,8 @@ export default async function Dashboard() {
         ))}
       </div>
       <div className="flex gap-4">
-        {blogData.map(({ title, textContent }, id) => (
-          <BlogCard key={id} title={title} textContent={textContent} />
+        {blogData.map(({ title, textContent, image }, id) => (
+          <BlogCard key={id} title={title} image={image} textContent={textContent} />
         ))}
       </div>
     </div>

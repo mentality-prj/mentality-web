@@ -260,10 +260,14 @@ export const mockDashboardBlogData = async (): Promise<BlogCardProps[]> => {
     {
       title: 'Forem ipsum dolor sit amet, consectetur adipiscing elit.',
       textContent: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulpel lkdoaj',
+      image:
+        'https://png.pngtree.com/png-vector/20220725/ourmid/pngtree-close-up-huge-hands-hold-woman-victim-give-help-or-first-png-image_6073336.png',
     },
     {
       title: 'Forem ipsum dolor sit amet, consectetur adipiscing elit.',
       textContent: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulpel lkdoaj',
+      image:
+        'https://png.pngtree.com/png-vector/20220725/ourmid/pngtree-close-up-huge-hands-hold-woman-victim-give-help-or-first-png-image_6073336.png',
     },
   ]
   return new Promise((resolve) => {
