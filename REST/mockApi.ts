@@ -1,5 +1,8 @@
+import { BlogCardProps } from '@/components/Dashboard/BlogCard'
 import { CartItemProps } from '@/types/cart'
 import { ShopItemProps } from '@/types/shop'
+
+import { DailyCardProps } from './../components/Dashboard/DailyCard'
 
 export const mockProfileData = async (accessToken: string) => {
   const profileData = {
@@ -230,6 +233,46 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(shopProducts)
+    }, 500)
+  })
+}
+
+export const mockDashboardDailyData = async (): Promise<DailyCardProps[]> => {
+  const dailyData: DailyCardProps[] = [
+    {
+      type: 'affirmation',
+      textContent: 'Every day, I grow stronger, wiser, and more confident in my journey.',
+    },
+    {
+      type: 'tip',
+      textContent: 'Start your day by setting one small, achievable goal—it builds momentum for bigger successes!',
+    },
+  ]
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(dailyData)
+    }, 500)
+  })
+}
+
+export const mockDashboardBlogData = async (): Promise<BlogCardProps[]> => {
+  const dailyData: BlogCardProps[] = [
+    {
+      title: 'Forem ipsum dolor sit amet, consectetur adipiscing elit.',
+      textContent: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulpel lkdoaj',
+      image:
+        'https://png.pngtree.com/png-vector/20220725/ourmid/pngtree-close-up-huge-hands-hold-woman-victim-give-help-or-first-png-image_6073336.png',
+    },
+    {
+      title: 'Forem ipsum dolor sit amet, consectetur adipiscing elit.',
+      textContent: 'Dorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc vulpel lkdoaj',
+      image:
+        'https://png.pngtree.com/png-vector/20220725/ourmid/pngtree-close-up-huge-hands-hold-woman-victim-give-help-or-first-png-image_6073336.png',
+    },
+  ]
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(dailyData)
     }, 500)
   })
 }
