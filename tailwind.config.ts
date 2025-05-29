@@ -19,7 +19,6 @@ const config: Config = {
           focus: 'var(--secondary-focus)',
           pressed: 'var(--secondary-pressed)',
         },
-        // when for example: Text/Text Primary
         textcolor: {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
@@ -47,6 +46,16 @@ const config: Config = {
           secondary: 'var(--surface-secondary)',
           action: 'var(--surface-action)',
           dark: 'var(--surface-dark)',
+        },
+        sidebar: {
+          DEFAULT: 'hsl(var(--sidebar-background))',
+          foreground: 'hsl(var(--sidebar-foreground))',
+          primary: 'hsl(var(--sidebar-primary))',
+          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
+          accent: 'hsl(var(--sidebar-accent))',
+          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
+          border: 'hsl(var(--sidebar-border))',
+          ring: 'hsl(var(--sidebar-ring))',
         },
       },
       fontFamily: {
