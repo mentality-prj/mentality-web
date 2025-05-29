@@ -21,5 +21,17 @@
     "BackToShop": "Back to shop",
     "Login": "Login",
     "LogOut": "Log out"
+  },
+  "Sidebar": {
+    "Home": "Home",
+    "Mood tracker": "Mood tracker",
+    "AI-assistant": "AI-assistant",
+    "My notes": "My notes",
+    "My progress": "My progress",
+    "Reminder": "Reminder",
+    "Shop": "Shop",
+    "Settings": "Settings",
+    "Profile": "Profile",
+    "Support": "Support"
   }
 }
