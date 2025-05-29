@@ -21,5 +21,17 @@
     "BackToShop": "Powrót do sklepu",
     "LogOut": "Wylogowanie",
     "Login": "Zaloguj"
+  },
+  "Sidebar": {
+    "Home": "Strona główna",
+    "Mood tracker": "Śledzenie nastroju",
+    "AI-assistant": "Asystent AI",
+    "My notes": "Moje notatki",
+    "My progress": "Mój postęp",
+    "Reminder": "Przypomnienie",
+    "Shop": "Sklep",
+    "Settings": "Ustawienia",
+    "Profile": "Profil",
+    "Support": "Wsparcie"
   }
 }
