@@ -19,8 +19,8 @@
   "Navigation": {
     "BackToHome": "Powrót do domu",
     "BackToShop": "Powrót do sklepu",
-    "LogOut": "Wylogowanie",
-    "Login": "Zaloguj"
+    "Login": "Zaloguj",
+    "LogOut": "Wylogowanie"
   },
   "Sidebar": {
     "Home": "Strona główna",

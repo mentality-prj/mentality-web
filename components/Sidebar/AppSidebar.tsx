@@ -2,19 +2,10 @@
 
 import Link from 'next/link'
 
-import { BagIcon } from '@/ds/icons/bag'
-import { BellIcon } from '@/ds/icons/bell'
-import { ChartSquareIcon } from '@/ds/icons/chart-square'
-import { HomeIcon } from '@/ds/icons/home'
-import { InfoSquareIcon } from '@/ds/icons/info-square'
+import { SidebarList } from '@/constants/sidebar'
 import { LogoIcon } from '@/ds/icons/logo'
 import { MaximizeIcon } from '@/ds/icons/maximize'
-import { MedalRibbonIcon } from '@/ds/icons/medal-ribbon'
 import { MinimizeIcon } from '@/ds/icons/minimize'
-import { NotesMinimalisticIcon } from '@/ds/icons/notes-minimalistic'
-import { Pulse2Icon } from '@/ds/icons/pulse2'
-import { SettingsIcon } from '@/ds/icons/settings'
-import { UserIcon } from '@/ds/icons/user'
 import { Button } from '@/ds/shadcn/button'
 import {
   Sidebar,
@@ -33,27 +24,11 @@ import { usePathname } from '@/i18n/routing'
 
 import { AuthButton } from '../Buttons/AuthButton'
 
-export const sidebarList = [
-  [
-    { icon: <HomeIcon />, text: 'Home', link: '/' },
-    { icon: <Pulse2Icon />, text: 'Mood tracker', link: '/mood-tracker' },
-    { icon: <NotesMinimalisticIcon />, text: 'AI-assistant', link: '/ai-assistant' },
-    { icon: <ChartSquareIcon />, text: 'My notes', link: '/my-notes' },
-    { icon: <MedalRibbonIcon />, text: 'My progress', link: '/my-progress' },
-    { icon: <BellIcon />, text: 'Reminder', link: '/reminder' },
-    { icon: <BagIcon />, text: 'Shop', link: '/shop' },
-  ],
-  [
-    { icon: <SettingsIcon />, text: 'Settings', link: '/settings' },
-    { icon: <UserIcon />, text: 'Profile', link: '/profile' },
-    { icon: <InfoSquareIcon />, text: 'Support', link: '/support' },
-  ],
-]
-
 export const AppSidebar = () => {
   const pathname = usePathname()
   const isPageActive = (link: string) => pathname === link
   const { state, toggleSidebar } = useSidebar()
+  const sidebarList = SidebarList()
 
   return (
     <Sidebar className="border-none bg-surface-white px-6 py-8" collapsible="icon">
