@@ -19,6 +19,7 @@
   "Navigation": {
     "BackToHome": "Back to home",
     "BackToShop": "Back to shop",
-    "Login": "Login"
+    "Login": "Login",
+    "LogOut": "Log out"
   }
 }
