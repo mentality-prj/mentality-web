@@ -18,6 +18,7 @@
   },
   "Navigation": {
     "BackToHome": "Back to home",
-    "BackToShop": "Back to shop"
+    "BackToShop": "Back to shop",
+    "Login": "Login"
   }
 }
