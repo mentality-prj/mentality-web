@@ -1,4 +1,10 @@
 {
+  "HomePage": {
+    "ExercisesForRecovery": {
+      "title": "Exercises for recovery",
+      "subtitle": "Practices for psychological health"
+    }
+  },
   "ShopPage": {
     "Checkout": {
       "DeliveryDetails": "Delivery Details",

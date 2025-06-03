@@ -1,5 +1,6 @@
 import { DailyCardProps } from '@/components/Home/DailyCard'
 import { CartItemProps } from '@/types/cart'
+import { Exercise } from '@/types/exercisesForRecovery'
 import { ShopItemProps } from '@/types/shop'
 
 export const mockProfileData = async (accessToken: string) => {
@@ -252,6 +253,37 @@ export const mockDashboardDailyData = async (): Promise<DailyCardProps[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(dailyData)
+    }, 500)
+  })
+}
+
+export const mockExercisesRecoveryData = async (): Promise<Exercise[]> => {
+  const exercises: Exercise[] = [
+    {
+      title: 'Дихальна практика',
+      description: '5-хвилинна вправа для заспокоєння',
+      icon: 'lungs',
+    },
+    {
+      title: 'Коротка медитаці',
+      description: 'Медитація для фокусу та спокою',
+      icon: 'headphones',
+    },
+    {
+      title: 'Антистрес аудіо',
+      description: 'Заспокійливі звуки природи',
+      icon: 'human',
+    },
+    {
+      title: 'Заспокой мене зараз',
+      description: 'Екстрений режим для зняття тривоги',
+      icon: 'sos',
+    },
+  ]
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(exercises)
     }, 500)
   })
 }
