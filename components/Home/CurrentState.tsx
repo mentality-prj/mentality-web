@@ -1,3 +1,5 @@
+import { useTranslations } from 'next-intl'
+
 import { CustomInput } from '@/ds/components/CustomInput'
 import { AngryEmoji } from '@/ds/icons/emoji/angry'
 import { HappyEmoji } from '@/ds/icons/emoji/happy'
@@ -11,8 +13,9 @@ import { SectionCard } from '../ui/SectionCard'
 const buttonList = [HappyEmoji, SadEmoji, VerySadEmoji, AngryEmoji, SleepyEmoji]
 
 export const CurrentState = () => {
+  const t = useTranslations('HomePage.CurrentState')
   return (
-    <SectionCard title="Сьогоднішний стан" subtitle="Як ти сьогодні почуваєш себе?">
+    <SectionCard title={t('title')} subtitle={t('subtitle')}>
       <div className="mt-4 flex flex-col gap-6">
         <div className="flex justify-between px-20 py-5">
           {buttonList.map((Emoji, id) => (
@@ -21,10 +24,10 @@ export const CurrentState = () => {
             </Button>
           ))}
         </div>
-        <CustomInput className="max-w-full" placeholder="Додати коротку нотатку (опціонально)" />
+        <CustomInput className="max-w-full" placeholder={t('placeholder')} />
         <div className="flex justify-between">
-          <Button variant="secondary">Подивитись динаміку</Button>
-          <Button>Зберегти</Button>
+          <Button variant="secondary">{t('View dynamics')}</Button>
+          <Button>{t('Save')}</Button>
         </div>
       </div>
     </SectionCard>

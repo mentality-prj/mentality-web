@@ -11,6 +11,13 @@
       "Talk about my thoughts": " Поговорити про мої думки",
       "Advise me on an exercise": "Порадь мені вправу",
       "Show the caring message of the day": "Покажи турботливе повідомлення дня"
+    },
+    "CurrentState": {
+      "title": "Сьогоднішний стан",
+      "subtitle": "Як ти сьогодні почуваєш себе?",
+      "View dynamics": "Подивитись динаміку",
+      "Save": "Зберегти",
+      "placeholder": "Додати коротку нотатку (опціонально)"
     }
   },
   "ShopPage": {
