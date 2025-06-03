@@ -18,6 +18,14 @@
       "View dynamics": "Zobacz dynamikę",
       "Save": "Zapisz",
       "placeholder": "Dodaj krótką notatkę (opcjonalnie)"
+    },
+    "MyProgress": {
+      "title": "Moje postępy",
+      "subtitle": "Śledzenie postępów",
+      "Ribbon of achievements:": "Wstążka osiągnięć:",
+      "days in a row!": "dni z rzędu!",
+      "Mood analytics": "Analiza nastroju",
+      "Personal tips": "Wskazówki osobiste"
     }
   },
   "ShopPage": {
