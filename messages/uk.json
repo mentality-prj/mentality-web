@@ -21,5 +21,17 @@
     "BackToShop": "Повернутися до магазину",
     "LogOut": "Вихід",
     "Login": "Вхід"
+  },
+  "Sidebar": {
+    "Home": "Головний екран",
+    "Mood tracker": "Трекер настрою",
+    "AI-assistant": "AI-помічник",
+    "My notes": "Мої записи",
+    "My progress": "Мій прогрес",
+    "Reminder": "Нагадування",
+    "Shop": "Магазин",
+    "Settings": "Налаштування",
+    "Profile": "Профіль",
+    "Support": "Підтримка"
   }
 }

@@ -15,7 +15,7 @@ body {
 }
 
 .content {
-  @apply h-full gap-4 p-4;
+  @apply h-full w-full gap-4 bg-surface-primary px-10;
 }
 
 .container {
