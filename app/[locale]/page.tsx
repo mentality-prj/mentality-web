@@ -1,3 +1,4 @@
+import { ChatWithAI } from '@/components/Home/ChatWithAI'
 import { DailyCard } from '@/components/Home/DailyCard'
 import { ExercisesForRecovery } from '@/components/Home/ExercisesForRecovery'
 import { mockDashboardDailyData, mockExercisesRecoveryData } from '@/REST/mockApi'
@@ -23,7 +24,9 @@ export default async function Home() {
               <DailyCard key={id} {...props} />
             ))}
           </div>
-          <div className="">{/* Chat with an AI assistant compoent */}</div>
+          <div className="">
+            <ChatWithAI />
+          </div>
           <div className="">{/* My progress */}</div>
         </div>
       </div>
