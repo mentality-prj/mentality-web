@@ -3,6 +3,14 @@
     "ExercisesForRecovery": {
       "title": "Вправи для відновлення",
       "subtitle": "Практики для психологічного здоров'я"
+    },
+    "ChatWithAI": {
+      "title": "Чат з AI-помічником",
+      "subtitle": "Отримай підтримку та поради",
+      "description": "Привіт! Чим я можу допомогти сьогодні?",
+      "Talk about my thoughts": " Поговорити про мої думки",
+      "Advise me on an exercise": "Порадь мені вправу",
+      "Show the caring message of the day": "Покажи турботливе повідомлення дня"
     }
   },
   "ShopPage": {

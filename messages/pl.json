@@ -3,6 +3,14 @@
     "ExercisesForRecovery": {
       "title": "Ćwiczenia na regenerację",
       "subtitle": "Praktyki na rzecz zdrowia psychicznego"
+    },
+    "ChatWithAI": {
+      "title": "Czat z asystentem AI",
+      "subtitle": "Uzyskaj wsparcie i poradę",
+      "description": "Jak mogę ci dzisiaj pomóc?",
+      "Talk about my thoughts": "Porozmawiajmy o moich myślach",
+      "Advise me on an exercise": "Doradzić mi w sprawie ćwiczenia",
+      "Show the caring message of the day": "Pokaż troskliwe przesłanie dnia"
     }
   },
   "ShopPage": {
