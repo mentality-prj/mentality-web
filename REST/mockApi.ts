@@ -1,3 +1,4 @@
+import { DailyCardProps } from '@/components/Home/DailyCard'
 import { CartItemProps } from '@/types/cart'
 import { ShopItemProps } from '@/types/shop'
 
@@ -230,6 +231,27 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(shopProducts)
+    }, 500)
+  })
+}
+
+export const mockDashboardDailyData = async (): Promise<DailyCardProps[]> => {
+  const dailyData: DailyCardProps[] = [
+    {
+      title: 'Ваша щоденна афірмація',
+      textContent: 'Кожного дня я стаю все сильнишим та впевненим на своєму шляху.',
+      buttonText: 'Всі афірмації',
+    },
+    {
+      title: 'Порада дня',
+      textContent:
+        'Почніть свій день із постановки однієї маленької досяжної цілі — це створює імпульс для більших успіхів!',
+      buttonText: 'Всі поради',
+    },
+  ]
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(dailyData)
     }, 500)
   })
 }
