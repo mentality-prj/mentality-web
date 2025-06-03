@@ -18,6 +18,14 @@
       "View dynamics": "Подивитись динаміку",
       "Save": "Зберегти",
       "placeholder": "Додати коротку нотатку (опціонально)"
+    },
+    "MyProgress": {
+      "title": "Мій прогрес",
+      "subtitle": "Відстежуй свої досягнення",
+      "Ribbon of achievements:": "Стрічка досягнень:",
+      "days in a row!": "дні підряд!",
+      "Mood analytics": "Аналітика настрою",
+      "Personal tips": "Персональні поради"
     }
   },
   "ShopPage": {

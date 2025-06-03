@@ -2,6 +2,7 @@ import { ChatWithAI } from '@/components/Home/ChatWithAI'
 import { CurrentState } from '@/components/Home/CurrentState'
 import { DailyCard } from '@/components/Home/DailyCard'
 import { ExercisesForRecovery } from '@/components/Home/ExercisesForRecovery'
+import { MyProgress } from '@/components/Home/MyProgress'
 import { mockDashboardDailyData, mockExercisesRecoveryData } from '@/REST/mockApi'
 
 export default async function Home() {
@@ -9,31 +10,24 @@ export default async function Home() {
   const exercisesData = await mockExercisesRecoveryData()
 
   return (
-    <div className="flex flex-col gap-12">
-      <div className="">{/* Greeting Title component */}</div>
-      {/* Content ↓*/}
-      <div className="flex gap-8">
-        <div className="flex flex-col gap-8">
-          <div className="">
-            <CurrentState />
-          </div>
-          <div className="">
-            <ExercisesForRecovery exercises={exercisesData} />
-          </div>
+    <div className="flex flex-col gap-8">
+      {/* Greeting Title */}
+      <div>{/* GreetingTitle component */}</div>
+
+      {/* Main Content */}
+      <div className="mx-auto grid grid-cols-[527px_527px] gap-8">
+        <div className="flex max-w-[527px] flex-col gap-8">
+          <CurrentState />
+          <ExercisesForRecovery exercises={exercisesData} />
         </div>
-        <div className="flex-col gap-8">
+        <div className="flex max-w-[527px] flex-col gap-8">
           <div className="flex gap-6">
             {dailyData.map(({ ...props }, id) => (
               <DailyCard key={id} {...props} />
             ))}
           </div>
-          <div className="">
-            <ChatWithAI />
-          </div>
-          <div className="">
-            <ChatWithAI />
-          </div>
-          <div className="">{/* My progress */}</div>
+          <ChatWithAI />
+          <MyProgress />
         </div>
       </div>
     </div>

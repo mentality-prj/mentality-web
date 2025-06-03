@@ -18,6 +18,14 @@
       "View dynamics": "View dynamics",
       "Save": "Save",
       "placeholder": "Add a short note (optional)"
+    },
+    "MyProgress": {
+      "title": "My progress",
+      "subtitle": "Track your progress",
+      "Ribbon of achievements:": "Ribbon of achievements:",
+      "days in a row!": "days in a row!",
+      "Mood analytics": "Mood analytics",
+      "Personal tips": "Personal tips"
     }
   },
   "ShopPage": {
