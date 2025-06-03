@@ -1,4 +1,10 @@
 {
+  "HomePage": {
+    "ExercisesForRecovery": {
+      "title": "Ćwiczenia na regenerację",
+      "subtitle": "Praktyki na rzecz zdrowia psychicznego"
+    }
+  },
   "ShopPage": {
     "Checkout": {
       "DeliveryDetails": "Szczegóły dostawy",

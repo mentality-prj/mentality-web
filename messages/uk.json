@@ -1,4 +1,10 @@
 {
+  "HomePage": {
+    "ExercisesForRecovery": {
+      "title": "Вправи для відновлення",
+      "subtitle": "Практики для психологічного здоров'я"
+    }
+  },
   "ShopPage": {
     "Checkout": {
       "DeliveryDetails": "Деталі доставки",
