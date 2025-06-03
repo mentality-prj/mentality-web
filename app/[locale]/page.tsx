@@ -1,8 +1,11 @@
 import { DailyCard } from '@/components/Home/DailyCard'
-import { mockDashboardDailyData } from '@/REST/mockApi'
+import { ExercisesForRecovery } from '@/components/Home/ExercisesForRecovery'
+import { mockDashboardDailyData, mockExercisesRecoveryData } from '@/REST/mockApi'
 
 export default async function Home() {
   const dailyData = await mockDashboardDailyData()
+  const exercisesData = await mockExercisesRecoveryData()
+
   return (
     <div className="flex flex-col gap-12">
       <div className="">{/* Greeting Title component */}</div>
@@ -10,7 +13,9 @@ export default async function Home() {
       <div className="flex gap-8">
         <div className="flex-col gap-8">
           <div className="">{/* current state component */}</div>
-          <div className="">{/* exercises for recovery */}</div>
+          <div className="">
+            <ExercisesForRecovery exercises={exercisesData} />
+          </div>
         </div>
         <div className="flex-col gap-8">
           <div className="flex gap-6">
