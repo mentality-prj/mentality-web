@@ -2,6 +2,7 @@ import { ChatWithAI } from '@/components/Home/ChatWithAI'
 import { CurrentState } from '@/components/Home/CurrentState'
 import { DailyCard } from '@/components/Home/DailyCard'
 import { ExercisesForRecovery } from '@/components/Home/ExercisesForRecovery'
+import { MyProgress } from '@/components/Home/MyProgress'
 import { mockDashboardDailyData, mockExercisesRecoveryData } from '@/REST/mockApi'
 
 export default async function Home() {
@@ -21,7 +22,7 @@ export default async function Home() {
             <ExercisesForRecovery exercises={exercisesData} />
           </div>
         </div>
-        <div className="flex-col gap-8">
+        <div className="flex flex-col gap-8">
           <div className="flex gap-6">
             {dailyData.map(({ ...props }, id) => (
               <DailyCard key={id} {...props} />
@@ -31,7 +32,9 @@ export default async function Home() {
             <ChatWithAI />
           </div>
 
-          <div className="">{/* My progress */}</div>
+          <div className="">
+            <MyProgress />
+          </div>
         </div>
       </div>
     </div>
