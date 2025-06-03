@@ -30,9 +30,7 @@ export default async function Home() {
           <div className="">
             <ChatWithAI />
           </div>
-          <div className="">
-            <ChatWithAI />
-          </div>
+
           <div className="">{/* My progress */}</div>
         </div>
       </div>
