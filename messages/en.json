@@ -3,6 +3,14 @@
     "ExercisesForRecovery": {
       "title": "Exercises for recovery",
       "subtitle": "Practices for psychological health"
+    },
+    "ChatWithAI": {
+      "title": "Chat with an AI assistant",
+      "subtitle": "Get support and advice",
+      "description": "Hello! How can I help you today?",
+      "Talk about my thoughts": "Talk about my thoughts",
+      "Advise me on an exercise": "Advise me on an exercise",
+      "Show the caring message of the day": "Show the caring message of the day"
     }
   },
   "ShopPage": {
