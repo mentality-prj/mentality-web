@@ -11,6 +11,13 @@
       "Talk about my thoughts": "Porozmawiajmy o moich myślach",
       "Advise me on an exercise": "Doradzić mi w sprawie ćwiczenia",
       "Show the caring message of the day": "Pokaż troskliwe przesłanie dnia"
+    },
+    "CurrentState": {
+      "title": "Obecny stan",
+      "subtitle": "Jak się dziś czujesz?",
+      "View dynamics": "Zobacz dynamikę",
+      "Save": "Zapisz",
+      "placeholder": "Dodaj krótką notatkę (opcjonalnie)"
     }
   },
   "ShopPage": {

@@ -11,6 +11,13 @@
       "Talk about my thoughts": "Talk about my thoughts",
       "Advise me on an exercise": "Advise me on an exercise",
       "Show the caring message of the day": "Show the caring message of the day"
+    },
+    "CurrentState": {
+      "title": "Current state",
+      "subtitle": "How are you feeling today?",
+      "View dynamics": "View dynamics",
+      "Save": "Save",
+      "placeholder": "Add a short note (optional)"
     }
   },
   "ShopPage": {
