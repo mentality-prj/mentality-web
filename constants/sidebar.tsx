@@ -15,7 +15,7 @@ export const SidebarList = () => {
   const t = useTranslations('Sidebar')
   const sidebarList = [
     [
-      { icon: <HomeIcon />, text: t('Home'), link: '/' },
+      { icon: <HomeIcon />, text: t('Home'), link: '/home' },
       { icon: <Pulse2Icon />, text: t('Mood tracker'), link: '/mood-tracker' },
       { icon: <NotesMinimalisticIcon />, text: t('AI-assistant'), link: '/ai-assistant' },
       { icon: <ChartSquareIcon />, text: t('My notes'), link: '/my-notes' },
