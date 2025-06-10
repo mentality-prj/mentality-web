@@ -35,6 +35,7 @@ export const config = {
   matcher: [
     '/',
 
+    '/home',
     '/admin',
     '/profile',
     '/signin',
@@ -46,6 +47,7 @@ export const config = {
     '/thanks',
 
     '/(en|uk|pl)',
+    '/(en|uk|pl)/home',
     '/(en|uk|pl)/admin',
     '/(en|uk|pl)/signin',
     '/(en|uk|pl)/shop',
