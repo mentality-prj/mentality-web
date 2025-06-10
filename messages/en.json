@@ -62,5 +62,9 @@
     "Settings": "Settings",
     "Profile": "Profile",
     "Support": "Support"
+  },
+  "GreetingTitle": {
+    "defaultGreeting": "Hello my friend. It’s great to see you here today",
+    "personalGreeting": "Hello {{name}}. It’s great to see you here today"
   }
 }
