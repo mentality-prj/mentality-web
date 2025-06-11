@@ -65,6 +65,6 @@
   },
   "GreetingTitle": {
     "defaultGreeting": "Привіт! Чудово, що ти сьогодні тут",
-    "personalGreeting": "Привіт, {{name}}, чудово, що ти сьогодні тут"
+    "personalGreeting": "Привіт, {name}, чудово, що ти сьогодні тут"
   }
 }
