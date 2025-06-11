@@ -1,3 +1,4 @@
+import { GreetingTitleWrapper } from '@/components/GreetingTitle/GreetingTitleWrapper'
 import { ChatWithAI } from '@/components/Home/ChatWithAI'
 import { CurrentState } from '@/components/Home/CurrentState'
 import { DailyCard } from '@/components/Home/DailyCard'
@@ -11,8 +12,9 @@ export default async function Home() {
 
   return (
     <div className="flex flex-col gap-8">
-      {/* Greeting Title */}
-      <div>{/* GreetingTitle component */}</div>
+      <div>
+        <GreetingTitleWrapper />
+      </div>
 
       {/* Main Content */}
       <div className="mx-auto grid grid-cols-[527px_527px] gap-8">

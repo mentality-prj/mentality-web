@@ -62,5 +62,9 @@
     "Settings": "Ustawienia",
     "Profile": "Profil",
     "Support": "Wsparcie"
+  },
+  "GreetingTitle": {
+    "defaultGreeting": "Cześć! Miło, że jesteś dzisiaj z nami",
+    "personalGreeting": "Cześć {{name}}! Miło, że jesteś dzisiaj z nami"
   }
 }
