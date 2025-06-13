@@ -28,6 +28,9 @@
       "Personal tips": "Персональні поради"
     }
   },
+  "MainPage": {
+    "Coming soon": "Незабаром буде доступно"
+  },
   "ShopPage": {
     "Checkout": {
       "DeliveryDetails": "Деталі доставки",
