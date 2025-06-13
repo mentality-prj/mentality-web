@@ -4,12 +4,24 @@ import { MenuItemType, RoutesType } from '@/types/routes'
 export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
   AFFIRMATIONS: 'Affirmations',
+  AIASSISTANT: 'AI-Assistant',
   ARTICLES: 'Articles',
+  DELIVERYDETAILS: 'Shop/Delivery-Details',
+  HOME: 'Home',
   CART: 'Shop/Cart',
+  MOODTRACKER: 'Mood-Tracker',
+  MYNOTES: 'My-Notes',
+  MYPROGRESS: 'My-Progress',
+  PAYMENTINFO: 'Shop/Payment-Info',
   PROFILE: 'Profile',
-  SIGNIN: 'Signin',
+  REMINDER: 'Reminder',
+  REVIEW: 'Shop/Review',
+  SETTINGS: 'Settings',
   SHOP: 'Shop',
+  SIGNIN: 'Signin',
+  SUPPORT: 'Support',
   TIPS: 'Tips',
+  THANKS: 'Thanks',
 })
 
 export const Routes: RoutesType = Object.freeze({
