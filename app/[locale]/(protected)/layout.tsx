@@ -6,7 +6,7 @@ import AppIntlProvider from '@/app/(providers)/AppIntlProvider'
 import Layout from '@/components/Layout'
 import { fontSans } from '@/config/fonts'
 
-import { Providers } from './providers'
+import { Providers } from '../providers'
 
 import '@/styles/globals.css'
 
