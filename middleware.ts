@@ -10,17 +10,32 @@ import { Roles } from './types/security'
 
 export async function middleware(request: NextRequest) {
   const session = (await auth()) as CustomSession
+  const allowedEmails = process.env.ALLOWED_EMAILS
+    ? process.env.ALLOWED_EMAILS.split(',').map((email) => email.trim())
+    : []
+  const publicRoutes = [Routes.SIGNIN, Routes.MAIN]
 
-  const protectedRoutes = {
-    ADMIN: request.nextUrl.pathname.includes(Routes.ADMIN),
-    PROFILE: request.nextUrl.pathname.includes(Routes.PROFILE),
-  }
+  const protectedRoutes = Object.fromEntries(
+    Object.entries(Routes)
+      .filter(([, path]) => !publicRoutes.includes(path))
+      .map(([key, path]) => [key, request.nextUrl.pathname.includes(path)])
+  )
 
-  if (!session?.user && (protectedRoutes.ADMIN || protectedRoutes.PROFILE)) {
+  const isProtectedPath = Object.values(protectedRoutes).some(Boolean)
+
+  if (!session?.user && isProtectedPath) {
     return NextResponse.redirect(new URL(Routes.SIGNIN, request.url))
   }
 
-  if (session?.user && request.nextUrl.pathname.includes(Routes.SIGNIN)) {
+  if (session?.user?.email && !allowedEmails.includes(session.user.email) && isProtectedPath) {
+    return NextResponse.redirect(new URL(Routes.MAIN, request.url))
+  }
+
+  if (
+    session?.user?.email &&
+    allowedEmails.includes(session.user.email) &&
+    request.nextUrl.pathname.includes(Routes.SIGNIN)
+  ) {
     return NextResponse.redirect(new URL(Routes.PROFILE, request.url))
   }
 
@@ -34,28 +49,46 @@ export async function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     '/',
-
-    '/home',
-    '/admin',
-    '/profile',
-    '/signin',
-    '/shop',
-    '/shop/cart',
-    '/shop/delivery-details',
-    '/shop/payment-info',
-    '/shop/review',
-    '/thanks',
-
     '/(en|uk|pl)',
-    '/(en|uk|pl)/home',
+    '/admin',
     '/(en|uk|pl)/admin',
-    '/(en|uk|pl)/signin',
-    '/(en|uk|pl)/shop',
-    '/(en|uk|pl)/profile',
-    '/(en|uk|pl)/shop/cart',
+    '/affirmations',
+    '/(en|uk|pl)/affirmations',
+    '/ai-assistant',
+    '/(en|uk|pl)/ai-assistant',
+    '/articles',
+    '/(en|uk|pl)/articles',
+    '/shop/delivery-details',
     '/(en|uk|pl)/shop/delivery-details',
+    '/home',
+    '/(en|uk|pl)/home',
+    '/shop/cart',
+    '/(en|uk|pl)/shop/cart',
+    '/mood-tracker',
+    '/(en|uk|pl)/mood-tracker',
+    '/my-notes',
+    '/(en|uk|pl)/my-notes',
+    '/my-progress',
+    '/(en|uk|pl)/my-progress',
+    '/shop/payment-info',
     '/(en|uk|pl)/shop/payment-info',
+    '/profile',
+    '/(en|uk|pl)/profile',
+    '/reminder',
+    '/(en|uk|pl)/reminder',
+    '/shop/review',
     '/(en|uk|pl)/shop/review',
+    '/settings',
+    '/(en|uk|pl)/settings',
+    '/shop',
+    '/(en|uk|pl)/shop',
+    '/signin',
+    '/(en|uk|pl)/signin',
+    '/support',
+    '/(en|uk|pl)/support',
+    '/tips',
+    '/(en|uk|pl)/tips',
+    '/thanks',
     '/(en|uk|pl)/thanks',
   ],
 }
