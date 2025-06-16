@@ -4,6 +4,7 @@
       "title": "Exercises for recovery",
       "subtitle": "Practices for psychological health"
     },
+
     "ChatWithAI": {
       "title": "Chat with an AI assistant",
       "subtitle": "Get support and advice",
@@ -27,6 +28,9 @@
       "Mood analytics": "Mood analytics",
       "Personal tips": "Personal tips"
     }
+  },
+  "MainPage": {
+    "Coming soon": "Coming soon"
   },
   "ShopPage": {
     "Checkout": {
