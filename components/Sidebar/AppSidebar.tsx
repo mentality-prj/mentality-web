@@ -27,7 +27,7 @@ import { AuthButton } from '../Buttons/AuthButton'
 export const AppSidebar = () => {
   const pathname = usePathname()
   const isPageActive = (link: string) => pathname === link
-  const { state, toggleSidebar } = useSidebar()
+  const { state, toggleSidebar, isMobile } = useSidebar()
   const sidebarList = SidebarList()
 
   return (
@@ -66,9 +66,11 @@ export const AppSidebar = () => {
         ))}
       </SidebarContent>
       <SidebarFooter className="gap-2 overflow-hidden bg-surface-white p-0">
-        <Button className="h-6 w-6" onClick={toggleSidebar} variant="iconButton" size="icon">
-          {state === 'collapsed' ? <MaximizeIcon /> : <MinimizeIcon />}
-        </Button>
+        {!isMobile && (
+          <Button className="h-6 w-6" onClick={toggleSidebar} variant="iconButton" size="icon">
+            {state === 'collapsed' ? <MaximizeIcon /> : <MinimizeIcon />}
+          </Button>
+        )}
         <AuthButton />
       </SidebarFooter>
     </Sidebar>
