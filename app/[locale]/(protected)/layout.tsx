@@ -3,6 +3,7 @@ import { Toaster } from 'react-hot-toast'
 import type { Metadata } from 'next'
 
 import AppIntlProvider from '@/app/(providers)/AppIntlProvider'
+import { Header } from '@/components/Header/Header'
 import Layout from '@/components/Layout'
 import { fontSans } from '@/config/fonts'
 
@@ -27,6 +28,7 @@ export default function RootLayout({
         <AppIntlProvider>
           <Providers>
             <Toaster position="top-right" reverseOrder={false} />
+            <Header />
             <Layout>{children}</Layout>
           </Providers>
         </AppIntlProvider>

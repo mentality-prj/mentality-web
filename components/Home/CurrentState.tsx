@@ -1,3 +1,4 @@
+import { Mic } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
@@ -24,7 +25,11 @@ export const CurrentState = () => {
             </Button>
           ))}
         </div>
-        <CustomInput className="max-w-full" placeholder={t('placeholder')} />
+        <CustomInput
+          className="max-w-full"
+          placeholder={t('placeholder')}
+          rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />}
+        />
         <div className="flex justify-between">
           <Button variant="secondary">{t('View dynamics')}</Button>
           <Button>{t('Save')}</Button>
