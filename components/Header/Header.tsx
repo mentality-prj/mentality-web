@@ -5,6 +5,7 @@ import LangSwitch from '@/components/Buttons/LangSwitch'
 import { LocalDate } from './LocalDate'
 import { SearchBar } from './SearchBar'
 import { ThemeToggleButton } from './ThemeToggleButton'
+import { UserMenu } from './UserMenu'
 
 export function Header() {
   return (
@@ -14,6 +15,8 @@ export function Header() {
         <SearchBar />
         <ThemeToggleButton />
         <LangSwitch />
+        {/* додати сесію */}
+        <UserMenu name="User Name" email="username@example.com" avatarUrl="" />
       </div>
     </header>
   )
