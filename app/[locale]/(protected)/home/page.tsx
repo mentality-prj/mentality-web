@@ -17,8 +17,8 @@ export default async function Home() {
       </div>
 
       {/* Main Content */}
-      <div className="mx-auto grid gap-8 xl:grid-cols-[527px_527px]">
-        <div className="flex max-w-[527px] flex-col gap-8">
+      <div className="mx-auto grid w-full gap-8 xl:grid-cols-2">
+        <div className="mx-auto flex w-full max-w-[527px] flex-col gap-8">
           <CurrentState />
           <ExercisesForRecovery exercises={exercisesData} />
         </div>
