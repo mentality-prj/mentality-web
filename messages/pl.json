@@ -73,5 +73,15 @@
   "GreetingTitle": {
     "defaultGreeting": "Cześć! Miło, że jesteś dzisiaj z nami",
     "personalGreeting": "Cześć {name}! Miło, że jesteś dzisiaj z nami"
+  },
+  "MoodTracker": {
+    "MoodNote": {
+      "title": "Nowa notatka o nastroyu",
+      "subtitle": "Jak się dzisiaj czujesz?",
+      "label": "Opisz swoje uczucia i myśli",
+      "add tags": "Dodaj tagi",
+      "change tags": "Zmień tagi",
+      "save": "Zapisz"
+    }
   }
 }

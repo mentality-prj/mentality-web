@@ -20,11 +20,11 @@ const buttonVariants = cva(
         linkButton:
           'px-2 py-1 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus focus-visible:ring-offset-1 active:text-primary-pressed underline [text-underline-offset:3px] decoration-1',
         iconButton:
-          'bg-transparent text-iconcolor-primary hover:bg-secondary-hover hover:text-primary focus:bg-secondary-focus focus:text-primary focus-visible:ring-primary-focus active:bg-secondary-pressed',
+          'bg-transparent text-iconcolor-primary hover:bg-secondary-hover hover:text-primary focus:bg-secondary-focus focus:text-primary focus-visible:ring-primary-focus active:bg-secondary-pressed  [&_svg]:h-4',
       },
 
       size: {
-        default: 'gap-2',
+        default: 'gap-1 [&_svg]:h-4',
         icon: 'h-8 w-8 py-0 px-0 rounded-full [&_svg]:w-6 [&_svg]:h-6',
         iconSm: 'h-6 w-6 py-0 px-0 rounded-full [&_svg]:w-4 [&_svg]:h-4',
       },
