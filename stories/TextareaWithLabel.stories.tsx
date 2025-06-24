@@ -1,7 +1,6 @@
 import { useState } from 'react'
 import type { Meta, StoryObj } from '@storybook/react'
-
-import { TextareaWithLabel } from '../ds/shadcn/textarea-with-label'
+import { TextareaWithLabel } from 'ds/components/TextareaWithLabel'
 
 const baseUrl = process.env.STORYBOOK_FIGMA_URL
 
