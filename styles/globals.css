@@ -42,9 +42,10 @@ body {
     --secondary-focus: #e9e5ff;
     --secondary-pressed: #d4ccff;
 
-    --text-primary: #905fff;
-    --text-secondary: #f6f5ff;
+    --text-primary: #17171c;
+    --text-secondary: #2d2d39;
     --text-tertiary: #8e8ea4;
+    --text-purple: #905fff;
     --text-error: #991b1b;
     --text-success: #22c55e;
 
@@ -63,7 +64,7 @@ body {
     --surface: #fcfcfd;
     --surface-primary: #f2f1f3;
     --surface-secondary: #e4e3e8;
-    --surface-action: #f6f5ff;
+    --surface-action: #f5f3ff;
     --surface-dark: #2d2d39;
 
     --radius: 16px;

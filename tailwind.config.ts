@@ -23,6 +23,7 @@ const config: Config = {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
           tertiary: 'var(--text-tertiary)',
+          purple: 'var(--text-purple)',
           error: 'var(--text-error)',
           success: 'var(--text-success)',
         },
