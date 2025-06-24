@@ -18,7 +18,7 @@ export const CurrentState = () => {
   return (
     <SectionCard title={t('title')} subtitle={t('subtitle')}>
       <div className="mt-4 flex flex-col gap-6">
-        <div className="flex justify-between px-20 py-5">
+        <div className="mx-auto flex w-full justify-around px-2 py-5">
           {buttonList.map((Emoji, id) => (
             <Button key={id} size="iconSm" variant={'iconButton'}>
               <Emoji />
@@ -30,7 +30,8 @@ export const CurrentState = () => {
           placeholder={t('placeholder')}
           rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />}
         />
-        <div className="flex justify-between">
+        
+        <div className="flex flex-col justify-between gap-2 md:flex-row">
           <Button variant="secondary">{t('View dynamics')}</Button>
           <Button>{t('Save')}</Button>
         </div>

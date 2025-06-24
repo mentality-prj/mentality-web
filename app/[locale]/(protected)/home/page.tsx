@@ -16,20 +16,16 @@ export default async function Home() {
         <GreetingTitleWrapper />
       </div>
       {/* Main Content */}
-      <div className="flex flex-col gap-8">
-        <div className="mx-auto grid grid-cols-[527px_527px] gap-8">
-          <div className="flex max-w-[527px] flex-col gap-8">
-            <CurrentState />
-            <ExercisesForRecovery exercises={exercisesData} />
-          </div>
-          <div className="flex max-w-[527px] flex-col gap-8">
-            <div className="flex gap-6">
-              {dailyData.map(({ ...props }, id) => (
-                <DailyCard key={id} {...props} />
-              ))}
-            </div>
-            <ChatWithAI />
-            <MyProgress />
+      <div className="mx-auto grid w-full gap-8 xl:grid-cols-2">
+        <div className="mx-auto flex w-full max-w-[527px] flex-col gap-8">
+          <CurrentState />
+          <ExercisesForRecovery exercises={exercisesData} />
+        </div>
+        <div className="flex max-w-[527px] flex-col gap-8">
+          <div className="flex flex-col gap-6 sm:flex-row">
+            {dailyData.map(({ ...props }, id) => (
+              <DailyCard key={id} {...props} />
+            ))}
           </div>
         </div>
       </div>
