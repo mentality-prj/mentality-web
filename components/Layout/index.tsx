@@ -11,11 +11,11 @@ interface MainLayoutProps {
 
 const Layout = ({ children }: MainLayoutProps) => {
   return (
-    <section className="flex">
-      <SidebarWrapper>
+    <SidebarWrapper>
+      <section className="flex w-full">
         <Content>{children}</Content>
-      </SidebarWrapper>
-    </section>
+      </section>
+    </SidebarWrapper>
   )
 }
 
