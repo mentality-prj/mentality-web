@@ -55,6 +55,10 @@
     "Login": "Login",
     "LogOut": "Log out"
   },
+  "UserMenu": {
+    "Profile": "Profile",
+    "Settings": "Settings"
+  },
   "Sidebar": {
     "Home": "Home",
     "Mood tracker": "Mood tracker",
