@@ -23,14 +23,33 @@ export default function LangSwitch() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button disabled={isPending} variant="secondary" className="group data-[state=open]:bg-[#A999FF]">
+        <Button disabled={isPending} variant="textButton" className="group data-[state=open]:bg-secondary-hover">
           {localActive}
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="start" aria-label="Language actions">
-        <DropdownMenuItem onSelect={() => onSelectChange('uk')}>{Languages.UKRAINIAN}</DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => onSelectChange('en')}>{Languages.ENGLISH}</DropdownMenuItem>
-        <DropdownMenuItem onSelect={() => onSelectChange('pl')}>{Languages.POLISH}</DropdownMenuItem>
+      <DropdownMenuContent
+        align="start"
+        aria-label="Language actions"
+        className="w-auto min-w-0 bg-surface-white px-0 text-center"
+      >
+        <DropdownMenuItem
+          className="justify-center px-3 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed"
+          onSelect={() => onSelectChange('uk')}
+        >
+          {Languages.UKRAINIAN}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="justify-center px-3 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed"
+          onSelect={() => onSelectChange('en')}
+        >
+          {Languages.ENGLISH}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          className="justify-center px-3 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed"
+          onSelect={() => onSelectChange('pl')}
+        >
+          {Languages.POLISH}
+        </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
   )

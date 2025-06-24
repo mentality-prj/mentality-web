@@ -11,11 +11,10 @@ export default async function Home() {
   const exercisesData = await mockExercisesRecoveryData()
 
   return (
-    <div className="flex flex-col gap-8">
+    <div>
       <div>
         <GreetingTitleWrapper />
       </div>
-
       {/* Main Content */}
       <div className="mx-auto grid w-full gap-8 xl:grid-cols-2">
         <div className="mx-auto flex w-full max-w-[527px] flex-col gap-8">
