@@ -23,7 +23,7 @@ export default async function Home() {
           <ExercisesForRecovery exercises={exercisesData} />
         </div>
         <div className="flex max-w-[527px] flex-col gap-8">
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-6 sm:flex-row">
             {dailyData.map(({ ...props }, id) => (
               <DailyCard key={id} {...props} />
             ))}
