@@ -54,6 +54,10 @@
     "Login": "Вхід",
     "LogOut": "Вихід"
   },
+  "UserMenu": {
+    "Profile": "Профіль",
+    "Settings": "Налаштування"
+  },
   "Sidebar": {
     "Home": "Головний екран",
     "Mood tracker": "Трекер настрою",

@@ -10,7 +10,7 @@ export const ExercisesForRecovery = ({ exercises }: ExercisesForRecoveryProps) =
   const t = useTranslations('HomePage.ExercisesForRecovery')
   return (
     <SectionCard title={t('title')} subtitle={t('subtitle')}>
-      <div className="mt-6 grid grid-cols-2 gap-4">
+      <div className="mt-6 grid place-items-center gap-4 sm:grid-cols-2">
         {exercises.map((exercise, id) => (
           <CustomCard
             variant="default"
@@ -18,7 +18,6 @@ export const ExercisesForRecovery = ({ exercises }: ExercisesForRecoveryProps) =
             title={exercise.title}
             description={exercise.description}
             icon={getEmojiFromBackend(exercise.icon)}
-            className="min-h-[196px]"
           />
         ))}
       </div>

@@ -11,11 +11,10 @@ export default async function Home() {
   const exercisesData = await mockExercisesRecoveryData()
 
   return (
-    <div className="flex flex-col gap-8">
+    <div>
       <div>
         <GreetingTitleWrapper />
       </div>
-
       {/* Main Content */}
       <div className="mx-auto grid w-full gap-8 xl:grid-cols-2">
         <div className="mx-auto flex w-full max-w-[527px] flex-col gap-8">
@@ -23,7 +22,7 @@ export default async function Home() {
           <ExercisesForRecovery exercises={exercisesData} />
         </div>
         <div className="flex max-w-[527px] flex-col gap-8">
-          <div className="flex gap-6">
+          <div className="flex flex-col gap-6 sm:flex-row">
             {dailyData.map(({ ...props }, id) => (
               <DailyCard key={id} {...props} />
             ))}
