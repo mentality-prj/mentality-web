@@ -16,9 +16,11 @@ export default async function Home() {
 
       <CurrentState />
 
-      {dailyData.map(({ ...props }, id) => (
-        <DailyCard key={id} {...props} />
-      ))}
+      <div className="tablet:grid-cols-2 grid items-stretch justify-items-stretch gap-4">
+        {dailyData.map((props, id) => (
+          <DailyCard key={id} {...props} />
+        ))}
+      </div>
 
       <ExercisesForRecovery exercises={exercisesData} />
 
