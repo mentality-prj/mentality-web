@@ -27,6 +27,8 @@ export default async function Home() {
               <DailyCard key={id} {...props} />
             ))}
           </div>
+          <ChatWithAI />
+          <MyProgress />
         </div>
       </div>
     </div>
