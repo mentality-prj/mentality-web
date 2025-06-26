@@ -1,7 +1,7 @@
 'use client'
 import { useLocale } from 'next-intl'
 
-export const LocalDate = () => {
+export const LocalDate = ({ className }: { className?: string }) => {
   const locale = useLocale()
 
   const now = new Date()
@@ -13,5 +13,5 @@ export const LocalDate = () => {
 
   const formattedDate = formatter.format(now)
 
-  return <span>{formattedDate}</span>
+  return <span className={className}>{formattedDate}</span>
 }
