@@ -11,25 +11,24 @@ export default async function Home() {
   const exercisesData = await mockExercisesRecoveryData()
 
   return (
-    <div>
-      <div>
-        <GreetingTitleWrapper />
+    <div className="flex flex-col gap-4">
+      <GreetingTitleWrapper />
+
+      <div className="flex flex-col gap-4 laptop:grid laptop:grid-cols-2">
+        <CurrentState />
+
+        <div className="grid items-stretch justify-items-stretch gap-4 tablet:grid-cols-2 laptop:grid-cols-1">
+          {dailyData.map((props, id) => (
+            <DailyCard key={id} {...props} />
+          ))}
+        </div>
       </div>
-      {/* Main Content */}
-      <div className="mx-auto grid w-full gap-8 xl:grid-cols-2">
-        <div className="mx-auto flex w-full max-w-[527px] flex-col gap-8">
-          <CurrentState />
-          <ExercisesForRecovery exercises={exercisesData} />
-        </div>
-        <div className="flex max-w-[527px] flex-col gap-8">
-          <div className="flex flex-col gap-6 sm:flex-row">
-            {dailyData.map(({ ...props }, id) => (
-              <DailyCard key={id} {...props} />
-            ))}
-          </div>
-          <ChatWithAI />
-          <MyProgress />
-        </div>
+
+      <div className="grid grid-cols-1 gap-4 laptop:grid-cols-2">
+        <ExercisesForRecovery exercises={exercisesData} />
+
+        <ChatWithAI />
+        <MyProgress className="desktop:col-start-2" />
       </div>
     </div>
   )

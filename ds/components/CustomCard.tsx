@@ -55,11 +55,12 @@ export const CustomCard: React.FC<PracticeCardProps> = (props) => {
   // default
   const { title, description, icon } = props as DefaultVariantProps
   return (
-    <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
+    <Card aria-disabled={disabled} className={cn('flex h-full flex-col', cardVariants({ variant }), className)}>
       {icon && <CardHeader className="p-0">{icon}</CardHeader>}
-      <CardContent className="flex flex-col gap-3 p-0">
+
+      <CardContent className="flex h-full flex-col gap-3 p-0">
         <CardTitle className="text-base font-medium">{title}</CardTitle>
-        <CardDescription className="text-base font-normal">{description}</CardDescription>
+        <CardDescription className="grow text-base font-normal">{description}</CardDescription>
       </CardContent>
     </Card>
   )
