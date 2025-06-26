@@ -73,5 +73,15 @@
   "GreetingTitle": {
     "defaultGreeting": "Привіт! Чудово, що ти сьогодні тут",
     "personalGreeting": "Привіт, {name}, чудово, що ти сьогодні тут"
+  },
+  "MoodTracker": {
+    "MoodNote": {
+      "title": "Новий запис настрою",
+      "subtitle": "Як твій настрій?",
+      "label": "Опиши свої почуття та думки",
+      "add tags": "Додати теги",
+      "change tags": "Змінити теги",
+      "save": "Зберегти"
+    }
   }
 }
