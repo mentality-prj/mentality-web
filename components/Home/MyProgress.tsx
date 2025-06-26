@@ -12,10 +12,10 @@ export const MyProgress = () => {
     <SectionCard title={t('title')} subtitle={t('subtitle')}>
       <div className="mt-6 flex flex-col gap-6">
         <div className="flex gap-3">
-          <div className="rounded-md bg-surface-action p-3">
+          <div className="max-h-12 max-w-12 rounded-md bg-surface-action p-3">
             <FireEmoji />
           </div>
-          <div className="flex flex-col gap-2">
+          <div className="gap-2">
             <div className="text-sm">{t('Ribbon of achievements:')}</div>
             <div className="text-xl/6">3 {t('days in a row!')}</div>
           </div>
