@@ -11,9 +11,9 @@ export const ChatWithAI = () => {
   const t = useTranslations('HomePage.ChatWithAI')
   return (
     <SectionCard title={t('title')} subtitle={t('subtitle')}>
-      <div className="mt-2 flex flex-col gap-6 p-2">
+      <div className="mt-2 flex max-h-80 flex-col gap-6 p-2">
         <div className="rounded-md bg-surface-action p-3">&quot;{t('description')}&quot;</div>
-        <div className="flex max-h-[28vh] flex-col gap-2 overflow-y-auto tablet:max-h-none">
+        <div className="flex max-h-[20vh] flex-col gap-2 overflow-y-auto tablet:max-laptop:max-h-none desktop:max-h-none">
           <CustomCard
             variant="small"
             className="max-w-full"

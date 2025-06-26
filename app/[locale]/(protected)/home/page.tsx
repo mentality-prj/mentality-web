@@ -14,18 +14,22 @@ export default async function Home() {
     <div className="flex flex-col gap-4">
       <GreetingTitleWrapper />
 
-      <CurrentState />
+      <div className="flex flex-col gap-4 laptop:grid laptop:grid-cols-2">
+        <CurrentState />
 
-      <div className="grid items-stretch justify-items-stretch gap-4 tablet:grid-cols-2">
-        {dailyData.map((props, id) => (
-          <DailyCard key={id} {...props} />
-        ))}
+        <div className="grid items-stretch justify-items-stretch gap-4 tablet:grid-cols-2 laptop:grid-cols-1">
+          {dailyData.map((props, id) => (
+            <DailyCard key={id} {...props} />
+          ))}
+        </div>
       </div>
 
-      <ExercisesForRecovery exercises={exercisesData} />
+      <div className="grid grid-cols-1 gap-4 laptop:grid-cols-2">
+        <ExercisesForRecovery exercises={exercisesData} />
 
-      <ChatWithAI />
-      <MyProgress />
+        <ChatWithAI />
+        <MyProgress className="desktop:col-start-2" />
+      </div>
     </div>
   )
 }

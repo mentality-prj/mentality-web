@@ -67,7 +67,12 @@ export const AppSidebar = () => {
       </SidebarContent>
       <SidebarFooter className="gap-2 overflow-hidden bg-surface-white p-0">
         {!isMobile && (
-          <Button className="h-6 w-6" onClick={toggleSidebar} variant="iconButton" size="icon">
+          <Button
+            className="h-6 w-6 laptop:max-desktop:hidden"
+            onClick={toggleSidebar}
+            variant="iconButton"
+            size="icon"
+          >
             {state === 'collapsed' ? <MaximizeIcon /> : <MinimizeIcon />}
           </Button>
         )}
