@@ -30,7 +30,7 @@ export const CurrentState = () => {
           placeholder={t('placeholder')}
           rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />}
         />
-        <div className="flex flex-col justify-between gap-2 md:flex-row">
+        <div className="flex flex-col justify-between gap-2 tablet:flex-row laptop:flex-col">
           <Button variant="secondary">{t('View dynamics')}</Button>
           <Button>{t('Save')}</Button>
         </div>

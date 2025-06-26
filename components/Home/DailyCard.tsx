@@ -9,14 +9,18 @@ export type DailyCardProps = {
 
 export const DailyCard = ({ title, textContent, buttonText }: DailyCardProps) => {
   return (
-    <Card className="flex flex-col border-none bg-surface-white p-8 shadow-none">
-      <CardHeader className="mb-6 p-0">
-        <CardTitle className="text-base font-medium text-textcolor-tertiary">{title}</CardTitle>
+    <Card className="grid h-full grid-rows-[auto_1fr_auto] gap-2 border-none bg-surface-white p-4 shadow-none">
+      <CardHeader className="p-0">
+        <CardTitle className="flex min-h-[3rem] items-center text-base font-medium text-textcolor-tertiary">
+          <p className="m-0 line-clamp-2">{title}</p>
+        </CardTitle>
       </CardHeader>
-      <CardContent className="mb-8 flex-grow p-0">
-        <p className="text-xl/6 font-semibold">&quot;{textContent}&quot;</p>
+
+      <CardContent className="flex-grow p-0">
+        <p className="line-clamp-4 text-xl/6 font-semibold">&quot;{textContent}&quot;</p>
       </CardContent>
-      <CardFooter className="mt-auto p-0">
+
+      <CardFooter className="mt-2 p-0">
         <Button className="ml-auto max-h-4 p-0" variant="textButton">
           {buttonText}
         </Button>
