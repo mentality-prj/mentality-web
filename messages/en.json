@@ -83,6 +83,18 @@
       "add tags": "Add tags",
       "change tags": "Change tags",
       "save": "Save"
+    },
+    "WeekSummary": {
+      "title": "Summary of the week",
+      "notes-amount": "Number of notes",
+      "mood": "Most frequent mood",
+      "average-mood": "Average mood",
+      "stress-level": "Stress level"
+    },
+    "StressAssessment": {
+      "title": "Quick stress assessment",
+      "description": "Take a short assessment to get a more accurate stress level (2 minutes)",
+      "button": "Start assessment"
     }
   }
 }
