@@ -21,4 +21,10 @@ export type LinkVariantProps = {
   href: string
 } & BaseCardProps
 
-export type PracticeCardProps = DefaultVariantProps | SmallVariantProps | LinkVariantProps
+export type NoninteractiveVariantProps = {
+  variant?: 'noninteractive'
+  title: string
+  description: React.ReactNode
+} & BaseCardProps
+
+export type PracticeCardProps = DefaultVariantProps | SmallVariantProps | LinkVariantProps | NoninteractiveVariantProps
