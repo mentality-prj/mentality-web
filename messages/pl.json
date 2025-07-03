@@ -82,6 +82,18 @@
       "add tags": "Dodaj tagi",
       "change tags": "Zmień tagi",
       "save": "Zapisz"
+    },
+    "WeekSummary": {
+      "title": "Podsumowanie tygodnia",
+      "notes-amount": "Liczba wpisów",
+      "mood": "Najczęstszy nastrój",
+      "average-mood": "Średni nastrój",
+      "stress-level": "Stress level"
+    },
+    "StressAssessment": {
+      "title": "Szybka ocena stresu",
+      "description": "Wykonaj krótką ocenę, aby dokładniej określić poziom stresu (2 minuty)",
+      "button": "Rozpocznij ocenę"
     }
   }
 }

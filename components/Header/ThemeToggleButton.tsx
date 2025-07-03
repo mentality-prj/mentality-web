@@ -3,7 +3,7 @@ import { Moon } from 'lucide-react'
 
 export const ThemeToggleButton = () => {
   return (
-    <Button variant={'iconButton'}>
+    <Button variant={'iconButton'} size={'icon'}>
       <Moon />
     </Button>
   )
