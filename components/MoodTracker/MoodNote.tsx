@@ -16,16 +16,16 @@ export const MoodNote = () => {
   const t = useTranslations('MoodTracker.MoodNote')
 
   return (
-    <div>
-      <Card className="flex flex-col gap-6 bg-surface-white">
+    <div className="flex w-full">
+      <Card className="flex w-full flex-col gap-6 bg-surface-white">
         <CardHeader>
           <CardTitle> {t('title')} </CardTitle>
         </CardHeader>
-        <CardContent className="flex flex-col gap-6">
-          <Card>
+        <CardContent className="flex flex-col gap-4">
+          <Card className="border-outline-secondary">
             <CardContent>
-              <div className="py-4">{t('subtitle')}</div>
-              <div className="flex justify-between px-20 py-5">
+              <div className="pt-4">{t('subtitle')}</div>
+              <div className="flex justify-around py-4">
                 {buttonList.map((Emoji, id) => (
                   <Button key={id} size="iconSm" variant={'iconButton'}>
                     <Emoji />
@@ -35,14 +35,14 @@ export const MoodNote = () => {
               <TextareaWithLabel rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />} label={t('label')} />
               <div className="flex justify-between py-4">
                 <div> {t('add tags')} </div>
-                <Button variant={'textButton'}>
+                <Button variant={'textButton'} size={'base'}>
                   <Pencil /> {t('change tags')}
                 </Button>
               </div>
               <div>Всякі різні теги</div>
             </CardContent>
           </Card>
-          <Card>
+          <Card className="border-outline-secondary">
             <CardContent>
               <div className="py-4">Блок: обери рівень стресу</div>
             </CardContent>

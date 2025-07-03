@@ -12,7 +12,7 @@ import {
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../shadcn/card'
 
 export const cardVariants = cva(
-  'w-full max-w-[243px] rounded-md border-outline-secondary bg-surface-primary shadow-none hover:bg-secondary-hover focus:bg-secondary-focus active:bg-secondary-pressed aria-disabled:bg-disable',
+  'flex flex-col w-full h-full rounded-md border-outline-secondary bg-surface-primary shadow-none hover:bg-secondary-hover focus:bg-secondary-focus active:bg-secondary-pressed aria-disabled:bg-disable',
   {
     variants: {
       variant: {
