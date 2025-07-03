@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 
+import { ArrowRightIcon } from '@/ds/icons/arrow-right'
 import { Button } from '@/ds/shadcn/button'
 
 import { SectionCard } from '../ui/SectionCard'
@@ -9,7 +10,9 @@ export const StressAssessment = () => {
 
   return (
     <SectionCard title={t('title')} subtitle={t('description')}>
-      <Button>{t('button')}</Button>
+      <Button>
+        {t('button')} <ArrowRightIcon className="text-reversed" />
+      </Button>
     </SectionCard>
   )
 }
