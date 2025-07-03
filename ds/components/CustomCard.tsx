@@ -2,7 +2,12 @@
 import { cva } from 'class-variance-authority'
 
 import { cn } from '@/lib/utils'
-import { DefaultVariantProps, LinkVariantProps, PracticeCardProps } from '@/types/customCard'
+import {
+  DefaultVariantProps,
+  LinkVariantProps,
+  NoninteractiveVariantProps,
+  PracticeCardProps,
+} from '@/types/customCard'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../shadcn/card'
 
@@ -14,6 +19,7 @@ export const cardVariants = cva(
         default: 'flex flex-col gap-4 p-6',
         small: 'flex px-4 py-3',
         link: 'flex px-4 py-3',
+        noninteractive: 'flex flex-col',
       },
     },
     defaultVariants: {
@@ -49,6 +55,23 @@ export const CustomCard: React.FC<PracticeCardProps> = (props) => {
           </CardContent>
         </Card>
       </a>
+    )
+  }
+
+  if (variant === 'noninteractive') {
+    const { title, description, icon } = props as NoninteractiveVariantProps
+    return (
+      <Card aria-disabled={disabled} className={cn('p-4', cardVariants({ variant }), className)}>
+        <CardHeader className="p-0">
+          <div className="flex flex-row items-center gap-2">
+            {icon && <div className="">{icon}</div>}
+            {title && <div className="text-sm font-semibold">{title}</div>}
+          </div>
+        </CardHeader>
+        <CardContent className="mt-1 flex flex-col p-0">
+          {description && <CardDescription>{description}</CardDescription>}
+        </CardContent>
+      </Card>
     )
   }
 
