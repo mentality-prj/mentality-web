@@ -1,5 +1,6 @@
 import { MoodNote } from '@/components/MoodTracker/MoodNote'
 import { StressAssessment } from '@/components/MoodTracker/StressAssessment'
+import { WeekSummary } from '@/components/MoodTracker/WeekSummary'
 
 export default async function MoodTracker() {
   return (
