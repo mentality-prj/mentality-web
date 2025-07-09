@@ -16,7 +16,7 @@ const buttonVariants = cva(
         textIconButton:
           'h-10 px-3 py-2 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus active:text-primary-pressed',
         textButton:
-          'h-8 px-3 bg-transparent text-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed disabled:bg-disable',
+          'h-8 px-3 rounded-sm bg-transparent text-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed disabled:bg-disable',
         linkButton:
           'px-2 py-1 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus focus-visible:ring-offset-1 active:text-primary-pressed underline [text-underline-offset:3px] decoration-1',
         iconButton:

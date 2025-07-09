@@ -1,4 +1,7 @@
-import { Check, Mic, Pencil } from 'lucide-react'
+'use client'
+
+import { useState } from 'react'
+import { Check, Mic } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import TextareaWithLabel from '@/ds/components/TextareaWithLabel'
@@ -10,10 +13,13 @@ import { VerySadEmoji } from '@/ds/icons/emoji/very-sad'
 import { Button } from '@/ds/shadcn/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/ds/shadcn/card'
 
+import { TagsEditor } from './AddTagsContainer'
+
 const buttonList = [HappyEmoji, SadEmoji, VerySadEmoji, AngryEmoji, SleepyEmoji]
 
 export const MoodNote = () => {
   const t = useTranslations('MoodTracker.MoodNote')
+  const [tags, setTags] = useState<string[]>(['Спорт', 'Вітаміни'])
 
   return (
     <div className="flex w-full">
@@ -33,13 +39,7 @@ export const MoodNote = () => {
                 ))}
               </div>
               <TextareaWithLabel rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />} label={t('label')} />
-              <div className="flex justify-between py-4">
-                <div> {t('add tags')} </div>
-                <Button variant={'textButton'} size={'base'}>
-                  <Pencil /> {t('change tags')}
-                </Button>
-              </div>
-              <div>Всякі різні теги</div>
+              <TagsEditor tags={tags} onChange={setTags} />
             </CardContent>
           </Card>
           <Card className="border-outline-secondary">
