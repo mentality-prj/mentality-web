@@ -48,6 +48,9 @@
     "Checkout": "Przejdź do kasy",
     "TotalPrice": "Cena całkowita"
   },
+  "NotFoundPage": {
+    "title": "Nie znaleziono strony"
+  },
   "Navigation": {
     "BackToHome": "Powrót do domu",
     "BackToShop": "Powrót do sklepu",
