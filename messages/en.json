@@ -49,6 +49,9 @@
     "Checkout": "Proceed to Checkout",
     "TotalPrice": "Total price"
   },
+  "NotFoundPage": {
+    "title": "Page not found"
+  },
   "Navigation": {
     "BackToHome": "Back to home",
     "BackToShop": "Back to shop",
