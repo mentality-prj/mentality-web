@@ -1,7 +1,7 @@
-import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
+import { Link } from '@/i18n/navigation'
 
 export default function CartEmpty() {
   const t = useTranslations()

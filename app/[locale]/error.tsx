@@ -1,10 +1,10 @@
 'use client'
 
 import { useEffect } from 'react'
-import Link from 'next/link'
 
 import { Routes } from '@/constants/routes'
 import { Button } from '@/ds/shadcn/button'
+import { Link } from '@/i18n/navigation'
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {

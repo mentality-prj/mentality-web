@@ -1,9 +1,11 @@
 'use server'
 
-import { redirect } from 'next/navigation'
+import { getLocale } from 'next-intl/server'
 
 import { Routes } from '@/constants/routes'
+import { redirect } from '@/i18n/navigation'
 
 export async function redirectToSignin() {
-  redirect(Routes.SIGNIN)
+  const locale = await getLocale()
+  redirect({ href: Routes.SIGNIN, locale: locale })
 }

@@ -4,7 +4,7 @@ import { useSession } from 'next-auth/react'
 import { GoToLoginPageButton } from '@/components/Buttons'
 import { Routes } from '@/constants/routes'
 import { Avatar, AvatarFallback, AvatarImage } from '@/ds/shadcn/avatar'
-import { useRouter } from '@/i18n/routing'
+import { useRouter } from '@/i18n/navigation'
 import { CustomSession } from '@/types/auth'
 import { Roles } from '@/types/security'
 
