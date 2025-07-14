@@ -6,7 +6,7 @@ import { Routes } from '@/constants/routes'
 import { Texts } from '@/constants/texts'
 import { Avatar, AvatarFallback, AvatarImage } from '@/ds/shadcn/avatar'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
-import { useRouter } from '@/i18n/routing'
+import { useRouter } from '@/i18n/navigation'
 import { CustomSession } from '@/types/auth'
 
 export default function UserDropdown() {

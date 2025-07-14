@@ -7,7 +7,7 @@ import { usePathname } from 'next/navigation'
 import { menu, RoutesTitles } from '@/constants/routes'
 import { Button } from '@/ds/shadcn/button'
 import { Sheet, SheetContent, SheetTrigger } from '@/ds/shadcn/sheet'
-import { Link } from '@/i18n/routing'
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 export default function MenuComponent() {
