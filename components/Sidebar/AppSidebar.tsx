@@ -20,8 +20,6 @@ import {
 } from '@/ds/shadcn/sidebar'
 import { Link, usePathname } from '@/i18n/navigation'
 
-import { AuthButton } from '../Buttons/AuthButton'
-
 export const AppSidebar = () => {
   const pathname = usePathname()
   const isPageActive = (link: string) => pathname === link
@@ -74,7 +72,6 @@ export const AppSidebar = () => {
             {state === 'collapsed' ? <MaximizeIcon /> : <MinimizeIcon />}
           </Button>
         )}
-        <AuthButton />
       </SidebarFooter>
     </Sidebar>
   )
