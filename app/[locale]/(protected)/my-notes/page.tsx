@@ -27,6 +27,7 @@ export default async function MyNotes() {
           </Link>
         ))}
       </SectionCard>
+
       <SectionCard title={t('recommendationTitle')}>
         <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
           {cardRecommendationData.map((card, id) => (
