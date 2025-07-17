@@ -49,6 +49,11 @@
     "Checkout": "Proceed to Checkout",
     "TotalPrice": "Total price"
   },
+  "MyNotesPage": {
+    "title": "My notes",
+    "subtitle": "How are you feeling today?",
+    "recommendationTitle": "Well-being tips"
+  },
   "NotFoundPage": {
     "title": "Page not found"
   },

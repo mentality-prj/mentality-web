@@ -51,6 +51,11 @@
   "NotFoundPage": {
     "title": "Nie znaleziono strony"
   },
+  "MyNotesPage": {
+    "title": "Moje notatki",
+    "subtitle": "Jak się dziś czujesz?",
+    "recommendationTitle": "Wskazówki dotyczące dobrostanu"
+  },
   "Navigation": {
     "BackToHome": "Powrót do domu",
     "BackToShop": "Powrót do sklepu",
