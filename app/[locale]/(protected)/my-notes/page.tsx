@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 import { getTranslations } from 'next-intl/server'
 
 import { PageTitle } from '@/components/ui/PageTitle'
@@ -14,6 +15,7 @@ export default async function MyNotes() {
   return (
     <div className="flex flex-col gap-8">
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
+
       <SectionCard className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
         {cardMyNotesData.map((card, id) => (
           <Link key={id} href={`my-notes/${card.link}`}>
@@ -27,6 +29,7 @@ export default async function MyNotes() {
         ))}
       </SectionCard>
       <SectionCard title={t('recommendationTitle')}>
+
         <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
           {cardRecommendationData.map((card, id) => (
             <CustomCard
