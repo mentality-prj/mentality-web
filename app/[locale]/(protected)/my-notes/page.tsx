@@ -1,3 +1,9 @@
+import { PageTitle } from '@/components/ui/PageTitle'
+
 export default function MyNotes() {
-  return <div>My Notes Page</div>
+  return (
+    <div className="">
+      <PageTitle title="Мої записи" subtitle="Як ти сьогодні почуваєш себе?" />
+    </div>
+  )
 }
