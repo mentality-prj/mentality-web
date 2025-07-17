@@ -1,3 +1,5 @@
+import { getTranslations } from 'next-intl/server'
+
 import { PageTitle } from '@/components/ui/PageTitle'
 import { SectionCard } from '@/components/ui/SectionCard'
 import { CustomCard } from '@/ds/components/CustomCard'
@@ -8,9 +10,10 @@ import { getEmojiFromBackend } from '@/utils/getEmojiFromBackend'
 export default async function MyNotes() {
   const cardMyNotesData = await mockCardMyNotes()
   const cardRecommendationData = await mockCardRecommendation()
+  const t = await getTranslations('MyNotesPage')
   return (
     <div className="flex flex-col gap-8">
-      <PageTitle title="Мої записи" subtitle="Як ти сьогодні почуваєш себе?" />
+      <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <SectionCard className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
         {cardMyNotesData.map((card, id) => (
           <Link key={id} href={`my-notes/${card.link}`}>
@@ -23,7 +26,7 @@ export default async function MyNotes() {
           </Link>
         ))}
       </SectionCard>
-      <SectionCard title="Поради для благополуччя">
+      <SectionCard title={t('recommendationTitle')}>
         <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
           {cardRecommendationData.map((card, id) => (
             <CustomCard
