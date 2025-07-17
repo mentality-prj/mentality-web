@@ -27,4 +27,16 @@ export type NoninteractiveVariantProps = {
   description: React.ReactNode
 } & BaseCardProps
 
-export type PracticeCardProps = DefaultVariantProps | SmallVariantProps | LinkVariantProps | NoninteractiveVariantProps
+export type RecommendationVariantProps = {
+  variant: 'recommendation'
+  tag: string
+  title: string
+  description: string
+} & BaseCardProps
+
+export type PracticeCardProps =
+  | DefaultVariantProps
+  | SmallVariantProps
+  | LinkVariantProps
+  | NoninteractiveVariantProps
+  | RecommendationVariantProps
