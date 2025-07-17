@@ -7,6 +7,7 @@ import {
   LinkVariantProps,
   NoninteractiveVariantProps,
   PracticeCardProps,
+  RecommendationVariantProps,
 } from '@/types/customCard'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../shadcn/card'
@@ -17,6 +18,7 @@ export const cardVariants = cva(
     variants: {
       variant: {
         default: 'flex flex-col gap-4 p-6',
+        recommendation: 'flex flex-col gap-4 p-6 bg-transparent',
         small: 'flex px-4 py-3',
         link: 'flex px-4 py-3',
         noninteractive: 'flex flex-col',
@@ -71,6 +73,17 @@ export const CustomCard: React.FC<PracticeCardProps> = (props) => {
         <CardContent className="mt-1 flex flex-col p-0">
           {description && <CardDescription>{description}</CardDescription>}
         </CardContent>
+      </Card>
+    )
+  }
+
+  if (variant === 'recommendation') {
+    const { tag, title, description } = props as RecommendationVariantProps
+    return (
+      <Card aria-disabled={disabled} className={cn('flex h-full flex-col', cardVariants({ variant }), className)}>
+        <CardHeader className="max-w-max rounded-xs bg-tag px-2 py-1 text-sm/4 text-reversed">{tag}</CardHeader>
+        <CardTitle className="text-base font-medium">{title}</CardTitle>
+        <CardDescription className="grow text-base font-normal">{description}</CardDescription>
       </Card>
     )
   }
