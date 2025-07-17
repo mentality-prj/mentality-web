@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { getTranslations } from 'next-intl/server'
 
 import { PageTitle } from '@/components/ui/PageTitle'
@@ -29,7 +28,6 @@ export default async function MyNotes() {
         ))}
       </SectionCard>
       <SectionCard title={t('recommendationTitle')}>
-
         <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
           {cardRecommendationData.map((card, id) => (
             <CustomCard
