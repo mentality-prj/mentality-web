@@ -20,7 +20,7 @@ export const ThoughtsRecording = ({ className }: { className?: string }) => {
           rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />}
         />
         <TagsEditor tags={tags} onChange={setTags} />
-        <div className="flex flex-col gap-6 tablet:flex-row">
+        <div className="flex flex-wrap gap-6 desktop:flex-nowrap">
           <Button disabled className="w-full" variant="secondary">
             Скасувати
           </Button>
