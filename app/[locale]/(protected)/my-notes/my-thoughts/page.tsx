@@ -9,7 +9,7 @@ export default function MyThoughtsPage() {
     <div className="flex flex-col gap-8">
       <Breadcrumbs currentPage="Мої думки" breadcrumbList={[{ title: 'Мої записи', href: '/my-notes' }]} />
       <PageTitle title="Мої думки" subtitle="Веди щоденник своїх думок " />
-      <div className="grid grid-cols-1 gap-6 tablet:grid-cols-2">
+      <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
         <ThoughtsRecording className="h-full" />
 
         <ChatWithAI />
