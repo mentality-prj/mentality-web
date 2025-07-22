@@ -56,6 +56,18 @@
     "subtitle": "Jak się dziś czujesz?",
     "recommendationTitle": "Wskazówki dotyczące dobrostanu"
   },
+  "MyThougtsPage": {
+    "title": "Moje myśli",
+    "subtitle": "Prowadź dziennik swoich myśli",
+    "placeholder": "Napisz tutaj swoje myśli...",
+    "Save": "Zapisz",
+    "Cancel": "Anuluj",
+    "RecordingThoughts": "Nagrywanie myśli",
+    "ThoughtsList": {
+      "title": "Moje zapiski",
+      "noThoughts": "Nie masz jeszcze żadnych zapisków."
+    }
+  },
   "Navigation": {
     "BackToHome": "Powrót do domu",
     "BackToShop": "Powrót do sklepu",

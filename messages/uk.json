@@ -56,6 +56,18 @@
     "subtitle": "Як ти сьогодні почуваєш себе?",
     "recommendationTitle": "Поради для благополуччя"
   },
+  "MyThougtsPage": {
+    "title": "Мої думки",
+    "subtitle": "Веди щоденник своїх думок",
+    "placeholder": "Напиши свої думки тут...",
+    "Save": "Зберегти",
+    "Cancel": "Скасувати",
+    "RecordingThoughts": "Запис думок",
+    "ThoughtsList": {
+      "title": "Мої записи",
+      "noThoughts": "У тебе ще не має записів."
+    }
+  },
   "Navigation": {
     "BackToHome": "Повернутися до головної",
     "BackToShop": "Повернутися до магазину",

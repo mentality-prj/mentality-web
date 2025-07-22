@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { Mic } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import TextareaWithLabel from '@/ds/components/TextareaWithLabel'
 import { Button } from '@/ds/shadcn/button'
@@ -11,9 +12,10 @@ import { TagsEditor } from '../MoodTracker/AddTagsContainer'
 import { SectionCard } from '../ui/SectionCard'
 
 export const ThoughtsRecording = ({ className }: { className?: string }) => {
+  const t = useTranslations('MyThougtsPage')
   const [tags, setTags] = useState<string[]>(['Спорт', 'Вітаміни'])
   return (
-    <SectionCard className={cn('w-full', className)} title="Запис думок">
+    <SectionCard className={cn('w-full', className)} title={t('RecordingThoughts')}>
       <div className="mt-4 flex flex-col gap-6">
         <TextareaWithLabel
           placeholder="Введіть запис..."
@@ -22,10 +24,10 @@ export const ThoughtsRecording = ({ className }: { className?: string }) => {
         <TagsEditor tags={tags} onChange={setTags} />
         <div className="flex flex-wrap gap-6 desktop:flex-nowrap">
           <Button disabled className="w-full" variant="secondary">
-            Скасувати
+            {t('Cancel')}
           </Button>
           <Button disabled className="w-full">
-            Зберегти
+            {t('Save')}
           </Button>
         </div>
       </div>
