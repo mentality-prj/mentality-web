@@ -1,6 +1,6 @@
-import { TestConfig } from '@/components/TestsQuestionnarie/typesTestPage'
+import { CheckboxQuestionWithGroups, TestConfig } from '@/components/TestsQuestionnarie/typesTestPage'
 
-const stressTestQuestions = [
+const stressTestQuestions: CheckboxQuestionWithGroups[] = [
   { id: 'int-1', text: 'Переважання негативних думок', group: 'intellectual' },
   { id: 'int-2', text: 'Труднощі зосередження', group: 'intellectual' },
   { id: 'int-3', text: "Погіршення показників пам'яті", group: 'intellectual' },
@@ -71,11 +71,7 @@ const stressTest: TestConfig<'checkbox'> = {
     emotional: 1.5,
     physiological: 2,
   },
-  questions: stressTestQuestions.map((obj) => ({
-    id: obj.id,
-    text: obj.text,
-    group: obj.group,
-  })),
+  questions: stressTestQuestions,
   scoring: { groupWeight: true },
   resultMapping: [
     { min: 0, max: 5, label: 'Низький рівень стресу' },

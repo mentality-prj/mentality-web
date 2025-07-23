@@ -1,4 +1,4 @@
-import { QuestionTypes } from '@/components/TestsQuestionnarie/typesTestPage'
+import { ChoiceType, QuestionTypes } from '@/components/TestsQuestionnarie/typesTestPage'
 import { Checkbox } from '@/ds/shadcn/checkbox'
 import { Label } from '@/ds/shadcn/label'
 import { RadioGroup, RadioGroupItem } from '@/ds/shadcn/radio-group'
@@ -6,11 +6,14 @@ import { RadioGroup, RadioGroupItem } from '@/ds/shadcn/radio-group'
 interface Props {
   data: QuestionTypes
   index: number
-  type: 'radio' | 'checkbox'
+  type: ChoiceType
   selectedValue?: number
+  onChange: (value: number | boolean) => void
+  // onChange?: (questionId: string, value: number) => void
+  checkedValues?: Record<string, boolean> // для чекбоксів: збереження стану
 }
 
-export default function Question({ data, index, type, selectedValue }: Props) {
+export default function Question({ data, index, type, selectedValue, onChange, checkedValues = {} }: Props) {
   return (
     <div>
       {type === 'radio' && data.options && (
@@ -19,8 +22,10 @@ export default function Question({ data, index, type, selectedValue }: Props) {
             {index + 1}. {data.text}
           </p>
           <RadioGroup
-            value={String(selectedValue)}
+            //value={String(selectedValue)}
             // onValueChange={(value) => onChange(Number(value))}
+            value={selectedValue !== undefined ? String(selectedValue) : ''}
+            onValueChange={(value) => onChange?.(Number(value))}
           >
             {data.options.map((opt, i) => (
               <div key={i} className="flex items-center gap-2">
@@ -34,8 +39,14 @@ export default function Question({ data, index, type, selectedValue }: Props) {
 
       {type === 'checkbox' && (
         <div className="flex items-center gap-3">
-          <Checkbox />
-          <Label className="mt-2 flex items-center gap-2">{data.text}</Label>
+          <Checkbox
+            id={`checkbox-${data.id}`}
+            checked={checkedValues[data.id] || false}
+            onCheckedChange={(checked) => onChange?.(checked ? 1 : 0)}
+          />
+          <Label htmlFor={`checkbox-${data.id}`} className="mt-2 flex items-center gap-2">
+            {data.text}
+          </Label>
         </div>
       )}
     </div>

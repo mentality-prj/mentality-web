@@ -12,7 +12,7 @@ export interface BaseQuestion {
 }
 
 export interface CheckboxQuestionWithGroups extends BaseQuestion {
-  group: string
+  group: QuestionGroup
   options?: never
 }
 
@@ -30,9 +30,8 @@ export interface TestConfig<T extends ChoiceType> {
   groupWeights?: T extends 'checkbox' ? Record<QuestionGroup, number> : never
   questions: T extends 'checkbox' ? CheckboxQuestionWithGroups[] : RadioQuestion[]
   scoring: {
-    // правила підрахунку балів
-    groupWeight?: boolean // чекбокс: true
-    perOptionValue?: boolean // радіо: true
+    groupWeight?: boolean // checkbox
+    perOptionValue?: boolean // radio
   }
   resultMapping: ResultMapping[]
 }
