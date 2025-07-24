@@ -1,7 +1,5 @@
 'use client'
 
-import Link from 'next/link'
-
 import { SidebarList } from '@/constants/sidebar'
 import { LogoIcon } from '@/ds/icons/logo'
 import { MaximizeIcon } from '@/ds/icons/maximize'
@@ -20,7 +18,7 @@ import {
   SidebarSeparator,
   useSidebar,
 } from '@/ds/shadcn/sidebar'
-import { usePathname } from '@/i18n/routing'
+import { Link, usePathname } from '@/i18n/navigation'
 
 import { AuthButton } from '../Buttons/AuthButton'
 

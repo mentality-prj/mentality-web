@@ -7,7 +7,7 @@ import Menu from '@/components/Menu'
 import { Routes } from '@/constants/routes'
 import { Input } from '@/ds/shadcn/input'
 import { NavigationMenu, NavigationMenuItem, NavigationMenuLink, NavigationMenuList } from '@/ds/shadcn/navigation-menu'
-import { Link } from '@/i18n/routing'
+import { Link } from '@/i18n/navigation'
 
 import ThemeSwitch from './ThemeSwitch'
 import UserDropdownContainer from './UserDropdownContainer'

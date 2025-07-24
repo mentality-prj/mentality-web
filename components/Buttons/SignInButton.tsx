@@ -1,4 +1,6 @@
 'use server'
+import { getLocale } from 'next-intl/server'
+
 import { signIn } from '@/auth'
 import { ProviderKey, Providers } from '@/constants/providers'
 import { Routes } from '@/constants/routes'
@@ -12,10 +14,11 @@ interface SignInButtonProps {
 export default async function SignInButton({ provider }: SignInButtonProps) {
   const providerName = Providers[`${provider}`]
   const textBtn = String(`${Texts.LOGIN_WITH} ${providerName}`)
+  const locale = await getLocale()
 
   async function handleLogin() {
     'use server'
-    await signIn(provider, { redirectTo: Routes.PROFILE })
+    await signIn(provider, { redirectTo: `/${locale}/${Routes.HOME}` })
   }
 
   return (

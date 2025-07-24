@@ -1,9 +1,9 @@
 'use client'
 import clsx from 'clsx'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import path from 'path'
 
+import { Link } from '@/i18n/navigation'
 import { CheckoutRoutes } from '@/types/form'
 
 const steps = [
