@@ -14,6 +14,7 @@ export default async function MyNotes() {
   return (
     <div className="flex flex-col gap-8">
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
+
       <SectionCard className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
         {cardMyNotesData.map((card, id) => (
           <Link key={id} href={`my-notes/${card.link}`}>
