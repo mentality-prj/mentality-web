@@ -20,7 +20,6 @@ import {
 } from '@/ds/shadcn/sidebar'
 import { Link, usePathname } from '@/i18n/navigation'
 
-
 export const AppSidebar = () => {
   const pathname = usePathname()
   const isPageActive = (link: string) => pathname === link
