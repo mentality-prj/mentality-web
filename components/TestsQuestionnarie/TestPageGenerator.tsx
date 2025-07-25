@@ -53,7 +53,9 @@ export default function TestPageGenerator<T extends ChoiceType>({ test }: Props<
       ))}
 
       <div className="mt-6">
-        <Button onClick={calculateResult}>Дізнатися результат</Button>
+        <Button variant="iconButton" size="iconSm" onClick={calculateResult}>
+          Дg
+        </Button>
         {result && <p>{result}</p>}
       </div>
     </div>

@@ -22,8 +22,6 @@ export default function Question({ data, index, type, selectedValue, onChange, c
             {index + 1}. {data.text}
           </p>
           <RadioGroup
-            //value={String(selectedValue)}
-            // onValueChange={(value) => onChange(Number(value))}
             value={selectedValue !== undefined ? String(selectedValue) : ''}
             onValueChange={(value) => onChange?.(Number(value))}
           >
@@ -41,12 +39,10 @@ export default function Question({ data, index, type, selectedValue, onChange, c
         <div className="flex items-center gap-3">
           <Checkbox
             id={`checkbox-${data.id}`}
-            checked={checkedValues[data.id] || false}
-            onCheckedChange={(checked) => onChange?.(checked ? 1 : 0)}
+            checked={checkedValues[data.id] !== undefined ? checkedValues[data.id] : undefined}
+            onCheckedChange={(checked) => onChange?.(!!checked)}
           />
-          <Label htmlFor={`checkbox-${data.id}`} className="mt-2 flex items-center gap-2">
-            {data.text}
-          </Label>
+          <Label htmlFor={`checkbox-${data.id}`}>{data.text}</Label>
         </div>
       )}
     </div>
