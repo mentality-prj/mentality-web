@@ -37,7 +37,7 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
         </Dialog>
       </div>
 
-      <ToggleGroup className="justify-start" type="multiple">
+      <ToggleGroup className="flex-wrap justify-start gap-2" type="multiple">
         {tags.map((tag) => (
           <ToggleGroupItem
             value={tag}
