@@ -31,7 +31,7 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
               <DialogTitle>{t('change tags')}</DialogTitle>
             </DialogHeader>
 
-            <AddTags initialTags={tags} onChange={onChange} />
+            <AddTags tags={tags} onChange={onChange} />
           </DialogContent>
         </Dialog>
       </div>
