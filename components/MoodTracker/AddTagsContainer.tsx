@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 
 import { Button } from '@/ds/shadcn/button'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/ds/shadcn/dialog'
+import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
 
 import AddTags from './AddTags'
 
@@ -17,12 +18,12 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
   const t = useTranslations('MoodTracker.MoodNote')
 
   return (
-    <div className="flex flex-col gap-2">
-      <div className="flex items-center justify-between py-4">
+    <div className="flex flex-col gap-4">
+      <div className="flex items-center justify-between">
         <div>{t('add tags')}</div>
         <Dialog>
           <DialogTrigger asChild>
-            <Button variant="textButton" size="base">
+            <Button className="max-h-6 text-sm/[14px]" variant="textButton" size="base">
               <Pencil className="mr-1 h-4 w-4" /> {t('change tags')}
             </Button>
           </DialogTrigger>
@@ -36,16 +37,18 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
         </Dialog>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <ToggleGroup className="justify-start" type="multiple">
         {tags.map((tag) => (
-          <div
+          <ToggleGroupItem
+            value={tag}
+            aria-label={`Toggle ${tag}`}
             key={tag}
-            className="border-muted bg-muted/30 text-muted-foreground rounded-full border px-2 py-1 text-sm"
+            className="max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs/[14px] text-textcolor-secondary data-[state='on']:bg-primary data-[state='on']:text-reversed"
           >
             {tag}
-          </div>
+          </ToggleGroupItem>
         ))}
-      </div>
+      </ToggleGroup>
     </div>
   )
 }
