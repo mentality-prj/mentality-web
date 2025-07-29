@@ -4,6 +4,7 @@ import { AffirmationHistory } from '@/components/AffirmationsAndTips/Affirmation
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { DailyCard } from '@/components/ui/DailyCard'
 import { PageTitle } from '@/components/ui/PageTitle'
+
 import { AstronomyIcon } from '@/ds/icons/blueIcons/astronomy'
 import { StarRingIcon } from '@/ds/icons/blueIcons/star-ring'
 
