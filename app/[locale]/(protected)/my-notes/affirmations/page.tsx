@@ -1,8 +1,4 @@
-<<<<<<< HEAD
 import { useTranslations } from 'next-intl'
-
-=======
->>>>>>> 232bb6c (style: fill page)
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { DailyCard } from '@/components/ui/DailyCard'
 import { PageTitle } from '@/components/ui/PageTitle'
@@ -11,7 +7,6 @@ import { AstronomyIcon } from '@/ds/icons/blueIcons/astronomy'
 import { StarRingIcon } from '@/ds/icons/blueIcons/star-ring'
 
 export default function AffirmationsPage() {
-
   const t = useTranslations('AffirmationsPage')
   return (
     <div className="flex flex-col gap-8">
@@ -30,7 +25,6 @@ export default function AffirmationsPage() {
         <DailyCard variant="secondary" title={t('tip.title')} textContent={t('tip.text')} icon={<AstronomyIcon />} />
       </div>
       <SectionCard title={t('sectionCard.title')} subtitle={t('sectionCard.subtitle')} />
-
     </div>
   )
 }
