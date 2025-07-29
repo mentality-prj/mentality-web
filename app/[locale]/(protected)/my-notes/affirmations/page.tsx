@@ -24,6 +24,7 @@ export default function AffirmationsPage() {
           textContent={t('affirmation.text')}
           icon={<StarRingIcon />}
         />
+
         <DailyCard
           toastText={t('toast.tip')}
           variant="secondary"

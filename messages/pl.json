@@ -86,10 +86,13 @@
     "ThoughtsList": {
       "title": "Moje notatki",
       "noThoughts": "Nie masz jeszcze żadnych notatek"
+<<<<<<< HEAD
     },
     "toast": {
       "affirmation": "Afirmacja została dodana do zapisanych",
       "tip": "Porada została dodana do zapisanych"
+=======
+>>>>>>> ffa9b5f (chore: add intl)
     }
   },
   "Navigation": {
