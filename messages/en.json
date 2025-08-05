@@ -87,6 +87,10 @@
     "ThoughtsList": {
       "title": "My notes",
       "noThoughts": "You have no notes yet"
+    },
+    "toast": {
+      "affirmation": "Affirmation added to Saved",
+      "tip": "Tip added to Saved"
     }
   },
   "Navigation": {
