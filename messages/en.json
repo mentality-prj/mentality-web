@@ -87,13 +87,10 @@
     "ThoughtsList": {
       "title": "My notes",
       "noThoughts": "You have no notes yet"
-<<<<<<< HEAD
     },
     "toast": {
       "affirmation": "Affirmation added to Saved",
       "tip": "Tip added to Saved"
-=======
->>>>>>> ffa9b5f (chore: add intl)
     }
   },
   "Navigation": {
