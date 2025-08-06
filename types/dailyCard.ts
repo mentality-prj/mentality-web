@@ -22,6 +22,12 @@ export type PreviousDailyCardProps = {
   variant: 'previous'
   tag: string
   toastText?: string
-} & BaseDailyCardProps
+  textContent: {
+    uk: string
+    en: string
+    pl: string
+  }
+  className?: string
+}
 
 export type DailyCardProps = DefaultDailyCardProps | SecondaryDailyCardProps | PreviousDailyCardProps

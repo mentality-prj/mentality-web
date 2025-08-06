@@ -24,7 +24,7 @@ export const AffirmationHistory = async () => {
                 date={item.createdAt}
                 key={item.id}
                 tag={item.type}
-                textContent={item.translations.uk}
+                textContent={item.translations}
               />
             ))}
           </div>
