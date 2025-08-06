@@ -1,9 +1,9 @@
 import { useTranslations } from 'next-intl'
 
+import { AffirmationHistory } from '@/components/AffirmationsAndTips/AffirmationHistory'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { DailyCard } from '@/components/ui/DailyCard'
 import { PageTitle } from '@/components/ui/PageTitle'
-import { SectionCard } from '@/components/ui/SectionCard'
 import { AstronomyIcon } from '@/ds/icons/blueIcons/astronomy'
 import { StarRingIcon } from '@/ds/icons/blueIcons/star-ring'
 
@@ -32,7 +32,8 @@ export default function AffirmationsPage() {
           icon={<AstronomyIcon />}
         />
       </div>
-      <SectionCard title={t('sectionCard.title')} subtitle={t('sectionCard.subtitle')} />
+
+      <AffirmationHistory />
     </div>
   )
 }
