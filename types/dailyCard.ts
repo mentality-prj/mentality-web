@@ -23,6 +23,7 @@ export type PreviousDailyCardProps = {
   variant: 'previous'
   tag: string
   toastText?: string
+
   textContent: {
     uk: string
     en: string

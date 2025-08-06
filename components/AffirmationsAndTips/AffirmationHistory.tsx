@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { mockAffirmations, mockTips } from '@/REST/mockApi'
 
+import { DailyCard } from '../ui/DailyCard'
 import { SectionCard } from '../ui/SectionCard'
 
 import { Filter } from './Filter'
