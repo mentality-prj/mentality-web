@@ -90,7 +90,9 @@
     "toast": {
       "affirmation": "Afirmacja została dodana do zapisanych",
       "tip": "Porada została dodana do zapisanych"
-    }
+    },
+    "tipTag": "Wskazówka",
+    "affirmationTag": "Afirmacja"
   },
   "Navigation": {
     "BackToHome": "Powrót do domu",

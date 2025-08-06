@@ -91,7 +91,9 @@
     "toast": {
       "affirmation": "Affirmation added to Saved",
       "tip": "Tip added to Saved"
-    }
+    },
+    "tipTag": "Tip",
+    "affirmationTag": "Affirmation"
   },
   "Navigation": {
     "BackToHome": "Back to home",
