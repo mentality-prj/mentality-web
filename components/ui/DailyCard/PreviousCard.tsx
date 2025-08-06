@@ -20,6 +20,7 @@ export const PreviousCard: React.FC<PreviousDailyCardProps> = ({ date, textConte
       <CardHeader className="flex max-h-6 flex-row items-center justify-between space-y-0 p-0">
         <CardTitle className="flex items-center gap-1 text-base font-medium text-textcolor-tertiary [&_svg]:size-5">
           <CalendarMinimalisticIcon />
+
           {formattedDate}
         </CardTitle>
         <SavedToggle toastText={t(`toast.${tag}`)} />
