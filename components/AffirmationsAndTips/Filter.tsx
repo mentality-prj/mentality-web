@@ -14,7 +14,6 @@ import {
   DropdownMenuTrigger,
 } from '@/ds/shadcn/dropdown-menu'
 import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
-
 import { cn } from '@/lib/utils'
 
 export const Filter = () => {
@@ -30,6 +29,7 @@ export const Filter = () => {
       <div className="flex max-h-fit flex-col gap-5 rounded-md border border-outline-secondary p-6">
         <div className="flex justify-between">
           <div className="">{t('filter.title')}</div>
+
           <Button
             variant="linkButton"
             onClick={() => {
