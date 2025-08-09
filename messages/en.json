@@ -93,7 +93,15 @@
       "tip": "Tip added to Saved"
     },
     "tipTag": "Tip",
-    "affirmationTag": "Affirmation"
+    "affirmationTag": "Affirmation",
+    "filter": {
+      "title": "Filters",
+      "sort": "Sort",
+      "by tags": "By tags",
+      "clear": "Clear",
+      "newest": "Newest first",
+      "oldest": "Oldest first"
+    }
   },
   "Navigation": {
     "BackToHome": "Back to home",

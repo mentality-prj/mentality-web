@@ -1,6 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { FilterContext, SortContext } from '@/context/FilterContext'
 import { Button } from '@/ds/shadcn/button'
@@ -19,23 +20,25 @@ export const Filter = () => {
   const { filter, setFilter } = useContext(FilterContext)
   const itemsFilter = ['affirmation', 'tip']
   const itemsSort = ['newest', 'oldest']
+  const t = useTranslations('AffirmationsPage')
   return (
     <>
       <div className="flex max-h-fit flex-col gap-5 rounded-md border border-outline-secondary p-6">
         <div className="flex justify-between">
-          <div className="">Фільтри</div>
+          <div className="">{t('filter.title')}</div>
           <Button
             variant="linkButton"
             onClick={() => {
               setFilter('')
               setSort('newest')
             }}
+            disabled={!filter && sort === 'newest'}
           >
-            Очистити
+            {t('filter.clear')}
           </Button>
         </div>
         <div className="">
-          <div className="pb-5">За тегами</div>
+          <div className="pb-5">{t('filter.by tags')}</div>
           <div className="flex flex-wrap gap-2">
             <ToggleGroup
               className="flex-wrap justify-start gap-2"
@@ -54,17 +57,17 @@ export const Filter = () => {
                     filter === item ? "data-[state='on']:bg-primary data-[state='on']:text-reversed" : ''
                   )}
                 >
-                  {item}
+                  {t(`${item}Tag`)}
                 </ToggleGroupItem>
               ))}
             </ToggleGroup>
           </div>
         </div>
         <hr />
-        <div className="">Сортування</div>
+        <div className="">{t('filter.sort')}</div>
         <DropdownMenu>
           <DropdownMenuTrigger className="rounded-md border border-outline-secondary px-4 py-3">
-            {sort}
+            {t(`filter.${sort}`)}
           </DropdownMenuTrigger>
           <DropdownMenuContent className="p-0">
             <DropdownMenuGroup className="bg-surface-white">
@@ -74,7 +77,7 @@ export const Filter = () => {
                   onClick={() => setSort(item)}
                   key={item}
                 >
-                  {item}
+                  {t(`filter.${item}`)}
                 </DropdownMenuItem>
               ))}
             </DropdownMenuGroup>
