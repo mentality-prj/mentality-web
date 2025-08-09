@@ -12,17 +12,27 @@ import {
   DropdownMenuTrigger,
 } from '@/ds/shadcn/dropdown-menu'
 import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
+import { cn } from '@/lib/utils'
 
 export const Filter = () => {
   const { sort, setSort } = useContext(SortContext)
   const { filter, setFilter } = useContext(FilterContext)
-  console.log(filter)
+  const itemsFilter = ['affirmation', 'tip']
+  const itemsSort = ['newest', 'oldest']
   return (
     <>
       <div className="flex max-h-fit flex-col gap-5 rounded-md border border-outline-secondary p-6">
         <div className="flex justify-between">
           <div className="">Фільтри</div>
-          <Button variant="linkButton">Очистити</Button>
+          <Button
+            variant="linkButton"
+            onClick={() => {
+              setFilter('')
+              setSort('newest')
+            }}
+          >
+            Очистити
+          </Button>
         </div>
         <div className="">
           <div className="pb-5">За тегами</div>
@@ -34,23 +44,19 @@ export const Filter = () => {
                 setFilter(value || '')
               }}
             >
-              <ToggleGroupItem
-                value="affirmation"
-                aria-label={`Toggle Афірмація`}
-                key={'Афірмація'}
-                className="max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs/[14px] text-textcolor-secondary data-[state='on']:bg-primary data-[state='on']:text-reversed"
-              >
-                Афірмація
-              </ToggleGroupItem>
-              <ToggleGroupItem
-                value="tip"
-                aria-label={`Toggle Порада`}
-                key={'Порада'}
-                onClick={() => setFilter('Порада')}
-                className="max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs/[14px] text-textcolor-secondary data-[state='on']:bg-primary data-[state='on']:text-reversed"
-              >
-                Порада
-              </ToggleGroupItem>
+              {itemsFilter.map((item) => (
+                <ToggleGroupItem
+                  value={item}
+                  aria-label={`Toggle ${item}`}
+                  key={item}
+                  className={cn(
+                    'max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs/[14px] text-textcolor-secondary',
+                    filter === item ? "data-[state='on']:bg-primary data-[state='on']:text-reversed" : ''
+                  )}
+                >
+                  {item}
+                </ToggleGroupItem>
+              ))}
             </ToggleGroup>
           </div>
         </div>
@@ -62,18 +68,15 @@ export const Filter = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="p-0">
             <DropdownMenuGroup className="bg-surface-white">
-              <DropdownMenuItem
-                className="cursor-pointer hover:bg-secondary-hover hover:text-textcolor-purple"
-                onClick={() => setSort('newest')}
-              >
-                Спочатку найновіші
-              </DropdownMenuItem>
-              <DropdownMenuItem
-                className="cursor-pointer hover:bg-secondary-hover hover:text-textcolor-purple"
-                onClick={() => setSort('oldest')}
-              >
-                Спочатку найстаріші
-              </DropdownMenuItem>
+              {itemsSort.map((item) => (
+                <DropdownMenuItem
+                  className="cursor-pointer hover:bg-secondary-hover hover:text-textcolor-purple"
+                  onClick={() => setSort(item)}
+                  key={item}
+                >
+                  {item}
+                </DropdownMenuItem>
+              ))}
             </DropdownMenuGroup>
           </DropdownMenuContent>
         </DropdownMenu>
