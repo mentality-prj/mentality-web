@@ -1,6 +1,7 @@
 'use client'
 
 import { useContext } from 'react'
+
 import { useTranslations } from 'next-intl'
 
 import { FilterContext, SortContext } from '@/context/FilterContext'
@@ -13,6 +14,7 @@ import {
   DropdownMenuTrigger,
 } from '@/ds/shadcn/dropdown-menu'
 import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
+
 import { cn } from '@/lib/utils'
 
 export const Filter = () => {
@@ -41,6 +43,7 @@ export const Filter = () => {
         </div>
         <div className="">
           <div className="pb-5">{t('filter.by tags')}</div>
+
           <div className="flex flex-wrap gap-2">
             <ToggleGroup
               className="flex-wrap justify-start gap-2"
@@ -66,6 +69,7 @@ export const Filter = () => {
           </div>
         </div>
         <hr />
+
         <div className="">{t('filter.sort')}</div>
         <DropdownMenu>
           <DropdownMenuTrigger className="rounded-md border border-outline-secondary px-4 py-3">
