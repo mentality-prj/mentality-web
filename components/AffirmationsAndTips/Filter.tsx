@@ -1,7 +1,6 @@
 'use client'
 
 import { useContext } from 'react'
-
 import { useTranslations } from 'next-intl'
 
 import { FilterContext, SortContext } from '@/context/FilterContext'
