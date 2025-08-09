@@ -1,4 +1,4 @@
-import { getLocale, getTranslations } from 'next-intl/server'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { CalendarMinimalisticIcon } from '@/ds/icons/calendar-minimalistic'
 import { Badge } from '@/ds/shadcn/badge'
@@ -8,12 +8,12 @@ import { PreviousDailyCardProps } from '@/types/dailyCard'
 
 import { SavedToggle } from './SavedToggle'
 
-export const PreviousCard: React.FC<PreviousDailyCardProps> = async ({ date, textContent, tag, className }) => {
+export const PreviousCard: React.FC<PreviousDailyCardProps> = ({ date, textContent, tag, className }) => {
   const parsedDate = new Date(date)
   const formattedDate = parsedDate.toLocaleDateString('uk-UA')
-  const locale = await getLocale()
+  const locale = useLocale()
   const localizedTextContent = textContent[locale as 'uk' | 'pl' | 'en']
-  const t = await getTranslations('AffirmationsPage')
+  const t = useTranslations('AffirmationsPage')
 
   return (
     <Card className={cn('flex flex-col gap-5 border-outline-secondary bg-surface-white p-5 shadow-none', className)}>
