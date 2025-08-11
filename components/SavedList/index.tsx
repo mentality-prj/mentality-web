@@ -9,7 +9,6 @@ import { FilteredList } from './FilteredList'
 
 export const SavedList = () => {
   const t = useTranslations('SavedPage')
-
   const items: { id: string; date: string; tag: string; textContent: { uk: string; pl: string; en: string } }[] =
     JSON.parse(localStorage.getItem('savedItems') || '[]')
   return (
