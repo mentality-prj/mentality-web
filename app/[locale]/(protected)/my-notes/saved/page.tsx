@@ -13,6 +13,7 @@ export default function SavedPage() {
         breadcrumbList={[{ title: `${t('AffirmationsPage.ThoughtsList.title')}`, href: '/my-notes' }]}
       />
       <PageTitle title={t('SavedPage.title')} subtitle={t('SavedPage.subtitle')} />
+
       <SavedList />
     </div>
   )
