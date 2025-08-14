@@ -35,7 +35,6 @@ export const FilteredHistory = ({ items }: FilteredHistoryProps) => {
     <div className="grid grid-cols-1 gap-4">
       {getSortedItems().map((item) => (
         <DailyCard
-          id={item.id}
           variant="previous"
           date={item.createdAt}
           key={item.id}

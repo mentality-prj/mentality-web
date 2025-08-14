@@ -6,12 +6,11 @@ import { CheckIcon } from '@/ds/icons/check'
 import { StarIcon } from '@/ds/icons/star'
 import { Toggle } from '@/ds/shadcn/toggle'
 
-export const SavedToggle = ({ toastText, saveFunc }: { toastText?: string; saveFunc?: () => void }) => {
+export const SavedToggle = ({ toastText }: { toastText?: string }) => {
   return (
     <Toggle
       onPressedChange={(pressed) => {
         if (pressed) {
-          saveFunc?.()
           toast.custom(
             <div className="flex items-center gap-2 rounded-sm bg-outline-success px-8 py-4 text-reversed [&_svg]:size-6">
               {toastText} <CheckIcon />

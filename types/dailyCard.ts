@@ -18,7 +18,6 @@ export type SecondaryDailyCardProps = {
 } & BaseDailyCardProps
 
 export type PreviousDailyCardProps = {
-  id: string
   date: string
   variant: 'previous'
   tag: string

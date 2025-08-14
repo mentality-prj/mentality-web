@@ -8,7 +8,7 @@ import { PreviousDailyCardProps } from '@/types/dailyCard'
 
 import { SavedToggle } from './SavedToggle'
 
-export const PreviousCard: React.FC<PreviousDailyCardProps> = ({ id, date, textContent, tag, className }) => {
+export const PreviousCard: React.FC<PreviousDailyCardProps> = ({ date, textContent, tag, className }) => {
   const parsedDate = new Date(date)
   const formattedDate = parsedDate.toLocaleDateString('uk-UA')
   const locale = useLocale()
@@ -22,13 +22,7 @@ export const PreviousCard: React.FC<PreviousDailyCardProps> = ({ id, date, textC
           <CalendarMinimalisticIcon />
           {formattedDate}
         </CardTitle>
-        <SavedToggle
-          saveFunc={() => {
-            const savedItems = JSON.parse(localStorage.getItem('savedItems') || '[]')
-            localStorage.setItem('savedItems', JSON.stringify([...savedItems, { id, date, textContent, tag }]))
-          }}
-          toastText={t(`toast.${tag}`)}
-        />
+        <SavedToggle toastText={t(`toast.${tag}`)} />
       </CardHeader>
       <CardContent className="p-0">
         <p className="text-base">&quot;{localizedTextContent}&quot;</p>
