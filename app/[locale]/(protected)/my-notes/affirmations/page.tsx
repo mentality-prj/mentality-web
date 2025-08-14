@@ -1,11 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
 import { AffirmationHistory } from '@/components/AffirmationsAndTips/AffirmationHistory'
-
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { DailyCard } from '@/components/ui/DailyCard'
 import { PageTitle } from '@/components/ui/PageTitle'
-
 import { mockDailyAffirmation, mockDailyTip } from '@/REST/mockApi'
 
 export default async function AffirmationsPage() {

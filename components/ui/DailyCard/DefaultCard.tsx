@@ -19,7 +19,7 @@ export const DefaultCard: React.FC<DefaultDailyCardProps> = ({ type, translation
       </CardHeader>
 
       <CardContent className="flex-grow p-0">
-        <p className="line-clamp-4 text-xl/6 font-semibold">&quot;{translations[locale]}&quot;</p>
+        <p className="line-clamp-4 text-xl/6 font-semibold">&quot;{translations[`${locale}`]}&quot;</p>
       </CardContent>
 
       <CardFooter className="mt-2 p-0">

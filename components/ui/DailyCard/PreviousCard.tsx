@@ -43,7 +43,7 @@ export const PreviousCard: React.FC<PreviousDailyCardProps> = ({
         />
       </CardHeader>
       <CardContent className="p-0">
-        <p className="text-base">&quot;{translations[locale]}&quot;</p>
+        <p className="text-base">&quot;{translations[`${locale}`]}&quot;</p>
       </CardContent>
       <CardFooter className="p-0">
         <Badge variant="active">{t('type', { type })}</Badge>

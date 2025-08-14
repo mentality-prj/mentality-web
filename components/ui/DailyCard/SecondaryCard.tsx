@@ -23,7 +23,7 @@ export const SecondaryCard: React.FC<SecondaryDailyCardProps> = ({ type, transla
         <SavedToggle toastText={t('toastText', { type })} />
       </CardHeader>
       <CardContent className="p-0">
-        <p className="text-base">{translations[locale]}</p>
+        <p className="text-base">{translations[`${locale}`]}</p>
       </CardContent>
     </Card>
   )
