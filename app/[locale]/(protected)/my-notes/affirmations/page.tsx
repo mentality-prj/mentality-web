@@ -1,4 +1,5 @@
 import { useTranslations } from 'next-intl'
+
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { DailyCard } from '@/components/ui/DailyCard'
 import { PageTitle } from '@/components/ui/PageTitle'
