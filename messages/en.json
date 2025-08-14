@@ -91,16 +91,6 @@
     "toast": {
       "affirmation": "Affirmation added to Saved",
       "tip": "Tip added to Saved"
-    },
-    "tipTag": "Tip",
-    "affirmationTag": "Affirmation",
-    "filter": {
-      "title": "Filters",
-      "sort": "Sort",
-      "by tags": "By tags",
-      "clear": "Clear",
-      "newest": "Newest first",
-      "oldest": "Oldest first"
     }
   },
   "Navigation": {
