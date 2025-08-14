@@ -103,6 +103,11 @@
       "oldest": "Oldest first"
     }
   },
+  "SavedPage": {
+    "empty": "You don't have any saved affirmations or tips yet.",
+    "title": "Saved",
+    "subtitle": "Your favorite tips and affirmations"
+  },
   "Navigation": {
     "BackToHome": "Back to home",
     "BackToShop": "Back to shop",
