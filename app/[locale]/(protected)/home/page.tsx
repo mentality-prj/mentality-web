@@ -4,10 +4,11 @@ import { CurrentState } from '@/components/Home/CurrentState'
 import { ExercisesForRecovery } from '@/components/Home/ExercisesForRecovery'
 import { MyProgress } from '@/components/Home/MyProgress'
 import { DailyCard } from '@/components/ui/DailyCard'
-import { mockDashboardDailyData, mockExercisesRecoveryData } from '@/REST/mockApi'
+import { mockDailyAffirmation, mockDailyTip, mockExercisesRecoveryData } from '@/REST/mockApi'
 
 export default async function Home() {
-  const dailyData = await mockDashboardDailyData()
+  const dailyAffirmation = await mockDailyAffirmation()
+  const dailyTip = await mockDailyTip()
   const exercisesData = await mockExercisesRecoveryData()
 
   return (
@@ -18,9 +19,8 @@ export default async function Home() {
         <CurrentState />
 
         <div className="grid items-stretch justify-items-stretch gap-4 tablet:grid-cols-2 laptop:grid-cols-1">
-          {dailyData.map((props, id) => (
-            <DailyCard key={id} {...props} />
-          ))}
+          <DailyCard type="affirmation" {...dailyAffirmation} />
+          <DailyCard type="tip" {...dailyTip} />
         </div>
       </div>
 

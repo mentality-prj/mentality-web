@@ -1,29 +1,35 @@
+import { useLocale } from 'next-intl'
+
 import { Button } from '@/ds/shadcn/button'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { DefaultDailyCardProps } from '@/types/dailyCard'
+import { SupportedLanguage } from '@/types/languages'
 
-export const DefaultCard: React.FC<DefaultDailyCardProps> = ({ title, textContent, buttonText, className }) => (
-  <Card
-    className={cn(
-      'grid h-full grid-rows-[auto_1fr_auto] gap-2 border-none bg-surface-white p-4 shadow-none',
-      className
-    )}
-  >
-    <CardHeader className="p-0">
-      <CardTitle className="flex min-h-[3rem] items-center text-base font-medium text-textcolor-tertiary">
-        <p className="m-0 line-clamp-2">{title}</p>
-      </CardTitle>
-    </CardHeader>
+export const DefaultCard: React.FC<DefaultDailyCardProps> = ({ type, translations, className }) => {
+  const locale = useLocale() as SupportedLanguage
+  return (
+    <Card className={cn('grid gap-2 border-none bg-surface-white p-4 shadow-none', className)}>
+      <CardHeader className="p-0">
+        <CardTitle className="flex min-h-[3rem] items-center text-base font-medium text-textcolor-tertiary">
+          <p className="m-0 line-clamp-2">
+            {type === 'affirmation' ? 'Ваша щоденна афірмація' : type === 'tip' ? 'Порада дня' : ''}
+          </p>
+        </CardTitle>
+      </CardHeader>
 
-    <CardContent className="flex-grow p-0">
-      <p className="line-clamp-4 text-xl/6 font-semibold">&quot;{textContent}&quot;</p>
-    </CardContent>
+      <CardContent className="flex-grow p-0">
+        <p className="line-clamp-4 text-xl/6 font-semibold">&quot;{translations[locale]}&quot;</p>
+      </CardContent>
 
-    <CardFooter className="mt-2 p-0">
-      <Button className="ml-auto max-h-4 p-0" variant="textButton">
-        {buttonText}
-      </Button>
-    </CardFooter>
-  </Card>
-)
+      <CardFooter className="mt-2 p-0">
+        <Link href="/my-notes/affirmations">
+          <Button className="ml-auto max-h-4 p-0" variant="textButton">
+            {type === 'affirmation' ? 'Всі афірмації' : type === 'tip' ? 'Всі поради' : ''}
+          </Button>
+        </Link>
+      </CardFooter>
+    </Card>
+  )
+}

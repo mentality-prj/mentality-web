@@ -1,21 +1,22 @@
+import { Affirmation } from './affirmation'
+
 export type BaseDailyCardProps = {
-  textContent: string
   className?: string
-  //   variant?: 'default' | 'secondary'
-}
+} & Affirmation
 
 export type DefaultDailyCardProps = {
-  title: string
+  type: 'affirmation' | 'tip'
   variant?: 'default'
-  buttonText: string
 } & BaseDailyCardProps
 
 export type SecondaryDailyCardProps = {
   title: string
+  textContent: string
   variant: 'secondary'
   icon: React.ReactNode
   toastText?: string
-} & BaseDailyCardProps
+  className?: string
+}
 
 export type PreviousDailyCardProps = {
   id: string
