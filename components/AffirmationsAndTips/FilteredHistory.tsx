@@ -7,8 +7,8 @@ import { Affirmation } from '@/types/affirmation'
 
 import { DailyCard } from '../ui/DailyCard'
 
-interface AffirmationWithType extends Affirmation {
-  type: string
+export interface AffirmationWithType extends Affirmation {
+  type: 'affirmation' | 'tip'
 }
 
 export interface FilteredHistoryProps {
@@ -34,14 +34,7 @@ export const FilteredHistory = ({ items }: FilteredHistoryProps) => {
   return (
     <div className="grid grid-cols-1 gap-4">
       {getSortedItems().map((item) => (
-        <DailyCard
-          id={item.id}
-          variant="previous"
-          date={item.createdAt}
-          key={item.id}
-          tag={item.type}
-          textContent={item.translations}
-        />
+        <DailyCard variant="previous" key={item.id} {...item} />
       ))}
     </div>
   )

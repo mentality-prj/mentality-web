@@ -2,7 +2,6 @@ import { Affirmation } from '@/types/affirmation'
 import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
-import { DailyCardProps } from '@/types/dailyCard'
 import { Exercise } from '@/types/exercisesForRecovery'
 import { ShopItemProps } from '@/types/shop'
 
@@ -239,20 +238,37 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
   })
 }
 
-export const mockDashboardDailyData = async (): Promise<DailyCardProps[]> => {
-  const dailyData: DailyCardProps[] = [
-    {
-      title: 'Ваша щоденна афірмація',
-      textContent: 'Кожного дня я стаю все сильнишим та впевненим на своєму шляху.',
-      buttonText: 'Всі афірмації',
+export const mockDailyAffirmation = async (): Promise<Affirmation> => {
+  const dailyData: Affirmation = {
+    id: '648a52d9fc13ae44e8000001',
+    isPublished: false,
+    translations: {
+      en: 'Every day I become stronger and more confident on my path.',
+      uk: 'Кожного дня я стаю все сильнішим та впевненим на своєму шляху.',
+      pl: 'Każdego dnia staję się silniejszy i pewniejszy na swojej drodze.',
     },
-    {
-      title: 'Порада дня',
-      textContent:
-        'Почніть свій день із постановки однієї маленької досяжної цілі — це створює імпульс для більших успіхів!',
-      buttonText: 'Всі поради',
+    createdAt: '2024-11-19T14:35:30.742Z',
+  }
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(dailyData)
+    }, 500)
+  })
+}
+
+export const mockDailyTip = async (): Promise<Affirmation> => {
+  const dailyData: Affirmation = {
+    id: '648a52d9fc13ae44e8000014',
+    isPublished: false,
+    translations: {
+      en: 'Start your day by setting one small achievable goal — it creates momentum for greater successes!',
+      uk: 'Почніть свій день із постановки однієї маленької досяжної цілі — це створює імпульс для більших успіхів!',
+      pl: 'Rozpocznij swój dzień od wyznaczenia jednego małego, osiągalnego celu — to tworzy impuls do większych sukcesów!',
     },
-  ]
+    createdAt: '2025-11-19T14:35:30.742Z',
+  }
+
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(dailyData)

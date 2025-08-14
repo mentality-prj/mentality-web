@@ -28,6 +28,7 @@ export const Filter = () => {
       <div className="flex max-h-fit flex-col gap-5 rounded-md border border-outline-secondary p-6">
         <div className="flex justify-between">
           <div className="">{t('filter.title')}</div>
+
           <Button
             variant="linkButton"
             onClick={() => {
@@ -41,6 +42,7 @@ export const Filter = () => {
         </div>
         <div className="">
           <div className="pb-5">{t('filter.by tags')}</div>
+
           <div className="flex flex-wrap gap-2">
             <ToggleGroup
               className="flex-wrap justify-start gap-2"
@@ -66,6 +68,7 @@ export const Filter = () => {
           </div>
         </div>
         <hr />
+
         <div className="">{t('filter.sort')}</div>
         <DropdownMenu>
           <DropdownMenuTrigger className="rounded-md border border-outline-secondary px-4 py-3">

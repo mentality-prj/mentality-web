@@ -154,5 +154,14 @@
       "description": "Пройди коротку оцінку для більш точного визначення рівня стресу (2 хвилини)",
       "button": "Розпочати оцінку"
     }
+  },
+
+  "components": {
+    "DailyCard": {
+      "title": "{type, select, affirmation {Ваша щоденна афірмація} tip {Порада дня} other {}}",
+      "buttonText": "{type, select, affirmation {Всі афірмації} tip {Всі поради} other {}}",
+      "toastText": "{type, select, affirmation {Афірмацію додано до Збереженого} tip {Пораду додано до Збереженого} other {}}",
+      "type": "{type, select, affirmation {Афірмація} tip {Порада} other {}}"
+    }
   }
 }

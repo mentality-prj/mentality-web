@@ -5,15 +5,23 @@ import { Badge } from '@/ds/shadcn/badge'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
 import { cn } from '@/lib/utils'
 import { PreviousDailyCardProps } from '@/types/dailyCard'
+import { SupportedLanguage } from '@/types/languages'
 
 import { SavedToggle } from './SavedToggle'
 
-export const PreviousCard: React.FC<PreviousDailyCardProps> = ({ id, date, textContent, tag, className }) => {
-  const parsedDate = new Date(date)
+export const PreviousCard: React.FC<PreviousDailyCardProps> = ({
+  id,
+  type,
+  translations,
+  createdAt,
+  className,
+  isPublished,
+}) => {
+  const parsedDate = new Date(createdAt)
   const formattedDate = parsedDate.toLocaleDateString('uk-UA')
-  const locale = useLocale()
-  const localizedTextContent = textContent[locale as 'uk' | 'pl' | 'en']
-  const t = useTranslations('AffirmationsPage')
+  const locale = useLocale() as SupportedLanguage
+
+  const t = useTranslations('components.DailyCard')
 
   return (
     <Card className={cn('flex flex-col gap-5 border-outline-secondary bg-surface-white p-5 shadow-none', className)}>
@@ -26,16 +34,19 @@ export const PreviousCard: React.FC<PreviousDailyCardProps> = ({ id, date, textC
         <SavedToggle
           saveFunc={() => {
             const savedItems = JSON.parse(localStorage.getItem('savedItems') || '[]')
-            localStorage.setItem('savedItems', JSON.stringify([...savedItems, { id, date, textContent, tag }]))
+            localStorage.setItem(
+              'savedItems',
+              JSON.stringify([...savedItems, { id, createdAt, translations, type, isPublished }])
+            )
           }}
-          toastText={t(`toast.${tag}`)}
+          toastText={t('toastText', { type })}
         />
       </CardHeader>
       <CardContent className="p-0">
-        <p className="text-base">&quot;{localizedTextContent}&quot;</p>
+        <p className="text-base">&quot;{translations[`${locale}`]}&quot;</p>
       </CardContent>
       <CardFooter className="p-0">
-        <Badge variant="active">{t(`${tag}Tag`)}</Badge>
+        <Badge variant="active">{t('type', { type })}</Badge>
       </CardFooter>
     </Card>
   )
