@@ -3,8 +3,6 @@
 import { useContext } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { useTranslations } from 'next-intl'
-
 import { FilterContext, SortContext } from '@/context/FilterContext'
 import { Button } from '@/ds/shadcn/button'
 import {
