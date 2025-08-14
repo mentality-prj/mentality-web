@@ -239,7 +239,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
   })
 }
 
-export const mockDailyAffirmation = async (): Promise<BaseDailyCardProps> => {
+export const mockDailyAffirmation = async (): Promise<Affirmation> => {
   const dailyData: BaseDailyCardProps = {
     id: '648a52d9fc13ae44e8000001',
     isPublished: false,
@@ -258,7 +258,7 @@ export const mockDailyAffirmation = async (): Promise<BaseDailyCardProps> => {
   })
 }
 
-export const mockDailyTip = async (): Promise<BaseDailyCardProps> => {
+export const mockDailyTip = async (): Promise<Affirmation> => {
   const dailyData: BaseDailyCardProps = {
     id: '648a52d9fc13ae44e8000014',
     isPublished: false,
@@ -267,7 +267,6 @@ export const mockDailyTip = async (): Promise<BaseDailyCardProps> => {
       uk: 'Почніть свій день із постановки однієї маленької досяжної цілі — це створює імпульс для більших успіхів!',
       pl: 'Rozpocznij swój dzień od wyznaczenia jednego małego, osiągalnego celu — to tworzy impuls do większych sukcesów!',
     },
-
     createdAt: '2025-11-19T14:35:30.742Z',
   }
 
