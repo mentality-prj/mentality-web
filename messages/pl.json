@@ -68,6 +68,26 @@
       "noThoughts": "Nie masz jeszcze żadnych zapisków."
     }
   },
+  "AffirmationsPage": {
+    "title": "Afirmacje i Porady",
+    "subtitle": "Czerp inspirację z pozytywnych myśli każdego dnia",
+    "affirmation": {
+      "title": "Twoja codzienna afirmacja",
+      "text": "Każdego dnia staję się silniejszy i bardziej pewny swojej drogi."
+    },
+    "tip": {
+      "title": "Porada dnia",
+      "text": "Rozpocznij dzień od wyznaczenia jednego małego, osiągalnego celu — to buduje impuls do większych sukcesów!"
+    },
+    "sectionCard": {
+      "title": "Poprzednie afirmacje i porady",
+      "subtitle": "Nie masz jeszcze żadnych poprzednich afirmacji ani porad."
+    },
+    "ThoughtsList": {
+      "title": "Moje notatki",
+      "noThoughts": "Nie masz jeszcze żadnych notatek"
+    }
+  },
   "Navigation": {
     "BackToHome": "Powrót do domu",
     "BackToShop": "Powrót do sklepu",
