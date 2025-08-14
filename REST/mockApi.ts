@@ -1,7 +1,7 @@
-import { DailyCardProps } from '@/components/Home/DailyCard'
 import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
+import { DailyCardProps } from '@/types/dailyCard'
 import { Exercise } from '@/types/exercisesForRecovery'
 import { ShopItemProps } from '@/types/shop'
 
