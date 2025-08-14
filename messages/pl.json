@@ -159,7 +159,8 @@
     "DailyCard": {
       "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} other {}}",
       "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} other {}}",
-      "toastText": "{type, select, affirmation {Aforyzm został dodany do zapisanych} tip {Porada została dodana do zapisanych} other {}}"
+      "toastText": "{type, select, affirmation {Aforyzm został dodany do zapisanych} tip {Porada została dodana do zapisanych} other {}}",
+      "type": "{type, select, affirmation {Afirmacja} tip {Wskazówka} other {}}"
     }
   }
 }

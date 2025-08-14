@@ -4,22 +4,19 @@ import { useContext } from 'react'
 
 import { FilterContext, SortContext } from '@/context/FilterContext'
 
+import { FilteredHistoryProps } from '../AffirmationsAndTips/FilteredHistory'
 import { DailyCard } from '../ui/DailyCard'
 
-interface FilteredListProps {
-  items: { id: string; date: string; tag: string; textContent: { uk: string; pl: string; en: string } }[]
-}
-
-export const FilteredList = ({ items }: FilteredListProps) => {
+export const FilteredList = ({ items }: FilteredHistoryProps) => {
   const { sort: SortOrder } = useContext(SortContext)
   const { filter } = useContext(FilterContext)
   const getSortedItems = () => {
     if (filter) {
-      items = items.filter((item) => item.tag === filter)
+      items = items.filter((item) => item.type === filter)
     }
     return [...items].sort((a, b) => {
-      const timeA = new Date(a.date).getTime()
-      const timeB = new Date(b.date).getTime()
+      const timeA = new Date(a.createdAt).getTime()
+      const timeB = new Date(b.createdAt).getTime()
 
       return SortOrder === 'newest' ? timeB - timeA : timeA - timeB
     })
@@ -27,14 +24,7 @@ export const FilteredList = ({ items }: FilteredListProps) => {
   return (
     <div className="flex flex-col gap-6">
       {getSortedItems().map((item) => (
-        <DailyCard
-          variant="previous"
-          date={item.date}
-          key={item.id}
-          id={item.id}
-          tag={item.tag}
-          textContent={item.textContent}
-        />
+        <DailyCard key={item.id} variant="previous" {...item} />
       ))}
     </div>
   )

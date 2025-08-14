@@ -5,14 +5,14 @@ import { mockAffirmations, mockTips } from '@/REST/mockApi'
 import { SectionCard } from '../ui/SectionCard'
 
 import { Filter } from './Filter'
-import { FilteredHistory } from './FilteredHistory'
+import { AffirmationWithType, FilteredHistory } from './FilteredHistory'
 
 export const AffirmationHistory = async () => {
   const affirmationsData = await mockAffirmations()
   const tipsData = await mockTips()
-  const items = [
-    ...affirmationsData.map((item) => ({ ...item, type: 'affirmation' })),
-    ...tipsData.map((item) => ({ ...item, type: 'tip' })),
+  const items: AffirmationWithType[] = [
+    ...affirmationsData.map((item) => ({ ...item, type: 'affirmation' as const })),
+    ...tipsData.map((item) => ({ ...item, type: 'tip' as const })),
   ]
 
   const t = await getTranslations('AffirmationsPage')

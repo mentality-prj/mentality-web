@@ -1,31 +1,20 @@
 import { Affirmation } from './affirmation'
 
 export type BaseDailyCardProps = {
+  type: 'affirmation' | 'tip'
   className?: string
 } & Affirmation
 
 export type DefaultDailyCardProps = {
-  type: 'affirmation' | 'tip'
   variant?: 'default'
 } & BaseDailyCardProps
 
 export type SecondaryDailyCardProps = {
-  type: 'affirmation' | 'tip'
   variant: 'secondary'
 } & BaseDailyCardProps
 
 export type PreviousDailyCardProps = {
-  id: string
-  date: string
   variant: 'previous'
-  tag: string
-  toastText?: string
-  textContent: {
-    uk: string
-    en: string
-    pl: string
-  }
-  className?: string
-}
+} & BaseDailyCardProps
 
 export type DailyCardProps = DefaultDailyCardProps | SecondaryDailyCardProps | PreviousDailyCardProps

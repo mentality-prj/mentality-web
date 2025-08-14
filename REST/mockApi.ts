@@ -2,7 +2,6 @@ import { Affirmation } from '@/types/affirmation'
 import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
-import { BaseDailyCardProps } from '@/types/dailyCard'
 import { Exercise } from '@/types/exercisesForRecovery'
 import { ShopItemProps } from '@/types/shop'
 
@@ -240,7 +239,7 @@ export const mockShopData = async (): Promise<ShopItemProps[]> => {
 }
 
 export const mockDailyAffirmation = async (): Promise<Affirmation> => {
-  const dailyData: BaseDailyCardProps = {
+  const dailyData: Affirmation = {
     id: '648a52d9fc13ae44e8000001',
     isPublished: false,
     translations: {
@@ -259,7 +258,7 @@ export const mockDailyAffirmation = async (): Promise<Affirmation> => {
 }
 
 export const mockDailyTip = async (): Promise<Affirmation> => {
-  const dailyData: BaseDailyCardProps = {
+  const dailyData: Affirmation = {
     id: '648a52d9fc13ae44e8000014',
     isPublished: false,
     translations: {
