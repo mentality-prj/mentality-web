@@ -1,3 +1,4 @@
+import { Affirmation } from '@/types/affirmation'
 import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
@@ -345,6 +346,98 @@ export const mockCardRecommendation = async (): Promise<CardRecommendation[]> =>
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(cardRecommendation)
+    }, 500)
+  })
+}
+
+export const mockAffirmations = async (): Promise<Affirmation[]> => {
+  const affirmations: Affirmation[] = [
+    {
+      id: '648a52d9fc13ae44e8000001',
+      isPublished: false,
+      translations: {
+        uk: 'Мої думки створюють мою реальність, і я обираю позитивні думки.',
+        en: 'My thoughts create my reality, and I choose positive thoughts.',
+        pl: 'Moje myśli tworzą moją rzeczywistość, więc wybieram pozytywne myśli',
+      },
+      createdAt: '2024-11-19T14:35:30.742Z',
+    },
+    {
+      id: '64ccf9e2fc13ae44e800a001',
+      isPublished: false,
+      translations: {
+        uk: 'Спробуй поставити таймер на 3 хвилини і просто дихай. Більше нічого.',
+        en: 'Try setting a timer for 3 minutes and just breathe. Nothing else.',
+        pl: 'Ustaw minutnik na 3 minuty i po prostu oddychaj. Nic więcej.',
+      },
+      createdAt: '2025-08-06T09:17:42.312Z',
+    },
+    {
+      id: '64ccfa13fc13ae44e800a002',
+      isPublished: false,
+      translations: {
+        uk: 'Я вірю в себе і свої можливості досягти успіху.',
+        en: 'I believe in myself and my ability to succeed.',
+        pl: 'Wierzę w siebie i w moje możliwości osiągnięcia sukcesu.',
+      },
+      createdAt: '2025-08-05T15:48:10.129Z',
+    },
+    {
+      id: '64ccfa45fc13ae44e800a003',
+      isPublished: false,
+      translations: {
+        uk: 'Дозволь собі просту радість — улюблену пісню, серіал, теплу ковдру. Це не дрібниці.',
+        en: 'Allow yourself simple joys — a favorite song, a show, a warm blanket. These are not trivial things.',
+        pl: 'Pozwól sobie na proste radości — ulubioną piosenkę, serial, ciepły koc. To nie są błahostki.',
+      },
+      createdAt: '2025-07-31T21:04:55.657Z',
+    },
+  ]
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(affirmations)
+    }, 500)
+  })
+}
+
+export const mockTips = async (): Promise<Affirmation[]> => {
+  const tips = [
+    {
+      id: '650a12b3fc13ae44e800c101',
+      isPublished: false,
+      translations: {
+        uk: 'Я заслуговую на щастя і внутрішній спокій.',
+        en: 'I deserve happiness and inner peace.',
+        pl: 'Zasługuję na szczęście i wewnętrzny spokój.',
+      },
+      createdAt: '2025-08-06T10:12:45.000Z',
+    },
+    {
+      id: '650a12e7fc13ae44e800c102',
+      isPublished: false,
+      translations: {
+        uk: 'Навіть маленький крок уперед — це все одно прогрес.',
+        en: 'Even a small step forward is still progress.',
+        pl: 'Nawet mały krok do przodu to wciąż postęp.',
+      },
+      createdAt: '2025-08-05T14:25:30.000Z',
+    },
+    {
+      id: '650a1312fc13ae44e800c103',
+      isPublished: false,
+      translations: {
+        uk: 'Твої почуття мають значення. Прислухайся до себе.',
+        en: 'Your feelings matter. Listen to yourself.',
+        pl: 'Twoje uczucia mają znaczenie. Wsłuchaj się w siebie.',
+      },
+      createdAt: '2025-08-04T08:47:10.000Z',
+    },
+  ]
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(tips)
     }, 500)
   })
 }
