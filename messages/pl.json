@@ -86,10 +86,6 @@
     "ThoughtsList": {
       "title": "Moje notatki",
       "noThoughts": "Nie masz jeszcze żadnych notatek"
-    },
-    "toast": {
-      "affirmation": "Afirmacja została dodana do zapisanych",
-      "tip": "Porada została dodana do zapisanych"
     }
   },
   "Navigation": {

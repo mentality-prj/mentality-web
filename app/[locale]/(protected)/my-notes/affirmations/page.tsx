@@ -19,18 +19,11 @@ export default function AffirmationsPage() {
       <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
         <DailyCard
           variant="secondary"
-          toastText={t('toast.affirmation')}
           title={t('affirmation.title')}
           textContent={t('affirmation.text')}
           icon={<StarRingIcon />}
         />
-        <DailyCard
-          toastText={t('toast.tip')}
-          variant="secondary"
-          title={t('tip.title')}
-          textContent={t('tip.text')}
-          icon={<AstronomyIcon />}
-        />
+        <DailyCard variant="secondary" title={t('tip.title')} textContent={t('tip.text')} icon={<AstronomyIcon />} />
       </div>
       <SectionCard title={t('sectionCard.title')} subtitle={t('sectionCard.subtitle')} />
     </div>
