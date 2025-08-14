@@ -8,7 +8,6 @@ import { Button } from '@/ds/shadcn/button'
 import {
   Sidebar,
   SidebarContent,
-  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarHeader,
@@ -23,20 +22,29 @@ import { Link, usePathname } from '@/i18n/navigation'
 export const AppSidebar = () => {
   const pathname = usePathname()
   const isPageActive = (link: string) => pathname === link
-  const { state, toggleSidebar, isMobile } = useSidebar()
+  const { state, toggleSidebar } = useSidebar()
   const sidebarList = SidebarList()
-
   return (
-    <Sidebar className="border-none bg-surface-white px-6 py-8" collapsible="icon">
-      <SidebarHeader className="overflow-hidden bg-surface-white p-0 pl-4 group-data-[collapsible=icon]:pl-0">
-        <LogoIcon />
+    <Sidebar className="group border-none bg-surface-white px-6 py-8" collapsible="icon">
+      <SidebarHeader className="flex flex-row justify-between p-0 pl-4 group-data-[collapsible=icon]:flex-col-reverse group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-4 group-data-[collapsible=icon]:pl-0">
+        <div className="overflow-hidden">
+          <LogoIcon />
+        </div>
+        <Button
+          className="h-6 w-6 opacity-0 transition-opacity focus:bg-transparent focus:outline-none focus:ring-0 group-hover:opacity-100 group-data-[collapsible=icon]:mx-auto group-data-[collapsible=icon]:opacity-100"
+          onClick={toggleSidebar}
+          variant="iconButton"
+          size="icon"
+        >
+          {state === 'collapsed' ? <MaximizeIcon /> : <MinimizeIcon />}
+        </Button>
       </SidebarHeader>
-      <SidebarContent className="mt-8 gap-0 bg-surface-white group-data-[collapsible=icon]:mt-10">
+      <SidebarContent className="mt-4 gap-0 bg-surface-white">
         {sidebarList.map((items, index) => (
           <div key={index}>
             <SidebarGroup className="p-0">
               <SidebarGroupContent>
-                <SidebarMenu className="gap-2 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:gap-6">
+                <SidebarMenu className="gap-2 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:gap-4">
                   {items.map((item, index) => (
                     <SidebarMenuItem key={index}>
                       <SidebarMenuButton
@@ -61,18 +69,6 @@ export const AppSidebar = () => {
           </div>
         ))}
       </SidebarContent>
-      <SidebarFooter className="gap-2 overflow-hidden bg-surface-white p-0">
-        {!isMobile && (
-          <Button
-            className="h-6 w-6 laptop:max-desktop:hidden"
-            onClick={toggleSidebar}
-            variant="iconButton"
-            size="icon"
-          >
-            {state === 'collapsed' ? <MaximizeIcon /> : <MinimizeIcon />}
-          </Button>
-        )}
-      </SidebarFooter>
     </Sidebar>
   )
 }
