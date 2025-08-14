@@ -10,13 +10,9 @@ export type DefaultDailyCardProps = {
 } & BaseDailyCardProps
 
 export type SecondaryDailyCardProps = {
-  title: string
-  textContent: string
+  type: 'affirmation' | 'tip'
   variant: 'secondary'
-  icon: React.ReactNode
-  toastText?: string
-  className?: string
-}
+} & BaseDailyCardProps
 
 export type PreviousDailyCardProps = {
   id: string

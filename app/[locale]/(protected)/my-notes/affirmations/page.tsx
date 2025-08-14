@@ -1,4 +1,4 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 import { AffirmationHistory } from '@/components/AffirmationsAndTips/AffirmationHistory'
 
@@ -6,11 +6,12 @@ import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { DailyCard } from '@/components/ui/DailyCard'
 import { PageTitle } from '@/components/ui/PageTitle'
 
-import { AstronomyIcon } from '@/ds/icons/blueIcons/astronomy'
-import { StarRingIcon } from '@/ds/icons/blueIcons/star-ring'
+import { mockDailyAffirmation, mockDailyTip } from '@/REST/mockApi'
 
-export default function AffirmationsPage() {
-  const t = useTranslations('AffirmationsPage')
+export default async function AffirmationsPage() {
+  const dailyAffirmation = await mockDailyAffirmation()
+  const dailyTip = await mockDailyTip()
+  const t = await getTranslations('AffirmationsPage')
   return (
     <div className="flex flex-col gap-8">
       <Breadcrumbs
@@ -19,21 +20,8 @@ export default function AffirmationsPage() {
       />
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
-        <DailyCard
-          variant="secondary"
-          toastText={t('toast.affirmation')}
-          title={t('affirmation.title')}
-          textContent={t('affirmation.text')}
-          icon={<StarRingIcon />}
-        />
-
-        <DailyCard
-          toastText={t('toast.tip')}
-          variant="secondary"
-          title={t('tip.title')}
-          textContent={t('tip.text')}
-          icon={<AstronomyIcon />}
-        />
+        <DailyCard variant="secondary" type="affirmation" {...dailyAffirmation} />
+        <DailyCard variant="secondary" type="tip" {...dailyTip} />
       </div>
 
       <AffirmationHistory />

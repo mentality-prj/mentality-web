@@ -159,7 +159,8 @@
   "components": {
     "DailyCard": {
       "title": "{type, select, affirmation {Your daily affirmation} tip {Tip of the day} other {}}",
-      "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}"
+      "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}",
+      "toastText": "{type, select, affirmation {Affirmation added to Saved} tip {Tip added to Saved} other {}}"
     }
   }
 }
