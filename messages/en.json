@@ -69,26 +69,6 @@
       "noThoughts": "You have no notes yet"
     }
   },
-  "AffirmationsPage": {
-    "title": "Affirmations and Tips",
-    "subtitle": "Get inspired by positive thoughts every day",
-    "affirmation": {
-      "title": "Your Daily Affirmation",
-      "text": "Each day I grow stronger and more confident on my path."
-    },
-    "tip": {
-      "title": "Tip of the Day",
-      "text": "Start your day by setting one small achievable goal — it builds momentum for bigger successes!"
-    },
-    "sectionCard": {
-      "title": "Previous Affirmations and Tips",
-      "subtitle": "You don't have any previous affirmations or tips yet."
-    },
-    "ThoughtsList": {
-      "title": "My notes",
-      "noThoughts": "You have no notes yet"
-    }
-  },
   "Navigation": {
     "BackToHome": "Back to home",
     "BackToShop": "Back to shop",
