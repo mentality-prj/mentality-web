@@ -154,5 +154,11 @@
       "description": "Wykonaj krótką ocenę, aby dokładniej określić poziom stresu (2 minuty)",
       "button": "Rozpocznij ocenę"
     }
+  },
+  "components": {
+    "DailyCard": {
+      "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} other {}}",
+      "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} other {}}"
+    }
   }
 }

@@ -4,7 +4,6 @@
       "title": "Exercises for recovery",
       "subtitle": "Practices for psychological health"
     },
-
     "ChatWithAI": {
       "title": "Chat with an AI assistant",
       "subtitle": "Get support and advice",
@@ -154,6 +153,13 @@
       "title": "Quick stress assessment",
       "description": "Take a short assessment to get a more accurate stress level (2 minutes)",
       "button": "Start assessment"
+    }
+  },
+
+  "components": {
+    "DailyCard": {
+      "title": "{type, select, affirmation {Your daily affirmation} tip {Tip of the day} other {}}",
+      "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}"
     }
   }
 }
