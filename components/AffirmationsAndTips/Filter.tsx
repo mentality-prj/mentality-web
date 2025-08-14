@@ -18,9 +18,11 @@ import { cn } from '@/lib/utils'
 export const Filter = () => {
   const { sort, setSort } = useContext(SortContext)
   const { filter, setFilter } = useContext(FilterContext)
+
   const itemsFilter = ['affirmation', 'tip']
   const itemsSort = ['newest', 'oldest']
   const t = useTranslations('AffirmationsPage')
+
   return (
     <>
       <div className="flex max-h-fit flex-col gap-5 rounded-md border border-outline-secondary p-6">
