@@ -1,3 +1,4 @@
+import { Achievements } from '@/types/achievements'
 import { Affirmation } from '@/types/affirmation'
 import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
@@ -454,6 +455,170 @@ export const mockTips = async (): Promise<Affirmation[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(tips)
+    }, 500)
+  })
+}
+
+export const mockAchievements = async (): Promise<Achievements[]> => {
+  const achievements: Achievements[] = [
+    {
+      id: 101001,
+      icon: 'clap',
+      title: {
+        uk: 'Початок шляху',
+        en: 'The Beginning',
+        pl: 'Początek drogi',
+      },
+      description: {
+        uk: 'Зробити перший запис настрою',
+        en: 'Make your first mood entry',
+        pl: 'Zrób pierwszy wpis nastroju',
+      },
+      status: 'unlocked',
+      progress: 1,
+      currentProgress: 1,
+    },
+    {
+      id: 101002,
+      icon: 'sun',
+      title: {
+        uk: 'Турбота 3 дні поспіль',
+        en: 'Care for 3 days in a row',
+        pl: 'Opieka przez 3 dni z rzędu',
+      },
+      description: {
+        uk: 'Відвідати платформу три дні підряд',
+        en: 'Visit the platform three days in a row',
+        pl: 'Odwiedzaj platformę trzy dni z rzędu',
+      },
+      status: 'locked',
+      progress: 3,
+      currentProgress: 0,
+    },
+    {
+      id: 101003,
+      icon: 'sparkles',
+      title: {
+        uk: 'Мить для себе',
+        en: 'A Moment for Yourself',
+        pl: 'Chwila dla siebie',
+      },
+      description: {
+        uk: 'Завершити першу медитацію',
+        en: 'Complete your first meditation',
+        pl: 'Ukończ pierwszą medytację',
+      },
+      status: 'locked',
+      progress: 1,
+      currentProgress: 0,
+    },
+    {
+      id: 101004,
+      icon: 'dizzy',
+      title: {
+        uk: 'Тиждень з нами',
+        en: 'A Week with Us',
+        pl: 'Tydzień z nami',
+      },
+      description: {
+        uk: '7 днів поспіль із практиками. Це вже справжній ритм',
+        en: '7 days in a row with practices. That’s a real rhythm',
+        pl: '7 dni z rzędu z praktykami. To już prawdziwy rytm',
+      },
+      status: 'locked',
+      progress: 7,
+      currentProgress: 3,
+    },
+    {
+      id: 101005,
+      icon: 'chart',
+      title: {
+        uk: 'Моя стабільність',
+        en: 'My Stability',
+        pl: 'Moja stabilność',
+      },
+      description: {
+        uk: 'Створювати записи настрою 14 днів підряд',
+        en: 'Create mood entries 14 days in a row',
+        pl: 'Twórz wpisy nastroju przez 14 dni z rzędu',
+      },
+      status: 'unlocked',
+      progress: 14,
+      currentProgress: 14,
+    },
+    {
+      id: 101006,
+      icon: 'meditation',
+      title: {
+        uk: 'Медитатор',
+        en: 'Meditator',
+        pl: 'Medytator',
+      },
+      description: {
+        uk: 'Завершити 5 медитацій',
+        en: 'Complete 5 meditations',
+        pl: 'Ukończ 5 medytacji',
+      },
+      status: 'locked',
+      progress: 5,
+      currentProgress: 1,
+    },
+    {
+      id: 101007,
+      icon: 'pen',
+      title: {
+        uk: 'Письменник',
+        en: 'Writer',
+        pl: 'Pisarz',
+      },
+      description: {
+        uk: 'Створено 10 записів у щоденнику',
+        en: 'Create 10 journal entries',
+        pl: 'Stwórz 10 wpisów w dzienniku',
+      },
+      status: 'locked',
+      progress: 10,
+      currentProgress: 0,
+    },
+    {
+      id: 101008,
+      icon: 'puzzle',
+      title: {
+        uk: 'Зрозуміти себе',
+        en: 'Understand Yourself',
+        pl: 'Zrozumieć siebie',
+      },
+      description: {
+        uk: 'Пройти 3 тести й вже буде ясніше. Ти складаєш свій власний пазл',
+        en: 'Complete 3 tests and things will be clearer. You are building your own puzzle',
+        pl: 'Ukończ 3 testy i będzie jaśniej. Układasz własną układankę',
+      },
+      status: 'unlocked',
+      progress: 3,
+      currentProgress: 3,
+    },
+    {
+      id: 101009,
+      icon: 'muscle',
+      title: {
+        uk: 'Стійкість',
+        en: 'Resilience',
+        pl: 'Wytrwałość',
+      },
+      description: {
+        uk: 'Користування платформою 30 днів',
+        en: 'Use the platform for 30 days',
+        pl: 'Korzystanie z platformy przez 30 dni',
+      },
+      status: 'locked',
+      progress: 30,
+      currentProgress: 6,
+    },
+  ]
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(achievements)
     }, 500)
   })
 }

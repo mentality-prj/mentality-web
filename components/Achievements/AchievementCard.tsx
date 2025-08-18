@@ -1,11 +1,23 @@
+import { getLocale } from 'next-intl/server'
+
+import { iconsMap } from '@/ds/icons/iconsMap'
 import { MedalCircleIcon } from '@/ds/icons/medal-circle'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
 import { Progress } from '@/ds/shadcn/progress'
 import { cn } from '@/lib/utils'
+import { Achievements } from '@/types/achievements'
+import { SupportedLanguage } from '@/types/languages'
 
-import { SunIcon } from '../icons/navbar/sun-icon'
-
-export const AchievementCard = ({ status }: { status: 'locked' | 'unlocked' }) => {
+export const AchievementCard = async ({
+  icon,
+  title,
+  description,
+  status,
+  progress,
+  currentProgress,
+}: Achievements) => {
+  const Icon = iconsMap[icon]
+  const locale = (await getLocale()) as SupportedLanguage
   return (
     <Card
       className={cn(
@@ -14,9 +26,9 @@ export const AchievementCard = ({ status }: { status: 'locked' | 'unlocked' }) =
       )}
     >
       <CardHeader className="items-center space-y-1">
-        <SunIcon />
-        <CardTitle className="text-base">Турбота 3 дні поспіль</CardTitle>
-        <CardDescription>Відвідати платформу три дні підряд</CardDescription>
+        <Icon />
+        <CardTitle className="text-base">{title[locale]}</CardTitle>
+        <CardDescription>{description[locale]}</CardDescription>
       </CardHeader>
       <CardFooter className="">
         {status === 'unlocked' ? (
@@ -28,9 +40,11 @@ export const AchievementCard = ({ status }: { status: 'locked' | 'unlocked' }) =
           <div className="w-full">
             <div className="flex justify-between text-xs/[14px] text-textcolor-tertiary">
               <div className="">Прогрес</div>
-              <div className="">3/7</div>
+              <div className="">
+                {currentProgress}/{progress}
+              </div>
             </div>
-            <Progress className="mt-2 h-[6px] bg-surface-secondary" value={(3 / 7) * 100} />
+            <Progress className="mt-2 h-[6px] bg-surface-secondary" value={(currentProgress / progress) * 100} />
           </div>
         ) : (
           ''

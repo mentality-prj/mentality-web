@@ -1,10 +1,14 @@
+import { mockAchievements } from '@/REST/mockApi'
+
 import { AchievementCard } from './AchievementCard'
 
-export const AchievementsList = () => {
+export const AchievementsList = async () => {
+  const achievementsData = await mockAchievements()
   return (
     <div className="mb-5 mt-6 grid w-full grid-cols-3 gap-6">
-      <AchievementCard status="locked" />
-      <AchievementCard status="unlocked" />
+      {achievementsData.map((item) => (
+        <AchievementCard key={item.id} {...item} />
+      ))}
     </div>
   )
 }
