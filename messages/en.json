@@ -155,6 +155,12 @@
       "button": "Start assessment"
     }
   },
+  "MyProgress": {
+    "PageTitle": {
+      "title": "My Progress",
+      "subtitle": "Think of a headline. Look how much you’ve already done for yourself 💛"
+    }
+  },
 
   "components": {
     "DailyCard": {

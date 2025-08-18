@@ -155,6 +155,13 @@
       "button": "Rozpocznij ocenę"
     }
   },
+  "MyProgress": {
+    "PageTitle": {
+      "title": "Mój postęp",
+      "subtitle": "Pomyśl nad nagłówkiem. Zobacz, ile już zrobiłeś dla siebie 💛"
+    }
+  },
+
   "components": {
     "DailyCard": {
       "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} other {}}",
