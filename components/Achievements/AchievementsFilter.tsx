@@ -1,12 +1,15 @@
+import { useTranslations } from 'next-intl'
+
 import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 
 export const AchievementsFilter = () => {
+  const t = useTranslations('components.Achievements.AchievementsFilter')
   return (
-    <Tabs>
+    <Tabs defaultValue="All">
       <TabsList className="gap-3">
-        <TabsTrigger value="Відкриті">Відкриті</TabsTrigger>
-        <TabsTrigger value="Невідкриті">Невідкриті</TabsTrigger>
-        <TabsTrigger value="Всі">Всі</TabsTrigger>
+        <TabsTrigger value="Unlocked">{t('Unlocked')}</TabsTrigger>
+        <TabsTrigger value="Locked">{t('Locked')}</TabsTrigger>
+        <TabsTrigger value="All">{t('All')}</TabsTrigger>
       </TabsList>
     </Tabs>
   )

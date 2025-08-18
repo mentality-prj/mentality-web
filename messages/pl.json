@@ -168,6 +168,18 @@
       "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} other {}}",
       "toastText": "{type, select, affirmation {Aforyzm został dodany do zapisanych} tip {Porada została dodana do zapisanych} other {}}",
       "type": "{type, select, affirmation {Afirmacja} tip {Wskazówka} other {}}"
+    },
+    "Achievements": {
+      "Button": "Pokaż więcej",
+      "AchievementsTitle": {
+        "title": "Osiągnięcia",
+        "subtitle": "Odblokowano 3 z 25 osiągnięć"
+      },
+      "AchievementsFilter": {
+        "Unlocked": "Odblokowane",
+        "Locked": "Zablokowane",
+        "All": "Wszystkie"
+      }
     }
   }
 }

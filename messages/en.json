@@ -168,6 +168,18 @@
       "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}",
       "toastText": "{type, select, affirmation {Affirmation added to Saved} tip {Tip added to Saved} other {}}",
       "type": "{type, select, affirmation {Affirmation} tip {Tip} other {}}"
+    },
+    "Achievements": {
+      "Button": "Show more",
+      "AchievementsTitle": {
+        "title": "Achievements",
+        "subtitle": "3 out of 25 achievements unlocked"
+      },
+      "AchievementsFilter": {
+        "Unlocked": "Unlocked",
+        "Locked": "Locked",
+        "All": "All"
+      }
     }
   }
 }
