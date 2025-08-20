@@ -171,6 +171,10 @@
     },
     "Achievements": {
       "Button": "Показати ще",
+      "AchievementCard": {
+        "Open": "Відкрито",
+        "Progress": "Прогрес"
+      },
       "AchievementsTitle": {
         "title": "Досягнення",
         "subtitle": "Відкрито 3 досягнення з 25"

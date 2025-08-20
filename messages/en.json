@@ -171,6 +171,10 @@
     },
     "Achievements": {
       "Button": "Show more",
+      "AchievementCard": {
+        "Open": "Unlocked",
+        "Progress": "Progress"
+      },
       "AchievementsTitle": {
         "title": "Achievements",
         "subtitle": "3 out of 25 achievements unlocked"

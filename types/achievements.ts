@@ -1,4 +1,4 @@
-import { IconKey } from './../ds/icons/iconsMap'
+import { IconKey } from '@/ds/icons/iconsMap'
 
 export type Achievements = {
   icon: IconKey

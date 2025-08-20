@@ -1,4 +1,4 @@
-import { getLocale } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 import { iconsMap } from '@/ds/icons/iconsMap'
 import { MedalCircleIcon } from '@/ds/icons/medal-circle'
@@ -18,6 +18,7 @@ export const AchievementCard = async ({
 }: Achievements) => {
   const Icon = iconsMap[icon]
   const locale = (await getLocale()) as SupportedLanguage
+  const t = await getTranslations('components.Achievements.AchievementCard')
   return (
     <Card
       className={cn(
@@ -34,12 +35,12 @@ export const AchievementCard = async ({
         {status === 'unlocked' ? (
           <div className="flex w-full flex-col items-center text-textcolor-purple [&_svg]:size-12">
             <MedalCircleIcon />
-            <div className="">Відкрито</div>
+            <div className="">{t('Open')}</div>
           </div>
         ) : status === 'locked' ? (
           <div className="w-full">
             <div className="flex justify-between text-xs/[14px] text-textcolor-tertiary">
-              <div className="">Прогрес</div>
+              <div className="">{t('Progress')}</div>
               <div className="">
                 {currentProgress}/{progress}
               </div>

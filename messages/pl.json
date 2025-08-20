@@ -171,6 +171,10 @@
     },
     "Achievements": {
       "Button": "Pokaż więcej",
+      "AchievementCard": {
+        "Open": "Odblokowano",
+        "Progress": "Postęp"
+      },
       "AchievementsTitle": {
         "title": "Osiągnięcia",
         "subtitle": "Odblokowano 3 z 25 osiągnięć"
