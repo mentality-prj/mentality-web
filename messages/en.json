@@ -155,6 +155,12 @@
       "button": "Start assessment"
     }
   },
+  "MyProgress": {
+    "PageTitle": {
+      "title": "My Progress",
+      "subtitle": "Think of a headline. Look how much you’ve already done for yourself 💛"
+    }
+  },
 
   "components": {
     "DailyCard": {
@@ -162,6 +168,22 @@
       "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}",
       "toastText": "{type, select, affirmation {Affirmation added to Saved} tip {Tip added to Saved} other {}}",
       "type": "{type, select, affirmation {Affirmation} tip {Tip} other {}}"
+    },
+    "Achievements": {
+      "Button": "Show more",
+      "AchievementCard": {
+        "Open": "Unlocked",
+        "Progress": "Progress"
+      },
+      "AchievementsTitle": {
+        "title": "Achievements",
+        "subtitle": "3 out of 25 achievements unlocked"
+      },
+      "AchievementsFilter": {
+        "Unlocked": "Unlocked",
+        "Locked": "Locked",
+        "All": "All"
+      }
     }
   }
 }

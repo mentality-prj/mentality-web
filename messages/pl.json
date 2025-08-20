@@ -155,12 +155,35 @@
       "button": "Rozpocznij ocenę"
     }
   },
+  "MyProgress": {
+    "PageTitle": {
+      "title": "Mój postęp",
+      "subtitle": "Pomyśl nad nagłówkiem. Zobacz, ile już zrobiłeś dla siebie 💛"
+    }
+  },
+
   "components": {
     "DailyCard": {
       "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} other {}}",
       "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} other {}}",
       "toastText": "{type, select, affirmation {Aforyzm został dodany do zapisanych} tip {Porada została dodana do zapisanych} other {}}",
       "type": "{type, select, affirmation {Afirmacja} tip {Wskazówka} other {}}"
+    },
+    "Achievements": {
+      "Button": "Pokaż więcej",
+      "AchievementCard": {
+        "Open": "Odblokowano",
+        "Progress": "Postęp"
+      },
+      "AchievementsTitle": {
+        "title": "Osiągnięcia",
+        "subtitle": "Odblokowano 3 z 25 osiągnięć"
+      },
+      "AchievementsFilter": {
+        "Unlocked": "Odblokowane",
+        "Locked": "Zablokowane",
+        "All": "Wszystkie"
+      }
     }
   }
 }

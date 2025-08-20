@@ -155,6 +155,12 @@
       "button": "Розпочати оцінку"
     }
   },
+  "MyProgress": {
+    "PageTitle": {
+      "title": "Мій прогрес",
+      "subtitle": "Подумати над заголовком. Поглянь, скільки всього ти вже зробив для себе 💛"
+    }
+  },
 
   "components": {
     "DailyCard": {
@@ -162,6 +168,22 @@
       "buttonText": "{type, select, affirmation {Всі афірмації} tip {Всі поради} other {}}",
       "toastText": "{type, select, affirmation {Афірмацію додано до Збереженого} tip {Пораду додано до Збереженого} other {}}",
       "type": "{type, select, affirmation {Афірмація} tip {Порада} other {}}"
+    },
+    "Achievements": {
+      "Button": "Показати ще",
+      "AchievementCard": {
+        "Open": "Відкрито",
+        "Progress": "Прогрес"
+      },
+      "AchievementsTitle": {
+        "title": "Досягнення",
+        "subtitle": "Відкрито 3 досягнення з 25"
+      },
+      "AchievementsFilter": {
+        "Unlocked": "Відкриті",
+        "Locked": "Невідкриті",
+        "All": "Всі"
+      }
     }
   }
 }
