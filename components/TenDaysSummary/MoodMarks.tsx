@@ -1,4 +1,5 @@
 import { ChartIcon } from '@/ds/icons/summary/chart'
+
 import { Badge } from '@/ds/shadcn/badge'
 
 import { SummaryCard } from './SummaryCard'
@@ -24,6 +25,7 @@ export const MoodMarks = () => {
             <Badge variant="colored" className="w-full bg-[#DBE7FF]">
               Нейтральний
             </Badge>
+
             <span className="ml-2">-</span>
           </div>
         </div>
@@ -39,6 +41,7 @@ export const MoodMarks = () => {
             <Badge variant="colored" className="w-full bg-[#F8D3D3]">
               Дуже поганий
             </Badge>
+
             <span className="ml-2">-</span>
           </div>
         </div>

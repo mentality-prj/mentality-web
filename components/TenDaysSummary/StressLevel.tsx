@@ -1,4 +1,5 @@
 import { CloudIcon } from '@/ds/icons/summary/cloud'
+
 import { Progress } from '@/ds/shadcn/progress'
 
 import { SummaryCard } from './SummaryCard'
