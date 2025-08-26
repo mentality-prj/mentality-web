@@ -1,6 +1,5 @@
 import { MoodNote } from '@/components/MoodTracker/MoodNote'
-import { StressAssessment } from '@/components/MoodTracker/StressAssessment'
-import { WeekSummary } from '@/components/MoodTracker/WeekSummary'
+import { TenDaysSummary } from '@/components/TenDaysSummary'
 
 export default async function MoodTracker() {
   return (
@@ -8,9 +7,8 @@ export default async function MoodTracker() {
       <div className="desktop:w-3/5">
         <MoodNote />
       </div>
-      <div className="flex flex-col gap-2 tablet:gap-4 desktop:w-2/5">
-        <WeekSummary />
-        <StressAssessment />
+      <div className="flex flex-col gap-2 tablet:gap-4">
+        <TenDaysSummary />
       </div>
     </div>
   )
