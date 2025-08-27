@@ -1,5 +1,6 @@
 import { Achievements } from '@/types/achievements'
 import { Affirmation } from '@/types/affirmation'
+import { BestDay } from '@/types/bestDay'
 import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
@@ -619,6 +620,19 @@ export const mockAchievements = async (): Promise<Achievements[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(achievements)
+    }, 500)
+  })
+}
+
+export const mockBestDay = async (): Promise<BestDay> => {
+  const bestDay: BestDay = {
+    mood: 'very good',
+    stress: 'absent',
+    date: '2025-08-06T10:12:45.000Z',
+  }
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(bestDay)
     }, 500)
   })
 }

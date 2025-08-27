@@ -10,12 +10,12 @@ interface SummaryCardProps {
 
 export const SummaryCard = ({ title, children, icon }: SummaryCardProps) => {
   return (
-    <Card className="relative flex h-full flex-col border-outline-secondary shadow-none">
+    <Card className="relative flex h-full flex-col border-outline-secondary p-4 shadow-none">
       <div className="pointer-events-none absolute right-0 top-4">{icon}</div>
-      <CardHeader>
+      <CardHeader className="p-0">
         <CardTitle>{title}</CardTitle>
       </CardHeader>
-      <CardContent className="z-10 mt-auto">{children}</CardContent>
+      <CardContent className="z-10 mt-auto p-0">{children}</CardContent>
     </Card>
   )
 }

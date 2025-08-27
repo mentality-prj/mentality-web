@@ -7,7 +7,7 @@ import { SummaryCard } from './SummaryCard'
 export const MoodMarks = () => {
   return (
     <SummaryCard icon={<ChartIcon />} title="Твої відмітки настрою">
-      <div className="grid auto-rows-min grid-cols-2 gap-x-4 gap-y-2">
+      <div className="mt-6 grid auto-rows-min grid-cols-2 gap-x-4 gap-y-2">
         <div className="flex flex-col gap-2">
           <div className="flex w-full justify-between">
             <Badge variant="colored" className="w-full bg-[#E5FFE6]">
