@@ -1,11 +1,11 @@
-import { SunIcon } from '@/ds/icons/summary/sun'
+import { CloudIcon } from '@/ds/icons/summary/cloud'
 import { Progress } from '@/ds/shadcn/progress'
 
 import { SummaryCard } from './SummaryCard'
 
 export const StressLevel = () => {
   return (
-    <SummaryCard title="Середній рівень стресу" icon={<SunIcon />}>
+    <SummaryCard title="Середній рівень стресу" icon={<CloudIcon />}>
       <div className="flex w-full flex-col gap-3">
         <div className="text-sm text-textcolor-tertiary">Недостатньо даних для розрахунку</div>
         <div>
