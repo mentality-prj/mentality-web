@@ -195,6 +195,9 @@
       },
       "MoodBadge": {
         "text": "{data, select, very_good {Bardzo dobry} good {Dobry} neutral {Neutralny} bad {Zły} very_bad {Bardzo zły} absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high {Bardzo wysoki} other {}}"
+      },
+      "MoodMarks": {
+        "title": "Twoje oznaczenia nastroju"
       }
     }
   }

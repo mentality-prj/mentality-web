@@ -195,6 +195,9 @@
       },
       "MoodBadge": {
         "text": "{data, select, very_good {Very good} good {Good} neutral {Neutral} bad {Bad} very_bad {Very bad} absent {Absent} low {Low} average {Average} high {High} very_high {Very high} other {}}"
+      },
+      "MoodMarks": {
+        "title": "Your mood marks"
       }
     }
   }

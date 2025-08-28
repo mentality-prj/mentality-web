@@ -1,49 +1,33 @@
+import { useTranslations } from 'next-intl'
+
 import { ChartIcon } from '@/ds/icons/summary/chart'
+import { Mood } from '@/types/bestDay'
 
-import { Badge } from '@/ds/shadcn/badge'
-
+import { MoodBadge } from './MoodBadge'
 import { SummaryCard } from './SummaryCard'
 
 export const MoodMarks = () => {
+  const moods: Mood[] = ['very good', 'good', 'neutral', 'bad', 'very bad']
+  const t = useTranslations('components.TenDaysSummary.MoodMarks')
   return (
-    <SummaryCard icon={<ChartIcon />} title="Твої відмітки настрою">
+    <SummaryCard icon={<ChartIcon />} title={t('title')}>
       <div className="mt-6 grid auto-rows-min grid-cols-2 gap-x-4 gap-y-2">
         <div className="flex flex-col gap-2">
-          <div className="flex w-full justify-between">
-            <Badge variant="colored" className="w-full bg-[#E5FFE6]">
-              Дуже хороший
-            </Badge>
-            <span className="ml-2">-</span>
-          </div>
-          <div className="flex w-full justify-between">
-            <Badge variant="colored" className="w-full bg-[#E5FFF8]">
-              Хороший
-            </Badge>
-            <span className="ml-2">-</span>
-          </div>
-          <div className="flex w-full justify-between">
-            <Badge variant="colored" className="w-full bg-[#DBE7FF]">
-              Нейтральний
-            </Badge>
-
-            <span className="ml-2">-</span>
-          </div>
+          {moods.slice(0, 3).map((mood) => (
+            <div key={mood} className="flex w-full justify-between">
+              <MoodBadge className="w-full" data={mood} />
+              <span className="ml-2">-</span>
+            </div>
+          ))}
         </div>
 
         <div className="flex flex-col justify-end gap-2">
-          <div className="flex w-full justify-between">
-            <Badge variant="colored" className="w-full bg-[#FFDFA9]">
-              Поганий
-            </Badge>
-            <span className="ml-2">-</span>
-          </div>
-          <div className="flex w-full justify-between">
-            <Badge variant="colored" className="w-full bg-[#F8D3D3]">
-              Дуже поганий
-            </Badge>
-
-            <span className="ml-2">-</span>
-          </div>
+          {moods.slice(3).map((mood) => (
+            <div key={mood} className="flex w-full justify-between">
+              <MoodBadge className="w-full" data={mood} />
+              <span className="ml-2">-</span>
+            </div>
+          ))}
         </div>
       </div>
     </SummaryCard>

@@ -1,6 +1,7 @@
 import { useTranslations } from 'next-intl'
 
 import { Badge } from '@/ds/shadcn/badge'
+import { cn } from '@/lib/utils'
 import { Mood, Stress } from '@/types/bestDay'
 
 const moodColors = {
@@ -18,12 +19,16 @@ const moodColors = {
 
 interface MoodBadgeProps {
   data: Mood | Stress
+  className?: string
 }
 
-export const MoodBadge = ({ data }: MoodBadgeProps) => {
+export const MoodBadge = ({ data, className }: MoodBadgeProps) => {
   const t = useTranslations('components.TenDaysSummary.MoodBadge')
   return (
-    <Badge variant="colored" className={`flex items-center justify-center text-center ${moodColors[data]}`}>
+    <Badge
+      variant="colored"
+      className={cn(`flex items-center justify-center text-center ${moodColors[data]}`, className)}
+    >
       {t('text', { data: data.replaceAll(' ', '_') })}
     </Badge>
   )
