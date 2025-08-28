@@ -1,4 +1,4 @@
-import { getLocale } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 import { SunIcon } from '@/ds/icons/summary/sun'
 import { mockBestDay } from '@/REST/mockApi'
@@ -8,6 +8,7 @@ import { MoodBadge } from './MoodBadge'
 import { SummaryCard } from './SummaryCard'
 
 export const BestDay = async () => {
+  const t = await getTranslations('components.TenDaysSummary.BestDay')
   const data = await mockBestDay()
   const locale = (await getLocale()) as SupportedLanguage
   function splitDate(dateStr: string, locale: SupportedLanguage) {
@@ -30,7 +31,7 @@ export const BestDay = async () => {
 
   const { weekday, dayMonth } = splitDate(data.date, locale)
   return (
-    <SummaryCard icon={<SunIcon />} title="Твій найкращий день">
+    <SummaryCard icon={<SunIcon />} title={t('title')}>
       {data ? (
         <div className="w-fit">
           <div className="mb-4 mt-5 text-xl/[24px] font-semibold text-textcolor-primary">
@@ -38,16 +39,14 @@ export const BestDay = async () => {
             <span className="text-sm font-normal">{dayMonth}</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <div className="">Рівень стресу</div>
+            <div className="">{t('Stress level')}</div>
             <MoodBadge data={data.stress} />
-            <div className="">Твій настрій</div>
+            <div className="">{t('Your mood')}</div>
             <MoodBadge data={data.mood} />
           </div>
         </div>
       ) : (
-        <div className="text-sm text-textcolor-tertiary">
-          Твій найкращий день ще попереду!Відмічай настрій, щоб побачити його тут
-        </div>
+        <div className="text-sm text-textcolor-tertiary">{t('empty')}</div>
       )}
     </SummaryCard>
   )

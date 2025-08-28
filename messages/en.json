@@ -184,6 +184,18 @@
         "Locked": "Locked",
         "All": "All"
       }
+    },
+    "TenDaysSummary": {
+      "title": "10-Day Summary",
+      "BestDay": {
+        "title": "Your best day",
+        "Stress level": "Stress level",
+        "Your mood": "Your mood",
+        "empty": "Your best day is still ahead! Track your mood to see it here"
+      },
+      "MoodBadge": {
+        "text": "{data, select, very_good {Very good} good {Good} neutral {Neutral} bad {Bad} very_bad {Very bad} absent {Absent} low {Low} average {Average} high {High} very_high {Very high} other {}}"
+      }
     }
   }
 }
