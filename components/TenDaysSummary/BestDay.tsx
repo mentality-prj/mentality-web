@@ -1,12 +1,16 @@
-import { SunIcon } from '@/ds/icons/summary/sun'
-import { Badge } from '@/ds/shadcn/badge'
-import { mockBestDay } from '@/REST/mockApi'
+import { getLocale } from 'next-intl/server'
 
+import { SunIcon } from '@/ds/icons/summary/sun'
+import { mockBestDay } from '@/REST/mockApi'
+import { SupportedLanguage } from '@/types/languages'
+
+import { MoodBadge } from './MoodBadge'
 import { SummaryCard } from './SummaryCard'
 
 export const BestDay = async () => {
   const data = await mockBestDay()
-  function splitDate(dateStr: string, locale: string = 'uk-UA') {
+  const locale = (await getLocale()) as SupportedLanguage
+  function splitDate(dateStr: string, locale: SupportedLanguage) {
     const date = new Date(dateStr)
 
     const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long' })
@@ -24,7 +28,7 @@ export const BestDay = async () => {
     }
   }
 
-  const { weekday, dayMonth } = splitDate(data.date, 'uk-UA')
+  const { weekday, dayMonth } = splitDate(data.date, locale)
   return (
     <SummaryCard icon={<SunIcon />} title="Твій найкращий день">
       {data ? (
@@ -35,13 +39,9 @@ export const BestDay = async () => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="">Рівень стресу</div>
-            <Badge variant="colored" className="flex items-center justify-center bg-[#F6F5FF] text-center">
-              {data.stress}
-            </Badge>
+            <MoodBadge data={data.stress} />
             <div className="">Твій настрій</div>
-            <Badge variant="colored" className="flex items-center justify-center bg-[#E5FFE6] text-center">
-              {data.mood}
-            </Badge>
+            <MoodBadge data={data.mood} />
           </div>
         </div>
       ) : (
