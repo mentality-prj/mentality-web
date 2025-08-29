@@ -651,3 +651,13 @@ export const mockMoodMarks = async (): Promise<Record<Mood, number>> => {
     }, 500)
   })
 }
+
+export const mockStressLevel = async (): Promise<number> => {
+  const stressLevelData = 25
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(stressLevelData)
+    }, 500)
+  })
+}

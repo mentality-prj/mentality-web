@@ -198,6 +198,11 @@
       },
       "MoodMarks": {
         "title": "Twoje oznaczenia nastroju"
+      },
+      "StressLevel": {
+        "title": "Średni poziom stresu",
+        "empty": "Brak wystarczających danych do obliczenia",
+        "stressLevel": "{stressLevel, select, absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high {Bardzo wysoki} other {} }"
       }
     }
   }
