@@ -1,6 +1,6 @@
 import { Achievements } from '@/types/achievements'
 import { Affirmation } from '@/types/affirmation'
-import { BestDay } from '@/types/bestDay'
+import { BestDay, Mood } from '@/types/bestDay'
 import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
@@ -633,6 +633,21 @@ export const mockBestDay = async (): Promise<BestDay> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(bestDay)
+    }, 500)
+  })
+}
+
+export const mockMoodMarks = async (): Promise<Record<Mood, number>> => {
+  const moodMarks = {
+    'very good': 2,
+    good: 4,
+    neutral: 0,
+    bad: 12,
+    'very bad': 3,
+  }
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(moodMarks)
     }, 500)
   })
 }
