@@ -1,14 +1,17 @@
+import { useTranslations } from 'next-intl'
+
 import { PenIcon } from '@/ds/icons/summary/pen'
 
 import { Days } from './Days'
 import { SummaryCard } from './SummaryCard'
 
 export const MoodRecording = () => {
+  const t = useTranslations('components.TenDaysSummary.MoodRecording')
   return (
-    <SummaryCard title="Створено записів настрою" icon={<PenIcon />}>
+    <SummaryCard title={t('title')} icon={<PenIcon />}>
       <div className="flex flex-col">
         <div className="mb-5">
-          <span className="text-xl/[24px] font-semibold">0</span> за останні 10 днів
+          <span className="text-xl/[24px] font-semibold">0</span> {t('content')}
         </div>
         <Days />
       </div>

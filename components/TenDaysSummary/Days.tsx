@@ -1,9 +1,15 @@
+import { useTranslations } from 'next-intl'
+
 import { cn } from '@/lib/utils'
 
 export const Days = () => {
+  const t = useTranslations('components.TenDaysSummary.Days')
+  const weekDays = t.raw('days')
+  const days = Array.from({ length: 10 }, (_, i) => weekDays[i % weekDays.length])
+
   return (
     <div className="flex gap-1">
-      {['пт', 'сб', 'нд', 'пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'нд'].map((day, idx) => (
+      {days.map((day, idx) => (
         <div
           key={idx}
           className={cn(

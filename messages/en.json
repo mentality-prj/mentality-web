@@ -203,6 +203,13 @@
         "title": "Average stress level",
         "empty": "Not enough data to calculate",
         "stressLevel": "{stressLevel, select, absent {Absent} low {Low} average {Average} high {High} very_high {Very high} other {} }"
+      },
+      "MoodRecording": {
+        "title": "Mood entries created",
+        "content": "in the last 10 days"
+      },
+      "Days": {
+        "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
       }
     }
   }

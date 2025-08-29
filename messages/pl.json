@@ -203,6 +203,13 @@
         "title": "Średni poziom stresu",
         "empty": "Brak wystarczających danych do obliczenia",
         "stressLevel": "{stressLevel, select, absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high {Bardzo wysoki} other {} }"
+      },
+      "MoodRecording": {
+        "title": "Utworzono wpisów nastroju",
+        "content": "z ostatnich 10 dni"
+      },
+      "Days": {
+        "days": ["pn", "wt", "śr", "cz", "pt", "sb", "nd"]
       }
     }
   }
