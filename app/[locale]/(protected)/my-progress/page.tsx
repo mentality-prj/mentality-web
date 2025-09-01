@@ -9,7 +9,9 @@ export default function MyProgress() {
   return (
     <div className="flex flex-col gap-8">
       <PageTitle title={t('PageTitle.title')} subtitle={t('PageTitle.subtitle')} />
+
       <Activity />
+
       <Achievements />
     </div>
   )

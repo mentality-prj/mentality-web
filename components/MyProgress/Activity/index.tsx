@@ -1,29 +1,25 @@
-'use client'
-import { getDefaultClassNames } from 'react-day-picker'
-
-import { Calendar } from '@/ds/shadcn/calendar'
+import { ActivityCalendar } from './CalendarActivity'
 
 export const Activity = () => {
-  const defaultClassNames = getDefaultClassNames()
-
   return (
-    <Calendar
-      disabled={[new Date()]}
-      showOutsideDays={false}
-      weekStartsOn={1}
-      components={{
-        MonthCaption: () => <> </>,
-
-        PreviousMonthButton: () => <> </>,
-        NextMonthButton: () => <> </>,
-      }}
-      classNames={{
-        week: `${defaultClassNames.week}  mt-2 flex w-full  gap-2 `,
-        weekdays: `${defaultClassNames.weekdays} flex  text-textcolor-tertiary`,
-        day: 'flex aspect-square h-8 w-8 select-none items-center justify-center rounded-xs border px-1 py-[9px] text-xs font-normal border-[#905FFF] bg-[#D4CCFF] text-textcolor-primary',
-
-        disabled: `${defaultClassNames.disabled} data-[disabled]:border-[#8E8EA4] data-[disabled]:bg-[#F6F5FF] data-[disabled]:text-textcolor-tertiary`,
-      }}
-    />
+    <div className="rounded-default bg-surface-white p-8">
+      <div className="flex flex-col gap-2">
+        <h2 className="text-xl/[24px] font-semibold text-textcolor-primary">Активність на платформі</h2>
+        <p className="text-xs text-textcolor-secondary">Навіть маленькі кроки ведуть до великих змін</p>
+      </div>
+      <div className="mt-6 flex w-full justify-center">
+        <ActivityCalendar />
+      </div>
+      <div className="mt-5 flex flex-col gap-2">
+        <div className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full bg-textcolor-purple"></span>
+          <span>Дні з активністю</span>
+        </div>
+        <div className="flex items-center gap-2">
+          <span className="h-3 w-3 rounded-full border border-outline-secondary"></span>
+          <span>Дні без активності</span>
+        </div>
+      </div>
+    </div>
   )
 }
