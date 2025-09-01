@@ -184,6 +184,33 @@
         "Locked": "Zablokowane",
         "All": "Wszystkie"
       }
+    },
+    "TenDaysSummary": {
+      "title": "Podsumowanie 10 dni",
+      "BestDay": {
+        "title": "Twój najlepszy dzień",
+        "Stress level": "Poziom stresu",
+        "Your mood": "Twój nastrój",
+        "empty": "Twój najlepszy dzień jest jeszcze przed Tobą! Zaznaczaj nastrój, aby zobaczyć go tutaj"
+      },
+      "MoodBadge": {
+        "text": "{data, select, very_good {Bardzo dobry} good {Dobry} neutral {Neutralny} bad {Zły} very_bad {Bardzo zły} absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high {Bardzo wysoki} other {}}"
+      },
+      "MoodMarks": {
+        "title": "Twoje oznaczenia nastroju"
+      },
+      "StressLevel": {
+        "title": "Średni poziom stresu",
+        "empty": "Brak wystarczających danych do obliczenia",
+        "stressLevel": "{stressLevel, select, absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high {Bardzo wysoki} other {} }"
+      },
+      "MoodRecording": {
+        "title": "Utworzono wpisów nastroju",
+        "content": "z ostatnich 10 dni"
+      },
+      "Days": {
+        "days": ["pn", "wt", "śr", "cz", "pt", "sb", "nd"]
+      }
     }
   }
 }

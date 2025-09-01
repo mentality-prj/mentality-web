@@ -1,18 +1,14 @@
 import { IconKey } from '@/ds/icons/iconsMap'
 
+import { SupportedLanguage } from './languages'
+
+export type LocalizedText = Record<SupportedLanguage, string>
+
 export type Achievements = {
   icon: IconKey
   id: number
-  title: {
-    en: string
-    uk: string
-    pl: string
-  }
-  description: {
-    en: string
-    uk: string
-    pl: string
-  }
+  title: LocalizedText
+  description: LocalizedText
   status: 'locked' | 'unlocked'
   progress: number
   currentProgress: number
