@@ -16,6 +16,7 @@ export const Activity = () => {
       <div className="mt-5 flex flex-col gap-2">
         <div className="flex items-center gap-2">
           <span className="h-3 w-3 rounded-full bg-textcolor-purple"></span>
+
           <span>{t('daysWithActivity')}</span>
         </div>
         <div className="flex items-center gap-2">

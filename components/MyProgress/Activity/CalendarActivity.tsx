@@ -1,5 +1,6 @@
 'use client'
 import { getDefaultClassNames } from 'react-day-picker'
+
 import { enUS, pl, uk } from 'react-day-picker/locale'
 import { useLocale } from 'next-intl'
 
@@ -7,6 +8,7 @@ import { Calendar } from '@/ds/shadcn/calendar'
 
 export const ActivityCalendar = () => {
   const defaultClassNames = getDefaultClassNames()
+
   const locale = useLocale()
 
   return (
