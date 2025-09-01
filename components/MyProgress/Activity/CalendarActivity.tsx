@@ -1,15 +1,17 @@
 'use client'
 import { getDefaultClassNames } from 'react-day-picker'
-import { uk } from 'react-day-picker/locale'
+import { enUS, pl, uk } from 'react-day-picker/locale'
+import { useLocale } from 'next-intl'
 
 import { Calendar } from '@/ds/shadcn/calendar'
 
 export const ActivityCalendar = () => {
   const defaultClassNames = getDefaultClassNames()
+  const locale = useLocale()
 
   return (
     <Calendar
-      locale={uk}
+      locale={locale === 'uk' ? uk : locale === 'pl' ? pl : enUS}
       disabled={[new Date()]}
       showOutsideDays={false}
       weekStartsOn={1}
