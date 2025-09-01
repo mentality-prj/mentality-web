@@ -4,7 +4,7 @@ import { Badge } from '@/ds/shadcn/badge'
 import { cn } from '@/lib/utils'
 import { Mood, Stress } from '@/types/bestDay'
 
-const moodColors = {
+const moodColors: Record<Mood | Stress, string> = {
   'very good': 'bg-[#E5FFE6]',
   good: 'bg-[#E5FFF8]',
   neutral: 'bg-[#DBE7FF]',
@@ -27,7 +27,7 @@ export const MoodBadge = ({ data, className }: MoodBadgeProps) => {
   return (
     <Badge
       variant="colored"
-      className={cn(`flex items-center justify-center text-center ${moodColors[data]}`, className)}
+      className={cn(`flex items-center justify-center text-center ${moodColors[`${data}`]}`, className)}
     >
       {t('text', { data: data.replaceAll(' ', '_') })}
     </Badge>

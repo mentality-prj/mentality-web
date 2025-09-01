@@ -1,7 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
 import { CloudIcon } from '@/ds/icons/summary/cloud'
-
 import { Progress } from '@/ds/shadcn/progress'
 import { mockStressLevel } from '@/REST/mockApi'
 
