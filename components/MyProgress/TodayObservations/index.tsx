@@ -1,12 +1,18 @@
-import { Insight } from '@/components/Insight'
+import { getTranslations } from 'next-intl/server'
 
-export const TodayObservations = () => {
+import { Insight } from '@/components/Insight'
+import { mockTodayObservations } from '@/REST/mockApi'
+
+export const TodayObservations = async () => {
+  const observations = await mockTodayObservations()
+  const t = await getTranslations('components.TodayObservations')
   return (
     <div className="rounded-default bg-surface-white p-8">
-      <div className="text-xl font-semibold text-textcolor-primary">Cьогоднішні спостереження</div>
+      <div className="text-xl font-semibold text-textcolor-primary">{t('title')}</div>
       <div className="mt-6 flex flex-col gap-4">
-        <Insight text="Твоя активність на хорошому рівні - так тримати!" />
-        <Insight text="Стабільне покращення настрою за останні 3 місяці" />
+        {observations.map((observation, index) => (
+          <Insight key={index} text={observation} />
+        ))}
       </div>
     </div>
   )

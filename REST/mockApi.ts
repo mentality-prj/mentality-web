@@ -1,4 +1,4 @@
-import { Achievements } from '@/types/achievements'
+import { Achievements, LocalizedText } from '@/types/achievements'
 import { Affirmation } from '@/types/affirmation'
 import { BestDay, Mood } from '@/types/bestDay'
 import { CardMyNotes } from '@/types/cardMyNotes'
@@ -658,6 +658,31 @@ export const mockStressLevel = async (): Promise<number> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(stressLevelData)
+    }, 500)
+  })
+}
+
+export const mockTodayObservations = async (): Promise<LocalizedText[]> => {
+  const observations = [
+    {
+      uk: 'Твоя активність на хорошому рівні - так тримати!',
+      en: 'Your activity is at a good level - keep it up!',
+      pl: 'Twoja aktywność jest na dobrym poziomie - tak trzymaj!',
+    },
+    {
+      uk: 'Ти зберігаєш стабільність у своїх діях – це приносить результат!',
+      en: 'You are maintaining consistency in your actions – this brings results!',
+      pl: 'Utrzymujesz konsekwencję w swoich działaniach – to przynosi efekty!',
+    },
+    {
+      uk: 'Кожен маленький крок наближає тебе до більшої мети.',
+      en: 'Every small step brings you closer to a bigger goal.',
+      pl: 'Każdy mały krok przybliża Cię do większego celu.',
+    },
+  ]
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(observations)
     }, 500)
   })
 }

@@ -217,6 +217,9 @@
       "Days": {
         "days": ["pn", "wt", "śr", "cz", "pt", "sb", "nd"]
       }
+    },
+    "TodayObservations": {
+      "title": "Dzisiejsze obserwacje"
     }
   }
 }

@@ -217,6 +217,9 @@
       "Days": {
         "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
       }
+    },
+    "TodayObservations": {
+      "title": "Today's Observations"
     }
   }
 }
