@@ -159,6 +159,12 @@
     "PageTitle": {
       "title": "My Progress",
       "subtitle": "Think of a headline. Look how much you’ve already done for yourself 💛"
+    },
+    "Activity": {
+      "title": "Platform Activity",
+      "subtitle": "Even small steps lead to big changes",
+      "daysWithActivity": "Days with activity",
+      "daysWithoutActivity": "Days without activity"
     }
   },
 
