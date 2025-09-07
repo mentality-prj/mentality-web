@@ -1,9 +1,10 @@
 'use client'
 
 import { useState } from 'react'
-import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
+import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ds/shadcn/chart'
+import { Switch } from '@/ds/shadcn/switch'
 import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 
 const chartData = [
@@ -35,7 +36,7 @@ const chartData = [
   { date: '2025-09-02', desktop: 0, mobile: 30 },
   { date: '2025-09-03', desktop: 80, mobile: 95 },
   { date: '2025-09-04', desktop: 19, mobile: 36 },
-  { date: '2025-09-05', desktop: 66, mobile: 55 },
+  { date: '2025-09-05', desktop: 66, mobile: 88 },
   { date: '2025-09-06', desktop: 100, mobile: 88 },
 ]
 
@@ -52,6 +53,8 @@ const chartConfig = {
 
 export function ChartDynamics() {
   const [timeRange, setTimeRange] = useState('14d')
+  const [moodChart, setMoodChart] = useState(true)
+  const [stressChart, setStressChart] = useState(false)
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date)
@@ -85,58 +88,72 @@ export function ChartDynamics() {
         </Tabs>
       </div>
 
-      <div>
+      <div className="relative">
+        <div className="absolute h-[92%] w-full rounded-sm border border-outline-tertiary" />
         <ChartContainer config={chartConfig}>
-          <AreaChart margin={{ bottom: 56, top: 40 }} data={filteredData}>
-            <rect x="0%" y="0%" width="100%" height="92%" fill="transparent" stroke="#E4E3E8" strokeWidth={1} rx={8} />
-            <CartesianGrid vertical={false} />
+          <ResponsiveContainer width="100%" height={400}>
+            <AreaChart margin={{ bottom: 56, top: 40, right: 25 }} data={filteredData}>
+              <CartesianGrid vertical={false} />
 
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              axisLine={false}
-              tickMargin={56}
-              minTickGap={32}
-              tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { weekday: 'short' })}
-            />
-            <YAxis
-              domain={[0, 100]}
-              ticks={[0, 25, 50, 75, 100]}
-              tickLine={false}
-              axisLine={false}
-              className="absolute left-40 top-56"
-              tickFormatter={(value) => ((value / 100) * 4 + 1).toFixed(0)}
-            />
-            <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
-            <defs>
-              <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-desktop)" stopOpacity={1} />
-                <stop offset="95%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
-              </linearGradient>
-              <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                <stop offset="5%" stopColor="var(--color-mobile)" stopOpacity={1} />
-                <stop offset="95%" stopColor="var(--color-mobile)" stopOpacity={0.1} />
-              </linearGradient>
-            </defs>
+              <XAxis
+                dataKey="date"
+                tickLine={false}
+                axisLine={false}
+                tickMargin={56}
+                minTickGap={32}
+                tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { weekday: 'short' })}
+              />
+              <YAxis
+                domain={[0, 100]}
+                ticks={[0, 25, 50, 75, 100]}
+                tickLine={false}
+                axisLine={false}
+                className="absolute left-40 top-56"
+                tickFormatter={(value) => ((value / 100) * 4 + 1).toFixed(0)}
+              />
+              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <defs>
+                <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="var(--color-desktop)" stopOpacity={1} />
+                  <stop offset="95%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
+                </linearGradient>
+                <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="var(--color-mobile)" stopOpacity={1} />
+                  <stop offset="95%" stopColor="var(--color-mobile)" stopOpacity={0.1} />
+                </linearGradient>
+              </defs>
 
-            <Area
-              dot={{ r: 4, fill: 'white', stroke: 'var(--color-mobile)', strokeWidth: 2 }}
-              dataKey="mobile"
-              type="bump"
-              fill="url(#fillMobile)"
-              fillOpacity={0.4}
-              stroke="var(--color-mobile)"
-            />
-            <Area
-              dot={{ r: 4, fill: 'white', stroke: 'var(--color-desktop)', strokeWidth: 2 }}
-              dataKey="desktop"
-              type="bump"
-              fill="url(#fillDesktop)"
-              fillOpacity={0.4}
-              stroke="var(--color-desktop)"
-            />
-          </AreaChart>
+              {moodChart && (
+                <Area
+                  dot={{ r: 4, fill: 'white', stroke: 'var(--color-desktop)', strokeWidth: 2 }}
+                  dataKey="desktop"
+                  type="bump"
+                  fill="url(#fillDesktop)"
+                  fillOpacity={0.4}
+                  stroke="var(--color-desktop)"
+                />
+              )}
+              {stressChart && (
+                <Area
+                  dot={{ r: 4, fill: 'white', stroke: 'var(--color-mobile)', strokeWidth: 2 }}
+                  dataKey="mobile"
+                  type="bump"
+                  fill="url(#fillMobile)"
+                  fillOpacity={0.4}
+                  stroke="var(--color-mobile)"
+                />
+              )}
+            </AreaChart>
+          </ResponsiveContainer>
         </ChartContainer>
+      </div>
+      <div className="flex justify-end gap-4 pt-6">
+        <div className="flex items-center gap-2">
+          <Switch defaultChecked={true} onCheckedChange={setMoodChart} /> Настрій
+        </div>
+        <div className="flex items-center gap-2">
+          <Switch onCheckedChange={setStressChart} /> Стрес
+        </div>
       </div>
     </div>
   )
