@@ -8,45 +8,45 @@ import { Switch } from '@/ds/shadcn/switch'
 import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 
 const chartData = [
-  { date: '2025-08-08', desktop: 46, mobile: 33 },
-  { date: '2025-08-09', desktop: 18, mobile: 38 },
-  { date: '2025-08-10', desktop: 35, mobile: 26 },
-  { date: '2025-08-11', desktop: 50, mobile: 57 },
-  { date: '2025-08-12', desktop: 77, mobile: 63 },
-  { date: '2025-08-13', desktop: 65, mobile: 78 },
-  { date: '2025-08-14', desktop: 49, mobile: 38 },
-  { date: '2025-08-15', desktop: 88, mobile: 67 },
-  { date: '2025-08-16', desktop: 0, mobile: 18 },
-  { date: '2025-08-17', desktop: 50, mobile: 40 },
-  { date: '2025-08-18', desktop: 61, mobile: 74 },
-  { date: '2025-08-19', desktop: 56, mobile: 47 },
-  { date: '2025-08-20', desktop: 71, mobile: 83 },
-  { date: '2025-08-21', desktop: 22, mobile: 49 },
-  { date: '2025-08-22', desktop: 18, mobile: 36 },
-  { date: '2025-08-23', desktop: 21, mobile: 40 },
-  { date: '2025-08-24', desktop: 97, mobile: 72 },
-  { date: '2025-08-25', desktop: 79, mobile: 82 },
-  { date: '2025-08-26', desktop: 54, mobile: 36 },
-  { date: '2025-08-27', desktop: 9, mobile: 29 },
-  { date: '2025-08-28', desktop: 22, mobile: 44 },
-  { date: '2025-08-29', desktop: 46, mobile: 36 },
-  { date: '2025-08-30', desktop: 21, mobile: 52 },
-  { date: '2025-08-31', desktop: 81, mobile: 66 },
-  { date: '2025-09-01', desktop: 45, mobile: 57 },
-  { date: '2025-09-02', desktop: 0, mobile: 30 },
-  { date: '2025-09-03', desktop: 80, mobile: 95 },
-  { date: '2025-09-04', desktop: 19, mobile: 36 },
-  { date: '2025-09-05', desktop: 66, mobile: 88 },
-  { date: '2025-09-06', desktop: 100, mobile: 88 },
+  { date: '2025-08-08', mood: 46, stress: 33 },
+  { date: '2025-08-09', mood: 18, stress: 38 },
+  { date: '2025-08-10', mood: 35, stress: 26 },
+  { date: '2025-08-11', mood: 50, stress: 57 },
+  { date: '2025-08-12', mood: 77, stress: 63 },
+  { date: '2025-08-13', mood: 65, stress: 78 },
+  { date: '2025-08-14', mood: 49, stress: 38 },
+  { date: '2025-08-15', mood: 88, stress: 67 },
+  { date: '2025-08-16', mood: 0, stress: 18 },
+  { date: '2025-08-17', mood: 50, stress: 40 },
+  { date: '2025-08-18', mood: 61, stress: 74 },
+  { date: '2025-08-19', mood: 56, stress: 47 },
+  { date: '2025-08-20', mood: 71, stress: 83 },
+  { date: '2025-08-21', mood: 22, stress: 49 },
+  { date: '2025-08-22', mood: 18, stress: 36 },
+  { date: '2025-08-23', mood: 21, stress: 40 },
+  { date: '2025-08-24', mood: 97, stress: 72 },
+  { date: '2025-08-25', mood: 79, stress: 82 },
+  { date: '2025-08-26', mood: 54, stress: 36 },
+  { date: '2025-08-27', mood: 9, stress: 29 },
+  { date: '2025-08-28', mood: 22, stress: 44 },
+  { date: '2025-08-29', mood: 46, stress: 36 },
+  { date: '2025-08-30', mood: 21, stress: 52 },
+  { date: '2025-08-31', mood: 81, stress: 66 },
+  { date: '2025-09-01', mood: 45, stress: 57 },
+  { date: '2025-09-02', mood: 0, stress: 30 },
+  { date: '2025-09-03', mood: 80, stress: 95 },
+  { date: '2025-09-04', mood: 19, stress: 36 },
+  { date: '2025-09-05', mood: 66, stress: 88 },
+  { date: '2025-09-06', mood: 100, stress: 88 },
 ]
 
 const chartConfig = {
-  desktop: {
-    label: 'Desktop',
+  mood: {
+    label: 'Mood',
     color: '#905FFF',
   },
-  mobile: {
-    label: 'Mobile',
+  stress: {
+    label: 'Stress',
     color: '#B91C1C',
   },
 } satisfies ChartConfig
@@ -92,7 +92,7 @@ export function ChartDynamics() {
         <div className="absolute h-[92%] w-full rounded-sm border border-outline-tertiary" />
         <ChartContainer config={chartConfig}>
           <ResponsiveContainer width="100%" height={400}>
-            <AreaChart margin={{ bottom: 56, top: 40, right: 25 }} data={filteredData}>
+            <AreaChart margin={{ bottom: 56, top: 40, right: 25, left: -20 }} data={filteredData}>
               <CartesianGrid vertical={false} />
 
               <XAxis
@@ -113,34 +113,34 @@ export function ChartDynamics() {
               />
               <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
               <defs>
-                <linearGradient id="fillDesktop" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--color-desktop)" stopOpacity={1} />
-                  <stop offset="95%" stopColor="var(--color-desktop)" stopOpacity={0.1} />
+                <linearGradient id="fillMood" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="var(--color-mood)" stopOpacity={1} />
+                  <stop offset="95%" stopColor="var(--color-mood)" stopOpacity={0.1} />
                 </linearGradient>
-                <linearGradient id="fillMobile" x1="0" y1="0" x2="0" y2="1">
-                  <stop offset="5%" stopColor="var(--color-mobile)" stopOpacity={1} />
-                  <stop offset="95%" stopColor="var(--color-mobile)" stopOpacity={0.1} />
+                <linearGradient id="fillStress" x1="0" y1="0" x2="0" y2="1">
+                  <stop offset="5%" stopColor="var(--color-stress)" stopOpacity={1} />
+                  <stop offset="95%" stopColor="var(--color-stress)" stopOpacity={0.1} />
                 </linearGradient>
               </defs>
 
               {moodChart && (
                 <Area
-                  dot={{ r: 4, fill: 'white', stroke: 'var(--color-desktop)', strokeWidth: 2 }}
-                  dataKey="desktop"
+                  dot={{ r: 4, fill: 'white', stroke: 'var(--color-mood)', strokeWidth: 2 }}
+                  dataKey="mood"
                   type="bump"
-                  fill="url(#fillDesktop)"
+                  fill="url(#fillMood)"
                   fillOpacity={0.4}
-                  stroke="var(--color-desktop)"
+                  stroke="var(--color-mood)"
                 />
               )}
               {stressChart && (
                 <Area
-                  dot={{ r: 4, fill: 'white', stroke: 'var(--color-mobile)', strokeWidth: 2 }}
-                  dataKey="mobile"
+                  dot={{ r: 4, fill: 'white', stroke: 'var(--color-stress)', strokeWidth: 2 }}
+                  dataKey="stress"
                   type="bump"
-                  fill="url(#fillMobile)"
+                  fill="url(#fillStress)"
                   fillOpacity={0.4}
-                  stroke="var(--color-mobile)"
+                  stroke="var(--color-stress)"
                 />
               )}
             </AreaChart>
