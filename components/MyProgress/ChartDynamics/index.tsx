@@ -1,11 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ds/shadcn/chart'
 import { Switch } from '@/ds/shadcn/switch'
 import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
+import { SupportedLanguage } from '@/types/languages'
 
 const chartData = [
   { date: '2025-08-08', mood: 46, stress: 33 },
@@ -55,6 +57,8 @@ export function ChartDynamics() {
   const [timeRange, setTimeRange] = useState('14d')
   const [moodChart, setMoodChart] = useState(true)
   const [stressChart, setStressChart] = useState(false)
+  const t = useTranslations('MyProgress.ChartDynamics')
+  const locale = useLocale() as SupportedLanguage
 
   const filteredData = chartData.filter((item) => {
     const date = new Date(item.date)
@@ -78,12 +82,12 @@ export function ChartDynamics() {
   return (
     <div className="rounded-md bg-surface-white p-8">
       <div className="mb-5 flex items-center justify-between">
-        <div className="text-xl/[24px] font-semibold text-textcolor-primary">Детальна динаміка</div>
+        <div className="text-xl/[24px] font-semibold text-textcolor-primary">{t('title')}</div>
         <Tabs defaultValue="14d" onValueChange={setTimeRange}>
           <TabsList className="gap-3">
-            <TabsTrigger value="7d">Тиждень</TabsTrigger>
-            <TabsTrigger value="14d">Два тижні</TabsTrigger>
-            <TabsTrigger value="30d">Місяць</TabsTrigger>
+            <TabsTrigger value="7d">{t('timeRange.week')}</TabsTrigger>
+            <TabsTrigger value="14d">{t('timeRange.two weeks')}</TabsTrigger>
+            <TabsTrigger value="30d">{t('timeRange.month')}</TabsTrigger>
           </TabsList>
         </Tabs>
       </div>
@@ -101,7 +105,7 @@ export function ChartDynamics() {
                 axisLine={false}
                 tickMargin={56}
                 minTickGap={32}
-                tickFormatter={(value) => new Date(value).toLocaleDateString('en-US', { weekday: 'short' })}
+                tickFormatter={(value) => new Date(value).toLocaleDateString(locale, { weekday: 'short' })}
               />
               <YAxis
                 domain={[0, 100]}
@@ -149,10 +153,10 @@ export function ChartDynamics() {
       </div>
       <div className="flex justify-end gap-4 pt-6">
         <div className="flex items-center gap-2">
-          <Switch defaultChecked={true} onCheckedChange={setMoodChart} /> Настрій
+          <Switch defaultChecked={true} onCheckedChange={setMoodChart} /> {t('mood')}
         </div>
         <div className="flex items-center gap-2">
-          <Switch onCheckedChange={setStressChart} /> Стрес
+          <Switch onCheckedChange={setStressChart} /> {t('stress')}
         </div>
       </div>
     </div>
