@@ -165,6 +165,16 @@
       "subtitle": "Nawet małe kroki prowadzą do wielkich zmian",
       "daysWithActivity": "Dni z aktywnością",
       "daysWithoutActivity": "Dni bez aktywności"
+    },
+    "ChartDynamics": {
+      "title": "Szczegółowa dynamika",
+      "timeRange": {
+        "week": "Tydzień",
+        "two weeks": "Dwa tygodnie",
+        "month": "Miesiąc"
+      },
+      "mood": "Nastrój",
+      "stress": "Stres"
     }
   },
 
