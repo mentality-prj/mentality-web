@@ -10,10 +10,13 @@ import { Roles } from './types/security'
 
 export async function middleware(request: NextRequest) {
   const session = (await auth()) as CustomSession
-  const allowedEmails = process.env.ALLOWED_EMAILS
-    ? process.env.ALLOWED_EMAILS.split(',').map((email) => email.trim())
-    : []
+  // const allowedEmails = process.env.ALLOWED_EMAILS
+  //   ? process.env.ALLOWED_EMAILS.split(',').map((email) => email.trim())
+  //   : []
   const publicRoutes = [Routes.SIGNIN, Routes.MAIN]
+  const { pathname } = request.nextUrl
+  const segments = pathname.split('/')
+  const locale = segments[1] || 'en'
 
   const protectedRoutes = Object.fromEntries(
     Object.entries(Routes)
@@ -24,19 +27,19 @@ export async function middleware(request: NextRequest) {
   const isProtectedPath = Object.values(protectedRoutes).some(Boolean)
 
   if (!session?.user && isProtectedPath) {
-    return NextResponse.redirect(new URL(Routes.SIGNIN, request.url))
+    return NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
   }
 
-  if (session?.user?.email && !allowedEmails.includes(session.user.email) && isProtectedPath) {
-    return NextResponse.redirect(new URL(Routes.MAIN, request.url))
-  }
+  if (session?.user?.email || pathname === '/' || pathname === `/${locale}`) {
+    const isSignin = pathname.includes(Routes.SIGNIN)
+    const isMain = pathname === '/' || pathname === `/${locale}`
+    const isHome = pathname === `/${locale}${Routes.HOME}`
 
-  if (
-    session?.user?.email &&
-    allowedEmails.includes(session.user.email) &&
-    request.nextUrl.pathname.includes(Routes.SIGNIN)
-  ) {
-    return NextResponse.redirect(new URL(Routes.HOME, request.url))
+    if ((session?.user?.email && isSignin) || isMain) {
+      if (!isHome) {
+        return NextResponse.redirect(new URL(`/${locale}${Routes.HOME}`, request.nextUrl.origin))
+      }
+    }
   }
 
   if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {
