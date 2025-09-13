@@ -1,11 +1,11 @@
-import NextAuth from 'next-auth'
+import NextAuth, { Account } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
 
 import { ProviderKey } from './constants/providers'
 import { Routes } from './constants/routes'
 import { extendToken, validateToken } from './helpers/auth'
-import { ExtendedSession, ExtendedToken, JWTParams, SessionParams } from './types/auth'
+import { ExtendedSession, ExtendedToken, SessionParams } from './types/auth'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [Google, GitHub],
@@ -17,7 +17,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // Logged in users are authenticated, otherwise redirect to login page
       return !!auth
     },
-    async jwt({ account, token }: JWTParams): Promise<ExtendedToken> {
+    async jwt({ account, token }: { token: ExtendedToken; account?: Account | null }): Promise<ExtendedToken> {
       // If the OAuth token is successfully received, we add it to the session token
       if (account) {
         const customToken = extendToken(account, token)

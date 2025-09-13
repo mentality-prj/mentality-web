@@ -4,7 +4,6 @@
       "title": "Exercises for recovery",
       "subtitle": "Practices for psychological health"
     },
-
     "ChatWithAI": {
       "title": "Chat with an AI assistant",
       "subtitle": "Get support and advice",
@@ -69,6 +68,45 @@
       "noThoughts": "You have no notes yet"
     }
   },
+  "AffirmationsPage": {
+    "title": "Affirmations and Tips",
+    "subtitle": "Get inspired by positive thoughts every day",
+    "affirmation": {
+      "title": "Your Daily Affirmation",
+      "text": "Each day I grow stronger and more confident on my path."
+    },
+    "tip": {
+      "title": "Tip of the Day",
+      "text": "Start your day by setting one small achievable goal — it builds momentum for bigger successes!"
+    },
+    "sectionCard": {
+      "title": "Previous Affirmations and Tips",
+      "subtitle": "You don't have any previous affirmations or tips yet."
+    },
+    "ThoughtsList": {
+      "title": "My notes",
+      "noThoughts": "You have no notes yet"
+    },
+    "toast": {
+      "affirmation": "Affirmation added to Saved",
+      "tip": "Tip added to Saved"
+    },
+    "tipTag": "Tip",
+    "affirmationTag": "Affirmation",
+    "filter": {
+      "title": "Filters",
+      "sort": "Sort",
+      "by tags": "By tags",
+      "clear": "Clear",
+      "newest": "Newest first",
+      "oldest": "Oldest first"
+    }
+  },
+  "SavedPage": {
+    "empty": "You don't have any saved affirmations or tips yet.",
+    "title": "Saved",
+    "subtitle": "Your favorite tips and affirmations"
+  },
   "Navigation": {
     "BackToHome": "Back to home",
     "BackToShop": "Back to shop",
@@ -115,6 +153,83 @@
       "title": "Quick stress assessment",
       "description": "Take a short assessment to get a more accurate stress level (2 minutes)",
       "button": "Start assessment"
+    }
+  },
+  "MyProgress": {
+    "PageTitle": {
+      "title": "My Progress",
+      "subtitle": "Think of a headline. Look how much you’ve already done for yourself 💛"
+    },
+    "Activity": {
+      "title": "Platform Activity",
+      "subtitle": "Even small steps lead to big changes",
+      "daysWithActivity": "Days with activity",
+      "daysWithoutActivity": "Days without activity"
+    },
+    "ChartDynamics": {
+      "title": "Detailed Dynamics",
+      "timeRange": {
+        "week": "Week",
+        "two weeks": "Two Weeks",
+        "month": "Month"
+      },
+      "mood": "Mood",
+      "stress": "Stress"
+    }
+  },
+
+  "components": {
+    "DailyCard": {
+      "title": "{type, select, affirmation {Your daily affirmation} tip {Tip of the day} other {}}",
+      "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}",
+      "toastText": "{type, select, affirmation {Affirmation added to Saved} tip {Tip added to Saved} other {}}",
+      "type": "{type, select, affirmation {Affirmation} tip {Tip} other {}}"
+    },
+    "Achievements": {
+      "Button": "Show more",
+      "AchievementCard": {
+        "Open": "Unlocked",
+        "Progress": "Progress"
+      },
+      "AchievementsTitle": {
+        "title": "Achievements",
+        "subtitle": "3 out of 25 achievements unlocked"
+      },
+      "AchievementsFilter": {
+        "Unlocked": "Unlocked",
+        "Locked": "Locked",
+        "All": "All"
+      }
+    },
+    "TenDaysSummary": {
+      "title": "10-Day Summary",
+      "BestDay": {
+        "title": "Your best day",
+        "Stress level": "Stress level",
+        "Your mood": "Your mood",
+        "empty": "Your best day is still ahead! Track your mood to see it here"
+      },
+      "MoodBadge": {
+        "text": "{data, select, very_good {Very good} good {Good} neutral {Neutral} bad {Bad} very_bad {Very bad} absent {Absent} low {Low} average {Average} high {High} very_high {Very high} other {}}"
+      },
+      "MoodMarks": {
+        "title": "Your mood marks"
+      },
+      "StressLevel": {
+        "title": "Average stress level",
+        "empty": "Not enough data to calculate",
+        "stressLevel": "{stressLevel, select, absent {Absent} low {Low} average {Average} high {High} very_high {Very high} other {} }"
+      },
+      "MoodRecording": {
+        "title": "Mood entries created",
+        "content": "in the last 10 days"
+      },
+      "Days": {
+        "days": ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
+      }
+    },
+    "TodayObservations": {
+      "title": "Today's Observations"
     }
   }
 }

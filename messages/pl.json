@@ -68,6 +68,45 @@
       "noThoughts": "Nie masz jeszcze żadnych zapisków."
     }
   },
+  "AffirmationsPage": {
+    "title": "Afirmacje i Porady",
+    "subtitle": "Czerp inspirację z pozytywnych myśli każdego dnia",
+    "affirmation": {
+      "title": "Twoja codzienna afirmacja",
+      "text": "Każdego dnia staję się silniejszy i bardziej pewny swojej drogi."
+    },
+    "tip": {
+      "title": "Porada dnia",
+      "text": "Rozpocznij dzień od wyznaczenia jednego małego, osiągalnego celu — to buduje impuls do większych sukcesów!"
+    },
+    "sectionCard": {
+      "title": "Poprzednie afirmacje i porady",
+      "subtitle": "Nie masz jeszcze żadnych poprzednich afirmacji ani porad."
+    },
+    "ThoughtsList": {
+      "title": "Moje notatki",
+      "noThoughts": "Nie masz jeszcze żadnych notatek"
+    },
+    "toast": {
+      "affirmation": "Afirmacja została dodana do zapisanych",
+      "tip": "Porada została dodana do zapisanych"
+    },
+    "tipTag": "Wskazówka",
+    "affirmationTag": "Afirmacja",
+    "filter": {
+      "title": "Filtry",
+      "sort": "Sortowanie",
+      "by tags": "Według tagów",
+      "clear": "Wyczyść",
+      "newest": "Najpierw najnowsze",
+      "oldest": "Najpierw najstarsze"
+    }
+  },
+  "SavedPage": {
+    "empty": "Nie masz jeszcze zapisanych afirmacji i porad.",
+    "title": "Zapisane",
+    "subtitle": "Twoje ulubione porady i afirmacje"
+  },
   "Navigation": {
     "BackToHome": "Powrót do domu",
     "BackToShop": "Powrót do sklepu",
@@ -114,6 +153,83 @@
       "title": "Szybka ocena stresu",
       "description": "Wykonaj krótką ocenę, aby dokładniej określić poziom stresu (2 minuty)",
       "button": "Rozpocznij ocenę"
+    }
+  },
+  "MyProgress": {
+    "PageTitle": {
+      "title": "Mój postęp",
+      "subtitle": "Pomyśl nad nagłówkiem. Zobacz, ile już zrobiłeś dla siebie 💛"
+    },
+    "Activity": {
+      "title": "Aktywność na platformie",
+      "subtitle": "Nawet małe kroki prowadzą do wielkich zmian",
+      "daysWithActivity": "Dni z aktywnością",
+      "daysWithoutActivity": "Dni bez aktywności"
+    },
+    "ChartDynamics": {
+      "title": "Szczegółowa dynamika",
+      "timeRange": {
+        "week": "Tydzień",
+        "two weeks": "Dwa tygodnie",
+        "month": "Miesiąc"
+      },
+      "mood": "Nastrój",
+      "stress": "Stres"
+    }
+  },
+
+  "components": {
+    "DailyCard": {
+      "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} other {}}",
+      "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} other {}}",
+      "toastText": "{type, select, affirmation {Aforyzm został dodany do zapisanych} tip {Porada została dodana do zapisanych} other {}}",
+      "type": "{type, select, affirmation {Afirmacja} tip {Wskazówka} other {}}"
+    },
+    "Achievements": {
+      "Button": "Pokaż więcej",
+      "AchievementCard": {
+        "Open": "Odblokowano",
+        "Progress": "Postęp"
+      },
+      "AchievementsTitle": {
+        "title": "Osiągnięcia",
+        "subtitle": "Odblokowano 3 z 25 osiągnięć"
+      },
+      "AchievementsFilter": {
+        "Unlocked": "Odblokowane",
+        "Locked": "Zablokowane",
+        "All": "Wszystkie"
+      }
+    },
+    "TenDaysSummary": {
+      "title": "Podsumowanie 10 dni",
+      "BestDay": {
+        "title": "Twój najlepszy dzień",
+        "Stress level": "Poziom stresu",
+        "Your mood": "Twój nastrój",
+        "empty": "Twój najlepszy dzień jest jeszcze przed Tobą! Zaznaczaj nastrój, aby zobaczyć go tutaj"
+      },
+      "MoodBadge": {
+        "text": "{data, select, very_good {Bardzo dobry} good {Dobry} neutral {Neutralny} bad {Zły} very_bad {Bardzo zły} absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high {Bardzo wysoki} other {}}"
+      },
+      "MoodMarks": {
+        "title": "Twoje oznaczenia nastroju"
+      },
+      "StressLevel": {
+        "title": "Średni poziom stresu",
+        "empty": "Brak wystarczających danych do obliczenia",
+        "stressLevel": "{stressLevel, select, absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high {Bardzo wysoki} other {} }"
+      },
+      "MoodRecording": {
+        "title": "Utworzono wpisów nastroju",
+        "content": "z ostatnich 10 dni"
+      },
+      "Days": {
+        "days": ["pn", "wt", "śr", "cz", "pt", "sb", "nd"]
+      }
+    },
+    "TodayObservations": {
+      "title": "Dzisiejsze obserwacje"
     }
   }
 }

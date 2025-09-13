@@ -7,6 +7,7 @@ export default function Home() {
   return (
     <div className="flex min-h-screen w-full flex-col items-center justify-center gap-3">
       <p className="text-5xl">{t('Coming soon')}</p>
+      <p>dev branch</p>
       <LoginButton />
     </div>
   )

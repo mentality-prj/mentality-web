@@ -13,7 +13,7 @@ import { SectionCard } from '../ui/SectionCard'
 
 export const ThoughtsRecording = ({ className }: { className?: string }) => {
   const t = useTranslations('MyThougtsPage')
-  const [tags, setTags] = useState<string[]>(['Спорт', 'Вітаміни'])
+  const [tags, setTags] = useState<string[]>(['Звичайний запис', 'Вітаміни'])
   return (
     <SectionCard className={cn('w-full', className)} title={t('RecordingThoughts')}>
       <div className="mt-4 flex flex-col gap-6">

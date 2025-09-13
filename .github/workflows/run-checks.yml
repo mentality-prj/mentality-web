@@ -3,7 +3,8 @@ name: Frontend Run Checks
 on:
   pull_request:
     branches:
-      - main
+      - dev
+      - production
 
 jobs:
   check-file-changes:

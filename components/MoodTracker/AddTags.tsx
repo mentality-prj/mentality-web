@@ -8,19 +8,17 @@ import { Badge } from '@/ds/shadcn/badge'
 import { Button } from '@/ds/shadcn/button'
 
 type AddTagsProps = {
-  initialTags: string[]
+  tags: string[]
   onChange: (tags: string[]) => void
 }
 
-export default function AddTags({ initialTags, onChange }: AddTagsProps) {
+export default function AddTags({ tags, onChange }: AddTagsProps) {
   const [input, setInput] = useState('')
-  const [tags, setTags] = useState<string[]>(initialTags)
 
   const addTag = () => {
     const newTag = input.trim()
     if (newTag && !tags.includes(newTag)) {
       const updated = [...tags, newTag]
-      setTags(updated)
       onChange(updated)
     }
     setInput('')
@@ -28,7 +26,6 @@ export default function AddTags({ initialTags, onChange }: AddTagsProps) {
 
   const removeTag = (tagToRemove: string) => {
     const updated = tags.filter((tag) => tag !== tagToRemove)
-    setTags(updated)
     onChange(updated)
   }
 
