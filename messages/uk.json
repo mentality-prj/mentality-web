@@ -1,4 +1,9 @@
 {
+  "Header": {
+    "SearchBar": {
+      "placeholder": "Пошук..."
+    }
+  },
   "HomePage": {
     "ExercisesForRecovery": {
       "title": "Вправи для відновлення",

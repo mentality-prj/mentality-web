@@ -1,4 +1,9 @@
 {
+  "Header": {
+    "SearchBar": {
+      "placeholder": "Search..."
+    }
+  },
   "HomePage": {
     "ExercisesForRecovery": {
       "title": "Exercises for recovery",

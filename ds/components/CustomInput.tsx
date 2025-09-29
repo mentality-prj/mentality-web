@@ -21,16 +21,20 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
         {label && <Label htmlFor={id}>{label}</Label>}
         <div className="relative">
           {leftIcon && (
-            <div className="absolute left-4 top-1/2 -translate-y-1/2 text-textcolor-secondary">{leftIcon}</div>
+            <div className="absolute left-1 top-1/2 -translate-y-1/2 text-textcolor-secondary tablet:left-2">
+              {leftIcon}
+            </div>
           )}
           {rightIcon && (
-            <div className="absolute right-4 top-1/2 -translate-y-1/2 text-textcolor-secondary">{rightIcon}</div>
+            <div className="absolute right-1 top-1/2 -translate-y-1/2 text-textcolor-secondary tablet:right-2">
+              {rightIcon}
+            </div>
           )}
           <Input
             className={cn(
-              'h-12 w-full rounded-md border border-outline-secondary bg-surface-white px-4 text-sm placeholder-textcolor-tertiary caret-primary shadow-none outline-none hover:border-primary-hover focus:placeholder-transparent focus-visible:border-primary-focus focus-visible:ring-0 disabled:border-disable [&:not(:placeholder-shown)]:border-primary [&:not(:placeholder-shown)]:caret-textcolor-primary',
-              leftIcon && 'pl-12', // 16px left input padding + 24px icon size + 8px gap between icon & text
-              rightIcon && 'pr-12',
+              'h-8 w-full rounded-sm border border-outline-secondary bg-surface-white text-xs placeholder-textcolor-tertiary caret-primary shadow-none outline-none hover:border-primary-hover focus:placeholder-transparent focus-visible:border-primary-focus focus-visible:ring-0 disabled:border-disable tablet:h-12 tablet:rounded-md tablet:px-4 tablet:text-base [&:not(:placeholder-shown)]:border-primary [&:not(:placeholder-shown)]:caret-textcolor-primary',
+              leftIcon && 'pl-6 tablet:pl-9', // tablet: 16px left input padding + 24px icon size + 8px gap between icon & text
+              rightIcon && 'pr-6 tablet:pr-9',
               className,
               !!errorMsg && 'border-outline-error'
             )}
