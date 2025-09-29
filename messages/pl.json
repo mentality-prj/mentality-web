@@ -1,4 +1,9 @@
 {
+  "Header": {
+    "SearchBar": {
+      "placeholder": "Szukaj..."
+    }
+  },
   "HomePage": {
     "ExercisesForRecovery": {
       "title": "Ćwiczenia na regenerację",

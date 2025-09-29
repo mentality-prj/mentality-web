@@ -28,7 +28,7 @@ export const CurrentState = () => {
         <CustomInput
           className="max-w-full"
           placeholder={t('placeholder')}
-          rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />}
+          rightIcon={<Mic className="h-5 w-5 text-iconcolor-secondary tablet:h-6" />}
         />
         <div className="flex flex-col justify-between gap-2 tablet:flex-row laptop:flex-col">
           <Button variant="secondary">{t('View dynamics')}</Button>

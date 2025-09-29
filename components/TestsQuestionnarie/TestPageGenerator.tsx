@@ -13,7 +13,6 @@ type Props<T extends ChoiceType> = {
 }
 
 export default function TestPageGenerator<T extends ChoiceType>({ test }: Props<T>) {
-  const testData = test
   const [answers, setAnswers] = useState<TestAnswers>({})
   const [result, setResult] = useState<string | null>(null)
 
@@ -32,31 +31,43 @@ export default function TestPageGenerator<T extends ChoiceType>({ test }: Props<
         resultText = calculateK10Result(test as TestConfig<'radio'>, answers)
         break
       default:
-        resultText = 'Немає функції-обробника для цього тесту'
+        resultText = '! There is no function for this test !'
     }
     setResult(resultText)
   }
 
-  return (
-    <div className="mx-auto max-w-2xl p-6">
-      <h1 className="mb-6 text-2xl font-bold">{testData.title}</h1>
+  const isTestComplete = () => {
+    if (test.type === 'checkbox') {
+      return Object.values(answers).some((value) => value === true)
+    }
 
-      {testData.questions.map((q, idx) => (
+    if (test.type === 'radio') {
+      return test.questions.every((q) => answers[q.id] !== undefined)
+    }
+
+    return false
+  }
+
+  return (
+    <div className="px-2 py-2 tablet:mb-4 tablet:p-4 desktop:m-8 desktop:p-8">
+      <h1 className="mb-6 text-2xl font-semibold text-textcolor-primary">{test.title}</h1>
+
+      {test.questions.map((q, idx) => (
         <Question
           key={q.id}
           data={q}
           index={idx}
-          type={testData.type}
+          type={test.type}
           selectedValue={answers[q.id] as number}
           onChange={(value) => handleAnswer(q.id, value)}
         />
       ))}
 
       <div className="mt-6">
-        <Button variant="iconButton" size="iconSm" onClick={calculateResult}>
-          Дg
+        <Button onClick={calculateResult} disabled={!isTestComplete()}>
+          Дізнатися результат
         </Button>
-        {result && <p>{result}</p>}
+        {result && <div className="my-4 rounded-md bg-surface-primary p-4">{result}</div>}
       </div>
     </div>
   )

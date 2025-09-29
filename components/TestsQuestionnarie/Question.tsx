@@ -9,7 +9,6 @@ interface Props {
   type: ChoiceType
   selectedValue?: number
   onChange: (value: number | boolean) => void
-  // onChange?: (questionId: string, value: number) => void
   checkedValues?: Record<string, boolean> // для чекбоксів: збереження стану
 }
 
@@ -36,13 +35,16 @@ export default function Question({ data, index, type, selectedValue, onChange, c
       )}
 
       {type === 'checkbox' && (
-        <div className="flex items-center gap-3">
+        <div className="mb-2 flex items-start gap-3">
           <Checkbox
+            className="tablet:mt-[2px]"
             id={`checkbox-${data.id}`}
             checked={checkedValues[data.id] !== undefined ? checkedValues[data.id] : undefined}
             onCheckedChange={(checked) => onChange?.(!!checked)}
           />
-          <Label htmlFor={`checkbox-${data.id}`}>{data.text}</Label>
+          <Label className="text-sm tablet:text-base" htmlFor={`checkbox-${data.id}`}>
+            {data.text}
+          </Label>
         </div>
       )}
     </div>

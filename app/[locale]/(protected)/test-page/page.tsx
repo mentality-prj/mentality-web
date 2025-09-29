@@ -4,7 +4,7 @@ import TestPageGenerator from '@/components/TestsQuestionnarie/TestPageGenerator
 
 export default async function testPage() {
   return (
-    <div className="bg-reversed">
+    <div className="mb-10 rounded-default bg-reversed">
       {/* передається конкретний тест */}
       <TestPageGenerator test={stressTest} />
     </div>
