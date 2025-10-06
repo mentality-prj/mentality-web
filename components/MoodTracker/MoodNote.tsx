@@ -14,6 +14,7 @@ import { Button } from '@/ds/shadcn/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/ds/shadcn/card'
 
 import { TagsEditor } from './AddTagsContainer'
+import { StressLevelScale } from './StressLevelScale'
 
 const buttonList = [HappyEmoji, SadEmoji, VerySadEmoji, AngryEmoji, SleepyEmoji]
 
@@ -22,8 +23,8 @@ export const MoodNote = () => {
   const [tags, setTags] = useState<string[]>(['Спорт', 'Вітаміни'])
 
   return (
-    <div className="flex w-full">
-      <Card className="flex w-full flex-col gap-6 bg-surface-white">
+    <div className="flex w-full tablet:min-w-[500px]">
+      <Card className="flex w-full flex-col bg-surface-white">
         <CardHeader>
           <CardTitle> {t('title')} </CardTitle>
         </CardHeader>
@@ -43,8 +44,17 @@ export const MoodNote = () => {
             </CardContent>
           </Card>
           <Card className="border-outline-secondary">
+            <CardHeader>
+              <CardTitle> {t('title')} </CardTitle>
+            </CardHeader>
             <CardContent>
-              <div className="py-4">Блок: обери рівень стресу</div>
+              <StressLevelScale />
+              <div className="m-4 flex justify-between gap-4 rounded-sm bg-secondary p-4">
+                <span>bcgdrghdrli erksjgblrkdg f dg htrh g th kjrglkerdg akrjgbearg aekrjgb rgjkgbekjc</span>
+                <Button variant="textButton" size="base">
+                  button
+                </Button>
+              </div>
             </CardContent>
           </Card>
           {/* button is disabled until user enters data */}
