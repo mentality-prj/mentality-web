@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+
 import { Scale } from '../../ds/components/Scale'
 
 export function StressLevelScale() {

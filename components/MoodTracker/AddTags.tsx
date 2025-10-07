@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
 import { Badge } from '@/ds/shadcn/badge'
@@ -13,6 +14,8 @@ type AddTagsProps = {
 }
 
 export default function AddTags({ tags, onChange }: AddTagsProps) {
+  const t = useTranslations('MoodTracker.MoodNote')
+
   const [input, setInput] = useState('')
 
   const addTag = () => {
@@ -34,13 +37,13 @@ export default function AddTags({ tags, onChange }: AddTagsProps) {
       <div className="flex flex-col gap-2 tablet:flex-row">
         <div className="w-full">
           <CustomInput
-            placeholder="Новий тег"
+            placeholder={t('placeholder')}
             value={input}
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && addTag()}
           />
         </div>
-        <Button onClick={addTag}>Додати</Button>
+        <Button onClick={addTag}>{t('add')}</Button>
       </div>
 
       <div className="flex flex-wrap gap-2">
