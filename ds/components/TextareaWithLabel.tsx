@@ -15,7 +15,11 @@ type Props = ComponentProps<typeof Textarea> & {
 export function TextareaWithLabel({ label, helper, id = 'textarea', leftIcon, rightIcon, ...props }: Props) {
   return (
     <div className="flex flex-col">
-      {label && <Label htmlFor={id}> {label} </Label>}
+      {label && (
+        <p className="mb-2">
+          <Label htmlFor={id}> {label} </Label>
+        </p>
+      )}
       <div className="relative">
         {leftIcon && (
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-textcolor-secondary">{leftIcon}</div>

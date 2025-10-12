@@ -69,6 +69,7 @@ const config: Config = {
         sans: ['var(--font-sans)', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
       },
+      // ми взагалі використовуємо borderRadius ??
       borderRadius: {
         xs: 'calc(var(--radius) / 4)',
         sm: 'calc(var(--radius) / 2)',

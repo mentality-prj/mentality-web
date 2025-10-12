@@ -13,7 +13,7 @@ import { Providers } from './providers'
 import '@/styles/globals.css'
 
 export const metadata: Metadata = {
-  title: 'Mentality',
+  title: 'Dzvin',
 }
 
 export default async function LocaleLayout({

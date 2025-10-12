@@ -23,15 +23,15 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
         <div>{t('add tags')}</div>
         <Dialog>
           <DialogTrigger asChild>
-            <Button className="max-h-6 text-sm/[14px]" variant="textButton" size="base">
-              <Pencil className="mr-1 h-4 w-4" /> {t('change tags')}
+            <Button className="max-h-6 text-sm" variant="textButton" size="base">
+              <Pencil className="mr-1 h-4 w-4" />
+              {t('change tags')}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
               <DialogTitle>{t('change tags')}</DialogTitle>
             </DialogHeader>
-
             <AddTags tags={tags} onChange={onChange} />
           </DialogContent>
         </Dialog>
@@ -43,7 +43,7 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
             value={tag}
             aria-label={`Toggle ${tag}`}
             key={tag}
-            className="max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs/[14px] text-textcolor-secondary data-[state='on']:bg-primary data-[state='on']:text-reversed"
+            className="max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs text-textcolor-secondary data-[state='on']:bg-primary data-[state='on']:text-reversed"
           >
             {tag}
           </ToggleGroupItem>

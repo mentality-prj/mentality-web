@@ -139,13 +139,26 @@
     "personalGreeting": "Hello {name}. It’s great to see you here today"
   },
   "MoodTracker": {
+    "PageTitle": {
+      "title": "Mood Tracker",
+      "subtitle": "Track your mood and stress level changes"
+    },
     "MoodNote": {
       "title": "New mood note",
       "subtitle": "How are you feeling today?",
       "label": "Describe your feelings and thoughts",
       "add tags": "Add tags",
       "change tags": "Change tags",
-      "save": "Save"
+      "save": "Save",
+      "add": "Add",
+      "placeholder": "New tag",
+      "labelsEmoji": {
+        "very_bad": "Very bad",
+        "bad": "Bad",
+        "neutral": "Neutral",
+        "good": "Good",
+        "very_good": "Very Good"
+      }
     },
     "WeekSummary": {
       "title": "Summary of the week",
@@ -155,9 +168,18 @@
       "stress-level": "Stress level"
     },
     "StressAssessment": {
-      "title": "Quick stress assessment",
+      "title": "Choose your stress level",
       "description": "Take a short assessment to get a more accurate stress level (2 minutes)",
       "button": "Start assessment"
+    },
+    "StressLevelScale": {
+      "labelsArray": {
+        "none": "None",
+        "low": "Low",
+        "medium": "Medium",
+        "high": "High",
+        "very high": "Very High"
+      }
     }
   },
   "MyProgress": {
