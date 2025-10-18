@@ -71,7 +71,7 @@ export function Scale({
           }}
         >
           {labels.map((label, i) => (
-            <span key={i} className="select-none text-sm font-normal leading-tight text-textcolor-tertiary">
+            <span key={i} className="select-none text-xs font-normal leading-tight text-textcolor-tertiary">
               {label}
             </span>
           ))}

@@ -139,13 +139,26 @@
     "personalGreeting": "Cześć {name}! Miło, że jesteś dzisiaj z nami"
   },
   "MoodTracker": {
+    "PageTitle": {
+      "title": "Tracker nastroju",
+      "subtitle": "Śledź zmiany swojego nastroju i poziomu stresu"
+    },
     "MoodNote": {
       "title": "Nowa notatka o nastroyu",
       "subtitle": "Jak się dzisiaj czujesz?",
       "label": "Opisz swoje uczucia i myśli",
       "add tags": "Dodaj tagi",
       "change tags": "Zmień tagi",
-      "save": "Zapisz"
+      "save": "Zapisz",
+      "add": "Dodać",
+      "placeholder": "Nowy tag",
+      "labelsEmoji": {
+        "very_bad": "Bardzo zły",
+        "bad": "Zły",
+        "neutral": "Neutralny",
+        "good": "Dobry",
+        "very_good": "Bardzo dobry"
+      }
     },
     "WeekSummary": {
       "title": "Podsumowanie tygodnia",
@@ -155,9 +168,18 @@
       "stress-level": "Stress level"
     },
     "StressAssessment": {
-      "title": "Szybka ocena stresu",
+      "title": "Wybierz swój poziom stresu",
       "description": "Wykonaj krótką ocenę, aby dokładniej określić poziom stresu (2 minuty)",
       "button": "Rozpocznij ocenę"
+    },
+    "StressLevelScale": {
+      "labelsArray": {
+        "none": "Żaden",
+        "low": "Niski",
+        "medium": "Średni",
+        "high": "Wysoki",
+        "very high": "Bardzo wysoki"
+      }
     }
   },
   "MyProgress": {
