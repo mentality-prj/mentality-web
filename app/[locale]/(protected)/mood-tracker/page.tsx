@@ -14,7 +14,7 @@ export default async function MoodTracker() {
         <div className="desktop:w-3/5">
           <NewMoodNoteSection />
         </div>
-        <div className="flex flex-col gap-2 tablet:gap-4">
+        <div className="desktop:w-2/5">
           <TenDaysSummary />
         </div>
       </div>
