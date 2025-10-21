@@ -8,7 +8,7 @@ export const Days = () => {
   const days = Array.from({ length: 10 }, (_, i) => weekDays[i % weekDays.length])
 
   return (
-    <div className="flex gap-1">
+    <div className="grid grid-cols-5 grid-rows-2 gap-1 tablet:flex">
       {days.map((day, idx) => (
         <div
           key={idx}
