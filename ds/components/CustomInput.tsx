@@ -32,7 +32,7 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           )}
           <Input
             className={cn(
-              'h-8 w-full rounded-sm border border-outline-secondary bg-surface-white text-xs placeholder-textcolor-tertiary caret-primary shadow-none outline-none hover:border-primary-hover focus:placeholder-transparent focus-visible:border-primary-focus focus-visible:ring-0 disabled:border-disable tablet:h-12 tablet:rounded-md tablet:px-4 tablet:text-base [&:not(:placeholder-shown)]:border-primary [&:not(:placeholder-shown)]:caret-textcolor-primary',
+              'h-8 w-full rounded-sm border border-outline-secondary bg-surface-white text-sm text-primary placeholder-textcolor-tertiary caret-primary shadow-none outline-none hover:border-primary-hover focus:placeholder-transparent focus-visible:border-primary-focus focus-visible:ring-0 disabled:border-disable tablet:h-12 tablet:rounded-md tablet:px-4 tablet:text-base [&:not(:placeholder-shown)]:border-primary [&:not(:placeholder-shown)]:caret-textcolor-primary',
               leftIcon && 'pl-6 tablet:pl-9', // tablet: 16px left input padding + 24px icon size + 8px gap between icon & text
               rightIcon && 'pr-6 tablet:pr-9',
               className,

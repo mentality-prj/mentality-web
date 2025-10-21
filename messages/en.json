@@ -123,14 +123,16 @@
     "Settings": "Settings"
   },
   "Sidebar": {
-    "Home": "Home",
-    "Mood tracker": "Mood tracker",
+    "HOME": "Home",
+    "MOODTRACKER": "Mood tracker",
+    "GUIDE": "Guide",
+    "MYNOTES": "My notes",
+    "MYPROGRESS": "My progress",
+    "SETTINGS": "Settings",
+
     "AI-assistant": "AI-assistant",
-    "My notes": "My notes",
-    "My progress": "My progress",
     "Reminder": "Reminder",
     "Shop": "Shop",
-    "Settings": "Settings",
     "Profile": "Profile",
     "Support": "Support"
   },
@@ -180,6 +182,12 @@
         "high": "High",
         "very high": "Very High"
       }
+    }
+  },
+  "Guide": {
+    "PageTitle": {
+      "title": "Guide",
+      "subtitle": "Your tools for inner balance and recovery"
     }
   },
   "MyProgress": {
