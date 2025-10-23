@@ -5,6 +5,7 @@ import { Activity } from '@/components/MyProgress/Activity'
 import { ChartDynamics } from '@/components/MyProgress/ChartDynamics'
 import { TodayObservations } from '@/components/MyProgress/TodayObservations'
 import { PageTitle } from '@/components/ui/PageTitle'
+import { PersonalGoals } from '@/components/MyProgress/PersonalGoals'
 
 export default function MyProgress() {
   const t = useTranslations('MyProgress')
@@ -17,7 +18,7 @@ export default function MyProgress() {
         <TodayObservations />
       </div>
       <ChartDynamics />
-
+      <PersonalGoals />
       <Achievements />
     </div>
   )
