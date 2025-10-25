@@ -123,16 +123,12 @@
     "Settings": "Налаштування"
   },
   "Sidebar": {
-    "Home": "Головний екран",
-    "Mood tracker": "Трекер настрою",
-    "AI-assistant": "AI-помічник",
-    "My notes": "Мої записи",
-    "My progress": "Мій прогрес",
-    "Reminder": "Нагадування",
-    "Shop": "Магазин",
-    "Settings": "Налаштування",
-    "Profile": "Профіль",
-    "Support": "Підтримка"
+    "HOME": "Головний екран",
+    "MOODTRACKER": "Трекер настрою",
+    "GUIDE": "Порадник",
+    "MYNOTES": "Мої записи",
+    "MYPROGRESS": "Мій прогрес",
+    "SETTINGS": "Налаштування"
   },
   "GreetingTitle": {
     "defaultGreeting": "Привіт! Чудово, що ти сьогодні тут",
@@ -180,6 +176,12 @@
         "high": "Високий",
         "very high": "Дуже високий"
       }
+    }
+  },
+  "Guide": {
+    "PageTitle": {
+      "title": "Порадник",
+      "subtitle": "Твої інструменти для внутрішнього балансу та відновлення"
     }
   },
   "MyProgress": {

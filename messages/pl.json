@@ -123,16 +123,12 @@
     "Settings": "Ustawienia"
   },
   "Sidebar": {
-    "Home": "Strona główna",
-    "Mood tracker": "Śledzenie nastroju",
-    "AI-assistant": "Asystent AI",
-    "My notes": "Moje notatki",
-    "My progress": "Mój postęp",
-    "Reminder": "Przypomnienie",
-    "Shop": "Sklep",
-    "Settings": "Ustawienia",
-    "Profile": "Profil",
-    "Support": "Wsparcie"
+    "HOME": "Strona główna",
+    "MOODTRACKER": "Śledzenie nastroju",
+    "GUIDE": "Poradnik",
+    "MYNOTES": "Moje notatki",
+    "MYPROGRESS": "Mój postęp",
+    "SETTINGS": "Ustawienia"
   },
   "GreetingTitle": {
     "defaultGreeting": "Cześć! Miło, że jesteś dzisiaj z nami",
@@ -180,6 +176,12 @@
         "high": "Wysoki",
         "very high": "Bardzo wysoki"
       }
+    }
+  },
+  "Guide": {
+    "PageTitle": {
+      "title": "Poradnik",
+      "subtitle": "Twoje narzędzia do wewnętrznej równowagi i regeneracji"
     }
   },
   "MyProgress": {
