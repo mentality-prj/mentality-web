@@ -1,26 +1,26 @@
-import { useTranslations } from 'next-intl'
-import { menu } from './routes'
-
 import { ChartSquareIcon, HomeIcon, NotebookIcon, MedalRibbonIcon, Pulse2Icon, SettingsIcon } from '@/ds/icons/sidebar'
+import { underLineMenu, upLineMenu } from '@/constants/routes'
 
-export const SidebarList = () => {
-  const t = useTranslations('Sidebar')
+export const iconsUpLineMenu: Record<string, React.ReactNode> = {
+  HOME: <HomeIcon />,
+  MOODTRACKER: <Pulse2Icon />,
+  GUIDE: <NotebookIcon />,
+  MYNOTES: <ChartSquareIcon />,
+  MYPROGRESS: <MedalRibbonIcon />,
+} as const
 
-  const iconsMap: Record<string, React.ReactNode> = {
-    HOME: <HomeIcon />,
-    MOODTRACKER: <Pulse2Icon />,
-    GUIDE: <NotebookIcon />,
-    MYNOTES: <ChartSquareIcon />,
-    MYPROGRESS: <MedalRibbonIcon />,
-    SETTINGS: <SettingsIcon />,
-  }
+export const iconsUnderLineMenu: Record<string, React.ReactNode> = {
+  SETTINGS: <SettingsIcon />,
+} as const
 
-  const sidebarList = menu.map((item) => ({
-    icon: iconsMap[item.key] || <HomeIcon />,
-    text: t(item.key),
-    link: item.link,
-  }))
-  console.log('sidebarList', sidebarList)
+export const rawSidebarUpLineMenu = upLineMenu.map((item) => ({
+  icon: iconsUpLineMenu[item.key] || <HomeIcon />,
+  key: item.key,
+  link: item.link,
+}))
 
-  return sidebarList
-}
+export const rawSidebarUnderLineMenu = underLineMenu.map((item) => ({
+  icon: iconsUnderLineMenu[item.key] || <HomeIcon />,
+  key: item.key,
+  link: item.link,
+}))

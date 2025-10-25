@@ -1,6 +1,5 @@
 'use client'
-
-import { SidebarList } from '@/constants/sidebar'
+import { useSidebarList } from '@/components/Sidebar/SidebarList'
 import { LogoIcon } from '@/ds/icons/logo'
 import { MaximizeIcon } from '@/ds/icons/maximize'
 import { MinimizeIcon } from '@/ds/icons/minimize'
@@ -23,7 +22,7 @@ export const AppSidebar = () => {
   const pathname = usePathname()
   const isPageActive = (link: string) => pathname === link
   const { state, toggleSidebar } = useSidebar()
-  const sidebarList = SidebarList()
+  const { sidebarUpLineMenu, sidebarUnderLineMenu } = useSidebarList()
   return (
     <Sidebar className="group border-none bg-surface-white px-6 py-8" collapsible="icon">
       <SidebarHeader className="flex flex-row justify-between p-0 pl-4 group-data-[collapsible=icon]:flex-col-reverse group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-4 group-data-[collapsible=icon]:pl-0">
@@ -43,29 +42,44 @@ export const AppSidebar = () => {
       <SidebarContent className="mt-4 gap-0 bg-surface-white">
         <SidebarGroup className="p-0">
           <SidebarGroupContent>
-            <SidebarMenu className="gap-2 group-data-[collapsible=icon]:items-center group-data-[collapsible=icon]:gap-4">
-              {sidebarList.map((item, index) => {
-                return (
-                  <div key={index}>
-                    {index === sidebarList.length - 1 && (
-                      <SidebarSeparator className="mx-0 mb-4 mt-2 bg-outline-tertiary group-data-[collapsible=icon]:my-6" />
-                    )}
+            <SidebarMenu className="gap-2">
+              {sidebarUpLineMenu.map((item) => (
+                <SidebarMenuItem key={item.link}>
+                  <SidebarMenuButton
+                    isActive={isPageActive(item.link)}
+                    asChild
+                    className="h-10 rounded-sm p-0 px-4 py-2 text-base font-medium text-textcolor-primary data-[active=true]:bg-secondary data-[active=true]:text-primary group-data-[collapsible=icon]:max-h-6 group-data-[collapsible=icon]:max-w-6 group-data-[collapsible=icon]:!p-0 [&>svg]:size-6"
+                  >
+                    <Link href={item.link}>
+                      {item.icon}
+                      <span>{item.text}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
+            </SidebarMenu>
+          </SidebarGroupContent>
+        </SidebarGroup>
 
-                    <SidebarMenuItem>
-                      <SidebarMenuButton
-                        isActive={isPageActive(item.link)}
-                        className="h-10 rounded-sm p-0 px-4 py-2 text-base font-medium text-textcolor-primary data-[active=true]:bg-secondary data-[active=true]:text-primary group-data-[collapsible=icon]:max-h-6 group-data-[collapsible=icon]:max-w-6 group-data-[collapsible=icon]:!p-0 [&>svg]:size-6"
-                        asChild
-                      >
-                        <Link href={item.link}>
-                          {item.icon}
-                          <span>{item.text}</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </div>
-                )
-              })}
+        <SidebarSeparator className="mx-0 my-4 bg-outline-tertiary" />
+
+        <SidebarGroup className="p-0">
+          <SidebarGroupContent>
+            <SidebarMenu>
+              {sidebarUnderLineMenu.map((item) => (
+                <SidebarMenuItem key={item.link}>
+                  <SidebarMenuButton
+                    isActive={isPageActive(item.link)}
+                    asChild
+                    className="h-10 rounded-sm p-0 px-4 py-2 text-base font-medium text-textcolor-primary data-[active=true]:bg-secondary data-[active=true]:text-primary group-data-[collapsible=icon]:max-h-6 group-data-[collapsible=icon]:max-w-6 group-data-[collapsible=icon]:!p-0 [&>svg]:size-6"
+                  >
+                    <Link href={item.link}>
+                      {item.icon}
+                      <span>{item.text}</span>
+                    </Link>
+                  </SidebarMenuButton>
+                </SidebarMenuItem>
+              ))}
             </SidebarMenu>
           </SidebarGroupContent>
         </SidebarGroup>

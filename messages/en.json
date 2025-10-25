@@ -128,13 +128,7 @@
     "GUIDE": "Guide",
     "MYNOTES": "My notes",
     "MYPROGRESS": "My progress",
-    "SETTINGS": "Settings",
-
-    "AI-assistant": "AI-assistant",
-    "Reminder": "Reminder",
-    "Shop": "Shop",
-    "Profile": "Profile",
-    "Support": "Support"
+    "SETTINGS": "Settings"
   },
   "GreetingTitle": {
     "defaultGreeting": "Hello my friend. It’s great to see you here today",

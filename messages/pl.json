@@ -128,13 +128,7 @@
     "GUIDE": "Poradnik",
     "MYNOTES": "Moje notatki",
     "MYPROGRESS": "Mój postęp",
-    "SETTINGS": "Ustawienia",
-
-    "AI-assistant": "Asystent AI",
-    "Reminder": "Przypomnienie",
-    "Shop": "Sklep",
-    "Profile": "Profil",
-    "Support": "Wsparcie"
+    "SETTINGS": "Ustawienia"
   },
   "GreetingTitle": {
     "defaultGreeting": "Cześć! Miło, że jesteś dzisiaj z nami",

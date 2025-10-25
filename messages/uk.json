@@ -128,13 +128,7 @@
     "GUIDE": "Порадник",
     "MYNOTES": "Мої записи",
     "MYPROGRESS": "Мій прогрес",
-    "SETTINGS": "Налаштування",
-
-    "AI-assistant": "AI-помічник",
-    "Reminder": "Нагадування",
-    "Shop": "Магазин",
-    "Profile": "Профіль",
-    "Support": "Підтримка"
+    "SETTINGS": "Налаштування"
   },
   "GreetingTitle": {
     "defaultGreeting": "Привіт! Чудово, що ти сьогодні тут",
