@@ -149,11 +149,11 @@
       "add": "Додати",
       "placeholder": "Новий тег",
       "labelsEmoji": {
-        "very_bad": "Дуже поганий",
+        "veryBad": "Дуже поганий",
         "bad": "Поганий",
         "neutral": "Нейтральний",
         "good": "Хороший",
-        "very_good": "Дуже хороший"
+        "veryGood": "Дуже хороший"
       }
     },
     "WeekSummary": {

@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
-import { NewMoodNoteSection } from '@/components/NewMoodNoteSection'
-import { TenDaysSummary } from '@/components/TenDaysSummary'
+import { NewMoodNoteSection } from '@/components/MoodTracker/NewMoodNoteSection'
+import { TenDaysSummary } from '@/components/MoodTracker/TenDaysSummary'
 import { PageTitle } from '@/components/ui/PageTitle'
 
 export default async function MoodTracker() {

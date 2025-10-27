@@ -149,11 +149,11 @@
       "add": "Dodać",
       "placeholder": "Nowy tag",
       "labelsEmoji": {
-        "very_bad": "Bardzo zły",
+        "veryBad": "Bardzo zły",
         "bad": "Zły",
         "neutral": "Neutralny",
         "good": "Dobry",
-        "very_good": "Bardzo dobry"
+        "veryGood": "Bardzo dobry"
       }
     },
     "WeekSummary": {

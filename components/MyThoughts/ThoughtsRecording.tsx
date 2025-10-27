@@ -8,7 +8,7 @@ import TextareaWithLabel from '@/ds/components/TextareaWithLabel'
 import { Button } from '@/ds/shadcn/button'
 import { cn } from '@/lib/utils'
 
-import { TagsEditor } from '../NewMoodNoteSection/AddTagsContainer'
+import { TagsEditor } from '../MoodTracker/NewMoodNoteSection/AddTagsContainer'
 import { SectionCard } from '../ui/SectionCard'
 
 export const ThoughtsRecording = ({ className }: { className?: string }) => {
