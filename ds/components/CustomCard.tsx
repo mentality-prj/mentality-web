@@ -4,6 +4,7 @@ import { cva } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 import {
   DefaultVariantProps,
+  SmallWithChildrenVariantProps,
   LinkVariantProps,
   NoninteractiveVariantProps,
   PracticeCardProps,
@@ -19,6 +20,7 @@ export const cardVariants = cva(
       variant: {
         default: 'flex flex-col gap-4 p-6',
         recommendation: 'flex flex-col gap-4 p-6 bg-transparent',
+        smallWithChildren: 'bg-transparent gap-4 p-6 hover:bg-transparent focus:bg-transparent active:bg-transparent',
         small: 'flex px-4 py-3',
         link: 'flex px-4 py-3',
         noninteractive: 'flex flex-col',
@@ -33,6 +35,20 @@ export const cardVariants = cva(
 export const CustomCard: React.FC<PracticeCardProps> = (props) => {
   const variant = props.variant ?? 'default'
   const { className, disabled } = props
+
+  if (variant === 'smallWithChildren') {
+    const { title, icon, children } = props as SmallWithChildrenVariantProps
+    return (
+      <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
+        <div className="flex gap-2">
+          {icon && <div>{icon}</div>}
+          <div className="text-base font-medium text-textcolor-primary">{title}</div>
+        </div>
+
+        {children && <div className="">{children}</div>}
+      </Card>
+    )
+  }
 
   if (variant === 'small') {
     const { title, icon } = props

@@ -1,4 +1,5 @@
 import * as React from 'react'
+import Link from 'next/link'
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react'
 
 import { ButtonProps, buttonVariants } from '@/ds/shadcn/button'
@@ -30,10 +31,11 @@ type PaginationLinkProps = {
   isActive?: boolean
   children: React.ReactNode // because of Eslint
 } & Pick<ButtonProps, 'size'> &
-  React.ComponentProps<'a'>
+  React.ComponentProps<typeof Link>
+// React.ComponentProps<'a'>
 
 const PaginationLink = ({ className, isActive, size = 'icon', children, ...props }: PaginationLinkProps) => (
-  <a
+  <Link
     aria-current={isActive ? 'page' : undefined}
     className={cn(
       buttonVariants({ variant: 'iconButton', size }),
@@ -43,7 +45,7 @@ const PaginationLink = ({ className, isActive, size = 'icon', children, ...props
     {...props}
   >
     {children}
-  </a>
+  </Link>
 )
 PaginationLink.displayName = 'PaginationLink'
 

@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-import { SectionCard } from '../ui/SectionCard'
+import { SectionCard } from '../../ui/SectionCard'
 
 import { BestDay } from './BestDay'
 import { MoodMarks } from './MoodMarks'
