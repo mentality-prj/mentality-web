@@ -1,19 +1,46 @@
+'use client'
+
+import { deletePersonalGoal, resetPersonalGoal, updatePersonalGoal } from '@/actions/personalGoals.action'
 import { StarMotionEmoji } from '@/ds/icons/emoji/star-motion'
 import { ThoughtBalloonIcon } from '@/ds/icons/emotion/thought-balloon'
 import { RestartIcon } from '@/ds/icons/restart'
 import { TrashIcon } from '@/ds/icons/trash'
 import { Button } from '@/ds/shadcn/button'
 import { Progress } from '@/ds/shadcn/progress'
+import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
+import { useSession } from 'next-auth/react'
 
-interface PersonalGoalsCardProps {
+export interface PersonalGoalsCardProps {
+  id: string
   text: string
   check: number
   repeat: number
   status: 'pending' | 'completed'
 }
 
-export const PersonalGoalsCard = ({ text, check, repeat, status }: PersonalGoalsCardProps) => {
+export const PersonalGoalsCard = ({ id, text, check, repeat, status }: PersonalGoalsCardProps) => {
+  const { data } = useSession()
+  const router = useRouter()
+  const userId = data?.user?.id
+  if (!userId) {
+    return null
+  }
+  const handleClick = async () => {
+    await updatePersonalGoal({ id, userId, check })
+    router.refresh()
+  }
+
+  const resetClick = async () => {
+    await resetPersonalGoal({ id, userId })
+    router.refresh()
+  }
+
+  const deleteClick = async () => {
+    await deletePersonalGoal({ id, userId })
+    router.refresh()
+  }
+
   return (
     <div
       className={cn(
@@ -33,10 +60,10 @@ export const PersonalGoalsCard = ({ text, check, repeat, status }: PersonalGoals
         >
           {text}
         </div>
-        <Button variant="iconButton">
+        <Button onClick={resetClick} variant="iconButton">
           <RestartIcon />
         </Button>
-        <Button variant="iconButton">
+        <Button onClick={deleteClick} variant="iconButton">
           <TrashIcon />
         </Button>
       </div>
@@ -56,7 +83,7 @@ export const PersonalGoalsCard = ({ text, check, repeat, status }: PersonalGoals
             <p>Вау! Ціль досягнута, так тримати!</p>
           </div>
         ) : (
-          <Button>Відмітити</Button>
+          <Button onClick={handleClick}>Відмітити</Button>
         )}
       </div>
     </div>

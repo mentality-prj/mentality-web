@@ -1,3 +1,6 @@
+'use client'
+
+import { createPersonalGoal } from '@/actions/personalGoals.action'
 import { AddIcon } from '@/ds/icons/add'
 import { AddSquareIcon } from '@/ds/icons/add-square'
 import { MinusSquareIcon } from '@/ds/icons/minus-square'
@@ -5,8 +8,25 @@ import { Button } from '@/ds/shadcn/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/ds/shadcn/dialog'
 import { Textarea } from '@/ds/shadcn/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
+import { useRouter } from '@/i18n/navigation'
+import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 
 export const CreatePersonalGoals = () => {
+  const router = useRouter()
+  const [text, setText] = useState('')
+  const [quantity, setQuantity] = useState(1)
+  const { data } = useSession()
+
+  if (!data?.user?.id) {
+    return null
+  }
+  const userId = data.user.id
+
+  const createPersonalGoalClick = async () => {
+    await createPersonalGoal({ userId, text, repeat: quantity })
+    router.refresh()
+  }
   return (
     <Dialog>
       <DialogTrigger className="group flex aspect-[11/8] flex-col items-center justify-center gap-[14px] rounded-md border border-outline-secondary p-2 hover:cursor-pointer hover:border-2 hover:border-primary-hover">
@@ -32,17 +52,17 @@ export const CreatePersonalGoals = () => {
               </ToggleGroup>
             </div>
             <div className="my-5">
-              <Textarea />
+              <Textarea value={text} onChange={(e) => setText(e.target.value)} maxLength={60} />
               <p className="text-xs font-normal text-textcolor-tertiary">Максимум 60 символів</p>
             </div>
             <div className="">
               <div className="">Зазнач кількість повторень для реалізаії цілі (опціонально)</div>
               <div className="mt-2 flex items-center gap-2">
-                <Button variant="iconButton">
+                <Button disabled={quantity <= 1} onClick={() => setQuantity(quantity - 1)} variant="iconButton">
                   <MinusSquareIcon />
                 </Button>
-                <span>1</span>
-                <Button variant="iconButton">
+                <span>{quantity}</span>
+                <Button onClick={() => setQuantity(quantity + 1)} variant="iconButton">
                   <AddSquareIcon />
                 </Button>
               </div>
@@ -52,7 +72,7 @@ export const CreatePersonalGoals = () => {
                     Скасувати
                   </Button>
                 </DialogClose>
-                <Button variant="default" className="w-full">
+                <Button onClick={createPersonalGoalClick} variant="default" className="w-full">
                   Створити
                 </Button>
               </div>
