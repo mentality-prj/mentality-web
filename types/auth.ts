@@ -8,6 +8,7 @@ export type ExtendedSession = GoogleSession | GitHubSession | Session
 
 export interface GoogleToken extends JWT {
   accessToken: string
+  refreshToken: string
   expiresIn: number
   idToken: string
   provider: 'google'
