@@ -1,6 +1,7 @@
 'use client'
 
-import { createPersonalGoal } from '@/actions/personalGoals.action'
+import { createPersonalGoal, fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
+import { Tag } from '@/components/ui/Tag'
 import { AddIcon } from '@/ds/icons/add'
 import { AddSquareIcon } from '@/ds/icons/add-square'
 import { MinusSquareIcon } from '@/ds/icons/minus-square'
@@ -10,9 +11,13 @@ import { Textarea } from '@/ds/shadcn/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
 import { useRouter } from '@/i18n/navigation'
 import { useSession } from 'next-auth/react'
-import { useState } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
-export const CreatePersonalGoals = () => {
+export const CreatePersonalGoals = ({
+  setPersonalGoals,
+}: {
+  setPersonalGoals: Dispatch<SetStateAction<PersonalGoal[]>>
+}) => {
   const router = useRouter()
   const [text, setText] = useState('')
   const [quantity, setQuantity] = useState(1)
@@ -25,7 +30,8 @@ export const CreatePersonalGoals = () => {
 
   const createPersonalGoalClick = async () => {
     await createPersonalGoal({ userId, text, repeat: quantity })
-    router.refresh()
+    closeDialog()
+    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
   }
   return (
     <Dialog>

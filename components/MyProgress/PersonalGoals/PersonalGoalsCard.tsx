@@ -1,6 +1,12 @@
 'use client'
 
-import { deletePersonalGoal, resetPersonalGoal, updatePersonalGoal } from '@/actions/personalGoals.action'
+import {
+  deletePersonalGoal,
+  fetchPersonalGoals,
+  PersonalGoal,
+  resetPersonalGoal,
+  updatePersonalGoal,
+} from '@/actions/personalGoals.action'
 import { StarMotionEmoji } from '@/ds/icons/emoji/star-motion'
 import { ThoughtBalloonIcon } from '@/ds/icons/emotion/thought-balloon'
 import { RestartIcon } from '@/ds/icons/restart'
@@ -10,35 +16,37 @@ import { Progress } from '@/ds/shadcn/progress'
 import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
+import { Dispatch, SetStateAction } from 'react'
 
 export interface PersonalGoalsCardProps {
   id: string
   text: string
   check: number
   repeat: number
-  status: 'pending' | 'completed'
+  status: 'pending' | 'completed' | 'in progress'
+  setPersonalGoals: Dispatch<SetStateAction<PersonalGoal[]>>
 }
 
-export const PersonalGoalsCard = ({ id, text, check, repeat, status }: PersonalGoalsCardProps) => {
+export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonalGoals }: PersonalGoalsCardProps) => {
   const { data } = useSession()
-  const router = useRouter()
+  console.log('status and text', status, text)
   const userId = data?.user?.id
   if (!userId) {
     return null
   }
   const handleClick = async () => {
     await updatePersonalGoal({ id, userId, check })
-    router.refresh()
+    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
   }
 
   const resetClick = async () => {
     await resetPersonalGoal({ id, userId })
-    router.refresh()
+    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
   }
 
   const deleteClick = async () => {
     await deletePersonalGoal({ id, userId })
-    router.refresh()
+    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
   }
 
   return (

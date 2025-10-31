@@ -3,13 +3,13 @@ import axios from 'axios'
 
 import { APIUrl } from '@/requests/config'
 
-interface PersonalGoal {
+export interface PersonalGoal {
   userId: string
   id: string
   text: string
   check: number
   repeat: number
-  status: 'pending' | 'completed'
+  status: 'pending' | 'completed' | 'in progress'
 }
 
 export async function fetchPersonalGoals(userId: string): Promise<PersonalGoal[]> {
