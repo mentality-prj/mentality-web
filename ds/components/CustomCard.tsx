@@ -37,15 +37,19 @@ export const CustomCard: React.FC<PracticeCardProps> = (props) => {
   const { className, disabled } = props
 
   if (variant === 'smallWithChildren') {
-    const { title, icon, children } = props as SmallWithChildrenVariantProps
+    const { title, icon, description, children } = props as SmallWithChildrenVariantProps
     return (
       <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
-        <div className="flex gap-2">
-          {icon && <div>{icon}</div>}
-          <div className="text-base font-medium text-textcolor-primary">{title}</div>
-        </div>
-
-        {children && <div className="">{children}</div>}
+        <CardContent className="flex h-full flex-col gap-3 p-0">
+          <CardTitle className="flex flex-row gap-2 text-base font-medium text-textcolor-primary">
+            {icon && <div>{icon}</div>}
+            {title}
+          </CardTitle>
+          <CardDescription className="grow text-base font-normal text-textcolor-secondary">
+            {description}
+          </CardDescription>
+          {children && <div className="">{children}</div>}
+        </CardContent>
       </Card>
     )
   }

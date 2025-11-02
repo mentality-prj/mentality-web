@@ -4,6 +4,9 @@
       "placeholder": "Szukaj..."
     }
   },
+  "TextareaWithLabel": {
+    "placeholder": "Wprowadź wpis..."
+  },
   "HomePage": {
     "ExercisesForRecovery": {
       "title": "Ćwiczenia na regenerację",
@@ -59,7 +62,28 @@
   "MyNotesPage": {
     "title": "Moje notatki",
     "subtitle": "Jak się dziś czujesz?",
-    "recommendationTitle": "Wskazówki dotyczące dobrostanu"
+    "recommendationTitle": "Wskazówki dotyczące dobrostanu",
+    "MySpaceTitle": "Moja przestrzeń",
+    "MySpaceCards": {
+      "card1": { "title": "Zapisz swoje myśli", "desc": "Prowadź dziennik swoich myśli i emocji." },
+      "card2": { "title": "Testy psychologiczne", "desc": "Oceń swój stan emocjonalny." },
+      "card3": { "title": "Afirmacje i porady", "desc": "Inspiruj się pozytywnymi myślami." },
+      "card4": { "title": "Zapisane", "desc": "Twoje zapisane afirmacje i porady." }
+    },
+    "MySpaceButton": "Przejdź",
+    "Exercises": "Ćwiczenia i porady na regenerację",
+    "ExercisesCards": {
+      "card1": { "title": "Medytacja", "desc": "Uspokój umysł i odzyskaj równowagę w kilka minut." },
+      "card2": {
+        "title": "Ćwiczenia oddechowe",
+        "desc": "Wypróbuj techniki na redukcję stresu i poprawę koncentracji."
+      },
+      "card3": {
+        "title": "Uspokój mnie teraz",
+        "desc": "Szybkie porady, które pomogą poradzić sobie z lękiem tu i teraz."
+      }
+    },
+    "ExerciseButton": "Więcej szczegółów"
   },
   "MyThougtsPage": {
     "title": "Moje myśli",

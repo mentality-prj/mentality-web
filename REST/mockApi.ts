@@ -1,7 +1,6 @@
 import { Achievements, LocalizedText } from '@/types/achievements'
 import { Affirmation } from '@/types/affirmation'
 import { BestDay, Mood } from '@/types/bestDay'
-import { CardMyNotes } from '@/types/cardMyNotes'
 import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
 import { Exercise } from '@/types/exercisesForRecovery'
@@ -305,40 +304,6 @@ export const mockExercisesRecoveryData = async (): Promise<Exercise[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(exercises)
-    }, 500)
-  })
-}
-
-export const mockCardMyNotes = async (): Promise<CardMyNotes[]> => {
-  const cardMyNotes: CardMyNotes[] = [
-    {
-      title: 'Записати думки',
-      description: 'Введи щоденник своїх думок та емоцій',
-      icon: 'hand-that-writes',
-      link: 'my-thoughts',
-    },
-    {
-      title: 'Психологічні тести',
-      description: 'Оціни свій емоційний стан',
-      icon: 'puzzle',
-      link: 'tests',
-    },
-    {
-      title: 'Афірмації та поради',
-      description: 'Надихайся позитивними думками',
-      icon: 'star-motion',
-      link: 'affirmations',
-    },
-    {
-      title: 'Збережене',
-      description: 'Твої збережені афірмації та поради',
-      icon: 'star',
-      link: 'saved',
-    },
-  ]
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(cardMyNotes)
     }, 500)
   })
 }

@@ -4,7 +4,6 @@ export type BaseCardProps = {
   icon?: ReactNode
   disabled?: boolean
   className?: string
-  children?: ReactNode
   title?: string
 }
 
@@ -15,8 +14,8 @@ export type DefaultVariantProps = {
 
 export type SmallWithChildrenVariantProps = {
   variant: 'smallWithChildren'
-  href?: string
-  button?: ReactNode
+  description?: string
+  children?: ReactNode
 } & BaseCardProps
 
 export type SmallVariantProps = {

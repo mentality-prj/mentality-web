@@ -9,7 +9,7 @@ type SectionCardProps = {
 
 export const SectionCard = ({ title, subtitle, children, className }: SectionCardProps) => {
   return (
-    <div className={cn('h-full rounded-default bg-surface-white p-6', className)}>
+    <div className={cn('h-full rounded-default bg-surface-white p-8', className)}>
       {(title || subtitle) && (
         <div className="mb-6 flex flex-col gap-2">
           {title && <div className="text-2xl font-semibold">{title}</div>}
