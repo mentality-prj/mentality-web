@@ -1,7 +1,6 @@
 import { Achievements, LocalizedText } from '@/types/achievements'
 import { Affirmation } from '@/types/affirmation'
 import { BestDay, Mood } from '@/types/bestDay'
-import { CardRecommendation } from '@/types/cardRecommendation'
 import { CartItemProps } from '@/types/cart'
 import { Exercise } from '@/types/exercisesForRecovery'
 import { ShopItemProps } from '@/types/shop'
@@ -304,31 +303,6 @@ export const mockExercisesRecoveryData = async (): Promise<Exercise[]> => {
   return new Promise((resolve) => {
     setTimeout(() => {
       resolve(exercises)
-    }, 500)
-  })
-}
-
-export const mockCardRecommendation = async (): Promise<CardRecommendation[]> => {
-  const cardRecommendation: CardRecommendation[] = [
-    {
-      tag: 'Практика',
-      title: 'Щоденне ведення журналу',
-      description: 'Записуйте свої думки щодня для кращого розуміння емоцій',
-    },
-    {
-      tag: 'Практика',
-      title: 'Регулярні тести',
-      description: 'Проходьте психологічні тести для відстеження прогресу',
-    },
-    {
-      tag: 'Практика',
-      title: 'Позитивні афірмації',
-      description: 'Читайте щоденні афірмації для підтримки позитивного настрою',
-    },
-  ]
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(cardRecommendation)
     }, 500)
   })
 }

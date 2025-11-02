@@ -59,7 +59,6 @@
   "MyNotesPage": {
     "title": "My notes",
     "subtitle": "How are you feeling today?",
-    "recommendationTitle": "Well-being tips",
     "MySpaceTitle": "My space",
     "MySpaceCards": {
       "card1": { "title": "Write down your thoughts", "desc": "Keep a journal of your thoughts and emotions." },
@@ -68,7 +67,7 @@
       "card4": { "title": "Saved", "desc": "Your saved affirmations and tips." }
     },
     "MySpaceButton": "Go to",
-    "Exercises": "Exercises and tips for recovery",
+    "ExercisesTitle": "Exercises and tips for recovery",
     "ExercisesCards": {
       "card1": { "title": "Meditation", "desc": "Calm your mind and restore balance in a few minutes." },
       "card2": { "title": "Breathing exercises", "desc": "Try techniques to reduce stress and improve concentration." },

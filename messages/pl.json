@@ -62,7 +62,6 @@
   "MyNotesPage": {
     "title": "Moje notatki",
     "subtitle": "Jak się dziś czujesz?",
-    "recommendationTitle": "Wskazówki dotyczące dobrostanu",
     "MySpaceTitle": "Moja przestrzeń",
     "MySpaceCards": {
       "card1": { "title": "Zapisz swoje myśli", "desc": "Prowadź dziennik swoich myśli i emocji." },
@@ -71,7 +70,7 @@
       "card4": { "title": "Zapisane", "desc": "Twoje zapisane afirmacje i porady." }
     },
     "MySpaceButton": "Przejdź",
-    "Exercises": "Ćwiczenia i porady na regenerację",
+    "ExercisesTitle": "Ćwiczenia i porady na regenerację",
     "ExercisesCards": {
       "card1": { "title": "Medytacja", "desc": "Uspokój umysł i odzyskaj równowagę w kilka minut." },
       "card2": {
