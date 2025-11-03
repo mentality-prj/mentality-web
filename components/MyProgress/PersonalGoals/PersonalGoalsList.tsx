@@ -8,7 +8,7 @@ import { Filter } from './PersonalGoalsFilter'
 
 export const PersonalGoalsList = ({ filter }: { filter: Filter }) => {
   const { data: session } = useSession()
-  console.log('session', session)
+
   const userId = session?.user?.id
 
   const [personalGoals, setPersonalGoals] = useState<PersonalGoal[]>([])

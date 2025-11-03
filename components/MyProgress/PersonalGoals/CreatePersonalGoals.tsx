@@ -11,6 +11,7 @@ import { Textarea } from '@/ds/shadcn/textarea'
 import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
 import { useRouter } from '@/i18n/navigation'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export const CreatePersonalGoals = ({
@@ -18,10 +19,15 @@ export const CreatePersonalGoals = ({
 }: {
   setPersonalGoals: Dispatch<SetStateAction<PersonalGoal[]>>
 }) => {
-  const router = useRouter()
   const [text, setText] = useState('')
   const [quantity, setQuantity] = useState(1)
   const { data } = useSession()
+  const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
+  const defaultTextSuggestions = [
+    t('DefaultTextSuggestions.SleepBetter'),
+    t('DefaultTextSuggestions.DayWithoutMedia'),
+    t('DefaultTextSuggestions.CoffeeLimit'),
+  ]
 
   if (!data?.user?.id) {
     return null
@@ -39,15 +45,15 @@ export const CreatePersonalGoals = ({
         <div className="text-primary group-hover:text-primary-hover">
           <AddIcon />
         </div>
-        <span className="rounded-sm bg-secondary-hover px-3 py-2 font-semibold text-primary group-hover:bg-secondary-pressed group-hover:text-primary-hover">
-          Створити нову ціль
+        <span className="whitespace-nowrap rounded-sm bg-secondary-hover px-3 py-2 font-semibold text-primary group-hover:bg-secondary-pressed group-hover:text-primary-hover">
+          {t('Text')}
         </span>
       </DialogTrigger>
       <DialogContent className="max-w-[680px]">
-        <DialogTitle>Сформулюй свою ціль</DialogTitle>
+        <DialogTitle>{t('Title')}</DialogTitle>
         <DialogDescription>
           <div>
-            <div className="mb-2">Ми пропонуємо:</div>
+            <div className="mb-2">{t('WeOffer')}</div>
             <div>
               <ToggleGroup className="flex flex-wrap justify-start gap-2" type="single">
                 <ToggleGroupItem className="bg-[#F6F5FF] px-3 py-1" value="a">
@@ -59,10 +65,10 @@ export const CreatePersonalGoals = ({
             </div>
             <div className="my-5">
               <Textarea value={text} onChange={(e) => setText(e.target.value)} maxLength={60} />
-              <p className="text-xs font-normal text-textcolor-tertiary">Максимум 60 символів</p>
+              <p className="text-xs font-normal text-textcolor-tertiary">{t('TextareaDescription')}</p>
             </div>
             <div className="">
-              <div className="">Зазнач кількість повторень для реалізаії цілі (опціонально)</div>
+              <div className="">{t('QuantityOfRepeat')}</div>
               <div className="mt-2 flex items-center gap-2">
                 <Button disabled={quantity <= 1} onClick={() => setQuantity(quantity - 1)} variant="iconButton">
                   <MinusSquareIcon />
@@ -74,12 +80,12 @@ export const CreatePersonalGoals = ({
               </div>
               <div className="mt-5 flex gap-4">
                 <DialogClose asChild>
-                  <Button variant="secondary" className="w-full">
-                    Скасувати
+                  <Button onClick={closeDialog} variant="secondary" className="w-full">
+                    {t('Buttons.Cancel')}
                   </Button>
                 </DialogClose>
                 <Button onClick={createPersonalGoalClick} variant="default" className="w-full">
-                  Створити
+                  {t('Buttons.Create')}
                 </Button>
               </div>
             </div>

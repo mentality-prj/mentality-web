@@ -1,4 +1,5 @@
 import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
+import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
 
 export type Filter = 'all' | 'pending' | 'completed'
@@ -8,12 +9,13 @@ interface PersonalGoalsFilterProps {
 }
 
 export const PersonalGoalsFilter = ({ filter, setFilter }: PersonalGoalsFilterProps) => {
+  const t = useTranslations('components.PersonalGoals.Filter')
   return (
     <Tabs value={filter} onValueChange={(value) => setFilter(value as Filter)}>
       <TabsList className="gap-3">
-        <TabsTrigger value="completed">Виконані</TabsTrigger>
-        <TabsTrigger value="pending">Активні</TabsTrigger>
-        <TabsTrigger value="all">Всі</TabsTrigger>
+        <TabsTrigger value="completed">{t('Completed')}</TabsTrigger>
+        <TabsTrigger value="pending">{t('Active')}</TabsTrigger>
+        <TabsTrigger value="all">{t('All')}</TabsTrigger>
       </TabsList>
     </Tabs>
   )
