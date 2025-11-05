@@ -303,6 +303,22 @@
           "Create": "Create",
           "Cancel": "Cancel"
         }
+      },
+      "PersonalGoalsCard": {
+        "Progress": "Progress",
+        "GoalAchieved": "Wow! Goal achieved, keep it up!",
+        "Mark": "Mark",
+        "Dialog": {
+          "DeleteTitle": "Delete goal?",
+          "ResetTitle": "Reset goal?",
+          "DeleteText": "This goal will be permanently deleted.",
+          "ResetText": "The goal’s progress will be reset to 0.",
+          "Buttons": {
+            "Delete": "Delete",
+            "Reset": "Reset",
+            "Cancel": "Cancel"
+          }
+        }
       }
     }
   }

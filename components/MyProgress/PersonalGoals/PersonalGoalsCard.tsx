@@ -17,6 +17,7 @@ import { Progress } from '@/ds/shadcn/progress'
 import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction, useState } from 'react'
 
 export interface PersonalGoalsCardProps {
@@ -31,6 +32,7 @@ export interface PersonalGoalsCardProps {
 export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonalGoals }: PersonalGoalsCardProps) => {
   const { data } = useSession()
   const [dialogAction, setDialogAction] = useState<'reset' | 'delete' | null>(null)
+  const t = useTranslations('components.PersonalGoals.PersonalGoalsCard')
 
   const userId = data?.user?.id
   if (!userId) {
@@ -84,7 +86,7 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
           <div className="">
             <Progress value={(check / repeat) * 100} className="h-[6px] bg-surface-secondary" />
             <div className="mt-2 flex justify-between text-xs/[14px] font-normal text-textcolor-tertiary">
-              <div>Прогрес</div>
+              <div>{t('Progress')}</div>
               <div>
                 {check}/{repeat}
               </div>
@@ -93,10 +95,10 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
           {status === 'completed' ? (
             <div className="flex items-center justify-center gap-3 rounded-md border border-primary bg-surface-white px-3 py-4 text-xs/[14px]">
               <StarMotionEmoji />
-              <p>Вау! Ціль досягнута, так тримати!</p>
+              <p>{t('GoalAchieved')}</p>
             </div>
           ) : (
-            <Button onClick={handleClick}>Відмітити</Button>
+            <Button onClick={handleClick}>{t('Mark')}</Button>
           )}
         </div>
       </div>
@@ -104,22 +106,18 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
       <Dialog open={!!dialogAction} onOpenChange={() => setDialogAction(null)}>
         <DialogContent className="max-w-fit">
           <DialogHeader>
-            <DialogTitle>{dialogAction === 'delete' ? 'Видалити ціль?' : 'Оновити ціль ?'}</DialogTitle>
+            <DialogTitle>{dialogAction === 'delete' ? t('Dialog.DeleteTitle') : t('Dialog.ResetTitle')}</DialogTitle>
           </DialogHeader>
-          <div className="">
-            {dialogAction === 'delete'
-              ? 'Цю ціль буде остаточно видалено.'
-              : 'Виконаний прогрес цілі буде скинуто до 0'}
-          </div>
+          <div className="">{dialogAction === 'delete' ? t('Dialog.DeleteText') : t('Dialog.ResetText')}</div>
           <DialogFooter className="flex w-full gap-4">
             <DialogClose asChild>
               <Button className="w-full" variant="secondary">
-                Скасувати
+                {t('Dialog.Buttons.Cancel')}
               </Button>
             </DialogClose>
             {/* TODO: replace the button with variant="destructive" */}
             <Button onClick={dialogAction === 'reset' ? () => resetClick() : () => deleteClick()} className="w-full">
-              {dialogAction === 'reset' ? 'Оновити' : 'Видалити'}
+              {dialogAction === 'reset' ? t('Dialog.Buttons.Reset') : t('Dialog.Buttons.Delete')}
             </Button>
           </DialogFooter>
         </DialogContent>

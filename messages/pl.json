@@ -306,6 +306,22 @@
           "Create": "Utwórz",
           "Cancel": "Anuluj"
         }
+      },
+      "PersonalGoalsCard": {
+        "Progress": "Postęp",
+        "GoalAchieved": "Wow! Cel osiągnięty, tak trzymaj!",
+        "Mark": "Oznacz",
+        "Dialog": {
+          "DeleteTitle": "Usunąć cel?",
+          "ResetTitle": "Zresetować cel?",
+          "DeleteText": "Ten cel zostanie trwale usunięty.",
+          "ResetText": "Postęp celu zostanie zresetowany do 0.",
+          "Buttons": {
+            "Delete": "Usuń",
+            "Reset": "Zresetuj",
+            "Cancel": "Anuluj"
+          }
+        }
       }
     }
   }
