@@ -8,8 +8,7 @@ import { MinusSquareIcon } from '@/ds/icons/minus-square'
 import { Button } from '@/ds/shadcn/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/ds/shadcn/dialog'
 import { Textarea } from '@/ds/shadcn/textarea'
-import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
-import { useRouter } from '@/i18n/navigation'
+import { ToggleGroup } from '@/ds/shadcn/toggle-group'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction, useState } from 'react'
@@ -21,6 +20,7 @@ export const CreatePersonalGoals = ({
 }) => {
   const [text, setText] = useState('')
   const [quantity, setQuantity] = useState(1)
+  const [open, setOpen] = useState(false)
   const { data } = useSession()
   const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
   const defaultTextSuggestions = [
@@ -39,9 +39,15 @@ export const CreatePersonalGoals = ({
     closeDialog()
     await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
   }
+
+  const closeDialog = () => {
+    setText('')
+    setQuantity(1)
+    setOpen(false)
+  }
   return (
-    <Dialog>
-      <DialogTrigger className="group flex aspect-[11/8] flex-col items-center justify-center gap-[14px] rounded-md border border-outline-secondary p-2 hover:cursor-pointer hover:border-2 hover:border-primary-hover">
+    <Dialog open={open} onOpenChange={setOpen}>
+      <DialogTrigger className="group flex aspect-[11/8] flex-col items-center justify-center gap-[14px] rounded-md border border-outline-secondary p-2 px-9 py-20 hover:cursor-pointer hover:border-2 hover:border-primary-hover">
         <div className="text-primary group-hover:text-primary-hover">
           <AddIcon />
         </div>
