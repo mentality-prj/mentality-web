@@ -29,7 +29,7 @@ export interface PersonalGoalsCardProps {
 
 export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonalGoals }: PersonalGoalsCardProps) => {
   const { data } = useSession()
-  console.log('status and text', status, text)
+
   const userId = data?.user?.id
   if (!userId) {
     return null

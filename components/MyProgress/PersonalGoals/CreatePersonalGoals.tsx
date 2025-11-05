@@ -55,12 +55,14 @@ export const CreatePersonalGoals = ({
           <div>
             <div className="mb-2">{t('WeOffer')}</div>
             <div>
-              <ToggleGroup className="flex flex-wrap justify-start gap-2" type="single">
-                <ToggleGroupItem className="bg-[#F6F5FF] px-3 py-1" value="a">
-                  Лягати спати до 22:00 впродовж тижня
-                </ToggleGroupItem>
-                <ToggleGroupItem value="b">Провести день без соцмереж</ToggleGroupItem>
-                <ToggleGroupItem value="c">Пити не більше однієї чашки кави на день</ToggleGroupItem>
+              <ToggleGroup
+                onValueChange={(value) => setText(value)}
+                className="flex flex-wrap justify-start gap-2"
+                type="single"
+              >
+                {defaultTextSuggestions.map((suggestion) => (
+                  <Tag key={suggestion} text={suggestion} value={suggestion} />
+                ))}
               </ToggleGroup>
             </div>
             <div className="my-5">

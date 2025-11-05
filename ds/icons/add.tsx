@@ -3,8 +3,8 @@ export const AddIcon = () => (
     <path
       d="M28.75 14.7501L14.75 14.7501M14.75 14.7501L0.75 14.7501M14.75 14.7501L14.75 0.75M14.75 14.7501L14.75 28.75"
       stroke="currentColor"
-      stroke-width="1.5"
-      stroke-linecap="round"
+      strokeWidth="1.5"
+      strokeLinecap="round"
     />
   </svg>
 )
