@@ -1,5 +1,9 @@
 'use client'
 
+import { Dispatch, SetStateAction, useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
+
 import {
   deletePersonalGoal,
   fetchPersonalGoals,
@@ -14,11 +18,7 @@ import { TrashIcon } from '@/ds/icons/trash'
 import { Button } from '@/ds/shadcn/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/ds/shadcn/dialog'
 import { Progress } from '@/ds/shadcn/progress'
-import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
-import { useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
-import { Dispatch, SetStateAction, useState } from 'react'
 
 export interface PersonalGoalsCardProps {
   id: string

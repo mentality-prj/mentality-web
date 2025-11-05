@@ -1,10 +1,11 @@
 'use client'
+import { useState } from 'react'
+
 import { SectionCard } from '@/components/ui/SectionCard'
 
-import { PersonalGoalsTitle } from './PersonalGoalsTitle'
 import { PersonalGoalsFilter } from './PersonalGoalsFilter'
 import { PersonalGoalsList } from './PersonalGoalsList'
-import { useState } from 'react'
+import { PersonalGoalsTitle } from './PersonalGoalsTitle'
 
 export const PersonalGoals = () => {
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all')

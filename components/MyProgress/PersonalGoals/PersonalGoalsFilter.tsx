@@ -1,6 +1,7 @@
-import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
-import { useTranslations } from 'next-intl'
 import { Dispatch, SetStateAction } from 'react'
+import { useTranslations } from 'next-intl'
+
+import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 
 export type Filter = 'all' | 'pending' | 'completed'
 interface PersonalGoalsFilterProps {

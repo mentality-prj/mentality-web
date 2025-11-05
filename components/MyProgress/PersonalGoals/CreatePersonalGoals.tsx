@@ -1,5 +1,9 @@
 'use client'
 
+import { Dispatch, SetStateAction, useState } from 'react'
+import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
+
 import { createPersonalGoal, fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
 import { Tag } from '@/components/ui/Tag'
 import { AddIcon } from '@/ds/icons/add'
@@ -9,9 +13,6 @@ import { Button } from '@/ds/shadcn/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/ds/shadcn/dialog'
 import { Textarea } from '@/ds/shadcn/textarea'
 import { ToggleGroup } from '@/ds/shadcn/toggle-group'
-import { useSession } from 'next-auth/react'
-import { useTranslations } from 'next-intl'
-import { Dispatch, SetStateAction, useState } from 'react'
 
 export const CreatePersonalGoals = ({
   setPersonalGoals,

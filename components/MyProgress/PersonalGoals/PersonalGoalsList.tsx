@@ -1,9 +1,11 @@
 'use client'
-import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
+import { useSession } from 'next-auth/react'
+
+import { fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
+
 import { CreatePersonalGoals } from './CreatePersonalGoals'
 import { PersonalGoalsCard } from './PersonalGoalsCard'
-import { fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
 import { Filter } from './PersonalGoalsFilter'
 
 export const PersonalGoalsList = ({ filter }: { filter: Filter }) => {
