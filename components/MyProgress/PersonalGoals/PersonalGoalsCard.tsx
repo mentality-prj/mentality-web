@@ -12,11 +12,12 @@ import { ThoughtBalloonIcon } from '@/ds/icons/emotion/thought-balloon'
 import { RestartIcon } from '@/ds/icons/restart'
 import { TrashIcon } from '@/ds/icons/trash'
 import { Button } from '@/ds/shadcn/button'
+import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/ds/shadcn/dialog'
 import { Progress } from '@/ds/shadcn/progress'
 import { useRouter } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 import { useSession } from 'next-auth/react'
-import { Dispatch, SetStateAction } from 'react'
+import { Dispatch, SetStateAction, useState } from 'react'
 
 export interface PersonalGoalsCardProps {
   id: string
@@ -29,6 +30,7 @@ export interface PersonalGoalsCardProps {
 
 export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonalGoals }: PersonalGoalsCardProps) => {
   const { data } = useSession()
+  const [dialogAction, setDialogAction] = useState<'reset' | 'delete' | null>(null)
 
   const userId = data?.user?.id
   if (!userId) {
@@ -42,58 +44,86 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
   const resetClick = async () => {
     await resetPersonalGoal({ id, userId })
     await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    setDialogAction(null)
   }
 
   const deleteClick = async () => {
     await deletePersonalGoal({ id, userId })
     await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    setDialogAction(null)
   }
 
   return (
-    <div
-      className={cn(
-        'flex aspect-[11/8] flex-col justify-between gap-7 rounded-md border border-outline-secondary p-6',
-        status === 'completed' && 'border-primary bg-surface-action'
-      )}
-    >
-      <div className="flex items-start gap-2">
-        <div className="">
-          <ThoughtBalloonIcon />
+    <>
+      <div
+        className={cn(
+          'flex aspect-[11/8] flex-col justify-between gap-7 rounded-md border border-outline-secondary p-6',
+          status === 'completed' && 'border-primary bg-surface-action'
+        )}
+      >
+        <div className="flex items-start gap-2">
+          <div className="">
+            <ThoughtBalloonIcon />
+          </div>
+          <div
+            className={cn(
+              'mx-auto text-base font-medium text-textcolor-primary',
+              status === 'completed' && 'text-primary'
+            )}
+          >
+            {text}
+          </div>
+          <Button onClick={() => setDialogAction('reset')} variant="iconButton">
+            <RestartIcon />
+          </Button>
+          <Button onClick={() => setDialogAction('delete')} variant="iconButton">
+            <TrashIcon />
+          </Button>
         </div>
-        <div
-          className={cn(
-            'mx-auto text-base font-medium text-textcolor-primary',
-            status === 'completed' && 'text-primary'
-          )}
-        >
-          {text}
-        </div>
-        <Button onClick={resetClick} variant="iconButton">
-          <RestartIcon />
-        </Button>
-        <Button onClick={deleteClick} variant="iconButton">
-          <TrashIcon />
-        </Button>
-      </div>
-      <div className="flex flex-col gap-4">
-        <div className="">
-          <Progress value={(check / repeat) * 100} className="h-[6px] bg-surface-secondary" />
-          <div className="mt-2 flex justify-between text-xs/[14px] font-normal text-textcolor-tertiary">
-            <div>Прогрес</div>
-            <div>
-              {check}/{repeat}
+        <div className="flex flex-col gap-4">
+          <div className="">
+            <Progress value={(check / repeat) * 100} className="h-[6px] bg-surface-secondary" />
+            <div className="mt-2 flex justify-between text-xs/[14px] font-normal text-textcolor-tertiary">
+              <div>Прогрес</div>
+              <div>
+                {check}/{repeat}
+              </div>
             </div>
           </div>
+          {status === 'completed' ? (
+            <div className="flex items-center justify-center gap-3 rounded-md border border-primary bg-surface-white px-3 py-4 text-xs/[14px]">
+              <StarMotionEmoji />
+              <p>Вау! Ціль досягнута, так тримати!</p>
+            </div>
+          ) : (
+            <Button onClick={handleClick}>Відмітити</Button>
+          )}
         </div>
-        {status === 'completed' ? (
-          <div className="flex items-center justify-center gap-3 rounded-md border border-primary bg-surface-white px-3 py-4 text-xs/[14px]">
-            <StarMotionEmoji />
-            <p>Вау! Ціль досягнута, так тримати!</p>
-          </div>
-        ) : (
-          <Button onClick={handleClick}>Відмітити</Button>
-        )}
       </div>
-    </div>
+
+      <Dialog open={!!dialogAction} onOpenChange={() => setDialogAction(null)}>
+        <DialogContent className="max-w-fit">
+          <DialogHeader>
+            <DialogTitle>{dialogAction === 'delete' ? 'Видалити ціль?' : 'Оновити ціль ?'}</DialogTitle>
+          </DialogHeader>
+          <div className="">
+            {dialogAction === 'delete'
+              ? 'Цю ціль буде остаточно видалено.'
+              : 'Виконаний прогрес цілі буде скинуто до 0'}
+          </div>
+          <DialogFooter className="flex w-full gap-4">
+            <DialogClose asChild>
+              <Button className="w-full" variant="secondary">
+                Скасувати
+              </Button>
+            </DialogClose>
+            {/* TODO: replace the button with variant="destructive" */}
+            <Button onClick={dialogAction === 'reset' ? () => resetClick() : () => deleteClick()} className="w-full">
+              {dialogAction === 'reset' ? 'Оновити' : 'Видалити'}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </>
   )
 }
