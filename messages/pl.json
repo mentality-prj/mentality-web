@@ -282,6 +282,47 @@
     },
     "TodayObservations": {
       "title": "Dzisiejsze obserwacje"
+    },
+    "PersonalGoals": {
+      "Title": "Cele osobiste",
+      "Subtitle": "Ważne kroki w kierunku wewnętrznej równowagi",
+      "Filter": {
+        "All": "Wszystkie",
+        "Active": "Aktywne",
+        "Completed": "Ukończone"
+      },
+      "CreatePersonalGoals": {
+        "DefaultTextSuggestions": {
+          "SleepBetter": "Kłaść się spać przed 22:00 przez tydzień",
+          "DayWithoutMedia": "Spędzić dzień bez mediów społecznościowych",
+          "CoffeeLimit": "Pić nie więcej niż jedną filiżankę kawy dziennie"
+        },
+        "Title": "Sformułuj swój cel",
+        "Text": "Utwórz nowy cel",
+        "WeOffer": "Proponujemy:",
+        "TextareaDescription": "Maksymalnie 60 znaków",
+        "QuantityOfRepeat": "Podaj liczbę powtórzeń, aby osiągnąć cel (opcjonalnie)",
+        "Buttons": {
+          "Create": "Utwórz",
+          "Cancel": "Anuluj"
+        }
+      },
+      "PersonalGoalsCard": {
+        "Progress": "Postęp",
+        "GoalAchieved": "Wow! Cel osiągnięty, tak trzymaj!",
+        "Mark": "Oznacz",
+        "Dialog": {
+          "DeleteTitle": "Usunąć cel?",
+          "ResetTitle": "Zresetować cel?",
+          "DeleteText": "Ten cel zostanie trwale usunięty.",
+          "ResetText": "Postęp celu zostanie zresetowany do 0.",
+          "Buttons": {
+            "Delete": "Usuń",
+            "Reset": "Zresetuj",
+            "Cancel": "Anuluj"
+          }
+        }
+      }
     }
   }
 }

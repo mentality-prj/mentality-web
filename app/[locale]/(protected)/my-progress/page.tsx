@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 import { Achievements } from '@/components/Achievements'
 import { Activity } from '@/components/MyProgress/Activity'
 import { ChartDynamics } from '@/components/MyProgress/ChartDynamics'
+import { PersonalGoals } from '@/components/MyProgress/PersonalGoals'
 import { TodayObservations } from '@/components/MyProgress/TodayObservations'
 import { PageTitle } from '@/components/ui/PageTitle'
 
@@ -17,7 +18,7 @@ export default function MyProgress() {
         <TodayObservations />
       </div>
       <ChartDynamics />
-
+      <PersonalGoals />
       <Achievements />
     </div>
   )

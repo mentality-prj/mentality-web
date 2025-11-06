@@ -279,6 +279,47 @@
     },
     "TodayObservations": {
       "title": "Today's Observations"
+    },
+    "PersonalGoals": {
+      "Title": "Personal Goals",
+      "Subtitle": "Important steps toward inner balance",
+      "Filter": {
+        "All": "All",
+        "Active": "Active",
+        "Completed": "Completed"
+      },
+      "CreatePersonalGoals": {
+        "DefaultTextSuggestions": {
+          "SleepBetter": "Go to bed before 10 PM for a week",
+          "DayWithoutMedia": "Spend a day without social media",
+          "CoffeeLimit": "Drink no more than one cup of coffee per day"
+        },
+        "Title": "Set your goal",
+        "Text": "Create a new goal",
+        "WeOffer": "We suggest:",
+        "TextareaDescription": "Maximum 60 characters",
+        "QuantityOfRepeat": "Specify the number of repetitions to achieve the goal (optional)",
+        "Buttons": {
+          "Create": "Create",
+          "Cancel": "Cancel"
+        }
+      },
+      "PersonalGoalsCard": {
+        "Progress": "Progress",
+        "GoalAchieved": "Wow! Goal achieved, keep it up!",
+        "Mark": "Mark",
+        "Dialog": {
+          "DeleteTitle": "Delete goal?",
+          "ResetTitle": "Reset goal?",
+          "DeleteText": "This goal will be permanently deleted.",
+          "ResetText": "The goal’s progress will be reset to 0.",
+          "Buttons": {
+            "Delete": "Delete",
+            "Reset": "Reset",
+            "Cancel": "Cancel"
+          }
+        }
+      }
     }
   }
 }

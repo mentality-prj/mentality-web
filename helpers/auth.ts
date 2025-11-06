@@ -52,6 +52,7 @@ export async function validateToken(session: CustomSession, OAuthToken: string, 
 
       // debt: Add user data from Java server to the session
       if (data) {
+        session.user.id = data._id
         session.user.name = data.name
         session.user.email = data.email
         session.user.role = data.role

@@ -279,6 +279,47 @@
     },
     "TodayObservations": {
       "title": "Cьогоднішні спостереження"
+    },
+    "PersonalGoals": {
+      "Title": "Власні цілі",
+      "Subtitle": "Важливі кроки, що наближають до внутрішнього балансу",
+      "Filter": {
+        "All": "Всі",
+        "Active": "Активні",
+        "Completed": "Виконані"
+      },
+      "CreatePersonalGoals": {
+        "DefaultTextSuggestions": {
+          "SleepBetter": "Лягати спати до 22:00 впродовж тижня",
+          "DayWithoutMedia": "Провести день без соцмереж",
+          "CoffeeLimit": "Пити не більше однієї чашки кави на день"
+        },
+        "Title": "Сформулюй свою ціль",
+        "Text": "Створити нову ціль",
+        "WeOffer": "Ми пропонуємо:",
+        "TextareaDescription": "Максимум 60 символів",
+        "QuantityOfRepeat": "Зазнач кількість повторень для реалізації цілі (опціонально)",
+        "Buttons": {
+          "Create": "Створити",
+          "Cancel": "Скасувати"
+        }
+      },
+      "PersonalGoalsCard": {
+        "Progress": "Прогрес",
+        "GoalAchieved": "Вау! Ціль досягнута, так тримати!",
+        "Mark": "Відмітити",
+        "Dialog": {
+          "DeleteTitle": "Видалити ціль ?",
+          "ResetTitle": "Оновити ціль ?",
+          "DeleteText": "Цю ціль буде остаточно видалено.",
+          "ResetText": "Виконаний прогрес цілі буде скинуто до 0",
+          "Buttons": {
+            "Delete": "Видалити",
+            "Reset": "Оновити",
+            "Cancel": "Скасувати"
+          }
+        }
+      }
     }
   }
 }
