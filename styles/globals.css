@@ -42,6 +42,11 @@ body {
     --secondary-focus: #e9e5ff;
     --secondary-pressed: #d4ccff;
 
+    --destructive: #b91c1c;
+    --destructive-hover: #9b1717;
+    --destructive-focus: #851414;
+    --destructive-pressed: #6f1111;
+
     --text-primary: #17171c;
     --text-secondary: #2d2d39;
     --text-tertiary: #8e8ea4;
