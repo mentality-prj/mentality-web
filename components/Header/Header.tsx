@@ -1,12 +1,13 @@
 'use client'
 
+import { useSession } from 'next-auth/react'
+
 import LangSwitch from '@/components/Buttons/LangSwitch'
 
 import { LocalDate } from './LocalDate'
 import { SearchBar } from './SearchBar'
 import { ThemeToggleButton } from './ThemeToggleButton'
 import { UserMenu } from './UserMenu'
-import { useSession } from 'next-auth/react'
 
 export function Header() {
   const { data } = useSession()
