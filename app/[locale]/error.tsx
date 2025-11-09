@@ -5,10 +5,11 @@ import { useEffect } from 'react'
 import { Routes } from '@/constants/routes'
 import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
+import { logger } from '@/lib/logger'
 
 export default function Error({ error, reset }: { error: Error & { digest?: string }; reset: () => void }) {
   useEffect(() => {
-    console.error(error)
+    logger.error('Route error occurred', error, { digest: error.digest })
   }, [error])
 
   return (

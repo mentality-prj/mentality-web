@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import { useAddCheckoutContext } from '@/context/addCheckoutContext'
 import { Input } from '@/ds/shadcn/input'
 import { Label } from '@/ds/shadcn/label'
+import { notifyError } from '@/lib/user-feedback'
 import { CheckoutFormInputProps } from '@/types/checkout'
 
 interface Address {
@@ -31,6 +32,15 @@ const InputSearchCityForm = ({
     if (value.length >= 1) {
       try {
         const res = await fetch(`/api/searchCities?cityName=${value}&limit=10&page=1`)
+
+        if (!res.ok) {
+          notifyError('Failed to search cities. Please try again.', undefined, {
+            status: res.status,
+          })
+          setResults([])
+          return
+        }
+
         const data = await res.json()
         if (data.success) {
           setResults(data.data[0]?.Addresses || [])
@@ -38,7 +48,10 @@ const InputSearchCityForm = ({
           setResults([])
         }
       } catch (error) {
-        console.log(error)
+        notifyError('Failed to search cities. Please check your connection.', error, {
+          cityName: value,
+        })
+        setResults([])
       }
     }
   }

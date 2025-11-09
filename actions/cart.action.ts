@@ -2,6 +2,7 @@
 
 import { cookies } from 'next/headers'
 
+import { logger } from '@/lib/logger'
 import { mockShopData } from '@/REST/mockApi'
 import { CartItemCookiesProps } from '@/types/cart'
 
@@ -24,9 +25,13 @@ export const getCartProducts = async () => {
 }
 
 export const getCartCookies = async () => {
-  const cart: CartItemCookiesProps[] | [] = JSON.parse(cookies().get('cart')?.value || '[]')
-
-  return cart
+  try {
+    const cart: CartItemCookiesProps[] | [] = JSON.parse(cookies().get('cart')?.value || '[]')
+    return cart
+  } catch (error) {
+    logger.error('Failed to parse cart cookies', error)
+    return []
+  }
 }
 
 export const setCartCookies = async (cartItems: CartItemCookiesProps[]) => {

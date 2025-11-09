@@ -4,6 +4,7 @@ import { CalendarMinimalisticIcon } from '@/ds/icons/calendar-minimalistic'
 import { Badge } from '@/ds/shadcn/badge'
 import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
 import { cn } from '@/lib/utils'
+import { logger } from '@/lib/logger'
 import { PreviousDailyCardProps } from '@/types/dailyCard'
 import { SupportedLanguage } from '@/types/languages'
 
@@ -34,11 +35,15 @@ export const PreviousCard: React.FC<PreviousDailyCardProps> = ({
         <SavedToggle
           saveFunc={() => {
             if (typeof window !== 'undefined') {
-              const savedItems = JSON.parse(localStorage.getItem('savedItems') || '[]')
-              localStorage.setItem(
-                'savedItems',
-                JSON.stringify([...savedItems, { id, createdAt, translations, type, isPublished }])
-              )
+              try {
+                const savedItems = JSON.parse(localStorage.getItem('savedItems') || '[]')
+                localStorage.setItem(
+                  'savedItems',
+                  JSON.stringify([...savedItems, { id, createdAt, translations, type, isPublished }])
+                )
+              } catch (error) {
+                logger.error('Failed to save item to localStorage', error, { id, type })
+              }
             }
           }}
           toastText={t('toastText', { type })}

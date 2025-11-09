@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 
 import { getCartProducts, setCartCookies } from '@/actions/cart.action'
 import { Button } from '@/ds/shadcn/button'
+import { logger } from '@/lib/logger'
 import { CartItemCookiesProps, CartItemProps } from '@/types/cart'
 
 import CartItem from './CartItem'
@@ -15,16 +16,25 @@ export default function CartList() {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
   useEffect(() => {
-    getCartProducts().then((cart) => setCartItems(cart))
+    getCartProducts()
+      .then((cart) => setCartItems(cart))
+      .catch((error) => {
+        logger.error('Failed to load cart products', error)
+      })
   }, [])
 
-  const handleQuantityChange = (updatedItem: CartItemCookiesProps) => {
+  const handleQuantityChange = async (updatedItem: CartItemCookiesProps) => {
     const updatedCartItems = cartItems.map((item) =>
       item.id === updatedItem.id ? { ...item, quantity: updatedItem.quantity } : item
     )
 
     setCartItems(updatedCartItems)
-    setCartCookies(updatedCartItems)
+
+    try {
+      await setCartCookies(updatedCartItems)
+    } catch (error) {
+      logger.error('Failed to update cart cookies', error)
+    }
   }
 
   const t = useTranslations()

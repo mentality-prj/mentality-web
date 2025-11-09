@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 
 import { getCartProducts, setCartCookies } from '@/actions/cart.action'
 import { Button } from '@/ds/shadcn/button'
+import { logger } from '@/lib/logger'
 import { CartItemProps } from '@/types/cart'
 import { ShopItemProps } from '@/types/shop'
 
@@ -12,12 +13,21 @@ const ShopItem = ({ id, name, price, image }: ShopItemProps) => {
   const [cartItems, setCartItems] = useState<CartItemProps[]>([])
 
   useEffect(() => {
-    getCartProducts().then((cart) => setCartItems(cart))
+    getCartProducts()
+      .then((cart) => setCartItems(cart))
+      .catch((error) => {
+        logger.error('Failed to load cart products', error)
+      })
   }, [])
 
-  const addToCart = () => {
-    setCartCookies([{ id, quantity: 1 }])
-    getCartProducts().then((cart) => setCartItems(cart))
+  const addToCart = async () => {
+    try {
+      await setCartCookies([{ id, quantity: 1 }])
+      const cart = await getCartProducts()
+      setCartItems(cart)
+    } catch (error) {
+      logger.error('Failed to add item to cart', error, { itemId: id })
+    }
   }
 
   const isAddedToCart = cartItems.some((item) => item.id === id)

@@ -13,6 +13,7 @@ import { Button } from '@/ds/shadcn/button'
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/ds/shadcn/dialog'
 import { Textarea } from '@/ds/shadcn/textarea'
 import { ToggleGroup } from '@/ds/shadcn/toggle-group'
+import { notifyError } from '@/lib/user-feedback'
 
 export const CreatePersonalGoals = ({
   setPersonalGoals,
@@ -36,9 +37,14 @@ export const CreatePersonalGoals = ({
   const userId = data.user.id
 
   const createPersonalGoalClick = async () => {
-    await createPersonalGoal({ userId, text, repeat: quantity })
-    closeDialog()
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    try {
+      await createPersonalGoal({ userId, text, repeat: quantity })
+      closeDialog()
+      const goals = await fetchPersonalGoals(userId)
+      setPersonalGoals(goals)
+    } catch (error) {
+      notifyError('Failed to create goal. Please try again.', error)
+    }
   }
 
   const closeDialog = () => {

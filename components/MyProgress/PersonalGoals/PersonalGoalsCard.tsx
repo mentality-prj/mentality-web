@@ -19,6 +19,7 @@ import { Button } from '@/ds/shadcn/button'
 import { Dialog, DialogClose, DialogContent, DialogFooter, DialogHeader, DialogTitle } from '@/ds/shadcn/dialog'
 import { Progress } from '@/ds/shadcn/progress'
 import { cn } from '@/lib/utils'
+import { notifyError, notifySuccess } from '@/lib/user-feedback'
 
 export interface PersonalGoalsCardProps {
   id: string
@@ -39,20 +40,38 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
     return null
   }
   const handleClick = async () => {
-    await updatePersonalGoal({ id, userId, check })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    try {
+      await updatePersonalGoal({ id, userId, check })
+      const goals = await fetchPersonalGoals(userId)
+      setPersonalGoals(goals)
+      notifySuccess('Goal updated successfully!')
+    } catch (error) {
+      notifyError('Failed to update goal. Please try again.', error)
+    }
   }
 
   const resetClick = async () => {
-    await resetPersonalGoal({ id, userId })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
-    setDialogAction(null)
+    try {
+      await resetPersonalGoal({ id, userId })
+      const goals = await fetchPersonalGoals(userId)
+      setPersonalGoals(goals)
+      setDialogAction(null)
+      notifySuccess('Goal reset successfully!')
+    } catch (error) {
+      notifyError('Failed to reset goal. Please try again.', error)
+    }
   }
 
   const deleteClick = async () => {
-    await deletePersonalGoal({ id, userId })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
-    setDialogAction(null)
+    try {
+      await deletePersonalGoal({ id, userId })
+      const goals = await fetchPersonalGoals(userId)
+      setPersonalGoals(goals)
+      setDialogAction(null)
+      notifySuccess('Goal deleted successfully!')
+    } catch (error) {
+      notifyError('Failed to delete goal. Please try again.', error)
+    }
   }
 
   return (

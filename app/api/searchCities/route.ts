@@ -6,7 +6,12 @@ export async function GET(request: Request) {
   const limit = url.searchParams.get('limit') || '10'
   const page = url.searchParams.get('page') || '1'
 
-  const apiKey = 'b44340a60a78e994a16e08b98f362a93' // Замість 'ВАШ_КЛЮЧ' використовуйте ваш реальний ключ
+  const apiKey = process.env.NOVA_POSHTA_API_KEY
+
+  if (!apiKey) {
+    return NextResponse.json({ success: false, error: 'API key not configured' }, { status: 500 })
+  }
+
   const apiUrl = `https://api.novaposhta.ua/v2.0/json/AddressGeneral/searchSettlements`
 
   const response = await fetch(apiUrl, {

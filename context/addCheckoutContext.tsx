@@ -2,6 +2,7 @@
 
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
+import { logger } from '@/lib/logger'
 import { NewCheckout, newCheckoutInitialValuesSchema, newCheckoutInitialValuesType } from '@/schema'
 
 const defaultCheckout: newCheckoutInitialValuesType = {
@@ -48,25 +49,39 @@ export const AddCheckoutContextProvider = ({ children }: { children: React.React
   )
 
   const saveDataToLocalStorage = (currentCheckoutData: newCheckoutInitialValuesType) => {
-    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentCheckoutData))
+    if (typeof window !== 'undefined') {
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(currentCheckoutData))
+    }
   }
 
   const readFromLocalStorage = () => {
+    if (typeof window === 'undefined') {
+      return setNewCheckoutData(defaultCheckout)
+    }
+
     const dataString = localStorage.getItem(LOCAL_STORAGE_KEY)
 
     if (!dataString) return setNewCheckoutData(defaultCheckout)
 
-    const validated = newCheckoutInitialValuesSchema.safeParse(JSON.parse(dataString))
+    try {
+      const validated = newCheckoutInitialValuesSchema.safeParse(JSON.parse(dataString))
 
-    if (validated.success) {
-      setNewCheckoutData(validated.data)
-    } else {
+      if (validated.success) {
+        setNewCheckoutData(validated.data)
+      } else {
+        logger.warn('Invalid checkout data in localStorage', { errors: validated.error })
+        setNewCheckoutData(defaultCheckout)
+      }
+    } catch (error) {
+      logger.error('Failed to parse checkout data from localStorage', error)
       setNewCheckoutData(defaultCheckout)
     }
   }
 
   const resetLocalStorage = () => {
-    localStorage.removeItem(LOCAL_STORAGE_KEY)
+    if (typeof window !== 'undefined') {
+      localStorage.removeItem(LOCAL_STORAGE_KEY)
+    }
     setNewCheckoutData(defaultCheckout)
   }
 
