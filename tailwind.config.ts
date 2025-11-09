@@ -24,6 +24,12 @@ const config: Config = {
           focus: 'var(--secondary-focus)',
           pressed: 'var(--secondary-pressed)',
         },
+        destructive: {
+          DEFAULT: 'var(--destructive)',
+          hover: 'var(--destructive-hover)',
+          focus: 'var(--destructive-focus)',
+          pressed: 'var(--destructive-pressed)',
+        },
         textcolor: {
           primary: 'var(--text-primary)',
           secondary: 'var(--text-secondary)',
