@@ -1,6 +1,7 @@
 'use server'
 import axios from 'axios'
 
+import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 
 export interface PersonalGoal {
@@ -28,7 +29,7 @@ export async function updatePersonalGoal({
     })
     return response.data
   } catch (error) {
-    console.error('Failed to update goal:', error)
+    logger.error('Failed to update goal', error, { goalId: id, userId, check })
     throw error
   }
 }
@@ -40,7 +41,7 @@ export async function resetPersonalGoal({ id, userId }: Pick<PersonalGoal, 'id' 
     })
     return response.data
   } catch (error) {
-    console.error('Failed to update goal:', error)
+    logger.error('Failed to reset goal', error, { goalId: id, userId })
     throw error
   }
 }
@@ -49,7 +50,7 @@ export async function deletePersonalGoal({ id, userId }: Pick<PersonalGoal, 'id'
   try {
     await axios.delete<void>(`${APIUrl}/goals/${id}/${userId}`)
   } catch (error) {
-    console.error('Failed to delete goal:', error)
+    logger.error('Failed to delete goal', error, { goalId: id, userId })
     throw error
   }
 }
@@ -63,7 +64,7 @@ export async function createPersonalGoal({ userId, text, repeat }: Pick<Personal
     })
     return response.data
   } catch (error) {
-    console.error('Failed to create goal:', error)
+    logger.error('Failed to create goal', error, { userId, text, repeat })
     throw error
   }
 }

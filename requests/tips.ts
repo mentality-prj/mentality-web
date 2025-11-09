@@ -1,3 +1,5 @@
+import { logger } from '@/lib/logger'
+import { notifyError, notifySuccess, notifyWarning } from '@/lib/user-feedback'
 import { CustomUser } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
 import { Roles } from '@/types/security'
@@ -21,36 +23,37 @@ export async function addTip(user: CustomUser, prompt: string, lang: SupportedLa
       if (!response.ok) {
         const errorData = await response.json()
 
-        // debt: add logger
+        logger.warn('Failed to add tip', { status: response.status, error: errorData, lang })
+
+        let errorMessage = 'Failed to generate tip'
         switch (response.status) {
           case 401:
-            // You are not authorized. Please log in.
+            errorMessage = 'You are not authorized. Please log in.'
             error = { name: 'Unauthorized:', message: errorData.message }
             break
           case 500:
-            // 'An internal server error occurred. Please try again later.'
+            errorMessage = 'An internal server error occurred. Please try again later.'
             error = { name: 'Server Error:', message: errorData.message }
             break
           default:
-            // Unknown Error
+            errorMessage = errorData.message || 'Unknown error occurred'
             error = { name: 'Error:', message: errorData.message }
         }
 
-        if (error) {
-          console.log('addTip error', error)
-        }
+        // Show error to user
+        notifyError(errorMessage, error, { lang, status: response.status })
       } else {
-        console.log(`Tip successfully generated`)
+        // Show success to user + log
+        notifySuccess('Tip successfully generated', { lang })
       }
     } catch (err) {
-      console.log('error', err)
+      // Log error + show to user
+      notifyError('Failed to generate tip. Please try again.', err, { lang })
     }
   }
 }
 
 export const getUnpablishedTips = async (user: CustomUser) => {
-  let error = new Error()
-
   if (user && user.role === Roles.ADMIN) {
     try {
       const response = await fetch(`${APIUrl}/tips/unpublished`, {
@@ -64,31 +67,30 @@ export const getUnpablishedTips = async (user: CustomUser) => {
       if (!response.ok) {
         const errorData = await response.json()
 
-        // debt: add logger
+        logger.warn('Failed to get unpublished tips', { status: response.status, error: errorData })
+
+        let errorMessage = 'Failed to load unpublished tips'
         switch (response.status) {
           case 401:
-            // You are not authorized. Please log in.
-            error = { name: 'Unauthorized:', message: errorData.message }
+            errorMessage = 'You are not authorized. Please log in.'
             break
           case 500:
-            // 'An internal server error occurred. Please try again later.'
-            error = { name: 'Server Error:', message: errorData.message }
+            errorMessage = 'An internal server error occurred. Please try again later.'
             break
           default:
-            // Unknown Error
-            error = { name: 'Error:', message: errorData.message }
+            errorMessage = errorData.message || 'Unknown error occurred'
         }
 
-        if (error) {
-          console.log('addTip error', error)
-        }
+        // Show warning to user (less critical than error)
+        notifyWarning(errorMessage, { status: response.status })
       } else {
         const data = await response.json()
-        console.log('RESPONSE: ', data)
+        logger.debug('Got unpublished tips', { count: data?.length })
         return data
       }
     } catch (err) {
-      console.log('error', err)
+      // Log error + show to user
+      notifyError('Failed to load unpublished tips. Please try again.', err)
     }
   }
 }

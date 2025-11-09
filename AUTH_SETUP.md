@@ -246,11 +246,14 @@ export async function GET() {
   }
 
   // Use backend user ID for requests
-  const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${session.user.id}`, {
-    headers: {
-      Authorization: `Bearer ${session.OAuthToken}`,
-    },
-  })
+  const response = await fetch(
+    `${process.env.NEXT_PUBLIC_API_URL}/users/${session.user.id}`,
+    {
+      headers: {
+        Authorization: `Bearer ${session.OAuthToken}`,
+      },
+    }
+  )
 
   return NextResponse.json(await response.json())
 }
@@ -261,8 +264,10 @@ export async function GET() {
 ### ⚠️ Important notes:
 
 1. **AUTH_SECRET** - keep secret, used only on the NextAuth server
-2. **NEXT_PUBLIC_JWT_SECRET** - a public env var, but it's used only for verifying backend JWT (if needed on the client)
-3. **Backend JWT_SECRET** - must match `NEXT_PUBLIC_JWT_SECRET` for synchronization
+2. **NEXT_PUBLIC_JWT_SECRET** - a public env var, but it's used only for
+   verifying backend JWT (if needed on the client)
+3. **Backend JWT_SECRET** - must match `NEXT_PUBLIC_JWT_SECRET` for
+   synchronization
 4. **Never commit secrets to git** - add `.env.local` to `.gitignore`
 
 ### Recommendations:

@@ -4,6 +4,7 @@ import Google from 'next-auth/providers/google'
 import { ProviderKey } from './constants/providers'
 import { Routes } from './constants/routes'
 import { extendToken, validateToken } from './helpers/auth'
+import { logger } from './lib/logger'
 import { ExtendedSession, ExtendedToken, SessionParams, UserAI } from './types/auth'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
@@ -43,9 +44,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             const backendUserData = await response.json()
             customToken.backendUserId = backendUserData._id
             customToken.backendUserData = backendUserData
+            logger.info('Backend user validated', { userId: backendUserData._id })
+          } else {
+            logger.warn('Backend user validation failed', { status: response.status })
           }
         } catch (error) {
-          console.error('Error getting backend user ID:', error)
+          logger.error('Error getting backend user ID', error)
         }
 
         return customToken
@@ -55,11 +59,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         if (!token.refreshToken) throw new TypeError('Missing refresh_token')
 
         try {
+          const clientId = process.env.AUTH_GOOGLE_ID
+          const clientSecret = process.env.AUTH_GOOGLE_SECRET
+
+          if (!clientId || !clientSecret) {
+            logger.error('Missing Google OAuth credentials')
+            token.error = 'RefreshTokenError'
+            return token
+          }
+
           const response = await fetch('https://oauth2.googleapis.com/token', {
             method: 'POST',
             body: new URLSearchParams({
-              client_id: process.env.AUTH_GOOGLE_ID as string,
-              client_secret: process.env.AUTH_GOOGLE_SECRET as string,
+              client_id: clientId,
+              client_secret: clientSecret,
               grant_type: 'refresh_token',
               refresh_token: token.refresh_token as string,
             }),
@@ -81,7 +94,7 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             refreshToken: newTokens.refresh_token ? newTokens.refresh_token : token.refreshToken,
           }
         } catch (error) {
-          console.error('Error refreshing access_token', error)
+          logger.error('Error refreshing access_token', error)
           token.error = 'RefreshTokenError'
           return token
         }

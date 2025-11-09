@@ -33,11 +33,13 @@ export const PreviousCard: React.FC<PreviousDailyCardProps> = ({
         </CardTitle>
         <SavedToggle
           saveFunc={() => {
-            const savedItems = JSON.parse(localStorage.getItem('savedItems') || '[]')
-            localStorage.setItem(
-              'savedItems',
-              JSON.stringify([...savedItems, { id, createdAt, translations, type, isPublished }])
-            )
+            if (typeof window !== 'undefined') {
+              const savedItems = JSON.parse(localStorage.getItem('savedItems') || '[]')
+              localStorage.setItem(
+                'savedItems',
+                JSON.stringify([...savedItems, { id, createdAt, translations, type, isPublished }])
+              )
+            }
           }}
           toastText={t('toastText', { type })}
         />

@@ -1,3 +1,5 @@
+import { logger } from '@/lib/logger'
+import { notifyError, notifySuccess } from '@/lib/user-feedback'
 import { CustomUser } from '@/types/auth'
 import { Roles } from '@/types/security'
 import { Tag } from '@/types/tags'
@@ -23,29 +25,32 @@ export async function addTag(user: CustomUser, tag: Tag) {
       if (!response.ok) {
         const errorData = await response.json()
 
-        // debt: add logger
+        logger.warn('Failed to add tag', { status: response.status, error: errorData, key })
+
+        let errorMessage = 'Failed to add tag'
         switch (response.status) {
           case 401:
-            // You are not authorized. Please log in.
+            errorMessage = 'You are not authorized. Please log in.'
             error = { name: 'Unauthorized:', message: errorData.message }
             break
           case 500:
-            // 'An internal server error occurred. Please try again later.'
+            errorMessage = 'An internal server error occurred. Please try again later.'
             error = { name: 'Server Error:', message: errorData.message }
             break
           default:
-            // Unknown Error
+            errorMessage = errorData.message || 'Unknown error occurred'
             error = { name: 'Error:', message: errorData.message }
         }
 
-        if (error) {
-          console.log('addTag error', error)
-        }
+        // Show error to user
+        notifyError(errorMessage, error, { key, status: response.status })
       } else {
-        console.log(`Tag ${key} successfully added`)
+        // Show success to user + log
+        notifySuccess(`Tag "${key}" successfully added`, { key })
       }
     } catch (err) {
-      console.log('error', err)
+      // Log error + show to user
+      notifyError('Failed to add tag. Please try again.', err, { key })
     }
   }
 }

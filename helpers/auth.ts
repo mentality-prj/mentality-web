@@ -2,6 +2,7 @@ import { Account } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
 import { ProviderKey } from '@/constants/providers'
+import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import { CustomSession, ExtendedToken, UserAI } from '@/types/auth'
 
@@ -36,7 +37,8 @@ export async function validateToken(
       if (!response.ok) {
         const errorData = await response.json()
 
-        // debt: add logger
+        logger.warn('Token validation failed', { status: response.status, error: errorData })
+
         switch (response.status) {
           case 401:
             // You are not authorized. Please log in.
@@ -66,6 +68,7 @@ export async function validateToken(
       }
     } catch (error) {
       const errorMessage = error instanceof Error ? error : String(error)
+      logger.error('Token validation error', error, { provider, session: session.user?.email })
       session.error = { message: 'Token validation error:', error: errorMessage }
     }
   }
