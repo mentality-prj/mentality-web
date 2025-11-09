@@ -15,7 +15,7 @@ export default function UserProfile({ name, email, image }: UserProfileProps) {
           alt={name}
           height={40}
           className="rounded-[8px]"
-          src={image || 'https://avatars.githubusercontent.com/u/86160567?s=200&v=4'}
+          src={image ?? '/assets/default-profile.png'}
           width={40}
         />
         <div className="flex flex-col">

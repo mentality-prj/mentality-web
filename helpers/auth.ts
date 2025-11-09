@@ -16,7 +16,11 @@ export const extendToken = (account: Account, token: JWT): ExtendedToken => {
   return token
 }
 
-export async function validateToken(session: CustomSession, OAuthToken: string, provider: ProviderKey) {
+export async function validateToken(
+  session: CustomSession,
+  OAuthToken: string,
+  provider: ProviderKey
+): Promise<UserAI | null> {
   if (session.user) {
     try {
       // Request to AI backend for token validation
@@ -36,16 +40,17 @@ export async function validateToken(session: CustomSession, OAuthToken: string, 
         switch (response.status) {
           case 401:
             // You are not authorized. Please log in.
-            session.error = { message: 'Unauthorized:', error: errorData.message }
+            session.error = { message: 'Unauthorized:', error: errorData.message, status: 401 }
             break
           case 500:
             // 'An internal server error occurred. Please try again later.'
-            session.error = { message: 'Server Error:', error: errorData.message }
+            session.error = { message: 'Server Error:', error: errorData.message, status: 500 }
             break
           default:
             // Unknown Error
-            session.error = { message: 'Error:', error: errorData.message }
+            session.error = { message: 'Error:', error: errorData.message, status: response.status }
         }
+        return null
       }
 
       const data: UserAI = await response.json()
@@ -57,9 +62,12 @@ export async function validateToken(session: CustomSession, OAuthToken: string, 
         session.user.email = data.email
         session.user.role = data.role
         session.user.isAIAuthorized = true
+        return data // Return user data for use in jwt callback
       }
     } catch (error) {
-      session.error = { message: 'Token validation error:', error }
+      const errorMessage = error instanceof Error ? error : String(error)
+      session.error = { message: 'Token validation error:', error: errorMessage }
     }
   }
+  return null
 }

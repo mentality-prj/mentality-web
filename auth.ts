@@ -1,18 +1,16 @@
 import NextAuth, { Account } from 'next-auth'
-import GitHub from 'next-auth/providers/github'
 import Google from 'next-auth/providers/google'
 
 import { ProviderKey } from './constants/providers'
 import { Routes } from './constants/routes'
 import { extendToken, validateToken } from './helpers/auth'
-import { ExtendedSession, ExtendedToken, SessionParams } from './types/auth'
+import { ExtendedSession, ExtendedToken, SessionParams, UserAI } from './types/auth'
 
 export const { handlers, signIn, signOut, auth } = NextAuth({
   providers: [
     Google({
       authorization: { params: { access_type: 'offline', prompt: 'consent' } },
     }),
-    GitHub,
   ],
   pages: {
     signIn: Routes.SIGNIN,
@@ -26,6 +24,30 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       // If the OAuth token is successfully received, we add it to the session token
       if (account) {
         const customToken = extendToken(account, token)
+
+        // Call backend to create/validate user and get backend user ID
+        try {
+          const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/auth/validate-token`, {
+            method: 'POST',
+            body: JSON.stringify({
+              token: customToken.idToken || customToken.accessToken,
+              provider: account.provider,
+            }),
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            credentials: 'include',
+          })
+
+          if (response.ok) {
+            const backendUserData = await response.json()
+            customToken.backendUserId = backendUserData._id
+            customToken.backendUserData = backendUserData
+          }
+        } catch (error) {
+          console.error('Error getting backend user ID:', error)
+        }
+
         return customToken
       } else if (typeof token.expiresAt === 'number' && Date.now() < token.expiresAt * 1000) {
         return token
@@ -71,11 +93,21 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       if (token) {
         session.OAuthToken = token.accessToken as string
         if (token.idToken) {
-          // GitHub has no idToken
           session.OAuthToken = token.idToken as string
         }
 
-        await validateToken(session, session.OAuthToken, token.provider as ProviderKey)
+        // Use backend user data from JWT token if available
+        if (token.backendUserId && token.backendUserData && session.user) {
+          const userData = token.backendUserData as UserAI
+          session.user.id = userData._id
+          session.user.name = userData.name
+          session.user.email = userData.email
+          session.user.role = userData.role
+          session.user.isAIAuthorized = true
+        } else {
+          // Fallback: validate token if backend data not in JWT
+          await validateToken(session, session.OAuthToken, token.provider as ProviderKey)
+        }
 
         session.provider = token.provider as string
       }

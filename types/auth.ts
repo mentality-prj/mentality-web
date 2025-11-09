@@ -3,8 +3,8 @@ import { JWT } from 'next-auth/jwt'
 
 import { ProviderKey } from '@/constants/providers'
 
-export type ExtendedToken = GoogleToken | GitHubToken | JWT
-export type ExtendedSession = GoogleSession | GitHubSession | Session
+export type ExtendedToken = GoogleToken | JWT
+export type ExtendedSession = GoogleSession | Session
 
 export interface GoogleToken extends JWT {
   accessToken: string
@@ -14,26 +14,14 @@ export interface GoogleToken extends JWT {
   provider: 'google'
   tokenType: 'bearer'
   type: 'oauth'
-}
-
-export interface GitHubToken extends JWT {
-  accessToken: string
-  tokenType: 'bearer'
-  scope: string
-  provider: 'github'
-  type: 'oauth'
-  providerAccountId: string
+  backendUserId?: string // Backend user ID from NestJS
+  backendUserData?: UserAI // Full backend user data
 }
 
 export interface GoogleSession extends Session {
   accessToken: string
   idToken: string
   provider: 'google'
-}
-
-export interface GitHubSession extends Session {
-  accessToken: string
-  provider: 'github'
 }
 
 export interface JWTParams {
@@ -45,11 +33,18 @@ export interface CustomUser extends User {
   role?: UserRole
   isAIAuthorized?: boolean
 }
+
+export interface SessionError {
+  message: string
+  error: Error | string | Record<string, unknown>
+  status?: number
+}
+
 export interface CustomSession extends Session {
   user?: CustomUser
   OAuthToken?: string
   provider?: string
-  error?: { message: string; error: unknown } // debt: add type to error
+  error?: SessionError
 }
 
 export interface SessionParams {
