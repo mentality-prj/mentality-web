@@ -231,8 +231,31 @@
       "stress": "Stress"
     }
   },
-
   "components": {
+    "Admin": {
+      "AddTag": {
+        "title": "Add a new tag",
+        "button": "Add Tag",
+        "fields": {
+          "key": {
+            "label": "Add tag key:",
+            "description": "Add a unique key for the new tag. Use Snake Case?: new_tag_name"
+          },
+          "uk": {
+            "label": "Ukrainian:",
+            "description": "Add the text for a new tag in Ukrainian. This can be a word or phrase."
+          },
+          "en": {
+            "label": "English:",
+            "description": "Add the text for the new tag in English. This can be a word or phrase."
+          },
+          "pl": {
+            "label": "Polish:",
+            "description": "Add the text for the new tag in Polish. This can be a word or phrase."
+          }
+        }
+      }
+    },
     "DailyCard": {
       "title": "{type, select, affirmation {Your daily affirmation} tip {Tip of the day} other {}}",
       "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}",
