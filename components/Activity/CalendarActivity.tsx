@@ -3,17 +3,18 @@ import { getDefaultClassNames } from 'react-day-picker'
 import { enUS, pl, uk } from 'react-day-picker/locale'
 import { useLocale } from 'next-intl'
 
-import { Calendar } from '@/ds/shadcn/calendar'
+import { Calendar as ShadcnCalendar } from '@/ds/shadcn/calendar'
+import { SelectedDays } from '@/types/calendar'
 
-export const ActivityCalendar = () => {
+export const CalendarActivity = ({ selectedDays }: { selectedDays: SelectedDays }) => {
   const defaultClassNames = getDefaultClassNames()
   const locale = useLocale()
 
   return (
-    <Calendar
+    <ShadcnCalendar
       locale={locale === 'uk' ? uk : locale === 'pl' ? pl : enUS}
-      disabled={[new Date()]}
-      showOutsideDays={false}
+      selected={selectedDays}
+      showOutsideDays={true}
       weekStartsOn={1}
       components={{
         MonthCaption: () => <></>,
