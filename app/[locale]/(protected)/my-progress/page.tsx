@@ -6,6 +6,7 @@ import { ChartDynamics } from '@/components/MyProgress/ChartDynamics'
 import { PersonalGoals } from '@/components/MyProgress/PersonalGoals'
 import { TodayObservations } from '@/components/MyProgress/TodayObservations'
 import { PageTitle } from '@/components/ui/PageTitle'
+import { HeartHandsEmoji } from '@/ds/icons/emoji/heart-hands'
 
 export default function MyProgress() {
   const t = useTranslations('MyProgress')
@@ -16,7 +17,12 @@ export default function MyProgress() {
       <div className="grid grid-cols-2 gap-4">
         <Calendar
           title={t('Activity.Title')}
-          subtitle={<>{t('Activity.Subtitle')}</>}
+          subtitle={
+            <>
+              <HeartHandsEmoji />
+              {t('Activity.Subtitle')}
+            </>
+          }
           activeLabel={t('Activity.DaysWithActivity')}
           inactiveLabel={t('Activity.DaysWithoutActivity')}
           selectedDays={[new Date()]}

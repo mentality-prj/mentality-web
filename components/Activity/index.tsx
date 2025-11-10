@@ -6,7 +6,7 @@ export const Calendar = ({ title, subtitle, activeLabel, inactiveLabel, selected
     <div className="rounded-default bg-surface-white p-8">
       <div className="flex flex-col gap-2">
         <h2 className="text-xl/[24px] font-semibold text-textcolor-primary">{title}</h2>
-        <p className="text-xs text-textcolor-secondary">{subtitle}</p>
+        <p className="flex items-center gap-1 text-center text-xs text-textcolor-secondary">{subtitle}</p>
       </div>
       <div className="mt-6 flex w-full justify-center">
         <CalendarActivity selectedDays={selectedDays} />
