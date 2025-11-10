@@ -8,6 +8,7 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 export default function AdminPage() {
   const adminMenuMap = adminMenu.map((item: AdminRoutesTitlesKeyType) => {
     const Component = AdminComponents[`${item}`]
+
     return (
       <TabsContent key={item} value={item}>
         <Card>
@@ -18,6 +19,7 @@ export default function AdminPage() {
       </TabsContent>
     )
   })
+
   return (
     <Tabs aria-label="Admin Panel" color="secondary">
       <TabsList className="grid w-full grid-cols-2">

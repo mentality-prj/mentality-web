@@ -5,4 +5,6 @@ export const AdminRoutesTitles = Object.freeze({
 
 export type AdminRoutesTitlesKeyType = keyof typeof AdminRoutesTitles
 
-export const adminMenu: Readonly<AdminRoutesTitlesKeyType[]> = ['TAGS', 'TIPS']
+export const adminMenu: ReadonlyArray<AdminRoutesTitlesKeyType> = Object.keys(
+  AdminRoutesTitles
+) as ReadonlyArray<AdminRoutesTitlesKeyType>
