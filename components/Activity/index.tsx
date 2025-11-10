@@ -1,4 +1,5 @@
 import { CalendarProps } from '@/types/calendar'
+
 import { CalendarActivity } from './CalendarActivity'
 
 export const Calendar = ({ title, subtitle, activeLabel, inactiveLabel, selectedDays }: CalendarProps) => {
