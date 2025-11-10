@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 
 import { Achievements } from '@/components/Achievements'
-import { Activity } from '@/components/MyProgress/Activity'
+import { Calendar } from '@/components/Activity'
 import { ChartDynamics } from '@/components/MyProgress/ChartDynamics'
 import { PersonalGoals } from '@/components/MyProgress/PersonalGoals'
 import { TodayObservations } from '@/components/MyProgress/TodayObservations'
@@ -14,7 +14,13 @@ export default function MyProgress() {
       <PageTitle title={t('PageTitle.title')} subtitle={t('PageTitle.subtitle')} />
 
       <div className="grid grid-cols-2 gap-4">
-        <Activity />
+        <Calendar
+          title={t('Activity.Title')}
+          subtitle={<>{t('Activity.Subtitle')}</>}
+          activeLabel={t('Activity.DaysWithActivity')}
+          inactiveLabel={t('Activity.DaysWithoutActivity')}
+          selectedDays={[new Date()]}
+        />
         <TodayObservations />
       </div>
       <ChartDynamics />
