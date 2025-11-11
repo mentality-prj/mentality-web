@@ -25,9 +25,8 @@ export default function LangSwitch() {
       <DropdownMenuTrigger asChild>
         <Button
           disabled={isPending}
-          variant="textButton"
-          size="icon"
-          className="group data-[state=open]:bg-secondary-hover"
+          variant="iconButton"
+          className="group h-10 w-10 rounded-full hover:ring-1 hover:ring-primary-hover data-[state=open]:bg-secondary-hover"
         >
           {localActive}
         </Button>

@@ -1,7 +1,7 @@
 'use client'
 import { useLocale } from 'next-intl'
 
-export const LocalDate = ({ className }: { className?: string }) => {
+export const LocalDate = () => {
   const locale = useLocale()
 
   const now = new Date()
@@ -10,11 +10,9 @@ export const LocalDate = ({ className }: { className?: string }) => {
   const date = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(now)
 
   return (
-    <div className={className}>
-      <div className="hidden flex-col tablet:flex desktop:flex-row">
-        <div>{weekday},&nbsp;</div>
-        <div>{date}</div>
-      </div>
+    <div className="hidden text-textcolor-primary tablet:block desktop:flex desktop:flex-row desktop:text-base">
+      <div>{weekday},&nbsp;</div>
+      <div>{date}</div>
     </div>
   )
 }
