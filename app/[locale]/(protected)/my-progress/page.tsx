@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 
 import { Achievements } from '@/components/Achievements'
-import { Calendar } from '@/components/Activity'
+import { Calendar } from '@/components/Calendar'
 import { ChartDynamics } from '@/components/MyProgress/ChartDynamics'
 import { PersonalGoals } from '@/components/MyProgress/PersonalGoals'
 import { TodayObservations } from '@/components/MyProgress/TodayObservations'

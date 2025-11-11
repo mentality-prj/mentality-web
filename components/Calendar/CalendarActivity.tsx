@@ -25,10 +25,10 @@ export const CalendarActivity = ({ selectedDays }: { selectedDays: SelectedDays 
       modifiers={{ activeDays: selectedDays }}
       hidden={(date) => isAfter(date, today)}
       classNames={{
-        week: `${defaultClassNames.week}  mt-1 flex w-full  gap-1 `,
-        weekdays: `${defaultClassNames.weekdays} flex  text-textcolor-tertiary capitalize text-sm/[16px] `,
+        week: `${defaultClassNames.week} mt-1 flex w-full gap-1`,
+        weekdays: `${defaultClassNames.weekdays} flex text-textcolor-tertiary capitalize text-sm/[16px]`,
         day: 'flex aspect-square h-8 w-8 select-none items-center justify-center rounded-xs border px-1 py-[9px] text-xs font-normal border-outline-secondary bg-secondary text-textcolor-tertiary',
-        today: ` ${defaultClassNames.today}  border-2`,
+        today: `${defaultClassNames.today} border-2`,
         hidden: 'visible border-0 bg-surface-primary',
       }}
       modifiersClassNames={{
