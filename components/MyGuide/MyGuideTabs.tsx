@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { HumanEmoji } from '@/ds/icons/emoji/human'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 
-import { MyGuide } from './MyGuideCards'
+import { MyGuideCards } from './MyGuideCards'
 
 const cards = [
   { id: '1', title: 'A1', icon: <HumanEmoji />, content: '1 grjbgv rdjvndf', category: 'медитація' },
@@ -33,7 +33,7 @@ export default function MyGuideTabs() {
 
       {categories.map((categ) => (
         <TabsContent key={categ} value={categ} className="pt-8">
-          <MyGuide cards={filteredCards} />
+          <MyGuideCards cards={filteredCards} />
         </TabsContent>
       ))}
     </Tabs>

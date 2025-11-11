@@ -1,11 +1,10 @@
 import { useTranslations } from 'next-intl'
 
 import { CustomCard } from '@/ds/components/CustomCard'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { CloudEmoji } from '@/ds/icons/emoji/cloud'
 import { HeartEmoji } from '@/ds/icons/emoji/heart'
 import { HumanEmoji } from '@/ds/icons/emoji/human'
-
-import { SectionCard } from '../ui/SectionCard'
 
 export const ChatWithAI = () => {
   const t = useTranslations('HomePage.ChatWithAI')

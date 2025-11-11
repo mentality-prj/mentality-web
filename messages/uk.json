@@ -84,10 +84,16 @@
   "MyThougtsPage": {
     "title": "Мої думки",
     "subtitle": "Веди щоденник своїх думок",
-    "placeholder": "Напиши свої думки тут...",
-    "Save": "Зберегти",
-    "Cancel": "Скасувати",
-    "RecordingThoughts": "Запис думок",
+    "RecordingThoughts": {
+      "title": "Запис думок",
+      "placeholder": "Напиши свої думки тут...",
+      "Save": "Зберегти",
+      "Cancel": "Скасувати"
+    },
+    "CalendarThoughtsNotes": {
+      "title": "Створено записів настрою",
+      "subtitle": "за останній місяць"
+    },
     "ThoughtsList": {
       "title": "Мої записи",
       "noThoughts": "У тебе ще не має записів."

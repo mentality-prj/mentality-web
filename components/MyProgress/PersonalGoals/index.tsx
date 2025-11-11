@@ -1,7 +1,7 @@
 'use client'
 import { useState } from 'react'
 
-import { SectionCard } from '@/components/ui/SectionCard'
+import { SectionCard } from '@/ds/components/SectionCard'
 
 import { PersonalGoalsFilter } from './PersonalGoalsFilter'
 import { PersonalGoalsList } from './PersonalGoalsList'

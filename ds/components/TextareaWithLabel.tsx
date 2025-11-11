@@ -24,9 +24,7 @@ export function TextareaWithLabel({ label, helper, id = 'textarea', leftIcon, ri
         {leftIcon && (
           <div className="absolute left-4 top-1/2 -translate-y-1/2 text-textcolor-secondary">{leftIcon}</div>
         )}
-        {rightIcon && (
-          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-textcolor-secondary">{rightIcon}</div>
-        )}
+        {rightIcon && <div className="absolute right-4 top-3 text-textcolor-secondary">{rightIcon}</div>}
         <Textarea
           className={cn(
             leftIcon && 'pl-12', // 16px left input padding + 24px icon size + 8px gap between icon & text

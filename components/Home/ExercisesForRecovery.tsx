@@ -1,10 +1,9 @@
 import { useTranslations } from 'next-intl'
 
 import { CustomCard } from '@/ds/components/CustomCard'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { ExercisesForRecoveryProps } from '@/types/exercisesForRecovery'
 import { getEmojiFromBackend } from '@/utils/getEmojiFromBackend'
-
-import { SectionCard } from '../ui/SectionCard'
 
 export const ExercisesForRecovery = ({ exercises }: ExercisesForRecoveryProps) => {
   const t = useTranslations('HomePage.ExercisesForRecovery')
