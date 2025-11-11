@@ -9,18 +9,17 @@ export function ThoughtsFormWrapper() {
   const [content, setContent] = useState('')
   const [loading, setLoading] = useState(false)
   const [tags, setTags] = useState<string[]>(['Звичайний запис', 'Вітаміни'])
-  console.log('content', content)
 
   const handleSave = async () => {
     if (!content.trim()) return
     setLoading(true)
     try {
       await createDiaryNote({ content, tags })
-      setContent('')
     } catch (err) {
       console.log('Error of saving', err)
     } finally {
       setLoading(false)
+      setContent('')
     }
   }
 

@@ -25,6 +25,7 @@ export const ThoughtsForm = ({ onTextChange, onSave, content, loading, tags, set
           placeholder={t('TextareaWithLabel.placeholder')}
           rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />}
           rows={4}
+          value={content}
           onChange={(e) => onTextChange(e.target.value)}
         />
         <TagsEditor tags={tags} onChange={setTags} />

@@ -2,7 +2,6 @@ import { useTranslations } from 'next-intl'
 
 import { CalendarThoughts } from '@/components/MyThoughts/CalendarThoughtsNotes/CalendarThoughtsNotes'
 import { ThoughtsFormWrapper } from '@/components/MyThoughts/Diary/ThoughtsFormWrapper'
-import { UserNotes } from '@/components/MyThoughts/NotesOfUser/UserNotes'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { PageTitle } from '@/components/ui/PageTitle'
 
@@ -16,7 +15,6 @@ export default function MyThoughtsPage() {
         <ThoughtsFormWrapper />
         <CalendarThoughts />
       </div>
-      <UserNotes />
     </div>
   )
 }
