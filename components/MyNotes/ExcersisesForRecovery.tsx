@@ -1,11 +1,10 @@
 import { getTranslations } from 'next-intl/server'
 
 import { CustomCard } from '@/ds/components/CustomCard'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { HumanEmoji } from '@/ds/icons/emoji/human'
 import { LungsEmoji } from '@/ds/icons/emoji/lungs'
 import { Button } from '@/ds/shadcn/button'
-
-import { SectionCard } from '../ui/SectionCard'
 
 export async function ExcersisesFoeRecovery() {
   const t = await getTranslations('MyNotesPage')

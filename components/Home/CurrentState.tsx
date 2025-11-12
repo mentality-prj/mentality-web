@@ -2,14 +2,13 @@ import { Mic } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { AngryEmoji } from '@/ds/icons/emoji/angry'
 import { HappyEmoji } from '@/ds/icons/emoji/happy'
 import { SadEmoji } from '@/ds/icons/emoji/sad'
 import { SleepyEmoji } from '@/ds/icons/emoji/sleepy'
 import { VerySadEmoji } from '@/ds/icons/emoji/very-sad'
 import { Button } from '@/ds/shadcn/button'
-
-import { SectionCard } from '../ui/SectionCard'
 
 const buttonList = [HappyEmoji, SadEmoji, VerySadEmoji, AngryEmoji, SleepyEmoji]
 

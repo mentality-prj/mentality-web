@@ -1,10 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
 import { CustomCard } from '@/ds/components/CustomCard'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
-
-import { SectionCard } from '../ui/SectionCard'
 
 export async function MySpace() {
   const t = await getTranslations('MyNotesPage')

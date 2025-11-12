@@ -11,7 +11,7 @@ type CardData = {
 }
 type MyGuideProps = { cards: CardData[] }
 
-export const MyGuide = ({ cards }: MyGuideProps) => {
+export const MyGuideCards = ({ cards }: MyGuideProps) => {
   return (
     <Card className="flex w-full flex-col bg-surface-white tablet:min-w-[600px]">
       <CardContent className="grid grid-cols-1 gap-8 p-8 tablet:grid-cols-3 tablet:items-start tablet:justify-end">

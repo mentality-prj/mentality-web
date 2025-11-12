@@ -1,10 +1,9 @@
 import { useTranslations } from 'next-intl'
 
-import { ChatWithAI } from '@/components/Home/ChatWithAI'
-import { ThoughtsRecording } from '@/components/MyThoughts/ThoughtsRecording'
+import { CalendarThoughts } from '@/components/MyThoughts/CalendarThoughtsNotes/CalendarThoughtsNotes'
+import { ThoughtsFormWrapper } from '@/components/MyThoughts/Diary/ThoughtsFormWrapper'
 import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { PageTitle } from '@/components/ui/PageTitle'
-import { SectionCard } from '@/components/ui/SectionCard'
 
 export default function MyThoughtsPage() {
   const t = useTranslations('MyThougtsPage')
@@ -13,11 +12,9 @@ export default function MyThoughtsPage() {
       <Breadcrumbs currentPage={t('title')} breadcrumbList={[{ title: t('ThoughtsList.title'), href: '/my-notes' }]} />
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
-        <ThoughtsRecording className="h-full" />
-
-        <ChatWithAI />
+        <ThoughtsFormWrapper />
+        <CalendarThoughts />
       </div>
-      <SectionCard title={t('ThoughtsList.title')} subtitle={t('ThoughtsList.noThoughts')} />
     </div>
   )
 }

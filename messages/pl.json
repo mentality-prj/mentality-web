@@ -87,10 +87,16 @@
   "MyThougtsPage": {
     "title": "Moje myśli",
     "subtitle": "Prowadź dziennik swoich myśli",
-    "placeholder": "Napisz tutaj swoje myśli...",
-    "Save": "Zapisz",
-    "Cancel": "Anuluj",
-    "RecordingThoughts": "Nagrywanie myśli",
+    "RecordingThoughts": {
+      "title": "Nagrywanie myśli",
+      "placeholder": "Napisz tutaj swoje myśli...",
+      "Save": "Zapisz",
+      "Cancel": "Anuluj"
+    },
+    "CalendarThoughtsNotes": {
+      "title": "Utworzone wpisy nastroju",
+      "subtitle": "w ostatnim miesiącu"
+    },
     "ThoughtsList": {
       "title": "Moje zapiski",
       "noThoughts": "Nie masz jeszcze żadnych zapisków."

@@ -1,8 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
+import { SectionCard } from '@/ds/components/SectionCard'
 import { mockAffirmations, mockTips } from '@/REST/mockApi'
-
-import { SectionCard } from '../ui/SectionCard'
 
 import { Filter } from './Filter'
 import { AffirmationWithType, FilteredHistory } from './FilteredHistory'

@@ -1,8 +1,7 @@
 import { useTranslations } from 'next-intl'
 
+import { SectionCard } from '@/ds/components/SectionCard'
 import { Button } from '@/ds/shadcn/button'
-
-import { SectionCard } from '../ui/SectionCard'
 
 import { AchievementsFilter } from './AchievementsFilter'
 import { AchievementsList } from './AchievementsList'

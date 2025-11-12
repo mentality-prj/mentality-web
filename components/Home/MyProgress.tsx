@@ -1,10 +1,9 @@
 import { useTranslations } from 'next-intl'
 
 import { CustomCard } from '@/ds/components/CustomCard'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { ArrowRightIcon } from '@/ds/icons/arrow-right'
 import { FireEmoji } from '@/ds/icons/emoji/fire'
-
-import { SectionCard } from '../ui/SectionCard'
 
 export const MyProgress = ({ className }: { className?: string }) => {
   const t = useTranslations('HomePage.MyProgress')
