@@ -29,8 +29,8 @@ export const UserMenu = ({ name, email, avatarUrl }: UserMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="iconButton" size="icon">
-          <Avatar>
+        <Button variant="iconButton" className="rounded-full hover:ring-1 hover:ring-primary-hover">
+          <Avatar className="h-10 w-10">
             <AvatarImage src={avatarUrl} alt={name} />
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
