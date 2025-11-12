@@ -16,7 +16,25 @@ export const extendToken = (account: Account, token: JWT): ExtendedToken => {
   return token
 }
 
-export async function validateToken(session: CustomSession, OAuthToken: string, provider: ProviderKey) {
+/**
+ * Maps backend user data to session.user object
+ * Prevents code duplication between jwt and session callbacks
+ */
+export const mapBackendUserToSession = (session: CustomSession, userData: UserAI): void => {
+  if (session.user) {
+    session.user.id = userData._id
+    session.user.name = userData.name
+    session.user.email = userData.email
+    session.user.role = userData.role
+    session.user.isAIAuthorized = true
+  }
+}
+
+export async function validateToken(
+  session: CustomSession,
+  OAuthToken: string,
+  provider: ProviderKey
+): Promise<UserAI | null> {
   if (session.user) {
     try {
       // Request to AI backend for token validation
@@ -30,36 +48,43 @@ export async function validateToken(session: CustomSession, OAuthToken: string, 
       })
 
       if (!response.ok) {
-        const errorData = await response.json()
+        try {
+          const errorData = await response.json()
 
-        // debt: add logger
-        switch (response.status) {
-          case 401:
-            // You are not authorized. Please log in.
-            session.error = { message: 'Unauthorized:', error: errorData.message }
-            break
-          case 500:
-            // 'An internal server error occurred. Please try again later.'
-            session.error = { message: 'Server Error:', error: errorData.message }
-            break
-          default:
-            // Unknown Error
-            session.error = { message: 'Error:', error: errorData.message }
+          switch (response.status) {
+            case 401:
+              // You are not authorized. Please log in.
+              session.error = { message: 'Unauthorized', error: errorData.message, status: 401 }
+              break
+            case 500:
+              // 'An internal server error occurred. Please try again later.'
+              session.error = { message: 'Server Error', error: errorData.message, status: 500 }
+              break
+            default:
+              // Unknown Error
+              session.error = { message: 'Error', error: errorData.message, status: response.status }
+          }
+        } catch {
+          // If JSON parsing fails, use status text
+          session.error = {
+            message: 'Backend error',
+            error: response.statusText || 'Unknown error',
+            status: response.status,
+          }
         }
+        return null
       }
 
       const data: UserAI = await response.json()
 
-      // debt: Add user data from Java server to the session
       if (data) {
-        session.user.id = data._id
-        session.user.name = data.name
-        session.user.email = data.email
-        session.user.role = data.role
-        session.user.isAIAuthorized = true
+        mapBackendUserToSession(session, data)
+        return data // Return user data for use in jwt callback
       }
     } catch (error) {
-      session.error = { message: 'Token validation error:', error }
+      const errorMessage = error instanceof Error ? error.message : String(error)
+      session.error = { message: 'Token validation error', error: errorMessage }
     }
   }
+  return null
 }
