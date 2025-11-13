@@ -216,10 +216,10 @@
       "subtitle": "Think of a headline. Look how much you’ve already done for yourself 💛"
     },
     "Activity": {
-      "title": "Platform Activity",
-      "subtitle": "Even small steps lead to big changes",
-      "daysWithActivity": "Days with activity",
-      "daysWithoutActivity": "Days without activity"
+      "Title": "Platform Activity",
+      "Subtitle": "Even small steps lead to big changes",
+      "DaysWithActivity": "Days with activity",
+      "DaysWithoutActivity": "Days without activity"
     },
     "ChartDynamics": {
       "title": "Detailed Dynamics",

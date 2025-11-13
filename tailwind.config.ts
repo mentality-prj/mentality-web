@@ -12,6 +12,9 @@ const config: Config = {
       colors: {
         disable: 'var(--disable)',
         reversed: 'var(--reversed)',
+        accent: {
+          action: 'var(--accent-action)',
+        },
         primary: {
           DEFAULT: 'var(--primary)',
           hover: 'var(--primary-hover)',

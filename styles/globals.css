@@ -32,6 +32,8 @@ body {
     --disable: #e4e3e8;
     --reversed: #fcfcfd;
 
+    --accent-action: #f1ebff;
+
     --primary: #905fff;
     --primary-hover: #734ccc;
     --primary-focus: #563999;

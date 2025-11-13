@@ -219,10 +219,10 @@
       "subtitle": "Pomyśl nad nagłówkiem. Zobacz, ile już zrobiłeś dla siebie 💛"
     },
     "Activity": {
-      "title": "Aktywność na platformie",
-      "subtitle": "Nawet małe kroki prowadzą do wielkich zmian",
-      "daysWithActivity": "Dni z aktywnością",
-      "daysWithoutActivity": "Dni bez aktywności"
+      "Title": "Aktywność na platformie",
+      "Subtitle": "Nawet małe kroki prowadzą do wielkich zmian",
+      "DaysWithActivity": "Dni z aktywnością",
+      "DaysWithoutActivity": "Dni bez aktywności"
     },
     "ChartDynamics": {
       "title": "Szczegółowa dynamika",
