@@ -16,15 +16,15 @@ export default function MyThoughtsPage() {
         <ThoughtsFormWrapper />
         <Calendar
           selectedDays={[new Date()]}
-          title={t('CalendarThoughtsNotes.title')}
+          title={t('Calendar.Title')}
           subtitle={
             <p className="text-sm text-textcolor-secondary">
               <span className="mr-1 text-xl font-semibold text-textcolor-primary">{count}</span>
-              {t('CalendarThoughtsNotes.subtitle')}
+              {t('Calendar.Subtitle')}
             </p>
           }
-          activeLabel="дні з записами"
-          inactiveLabel="дні без записів"
+          activeLabel={t('Calendar.ActiveLabel')}
+          inactiveLabel={t('Calendar.InactiveLabel')}
         />
       </div>
     </div>

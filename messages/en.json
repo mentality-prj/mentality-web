@@ -90,9 +90,11 @@
       "Save": "Save",
       "Cancel": "Cancel"
     },
-    "CalendarThoughtsNotes": {
-      "title": "Mood entries created",
-      "subtitle": "in the last month"
+    "Calendar": {
+      "Title": "Mood entries created",
+      "Subtitle": "in the last month",
+      "ActiveLabel": "days with entries",
+      "InactiveLabel": "days without entries"
     },
     "ThoughtsList": {
       "title": "My notes",
