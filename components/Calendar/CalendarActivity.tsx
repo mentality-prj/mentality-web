@@ -7,7 +7,11 @@ import { useLocale } from 'next-intl'
 import { Calendar as ShadcnCalendar } from '@/ds/shadcn/calendar'
 import { SelectedDays } from '@/types/calendar'
 
-export const CalendarActivity = ({ selectedDays }: { selectedDays: SelectedDays }) => {
+export interface CalendarActivityProps {
+  selectedDays: SelectedDays
+}
+
+export const CalendarActivity = ({ selectedDays }: CalendarActivityProps) => {
   const defaultClassNames = getDefaultClassNames()
   const locale = useLocale()
   const today = startOfToday()
