@@ -3,24 +3,16 @@
 import { useContext } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { Sort } from '@/components/Sort'
 import { FilterContext, SortContext } from '@/context/FilterContext'
 import { Button } from '@/ds/shadcn/button'
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from '@/ds/shadcn/dropdown-menu'
 import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
 import { cn } from '@/lib/utils'
 
 export const Filter = () => {
   const { sort, setSort } = useContext(SortContext)
   const { filter, setFilter } = useContext(FilterContext)
-
   const itemsFilter = ['affirmation', 'tip']
-  const itemsSort = ['newest', 'oldest']
   const t = useTranslations('AffirmationsPage')
 
   return (
@@ -68,26 +60,11 @@ export const Filter = () => {
           </div>
         </div>
         <hr />
-
-        <div className="">{t('filter.sort')}</div>
-        <DropdownMenu>
-          <DropdownMenuTrigger className="rounded-md border border-outline-secondary px-4 py-3">
-            {t(`filter.${sort}`)}
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="p-0">
-            <DropdownMenuGroup className="bg-surface-white">
-              {itemsSort.map((item) => (
-                <DropdownMenuItem
-                  className="cursor-pointer hover:bg-secondary-hover hover:text-textcolor-purple"
-                  onClick={() => setSort(item)}
-                  key={item}
-                >
-                  {t(`filter.${item}`)}
-                </DropdownMenuItem>
-              ))}
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        <Sort
+          id="affirmations-and-tips-sort"
+          defaultValue={sort as 'newest' | 'oldest'}
+          onValueChange={(value) => setSort(value)}
+        />
       </div>
     </>
   )
