@@ -1,7 +1,7 @@
+import { useTranslations } from 'next-intl'
+
 import { DropdownInput } from '@/ds/components/DropdownInput'
 import { SortVerticalIcon } from '@/ds/icons/sort-vertical'
-import { useTranslations } from 'next-intl'
-import { use } from 'react'
 
 interface SortProps {
   id: string
