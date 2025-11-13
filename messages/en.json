@@ -128,11 +128,8 @@
     "affirmationTag": "Affirmation",
     "filter": {
       "title": "Filters",
-      "sort": "Sort",
       "by tags": "By tags",
-      "clear": "Clear",
-      "newest": "Newest first",
-      "oldest": "Oldest first"
+      "clear": "Clear"
     }
   },
   "SavedPage": {
@@ -328,6 +325,11 @@
           }
         }
       }
+    },
+    "Sort": {
+      "Label": "Sort",
+      "Newest": "Newest first",
+      "Oldest": "Oldest first"
     }
   }
 }
