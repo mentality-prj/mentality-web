@@ -20,7 +20,13 @@ export function Header() {
   return (
     <header className="flex w-full items-center justify-between rounded-b-default bg-surface-white px-2 py-2 tablet:mb-4 tablet:px-4 desktop:mb-8 desktop:px-8 desktop:py-3">
       {isMobile && (
-        <Button className="h-6 w-6" onClick={toggleSidebar} variant="iconButton" size="icon">
+        <Button
+          className="h-6 w-6"
+          onClick={toggleSidebar}
+          variant="iconButton"
+          size="icon"
+          aria-label="Toggle Sidebar"
+        >
           <HamburgerMenu />
         </Button>
       )}
