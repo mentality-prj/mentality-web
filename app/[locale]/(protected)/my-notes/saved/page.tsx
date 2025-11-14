@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl'
 
 import { SavedList } from '@/components/SavedList'
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { PageTitle } from '@/components/ui/PageTitle'
+import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 
 export default function SavedPage() {
   const t = useTranslations()
