@@ -62,7 +62,7 @@ export const Filter = () => {
         <hr />
         <Sort
           id="affirmations-and-tips-sort"
-          defaultValue={sort as 'newest' | 'oldest'}
+          value={sort as 'newest' | 'oldest'}
           onValueChange={(value) => setSort(value)}
         />
       </div>

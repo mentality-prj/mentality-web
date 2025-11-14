@@ -5,11 +5,11 @@ import { SortVerticalIcon } from '@/ds/icons/sort-vertical'
 
 interface SortProps {
   id: string
-  defaultValue: 'newest' | 'oldest'
+  value: 'newest' | 'oldest'
   onValueChange: (value: 'newest' | 'oldest') => void
 }
 
-export const Sort = ({ id, defaultValue, onValueChange }: SortProps) => {
+export const Sort = ({ id, value, onValueChange }: SortProps) => {
   const t = useTranslations('components.Sort')
   const itemsSort = [
     { value: 'newest', text: t('Newest') },
@@ -19,7 +19,7 @@ export const Sort = ({ id, defaultValue, onValueChange }: SortProps) => {
     <DropdownInput
       id={id}
       label={t('Label')}
-      defaultValue={defaultValue}
+      defaultValue={value}
       onValueChange={(value) => onValueChange(value as 'newest' | 'oldest')}
       labelIcon={<SortVerticalIcon />}
       items={itemsSort}
