@@ -6,7 +6,7 @@ import { SupportedLanguage } from '@/types/languages'
 export const Insight = async ({ text }: { text: LocalizedText }) => {
   const locale = (await getLocale()) as SupportedLanguage
   return (
-    <div className="flex items-center gap-3 rounded-default bg-surface-primary p-6">
+    <div className="flex items-center gap-6 rounded-default bg-surface-primary p-6">
       <span className="h-3 w-3 shrink-0 rounded-full bg-[#16A34A]"></span>
       <span className="text-base text-textcolor-secondary">{text[`${locale}`]}</span>
     </div>

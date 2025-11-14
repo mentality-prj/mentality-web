@@ -55,8 +55,8 @@ export default function AddTip() {
 
   return (
     <>
-      <div className="flex w-full gap-4 px-4 py-6">
-        <div className="flex flex-col gap-2">
+      <div className="flex w-full gap-6 px-6 py-6">
+        <div className="flex flex-col gap-6">
           <Button color="success" onClick={generateTip} disabled={isLoading}>
             {t('generateButton')}
           </Button>
@@ -72,7 +72,7 @@ export default function AddTip() {
           <em>If no prompt is specified, the tip will be generated with the default prompt.</em>
         </p>
       </div>
-      <div className="flex w-full gap-4 px-4 py-6">
+      <div className="mt-8 flex w-full gap-6 px-6 py-6">
         <em>
           Генерація поради підтримує лише <strong>українську мову</strong>
         </em>

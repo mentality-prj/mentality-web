@@ -10,10 +10,10 @@ import { StressLevel } from './StressLevel'
 export const TenDaysSummary = () => {
   const t = useTranslations('components.TenDaysSummary')
   return (
-    <SectionCard className="max-w-fit p-4 laptop:p-8">
-      <div className="mb-6 text-xl/[24px] font-semibold text-textcolor-primary">{t('title')}</div>
+    <SectionCard className="max-w-fit p-8 laptop:p-8">
+      <div className="mb-8 text-xl/[24px] font-semibold text-textcolor-primary">{t('title')}</div>
       <div className="flex items-center justify-center">
-        <div className="grid auto-rows-[1fr] gap-4">
+        <div className="grid auto-rows-[1fr] gap-6">
           <BestDay />
           <MoodMarks />
           <StressLevel />
