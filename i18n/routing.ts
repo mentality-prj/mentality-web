@@ -8,4 +8,10 @@ export const routing = defineRouting({
 
   // Used when no locale matches
   defaultLocale: 'uk',
+
+  // Always use locale prefix in URL
+  localePrefix: 'always',
+
+  // Disable automatic detection - we'll handle it manually
+  localeDetection: false,
 })

@@ -1,10 +1,9 @@
 import { auth } from '@/auth'
 import { Profile, UserProfile } from '@/components/Profile'
 import { Card } from '@/ds/shadcn/card'
-import { CustomSession } from '@/types/auth'
 
 export default async function ProfilePage() {
-  const session = (await auth()) as CustomSession
+  const session = await auth()
 
   const user = session?.user
 

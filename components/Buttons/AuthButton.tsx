@@ -2,18 +2,20 @@
 
 import { useSession } from 'next-auth/react'
 
-import { CustomSession } from '@/types/auth'
-
 import LoginButton from './LoginButton'
 import LogOutButton from './LogOutButton'
 
 export const AuthButton = () => {
-  const { data, status } = useSession()
+  const { data: session, status } = useSession()
 
-  const session = data as CustomSession
   const user = session?.OAuthToken && session.user ? session.user : null
 
-  if (!session || !user || status === 'unauthenticated') {
+  // Handle loading state to prevent UI flash
+  if (status === 'loading') {
+    return <div className="h-10 w-24 animate-pulse rounded bg-gray-200" />
+  }
+
+  if (status === 'unauthenticated' || !session || !user) {
     return <LoginButton />
   }
 

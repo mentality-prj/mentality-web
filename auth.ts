@@ -16,6 +16,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
   pages: {
     signIn: Routes.SIGNIN,
   },
+  session: {
+    strategy: 'jwt',
+    maxAge: 30 * 24 * 60 * 60, // 30 days
+  },
   callbacks: {
     authorized: async ({ auth }) => {
       // Logged in users are authenticated, otherwise redirect to login page
@@ -73,7 +77,10 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       } else if (typeof token.expiresAt === 'number' && Date.now() < token.expiresAt * 1000) {
         return token
       } else {
-        if (!token.refreshToken) throw new TypeError('Missing refresh_token')
+        // If token is in error state (empty, undefined, or null), don't attempt refresh
+        if (!token.refreshToken || !token.accessToken) {
+          return token as ExtendedToken
+        }
 
         try {
           const response = await fetch('https://oauth2.googleapis.com/token', {
@@ -87,7 +94,20 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           })
           const tokensOrError = await response.json()
 
-          if (!response.ok) throw tokensOrError
+          if (!response.ok) {
+            const errorMessage = tokensOrError?.error_description || tokensOrError?.error || 'Unknown error'
+            logger.warn('[AUTH] Token refresh failed, user needs to re-authenticate', {
+              error: errorMessage,
+              status: response.status,
+            })
+            // Return token with error flag and null tokens so user will be signed out
+            return {
+              ...token,
+              error: 'RefreshTokenError',
+              accessToken: null,
+              refreshToken: null,
+            } as ExtendedToken
+          }
 
           const newTokens = tokensOrError as {
             access_token: string
@@ -95,19 +115,22 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             refresh_token?: string
           }
 
+          logger.info('[AUTH] Token refreshed successfully')
+
           return {
             ...token,
             accessToken: newTokens.access_token,
             expiresAt: Math.floor(Date.now() / 1000 + newTokens.expires_in),
             refreshToken: newTokens.refresh_token ? newTokens.refresh_token : token.refreshToken,
+            error: undefined,
           }
         } catch (error) {
-          logger.error(
-            '[AUTH] Error refreshing access_token',
-            error instanceof Error ? error : new Error(String(error))
-          )
-          token.error = 'RefreshTokenError'
-          return token
+          const errorMessage = error instanceof Error ? error.message : JSON.stringify(error)
+          logger.error('[AUTH] Unexpected error refreshing access_token', new Error(errorMessage))
+          return {
+            ...token,
+            error: 'RefreshTokenError',
+          } as ExtendedToken
         }
       }
     },

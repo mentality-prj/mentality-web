@@ -1,4 +1,7 @@
 {
+  "common": {
+    "loading": "Loading..."
+  },
   "Header": {
     "SearchBar": {
       "placeholder": "Search..."
@@ -234,13 +237,30 @@
   },
   "components": {
     "Admin": {
+      "tabs": {
+        "tags": "Tags",
+        "tips": "Tips",
+        "exercises": "Exercises"
+      },
       "AddTag": {
-        "title": "Add a new tag",
-        "button": "Add Tag",
+        "title": "Add new tag",
+        "button": "Add tag",
+        "submitting": "Saving...",
+        "success": "Tag added successfully",
+        "showTagsButton": "Show all tags",
+        "tagsList": {
+          "title": "Tags List",
+          "loading": "Loading...",
+          "empty": "No tags found",
+          "error": "Error loading tags"
+        },
         "fields": {
           "key": {
             "label": "Add tag key:",
-            "description": "Add a unique key for the new tag. Use Snake Case?: new_tag_name"
+            "description": "Add a unique key for the new tag. Use snake_case: new_tag_name",
+            "required": "Tag key is required",
+            "format": "Tag key must be in snake_case format (must start with a lowercase letter, followed by lowercase letters, numbers, and underscores only)",
+            "duplicate": "A tag with this key already exists"
           },
           "uk": {
             "label": "Ukrainian:",
@@ -253,6 +273,63 @@
           "pl": {
             "label": "Polish:",
             "description": "Add the text for the new tag in Polish. This can be a word or phrase."
+          },
+          "missingTranslations": "Please fill in translations for languages: {languages}",
+          "languageNames": {
+            "uk": "Ukrainian",
+            "en": "English",
+            "pl": "Polish"
+          }
+        }
+      },
+      "GenerateTip": {
+        "generateButton": "Generate Tip",
+        "showUnpublishedButton": "Show Unpublished",
+        "description": "Generate a {tip} using the OpenAI service.",
+        "tip": "Tip",
+        "autoAppear": "This tip will automatically appear on pages as a {currentTip}",
+        "currentTip": "Current Tip",
+        "noPrompt": "If no prompt is specified, the tip will be generated with the default prompt.",
+        "ukrainianOnly": "Tip generation supports only {ukrainian}",
+        "ukrainian": "Ukrainian",
+        "promptLabel": "Tip Prompt",
+        "promptPlaceholder": "Add a prompt if needed",
+        "success": "Tip generated successfully!",
+        "error": "Failed to generate tip",
+        "unpublishedError": "Failed to get unpublished tips",
+        "unpublishedSuccess": "Found {count} unpublished tips",
+        "loginRequired": "Please login to continue"
+      },
+      "AddExercise": {
+        "title": "Add new exercise",
+        "button": "Add exercise",
+        "success": "Exercise added successfully",
+        "exercisesList": {
+          "title": "Exercises List",
+          "loading": "Loading...",
+          "empty": "No exercises found",
+          "error": "Error loading exercises"
+        },
+        "fields": {
+          "category": {
+            "label": "Category:",
+            "required": "Please enter a category"
+          },
+          "title": {
+            "label": "Title:",
+            "required": "Please enter a title"
+          },
+          "annotation": {
+            "label": "Annotation:",
+            "required": "Please enter an annotation"
+          },
+          "description": {
+            "label": "Description:",
+            "required": "Please enter a description"
+          },
+          "tags": {
+            "label": "Tags:",
+            "empty": "No tags available. Add tags first in the Tags tab."
           }
         }
       }
