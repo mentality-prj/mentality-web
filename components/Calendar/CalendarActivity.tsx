@@ -36,7 +36,7 @@ export const CalendarActivity = ({ selectedDays }: CalendarActivityProps) => {
         hidden: 'visible border-0 bg-surface-primary',
       }}
       modifiersClassNames={{
-        activeDays: 'bg-accent-action border-primary !text-primary',
+        activeDays: '!bg-accent-action border-primary !text-primary',
       }}
     />
   )

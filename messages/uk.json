@@ -90,9 +90,11 @@
       "Save": "Зберегти",
       "Cancel": "Скасувати"
     },
-    "CalendarThoughtsNotes": {
-      "title": "Створено записів настрою",
-      "subtitle": "за останній місяць"
+    "Calendar": {
+      "Title": "Створено записів настрою",
+      "Subtitle": "за останній місяць",
+      "ActiveLabel": "дні з записами",
+      "InactiveLabel": "дні без записів"
     },
     "ThoughtsList": {
       "title": "Мої записи",

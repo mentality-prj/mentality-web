@@ -18,10 +18,10 @@ export default function MyProgress() {
         <Calendar
           title={t('Activity.Title')}
           subtitle={
-            <>
+            <p className="flex items-center gap-1 text-xs text-textcolor-secondary">
               <HeartHandsEmoji />
               {t('Activity.Subtitle')}
-            </>
+            </p>
           }
           activeLabel={t('Activity.DaysWithActivity')}
           inactiveLabel={t('Activity.DaysWithoutActivity')}

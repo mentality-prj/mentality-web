@@ -93,9 +93,11 @@
       "Save": "Zapisz",
       "Cancel": "Anuluj"
     },
-    "CalendarThoughtsNotes": {
-      "title": "Utworzone wpisy nastroju",
-      "subtitle": "w ostatnim miesiącu"
+    "Calendar": {
+      "Title": "Utworzone wpisy nastroju",
+      "Subtitle": "w ostatnim miesiącu",
+      "ActiveLabel": "dni z wpisami",
+      "InactiveLabel": "dni bez wpisów"
     },
     "ThoughtsList": {
       "title": "Moje zapiski",
