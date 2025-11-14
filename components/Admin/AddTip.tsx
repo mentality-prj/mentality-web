@@ -1,51 +1,74 @@
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { Button } from '@/ds/shadcn/button'
 import { Label } from '@/ds/shadcn/label'
 import { Textarea } from '@/ds/shadcn/textarea'
-import { addTip, getUnpablishedTips } from '@/requests/tips'
+import { addTip, getUnpublishedTips } from '@/requests/tips'
+import { TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
-import { Tip } from '@/types/tips'
+import { notifyError, notifySuccess } from '@/utils/toast'
 
 export default function AddTip() {
-  const [lang] = useState<SupportedLanguage>('uk')
+  const t = useTranslations('components.Admin.GenerateTip')
+  const locale = useLocale() as SupportedLanguage
   const [prompt, setPrompt] = useState('')
-  const [tips, setTips] = useState([])
+  const [tips, setTips] = useState<TipEntity[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const { data } = useSession()
   const session = data as CustomSession
 
   const generateTip = async () => {
     if (session?.user) {
-      await addTip(session.user, prompt, lang)
+      setIsLoading(true)
+      try {
+        const result = await addTip(session, prompt, locale)
+        if (result.error) {
+          notifyError(result.error)
+        } else {
+          notifySuccess(t('success'))
+        }
+      } finally {
+        setIsLoading(false)
+      }
     }
     return
   }
 
-  const showUnpablishedTips = async () => {
+  const showUnpublishedTips = async () => {
     if (session?.user) {
-      const data = await getUnpablishedTips(session.user)
-      console.log('DATA: ', data)
-      setTips(data)
+      setIsLoading(true)
+      try {
+        const result = await getUnpublishedTips(session)
+        if (result.error) {
+          notifyError(result.error)
+        } else if (result.data) {
+          setTips(result.data)
+          notifySuccess(t('unpublishedSuccess', { count: result.data.length }))
+        }
+      } finally {
+        setIsLoading(false)
+      }
     }
     return
   }
 
-  const tipsMap = tips.map((tip: Tip) => {
-    return <li key={tip.id}>{tip.translations.uk}</li>
+  const tipsMap = tips.map((tip: TipEntity) => {
+    return <li key={tip.id}>{tip.text[locale as SupportedLanguage] || tip.text.uk || ''}</li>
   })
 
   return (
     <>
       <div className="flex w-full gap-4 px-4 py-6">
         <div className="flex flex-col gap-2">
-          <Button color="success" onClick={generateTip}>
-            Generate Tip
+          <Button color="success" onClick={generateTip} disabled={isLoading}>
+            {t('generateButton')}
           </Button>
-          <Button color="primary" onClick={showUnpablishedTips}>
-            Show Unpablished
+          <Button color="primary" onClick={showUnpublishedTips} disabled={isLoading}>
+            {t('showUnpublishedButton')}
           </Button>
         </div>
         <p className="text-sm">
@@ -57,15 +80,14 @@ export default function AddTip() {
         </p>
       </div>
       <div className="flex w-full gap-4 px-4 py-6">
-        <em>
-          Генерація поради підтримує лише <strong>українську мову</strong>
-        </em>
+        <em>{t('ukrainianOnly')}</em>
         <Label htmlFor="tipPrompt">Tip Prompt</Label>
         <Textarea
           id="tipPrompt"
-          placeholder="Add a prompt if needed"
+          placeholder={t('promptPlaceholder')}
           onChange={(e) => setPrompt(e.target.value)}
           value={prompt}
+          disabled={isLoading}
         />
       </div>
       <ul>{tipsMap}</ul>
