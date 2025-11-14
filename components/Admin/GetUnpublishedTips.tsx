@@ -4,27 +4,38 @@ import { useSession } from 'next-auth/react'
 import { Button } from '@/ds/shadcn/button'
 import { Label } from '@/ds/shadcn/label'
 import { Textarea } from '@/ds/shadcn/textarea'
-import { addTip, getUnpablishedTips } from '@/requests/tips'
+import { addTip, getUnpublishedTips } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
 
 export default function AddTip() {
   const [lang] = useState<SupportedLanguage>('uk')
   const [prompt, setPrompt] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const { data } = useSession()
   const session = data as CustomSession
 
   const generateTip = async () => {
     if (session?.user) {
-      await addTip(session.user, prompt, lang)
+      setIsLoading(true)
+      try {
+        await addTip(session, prompt, lang)
+      } finally {
+        setIsLoading(false)
+      }
     }
     return
   }
 
   const showUnpublishedTips = async () => {
     if (session?.user) {
-      await getUnpablishedTips(session.user)
+      setIsLoading(true)
+      try {
+        await getUnpublishedTips(session)
+      } finally {
+        setIsLoading(false)
+      }
     }
     return
   }
@@ -33,10 +44,10 @@ export default function AddTip() {
     <>
       <div className="flex w-full gap-4 px-4 py-6">
         <div className="flex flex-col gap-2">
-          <Button color="success" onClick={generateTip}>
+          <Button color="success" onClick={generateTip} disabled={isLoading}>
             Generate Tip
           </Button>
-          <Button color="primary" onClick={showUnpublishedTips}>
+          <Button color="primary" onClick={showUnpublishedTips} disabled={isLoading}>
             Show Unpablished
           </Button>
         </div>
@@ -58,6 +69,7 @@ export default function AddTip() {
           placeholder="Add a prompt if needed"
           onChange={(e) => setPrompt(e.target.value)}
           value={prompt}
+          disabled={isLoading}
         />
       </div>
     </>

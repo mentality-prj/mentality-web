@@ -1,23 +1,78 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { tagproperties } from '@/constants/tags'
+import { Badge } from '@/ds/shadcn/badge'
 import { Button } from '@/ds/shadcn/button'
 import { Input } from '@/ds/shadcn/input'
 import { Label } from '@/ds/shadcn/label'
-import { addTag } from '@/requests/tags'
-import { CustomSession } from '@/types/auth'
+import { addTag, getTags } from '@/requests/tags'
+import { TagEntity } from '@/types/api-responses'
 import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/languages'
 import { TagProperties } from '@/types/tags'
+import { notifyError, notifySuccess } from '@/utils/toast'
 
 export default function AddTag() {
   const t = useTranslations('components.Admin.AddTag')
-  const { data } = useSession()
-  const session = data as CustomSession
+  const locale = useLocale() as SupportedLanguage
+  const { data: session } = useSession()
+  const [tags, setTags] = useState<TagEntity[]>([])
+  const [isLoading, setIsLoading] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const formRef = useRef<HTMLFormElement>(null)
+  const tagsLoadedRef = useRef(false)
 
-  const createTag = async (formData: FormData) => {
+  const loadTags = useCallback(async () => {
+    if (!session || tagsLoadedRef.current) return
+
+    tagsLoadedRef.current = true
+    setIsLoading(true)
+    const result = await getTags(session)
+
+    if (result.error) {
+      notifyError(result.error)
+      setTags([])
+      tagsLoadedRef.current = false
+    } else {
+      setTags(result.data || [])
+    }
+    setIsLoading(false)
+  }, [session])
+
+  useEffect(() => {
+    loadTags()
+  }, [loadTags])
+
+  const createTag = async (formData: FormData): Promise<void> => {
+    if (isSubmitting) return // Prevent duplicate submissions
+
+    setIsSubmitting(true)
+    const key = (formData.get('key') as string)?.trim()
+
+    // Validate key is not empty
+    if (!key) {
+      notifyError(t('fields.key.required'))
+      setIsSubmitting(false)
+      return
+    }
+
+    // Validate key matches snake_case format (must start with a lowercase letter)
+    if (!/^[a-z][a-z0-9_]*$/.test(key)) {
+      notifyError(t('fields.key.format'))
+      setIsSubmitting(false)
+      return
+    }
+
+    // Validate key is not a duplicate
+    if (tags.some((tag) => tag.key === key)) {
+      notifyError(t('fields.key.duplicate'))
+      setIsSubmitting(false)
+      return
+    }
+
     const translations = SUPPORTED_LANGUAGES.reduce(
       (acc, lang) => {
         acc[`${lang}`] = formData.get(lang) as string
@@ -25,31 +80,82 @@ export default function AddTag() {
       },
       {} as Record<SupportedLanguage, string>
     )
-    const tag = { key: formData.get('key') as string, translations }
 
-    if (session?.user) {
-      await addTag(session.user, tag)
+    // Validate all language translations are filled
+    const emptyLanguages = SUPPORTED_LANGUAGES.filter((lang) => {
+      // eslint-disable-next-line security/detect-object-injection
+      const translation = translations[lang]
+      return !translation || translation.trim() === ''
+    })
+
+    if (emptyLanguages.length > 0) {
+      const languageNames = {
+        uk: t('fields.languageNames.uk'),
+        en: t('fields.languageNames.en'),
+        pl: t('fields.languageNames.pl'),
+      }
+      // eslint-disable-next-line security/detect-object-injection
+      const missingNames = emptyLanguages.map((lang) => languageNames[lang]).join(', ')
+      notifyError(t('fields.missingTranslations', { languages: missingNames }))
+      setIsSubmitting(false)
+      return
     }
-    return
+
+    const tag = { key, translations }
+
+    if (session) {
+      const result = await addTag(session, tag)
+      if (result.error) {
+        notifyError(result.error)
+      } else {
+        notifySuccess(t('success'))
+        formRef.current?.reset()
+        tagsLoadedRef.current = false
+        await loadTags()
+      }
+      setIsSubmitting(false)
+    } else {
+      setIsSubmitting(false)
+    }
   }
 
-  const tagPropertiesMap = tagproperties.map((prop: TagProperties) => (
-    <div key={prop.key}>
-      <Label htmlFor={prop.key}>{t(`fields.${prop.name}.label`)}</Label>
-      <Input required id={prop.key} name={prop.name} type="text" className="w-full max-w-xl" />
-      <span>{t(`fields.${prop.name}.description`)}</span>
-    </div>
-  ))
-
   return (
-    <form action={createTag} className="flex w-full flex-col items-center gap-4 py-6">
-      <h2>{t('title')}</h2>
-      {tagPropertiesMap}
-      <div>
-        <Button type="submit" className="flex-none" color="success">
-          {t('button')}
-        </Button>
+    <div className="flex w-full gap-8 py-6">
+      <form ref={formRef} action={createTag} className="flex w-full flex-col gap-4">
+        <h2>{t('title')}</h2>
+        {tagproperties.map((prop: TagProperties) => (
+          <div key={prop.key}>
+            <Label htmlFor={prop.key}>{t(`fields.${prop.name}.label`)}</Label>
+            <Input required id={prop.key} name={prop.name} type="text" className="w-full" />
+            <span>{t(`fields.${prop.name}.description`)}</span>
+          </div>
+        ))}
+        <div>
+          <Button type="submit" className="flex-none" color="success" disabled={isSubmitting}>
+            {isSubmitting ? t('submitting') : t('button')}
+          </Button>
+        </div>
+      </form>
+
+      <div className="w-full">
+        <h3 className="mb-4 text-xl font-semibold">{t('tagsList.title')}</h3>
+        {isLoading ? (
+          <p className="text-center text-textcolor-secondary">{t('tagsList.loading')}</p>
+        ) : tags.length === 0 ? (
+          <p className="text-center text-textcolor-secondary">{t('tagsList.empty')}</p>
+        ) : (
+          <div className="flex flex-wrap gap-2">
+            {tags.map((tag) => {
+              const translation = tag.translations?.[locale as SupportedLanguage] || tag.translations?.en || tag.key
+              return (
+                <Badge key={tag.id} variant="active">
+                  {translation}
+                </Badge>
+              )
+            })}
+          </div>
+        )}
       </div>
-    </form>
+    </div>
   )
 }

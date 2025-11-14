@@ -1,12 +1,16 @@
 /**
- * Server-side logger utility
- * Provides structured logging for server-side operations
+ * Universal logger utility
+ * Provides structured logging for both client and server-side operations
+ *
+ * Server-side: Full structured logging with timestamps and JSON metadata
+ * Client-side: Simplified console logging with [LEVEL] prefix
+ *
+ * Note: Client-side logs are simplified to avoid cluttering the browser console.
+ * In production, consider implementing a log level filter or disabling client-side
+ * logging entirely by checking process.env.NODE_ENV.
  */
 
-// Enforce server-side usage
-if (typeof window !== 'undefined') {
-  throw new Error('Logger can only be used on the server side')
-}
+const isServer = typeof window === 'undefined'
 
 type LogLevel = 'info' | 'warn' | 'error' | 'debug'
 
@@ -22,29 +26,59 @@ class Logger {
   }
 
   info(message: string, metadata?: LogMetadata): void {
-    console.log(this.formatMessage('info', message, metadata))
+    if (isServer) {
+      console.log(this.formatMessage('info', message, metadata))
+    } else {
+      if (metadata) {
+        console.log(`[INFO] ${message}`, metadata)
+      } else {
+        console.log(`[INFO] ${message}`)
+      }
+    }
   }
 
   warn(message: string, metadata?: LogMetadata): void {
-    console.warn(this.formatMessage('warn', message, metadata))
+    if (isServer) {
+      console.warn(this.formatMessage('warn', message, metadata))
+    } else if (metadata) {
+      console.warn(`[WARN] ${message}`, metadata)
+    } else {
+      console.warn(`[WARN] ${message}`)
+    }
   }
 
   error(message: string, metadata?: LogMetadata | Error): void {
     if (metadata instanceof Error) {
-      console.error(
-        this.formatMessage('error', message, {
-          error: metadata.message,
-          stack: metadata.stack,
-        })
-      )
+      if (isServer) {
+        console.error(
+          this.formatMessage('error', message, {
+            error: metadata.message,
+            stack: metadata.stack,
+          })
+        )
+      } else {
+        console.error(`[ERROR] ${message}`, metadata)
+      }
     } else {
-      console.error(this.formatMessage('error', message, metadata))
+      if (isServer) {
+        console.error(this.formatMessage('error', message, metadata))
+      } else if (metadata) {
+        console.error(`[ERROR] ${message}`, metadata)
+      } else {
+        console.error(`[ERROR] ${message}`)
+      }
     }
   }
 
   debug(message: string, metadata?: LogMetadata): void {
     if (process.env.NODE_ENV === 'development') {
-      console.debug(this.formatMessage('debug', message, metadata))
+      if (isServer) {
+        console.debug(this.formatMessage('debug', message, metadata))
+      } else if (metadata) {
+        console.debug(`[DEBUG] ${message}`, metadata)
+      } else {
+        console.debug(`[DEBUG] ${message}`)
+      }
     }
   }
 }

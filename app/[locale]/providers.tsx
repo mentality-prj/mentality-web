@@ -3,6 +3,7 @@ import { ReactNode, useState } from 'react'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes'
 
+import { SessionWrapper } from '@/components/SessionWrapper'
 import { FilterContext, SortContext } from '@/context/FilterContext'
 import { SidebarProvider } from '@/ds/shadcn/sidebar'
 
@@ -16,21 +17,23 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   const [filter, setFilter] = useState('')
   return (
     <SessionProvider>
-      <NextThemesProvider defaultTheme="system" attribute="class" {...themeProps}>
-        <SidebarProvider
-          defaultOpen={true}
-          style={
-            {
-              '--sidebar-width': '275px',
-              '--sidebar-width-icon': '80px',
-            } as React.CSSProperties
-          }
-        >
-          <SortContext.Provider value={{ sort, setSort }}>
-            <FilterContext.Provider value={{ filter, setFilter }}>{children}</FilterContext.Provider>
-          </SortContext.Provider>
-        </SidebarProvider>
-      </NextThemesProvider>
+      <SessionWrapper>
+        <NextThemesProvider defaultTheme="system" attribute="class" {...themeProps}>
+          <SidebarProvider
+            defaultOpen={true}
+            style={
+              {
+                '--sidebar-width': '275px',
+                '--sidebar-width-icon': '80px',
+              } as React.CSSProperties
+            }
+          >
+            <SortContext.Provider value={{ sort, setSort }}>
+              <FilterContext.Provider value={{ filter, setFilter }}>{children}</FilterContext.Provider>
+            </SortContext.Provider>
+          </SidebarProvider>
+        </NextThemesProvider>
+      </SessionWrapper>
     </SessionProvider>
   )
 }

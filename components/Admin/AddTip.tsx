@@ -4,47 +4,59 @@ import { useSession } from 'next-auth/react'
 import { Button } from '@/ds/shadcn/button'
 import { Label } from '@/ds/shadcn/label'
 import { Textarea } from '@/ds/shadcn/textarea'
-import { addTip, getUnpablishedTips } from '@/requests/tips'
+import { addTip, getUnpublishedTips } from '@/requests/tips'
+import { TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
-import { Tip } from '@/types/tips'
 
 export default function AddTip() {
   const [lang] = useState<SupportedLanguage>('uk')
   const [prompt, setPrompt] = useState('')
-  const [tips, setTips] = useState([])
+  const [tips, setTips] = useState<TipEntity[]>([])
+  const [isLoading, setIsLoading] = useState(false)
 
   const { data } = useSession()
   const session = data as CustomSession
 
   const generateTip = async () => {
     if (session?.user) {
-      await addTip(session.user, prompt, lang)
+      setIsLoading(true)
+      try {
+        await addTip(session, prompt, lang)
+      } finally {
+        setIsLoading(false)
+      }
     }
     return
   }
 
   const showUnpablishedTips = async () => {
     if (session?.user) {
-      const data = await getUnpablishedTips(session.user)
-      console.log('DATA: ', data)
-      setTips(data)
+      setIsLoading(true)
+      try {
+        const result = await getUnpublishedTips(session)
+        if (result.data) {
+          setTips(result.data)
+        }
+      } finally {
+        setIsLoading(false)
+      }
     }
     return
   }
 
-  const tipsMap = tips.map((tip: Tip) => {
-    return <li key={tip.id}>{tip.translations.uk}</li>
+  const tipsMap = tips.map((tip: TipEntity) => {
+    return <li key={tip.id}>{tip.text.uk}</li>
   })
 
   return (
     <>
       <div className="flex w-full gap-4 px-4 py-6">
         <div className="flex flex-col gap-2">
-          <Button color="success" onClick={generateTip}>
+          <Button color="success" onClick={generateTip} disabled={isLoading}>
             Generate Tip
           </Button>
-          <Button color="primary" onClick={showUnpablishedTips}>
+          <Button color="primary" onClick={showUnpablishedTips} disabled={isLoading}>
             Show Unpablished
           </Button>
         </div>
@@ -66,6 +78,7 @@ export default function AddTip() {
           placeholder="Add a prompt if needed"
           onChange={(e) => setPrompt(e.target.value)}
           value={prompt}
+          disabled={isLoading}
         />
       </div>
       <ul>{tipsMap}</ul>
