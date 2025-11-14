@@ -1,7 +1,6 @@
 import { GreetingTitleWrapper } from '@/components/GreetingTitle/GreetingTitleWrapper'
-
 import { DailyCard } from '@/components/ui/DailyCard'
-import { mockDailyAffirmation, mockDailyTip, mockExercisesRecoveryData } from '@/REST/mockApi'
+import { mockDailyAffirmation, mockDailyTip } from '@/REST/mockApi'
 
 export default async function Home() {
   const dailyAffirmation = await mockDailyAffirmation()
