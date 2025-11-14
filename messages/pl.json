@@ -292,10 +292,10 @@
         "autoAppear": "Ta porada automatycznie pojawi się na stronach jako {currentTip}",
         "currentTip": "Bieżąca porada",
         "noPrompt": "Jeśli nie określono promptu, porada zostanie wygenerowana z domyślnym promptem.",
-        "ukrainianOnly": "Generowanie porad obsługuje tylko {ukrainian}",
+        "ukrainianOnly": "Generowanie porad obsługuje tylko <strong>język ukraiński</strong>",
         "ukrainian": "język ukraiński",
         "promptLabel": "Prompt dla porady",
-        "promptPlaceholder": "Dodaj prompt, jeśli potrzebny",
+        "promptPlaceholder": "Dodaj zapytanie, jeśli potrzebujesz",
         "success": "Porada została pomyślnie wygenerowana!",
         "error": "Nie udało się wygenerować porady",
         "unpublishedError": "Nie udało się pobrać nieopublikowanych porad",
@@ -305,6 +305,7 @@
       "AddExercise": {
         "title": "Dodaj nowe ćwiczenie",
         "button": "Dodaj ćwiczenie",
+        "submitting": "Zapisywanie...",
         "success": "Ćwiczenie zostało pomyślnie dodane",
         "exercisesList": {
           "title": "Lista ćwiczeń",

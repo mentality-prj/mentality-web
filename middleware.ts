@@ -54,6 +54,7 @@ export async function middleware(request: NextRequest) {
       path: '/',
       maxAge: LOCALE_COOKIE_MAX_AGE,
       secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
     })
     return response
   }
@@ -67,6 +68,7 @@ export async function middleware(request: NextRequest) {
       path: '/',
       maxAge: LOCALE_COOKIE_MAX_AGE,
       secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
     })
     return response
   }
@@ -76,7 +78,12 @@ export async function middleware(request: NextRequest) {
 
   // Save locale to cookie in response
   if (localeInUrl) {
-    intlResponse.cookies.set(LOCALE_COOKIE, localeInUrl, { path: '/', maxAge: LOCALE_COOKIE_MAX_AGE })
+    intlResponse.cookies.set(LOCALE_COOKIE, localeInUrl, {
+      path: '/',
+      maxAge: LOCALE_COOKIE_MAX_AGE,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+    })
   }
 
   // Auth logic

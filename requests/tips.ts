@@ -7,7 +7,7 @@ import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
 
-export async function addTip(session: CustomSession | null, prompt: string | null, lang: SupportedLanguage) {
+export async function addTip(session: CustomSession | null, prompt: string, lang: SupportedLanguage) {
   if (!session?.user || session.user.role !== Roles.ADMIN) {
     logger.warn('Unauthorized attempt to add tip', {
       userId: session?.user?.email,

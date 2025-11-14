@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/ds/shadcn/button'
 import { Label } from '@/ds/shadcn/label'
@@ -7,8 +8,10 @@ import { Textarea } from '@/ds/shadcn/textarea'
 import { addTip, getUnpublishedTips } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
+import { notifyError, notifySuccess } from '@/utils/toast'
 
 export default function AddTip() {
+  const t = useTranslations('components.Admin.GenerateTip')
   const [lang] = useState<SupportedLanguage>('uk')
   const [prompt, setPrompt] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -20,7 +23,12 @@ export default function AddTip() {
     if (session?.user) {
       setIsLoading(true)
       try {
-        await addTip(session, prompt, lang)
+        const result = await addTip(session, prompt, lang)
+        if (result.error) {
+          notifyError(result.error)
+        } else {
+          notifySuccess(t('success'))
+        }
       } finally {
         setIsLoading(false)
       }
@@ -32,7 +40,12 @@ export default function AddTip() {
     if (session?.user) {
       setIsLoading(true)
       try {
-        await getUnpublishedTips(session)
+        const result = await getUnpublishedTips(session)
+        if (result.error) {
+          notifyError(result.error)
+        } else if (result.data) {
+          notifySuccess(t('unpublishedSuccess', { count: result.data.length }))
+        }
       } finally {
         setIsLoading(false)
       }
@@ -45,10 +58,10 @@ export default function AddTip() {
       <div className="flex w-full gap-4 px-4 py-6">
         <div className="flex flex-col gap-2">
           <Button color="success" onClick={generateTip} disabled={isLoading}>
-            Generate Tip
+            {t('generateButton')}
           </Button>
           <Button color="primary" onClick={showUnpublishedTips} disabled={isLoading}>
-            Show Unpablished
+            {t('showUnpublishedButton')}
           </Button>
         </div>
         <p className="text-sm">
@@ -66,7 +79,7 @@ export default function AddTip() {
         <Label htmlFor="tipPrompt">Tip Prompt</Label>
         <Textarea
           id="tipPrompt"
-          placeholder="Add a prompt if needed"
+          placeholder={t('promptPlaceholder')}
           onChange={(e) => setPrompt(e.target.value)}
           value={prompt}
           disabled={isLoading}

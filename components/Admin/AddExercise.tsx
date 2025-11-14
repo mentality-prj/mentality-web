@@ -24,6 +24,7 @@ export default function AddExercise() {
   const [tags, setTags] = useState<TagEntity[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [isLoadingExercises, setIsLoadingExercises] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const formRef = useRef<HTMLFormElement>(null)
   const exercisesLoadedRef = useRef(false)
   const tagsLoadedRef = useRef(false)
@@ -31,16 +32,15 @@ export default function AddExercise() {
   const loadExercises = useCallback(async () => {
     if (!session || exercisesLoadedRef.current) return
 
-    exercisesLoadedRef.current = true
     setIsLoadingExercises(true)
     const { data, error } = await getExercises(session)
 
     if (error) {
       notifyError(t('exercisesList.error'))
       setExercises([])
-      exercisesLoadedRef.current = false
     } else if (data) {
       setExercises(Array.isArray(data) ? data : [])
+      exercisesLoadedRef.current = true
     }
 
     setIsLoadingExercises(false)
@@ -49,14 +49,13 @@ export default function AddExercise() {
   const loadTags = useCallback(async () => {
     if (!session || tagsLoadedRef.current) return
 
-    tagsLoadedRef.current = true
     const { data, error } = await getTags(session)
 
     if (error) {
       notifyError(error)
-      tagsLoadedRef.current = false
     } else if (data) {
       setTags(data)
+      tagsLoadedRef.current = true
     }
   }, [session])
 
@@ -66,7 +65,9 @@ export default function AddExercise() {
   }, [loadExercises, loadTags])
 
   const createExercise = async (formData: FormData): Promise<void> => {
-    if (!session) return
+    if (!session || isSubmitting) return
+
+    setIsSubmitting(true)
 
     const category = formData.get('category') as string
     const title = formData.get('title') as string
@@ -76,21 +77,25 @@ export default function AddExercise() {
     // Validate all fields are filled
     if (!category || category.trim() === '') {
       notifyError(t('fields.category.required'))
+      setIsSubmitting(false)
       return
     }
 
     if (!title || title.trim() === '') {
       notifyError(t('fields.title.required'))
+      setIsSubmitting(false)
       return
     }
 
     if (!annotation || annotation.trim() === '') {
       notifyError(t('fields.annotation.required'))
+      setIsSubmitting(false)
       return
     }
 
     if (!description || description.trim() === '') {
       notifyError(t('fields.description.required'))
+      setIsSubmitting(false)
       return
     }
 
@@ -113,6 +118,7 @@ export default function AddExercise() {
       exercisesLoadedRef.current = false
       await loadExercises()
     }
+    setIsSubmitting(false)
   }
 
   return (
@@ -163,7 +169,6 @@ export default function AddExercise() {
                         }}
                       />
                       <label htmlFor={`tag-${tag.id}`} className="cursor-pointer text-sm">
-                        {/* eslint-disable-next-line security/detect-object-injection */}
                         {tag.translations[locale as SupportedLanguage] || tag.translations.en || tag.key}
                       </label>
                     </div>
@@ -175,8 +180,8 @@ export default function AddExercise() {
         </div>
 
         <div>
-          <Button type="submit" className="flex-none" color="success">
-            {t('button')}
+          <Button type="submit" className="flex-none" color="success" disabled={isSubmitting}>
+            {isSubmitting ? t('submitting') : t('button')}
           </Button>
         </div>
       </form>

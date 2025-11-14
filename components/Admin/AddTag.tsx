@@ -28,16 +28,15 @@ export default function AddTag() {
   const loadTags = useCallback(async () => {
     if (!session || tagsLoadedRef.current) return
 
-    tagsLoadedRef.current = true
     setIsLoading(true)
     const result = await getTags(session)
 
     if (result.error) {
       notifyError(result.error)
       setTags([])
-      tagsLoadedRef.current = false
     } else {
       setTags(result.data || [])
+      tagsLoadedRef.current = true
     }
     setIsLoading(false)
   }, [session])
@@ -83,8 +82,7 @@ export default function AddTag() {
 
     // Validate all language translations are filled
     const emptyLanguages = SUPPORTED_LANGUAGES.filter((lang) => {
-      // eslint-disable-next-line security/detect-object-injection
-      const translation = translations[lang]
+      const translation = translations[lang as SupportedLanguage]
       return !translation || translation.trim() === ''
     })
 
@@ -94,8 +92,7 @@ export default function AddTag() {
         en: t('fields.languageNames.en'),
         pl: t('fields.languageNames.pl'),
       }
-      // eslint-disable-next-line security/detect-object-injection
-      const missingNames = emptyLanguages.map((lang) => languageNames[lang]).join(', ')
+      const missingNames = emptyLanguages.map((lang) => languageNames[lang as SupportedLanguage]).join(', ')
       notifyError(t('fields.missingTranslations', { languages: missingNames }))
       setIsSubmitting(false)
       return
@@ -104,16 +101,19 @@ export default function AddTag() {
     const tag = { key, translations }
 
     if (session) {
-      const result = await addTag(session, tag)
-      if (result.error) {
-        notifyError(result.error)
-      } else {
-        notifySuccess(t('success'))
-        formRef.current?.reset()
-        tagsLoadedRef.current = false
-        await loadTags()
+      try {
+        const result = await addTag(session, tag)
+        if (result.error) {
+          notifyError(result.error)
+        } else {
+          notifySuccess(t('success'))
+          formRef.current?.reset()
+          tagsLoadedRef.current = false
+          await loadTags()
+        }
+      } finally {
+        setIsSubmitting(false)
       }
-      setIsSubmitting(false)
     } else {
       setIsSubmitting(false)
     }

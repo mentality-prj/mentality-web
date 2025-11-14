@@ -84,6 +84,13 @@ export async function apiRequest<T = unknown>(
       Object.entries(customHeaders).forEach(([key, value]) => {
         if (typeof value === 'string') {
           headers.set(key, value)
+        } else {
+          logger.warn('Custom header value is not a string and will be ignored', {
+            header: key,
+            value,
+            url,
+            method,
+          })
         }
       })
     }

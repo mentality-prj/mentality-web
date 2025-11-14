@@ -289,7 +289,7 @@
         "autoAppear": "This tip will automatically appear on pages as a {currentTip}",
         "currentTip": "Current Tip",
         "noPrompt": "If no prompt is specified, the tip will be generated with the default prompt.",
-        "ukrainianOnly": "Tip generation supports only {ukrainian}",
+        "ukrainianOnly": "Tip generation supports only <strong>Ukrainian language</strong>",
         "ukrainian": "Ukrainian",
         "promptLabel": "Tip Prompt",
         "promptPlaceholder": "Add a prompt if needed",
@@ -302,6 +302,7 @@
       "AddExercise": {
         "title": "Add new exercise",
         "button": "Add exercise",
+        "submitting": "Saving...",
         "success": "Exercise added successfully",
         "exercisesList": {
           "title": "Exercises List",

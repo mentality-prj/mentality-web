@@ -79,7 +79,13 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       } else {
         // If token is in error state (empty, undefined, or null), don't attempt refresh
         if (!token.refreshToken || !token.accessToken) {
-          return token as ExtendedToken
+          // Return token with error flag and null tokens so user will be signed out
+          return {
+            ...token,
+            error: 'InvalidToken',
+            accessToken: null,
+            refreshToken: null,
+          } as ExtendedToken
         }
 
         try {
@@ -130,6 +136,8 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           return {
             ...token,
             error: 'RefreshTokenError',
+            accessToken: null,
+            refreshToken: null,
           } as ExtendedToken
         }
       }
