@@ -2,8 +2,8 @@ import { useTranslations } from 'next-intl'
 
 import { Calendar } from '@/components/Calendar'
 import { ThoughtsFormWrapper } from '@/components/MyThoughts/Diary/ThoughtsFormWrapper'
-import { Breadcrumbs } from '@/components/ui/Breadcrumbs'
 import { PageTitle } from '@/components/ui/PageTitle'
+import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 
 export default function MyThoughtsPage() {
   const t = useTranslations('MyThougtsPage')

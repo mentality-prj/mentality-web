@@ -39,7 +39,6 @@ export const Breadcrumbs = ({ className, currentPage, breadcrumbList }: Breadcru
         <BreadcrumbItem>
           <BreadcrumbPage>{currentPage}</BreadcrumbPage>
         </BreadcrumbItem>
-        <BreadcrumbSeparator>/</BreadcrumbSeparator>
       </BreadcrumbList>
     </Breadcrumb>
   )
