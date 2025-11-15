@@ -1,4 +1,4 @@
-import { apiRequest } from '@/helpers/api-wrapper'
+import { apiRequestWithAuth } from '@/helpers/apiRequestWithAuth'
 import { logger } from '@/lib/logger'
 import { CreateExerciseDto, ExerciseEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -15,14 +15,19 @@ export async function addExercise(session: CustomSession | null, exerciseData: C
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  const { data, error } = await apiRequest<ExerciseEntity>(session, `${APIUrl}/exercises`, {
+  const { data, error } = await apiRequestWithAuth<ExerciseEntity>(session, `${APIUrl}/exercises`, {
     method: 'POST',
     body: exerciseData,
   })
 
   if (error) {
     logger.error('Failed to add exercise', { error })
-    return { error: error.message }
+    return {
+      error:
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error),
+    }
   }
 
   logger.info('Exercise successfully added', { exerciseId: data?.id })
@@ -38,15 +43,25 @@ export async function getExercises(session: CustomSession | null) {
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  const { data, error } = await apiRequest<ExerciseEntity[]>(session, `${APIUrl}/exercises`, {
+  const { data, error } = await apiRequestWithAuth<ExerciseEntity[]>(session, `${APIUrl}/exercises`, {
     method: 'GET',
   })
 
   if (error) {
     logger.error('Failed to get exercises', { error })
-    return { error: error.message }
+    return {
+      error:
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error),
+    }
   }
 
-  logger.info('Exercises retrieved', { count: Array.isArray(data) ? data.length : 0 })
-  return { data }
+  const exercises = Array.isArray(data)
+    ? data
+    : data && typeof data === 'object' && 'data' in data && Array.isArray((data as { data?: unknown }).data)
+      ? (data as { data: ExerciseEntity[] }).data
+      : []
+  logger.info('Exercises retrieved', { count: Array.isArray(exercises) ? exercises.length : 0 })
+  return { data: exercises }
 }

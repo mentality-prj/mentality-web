@@ -1,3 +1,4 @@
+import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import LogOutButton from '@/components/Buttons/LogOutButton'
@@ -16,10 +17,13 @@ interface UserMenuProps {
   name: string
   email?: string
   avatarUrl?: string
+  role?: string
 }
 
-export const UserMenu = ({ name, email, avatarUrl }: UserMenuProps) => {
+export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
   const t = useTranslations()
+  const router = useRouter()
+  const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : 'uk'
   const initials = name
     .split(' ')
     .map((word) => word[0])
@@ -43,8 +47,26 @@ export const UserMenu = ({ name, email, avatarUrl }: UserMenuProps) => {
           {email && <div className="text-xs">{email}</div>}
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem>{t('UserMenu.Profile')}</DropdownMenuItem>
-        <DropdownMenuItem>{t('UserMenu.Settings')}</DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.push(`/${locale}/profile`)}
+          className="hover:bg-primary/20 cursor-pointer"
+        >
+          {t('UserMenu.Profile')}
+        </DropdownMenuItem>
+        <DropdownMenuItem
+          onClick={() => router.push(`/${locale}/settings`)}
+          className="hover:bg-primary/20 cursor-pointer"
+        >
+          {t('UserMenu.Settings')}
+        </DropdownMenuItem>
+        {role === 'admin' && (
+          <DropdownMenuItem
+            onClick={() => router.push(`/${locale}/admin`)}
+            className="hover:bg-primary/20 cursor-pointer"
+          >
+            {t('UserMenu.Admin')}
+          </DropdownMenuItem>
+        )}
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>
           <LogOutButton />

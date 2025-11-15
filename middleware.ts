@@ -119,6 +119,12 @@ export async function middleware(request: NextRequest) {
     }
   }
 
+  // Explicit check for locale root page (e.g., /en, /uk, /pl)
+  const isLocaleRoot = routing.locales.includes(segments[1] as SupportedLanguage) && segments.length === 2
+  if (session?.user?.email && isLocaleRoot) {
+    return NextResponse.redirect(new URL(`/${locale}${Routes.HOME}`, request.nextUrl.origin))
+  }
+
   if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {
     return NextResponse.redirect(new URL(`/${locale}${Routes.PROFILE}`, request.url))
   }

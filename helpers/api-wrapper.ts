@@ -1,7 +1,7 @@
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 
-type ApiRequestOptions = {
+export type ApiRequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   body?: Record<string, unknown> | FormData
   headers?: HeadersInit
