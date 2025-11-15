@@ -1,4 +1,4 @@
-import { apiRequest } from '@/helpers/api-wrapper'
+import { apiRequestWithAuth } from '@/helpers/apiRequestWithAuth'
 import { logger } from '@/lib/logger'
 import { TagEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -19,14 +19,19 @@ export async function addTag(session: CustomSession | null, tag: Tag) {
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  const { data, error } = await apiRequest<TagEntity>(session, `${APIUrl}/tags`, {
+  const { data, error } = await apiRequestWithAuth<TagEntity>(session, `${APIUrl}/tags`, {
     method: 'POST',
     body: { key, translations },
   })
 
   if (error) {
     logger.error('Failed to add tag', { error, tagKey: key })
-    return { error: error.message }
+    return {
+      error:
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error),
+    }
   }
 
   logger.info('Tag successfully added', { tagKey: key })
@@ -42,13 +47,18 @@ export async function getTags(session: CustomSession | null) {
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  const { data, error } = await apiRequest<TagEntity[]>(session, `${APIUrl}/tags`, {
+  const { data, error } = await apiRequestWithAuth<TagEntity[]>(session, `${APIUrl}/tags`, {
     method: 'GET',
   })
 
   if (error) {
     logger.error('Failed to get tags', { error })
-    return { error: error.message }
+    return {
+      error:
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error),
+    }
   }
 
   logger.info('Tags retrieved', { count: Array.isArray(data) ? data.length : 0 })

@@ -17,7 +17,7 @@ export async function MySpace() {
 
   return (
     <SectionCard title={t('MySpaceTitle')}>
-      <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
+      <div className="grid grid-cols-1 gap-8 laptop:grid-cols-2">
         {cardMyNotesData.map(({ key, link }) => (
           <CustomCard
             variant="smallWithChildren"

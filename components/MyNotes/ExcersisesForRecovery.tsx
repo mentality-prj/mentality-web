@@ -17,7 +17,7 @@ export async function ExcersisesFoeRecovery() {
 
   return (
     <SectionCard title={t('ExercisesTitle')}>
-      <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
+      <div className="grid grid-cols-1 gap-8 laptop:grid-cols-2 desktop:grid-cols-3">
         {cardExercisesData.map(({ key, icon }) => (
           <CustomCard
             variant="smallWithChildren"

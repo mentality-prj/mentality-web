@@ -22,7 +22,7 @@ export default function AdminPage() {
     )
   })
   return (
-    <Tabs aria-label="Admin Panel" color="secondary">
+    <Tabs aria-label="Admin Panel" color="secondary" defaultValue="TAGS">
       <TabsList className="grid w-full grid-cols-3">
         <TabsTrigger value="TAGS">{t(AdminRoutesTitles.TAGS)}</TabsTrigger>
         <TabsTrigger value="TIPS">{t(AdminRoutesTitles.TIPS)}</TabsTrigger>

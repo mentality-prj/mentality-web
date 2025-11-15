@@ -1,4 +1,4 @@
-import { apiRequest } from '@/helpers/api-wrapper'
+import { apiRequestWithAuth } from '@/helpers/apiRequestWithAuth'
 import { logger } from '@/lib/logger'
 import { TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -16,14 +16,19 @@ export async function addTip(session: CustomSession | null, prompt: string, lang
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  const { data, error } = await apiRequest<TipEntity>(session, `${APIUrl}/tips`, {
+  const { data, error } = await apiRequestWithAuth<TipEntity>(session, `${APIUrl}/tips`, {
     method: 'POST',
     body: { prompt, lang },
   })
 
   if (error) {
     logger.error('Failed to add tip', { error, prompt, lang })
-    return { error: error.message }
+    return {
+      error:
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error),
+    }
   }
 
   logger.info('Tip successfully generated', { lang })
@@ -39,13 +44,18 @@ export async function getUnpublishedTips(session: CustomSession | null) {
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  const { data, error } = await apiRequest<TipEntity[]>(session, `${APIUrl}/tips/unpublished`, {
+  const { data, error } = await apiRequestWithAuth<TipEntity[]>(session, `${APIUrl}/tips/unpublished`, {
     method: 'GET',
   })
 
   if (error) {
     logger.error('Failed to get unpublished tips', { error })
-    return { error: error.message }
+    return {
+      error:
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error),
+    }
   }
 
   logger.info('Unpublished tips retrieved', { count: Array.isArray(data) ? data.length : 0 })

@@ -150,6 +150,7 @@
     "LogOut": "Wylogowanie"
   },
   "UserMenu": {
+    "Admin": "Admin",
     "Profile": "Profil",
     "Settings": "Ustawienia"
   },

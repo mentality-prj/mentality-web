@@ -122,8 +122,8 @@ export default function AddExercise() {
   }
 
   return (
-    <div className="flex w-full gap-8 py-6">
-      <form ref={formRef} action={createExercise} className="flex w-full flex-col gap-4">
+    <div className="space-y-8 p-6">
+      <form ref={formRef} action={createExercise} className="flex w-full flex-col gap-6">
         <h2>{t('title')}</h2>
 
         <div className="space-y-4">

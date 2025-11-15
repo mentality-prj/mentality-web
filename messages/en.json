@@ -147,6 +147,7 @@
     "LogOut": "Log out"
   },
   "UserMenu": {
+    "Admin": "Admin",
     "Profile": "Profile",
     "Settings": "Settings"
   },
