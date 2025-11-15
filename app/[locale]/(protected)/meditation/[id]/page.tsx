@@ -5,32 +5,34 @@ import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { CustomCard } from '@/ds/components/CustomCard'
 import { CustomLink } from '@/ds/components/CustomLink'
 import { SectionCard } from '@/ds/components/SectionCard'
+import { HumanEmoji } from '@/ds/icons/emoji/human'
+import { ManInLotusIcon } from '@/ds/icons/man-in-lotus'
 
 export default async function MeditationPage() {
   const t = await getTranslations('')
 
   const cardExercisesData = [
-    { key: 'замоканий', icon: '', link: '' },
-    { key: 'масив', icon: '', link: '' },
-    { key: 'карток', icon: '', link: '' },
+    { key: 'API shoud be added', icon: <ManInLotusIcon />, link: '/#' },
+    { key: 'shoud be', icon: <HumanEmoji />, link: '/#' },
+    { key: 'added', icon: <ManInLotusIcon />, link: '/#' },
   ]
   return (
     <>
       <Breadcrumbs
-        currentPage="тайтл картки"
+        currentPage="title of card"
         breadcrumbList={[
           { title: `${t('Guide.PageTitle.title')}`, href: '/guide' },
-          { title: 'Додати t та лінк', href: '/meditation/${exercise.id}' },
+          { title: 'add t & links', href: '/meditation/${exercise.id}' },
         ]}
       />
 
-      <PageTitle className="pb-8" title={'пропс тайтл картки'} />
+      <PageTitle className="pb-8" title={'props card.title'} />
       <div className="flex flex-col gap-8">
         <div className="flex h-full w-full flex-row gap-8">
-          <SectionCard className="flex-[2_1_0] overflow-hidden">Огляда техніки (з бека)</SectionCard>
-          <SectionCard className="flex-[1_1_0] overflow-hidden">поради (з бека)</SectionCard>
+          <SectionCard className="flex-[2_1_0] overflow-hidden">from backend 1</SectionCard>
+          <SectionCard className="flex-[1_1_0] overflow-hidden">from backend 2</SectionCard>
         </div>
-        <SectionCard title={'Інші дихальні вправи, додати t'}>
+        <SectionCard title={'add t'}>
           <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
             {cardExercisesData.map((card) => (
               <CustomCard
@@ -40,7 +42,7 @@ export default async function MeditationPage() {
                 title={card.key}
                 description={card.key}
               >
-                <CustomLink key={card.key} href={`/meditation/${card.key}`} className="flex justify-self-end">
+                <CustomLink key={card.key} href={card.link} className="flex justify-self-end">
                   Go to {card.key}
                 </CustomLink>
               </CustomCard>

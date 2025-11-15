@@ -1,3 +1,5 @@
+import { ReactNode } from 'react'
+
 import { CustomCard } from '@/ds/components/CustomCard'
 import { CustomLink } from '@/ds/components/CustomLink'
 import { Card, CardContent } from '@/ds/shadcn/card'
@@ -5,7 +7,7 @@ import { Card, CardContent } from '@/ds/shadcn/card'
 type ExcersiseData = {
   id: string
   title: string
-  icon?: React.ReactNode
+  icon?: ReactNode
   content: string
   category: string
 }

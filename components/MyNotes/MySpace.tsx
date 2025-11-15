@@ -25,6 +25,9 @@ export async function MySpace() {
             title={t(`MySpaceCards.${key}.title`)}
             description={t(`MySpaceCards.${key}.desc`)}
           >
+            {/* <CustomLink key={card.key} href={`/meditation/${card.key}`} className="flex justify-self-end">
+              Go to {card.key}
+            </CustomLink> */}
             <Link href={`my-notes/${link}`}>
               <Button variant="textButton" className="flex justify-self-end">
                 {t('MySpaceButton')}

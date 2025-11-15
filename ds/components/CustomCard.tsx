@@ -42,7 +42,7 @@ export const CustomCard: React.FC<PracticeCardProps> = (props) => {
       <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
         <CardContent className="flex h-full flex-col gap-3 p-0">
           <CardTitle className="flex flex-row gap-2 text-base font-semibold text-textcolor-primary">
-            {icon && <div>{icon}</div>}
+            {icon && <div className="h-6 w-6 [&>svg]:h-6 [&>svg]:w-6">{icon}</div>}
             {title}
           </CardTitle>
           <CardDescription className="grow text-base font-normal text-textcolor-secondary">
