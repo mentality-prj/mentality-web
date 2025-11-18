@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { FilterContext, SortContext } from '@/context/FilterContext'
 
 import { FilteredHistoryProps } from '../AffirmationsAndTips/FilteredHistory'
-import { DailyCard } from '../ui/DailyCard'
+import { DailyCard } from '../DailyCard'
 
 export const FilteredList = ({ items }: FilteredHistoryProps) => {
   const { sort: SortOrder } = useContext(SortContext)

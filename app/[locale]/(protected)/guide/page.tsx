@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import MyGuideTabs from '@/components/MyGuide/MyGuideTabs'
-import { PageTitle } from '@/components/ui/PageTitle'
+import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function Guide() {
   const t = await getTranslations('Guide.PageTitle')

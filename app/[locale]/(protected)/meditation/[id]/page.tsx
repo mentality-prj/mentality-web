@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { PageTitle } from '@/components/ui/PageTitle'
+import { PageTitle } from '@/ds/components/PageTitle'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { CustomCard } from '@/ds/components/CustomCard'
 import { CustomLink } from '@/ds/components/CustomLink'

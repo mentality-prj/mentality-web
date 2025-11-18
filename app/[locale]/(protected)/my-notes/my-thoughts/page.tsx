@@ -2,7 +2,7 @@ import { useTranslations } from 'next-intl'
 
 import { Calendar } from '@/components/Calendar'
 import { ThoughtsFormWrapper } from '@/components/MyThoughts/Diary/ThoughtsFormWrapper'
-import { PageTitle } from '@/components/ui/PageTitle'
+import { PageTitle } from '@/ds/components/PageTitle'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 
 export default function MyThoughtsPage() {

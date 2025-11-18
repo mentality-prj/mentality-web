@@ -5,7 +5,7 @@ import { useContext } from 'react'
 import { FilterContext, SortContext } from '@/context/FilterContext'
 import { Affirmation } from '@/types/affirmation'
 
-import { DailyCard } from '../ui/DailyCard'
+import { DailyCard } from '../DailyCard'
 
 export interface AffirmationWithType extends Affirmation {
   type: 'affirmation' | 'tip'
