@@ -1,4 +1,4 @@
-import { CheckIcon } from '@/components/icons/check-icon'
+import { CheckIcon } from '@/ds/icons/check'
 import { Badge } from '@/ds/shadcn/badge'
 import { CardContent, CardFooter } from '@/ds/shadcn/card'
 import { Separator } from '@/ds/shadcn/separator'
