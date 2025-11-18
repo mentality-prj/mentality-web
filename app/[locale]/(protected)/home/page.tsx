@@ -1,5 +1,5 @@
-import { GreetingTitleWrapper } from '@/components/GreetingTitle/GreetingTitleWrapper'
 import { DailyCard } from '@/components/DailyCard'
+import { GreetingTitleWrapper } from '@/components/GreetingTitle/GreetingTitleWrapper'
 import { mockDailyAffirmation, mockDailyTip } from '@/REST/mockApi'
 
 export default async function Home() {
