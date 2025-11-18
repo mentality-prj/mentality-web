@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { Scale } from '../../../ds/components/Scale'
+import { Scale } from '@/ds/components/Scale'
 
 export function StressLevelScale() {
   const t = useTranslations('MoodTracker.StressLevelScale.labelsArray')

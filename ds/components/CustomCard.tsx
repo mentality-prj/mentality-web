@@ -1,17 +1,16 @@
 // cardVariants.ts
 import { cva } from 'class-variance-authority'
 
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ds/shadcn/card'
 import { cn } from '@/lib/utils'
 import {
   DefaultVariantProps,
-  SmallWithChildrenVariantProps,
   LinkVariantProps,
   NoninteractiveVariantProps,
   PracticeCardProps,
   RecommendationVariantProps,
+  SmallWithChildrenVariantProps,
 } from '@/types/customCard'
-
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '../shadcn/card'
 
 export const cardVariants = cva(
   'flex flex-col w-full h-full rounded-md border-outline-secondary bg-surface-primary shadow-none hover:bg-secondary-hover focus:bg-secondary-focus active:bg-secondary-pressed aria-disabled:bg-disable',

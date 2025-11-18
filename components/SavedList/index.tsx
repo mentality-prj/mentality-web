@@ -2,10 +2,9 @@
 
 import { useTranslations } from 'next-intl'
 
+import { Filter } from '@/components/AffirmationsAndTips/Filter'
+import { AffirmationWithType } from '@/components/AffirmationsAndTips/FilteredHistory'
 import { SectionCard } from '@/ds/components/SectionCard'
-
-import { Filter } from '../AffirmationsAndTips/Filter'
-import { AffirmationWithType } from '../AffirmationsAndTips/FilteredHistory'
 
 import { FilteredList } from './FilteredList'
 

@@ -1,11 +1,10 @@
 import { Mic } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import { TagsEditor } from '@/components/MoodTracker/NewMoodNoteSection/AddTagsContainer'
 import { SectionCard } from '@/ds/components/SectionCard'
 import TextareaWithLabel from '@/ds/components/TextareaWithLabel'
 import { Button } from '@/ds/shadcn/button'
-
-import { TagsEditor } from '../../MoodTracker/NewMoodNoteSection/AddTagsContainer'
 
 type ThoughtsFormProps = {
   onTextChange: (value: string) => void
