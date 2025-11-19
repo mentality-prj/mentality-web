@@ -1,6 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
-import { IconKey, iconsMap } from '@/ds/icons/iconsMap'
+import { IconKey, iconsMap } from '@/components/icons/iconsMap'
 import { MedalCircleIcon } from '@/ds/icons/medal-circle'
 import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
 import { Progress } from '@/ds/shadcn/progress'

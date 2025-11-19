@@ -5,7 +5,7 @@ import { Calendar } from '@/components/Calendar'
 import { ChartDynamics } from '@/components/MyProgress/ChartDynamics'
 import { PersonalGoals } from '@/components/MyProgress/PersonalGoals'
 import { TodayObservations } from '@/components/MyProgress/TodayObservations'
-import { PageTitle } from '@/components/ui/PageTitle'
+import { PageTitle } from '@/ds/components/PageTitle'
 import { HeartHandsEmoji } from '@/ds/icons/emoji/heart-hands'
 
 export default function MyProgress() {

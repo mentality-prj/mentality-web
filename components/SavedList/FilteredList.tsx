@@ -2,10 +2,9 @@
 
 import { useContext } from 'react'
 
+import { FilteredHistoryProps } from '@/components/AffirmationsAndTips/FilteredHistory'
+import { DailyCard } from '@/components/DailyCard'
 import { FilterContext, SortContext } from '@/context/FilterContext'
-
-import { FilteredHistoryProps } from '../AffirmationsAndTips/FilteredHistory'
-import { DailyCard } from '../ui/DailyCard'
 
 export const FilteredList = ({ items }: FilteredHistoryProps) => {
   const { sort: SortOrder } = useContext(SortContext)

@@ -1,7 +1,7 @@
 import { ResponseCookie } from 'next/dist/compiled/@edge-runtime/cookies'
 import { cookies } from 'next/headers'
 
-import { Routes } from '../constants/routes'
+import { Routes } from '@/constants/routes'
 
 export const CookiesKeys = Object.freeze({
   UserName: 'user-name',

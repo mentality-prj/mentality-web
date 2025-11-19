@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
-import { PageTitle } from '@/components/ui/PageTitle'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { CustomCard } from '@/ds/components/CustomCard'
 import { CustomLink } from '@/ds/components/CustomLink'
+import { PageTitle } from '@/ds/components/PageTitle'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { HumanEmoji } from '@/ds/icons/emoji/human'
 import { ManInLotusIcon } from '@/ds/icons/man-in-lotus'

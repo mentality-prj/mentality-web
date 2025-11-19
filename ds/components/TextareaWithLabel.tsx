@@ -1,9 +1,8 @@
 import { ComponentProps } from 'react'
 
+import { Label } from '@/ds/shadcn/label'
+import { Textarea } from '@/ds/shadcn/textarea'
 import { cn } from '@/lib/utils'
-
-import { Label } from '../shadcn/label'
-import { Textarea } from '../shadcn/textarea'
 
 type Props = ComponentProps<typeof Textarea> & {
   label?: string

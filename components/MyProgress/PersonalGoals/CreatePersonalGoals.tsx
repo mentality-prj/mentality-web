@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { createPersonalGoal, fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
-import { Tag } from '@/components/ui/Tag'
+import { Tag } from '@/ds/components/Tag'
 import { AddIcon } from '@/ds/icons/add'
 import { AddSquareIcon } from '@/ds/icons/add-square'
 import { MinusSquareIcon } from '@/ds/icons/minus-square'
