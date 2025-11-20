@@ -1,33 +1,19 @@
 // cardVariants.ts
 import { cva } from 'class-variance-authority'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ds/shadcn/card'
+import { Card, CardContent, CardDescription, CardTitle } from '@/ds/shadcn/card'
 import { cn } from '@/lib/utils'
-import {
-  DefaultVariantProps,
-  LinkVariantProps,
-  NoninteractiveVariantProps,
-  PracticeCardProps,
-  RecommendationVariantProps,
-  SmallWithChildrenVariantProps,
-} from '@/types/customCard'
+import { PracticeCardProps, SmallWithChildrenVariantProps } from '@/types/customCard'
 
 export const cardVariants = cva(
   'flex flex-col w-full h-full rounded-md border-outline-secondary bg-surface-primary shadow-none hover:bg-secondary-hover focus:bg-secondary-focus active:bg-secondary-pressed aria-disabled:bg-disable',
   {
     variants: {
       variant: {
-        default: 'flex flex-col gap-4 p-6',
-        recommendation: 'flex flex-col gap-4 p-6 bg-transparent',
         smallWithChildren: 'bg-transparent gap-4 p-6 hover:bg-transparent focus:bg-transparent active:bg-transparent',
-        small: 'flex px-4 py-3',
-        link: 'flex px-4 py-3',
-        noninteractive: 'flex flex-col',
       },
     },
-    defaultVariants: {
-      variant: 'default',
-    },
+    defaultVariants: {},
   }
 )
 
@@ -52,71 +38,4 @@ export const CustomCard: React.FC<PracticeCardProps> = (props) => {
       </Card>
     )
   }
-
-  if (variant === 'small') {
-    const { title, icon } = props
-    return (
-      <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
-        <CardContent className="flex gap-2 p-0">
-          {icon && <div>{icon}</div>}
-          <div className="text-base">{title}</div>
-        </CardContent>
-      </Card>
-    )
-  }
-
-  if (variant === 'link') {
-    const { title, href, icon } = props as LinkVariantProps
-    return (
-      <a href={href}>
-        <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
-          <CardContent className="flex w-full justify-between p-0">
-            <div className="text-base">{title}</div>
-            {icon && <div>{icon}</div>}
-          </CardContent>
-        </Card>
-      </a>
-    )
-  }
-
-  if (variant === 'noninteractive') {
-    const { title, description, icon } = props as NoninteractiveVariantProps
-    return (
-      <Card aria-disabled={disabled} className={cn('p-4', cardVariants({ variant }), className)}>
-        <CardHeader className="p-0">
-          <div className="flex flex-row items-center gap-2">
-            {icon && <div className="">{icon}</div>}
-            {title && <div className="text-sm font-semibold">{title}</div>}
-          </div>
-        </CardHeader>
-        <CardContent className="mt-1 flex flex-col p-0">
-          {description && <CardDescription>{description}</CardDescription>}
-        </CardContent>
-      </Card>
-    )
-  }
-
-  if (variant === 'recommendation') {
-    const { tag, title, description } = props as RecommendationVariantProps
-    return (
-      <Card aria-disabled={disabled} className={cn('flex h-full flex-col', cardVariants({ variant }), className)}>
-        <CardHeader className="max-w-max rounded-xs bg-tag px-2 py-1 text-sm/4 text-reversed">{tag}</CardHeader>
-        <CardTitle className="text-base font-medium">{title}</CardTitle>
-        <CardDescription className="grow text-base font-normal">{description}</CardDescription>
-      </Card>
-    )
-  }
-
-  // default
-  const { title, description, icon } = props as DefaultVariantProps
-  return (
-    <Card aria-disabled={disabled} className={cn('flex h-full flex-col', cardVariants({ variant }), className)}>
-      {icon && <CardHeader className="p-0">{icon}</CardHeader>}
-
-      <CardContent className="flex h-full flex-col gap-3 p-0">
-        <CardTitle className="text-base font-medium">{title}</CardTitle>
-        <CardDescription className="grow text-base font-normal">{description}</CardDescription>
-      </CardContent>
-    </Card>
-  )
 }

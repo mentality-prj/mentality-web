@@ -16,7 +16,9 @@ export const SavedList = () => {
       {items.length > 0 ? (
         <SectionCard className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
           <Filter />
-          <FilteredList items={items} />
+          <FilteredList
+          // TODO:remove coment items={items}
+          />
         </SectionCard>
       ) : (
         <SectionCard>{t('empty')}</SectionCard>
