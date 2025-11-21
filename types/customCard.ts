@@ -1,16 +1,16 @@
 import type { ReactNode } from 'react'
 
-export type BaseCardProps = {
-  icon?: ReactNode
-  disabled?: boolean
-  className?: string
+export type CustomCardProps = {
   title?: string
+  icon?: ReactNode
+  variant?: 'default' | 'daily' | 'withDate'
+  text: string
+  button?: ReactNode
+  backgroundIcon?: ReactNode
+  textLink?: string
+  hrefLink?: string
+  date?: string
+  badge?: string
+  tagList?: string[]
+  className?: string
 }
-
-export type SmallWithChildrenVariantProps = {
-  variant: 'smallWithChildren'
-  description?: string
-  children?: ReactNode
-} & BaseCardProps
-
-export type PracticeCardProps = SmallWithChildrenVariantProps
