@@ -101,7 +101,7 @@
     },
     "ThoughtsList": {
       "title": "My notes",
-      "noThoughts": "You have no notes yet"
+      "subtitle": "You have no notes yet"
     }
   },
   "AffirmationsPage": {
