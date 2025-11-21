@@ -2,7 +2,6 @@ import { getTranslations } from 'next-intl/server'
 
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { CustomCard } from '@/ds/components/CustomCard'
-import { CustomLink } from '@/ds/components/CustomLink'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { HumanEmoji } from '@/ds/icons/emoji/human'
@@ -36,16 +35,13 @@ export default async function MeditationPage() {
           <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
             {cardExercisesData.map((card) => (
               <CustomCard
-                variant="smallWithChildren"
                 key={card.key}
                 icon={card.icon}
                 title={card.key}
-                description={card.key}
-              >
-                <CustomLink key={card.key} href={card.link} className="flex justify-self-end">
-                  Go to {card.key}
-                </CustomLink>
-              </CustomCard>
+                text={card.key}
+                hrefLink={card.link}
+                textLink={` Go to ${card.key}`}
+              />
             ))}
           </div>
         </SectionCard>

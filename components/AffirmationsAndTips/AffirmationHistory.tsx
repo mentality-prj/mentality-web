@@ -21,9 +21,7 @@ export const AffirmationHistory = async () => {
         <SectionCard title={t('sectionCard.title')}>
           <div className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
             <Filter />
-            <FilteredHistory
-            // TODO:remove coment items={items}
-            />
+            <FilteredHistory items={items} />
           </div>
         </SectionCard>
       ) : (

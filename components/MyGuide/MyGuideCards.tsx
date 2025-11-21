@@ -1,7 +1,6 @@
 import { ReactNode } from 'react'
 
 import { CustomCard } from '@/ds/components/CustomCard'
-import { CustomLink } from '@/ds/components/CustomLink'
 import { Card, CardContent } from '@/ds/shadcn/card'
 
 type ExcersiseData = {
@@ -18,12 +17,14 @@ export const MyGuideCards = ({ excersises }: MyGuideProps) => {
     <Card className="flex w-full flex-col bg-surface-white tablet:min-w-[600px]">
       <CardContent className="grid grid-cols-1 gap-8 p-8 tablet:grid-cols-3 tablet:items-start tablet:justify-end">
         {excersises.map((excersise) => (
-          <CustomCard key={excersise.id} variant="smallWithChildren" title={excersise.title} icon={excersise.icon}>
-            <div>{excersise.content}</div>
-            <CustomLink key={excersise.id} href={`/meditation/${excersise.id}`} className="flex justify-self-end">
-              Go to {excersise.category}
-            </CustomLink>
-          </CustomCard>
+          <CustomCard
+            key={excersise.id}
+            title={excersise.title}
+            text={excersise.content}
+            icon={excersise.icon}
+            hrefLink={`/meditation/${excersise.id}`}
+            textLink={`Go  to ${excersise.category}`}
+          />
         ))}
       </CardContent>
     </Card>
