@@ -11,9 +11,7 @@ export function UserNotesCardList({ className, notes }: UserNotesCardListProps) 
   return (
     <div className={cn('flex flex-col gap-4', className)}>
       {notes.map((note) => (
-        <CustomCard key={note.id} variant="smallWithChildren" title="Filters">
-          <div>{note.key}</div>
-        </CustomCard>
+        <CustomCard key={note.id} title="Notes cards of user" text={note.key} />
       ))}
     </div>
   )
