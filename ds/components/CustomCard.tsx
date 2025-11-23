@@ -1,122 +1,105 @@
 // cardVariants.ts
 import { cva } from 'class-variance-authority'
 
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/ds/shadcn/card'
+import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
 import { cn } from '@/lib/utils'
-import {
-  DefaultVariantProps,
-  LinkVariantProps,
-  NoninteractiveVariantProps,
-  PracticeCardProps,
-  RecommendationVariantProps,
-  SmallWithChildrenVariantProps,
-} from '@/types/customCard'
+import { CustomCardProps } from '@/types/customCard'
 
-export const cardVariants = cva(
-  'flex flex-col w-full h-full rounded-md border-outline-secondary bg-surface-primary shadow-none hover:bg-secondary-hover focus:bg-secondary-focus active:bg-secondary-pressed aria-disabled:bg-disable',
-  {
+import { CalendarMinimalisticIcon } from '../icons/calendar-minimalistic'
+import { Badge } from '../shadcn/badge'
+import { ToggleGroup } from '../shadcn/toggle-group'
+
+import { CustomLink } from './CustomLink'
+import { Tag } from './Tag'
+
+export const cardVariants = {
+  base: cva(
+    'flex flex-col relative w-full h-full rounded-md border-outline-secondary bg-transparent shadow-none p-6 gap-4 overflow-hidden',
+    {
+      variants: {
+        variant: {
+          default: '',
+          daily: 'bg-surface-white border-none p-8',
+          withDate: 'gap-5',
+        },
+      },
+      defaultVariants: {
+        variant: 'default',
+      },
+    }
+  ),
+  title: cva('flex flex-row gap-2 text-base font-medium text-textcolor-primary', {
     variants: {
       variant: {
-        default: 'flex flex-col gap-4 p-6',
-        recommendation: 'flex flex-col gap-4 p-6 bg-transparent',
-        smallWithChildren: 'bg-transparent gap-4 p-6 hover:bg-transparent focus:bg-transparent active:bg-transparent',
-        small: 'flex px-4 py-3',
-        link: 'flex px-4 py-3',
-        noninteractive: 'flex flex-col',
+        default: '',
+        daily: 'text-sm/4 text-textcolor-tertiary',
+        withDate: 'text-textcolor-tertiary',
       },
     },
-    defaultVariants: {
-      variant: 'default',
+  }),
+  content: cva('z-10 p-0 text-base font-normal text-textcolor-secondary', {
+    variants: {
+      variant: {
+        default: '',
+        daily: 'font-medium text-textcolor-primary',
+        withDate: '',
+      },
     },
-  }
-)
+  }),
+}
 
-export const CustomCard: React.FC<PracticeCardProps> = (props) => {
-  const variant = props.variant ?? 'default'
-  const { className, disabled } = props
+export const CustomCard: React.FC<CustomCardProps> = ({
+  className,
+  variant = 'default',
+  text,
+  backgroundIcon,
+  icon,
+  badge,
+  button,
+  date,
+  tagList,
+  textLink,
+  hrefLink,
+  title,
+}) => {
+  const hasFooter = (textLink && hrefLink) || !!badge || (tagList && tagList.length > 0)
 
-  if (variant === 'smallWithChildren') {
-    const { title, icon, description, children } = props as SmallWithChildrenVariantProps
-    return (
-      <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
-        <CardContent className="flex h-full flex-col gap-3 p-0">
-          <CardTitle className="flex flex-row gap-2 text-base font-semibold text-textcolor-primary">
-            {icon && <div className="h-6 w-6 [&>svg]:h-6 [&>svg]:w-6">{icon}</div>}
-            {title}
-          </CardTitle>
-          <CardDescription className="grow text-base font-normal text-textcolor-secondary">
-            {description}
-          </CardDescription>
-          {children && <div className="">{children}</div>}
-        </CardContent>
-      </Card>
-    )
-  }
-
-  if (variant === 'small') {
-    const { title, icon } = props
-    return (
-      <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
-        <CardContent className="flex gap-2 p-0">
-          {icon && <div>{icon}</div>}
-          <div className="text-base">{title}</div>
-        </CardContent>
-      </Card>
-    )
-  }
-
-  if (variant === 'link') {
-    const { title, href, icon } = props as LinkVariantProps
-    return (
-      <a href={href}>
-        <Card aria-disabled={disabled} className={cn(cardVariants({ variant }), className)}>
-          <CardContent className="flex w-full justify-between p-0">
-            <div className="text-base">{title}</div>
-            {icon && <div>{icon}</div>}
-          </CardContent>
-        </Card>
-      </a>
-    )
-  }
-
-  if (variant === 'noninteractive') {
-    const { title, description, icon } = props as NoninteractiveVariantProps
-    return (
-      <Card aria-disabled={disabled} className={cn('p-4', cardVariants({ variant }), className)}>
-        <CardHeader className="p-0">
-          <div className="flex flex-row items-center gap-2">
-            {icon && <div className="">{icon}</div>}
-            {title && <div className="text-sm font-semibold">{title}</div>}
-          </div>
-        </CardHeader>
-        <CardContent className="mt-1 flex flex-col p-0">
-          {description && <CardDescription>{description}</CardDescription>}
-        </CardContent>
-      </Card>
-    )
-  }
-
-  if (variant === 'recommendation') {
-    const { tag, title, description } = props as RecommendationVariantProps
-    return (
-      <Card aria-disabled={disabled} className={cn('flex h-full flex-col', cardVariants({ variant }), className)}>
-        <CardHeader className="max-w-max rounded-xs bg-tag px-2 py-1 text-sm/4 text-reversed">{tag}</CardHeader>
-        <CardTitle className="text-base font-medium">{title}</CardTitle>
-        <CardDescription className="grow text-base font-normal">{description}</CardDescription>
-      </Card>
-    )
-  }
-
-  // default
-  const { title, description, icon } = props as DefaultVariantProps
   return (
-    <Card aria-disabled={disabled} className={cn('flex h-full flex-col', cardVariants({ variant }), className)}>
-      {icon && <CardHeader className="p-0">{icon}</CardHeader>}
-
-      <CardContent className="flex h-full flex-col gap-3 p-0">
-        <CardTitle className="text-base font-medium">{title}</CardTitle>
-        <CardDescription className="grow text-base font-normal">{description}</CardDescription>
-      </CardContent>
+    <Card className={cn(cardVariants.base({ variant }), className)}>
+      {backgroundIcon && (
+        <div className="absolute -right-4 -top-4 text-secondary [&_svg]:size-[108px]">{backgroundIcon}</div>
+      )}
+      <CardHeader className="z-10 flex flex-row items-center justify-between space-y-0 p-0">
+        <CardTitle className={cn(cardVariants.title({ variant }))}>
+          {icon && <div className="h-6 w-6 [&>svg]:h-6 [&>svg]:w-6">{icon}</div>}
+          {title}
+          {date && (
+            <div className="flex items-center gap-1">
+              <CalendarMinimalisticIcon />
+              <span>{date}</span>
+            </div>
+          )}
+        </CardTitle>
+        {button && button}
+      </CardHeader>
+      <CardContent className={cn(cardVariants.content({ variant }))}>{text}</CardContent>
+      {hasFooter && (
+        <CardFooter className="mt-auto flex w-full p-0">
+          {textLink && hrefLink && (
+            <CustomLink href={hrefLink} className="ml-auto mt-1">
+              {textLink}
+            </CustomLink>
+          )}
+          {badge && <Badge variant="active">{badge}</Badge>}
+          {tagList && (
+            <ToggleGroup type="single">
+              {tagList.map((tagText) => (
+                <Tag key={tagText} text={tagText} value={tagText} />
+              ))}
+            </ToggleGroup>
+          )}
+        </CardFooter>
+      )}
     </Card>
   )
 }

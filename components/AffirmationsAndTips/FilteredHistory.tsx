@@ -1,10 +1,13 @@
 'use client'
 
 import { useContext } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
 
-import { DailyCard } from '@/components/DailyCard'
 import { FilterContext, SortContext } from '@/context/FilterContext'
+import { CustomCard } from '@/ds/components/CustomCard'
+import { StarIcon } from '@/ds/icons/star'
 import { Affirmation } from '@/types/affirmation'
+import { SupportedLanguage } from '@/types/languages'
 
 export interface AffirmationWithType extends Affirmation {
   type: 'affirmation' | 'tip'
@@ -16,7 +19,9 @@ export interface FilteredHistoryProps {
 
 export const FilteredHistory = ({ items }: FilteredHistoryProps) => {
   const { sort: SortOrder } = useContext(SortContext)
+  const t = useTranslations('components.DailyCard')
   const { filter } = useContext(FilterContext)
+  const locale = useLocale() as SupportedLanguage
 
   const getSortedItems = () => {
     if (filter) {
@@ -33,7 +38,14 @@ export const FilteredHistory = ({ items }: FilteredHistoryProps) => {
   return (
     <div className="grid grid-cols-1 gap-4">
       {getSortedItems().map((item) => (
-        <DailyCard variant="previous" key={item.id} {...item} />
+        <CustomCard
+          key={item.id}
+          variant="withDate"
+          button={<StarIcon />}
+          badge={t('type', { type: item.type })}
+          date={new Date(item.createdAt).toLocaleDateString('uk-UA')}
+          text={item.translations[`${locale}`]}
+        />
       ))}
     </div>
   )

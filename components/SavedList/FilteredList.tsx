@@ -1,14 +1,20 @@
 'use client'
 
 import { useContext } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
 
-import { FilteredHistoryProps } from '@/components/AffirmationsAndTips/FilteredHistory'
-import { DailyCard } from '@/components/DailyCard'
 import { FilterContext, SortContext } from '@/context/FilterContext'
+import { CustomCard } from '@/ds/components/CustomCard'
+import { StarIcon } from '@/ds/icons/star'
+import { SupportedLanguage } from '@/types/languages'
+
+import { FilteredHistoryProps } from '../AffirmationsAndTips/FilteredHistory'
 
 export const FilteredList = ({ items }: FilteredHistoryProps) => {
   const { sort: SortOrder } = useContext(SortContext)
   const { filter } = useContext(FilterContext)
+  const t = useTranslations('components.DailyCard')
+  const locale = useLocale() as SupportedLanguage
   const getSortedItems = () => {
     if (filter) {
       items = items.filter((item) => item.type === filter)
@@ -23,7 +29,14 @@ export const FilteredList = ({ items }: FilteredHistoryProps) => {
   return (
     <div className="flex flex-col gap-6">
       {getSortedItems().map((item) => (
-        <DailyCard key={item.id} variant="previous" {...item} />
+        <CustomCard
+          key={item.id}
+          variant="withDate"
+          button={<StarIcon />}
+          badge={t('type', { type: item.type })}
+          date={new Date(item.createdAt).toLocaleDateString('uk-UA')}
+          text={item.translations[`${locale}`]}
+        />
       ))}
     </div>
   )
