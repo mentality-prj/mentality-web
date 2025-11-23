@@ -104,7 +104,7 @@
     },
     "ThoughtsList": {
       "title": "Moje zapiski",
-      "noThoughts": "Nie masz jeszcze żadnych zapisków."
+      "subtitle": "Nie masz jeszcze żadnych zapisków."
     }
   },
   "AffirmationsPage": {

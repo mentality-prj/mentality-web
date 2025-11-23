@@ -5,15 +5,7 @@ import { TagsEditor } from '@/components/MoodTracker/NewMoodNoteSection/AddTagsC
 import { SectionCard } from '@/ds/components/SectionCard'
 import TextareaWithLabel from '@/ds/components/TextareaWithLabel'
 import { Button } from '@/ds/shadcn/button'
-
-type ThoughtsFormProps = {
-  onTextChange: (value: string) => void
-  onSave: () => void
-  content: string
-  loading: boolean
-  tags: string[]
-  setTags: (tags: string[]) => void
-}
+import { ThoughtsFormProps } from '@/types/thoughtsForm'
 
 export const ThoughtsForm = ({ onTextChange, onSave, content, loading, tags, setTags }: ThoughtsFormProps) => {
   const t = useTranslations('')
