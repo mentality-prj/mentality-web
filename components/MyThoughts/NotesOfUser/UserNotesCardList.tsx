@@ -8,7 +8,6 @@ type UserNotesCardListProps = {
 }
 
 export function UserNotesCardList({ className, notes }: UserNotesCardListProps) {
-  console.log('notes in list', notes)
   return (
     <div className={cn('flex flex-col gap-4', className)}>
       {notes.map((note) => (
