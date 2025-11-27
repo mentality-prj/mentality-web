@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { AffirmationsFilterProvider, useAffirmationsFilters } from '@/context/affirmationsFilterContext'
+import { useAffirmationsFilters } from '@/context/affirmationsFilterContext'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { mockAffirmations, mockTips } from '@/REST/mockApi'
 
@@ -21,12 +21,10 @@ export const AffirmationHistory = async () => {
     <>
       {items.length > 0 ? (
         <SectionCard title={t('sectionCard.title')}>
-          <AffirmationsFilterProvider initial={{ order: 'newest', tags: '' }}>
-            <div className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
-              <Filter useFilters={useAffirmationsFilters} />
-              <FilteredHistory items={items} />
-            </div>
-          </AffirmationsFilterProvider>
+          <div className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
+            <Filter useFilters={useAffirmationsFilters} />
+            <FilteredHistory items={items} />
+          </div>
         </SectionCard>
       ) : (
         <SectionCard title={t('sectionCard.title')} subtitle={t('sectionCard.subtitle')} />
