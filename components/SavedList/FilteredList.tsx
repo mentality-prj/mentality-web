@@ -1,9 +1,8 @@
 'use client'
 
-import { useContext } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 
-import { FilterContext, SortContext } from '@/context/FilterContext'
+import { useSavedFilters } from '@/context/savedFilterContext'
 import { CustomCard } from '@/ds/components/CustomCard'
 import { StarIcon } from '@/ds/icons/star'
 import { SupportedLanguage } from '@/types/languages'
@@ -11,8 +10,9 @@ import { SupportedLanguage } from '@/types/languages'
 import { FilteredHistoryProps } from '../AffirmationsAndTips/FilteredHistory'
 
 export const FilteredList = ({ items }: FilteredHistoryProps) => {
-  const { sort: SortOrder } = useContext(SortContext)
-  const { filter } = useContext(FilterContext)
+  const { filters } = useSavedFilters()
+  const SortOrder = filters.order
+  const filter = filters.tags
   const t = useTranslations('components.DailyCard')
   const locale = useLocale() as SupportedLanguage
   const getSortedItems = () => {

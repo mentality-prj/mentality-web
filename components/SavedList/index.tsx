@@ -2,9 +2,11 @@
 
 import { useTranslations } from 'next-intl'
 
-import { Filter } from '@/components/AffirmationsAndTips/Filter'
 import { AffirmationWithType } from '@/components/AffirmationsAndTips/FilteredHistory'
+import { useSavedFilters } from '@/context/savedFilterContext'
 import { SectionCard } from '@/ds/components/SectionCard'
+
+import { Filter } from '../Filter'
 
 import { FilteredList } from './FilteredList'
 
@@ -15,7 +17,7 @@ export const SavedList = () => {
     <div className="">
       {items.length > 0 ? (
         <SectionCard className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
-          <Filter />
+          <Filter useFilters={useSavedFilters} />
           <FilteredList items={items} />
         </SectionCard>
       ) : (

@@ -1,9 +1,8 @@
 'use client'
 
-import { useContext } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 
-import { FilterContext, SortContext } from '@/context/FilterContext'
+import { useAffirmationsFilters } from '@/context/affirmationsFilterContext'
 import { CustomCard } from '@/ds/components/CustomCard'
 import { StarIcon } from '@/ds/icons/star'
 import { Affirmation } from '@/types/affirmation'
@@ -18,16 +17,18 @@ export interface FilteredHistoryProps {
 }
 
 export const FilteredHistory = ({ items }: FilteredHistoryProps) => {
-  const { sort: SortOrder } = useContext(SortContext)
+  const { filters } = useAffirmationsFilters()
+  let filtered = items
+  const SortOrder = filters.order
   const t = useTranslations('components.DailyCard')
-  const { filter } = useContext(FilterContext)
+  const filter = filters.tags
   const locale = useLocale() as SupportedLanguage
 
   const getSortedItems = () => {
     if (filter) {
-      items = items.filter((item) => item.type === filter)
+      filtered = filtered.filter((item) => item.type === filter)
     }
-    return [...items].sort((a, b) => {
+    return [...filtered].sort((a, b) => {
       const timeA = new Date(a.createdAt).getTime()
       const timeB = new Date(b.createdAt).getTime()
 
