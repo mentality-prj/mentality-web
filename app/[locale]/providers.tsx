@@ -1,10 +1,10 @@
 'use client'
-import { ReactNode, useState } from 'react'
+import { ReactNode } from 'react'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes'
 
 import { SessionWrapper } from '@/components/SessionWrapper'
-import { FilterContext, SortContext } from '@/context/FilterContext'
+import { ContextProvider } from '@/context/ContextProvider'
 import { SidebarProvider } from '@/ds/shadcn/sidebar'
 
 export interface ProvidersProps {
@@ -13,8 +13,6 @@ export interface ProvidersProps {
 }
 
 export function Providers({ children, themeProps }: ProvidersProps) {
-  const [sort, setSort] = useState('newest')
-  const [filter, setFilter] = useState('')
   return (
     <SessionProvider>
       <SessionWrapper>
@@ -28,9 +26,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
               } as React.CSSProperties
             }
           >
-            <SortContext.Provider value={{ sort, setSort }}>
-              <FilterContext.Provider value={{ filter, setFilter }}>{children}</FilterContext.Provider>
-            </SortContext.Provider>
+            <ContextProvider>{children}</ContextProvider>
           </SidebarProvider>
         </NextThemesProvider>
       </SessionWrapper>
