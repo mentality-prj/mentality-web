@@ -1,15 +1,16 @@
+import { ComponentProps } from 'react'
+
 import { ToggleGroupItem } from '@/ds/shadcn/toggle-group'
 
-interface TagProps {
+interface TagProps extends ComponentProps<typeof ToggleGroupItem> {
   text: string
-  value: string
 }
 
-export const Tag = ({ text, value }: TagProps) => {
+export const Tag = ({ text, ...props }: TagProps) => {
   return (
     <ToggleGroupItem
-      className="rounded-xs bg-tag-surfaceLightPurple px-3 py-1 text-textcolor-secondary hover:bg-primary-hover hover:text-reversed focus:outline-none focus-visible:bg-primary-focus focus-visible:ring-1 focus-visible:ring-primary-focus focus-visible:ring-offset-4 active:bg-primary-pressed data-[state='on']:bg-primary data-[state='on']:text-reversed data-[state='on']:focus-visible:bg-primary-focus"
-      value={value}
+      className="max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs/[14px] text-textcolor-secondary hover:bg-primary-hover hover:text-reversed focus:outline-none focus-visible:bg-primary-focus focus-visible:ring-1 focus-visible:ring-primary-focus focus-visible:ring-offset-4 active:bg-primary-pressed data-[state='on']:bg-primary data-[state='on']:text-reversed data-[state='on']:focus-visible:bg-primary-focus"
+      {...props}
     >
       {text}
     </ToggleGroupItem>
