@@ -17,6 +17,7 @@ export const Sort = ({ id, value, onValueChange }: SortProps) => {
   ]
   return (
     <DropdownInput
+      key={value}
       id={id}
       label={t('Label')}
       defaultValue={value}
