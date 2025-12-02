@@ -211,7 +211,20 @@
     "PageTitle": {
       "title": "Порадник",
       "subtitle": "Твої інструменти для внутрішнього балансу та відновлення"
-    }
+    },
+    "Tabs": {
+      "All": "Всі",
+      "meditations": "Медитації",
+      "breathing": "Дихальні вправи",
+      "calming": "Заспокой мене зараз"
+    },
+    "CardCategory": {
+      "meditations": "Інші медитації",
+      "breathing": "Інші дихальні вправи",
+      "calming": "Інші вправи для заспокоєння"
+    },
+    "TechniqueOverview": "Огляд техніки",
+    "textLink": "Детальніше"
   },
   "MyProgress": {
     "PageTitle": {

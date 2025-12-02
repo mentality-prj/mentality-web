@@ -214,7 +214,20 @@
     "PageTitle": {
       "title": "Poradnik",
       "subtitle": "Twoje narzędzia do wewnętrznej równowagi i regeneracji"
-    }
+    },
+    "Tabs": {
+      "All": "Wszystkie",
+      "meditations": "Medytacje",
+      "Breathing exercises": "Ćwiczenia oddechowe",
+      "calming": "Uspokój mnie teraz"
+    },
+    "CardCategory": {
+      "meditations": "Inne medytacje",
+      "breathing": "Inne ćwiczenia oddechowe",
+      "calming": "Inne ćwiczenia na uspokojenie"
+    },
+    "TechniqueOverview": "Przegląd techniki",
+    "textLink": "Więcej szczegółów"
   },
   "MyProgress": {
     "PageTitle": {
