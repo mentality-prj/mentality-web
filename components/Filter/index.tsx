@@ -22,12 +22,12 @@ export const Filter = <TFilters extends { order: 'newest' | 'oldest' }>({ useFil
   const { order: sort, ...otherFilters } = filters
   const hasActiveFilters = Object.values(otherFilters).some(Boolean)
 
-  const t = useTranslations('AffirmationsPage')
+  const t = useTranslations('components.Filter')
 
   return (
     <div className="flex max-h-fit flex-col gap-5 rounded-md border border-outline-secondary p-6">
       <div className="flex justify-between">
-        <div>{t('filter.title')}</div>
+        <div>{t('title')}</div>
 
         <ClearFiltersButton hasActiveFilters={hasActiveFilters} reset={reset} sort={sort} />
       </div>
@@ -37,7 +37,7 @@ export const Filter = <TFilters extends { order: 'newest' | 'oldest' }>({ useFil
         const options = filterOptions[`${k}`]
 
         return (
-          <FilterSection key={k} title={t(`filter.by ${k}`)}>
+          <FilterSection key={k} title={t(`by_${k}`)}>
             <FilterOptionGroup
               value={value}
               options={options}

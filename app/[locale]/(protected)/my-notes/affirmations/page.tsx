@@ -10,26 +10,32 @@ import { SupportedLanguage } from '@/types/languages'
 
 export default async function AffirmationsPage() {
   const dailyAffirmation = await mockDailyAffirmation()
-  const t = await getTranslations('AffirmationsPage')
+  const t = await getTranslations()
   const dailyTip = await mockDailyTip()
   const locale = (await getLocale()) as SupportedLanguage
 
   return (
     <div className="flex flex-col gap-8">
       <Breadcrumbs
-        currentPage={t('title')}
-        breadcrumbList={[{ title: `${t('ThoughtsList.title')}`, href: '/my-notes' }]}
+        currentPage={t('common.Pagetitle.title', { title: 'affirmation' })}
+        breadcrumbList={[
+          { title: `${t('common.Breadcrumbs.breadcrumbsList', { title: 'affirmation' })}`, href: '/my-notes' },
+        ]}
       />
-      <PageTitle title={t('title')} subtitle={t('subtitle')} />
+      <PageTitle
+        title={t('common.Pagetitle.title', { title: 'affirmation' })}
+        subtitle={t('common.Pagetitle.subtitle', { subtitle: 'affirmation' })}
+      />
       <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
+        {/* TODO:  move components to a separate component (i18n as well)*/}
         <CustomCard
-          title={t('affirmation.title')}
+          title={t('pages.AffirmationsPage.affirmation.title')}
           text={`${dailyAffirmation.translations[`${locale}`]}`}
           button={<StarIcon />}
           variant="daily"
         />
         <CustomCard
-          title={t('tip.title')}
+          title={t('pages.AffirmationsPage.tip.title')}
           text={`${dailyTip.translations[`${locale}`]}`}
           button={<StarIcon />}
           variant="daily"
