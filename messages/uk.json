@@ -20,55 +20,11 @@
   "TextareaWithLabel": {
     "placeholder": "Введіть запис..."
   },
-  "HomePage": {
-    "ExercisesForRecovery": {
-      "title": "Вправи для відновлення",
-      "subtitle": "Практики для психологічного здоров'я"
-    },
-    "ChatWithAI": {
-      "title": "Чат з AI-помічником",
-      "subtitle": "Отримай підтримку та поради",
-      "description": "Привіт! Чим я можу допомогти сьогодні?",
-      "Talk about my thoughts": " Поговорити про мої думки",
-      "Advise me on an exercise": "Порадь мені вправу",
-      "Show the caring message of the day": "Покажи турботливе повідомлення дня"
-    },
-    "CurrentState": {
-      "title": "Сьогоднішний стан",
-      "subtitle": "Як ти сьогодні почуваєш себе?",
-      "View dynamics": "Подивитись динаміку",
-      "Save": "Зберегти",
-      "placeholder": "Додати коротку нотатку (опціонально)"
-    },
-    "MyProgress": {
-      "title": "Мій прогрес",
-      "subtitle": "Відстежуй свої досягнення",
-      "Ribbon of achievements:": "Стрічка досягнень:",
-      "days in a row!": "дні підряд!",
-      "Mood analytics": "Аналітика настрою",
-      "Personal tips": "Персональні поради"
-    }
-  },
+
   "MainPage": {
     "Coming soon": "Незабаром буде доступно"
   },
-  "ShopPage": {
-    "Checkout": {
-      "DeliveryDetails": "Деталі доставки",
-      "PaymentInfo": "Інформація про оплату",
-      "Thanks": "Дякуємо за замовлення",
-      "Submit": "Відправити"
-    },
-    "ShopEmpty": "Магазин порожній",
-    "Price": "Ціна",
-    "AddToCart": "Додати в кошик",
-    "Added": "Додано"
-  },
-  "CartPage": {
-    "CartEmpty": "Ваш кошик порожній",
-    "Checkout": "Перейти до оформлення замовлення",
-    "TotalPrice": "Загальна вартість"
-  },
+
   "NotFoundPage": {
     "title": "Сторінка не знайдена"
   },
