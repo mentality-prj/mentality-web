@@ -1,4 +1,4 @@
 {
-  "title": "{title, select, affirmation {Афірмації та поради} guide {Порадник}  other {}}",
-  "subtitle": "{subtitle, select, affirmation {Надихайся позитивними думками кожного дня} guide {Твої інструменти для внутрішнього балансу та відновлення} other {}}"
+  "title": "{title, select, affirmation {Афірмації та поради} guide {Порадник} moodTracker {Трекер настрою} myNotes {Мої записи} myThoughts {Мої думки} saved {Збережене}  other {}}",
+  "subtitle": "{subtitle, select, affirmation {Надихайся позитивними думками кожного дня} guide {Твої інструменти для внутрішнього балансу та відновлення} moodTracker {Відслідковуй зміни свого настрою і рівня стресу} myNotes {Як ти сьогодні почуваєш себе?} myThoughts {Веди щоденник своїх думок} saved {Твої улюблені поради та афірмації}  other {}}"
 }
