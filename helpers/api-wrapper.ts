@@ -50,11 +50,14 @@ export async function apiRequest<T = unknown>(
       error: session.error,
       userId: session.user?.email,
     })
+    const errorObj =
+      typeof session.error === 'string' ? { message: session.error, error: session.error, status: 401 } : session.error
+
     return {
       error: {
         name: 'SessionError',
-        message: session.error.message || 'Session is invalid or expired',
-        status: session.error.status || 401,
+        message: errorObj.message || 'Session is invalid or expired',
+        status: errorObj.status || 401,
       },
     }
   }

@@ -2,6 +2,16 @@
   "common": {
     "loading": "Ładowanie..."
   },
+  "ServerError": {
+    "title": "Błąd połączenia z serwerem",
+    "description": "Nie można połączyć się z serwerem. Spróbuj ponownie później.",
+    "suggestions": "Co możesz zrobić:",
+    "suggestion1": "Sprawdź połączenie internetowe",
+    "suggestion2": "Spróbuj odświeżyć stronę",
+    "suggestion3": "Poczekaj kilka minut i spróbuj ponownie",
+    "backToSignin": "Powrót do logowania",
+    "tryAgain": "Spróbuj ponownie"
+  },
   "Header": {
     "SearchBar": {
       "placeholder": "Szukaj..."
@@ -287,13 +297,12 @@
       },
       "GenerateTip": {
         "generateButton": "Generuj poradę",
-        "showUnpublishedButton": "Pokaż nieopublikowane",
         "description": "Wygeneruj {tip} za pomocą usługi OpenAI.",
         "tip": "Poradę",
         "autoAppear": "Ta porada automatycznie pojawi się na stronach jako {currentTip}",
         "currentTip": "Bieżąca porada",
         "noPrompt": "Jeśli nie określono promptu, porada zostanie wygenerowana z domyślnym promptem.",
-        "ukrainianOnly": "Generowanie porad obsługuje tylko <strong>język ukraiński</strong>",
+        "ukrainianOnly": "Generowanie porad obsługuje tylko język ukraiński",
         "ukrainian": "język ukraiński",
         "promptLabel": "Prompt dla porady",
         "promptPlaceholder": "Dodaj zapytanie, jeśli potrzebujesz",
@@ -301,6 +310,11 @@
         "error": "Nie udało się wygenerować porady",
         "unpublishedError": "Nie udało się pobrać nieopublikowanych porad",
         "unpublishedSuccess": "Znaleziono {count} nieopublikowanych porad",
+        "allTipsSuccess": "Załadowano {count} porad",
+        "allTipsTitle": "Wszystkie porady",
+        "loading": "Ładowanie...",
+        "empty": "Brak porad",
+        "submitting": "Generowanie...",
         "loginRequired": "Proszę się zalogować, aby kontynuować"
       },
       "AddExercise": {

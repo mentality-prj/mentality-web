@@ -61,3 +61,9 @@ export async function getUnpublishedTips(session: CustomSession | null) {
   logger.info('Unpublished tips retrieved', { count: Array.isArray(data) ? data.length : 0 })
   return { data }
 }
+
+// Temporary function: Returns only unpublished tips until backend provides an endpoint for all tips
+// TODO: Replace with proper getAllTips endpoint when available on backend
+export async function getUnpublishedTipsOnly(session: CustomSession | null) {
+  return getUnpublishedTips(session)
+}

@@ -1,11 +1,12 @@
-import { useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
+import { Badge } from '@/ds/shadcn/badge'
 import { Button } from '@/ds/shadcn/button'
 import { Label } from '@/ds/shadcn/label'
 import { Textarea } from '@/ds/shadcn/textarea'
-import { addTip, getUnpublishedTips } from '@/requests/tips'
+import { addTip, getUnpublishedTipsOnly } from '@/requests/tips'
 import { TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
@@ -15,60 +16,61 @@ export default function AddTip() {
   const t = useTranslations('components.Admin.GenerateTip')
   const locale = useLocale() as SupportedLanguage
   const [prompt, setPrompt] = useState('')
-  const [tips, setTips] = useState<TipEntity[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [allTips, setAllTips] = useState<TipEntity[]>([])
+  const [isLoadingTips, setIsLoadingTips] = useState(false)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const tipsLoadedRef = useRef(false)
 
   const { data } = useSession()
   const session = data as CustomSession
 
+  const loadTips = useCallback(async () => {
+    if (!session || tipsLoadedRef.current || isLoadingTips) return
+
+    setIsLoadingTips(true)
+    const { data, error } = await getUnpublishedTipsOnly(session)
+
+    if (error) {
+      console.error('Failed to load tips:', error)
+      setAllTips([])
+    } else if (data) {
+      setAllTips(Array.isArray(data) ? data : [])
+      tipsLoadedRef.current = true
+    }
+
+    setIsLoadingTips(false)
+  }, [session, isLoadingTips])
+
+  useEffect(() => {
+    loadTips()
+  }, [loadTips])
+
   const generateTip = async () => {
-    if (session?.user) {
-      setIsLoading(true)
+    if (session?.user && !isSubmitting) {
+      setIsSubmitting(true)
       try {
         const result = await addTip(session, prompt, locale)
         if (result.error) {
           notifyError(result.error)
         } else {
           notifySuccess(t('success'))
+          setPrompt('')
+          tipsLoadedRef.current = false
+          await loadTips()
         }
       } finally {
-        setIsLoading(false)
+        setIsSubmitting(false)
       }
     }
     return
   }
-
-  const showUnpublishedTips = async () => {
-    if (session?.user) {
-      setIsLoading(true)
-      try {
-        const result = await getUnpublishedTips(session)
-        if (result.error) {
-          notifyError(result.error)
-        } else if (result.data) {
-          setTips(result.data)
-          notifySuccess(t('unpublishedSuccess', { count: result.data.length }))
-        }
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    return
-  }
-
-  const tipsMap = tips.map((tip: TipEntity) => {
-    return <li key={tip.id}>{tip.text[locale as SupportedLanguage] || tip.text.uk || ''}</li>
-  })
 
   return (
-    <>
-      <div className="flex w-full gap-6 px-6 py-6">
+    <div className="space-y-8 p-6">
+      <div className="flex w-full gap-6">
         <div className="flex flex-col gap-6">
-          <Button color="success" onClick={generateTip} disabled={isLoading}>
-            {t('generateButton')}
-          </Button>
-          <Button color="primary" onClick={showUnpublishedTips} disabled={isLoading}>
-            {t('showUnpublishedButton')}
+          <Button color="success" onClick={generateTip} disabled={isSubmitting}>
+            {isSubmitting ? t('submitting') : t('generateButton')}
           </Button>
         </div>
         <p className="text-sm">
@@ -79,7 +81,7 @@ export default function AddTip() {
           <em>If no prompt is specified, the tip will be generated with the default prompt.</em>
         </p>
       </div>
-      <div className="mt-8 flex w-full gap-6 px-6 py-6">
+      <div className="mt-8 flex w-full flex-col gap-2">
         <em>{t('ukrainianOnly')}</em>
         <Label htmlFor="tipPrompt">Tip Prompt</Label>
         <Textarea
@@ -87,10 +89,27 @@ export default function AddTip() {
           placeholder={t('promptPlaceholder')}
           onChange={(e) => setPrompt(e.target.value)}
           value={prompt}
-          disabled={isLoading}
+          disabled={isSubmitting}
         />
       </div>
-      <ul>{tipsMap}</ul>
-    </>
+
+      <div className="w-full">
+        <h3 className="mb-4 text-xl font-semibold">{t('allTipsTitle')}</h3>
+        {isLoadingTips ? (
+          <p className="text-center text-textcolor-secondary">{t('loading')}</p>
+        ) : allTips.length === 0 ? (
+          <p className="text-center text-textcolor-secondary">{t('empty')}</p>
+        ) : (
+          <div className="flex flex-col gap-2">
+            {allTips.map((tip: TipEntity) => (
+              <Badge key={tip.id} variant={tip.isPublished ? 'active' : 'default'}>
+                {/* eslint-disable-next-line security/detect-object-injection */}
+                {tip.translations[locale] || tip.translations.uk || 'No text available'}
+              </Badge>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
   )
 }

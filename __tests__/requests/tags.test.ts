@@ -1,5 +1,7 @@
 import { apiRequest } from '@/helpers/api-wrapper'
+import { logger } from '@/lib/logger'
 import { addTag, getTags } from '@/requests/tags'
+import { CustomSession } from '@/types/auth'
 
 jest.mock('@/helpers/api-wrapper')
 jest.mock('@/lib/logger', () => ({
@@ -11,24 +13,29 @@ jest.mock('@/lib/logger', () => ({
   },
 }))
 
-const mockSession = {
+const mockSession: CustomSession = {
   user: {
     email: 'admin@test.com',
-    role: 'admin',
+    role: 'admin' as const,
   },
   OAuthToken: 'mock-token',
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
 
 const mockTagData = {
-  key: 'stress',
-  translations: { uk: 'Стрес', en: 'Stress', pl: 'Stres' },
+  key: 'test-tag',
+  translations: {
+    en: 'Test Tag',
+    uk: 'Тестовий Тег',
+    pl: 'Test Tag',
+  },
 }
 
-describe('Tags API', () => {
-  beforeEach(() => {
-    jest.clearAllMocks()
-  })
+beforeEach(() => {
+  jest.clearAllMocks()
+})
 
+describe('Tags API', () => {
   describe('addTag', () => {
     it('successfully adds a tag', async () => {
       const mockResponse = {
@@ -42,7 +49,7 @@ describe('Tags API', () => {
         error: null,
       })
 
-      const result = await addTag(mockSession as any, mockTagData)
+      const result = await addTag(mockSession, mockTagData)
 
       expect(result.data).toEqual(mockResponse)
       expect(result.error).toBeUndefined()
@@ -57,11 +64,12 @@ describe('Tags API', () => {
     })
 
     it('returns error for unauthorized user', async () => {
-      const unauthorizedSession = {
-        user: { email: 'user@test.com', role: 'user' },
+      const unauthorizedSession: CustomSession = {
+        user: { email: 'user@test.com', role: 'user' as const },
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       }
 
-      const result = await addTag(unauthorizedSession as any, mockTagData)
+      const result = await addTag(unauthorizedSession, mockTagData)
 
       expect(result.error).toBe('Unauthorized: Admin role required')
       expect(apiRequest).not.toHaveBeenCalled()
@@ -73,31 +81,31 @@ describe('Tags API', () => {
         error: { message: 'Tag already exists' },
       })
 
-      const result = await addTag(mockSession as any, mockTagData)
+      const result = await addTag(mockSession, mockTagData)
 
       expect(result.error).toBe('Tag already exists')
     })
 
     it('returns error for null session', async () => {
-      const result = await addTag(null, mockTagData)
+      const result = await addTag(null as unknown as CustomSession, mockTagData)
 
       expect(result.error).toBe('Unauthorized: Admin role required')
       expect(apiRequest).not.toHaveBeenCalled()
     })
 
     it('logs warning for unauthorized attempts', async () => {
-      const unauthorizedSession = {
-        user: { email: 'user@test.com', role: 'user' },
+      const unauthorizedSession: CustomSession = {
+        user: { email: 'user@test.com', role: 'user' as const },
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       }
 
-      await addTag(unauthorizedSession as any, mockTagData)
+      await addTag(unauthorizedSession, mockTagData)
 
-      const logger = require('@/lib/logger').logger
       expect(logger.warn).toHaveBeenCalledWith(
         'Unauthorized attempt to add tag',
         expect.objectContaining({
           userId: 'user@test.com',
-          tagKey: 'stress',
+          tagKey: 'test-tag',
         })
       )
     })
@@ -126,7 +134,7 @@ describe('Tags API', () => {
         error: null,
       })
 
-      const result = await getTags(mockSession as any)
+      const result = await getTags(mockSession)
 
       expect(result.data).toEqual(mockTags)
       expect(result.error).toBeUndefined()
@@ -140,11 +148,12 @@ describe('Tags API', () => {
     })
 
     it('returns error for unauthorized user', async () => {
-      const unauthorizedSession = {
-        user: { email: 'user@test.com', role: 'user' },
+      const unauthorizedSession: CustomSession = {
+        user: { email: 'user@test.com', role: 'user' as const },
+        expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
       }
 
-      const result = await getTags(unauthorizedSession as any)
+      const result = await getTags(unauthorizedSession)
 
       expect(result.error).toBe('Unauthorized: Admin role required')
       expect(apiRequest).not.toHaveBeenCalled()
@@ -156,7 +165,7 @@ describe('Tags API', () => {
         error: null,
       })
 
-      const result = await getTags(mockSession as any)
+      const result = await getTags(mockSession)
 
       expect(result.data).toEqual([])
       expect(Array.isArray(result.data)).toBe(true)
@@ -168,7 +177,7 @@ describe('Tags API', () => {
         error: { message: 'Database connection failed' },
       })
 
-      const result = await getTags(mockSession as any)
+      const result = await getTags(mockSession)
 
       expect(result.error).toBe('Database connection failed')
     })
@@ -179,9 +188,8 @@ describe('Tags API', () => {
         error: null,
       })
 
-      await getTags(mockSession as any)
+      await getTags(mockSession)
 
-      const logger = require('@/lib/logger').logger
       expect(logger.info).toHaveBeenCalledWith('Tags retrieved', { count: 2 })
     })
   })

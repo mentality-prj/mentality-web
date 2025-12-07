@@ -65,6 +65,7 @@
     "@commitlint/cli": "^19.6.0",
     "@commitlint/config-conventional": "^19.6.0",
     "@commitlint/types": "^19.5.0",
+    "@edge-runtime/jest-environment": "^4.0.0",
     "@storybook/addon-designs": "^8.0.4",
     "@storybook/addon-essentials": "8.5.1",
     "@storybook/addon-interactions": "8.5.1",

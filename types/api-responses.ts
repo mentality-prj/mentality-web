@@ -3,8 +3,8 @@ import { SupportedLanguage } from './languages'
 // Tips
 export type TipEntity = {
   id: string
-  text: Record<SupportedLanguage, string>
-  tags: string[]
+  translations: Record<SupportedLanguage, string>
+  tags?: string[]
   isPublished: boolean
   createdAt: string
   updatedAt: string
