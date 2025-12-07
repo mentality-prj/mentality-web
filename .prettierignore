@@ -1,3 +1,4 @@
 .eslintrc.json
 tsconfig.json
 settings.json
+.vscode/extensions.json

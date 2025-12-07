@@ -2,6 +2,7 @@ import { Account } from 'next-auth'
 import { JWT } from 'next-auth/jwt'
 
 import { ProviderKey } from '@/constants/providers'
+import logger from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import { CustomSession, ExtendedToken, UserAI } from '@/types/auth'
 
@@ -14,6 +15,60 @@ export const extendToken = (account: Account, token: JWT): ExtendedToken => {
   })
 
   return token
+}
+
+/**
+ * Refreshes an expired Google OAuth access token using the refresh token
+ * @param token - The current JWT token with refresh token
+ * @returns Updated token with new access token and expiration
+ */
+export async function refreshAccessToken(token: ExtendedToken): Promise<ExtendedToken> {
+  try {
+    if (!token.refreshToken) {
+      throw new Error('No refresh token available')
+    }
+
+    logger.info('[AUTH] Attempting to refresh access token')
+
+    const response = await fetch('https://oauth2.googleapis.com/token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
+      },
+      body: new URLSearchParams({
+        client_id: process.env.AUTH_GOOGLE_ID!,
+        client_secret: process.env.AUTH_GOOGLE_SECRET!,
+        grant_type: 'refresh_token',
+        refresh_token: token.refreshToken as string,
+      }),
+    })
+
+    const refreshedTokens = await response.json()
+
+    if (!response.ok) {
+      logger.error('[AUTH] Failed to refresh access token', {
+        status: response.status,
+        error: refreshedTokens,
+      })
+      throw new Error('Failed to refresh access token')
+    }
+
+    logger.info('[AUTH] Access token refreshed successfully')
+
+    return {
+      ...token,
+      accessToken: refreshedTokens.access_token,
+      idToken: refreshedTokens.id_token ?? token.idToken,
+      expiresAt: Math.floor(Date.now() / 1000) + refreshedTokens.expires_in,
+      refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Use new refresh token if provided
+    }
+  } catch (error) {
+    logger.error('[AUTH] Error refreshing access token', { error })
+    return {
+      ...token,
+      error: 'RefreshTokenError',
+    }
+  }
 }
 
 /**

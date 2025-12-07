@@ -14,6 +14,7 @@ export const RoutesTitles = Object.freeze({
   SETTINGS: 'Settings',
   SIGNIN: 'Signin',
   TIPS: 'Tips',
+  SERVERERROR: 'Server-Error',
 })
 
 export const Routes: RoutesType = Object.freeze({

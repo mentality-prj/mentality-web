@@ -6,6 +6,22 @@
     "source.fixAll.eslint": "explicit",
     "source.organizeImports": "never"
   },
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[javascriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true
+  },
   "workbench.editor.centeredLayoutAutoResize": true,
   "workbench.settings.editor": "ui",
   "eslint.validate": [
@@ -21,12 +37,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "vscode.json-language-features"
   },
-  "[typescript]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode"
-  },
   "prettier.configPath": ".prettierrc",
   "postman.settings.dotenv-detection-notification-visibility": false,
   "tailwindCSS.experimental.classRegex": [
@@ -38,5 +48,98 @@
       "cx\\(((?:[^()]|\\([^()]*\\))*)\\)",
       "(?:'|\"|`)([^']*)(?:'|\"|`)"
     ]
-  ]
+  ],
+  // GitHub Copilot optimization
+  "github.copilot.enable": {
+    "*": true,
+    "plaintext": false,
+    "markdown": false,
+    "scminput": false,
+    "yaml": false,
+    "json": false,
+    "jsonc": false
+  },
+  "github.copilot.editor.enableAutoCompletions": true,
+  "github.copilot.chat.localeOverride": "en",
+  "github.copilot.renameSuggestions.triggerAutomatically": false,
+  // TypeScript optimization: reduce unnecessary checks
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.disableAutomaticTypeAcquisition": true,
+  "typescript.tsserver.experimental.enableProjectDiagnostics": false,
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "typescript.preferences.importModuleSpecifier": "relative",
+  "typescript.tsserver.useSyntaxServer": "auto",
+  "typescript.suggest.enabled": true,
+  "typescript.validate.enable": true,
+  // ESLint optimization
+  "eslint.runtime": "node",
+  "eslint.options": {
+    "cache": true,
+    "cacheLocation": "node_modules/.cache/eslint/"
+  },
+  // Editor performance
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": false,
+    "strings": false
+  },
+  "editor.suggestOnTriggerCharacters": true,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "editor.snippetSuggestions": "top",
+  "editor.tabCompletion": "on",
+  "editor.wordBasedSuggestions": "off",
+  "editor.parameterHints.enabled": true,
+  "editor.renderWhitespace": "selection",
+  "editor.minimap.enabled": false,
+  "editor.inlineSuggest.enabled": true,
+  // Git optimization
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "git.untrackedChanges": "mixed",
+  "git.autorefresh": true,
+  "git.enableStatusBarSync": true,
+  "git.detectSubmodules": false,
+  "git.scanRepositories": [],
+  // Emmet optimization for React
+  "emmet.includeLanguages": {
+    "javascript": "javascriptreact",
+    "typescript": "typescriptreact"
+  },
+  "emmet.triggerExpansionOnTab": true,
+  // Files optimization
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "files.trimTrailingWhitespace": true,
+  "files.insertFinalNewline": true,
+  // Files to exclude from watching (improves performance)
+  "files.watcherExclude": {
+    "**/.git/objects/**": true,
+    "**/.git/subtree-cache/**": true,
+    "**/.git/index": true,
+    "**/node_modules/**": true,
+    "**/.next/**": true,
+    "**/dist/**": true,
+    "**/build/**": true,
+    "**/coverage/**": true,
+    "**/.hg/store/**": true,
+    "**/out/**": true,
+    "**/.vscode-test/**": true,
+    "**/tmp/**": true,
+    "**/.cache/**": true
+  },
+  // Search optimization: exclude heavy folders
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/.next": true,
+    "**/dist": true,
+    "**/build": true,
+    "**/coverage": true,
+    "**/out": true
+  },
+  // File explorer optimization
+  "files.exclude": {
+    "**/.DS_Store": true,
+    "**/node_modules": false
+  }
 }
