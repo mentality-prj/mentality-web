@@ -1,0 +1,15 @@
+{
+  "AchievementCard": {
+    "open": "Unlocked",
+    "progress": "Progress"
+  },
+  "AchievementsTitle": {
+    "title": "Achievements",
+    "subtitle": "Unlocked 3 achievements out of 25"
+  },
+  "AchievementsFilter": {
+    "unlocked": "Unlocked",
+    "locked": "Locked",
+    "all": "All"
+  }
+}

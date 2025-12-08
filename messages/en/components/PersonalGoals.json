@@ -1,0 +1,41 @@
+{
+  "Title": "Personal goals",
+  "Subtitle": "Important steps towards inner balance",
+  "Filter": {
+    "All": "All",
+    "Active": "Active",
+    "Completed": "Completed"
+  },
+  "CreatePersonalGoals": {
+    "DefaultTextSuggestions": {
+      "SleepBetter": "Go to bed before 22:00 during the week",
+      "DayWithoutMedia": "Spend a day without social media",
+      "CoffeeLimit": "Drink no more than one cup of coffee per day"
+    },
+    "Title": "Formulate your goal",
+    "Text": "Create new goal",
+    "WeOffer": "We offer:",
+    "TextareaDescription": "Maximum 60 characters",
+    "QuantityOfRepeat": "Specify the number of repetitions to achieve your goal (optional)",
+    "Buttons": {
+      "Create": "Create",
+      "Cancel": "Cancel"
+    }
+  },
+  "PersonalGoalsCard": {
+    "Progress": "Progress",
+    "GoalAchieved": "Wow! Goal achieved, keep it up!",
+    "Mark": "Mark",
+    "Dialog": {
+      "DeleteTitle": "Delete goal?",
+      "ResetTitle": "Reset goal?",
+      "DeleteText": "This goal will be permanently deleted.",
+      "ResetText": "The goal's completed progress will be reset to 0",
+      "Buttons": {
+        "Delete": "Delete",
+        "Reset": "Reset",
+        "Cancel": "Cancel"
+      }
+    }
+  }
+}

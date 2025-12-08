@@ -1,0 +1,4 @@
+{
+  "title": "{title, select, affirmation {Previous affirmations and tips} exercises {Exercises and recovery tips} mySpace {My space} myThoughts {My notes} recordingThoughts {Recording thoughts} other {}}",
+  "subtitle": "{subtitle, select, affirmation {You don't have any previous affirmations and tips yet.} myThoughts {You don't have any notes yet.} other {}}"
+}

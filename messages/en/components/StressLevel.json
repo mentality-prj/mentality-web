@@ -1,0 +1,5 @@
+{
+  "title": "Average stress level",
+  "empty": "Not enough data to calculate",
+  "stressLevel": "{stressLevel, select, absent {Absent} low {Low} average {Average} high {High} very_high{Very high} other {} }"
+}

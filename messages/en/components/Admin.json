@@ -1,0 +1,99 @@
+{
+  "tabs": {
+    "tags": "Tags",
+    "tips": "Tips",
+    "exercises": "Exercises"
+  },
+  "AddTag": {
+    "title": "Add new tag",
+    "button": "Add tag",
+    "submitting": "Saving...",
+    "success": "Tag added successfully",
+    "showTagsButton": "Show all tags",
+    "tagsList": {
+      "title": "Tags list",
+      "loading": "Loading...",
+      "empty": "No tags found",
+      "error": "Error loading tags"
+    },
+    "fields": {
+      "key": {
+        "label": "Add tag key:",
+        "description": "Add a unique key for the new tag. Use snake_case: new_tag_name",
+        "required": "Tag key is required",
+        "format": "Tag key must be in snake_case format (start with lowercase letter, then only lowercase letters, digits and underscores)",
+        "duplicate": "A tag with this key already exists"
+      },
+      "uk": {
+        "label": "Ukrainian:",
+        "description": "Add text for the new tag in Ukrainian. This can be a word or phrase."
+      },
+      "en": {
+        "label": "English:",
+        "description": "Add text for the new tag in English. This can be a word or phrase."
+      },
+      "pl": {
+        "label": "Polish:",
+        "description": "Add text for the new tag in Polish. This can be a word or phrase."
+      },
+      "missingTranslations": "Please fill in translations for: {languages}",
+      "languageNames": {
+        "uk": "Ukrainian",
+        "en": "English",
+        "pl": "Polish"
+      }
+    }
+  },
+  "GenerateTip": {
+    "generateButton": "Generate tip",
+    "showUnpublishedButton": "Show unpublished",
+    "description": "Generate {tip} using OpenAI service.",
+    "tip": "tip",
+    "autoAppear": "This tip will automatically appear on pages as {currentTip}",
+    "currentTip": "Current tip",
+    "noPrompt": "If no prompt is specified, the tip will be generated with the default prompt.",
+    "ukrainianOnly": "Tip generation supports only <strong>Ukrainian language</strong>",
+    "ukrainian": "Ukrainian language",
+    "promptLabel": "Tip prompt",
+    "promptPlaceholder": "Add request if needed",
+    "success": "Tip generated successfully!",
+    "error": "Failed to generate tip",
+    "unpublishedError": "Failed to get unpublished tips",
+    "unpublishedSuccess": "Found {count} unpublished tips",
+    "loginRequired": "Please log in to continue"
+  },
+  "AddExercise": {
+    "title": "Add new exercise",
+    "button": "Add exercise",
+    "submitting": "Saving...",
+    "success": "Exercise added successfully",
+    "exercisesList": {
+      "title": "Exercises list",
+      "loading": "Loading...",
+      "empty": "No exercises found",
+      "error": "Error loading exercises"
+    },
+    "fields": {
+      "category": {
+        "label": "Category:",
+        "required": "Please enter category"
+      },
+      "title": {
+        "label": "Title:",
+        "required": "Please enter title"
+      },
+      "annotation": {
+        "label": "Annotation:",
+        "required": "Please enter annotation"
+      },
+      "description": {
+        "label": "Description:",
+        "required": "Please enter description"
+      },
+      "tags": {
+        "label": "Tags:",
+        "empty": "No tags found. Add tags first on the Tags tab."
+      }
+    }
+  }
+}
