@@ -1,0 +1,15 @@
+{
+  "AchievementCard": {
+    "open": "Відкрито",
+    "progress": "Прогрес"
+  },
+  "AchievementsTitle": {
+    "title": "Досягнення",
+    "subtitle": "Відкрито 3 досягнення з 25"
+  },
+  "AchievementsFilter": {
+    "unlocked": "Відкриті",
+    "locked": "Невідкриті",
+    "all": "Всі"
+  }
+}
