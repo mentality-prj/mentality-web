@@ -1,6 +1,6 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { signOut, useSession } from 'next-auth/react'
 import { usePathname } from 'next/navigation'
+import { signOut, useSession } from 'next-auth/react'
 
 import { SessionWrapper } from '@/components/SessionWrapper'
 
@@ -78,13 +78,10 @@ describe('SessionWrapper Component', () => {
     })
   })
 
-  it('does not sign out for other error types', () => {
+  it('signs out for backend connection error', async () => {
     ;(useSession as jest.Mock).mockReturnValue({
       data: {
-        error: {
-          error: 'SomeOtherError',
-          message: 'Different error',
-        },
+        error: 'BackendConnectionError',
       },
     })
 
@@ -94,7 +91,33 @@ describe('SessionWrapper Component', () => {
       </SessionWrapper>
     )
 
-    expect(mockSignOut).not.toHaveBeenCalled()
+    await waitFor(() => {
+      expect(mockSignOut).toHaveBeenCalledWith({
+        callbackUrl: '/en/signin',
+        redirect: true,
+      })
+    })
+  })
+
+  it('signs out for invalid token error', async () => {
+    ;(useSession as jest.Mock).mockReturnValue({
+      data: {
+        error: 'InvalidToken',
+      },
+    })
+
+    render(
+      <SessionWrapper>
+        <div>Content</div>
+      </SessionWrapper>
+    )
+
+    await waitFor(() => {
+      expect(mockSignOut).toHaveBeenCalledWith({
+        callbackUrl: '/en/signin',
+        redirect: true,
+      })
+    })
   })
 
   it('handles undefined session error gracefully', () => {

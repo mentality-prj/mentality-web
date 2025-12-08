@@ -88,7 +88,7 @@ export async function middleware(request: NextRequest) {
 
   // Auth logic
   const session = await auth()
-  const publicRoutes = [Routes.SIGNIN, Routes.MAIN]
+  const publicRoutes = [Routes.SIGNIN, Routes.MAIN, Routes.SERVERERROR]
 
   // Use locale from URL or default if not set
   const locale = localeInUrl || routing.defaultLocale
@@ -102,6 +102,30 @@ export async function middleware(request: NextRequest) {
   )
 
   const isProtectedPath = Object.values(protectedRoutes).some(Boolean)
+
+  // Skip session error checks for server-error page to avoid redirect loops
+  const isServerErrorPage = normalizedPath === Routes.SERVERERROR
+
+  // Check for session errors FIRST - before any other auth logic
+  if (session?.error && !isServerErrorPage) {
+    const errorType = typeof session.error === 'string' ? session.error : session.error.error
+    const isCriticalError =
+      errorType === 'RefreshTokenError' || errorType === 'BackendConnectionError' || errorType === 'InvalidToken'
+
+    // If there's a critical error, handle it appropriately
+    if (isCriticalError) {
+      // For BackendConnectionError, redirect to server-error page
+      if (errorType === 'BackendConnectionError') {
+        return NextResponse.redirect(new URL(`/${locale}${Routes.SERVERERROR}`, request.url))
+      }
+
+      // For other critical errors (InvalidToken, RefreshTokenError), redirect to signin
+      const response = NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
+      response.cookies.delete('authjs.session-token')
+      response.cookies.delete('__Secure-authjs.session-token')
+      return response
+    }
+  }
 
   if (!session?.user && isProtectedPath) {
     return NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))

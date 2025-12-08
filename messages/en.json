@@ -2,6 +2,16 @@
   "common": {
     "loading": "Loading..."
   },
+  "ServerError": {
+    "title": "Server Connection Error",
+    "description": "We are unable to connect to the server. Please try again later.",
+    "suggestions": "What you can do:",
+    "suggestion1": "Check your internet connection",
+    "suggestion2": "Try refreshing the page",
+    "suggestion3": "Wait a few minutes and try again",
+    "backToSignin": "Back to Sign In",
+    "tryAgain": "Try Again"
+  },
   "Header": {
     "SearchBar": {
       "placeholder": "Search..."
@@ -297,13 +307,12 @@
       },
       "GenerateTip": {
         "generateButton": "Generate Tip",
-        "showUnpublishedButton": "Show Unpublished",
         "description": "Generate a {tip} using the OpenAI service.",
         "tip": "Tip",
         "autoAppear": "This tip will automatically appear on pages as a {currentTip}",
         "currentTip": "Current Tip",
         "noPrompt": "If no prompt is specified, the tip will be generated with the default prompt.",
-        "ukrainianOnly": "Tip generation supports only <strong>Ukrainian language</strong>",
+        "ukrainianOnly": "Tip generation supports only Ukrainian language",
         "ukrainian": "Ukrainian",
         "promptLabel": "Tip Prompt",
         "promptPlaceholder": "Add a prompt if needed",
@@ -311,6 +320,11 @@
         "error": "Failed to generate tip",
         "unpublishedError": "Failed to get unpublished tips",
         "unpublishedSuccess": "Found {count} unpublished tips",
+        "allTipsSuccess": "Loaded {count} tips",
+        "allTipsTitle": "All Tips",
+        "loading": "Loading...",
+        "empty": "No tips available",
+        "submitting": "Generating...",
         "loginRequired": "Please login to continue"
       },
       "AddExercise": {
