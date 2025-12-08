@@ -1,0 +1,10 @@
+{
+  "title": "Dynamika szczegółowa",
+  "timeRange": {
+    "week": "Tydzień",
+    "twoWeeks": "Dwa tygodnie",
+    "month": "Miesiąc"
+  },
+  "mood": "Nastrój",
+  "stress": "Stres"
+}

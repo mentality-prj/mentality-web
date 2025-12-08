@@ -1,0 +1,11 @@
+{
+  "card1": { "title": "Medytacja", "desc": "Uspokój swój umysł i przywróć równowagę w kilka minut." },
+  "card2": {
+    "title": "Ćwiczenia oddechowe",
+    "desc": "Spróbuj technik zmniejszających stres i poprawiających koncentrację."
+  },
+  "card3": {
+    "title": "Uspokój mnie teraz",
+    "desc": "Szybkie porady, które pomogą Ci radzić sobie z lękiem tutaj i teraz."
+  }
+}

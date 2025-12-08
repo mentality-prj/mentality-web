@@ -1,0 +1,15 @@
+{
+  "AchievementCard": {
+    "open": "Odblokowany",
+    "progress": "Postęp"
+  },
+  "AchievementsTitle": {
+    "title": "Osiągnięcia",
+    "subtitle": "Odblokowano 3 osiągnięcia z 25"
+  },
+  "AchievementsFilter": {
+    "unlocked": "Odblokowane",
+    "locked": "Zablokowane",
+    "all": "Wszystkie"
+  }
+}
