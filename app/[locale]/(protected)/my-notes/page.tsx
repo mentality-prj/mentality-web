@@ -1,17 +1,18 @@
 import { getTranslations } from 'next-intl/server'
 
-import { ExersisesFoeRecovery } from '@/components/MyNotes/ExercisesForRecovery'
+import { ExercisesForRecovery } from '@/components/MyNotes/ExercisesForRecovery'
 import { MySpace } from '@/components/MyNotes/MySpace'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function MyNotes() {
-  const t = await getTranslations('MyNotesPage')
+  const t = await getTranslations('common.PageTitle')
 
   return (
     <div className="flex flex-col gap-8">
-      <PageTitle title={t('title')} subtitle={t('subtitle')} />
+      <PageTitle title={t('title', { title: 'myNotes' })} subtitle={t('subtitle', { subtitle: 'myNotes' })} />
       <MySpace />
-      <ExersisesFoeRecovery />
+
+      <ExercisesForRecovery />
     </div>
   )
 }

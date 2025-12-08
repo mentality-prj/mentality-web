@@ -12,14 +12,14 @@ interface SortProps {
 export const Sort = ({ id, value, onValueChange }: SortProps) => {
   const t = useTranslations('components.Sort')
   const itemsSort = [
-    { value: 'newest', text: t('Newest') },
-    { value: 'oldest', text: t('Oldest') },
+    { value: 'newest', text: t('newest') },
+    { value: 'oldest', text: t('oldest') },
   ]
   return (
     <DropdownInput
       key={value}
       id={id}
-      label={t('Label')}
+      label={t('label')}
       defaultValue={value}
       onValueChange={(value) => onValueChange(value as 'newest' | 'oldest')}
       labelIcon={<SortVerticalIcon />}

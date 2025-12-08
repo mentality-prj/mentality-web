@@ -8,7 +8,7 @@ import { MoodBadge } from './MoodBadge'
 import { SummaryCard } from './SummaryCard'
 
 export const BestDay = async () => {
-  const t = await getTranslations('components.TenDaysSummary.BestDay')
+  const t = await getTranslations('components.BestDay')
   const data = await mockBestDay()
   const locale = (await getLocale()) as SupportedLanguage
   function splitDate(dateStr: string, locale: SupportedLanguage) {
@@ -39,9 +39,9 @@ export const BestDay = async () => {
             <span className="text-sm font-normal">{dayMonth}</span>
           </div>
           <div className="grid grid-cols-2 gap-2">
-            <div className="">{t('Stress level')}</div>
+            <div className="">{t('stressLevel')}</div>
             <MoodBadge data={data.stress} />
-            <div className="">{t('Your mood')}</div>
+            <div className="">{t('yourMood')}</div>
             <MoodBadge data={data.mood} />
           </div>
         </div>

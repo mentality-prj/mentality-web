@@ -6,7 +6,7 @@ import { Days } from './Days'
 import { SummaryCard } from './SummaryCard'
 
 export const MoodRecording = () => {
-  const t = useTranslations('components.TenDaysSummary.MoodRecording')
+  const t = useTranslations('components.MoodRecording')
   return (
     <SummaryCard title={t('title')} icon={<PenIcon />}>
       <div className="flex flex-col">

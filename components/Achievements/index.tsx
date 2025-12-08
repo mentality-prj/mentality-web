@@ -8,7 +8,7 @@ import { AchievementsList } from './AchievementsList'
 import { AchievementsTitle } from './AchievementsTitle'
 
 export const Achievements = () => {
-  const t = useTranslations('components.Achievements')
+  const t = useTranslations('common.buttonText')
   return (
     <SectionCard className="flex w-full flex-col items-center">
       <div className="flex w-full items-center justify-between">
@@ -17,7 +17,7 @@ export const Achievements = () => {
       </div>
       <AchievementsList />
       <Button variant="secondary" className="mx-auto flex">
-        {t('Button')}
+        {t('showMore')}
       </Button>
     </SectionCard>
   )

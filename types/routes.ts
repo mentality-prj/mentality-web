@@ -6,6 +6,16 @@ type RouteLinkType = (typeof Routes)[RouteKeyType]
 
 type RoutesTitlesKeyType = keyof typeof RoutesTitles
 
+export type UpLineMenuType = {
+  key: 'HOME' | 'MOODTRACKER' | 'GUIDE' | 'MYNOTES' | 'MYPROGRESS'
+  link: RouteLinkType
+}
+
+export type UnderLineMenuType = {
+  key: 'SETTINGS'
+  link: RouteLinkType
+}
+
 export type MenuItemType = {
   key: RoutesTitlesKeyType
   link: RouteLinkType

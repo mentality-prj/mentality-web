@@ -21,7 +21,7 @@ interface UserMenuProps {
 }
 
 export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
-  const t = useTranslations()
+  const t = useTranslations('components.UserMenu')
   const router = useRouter()
   const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : 'uk'
   const initials = name
@@ -51,20 +51,20 @@ export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
           onClick={() => router.push(`/${locale}/profile`)}
           className="hover:bg-primary/20 cursor-pointer"
         >
-          {t('UserMenu.Profile')}
+          {t('profile')}
         </DropdownMenuItem>
         <DropdownMenuItem
           onClick={() => router.push(`/${locale}/settings`)}
           className="hover:bg-primary/20 cursor-pointer"
         >
-          {t('UserMenu.Settings')}
+          {t('settings')}
         </DropdownMenuItem>
         {role === 'admin' && (
           <DropdownMenuItem
             onClick={() => router.push(`/${locale}/admin`)}
             className="hover:bg-primary/20 cursor-pointer"
           >
-            {t('UserMenu.Admin')}
+            {t('admin')}
           </DropdownMenuItem>
         )}
         <DropdownMenuSeparator />

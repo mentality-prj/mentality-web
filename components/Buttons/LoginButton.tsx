@@ -4,7 +4,7 @@ import { redirectToSignin } from '@/actions/redirectToSignin'
 import { LoginIcon } from '@/ds/icons/login'
 
 export default function LoginButton() {
-  const t = useTranslations('Navigation')
+  const t = useTranslations('components.Navigation')
 
   return (
     <form action={redirectToSignin}>

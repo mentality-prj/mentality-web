@@ -7,25 +7,33 @@ import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default function MyThoughtsPage() {
-  const t = useTranslations('MyThougtsPage')
+  const t = useTranslations()
   const count = 0
   return (
     <div className="flex flex-col gap-8">
-      <Breadcrumbs currentPage={t('title')} breadcrumbList={[{ title: t('ThoughtsList.title'), href: '/my-notes' }]} />
-      <PageTitle title={t('title')} subtitle={t('subtitle')} />
+      <Breadcrumbs
+        currentPage={t('common.PageTitle.title', { title: 'myThoughts' })}
+        breadcrumbList={[
+          { title: t('common.Breadcrumbs.breadcrumbsList', { title: 'myThoughts' }), href: '/my-notes' },
+        ]}
+      />
+      <PageTitle
+        title={t('common.PageTitle.title', { title: 'myThoughts' })}
+        subtitle={t('common.PageTitle.subtitle', { subtitle: 'myThoughts' })}
+      />
       <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
         <ThoughtsFormWrapper />
         <Calendar
           selectedDays={[new Date()]}
-          title={t('Calendar.Title')}
+          title={t('components.Calendar.title', { type: 'myThoughts' })}
           subtitle={
             <p className="text-sm text-textcolor-secondary">
               <span className="mr-1 text-xl font-semibold text-textcolor-primary">{count}</span>
-              {t('Calendar.Subtitle')}
+              {t('components.Calendar.subtitle', { type: 'myThoughts' })}
             </p>
           }
-          activeLabel={t('Calendar.ActiveLabel')}
-          inactiveLabel={t('Calendar.InactiveLabel')}
+          activeLabel={t('components.Calendar.daysWithActivity', { type: 'myThoughts' })}
+          inactiveLabel={t('components.Calendar.daysWithoutActivity', { type: 'myThoughts' })}
         />
       </div>
       <UserNotesWrapper />

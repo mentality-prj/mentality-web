@@ -1,5 +1,5 @@
 import { transformToRoutes } from '@/helpers/gloabal'
-import { MenuItemType, RoutesType } from '@/types/routes'
+import { RoutesType, UnderLineMenuType, UpLineMenuType } from '@/types/routes'
 
 export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
@@ -22,7 +22,7 @@ export const Routes: RoutesType = Object.freeze({
   MAIN: '/',
 })
 
-export const upLineMenu: Readonly<MenuItemType[]> = [
+export const upLineMenu: Readonly<UpLineMenuType[]> = [
   { key: 'HOME', link: Routes.HOME },
   { key: 'MOODTRACKER', link: Routes.MOODTRACKER },
   { key: 'GUIDE', link: Routes.GUIDE },
@@ -30,4 +30,4 @@ export const upLineMenu: Readonly<MenuItemType[]> = [
   { key: 'MYPROGRESS', link: Routes.MYPROGRESS },
 ]
 
-export const underLineMenu: Readonly<MenuItemType[]> = [{ key: 'SETTINGS', link: Routes.SETTINGS }]
+export const underLineMenu: Readonly<UnderLineMenuType[]> = [{ key: 'SETTINGS', link: Routes.SETTINGS }]

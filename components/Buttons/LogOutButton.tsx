@@ -8,7 +8,7 @@ export default function LogOutButton() {
   const handleSignOut = async () => {
     await signOut({ redirectTo: Routes.MAIN })
   }
-  const t = useTranslations('Navigation')
+  const t = useTranslations('components.Navigation')
 
   return (
     <button

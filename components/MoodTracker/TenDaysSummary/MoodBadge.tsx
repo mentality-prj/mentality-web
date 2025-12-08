@@ -23,7 +23,7 @@ interface MoodBadgeProps {
 }
 
 export const MoodBadge = ({ data, className }: MoodBadgeProps) => {
-  const t = useTranslations('components.TenDaysSummary.MoodBadge')
+  const t = useTranslations('components.MoodBadge')
   return (
     <Badge
       variant="colored"

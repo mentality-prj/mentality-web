@@ -10,7 +10,7 @@ import { SummaryCard } from './SummaryCard'
 export const MoodMarks = async () => {
   const moods: Mood[] = ['very good', 'good', 'neutral', 'bad', 'very bad']
   const moodMarksData = await mockMoodMarks()
-  const t = await getTranslations('components.TenDaysSummary.MoodMarks')
+  const t = await getTranslations('components.MoodMarks')
 
   return (
     <SummaryCard icon={<ChartIcon />} title={t('title')}>

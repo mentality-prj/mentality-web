@@ -1,5 +1,5 @@
-import { ChartSquareIcon, HomeIcon, NotebookIcon, MedalRibbonIcon, Pulse2Icon, SettingsIcon } from '@/ds/icons/sidebar'
 import { underLineMenu, upLineMenu } from '@/constants/routes'
+import { ChartSquareIcon, HomeIcon, MedalRibbonIcon, NotebookIcon, Pulse2Icon, SettingsIcon } from '@/ds/icons/sidebar'
 
 export const iconsUpLineMenu: Record<string, React.ReactNode> = {
   HOME: <HomeIcon />,

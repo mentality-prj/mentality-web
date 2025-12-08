@@ -14,7 +14,7 @@ import { TagsEditor } from './AddTagsContainer'
 const emojiList: Array<React.FC> = [VeryBad, Bad, Neutral, Good, VeryGood]
 
 export const MoodNote = () => {
-  const t = useTranslations('MoodTracker.MoodNote')
+  const t = useTranslations('components.MoodNote')
   const [tags, setTags] = useState<string[]>(['Спорт', 'Вітаміни'])
   const labelsEmojiList: Readonly<string[]> = [
     t('labelsEmoji.veryBad'),
