@@ -22,7 +22,7 @@ export const SectionCard = ({ title, subtitle, subtitlePrefix, children, classNa
           )}
         </div>
       )}
-      {children}
+      <div>{children}</div>
     </div>
   )
 }

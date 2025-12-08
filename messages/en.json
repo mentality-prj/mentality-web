@@ -221,7 +221,20 @@
     "PageTitle": {
       "title": "Guide",
       "subtitle": "Your tools for inner balance and recovery"
-    }
+    },
+    "Tabs": {
+      "All": "All",
+      "meditations": "Meditations",
+      "Breathing exercises": "Breathing exercises",
+      "calming": "Calm me down"
+    },
+    "CardCategory": {
+      "meditations": "Other meditations",
+      "breathing": "Other breathing exercises",
+      "calming": "Other calming exercises"
+    },
+    "TechniqueOverview": "Technique overview",
+    "textLink": "More details"
   },
   "MyProgress": {
     "PageTitle": {

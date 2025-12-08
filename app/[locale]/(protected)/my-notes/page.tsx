@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { ExcersisesFoeRecovery } from '@/components/MyNotes/ExcersisesForRecovery'
+import { ExersisesFoeRecovery } from '@/components/MyNotes/ExercisesForRecovery'
 import { MySpace } from '@/components/MyNotes/MySpace'
 import { PageTitle } from '@/ds/components/PageTitle'
 
@@ -11,7 +11,7 @@ export default async function MyNotes() {
     <div className="flex flex-col gap-8">
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <MySpace />
-      <ExcersisesFoeRecovery />
+      <ExersisesFoeRecovery />
     </div>
   )
 }

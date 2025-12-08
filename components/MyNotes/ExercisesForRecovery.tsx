@@ -6,7 +6,7 @@ import { HumanEmoji } from '@/ds/icons/emoji/human'
 import { LungsEmoji } from '@/ds/icons/emoji/lungs'
 import { PinchedFingersEmoji } from '@/ds/icons/emoji/pinched-fingers'
 
-export async function ExcersisesFoeRecovery() {
+export async function ExersisesFoeRecovery() {
   const t = await getTranslations('MyNotesPage')
 
   const cardExercisesData = [

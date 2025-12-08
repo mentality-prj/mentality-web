@@ -51,16 +51,16 @@ export const cardVariants = {
 export const CustomCard: React.FC<CustomCardProps> = ({
   className,
   variant = 'default',
-  text,
-  backgroundIcon,
   icon,
-  badge,
-  button,
-  date,
-  tagList,
-  textLink,
-  hrefLink,
   title,
+  date,
+  button,
+  text,
+  hrefLink,
+  textLink,
+  badge,
+  tagList,
+  backgroundIcon,
 }) => {
   const hasFooter = (textLink && hrefLink) || !!badge || (tagList && tagList.length > 0)
 
