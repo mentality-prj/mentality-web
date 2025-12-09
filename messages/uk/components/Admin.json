@@ -61,10 +61,10 @@
     "unpublishedError": "Не вдалося отримати неопубліковані поради",
     "unpublishedSuccess": "Знайдено {count} неопублікованих порад",
     "allTipsSuccess": "Завантажено {count} порад",
-        "allTipsTitle": "Всі поради",
-        "loading": "Завантаження...",
-        "empty": "Поради відсутні",
-        "submitting": "Генерація...",
+    "allTipsTitle": "Всі поради",
+    "loading": "Завантаження...",
+    "empty": "Поради відсутні",
+    "submitting": "Генерація...",
     "loginRequired": "Будь ласка, увійдіть щоб продовжити"
   },
   "AddExercise": {
