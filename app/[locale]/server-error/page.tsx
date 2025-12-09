@@ -7,7 +7,7 @@ import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
 
 export default function ServerErrorPage() {
-  const t = useTranslations('ServerError')
+  const t = useTranslations('pages.ServerError')
 
   return (
     <div className="mx-auto flex min-h-screen flex-col items-center justify-center gap-6 px-4">

@@ -1,0 +1,10 @@
+{
+  "title": "Server connection error",
+  "description": "Unable to connect to the server. Please try again later.",
+  "suggestions": "What you can do:",
+  "suggestion1": "Check your internet connection",
+  "suggestion2": "Try refreshing the page",
+  "suggestion3": "Wait a few minutes and try again",
+  "backToSignin": "Back to sign in",
+  "tryAgain": "Try again"
+}
