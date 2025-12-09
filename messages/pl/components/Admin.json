@@ -26,7 +26,7 @@
       },
       "uk": {
         "label": "Ukraiński:",
-        "description": "Dodaj tekst dla nowego tagu w języku ukraińskim. Może to być słowo lub fraz"
+        "description": "Dodaj tekst dla nowego tagu w języku ukraińskim. Może to być słowo lub fraza."
       },
       "en": {
         "label": "Angielski:",
@@ -60,6 +60,11 @@
     "error": "Nie udało się wygenerować porady",
     "unpublishedError": "Nie udało się pobrać nieopublikowanych porad",
     "unpublishedSuccess": "Znaleziono {count} nieopublikowanych porad",
+    "allTipsSuccess": "Wczytano {count} porad",
+    "allTipsTitle": "Wszystkie porady",
+    "loading": "Ładowanie...",
+    "empty": "Brak porad",
+    "submitting": "Generowanie...",
     "loginRequired": "Proszę zaloguj się, aby kontynuować"
   },
   "AddExercise": {

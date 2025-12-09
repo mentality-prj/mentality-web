@@ -60,6 +60,11 @@
     "error": "Failed to generate tip",
     "unpublishedError": "Failed to get unpublished tips",
     "unpublishedSuccess": "Found {count} unpublished tips",
+    "allTipsSuccess": "Loaded {count} tips",
+    "allTipsTitle": "All tips",
+    "loading": "Loading...",
+    "empty": "No tips found",
+    "submitting": "Generating...",
     "loginRequired": "Please log in to continue"
   },
   "AddExercise": {
