@@ -10,7 +10,7 @@ import { Checkbox } from '@/ds/shadcn/checkbox'
 import { Input } from '@/ds/shadcn/input'
 import { Label } from '@/ds/shadcn/label'
 import { Textarea } from '@/ds/shadcn/textarea'
-import { addExercise, getExercises } from '@/requests/exercises'
+import { addExercise, getExercises, updateExercise } from '@/requests/exercises'
 import { getTags } from '@/requests/tags'
 import { ExerciseEntity, TagEntity } from '@/types/api-responses'
 import { SupportedLanguage } from '@/types/languages'
@@ -21,11 +21,18 @@ export default function AddExercise() {
   const locale = useLocale() as SupportedLanguage
   const { data: session } = useSession()
   const [exercises, setExercises] = useState<ExerciseEntity[]>([])
+  const [editingExercise, setEditingExercise] = useState<ExerciseEntity | null>(null)
   const [tags, setTags] = useState<TagEntity[]>([])
   const [selectedTags, setSelectedTags] = useState<string[]>([])
   const [isLoadingExercises, setIsLoadingExercises] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const formRef = useRef<HTMLFormElement>(null)
+
+  // Controlled form state
+  const [category, setCategory] = useState('')
+  const [title, setTitle] = useState('')
+  const [annotation, setAnnotation] = useState('')
+  const [description, setDescription] = useState('')
+
   const exercisesLoadedRef = useRef(false)
   const tagsLoadedRef = useRef(false)
 
@@ -64,36 +71,50 @@ export default function AddExercise() {
     loadTags()
   }, [loadExercises, loadTags])
 
-  const createExercise = async (formData: FormData): Promise<void> => {
+  const resetForm = () => {
+    setCategory('')
+    setTitle('')
+    setAnnotation('')
+    setDescription('')
+    setSelectedTags([])
+    setEditingExercise(null)
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    if (editingExercise) {
+      await performEditExercise(editingExercise.id)
+    } else {
+      await performCreateExercise()
+    }
+  }
+
+  const performCreateExercise = async (): Promise<void> => {
     if (!session || isSubmitting) return
 
     setIsSubmitting(true)
 
-    const category = formData.get('category') as string
-    const title = formData.get('title') as string
-    const annotation = formData.get('annotation') as string
-    const description = formData.get('description') as string
-
     // Validate all fields are filled
-    if (!category || category.trim() === '') {
+    if (!category.trim()) {
       notifyError(t('fields.category.required'))
       setIsSubmitting(false)
       return
     }
 
-    if (!title || title.trim() === '') {
+    if (!title.trim()) {
       notifyError(t('fields.title.required'))
       setIsSubmitting(false)
       return
     }
 
-    if (!annotation || annotation.trim() === '') {
+    if (!annotation.trim()) {
       notifyError(t('fields.annotation.required'))
       setIsSubmitting(false)
       return
     }
 
-    if (!description || description.trim() === '') {
+    if (!description.trim()) {
       notifyError(t('fields.description.required'))
       setIsSubmitting(false)
       return
@@ -110,41 +131,100 @@ export default function AddExercise() {
     const { error } = await addExercise(session, exerciseData)
 
     if (error) {
-      notifyError(error)
+      notifyError(typeof error === 'string' ? error : JSON.stringify(error))
     } else {
       notifySuccess(t('success'))
-      formRef.current?.reset()
-      setSelectedTags([])
+      resetForm()
       exercisesLoadedRef.current = false
       await loadExercises()
     }
     setIsSubmitting(false)
   }
 
+  const performEditExercise = async (exerciseId: string): Promise<void> => {
+    if (!session || isSubmitting) return
+
+    setIsSubmitting(true)
+
+    const exerciseData = {
+      category: category.trim(),
+      title: title.trim(),
+      annotation: annotation.trim(),
+      description: description.trim(),
+      tags: selectedTags,
+    }
+
+    const { error } = await updateExercise(session, exerciseId, exerciseData)
+
+    if (error) {
+      notifyError(typeof error === 'string' ? error : JSON.stringify(error))
+    } else {
+      notifySuccess(t('success'))
+      resetForm()
+      exercisesLoadedRef.current = false
+      await loadExercises()
+    }
+
+    setIsSubmitting(false)
+  }
+
+  const startEditing = (exercise: ExerciseEntity) => {
+    setEditingExercise(exercise)
+    setCategory(exercise.category)
+    setTitle(exercise.title)
+    setAnnotation(exercise.annotation)
+    setDescription(exercise.description)
+    setSelectedTags(exercise.tags ?? [])
+  }
+
   return (
     <div className="space-y-8 p-6">
-      <form ref={formRef} action={createExercise} className="flex w-full flex-col gap-default">
+      <form onSubmit={handleSubmit} className="flex w-full flex-col gap-6">
         <h2>{t('title')}</h2>
 
         <div className="space-y-4">
           <div>
             <Label htmlFor="category">{t('fields.category.label')}</Label>
-            <Input required id="category" name="category" type="text" className="w-full" />
+            <Input
+              id="category"
+              type="text"
+              value={category}
+              onChange={(e) => setCategory(e.target.value)}
+              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
+            />
           </div>
 
           <div>
             <Label htmlFor="title">{t('fields.title.label')}</Label>
-            <Input required id="title" name="title" type="text" className="w-full" />
+            <Input
+              id="title"
+              type="text"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
+              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
+            />
           </div>
 
           <div>
             <Label htmlFor="annotation">{t('fields.annotation.label')}</Label>
-            <Input required id="annotation" name="annotation" type="text" className="w-full" />
+            <Input
+              id="annotation"
+              type="text"
+              value={annotation}
+              onChange={(e) => setAnnotation(e.target.value)}
+              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
+            />
           </div>
 
           <div>
             <Label htmlFor="description">{t('fields.description.label')}</Label>
-            <Textarea required id="description" name="description" className="w-full" rows={4} />
+            <Textarea
+              id="description"
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
+              rows={8}
+            />
           </div>
 
           <div>
@@ -181,7 +261,7 @@ export default function AddExercise() {
 
         <div>
           <Button type="submit" className="flex-none" color="success" disabled={isSubmitting}>
-            {isSubmitting ? t('submitting') : t('button')}
+            {editingExercise ? 'Зберегти' : 'Додати вправу'}
           </Button>
         </div>
       </form>
@@ -195,8 +275,19 @@ export default function AddExercise() {
         ) : (
           <div className="flex flex-col gap-2">
             {exercises.map((exercise: ExerciseEntity) => (
-              <Badge key={exercise.id} variant="active">
+              <Badge
+                key={exercise.id}
+                variant="active"
+                className="flex justify-between bg-secondary-focus text-primary-hover"
+              >
                 {exercise.title}
+                <button
+                  type="button"
+                  className="text-xs underline hover:no-underline"
+                  onClick={() => startEditing(exercise)}
+                >
+                  Edit
+                </button>
               </Badge>
             ))}
           </div>

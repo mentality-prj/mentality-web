@@ -6,14 +6,26 @@ import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
 
-export async function addExercise(session: CustomSession | null, exerciseData: CreateExerciseDto) {
+type ApiResult<T> = { data?: T; error?: string }
+
+export function checkAdmin(session: CustomSession | null, action: string, extraData?: Record<string, unknown>) {
   if (!session?.user || session.user.role !== Roles.ADMIN) {
-    logger.warn('Unauthorized attempt to add exercise', {
+    logger.warn(`Unauthorized attempt to ${action}`, {
       userId: session?.user?.email,
       role: session?.user?.role,
+      ...extraData,
     })
     return { error: 'Unauthorized: Admin role required' }
   }
+  return null
+}
+
+export async function addExercise(
+  session: CustomSession | null,
+  exerciseData: CreateExerciseDto
+): Promise<ApiResult<ExerciseEntity>> {
+  const check = checkAdmin(session, 'add exercise')
+  if (check) return check
 
   const { data, error } = await apiRequestWithAuth<ExerciseEntity>(session, `${APIUrl}/exercises`, {
     method: 'POST',
@@ -34,14 +46,9 @@ export async function addExercise(session: CustomSession | null, exerciseData: C
   return { data }
 }
 
-export async function getExercises(session: CustomSession | null) {
-  if (!session?.user || session.user.role !== Roles.ADMIN) {
-    logger.warn('Unauthorized attempt to get exercises', {
-      userId: session?.user?.email,
-      role: session?.user?.role,
-    })
-    return { error: 'Unauthorized: Admin role required' }
-  }
+export async function getExercises(session: CustomSession | null): Promise<ApiResult<ExerciseEntity[]>> {
+  const check = checkAdmin(session, 'get exercise')
+  if (check) return check
 
   const { data, error } = await apiRequestWithAuth<ExerciseEntity[]>(session, `${APIUrl}/exercises`, {
     method: 'GET',
@@ -64,4 +71,31 @@ export async function getExercises(session: CustomSession | null) {
       : []
   logger.info('Exercises retrieved', { count: Array.isArray(exercises) ? exercises.length : 0 })
   return { data: exercises }
+}
+
+export async function updateExercise(
+  session: CustomSession | null,
+  exerciseId: string,
+  exerciseData: CreateExerciseDto
+): Promise<ApiResult<ExerciseEntity>> {
+  const check = checkAdmin(session, 'update exercise', { exerciseId })
+  if (check) return check
+
+  const { data, error } = await apiRequestWithAuth<ExerciseEntity>(session, `${APIUrl}/exercises/${exerciseId}`, {
+    method: 'PUT',
+    body: exerciseData,
+  })
+
+  if (error) {
+    logger.error('Failed to get exercises', { error, exerciseId })
+    return {
+      error:
+        typeof error === 'object' && error !== null && 'message' in error
+          ? (error as { message: string }).message
+          : String(error),
+    }
+  }
+
+  logger.info('Exercise successfully updated', { exerciseId: data?.id })
+  return { data }
 }
