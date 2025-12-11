@@ -1,4 +1,4 @@
-import messages from './messages/en'
+import messages from './messages/uk'
 
 declare module '*.css'
 

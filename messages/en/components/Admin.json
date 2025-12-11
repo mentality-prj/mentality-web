@@ -52,7 +52,7 @@
     "autoAppear": "This tip will automatically appear on pages as {currentTip}",
     "currentTip": "Current tip",
     "noPrompt": "If no prompt is specified, the tip will be generated with the default prompt.",
-    "ukrainianOnly": "Tip generation supports only <strong>Ukrainian language</strong>",
+    "ukrainianOnly": "Tip generation supports only the Ukrainian language",
     "ukrainian": "Ukrainian language",
     "promptLabel": "Tip prompt",
     "promptPlaceholder": "Add request if needed",
