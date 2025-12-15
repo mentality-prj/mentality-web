@@ -35,12 +35,12 @@ export const AchievementCard = async ({
         {status === 'unlocked' ? (
           <div className="flex w-full flex-col items-center text-textcolor-purple [&_svg]:size-12">
             <MedalCircleIcon />
-            <div className="">{t('Open')}</div>
+            <div className="">{t('open')}</div>
           </div>
         ) : status === 'locked' ? (
           <div className="w-full">
             <div className="flex justify-between text-xs/[14px] text-textcolor-tertiary">
-              <div className="">{t('Progress')}</div>
+              <div className="">{t('progress')}</div>
               <div className="">
                 {currentProgress}/{progress}
               </div>

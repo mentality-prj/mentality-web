@@ -8,12 +8,12 @@ import { Button } from '@/ds/shadcn/button'
 import { ThoughtsFormProps } from '@/types/thoughtsForm'
 
 export const ThoughtsForm = ({ onTextChange, onSave, content, loading, tags, setTags }: ThoughtsFormProps) => {
-  const t = useTranslations('')
+  const t = useTranslations()
   return (
-    <SectionCard title={t('MyThougtsPage.RecordingThoughts.title')}>
+    <SectionCard title={t('common.SectionCard.title', { title: 'recordingThoughts' })}>
       <div className="mt-4 flex flex-col gap-6">
         <TextareaWithLabel
-          placeholder={t('TextareaWithLabel.placeholder')}
+          placeholder={t('components.TextareaWithLabel.placeholder')}
           rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />}
           rows={4}
           value={content}
@@ -22,10 +22,10 @@ export const ThoughtsForm = ({ onTextChange, onSave, content, loading, tags, set
         <TagsEditor tags={tags} onChange={setTags} />
         <div className="flex flex-wrap gap-6 desktop:flex-nowrap">
           <Button disabled className="w-full" variant="secondary">
-            {t('MyThougtsPage.RecordingThoughts.Cancel')}
+            {t('components.RecordingThoughts.cancel')}
           </Button>
           <Button onClick={onSave} disabled={!content.trim() || loading} className="w-full">
-            {t('MyThougtsPage.RecordingThoughts.Save')}
+            {t('components.RecordingThoughts.save')}
           </Button>
         </div>
       </div>

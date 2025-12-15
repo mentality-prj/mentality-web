@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import { rawSidebarUnderLineMenu, rawSidebarUpLineMenu } from '@/constants/sidebar'
 
 export const useSidebarList = () => {
-  const t = useTranslations('Sidebar')
+  const t = useTranslations('components.Sidebar')
 
   const sidebarUpLineMenu = rawSidebarUpLineMenu.map((item) => ({
     ...item,

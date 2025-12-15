@@ -7,9 +7,9 @@ export const AchievementsFilter = () => {
   return (
     <Tabs defaultValue="All">
       <TabsList className="gap-3">
-        <TabsTrigger value="Unlocked">{t('Unlocked')}</TabsTrigger>
-        <TabsTrigger value="Locked">{t('Locked')}</TabsTrigger>
-        <TabsTrigger value="All">{t('All')}</TabsTrigger>
+        <TabsTrigger value="Unlocked">{t('unlocked')}</TabsTrigger>
+        <TabsTrigger value="Locked">{t('locked')}</TabsTrigger>
+        <TabsTrigger value="All">{t('all')}</TabsTrigger>
       </TabsList>
     </Tabs>
   )

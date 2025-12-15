@@ -1,0 +1,6 @@
+{
+  "title": "{type, select, myProgress {Platform activity} myThoughts {Mood records created} other{}}",
+  "subtitle": "{type, select, myProgress {Even small steps lead to big changes} myThoughts {in the last month} other{}}",
+  "daysWithActivity": "{type, select, myProgress {Days with activity} myThoughts {days with notes} other {}}",
+  "daysWithoutActivity": "{type, select, myProgress {Days without activity} myThoughts {days without notes} other {}}"
+}

@@ -1,0 +1,11 @@
+{
+  "title": "Фільтри",
+  "by_tags": "За тегами",
+  "by_week": "Відносно днів тижня",
+  "by_stressLevel": "За рівнем стресу",
+  "by_moodLevel": "За настроєм",
+  "filterOptions": {
+    "tags": "{tag, select, affirmation {Афірмація} tip {Порада} very_good {Дуже хороший} good {Хороший} neutral {Нормальний} bad {Поганий} very_bad {Дуже поганий} absent {Відсутній} low {Низький} medium {Середній} high {Високий} very_high{Дуже високий} weekDays {Будні дні} weekends {Вихідні}  other {}}"
+  },
+  "clear": "Очистити"
+}

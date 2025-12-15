@@ -1,0 +1,12 @@
+{
+  "affirmation": {
+    "title": "Your daily affirmation",
+    "text": "Every day I become stronger and more confident on my journey."
+  },
+  "tip": {
+    "title": "Tip of the day",
+    "text": "Start your day by setting one small achievable goal — this creates momentum for bigger successes!"
+  },
+  "tipTag": "Tip",
+  "affirmationTag": "Affirmation"
+}

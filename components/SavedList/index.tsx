@@ -11,7 +11,7 @@ import { Filter } from '../Filter'
 import { FilteredList } from './FilteredList'
 
 export const SavedList = () => {
-  const t = useTranslations('SavedPage')
+  const t = useTranslations('common.title')
   const items: AffirmationWithType[] = JSON.parse(localStorage.getItem('savedItems') || '[]')
   return (
     <div className="">
@@ -21,7 +21,7 @@ export const SavedList = () => {
           <FilteredList items={items} />
         </SectionCard>
       ) : (
-        <SectionCard>{t('empty')}</SectionCard>
+        <SectionCard>{t('EmptySavedPage')}</SectionCard>
       )}
     </div>
   )

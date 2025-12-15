@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 import { cn } from '@/lib/utils'
 
 export const Days = () => {
-  const t = useTranslations('components.TenDaysSummary.Days')
+  const t = useTranslations('components.Days')
   const weekDays = t.raw('days')
   const days = Array.from({ length: 10 }, (_, i) => weekDays[i % weekDays.length])
 

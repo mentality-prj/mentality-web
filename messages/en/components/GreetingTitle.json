@@ -1,0 +1,4 @@
+{
+  "defaultGreeting": "Hi! Great to see you here",
+  "personalGreeting": "Hi, {name}, great to see you here"
+}

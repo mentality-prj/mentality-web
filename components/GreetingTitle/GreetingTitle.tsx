@@ -10,8 +10,8 @@ export const GreetingTitle = ({ userName }: GreetingTitleProps) => {
   const t = useTranslations()
 
   const greeting = userName
-    ? t('GreetingTitle.personalGreeting', { name: userName })
-    : t('GreetingTitle.defaultGreeting')
+    ? t('components.GreetingTitle.personalGreeting', { name: userName })
+    : t('components.GreetingTitle.defaultGreeting')
 
   return (
     <div className="text-textcolour-primary flex items-center">

@@ -4,11 +4,11 @@ import MyGuideWrapper from '@/components/MyGuide/MyGuideWrapper'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function Guide() {
-  const t = await getTranslations('Guide.PageTitle')
+  const t = await getTranslations('common.PageTitle')
 
   return (
     <div className="flex flex-col gap-8">
-      <PageTitle title={t('title')} subtitle={t('subtitle')} />
+      <PageTitle title={t('title', { title: 'guide' })} subtitle={t('subtitle', { subtitle: 'guide' })} />
       <MyGuideWrapper />
     </div>
   )

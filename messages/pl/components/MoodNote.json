@@ -1,0 +1,17 @@
+{
+  "title": "Nowy rekord nastroju",
+  "subtitle": "Jaki jest twój nastrój?",
+  "label": "Opisz swoje uczucia i myśli",
+  "addTags": "Dodaj tagi",
+  "changeTags": "Zmień tagi",
+  "save": "Zapisz",
+  "add": "Dodaj",
+  "placeholder": "Nowy tag",
+  "labelsEmoji": {
+    "veryBad": "Bardzo źle",
+    "bad": "Źle",
+    "neutral": "Neutralnie",
+    "good": "Dobrze",
+    "veryGood": "Bardzo dobrze"
+  }
+}

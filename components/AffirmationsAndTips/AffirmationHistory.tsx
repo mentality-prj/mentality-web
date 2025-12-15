@@ -16,18 +16,21 @@ export const AffirmationHistory = async () => {
     ...tipsData.map((item) => ({ ...item, type: 'tip' as const })),
   ]
 
-  const t = await getTranslations('AffirmationsPage')
+  const t = await getTranslations('common.SectionCard')
   return (
     <>
       {items.length > 0 ? (
-        <SectionCard title={t('sectionCard.title')}>
+        <SectionCard title={t('title', { title: 'affirmation' })}>
           <div className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
             <Filter useFilters={useAffirmationsFilters} />
             <FilteredHistory items={items} />
           </div>
         </SectionCard>
       ) : (
-        <SectionCard title={t('sectionCard.title')} subtitle={t('sectionCard.subtitle')} />
+        <SectionCard
+          title={t('title', { title: 'affirmation' })}
+          subtitle={t('subtitle', { subtitle: 'affirmation' })}
+        />
       )}
     </>
   )

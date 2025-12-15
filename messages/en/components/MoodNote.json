@@ -1,0 +1,17 @@
+{
+  "title": "New mood record",
+  "subtitle": "How is your mood?",
+  "label": "Describe your feelings and thoughts",
+  "addTags": "Add tags",
+  "changeTags": "Change tags",
+  "save": "Save",
+  "add": "Add",
+  "placeholder": "New tag",
+  "labelsEmoji": {
+    "veryBad": "Very bad",
+    "bad": "Bad",
+    "neutral": "Neutral",
+    "good": "Good",
+    "veryGood": "Very good"
+  }
+}

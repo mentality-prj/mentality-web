@@ -9,10 +9,10 @@ interface ClearFiltersButtonProps {
 }
 
 export const ClearFiltersButton = ({ reset, hasActiveFilters, sort }: ClearFiltersButtonProps) => {
-  const t = useTranslations('AffirmationsPage')
+  const t = useTranslations('components.Filter')
   return (
     <Button variant="linkButton" onClick={reset} disabled={!hasActiveFilters && sort === 'newest'}>
-      {t('filter.clear')}
+      {t('clear')}
     </Button>
   )
 }

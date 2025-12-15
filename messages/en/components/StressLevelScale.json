@@ -1,0 +1,9 @@
+{
+  "labelsArray": {
+    "none": "Absent",
+    "low": "Low",
+    "medium": "Average",
+    "high": "High",
+    "veryHigh": "Very high"
+  }
+}

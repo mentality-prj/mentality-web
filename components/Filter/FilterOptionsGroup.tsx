@@ -12,11 +12,11 @@ export function FilterOptionGroup({
   options: readonly string[]
   onChange: (v: string) => void
 }) {
-  const t = useTranslations('AffirmationsPage')
+  const t = useTranslations('components.Filter')
   return (
     <ToggleGroup type="single" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-2">
       {options.map((opt) => (
-        <Tag text={t(`${opt}Tag`)} key={opt} value={opt} aria-label={`Toggle ${opt}`} />
+        <Tag text={t('filterOptions.tags', { tag: `${opt}` })} key={opt} value={opt} aria-label={`Toggle ${opt}`} />
       ))}
     </ToggleGroup>
   )

@@ -1,0 +1,104 @@
+{
+  "tabs": {
+    "tags": "Tagi",
+    "tips": "Porady",
+    "exercises": "Ćwiczenia"
+  },
+  "AddTag": {
+    "title": "Dodaj nowy tag",
+    "button": "Dodaj tag",
+    "submitting": "Zapisywanie...",
+    "success": "Tag dodany pomyślnie",
+    "showTagsButton": "Pokaż wszystkie tagi",
+    "tagsList": {
+      "title": "Lista tagów",
+      "loading": "Ładowanie...",
+      "empty": "Nie znaleziono tagów",
+      "error": "Błąd ładowania tagów"
+    },
+    "fields": {
+      "key": {
+        "label": "Dodaj klucz tagu:",
+        "description": "Dodaj unikatowy klucz dla nowego tagu. Użyj snake_case: new_tag_name",
+        "required": "Klucz tagu jest wymagany",
+        "format": "Klucz tagu musi być w formacie snake_case (zacznij od małej litery, potem tylko małe litery, cyfry i podkreślenia)",
+        "duplicate": "Tag z tym kluczem już istnieje"
+      },
+      "uk": {
+        "label": "Ukraiński:",
+        "description": "Dodaj tekst dla nowego tagu w języku ukraińskim. Może to być słowo lub fraza."
+      },
+      "en": {
+        "label": "Angielski:",
+        "description": "Dodaj tekst dla nowego tagu w języku angielskim. Może to być słowo lub fraza."
+      },
+      "pl": {
+        "label": "Polski:",
+        "description": "Dodaj tekst dla nowego tagu w języku polskim. Może to być słowo lub fraza."
+      },
+      "missingTranslations": "Proszę wypełnić tłumaczenia dla: {languages}",
+      "languageNames": {
+        "uk": "ukraiński",
+        "en": "angielski",
+        "pl": "polski"
+      }
+    }
+  },
+  "GenerateTip": {
+    "generateButton": "Generuj poradę",
+    "showUnpublishedButton": "Pokaż nieopublikowane",
+    "description": "Generuj {tip} używając usługi OpenAI.",
+    "tip": "poradę",
+    "autoAppear": "Ta porada automatycznie pojawi się na stronach jako {currentTip}",
+    "currentTip": "Obecna porada",
+    "noPrompt": "Jeśli prompt nie jest podany, porada zostanie wygenerowana z domyślnym promptem.",
+    "ukrainianOnly": "Generowanie porady obsługuje wyłącznie język ukraiński.",
+    "ukrainian": "język ukraiński",
+    "promptLabel": "Prompt dla porady",
+    "promptPlaceholder": "Dodaj żądanie, jeśli potrzebne",
+    "success": "Porada wygenerowana pomyślnie!",
+    "error": "Nie udało się wygenerować porady",
+    "unpublishedError": "Nie udało się pobrać nieopublikowanych porad",
+    "unpublishedSuccess": "Znaleziono {count} nieopublikowanych porad",
+    "allTipsSuccess": "Wczytano {count} porad",
+    "allTipsTitle": "Wszystkie porady",
+    "loading": "Ładowanie...",
+    "empty": "Brak porad",
+    "submitting": "Generowanie...",
+    "loginRequired": "Proszę zaloguj się, aby kontynuować"
+  },
+  "AddExercise": {
+    "title": "Dodaj nowe ćwiczenie",
+    "button": "Dodaj ćwiczenie",
+    "submitting": "Zapisywanie...",
+    "success": "Ćwiczenie dodane pomyślnie",
+    "exercisesList": {
+      "title": "Lista ćwiczeń",
+      "loading": "Ładowanie...",
+      "empty": "Nie znaleziono ćwiczeń",
+      "error": "Błąd ładowania ćwiczeń"
+    },
+    "fields": {
+      "category": {
+        "label": "Kategoria:",
+        "required": "Proszę wprowadź kategorię"
+      },
+      "title": {
+        "label": "Tytuł:",
+        "required": "Proszę wprowadź tytuł"
+      },
+      "annotation": {
+        "label": "Adnotacja:",
+        "required": "Proszę wprowadź adnotację"
+      },
+      "description": {
+        "label": "Opis:",
+        "required": "Proszę wprowadź opis"
+      },
+      "tags": {
+        "label": "Tagi:",
+        "empty": "Nie znaleziono tagów. Najpierw dodaj tagi na karcie Tagi."
+      }
+    }
+  }
+}

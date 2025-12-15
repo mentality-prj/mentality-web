@@ -15,22 +15,22 @@ type TagsEditorProps = {
 }
 
 export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
-  const t = useTranslations('MoodTracker.MoodNote')
+  const t = useTranslations('components.MoodNote')
 
   return (
     <div className="flex flex-col gap-4">
       <div className="flex items-center justify-between">
-        <div>{t('add tags')}</div>
+        <div>{t('addTags')}</div>
         <Dialog>
           <DialogTrigger asChild>
             <Button className="max-h-6 text-sm" variant="textButton" size="base">
               <Pencil className="mr-1 h-4 w-4" />
-              {t('change tags')}
+              {t('changeTags')}
             </Button>
           </DialogTrigger>
           <DialogContent>
             <DialogHeader>
-              <DialogTitle>{t('change tags')}</DialogTitle>
+              <DialogTitle>{t('changeTags')}</DialogTitle>
             </DialogHeader>
             <AddTags tags={tags} onChange={onChange} />
           </DialogContent>

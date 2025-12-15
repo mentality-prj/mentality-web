@@ -1,0 +1,41 @@
+{
+  "Title": "Cele osobiste",
+  "Subtitle": "Ważne kroki w kierunku równowagi wewnętrznej",
+  "Filter": {
+    "All": "Wszystkie",
+    "Active": "Aktywne",
+    "Completed": "Ukończone"
+  },
+  "CreatePersonalGoals": {
+    "DefaultTextSuggestions": {
+      "SleepBetter": "Zasnąć przed 22:00 w ciągu tygodnia",
+      "DayWithoutMedia": "Spędź dzień bez mediów społecznych",
+      "CoffeeLimit": "Nie pij więcej niż jedną filiżankę kawy dziennie"
+    },
+    "Title": "Sformułuj swój cel",
+    "Text": "Utwórz nowy cel",
+    "WeOffer": "Oferujemy:",
+    "TextareaDescription": "Maksymalnie 60 znaków",
+    "QuantityOfRepeat": "Określ liczbę powtórzeń w celu osiągnięcia celu (opcjonalnie)",
+    "Buttons": {
+      "Create": "Utwórz",
+      "Cancel": "Anuluj"
+    }
+  },
+  "PersonalGoalsCard": {
+    "Progress": "Postęp",
+    "GoalAchieved": "Wow! Cel osiągnięty, tak trzymaj!",
+    "Mark": "Zaznacz",
+    "Dialog": {
+      "DeleteTitle": "Usunąć cel?",
+      "ResetTitle": "Zresetować cel?",
+      "DeleteText": "Ten cel będzie trwale usunięty.",
+      "ResetText": "Postęp ukończonego celu zostanie zresetowany do 0",
+      "Buttons": {
+        "Delete": "Usuń",
+        "Reset": "Resetuj",
+        "Cancel": "Anuluj"
+      }
+    }
+  }
+}

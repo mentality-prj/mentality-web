@@ -8,7 +8,7 @@ import { SummaryCard } from './SummaryCard'
 
 export const StressLevel = async () => {
   const stressLevel = await mockStressLevel()
-  const t = await getTranslations('components.TenDaysSummary.StressLevel')
+  const t = await getTranslations('components.StressLevel')
   const getStressLabel = (level: number) => {
     switch (true) {
       case level === 0:

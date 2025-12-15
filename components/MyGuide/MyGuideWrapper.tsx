@@ -4,7 +4,7 @@ import { getMeditations } from '@/actions/meditations.actions'
 import { MyGuideTabs } from '@/components/MyGuide/MyGuideTabs'
 
 export default async function MyGuideWrapper() {
-  const t = await getTranslations('Guide')
+  const t = await getTranslations('pages.Guide')
   const meditations = await getMeditations()
 
   const categories = [

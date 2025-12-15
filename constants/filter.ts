@@ -1,6 +1,6 @@
 export const filterOptions = {
   tags: ['affirmation', 'tip'],
-  moodLevel: ['very good', 'good', 'neutral', 'bad', 'vary bad'],
-  stressLevel: ['low', 'medium', 'high'],
+  moodLevel: ['very_good', 'good', 'neutral', 'bad', 'very_bad'],
+  stressLevel: ['absent', 'low', 'medium', 'high', 'very_high'],
   week: ['weekDays', 'weekends'],
 } as const

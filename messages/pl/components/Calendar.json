@@ -1,0 +1,6 @@
+{
+  "title": "{type, select, myProgress {Aktywność na platformie} myThoughts {Utworzone rekordy nastroju} other{}}",
+  "subtitle": "{type, select, myProgress {Nawet małe kroki prowadzą do dużych zmian} myThoughts {w ostatnim miesiącu} other{}}",
+  "daysWithActivity": "{type, select, myProgress {Dni z aktywnością} myThoughts {dni z notatkami} other {}}",
+  "daysWithoutActivity": "{type, select, myProgress {Dni bez aktywności} myThoughts {dni bez notatek} other {}}"
+}

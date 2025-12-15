@@ -57,7 +57,7 @@ export function ChartDynamics() {
   const [timeRange, setTimeRange] = useState('14d')
   const [moodChart, setMoodChart] = useState(true)
   const [stressChart, setStressChart] = useState(false)
-  const t = useTranslations('MyProgress.ChartDynamics')
+  const t = useTranslations('components.ChartDynamics')
   const locale = useLocale() as SupportedLanguage
 
   const filteredData = chartData.filter((item) => {
@@ -86,7 +86,7 @@ export function ChartDynamics() {
         <Tabs defaultValue="14d" onValueChange={setTimeRange}>
           <TabsList className="gap-3">
             <TabsTrigger value="7d">{t('timeRange.week')}</TabsTrigger>
-            <TabsTrigger value="14d">{t('timeRange.two weeks')}</TabsTrigger>
+            <TabsTrigger value="14d">{t('timeRange.twoWeeks')}</TabsTrigger>
             <TabsTrigger value="30d">{t('timeRange.month')}</TabsTrigger>
           </TabsList>
         </Tabs>

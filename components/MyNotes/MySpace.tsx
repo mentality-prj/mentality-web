@@ -8,25 +8,25 @@ import { StarRingIcon } from '@/ds/icons/star-ring'
 import { StarsIcon } from '@/ds/icons/stars'
 
 export async function MySpace() {
-  const t = await getTranslations('MyNotesPage')
+  const t = await getTranslations()
 
   const cardMyNotesData = [
     { key: 'card1', link: '/my-thoughts', icon: <ChatRoundLikeIcon /> },
     { key: 'card2', link: '/tests', icon: <NotesMinimalisticIcon /> },
     { key: 'card3', link: '/affirmations', icon: <StarRingIcon /> },
     { key: 'card4', link: '/saved', icon: <StarsIcon /> },
-  ]
+  ] as const
 
   return (
-    <SectionCard title={t('MySpaceTitle')}>
+    <SectionCard title={t('common.SectionCard.title', { title: 'mySpace' })}>
       <div className="grid grid-cols-1 gap-8 laptop:grid-cols-2">
         {cardMyNotesData.map(({ key, link, icon }) => (
           <CustomCard
             key={key}
-            title={t(`MySpaceCards.${key}.title`)}
-            text={t(`MySpaceCards.${key}.desc`)}
+            title={t(`components.MySpaceCards.${key}.title`)}
+            text={t(`components.MySpaceCards.${key}.desc`)}
             hrefLink={`my-notes/${link}`}
-            textLink={t('MySpaceButton')}
+            textLink={t('common.buttonText.goTo')}
             backgroundIcon={icon}
           />
         ))}

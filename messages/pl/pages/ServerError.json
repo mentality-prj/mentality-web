@@ -1,0 +1,10 @@
+{
+  "title": "Błąd połączenia z serwerem",
+  "description": "Nie można połączyć się z serwerem. Proszę spróbować ponownie później.",
+  "suggestions": "Co możesz zrobić:",
+  "suggestion1": "Sprawdź połączenie z internetem",
+  "suggestion2": "Spróbuj odświeżyć stronę",
+  "suggestion3": "Poczekaj kilka minut i spróbuj ponownie",
+  "backToSignin": "Powrót do logowania",
+  "tryAgain": "Spróbuj ponownie"
+}

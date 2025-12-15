@@ -1,0 +1,15 @@
+{
+  "Tabs": {
+    "All": "Wszystkie",
+    "meditations": "Medytacje",
+    "breathing": "Ćwiczenia oddechowe",
+    "calming": "Uspokój mnie teraz"
+  },
+  "CardCategory": {
+    "meditations": "Inne medytacje",
+    "breathing": "Inne ćwiczenia oddechowe",
+    "calming": "Inne ćwiczenia uspokajające"
+  },
+  "TechniqueOverview": "Przegląd techniki",
+  "textLink": "Czytaj więcej"
+}

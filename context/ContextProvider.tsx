@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import { AffirmationsFilterProvider } from './affirmationsFilterContext'
 import { SavedFilterProvider } from './savedFilterContext'
 
+// TODO: add types so that it works when contexts have different types
 const providers = [
   {
     Component: AffirmationsFilterProvider,

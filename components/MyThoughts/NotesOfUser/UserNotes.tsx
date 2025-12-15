@@ -8,14 +8,14 @@ import { UserNotesCardFilter } from './UserNotesCardFilter'
 import { UserNotesCardList } from './UserNotesCardList'
 
 export function UserNotes({ notes }: { notes: { key: string }[] }) {
-  const t = useTranslations('MyThougtsPage.ThoughtsList')
+  const t = useTranslations('common.SectionCard')
 
   const isEmpty = !notes || notes.length === 0
 
   return (
     <SectionCard
-      title={t('title')}
-      subtitle={isEmpty ? t('subtitle') : undefined}
+      title={t('title', { title: 'myThoughts' })}
+      subtitle={isEmpty ? t('subtitle', { subtitle: 'myThoughts' }) : undefined}
       subtitlePrefix={isEmpty ? <PencilLine /> : undefined}
     >
       {!isEmpty && (

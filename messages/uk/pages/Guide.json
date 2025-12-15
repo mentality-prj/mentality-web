@@ -1,0 +1,15 @@
+{
+  "Tabs": {
+    "All": "Всі",
+    "meditations": "Медитації",
+    "breathing": "Дихальні вправи",
+    "calming": "Заспокой мене зараз"
+  },
+  "CardCategory": {
+    "meditations": "Інші медитації",
+    "breathing": "Інші дихальні вправи",
+    "calming": "Інші вправи для заспокоєння"
+  },
+  "TechniqueOverview": "Огляд техніки",
+  "textLink": "Детальніше"
+}

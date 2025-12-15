@@ -8,7 +8,9 @@ export type Tag = {
   updatedAt?: Date
 }
 
+export type FieldKey = 'key' | 'uk' | 'en' | 'pl'
+
 export type TagProperties = {
   key: string
-  name: string
+  name: FieldKey
 }
