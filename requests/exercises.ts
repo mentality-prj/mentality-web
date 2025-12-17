@@ -20,6 +20,20 @@ export function checkAdmin(session: CustomSession | null, action: string, extraD
   return null
 }
 
+function formatError(error: unknown): { error: string } {
+  return {
+    error:
+      typeof error === 'object' && error !== null && 'message' in error
+        ? (error as { message: string }).message
+        : String(error),
+  }
+}
+
+function logAndReturnError(loggerMsg: string, error: unknown, meta?: Record<string, unknown>) {
+  logger.error(loggerMsg, { error, ...meta })
+  return formatError(error)
+}
+
 export async function addExercise(
   session: CustomSession | null,
   exerciseData: CreateExerciseDto
@@ -33,13 +47,7 @@ export async function addExercise(
   })
 
   if (error) {
-    logger.error('Failed to add exercise', { error })
-    return {
-      error:
-        typeof error === 'object' && error !== null && 'message' in error
-          ? (error as { message: string }).message
-          : String(error),
-    }
+    return logAndReturnError('Failed to add exercise', error)
   }
 
   logger.info('Exercise successfully added', { exerciseId: data?.id })
@@ -55,13 +63,7 @@ export async function getExercises(session: CustomSession | null): Promise<ApiRe
   })
 
   if (error) {
-    logger.error('Failed to get exercises', { error })
-    return {
-      error:
-        typeof error === 'object' && error !== null && 'message' in error
-          ? (error as { message: string }).message
-          : String(error),
-    }
+    return logAndReturnError('Failed to get exercises', error)
   }
 
   const exercises = Array.isArray(data)
@@ -87,13 +89,7 @@ export async function updateExercise(
   })
 
   if (error) {
-    logger.error('Failed to get exercises', { error, exerciseId })
-    return {
-      error:
-        typeof error === 'object' && error !== null && 'message' in error
-          ? (error as { message: string }).message
-          : String(error),
-    }
+    return logAndReturnError('Failed to update exercise', error, { exerciseId })
   }
 
   logger.info('Exercise successfully updated', { exerciseId: data?.id })

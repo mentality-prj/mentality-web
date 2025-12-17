@@ -7,14 +7,15 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Badge } from '@/ds/shadcn/badge'
 import { Button } from '@/ds/shadcn/button'
 import { Checkbox } from '@/ds/shadcn/checkbox'
-import { Input } from '@/ds/shadcn/input'
 import { Label } from '@/ds/shadcn/label'
-import { Textarea } from '@/ds/shadcn/textarea'
 import { addExercise, getExercises, updateExercise } from '@/requests/exercises'
 import { getTags } from '@/requests/tags'
 import { ExerciseEntity, TagEntity } from '@/types/api-responses'
 import { SupportedLanguage } from '@/types/languages'
 import { notifyError, notifySuccess } from '@/utils/toast'
+
+import { CustomInput } from '../../ds/components/CustomInput'
+import TextareaWithLabel from '../../ds/components/TextareaWithLabel'
 
 export default function AddExercise() {
   const t = useTranslations('components.Admin.AddExercise')
@@ -80,6 +81,14 @@ export default function AddExercise() {
     setEditingExercise(null)
   }
 
+  const validateFields = (): string | null => {
+    if (!category.trim()) return t('fields.category.required')
+    if (!title.trim()) return t('fields.title.required')
+    if (!annotation.trim()) return t('fields.annotation.required')
+    if (!description.trim()) return t('fields.description.required')
+    return null
+  }
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
 
@@ -93,32 +102,13 @@ export default function AddExercise() {
   const performCreateExercise = async (): Promise<void> => {
     if (!session || isSubmitting) return
 
+    const validationError = validateFields()
+    if (validationError) {
+      notifyError(validationError)
+      return
+    }
+
     setIsSubmitting(true)
-
-    // Validate all fields are filled
-    if (!category.trim()) {
-      notifyError(t('fields.category.required'))
-      setIsSubmitting(false)
-      return
-    }
-
-    if (!title.trim()) {
-      notifyError(t('fields.title.required'))
-      setIsSubmitting(false)
-      return
-    }
-
-    if (!annotation.trim()) {
-      notifyError(t('fields.annotation.required'))
-      setIsSubmitting(false)
-      return
-    }
-
-    if (!description.trim()) {
-      notifyError(t('fields.description.required'))
-      setIsSubmitting(false)
-      return
-    }
 
     const exerciseData = {
       category: category.trim(),
@@ -143,6 +133,12 @@ export default function AddExercise() {
 
   const performEditExercise = async (exerciseId: string): Promise<void> => {
     if (!session || isSubmitting) return
+
+    const validationError = validateFields()
+    if (validationError) {
+      notifyError(validationError)
+      return
+    }
 
     setIsSubmitting(true)
 
@@ -184,42 +180,39 @@ export default function AddExercise() {
 
         <div className="space-y-4">
           <div>
-            <Label htmlFor="category">{t('fields.category.label')}</Label>
-            <Input
+            <CustomInput
               id="category"
+              label={t('fields.category.label')}
               type="text"
               value={category}
               onChange={(e) => setCategory(e.target.value)}
-              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
             />
           </div>
 
           <div>
-            <Label htmlFor="title">{t('fields.title.label')}</Label>
-            <Input
+            <CustomInput
               id="title"
+              label={t('fields.title.label')}
               type="text"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
             />
           </div>
 
           <div>
-            <Label htmlFor="annotation">{t('fields.annotation.label')}</Label>
-            <Input
+            <CustomInput
               id="annotation"
+              label={t('fields.annotation.label')}
               type="text"
               value={annotation}
               onChange={(e) => setAnnotation(e.target.value)}
-              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
             />
           </div>
 
           <div>
-            <Label htmlFor="description">{t('fields.description.label')}</Label>
-            <Textarea
+            <TextareaWithLabel
               id="description"
+              label={t('fields.description.label')}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
               className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
