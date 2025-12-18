@@ -14,6 +14,7 @@ import MoodMarks from './MoodMarks.json'
 import MoodNote from './MoodNote.json'
 import MoodRecording from './MoodRecording.json'
 import MySpaceCards from './MySpaceCards.json'
+import Navbar from './Navbar.json'
 import Navigation from './Navigation.json'
 import PersonalGoals from './PersonalGoals.json'
 import RecordingThoughts from './RecordingThoughts.json'
@@ -44,7 +45,8 @@ export const components = {
   MoodNote,
   MoodRecording,
   MySpaceCards,
-  UserMenu,
+  Navbar,
+  Navigation,
   PersonalGoals,
   RecordingThoughts,
   Sidebar,
@@ -55,5 +57,5 @@ export const components = {
   TenDaysSummary,
   TextareaWithLabel,
   TodayObservations,
-  Navigation,
+  UserMenu,
 }

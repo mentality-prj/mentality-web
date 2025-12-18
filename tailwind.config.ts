@@ -61,6 +61,15 @@ const config: Config = {
           secondary: 'var(--surface-secondary)',
           action: 'var(--surface-action)',
           dark: 'var(--surface-dark)',
+          cardInfo: 'hsl(var(--card-info))',
+          cardAlert: 'hsl(var(--card-alert))',
+          cardSuccess: 'hsl(var(--card-success))',
+        },
+        cta: {
+          DEFAULT: 'hsl(var(--cta))',
+          hover: 'hsl(var(--cta-hover))',
+          focus: 'hsl(var(--cta-focus))',
+          pressed: 'hsl(var(--cta-pressed))',
         },
         sidebar: {
           DEFAULT: 'hsl(var(--sidebar-background))',
@@ -81,7 +90,8 @@ const config: Config = {
         sans: ['var(--font-sans)', 'sans-serif'],
         mono: ['var(--font-mono)', 'monospace'],
       },
-      // ми взагалі використовуємо borderRadius ??
+      // Custom border radius values using CSS variable --radius:
+      // xs: ¼, sm: ½, md: -4px, default: base, lg: ×3, xl: ×5
       borderRadius: {
         xs: 'calc(var(--radius) / 4)',
         sm: 'calc(var(--radius) / 2)',
@@ -92,6 +102,5 @@ const config: Config = {
       },
     },
   },
-  darkMode: ['class', 'class'],
 }
 export default config

@@ -13,22 +13,24 @@ import { CustomLink } from './CustomLink'
 import { Tag } from './Tag'
 
 export const cardVariants = {
-  base: cva(
-    'flex flex-col relative w-full h-full rounded-md border-outline-secondary bg-transparent shadow-none p-6 gap-4 overflow-hidden',
-    {
-      variants: {
-        variant: {
-          default: '',
-          daily: 'bg-surface-white border-none p-8',
-          withDate: 'gap-5',
-        },
+  base: cva('flex flex-col relative w-full h-full rounded-3xl p-8 gap-4 overflow-hidden shadow-md', {
+    variants: {
+      variant: {
+        default: 'bg-surface-cardInfo',
+        daily: 'bg-surface-cardAlert',
+        withDate: 'bg-surface-cardSuccess gap-5',
       },
-      defaultVariants: {
-        variant: 'default',
+      type: {
+        info: 'bg-surface-cardInfo',
+        alert: 'bg-surface-cardAlert',
+        success: 'bg-surface-cardSuccess',
       },
-    }
-  ),
-  title: cva('flex flex-row gap-2 text-base font-medium text-textcolor-primary', {
+    },
+    defaultVariants: {
+      variant: 'default',
+    },
+  }),
+  title: cva('flex flex-row gap-2 text-base font-normal leading-[120%] text-[var(--title-color)]', {
     variants: {
       variant: {
         default: '',
