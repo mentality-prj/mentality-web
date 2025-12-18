@@ -1,0 +1,63 @@
+{
+  "Hero": {
+    "title": "Troska o twój spokój 24/7",
+    "subtitle": "Jesteśmy tutaj, aby wspierać cię wtedy, gdy najbardziej tego potrzebujesz. Niezależnie od tego, przez co przechodzisz — stres, smutek czy szukanie siebie — nie jesteś sam.",
+    "cta": "Wypróbuj za darmo",
+    "testimonial": {
+      "title": "Pomogliśmy ponad 725 osobom",
+      "cta": "Dowiedz się więcej",
+      "metric": "725+"
+    }
+  },
+  "Features": {
+    "interactivity": {
+      "title": "Interaktywność",
+      "subtitle": "Wygodne formy interakcji: chatboty, konsultacje wideo, kursy i ćwiczenia."
+    },
+    "support": {
+      "title": "Wsparcie 24/7",
+      "subtitle": "Usługa jest zawsze dostępna, niezależnie od czasu i miejsca."
+    },
+    "ai": {
+      "title": "Asystent AI",
+      "subtitle": "Sztuczna inteligencja pomaga znaleźć odpowiedzi, ćwiczenia i strategie poprawy nastroju."
+    }
+  },
+  "Services": {
+    "title": "Dodatkowe usługi\ndla Twojego wsparcia",
+    "cards": {
+      "intro": {
+        "text": "Rozumiemy, jak ważne jest zachowanie równowagi emocjonalnej, zwłaszcza w trudnych czasach."
+      },
+      "monitoring": {
+        "title": "Monitorowanie stanu emocjonalnego",
+        "text": "Analiza nastroju i rekomendacje wspierające równowagę emocjonalną."
+      },
+      "meditations": {
+        "title": "Medytacje i ćwiczenia oddechowe",
+        "text": "Automatycznie generowane sesje medytacyjne i ćwiczenia zmniejszające stres oraz poprawiające koncentrację."
+      },
+      "coaching": {
+        "title": "Czaty terapeutyczne i coaching",
+        "text": "Interaktywny chatbot lub konsultacje specjalistów, wsparcie i techniki relaksacji z SI."
+      }
+    }
+  },
+  "HowItWorks": {
+    "title": "Jak działa usługa",
+    "steps": {
+      "register": "Zarejestruj się — utwórz konto w kilka kliknięć.",
+      "choose": "Wybierz wsparcie — konsultacje, medytacje lub interaktywne ćwiczenia.",
+      "receive": "Otrzymuj pomoc — spersonalizowane rozwiązania dla twojego dobrostanu."
+    },
+    "cta": "Rozpocznij teraz"
+  },
+  "ReduceStress": {
+    "title": "Uwolnienie od stresu i niepokoju",
+    "subtitle": "Konsultacje psychologiczne wspierają wewnętrzną równowagę i pomagają czuć się lepiej każdego dnia."
+  },
+  "Footer": {
+    "copyright": "© 2025 Dzvin.co. Wszelkie prawa zastrzeżone.",
+    "backToTop": "Wróć na górę"
+  }
+}

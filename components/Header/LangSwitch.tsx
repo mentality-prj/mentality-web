@@ -1,59 +1,67 @@
 'use client'
-import { Key, useTransition } from 'react'
+import { useTransition } from 'react'
+import { Globe } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
-import { Languages } from '@/constants/i18n'
+import { LocaleNativeLabels, LocaleTriggerShortLabels } from '@/constants/i18n'
 import { Button } from '@/ds/shadcn/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
+import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/languages'
 
+// Compact dropdown locale switcher aligned with Landing aesthetics
 export default function LangSwitch() {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
-  const localActive = useLocale()
+  const activeLocale = useLocale()
   const pathname = usePathname()
 
-  const onSelectChange = (actionKey: Key) => {
-    const currentPath = pathname.replace(/^\/(en|uk|pl)/, '')
+  const replaceLocale = (nextLocale: SupportedLanguage) => {
+    const segments = pathname.split('/')
+    const maybeLocale = segments[1] as SupportedLanguage | undefined
+    const isLocalePrefixed = maybeLocale && SUPPORTED_LANGUAGES.includes(maybeLocale)
+    const currentPath = isLocalePrefixed ? `/${segments.slice(2).join('/')}` : pathname
     startTransition(() => {
-      router.replace(`/${actionKey}${currentPath}`)
+      router.replace(`/${nextLocale}${currentPath}`)
     })
   }
+
+  const localeLabelNative = LocaleNativeLabels
+  const localeTriggerShort = LocaleTriggerShortLabels
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <Button
           disabled={isPending}
-          variant="iconButton"
-          className="group h-10 w-10 rounded-full hover:ring-1 hover:ring-primary-hover data-[state=open]:bg-secondary-hover"
+          variant="textIconButton"
+          size="base"
+          className="group flex h-12 items-center gap-1.5 rounded-full border-0 bg-transparent px-0 py-0 text-sm shadow-none outline-none ring-0 hover:bg-transparent focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 data-[state=open]:ring-0"
         >
-          {localActive}
+          <span className="inline-flex w-4 items-center justify-center">
+            <Globe size={18} className="text-textcolor-primary" />
+          </span>
+          <span className="text-sm font-medium leading-none text-textcolor-primary group-hover:underline">
+            {localeTriggerShort[activeLocale as 'uk' | 'en' | 'pl']}
+          </span>
+          <span className="inline-flex w-3 items-center justify-center text-xs text-textcolor-tertiary">▾</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        aria-label="Language actions"
-        className="w-auto min-w-0 bg-surface-white px-0 text-center"
+        className="min-w-[200px] rounded-2xl bg-white px-0 py-2 text-textcolor-primary shadow-lg outline-none ring-0 focus:outline-none"
       >
-        <DropdownMenuItem
-          className="justify-center px-3 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed"
-          onSelect={() => onSelectChange('uk')}
-        >
-          {Languages.UKRAINIAN}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="justify-center px-3 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed"
-          onSelect={() => onSelectChange('en')}
-        >
-          {Languages.ENGLISH}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          className="justify-center px-3 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed"
-          onSelect={() => onSelectChange('pl')}
-        >
-          {Languages.POLISH}
-        </DropdownMenuItem>
+        {SUPPORTED_LANGUAGES.map((locale) => (
+          <DropdownMenuItem
+            key={locale}
+            className={`flex w-full items-center gap-2 px-3 py-2 outline-none ring-0 hover:bg-secondary-hover hover:text-textcolor-primary focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${
+              (activeLocale as SupportedLanguage) === locale ? 'text-primary' : ''
+            }`}
+            onSelect={() => replaceLocale(locale)}
+          >
+            <span className="text-sm">{localeLabelNative[locale as SupportedLanguage]}</span>
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )

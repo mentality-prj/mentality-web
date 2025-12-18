@@ -1,0 +1,63 @@
+{
+  "Hero": {
+    "title": "Care for your peace of mind 24/7",
+    "subtitle": "We are here to support you when you need it most. No matter what you are going through—stress, sadness, or finding yourself—you are not alone.",
+    "cta": "Try for free",
+    "testimonial": {
+      "title": "Helped more than 725 people",
+      "cta": "Learn more",
+      "metric": "725+"
+    }
+  },
+  "Features": {
+    "interactivity": {
+      "title": "Interactivity",
+      "subtitle": "Convenient interaction formats: chatbots, video consultations, courses, and exercises."
+    },
+    "support": {
+      "title": "24/7 Support",
+      "subtitle": "The service is always available, regardless of time and place."
+    },
+    "ai": {
+      "title": "AI Assistant",
+      "subtitle": "Artificial intelligence helps you find answers, exercises, and strategies to improve your mood."
+    }
+  },
+  "Services": {
+    "title": "Additional services\nfor your support",
+    "cards": {
+      "intro": {
+        "text": "We understand how important it is to maintain emotional balance, especially in challenging times."
+      },
+      "monitoring": {
+        "title": "Emotional state monitoring",
+        "text": "Mood analysis and recommendations to support emotional balance."
+      },
+      "meditations": {
+        "title": "Meditations and breathing exercises",
+        "text": "Automatically generated meditation sessions and exercises to reduce stress and improve concentration."
+      },
+      "coaching": {
+        "title": "Therapeutic chats and coaching",
+        "text": "Interactive chatbot or specialist consultations, support, and relaxation techniques with AI."
+      }
+    }
+  },
+  "HowItWorks": {
+    "title": "How the service works",
+    "steps": {
+      "register": "Register — create an account in a few clicks.",
+      "choose": "Choose support — consultations, meditations, or interactive exercises.",
+      "receive": "Receive help — personalized solutions for your well-being."
+    },
+    "cta": "Start now"
+  },
+  "ReduceStress": {
+    "title": "Relieve stress and anxiety",
+    "subtitle": "Psychological counseling supports inner balance and helps you feel better every day."
+  },
+  "Footer": {
+    "copyright": "© 2025 Dzvin.co. All rights reserved.",
+    "backToTop": "Back to top"
+  }
+}

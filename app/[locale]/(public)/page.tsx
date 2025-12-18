@@ -1,14 +1,19 @@
-import { useTranslations } from 'next-intl'
+import { FeatureCardsSection } from './components/FeatureCardsSection'
+import { HeroSection } from './components/HeroSection'
+import { HowItWorksSection } from './components/HowItWorksSection'
+import { LandingFooter } from './components/LandingFooter'
+import { LandingHeader } from './components/LandingHeader'
+import { ServicesSection } from './components/ServicesSection'
 
-import LoginButton from '@/components/Buttons/LoginButton'
-
-export default function Home() {
-  const t = useTranslations('common.title')
+export default function LandingPage() {
   return (
-    <div className="flex min-h-screen w-full flex-col items-center justify-center gap-3">
-      <p className="text-5xl">{t('MainPage')}</p>
-      <p>dev branch</p>
-      <LoginButton />
-    </div>
+    <main className="w-full">
+      <LandingHeader />
+      <HeroSection />
+      <FeatureCardsSection />
+      <ServicesSection />
+      <HowItWorksSection />
+      <LandingFooter />
+    </main>
   )
 }
