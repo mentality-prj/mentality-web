@@ -69,7 +69,9 @@
   },
   "AddExercise": {
     "title": "Dodaj nowe ćwiczenie",
-    "button": "Dodaj ćwiczenie",
+    "buttonAdd": "Dodaj ćwiczenie",
+    "buttonSave": "Zapisz ćwiczenie",
+    "buttonCancel": "Anuluj",
     "submitting": "Zapisywanie...",
     "success": "Ćwiczenie dodane pomyślnie",
     "exercisesList": {
@@ -99,6 +101,11 @@
         "label": "Tagi:",
         "empty": "Nie znaleziono tagów. Najpierw dodaj tagi na karcie Tagi."
       }
+    },
+    "categories": {
+      "meditations": "Medytacje",
+      "breathing": "Ćwiczenia oddechowe",
+      "calming": "Uspokój mnie teraz"
     }
   }
 }

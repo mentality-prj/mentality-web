@@ -15,6 +15,7 @@ import { SupportedLanguage } from '@/types/languages'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 import { CustomInput } from '../../ds/components/CustomInput'
+import { DropdownInput } from '../../ds/components/DropdownInput'
 import TextareaWithLabel from '../../ds/components/TextareaWithLabel'
 
 export default function AddExercise() {
@@ -36,6 +37,12 @@ export default function AddExercise() {
 
   const exercisesLoadedRef = useRef(false)
   const tagsLoadedRef = useRef(false)
+
+  const categories = [
+    { value: 'meditations', text: t('categories.meditations') },
+    { value: 'breathing', text: t('categories.breathing') },
+    { value: 'calming', text: t('categories.calming') },
+  ]
 
   const loadExercises = useCallback(async () => {
     if (!session || exercisesLoadedRef.current) return
@@ -173,6 +180,11 @@ export default function AddExercise() {
     setSelectedTags(exercise.tags ?? [])
   }
 
+  const cancelEditing = () => {
+    resetForm()
+    setIsSubmitting(false)
+  }
+
   return (
     <div className="space-y-8 p-6">
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-6">
@@ -180,13 +192,14 @@ export default function AddExercise() {
 
         <div className="space-y-4">
           <div>
-            <CustomInput
+            <DropdownInput
               id="category"
               label={t('fields.category.label')}
-              type="text"
+              placeholder={t('fields.category.required')}
               value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            />
+              items={categories}
+              onValueChange={(v) => setCategory(v)}
+            ></DropdownInput>
           </div>
 
           <div>
@@ -253,9 +266,20 @@ export default function AddExercise() {
         </div>
 
         <div>
-          <Button type="submit" className="flex-none" color="success" disabled={isSubmitting}>
-            {editingExercise ? 'Зберегти' : 'Додати вправу'}
-          </Button>
+          {editingExercise ? (
+            <div className="flex justify-between">
+              <Button type="submit" color="success" disabled={isSubmitting}>
+                {t('buttonSave')}
+              </Button>
+              <Button variant="secondary" type="button" onClick={cancelEditing}>
+                {t('buttonCancel')}
+              </Button>
+            </div>
+          ) : (
+            <Button type="submit" color="success" disabled={isSubmitting}>
+              {t('buttonAdd')}
+            </Button>
+          )}
         </div>
       </form>
 

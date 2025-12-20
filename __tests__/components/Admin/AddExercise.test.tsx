@@ -51,7 +51,8 @@ describe('AddExercise Component', () => {
     ;(useTranslations as jest.Mock).mockReturnValue((key: string) => {
       const translations: Record<string, string> = {
         title: 'Додати нову вправу',
-        button: 'Додати вправу',
+        buttonAdd: 'Додати вправу',
+        buttonSave: 'Зберегти вправу',
         'exercisesList.title': 'Список вправ',
         'exercisesList.loading': 'Завантаження...',
         'exercisesList.empty': 'Вправи відсутні',
