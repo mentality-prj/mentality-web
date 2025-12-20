@@ -1,3 +1,7 @@
+/* Container with max width for landing/sections */
+.container-max-width {
+  max-width: 1440px;
+}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Open+Sans:wght@600&display=swap');
 
 @tailwind base;
@@ -67,18 +71,18 @@ body {
   background:
     radial-gradient(
       52% 52% at var(--hero-gradient-x) var(--hero-gradient-y),
-      rgba(235, 227, 255, 0.36) 0%,
-      rgba(232, 223, 255, 0.22) 42%,
-      rgba(225, 215, 250, 0.08) 68%,
-      rgba(244, 241, 251, 0) 100%
+      hsla(255, 100%, 95%, 0.36) 0%,
+      hsla(255, 100%, 94%, 0.22) 42%,
+      hsla(255, 100%, 92%, 0.08) 68%,
+      hsla(255, 100%, 97%, 0) 100%
     ),
     linear-gradient(
       300deg,
-      rgba(224, 220, 239, 0.85) 0%,
-      rgba(216, 210, 233, 0.45) 34%,
-      rgba(210, 203, 229, 0.28) 62%,
-      rgba(204, 196, 226, 0.12) 82%,
-      rgba(198, 191, 221, 0.04) 100%
+      hsla(250, 33%, 91%, 0.85) 0%,
+      hsla(255, 33%, 88%, 0.45) 34%,
+      hsla(255, 33%, 85%, 0.28) 62%,
+      hsla(255, 33%, 83%, 0.12) 82%,
+      hsla(255, 33%, 81%, 0.04) 100%
     );
   filter: blur(6px);
 }
@@ -87,52 +91,52 @@ body {
   background:
     radial-gradient(
       84% 84% at var(--hero-gradient-x) var(--hero-gradient-y),
-      rgba(244, 241, 251, 0.1) 0%,
-      rgba(232, 228, 248, 0.38) 48%,
-      rgba(222, 216, 244, 0.56) 76%,
-      rgba(244, 241, 251, 0.9) 95%
+      hsla(255, 100%, 97%, 0.1) 0%,
+      hsla(255, 100%, 97%, 0.38) 48%,
+      hsla(255, 100%, 95%, 0.56) 76%,
+      hsla(255, 100%, 97%, 0.9) 95%
     ),
     repeating-radial-gradient(
       circle at var(--hero-gradient-x) var(--hero-gradient-y),
-      rgba(205, 191, 255, 0.28) 0px,
-      rgba(205, 191, 255, 0.28) 18px,
-      rgba(236, 232, 252, 0.18) 18px,
-      rgba(236, 232, 252, 0.18) 34px
+      hsla(255, 60%, 88%, 0.28) 0px,
+      hsla(255, 60%, 88%, 0.28) 18px,
+      hsla(255, 60%, 98%, 0.18) 18px,
+      hsla(255, 60%, 98%, 0.18) 34px
     ),
     repeating-radial-gradient(
       circle at var(--hero-gradient-x) var(--hero-gradient-y),
-      rgba(178, 161, 255, 0.12) 0px,
-      rgba(178, 161, 255, 0.12) 12px,
-      rgba(255, 255, 255, 0) 12px,
-      rgba(255, 255, 255, 0) 24px
+      hsla(255, 60%, 82%, 0.12) 0px,
+      hsla(255, 60%, 82%, 0.12) 12px,
+      hsla(0, 0%, 100%, 0) 12px,
+      hsla(0, 0%, 100%, 0) 24px
     ),
     repeating-radial-gradient(
       circle at var(--hero-gradient-x) var(--hero-gradient-y),
-      rgba(210, 198, 255, 0.24) 0px,
-      rgba(210, 198, 255, 0.24) 26px,
-      rgba(236, 232, 252, 0.14) 26px,
-      rgba(236, 232, 252, 0.14) 44px
+      hsla(255, 60%, 88%, 0.24) 0px,
+      hsla(255, 60%, 88%, 0.24) 26px,
+      hsla(255, 60%, 98%, 0.14) 26px,
+      hsla(255, 60%, 98%, 0.14) 44px
     ),
     repeating-radial-gradient(
       circle at var(--hero-gradient-x) var(--hero-gradient-y),
-      rgba(190, 178, 246, 0.1) 0px,
-      rgba(190, 178, 246, 0.1) 34px,
-      rgba(255, 255, 255, 0) 34px,
-      rgba(255, 255, 255, 0) 52px
+      hsla(255, 60%, 83%, 0.1) 0px,
+      hsla(255, 60%, 83%, 0.1) 34px,
+      hsla(0, 0%, 100%, 0) 34px,
+      hsla(0, 0%, 100%, 0) 52px
     );
   opacity: 0.66;
   mix-blend-mode: multiply;
   mask: radial-gradient(
     70% 70% at var(--hero-gradient-x) var(--hero-gradient-y),
-    rgba(0, 0, 0, 0.78) 24%,
-    rgba(0, 0, 0, 0.3) 72%,
-    rgba(0, 0, 0, 0) 100%
+    hsla(0, 0%, 0%, 0.78) 24%,
+    hsla(0, 0%, 0%, 0.3) 72%,
+    hsla(0, 0%, 0%, 0) 100%
   );
   -webkit-mask: radial-gradient(
     70% 70% at var(--hero-gradient-x) var(--hero-gradient-y),
-    rgba(0, 0, 0, 0.78) 24%,
-    rgba(0, 0, 0, 0.3) 72%,
-    rgba(0, 0, 0, 0) 100%
+    hsla(0, 0%, 0%, 0.78) 24%,
+    hsla(0, 0%, 0%, 0.3) 72%,
+    hsla(0, 0%, 0%, 0) 100%
   );
 }
 
@@ -142,7 +146,7 @@ body {
 }
 
 .hero-title-shadow {
-  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+  text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.8);
 }
 
 .landing-h1 {
@@ -162,9 +166,8 @@ body {
     :disabled {
       opacity: 1 !important;
     } /* because tailwind overlaps disabled colors  */
-    /* --background: 240 20% 99%;
-    --foreground:  */
-    --disable: #e4e3e8;
+    --background: #fff;
+    --foreground: * / --disable: #e4e3e8;
     --reversed: #fcfcfd;
 
     --accent-action: #f1ebff;
@@ -299,10 +302,10 @@ body {
 
 @layer components {
   .landing-heading {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 600;
-    font-style: normal;
-    color: var(--title-color);
+    @apply font-sans font-semibold not-italic text-[color:var(--title-color)];
+  }
+  .landing-heading {
+    @apply font-sans font-semibold not-italic text-[color:var(--title-color)];
   }
 
   /* ServicesSection custom heading lines */
@@ -319,10 +322,18 @@ body {
   .button-gradient {
     background-image: linear-gradient(
       45deg,
-      rgba(31, 210, 192, 0) 60%,
-      rgba(31, 210, 192, 0.5) 80%,
-      rgba(255, 255, 255, 0.5) 100%
+      hsla(168, 76%, 47%, 0) 60%,
+      hsla(168, 76%, 47%, 0.5) 80%,
+      hsla(0, 0%, 100%, 0.5) 100%
     );
-    box-shadow: inset 0px 2px 4px rgba(255, 255, 255, 0.3);
+    box-shadow: inset 0px 2px 4px hsla(0, 0%, 100%, 0.3);
+  }
+
+  .leftmenu-layout {
+    @apply mx-auto flex w-full max-w-[1440px] gap-3 px-4 tablet:px-6 md:px-8 lg:px-10;
+  }
+
+  .admin-layout {
+    @apply flex min-h-screen w-full flex-col bg-[color:var(--background)];
   }
 }

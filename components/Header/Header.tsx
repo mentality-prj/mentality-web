@@ -1,5 +1,4 @@
 'use client'
-
 import { useSession } from 'next-auth/react'
 
 import LangSwitch from '@/components/Header/LangSwitch'
@@ -34,7 +33,7 @@ export function Header() {
       <div className="flex items-center gap-1 desktop:gap-4">
         <SearchBar />
         <LangSwitch />
-        <UserMenu name={user.name ?? ''} email={user.email ?? ''} avatarUrl={user.image ?? ''} role={user.role ?? ''} />
+        {user && <UserMenu name={user.name} email={user.email} avatarUrl={user.image} role={user.role} />}
       </div>
     </header>
   )

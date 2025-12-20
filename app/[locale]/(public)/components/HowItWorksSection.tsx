@@ -56,7 +56,7 @@ export function HowItWorksSection() {
 
   return (
     <section className="mb-14 w-full">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-10 px-4 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
+      <div className="container-max-width mx-auto grid grid-cols-1 gap-10 px-4 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
         <div className="rounded-[40px] bg-[var(--surface-primary)] p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>{' '}
           <ol className="mt-6 flex flex-col gap-5">{howItWorksSteps}</ol>
