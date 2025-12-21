@@ -11,7 +11,7 @@ import { Input } from '@/ds/shadcn/input'
 import { Label } from '@/ds/shadcn/label'
 import { addTag, getTags } from '@/requests/tags'
 import { TagEntity } from '@/types/api-responses'
-import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/languages'
+import { SupportedLanguage, supportedLanguages } from '@/types/languages'
 import { TagProperties } from '@/types/tags'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
@@ -72,7 +72,7 @@ export default function AddTag() {
       return
     }
 
-    const translations = SUPPORTED_LANGUAGES.reduce(
+    const translations = supportedLanguages.reduce(
       (acc, lang) => {
         acc[`${lang}`] = formData.get(lang) as string
         return acc
@@ -81,7 +81,7 @@ export default function AddTag() {
     )
 
     // Validate all language translations are filled
-    const emptyLanguages = SUPPORTED_LANGUAGES.filter((lang) => {
+    const emptyLanguages = supportedLanguages.filter((lang) => {
       const translation = translations[lang as SupportedLanguage]
       return !translation || translation.trim() === ''
     })

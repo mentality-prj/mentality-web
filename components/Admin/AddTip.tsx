@@ -1,3 +1,4 @@
+'use client'
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'

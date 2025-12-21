@@ -13,18 +13,20 @@ import {
   DropdownMenuTrigger,
 } from '@/ds/shadcn/dropdown-menu'
 
+import { SUPPORTED_LANGUAGES } from '../../types/languages'
+
 interface UserMenuProps {
-  name: string
-  email?: string
-  avatarUrl?: string
-  role?: string
+  name?: string | null
+  email?: string | null
+  avatarUrl?: string | null
+  role?: string | null
 }
 
 export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
   const t = useTranslations('components.UserMenu')
   const router = useRouter()
-  const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : 'uk'
-  const initials = name
+  const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : SUPPORTED_LANGUAGES.UKRAINIAN
+  const initials = (name ?? '')
     .split(' ')
     .map((word) => word[0])
     .join('')
@@ -33,9 +35,9 @@ export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="iconButton" className="rounded-full hover:ring-1 hover:ring-primary-hover">
+        <Button variant="iconButton" className="rounded-full">
           <Avatar className="h-10 w-10">
-            <AvatarImage src={avatarUrl} alt={name} />
+            <AvatarImage src={avatarUrl ?? undefined} alt={name ?? undefined} />
             <AvatarFallback>{initials}</AvatarFallback>
           </Avatar>
         </Button>

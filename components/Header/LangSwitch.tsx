@@ -4,10 +4,9 @@ import { Globe } from 'lucide-react'
 import { usePathname, useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
-import { LocaleNativeLabels, LocaleTriggerShortLabels } from '@/constants/i18n'
 import { Button } from '@/ds/shadcn/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
-import { SUPPORTED_LANGUAGES, SupportedLanguage } from '@/types/languages'
+import { LocaleNativeLabels, LocaleTriggerShortLabels, SupportedLanguage, supportedLanguages } from '@/types/languages'
 
 // Compact dropdown locale switcher aligned with Landing aesthetics
 export default function LangSwitch() {
@@ -19,7 +18,7 @@ export default function LangSwitch() {
   const replaceLocale = (nextLocale: SupportedLanguage) => {
     const segments = pathname.split('/')
     const maybeLocale = segments[1] as SupportedLanguage | undefined
-    const isLocalePrefixed = maybeLocale && SUPPORTED_LANGUAGES.includes(maybeLocale)
+    const isLocalePrefixed = maybeLocale && supportedLanguages.includes(maybeLocale)
     const currentPath = isLocalePrefixed ? `/${segments.slice(2).join('/')}` : pathname
     startTransition(() => {
       router.replace(`/${nextLocale}${currentPath}`)
@@ -42,16 +41,16 @@ export default function LangSwitch() {
             <Globe size={18} className="text-textcolor-primary" />
           </span>
           <span className="text-sm font-medium leading-none text-textcolor-primary group-hover:underline">
-            {localeTriggerShort[activeLocale as 'uk' | 'en' | 'pl']}
+            {localeTriggerShort[activeLocale as SupportedLanguage]}
           </span>
           <span className="inline-flex w-3 items-center justify-center text-xs text-textcolor-tertiary">▾</span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        className="min-w-[200px] rounded-2xl bg-white px-0 py-2 text-textcolor-primary shadow-lg outline-none ring-0 focus:outline-none"
+        className="min-w-[200px] rounded-2xl bg-white px-0 text-textcolor-primary shadow-lg outline-none ring-0 focus:outline-none"
       >
-        {SUPPORTED_LANGUAGES.map((locale) => (
+        {supportedLanguages.map((locale) => (
           <DropdownMenuItem
             key={locale}
             className={`flex w-full items-center gap-2 px-3 py-2 outline-none ring-0 hover:bg-secondary-hover hover:text-textcolor-primary focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${

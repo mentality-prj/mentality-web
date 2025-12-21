@@ -2,7 +2,7 @@ import { ArrowUp, Facebook, Instagram, Youtube } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
-export function LandingFooter() {
+export function LandingFooter({ type }: { type?: 'small' | 'default' }) {
   const t = useTranslations('pages.Landing')
 
   const socialLinks = [
@@ -19,9 +19,12 @@ export function LandingFooter() {
     backgroundPosition: 'calc(50% - 10px) 50%',
   }
 
+  // Calculate vertical padding based on type
+  const paddingY = type === 'small' ? 'py-5' : 'py-10'
+  const marginTop = type === 'small' ? 'mt-8' : 'mt-16'
   return (
     <footer
-      className="mt-16 w-full bg-[#f6f7fa] px-4 py-10 text-textcolor-tertiary tablet:px-6 md:px-8 lg:px-10"
+      className={`w-full bg-[#f6f7fa] px-4 ${paddingY} text-textcolor-tertiary tablet:px-6 md:px-8 lg:px-10 ${marginTop}`}
       style={gradientStyle}
     >
       <div className="mx-auto flex max-w-[1440px] flex-col items-center gap-6 md:flex-row md:items-center md:justify-between">
