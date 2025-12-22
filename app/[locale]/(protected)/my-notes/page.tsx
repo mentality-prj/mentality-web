@@ -11,7 +11,6 @@ export default async function MyNotes() {
     <div className="flex flex-col gap-8">
       <PageTitle title={t('title', { title: 'myNotes' })} subtitle={t('subtitle', { subtitle: 'myNotes' })} />
       <MySpace />
-
       <ExercisesForRecovery />
     </div>
   )

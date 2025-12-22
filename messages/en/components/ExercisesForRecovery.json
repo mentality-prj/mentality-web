@@ -1,7 +1,7 @@
 {
-  "card1": { "title": "Meditation", "desc": "Calm your mind and restore balance in just a few minutes." },
-  "card2": { "title": "Breathing exercises", "desc": "Try techniques to reduce stress and improve focus." },
-  "card3": {
+  "meditation": { "title": "Meditation", "desc": "Calm your mind and restore balance in just a few minutes." },
+  "breathing": { "title": "Breathing exercises", "desc": "Try techniques to reduce stress and improve focus." },
+  "calming": {
     "title": "Calm me now",
     "desc": "Quick tips to help you deal with anxiety right here and now."
   }

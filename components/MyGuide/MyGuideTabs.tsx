@@ -15,13 +15,18 @@ type MyGuideTabsProps = {
   meditations: MeditationData[]
   categories: CategoyItem[]
   textLink: string
+  initialActiveKey?: string
 }
 
-export function MyGuideTabs({ meditations, categories, textLink }: MyGuideTabsProps) {
-  const [activeCategory, setActiveCategory] = useState(categories[0].key)
+export function MyGuideTabs({ meditations, categories, textLink, initialActiveKey }: MyGuideTabsProps) {
+  const defaultKey = categories[0].key
+  const safeInitialKey =
+    initialActiveKey && categories.some((categ) => categ.key === initialActiveKey) ? initialActiveKey : defaultKey
+
+  const [activeCategory, setActiveCategory] = useState(safeInitialKey)
 
   const filteredCards =
-    activeCategory === categories[0].key
+    activeCategory === defaultKey
       ? meditations
       : meditations.filter((meditation) => meditation.category === activeCategory)
 

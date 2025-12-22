@@ -10,9 +10,9 @@ export async function ExercisesForRecovery() {
   const t = await getTranslations()
 
   const cardExercisesData = [
-    { key: 'card1', icon: <HumanEmoji />, link: '' },
-    { key: 'card2', icon: <LungsEmoji />, link: '' },
-    { key: 'card3', icon: <PinchedFingersEmoji />, link: '' },
+    { key: 'meditation', icon: <HumanEmoji />, link: 'meditation' },
+    { key: 'breathing', icon: <LungsEmoji />, link: 'breathing' },
+    { key: 'calming', icon: <PinchedFingersEmoji />, link: 'calming' },
   ] as const
 
   return (
@@ -24,7 +24,7 @@ export async function ExercisesForRecovery() {
             icon={icon}
             title={t(`components.ExercisesForRecovery.${key}.title`)}
             text={t(`components.ExercisesForRecovery.${key}.desc`)}
-            hrefLink={`my-notes/${link}`}
+            hrefLink={`guide?tab=${link}`}
             textLink={t('common.buttonText.moreDetails')}
           />
         ))}
