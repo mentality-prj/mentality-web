@@ -14,7 +14,7 @@ export const GreetingTitle = ({ userName }: GreetingTitleProps) => {
     : t('components.GreetingTitle.defaultGreeting')
 
   return (
-    <div className="text-textcolour-primary flex items-center">
+    <div className="flex items-center">
       <span className="text-2xl/8 font-semibold">{greeting}</span>
     </div>
   )

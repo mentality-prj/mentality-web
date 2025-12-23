@@ -24,8 +24,8 @@ export const AppSidebar = () => {
   const { state, toggleSidebar } = useSidebar()
   const { sidebarUpLineMenu, sidebarUnderLineMenu } = useSidebarList()
   return (
-    <Sidebar className="group border-none bg-surface-white px-6 py-8" collapsible="icon">
-      <SidebarHeader className="flex flex-row justify-between p-0 pl-4 group-data-[collapsible=icon]:flex-col-reverse group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-4 group-data-[collapsible=icon]:pl-0">
+    <Sidebar className="group border-none" collapsible="icon">
+      <SidebarHeader className="mx-6 mt-8 flex flex-row justify-between p-0 pl-4 group-data-[collapsible=icon]:flex-col-reverse group-data-[collapsible=icon]:justify-center group-data-[collapsible=icon]:gap-4 group-data-[collapsible=icon]:pl-0">
         <div className="overflow-hidden">
           <LogoIcon />
         </div>
@@ -39,7 +39,7 @@ export const AppSidebar = () => {
         </Button>
       </SidebarHeader>
 
-      <SidebarContent className="mt-4 gap-0 bg-surface-white">
+      <SidebarContent className="mx-6 mb-8 mt-4 gap-0">
         <SidebarGroup className="p-0">
           <SidebarGroupContent>
             <SidebarMenu className="gap-2">
@@ -48,7 +48,7 @@ export const AppSidebar = () => {
                   <SidebarMenuButton
                     isActive={isPageActive(item.link)}
                     asChild
-                    className="h-10 rounded-sm p-0 px-4 py-2 text-base font-medium text-textcolor-primary data-[active=true]:bg-secondary data-[active=true]:text-primary group-data-[collapsible=icon]:max-h-6 group-data-[collapsible=icon]:max-w-6 group-data-[collapsible=icon]:!p-0 [&>svg]:size-6"
+                    className="h-10 rounded-sm p-0 px-4 py-2 text-base font-medium group-data-[collapsible=icon]:max-h-6 group-data-[collapsible=icon]:max-w-6 group-data-[collapsible=icon]:!p-0 [&>svg]:size-6"
                   >
                     <Link href={item.link}>
                       {item.icon}
@@ -71,7 +71,7 @@ export const AppSidebar = () => {
                   <SidebarMenuButton
                     isActive={isPageActive(item.link)}
                     asChild
-                    className="h-10 rounded-sm p-0 px-4 py-2 text-base font-medium text-textcolor-primary data-[active=true]:bg-secondary data-[active=true]:text-primary group-data-[collapsible=icon]:max-h-6 group-data-[collapsible=icon]:max-w-6 group-data-[collapsible=icon]:!p-0 [&>svg]:size-6"
+                    className="h-10 rounded-sm p-0 px-4 py-2 text-base font-medium group-data-[collapsible=icon]:max-h-6 group-data-[collapsible=icon]:max-w-6 group-data-[collapsible=icon]:!p-0 [&>svg]:size-6"
                   >
                     <Link href={item.link}>
                       {item.icon}

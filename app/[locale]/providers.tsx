@@ -16,7 +16,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
   return (
     <SessionProvider>
       <SessionWrapper>
-        <NextThemesProvider defaultTheme="system" attribute="class" {...themeProps}>
+        <NextThemesProvider attribute="class" forcedTheme="light" disableTransitionOnChange {...themeProps}>
           <SidebarProvider
             defaultOpen={true}
             style={

@@ -12,6 +12,7 @@ html,
 body {
   padding: 0;
   margin: 0;
+  color: var(--text-primary);
 }
 
 * {
@@ -210,7 +211,7 @@ body {
 
     --surface: #fcfcfd;
     --surface-primary: #f2f1f3;
-    --surface-secondary: #e4e3e8;
+    --surface-secondary: #f6f5ff;
     --surface-action: #f5f3ff;
     /* Card backgrounds from mockup */
     --card-info: 180 30% 85%; /* pastel teal */
@@ -224,21 +225,10 @@ body {
 
     --font-sans: 'Inter', sans-serif;
 
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
+    --sidebar-background: var(--surface);
+    --sidebar-foreground: var(--text-primary);
+    --sidebar-accent: var(--surface-secondary);
+    --sidebar-accent-foreground: var(--text-purple);
 
     /* Chart */
     --chart-1: 12 76% 61%;
@@ -282,14 +272,6 @@ body {
     --chart-3: 30 80% 55%;
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
-    --sidebar-background: 240 5.9% 10%;
-    --sidebar-foreground: 240 4.8% 95.9%;
-    --sidebar-primary: 224.3 76.3% 48%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 240 3.7% 15.9%;
-    --sidebar-accent-foreground: 240 4.8% 95.9%;
-    --sidebar-border: 240 3.7% 15.9%;
-    --sidebar-ring: 217.2 91.2% 59.8%;
 
     /* Chart */
     --chart-1: 220 70% 50%;
