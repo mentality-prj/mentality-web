@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { GreetingTitleWrapper } from '@/components/GreetingTitle/GreetingTitleWrapper'
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { StarIcon } from '@/ds/icons/star'
 import { mockDailyAffirmation, mockDailyTip } from '@/REST/mockApi'
 import { SupportedLanguage } from '@/types/languages'

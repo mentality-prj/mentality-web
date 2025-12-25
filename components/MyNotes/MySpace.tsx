@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { ChatRoundLikeIcon } from '@/ds/icons/chat-round-like'
 import { NotesMinimalisticIcon } from '@/ds/icons/notes-minimalistic'

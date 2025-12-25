@@ -1,13 +1,12 @@
 import { AdminComponents } from '@/components/Admin'
-import { Card, CardContent } from '@/ds/shadcn/card'
+
+import CardContainer from '../../../../components/Cards/CardContainer'
 
 export default function AdminTagsPage() {
   // Admin tags content (from Tabs)
   return (
-    <Card>
-      <CardContent className="w-full">
-        <AdminComponents.TAGS />
-      </CardContent>
-    </Card>
+    <CardContainer>
+      <AdminComponents.TAGS />
+    </CardContainer>
   )
 }

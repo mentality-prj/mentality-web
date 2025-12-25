@@ -1,16 +1,13 @@
 'use client'
 import { useSession } from 'next-auth/react'
 
+import { AvatarMenu, LocalDate, SearchBar } from '@/components/Header'
 import LangSwitch from '@/components/Header/LangSwitch'
 import { HamburgerMenu } from '@/ds/icons/hamburger-menu'
 import { Button } from '@/ds/shadcn/button'
 import { useSidebar } from '@/ds/shadcn/sidebar'
 
-import { LocalDate } from './LocalDate'
-import { SearchBar } from './SearchBar'
-import { UserMenu } from './UserMenu'
-
-export function Header() {
+const Header = () => {
   const { isMobile, toggleSidebar } = useSidebar()
   const { data } = useSession()
   const user = data?.user
@@ -33,8 +30,10 @@ export function Header() {
       <div className="flex items-center gap-1 desktop:gap-4">
         <SearchBar />
         <LangSwitch />
-        {user && <UserMenu name={user.name} email={user.email} avatarUrl={user.image} role={user.role} />}
+        {user && <AvatarMenu name={user.name} email={user.email} avatarUrl={user.image} role={user.role} />}
       </div>
     </header>
   )
 }
+
+export default Header

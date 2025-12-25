@@ -2,8 +2,7 @@ import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 
 import { auth } from '@/auth'
-import { AdminSidebarMenu } from '@/components/Admin/AdminSidebarMenu'
-import { LandingFooter, LandingHeader } from '@/components/Landing'
+import { AdminHeader, AdminSidebar } from '@/components/Admin'
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await auth()
@@ -11,15 +10,20 @@ export default async function AdminLayout({ children }: { children: ReactNode })
     redirect('/signin')
   }
   return (
-    <div className="admin-layout">
-      <LandingHeader />
-      <div className="leftmenu-layout min-h-screen">
-        <aside>
-          <AdminSidebarMenu />
-        </aside>
-        <main className="w-full">{children}</main>
+    <div className="relative flex w-full flex-1 justify-center">
+      <div className="pointer-events-none absolute inset-0 z-0 flex h-full w-full">
+        <div className="h-full w-1/2 bg-white" />
+        <div className="admin-background h-full w-1/2" />
       </div>
-      <LandingFooter type="small" />
+      <div className="relative z-10 flex min-h-screen w-full max-w-[1440px]">
+        <main className="paper flex-1 flex-col items-start pr-8">
+          <AdminHeader />
+          {children}
+        </main>
+        <div className="admin-background flex">
+          <AdminSidebar />
+        </div>
+      </div>
     </div>
   )
 }

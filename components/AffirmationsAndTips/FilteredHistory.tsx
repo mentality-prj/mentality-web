@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 
 import { useAffirmationsFilters } from '@/context/affirmationsFilterContext'
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { StarIcon } from '@/ds/icons/star'
 import { Affirmation } from '@/types/affirmation'
 import { SupportedLanguage } from '@/types/languages'

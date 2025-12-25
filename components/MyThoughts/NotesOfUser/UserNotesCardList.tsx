@@ -1,4 +1,4 @@
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { cn } from '@/lib/utils'
 
 // change Notes type

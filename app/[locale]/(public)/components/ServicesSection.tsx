@@ -1,7 +1,7 @@
 import { MessageKeys, useTranslations } from 'next-intl'
 
-import CardContainer from '@/components/CardContainer'
-import VerticalCard from '@/components/VerticalCard'
+import CardContainer from '@/components/Cards/CardContainer'
+import VerticalCard from '@/components/Cards/VerticalCard'
 
 type ServiceCardConfig = {
   titleKey?: string
