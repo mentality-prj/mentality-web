@@ -16,8 +16,8 @@ export const getMenuIcon = (item: AdminMenuType) => {
 }
 
 export const getMenuItemClass = (active: boolean) =>
-  `block border border-transparent px-4 py-2 text-base font-medium transition-colors ${
+  `block border border-transparent px-4 py-2 text-base font-normal transition-colors ${
     active
-      ? 'text-primary bg-white border-primary'
-      : 'hover:bg-secondary-hover hover:text-textcolor-primary text-textcolor-primary'
+      ? 'text-primary bg-white border-primary rounded-r-md'
+      : 'hover:bg-white hover:text-textcolor-primary text-secondary rounded-r-md'
   }`

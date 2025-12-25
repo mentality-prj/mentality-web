@@ -26,7 +26,7 @@ import StressLevelScale from './StressLevelScale.json'
 import TenDaysSummary from './TenDaysSummary.json'
 import TextareaWithLabel from './TextareaWithLabel.json'
 import TodayObservations from './TodayObservations.json'
-import UserMenu from './UserMenu.json'
+import AvatarMenu from './AvatarMenu.json'
 
 export const components = {
   Achievements,
@@ -57,5 +57,5 @@ export const components = {
   TenDaysSummary,
   TextareaWithLabel,
   TodayObservations,
-  UserMenu,
+  AvatarMenu,
 }

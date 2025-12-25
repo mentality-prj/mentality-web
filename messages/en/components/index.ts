@@ -1,5 +1,6 @@
 import Achievements from './Achievements.json'
 import Admin from './Admin.json'
+import AvatarMenu from './AvatarMenu.json'
 import BestDay from './BestDay.json'
 import Calendar from './Calendar.json'
 import ChartDynamics from './ChartDynamics.json'
@@ -26,7 +27,6 @@ import StressLevelScale from './StressLevelScale.json'
 import TenDaysSummary from './TenDaysSummary.json'
 import TextareaWithLabel from './TextareaWithLabel.json'
 import TodayObservations from './TodayObservations.json'
-import UserMenu from './UserMenu.json'
 
 export const components = {
   Achievements,
@@ -57,5 +57,5 @@ export const components = {
   TenDaysSummary,
   TextareaWithLabel,
   TodayObservations,
-  UserMenu,
+  AvatarMenu,
 }

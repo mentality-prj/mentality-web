@@ -3,7 +3,7 @@
 import { useLocale, useTranslations } from 'next-intl'
 
 import { useSavedFilters } from '@/context/savedFilterContext'
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { StarIcon } from '@/ds/icons/star'
 import { SupportedLanguage } from '@/types/languages'
 

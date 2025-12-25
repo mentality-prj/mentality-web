@@ -1,6 +1,5 @@
 import { CheckIcon } from '@/ds/icons/check'
 import { Badge } from '@/ds/shadcn/badge'
-import { CardContent, CardFooter } from '@/ds/shadcn/card'
 import { Separator } from '@/ds/shadcn/separator'
 import { RoleType } from '@/types/security'
 
@@ -8,15 +7,15 @@ export default function Profile({ role }: { role: RoleType }) {
   return (
     <>
       <Separator />
-      <CardContent>
+      <div>
         <p>{role}</p>
-      </CardContent>
+      </div>
       <Separator />
-      <CardFooter>
+      <div>
         <Badge variant="outline" color="success">
           <CheckIcon /> AI connected
         </Badge>
-      </CardFooter>
+      </div>
     </>
   )
 }

@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { getMeditations } from '@/actions/meditations.actions'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { SectionCard } from '@/ds/components/SectionCard'
 

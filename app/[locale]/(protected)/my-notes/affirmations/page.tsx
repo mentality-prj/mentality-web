@@ -2,7 +2,7 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { AffirmationHistory } from '@/components/AffirmationsAndTips/AffirmationHistory'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { StarIcon } from '@/ds/icons/star'
 import { mockDailyAffirmation, mockDailyTip } from '@/REST/mockApi'

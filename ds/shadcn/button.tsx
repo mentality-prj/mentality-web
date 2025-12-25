@@ -5,7 +5,7 @@ import { cva, type VariantProps } from 'class-variance-authority'
 import { cn } from '@/lib/utils'
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-normal rounded-md text-base font-semibold leading-none transition-colors focus:outline-none focus-visible:ring-1 disabled:pointer-events-none disabled:text-textcolor-tertiary [&_svg]:pointer-events-none [&_svg]:shrink-0',
+  'inline-flex items-center justify-center whitespace-normal rounded-md text-base font-semibold leading-none transition-colors focus:outline-none disabled:pointer-events-none disabled:text-textcolor-tertiary [&_svg]:pointer-events-none [&_svg]:shrink-0',
   {
     variants: {
       variant: {
@@ -23,7 +23,7 @@ const buttonVariants = cva(
         linkButton:
           'px-2 py-1 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus focus-visible:ring-offset-1 active:text-primary-pressed underline [text-underline-offset:3px] decoration-1',
         iconButton:
-          'shrink-0 bg-transparent text-iconcolor-primary hover:bg-secondary-hover hover:text-primary focus:bg-secondary-focus focus:text-primary focus-visible:ring-primary-focus active:bg-secondary-pressed',
+          'shrink-0 bg-border text-iconcolor-primary hover:opacity-75 focus-visible:ring-offset-0 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed disabled:bg-disable rounded-full',
         volume:
           'px-6 py-4 rounded-3xl bg-cta text-reversed hover:bg-cta-hover focus:bg-cta-focus active:bg-cta-pressed focus-visible:ring-cta-focus focus-visible:ring-offset-4 shadow-md [background-image:linear-gradient(45deg,rgba(31,210,192,0)_60%,rgba(31,210,192,0.5)_80%,rgba(255,255,255,0.5)_100%)] [box-shadow:inset_0px_2px_4px_rgba(255,255,255,0.3)]',
       },
@@ -34,6 +34,7 @@ const buttonVariants = cva(
         iconBig: 'h-12 ',
         icon: 'h-8 w-8 rounded-full [&_svg]:w-6 [&_svg]:h-6',
         iconSm: 'h-6 w-6 py-0 px-0 rounded-full [&_svg]:w-4 [&_svg]:h-4',
+        iconButton: 'h-10 w-10',
       },
     },
     defaultVariants: {

@@ -1,7 +1,5 @@
 import { ReactNode } from 'react'
 
-import { Card, CardContent, CardHeader, CardTitle } from '@/ds/shadcn/card'
-
 interface SummaryCardProps {
   title: string
   children: ReactNode
@@ -10,12 +8,12 @@ interface SummaryCardProps {
 
 export const SummaryCard = ({ title, children, icon }: SummaryCardProps) => {
   return (
-    <Card className="relative flex h-full flex-col border-outline-secondary p-6 shadow-none">
+    <div className="relative flex h-full flex-col border-outline-secondary p-6 shadow-none">
       <div className="pointer-events-none absolute right-0 top-4">{icon}</div>
-      <CardHeader className="p-0">
-        <CardTitle>{title}</CardTitle>
-      </CardHeader>
-      <CardContent className="z-10 mt-8 p-0">{children}</CardContent>
-    </Card>
+      <div className="p-0">
+        <div>{title}</div>
+      </div>
+      <div className="z-10 mt-8 p-0">{children}</div>
+    </div>
   )
 }

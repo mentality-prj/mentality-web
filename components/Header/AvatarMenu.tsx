@@ -1,3 +1,4 @@
+'use client'
 import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
@@ -15,15 +16,15 @@ import {
 
 import { SUPPORTED_LANGUAGES } from '../../types/languages'
 
-interface UserMenuProps {
+interface AvatarMenuProps {
   name?: string | null
   email?: string | null
   avatarUrl?: string | null
   role?: string | null
 }
 
-export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
-  const t = useTranslations('components.UserMenu')
+const AvatarMenu = ({ name, email, avatarUrl, role }: AvatarMenuProps) => {
+  const t = useTranslations('components.AvatarMenu')
   const router = useRouter()
   const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : SUPPORTED_LANGUAGES.UKRAINIAN
   const initials = (name ?? '')
@@ -35,7 +36,7 @@ export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="iconButton" className="rounded-full">
+        <Button variant="iconButton" className="rounded-full" size="iconButton">
           <Avatar className="h-10 w-10">
             <AvatarImage src={avatarUrl ?? undefined} alt={name ?? undefined} />
             <AvatarFallback>{initials}</AvatarFallback>
@@ -77,3 +78,5 @@ export const UserMenu = ({ name, email, avatarUrl, role }: UserMenuProps) => {
     </DropdownMenu>
   )
 }
+
+export default AvatarMenu

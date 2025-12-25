@@ -1,7 +1,7 @@
 'use client'
 import { useLocale } from 'next-intl'
 
-export const LocalDate = () => {
+const LocalDate = () => {
   const locale = useLocale()
 
   const now = new Date()
@@ -16,3 +16,5 @@ export const LocalDate = () => {
     </div>
   )
 }
+
+export default LocalDate

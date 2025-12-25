@@ -2,7 +2,6 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { IconKey, iconsMap } from '@/components/icons/iconsMap'
 import { MedalCircleIcon } from '@/ds/icons/medal-circle'
-import { Card, CardDescription, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
 import { Progress } from '@/ds/shadcn/progress'
 import { cn } from '@/lib/utils'
 import { Achievements } from '@/types/achievements'
@@ -20,18 +19,18 @@ export const AchievementCard = async ({
   const locale = (await getLocale()) as SupportedLanguage
   const t = await getTranslations('components.Achievements.AchievementCard')
   return (
-    <Card
+    <div
       className={cn(
         'flex flex-col justify-between rounded-md border-outline-secondary text-center shadow-none',
         status === 'unlocked' && 'border-textcolor-purple bg-surface-action'
       )}
     >
-      <CardHeader className="items-center space-y-1">
+      <div className="items-center space-y-1">
         <Icon />
-        <CardTitle className="text-base">{title[`${locale}`]}</CardTitle>
-        <CardDescription>{description[`${locale}`]}</CardDescription>
-      </CardHeader>
-      <CardFooter className="">
+        <div className="text-base">{title[`${locale}`]}</div>
+        <div>{description[`${locale}`]}</div>
+      </div>
+      <div className="">
         {status === 'unlocked' ? (
           <div className="flex w-full flex-col items-center text-textcolor-purple [&_svg]:size-12">
             <MedalCircleIcon />
@@ -50,7 +49,7 @@ export const AchievementCard = async ({
         ) : (
           ''
         )}
-      </CardFooter>
-    </Card>
+      </div>
+    </div>
   )
 }

@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { CustomCard } from '@/ds/components/CustomCard'
+import CustomCard from '@/ds/components/CustomCard'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { HumanEmoji } from '@/ds/icons/emoji/human'
 import { LungsEmoji } from '@/ds/icons/emoji/lungs'

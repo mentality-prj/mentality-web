@@ -15,6 +15,8 @@ const config: Config = {
         accent: {
           action: 'var(--accent-action)',
         },
+        border: 'var(--border)',
+        default: 'var(--default)',
         primary: {
           DEFAULT: 'var(--primary)',
           hover: 'var(--primary-hover)',

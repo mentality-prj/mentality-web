@@ -2,12 +2,10 @@
 import { usePathname } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 
-import LangSwitch from '@/components/Header/LangSwitch'
-import { LandingNav } from '@/components/LandingNav'
-import { LoginButton } from '@/components/LoginButton'
-import { Logo } from '@/components/Logo'
+import { AvatarMenu, LangSwitch, Logo } from '@/components/Header'
 
-import { UserMenu } from '../../../../components/Header/UserMenu'
+import { LandingNav } from './LandingNav'
+import { LoginButton } from './LoginButton'
 
 export function LandingHeader() {
   const pathname = usePathname()
@@ -24,7 +22,7 @@ export function LandingHeader() {
         <div className="flex shrink-0 items-center gap-5">
           <LangSwitch />
           {user ? (
-            <UserMenu
+            <AvatarMenu
               name={user.name ?? ''}
               email={user.email ?? ''}
               avatarUrl={user.image ?? ''}

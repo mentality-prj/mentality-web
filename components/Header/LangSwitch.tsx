@@ -8,8 +8,7 @@ import { Button } from '@/ds/shadcn/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
 import { LocaleNativeLabels, LocaleTriggerShortLabels, SupportedLanguage, supportedLanguages } from '@/types/languages'
 
-// Compact dropdown locale switcher aligned with Landing aesthetics
-export default function LangSwitch() {
+export default function LangSwitch({ type }: { type?: 'default' | 'admin' }) {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const activeLocale = useLocale()
@@ -38,9 +37,13 @@ export default function LangSwitch() {
           className="group flex h-12 items-center gap-1.5 rounded-full border-0 bg-transparent px-0 py-0 text-sm shadow-none outline-none ring-0 hover:bg-transparent focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 data-[state=open]:ring-0"
         >
           <span className="inline-flex w-4 items-center justify-center">
-            <Globe size={18} className="text-textcolor-primary" />
+            <Globe size={18} className={`${type === 'admin' ? 'text-secondary' : 'text-textcolor-primary'}`} />
           </span>
-          <span className="text-sm font-medium leading-none text-textcolor-primary group-hover:underline">
+          <span
+            className={`text-sm font-medium leading-none group-hover:underline ${
+              type === 'admin' ? 'text-secondary' : 'text-textcolor-primary'
+            }`}
+          >
             {localeTriggerShort[activeLocale as SupportedLanguage]}
           </span>
           <span className="inline-flex w-3 items-center justify-center text-xs text-textcolor-tertiary">▾</span>

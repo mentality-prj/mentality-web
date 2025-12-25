@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
 
-export const SearchBar = () => {
+const SearchBar = () => {
   const t = useTranslations('components.Header.SearchBar')
   return (
     <CustomInput
@@ -13,3 +13,5 @@ export const SearchBar = () => {
     />
   )
 }
+
+export default SearchBar

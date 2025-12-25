@@ -1,58 +1,8 @@
-// cardVariants.ts
-import { cva } from 'class-variance-authority'
-
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from '@/ds/shadcn/card'
-import { cn } from '@/lib/utils'
 import { CustomCardProps } from '@/types/customCard'
 
-import { CalendarMinimalisticIcon } from '../icons/calendar-minimalistic'
-import { Badge } from '../shadcn/badge'
-import { ToggleGroup } from '../shadcn/toggle-group'
+import Card from '../../components/Cards/Card'
 
-import { CustomLink } from './CustomLink'
-import { Tag } from './Tag'
-
-export const cardVariants = {
-  base: cva('flex flex-col relative w-full h-full rounded-3xl p-8 gap-4 overflow-hidden shadow-md', {
-    variants: {
-      variant: {
-        default: 'bg-surface-cardInfo',
-        daily: 'bg-surface-cardAlert',
-        withDate: 'bg-surface-cardSuccess gap-5',
-      },
-      type: {
-        info: 'bg-surface-cardInfo',
-        alert: 'bg-surface-cardAlert',
-        success: 'bg-surface-cardSuccess',
-      },
-    },
-    defaultVariants: {
-      variant: 'default',
-    },
-  }),
-  title: cva('flex flex-row gap-2 text-base font-normal leading-[120%] text-[var(--title-color)]', {
-    variants: {
-      variant: {
-        default: '',
-        daily: 'text-sm/4 text-textcolor-tertiary',
-        withDate: 'text-textcolor-tertiary',
-      },
-    },
-  }),
-  content: cva('z-10 p-0 text-base font-normal text-textcolor-secondary', {
-    variants: {
-      variant: {
-        default: '',
-        daily: 'font-medium text-textcolor-primary',
-        withDate: '',
-      },
-    },
-  }),
-}
-
-export const CustomCard: React.FC<CustomCardProps> = ({
-  className,
-  variant = 'default',
+const CustomCard: React.FC<CustomCardProps> = ({
   icon,
   title,
   date,
@@ -64,44 +14,41 @@ export const CustomCard: React.FC<CustomCardProps> = ({
   tagList,
   backgroundIcon,
 }) => {
-  const hasFooter = (textLink && hrefLink) || !!badge || (tagList && tagList.length > 0)
-
   return (
-    <Card className={cn(cardVariants.base({ variant }), className)}>
+    <Card className="bg-indigo-200 text-gray-900">
       {backgroundIcon && (
         <div className="absolute -right-4 -top-4 text-secondary [&_svg]:size-[108px]">{backgroundIcon}</div>
       )}
-      <CardHeader className="z-10 flex flex-row items-center justify-between space-y-0 p-0">
-        <CardTitle className={cn(cardVariants.title({ variant }))}>
+      <div className="flex flex-row items-center justify-between">
+        <div className="flex flex-row items-center gap-2 text-base font-normal leading-[120%] text-[var(--title-color)]">
           {icon && <div className="h-6 w-6 [&>svg]:h-6 [&>svg]:w-6">{icon}</div>}
           {title}
-          {date && (
-            <div className="flex items-center gap-1">
-              <CalendarMinimalisticIcon />
-              <span>{date}</span>
+          {date && <span className="ml-2 text-xs text-gray-500">{date}</span>}
+        </div>
+        {button && button}
+      </div>
+      <div className="z-10 p-0 text-base font-normal text-textcolor-secondary">{text}</div>
+      {(textLink && hrefLink) || badge || (tagList && tagList.length > 0) ? (
+        <div className="mt-auto flex w-full p-0">
+          {textLink && hrefLink && (
+            <a href={hrefLink} className="ml-auto mt-1 text-blue-600 underline">
+              {textLink}
+            </a>
+          )}
+          {badge && <span className="ml-2 rounded bg-blue-100 px-2 py-1 text-blue-800">{badge}</span>}
+          {tagList && (
+            <div className="ml-2 flex gap-1">
+              {tagList.map((tagText) => (
+                <span key={tagText} className="rounded bg-gray-100 px-2 py-1 text-xs">
+                  {tagText}
+                </span>
+              ))}
             </div>
           )}
-        </CardTitle>
-        {button && button}
-      </CardHeader>
-      <CardContent className={cn(cardVariants.content({ variant }))}>{text}</CardContent>
-      {hasFooter && (
-        <CardFooter className="mt-auto flex w-full p-0">
-          {textLink && hrefLink && (
-            <CustomLink href={hrefLink} className="ml-auto mt-1">
-              {textLink}
-            </CustomLink>
-          )}
-          {badge && <Badge variant="active">{badge}</Badge>}
-          {tagList && (
-            <ToggleGroup type="single">
-              {tagList.map((tagText) => (
-                <Tag key={tagText} text={tagText} value={tagText} />
-              ))}
-            </ToggleGroup>
-          )}
-        </CardFooter>
-      )}
+        </div>
+      ) : null}
     </Card>
   )
 }
+
+export default CustomCard
