@@ -150,7 +150,7 @@ describe('AddExercise Component', () => {
       expect(screen.getByText('Додати нову вправу')).toBeInTheDocument()
     })
 
-    const submitButton = screen.getByText('Додати вправу')
+    const submitButton = screen.getByRole('button', { name: 'Додати вправу' })
     fireEvent.click(submitButton)
 
     await waitFor(() => {

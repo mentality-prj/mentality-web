@@ -7,7 +7,6 @@ import { useLocale, useTranslations } from 'next-intl'
 import { Badge } from '@/ds/shadcn/badge'
 import { Button } from '@/ds/shadcn/button'
 import { Checkbox } from '@/ds/shadcn/checkbox'
-import { Label } from '@/ds/shadcn/label'
 import { addExercise, getExercises, updateExercise } from '@/requests/exercises'
 import { getTags } from '@/requests/tags'
 import { ExerciseEntity, TagEntity } from '@/types/api-responses'
@@ -89,7 +88,7 @@ export default function AddExercise() {
   }
 
   const validateFields = (): string | null => {
-    if (!category.trim()) return t('fields.category.required')
+    if (!category) return t('fields.category.required')
     if (!title.trim()) return t('fields.title.required')
     if (!annotation.trim()) return t('fields.annotation.required')
     if (!description.trim()) return t('fields.description.required')
@@ -190,101 +189,89 @@ export default function AddExercise() {
       <form onSubmit={handleSubmit} className="flex w-full flex-col gap-6">
         <h2>{t('title')}</h2>
 
-        <div className="space-y-4">
-          <div>
-            <DropdownInput
-              id="category"
-              label={t('fields.category.label')}
-              placeholder={t('fields.category.required')}
-              value={category}
-              items={categories}
-              onValueChange={(v) => setCategory(v)}
-            ></DropdownInput>
-          </div>
+        <fieldset className="space-y-4">
+          <legend className="sr-only">{t('buttonAdd')}</legend>
+          <DropdownInput
+            id="category"
+            label={t('fields.category.label')}
+            placeholder={t('fields.category.required')}
+            value={category}
+            items={categories}
+            onValueChange={(v) => setCategory(v)}
+          ></DropdownInput>
 
-          <div>
-            <CustomInput
-              id="title"
-              label={t('fields.title.label')}
-              type="text"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-            />
-          </div>
+          <CustomInput
+            id="title"
+            label={t('fields.title.label')}
+            type="text"
+            value={title}
+            onChange={(e) => setTitle(e.target.value)}
+          />
 
-          <div>
-            <CustomInput
-              id="annotation"
-              label={t('fields.annotation.label')}
-              type="text"
-              value={annotation}
-              onChange={(e) => setAnnotation(e.target.value)}
-            />
-          </div>
+          <CustomInput
+            id="annotation"
+            label={t('fields.annotation.label')}
+            type="text"
+            value={annotation}
+            onChange={(e) => setAnnotation(e.target.value)}
+          />
 
-          <div>
-            <TextareaWithLabel
-              id="description"
-              label={t('fields.description.label')}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
-              className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
-              rows={8}
-            />
-          </div>
+          <TextareaWithLabel
+            id="description"
+            label={t('fields.description.label')}
+            value={description}
+            onChange={(e) => setDescription(e.target.value)}
+            className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
+            rows={8}
+          />
+        </fieldset>
 
-          <div>
-            <Label>{t('fields.tags.label')}</Label>
-            <div className="mt-2 space-y-2">
-              {tags.length === 0 ? (
-                <p className="text-sm text-textcolor-secondary">{t('fields.tags.empty')}</p>
-              ) : (
-                tags.map((tag) => {
-                  const isChecked = selectedTags.includes(tag.id)
-                  return (
-                    <div key={tag.id} className="flex items-center space-x-2">
-                      <Checkbox
-                        id={`tag-${tag.id}`}
-                        checked={isChecked}
-                        onCheckedChange={(checked) => {
-                          if (checked) {
-                            setSelectedTags([...selectedTags, tag.id])
-                          } else {
-                            setSelectedTags(selectedTags.filter((id) => id !== tag.id))
-                          }
-                        }}
-                      />
-                      <label htmlFor={`tag-${tag.id}`} className="cursor-pointer text-sm">
-                        {tag.translations[locale as SupportedLanguage] || tag.translations.en || tag.key}
-                      </label>
-                    </div>
-                  )
-                })
-              )}
-            </div>
+        <fieldset>
+          <legend>{t('fields.tags.label')}</legend>
+          <div className="mt-2 space-y-2">
+            {tags.length === 0 ? (
+              <p className="text-sm text-textcolor-secondary">{t('fields.tags.empty')}</p>
+            ) : (
+              tags.map((tag) => {
+                const isChecked = selectedTags.includes(tag.id)
+                return (
+                  <div key={tag.id} className="flex items-center space-x-2">
+                    <Checkbox
+                      id={`tag-${tag.id}`}
+                      checked={isChecked}
+                      onCheckedChange={(checked) => {
+                        if (checked) {
+                          setSelectedTags([...selectedTags, tag.id])
+                        } else {
+                          setSelectedTags(selectedTags.filter((id) => id !== tag.id))
+                        }
+                      }}
+                    />
+                    <label htmlFor={`tag-${tag.id}`} className="cursor-pointer text-sm">
+                      {tag.translations[locale as SupportedLanguage] || tag.translations.en || tag.key}
+                    </label>
+                  </div>
+                )
+              })
+            )}
           </div>
-        </div>
+        </fieldset>
 
-        <div>
-          {editingExercise ? (
-            <div className="flex justify-between">
-              <Button type="submit" color="success" disabled={isSubmitting}>
-                {t('buttonSave')}
-              </Button>
-              <Button variant="secondary" type="button" onClick={cancelEditing}>
-                {t('buttonCancel')}
-              </Button>
-            </div>
-          ) : (
-            <Button type="submit" color="success" disabled={isSubmitting}>
-              {t('buttonAdd')}
+        <div className="flex justify-between">
+          <Button type="submit" color="success" disabled={isSubmitting}>
+            {editingExercise ? t('buttonSave') : t('buttonAdd')}
+          </Button>
+
+          {editingExercise && (
+            <Button variant="secondary" type="button" onClick={cancelEditing}>
+              {t('buttonCancel')}
             </Button>
           )}
         </div>
       </form>
 
       <div className="w-full">
-        <h3 className="mb-4 text-xl font-semibold">{t('exercisesList.title')}</h3>
+        <h2 className="mb-4 text-xl font-semibold">{t('exercisesList.title')}</h2>
         {isLoadingExercises ? (
           <p className="text-center text-textcolor-secondary">{t('exercisesList.loading')}</p>
         ) : exercises.length === 0 ? (
@@ -303,7 +290,7 @@ export default function AddExercise() {
                   className="text-xs underline hover:no-underline"
                   onClick={() => startEditing(exercise)}
                 >
-                  Edit
+                  {t('buttonEdit')}
                 </button>
               </Badge>
             ))}

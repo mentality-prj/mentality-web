@@ -71,6 +71,7 @@
     "title": "Add new exercise",
     "buttonAdd": "Add exercise",
     "buttonSave": "Save exercise",
+    "buttonEdit": "Edit",
     "buttonCancel": "Cancel",
     "submitting": "Saving...",
     "success": "Exercise added successfully",
