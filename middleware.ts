@@ -131,24 +131,6 @@ export async function middleware(request: NextRequest) {
     return NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
   }
 
-  if (session?.user?.email) {
-    const isSignin = normalizedPath === Routes.SIGNIN
-    const isMain = normalizedPath === Routes.MAIN
-    const isHome = normalizedPath === Routes.HOME
-
-    if (isSignin || isMain) {
-      if (!isHome) {
-        return NextResponse.redirect(new URL(`/${locale}${Routes.HOME}`, request.nextUrl.origin))
-      }
-    }
-  }
-
-  // Explicit check for locale root page (e.g., /en, /uk, /pl)
-  const isLocaleRoot = routing.locales.includes(segments[1] as SupportedLanguage) && segments.length === 2
-  if (session?.user?.email && isLocaleRoot) {
-    return NextResponse.redirect(new URL(`/${locale}${Routes.HOME}`, request.nextUrl.origin))
-  }
-
   if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {
     return NextResponse.redirect(new URL(`/${locale}${Routes.PROFILE}`, request.url))
   }

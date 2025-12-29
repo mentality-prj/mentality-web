@@ -4,7 +4,7 @@ import { CalendarActivity } from './CalendarActivity'
 
 export const Calendar = ({ title, subtitle, activeLabel, inactiveLabel, selectedDays }: CalendarProps) => {
   return (
-    <div className="rounded-default bg-surface-white p-8">
+    <div className="rounded-default bg-background-alt-white p-8">
       <div className="flex flex-col gap-2">
         <h2 className="text-xl/[24px] font-semibold text-textcolor-primary">{title}</h2>
         <>{subtitle}</>

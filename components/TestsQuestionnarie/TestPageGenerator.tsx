@@ -67,7 +67,7 @@ export default function TestPageGenerator<T extends ChoiceType>({ test }: Props<
         <Button onClick={calculateResult} disabled={!isTestComplete()}>
           Дізнатися результат
         </Button>
-        {result && <div className="my-4 rounded-md bg-surface-primary p-4">{result}</div>}
+        {result && <div className="my-4 rounded-md bg-background-alt-primary p-4">{result}</div>}
       </div>
     </div>
   )

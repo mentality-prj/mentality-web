@@ -6,7 +6,7 @@ import { StarIcon } from '@/ds/icons/star'
 import { mockDailyAffirmation, mockDailyTip } from '@/REST/mockApi'
 import { SupportedLanguage } from '@/types/languages'
 
-export default async function Home() {
+const MyDay = async () => {
   const dailyAffirmation = await mockDailyAffirmation()
   const t = await getTranslations('components.DailyCard')
   const dailyTip = await mockDailyTip()
@@ -39,3 +39,5 @@ export default async function Home() {
     </div>
   )
 }
+
+export default MyDay

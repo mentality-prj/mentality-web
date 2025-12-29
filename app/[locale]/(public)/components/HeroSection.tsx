@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -46,11 +45,11 @@ export function HeroSection() {
 
   return (
     <section ref={heroRef} className="hero-zen mb-10 w-full py-12 md:py-16">
-      <div className="mx-auto max-w-[1440px] px-4 tablet:px-6 md:px-8 lg:px-10">
+      <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
           <div className="flex max-w-[720px] flex-col gap-6 md:gap-8">
             <h1 className="landing-h1">{t('Hero.title')}</h1>
-            <p className="text-base text-textcolor-secondary md:text-lg">{t('Hero.subtitle')}</p>
+            <p className="text-textcolor-secondary text-base md:text-lg">{t('Hero.subtitle')}</p>
             <div>
               <Button asChild variant="volume">
                 <Link href="/signin">{t('Hero.cta')}</Link>
@@ -68,13 +67,13 @@ export function HeroSection() {
                   aria-label={t('Hero.testimonial.cta')}
                   className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[var(--outline-secondary)]"
                 >
-                  <ArrowUpRight size={24} className="text-[var(--neutral-600)]" />
+                  <ArrowUpRight size={24} className="text-[var(--text-muted)]" />
                 </button>
               </div>
               <div className="mt-4 border-t border-[var(--outline-secondary)]" />
               <div className="mt-4 flex items-center justify-between">
                 <AvatarStack images={avatars} />
-                <span className="text-[26px] font-bold leading-[150%] text-[var(--neutral-600)]">
+                <span className="text-[26px] font-bold leading-[150%] text-[var(--text-muted)]">
                   {t('Hero.testimonial.metric')}
                 </span>
               </div>

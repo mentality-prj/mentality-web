@@ -2,6 +2,7 @@ import type { Config } from 'tailwindcss'
 
 const config: Config = {
   content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './ds/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
+
   theme: {
     extend: {
       screens: {
@@ -9,100 +10,83 @@ const config: Config = {
         laptop: '768px',
         desktop: '1024px',
       },
+
       colors: {
-        disable: 'var(--disable)',
-        reversed: 'var(--reversed)',
-        accent: {
-          action: 'var(--accent-action)',
+        /* ===== Layout & Base ===== */
+        background: {
+          DEFAULT: 'hsl(var(--background))',
+          alt: 'hsl(var(--background-alt))',
+          soft: 'hsl(var(--background-soft))',
+          muted: 'hsl(var(--background-muted))',
         },
-        border: 'var(--border)',
-        default: 'var(--default)',
-        primary: {
-          DEFAULT: 'var(--primary)',
-          hover: 'var(--primary-hover)',
-          focus: 'var(--primary-focus)',
-          pressed: 'var(--primary-pressed)',
+        admin: {
+          DEFAULT: 'hsl(var(--admin-background))',
+          surface: 'hsl(var(--admin-surface))',
+          accent: 'hsl(var(--admin-accent))',
+          text: 'hsl(var(--admin-text))',
         },
-        secondary: {
-          DEFAULT: 'var(--secondary)',
-          hover: 'var(--secondary-hover)',
-          focus: 'var(--secondary-focus)',
-          pressed: 'var(--secondary-pressed)',
-        },
-        destructive: {
-          DEFAULT: 'var(--destructive)',
-          hover: 'var(--destructive-hover)',
-          focus: 'var(--destructive-focus)',
-          pressed: 'var(--destructive-pressed)',
-        },
+        border: 'hsl(var(--border))',
+
+        /* ===== Text ===== */
         textcolor: {
-          primary: 'var(--text-primary)',
-          secondary: 'var(--text-secondary)',
-          tertiary: 'var(--text-tertiary)',
-          purple: 'var(--text-purple)',
-          error: 'var(--text-error)',
-          success: 'var(--text-success)',
+          primary: 'hsl(var(--text-primary))',
+          secondary: 'hsl(var(--text-secondary))',
+          muted: 'hsl(var(--text-muted))',
         },
-        iconcolor: {
-          primary: 'var(--icon-primary)',
-          secondary: 'var(--icon-secondary)',
-          tertiary: 'var(--icon-tertiary)',
-          error: 'var(--icon-error)',
-          success: 'var(--icon-success)',
+
+        /* ===== Brand / CTA ===== */
+        primary: {
+          DEFAULT: 'hsl(var(--primary))',
+          hover: 'hsl(var(--primary-hover))',
+          active: 'hsl(var(--primary-active))',
+          foreground: 'hsl(var(--primary-foreground))',
         },
-        outline: {
-          primary: 'var(--outline-primary)',
-          secondary: 'var(--outline-secondary)',
-          tertiary: 'var(--outline-tertiary)',
-          error: 'var(--outline-error)',
-          success: 'var(--outline-success)',
+
+        secondary: {
+          DEFAULT: 'hsl(var(--secondary))',
+          soft: 'hsl(var(--secondary-soft))',
+          foreground: 'hsl(var(--secondary-foreground))',
         },
-        surface: {
-          white: 'var(--surface)',
-          primary: 'var(--surface-primary)',
-          secondary: 'var(--surface-secondary)',
-          action: 'var(--surface-action)',
-          dark: 'var(--surface-dark)',
-          cardInfo: 'hsl(var(--card-info))',
-          cardAlert: 'hsl(var(--card-alert))',
-          cardSuccess: 'hsl(var(--card-success))',
+
+        tertiary: {
+          DEFAULT: 'hsl(var(--tertiary))',
+          soft: 'hsl(var(--tertiary-soft))',
+          foreground: 'hsl(var(--tertiary-foreground))',
         },
-        cta: {
-          DEFAULT: 'hsl(var(--cta))',
-          hover: 'hsl(var(--cta-hover))',
-          focus: 'hsl(var(--cta-focus))',
-          pressed: 'hsl(var(--cta-pressed))',
+
+        accent: {
+          DEFAULT: 'hsl(var(--accent))',
+          soft: 'hsl(var(--accent-soft))',
+          foreground: 'hsl(var(--accent-foreground))',
         },
-        sidebar: {
-          DEFAULT: 'hsl(var(--sidebar-background))',
-          foreground: 'hsl(var(--sidebar-foreground))',
-          primary: 'hsl(var(--sidebar-primary))',
-          'primary-foreground': 'hsl(var(--sidebar-primary-foreground))',
-          accent: 'hsl(var(--sidebar-accent))',
-          'accent-foreground': 'hsl(var(--sidebar-accent-foreground))',
-          border: 'hsl(var(--sidebar-border))',
-          ring: 'hsl(var(--sidebar-ring))',
+
+        /* ===== States ===== */
+        success: {
+          DEFAULT: 'hsl(var(--success))',
+          foreground: 'hsl(var(--success-foreground))',
         },
-        tag: {
-          DEFAULT: 'var(--tag)',
-          surfaceLightPurple: 'var(--tag-surface-light-purple)',
+        warning: {
+          DEFAULT: 'hsl(var(--warning))',
+          foreground: 'hsl(var(--warning-foreground))',
+        },
+
+        special: {
+          from: 'hsl(var(--special-from))',
+          to: 'hsl(var(--special-to))',
+          foreground: 'hsl(var(--special-foreground))',
         },
       },
-      fontFamily: {
-        sans: ['var(--font-sans)', 'sans-serif'],
-        mono: ['var(--font-mono)', 'monospace'],
-      },
-      // Custom border radius values using CSS variable --radius:
-      // xs: ¼, sm: ½, md: -4px, default: base, lg: ×3, xl: ×5
+
       borderRadius: {
         xs: 'calc(var(--radius) / 4)',
         sm: 'calc(var(--radius) / 2)',
         md: 'calc(var(--radius) - 4px)',
-        default: 'var(--radius)',
+        DEFAULT: 'var(--radius)',
         lg: 'calc(var(--radius) * 3)',
         xl: 'calc(var(--radius) * 5)',
       },
     },
   },
 }
+
 export default config

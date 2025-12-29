@@ -1,0 +1,350 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 'Inter';
+}
+
+* {
+  box-sizing: border-box;
+}
+
+/* Landing hero decorative background */
+.hero-bg {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, hsl(var(--surface-action)) 0%, hsl(var(--surface-action)) 100%);
+}
+.hero-bg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(1200px 600px at 20% 20%, hsla(260, 30%, 35%, 0.12) 0%, transparent 60%),
+    radial-gradient(1000px 500px at 90% 80%, hsla(260, 30%, 35%, 0.12) 0%, transparent 60%),
+    repeating-linear-gradient(
+      90deg,
+      hsla(260, 30%, 35%, 0.08) 0px,
+      hsla(260, 30%, 35%, 0.08) 12px,
+      transparent 12px,
+      transparent 36px
+    );
+  opacity: 1;
+}
+
+.hero-zen {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(180deg, #f8f6ff 0%, #f3f0fb 28%, #ebe5f7 62%, #e1d9f2 100%);
+  --hero-gradient-x: 23%;
+  --hero-gradient-y: 19%;
+  /* JS overrides --hero-gradient-x/--hero-gradient-y to keep glow under the header logo */
+}
+
+.hero-zen::before,
+.hero-zen::after {
+  content: '';
+  position: absolute;
+  inset: -28%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-zen::before {
+  background:
+    radial-gradient(
+      52% 52% at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(255, 100%, 95%, 0.36) 0%,
+      hsla(255, 100%, 94%, 0.22) 42%,
+      hsla(255, 100%, 92%, 0.08) 68%,
+      hsla(255, 100%, 97%, 0) 100%
+    ),
+    linear-gradient(
+      300deg,
+      hsla(250, 33%, 91%, 0.85) 0%,
+      hsla(255, 33%, 88%, 0.45) 34%,
+      hsla(255, 33%, 85%, 0.28) 62%,
+      hsla(255, 33%, 83%, 0.12) 82%,
+      hsla(255, 33%, 81%, 0.04) 100%
+    );
+  filter: blur(6px);
+}
+
+.hero-zen::after {
+  background:
+    radial-gradient(
+      84% 84% at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(255, 100%, 97%, 0.1) 0%,
+      hsla(255, 100%, 97%, 0.38) 48%,
+      hsla(255, 100%, 95%, 0.56) 76%,
+      hsla(255, 100%, 97%, 0.9) 95%
+    ),
+    repeating-radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(255, 60%, 88%, 0.28) 0px,
+      hsla(255, 60%, 88%, 0.28) 18px,
+      hsla(255, 60%, 98%, 0.18) 18px,
+      hsla(255, 60%, 98%, 0.18) 34px
+    ),
+    repeating-radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(255, 60%, 82%, 0.12) 0px,
+      hsla(255, 60%, 82%, 0.12) 12px,
+      hsla(0, 0%, 100%, 0) 12px,
+      hsla(0, 0%, 100%, 0) 24px
+    ),
+    repeating-radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(255, 60%, 88%, 0.24) 0px,
+      hsla(255, 60%, 88%, 0.24) 26px,
+      hsla(255, 60%, 98%, 0.14) 26px,
+      hsla(255, 60%, 98%, 0.14) 44px
+    ),
+    repeating-radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(255, 60%, 83%, 0.1) 0px,
+      hsla(255, 60%, 83%, 0.1) 34px,
+      hsla(0, 0%, 100%, 0) 34px,
+      hsla(0, 0%, 100%, 0) 52px
+    );
+  opacity: 0.66;
+  mix-blend-mode: multiply;
+  mask: radial-gradient(
+    70% 70% at var(--hero-gradient-x) var(--hero-gradient-y),
+    hsla(0, 0%, 0%, 0.78) 24%,
+    hsla(0, 0%, 0%, 0.3) 72%,
+    hsla(0, 0%, 0%, 0) 100%
+  );
+  -webkit-mask: radial-gradient(
+    70% 70% at var(--hero-gradient-x) var(--hero-gradient-y),
+    hsla(0, 0%, 0%, 0.78) 24%,
+    hsla(0, 0%, 0%, 0.3) 72%,
+    hsla(0, 0%, 0%, 0) 100%
+  );
+}
+
+.hero-zen > * {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title-shadow {
+  text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.8);
+}
+
+.landing-h1 {
+  @apply landing-heading hero-title-shadow text-4xl leading-[130%] md:text-5xl md:leading-[130%];
+}
+
+.landing-h2 {
+  @apply landing-heading hero-title-shadow text-3xl leading-[130%] md:text-4xl md:leading-[130%];
+}
+
+@layer base {
+  :root {
+    /* Landing page specific tokens moved from components */
+    --hero-bg: #f4f1fb; /* base tint for hero section */
+    --text-muted: #4b5563; /* mid-gray used for strokes, borders, text */
+    /* Existing close match: --surface-secondary ~ #E5E7EB, used for light gray backgrounds */
+    :disabled {
+      opacity: 1 !important;
+    } /* because tailwind overlaps disabled colors  */
+    --background: #fff;
+    --foreground: * / --disable: #e4e3e8;
+    --reversed: #fcfcfd;
+
+    --accent-action: #f1ebff;
+
+    --admin-background: 225 11% 27%;
+    --border: #eee;
+    --default: #2b2f34;
+
+    --primary: #905fff;
+    --primary-hover: #734ccc;
+    --primary-focus: #563999;
+    --primary-pressed: #3a2666;
+
+    --secondary: #f6f5ff;
+    --secondary-hover: #f0edff;
+    --secondary-focus: #e9e5ff;
+    --secondary-pressed: #d4ccff;
+
+    --destructive: #b91c1c;
+    --destructive-hover: #9b1717;
+    --destructive-focus: #851414;
+    --destructive-pressed: #6f1111;
+
+    --text-primary: #17171c;
+    --text-secondary: #2d2d39;
+    --text-tertiary: #8e8ea4;
+    --text-purple: #905fff;
+    --text-error: #991b1b;
+    --text-success: #22c55e;
+
+    --icon-primary: #17171c;
+    --icon-secondary: #2d2d39;
+    --icon-tertiary: #8e8ea4;
+    --icon-error: #991b1b;
+    --icon-success: #22c55e;
+
+    --outline-primary: #2d2d39;
+    --outline-secondary: #8e8ea4;
+    /* Icon tokens */
+    --icon-muted: var(--outline-secondary);
+    --outline-tertiary: #e4e3e8;
+    --outline-error: #b91c1c;
+    --outline-success: #16a34a;
+
+    --surface: #fcfcfd;
+    --surface-primary: #f2f1f3;
+    --surface-secondary: #e4e3e8;
+    --surface-action: #f5f3ff;
+
+    /* Card backgrounds from mockup */
+    --card-info: 180 30% 85%; /* pastel teal */
+    --card-alert: 210 90% 90%; /* light blue */
+    --card-success: 75 45% 80%; /* light yellow-green */
+
+    --surface-dark: #2d2d39;
+    --tag: #3a2666;
+    --tag-surface-light-purple: #f6f5ff;
+
+    --radius: 16px;
+
+    --font-sans: 'Inter', sans-serif;
+
+    --sidebar-background: 0 0% 98%;
+
+    --sidebar-foreground: 240 5.3% 26.1%;
+
+    --sidebar-primary: 240 5.9% 10%;
+
+    --sidebar-primary-foreground: 0 0% 98%;
+
+    --sidebar-accent: 240 4.8% 95.9%;
+
+    --sidebar-accent-foreground: 240 5.9% 10%;
+
+    --sidebar-border: 220 13% 91%;
+
+    --sidebar-ring: 217.2 91.2% 59.8%;
+
+    /* Chart */
+    --chart-1: 12 76% 61%;
+    --chart-2: 173 58% 39%;
+    --chart-3: 197 37% 24%;
+    --chart-4: 43 74% 66%;
+    --chart-5: 27 87% 67%;
+
+    /* CTA palette (violet) */
+    --cta: 268 73% 58%;
+    --cta-hover: 268 73% 53%;
+    --cta-focus: 268 73% 48%;
+    --cta-pressed: 268 73% 43%;
+
+    --title-color: hsl(217 19% 27%);
+  }
+}
+
+@layer components {
+  .container-max-width {
+    max-width: 1440px;
+  }
+  .padded {
+    @apply px-8 py-3;
+  }
+  .container {
+    @apply mx-auto my-4 flex w-full flex-col;
+  }
+  .container {
+    @apply mx-auto my-4 flex w-full flex-col;
+  }
+  .content {
+    @apply h-full w-full gap-4 bg-surface-primary p-4 pt-0 tablet:p-6 tablet:pt-0 laptop:p-8 laptop:pt-8 desktop:p-10 desktop:pt-0;
+  }
+  .paper {
+    @apply flex rounded-[32px] bg-white;
+  }
+  .old-paper {
+    @apply flex rounded-[32px] bg-amber-100;
+  }
+
+  .landing-heading {
+    @apply font-sans font-semibold not-italic text-[color:var(--title-color)];
+  }
+  .landing-heading {
+    @apply font-sans font-semibold not-italic text-[color:var(--title-color)];
+  }
+
+  /* ServicesSection custom heading lines */
+  .services-title-line1 {
+    display: block;
+    width: 200px;
+  }
+  .services-title-line2 {
+    display: block;
+    padding-left: 50px;
+  }
+
+  /* Added button gradient style */
+  .button-gradient {
+    background-image: linear-gradient(
+      45deg,
+      hsla(168, 76%, 47%, 0) 60%,
+      hsla(168, 76%, 47%, 0.5) 80%,
+      hsla(0, 0%, 100%, 0.5) 100%
+    );
+    box-shadow: inset 0px 2px 4px hsla(0, 0%, 100%, 0.3);
+  }
+
+  .admin-background {
+    @apply bg-[hsl(var(--admin-background))];
+  }
+
+  .sidemenu-layout {
+    @apply container-max-width mx-auto flex w-full gap-3 px-4 tablet:px-6 md:px-8 lg:px-10;
+  }
+
+  .admin-layout {
+    @apply flex min-h-screen w-full bg-[color:var(--background)];
+  }
+
+  /* Cards */
+  .default {
+    @apply border border-border bg-none text-default;
+  }
+  .accent {
+    @apply bg-violet-400 text-gray-100;
+  }
+  .dark {
+    @apply bg-gray-800 text-gray-200;
+  }
+  .info {
+    @apply bg-indigo-200 text-default;
+  }
+  .success {
+    @apply bg-green-100 text-default;
+  }
+  .special {
+    @apply bg-gradient-to-br from-red-400 to-indigo-900 text-white;
+  }
+  .warn {
+    @apply bg-amber-200 text-default;
+  }
+  .tag {
+    @apply bg-white text-default;
+  }
+
+  .sup {
+    @apply text-xs text-gray-500;
+  }
+  .remark {
+    @apply text-sm font-normal text-gray-500;
+  }
+}

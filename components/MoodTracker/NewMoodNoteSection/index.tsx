@@ -12,7 +12,7 @@ export const NewMoodNoteSection = () => {
   const t = useTranslations('components.MoodNote')
 
   return (
-    <div className="flex w-full flex-col bg-surface-white tablet:min-w-[600px]">
+    <div className="flex w-full flex-col bg-background-alt-white tablet:min-w-[600px]">
       <div className="px-8 pb-6 pt-8">
         <div className="text-xl font-semibold"> {t('title')} </div>
       </div>

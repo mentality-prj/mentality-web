@@ -80,7 +80,7 @@ export function ChartDynamics() {
     return date >= startDate
   })
   return (
-    <div className="rounded-md bg-surface-white p-8">
+    <div className="rounded-md bg-background-alt-white p-8">
       <div className="mb-5 flex items-center justify-between">
         <div className="text-xl/[24px] font-semibold text-textcolor-primary">{t('title')}</div>
         <Tabs defaultValue="14d" onValueChange={setTimeRange}>

@@ -37,10 +37,14 @@ export default function AdminPage() {
         remark="success"
         tags={['tag one', 'tag two']}
       />
-      <Card type="info" title="Title 02" text="Lorem ipsum" tags={['tag one', 'tag two']} />
+      <Card type="info" title="Title 02" text="Lorem ipsum" remark="info" tags={['tag one', 'tag two']} />
       <Card type="dark" title="Title 03" text="Lorem ipsum" remark="dark" />
       <Card type="warn" title="Title 04" text="Lorem ipsum" remark="warn" />
       <Card type="accent" title="Title 05" text="Lorem ipsum" remark="accent" />
+      <Card type="error" title="Title 06" text="Lorem ipsum" remark="error" />
+      <Card title="Title 07" text="Lorem ipsum" remark="accent-soft" className="bg-accent-soft" />
+      <Card title="Title 08" text="Lorem ipsum" remark="accent-foreground" className="bg-accent-foreground" />
+
       <CustomCard
         icon={<CloudIcon />}
         title="custom card"

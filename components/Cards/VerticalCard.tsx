@@ -97,7 +97,7 @@ export default function VerticalCard({
         </div>
       ) : (
         icon && (
-          <div className="flex aspect-[4/5] w-full items-center justify-center rounded-[28px] bg-surface-secondary">
+          <div className="flex aspect-[4/5] w-full items-center justify-center rounded-[28px] bg-background-alt-secondary">
             <div className="h-16 w-16 text-[var(--title-color)] [&>svg]:h-16 [&>svg]:w-16">{icon}</div>
           </div>
         )

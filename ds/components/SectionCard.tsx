@@ -23,12 +23,12 @@ export const SectionCard = ({
 }: SectionCardProps) => {
   const typeBg =
     type === 'info'
-      ? 'bg-surface-cardInfo'
+      ? 'bg-background-alt-cardInfo'
       : type === 'alert'
-        ? 'bg-surface-cardAlert'
+        ? 'bg-background-alt-cardAlert'
         : type === 'success'
-          ? 'bg-surface-cardSuccess'
-          : 'bg-surface-card'
+          ? 'bg-background-alt-cardSuccess'
+          : 'bg-background-alt-card'
   return (
     <div className={cn(typeBg, 'relative overflow-hidden rounded-default p-8', className)}>
       {decoration && <div className="pointer-events-none absolute inset-0">{decoration}</div>}

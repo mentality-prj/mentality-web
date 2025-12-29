@@ -1,13 +1,13 @@
 import { useTranslations } from 'next-intl'
 
-import { adminMenu } from '@/constants/menu'
+import { landingMenu } from '@/constants/menu'
 import { Link } from '@/i18n/navigation'
 
-const AdminNav = () => {
+const LandingNav = () => {
   const t = useTranslations('components.Navbar')
   return (
     <nav className="hidden items-center gap-8 text-base font-normal leading-[120%] tracking-normal text-[var(--title-color)] md:flex">
-      {adminMenu.map((item) => (
+      {landingMenu.map((item) => (
         <Link key={item.key} href={item.href} className="hover:underline">
           {t(item.key)}
         </Link>
@@ -16,4 +16,4 @@ const AdminNav = () => {
   )
 }
 
-export default AdminNav
+export default LandingNav

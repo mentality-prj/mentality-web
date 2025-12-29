@@ -27,6 +27,8 @@ export default function LangSwitch({ type }: { type?: 'default' | 'admin' }) {
   const localeLabelNative = LocaleNativeLabels
   const localeTriggerShort = LocaleTriggerShortLabels
 
+  const textColor = type === 'admin' ? 'text-admin-text' : 'text-remark hover:text-primary'
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,16 +39,14 @@ export default function LangSwitch({ type }: { type?: 'default' | 'admin' }) {
           className="group flex h-12 items-center gap-1.5 rounded-full border-0 bg-transparent px-0 py-0 text-sm shadow-none outline-none ring-0 hover:bg-transparent focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 data-[state=open]:ring-0"
         >
           <span className="inline-flex w-4 items-center justify-center">
-            <Globe size={18} className={`${type === 'admin' ? 'text-secondary' : 'text-textcolor-primary'}`} />
+            <Globe size={18} className={textColor} />
           </span>
-          <span
-            className={`text-sm font-medium leading-none group-hover:underline ${
-              type === 'admin' ? 'text-secondary' : 'text-textcolor-primary'
-            }`}
-          >
+          <span className={`text-sm font-medium leading-none group-hover:underline ${textColor}`}>
             {localeTriggerShort[activeLocale as SupportedLanguage]}
           </span>
-          <span className="inline-flex w-3 items-center justify-center text-xs text-textcolor-tertiary">▾</span>
+          <span className={`inline-flex w-3 items-center justify-center text-xs text-textcolor-tertiary ${textColor}`}>
+            ▾
+          </span>
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

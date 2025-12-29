@@ -39,7 +39,11 @@ const Card = ({
               {icon && icon}
               <div className="">{sup}</div>
             </div>
-            {tools && <div className="flex gap-1.5">{tools}</div>}
+            {tools && (
+              <div className="flex gap-1.5">
+                {Array.isArray(tools) ? tools.map((tool, idx) => <span key={idx}>{tool}</span>) : tools}
+              </div>
+            )}
           </div>
         )}
         {title && <h3 className="mb-0.5 text-xl font-bold">{title}</h3>}

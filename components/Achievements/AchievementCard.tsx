@@ -22,7 +22,7 @@ export const AchievementCard = async ({
     <div
       className={cn(
         'flex flex-col justify-between rounded-md border-outline-secondary text-center shadow-none',
-        status === 'unlocked' && 'border-textcolor-purple bg-surface-action'
+        status === 'unlocked' && 'border-textcolor-purple bg-background-alt-action'
       )}
     >
       <div className="items-center space-y-1">
@@ -44,7 +44,7 @@ export const AchievementCard = async ({
                 {currentProgress}/{progress}
               </div>
             </div>
-            <Progress className="mt-2 h-[6px] bg-surface-secondary" value={(currentProgress / progress) * 100} />
+            <Progress className="mt-2 h-[6px] bg-background-alt-secondary" value={(currentProgress / progress) * 100} />
           </div>
         ) : (
           ''

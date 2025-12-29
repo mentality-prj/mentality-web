@@ -1,13 +1,7 @@
 import { ReactNode } from 'react'
 
-import Container from '@/components/wrappers/Container'
-
 const AuthLayout = ({ children }: { children: ReactNode }) => {
-  return (
-    <Container>
-      <section className="mt-12 flex flex-col items-center gap-10">{children}</section>
-    </Container>
-  )
+  return <section className="mt-12 flex flex-col items-center gap-10 mx-auto">{children}</section>
 }
 
 export default AuthLayout

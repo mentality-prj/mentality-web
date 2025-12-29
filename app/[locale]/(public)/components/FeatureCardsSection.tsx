@@ -41,26 +41,26 @@ export function FeatureCardsSection() {
 
   return (
     <section className="mb-12 w-full">
-      <div className="mx-auto grid max-w-[1440px] grid-cols-1 gap-6 px-4 tablet:px-6 md:grid-cols-3 md:px-8 lg:px-10">
+      <div className="container-max-width mx-auto grid grid-cols-1 gap-6 px-4 tablet:px-6 md:grid-cols-3 md:px-8 lg:px-10">
         <SectionCard
           type="info"
           title={t('Features.interactivity.title')}
           subtitle={t('Features.interactivity.subtitle')}
-          titleClassName="landing-heading hero-title-shadow text-textcolor-primary"
+          titleClassName="landing-heading light-shadow text-textcolor-primary"
           decoration={interactivityDecoration}
         />
         <SectionCard
           type="alert"
           title={t('Features.support.title')}
           subtitle={t('Features.support.subtitle')}
-          titleClassName="landing-heading hero-title-shadow text-textcolor-primary"
+          titleClassName="landing-heading light-shadow text-textcolor-primary"
           decoration={supportDecoration}
         />
         <SectionCard
           type="success"
           title={t('Features.ai.title')}
           subtitle={t('Features.ai.subtitle')}
-          titleClassName="landing-heading hero-title-shadow text-textcolor-primary"
+          titleClassName="landing-heading light-shadow text-textcolor-primary"
           decoration={aiDecoration}
         />
       </div>

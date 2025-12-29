@@ -44,7 +44,7 @@ describe('Middleware Error Handling', () => {
         error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
       })
 
-      const request = createRequest('/uk/home')
+      const request = createRequest('/uk/myday')
       const response = await middleware(request)
 
       expect(response).toBeDefined()
@@ -72,7 +72,7 @@ describe('Middleware Error Handling', () => {
         error: { error: 'RefreshTokenError', message: 'Refresh token expired' },
       })
 
-      const request = createRequest('/uk/home')
+      const request = createRequest('/uk/myday')
       const response = await middleware(request)
 
       expect(response).toBeDefined()
@@ -94,7 +94,7 @@ describe('Middleware Error Handling', () => {
         error: { error: 'InvalidToken', message: 'Token is invalid' },
       })
 
-      const request = createRequest('/uk/home')
+      const request = createRequest('/uk/myday')
       const response = await middleware(request)
 
       expect(response).toBeDefined()
@@ -119,7 +119,7 @@ describe('Middleware Error Handling', () => {
         error: { error: 'SomeOtherError', message: 'Some error' },
       })
 
-      const request = createRequest('/uk/home')
+      const request = createRequest('/uk/myday')
       const response = await middleware(request)
 
       // Should not redirect to error pages
@@ -138,7 +138,7 @@ describe('Middleware Error Handling', () => {
         OAuthToken: 'valid-token',
       })
 
-      const request = createRequest('/uk/home')
+      const request = createRequest('/uk/myday')
       const response = await middleware(request)
 
       // Should not redirect to error pages
@@ -157,7 +157,7 @@ describe('Middleware Error Handling', () => {
         error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
       })
 
-      const request = createRequest('/uk/home')
+      const request = createRequest('/uk/myday')
       const response = await middleware(request)
 
       expect(response.headers.get('location')).toContain(Routes.SERVERERROR)
@@ -169,7 +169,7 @@ describe('Middleware Error Handling', () => {
         error: { error: 'RefreshTokenError' },
       })
 
-      const request = createRequest('/uk/home')
+      const request = createRequest('/uk/myday')
       const response = await middleware(request)
 
       expect(response.headers.get('location')).toContain(Routes.SIGNIN)

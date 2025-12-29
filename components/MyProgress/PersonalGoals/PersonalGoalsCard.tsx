@@ -60,7 +60,7 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
       <div
         className={cn(
           'flex aspect-[11/8] flex-col justify-between gap-7 rounded-md border border-outline-secondary p-6',
-          status === 'completed' && 'border-primary bg-surface-action'
+          status === 'completed' && 'border-primary bg-background-alt-action'
         )}
       >
         <div className="flex items-start gap-2">
@@ -84,7 +84,7 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
         </div>
         <div className="flex flex-col gap-4">
           <div className="">
-            <Progress value={(check / repeat) * 100} className="h-[6px] bg-surface-secondary" />
+            <Progress value={(check / repeat) * 100} className="h-[6px] bg-background-alt-secondary" />
             <div className="mt-2 flex justify-between text-xs/[14px] font-normal text-textcolor-tertiary">
               <div>{t('Progress')}</div>
               <div>
@@ -93,7 +93,7 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
             </div>
           </div>
           {status === 'completed' ? (
-            <div className="flex items-center justify-center gap-3 rounded-md border border-primary bg-surface-white px-3 py-4 text-xs/[14px]">
+            <div className="flex items-center justify-center gap-3 rounded-md border border-primary bg-background-alt-white px-3 py-4 text-xs/[14px]">
               <StarMotionEmoji />
               <p>{t('GoalAchieved')}</p>
             </div>

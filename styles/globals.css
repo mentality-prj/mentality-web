@@ -4,23 +4,31 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =====================================================
+   GLOBAL RESET
+===================================================== */
+
 html,
 body {
   padding: 0;
   margin: 0;
-  font-family: 'Inter';
+  font-family: 'Inter', sans-serif;
 }
 
 * {
   box-sizing: border-box;
 }
 
-/* Landing hero decorative background */
+/* =====================================================
+   HERO / LANDING (decorative, isolated)
+===================================================== */
+
 .hero-bg {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, hsl(var(--surface-action)) 0%, hsl(var(--surface-action)) 100%);
+  background: linear-gradient(180deg, hsl(var(--background-muted)) 0%, hsl(var(--background-muted)) 100%);
 }
+
 .hero-bg::before {
   content: '';
   position: absolute;
@@ -134,209 +142,182 @@ body {
   z-index: 1;
 }
 
-.hero-title-shadow {
+.light-shadow {
   text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.8);
 }
-
-.landing-h1 {
-  @apply landing-heading hero-title-shadow text-4xl leading-[130%] md:text-5xl md:leading-[130%];
+.dark-shadow {
+  text-shadow: 0 -1px 0 rgb(29, 34, 41);
 }
 
-.landing-h2 {
-  @apply landing-heading hero-title-shadow text-3xl leading-[130%] md:text-4xl md:leading-[130%];
-}
+/* =====================================================
+   BASE TOKENS
+===================================================== */
 
 @layer base {
   :root {
-    --admin-background: 225 11% 27%;
-
-    /* Landing page specific tokens moved from components */
-    --hero-bg: #f4f1fb; /* base tint for hero section */
-    --neutral-600: #4b5563; /* mid-gray used for strokes, borders, text */
-    /* Existing close match: --surface-secondary ~ #E5E7EB, used for light gray backgrounds */
     :disabled {
       opacity: 1 !important;
-    } /* because tailwind overlaps disabled colors  */
-    --background: #fff;
-    --foreground: * / --disable: #e4e3e8;
-    --reversed: #fcfcfd;
+    }
 
-    --accent-action: #f1ebff;
+    /* Backgrounds */
+    --background: 0 0% 100%; /* white */
+    --background-alt: 156 54% 90%;
+    --background-soft: 156 54% 98%;
+    --background-muted: 258 33% 96%; /* Lavender-50 (#f4f3ff, custom, not in palette) */
 
-    --border: #eee;
-    --default: #2b2f34;
+    /* Text */
+    --text-primary: 215 15% 18%; /* slate-900 (#1e293b) */
+    --text-secondary: 215 10% 35%; /* slate-600 (#475569) */
+    --text-muted: 215 14% 40%; /* darker slate-500, 20% darker */
+    --text-inverse: 0 0% 100%; /* white */
+    --remark: hsl(var(--text-muted));
 
-    --primary: #905fff;
-    --primary-hover: #734ccc;
-    --primary-focus: #563999;
-    --primary-pressed: #3a2666;
+    /* Borders */
+    --border: 0 0% 83%; /* gray-400 (#d1d5db) */
 
-    --secondary: #f6f5ff;
-    --secondary-hover: #f0edff;
-    --secondary-focus: #e9e5ff;
-    --secondary-pressed: #d4ccff;
+    /* Brand */
+    --primary: 268 73% 58%; /* violet-600 (#7c3aed) */
+    --primary-hover: 268 73% 53%; /* violet-700 (#6d28d9) */
+    --primary-focus: 268 73% 48%; /* Custom, between violet-700 and violet-800 */
+    --primary-pressed: 268 73% 43%; /* Custom, darker than violet-800 */
+    --primary-foreground: 0 0% 100%; /* white */
 
-    --destructive: #b91c1c;
-    --destructive-hover: #9b1717;
-    --destructive-focus: #851414;
-    --destructive-pressed: #6f1111;
+    --accent: 262 83% 57%; /* violet-500 (#8b5cf6) */
+    --accent-soft: 262 80% 75%; /* violet-300 (#c4b5fd), more violet, 10% darker */
+    --accent-foreground: 0 0% 100%; /* white */
 
-    --text-primary: #17171c;
-    --text-secondary: #2d2d39;
-    --text-tertiary: #8e8ea4;
-    --text-purple: #905fff;
-    --text-error: #991b1b;
-    --text-success: #22c55e;
+    /* States */
+    --info: 207, 96%, 85%; /* blue-300 (#93c5fd) */
+    --success: 142 70% 85%; /* green-200 (#bbf7d0) */
+    --warning: 32 97% 61%; /* orange-500 (#f97316) */
+    --error: 0 84% 60%; /* red-500 (#ef4444) */
+    --state-foreground: 215 15% 18%; /* slate-900 (#1e293b) */
 
-    --icon-primary: #17171c;
-    --icon-secondary: #2d2d39;
-    --icon-tertiary: #8e8ea4;
-    --icon-error: #991b1b;
-    --icon-success: #22c55e;
+    /* Special */
+    --special-from: 0 84% 67%; /* red-500 (#ef4444) */
+    --special-to: 230 60% 30%; /* Custom, deep blue */
+    --special-foreground: 0 0% 100%; /* white */
 
-    --outline-primary: #2d2d39;
-    --outline-secondary: #8e8ea4;
-    /* Icon tokens */
-    --icon-muted: var(--outline-secondary);
-    --outline-tertiary: #e4e3e8;
-    --outline-error: #b91c1c;
-    --outline-success: #16a34a;
+    /* Admin */
+    --admin-background: 225 11% 27%; /* Custom, dark blue-gray */
+    --admin-surface: 225 11% 32%; /* Custom, slightly lighter */
+    --admin-accent: 262 40% 55%; /* Custom, purple-blue */
+    --admin-text: 0 0% 92%; /* gray-100 (#f3f4f6) */
 
-    --surface: #fcfcfd;
-    --surface-primary: #f2f1f3;
-    --surface-secondary: #e4e3e8;
-    --surface-action: #f5f3ff;
-
-    /* Card backgrounds from mockup */
-    --card-info: 180 30% 85%; /* pastel teal */
-    --card-alert: 210 90% 90%; /* light blue */
-    --card-success: 75 45% 80%; /* light yellow-green */
-
-    --surface-dark: #2d2d39;
-    --tag: #3a2666;
-    --tag-surface-light-purple: #f6f5ff;
-
+    /* Misc */
     --radius: 16px;
-
-    --font-sans: 'Inter', sans-serif;
-
-    --sidebar-background: 0 0% 98%;
-
-    --sidebar-foreground: 240 5.3% 26.1%;
-
-    --sidebar-primary: 240 5.9% 10%;
-
-    --sidebar-primary-foreground: 0 0% 98%;
-
-    --sidebar-accent: 240 4.8% 95.9%;
-
-    --sidebar-accent-foreground: 240 5.9% 10%;
-
-    --sidebar-border: 220 13% 91%;
-
-    --sidebar-ring: 217.2 91.2% 59.8%;
-
-    /* Chart */
-    --chart-1: 12 76% 61%;
-    --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
-
-    /* CTA palette (violet) */
-    --cta: 268 73% 58%;
-    --cta-hover: 268 73% 53%;
-    --cta-focus: 268 73% 48%;
-    --cta-pressed: 268 73% 43%;
-
-    --title-color: hsl(217 19% 27%);
+    --title-color: 217 19% 27%; /* blue-900 (#1e293b) */
   }
 }
 
+/* =====================================================
+   COMPONENTS
+===================================================== */
+
 @layer components {
+  /* Layout */
   .container-max-width {
     max-width: 1440px;
   }
-  .container {
-    @apply mx-auto my-4 flex w-full flex-col;
-  }
-  .content {
-    @apply h-full w-full gap-4 bg-surface-primary p-4 pt-0 tablet:p-6 tablet:pt-0 laptop:p-8 laptop:pt-8 desktop:p-10 desktop:pt-0;
-  }
+
   .paper {
-    @apply flex rounded-[32px] bg-white;
+    @apply flex rounded-[32px] bg-background;
   }
 
+  .old-paper {
+    @apply flex rounded-[32px] bg-background-alt;
+  }
+
+  .padded {
+    @apply px-8 py-3;
+  }
+
+  /* Typography */
   .landing-heading {
-    @apply font-sans font-semibold not-italic text-[color:var(--title-color)];
-  }
-  .landing-heading {
-    @apply font-sans font-semibold not-italic text-[color:var(--title-color)];
+    @apply font-semibold;
+    color: hsl(var(--title-color));
   }
 
-  /* ServicesSection custom heading lines */
-  .services-title-line1 {
-    display: block;
-    width: 200px;
-  }
-  .services-title-line2 {
-    display: block;
-    padding-left: 50px;
+  .landing-h1 {
+    @apply landing-heading light-shadow text-4xl leading-[130%] md:text-5xl;
   }
 
-  /* Added button gradient style */
-  .button-gradient {
-    background-image: linear-gradient(
-      45deg,
-      hsla(168, 76%, 47%, 0) 60%,
-      hsla(168, 76%, 47%, 0.5) 80%,
-      hsla(0, 0%, 100%, 0.5) 100%
-    );
-    box-shadow: inset 0px 2px 4px hsla(0, 0%, 100%, 0.3);
-  }
-
-  .admin-background {
-    @apply bg-[hsl(var(--admin-background))];
-  }
-
-  .sidemenu-layout {
-    @apply mx-auto flex w-full max-w-[1440px] gap-3 px-4 tablet:px-6 md:px-8 lg:px-10;
-  }
-
-  .admin-layout {
-    @apply flex min-h-screen w-full bg-[color:var(--background)];
-  }
-
-  /* Cards */
-  .default {
-    @apply border border-border bg-none text-default;
-  }
-  .accent {
-    @apply bg-violet-400 text-gray-100;
-  }
-  .dark {
-    @apply bg-gray-800 text-gray-200;
-  }
-  .info {
-    @apply bg-indigo-200 text-default;
-  }
-  .success {
-    @apply bg-green-100 text-default;
-  }
-  .special {
-    @apply bg-gradient-to-br from-red-400 to-indigo-900 text-white;
-  }
-  .warn {
-    @apply bg-amber-200 text-default;
-  }
-  .tag {
-    @apply bg-white text-default;
+  .landing-h2 {
+    @apply landing-heading light-shadow text-3xl leading-[130%] md:text-4xl;
   }
 
   .sup {
-    @apply text-xs text-gray-500;
+    @apply text-xs;
+    color: hsl(var(--text-muted));
   }
+
   .remark {
-    @apply text-sm font-normal text-gray-500;
+    @apply text-sm font-normal text-remark;
+  }
+
+  .text-remark {
+    color: var(--remark);
+  }
+
+  /* Admin */
+  .admin-layout {
+    min-height: 100vh;
+    background-color: hsl(var(--background));
+  }
+
+  .admin-background {
+    background-color: hsl(var(--admin-background));
+    color: hsl(var(--admin-text));
+  }
+
+  /* Cards / surfaces */
+  .default {
+    @apply border;
+    border-color: hsl(var(--border));
+    color: hsl(var(--text-primary));
+  }
+
+  .accent {
+    background-color: hsl(var(--accent));
+    color: hsl(var(--accent-foreground));
+  }
+
+  .dark {
+    background-color: hsl(var(--admin-background));
+    color: hsl(var(--admin-text));
+    @apply dark-shadow;
+  }
+
+  .info {
+    background-color: hsl(var(--info));
+    color: hsl(var(--state-foreground));
+    @apply light-shadow;
+  }
+
+  .success {
+    background-color: hsl(var(--success));
+    color: hsl(var(--state-foreground));
+    @apply light-shadow;
+  }
+
+  .warn {
+    background-color: hsl(var(--warning));
+    color: hsl(var(--special-foreground));
+  }
+
+  .error {
+    background-color: hsl(var(--error));
+    color: hsl(var(--special-foreground));
+  }
+
+  .special {
+    background-image: linear-gradient(to bottom right, hsl(var(--special-from)), hsl(var(--special-to)));
+    color: hsl(var(--special-foreground));
+    @apply dark-shadow;
+  }
+
+  .tag {
+    background-color: hsl(var(--background));
+    color: hsl(var(--text-primary));
   }
 }
