@@ -10,7 +10,7 @@ export function CustomLink({ className, children, ...props }: CustomLinkProps) {
     <Link
       {...props}
       className={cn(
-        'inline-flex cursor-pointer font-semibold text-primary hover:text-primary-hover focus:font-bold focus:text-primary-focus focus-visible:underline focus-visible:outline-none active:text-primary-pressed',
+        'focus:text-primary-focus active:text-primary-pressed inline-flex cursor-pointer font-semibold text-primary hover:text-primary-hover focus:font-bold focus-visible:underline focus-visible:outline-none',
         className
       )}
     >

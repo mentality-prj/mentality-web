@@ -1,6 +1,8 @@
 'use client'
-import { AdminNav } from '@/components/Admin'
 import { Logo } from '@/components/Header'
+import { adminTopMenu } from '@/constants/menu'
+
+import TopMenu from '../TopMenu/TopMenu'
 
 const AdminHeader = () => {
   return (
@@ -8,8 +10,8 @@ const AdminHeader = () => {
       <div className="flex items-center gap-4">
         <Logo />
       </div>
-      <nav className="mr-10 flex items-center gap-6">
-        <AdminNav />
+      <nav className="text-title mr-10 flex items-center gap-default">
+        <TopMenu menu={adminTopMenu} />
       </nav>
     </header>
   )

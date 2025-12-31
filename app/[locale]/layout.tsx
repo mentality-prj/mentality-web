@@ -12,8 +12,12 @@ import { Providers } from './providers'
 
 import '@/styles/globals.css'
 
-export const metadata: Metadata = {
-  title: 'Dzvin',
+export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
+  const locale = params.locale
+  const messages = (await import(`@/../messages/${locale}/common/title.json`)).default
+  return {
+    title: messages.AppTitle || 'Dzvin.co',
+  }
 }
 
 export default async function LocaleLayout({

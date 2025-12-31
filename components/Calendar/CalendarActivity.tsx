@@ -33,7 +33,7 @@ export const CalendarActivity = ({ selectedDays }: CalendarActivityProps) => {
         weekdays: `${defaultClassNames.weekdays} flex text-textcolor-tertiary capitalize text-sm/[16px]`,
         day: 'flex aspect-square h-8 w-8 select-none items-center justify-center rounded-xs border px-1 py-[9px] text-xs font-normal border-outline-secondary bg-secondary text-textcolor-tertiary',
         today: `${defaultClassNames.today} border-2`,
-        hidden: 'visible border-0 bg-surface-primary',
+        hidden: 'visible border-0 background-alt',
       }}
       modifiersClassNames={{
         activeDays: '!bg-accent-action border-primary !text-primary',

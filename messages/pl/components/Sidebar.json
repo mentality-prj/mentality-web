@@ -1,8 +1,6 @@
 {
-  "HOME": "Dom",
-  "MOODTRACKER": "Tracker nastroju",
-  "GUIDE": "Poradnik",
-  "MYNOTES": "Moje notatki",
-  "MYPROGRESS": "Mój postęp",
-  "SETTINGS": "Ustawienia"
+  "mood-tracker": "Tracker nastroju",
+  "guide": "Poradnik",
+  "my-notes": "Moje notatki",
+  "my-progress": "Mój postęp"
 }

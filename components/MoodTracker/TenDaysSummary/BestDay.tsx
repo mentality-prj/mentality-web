@@ -46,7 +46,7 @@ export const BestDay = async () => {
           </div>
         </div>
       ) : (
-        <div className="text-sm text-textcolor-tertiary">{t('empty')}</div>
+        <div className="text-textcolor-tertiary text-sm">{t('empty')}</div>
       )}
     </SummaryCard>
   )

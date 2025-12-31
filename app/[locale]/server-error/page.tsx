@@ -10,7 +10,7 @@ export default function ServerErrorPage() {
   const t = useTranslations('pages.ServerError')
 
   return (
-    <div className="mx-auto flex min-h-screen flex-col items-center justify-center gap-6 px-4">
+    <div className="mx-auto flex min-h-screen flex-col items-center justify-center gap-default px-4">
       <div className="flex flex-col items-center gap-4 text-center">
         <h1 className="text-4xl font-bold">{t('title')}</h1>
         <p className="text-muted-foreground max-w-md text-lg">{t('description')}</p>

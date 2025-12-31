@@ -1,4 +1,5 @@
 'use client'
+import { Calendar } from 'lucide-react'
 import { useLocale } from 'next-intl'
 
 const LocalDate = () => {
@@ -10,9 +11,10 @@ const LocalDate = () => {
   const date = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(now)
 
   return (
-    <div className="hidden text-textcolor-primary tablet:block desktop:flex desktop:flex-row desktop:text-base">
-      <div>{weekday},&nbsp;</div>
-      <div>{date}</div>
+    <div className="text-textcolor-tertiary flex items-center gap-1 text-sm">
+      <Calendar size={12} />
+      <em>{weekday},</em>
+      <em>{date}</em>
     </div>
   )
 }

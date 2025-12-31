@@ -1,6 +1,0 @@
-export { ChartSquareIcon } from './chart-square'
-export { HomeIcon } from './home'
-export { MedalRibbonIcon } from './medal-ribbon'
-export { NotebookIcon } from './notebook'
-export { Pulse2Icon } from './pulse2'
-export { SettingsIcon } from './settings'

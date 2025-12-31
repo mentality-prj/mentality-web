@@ -10,7 +10,7 @@ import { PersonalGoalsTitle } from './PersonalGoalsTitle'
 export const PersonalGoals = () => {
   const [filter, setFilter] = useState<'all' | 'pending' | 'completed'>('all')
   return (
-    <SectionCard className="flex w-full flex-col items-center gap-6">
+    <SectionCard className="flex w-full flex-col items-center gap-default">
       <div className="flex w-full items-center justify-between">
         <PersonalGoalsTitle />
         <PersonalGoalsFilter filter={filter} setFilter={setFilter} />

@@ -68,8 +68,8 @@ export default function AddTip() {
 
   return (
     <div className="space-y-8 p-6">
-      <div className="flex w-full gap-6">
-        <div className="flex flex-col gap-6">
+      <div className="flex w-full gap-default">
+        <div className="flex flex-col gap-default">
           <Button color="success" onClick={generateTip} disabled={isSubmitting}>
             {isSubmitting ? t('submitting') : t('generateButton')}
           </Button>

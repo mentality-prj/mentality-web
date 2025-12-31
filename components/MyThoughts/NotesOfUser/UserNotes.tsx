@@ -19,7 +19,7 @@ export function UserNotes({ notes }: { notes: { key: string }[] }) {
       subtitlePrefix={isEmpty ? <PencilLine /> : undefined}
     >
       {!isEmpty && (
-        <div className="flex flex-row items-start gap-6">
+        <div className="flex flex-row items-start gap-default">
           <UserNotesCardFilter />
           <UserNotesCardList notes={notes} className="w-3/4" />
         </div>

@@ -27,7 +27,7 @@ export function MyGuideTabs({ meditations, categories, textLink }: MyGuideTabsPr
 
   return (
     <Tabs value={activeCategory} onValueChange={setActiveCategory}>
-      <TabsList className="gap-3 rounded-md bg-reversed p-2">
+      <TabsList className="bg-reversed gap-3 rounded-md p-2">
         {categories.map((categ) => (
           <TabsTrigger key={categ.key} value={categ.key}>
             {categ.label}
@@ -39,7 +39,7 @@ export function MyGuideTabs({ meditations, categories, textLink }: MyGuideTabsPr
         <TabsContent
           key={categ.key}
           value={categ.key}
-          className="pt-8 focus-within:rounded-md focus-within:outline-primary-focus"
+          className="focus-within:outline-primary-focus pt-8 focus-within:rounded-md"
         >
           <MyGuideCards meditations={filteredCards} textLink={textLink} />
         </TabsContent>

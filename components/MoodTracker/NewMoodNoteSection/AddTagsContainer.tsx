@@ -43,7 +43,7 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
             value={tag}
             aria-label={`Toggle ${tag}`}
             key={tag}
-            className="max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs text-textcolor-secondary data-[state='on']:bg-primary data-[state='on']:text-reversed"
+            className="data-[state='on']:text-reversed max-h-[22px] rounded-xs bg-secondary px-3 py-1 text-xs text-textcolor-secondary data-[state='on']:bg-primary"
           >
             {tag}
           </ToggleGroupItem>

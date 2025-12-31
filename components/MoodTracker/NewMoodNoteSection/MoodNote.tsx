@@ -34,14 +34,14 @@ export const MoodNote = () => {
             <Button size="iconBig" variant="iconButton">
               <Emoji />
             </Button>
-            <span className="mt-2 whitespace-nowrap text-xs font-normal text-textcolor-tertiary">
+            <span className="text-textcolor-tertiary mt-2 whitespace-nowrap text-xs font-normal">
               {labelsEmojiList[`${idx}`]}
             </span>
           </div>
         ))}
       </div>
 
-      <TextareaWithLabel rightIcon={<Mic className="h-6 w-6 text-iconcolor-secondary" />} label={t('label')} />
+      <TextareaWithLabel rightIcon={<Mic className="text-iconcolor-secondary h-6 w-6" />} label={t('label')} />
       <div className="mt-4">
         <TagsEditor tags={tags} onChange={setTags} />
       </div>

@@ -5,7 +5,7 @@ export const AchievementsTitle = () => {
   return (
     <div className="flex flex-col gap-1">
       <div className="text-xl/[24px]">{t('title')}</div>
-      <div className="text-sm/[16px] text-textcolor-purple">{t('subtitle')}</div>
+      <div className="text-textcolor-purple text-sm/[16px]">{t('subtitle')}</div>
     </div>
   )
 }

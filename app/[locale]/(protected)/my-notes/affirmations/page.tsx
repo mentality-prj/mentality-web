@@ -26,7 +26,7 @@ export default async function AffirmationsPage() {
         title={t('common.PageTitle.title', { title: 'affirmation' })}
         subtitle={t('common.PageTitle.subtitle', { subtitle: 'affirmation' })}
       />
-      <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
+      <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         {/* TODO:  move components to a separate component (i18n as well)*/}
         <CustomCard
           title={t('pages.AffirmationsPage.affirmation.title')}

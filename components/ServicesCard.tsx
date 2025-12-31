@@ -12,7 +12,7 @@ type ServicesCardProps = {
 export default function ServicesCard({ title, text, imageSrc, className = '' }: ServicesCardProps) {
   return (
     <article className={cn('flex flex-col rounded-3xl bg-white shadow-sm', className)}>
-      <div className="rounded-3xl bg-[var(--surface-secondary)]">
+      <div className="background-muted rounded-3xl">
         {imageSrc ? (
           <div className="relative h-[220px] w-full overflow-hidden rounded-3xl">
             <Image src={imageSrc} alt="service" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />

@@ -18,7 +18,7 @@ export default async function SignInButton({ provider }: SignInButtonProps) {
 
   async function handleLogin() {
     'use server'
-    await signIn(provider, { redirectTo: `/${locale}/${Routes.HOME}` })
+    await signIn(provider, { redirectTo: `/${locale}/${Routes.MYDAY}` })
   }
 
   return (

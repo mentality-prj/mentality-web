@@ -10,7 +10,7 @@ interface TagProps {
 
 const Tag = ({ children, text, type = 'tag' }: TagProps) => {
   return (
-    <span key={text} className={`whitespace-nowrap rounded-default px-3 py-1 text-xs ${Statuses[type as StatusType]}`}>
+    <span key={text} className={`whitespace-nowrap rounded px-3 py-1 text-xs ${Statuses[type as StatusType]}`}>
       {text || children}
     </span>
   )

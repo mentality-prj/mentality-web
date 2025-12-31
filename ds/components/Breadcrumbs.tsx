@@ -33,7 +33,7 @@ export const Breadcrumbs = ({ className, currentPage, breadcrumbList }: Breadcru
                 </Link>
               </BreadcrumbLink>
             </BreadcrumbItem>
-            <BreadcrumbSeparator className="mr-1 text-textcolor-tertiary">/</BreadcrumbSeparator>
+            <BreadcrumbSeparator className="text-textcolor-tertiary mr-1">/</BreadcrumbSeparator>
           </React.Fragment>
         ))}
         <BreadcrumbItem>

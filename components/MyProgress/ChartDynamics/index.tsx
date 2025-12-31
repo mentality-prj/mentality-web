@@ -80,7 +80,7 @@ export function ChartDynamics() {
     return date >= startDate
   })
   return (
-    <div className="rounded-md bg-surface-white p-8">
+    <div className="background-alt-white rounded-md p-8">
       <div className="mb-5 flex items-center justify-between">
         <div className="text-xl/[24px] font-semibold text-textcolor-primary">{t('title')}</div>
         <Tabs defaultValue="14d" onValueChange={setTimeRange}>
@@ -93,7 +93,7 @@ export function ChartDynamics() {
       </div>
 
       <div className="relative">
-        <div className="absolute h-[92%] w-full rounded-sm border border-outline-tertiary" />
+        <div className="border-outline-tertiary absolute h-[92%] w-full rounded-sm border" />
         <ChartContainer config={chartConfig}>
           <ResponsiveContainer width="100%" height={400}>
             <AreaChart margin={{ bottom: 56, top: 40, right: 25, left: -20 }} data={filteredData}>

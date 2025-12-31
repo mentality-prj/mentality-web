@@ -13,7 +13,7 @@ export const TenDaysSummary = () => {
     <SectionCard className="max-w-fit p-8 laptop:p-8">
       <div className="mb-8 text-xl/[24px] font-semibold text-textcolor-primary">{t('title')}</div>
       <div className="flex items-center justify-center">
-        <div className="grid auto-rows-[1fr] gap-6">
+        <div className="grid auto-rows-[1fr] gap-default">
           <BestDay />
           <MoodMarks />
           <StressLevel />

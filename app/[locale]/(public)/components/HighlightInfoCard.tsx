@@ -9,7 +9,7 @@ interface HighlightInfoCardProps {
 
 export function HighlightInfoCard({ title, subtitle, imageSrc, imageAlt }: HighlightInfoCardProps) {
   return (
-    <article className="flex w-full flex-col gap-6">
+    <article className="flex w-full flex-col gap-default">
       <div>
         <h1 className="landing-h1">{title}</h1>
         <p className="mt-4 max-w-md text-base leading-relaxed text-textcolor-secondary">{subtitle}</p>
