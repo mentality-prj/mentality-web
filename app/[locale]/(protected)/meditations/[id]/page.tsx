@@ -38,7 +38,7 @@ export default async function MeditationPage({ params }: { params: { id: string 
           <SectionCard className="flex-[1_1_0] overflow-hidden">from backend 2</SectionCard>
         </div>
         <SectionCard title={t(`pages.Guide.CardCategory.${meditationCard.category}`)}>
-          <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
+          <div className="grid grid-cols-1 gap-default laptop:grid-cols-2 desktop:grid-cols-3">
             {otherMeditations.map((meditation) => (
               <CustomCard
                 key={meditation.id}

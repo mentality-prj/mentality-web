@@ -27,7 +27,7 @@ export const PersonalGoalsList = ({ filter }: { filter: Filter }) => {
   }, [userId])
 
   return (
-    <div className="grid grid-cols-1 items-stretch gap-6 laptop:grid-cols-2 desktop:grid-cols-3">
+    <div className="grid grid-cols-1 items-stretch gap-default laptop:grid-cols-2 desktop:grid-cols-3">
       <CreatePersonalGoals setPersonalGoals={setPersonalGoals} />
       {filter === 'all'
         ? personalGoals.map((goal) => (

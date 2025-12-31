@@ -1,8 +1,6 @@
 {
-  "HOME": "Home",
-  "MOODTRACKER": "Mood tracker",
-  "GUIDE": "Guide",
-  "MYNOTES": "My notes",
-  "MYPROGRESS": "My progress",
-  "SETTINGS": "Settings"
+  "mood-tracker": "Mood tracker",
+  "guide": "Guide",
+  "my-notes": "My notes",
+  "my-progress": "My progress"
 }

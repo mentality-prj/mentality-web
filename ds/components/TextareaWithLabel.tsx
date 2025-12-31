@@ -33,7 +33,7 @@ export function TextareaWithLabel({ label, helper, id = 'textarea', leftIcon, ri
           {...props}
         ></Textarea>
       </div>
-      {helper && <p className="mt-1 h-[14px] text-[12px] font-normal text-textcolor-tertiary">{helper}</p>}
+      {helper && <p className="text-textcolor-tertiary mt-1 h-[14px] text-[12px] font-normal">{helper}</p>}
     </div>
   )
 }

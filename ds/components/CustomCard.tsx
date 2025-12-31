@@ -15,7 +15,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
   backgroundIcon,
 }) => {
   return (
-    <Card className="bg-indigo-200 text-gray-900">
+    <Card className="text-gray-900">
       {backgroundIcon && (
         <div className="absolute -right-4 -top-4 text-secondary [&_svg]:size-[108px]">{backgroundIcon}</div>
       )}

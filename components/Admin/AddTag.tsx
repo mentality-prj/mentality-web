@@ -121,7 +121,7 @@ export default function AddTag() {
 
   return (
     <div className="space-y-8 p-6">
-      <form ref={formRef} action={createTag} className="flex w-full flex-col gap-6">
+      <form ref={formRef} action={createTag} className="flex w-full flex-col gap-default">
         <h2>{t('title')}</h2>
         {tagproperties.map((prop: TagProperties) => (
           <div key={prop.key}>

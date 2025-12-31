@@ -21,8 +21,8 @@ export const AchievementCard = async ({
   return (
     <div
       className={cn(
-        'flex flex-col justify-between rounded-md border-outline-secondary text-center shadow-none',
-        status === 'unlocked' && 'border-textcolor-purple bg-surface-action'
+        'border-outline-secondary flex flex-col justify-between rounded-md text-center shadow-none',
+        status === 'unlocked' && 'border-textcolor-purple bg-background-alt-action'
       )}
     >
       <div className="items-center space-y-1">
@@ -32,19 +32,19 @@ export const AchievementCard = async ({
       </div>
       <div className="">
         {status === 'unlocked' ? (
-          <div className="flex w-full flex-col items-center text-textcolor-purple [&_svg]:size-12">
+          <div className="text-textcolor-purple flex w-full flex-col items-center [&_svg]:size-12">
             <MedalCircleIcon />
             <div className="">{t('open')}</div>
           </div>
         ) : status === 'locked' ? (
           <div className="w-full">
-            <div className="flex justify-between text-xs/[14px] text-textcolor-tertiary">
+            <div className="text-textcolor-tertiary flex justify-between text-xs/[14px]">
               <div className="">{t('progress')}</div>
               <div className="">
                 {currentProgress}/{progress}
               </div>
             </div>
-            <Progress className="mt-2 h-[6px] bg-surface-secondary" value={(currentProgress / progress) * 100} />
+            <Progress className="bg-background-alt-secondary mt-2 h-[6px]" value={(currentProgress / progress) * 100} />
           </div>
         ) : (
           ''

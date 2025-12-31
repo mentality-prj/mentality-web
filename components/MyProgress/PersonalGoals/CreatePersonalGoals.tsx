@@ -48,11 +48,11 @@ export const CreatePersonalGoals = ({
   }
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="group flex aspect-[11/8] flex-col items-center justify-center gap-[14px] rounded-md border border-outline-secondary p-2 px-9 py-20 hover:cursor-pointer hover:border-2 hover:border-primary-hover">
+      <DialogTrigger className="border-outline-secondary group flex aspect-[11/8] flex-col items-center justify-center gap-[14px] rounded-md border p-2 px-9 py-20 hover:cursor-pointer hover:border-2 hover:border-primary-hover">
         <div className="text-primary group-hover:text-primary-hover">
           <AddIcon />
         </div>
-        <span className="whitespace-nowrap rounded-sm bg-secondary-hover px-3 py-2 font-semibold text-primary group-hover:bg-secondary-pressed group-hover:text-primary-hover">
+        <span className="bg-secondary-hover group-hover:bg-secondary-pressed whitespace-nowrap rounded-sm px-3 py-2 font-semibold text-primary group-hover:text-primary-hover">
           {t('Text')}
         </span>
       </DialogTrigger>
@@ -74,7 +74,7 @@ export const CreatePersonalGoals = ({
             </div>
             <div className="my-5">
               <Textarea value={text} onChange={(e) => setText(e.target.value)} maxLength={60} />
-              <p className="text-xs font-normal text-textcolor-tertiary">{t('TextareaDescription')}</p>
+              <p className="text-textcolor-tertiary text-xs font-normal">{t('TextareaDescription')}</p>
             </div>
             <div className="">
               <div className="">{t('QuantityOfRepeat')}</div>

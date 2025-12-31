@@ -1,5 +1,4 @@
 'use client'
-
 import { useEffect, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -45,12 +44,12 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section ref={heroRef} className="hero-zen mb-10 w-full py-12 md:py-16">
-      <div className="mx-auto max-w-[1440px] px-4 tablet:px-6 md:px-8 lg:px-10">
+    <section ref={heroRef} className="hero-zen mb-10 w-full py-16">
+      <div className="container-max-width mx-auto px-8">
         <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
-          <div className="flex max-w-[720px] flex-col gap-6 md:gap-8">
+          <div className="flex max-w-[720px] flex-col gap-default">
             <h1 className="landing-h1">{t('Hero.title')}</h1>
-            <p className="text-base text-textcolor-secondary md:text-lg">{t('Hero.subtitle')}</p>
+            <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
             <div>
               <Button asChild variant="volume">
                 <Link href="/signin">{t('Hero.cta')}</Link>
@@ -60,21 +59,21 @@ export function HeroSection() {
           <div className="flex justify-end">
             <div className="h-[197.83px] w-[375px] rounded-[14px] bg-white p-8 shadow-sm">
               <div className="flex items-center justify-between gap-4">
-                <h3 className="landing-heading line-clamp-2 w-[60%] pr-2 text-base leading-[120%]">
+                <h3 className="text-title line-clamp-2 w-[60%] pr-2 text-base leading-[120%]">
                   {t('Hero.testimonial.title')}
                 </h3>
                 <button
                   type="button"
-                  aria-label={t('Hero.testimonial.cta')}
+                  aria-label={t('Hero.testimonial.primary')}
                   className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[var(--outline-secondary)]"
                 >
-                  <ArrowUpRight size={24} className="text-[var(--neutral-600)]" />
+                  <ArrowUpRight size={24} className="text-[var(--text-muted)]" />
                 </button>
               </div>
               <div className="mt-4 border-t border-[var(--outline-secondary)]" />
               <div className="mt-4 flex items-center justify-between">
                 <AvatarStack images={avatars} />
-                <span className="text-[26px] font-bold leading-[150%] text-[var(--neutral-600)]">
+                <span className="text-[26px] font-bold leading-[150%] text-[var(--text-muted)]">
                   {t('Hero.testimonial.metric')}
                 </span>
               </div>

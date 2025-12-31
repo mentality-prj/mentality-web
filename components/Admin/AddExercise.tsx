@@ -123,7 +123,7 @@ export default function AddExercise() {
 
   return (
     <div className="space-y-8 p-6">
-      <form ref={formRef} action={createExercise} className="flex w-full flex-col gap-6">
+      <form ref={formRef} action={createExercise} className="flex w-full flex-col gap-default">
         <h2>{t('title')}</h2>
 
         <div className="space-y-4">

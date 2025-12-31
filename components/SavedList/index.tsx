@@ -16,7 +16,7 @@ export const SavedList = () => {
   return (
     <div className="">
       {items.length > 0 ? (
-        <SectionCard className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
+        <SectionCard className="grid gap-default laptop:grid-cols-[1fr_2.5fr]">
           <Filter useFilters={useSavedFilters} />
           <FilteredList items={items} />
         </SectionCard>

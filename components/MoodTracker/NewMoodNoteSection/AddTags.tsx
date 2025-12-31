@@ -37,6 +37,7 @@ export default function AddTags({ tags, onChange }: AddTagsProps) {
       <div className="flex flex-col gap-2 tablet:flex-row">
         <div className="w-full">
           <CustomInput
+            id="add-tag-input"
             placeholder={t('placeholder')}
             value={input}
             onChange={(e) => setInput(e.target.value)}

@@ -21,7 +21,7 @@ export default function MyThoughtsPage() {
         title={t('common.PageTitle.title', { title: 'myThoughts' })}
         subtitle={t('common.PageTitle.subtitle', { subtitle: 'myThoughts' })}
       />
-      <div className="grid grid-cols-1 gap-6 laptop:grid-cols-2">
+      <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         <ThoughtsFormWrapper />
         <Calendar
           selectedDays={[new Date()]}

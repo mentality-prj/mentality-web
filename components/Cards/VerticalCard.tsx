@@ -65,7 +65,7 @@ export default function VerticalCard({
         )}
         <div className="relative z-10 flex flex-col gap-4 p-8 text-[#6B7280]">
           {tag && <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6B7280]/70">{tag}</span>}
-          {title && <h3 className="landing-heading text-2xl leading-[130%] text-[#6B7280] md:text-3xl">{title}</h3>}
+          {title && <h3 className="text-title text-2xl leading-[130%] text-[#6B7280] md:text-3xl">{title}</h3>}
           <p className="text-base leading-relaxed text-[#6B7280]">{description}</p>
           {children && <div className="flex flex-col gap-3 text-[#6B7280]">{children}</div>}
           {showCta && (
@@ -97,7 +97,7 @@ export default function VerticalCard({
         </div>
       ) : (
         icon && (
-          <div className="flex aspect-[4/5] w-full items-center justify-center rounded-[28px] bg-surface-secondary">
+          <div className="bg-background-alt-secondary flex aspect-[4/5] w-full items-center justify-center rounded-[28px]">
             <div className="h-16 w-16 text-[var(--title-color)] [&>svg]:h-16 [&>svg]:w-16">{icon}</div>
           </div>
         )
@@ -106,9 +106,9 @@ export default function VerticalCard({
       <div className="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
         <div className="flex flex-col gap-1.5">
           {tag && (
-            <span className="text-xs font-semibold uppercase tracking-[0.2em] text-textcolor-tertiary">{tag}</span>
+            <span className="text-textcolor-tertiary text-xs font-semibold uppercase tracking-[0.2em]">{tag}</span>
           )}
-          {title && <h3 className="landing-heading text-xl leading-[130%]">{title}</h3>}
+          {title && <h3 className="text-title text-xl leading-[130%]">{title}</h3>}
         </div>
         <p className="text-base leading-relaxed text-textcolor-secondary">{description}</p>
         {children && <div className="flex flex-col gap-3 text-textcolor-secondary">{children}</div>}

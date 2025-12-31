@@ -5,7 +5,6 @@ import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-th
 
 import { SessionWrapper } from '@/components/SessionWrapper'
 import { ContextProvider } from '@/context/ContextProvider'
-import { SidebarProvider } from '@/ds/shadcn/sidebar'
 
 export interface ProvidersProps {
   children: ReactNode
@@ -17,17 +16,7 @@ export function Providers({ children, themeProps }: ProvidersProps) {
     <SessionProvider>
       <SessionWrapper>
         <NextThemesProvider defaultTheme="system" attribute="class" {...themeProps}>
-          <SidebarProvider
-            defaultOpen={true}
-            style={
-              {
-                '--sidebar-width': '275px',
-                '--sidebar-width-icon': '80px',
-              } as React.CSSProperties
-            }
-          >
-            <ContextProvider>{children}</ContextProvider>
-          </SidebarProvider>
+          <ContextProvider>{children}</ContextProvider>
         </NextThemesProvider>
       </SessionWrapper>
     </SessionProvider>

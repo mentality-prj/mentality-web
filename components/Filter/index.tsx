@@ -25,7 +25,7 @@ export const Filter = <TFilters extends { order: 'newest' | 'oldest' }>({ useFil
   const t = useTranslations('components.Filter')
 
   return (
-    <div className="flex max-h-fit flex-col gap-5 rounded-md border border-outline-secondary p-6">
+    <div className="border-outline-secondary flex max-h-fit flex-col gap-5 rounded-md border p-6">
       <div className="flex justify-between">
         <div>{t('title')}</div>
 

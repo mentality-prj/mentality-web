@@ -21,7 +21,7 @@ export const AffirmationHistory = async () => {
     <>
       {items.length > 0 ? (
         <SectionCard title={t('title', { title: 'affirmation' })}>
-          <div className="grid gap-6 laptop:grid-cols-[1fr_2.5fr]">
+          <div className="grid gap-default laptop:grid-cols-[1fr_2.5fr]">
             <Filter useFilters={useAffirmationsFilters} />
             <FilteredHistory items={items} />
           </div>

@@ -32,7 +32,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r1">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -41,7 +41,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r2">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
         </RadioGroup>
@@ -54,7 +54,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r3">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -63,7 +63,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r4">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
         </RadioGroup>
@@ -76,7 +76,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r5">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -85,7 +85,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r6">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
         </RadioGroup>
@@ -98,7 +98,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r7">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -107,7 +107,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r8">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
         </RadioGroup>
@@ -120,7 +120,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r9">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
           <div className="flex space-x-2">
@@ -129,7 +129,7 @@ export const Default: Story = {
               <Label className="text-base" htmlFor="r10">
                 Label
               </Label>
-              <span className="text-xs text-textcolor-tertiary">Addittional text</span>
+              <span className="text-textcolor-tertiary text-xs">Addittional text</span>
             </div>
           </div>
         </RadioGroup>

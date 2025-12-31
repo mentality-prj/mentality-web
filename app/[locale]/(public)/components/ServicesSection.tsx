@@ -51,7 +51,7 @@ export function ServicesSection() {
       <div className="mb-10 px-8">
         <h1 className="landing-h1">{t('Services.title')}</h1>
       </div>
-      <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 gap-default md:grid-cols-2 lg:grid-cols-4">
         {serviceCards.map((card) => {
           const title = card.titleKey ? t(card.titleKey as LandingKeys) : undefined
           const description = t(card.descriptionKey as LandingKeys)

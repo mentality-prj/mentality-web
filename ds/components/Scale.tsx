@@ -43,7 +43,7 @@ export function Scale({
                   value === i + 1 ? 'border-primary' : 'border-secondary-hover'
                 }`}
               >
-                <div className="h-2 w-2 rounded-full bg-reversed"></div>
+                <div className="bg-reversed h-2 w-2 rounded-full"></div>
               </div>
             </label>
 
@@ -71,7 +71,7 @@ export function Scale({
           }}
         >
           {labels.map((label, i) => (
-            <span key={i} className="select-none text-xs font-normal leading-tight text-textcolor-tertiary">
+            <span key={i} className="text-textcolor-tertiary select-none text-xs font-normal leading-tight">
               {label}
             </span>
           ))}

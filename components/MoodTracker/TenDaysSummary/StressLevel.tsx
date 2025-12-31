@@ -45,7 +45,7 @@ export const StressLevel = async () => {
             <div className="text-xl/[24px] font-semibold text-textcolor-primary">{getStressLabel(stressLevel)}</div>
             <div>
               <Progress
-                className="h-[6px] bg-surface-secondary"
+                className="bg-background-alt-secondary h-[6px]"
                 indicatorClassName={getStressProgressColor(stressLevel)}
                 value={stressLevel}
               />
@@ -53,9 +53,9 @@ export const StressLevel = async () => {
           </>
         ) : (
           <>
-            <div className="text-sm text-textcolor-tertiary">{t('empty')}</div>
+            <div className="text-textcolor-tertiary text-sm">{t('empty')}</div>
             <div>
-              <Progress className="h-[6px] bg-surface-secondary" value={0} />
+              <Progress className="bg-background-alt-secondary h-[6px]" value={0} />
             </div>
           </>
         )}

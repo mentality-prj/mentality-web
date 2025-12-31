@@ -13,7 +13,7 @@ export const Days = () => {
         <div
           key={idx}
           className={cn(
-            'mt-auto flex flex-col rounded-sm border border-outline-tertiary px-[5px] text-center text-textcolor-tertiary',
+            'border-outline-tertiary text-textcolor-tertiary mt-auto flex flex-col rounded-sm border px-[5px] text-center',
             idx === 9 && 'text-textcolor-purple'
           )}
         >
