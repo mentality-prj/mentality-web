@@ -221,7 +221,7 @@ export default function AddExercise() {
             label={t('fields.description.label')}
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            className="w-full border-secondary-pressed hover:border-primary-hover focus:border-primary-focus"
+            className="border-secondary-pressed focus:border-primary-focus w-full hover:border-primary-hover"
             rows={8}
           />
         </fieldset>
@@ -282,7 +282,7 @@ export default function AddExercise() {
               <Badge
                 key={exercise.id}
                 variant="active"
-                className="flex justify-between bg-secondary-focus text-primary-hover"
+                className="bg-secondary-focus flex justify-between text-primary-hover"
               >
                 {exercise.title}
                 <button
