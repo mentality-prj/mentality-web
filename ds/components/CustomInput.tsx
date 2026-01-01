@@ -49,7 +49,7 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           )}
           <Input
             className={cn(
-              'bg-background hover:bg-background-soft focus-visible:bg-background-soft h-8 w-full rounded-full text-sm text-primary placeholder-textcolor-tertiary caret-primary shadow-none outline-none focus:placeholder-transparent [&:not(:placeholder-shown)]:caret-textcolor-primary',
+              'placeholder-textcolor-tertiary h-8 w-full rounded-full bg-background text-sm text-primary caret-primary shadow-none outline-none hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft [&:not(:placeholder-shown)]:caret-textcolor-primary',
               leftIcon && 'pl-8',
               rightIcon && 'pr-8',
               className,
@@ -61,12 +61,12 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           />
         </div>
         {errorMsg && (
-          <div className="flex items-center gap-1 text-sm text-outline-error">
+          <div className="text-outline-error flex items-center gap-1 text-sm">
             <TriangleAlert className="h-4 w-4" />
             {errorMsg}
           </div>
         )}
-        {!errorMsg && helperText && <span className="block text-sm text-textcolor-tertiary">{helperText}</span>}
+        {!errorMsg && helperText && <span className="text-textcolor-tertiary block text-sm">{helperText}</span>}
       </div>
     )
   }
