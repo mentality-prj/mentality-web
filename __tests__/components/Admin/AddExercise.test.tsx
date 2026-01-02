@@ -51,7 +51,8 @@ describe('AddExercise Component', () => {
     ;(useTranslations as jest.Mock).mockReturnValue((key: string) => {
       const translations: Record<string, string> = {
         title: 'Додати нову вправу',
-        button: 'Додати вправу',
+        buttonAdd: 'Додати вправу',
+        buttonSave: 'Зберегти вправу',
         'exercisesList.title': 'Список вправ',
         'exercisesList.loading': 'Завантаження...',
         'exercisesList.empty': 'Вправи відсутні',
@@ -149,7 +150,7 @@ describe('AddExercise Component', () => {
       expect(screen.getByText('Додати нову вправу')).toBeInTheDocument()
     })
 
-    const submitButton = screen.getByText('Додати вправу')
+    const submitButton = screen.getByRole('button', { name: 'Додати вправу' })
     fireEvent.click(submitButton)
 
     await waitFor(() => {

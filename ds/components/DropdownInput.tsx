@@ -1,11 +1,12 @@
-import { cn } from '@/lib/utils'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/ds/shadcn/select'
+import { cn } from '@/lib/utils'
 
 interface DropdownInputProps {
   id: string
   label: string
   labelIcon?: React.ReactNode
   defaultValue?: string
+  value?: string
   placeholder?: string
   onValueChange?: (value: string) => void
   items: { value: string; text: string }[] //The value is also used as a key, so it must be unique.
@@ -17,6 +18,7 @@ export const DropdownInput = ({
   label,
   labelIcon,
   defaultValue,
+  value,
   placeholder,
   onValueChange,
   items,
@@ -24,7 +26,7 @@ export const DropdownInput = ({
 }: DropdownInputProps) => {
   return (
     <div className="flex flex-col-reverse">
-      <Select disabled={disabled} defaultValue={defaultValue} onValueChange={onValueChange}>
+      <Select disabled={disabled} defaultValue={defaultValue} value={value} onValueChange={onValueChange}>
         <SelectTrigger
           id={id}
           className="border-outline-secondary focus-visible:border-primary-focus disabled:border-disable disabled:text-disable data-[placeholder]:text-textcolor-tertiary [&_svg]:text-iconcolor-secondary [&_svg]:focus-visible:text-primary-focus [&_svg]:disabled:text-disable peer h-12 w-full rounded-md px-[14px] py-4 shadow-none outline-none ring-0 hover:border-primary-hover focus:ring-0 focus-visible:border-[3px] data-[state='open']:border-primary [&_svg]:opacity-100 [&_svg]:hover:text-primary-hover [&_svg]:data-[state=open]:rotate-180 [&_svg]:data-[state=open]:text-primary"

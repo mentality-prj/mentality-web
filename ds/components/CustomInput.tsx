@@ -61,7 +61,7 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           />
         </div>
         {errorMsg && (
-          <div className="flex items-center gap-1 text-sm text-red-500">
+          <div className="text-outline-error flex items-center gap-1 text-sm">
             <TriangleAlert className="h-4 w-4" />
             {errorMsg}
           </div>

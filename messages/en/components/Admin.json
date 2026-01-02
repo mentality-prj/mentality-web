@@ -69,7 +69,10 @@
   },
   "AddExercise": {
     "title": "Add new exercise",
-    "button": "Add exercise",
+    "buttonAdd": "Add exercise",
+    "buttonSave": "Save exercise",
+    "buttonEdit": "Edit",
+    "buttonCancel": "Cancel",
     "submitting": "Saving...",
     "success": "Exercise added successfully",
     "exercisesList": {
@@ -99,6 +102,11 @@
         "label": "Tags:",
         "empty": "No tags found. Add tags first on the Tags tab."
       }
+    },
+    "categories": {
+      "meditations": "Meditations",
+      "breathing": "Breathing exercises",
+      "calming": "Calm me now"
     }
   }
 }
