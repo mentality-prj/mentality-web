@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { getMeditations } from '@/actions/meditations.actions'
 import { MyGuideTabs } from '@/components/MyGuide/MyGuideTabs'
 
-export default async function MyGuideWrapper() {
+export default async function MyGuideWrapper({ initialTab }: { initialTab?: string }) {
   const t = await getTranslations('pages.Guide')
   const meditations = await getMeditations()
 
@@ -14,5 +14,12 @@ export default async function MyGuideWrapper() {
     { key: 'calming', label: t('Tabs.calming') },
   ]
 
-  return <MyGuideTabs meditations={meditations} categories={categories} textLink={t('textLink')} />
+  return (
+    <MyGuideTabs
+      meditations={meditations}
+      categories={categories}
+      textLink={t('textLink')}
+      initialActiveKey={initialTab}
+    />
+  )
 }
