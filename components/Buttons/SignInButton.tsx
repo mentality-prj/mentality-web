@@ -1,4 +1,3 @@
-'use server'
 import { getLocale } from 'next-intl/server'
 
 import { signIn } from '@/auth'

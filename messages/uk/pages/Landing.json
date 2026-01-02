@@ -6,7 +6,8 @@
     "testimonial": {
       "title": "Допомогли більше 725 людям",
       "cta": "Детальніше",
-      "metric": "725+"
+      "metric": "725+",
+      "primary": "Відгуки"
     }
   },
   "Features": {

@@ -7,7 +7,7 @@ import { ServicesSection } from './components/ServicesSection'
 
 export default function LandingPage() {
   return (
-    <main className="w-full">
+    <main className="background w-full">
       <LandingHeader />
       <HeroSection />
       <FeatureCardsSection />

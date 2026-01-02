@@ -1,6 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
 .font-logo {
-  font-family: 'Montserrat Alternates' !important;
+  font-family: 'Pacifico' !important;
 }
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
@@ -174,7 +174,7 @@ body {
     --background: 0 0% 100%; /* white */
     --background-alt: 156 54% 90%; /* green-50 (#ecfdf5) */
     --background-alt-white: 240 20% 99%; /* #fcfcfd in HSL */
-    --background-soft: 156 54% 98%;
+    --background-soft: 156 54% 98%; /* lighter green-50 (#f0fdfa) */
     --background-muted: 258 33% 96%; /* Lavender-50 (#f4f3ff, custom, not in palette) */
 
     /* Text */
@@ -230,32 +230,7 @@ body {
 
 @layer components {
   .logo {
-    @apply flex items-center;
-  }
-  .logo span {
-    @apply font-logo text-3xl font-medium tracking-wide text-white;
-    background-color: hsl(var(--primary));
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
-    color: transparent;
-  }
-
-  /* Backgrounds */
-  .background {
-    background-color: hsl(var(--background));
-  }
-  .background-alt {
-    background-color: hsl(var(--background-alt));
-  }
-  .background-soft {
-    background-color: hsl(var(--background-soft));
-  }
-  .background-alt-white {
-    background-color: hsl(var(--background-alt));
-  }
-  .background-muted {
-    background-color: hsl(var(--background-muted));
+    @apply font-logo flex min-h-10 items-center text-4xl font-normal tracking-wide;
   }
 
   /* Layout */
@@ -312,9 +287,11 @@ body {
     color: hsl(var(--text-muted));
   }
 
+  .menu-hover-landing,
   .menu-hover {
     @apply relative;
   }
+  .menu-hover-landing::after,
   .menu-hover::after {
     content: '';
     position: absolute;
@@ -322,14 +299,22 @@ body {
     bottom: -4px;
     width: 24px;
     height: 2px;
+    background-color: hsl(var(--title-color-light));
     border-radius: 9999px;
-    background: hsl(var(--title-color-light));
     opacity: 0;
     transform: translateX(-50%);
     transition: opacity 0.2s;
   }
+  .menu-hover-landing::after {
+    background-color: hsl(var(--primary));
+  }
+  .menu-hover-landing:hover::after,
   .menu-hover:hover::after {
     opacity: 1;
+  }
+
+  .dropdown-menu-item {
+    @apply cursor-pointer px-4 py-2 hover:bg-primary/20 focus:bg-primary-hover/30;
   }
 
   /* Admin */
@@ -341,6 +326,11 @@ body {
   .admin-background {
     background-color: hsl(var(--admin-background));
     color: hsl(var(--admin-text));
+  }
+
+  .separator {
+    @apply my-1 h-px border-0 px-1;
+    background-color: hsl(var(--border));
   }
 
   /* Cards / surfaces */

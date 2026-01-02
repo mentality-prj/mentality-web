@@ -4,7 +4,7 @@ import { redirect } from 'next/navigation'
 import { auth } from '@/auth'
 import { AdminHeader } from '@/components/Admin'
 import { Sidebar } from '@/components/Sidebar'
-import { adminSidebarMenu } from '@/constants/sidebarMenu'
+import { adminSidebarMenu } from '@/constants/menu'
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
   const session = await auth()
