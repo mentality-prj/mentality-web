@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Toaster } from 'react-hot-toast'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import { getTranslations } from 'next-intl/server'
 
 import AppIntlProvider from '@/app/(providers)/AppIntlProvider'
 import { fontSans } from '@/config/fonts'
@@ -13,10 +14,9 @@ import { Providers } from './providers'
 import '@/styles/globals.css'
 
 export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-  const locale = params.locale
-  const messages = (await import(`@/../messages/${locale}/common/title.json`)).default
+  const t = await getTranslations({ locale: params.locale, namespace: 'common.title' })
   return {
-    title: messages.AppTitle || 'Dzvin.co',
+    title: t('AppTitle', { default: 'Dzvin.co' }),
   }
 }
 

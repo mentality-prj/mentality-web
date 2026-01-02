@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { Header } from '@/components/Header'
 import { LandingFooter } from '@/components/Landing'
 import Sidebar from '@/components/Sidebar/Sidebar'
-import { userSidebarMenu } from '@/constants/sidebarMenu'
+import { userSidebarMenu } from '@/constants/menu'
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   return (

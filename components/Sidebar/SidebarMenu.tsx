@@ -11,7 +11,7 @@ import {
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { SidebarMenuItemType, SidebarMenuType } from '@/constants/sidebarMenu'
+import { SidebarMenuItemType, SidebarMenuType } from '@/constants/menu'
 import { getMenuItemClass } from '@/helpers/sideMenu.helpers'
 import { Link, usePathname } from '@/i18n/navigation'
 

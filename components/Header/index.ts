@@ -1,4 +1,4 @@
-import AvatarMenu from './AvatarMenu'
+import AvatarMenu from './AvatarMenu/AvatarMenu'
 import Header from './Header'
 import LangSwitch from './LangSwitch'
 import LocalDate from './LocalDate'

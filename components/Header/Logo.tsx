@@ -6,9 +6,9 @@ const Logo = () => {
   return (
     <Link href="/" aria-label="Go to homepage">
       <div data-landing-logo className="logo">
-        <span>Dzvin.co</span>
-        {/* <Image src="/logo-green.svg" alt="Dzvin.co" width={40} height={40} priority={false} className="h-10 w-10" /> */}
-        {/* <span>co</span> */}
+        <span className="text-primary" style={{ textShadow: '-2px 2px 0 hsl(20 98% 85%)' }}>
+          Dzvin.co
+        </span>
       </div>
     </Link>
   )

@@ -3,7 +3,6 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import LogOutButton from '@/components/Buttons/LogOutButton'
 import { Avatar, AvatarFallback, AvatarImage } from '@/ds/shadcn/avatar'
 import { Button } from '@/ds/shadcn/button'
 import {
@@ -14,8 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/ds/shadcn/dropdown-menu'
+import { SUPPORTED_LANGUAGES } from '@/types/languages'
 
-import { SUPPORTED_LANGUAGES } from '../../types/languages'
+import { getMenuItems } from './avatarMenu.config'
 
 const AvatarMenu = () => {
   const t = useTranslations('components.AvatarMenu')
@@ -24,6 +24,8 @@ const AvatarMenu = () => {
   const { data } = useSession()
   const user = data?.user
   const { name, email, image, role } = user || {}
+
+  const menuItems = getMenuItems(locale, role || 'user', t, router)
 
   const initials = (name ?? '')
     .split(' ')
@@ -42,36 +44,29 @@ const AvatarMenu = () => {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="background-alt-white w-auto min-w-0 p-3 text-center">
-        <DropdownMenuLabel className="background-alt rounded-md p-3">
-          <div>{name}</div>
-          {email && <div className="text-xs">{email}</div>}
+      <DropdownMenuContent align="end" className="overflow-hidden rounded bg-background/90">
+        <DropdownMenuLabel>
+          <div className="w-auto p-3 text-center">
+            {name}
+            {email && <div className="text-xs">{email}</div>}
+          </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        <DropdownMenuItem
-          onClick={() => router.push(`/${locale}/profile`)}
-          className="cursor-pointer hover:bg-primary/20"
-        >
-          {t('profile')}
-        </DropdownMenuItem>
-        <DropdownMenuItem
-          onClick={() => router.push(`/${locale}/settings`)}
-          className="cursor-pointer hover:bg-primary/20"
-        >
-          {t('settings')}
-        </DropdownMenuItem>
-        {role === 'admin' && (
-          <DropdownMenuItem
-            onClick={() => router.push(`/${locale}/admin`)}
-            className="cursor-pointer hover:bg-primary/20"
-          >
-            {t('admin')}
-          </DropdownMenuItem>
-        )}
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <LogOutButton />
-        </DropdownMenuItem>
+        {menuItems
+          .filter((item) => item.show && item.key !== 'logout')
+          .map((item) => (
+            <DropdownMenuItem key={item.key} onClick={item.onClick} className={item.className}>
+              {item.label}
+            </DropdownMenuItem>
+          ))}
+        <hr className="separator" />
+        {menuItems
+          .filter((item) => item.show && item.key === 'logout')
+          .map((item) => (
+            <DropdownMenuItem key={item.key} asChild>
+              {item.element}
+            </DropdownMenuItem>
+          ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )

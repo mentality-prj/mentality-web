@@ -6,7 +6,8 @@
     "testimonial": {
       "title": "Pomogliśmy ponad 725 osobom",
       "cta": "Dowiedz się więcej",
-      "metric": "725+"
+      "metric": "725+",
+      "primary": "Referencje"
     }
   },
   "Features": {

@@ -6,7 +6,8 @@
     "testimonial": {
       "title": "Helped more than 725 people",
       "cta": "Learn more",
-      "metric": "725+"
+      "metric": "725+",
+      "primary": "Testimonials"
     }
   },
   "Features": {

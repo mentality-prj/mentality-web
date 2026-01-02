@@ -4,12 +4,13 @@ import { Globe } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
+import { APP_VIEW_TYPE, AppViewType } from '@/constants/general'
 import { Button } from '@/ds/shadcn/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
 import { usePathname } from '@/i18n/navigation'
 import { LocaleNativeLabels, LocaleTriggerShortLabels, SupportedLanguage, supportedLanguages } from '@/types/languages'
 
-export default function LangSwitch({ type }: { type?: 'default' | 'admin' }) {
+export default function LangSwitch({ type }: { type?: AppViewType }) {
   const [isPending, startTransition] = useTransition()
   const router = useRouter()
   const activeLocale = useLocale()
@@ -28,7 +29,18 @@ export default function LangSwitch({ type }: { type?: 'default' | 'admin' }) {
   const localeLabelNative = LocaleNativeLabels
   const localeTriggerShort = LocaleTriggerShortLabels
 
-  const textColor = type === 'admin' ? 'text-admin-text' : 'text-remark hover:text-primary'
+  let textColor: string
+  switch (type) {
+    case APP_VIEW_TYPE.LANDING:
+      textColor = 'text-textcolor-primary group-hover:text-primary'
+      break
+    case APP_VIEW_TYPE.ADMIN:
+      textColor = 'text-admin-text'
+      break
+    default:
+      textColor = 'text-remark group-hover:text-title-light'
+      break
+  }
 
   return (
     <DropdownMenu>
