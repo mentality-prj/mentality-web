@@ -5,6 +5,7 @@ import {
   BookOpenCheckIcon,
   Brain,
   ChartNoAxesCombined,
+  Flower,
   Lightbulb,
   NotebookPenIcon,
   Tag,
@@ -23,12 +24,11 @@ const iconMap: Record<string, ReactNode> = {
   lightbulb: <Lightbulb className="h-5 w-5" size={12} />,
   notebookPen: <NotebookPenIcon className="h-5 w-5" size={12} />,
   tag: <Tag className="h-5 w-5" size={12} />,
+  flower: <Flower className="h-5 w-5" size={12} />,
 }
 
 export function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType[]; type?: SidebarMenuType }) {
-  const ta = useTranslations('components.Admin')
-  const tu = useTranslations('components.Sidebar')
-  const t = type === 'admin' ? ta : tu
+  const t = useTranslations('components.Sidebar')
   const pathname = usePathname()
 
   return (

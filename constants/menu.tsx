@@ -1,3 +1,5 @@
+import { Routes } from '@/constants/routes'
+
 export type TopMenuItem = {
   key: string
   href: string
@@ -10,22 +12,22 @@ export type UserTopMenuType = TopMenuItem[]
 export type TopMenuType = LandingMenuType | AdminTopMenuType | UserTopMenuType
 
 export const landingMenu: LandingMenuType = [
-  { key: 'about', href: '/about' },
-  { key: 'services', href: '/services' },
-  { key: 'faq', href: '/faq' },
-  { key: 'contacts', href: '/contacts' },
-  { key: 'myday', href: '/myday', icon: 'bookHeart' },
+  { key: 'about', href: Routes.ABOUT },
+  { key: 'services', href: Routes.SERVICES },
+  { key: 'faq', href: Routes.FAQ },
+  { key: 'contacts', href: Routes.CONTACTS },
+  { key: 'myday', href: Routes.MYDAY, icon: 'bookHeart' },
 ]
 
 export const adminTopMenu: AdminTopMenuType = [
-  { key: 'myday', href: '/myday', icon: 'bookHeart' },
-  { key: 'admin', href: '/admin', icon: 'layoutDashboard' },
+  { key: 'myday', href: Routes.MYDAY, icon: 'bookHeart' },
+  { key: 'admin', href: Routes.ADMIN, icon: 'layoutDashboard' },
 ]
 
 export const userTopMenu: UserTopMenuType = [
-  { key: 'myday', href: '/myday', icon: 'bookHeart' },
-  { key: 'faq', href: '/faq' },
-  { key: 'contacts', href: '/contacts' },
+  { key: 'myday', href: Routes.MYDAY, icon: 'bookHeart' },
+  { key: 'faq', href: Routes.FAQ },
+  { key: 'contacts', href: Routes.CONTACTS },
 ]
 
 export type SidebarMenuType = 'admin' | 'user'
@@ -36,22 +38,24 @@ export type SidebarMenuItemType = {
 }
 
 export const adminSidebarMenu: SidebarMenuItemType[] = [
+  { key: 'affirmations', href: `${Routes.ADMIN}/affirmations`, icon: 'flower' },
   {
-    key: 'tabs.tags',
-    href: '/admin/tags',
+    key: 'tags',
+    href: `${Routes.ADMIN}/tags`,
     icon: 'tag',
   },
-  { key: 'tabs.tips', href: '/admin/tips', icon: 'lightbulb' },
-  { key: 'tabs.exercises', href: '/admin/exercises', icon: 'brain' },
+  { key: 'tips', href: `${Routes.ADMIN}/tips`, icon: 'lightbulb' },
+  { key: 'exercises', href: `${Routes.ADMIN}/exercises`, icon: 'brain' },
 ]
 
 export const userSidebarMenu: SidebarMenuItemType[] = [
+  { key: 'affirmations', href: Routes.AFFIRMATIONS, icon: 'flower' },
   {
     key: 'mood-tracker',
-    href: '/mood-tracker',
+    href: Routes.MOODTRACKER,
     icon: 'activity',
   },
-  { key: 'guide', href: '/guide', icon: 'bookOpenCheck' },
-  { key: 'my-notes', href: '/my-notes', icon: 'notebookPen' },
-  { key: 'my-progress', href: '/my-progress', icon: 'chartNoAxesCombined' },
+  { key: 'guide', href: Routes.GUIDE, icon: 'bookOpenCheck' },
+  { key: 'my-notes', href: Routes.MYNOTES, icon: 'notebookPen' },
+  { key: 'my-progress', href: Routes.MYPROGRESS, icon: 'chartNoAxesCombined' },
 ]

@@ -57,10 +57,10 @@ export default function AddTip() {
     <>
       <div className="flex w-full gap-default px-6 py-6">
         <div className="flex flex-col gap-default">
-          <Button color="success" onClick={generateTip} disabled={isLoading}>
+          <Button variant="volume" onClick={generateTip} disabled={isLoading}>
             {t('generateButton')}
           </Button>
-          <Button color="primary" onClick={showUnpublishedTips} disabled={isLoading}>
+          <Button variant="volume" onClick={showUnpublishedTips} disabled={isLoading}>
             {t('showUnpublishedButton')}
           </Button>
         </div>

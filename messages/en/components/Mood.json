@@ -1,0 +1,16 @@
+{
+  "recordMood": "Record mood",
+  "title": "New mood entry",
+  "howAreYou": "How are you feeling?",
+  "describe": "Describe your feelings and thoughts",
+  "placeholderNote": "You can add a short note",
+  "addTags": "Add tags",
+  "changeTags": "Change tags",
+  "chooseStress": "Choose stress level",
+
+  "very-bad": "Very bad",
+  "bad": "Bad",
+  "neutral": "Neutral",
+  "good": "Good",
+  "great": "Great"
+}

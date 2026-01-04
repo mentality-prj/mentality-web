@@ -1,5 +1,6 @@
 export const Statuses = {
   default: 'default',
+  ghost: 'ghost',
   accent: 'accent',
   dark: 'dark',
   error: 'error',
@@ -10,6 +11,7 @@ export const Statuses = {
   warn: 'warn',
   special: 'special',
   tag: 'tag',
+  'tag-white': 'tag-white',
 } as const
 
 export type StatusType = keyof typeof Statuses

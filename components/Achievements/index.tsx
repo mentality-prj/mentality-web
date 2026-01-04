@@ -8,7 +8,7 @@ import { AchievementsList } from './AchievementsList'
 import { AchievementsTitle } from './AchievementsTitle'
 
 export const Achievements = () => {
-  const t = useTranslations('common.buttonText')
+  const t = useTranslations('common.Buttons')
   return (
     <SectionCard className="flex w-full flex-col items-center">
       <div className="flex w-full items-center justify-between">

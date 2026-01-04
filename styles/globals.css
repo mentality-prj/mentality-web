@@ -168,7 +168,7 @@ body {
     --card-alert: 210 90% 90%; /* light blue #bfdbfe */
     --card-success: 75 45% 80%; /* light yellow-green #bbf7d0 */
 
-    --reversed: var(--cta-foreground);
+    --reversed: var(--text-inverse);
 
     /* Backgrounds */
     --background: 0 0% 100%; /* white */
@@ -180,7 +180,8 @@ body {
     /* Text */
     --text-primary: 215 15% 18%; /* slate-900 (#1e293b) */
     --text-secondary: 215 10% 35%; /* slate-600 (#475569) */
-    --text-muted: 215 14% 40%; /* darker slate-500, 20% darker */
+    --text-tertiary: 215 14% 30%; /* slate-700 (#334155) */
+    --text-muted: 215 14% 40%; /* darker slate-500, 20% darker (#6b7280) */
     --text-inverse: 0 0% 100%; /* white */
 
     /* Borders */
@@ -189,8 +190,8 @@ body {
     /* Brand */
     --primary: 268 73% 58%; /* violet-600 (#7c3aed) */
     --primary-hover: 268 73% 53%; /* violet-700 (#6d28d9) */
-    --primary-focus: 268 73% 48%; /* Custom, between violet-700 and violet-800 */
-    --primary-pressed: 268 73% 43%; /* Custom, darker than violet-800 */
+    --primary-focus: 268 73% 48%; /* Custom, between violet-700 and violet-800 (#5b21b6) */
+    --primary-pressed: 268 73% 43%; /* Custom, darker than violet-800 (#4c1d95) */
     --primary-foreground: 0 0% 100%; /* white */
 
     --accent: 262 83% 57%; /* violet-500 (#8b5cf6) */
@@ -208,13 +209,13 @@ body {
 
     /* Special */
     --special-from: 0 84% 67%; /* red-500 (#ef4444) */
-    --special-to: 230 60% 30%; /* Custom, deep blue */
+    --special-to: 230 60% 30%; /* Custom, deep blue (#1e40af) */
     --special-foreground: 0 0% 100%; /* white */
 
     /* Admin */
-    --admin-background: 225 11% 27%; /* Custom, dark blue-gray */
-    --admin-surface: 225 11% 32%; /* Custom, slightly lighter */
-    --admin-accent: 262 40% 55%; /* Custom, purple-blue */
+    --admin-background: 225 11% 27%; /* Custom, dark blue-gray (#1e293b) */
+    --admin-surface: 225 11% 32%; /* Custom, slightly lighter (#1e3a4b) */
+    --admin-accent: 262 40% 55%; /* Custom, purple-blue (#8b5cf6) */
     --admin-text: 0 0% 92%; /* gray-100 (#f3f4f6) */
 
     /* Misc */
@@ -231,6 +232,39 @@ body {
 @layer components {
   .logo {
     @apply font-logo flex min-h-10 items-center text-4xl font-normal tracking-wide;
+    /* subtle white highlight on the right, 45deg */
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0) 55%,
+      rgba(255, 255, 255, 0.6) 80%,
+      rgba(255, 255, 255, 0.95) 100%
+    );
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 40% 100%;
+  }
+
+  .logo-highlight {
+    display: inline-block;
+    position: relative;
+  }
+
+  .logo-highlight::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    width: 40%;
+    pointer-events: none;
+    background-image: linear-gradient(
+      45deg,
+      rgba(255, 255, 255, 0) 55%,
+      rgba(255, 255, 255, 0.6) 80%,
+      rgba(255, 255, 255, 0.95) 100%
+    );
+    mix-blend-mode: screen;
+    opacity: 0.9;
   }
 
   /* Layout */
@@ -259,6 +293,41 @@ body {
   }
   .landing-h3 {
     @apply text-title light-shadow text-xl;
+  }
+
+  /* Headings - use consistent typography tokens; layout (flex/gap) kept in wrappers */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    margin: 0;
+    color: hsl(var(--title-color));
+  }
+
+  h1 {
+    @apply text-4xl leading-[130%];
+  }
+
+  h2 {
+    @apply text-2xl leading-[130%];
+  }
+
+  h3 {
+    @apply text-xl;
+  }
+
+  h4 {
+    @apply text-lg font-medium;
+  }
+
+  h5 {
+    @apply text-base font-medium;
+  }
+
+  h6 {
+    @apply text-sm font-medium;
   }
 
   .sup {
@@ -335,6 +404,11 @@ body {
 
   /* Cards / surfaces */
   .default {
+    color: hsl(var(--text-primary));
+    background-color: hsl(var(--background));
+  }
+
+  .ghost {
     @apply border;
     border-color: hsl(var(--border));
     color: hsl(var(--text-primary));
@@ -363,6 +437,16 @@ body {
     @apply light-shadow;
   }
 
+  .note {
+    background-color: hsl(var(--warning));
+    color: hsl(var(--state-foreground));
+  }
+
+  .support {
+    background-color: hsl(var(--support));
+    color: hsl(var(--state-foreground));
+  }
+
   .warn {
     background-color: hsl(var(--warning));
     color: hsl(var(--special-foreground));
@@ -380,7 +464,20 @@ body {
   }
 
   .tag {
+    background-color: hsl(var(--background-muted));
+    color: hsl(var(--text-primary));
+  }
+
+  .tag-white {
     background-color: hsl(var(--background));
     color: hsl(var(--text-primary));
+  }
+
+  /* Icons */
+  .tool-icon-text {
+    @apply text-textcolor-secondary hover:text-textcolor-primary;
+  }
+  .tool-icon {
+    @apply rounded p-1 hover:bg-background-muted;
   }
 }

@@ -2,5 +2,12 @@
   "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} other {}}",
   "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} other {}}",
   "toastText": "{type, select, affirmation {Afirmacja dodana do Zapisanych} tip {Porada dodana do Zapisanych} other {}}",
-  "type": "{type, select, affirmation {Afirmacja} tip {Porada} other {}}"
+  "type": "{type, select, affirmation {Afirmacja} tip {Porada} other {}}",
+  "cards": {
+    "notes": "Zapisz myśli",
+    "tests": "Testy psychologiczne",
+    "activity": "Twoja aktywność"
+  },
+  "greeting": "Cześć! Świetnie Cię tutaj widzieć",
+  "greetingText": "Jak się dzisiaj czujesz?"
 }

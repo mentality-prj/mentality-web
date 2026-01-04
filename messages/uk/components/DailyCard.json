@@ -2,5 +2,12 @@
   "title": "{type, select, affirmation {Ваша щоденна афірмація} tip {Порада дня} other {}}",
   "buttonText": "{type, select, affirmation {Всі афірмації} tip {Всі поради} other {}}",
   "toastText": "{type, select, affirmation {Афірмацію додано до Збереженого} tip {Пораду додано до Збереженого} other {}}",
-  "type": "{type, select, affirmation {Афірмація} tip {Порада} other {}}"
+  "type": "{type, select, affirmation {Афірмація} tip {Порада} other {}}",
+  "cards": {
+    "notes": "Записати думки",
+    "tests": "Психологічні тести",
+    "activity": "Твоя активність"
+  },
+  "greeting": "Привіт! Чудово, що ти сьогодні тут",
+  "greetingText": "Твій день стає кращим разом із маленькими кроками до гармонії."
 }

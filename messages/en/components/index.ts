@@ -8,8 +8,8 @@ import DailyCard from './DailyCard.json'
 import Days from './Days.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import Filter from './Filter.json'
-import GreetingTitle from './GreetingTitle.json'
 import Header from './Header.json'
+import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
 import MoodMarks from './MoodMarks.json'
 import MoodNote from './MoodNote.json'
@@ -38,12 +38,12 @@ export const components = {
   Days,
   ExercisesForRecovery,
   Filter,
-  GreetingTitle,
   Header,
   MoodBadge,
   MoodMarks,
   MoodNote,
   MoodRecording,
+  Mood,
   MySpaceCards,
   Navbar,
   Navigation,

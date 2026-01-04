@@ -131,7 +131,7 @@ export default function AddTag() {
           </div>
         ))}
         <div>
-          <Button type="submit" className="flex-none" color="success" disabled={isSubmitting}>
+          <Button variant="volume" type="submit" className="flex-none" disabled={isSubmitting}>
             {isSubmitting ? t('submitting') : t('button')}
           </Button>
         </div>

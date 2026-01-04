@@ -1,9 +1,4 @@
 {
-  "tabs": {
-    "tags": "Tagi",
-    "tips": "Porady",
-    "exercises": "Ćwiczenia"
-  },
   "AddTag": {
     "title": "Dodaj nowy tag",
     "button": "Dodaj tag",
@@ -66,6 +61,19 @@
     "empty": "Brak porad",
     "submitting": "Generowanie...",
     "loginRequired": "Proszę zaloguj się, aby kontynuować"
+  },
+  "GenerateAffirmation": {
+    "generateButton": "Wygeneruj afirmację",
+    "submitting": "Generowanie...",
+    "description": "Wygeneruj afirmację za pomocą usługi OpenAI.",
+    "autoAppear": "Ta afirmacja automatycznie pojawi się na stronach jako bieżąca afirmacja.",
+    "noPrompt": "Jeśli nie podano promptu, afirmacja zostanie wygenerowana przy użyciu domyślnego promptu.",
+    "ukrainianOnly": "Generowanie afirmacji obsługuje wyłącznie język ukraiński.",
+    "promptLabel": "Prompt afirmacji",
+    "promptPlaceholder": "Dodaj żądanie, jeśli potrzebne",
+    "success": "Afirmacja wygenerowana pomyślnie!",
+    "allAffirmationsTitle": "Wszystkie afirmacje",
+    "empty": "Brak afirmacji"
   },
   "AddExercise": {
     "title": "Dodaj nowe ćwiczenie",

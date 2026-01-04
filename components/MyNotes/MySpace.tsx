@@ -26,7 +26,7 @@ export async function MySpace() {
             title={t(`components.MySpaceCards.${key}.title`)}
             text={t(`components.MySpaceCards.${key}.desc`)}
             hrefLink={`my-notes/${link}`}
-            textLink={t('common.buttonText.goTo')}
+            textLink={t('common.Buttons.goTo')}
             backgroundIcon={icon}
           />
         ))}
