@@ -7,11 +7,11 @@ export default async function affirmations() {
   const t = await getTranslations('common.PageTitle')
 
   return (
-    <>
+    <article>
       <PageTitle title={t('title', { title: 'affirmations' })} subtitle={t('subtitle', { subtitle: 'affirmations' })} />
       <div className="mt-6">
         <AffirmationsList />
       </div>
-    </>
+    </article>
   )
 }

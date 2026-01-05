@@ -59,3 +59,10 @@ export const userSidebarMenu: SidebarMenuItemType[] = [
   { key: 'my-notes', href: Routes.MYNOTES, icon: 'notebookPen' },
   { key: 'my-progress', href: Routes.MYPROGRESS, icon: 'chartNoAxesCombined' },
 ]
+
+export const guideMenu = [
+  { key: 'tips', href: `${Routes.GUIDE}/tips` },
+  { key: 'meditations', href: `${Routes.GUIDE}/meditations` },
+  { key: 'breathing', href: `${Routes.GUIDE}/breathing` },
+  { key: 'calming', href: `${Routes.GUIDE}/calming` },
+]

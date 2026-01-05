@@ -181,6 +181,7 @@ body {
     --text-primary: 215 15% 18%; /* slate-900 (#1e293b) */
     --text-secondary: 215 10% 35%; /* slate-600 (#475569) */
     --text-tertiary: 215 14% 30%; /* slate-700 (#334155) */
+    --text-state: 215 15% 18%; /* slate-900 (#1e293b) */
     --text-muted: 215 14% 40%; /* darker slate-500, 20% darker (#6b7280) */
     --text-inverse: 0 0% 100%; /* white */
 
@@ -205,7 +206,6 @@ body {
     --support: 20 98% 85%; /* true peach (#FFD1B3) */
     --note: 75 45% 80%; /* yellow-green-300 (#e2fba5) */
     --error: 0 84% 60%; /* red-500 (#ef4444) */
-    --state-foreground: 215 15% 18%; /* slate-900 (#1e293b) */
 
     /* Special */
     --special-from: 0 84% 67%; /* red-500 (#ef4444) */
@@ -382,6 +382,18 @@ body {
     opacity: 1;
   }
 
+  .inner-menu {
+    @apply flex overflow-hidden rounded border border-border;
+  }
+
+  .inner-menu-item {
+    /* prettier-ignore */
+    @apply px-5 py-4 text-textcolor-secondary hover:bg-background-muted hover:text-textcolor-state;
+  }
+  .inner-menu-item.active {
+    @apply bg-accent-soft text-accent-foreground hover:bg-accent-soft hover:text-accent-foreground;
+  }
+
   .dropdown-menu-item {
     @apply cursor-pointer px-4 py-2 hover:bg-primary/20 focus:bg-primary-hover/30;
   }
@@ -427,24 +439,24 @@ body {
 
   .info {
     background-color: hsl(var(--info));
-    color: hsl(var(--state-foreground));
+    color: hsl(var(--text-state));
     @apply light-shadow;
   }
 
   .success {
     background-color: hsl(var(--success));
-    color: hsl(var(--state-foreground));
+    color: hsl(var(--text-state));
     @apply light-shadow;
   }
 
   .note {
     background-color: hsl(var(--warning));
-    color: hsl(var(--state-foreground));
+    color: hsl(var(--text-state));
   }
 
   .support {
     background-color: hsl(var(--support));
-    color: hsl(var(--state-foreground));
+    color: hsl(var(--text-state));
   }
 
   .warn {

@@ -1,12 +1,12 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
+import DailyAffirmationClient from '@/components/Affirmations/DailyAffirmationClient'
 import Card from '@/components/Cards/Card'
 import MoodSummaryCard from '@/components/MoodTracker/MoodSummaryCard'
-import { mockDailyAffirmation, mockDailyTip, mockMoodCounts } from '@/REST/mockApi'
+import { mockDailyTip, mockMoodCounts } from '@/REST/mockApi'
 import { SupportedLanguage } from '@/types/languages'
 
 const MyDay = async () => {
-  const dailyAffirmation = await mockDailyAffirmation()
   const t = await getTranslations('components.DailyCard')
   const commonMy = await getTranslations('common.My')
   const dailyTip = await mockDailyTip()
@@ -20,16 +20,14 @@ const MyDay = async () => {
 
       <section className="grid grid-cols-3 gap-4">
         <Card
-          title={t('title', { type: 'affirmation' })}
-          text={`${dailyAffirmation.translations[`${locale}`]}`}
+          title={t('title', { type: 'tip' })}
+          text={`${dailyTip.translations[`${locale}`]}`}
           className="col-span-3"
         />
 
-        <Card
-          title={t('title', { type: 'tip' })}
-          text={`${dailyTip.translations[`${locale}`]}`}
-          className="col-span-2"
-        />
+        <div className="col-span-2">
+          <DailyAffirmationClient />
+        </div>
 
         <div className="flex flex-col gap-4">
           <Card title={t('cards.notes')}></Card>

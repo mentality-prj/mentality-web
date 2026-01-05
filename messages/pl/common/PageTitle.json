@@ -1,4 +1,4 @@
 {
-  "title": "{title, select, affirmation {Afirmacje i porady} guide {Poradnik} moodTracker {Tracker nastroju} myNotes {Moje notatki} myThoughts {Moje myśli} saved {Zapisane} myProgress {Mój postęp} other {}}",
-  "subtitle": "{subtitle, select, affirmation {Inspiruj się pozytywnymi myślami każdego dnia} guide {Twoje narzędzia do równowagi wewnętrznej i odbudowy} moodTracker {Śledź zmiany swojego nastroju i poziomu stresu} myNotes {Jak się czujesz dzisiaj?} myThoughts {Prowadź dziennik swoich myśli} saved {Twoje ulubione porady i afirmacje} myProgress {Osiągnięcia, statystyka i osobiste cele — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛}  other {}}"
+  "title": "{title, select, affirmations {Afirmacje} guide {Poradnik} moodTracker {Tracker nastroju} myNotes {Moje notatki} myThoughts {Moje myśli} saved {Zapisane} myProgress {Mój postęp} other {}}",
+  "subtitle": "{subtitle, select, affirmations {Inspiruj się pozytywnymi myślami każdego dnia} guide {Twoje narzędzia do równowagi wewnętrznej i odbudowy} moodTracker {Śledź zmiany swojego nastroju i poziomu stresu} myNotes {Jak się czujesz dzisiaj?} myThoughts {Prowadź dziennik swoich myśli} saved {Twoje ulubione porady i afirmacje} myProgress {Osiągnięcia, statystyka i osobiste cele — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛}  other {}}"
 }
