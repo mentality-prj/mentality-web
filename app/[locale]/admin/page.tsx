@@ -20,8 +20,19 @@ export default function AdminPage() {
           title="Title 00"
           sup="25.12.2025"
           text="Lorem ipsum"
-          remark="success"
+          remark="default"
           tools={[editIcon, deleteIcon]}
+          tags={['tag one', 'tag two']}
+        />
+        <Card
+          type="ghost"
+          icon={<Calendar size={12} />}
+          title="Title 00"
+          sup="25.12.2025"
+          text="Lorem ipsum"
+          remark="ghost"
+          tools={[editIcon, deleteIcon]}
+          tags={['tag one', 'tag two']}
         />
         <Card
           type="success"

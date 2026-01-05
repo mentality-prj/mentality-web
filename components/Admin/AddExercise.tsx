@@ -258,12 +258,12 @@ export default function AddExercise() {
         </fieldset>
 
         <div className="flex justify-between">
-          <Button type="submit" color="success" disabled={isSubmitting}>
+          <Button variant="volume" type="submit" disabled={isSubmitting}>
             {editingExercise ? t('buttonSave') : t('buttonAdd')}
           </Button>
 
           {editingExercise && (
-            <Button variant="secondary" type="button" onClick={cancelEditing}>
+            <Button variant="volume" type="button" onClick={cancelEditing}>
               {t('buttonCancel')}
             </Button>
           )}
@@ -285,13 +285,15 @@ export default function AddExercise() {
                 className="bg-secondary-focus flex justify-between text-primary-hover"
               >
                 {exercise.title}
-                <button
-                  type="button"
-                  className="text-xs underline hover:no-underline"
-                  onClick={() => startEditing(exercise)}
-                >
-                  {t('buttonEdit')}
-                </button>
+                <Button variant="volume" size="base" asChild>
+                  <button
+                    type="button"
+                    className="text-xs underline hover:no-underline"
+                    onClick={() => startEditing(exercise)}
+                  >
+                    {t('buttonEdit')}
+                  </button>
+                </Button>
               </Badge>
             ))}
           </div>

@@ -1,5 +1,19 @@
 import { SupportedLanguage } from './languages'
 
+// Affirmations
+export type AffirmationEntity = {
+  id: string
+  translations: Record<SupportedLanguage, string>
+  imageUrl: string
+  isPublished: boolean
+  createdAt: string
+  updatedAt: string
+}
+export type PaginatedAffirmations = { items: AffirmationEntity[]; total: number }
+export type GenerateAffirmationDto = {
+  prompt?: string
+}
+
 // Tips
 export type TipEntity = {
   id: string

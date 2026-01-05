@@ -1,7 +1,13 @@
 import type { Config } from 'tailwindcss'
 
 const config: Config = {
-  content: ['./pages/**/*.{ts,tsx}', './components/**/*.{ts,tsx}', './ds/**/*.{ts,tsx}', './app/**/*.{ts,tsx}'],
+  content: [
+    './pages/**/*.{ts,tsx}',
+    './components/**/*.{ts,tsx}',
+    './ds/**/*.{ts,tsx}',
+    './app/**/*.{ts,tsx}',
+    './helpers/**/*.{ts,tsx}',
+  ],
   safelist: ['font-logo'],
 
   theme: {
@@ -33,6 +39,7 @@ const config: Config = {
           primary: 'hsl(var(--text-primary))',
           secondary: 'hsl(var(--text-secondary))',
           muted: 'hsl(var(--text-muted))',
+          state: 'hsl(var(--text-state))',
         },
 
         /* ===== Brand ===== */
@@ -64,11 +71,11 @@ const config: Config = {
         /* ===== States ===== */
         info: {
           DEFAULT: 'hsl(var(--info))',
-          foreground: 'hsl(var(--state-foreground))',
+          foreground: 'hsl(var(--text-state))',
         },
         success: {
           DEFAULT: 'hsl(var(--success))',
-          foreground: 'hsl(var(--state-foreground))',
+          foreground: 'hsl(var(--text-state))',
         },
         warning: {
           DEFAULT: 'hsl(var(--warning))',
@@ -80,11 +87,11 @@ const config: Config = {
         },
         note: {
           DEFAULT: 'hsl(var(--note))',
-          foreground: 'hsl(var(--state-foreground))',
+          foreground: 'hsl(var(--text-state))',
         },
         support: {
           DEFAULT: 'hsl(var(--support))',
-          foreground: 'hsl(var(--state-foreground))',
+          foreground: 'hsl(var(--text-state))',
         },
 
         special: {

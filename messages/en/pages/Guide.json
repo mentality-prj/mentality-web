@@ -1,15 +1,9 @@
 {
-  "Tabs": {
-    "All": "All",
-    "meditations": "Meditations",
-    "breathing": "Breathing exercises",
-    "calming": "Calm me now"
-  },
-  "CardCategory": {
-    "meditations": "Other meditations",
-    "breathing": "Other breathing exercises",
-    "calming": "Other calming exercises"
-  },
-  "TechniqueOverview": "Technique overview",
-  "textLink": "Read more"
+  "title": "Порадник",
+  "subtitle": "Guide",
+  "tips": "Tips",
+  "meditations": "Meditations",
+  "breathing": "Breathing exercises",
+  "calming": "Calm me now",
+  "TechniqueOverview": "Technique Overview"
 }

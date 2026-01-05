@@ -1,0 +1,19 @@
+OpenMoji icons used in this project
+
+Icons used:
+- Waving Hand (U+1F44B)
+
+Source:
+- OpenMoji — https://openmoji.org
+- OpenMoji GitHub — https://github.com/hfg-gmuend/openmoji
+
+License:
+- Creative Commons Attribution-ShareAlike 4.0 International (CC BY-SA 4.0)
+  https://creativecommons.org/licenses/by-sa/4.0/
+
+Attribution example (place in README, About or Credits):
+OpenMoji — Waving Hand (U+1F44B). Source: https://openmoji.org. Licensed under CC BY-SA 4.0 — https://creativecommons.org/licenses/by-sa/4.0/.
+
+Notes:
+- If you modify the original OpenMoji SVGs, distribute the modified SVGs under CC BY-SA 4.0 and indicate that they were modified.
+- Using unmodified OpenMoji SVG files in a commercial project is permitted, but attribution and license links are required.

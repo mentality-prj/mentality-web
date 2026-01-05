@@ -1,14 +1,16 @@
 import Achievements from './Achievements.json'
 import Admin from './Admin.json'
+import AvatarMenu from './AvatarMenu.json'
 import BestDay from './BestDay.json'
 import Calendar from './Calendar.json'
+import Cards from './Cards.json'
 import ChartDynamics from './ChartDynamics.json'
 import DailyCard from './DailyCard.json'
 import Days from './Days.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import Filter from './Filter.json'
-import GreetingTitle from './GreetingTitle.json'
 import Header from './Header.json'
+import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
 import MoodMarks from './MoodMarks.json'
 import MoodNote from './MoodNote.json'
@@ -26,7 +28,6 @@ import StressLevelScale from './StressLevelScale.json'
 import TenDaysSummary from './TenDaysSummary.json'
 import TextareaWithLabel from './TextareaWithLabel.json'
 import TodayObservations from './TodayObservations.json'
-import AvatarMenu from './AvatarMenu.json'
 
 export const components = {
   Achievements,
@@ -38,12 +39,13 @@ export const components = {
   Days,
   ExercisesForRecovery,
   Filter,
-  GreetingTitle,
+  Cards,
   Header,
   MoodBadge,
   MoodMarks,
   MoodNote,
   MoodRecording,
+  Mood,
   MySpaceCards,
   Navbar,
   Navigation,

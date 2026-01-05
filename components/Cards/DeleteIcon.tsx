@@ -1,5 +1,5 @@
 'use client'
-import { Trash2 } from 'lucide-react'
+import { Trash } from 'lucide-react'
 
 interface EditIconProps {
   onClick: () => void
@@ -8,7 +8,7 @@ interface EditIconProps {
 const EditIcon = ({ onClick }: EditIconProps) => {
   return (
     <button onClick={onClick}>
-      <Trash2 size={12} />
+      <Trash size={12} />
     </button>
   )
 }

@@ -1,0 +1,16 @@
+{
+  "recordMood": "Zapisz nastrój",
+  "title": "Nowy wpis nastroju",
+  "howAreYou": "Jak się czujesz?",
+  "describe": "Opisz swoje uczucia i myśli",
+  "placeholderNote": "Możesz dodać krótką notatkę",
+  "addTags": "Dodaj tagi",
+  "changeTags": "Zmień tagi",
+  "chooseStress": "Wybierz poziom stresu",
+
+  "very-bad": "Bardzo źle",
+  "bad": "Źle",
+  "neutral": "Neutralnie",
+  "good": "Dobrze",
+  "great": "Świetnie"
+}

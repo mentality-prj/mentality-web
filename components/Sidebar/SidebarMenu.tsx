@@ -5,6 +5,7 @@ import {
   BookOpenCheckIcon,
   Brain,
   ChartNoAxesCombined,
+  Flower,
   Lightbulb,
   NotebookPenIcon,
   Tag,
@@ -23,12 +24,11 @@ const iconMap: Record<string, ReactNode> = {
   lightbulb: <Lightbulb className="h-5 w-5" size={12} />,
   notebookPen: <NotebookPenIcon className="h-5 w-5" size={12} />,
   tag: <Tag className="h-5 w-5" size={12} />,
+  flower: <Flower className="h-5 w-5" size={12} />,
 }
 
-export function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType[]; type?: SidebarMenuType }) {
-  const ta = useTranslations('components.Admin')
-  const tu = useTranslations('components.Sidebar')
-  const t = type === 'admin' ? ta : tu
+export default function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType[]; type?: SidebarMenuType }) {
+  const t = useTranslations('components.Sidebar')
   const pathname = usePathname()
 
   return (
@@ -36,10 +36,10 @@ export function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType
       className={`flex flex-col ${type === 'admin' ? 'text-color-white' : 'text-remark mr-8 overflow-hidden rounded border border-border'}`}
     >
       {menu.map((item: SidebarMenuItemType) => {
-        const isActive = pathname.endsWith(`${item.href}`)
+        const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
         return (
           <li key={item.key}>
-            <Link href={`/${item.href}`} className={getMenuItemClass(isActive, type)}>
+            <Link href={item.href} className={getMenuItemClass(isActive, type)}>
               {item.icon && iconMap[item.icon]}
               {t(item.key)}
             </Link>
@@ -49,5 +49,3 @@ export function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType
     </ul>
   )
 }
-
-export default SidebarMenu

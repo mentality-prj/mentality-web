@@ -399,6 +399,22 @@ export const mockTips = async (): Promise<Affirmation[]> => {
   })
 }
 
+export const mockMoodCounts = async (): Promise<{ mood: string; count: number }[]> => {
+  const counts = [
+    { mood: 'very-bad', count: 2 },
+    { mood: 'bad', count: 5 },
+    { mood: 'neutral', count: 11 },
+    { mood: 'good', count: 7 },
+    { mood: 'great', count: 19 },
+  ]
+
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      resolve(counts)
+    }, 300)
+  })
+}
+
 export const mockAchievements = async (): Promise<Achievements[]> => {
   const achievements: Achievements[] = [
     {

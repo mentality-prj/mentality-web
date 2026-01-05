@@ -2,5 +2,12 @@
   "title": "{type, select, affirmation {Your daily affirmation} tip {Tip of the day} other {}}",
   "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} other {}}",
   "toastText": "{type, select, affirmation {Affirmation added to Saved} tip {Tip added to Saved} other {}}",
-  "type": "{type, select, affirmation {Affirmation} tip {Tip} other {}}"
+  "type": "{type, select, affirmation {Affirmation} tip {Tip} other {}}",
+  "cards": {
+    "notes": "Recording thoughts",
+    "tests": "Psychological tests",
+    "activity": "Your activity"
+  },
+  "greeting": "Hi! Great to see you here",
+  "greetingText": "How are you feeling today?"
 }
