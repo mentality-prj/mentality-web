@@ -1,16 +1,8 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import {
-  deletePersonalGoal,
-  fetchPersonalGoals,
-  PersonalGoal,
-  resetPersonalGoal,
-  updatePersonalGoal,
-} from '@/actions/personalGoals.action'
 import { StarMotionEmoji } from '@/ds/icons/emoji/star-motion'
 import { ThoughtBalloonIcon } from '@/ds/icons/emotion/thought-balloon'
 import { RestartIcon } from '@/ds/icons/restart'
@@ -26,34 +18,23 @@ export interface PersonalGoalsCardProps {
   check: number
   repeat: number
   status: 'pending' | 'completed' | 'in progress'
-  setPersonalGoals: Dispatch<SetStateAction<PersonalGoal[]>>
+  onMarkProgress: (goalId: string, check: number) => void
+  onResetGoal: (goalId: string) => void
+  onDeleteGoal: (goalId: string) => void
 }
 
-export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonalGoals }: PersonalGoalsCardProps) => {
-  const { data } = useSession()
+export const PersonalGoalsCard = ({
+  id,
+  text,
+  check,
+  repeat,
+  status,
+  onMarkProgress,
+  onResetGoal,
+  onDeleteGoal,
+}: PersonalGoalsCardProps) => {
   const [dialogAction, setDialogAction] = useState<'reset' | 'delete' | null>(null)
   const t = useTranslations('components.PersonalGoals.PersonalGoalsCard')
-
-  const userId = data?.user?.id
-  if (!userId) {
-    return null
-  }
-  const handleClick = async () => {
-    await updatePersonalGoal({ id, userId, check })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
-  }
-
-  const resetClick = async () => {
-    await resetPersonalGoal({ id, userId })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
-    setDialogAction(null)
-  }
-
-  const deleteClick = async () => {
-    await deletePersonalGoal({ id, userId })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
-    setDialogAction(null)
-  }
 
   return (
     <>
@@ -98,7 +79,7 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
               <p>{t('GoalAchieved')}</p>
             </div>
           ) : (
-            <Button onClick={handleClick}>{t('Mark')}</Button>
+            <Button onClick={() => onMarkProgress(id, check)}>{t('Mark')}</Button>
           )}
         </div>
       </div>
@@ -116,7 +97,20 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
               </Button>
             </DialogClose>
             {/* TODO: replace the button with variant="destructive" */}
-            <Button onClick={dialogAction === 'reset' ? () => resetClick() : () => deleteClick()} className="w-full">
+            <Button
+              onClick={
+                dialogAction === 'reset'
+                  ? () => {
+                      onResetGoal(id)
+                      setDialogAction(null)
+                    }
+                  : () => {
+                      onDeleteGoal(id)
+                      setDialogAction(null)
+                    }
+              }
+              className="w-full"
+            >
               {dialogAction === 'reset' ? t('Dialog.Buttons.Reset') : t('Dialog.Buttons.Delete')}
             </Button>
           </DialogFooter>

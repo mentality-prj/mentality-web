@@ -1,10 +1,8 @@
 'use client'
 
-import { Dispatch, SetStateAction, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { createPersonalGoal, fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
 import { Tag } from '@/ds/components/Tag'
 import { AddIcon } from '@/ds/icons/add'
 import { AddSquareIcon } from '@/ds/icons/add-square'
@@ -14,32 +12,19 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, Dia
 import { Textarea } from '@/ds/shadcn/textarea'
 import { ToggleGroup } from '@/ds/shadcn/toggle-group'
 
-export const CreatePersonalGoals = ({
-  setPersonalGoals,
-}: {
-  setPersonalGoals: Dispatch<SetStateAction<PersonalGoal[]>>
-}) => {
+import { CreateGoalDto } from '../../../types/api-responses'
+
+export const CreatePersonalGoals = ({ onCreateGoal }: { onCreateGoal: (goalData: CreateGoalDto) => void }) => {
   const [text, setText] = useState('')
   const [quantity, setQuantity] = useState(1)
   const [open, setOpen] = useState(false)
-  const { data } = useSession()
+
   const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
   const defaultTextSuggestions = [
     t('DefaultTextSuggestions.SleepBetter'),
     t('DefaultTextSuggestions.DayWithoutMedia'),
     t('DefaultTextSuggestions.CoffeeLimit'),
   ]
-
-  if (!data?.user?.id) {
-    return null
-  }
-  const userId = data.user.id
-
-  const createPersonalGoalClick = async () => {
-    await createPersonalGoal({ userId, text, repeat: quantity })
-    closeDialog()
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
-  }
 
   const closeDialog = () => {
     setText('')
@@ -93,7 +78,14 @@ export const CreatePersonalGoals = ({
                     {t('Buttons.Cancel')}
                   </Button>
                 </DialogClose>
-                <Button onClick={createPersonalGoalClick} variant="default" className="w-full">
+                <Button
+                  onClick={() => {
+                    onCreateGoal({ text, repeat: quantity })
+                    closeDialog()
+                  }}
+                  variant="default"
+                  className="w-full"
+                >
                   {t('Buttons.Create')}
                 </Button>
               </div>
