@@ -16,12 +16,12 @@ interface Props {
 export default function AffirmationCard({ item, tools, className = '' }: Props) {
   const text = item.translations?.uk || item.translations?.en || item.translations?.pl || ''
   const imageUrl = item.imageUrl
-  const createdAt = formatDate(item.createdAt)
+  const currentDate = formatDate(new Date(Date.now()).toISOString())
 
   return (
     <Card
       className={`h-full border bg-white ${className}`}
-      sup={createdAt}
+      sup={currentDate}
       icon={<Calendar size={12} />}
       aftertext={text}
       tools={tools}

@@ -40,7 +40,7 @@ const Card = ({
   if (type) {
     return (
       <div
-        className={`flex min-w-[140px] flex-col gap-1 rounded-2xl ${sup ? 'px-6 pb-6 pt-2' : 'p-6'} ${Statuses[type as StatusType]} ${className}`}
+        className={`flex min-w-[140px] flex-col gap-1 rounded-2xl ${sup || tools ? 'px-6 pb-6 pt-2' : 'p-6'} ${Statuses[type as StatusType]} ${className}`}
       >
         {(sup || tools) && (
           <div className={`sup mt-2 flex h-3 items-center justify-between ${textClass}`}>

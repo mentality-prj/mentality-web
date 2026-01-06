@@ -48,7 +48,6 @@
     "json": false,
     "jsonc": false
   },
-  "github.copilot.editor.enableAutoCompletions": true,
   "github.copilot.chat.localeOverride": "en",
   "github.copilot.renameSuggestions.triggerAutomatically": false,
   // TypeScript optimization: reduce unnecessary checks

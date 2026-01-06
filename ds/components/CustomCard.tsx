@@ -17,7 +17,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
   return (
     <Card className="text-gray-900">
       {backgroundIcon && (
-        <div className="absolute -right-4 -top-4 text-secondary [&_svg]:size-[108px]">{backgroundIcon}</div>
+        <div className="absolute -right-4 -top-4 text-textcolor-secondary [&_svg]:size-[108px]">{backgroundIcon}</div>
       )}
       <div className="flex flex-row items-center justify-between">
         <div className="flex flex-row items-center gap-2 text-base font-normal leading-[120%] text-[var(--title-color)]">

@@ -31,8 +31,8 @@ export default function AddTag() {
     setIsLoading(true)
     const result = await getTags(session)
 
-    if (result.error) {
-      notifyError(result.error)
+    if ('error' in result) {
+      notifyError(String(result.error ?? 'Unknown error'))
       setTags([])
     } else {
       setTags(result.data || [])
@@ -103,8 +103,8 @@ export default function AddTag() {
     if (session) {
       try {
         const result = await addTag(session, tag)
-        if (result.error) {
-          notifyError(result.error)
+        if ('error' in result) {
+          notifyError(String(result.error ?? 'Unknown error'))
         } else {
           notifySuccess(t('success'))
           formRef.current?.reset()

@@ -1,6 +1,4 @@
-import axios, { AxiosError } from 'axios'
-
-import { AFFIRMATIONS_PAGE_SIZE } from '@/constants/pagination'
+import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import { logger } from '@/lib/logger'
 import { AffirmationEntity, PaginatedAffirmations } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -8,6 +6,7 @@ import { SupportedLanguage } from '@/types/languages'
 import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
+import { performAdminRequest, performAuthRequest } from './genericFetch'
 
 export async function addAffirmation(session: CustomSession | null, prompt: string, lang: SupportedLanguage) {
   if (!session?.user || session.user.role !== Roles.ADMIN) {
@@ -18,32 +17,24 @@ export async function addAffirmation(session: CustomSession | null, prompt: stri
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  try {
-    const token = session.OAuthToken
-    const resp = await axios.post<AffirmationEntity>(
-      `${APIUrl}/affirmations`,
-      { prompt },
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
-    logger.info('Affirmation successfully generated', { lang })
-    return { data: resp.data }
-  } catch (err) {
-    const axiosErr = err as AxiosError<unknown>
-    logger.error('Failed to add affirmation', { error: axiosErr, prompt, lang })
-    const message =
-      axiosErr.response &&
-      typeof axiosErr.response.data === 'object' &&
-      'message' in (axiosErr.response.data as Record<string, unknown>)
-        ? String((axiosErr.response!.data as Record<string, unknown>).message)
-        : axiosErr.message || 'Request failed'
-    return { error: message }
+  const res = await performAdminRequest<AffirmationEntity>(session, `${APIUrl}/affirmations`, {
+    method: 'POST',
+    body: { prompt },
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to add affirmation', { error: res.error, prompt, lang })
+    return { error: res.error }
   }
+
+  logger.info('Affirmation successfully generated', { lang })
+  return { data: res.data }
 }
 
 export async function getUnpublishedAffirmations(
   session: CustomSession | null,
   page = 1,
-  limit = AFFIRMATIONS_PAGE_SIZE
+  limit = ADMIN_PAGE_SIZE
 ): Promise<{ data: PaginatedAffirmations } | { error: string }> {
   if (!session?.user || session.user.role !== Roles.ADMIN) {
     logger.warn('Unauthorized attempt to get unpublished affirmations', {
@@ -53,34 +44,25 @@ export async function getUnpublishedAffirmations(
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  try {
-    const token = session.OAuthToken
-    const url = `${APIUrl}/affirmations/unpublished?page=${page}&limit=${limit}`
-    const resp = await axios.get<AffirmationEntity[]>(url, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    const items: AffirmationEntity[] = Array.isArray(resp.data) ? resp.data : []
-    const totalHeader = resp.headers && (resp.headers['x-total-count'] || resp.headers['X-Total-Count'])
-    const total = totalHeader ? parseInt(String(totalHeader), 10) || items.length : items.length
-    logger.info('Unpublished affirmations retrieved', { count: items.length, total })
-    return { data: { items, total } }
-  } catch (err) {
-    const axiosErr = err as AxiosError<unknown>
-    logger.error('Failed to get unpublished affirmations', { error: axiosErr })
-    const message =
-      axiosErr.response &&
-      typeof axiosErr.response.data === 'object' &&
-      'message' in (axiosErr.response.data as Record<string, unknown>)
-        ? String((axiosErr.response!.data as Record<string, unknown>).message)
-        : axiosErr.message || 'Request failed'
-    return { error: message }
+  const url = `${APIUrl}/affirmations/unpublished?page=${page}&limit=${limit}`
+  const res = await performAdminRequest<AffirmationEntity[]>(session, url, { method: 'GET' })
+
+  if ('error' in res) {
+    logger.error('Failed to get unpublished affirmations', { error: res.error })
+    return { error: res.error }
   }
+
+  const items: AffirmationEntity[] = Array.isArray(res.data) ? res.data : []
+  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
+  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  logger.info('Unpublished affirmations retrieved', { count: items.length, total })
+  return { data: { items, total } }
 }
 
 export async function getAffirmations(
   session: CustomSession | null,
   page = 1,
-  limit = AFFIRMATIONS_PAGE_SIZE
+  limit = ADMIN_PAGE_SIZE
 ): Promise<{ data: PaginatedAffirmations } | { error: string }> {
   const url = `${APIUrl}/affirmations?page=${page}&limit=${limit}`
 
@@ -90,25 +72,17 @@ export async function getAffirmations(
     return { error: 'Unauthorized: authentication required' }
   }
 
-  try {
-    const token = session.OAuthToken
-    const resp = await axios.get<AffirmationEntity[]>(url, { headers: { Authorization: `Bearer ${token}` } })
-    const items: AffirmationEntity[] = Array.isArray(resp.data) ? resp.data : []
-    const totalHeader = resp.headers && (resp.headers['x-total-count'] || resp.headers['X-Total-Count'])
-    const total = totalHeader ? parseInt(String(totalHeader), 10) || items.length : items.length
+  const res = await performAuthRequest<AffirmationEntity[]>(session, url, { method: 'GET' })
 
-    return { data: { items, total } }
-  } catch (err) {
-    const axiosErr = err as AxiosError<unknown>
-    logger.error('Failed to get affirmations', { error: axiosErr, page, limit })
-    const message =
-      axiosErr.response &&
-      typeof axiosErr.response.data === 'object' &&
-      'message' in (axiosErr.response.data as Record<string, unknown>)
-        ? String((axiosErr.response!.data as Record<string, unknown>).message)
-        : axiosErr.message || 'Request failed'
-    return { error: message }
+  if ('error' in res) {
+    logger.error('Failed to get affirmations', { error: res.error, page, limit })
+    return { error: res.error }
   }
+
+  const items: AffirmationEntity[] = Array.isArray(res.data) ? res.data : []
+  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
+  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  return { data: { items, total } }
 }
 
 export async function publishAffirmation(session: CustomSession | null, id: string) {
@@ -120,26 +94,18 @@ export async function publishAffirmation(session: CustomSession | null, id: stri
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  try {
-    const token = session.OAuthToken
-    const resp = await axios.patch<AffirmationEntity>(
-      `${APIUrl}/affirmations/${id}`,
-      { isPublished: true },
-      { headers: { Authorization: `Bearer ${token}` } }
-    )
-    logger.info('Affirmation published', { id })
-    return { data: resp.data }
-  } catch (err) {
-    const axiosErr = err as AxiosError<unknown>
-    logger.error('Failed to publish affirmation', { error: axiosErr, id })
-    const message =
-      axiosErr.response &&
-      typeof axiosErr.response.data === 'object' &&
-      'message' in (axiosErr.response.data as Record<string, unknown>)
-        ? String((axiosErr.response!.data as Record<string, unknown>).message)
-        : axiosErr.message || 'Request failed'
-    return { error: message }
+  const res = await performAdminRequest<AffirmationEntity>(session, `${APIUrl}/affirmations/${id}`, {
+    method: 'PATCH',
+    body: { isPublished: true },
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to publish affirmation', { error: res.error, id })
+    return { error: res.error }
   }
+
+  logger.info('Affirmation published', { id })
+  return { data: res.data }
 }
 
 export async function deleteAffirmation(session: CustomSession | null, id: string) {
@@ -151,22 +117,88 @@ export async function deleteAffirmation(session: CustomSession | null, id: strin
     return { error: 'Unauthorized: Admin role required' }
   }
 
-  try {
-    const token = session.OAuthToken
-    const resp = await axios.delete<AffirmationEntity>(`${APIUrl}/affirmations/${id}`, {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-    logger.info('Affirmation deleted', { id })
-    return { data: resp.data }
-  } catch (err) {
-    const axiosErr = err as AxiosError<unknown>
-    logger.error('Failed to delete affirmation', { error: axiosErr, id })
-    const message =
-      axiosErr.response &&
-      typeof axiosErr.response.data === 'object' &&
-      'message' in (axiosErr.response.data as Record<string, unknown>)
-        ? String((axiosErr.response!.data as Record<string, unknown>).message)
-        : axiosErr.message || 'Request failed'
-    return { error: message }
+  const res = await performAdminRequest<AffirmationEntity>(session, `${APIUrl}/affirmations/${id}`, {
+    method: 'DELETE',
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to delete affirmation', { error: res.error, id })
+    return { error: res.error }
   }
+
+  logger.info('Affirmation deleted', { id })
+  return { data: res.data }
+}
+
+// OpenAPI-aligned endpoints
+export async function generateAffirmationImage(session: CustomSession | null, prompt: string) {
+  if (!session?.user || session.user.role !== Roles.ADMIN) {
+    logger.warn('Unauthorized attempt to generate affirmation image', {
+      userId: session?.user?.email,
+      role: session?.user?.role,
+    })
+    return { error: 'Unauthorized: Admin role required' }
+  }
+
+  const res = await performAdminRequest<{ imageUrl: string }>(session, `${APIUrl}/affirmations/generate-image`, {
+    method: 'POST',
+    body: { prompt },
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to generate affirmation image', { error: res.error })
+    return { error: res.error }
+  }
+
+  logger.info('Affirmation image generated')
+  return { data: res.data }
+}
+
+export async function publishAffirmationById(session: CustomSession | null, id: string) {
+  if (!session?.user || session.user.role !== Roles.ADMIN) {
+    logger.warn('Unauthorized attempt to publish affirmation by id', {
+      userId: session?.user?.email,
+      role: session?.user?.role,
+    })
+    return { error: 'Unauthorized: Admin role required' }
+  }
+
+  const res = await performAdminRequest<AffirmationEntity>(session, `${APIUrl}/affirmations/${id}/publish`, {
+    method: 'PATCH',
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to publish affirmation by id', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  logger.info('Affirmation published by id', { id })
+  return { data: res.data }
+}
+
+export async function updateAffirmation(
+  session: CustomSession | null,
+  id: string,
+  patch: Partial<Pick<AffirmationEntity, 'translations' | 'imageUrl' | 'isPublished'>>
+) {
+  if (!session?.user || session.user.role !== Roles.ADMIN) {
+    logger.warn('Unauthorized attempt to update affirmation', {
+      userId: session?.user?.email,
+      role: session?.user?.role,
+    })
+    return { error: 'Unauthorized: Admin role required' }
+  }
+
+  const res = await performAdminRequest<AffirmationEntity>(session, `${APIUrl}/affirmations/${id}`, {
+    method: 'PATCH',
+    body: patch as Record<string, unknown>,
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to update affirmation', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  logger.info('Affirmation updated', { id })
+  return { data: res.data }
 }

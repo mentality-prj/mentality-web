@@ -3,13 +3,13 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
-import { getAffirmations, getUnpublishedAffirmations } from '@/requests/affirmations'
-import { AffirmationEntity, PaginatedAffirmations } from '@/types/api-responses'
+import { getTips, getUnpublishedTips } from '@/requests/tips'
+import { PaginatedTips, TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-export default function useAffirmations(fetchUnpublished = false, page = 1, reloadTrigger?: number) {
+export default function useTips(fetchUnpublished = false, page = 1, reloadTrigger?: number) {
   const { data, status } = useSession()
-  const [items, setItems] = useState<AffirmationEntity[]>([])
+  const [items, setItems] = useState<TipEntity[]>([])
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
@@ -19,27 +19,26 @@ export default function useAffirmations(fetchUnpublished = false, page = 1, relo
     setError(null)
     try {
       const sessionData = data as CustomSession
-      let res: { data: PaginatedAffirmations } | { error: string }
+      let res: { data: PaginatedTips } | { error: string }
 
       if (fetchUnpublished) {
-        res = await getUnpublishedAffirmations(sessionData, page, ADMIN_PAGE_SIZE)
+        res = await getUnpublishedTips(sessionData, page, ADMIN_PAGE_SIZE)
       } else {
-        res = await getAffirmations(sessionData, page, ADMIN_PAGE_SIZE)
+        res = await getTips(sessionData, page, ADMIN_PAGE_SIZE)
       }
 
       if ('error' in res) {
         throw new Error(res.error)
       }
 
-      const paginated = res.data as PaginatedAffirmations
-      const newItems = Array.isArray(paginated?.items) ? paginated.items : []
-      const newTotal = typeof paginated?.total === 'number' ? paginated.total : 0
-
-      setItems(newItems)
-      setTotal(newTotal)
+      const paginated = res.data as PaginatedTips
+      const list = Array.isArray(paginated?.items) ? paginated.items : []
+      const totalCount = typeof paginated?.total === 'number' ? paginated.total : list.length
+      setItems(list)
+      setTotal(totalCount)
     } catch (e: unknown) {
       if (e instanceof Error) setError(e.message)
-      else setError('Error fetching')
+      else setError('Error fetching tips')
     } finally {
       setLoading(false)
     }

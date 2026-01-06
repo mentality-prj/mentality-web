@@ -391,12 +391,12 @@ body {
   }
 
   .inner-menu {
-    @apply flex overflow-hidden rounded border border-border;
+    @apply flex h-fit overflow-hidden rounded border border-border;
   }
 
   .inner-menu-item {
     /* prettier-ignore */
-    @apply px-5 py-4 text-textcolor-secondary hover:bg-background-muted hover:text-textcolor-state;
+    @apply inline-block px-5 py-4 text-textcolor-secondary hover:bg-background-muted hover:text-textcolor-state;
   }
   .inner-menu-item.active {
     @apply bg-accent-soft text-accent-foreground hover:bg-accent-soft hover:text-accent-foreground;
@@ -494,6 +494,9 @@ body {
   }
 
   /* Icons */
+  .icon {
+    @apply text-textcolor-secondary hover:text-textcolor-primary;
+  }
   .tool-icon-text {
     @apply text-textcolor-secondary hover:text-textcolor-primary;
   }

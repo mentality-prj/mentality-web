@@ -3,9 +3,10 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import Card from '@/components/Cards/Card'
+import Loading from '@/components/Loading'
 import Pagination from '@/components/Pagination/Pagination'
-import { AFFIRMATIONS_PAGE_SIZE } from '@/constants/pagination'
-import { getUnpublishedTipsOnly } from '@/requests/tips'
+import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
+import { getUnpublishedTips } from '@/requests/tips'
 import { TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
@@ -23,9 +24,9 @@ export default function TipsList() {
       setError(null)
       try {
         const session = data as CustomSession
-        const res = await getUnpublishedTipsOnly(session)
+        const res = await getUnpublishedTips(session)
         if ('error' in res) throw new Error(res.error)
-        if (!cancelled) setItems(res.data ?? [])
+        if (!cancelled) setItems(res.data?.items ?? [])
       } catch (e: unknown) {
         if (!cancelled) setError(e instanceof Error ? e.message : 'Error')
       } finally {
@@ -44,10 +45,10 @@ export default function TipsList() {
     }
   }, [status, data])
 
-  const totalPages = Math.max(1, Math.ceil(items.length / AFFIRMATIONS_PAGE_SIZE))
-  const pageItems = items.slice((page - 1) * AFFIRMATIONS_PAGE_SIZE, page * AFFIRMATIONS_PAGE_SIZE)
+  const totalPages = Math.max(1, Math.ceil(items.length / ADMIN_PAGE_SIZE))
+  const pageItems = items.slice((page - 1) * ADMIN_PAGE_SIZE, page * ADMIN_PAGE_SIZE)
 
-  if (loading) return <div className="text-sm text-gray-500">Loading…</div>
+  if (loading) return <Loading size={18} className="text-gray-500" />
   if (error) return <div className="text-sm text-red-500">{error}</div>
 
   return (

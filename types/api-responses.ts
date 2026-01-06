@@ -24,6 +24,8 @@ export type TipEntity = {
   updatedAt: string
 }
 
+export type PaginatedTips = { items: TipEntity[]; total: number }
+
 export type GenerateTipDto = {
   prompt?: string
   lang: SupportedLanguage
@@ -81,4 +83,82 @@ export type UserEntity = {
   isAIAuthorized: boolean
   createdAt: string
   updatedAt: string
+}
+
+// Goals
+export type GoalEntity = {
+  id: string
+  userId?: string
+  text: string
+  check: number
+  repeat: number
+  status?: 'pending' | 'completed' | 'in progress'
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type CreateGoalDto = {
+  userId?: string
+  text: string
+  repeat?: number
+}
+
+export type UpdateGoalDto = {
+  text?: string
+  check?: number
+  repeat?: number
+  status?: 'pending' | 'completed' | 'in progress'
+}
+
+// Mood records
+export type CreateMoodRecordDto = {
+  mood: string
+  note?: string
+  tags?: string[]
+  stressLevel?: number
+  active?: boolean
+}
+
+export type MoodRecordEntity = {
+  id: string
+  userId?: string
+  mood: string
+  note?: string
+  tags?: string[]
+  stressLevel?: number
+  active?: boolean
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type SetActiveDto = { active: boolean }
+
+export type UpdateMoodRecordDto = {
+  mood?: string
+  note?: string
+  tags?: string[]
+  stressLevel?: number
+  active?: boolean
+}
+
+// Diary
+export type CreateDiaryDto = {
+  content: string
+  tags?: string[]
+}
+
+export type DiaryEntity = {
+  id: string
+  userId?: string
+  content: string
+  tags?: string[]
+  active?: boolean
+  createdAt?: string
+  updatedAt?: string
+}
+
+export type UpdateDiaryDto = {
+  content?: string
+  tags?: string[]
+  active?: boolean
 }

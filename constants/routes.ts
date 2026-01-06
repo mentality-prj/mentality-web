@@ -10,7 +10,7 @@ export const RoutesTitles = Object.freeze({
   AFFIRMATIONS: 'Affirmations',
   ARTICLES: 'Articles',
   GUIDE: 'Guide',
-  MYDAY: 'Myday',
+  MYDAY: 'My-day',
   MOODTRACKER: 'Mood-Tracker',
   MYNOTES: 'My-Notes',
   MYPROGRESS: 'My-Progress',

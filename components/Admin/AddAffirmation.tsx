@@ -30,8 +30,8 @@ export default function AddAffirmation() {
       setIsSubmitting(true)
       try {
         const result = await addAffirmation(session, prompt, locale)
-        if (result.error) {
-          notifyError(result.error)
+        if ('error' in result) {
+          notifyError(String(result.error ?? 'Unknown error'))
         } else {
           notifySuccess(t('success'))
           setPrompt('')

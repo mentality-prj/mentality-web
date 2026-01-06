@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Trash } from 'lucide-react'
 
-import { deleteAffirmation } from '@/requests/affirmations'
+import { deleteTip } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
@@ -12,14 +12,14 @@ interface Props {
   className?: string
 }
 
-export default function DeleteAffirmationButton({ id, session, onDeleted, className = '' }: Props) {
+export default function DeleteTipButton({ id, session, onDeleted, className = '' }: Props) {
   const [isDeleting, setIsDeleting] = useState(false)
 
   const handleDelete = async () => {
     if (!session || isDeleting) return
-    if (!confirm('Видалити афірмацію?')) return
+    if (!confirm('Видалити пораду?')) return
     setIsDeleting(true)
-    const result = await deleteAffirmation(session, id)
+    const result = await deleteTip(session, id)
     setIsDeleting(false)
     if ('error' in result) {
       notifyError(String(result.error ?? 'Unknown error'))

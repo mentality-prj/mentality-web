@@ -16,16 +16,16 @@ export const landingMenu: LandingMenuType = [
   { key: 'services', href: Routes.SERVICES },
   { key: 'faq', href: Routes.FAQ },
   { key: 'contacts', href: Routes.CONTACTS },
-  { key: 'myday', href: Routes.MYDAY, icon: 'bookHeart' },
+  { key: 'my-day', href: Routes.MYDAY, icon: 'bookHeart' },
 ]
 
 export const adminTopMenu: AdminTopMenuType = [
-  { key: 'myday', href: Routes.MYDAY, icon: 'bookHeart' },
+  { key: 'my-day', href: Routes.MYDAY, icon: 'bookHeart' },
   { key: 'admin', href: Routes.ADMIN, icon: 'layoutDashboard' },
 ]
 
 export const userTopMenu: UserTopMenuType = [
-  { key: 'myday', href: Routes.MYDAY, icon: 'bookHeart' },
+  { key: 'my-day', href: Routes.MYDAY, icon: 'bookHeart' },
   { key: 'faq', href: Routes.FAQ },
   { key: 'contacts', href: Routes.CONTACTS },
 ]
@@ -61,8 +61,8 @@ export const userSidebarMenu: SidebarMenuItemType[] = [
 ]
 
 export const guideMenu = [
-  { key: 'tips', href: `${Routes.GUIDE}/tips` },
-  { key: 'meditations', href: `${Routes.GUIDE}/meditations` },
-  { key: 'breathing', href: `${Routes.GUIDE}/breathing` },
-  { key: 'calming', href: `${Routes.GUIDE}/calming` },
+  { key: 'tips', href: `${Routes.GUIDE}/tips`, icon: 'lightbulb' },
+  { key: 'meditations', href: `${Routes.GUIDE}/meditations`, icon: 'waves' },
+  { key: 'breathing', href: `${Routes.GUIDE}/breathing`, icon: 'wind' },
+  { key: 'calming', href: `${Routes.GUIDE}/calming`, icon: 'heartHandshake' },
 ]

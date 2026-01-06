@@ -1,5 +1,4 @@
-import { ArrowUp } from 'lucide-react'
-import Image from 'next/image'
+import { ArrowUp, Facebook, Instagram } from 'lucide-react'
 import Link from 'next/link'
 import { useTranslations } from 'next-intl'
 
@@ -10,16 +9,12 @@ const LandingFooter = ({ type, className }: { type?: 'small' | 'default'; classN
     {
       name: 'Facebook',
       href: 'https://www.facebook.com/',
-      icon: ({ className }: { className?: string }) => (
-        <Image src="/icons/facebook.svg" alt="Facebook" width={20} height={20} className={className} color="white" />
-      ),
+      icon: <Facebook className="icon" size={24} />,
     },
     {
       name: 'Instagram',
       href: 'https://www.instagram.com/',
-      icon: ({ className }: { className?: string }) => (
-        <Image src="/icons/instagram.svg" alt="Instagram" width={20} height={20} className={className} />
-      ),
+      icon: <Instagram className="icon" size={24} />,
     },
   ] as const
 
@@ -43,7 +38,7 @@ const LandingFooter = ({ type, className }: { type?: 'small' | 'default'; classN
     >
       <div className="container-max-width mx-auto flex flex-col items-center gap-default md:flex-row md:items-center md:justify-between">
         <nav aria-label="Social media">
-          <ul className="flex items-center gap-4">
+          <ul className="flex items-center gap-1">
             {socialLinks.map(({ name, href, icon: Icon }) => (
               <li key={name}>
                 <a
@@ -53,7 +48,7 @@ const LandingFooter = ({ type, className }: { type?: 'small' | 'default'; classN
                   aria-label={name}
                   className="flex h-11 w-11 items-center justify-center transition-colors hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
                 >
-                  {Icon({ className: 'h-5 w-5 text-textcolor-tertiary' })}
+                  {Icon}
                 </a>
               </li>
             ))}

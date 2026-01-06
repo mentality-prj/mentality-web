@@ -9,6 +9,7 @@ export type ApiRequestOptions = {
 
 type ApiWrapperResult<T> = {
   data?: T
+  headers?: Headers
   error?: {
     name: string
     message: string
@@ -182,7 +183,7 @@ export async function apiRequest<T = unknown>(
       status: response.status,
     })
 
-    return { data }
+    return { data, headers: response.headers }
   } catch (err) {
     const error = {
       name: 'NetworkError',

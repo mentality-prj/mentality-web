@@ -1,7 +1,8 @@
 'use client'
 import { ReactNode, useState } from 'react'
 
-import { AFFIRMATIONS_PAGE_SIZE } from '@/constants/pagination'
+import Loading from '@/components/Loading'
+import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import useAffirmations from '@/hooks/useAffirmations'
 import { AffirmationEntity } from '@/types/api-responses'
 
@@ -23,7 +24,7 @@ export default function AffirmationsList({ fetchUnpublished = false, renderTools
 
   return (
     <div className="space-y-4">
-      {loading && <div className="text-sm text-gray-500">Loading…</div>}
+      {loading && <Loading size={16} className="text-gray-500" />}
       {error && <div className="text-sm text-red-500">{error}</div>}
       {!loading && !error && items.length === 0 && <div className="text-sm text-gray-500">No affirmations found.</div>}
 
@@ -35,11 +36,7 @@ export default function AffirmationsList({ fetchUnpublished = false, renderTools
         ))}
       </ul>
 
-      <Pagination
-        page={page}
-        totalPages={Math.max(1, Math.ceil(total / AFFIRMATIONS_PAGE_SIZE))}
-        onPageChange={setPage}
-      />
+      <Pagination page={page} totalPages={Math.max(1, Math.ceil(total / ADMIN_PAGE_SIZE))} onPageChange={setPage} />
     </div>
   )
 }
