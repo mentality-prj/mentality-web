@@ -8,7 +8,7 @@ export async function apiRequestWithAuth<T>(
   session: CustomSession | null,
   url: string,
   options?: ApiRequestOptions
-): Promise<{ data?: T; error?: unknown }> {
+): Promise<{ data?: T; headers?: Headers; error?: unknown }> {
   const result = await apiRequest<T>(session, url, options)
   if (result.error?.status === 401) {
     signOut()

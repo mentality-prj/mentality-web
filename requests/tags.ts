@@ -6,6 +6,7 @@ import { Roles } from '@/types/security'
 import { Tag } from '@/types/tags'
 
 import { APIUrl } from './config'
+import { performAdminRequest } from './genericFetch'
 
 export async function addTag(session: CustomSession | null, tag: Tag) {
   const { key, translations } = tag
@@ -63,4 +64,35 @@ export async function getTags(session: CustomSession | null) {
 
   logger.info('Tags retrieved', { count: Array.isArray(data) ? data.length : 0 })
   return { data }
+}
+
+export async function updateTag(
+  session: CustomSession | null,
+  id: string,
+  patch: Partial<Pick<TagEntity, 'key' | 'translations'>>
+) {
+  const res = await performAdminRequest<TagEntity>(session, `${APIUrl}/tags/${id}`, {
+    method: 'PATCH',
+    body: patch,
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to update tag', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  logger.info('Tag updated', { id })
+  return { data: res.data }
+}
+
+export async function deleteTag(session: CustomSession | null, id: string) {
+  const res = await performAdminRequest<TagEntity>(session, `${APIUrl}/tags/${id}`, { method: 'DELETE' })
+
+  if ('error' in res) {
+    logger.error('Failed to delete tag', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  logger.info('Tag deleted', { id })
+  return { data: res.data }
 }

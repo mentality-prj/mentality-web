@@ -2,14 +2,15 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import DailyAffirmationClient from '@/components/Affirmations/DailyAffirmationClient'
 import Card from '@/components/Cards/Card'
+import NotesCardLink from '@/components/Cards/NotesCardLink'
 import MoodSummaryCard from '@/components/MoodTracker/MoodSummaryCard'
-import { mockDailyTip, mockMoodCounts } from '@/REST/mockApi'
+import DailyTipClient from '@/components/Tips/DailyTipClient'
+import { mockMoodCounts } from '@/REST/mockApi'
 import { SupportedLanguage } from '@/types/languages'
 
 const MyDay = async () => {
   const t = await getTranslations('components.DailyCard')
   const commonMy = await getTranslations('common.My')
-  const dailyTip = await mockDailyTip()
   const locale = (await getLocale()) as SupportedLanguage
   const detailedDate = new Intl.DateTimeFormat(locale).format(new Date())
   const moodCounts = await mockMoodCounts()
@@ -18,23 +19,12 @@ const MyDay = async () => {
     <article className="grid gap-4 laptop:grid-cols-2">
       <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
 
-      <section className="grid grid-cols-3 gap-4">
-        <Card
-          title={t('title', { type: 'tip' })}
-          text={`${dailyTip.translations[`${locale}`]}`}
-          className="col-span-3"
-        />
-
-        <div className="col-span-2">
+      <section className="grid grid-cols-2 gap-4">
+        <div className="flex flex-col gap-4">
+          <NotesCardLink />
           <DailyAffirmationClient />
         </div>
-
-        <div className="flex flex-col gap-4">
-          <Card title={t('cards.notes')}></Card>
-          <Card title={t('cards.tests')}></Card>
-        </div>
-
-        <div className="col-span-2" />
+        <DailyTipClient />
       </section>
 
       <Card title={commonMy('detailed', { date: detailedDate }) || t('cards.detailed', { date: detailedDate })}>

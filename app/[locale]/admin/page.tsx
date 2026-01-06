@@ -41,7 +41,7 @@ export default function AdminPage() {
           text={
             <>
               Text with link to&nbsp;
-              <Link href="/myday" className="whitespace-nowrap underline">
+              <Link href="/my-day" className="whitespace-nowrap underline">
                 My day
               </Link>
               . Use it instead of an additional link.
@@ -55,13 +55,13 @@ export default function AdminPage() {
           icon={<Calendar size={12} />}
           sup="25.12.2025"
           title={
-            <Link href="/myday" className="whitespace-nowrap underline">
+            <Link href="/my-day" className="whitespace-nowrap underline">
               Title 01
             </Link>
           }
           text="Lorem ipsum"
           remark={
-            <Link href="/myday" className="whitespace-nowrap underline">
+            <Link href="/my-day" className="whitespace-nowrap underline">
               success
             </Link>
           }

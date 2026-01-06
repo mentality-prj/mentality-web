@@ -5,7 +5,7 @@ import { userTopMenu } from '@/constants/menu'
 import TopMenu from '../TopMenu/TopMenu'
 
 const Header = () => (
-  <header className="text-remark light-shadow flex w-full items-center justify-between">
+  <header className="text-remark light-shadow flex w-full items-center justify-between px-1">
     <LocalDate />
     <div className="flex items-center gap-8">
       <TopMenu menu={userTopMenu} />

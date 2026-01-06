@@ -5,6 +5,7 @@ import { CustomSession } from '@/types/auth'
 import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
+import { performAdminRequest } from './genericFetch'
 
 type ApiResult<T> = { data?: T; error?: string }
 
@@ -94,4 +95,23 @@ export async function updateExercise(
 
   logger.info('Exercise successfully updated', { exerciseId: data?.id })
   return { data }
+}
+
+export async function deleteExercise(
+  session: CustomSession | null,
+  exerciseId: string
+): Promise<ApiResult<ExerciseEntity>> {
+  const check = checkAdmin(session, 'delete exercise', { exerciseId })
+  if (check) return check
+
+  const res = await performAdminRequest<ExerciseEntity>(session, `${APIUrl}/exercises/${exerciseId}`, {
+    method: 'DELETE',
+  })
+
+  if ('error' in res) {
+    return logAndReturnError('Failed to delete exercise', res.error, { exerciseId })
+  }
+
+  logger.info('Exercise successfully deleted', { exerciseId: res.data?.id ?? exerciseId })
+  return { data: res.data }
 }

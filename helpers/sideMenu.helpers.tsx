@@ -1,8 +1,16 @@
 import { SidebarMenuType } from '../constants/menu'
 
-export const getMenuItemClass = (active: boolean, type: SidebarMenuType) =>
-  `flex items-center gap-2 border border-transparent px-4 py-4 font-normal transition-colors ${
-    active
-      ? `border-primary ${type === 'admin' ? 'text-primary bg-white rounded-r-md' : 'bg-accent-soft hover:bg-accent-soft text-accent-foreground'}`
-      : `hover:text-textcolor-primary text-secondary${type === 'admin' ? ' rounded-r-md' : ''}`
-  }${type === 'admin' ? ' hover:bg-background-muted' : ' hover:bg-background-alt'}`
+export const getMenuItemClass = (active: boolean, type: SidebarMenuType) => {
+  const base = 'flex items-center gap-2 border border-transparent px-4 py-4 font-normal transition-colors'
+  const isAdmin = type === 'admin'
+
+  const activePart = isAdmin
+    ? 'border-primary text-primary bg-white rounded-r-md'
+    : 'border-primary bg-accent-soft text-accent-foreground'
+
+  const inactivePart = isAdmin
+    ? 'hover:text-textcolor-primary text-admin-text rounded-r-md hover:bg-background-muted'
+    : 'hover:text-textcolor-primary text-textcolor-secondary hover:bg-background-alt'
+
+  return [base, active ? activePart : inactivePart].join(' ')
+}
