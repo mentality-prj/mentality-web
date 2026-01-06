@@ -272,6 +272,14 @@ body {
     max-width: 1440px;
   }
 
+  .container {
+    @apply mx-auto p-8;
+  }
+
+  .container-center {
+    @apply flex min-h-screen flex-col items-center justify-center;
+  }
+
   .paper {
     @apply flex rounded-[32px] bg-background;
   }
