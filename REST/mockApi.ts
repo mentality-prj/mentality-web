@@ -5,6 +5,8 @@ import { CartItemProps } from '@/types/cart'
 import { Exercise } from '@/types/exercisesForRecovery'
 import { ShopItemProps } from '@/types/shop'
 
+import { CreateGoalDto, GoalEntity, UpdateGoalDto } from '../types/api-responses'
+
 export const mockProfileData = async (accessToken: string) => {
   const profileData = {
     name: 'User name',
@@ -624,4 +626,106 @@ export const mockTodayObservations = async (): Promise<LocalizedText[]> => {
       resolve(observations)
     }, 500)
   })
+}
+//Goals
+export type GetGoalsResult = { data: GoalEntity[] } | { error: string }
+
+export const goalsDb: GoalEntity[] = [
+  {
+    id: '1',
+    userId: 'user1',
+    text: 'Finish the React project',
+    repeat: 5,
+    check: 5,
+    status: 'completed',
+  },
+  {
+    id: '2',
+    userId: 'user1',
+    text: 'Finish the React project 2',
+    repeat: 7,
+    check: 5,
+    status: 'in progress',
+  },
+]
+
+export function delay(ms = 400) {
+  return new Promise<void>((resolve) => {
+    setTimeout(resolve, ms)
+  })
+}
+
+export async function mockGetGoals() {
+  await delay()
+
+  try {
+    return {
+      data: [...goalsDb],
+    }
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
+}
+
+export async function mockCreateGoal(goalData: CreateGoalDto) {
+  await delay()
+  const newGoal: GoalEntity = {
+    id: (goalsDb.length + 1).toString(),
+    userId: 'user1',
+    text: goalData.text,
+    repeat: goalData.repeat,
+    check: 0,
+    status: 'pending',
+  }
+  try {
+    goalsDb.push(newGoal)
+    return { data: newGoal }
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
+}
+
+export async function mockUpdateGoal(goalId: string, goalData: UpdateGoalDto) {
+  await delay()
+
+  try {
+    const goalIndex = goalsDb.findIndex((g) => g.id === goalId)
+    if (goalIndex === -1) {
+      return { error: 'Goal not found' }
+    }
+
+    goalsDb[`${goalIndex}`] = {
+      ...goalsDb[`${goalIndex}`],
+      ...goalData,
+    }
+    console.log('Updated goal:', goalsDb)
+
+    return { data: goalsDb[`${goalIndex}`] }
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
+}
+
+export async function mockDeleteGoal(goalId: string) {
+  await delay()
+
+  try {
+    const goalIndex = goalsDb.findIndex((g) => g.id === goalId)
+    if (goalIndex === -1) {
+      return { error: 'Goal not found' }
+    }
+
+    goalsDb.splice(goalIndex, 1)
+    return { data: true }
+  } catch (error) {
+    return {
+      error: error instanceof Error ? error.message : 'Unknown error',
+    }
+  }
 }
