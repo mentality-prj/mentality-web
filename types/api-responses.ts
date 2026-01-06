@@ -49,6 +49,25 @@ export type CreateExerciseDto = {
   tags: string[]
 }
 
+//Goals
+export type GoalEntity = {
+  id: string
+  userId: string
+  text: string
+  repeat: number
+  check: number
+  status: 'pending' | 'completed' | 'in progress'
+}
+
+export type CreateGoalDto = {
+  text: string
+  repeat: number
+}
+
+export type UpdateGoalDto = {
+  check: number
+}
+
 // Auth
 export type ValidateUserDto = {
   token: string
