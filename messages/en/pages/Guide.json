@@ -1,9 +1,17 @@
 {
-  "title": "Порадник",
+  "title": "Guide",
   "subtitle": "Guide",
-  "tips": "Tips",
-  "meditations": "Meditations",
-  "breathing": "Breathing exercises",
-  "calming": "Calm me now",
+  "tips": {
+    "title": "Tips"
+  },
+  "meditations": {
+    "title": "Meditations"
+  },
+  "breathing": {
+    "title": "Breathing exercises"
+  },
+  "calming": {
+    "title": "Calm me now"
+  },
   "TechniqueOverview": "Technique Overview"
 }
