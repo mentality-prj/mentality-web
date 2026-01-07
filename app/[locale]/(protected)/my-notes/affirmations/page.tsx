@@ -17,15 +17,12 @@ export default async function AffirmationsPage() {
   return (
     <div className="flex flex-col gap-8">
       <Breadcrumbs
-        currentPage={t('common.PageTitle.title', { title: 'affirmation' })}
+        currentPage={t('pages.AffirmationsPage.title')}
         breadcrumbList={[
           { title: `${t('common.Breadcrumbs.breadcrumbsList', { title: 'affirmation' })}`, href: '/my-notes' },
         ]}
       />
-      <PageTitle
-        title={t('common.PageTitle.title', { title: 'affirmation' })}
-        subtitle={t('common.PageTitle.subtitle', { subtitle: 'affirmation' })}
-      />
+      <PageTitle title={t('pages.AffirmationsPage.title')} subtitle={t('pages.AffirmationsPage.subtitle')} />
       <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         {/* TODO:  move components to a separate component (i18n as well)*/}
         <CustomCard

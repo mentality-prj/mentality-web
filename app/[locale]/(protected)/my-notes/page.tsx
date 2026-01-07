@@ -5,11 +5,11 @@ import { MySpace } from '@/components/MyNotes/MySpace'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function MyNotes() {
-  const t = await getTranslations('common.PageTitle')
+  const t = await getTranslations('pages.MyNotes')
 
   return (
     <div className="flex flex-col gap-8">
-      <PageTitle title={t('title', { title: 'myNotes' })} subtitle={t('subtitle', { subtitle: 'myNotes' })} />
+      <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <MySpace />
       <ExercisesForRecovery />
     </div>

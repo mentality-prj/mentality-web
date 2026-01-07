@@ -12,10 +12,7 @@ export default function MyProgress() {
   const t = useTranslations()
   return (
     <div className="flex flex-col gap-8">
-      <PageTitle
-        title={t('common.PageTitle.title', { title: 'myProgress' })}
-        subtitle={t('common.PageTitle.subtitle', { subtitle: 'myProgress' })}
-      />
+      <PageTitle title={t('pages.MyProgress.title')} subtitle={t('pages.MyProgress.subtitle')} />
 
       <div className="grid grid-cols-2 gap-4">
         <Calendar
