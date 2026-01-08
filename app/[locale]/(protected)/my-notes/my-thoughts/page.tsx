@@ -12,15 +12,12 @@ export default function MyThoughtsPage() {
   return (
     <div className="flex flex-col gap-8">
       <Breadcrumbs
-        currentPage={t('common.PageTitle.title', { title: 'myThoughts' })}
+        currentPage={t('pages.MyThoughts.title')}
         breadcrumbList={[
           { title: t('common.Breadcrumbs.breadcrumbsList', { title: 'myThoughts' }), href: '/my-notes' },
         ]}
       />
-      <PageTitle
-        title={t('common.PageTitle.title', { title: 'myThoughts' })}
-        subtitle={t('common.PageTitle.subtitle', { subtitle: 'myThoughts' })}
-      />
+      <PageTitle title={t('pages.MyThoughts.title')} subtitle={t('pages.MyThoughts.subtitle')} />
       <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         <ThoughtsFormWrapper />
         <Calendar

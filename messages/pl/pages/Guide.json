@@ -1,9 +1,17 @@
 {
-  "title": "Порадник",
-  "subtitle": "Guide",
-  "tips": "Wskazówki",
-  "meditations": "Medytacje",
-  "breathing": "Ćwiczenia oddechowe",
-  "calming": "Uspokój mnie teraz",
+  "title": "Poradnik",
+  "subtitle": "Poradnik",
+  "tips": {
+    "title": "Wskazówki"
+  },
+  "meditations": {
+    "title": "Medytacje"
+  },
+  "breathing": {
+    "title": "Ćwiczenia oddechowe"
+  },
+  "calming": {
+    "title": "Uspokój mnie teraz"
+  },
   "TechniqueOverview": "Przegląd techniki"
 }

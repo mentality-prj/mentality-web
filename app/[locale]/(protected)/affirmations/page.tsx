@@ -4,11 +4,11 @@ import AffirmationsList from '@/components/Affirmations/AffirmationsList'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function affirmations() {
-  const t = await getTranslations('common.PageTitle')
+  const t = await getTranslations('pages.AffirmationsPage')
 
   return (
     <article>
-      <PageTitle title={t('title', { title: 'affirmations' })} subtitle={t('subtitle', { subtitle: 'affirmations' })} />
+      <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <div className="mt-6">
         <AffirmationsList />
       </div>

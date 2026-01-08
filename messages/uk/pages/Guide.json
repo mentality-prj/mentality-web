@@ -1,20 +1,17 @@
 {
   "title": "Порадник",
-  "subtitle": "Guide",
+  "subtitle": "Порадник",
   "tips": {
-    "title": "Поради",
-    "subtitle": "subtitle"
+    "title": "Поради"
   },
   "meditations": {
-    "title": "Медитації",
-    "subtitle": "subtitle"
+    "title": "Медитації"
   },
   "breathing": {
-    "title": "Дихальні вправи",
-    "subtitle": "subtitle"
+    "title": "Дихальні вправи"
   },
   "calming": {
-    "title": "Заспокой мене зараз",
-    "subtitle": "subtitle"
-  }
+    "title": "Заспокой мене зараз"
+  },
+  "TechniqueOverview": "Огляд техніки"
 }

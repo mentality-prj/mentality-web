@@ -6,7 +6,7 @@ export default async function GuidePage() {
   const t = await getTranslations('pages.Guide')
   return (
     <article>
-      <PageTitle title={t('title', { title: 'guide' })} subtitle={t('subtitle', { subtitle: 'guide' })} />
+      <PageTitle title={t('title')} subtitle={t('subtitle')} />
     </article>
   )
 }

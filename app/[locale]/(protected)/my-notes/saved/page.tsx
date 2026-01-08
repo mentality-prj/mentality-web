@@ -5,17 +5,16 @@ import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default function SavedPage() {
-  const t = useTranslations('common')
+  const t = useTranslations()
   return (
     <div className="flex flex-col gap-8">
       <Breadcrumbs
-        currentPage={t('PageTitle.title', { title: 'saved' })}
-        breadcrumbList={[{ title: `${t('Breadcrumbs.breadcrumbsList', { title: 'saved' })}`, href: '/my-notes' }]}
+        currentPage={t('pages.SavedPage.title')}
+        breadcrumbList={[
+          { title: `${t('common.Breadcrumbs.breadcrumbsList', { title: 'saved' })}`, href: '/my-notes' },
+        ]}
       />
-      <PageTitle
-        title={t('PageTitle.title', { title: 'saved' })}
-        subtitle={t('PageTitle.subtitle', { subtitle: 'saved' })}
-      />
+      <PageTitle title={t('pages.SavedPage.title')} subtitle={t('pages.SavedPage.subtitle')} />
       <SavedList />
     </div>
   )

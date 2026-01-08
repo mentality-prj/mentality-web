@@ -5,11 +5,11 @@ import { TenDaysSummary } from '@/components/MoodTracker/TenDaysSummary'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function MoodTracker() {
-  const t = await getTranslations('common.PageTitle')
+  const t = await getTranslations('pages.MoodTracker')
 
   return (
     <div className="flex flex-col gap-8">
-      <PageTitle title={t('title', { title: 'moodTracker' })} subtitle={t('subtitle', { subtitle: 'moodTracker' })} />
+      <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <div className="flex w-full flex-col gap-2 tablet:gap-8 desktop:flex-row">
         <div className="desktop:w-3/5">
           <NewMoodNoteSection />
