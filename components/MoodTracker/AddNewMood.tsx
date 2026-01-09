@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import FormCard from '@/components/Cards/FormCard'
 import StyledTextarea from '@/components/Forms/StyledTextarea'
 import Tag from '@/components/Tag/Tag'
+import { Button } from '@/ds/shadcn/button'
 
 import { MOODS } from './moods'
 
@@ -22,6 +23,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [note, setNote] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
+  const mn = useTranslations('components.MoodNote')
 
   const addTag = (t: string) => {
     setSelectedTags((prev) => (prev.includes(t) ? prev : [...prev, t]))
@@ -32,9 +34,6 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
   }
 
   const handleSubmit = () => {
-    // keep onSave signature unchanged (called by parent)
-    // parent can close the form; we still maintain local state
-    // TODO: persist `selectedMood` and `note` to API when available
     onSave()
     onClose()
   }
@@ -48,7 +47,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
           aria-label={ct('close')}
           title={ct('close')}
           onClick={onClose}
-          className="ml-4 rounded p-1 text-gray-500 hover:bg-gray-100"
+          className="tool-icon tool-icon-text ml-4 rounded p-1"
         >
           <X className="h-5 w-5" />
         </button>
@@ -60,23 +59,26 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
     >
       <div className="flex flex-col gap-6">
         <h5>{tm('howAreYou')}</h5>
-        <div className="flex items-center justify-between px-2">
-          {MOODS.map((m) => {
-            const Icon = m.icon
-            const isSelected = selectedMood === m.key
+        <div className="grid grid-cols-5 px-4" style={{ gridAutoColumns: 'max-content' }}>
+          {MOODS.map((mood) => {
+            const isSelected = selectedMood === mood.key
+
             return (
-              <div key={m.key} className="flex flex-col items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSelectedMood(m.key)}
+              <div key={mood.key} className="flex flex-col items-center justify-between py-5 text-center">
+                <Button
+                  size="iconBig"
+                  variant="iconButton"
+                  className={`${isSelected ? 'rounded-full ring-4 ring-sky-400/30' : ''}`}
+                  onClick={() => setSelectedMood(mood.key)}
                   aria-pressed={isSelected}
-                  aria-label={tm(m.key)}
-                  title={tm(m.key)}
-                  className={`focus:outline-none ${isSelected ? `${m.statusClass} ring-2 ring-violet-300` : 'bg-violet-50'} rounded-full p-3`}
+                  aria-label={tm(mood?.key as string)}
+                  title={tm(mood?.key as string)}
                 >
-                  {isSelected ? <Icon className="h-6 w-6" /> : <Icon className="h-6 w-6 text-violet-600" />}
-                </button>
-                <div className="text-xs text-gray-500">{tm(m.key)}</div>
+                  <mood.icon />
+                </Button>
+                <span className="text-textcolor-tertiary mt-2 whitespace-nowrap text-xs font-normal">
+                  {mn(mood.label)}
+                </span>
               </div>
             )
           })}
