@@ -24,7 +24,7 @@ export default async function MeditationPage({ params }: { params: { id: string 
       <Breadcrumbs
         currentPage={meditationCard.title}
         breadcrumbList={[
-          { title: `${t('common.PageTitle.title', { title: 'guide' })}`, href: '/guide' },
+          { title: `${t('pages.Guide.title')}`, href: '/guide' },
           { title: `${t(`pages.Guide.Tabs.${meditationCard.category}`)}`, href: '/meditation/${meditation.id}' },
         ]}
       />
