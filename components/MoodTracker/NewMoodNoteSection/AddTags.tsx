@@ -14,7 +14,7 @@ type AddTagsProps = {
 }
 
 export default function AddTags({ tags, onChange }: AddTagsProps) {
-  const t = useTranslations('components.MoodNote')
+  const t = useTranslations('components.Mood')
 
   const [input, setInput] = useState('')
 

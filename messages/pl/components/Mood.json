@@ -12,5 +12,17 @@
   "bad": "Źle",
   "neutral": "Neutralnie",
   "good": "Dobrze",
-  "great": "Świetnie"
+  "great": "Świetnie",
+  "subtitle": "Jaki jest twój nastrój?",
+  "label": "Opisz swoje uczucia i myśli",
+  "save": "Zapisz",
+  "add": "Dodaj",
+  "placeholder": "Nowy tag",
+  "labelsEmoji": {
+    "veryBad": "Bardzo źle",
+    "bad": "Źle",
+    "neutral": "Neutralnie",
+    "good": "Dobrze",
+    "veryGood": "Bardzo dobrze"
+  }
 }

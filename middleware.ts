@@ -40,8 +40,28 @@ function getPreferredLocale(request: NextRequest): SupportedLanguage {
 
 const intlMiddleware = createMiddleware(routing)
 
+// Maximum allowed request body size in bytes for mutating requests.
+// Can be overridden with env var MAX_REQUEST_BODY_SIZE (in bytes).
+const MAX_REQUEST_BODY_SIZE = Number(process.env.MAX_REQUEST_BODY_SIZE ?? 1_000_000) // 1 MB default
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  // Protect mutating endpoints from excessively large request bodies by
+  // checking Content-Length header early in middleware and returning 413.
+  try {
+    const method = (request.method || 'GET').toUpperCase()
+    if (['POST', 'PUT', 'PATCH'].includes(method)) {
+      const contentLength = request.headers.get('content-length')
+      if (contentLength) {
+        const len = parseInt(contentLength, 10)
+        if (!Number.isNaN(len) && len > MAX_REQUEST_BODY_SIZE) {
+          return new NextResponse('Payload Too Large', { status: 413 })
+        }
+      }
+    }
+  } catch (err) {
+    // If anything goes wrong reading headers, continue and handle later.
+  }
   const segments = pathname.split('/')
   const localeInUrl = segments[1] && routing.locales.includes(segments[1] as SupportedLanguage) ? segments[1] : null
 
@@ -107,7 +127,9 @@ export async function middleware(request: NextRequest) {
   const isServerErrorPage = normalizedPath === Routes.SERVERERROR
 
   // Check for session errors FIRST - before any other auth logic
-  if (session?.error && !isServerErrorPage) {
+  // Only act on session errors when there is a signed-in session. If there's
+  // no `session.user`, treat the request as unauthenticated and allow public pages.
+  if (session?.error && session.user && !isServerErrorPage) {
     const errorType = typeof session.error === 'string' ? session.error : session.error.error
     const isCriticalError =
       errorType === 'RefreshTokenError' || errorType === 'BackendConnectionError' || errorType === 'InvalidToken'
@@ -129,6 +151,12 @@ export async function middleware(request: NextRequest) {
 
   if (!session?.user && isProtectedPath) {
     return NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
+  }
+
+  // If the user is already authenticated, don't show the signin page —
+  // redirect them to their main My-day page instead.
+  if (session?.user && normalizedPath === Routes.SIGNIN) {
+    return NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url))
   }
 
   if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {

@@ -12,7 +12,6 @@ import Header from './Header.json'
 import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
 import MoodMarks from './MoodMarks.json'
-import MoodNote from './MoodNote.json'
 import MoodRecording from './MoodRecording.json'
 import MySpaceCards from './MySpaceCards.json'
 import Navbar from './Navbar.json'
@@ -24,6 +23,7 @@ import Sort from './Sort.json'
 import StressAssessment from './StressAssessment.json'
 import StressLevel from './StressLevel.json'
 import StressLevelScale from './StressLevelScale.json'
+import Tags from './Tags.json'
 import TenDaysSummary from './TenDaysSummary.json'
 import TextareaWithLabel from './TextareaWithLabel.json'
 import TodayObservations from './TodayObservations.json'
@@ -41,7 +41,6 @@ export const components = {
   Header,
   MoodBadge,
   MoodMarks,
-  MoodNote,
   MoodRecording,
   Mood,
   MySpaceCards,
@@ -54,6 +53,7 @@ export const components = {
   StressAssessment,
   StressLevel,
   StressLevelScale,
+  Tags,
   TenDaysSummary,
   TextareaWithLabel,
   TodayObservations,

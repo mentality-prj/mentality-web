@@ -1,0 +1,13 @@
+{
+  "addNewTag": {
+    "title": "Add tag",
+    "keyLabel": "Key",
+    "cancel": "Cancel",
+    "add": "Add",
+    "adding": "Adding...",
+    "keyRequired": "Key is required",
+    "keyFormat": "Key must be snake_case and start with a lowercase letter",
+    "success": "Tag added",
+    "failure": "Failed to add tag"
+  }
+}

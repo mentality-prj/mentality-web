@@ -1,29 +1,66 @@
 'use client'
-import { useState } from 'react'
-import { X } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { PlusIcon, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import FormCard from '@/components/Cards/FormCard'
 import StyledTextarea from '@/components/Forms/StyledTextarea'
+import AddNewTag from '@/components/MoodTracker/AddNewTag/AddNewTag'
 import Tag from '@/components/Tag/Tag'
 import { Button } from '@/ds/shadcn/button'
+import { UserTag } from '@/types/tags'
 
-import { MOODS } from './moods'
+import FullScreenBackdrop from '../../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import { MOODS } from '../moods'
 
 interface AddNewMoodProps {
   onClose: () => void
   onSave: () => void
-  availableTags?: string[]
+  availableTags?: UserTag[]
 }
 
 const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) => {
   const tm = useTranslations('components.Mood')
   const ct = useTranslations('common.Buttons')
+  const tt = useTranslations('components.Tags')
+  const mn = useTranslations('components.Mood')
 
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [note, setNote] = useState('')
   const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const mn = useTranslations('components.MoodNote')
+  const [localAvailableTags, setLocalAvailableTags] = useState<UserTag[]>(availableTags)
+  const [tagLabels, setTagLabels] = useState<Record<string, string>>(() => {
+    const map: Record<string, string> = {}
+    availableTags.forEach((t) => {
+      if (t && t.key && t.name) map[t.key] = t.name
+    })
+    return map
+  })
+  const [showAddTag, setShowAddTag] = useState(false)
+
+  useEffect(() => {
+    setLocalAvailableTags(availableTags)
+    // update label map from incoming tags
+    setTagLabels(() => {
+      const map: Record<string, string> = {}
+      availableTags.forEach((t) => {
+        if (t && t.key && t.name) map[t.key] = t.name
+      })
+      return map
+    })
+  }, [availableTags])
+
+  useEffect(() => {
+    // Clear labels for tags that are no longer available
+    setTagLabels((prev) => {
+      const next: Record<string, string> = {}
+      localAvailableTags.forEach((k) => {
+        if (prev[k.key]) next[k.key] = prev[k.key]
+      })
+      return next
+    })
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [localAvailableTags])
 
   const addTag = (t: string) => {
     setSelectedTags((prev) => (prev.includes(t) ? prev : [...prev, t]))
@@ -90,7 +127,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
           {selectedTags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {selectedTags.map((t) => (
-                <Tag key={t} text={t} onRemove={() => removeTag(t)} />
+                <Tag key={t} text={tagLabels[t as string] ?? t} onRemove={() => removeTag(t)} />
               ))}
             </div>
           )}
@@ -99,11 +136,35 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
         <div>
           <h5>{tm('addTags')}</h5>
 
-          <div className="mt-2 flex flex-wrap gap-2">
-            {availableTags.map((t) => (
-              <Tag key={t} text={t} onClick={() => addTag(t)} />
-            ))}
+          <div className="flex items-center justify-between">
+            <div className="mt-2 flex flex-wrap gap-2">
+              {localAvailableTags.map((t) => (
+                <Tag key={t.key} text={tagLabels[t.key] ?? t.name ?? t.key} onClick={() => addTag(t.key)} />
+              ))}
+            </div>
+            <Button variant="ghost" size="small" onClick={() => setShowAddTag(true)}>
+              <PlusIcon size={12} />
+              {tt('addNewTag.add')}
+            </Button>
           </div>
+
+          {showAddTag && (
+            <>
+              <FullScreenBackdrop onClick={() => setShowAddTag(false)} />
+              <div className="absolute inset-0 z-50 flex items-center justify-center">
+                <AddNewTag
+                  onClose={() => setShowAddTag(false)}
+                  onCreated={({ key, name }) => {
+                    // add to local list and select; store human-readable label
+                    setLocalAvailableTags((prev) => (prev.some((x) => x.key === key) ? prev : [...prev, { key, name }]))
+                    setTagLabels((prev) => ({ ...prev, [key]: name }))
+                    addTag(key)
+                    setShowAddTag(false)
+                  }}
+                />
+              </div>
+            </>
+          )}
         </div>
 
         <div>

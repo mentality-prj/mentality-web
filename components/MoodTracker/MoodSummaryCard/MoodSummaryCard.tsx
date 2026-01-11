@@ -8,13 +8,10 @@ import { MOOD_COL_HEIGHT_PX } from '@/constants/general'
 import HelloIcon from '@/ds/icons/moodNote/hello.svg'
 import { Button } from '@/ds/shadcn/button'
 
-import AddNewMood from './AddNewMood'
-import FullScreenBackdrop from './FullScreenBackdrop'
-import { MOODS, MOODS_MAP } from './moods'
-
-const availableTags = [{ key: 'work' }, { key: 'family' }, { key: 'health' }, { key: 'friends' }, { key: 'hobby' }].map(
-  (t) => t.key
-)
+import FullScreenBackdrop from '../../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import AddNewMood from '../AddNewMood/AddNewMood'
+import GetUserTags from '../GetUserTags/GetUserTags'
+import { MOODS, MOODS_MAP } from '../moods'
 
 interface MoodSummaryCardProps {
   title?: React.ReactNode
@@ -33,11 +30,15 @@ const MoodSummaryCard = ({ title = '', subtitle, counts = [] }: MoodSummaryCardP
         <>
           <FullScreenBackdrop onClick={() => setShowEntry(false)} />
           <div className="absolute inset-0 z-50">
-            <AddNewMood
-              onClose={() => setShowEntry(false)}
-              onSave={() => setShowEntry(false)}
-              availableTags={availableTags}
-            />
+            <GetUserTags>
+              {(tags) => (
+                <AddNewMood
+                  onClose={() => setShowEntry(false)}
+                  onSave={() => setShowEntry(false)}
+                  availableTags={tags}
+                />
+              )}
+            </GetUserTags>
           </div>
         </>
       )}

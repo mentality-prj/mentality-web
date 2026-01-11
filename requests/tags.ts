@@ -3,26 +3,47 @@ import { logger } from '@/lib/logger'
 import { TagEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { Roles } from '@/types/security'
-import { Tag } from '@/types/tags'
+import { AdminTag, Tag, UserTag } from '@/types/tags'
 
 import { APIUrl } from './config'
 import { performAdminRequest } from './genericFetch'
 
-export async function addTag(session: CustomSession | null, tag: Tag) {
-  const { key, translations } = tag
+export async function addTag(session: CustomSession | null, tag: AdminTag | UserTag) {
+  const { key } = tag
+  // Narrow to possible fields
+  const translations = (tag as AdminTag).translations
+  const name = (tag as UserTag).name
 
-  if (!session?.user || session.user.role !== Roles.ADMIN) {
-    logger.warn('Unauthorized attempt to add tag', {
-      userId: session?.user?.email,
-      role: session?.user?.role,
-      tagKey: key,
-    })
-    return { error: 'Unauthorized: Admin role required' }
+  // If this is a user-created tag (has `name`), require only an authenticated user.
+  if (typeof name === 'string') {
+    if (!session?.user) {
+      logger.warn('Unauthorized attempt to add tag', {
+        userId: session?.user?.email,
+        tagKey: key,
+      })
+      return { error: 'Unauthorized: Login required' }
+    }
+  } else {
+    // Admin-created tag requires admin role
+    if (!session?.user || session.user.role !== Roles.ADMIN) {
+      logger.warn('Unauthorized attempt to add tag', {
+        userId: session?.user?.email,
+        tagKey: key,
+      })
+      return { error: 'Unauthorized: Admin role required' }
+    }
   }
 
-  const { data, error } = await apiRequestWithAuth<TagEntity>(session, `${APIUrl}/tags`, {
+  // If `name` is provided (user-created tag), send { key, name }.
+  // Otherwise send `translations` as before for admin-managed localized tags.
+  const body: Record<string, unknown> = name ? { key, name } : { key, translations }
+
+  // Use a dedicated endpoint for user-created tags so backend can handle them separately
+  const endpoint = name ? `${APIUrl}/user-tags` : `${APIUrl}/tags`
+
+  const { data, error } = await apiRequestWithAuth<TagEntity>(session, endpoint, {
     method: 'POST',
-    body: { key, translations },
+    body,
   })
 
   if (error) {
