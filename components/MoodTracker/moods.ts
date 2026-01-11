@@ -1,20 +1,22 @@
-import { ComponentType, SVGProps } from 'react'
-import { Annoyed, Frown, Laugh, Meh, Smile } from 'lucide-react'
+import { ElementType } from 'react'
+
+import { Bad, Good, Neutral, VeryBad, VeryGood } from '@/ds/icons/moodNote'
 
 export type MoodKey = 'very-bad' | 'bad' | 'neutral' | 'good' | 'great'
 
 export type MoodInfo = {
   key: MoodKey
-  icon: ComponentType<SVGProps<SVGSVGElement>>
+  label: string
+  icon: ElementType<{ color?: string; fillColor?: string }>
   statusClass: string
 }
 
 export const MOODS: MoodInfo[] = [
-  { key: 'very-bad', icon: Frown, statusClass: 'error' },
-  { key: 'bad', icon: Annoyed, statusClass: 'warn' },
-  { key: 'neutral', icon: Meh, statusClass: 'note' },
-  { key: 'good', icon: Smile, statusClass: 'success' },
-  { key: 'great', icon: Laugh, statusClass: 'support' },
+  { key: 'very-bad', label: 'labelsEmoji.veryBad', icon: VeryBad, statusClass: 'error' },
+  { key: 'bad', label: 'labelsEmoji.bad', icon: Bad, statusClass: 'warn' },
+  { key: 'neutral', label: 'labelsEmoji.neutral', icon: Neutral, statusClass: 'info' },
+  { key: 'good', label: 'labelsEmoji.good', icon: Good, statusClass: 'success' },
+  { key: 'great', label: 'labelsEmoji.veryGood', icon: VeryGood, statusClass: 'support' },
 ]
 
 export const MOODS_MAP: Record<MoodKey, MoodInfo> = MOODS.reduce<Record<MoodKey, MoodInfo>>(

@@ -403,7 +403,7 @@ export const mockMoodCounts = async (): Promise<{ mood: string; count: number }[
   const counts = [
     { mood: 'very-bad', count: 2 },
     { mood: 'bad', count: 5 },
-    { mood: 'neutral', count: 11 },
+    { mood: 'neutral', count: 27 },
     { mood: 'good', count: 7 },
     { mood: 'great', count: 19 },
   ]

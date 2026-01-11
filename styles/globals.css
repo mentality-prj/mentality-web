@@ -203,7 +203,9 @@ body {
     --info: 207, 96%, 85%; /* blue-300 (#93c5fd) */
     --success: 142 70% 85%; /* green-200 (#bbf7d0) */
     --warning: 32 97% 61%; /* orange-500 (#f97316) */
-    --support: 20 98% 85%; /* true peach (#FFD1B3) */
+    --support: 280 100% 70%; /* purple-400 (#c084fc) */
+    --support-from: 246 98% 80%; /* purple-300 (#a78bfa) */
+    --support-to: 300 100% 62%; /* pink-400 (#f472b6) */
     --note: 75 45% 80%; /* yellow-green-300 (#e2fba5) */
     --error: 0 84% 60%; /* red-500 (#ef4444) */
 
@@ -458,13 +460,13 @@ body {
   }
 
   .note {
-    background-color: hsl(var(--warning));
+    background-color: hsl(var(--note));
     color: hsl(var(--text-state));
   }
 
   .support {
-    background-color: hsl(var(--support));
-    color: hsl(var(--text-state));
+    background-image: linear-gradient(to bottom right, hsl(var(--support-from)), hsl(var(--support-to)));
+    color: hsl(var(--special-foreground));
   }
 
   .warn {

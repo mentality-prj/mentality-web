@@ -9,6 +9,8 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        ghost:
+          'px-4 py-2 bg-transparent text-primary border border-border hover:bg-secondary-hover/30 focus:bg-secondary-focus/20 focus-visible:ring-primary-focus active:bg-secondary-pressed/20',
         default:
           'px-6 py-4 bg-primary text-reversed hover:bg-primary-hover focus:bg-primary-focus focus-visible:ring-primary-focus active:bg-primary-pressed focus-visible:ring-offset-4 disabled:bg-disable',
         secondary:
@@ -28,8 +30,11 @@ const buttonVariants = cva(
       },
 
       size: {
-        default: 'gap-1 [&_svg]:h-6',
-        base: 'gap-1 [&_svg]:h-4',
+        default: 'text-base gap-1 [&_svg]:h-6',
+        base: 'text-sm gap-1 [&_svg]:h-4',
+        large: 'px-6 py-4 text-lg gap-2 [&_svg]:h-6',
+        medium: 'px-4 py-1.5 text-sm gap-1 [&_svg]:h-5',
+        small: 'px-2 py-1 text-xs gap-1 [&_svg]:h-4',
         iconBig: 'h-12 ',
         icon: 'h-8 w-8 rounded-full [&_svg]:w-6 [&_svg]:h-6',
         iconSm: 'h-6 w-6 py-0 px-0 rounded-full [&_svg]:w-4 [&_svg]:h-4',

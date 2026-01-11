@@ -15,7 +15,7 @@ type TagsEditorProps = {
 }
 
 export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
-  const t = useTranslations('components.MoodNote')
+  const t = useTranslations('components.Mood')
 
   return (
     <div className="flex flex-col gap-4">

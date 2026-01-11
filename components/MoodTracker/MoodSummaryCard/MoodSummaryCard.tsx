@@ -4,15 +4,14 @@ import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
 import Card from '@/components/Cards/Card'
+import { MOOD_COL_HEIGHT_PX } from '@/constants/general'
 import HelloIcon from '@/ds/icons/moodNote/hello.svg'
 import { Button } from '@/ds/shadcn/button'
 
-import AddNewMood from './AddNewMood'
-import { MOODS, MOODS_MAP } from './moods'
-
-const availableTags = [{ key: 'work' }, { key: 'family' }, { key: 'health' }, { key: 'friends' }, { key: 'hobby' }].map(
-  (t) => t.key
-)
+import FullScreenBackdrop from '../../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import AddNewMood from '../AddNewMood/AddNewMood'
+import GetUserTags from '../GetUserTags/GetUserTags'
+import { MOODS, MOODS_MAP } from '../moods'
 
 interface MoodSummaryCardProps {
   title?: React.ReactNode
@@ -25,18 +24,24 @@ const MoodSummaryCard = ({ title = '', subtitle, counts = [] }: MoodSummaryCardP
   const [showEntry, setShowEntry] = useState(false)
   const max = Math.max(...counts.map((c) => c.count), 1)
 
-  if (showEntry) {
-    return (
-      <AddNewMood
-        onClose={() => setShowEntry(false)}
-        onSave={() => setShowEntry(false)}
-        availableTags={availableTags}
-      />
-    )
-  }
-
   return (
     <Card className="relative p-6">
+      {showEntry && (
+        <>
+          <FullScreenBackdrop onClick={() => setShowEntry(false)} />
+          <div className="absolute inset-0 z-50">
+            <GetUserTags>
+              {(tags) => (
+                <AddNewMood
+                  onClose={() => setShowEntry(false)}
+                  onSave={() => setShowEntry(false)}
+                  availableTags={tags}
+                />
+              )}
+            </GetUserTags>
+          </div>
+        </>
+      )}
       <h2 className="flex items-center gap-1">
         <Image
           src={typeof HelloIcon === 'string' ? HelloIcon : (HelloIcon as { src: string }).src}
@@ -53,7 +58,7 @@ const MoodSummaryCard = ({ title = '', subtitle, counts = [] }: MoodSummaryCardP
         <section className="grid w-full grid-cols-5 items-end gap-1 px-2">
           {counts.map((c, idx) => {
             const moodInfo = MOODS_MAP[c.mood as keyof typeof MOODS_MAP]
-            const height = Math.round((c.count / max) * 140)
+            const height = Math.round((c.count / max) * MOOD_COL_HEIGHT_PX)
             const statusClass = moodInfo ? moodInfo.statusClass : 'tag'
             return (
               <div key={idx} className="flex flex-col items-center gap-1">
@@ -68,10 +73,10 @@ const MoodSummaryCard = ({ title = '', subtitle, counts = [] }: MoodSummaryCardP
           <section className="grid w-full grid-cols-5 items-center gap-1 px-2">
             {counts.map((c, i) => {
               const moodInfo = MOODS_MAP[c.mood as keyof typeof MOODS_MAP]
-              const Icon = moodInfo ? moodInfo.icon : MOODS[i as number]?.icon
+              const Emoji = moodInfo ? moodInfo.icon : MOODS[i as number]?.icon
               return (
                 <div key={i} className="flex flex-col items-center text-xl">
-                  <Icon className="h-6 w-6" />
+                  <Emoji className="h-6 w-6" />
                 </div>
               )
             })}

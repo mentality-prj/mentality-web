@@ -9,7 +9,7 @@ import { MoodNote } from './MoodNote'
 import { StressAssessment } from './StressAssessment'
 
 export const NewMoodNoteSection = () => {
-  const t = useTranslations('components.MoodNote')
+  const t = useTranslations('components.Mood')
 
   return (
     <div className="background-alt-white flex w-full flex-col tablet:min-w-[600px]">

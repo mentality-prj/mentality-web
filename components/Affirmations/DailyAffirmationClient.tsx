@@ -13,7 +13,7 @@ const DailyAffirmationClient = () => {
 
   const item = items && items.length > 0 ? items[0] : null
 
-  if (!item) return <div>...</div>
+  if (!item) return
 
   return <AffirmationCard item={item} />
 }

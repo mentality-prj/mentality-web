@@ -1,0 +1,13 @@
+{
+  "addNewTag": {
+    "title": "Dodaj tag",
+    "keyLabel": "Klucz",
+    "cancel": "Anuluj",
+    "add": "Dodaj",
+    "adding": "Dodawanie...",
+    "keyRequired": "Wymagany klucz",
+    "keyFormat": "Klucz musi być w formacie snake_case i zaczynać się od małej litery",
+    "success": "Tag dodany",
+    "failure": "Nie udało się dodać taga"
+  }
+}

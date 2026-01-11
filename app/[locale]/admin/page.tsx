@@ -72,8 +72,9 @@ export default function AdminPage() {
         <Card type="warn" title="Title 04" text="Lorem ipsum" remark="warn" />
         <Card type="accent" title="Title 05" text="Lorem ipsum" remark="accent" />
         <Card type="error" title="Title 06" text="Lorem ipsum" remark="error" />
-        <Card title="Title 07" text="Lorem ipsum" remark="accent-soft" className="bg-accent-soft" />
+        <Card type="support" title="Title 07" text="Lorem ipsum" remark="support" />
         <Card title="Title 08" text="Lorem ipsum" remark="accent-foreground" className="bg-accent-foreground" />
+        <Card title="Title 09" text="Lorem ipsum" remark="accent-soft" className="bg-accent-soft" />
 
         <CustomCard
           icon={<CloudIcon />}

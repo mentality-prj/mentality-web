@@ -12,5 +12,17 @@
   "bad": "Bad",
   "neutral": "Neutral",
   "good": "Good",
-  "great": "Great"
+  "great": "Great",
+  "subtitle": "How is your mood?",
+  "label": "Describe your feelings and thoughts",
+  "save": "Save",
+  "add": "Add",
+  "placeholder": "New tag",
+  "labelsEmoji": {
+    "veryBad": "Very bad",
+    "bad": "Bad",
+    "neutral": "Neutral",
+    "good": "Good",
+    "veryGood": "Very good"
+  }
 }

@@ -12,17 +12,16 @@ import { SupportedLanguage } from '@/types/languages'
 const DailyTipClient = () => {
   const locale = useLocale() as SupportedLanguage
   const { items, loading } = useTips(false, 1)
-  const tip = items && items.length > 0 ? items[0] : null
+
+  if (loading) return <Loading size={16} />
+
+  const item = items && items.length > 0 ? items[0] : null
+
+  if (!item) return
 
   return (
     <Card tools={<Lightbulb size={16} />}>
-      {loading ? (
-        <Loading size={16} className="text-gray-500" />
-      ) : tip ? (
-        <Quote text={`${tip.translations?.[`${locale}`] ?? ''}`} />
-      ) : (
-        <div>...</div>
-      )}
+      <Quote text={`${item.translations?.[`${locale}`]}`} />
     </Card>
   )
 }

@@ -17,7 +17,7 @@ interface CardProps {
   tools?: ReactNode | ReactNode[]
 }
 
-const darkTypes = [Statuses.dark, Statuses.accent, Statuses.warn, Statuses.error, Statuses.special]
+const darkTypes = [Statuses.dark, Statuses.accent, Statuses.warn, Statuses.error, Statuses.special, Statuses.support]
 const whiteTypes = [Statuses.default, Statuses.ghost]
 
 const Card = ({
