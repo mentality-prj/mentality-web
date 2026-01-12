@@ -44,14 +44,14 @@ export function FeatureCardsSection() {
     <section className="mb-12 w-full">
       <div className="container-max-width mx-auto grid grid-cols-1 gap-default px-4 tablet:px-6 md:grid-cols-3 md:px-8 lg:px-10">
         <SectionCard
-          type={Statuses.info}
+          type={Statuses.note}
           title={t('Features.interactivity.title')}
           subtitle={t('Features.interactivity.subtitle')}
           titleClassName="text-title light-shadow text-textcolor-primary"
           decoration={interactivityDecoration}
         />
         <SectionCard
-          type={Statuses.support}
+          type={Statuses.info}
           title={t('Features.support.title')}
           subtitle={t('Features.support.subtitle')}
           titleClassName="text-title light-shadow text-textcolor-primary"

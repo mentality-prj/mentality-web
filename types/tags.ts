@@ -5,8 +5,8 @@ export type AdminTag = {
   key: string
   // Admin-managed tags MUST include translations (backend requires them)
   translations: Record<SupportedLanguage, string>
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt?: string
+  updatedAt?: string
 }
 
 export type UserTag = {
@@ -14,8 +14,8 @@ export type UserTag = {
   key: string
   // User-created tags provide a single display name; backend expects `name` for simple tags
   name: string
-  createdAt?: Date
-  updatedAt?: Date
+  createdAt?: string
+  updatedAt?: string
 }
 
 // Union for convenience where either is acceptable

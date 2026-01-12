@@ -45,24 +45,43 @@ export type CreateTagDto = {
   translations: Record<SupportedLanguage, string>
 }
 
-// Exercises
 export type ExerciseEntity = {
   id: string
   category: string
-  title: string
-  annotation: string
-  description: string
+  translations: {
+    title: Record<SupportedLanguage, string>
+    annotation: Record<SupportedLanguage, string>
+    description: Record<SupportedLanguage, string>
+  }
   tags: string[]
-  createdAt?: string
+  createdAt: string
   updatedAt?: string
 }
 
-export type CreateExerciseDto = {
-  category: string
-  title: string
-  annotation: string
-  description: string
-  tags: string[]
+export type ExerciseEntityTranslations = ExerciseEntity['translations']
+
+export type CreateExerciseDto = Omit<ExerciseEntity, 'id' | 'createdAt' | 'updatedAt'>
+
+export type GeneratedExercise = ExerciseEntity
+
+export type PaginatedExercises = { items: ExerciseEntity[]; total: number }
+
+export type ExerciseCategory = 'meditation' | 'breathing' | 'calming'
+
+export type GenerateExerciseDto = {
+  category: ExerciseCategory
+  prompt?: string
+}
+
+export type UpdateExerciseDto = {
+  category?: ExerciseCategory
+  tags?: string[]
+  translations?: {
+    title?: Record<SupportedLanguage, string>
+    annotation?: Record<SupportedLanguage, string>
+    description?: Record<SupportedLanguage, string>
+  }
+  isPublished?: boolean
 }
 
 // Auth

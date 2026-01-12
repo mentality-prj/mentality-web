@@ -33,11 +33,11 @@ export const DropdownInput = ({
         >
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
-        <SelectContent className="border-outline-tertiary bg-background-alt-white rounded-md shadow-none [&_>div]:p-0">
+        <SelectContent className="border-outline-tertiary rounded-md bg-white shadow-none [&_>div]:p-0">
           <SelectGroup>
             {items.map((item) => (
               <SelectItem
-                className="hover:bg-secondary-hover hover:text-textcolor-purple rounded-none px-4 py-3 hover:cursor-pointer [&_svg]:hidden"
+                className="hover:bg-secondary-hover hover:text-textcolor-purple rounded-none bg-white px-4 py-3 hover:cursor-pointer [&_svg]:hidden"
                 key={item.value}
                 value={item.value}
               >

@@ -1,18 +1,18 @@
 'use client'
 
-import React from 'react'
+import { ReactNode } from 'react'
 
 import { Button } from '@/ds/shadcn/button'
 
 interface FormCardProps {
-  title: React.ReactNode
-  tools?: React.ReactNode
-  children?: React.ReactNode
+  title: ReactNode
+  tools?: ReactNode
+  children?: ReactNode
   className?: string
   onSubmit?: () => void
   onCancel?: () => void
-  submitLabel?: React.ReactNode
-  cancelLabel?: React.ReactNode
+  submitLabel?: ReactNode
+  cancelLabel?: ReactNode
 }
 
 export default function FormCard({

@@ -4,32 +4,37 @@ import { Calendar, X } from 'lucide-react'
 import { useLocale } from 'next-intl'
 
 import Card from '@/components/Cards/Card'
+import TextRenderer from '@/components/Content/TextRenderer'
 import FullScreenBackdrop from '@/components/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 import { formatDate } from '@/helpers/data'
-import { TipEntity } from '@/types/api-responses'
-import type { SupportedLanguage } from '@/types/languages'
+import { ExerciseEntity } from '@/types/api-responses'
+import { SupportedLanguage } from '@/types/languages'
 
 interface Props {
-  item: TipEntity
+  item: ExerciseEntity
   tools?: ReactNode
   className?: string
 }
 
-export default function TipCard({ item, tools, className = '' }: Props) {
+export default function ExerciseCard({ item, tools, className = '' }: Props) {
   const locale = useLocale() as SupportedLanguage
   const [open, setOpen] = useState(false)
 
-  const text = item.translations?.[locale as SupportedLanguage] || ''
+  const title = item.translations?.title[locale as SupportedLanguage] || ''
+  const annotation = item.translations?.annotation[locale as SupportedLanguage] || ''
+  const description = item.translations?.description[locale as SupportedLanguage] || ''
   const createdAt = formatDate(item.createdAt)
 
   return (
     <>
       <Card
-        className={`h-full border bg-white ${className}`}
+        className={`h-full cursor-pointer border bg-white ${className}`}
         sup={createdAt}
         icon={<Calendar size={12} />}
-        text={<div className="text-sm text-gray-700">{text}</div>}
+        title={title}
+        text={annotation}
         tools={tools}
+        remark={item.category}
         onClick={() => setOpen(true)}
       />
 
@@ -52,10 +57,15 @@ export default function TipCard({ item, tools, className = '' }: Props) {
                     <X className="h-5 w-5" />
                   </button>
                 }
+                title={title}
+                text={annotation}
+                remark={item.category}
+                tags={item.tags}
               >
-                <div>
-                  <div className="text-2xl font-semibold">{text}</div>
-                </div>
+                <section>
+                  {/* Render parsed content blocks (paragraphs, lists, quotes) */}
+                  <TextRenderer text={description} />
+                </section>
               </Card>
             </div>
           </div>

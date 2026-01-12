@@ -1,15 +1,15 @@
 import { getTranslations } from 'next-intl/server'
 
-import GuideMeditationsClient from '@/components/Guide/GuideMeditationsClient'
+import GuideCalmingClient from '@/components/Guide/GuideCalmingClient'
 import { PageTitle } from '@/ds/components/PageTitle'
 
-export default async function GuideMeditationsPage() {
-  const t = await getTranslations('pages.Guide.meditations')
+export default async function GuideCalmingPage() {
+  const t = await getTranslations('pages.Guide.calming')
   return (
     <article>
       <PageTitle title={t('title')} />
       <section className="mt-6">
-        <GuideMeditationsClient />
+        <GuideCalmingClient />
       </section>
     </article>
   )
