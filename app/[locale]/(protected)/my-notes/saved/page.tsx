@@ -1,6 +1,5 @@
 import { useTranslations } from 'next-intl'
 
-import { SavedList } from '@/components/SavedList'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { PageTitle } from '@/ds/components/PageTitle'
 
@@ -15,7 +14,6 @@ export default function SavedPage() {
         ]}
       />
       <PageTitle title={t('pages.SavedPage.title')} subtitle={t('pages.SavedPage.subtitle')} />
-      <SavedList />
     </div>
   )
 }

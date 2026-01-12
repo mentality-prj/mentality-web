@@ -46,22 +46,23 @@ export default function AddTip() {
   return (
     <div className="space-y-8 p-6">
       <div className="flex w-full gap-default">
+        <div>
+          <h3 className="mb-4">{t('description')}</h3>
+          <h4>{t('autoAppear')}</h4>
+          <p>
+            <em>{t('noPrompt')}</em>
+          </p>
+        </div>
         <div className="flex flex-col gap-default">
-          <Button variant="volume" onClick={generateTip} disabled={isSubmitting}>
+          <Button size="large" variant="volume" onClick={generateTip} disabled={isSubmitting}>
             {isSubmitting ? t('submitting') : t('generateButton')}
           </Button>
         </div>
-        <p className="text-sm">
-          Generate a <strong>Tip</strong> using the OpenAI service.
-          <br />
-          This tip will automatically appear on pages as a <strong>Current Tip</strong>
-          <br />
-          <em>If no prompt is specified, the tip will be generated with the default prompt.</em>
-        </p>
       </div>
+
       <div className="mt-8 flex w-full flex-col gap-2">
         <em>{t('ukrainianOnly')}</em>
-        <Label htmlFor="tipPrompt">Tip Prompt</Label>
+        <Label htmlFor="tipPrompt">{t('promptLabel')}</Label>
         <Textarea
           id="tipPrompt"
           placeholder={t('promptPlaceholder')}

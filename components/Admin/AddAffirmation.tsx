@@ -47,15 +47,15 @@ export default function AddAffirmation() {
   return (
     <div className="space-y-8 p-6">
       <div className="flex w-full gap-default">
-        <p className="text-sm">
-          {t('description')}
-          <br />
-          {t('autoAppear')}
-          <br />
-          <em>{t('noPrompt')}</em>
-        </p>
+        <div>
+          <h3 className="mb-4">{t('description')}</h3>
+          <h4>{t('autoAppear')}</h4>
+          <p>
+            <em>{t('noPrompt')}</em>
+          </p>
+        </div>
         <div className="flex flex-col gap-default">
-          <Button variant="volume" onClick={generateAffirmation} disabled={isSubmitting}>
+          <Button size="large" variant="volume" onClick={generateAffirmation} disabled={isSubmitting}>
             {isSubmitting ? t('submitting') : t('generateButton')}
           </Button>
         </div>

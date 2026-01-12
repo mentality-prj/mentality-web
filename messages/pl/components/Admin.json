@@ -42,10 +42,8 @@
   "GenerateTip": {
     "generateButton": "Generuj poradę",
     "showUnpublishedButton": "Pokaż nieopublikowane",
-    "description": "Generuj {tip} używając usługi OpenAI.",
-    "tip": "poradę",
-    "autoAppear": "Ta porada automatycznie pojawi się na stronach jako {currentTip}",
-    "currentTip": "Obecna porada",
+    "description": "Wygeneruj poradę za pomocą usługi OpenAI.",
+    "autoAppear": "Ta porada automatycznie pojawi się na stronach jako obecna porada",
     "noPrompt": "Jeśli prompt nie jest podany, porada zostanie wygenerowana z domyślnym promptem.",
     "ukrainianOnly": "Generowanie porady obsługuje wyłącznie język ukraiński.",
     "ukrainian": "język ukraiński",
@@ -76,7 +74,19 @@
     "empty": "Brak afirmacji"
   },
   "AddExercise": {
+    "generateButton": "Generuj ćwiczenie",
+    "generating": "Generowanie...",
+    "descriptionGenerate": "Generuj ćwiczenie używając usługi OpenAI.",
+    "promptLabel": "Prompt",
+    "promptPlaceholder": "Dodaj żądanie, jeśli potrzebne",
+    "noPrompt": "Jeśli prompt nie jest podany, ćwiczenie zostanie wygenerowane z domyślnym promptem.",
     "title": "Dodaj nowe ćwiczenie",
+    "addForm": {
+      "title": "Dodaj ręcznie"
+    },
+    "Buttons": {
+      "update": "Aktualizuj"
+    },
     "buttonAdd": "Dodaj ćwiczenie",
     "buttonSave": "Zapisz ćwiczenie",
     "buttonEdit": "Redagować",

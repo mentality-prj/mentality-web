@@ -1,7 +1,8 @@
 import { apiRequestWithAuth } from '@/helpers/apiRequestWithAuth'
 import { logger } from '@/lib/logger'
-import { CreateExerciseDto, ExerciseEntity } from '@/types/api-responses'
+import { CreateExerciseDto, ExerciseCategory, ExerciseEntity, GeneratedExercise } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
+import { SupportedLanguage } from '@/types/languages'
 import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
@@ -76,6 +77,29 @@ export async function getExercises(session: CustomSession | null): Promise<ApiRe
   return { data: exercises }
 }
 
+export async function getUnpublishedExercises(
+  session: CustomSession | null,
+  page = 1,
+  limit = 10
+): Promise<{ data: { items: ExerciseEntity[]; total: number } } | { error: string }> {
+  const check = checkAdmin(session, 'get unpublished exercises')
+  if (check) return check as { error: string }
+
+  const url = `${APIUrl}/exercises/unpublished?page=${page}&limit=${limit}`
+  const res = await performAdminRequest<ExerciseEntity[]>(session, url, { method: 'GET' })
+
+  if ('error' in res) {
+    logger.error('Failed to get unpublished exercises', { error: res.error })
+    return { error: res.error }
+  }
+
+  const items = Array.isArray(res.data) ? res.data : []
+  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
+  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  logger.info('Unpublished exercises retrieved', { count: items.length, total })
+  return { data: { items, total } }
+}
+
 export async function updateExercise(
   session: CustomSession | null,
   exerciseId: string,
@@ -85,7 +109,7 @@ export async function updateExercise(
   if (check) return check
 
   const { data, error } = await apiRequestWithAuth<ExerciseEntity>(session, `${APIUrl}/exercises/${exerciseId}`, {
-    method: 'PUT',
+    method: 'PATCH',
     body: exerciseData,
   })
 
@@ -113,5 +137,57 @@ export async function deleteExercise(
   }
 
   logger.info('Exercise successfully deleted', { exerciseId: res.data?.id ?? exerciseId })
+  return { data: res.data }
+}
+
+export async function publishExercise(session: CustomSession | null, id: string) {
+  if (!session?.user || session.user.role !== Roles.ADMIN) {
+    logger.warn('Unauthorized attempt to publish exercise', {
+      userId: session?.user?.email,
+      role: session?.user?.role,
+    })
+    return { error: 'Unauthorized: Admin role required' }
+  }
+
+  const res = await performAdminRequest<ExerciseEntity>(session, `${APIUrl}/exercises/${id}`, {
+    method: 'PATCH',
+    body: { isPublished: true },
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to publish exercise', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  logger.info('Exercise published', { id })
+  return { data: res.data }
+}
+
+export async function generateExercise(
+  session: CustomSession | null,
+  prompt: string | undefined,
+  category: ExerciseCategory,
+  lang?: SupportedLanguage
+): Promise<ApiResult<GeneratedExercise>> {
+  const check = checkAdmin(session, 'generate exercise')
+  if (check) return check
+
+  const body: Record<string, unknown> = { category }
+  if (prompt && prompt.trim() !== '') {
+    body.prompt = prompt.trim()
+    if (lang) body.lang = lang
+  }
+
+  const res = await performAdminRequest<GeneratedExercise>(session, `${APIUrl}/exercises/generate`, {
+    method: 'POST',
+    body,
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to generate exercise', { error: res.error, prompt, category, lang })
+    return { error: res.error }
+  }
+
+  logger.info('Exercise successfully generated', { lang, category })
   return { data: res.data }
 }

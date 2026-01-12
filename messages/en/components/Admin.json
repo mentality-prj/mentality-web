@@ -42,10 +42,8 @@
   "GenerateTip": {
     "generateButton": "Generate tip",
     "showUnpublishedButton": "Show unpublished",
-    "description": "Generate {tip} using OpenAI service.",
-    "tip": "tip",
-    "autoAppear": "This tip will automatically appear on pages as {currentTip}",
-    "currentTip": "Current tip",
+    "description": "Generate tip using OpenAI service.",
+    "autoAppear": "This tip will automatically appear on pages as current tip",
     "noPrompt": "If no prompt is specified, the tip will be generated with the default prompt.",
     "ukrainianOnly": "Tip generation supports only the Ukrainian language",
     "ukrainian": "Ukrainian language",
@@ -76,7 +74,19 @@
     "empty": "No affirmations found"
   },
   "AddExercise": {
+    "generateButton": "Generate exercise",
+    "generating": "Generating...",
+    "descriptionGenerate": "Generate an exercise using the OpenAI service.",
+    "promptLabel": "Prompt",
+    "promptPlaceholder": "Add request if needed",
+    "noPrompt": "If no prompt is specified, the exercise will be generated with the default prompt.",
     "title": "Add new exercise",
+    "addForm": {
+      "title": "Add manually"
+    },
+    "Buttons": {
+      "update": "Update"
+    },
     "buttonAdd": "Add exercise",
     "buttonSave": "Save exercise",
     "buttonEdit": "Edit",

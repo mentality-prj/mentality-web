@@ -5,5 +5,6 @@
   "save": "Save",
   "close": "Close",
   "cancel": "Cancel",
-  "delete": "Delete"
+  "delete": "Delete",
+  "create": "Create"
 }

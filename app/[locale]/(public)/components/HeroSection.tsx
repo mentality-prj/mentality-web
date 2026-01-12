@@ -17,7 +17,7 @@ export function HeroSection() {
     const heroEl = heroRef.current
     const logoEl = document.querySelector<HTMLElement>('[data-landing-logo]')
     if (!heroEl || !logoEl) return
-    const DECORATIVE_INSET_RATIO = 0.28
+    const DECORATIVE_INSET_RATIO = 0.27
 
     // Adjusted gradient anchor to shift 20px to the right and 10px upward
     const updateGradientAnchor = () => {
@@ -51,7 +51,7 @@ export function HeroSection() {
             <h1 className="landing-h1">{t('Hero.title')}</h1>
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
             <div>
-              <Button asChild variant="volume">
+              <Button asChild variant="volume" size="large">
                 <Link href="/signin">{t('Hero.cta')}</Link>
               </Button>
             </div>
