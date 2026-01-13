@@ -1,0 +1,19 @@
+{
+  "title": "We use cookies",
+  "description": "To improve the site and remember your settings we use the following types of cookies:",
+  "accept": "Accept",
+  "cookies": {
+    "analytics": {
+      "name": "Analytics",
+      "description": "Collects anonymous usage data to help us improve the service"
+    },
+    "authentication": {
+      "name": "Authentication",
+      "description": "Keeps you signed in and secures your session"
+    },
+    "preferences": {
+      "name": "Preferences",
+      "description": "Stores language and other UI preferences"
+    }
+  }
+}

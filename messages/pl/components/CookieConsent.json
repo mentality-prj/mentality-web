@@ -1,0 +1,19 @@
+{
+  "title": "Używamy cookies",
+  "description": "Aby poprawić działanie serwisu i zapamiętać Twoje ustawienia, używamy następujących typów plików cookie:",
+  "accept": "Akceptuj",
+  "cookies": {
+    "analytics": {
+      "name": "Analityka",
+      "description": "Zbiera anonimowe dane o użyciu, aby pomóc nam ulepszać serwis"
+    },
+    "authentication": {
+      "name": "Uwierzytelnianie",
+      "description": "Utrzymuje Twoje zalogowanie i zabezpiecza sesję"
+    },
+    "preferences": {
+      "name": "Preferencje",
+      "description": "Przechowuje ustawienia języka i inne preferencje interfejsu"
+    }
+  }
+}

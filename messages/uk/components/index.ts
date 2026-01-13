@@ -4,6 +4,7 @@ import AvatarMenu from './AvatarMenu.json'
 import BestDay from './BestDay.json'
 import Calendar from './Calendar.json'
 import ChartDynamics from './ChartDynamics.json'
+import CookieConsent from './CookieConsent.json'
 import DailyCard from './DailyCard.json'
 import Days from './Days.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
@@ -58,5 +59,6 @@ export const components = {
   TenDaysSummary,
   TextareaWithLabel,
   TodayObservations,
+  CookieConsent,
   AvatarMenu,
 }
