@@ -8,10 +8,10 @@ export default async function MyNotes() {
   const t = await getTranslations('pages.MyNotes')
 
   return (
-    <div className="flex flex-col gap-8">
+    <article>
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <MySpace />
       <ExercisesForRecovery />
-    </div>
+    </article>
   )
 }

@@ -1,31 +1,33 @@
 import { getTranslations } from 'next-intl/server'
 
-import CustomCard from '@/ds/components/CustomCard'
 import { SectionCard } from '@/ds/components/SectionCard'
-import { HumanEmoji } from '@/ds/icons/emoji/human'
-import { LungsEmoji } from '@/ds/icons/emoji/lungs'
-import { PinchedFingersEmoji } from '@/ds/icons/emoji/pinched-fingers'
+import { Link } from '@/i18n/navigation'
+
+import Card from '../Cards/Card'
 
 export async function ExercisesForRecovery() {
-  const t = await getTranslations()
+  const t = await getTranslations('components.ExercisesForRecovery')
+  const tButton = await getTranslations('common.Buttons')
 
   const cardExercisesData = [
-    { key: 'meditation', icon: <HumanEmoji />, link: 'meditation' },
-    { key: 'breathing', icon: <LungsEmoji />, link: 'breathing' },
-    { key: 'calming', icon: <PinchedFingersEmoji />, link: 'calming' },
+    { key: 'meditation', link: 'meditations' },
+    { key: 'breathing', link: 'breathing' },
+    { key: 'calming', link: 'calming' },
   ] as const
 
   return (
-    <SectionCard title={t('common.PageTitle.title', { title: 'exercises' })}>
+    <SectionCard title={t('title')}>
       <div className="grid grid-cols-1 gap-8 laptop:grid-cols-2 desktop:grid-cols-3">
-        {cardExercisesData.map(({ key, icon, link }) => (
-          <CustomCard
+        {cardExercisesData.map(({ key, link }) => (
+          <Card
             key={key}
-            icon={icon}
-            title={t(`components.ExercisesForRecovery.${key}.title`)}
-            text={t(`components.ExercisesForRecovery.${key}.desc`)}
-            hrefLink={`guide?tab=${link}`}
-            textLink={t('common.buttonText.moreDetails')}
+            title={t(`${key}.title`)}
+            text={t(`${key}.desc`)}
+            aftertext={
+              <Link className="text-blue-600 underline" href={`/guide/${link}`}>
+                {tButton('moreDetails')}
+              </Link>
+            }
           />
         ))}
       </div>
