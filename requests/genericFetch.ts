@@ -30,8 +30,13 @@ export async function performAuthRequest<T = unknown>(
 
   if (error) {
     logger.error('API request failed', { url, method, error })
-    const message =
-      typeof error === 'object' && error !== null && 'message' in error ? (error as any).message : String(error)
+    let message: string
+    if (typeof error === 'object' && error !== null && 'message' in error) {
+      const errObj = error as { message?: unknown }
+      message = typeof errObj.message === 'string' ? errObj.message : String(errObj.message ?? String(error))
+    } else {
+      message = String(error)
+    }
     return { error: message }
   }
 

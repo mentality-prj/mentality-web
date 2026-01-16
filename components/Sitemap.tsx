@@ -24,28 +24,28 @@ import { Roles } from '@/types/security'
 
 type Access = 'public' | 'private' | 'admin'
 
+export const iconMap: Record<string, ReactNode> = {
+  bookHeart: <BookHeart size={16} className="icon" />,
+  layoutDashboard: <LayoutDashboard size={16} className="icon" />,
+  tag: <Tag size={16} className="icon" />,
+  lightbulb: <Lightbulb size={16} className="icon" />,
+  brain: <Brain size={16} className="icon" />,
+  activity: <Activity size={16} className="icon" />,
+  bookOpenCheck: <BookOpen size={16} className="icon" />,
+  notebookPen: <FileText size={16} className="icon" />,
+  chartNoAxesCombined: <BarChart size={16} className="icon" />,
+  flower: <Flower size={16} className="icon" />,
+  waves: <Waves size={16} className="icon" />,
+  wind: <Wind size={16} className="icon" />,
+  heartHandshake: <HeartHandshake size={16} className="icon" />,
+}
+
 export default function Sitemap() {
   const { data: session, status } = useSession()
   const isAuthenticated = !!session?.user
   const isAdmin = session?.user?.role === Roles.ADMIN
 
   const t = useTranslations('common.menu')
-
-  const iconMap: Record<string, ReactNode> = {
-    bookHeart: <BookHeart size={16} className="icon" />,
-    layoutDashboard: <LayoutDashboard size={16} className="icon" />,
-    tag: <Tag size={16} className="icon" />,
-    lightbulb: <Lightbulb size={16} className="icon" />,
-    brain: <Brain size={16} className="icon" />,
-    activity: <Activity size={16} className="icon" />,
-    bookOpenCheck: <BookOpen size={16} className="icon" />,
-    notebookPen: <FileText size={16} className="icon" />,
-    chartNoAxesCombined: <BarChart size={16} className="icon" />,
-    flower: <Flower size={16} className="icon" />,
-    waves: <Waves size={16} className="icon" />,
-    wind: <Wind size={16} className="icon" />,
-    heartHandshake: <HeartHandshake size={16} className="icon" />,
-  }
 
   const groups: { title: string; access: Access; items: Array<{ key: string; href: string; icon?: string }> }[] = [
     { title: 'Top', access: 'public', items: landingMenu },

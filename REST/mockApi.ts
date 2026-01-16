@@ -1,28 +1,10 @@
+// Mocks for local development. Types imported from central `types/`.
 import { Achievements, LocalizedText } from '@/types/achievements'
 import { Affirmation } from '@/types/affirmation'
 import { BestDay, Mood } from '@/types/bestDay'
 import { CartItemProps } from '@/types/cart'
 import { Exercise } from '@/types/exercisesForRecovery'
 import { ShopItemProps } from '@/types/shop'
-
-export const mockProfileData = async (accessToken: string) => {
-  const profileData = {
-    name: 'User name',
-    email: 'user@example.com',
-    image:
-      'https://static.vecteezy.com/system/resources/thumbnails/005/129/844/small_2x/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg',
-  }
-
-  if (!accessToken) {
-    throw new Error('Token is missing')
-  }
-
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      resolve(profileData)
-    }, 500)
-  })
-}
 
 export const mockCartData = async (): Promise<CartItemProps[]> => {
   const cartData = [

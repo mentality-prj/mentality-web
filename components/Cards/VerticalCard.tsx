@@ -53,7 +53,7 @@ export default function VerticalCard({
               fill
               className="object-cover opacity-50"
               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 400px"
-              priority={false}
+              priority
             />
             {smoothing && (
               <div
@@ -92,7 +92,7 @@ export default function VerticalCard({
             fill
             sizes="(max-width: 768px) 100vw, (max-width: 1200px) 33vw, 400px"
             className="object-cover"
-            priority={false}
+            priority
           />
         </div>
       ) : (

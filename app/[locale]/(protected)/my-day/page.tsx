@@ -1,14 +1,25 @@
 import { getTranslations } from 'next-intl/server'
 
+// import { auth } from '@/auth'
 import DailyAffirmationClient from '@/components/Affirmations/DailyAffirmationClient'
 import MoodSummaryCard from '@/components/MoodTracker/MoodSummaryCard/MoodSummaryCard'
 // import DailyStatistics from '@/components/Statistics/DailyStatistics/DailyStatistics'
 import DailyTipClient from '@/components/Tips/DailyTipClient'
-import { mockMoodCounts } from '@/REST/mockApi'
+// import { getMoodCounts } from '@/requests/summary'
 
 const MyDay = async () => {
+  // const session = await auth()
   const t = await getTranslations('components.DailyCard')
-  const moodCounts = await mockMoodCounts()
+  // const res = await getMoodCounts(session)
+  // const moodCounts = 'error' in res ? [] : (res ?? [])
+
+  const moodCounts = [
+    { mood: 'very-bad', count: 2 },
+    { mood: 'bad', count: 5 },
+    { mood: 'neutral', count: 27 },
+    { mood: 'good', count: 7 },
+    { mood: 'great', count: 19 },
+  ]
 
   return (
     <article className="grid gap-4 laptop:grid-cols-2">

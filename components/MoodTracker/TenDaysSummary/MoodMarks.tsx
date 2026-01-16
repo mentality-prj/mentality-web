@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { ChartIcon } from '@/ds/icons/summary/chart'
-import { mockMoodMarks } from '@/REST/mockApi'
+import { getMoodMarks } from '@/requests/summary'
 import { Mood } from '@/types/bestDay'
 
 import { MoodBadge } from './MoodBadge'
@@ -9,7 +9,8 @@ import { SummaryCard } from './SummaryCard'
 
 export const MoodMarks = async () => {
   const moods: Mood[] = ['very good', 'good', 'neutral', 'bad', 'very bad']
-  const moodMarksData = await mockMoodMarks()
+  const res = await getMoodMarks(await (await import('@/auth')).auth())
+  const moodMarksData = 'error' in res ? {} : (res.data ?? {})
   const t = await getTranslations('components.MoodMarks')
 
   return (
@@ -19,7 +20,7 @@ export const MoodMarks = async () => {
           {moods.slice(0, 3).map((mood) => (
             <div key={mood} className="flex w-full justify-between">
               <MoodBadge className="w-full" data={mood} />
-              <span className="ml-2">{moodMarksData[`${mood}`] < 1 ? '-' : moodMarksData[`${mood}`]}</span>
+              <span className="ml-2">{(moodMarksData[`${mood}`] ?? 0) < 1 ? '-' : moodMarksData[`${mood}`]}</span>
             </div>
           ))}
         </div>
@@ -28,7 +29,7 @@ export const MoodMarks = async () => {
           {moods.slice(3).map((mood) => (
             <div key={mood} className="flex w-full justify-between">
               <MoodBadge className="w-full" data={mood} />
-              <span className="ml-2">{moodMarksData[`${mood}`] < 1 ? '-' : moodMarksData[`${mood}`]}</span>
+              <span className="ml-2">{(moodMarksData[`${mood}`] ?? 0) < 1 ? '-' : moodMarksData[`${mood}`]}</span>
             </div>
           ))}
         </div>

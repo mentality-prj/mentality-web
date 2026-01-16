@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 
 import DeleteExerciseButton from '@/components/Admin/DeleteExerciseButton'
 import PublishExerciseButton from '@/components/Admin/PublishExerciseButton'
-import ExercisesList from '@/components/Exercises/ExercisesList'
+import ExercisesList from '@/components/Exercises/ExercisesListClient'
 import { getTags } from '@/requests/tags'
 import { ExerciseEntity } from '@/types/api-responses'
 import { AdminTag } from '@/types/tags'

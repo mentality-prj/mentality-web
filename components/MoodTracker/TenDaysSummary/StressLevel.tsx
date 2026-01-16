@@ -2,12 +2,13 @@ import { getTranslations } from 'next-intl/server'
 
 import { CloudIcon } from '@/ds/icons/summary/cloud'
 import { Progress } from '@/ds/shadcn/progress'
-import { mockStressLevel } from '@/REST/mockApi'
+import { getStressLevel } from '@/requests/summary'
 
 import { SummaryCard } from './SummaryCard'
 
 export const StressLevel = async () => {
-  const stressLevel = await mockStressLevel()
+  const res = await getStressLevel(await (await import('@/auth')).auth())
+  const stressLevel = 'error' in res ? null : res.data
   const t = await getTranslations('components.StressLevel')
   const getStressLabel = (level: number) => {
     switch (true) {

@@ -4,6 +4,7 @@
 
 import { NextRequest } from 'next/server'
 
+import { auth } from '@/auth'
 import { Routes } from '@/constants/routes'
 
 // Mock the auth function
@@ -19,10 +20,8 @@ jest.mock('@/i18n/routing', () => ({
   },
 }))
 
-const { auth } = require('@/auth')
-
 describe('Middleware Error Handling', () => {
-  let middleware: any
+  let middleware: (req: NextRequest) => Promise<Response>
 
   beforeAll(() => {
     // Import middleware once with mocks in place
@@ -39,7 +38,7 @@ describe('Middleware Error Handling', () => {
 
   describe('BackendConnectionError', () => {
     it('should redirect to server-error page on BackendConnectionError', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com', role: 'user' },
         error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
       })
@@ -52,7 +51,7 @@ describe('Middleware Error Handling', () => {
     })
 
     it('should not redirect to server-error if already on server-error page (prevent loop)', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com' },
         error: { error: 'BackendConnectionError' },
       })
@@ -67,7 +66,7 @@ describe('Middleware Error Handling', () => {
 
   describe('RefreshTokenError and InvalidToken', () => {
     it('should redirect to signin and clear cookies on RefreshTokenError', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com', role: 'user' },
         error: { error: 'RefreshTokenError', message: 'Refresh token expired' },
       })
@@ -79,7 +78,7 @@ describe('Middleware Error Handling', () => {
       expect(response.headers.get('location')).toContain(Routes.SIGNIN)
 
       // Check that auth cookies are deleted
-      const cookies = response.cookies.getAll()
+      const cookies = (response as any).cookies.getAll()
       const sessionCookie = cookies.find((c: { name: string }) => c.name === 'authjs.session-token')
       const secureSessionCookie = cookies.find((c: { name: string }) => c.name === '__Secure-authjs.session-token')
 
@@ -89,7 +88,7 @@ describe('Middleware Error Handling', () => {
     })
 
     it('should redirect to signin and clear cookies on InvalidToken', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com', role: 'user' },
         error: { error: 'InvalidToken', message: 'Token is invalid' },
       })
@@ -101,7 +100,7 @@ describe('Middleware Error Handling', () => {
       expect(response.headers.get('location')).toContain(Routes.SIGNIN)
 
       // Check that auth cookies are deleted
-      const cookies = response.cookies.getAll()
+      const cookies = (response as any).cookies.getAll()
       const sessionCookie = cookies.find((c: { name: string; value: string }) => c.name === 'authjs.session-token')
       const secureSessionCookie = cookies.find(
         (c: { name: string; value: string }) => c.name === '__Secure-authjs.session-token'
@@ -114,7 +113,7 @@ describe('Middleware Error Handling', () => {
 
   describe('Non-critical errors', () => {
     it('should not redirect on non-critical errors', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com', role: 'user' },
         error: { error: 'SomeOtherError', message: 'Some error' },
       })
@@ -133,7 +132,7 @@ describe('Middleware Error Handling', () => {
 
   describe('No errors', () => {
     it('should process normally when there are no session errors', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com', role: 'user' },
         OAuthToken: 'valid-token',
       })
@@ -152,7 +151,7 @@ describe('Middleware Error Handling', () => {
 
   describe('Error type variations', () => {
     it('should handle error as string', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com', role: 'user' },
         error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
       })
@@ -164,7 +163,7 @@ describe('Middleware Error Handling', () => {
     })
 
     it('should handle error as object with error property', async () => {
-      auth.mockResolvedValue({
+      ;(auth as jest.Mock).mockResolvedValue({
         user: { id: '1', email: 'test@example.com' },
         error: { error: 'RefreshTokenError' },
       })
