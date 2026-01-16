@@ -9,6 +9,7 @@ export type AffirmationEntity = {
   createdAt: string
   updatedAt: string
 }
+export type LocalAffirmation = AffirmationEntity & { isFavorite?: boolean }
 export type PaginatedAffirmations = { items: AffirmationEntity[]; total: number }
 export type GenerateAffirmationDto = {
   prompt?: string
@@ -23,7 +24,7 @@ export type TipEntity = {
   createdAt: string
   updatedAt: string
 }
-
+export type LocalTip = TipEntity & { isFavorite?: boolean }
 export type PaginatedTips = { items: TipEntity[]; total: number }
 
 export type GenerateTipDto = {
@@ -47,7 +48,7 @@ export type CreateTagDto = {
 
 export type ExerciseEntity = {
   id: string
-  category: string
+  category: ExerciseCategory
   translations: {
     title: Record<SupportedLanguage, string>
     annotation: Record<SupportedLanguage, string>
@@ -67,6 +68,7 @@ export type GeneratedExercise = ExerciseEntity
 export type PaginatedExercises = { items: ExerciseEntity[]; total: number }
 
 export type ExerciseCategory = 'meditation' | 'breathing' | 'calming'
+export type LocalExercise = ExerciseEntity & { isFavorite?: boolean }
 
 export type GenerateExerciseDto = {
   category: ExerciseCategory

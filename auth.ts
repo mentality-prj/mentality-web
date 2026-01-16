@@ -129,10 +129,12 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
         const errorObj: SessionError =
           typeof token.error === 'string'
             ? { error: token.error, message: token.error }
-            : {
-                error: (token.error as any).error || 'UnknownError',
-                message: (token.error as any).message || JSON.stringify(token.error),
-              }
+            : ((): SessionError => {
+                const e = token.error as Record<string, unknown>
+                const err = typeof e.error === 'string' ? e.error : 'UnknownError'
+                const msg = typeof e.message === 'string' ? e.message : JSON.stringify(e)
+                return { error: err, message: msg }
+              })()
         const customSession: CustomSession = {
           ...session,
           error: errorObj,

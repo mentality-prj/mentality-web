@@ -1,26 +1,31 @@
-'use client'
-import { Lightbulb } from 'lucide-react'
-import { useLocale } from 'next-intl'
+import { getLocale } from 'next-intl/server'
 
+import { auth } from '@/auth'
 import Card from '@/components/Cards/Card'
-import Loading from '@/components/Loading'
 import Quote from '@/components/Quote'
-import useTips from '@/hooks/useTips'
+import { getTips } from '@/requests/tips'
+import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 import { SupportedLanguage } from '@/types/languages'
+import { Statuses } from '@/types/status.types'
 
-const DailyTipClient = () => {
-  const locale = useLocale() as SupportedLanguage
-  const { items, loading } = useTips(false, 1)
+import FavoriteButtonWrapper from '../Buttons/FavoriteButtonWrapper'
 
-  if (loading) return <Loading size={16} />
+const DailyTipClient = async () => {
+  const session = await auth()
+  const locale = await getLocale()
 
-  const item = items && items.length > 0 ? items[0] : null
+  const res = await getTips(session, 1, 1)
+  if ('error' in res) return null
 
-  if (!item) return
+  const items = res.data?.items ?? []
+  const item = items.length > 0 ? items[0] : null
+  if (!item) return null
+
+  const tools = <FavoriteButtonWrapper key="favorite" itemType={ITEM_TYPE_DEFS.tips} itemId={item.id} />
 
   return (
-    <Card tools={<Lightbulb size={16} />}>
-      <Quote text={`${item.translations?.[`${locale}`]}`} />
+    <Card type={Statuses.base} tools={tools}>
+      <Quote text={item.translations?.[locale as SupportedLanguage] ?? item.translations?.en ?? ''} />
     </Card>
   )
 }

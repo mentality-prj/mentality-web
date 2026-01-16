@@ -406,15 +406,18 @@ body {
   }
 
   .inner-menu-item {
-    /* prettier-ignore */
-    @apply inline-block px-5 py-4 text-textcolor-secondary hover:bg-background-muted hover:text-textcolor-state;
+    @apply flex items-center gap-2 px-5 py-4 text-textcolor-secondary hover:bg-background-muted hover:text-textcolor-state;
   }
   .inner-menu-item.active {
     @apply bg-accent-soft text-accent-foreground hover:bg-accent-soft hover:text-accent-foreground;
   }
 
   .dropdown-menu-item {
-    @apply cursor-pointer px-4 py-2 hover:bg-primary/20 focus:bg-primary-hover/30;
+    @apply cursor-pointer px-4 py-2 text-textcolor-secondary transition-colors hover:bg-background-alt hover:text-textcolor-primary;
+  }
+
+  .dropdown-menu-label {
+    @apply p-3 text-sm text-textcolor-secondary;
   }
 
   /* Admin */
@@ -429,14 +432,18 @@ body {
   }
 
   .separator {
-    @apply my-1 h-px border-0 px-1;
-    background-color: hsl(var(--border));
+    @apply h-px bg-background-muted;
   }
 
   /* Cards / surfaces */
   .default {
     color: hsl(var(--text-primary));
     background-color: hsl(var(--background));
+  }
+
+  .base {
+    @apply -mx-6;
+    color: hsl(var(--text-primary));
   }
 
   .ghost {
@@ -507,6 +514,10 @@ body {
   /* Icons */
   .icon {
     @apply text-textcolor-secondary hover:text-textcolor-primary;
+  }
+  /* Icons should inherit parent color when parent is active */
+  .inner-menu-item.active .icon {
+    color: inherit;
   }
   .tool-icon-text {
     @apply text-textcolor-secondary hover:text-textcolor-primary;

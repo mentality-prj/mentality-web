@@ -15,7 +15,14 @@ export default function ServicesCard({ title, text, imageSrc, className = '' }: 
       <div className="rounded-3xl bg-background-muted">
         {imageSrc ? (
           <div className="relative h-[220px] w-full overflow-hidden rounded-3xl">
-            <Image src={imageSrc} alt="service" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+            <Image
+              src={imageSrc}
+              alt="service"
+              fill
+              sizes="(max-width: 768px) 100vw, 33vw"
+              priority
+              className="object-cover"
+            />
           </div>
         ) : (
           <div className="h-[220px] w-full" />

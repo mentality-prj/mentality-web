@@ -1,40 +1,39 @@
-'use client'
-import { ReactNode, useState } from 'react'
-
+import { auth } from '@/auth'
+import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
-import useAffirmations from '@/hooks/useAffirmations'
-import { AffirmationEntity } from '@/types/api-responses'
-
-import Pagination from '../Pagination/Pagination'
+import { getAffirmations, getUnpublishedAffirmations } from '@/requests/affirmations'
+import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
 import AffirmationCard from './AffirmationCard'
 
 interface Props {
   fetchUnpublished?: boolean
-  renderTools?: (item: AffirmationEntity, remove: (id: string) => void) => ReactNode
-  reloadTrigger?: number
+  page?: number
 }
 
-export default function AffirmationsList({ fetchUnpublished = false, renderTools, reloadTrigger }: Props) {
-  const [page, setPage] = useState(1)
-  const { items, total, loading, error, setItems } = useAffirmations(fetchUnpublished, page, reloadTrigger)
+export default async function AffirmationsList({ fetchUnpublished = false, page = 1 }: Props) {
+  const session = await auth()
 
-  const removeItem = (id: string) => setItems((prev) => prev.filter((i) => String(i.id) !== String(id)))
+  const res = fetchUnpublished
+    ? await getUnpublishedAffirmations(session, page, ADMIN_PAGE_SIZE)
+    : await getAffirmations(session, page, ADMIN_PAGE_SIZE)
+
+  if ('error' in res) return null
+
+  const items = res.data?.items ?? []
 
   return (
     <div className="space-y-4">
-      {error && <div className="text-sm text-red-500">{error}</div>}
-      {!loading && !error && items.length === 0 && <div className="text-sm text-gray-500">No affirmations found.</div>}
-
       <ul className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
-        {items.map((a) => (
-          <li key={String(a.id)} className="h-full flex-1">
-            <AffirmationCard item={a} tools={renderTools ? renderTools(a, removeItem) : undefined} />
-          </li>
-        ))}
+        {items.map((a) => {
+          const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.affirmations} itemId={String(a.id)} />
+          return (
+            <li key={String(a.id)} className="h-full flex-1">
+              <AffirmationCard item={a} tools={tools} />
+            </li>
+          )
+        })}
       </ul>
-
-      <Pagination page={page} totalPages={Math.max(1, Math.ceil(total / ADMIN_PAGE_SIZE))} onPageChange={setPage} />
     </div>
   )
 }

@@ -28,7 +28,7 @@ export default function TipCard({ item, tools, className = '' }: Props) {
         className={`h-full border bg-white ${className}`}
         sup={createdAt}
         icon={<Calendar size={12} />}
-        text={<div className="text-sm text-gray-700">{text}</div>}
+        text={text}
         tools={tools}
         onClick={() => setOpen(true)}
       />
@@ -42,6 +42,7 @@ export default function TipCard({ item, tools, className = '' }: Props) {
                 className="p-6"
                 sup={createdAt}
                 icon={<Calendar size={12} />}
+                text={text}
                 tools={
                   <button
                     type="button"
@@ -52,11 +53,7 @@ export default function TipCard({ item, tools, className = '' }: Props) {
                     <X className="h-5 w-5" />
                   </button>
                 }
-              >
-                <div>
-                  <div className="text-2xl font-semibold">{text}</div>
-                </div>
-              </Card>
+              />
             </div>
           </div>
         </>

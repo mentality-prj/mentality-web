@@ -1,39 +1,52 @@
-'use client'
-import { ReactNode, useState } from 'react'
-
-import Pagination from '@/components/Pagination/Pagination'
+import { auth } from '@/auth'
+import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
-import useExercises from '@/hooks/useExercises'
+import { getExercises, getUnpublishedExercises } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
+import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
 import ExerciseCard from './ExerciseCard'
 
-interface Props {
+interface ExercisesListProps {
   fetchUnpublished?: boolean
-  renderTools?: (item: ExerciseEntity, remove: (id: string) => void) => ReactNode
-  reloadTrigger?: number
+  page?: number
 }
 
-export default function ExercisesList({ fetchUnpublished = false, renderTools, reloadTrigger }: Props) {
-  const [page, setPage] = useState(1)
-  const { items, total, loading, error, setItems } = useExercises(fetchUnpublished, page, reloadTrigger)
+export default async function ExercisesList({ fetchUnpublished = false, page = 1 }: ExercisesListProps) {
+  const session = await auth()
 
-  const removeItem = (id: string) => setItems((prev) => prev.filter((i) => String(i.id) !== String(id)))
+  const res = fetchUnpublished
+    ? await getUnpublishedExercises(session, page, ADMIN_PAGE_SIZE)
+    : await getExercises(session)
+  if ('error' in res) return null
+
+  let items: ExerciseEntity[] = []
+
+  if ('data' in res) {
+    if (Array.isArray(res.data)) {
+      items = res.data
+    } else if (
+      res.data &&
+      typeof res.data === 'object' &&
+      'items' in res.data &&
+      Array.isArray((res.data as { items?: unknown }).items)
+    ) {
+      items = (res.data as { items: ExerciseEntity[] }).items
+    }
+  }
 
   return (
     <div className="space-y-4">
-      {error && <div className="text-sm text-red-500">{error}</div>}
-      {!loading && !error && items.length === 0 && <div className="text-sm text-gray-500">No exercises found.</div>}
-
       <ul className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {items.map((a) => (
-          <li key={String(a.id)} className="h-full flex-1">
-            <ExerciseCard item={a} tools={renderTools ? renderTools(a, removeItem) : undefined} />
-          </li>
-        ))}
+        {items.map((a) => {
+          const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(a.id)} />
+          return (
+            <li key={String(a.id)} className="h-full flex-1">
+              <ExerciseCard item={a} tools={tools} />
+            </li>
+          )
+        })}
       </ul>
-
-      <Pagination page={page} totalPages={Math.max(1, Math.ceil(total / ADMIN_PAGE_SIZE))} onPageChange={setPage} />
     </div>
   )
 }

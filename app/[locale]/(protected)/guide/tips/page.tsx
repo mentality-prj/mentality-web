@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
+import TipsListClient from '@/components/Tips/TipsListClient'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function GuideTipsPage() {
@@ -7,6 +8,9 @@ export default async function GuideTipsPage() {
   return (
     <article>
       <PageTitle title={t('title')} />
+      <section className="mt-6">
+        <TipsListClient />
+      </section>
     </article>
   )
 }

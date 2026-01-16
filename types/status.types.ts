@@ -1,4 +1,5 @@
 export const Statuses = {
+  base: 'base',
   default: 'default',
   ghost: 'ghost',
   accent: 'accent',

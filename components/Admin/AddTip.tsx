@@ -5,7 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 
 import DeleteTipButton from '@/components/Admin/DeleteTipButton'
 import PublishTipButton from '@/components/Admin/PublishTipButton'
-import TipsList from '@/components/Tips/TipsList'
+import TipsList from '@/components/Tips/TipsListClient'
 import { Button } from '@/ds/shadcn/button'
 import { Label } from '@/ds/shadcn/label'
 import { Textarea } from '@/ds/shadcn/textarea'

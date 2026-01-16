@@ -1,7 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { SunIcon } from '@/ds/icons/summary/sun'
-import { mockBestDay } from '@/REST/mockApi'
+import { getBestDay } from '@/requests/summary'
 import { SupportedLanguage } from '@/types/languages'
 
 import { MoodBadge } from './MoodBadge'
@@ -9,7 +9,8 @@ import { SummaryCard } from './SummaryCard'
 
 export const BestDay = async () => {
   const t = await getTranslations('components.BestDay')
-  const data = await mockBestDay()
+  const res = await getBestDay(await (await import('@/auth')).auth())
+  const data = 'error' in res ? null : res.data
   const locale = (await getLocale()) as SupportedLanguage
   function splitDate(dateStr: string, locale: SupportedLanguage) {
     const date = new Date(dateStr)
@@ -29,7 +30,14 @@ export const BestDay = async () => {
     }
   }
 
-  const { weekday, dayMonth } = splitDate(data.date, locale)
+  let weekday = ''
+  let dayMonth = ''
+  if (data) {
+    const parts = splitDate(data.date, locale)
+    weekday = parts.weekday
+    dayMonth = parts.dayMonth
+  }
+
   return (
     <SummaryCard icon={<SunIcon />} title={t('title')}>
       {data ? (

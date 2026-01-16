@@ -4,7 +4,7 @@ import { Badge } from '@/ds/shadcn/badge'
 import { cn } from '@/lib/utils'
 import { Mood, Stress } from '@/types/bestDay'
 
-const moodColors: Record<Mood | Stress, string> = {
+const moodColors: Record<string, string> = {
   'very good': 'bg-[#E5FFE6]',
   good: 'bg-[#E5FFF8]',
   neutral: 'bg-[#DBE7FF]',
@@ -18,18 +18,22 @@ const moodColors: Record<Mood | Stress, string> = {
 }
 
 interface MoodBadgeProps {
-  data: Mood | Stress
+  data: Mood | Stress | number | string
   className?: string
 }
 
 export const MoodBadge = ({ data, className }: MoodBadgeProps) => {
   const t = useTranslations('components.MoodBadge')
+  const key = String(data).replaceAll(' ', '_')
   return (
     <Badge
       variant="colored"
-      className={cn(`flex items-center justify-center text-center ${moodColors[`${data}`]}`, className)}
+      className={cn(
+        `flex items-center justify-center text-center ${moodColors[key as keyof typeof moodColors]}`,
+        className
+      )}
     >
-      {t('text', { data: data.replaceAll(' ', '_') })}
+      {t('text', { data: key })}
     </Badge>
   )
 }

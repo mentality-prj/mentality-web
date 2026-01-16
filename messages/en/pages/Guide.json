@@ -5,13 +5,16 @@
     "title": "Tips"
   },
   "meditations": {
-    "title": "Meditations"
+    "title": "Meditations",
+    "empty": "No meditations found."
   },
   "breathing": {
-    "title": "Breathing exercises"
+    "title": "Breathing exercises",
+    "empty": "No breathing exercises found."
   },
   "calming": {
-    "title": "Calm me now"
+    "title": "Calm me now",
+    "empty": "No calming exercises found."
   },
   "TechniqueOverview": "Technique Overview"
 }

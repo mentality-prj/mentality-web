@@ -1,4 +1,5 @@
 'use client'
+import { MailIcon, UserIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
@@ -46,9 +47,15 @@ const AvatarMenu = () => {
 
       <DropdownMenuContent align="end" className="overflow-hidden rounded bg-background">
         <DropdownMenuLabel>
-          <div className="w-auto p-3 text-center">
-            {name}
-            {email && <div className="text-xs">{email}</div>}
+          <div className="w-auto text-center">
+            <div className="flex items-center gap-1">
+              <UserIcon size={12} />
+              {name}
+            </div>
+            <div className="flex items-center gap-1">
+              <MailIcon size={12} />
+              {email && <div className="text-xs">{email}</div>}
+            </div>
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />

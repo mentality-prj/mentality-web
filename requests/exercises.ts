@@ -191,3 +191,27 @@ export async function generateExercise(
   logger.info('Exercise successfully generated', { lang, category })
   return { data: res.data }
 }
+
+export async function fetchExercisesItems(
+  session: CustomSession | null
+): Promise<{ items: ExerciseEntity[]; error?: string }> {
+  const res = await getExercises(session)
+  if ('error' in res) return { items: [], error: res.error }
+
+  let items: ExerciseEntity[] = []
+
+  if ('data' in res) {
+    if (Array.isArray(res.data)) {
+      items = res.data
+    } else if (
+      res.data &&
+      typeof res.data === 'object' &&
+      'items' in res.data &&
+      Array.isArray((res.data as { items?: unknown }).items)
+    ) {
+      items = (res.data as { items: ExerciseEntity[] }).items
+    }
+  }
+
+  return { items }
+}

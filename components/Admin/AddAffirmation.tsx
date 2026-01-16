@@ -3,7 +3,7 @@ import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
-import AffirmationsList from '@/components/Affirmations/AffirmationsList'
+import AffirmationsList from '@/components/Affirmations/AffirmationsListClient'
 import { Button } from '@/ds/shadcn/button'
 import { Label } from '@/ds/shadcn/label'
 import { Textarea } from '@/ds/shadcn/textarea'

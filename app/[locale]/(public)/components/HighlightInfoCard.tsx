@@ -21,7 +21,7 @@ export function HighlightInfoCard({ title, subtitle, imageSrc, imageAlt }: Highl
           fill
           className="object-cover"
           sizes="(min-width: 768px) 40vw, 100vw"
-          priority={false}
+          priority
         />
       </div>
     </article>

@@ -5,13 +5,16 @@
     "title": "Wskazówki"
   },
   "meditations": {
-    "title": "Medytacje"
+    "title": "Medytacje",
+    "empty": "Nie znaleziono medytacji."
   },
   "breathing": {
-    "title": "Ćwiczenia oddechowe"
+    "title": "Ćwiczenia oddechowe",
+    "empty": "Nie znaleziono ćwiczeń oddechowych."
   },
   "calming": {
-    "title": "Uspokój mnie teraz"
+    "title": "Uspokój mnie teraz",
+    "empty": "Nie znaleziono ćwiczeń uspokajających."
   },
   "TechniqueOverview": "Przegląd techniki"
 }
