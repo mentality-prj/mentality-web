@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import DeleteExerciseButton from '@/components/Admin/DeleteExerciseButton'
 import PublishExerciseButton from '@/components/Admin/PublishExerciseButton'
 import ExercisesList from '@/components/Exercises/ExercisesListClient'
-import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 import { getTags } from '@/requests/tags'
 import { ExerciseEntity } from '@/types/api-responses'
 import { AdminTag } from '@/types/tags'
@@ -68,50 +68,52 @@ export default function AddExercise() {
               <TabsTrigger value="unpublished">{t('tabs.unpublished')}</TabsTrigger>
               <TabsTrigger value="corrected">{t('tabs.corrected')}</TabsTrigger>
             </TabsList>
+
+            <TabsContent value="unpublished">
+              <ExercisesList
+                fetchUnpublished
+                reloadTrigger={0}
+                renderTools={(exercise, remove) => (
+                  <>
+                    <PublishExerciseButton
+                      id={String(exercise.id)}
+                      session={session}
+                      onPublished={() => remove(String(exercise.id))}
+                    />
+                    <DeleteExerciseButton
+                      id={String(exercise.id)}
+                      session={session}
+                      onDeleted={() => remove(String(exercise.id))}
+                    />
+                    <EditExerciseButton onEdit={() => startEditing(exercise)} />
+                  </>
+                )}
+              />
+            </TabsContent>
+
+            <TabsContent value="corrected">
+              <ExercisesList
+                fetchCorrected
+                reloadTrigger={0}
+                renderTools={(exercise, remove) => (
+                  <>
+                    <PublishExerciseButton
+                      id={String(exercise.id)}
+                      session={session}
+                      onPublished={() => remove(String(exercise.id))}
+                    />
+                    <DeleteExerciseButton
+                      id={String(exercise.id)}
+                      session={session}
+                      onDeleted={() => remove(String(exercise.id))}
+                    />
+                    <EditExerciseButton onEdit={() => startEditing(exercise)} />
+                  </>
+                )}
+              />
+            </TabsContent>
           </Tabs>
         </div>
-
-        {activeTab === 'unpublished' ? (
-          <ExercisesList
-            fetchUnpublished
-            reloadTrigger={0}
-            renderTools={(exercise, remove) => (
-              <>
-                <PublishExerciseButton
-                  id={String(exercise.id)}
-                  session={session}
-                  onPublished={() => remove(String(exercise.id))}
-                />
-                <DeleteExerciseButton
-                  id={String(exercise.id)}
-                  session={session}
-                  onDeleted={() => remove(String(exercise.id))}
-                />
-                <EditExerciseButton onEdit={() => startEditing(exercise)} />
-              </>
-            )}
-          />
-        ) : (
-          <ExercisesList
-            fetchCorrected
-            reloadTrigger={0}
-            renderTools={(exercise, remove) => (
-              <>
-                <PublishExerciseButton
-                  id={String(exercise.id)}
-                  session={session}
-                  onPublished={() => remove(String(exercise.id))}
-                />
-                <DeleteExerciseButton
-                  id={String(exercise.id)}
-                  session={session}
-                  onDeleted={() => remove(String(exercise.id))}
-                />
-                <EditExerciseButton onEdit={() => startEditing(exercise)} />
-              </>
-            )}
-          />
-        )}
       </div>
     </div>
   )

@@ -31,8 +31,12 @@ export default function useExercises(
       } else if (fetchCorrected) {
         const r = await getCorrectedExercises(sessionData)
         if ('error' in r) throw new Error(r.error)
-        // Convert to paginated shape
-        res = { data: { items: r.data ?? [], total: Array.isArray(r.data) ? r.data.length : 0 } }
+        // Server does not support pagination for corrected exercises: perform client-side pagination
+        const allItems = Array.isArray(r.data) ? r.data : []
+        const totalItems = allItems.length
+        const start = (page - 1) * ADMIN_PAGE_SIZE
+        const pagedItems = allItems.slice(start, start + ADMIN_PAGE_SIZE)
+        res = { data: { items: pagedItems, total: totalItems } }
       } else {
         const r = await getExercises(sessionData)
         if ('error' in r) throw new Error(r.error)
@@ -55,7 +59,7 @@ export default function useExercises(
     } finally {
       setLoading(false)
     }
-  }, [data, fetchUnpublished, page])
+  }, [data, fetchUnpublished, fetchCorrected, page])
 
   useEffect(() => {
     let cancelled = false

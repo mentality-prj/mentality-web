@@ -127,7 +127,6 @@ export default function AddExerciseForm({ tags = [], editing = null, onSaved }: 
       </div>
 
       <div className="mb-4">
-        <label className="block text-sm">{t('fields.title.label')}</label>
         <Tabs value={activeLang} onValueChange={(v) => setActiveLang(v as SupportedLanguage)}>
           <TabsList className="gap-2">
             {supportedLanguages.map((l) => (
@@ -137,12 +136,14 @@ export default function AddExerciseForm({ tags = [], editing = null, onSaved }: 
             ))}
           </TabsList>
         </Tabs>
-        <div className="mt-2">
-          <Input
-            value={translationsByLang[activeLang as SupportedLanguage]?.title ?? ''}
-            onChange={(e) => setTranslationField(activeLang, 'title', e.target.value)}
-          />
-        </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-sm">{t('fields.title.label')}</label>
+        <Input
+          value={translationsByLang[activeLang as SupportedLanguage]?.title ?? ''}
+          onChange={(e) => setTranslationField(activeLang, 'title', e.target.value)}
+        />
       </div>
 
       <div className="mb-4">

@@ -32,17 +32,65 @@ export function mapExercise(input: unknown): ExerciseEntity | null {
     description: {} as Record<SupportedLanguage, string>,
   }
 
+  // Support two possible shapes from backend:
+  // 1) translations: { en: { title, annotation, description }, uk: { ... } }
+  // 2) translations: { title: { en: '...' }, annotation: { en: '...' }, description: { en: '...' } }
+  const perField =
+    translationsRaw && typeof translationsRaw === 'object' && 'title' in (translationsRaw as Record<string, unknown>)
+
   for (const lang of supportedLanguages) {
-    const t = (translationsRaw as Record<string, unknown>)[lang as SupportedLanguage] ?? {}
-    translations.title[lang as SupportedLanguage] = safeString((t as Record<string, unknown>).title ?? '')
-    translations.annotation[lang as SupportedLanguage] = safeString((t as Record<string, unknown>).annotation ?? '')
-    translations.description[lang as SupportedLanguage] = safeString((t as Record<string, unknown>).description ?? '')
+    if (perField) {
+      const titleMap = (translationsRaw as Record<string, unknown>).title as Record<string, unknown> | undefined
+      const annotationMap = (translationsRaw as Record<string, unknown>).annotation as
+        | Record<string, unknown>
+        | undefined
+      const descriptionMap = (translationsRaw as Record<string, unknown>).description as
+        | Record<string, unknown>
+        | undefined
+
+      translations.title[lang as SupportedLanguage] = safeString(titleMap ? titleMap[lang as SupportedLanguage] : '')
+      translations.annotation[lang as SupportedLanguage] = safeString(
+        annotationMap ? annotationMap[lang as SupportedLanguage] : ''
+      )
+      translations.description[lang as SupportedLanguage] = safeString(
+        descriptionMap ? descriptionMap[lang as SupportedLanguage] : ''
+      )
+    } else {
+      const perLang = (translationsRaw as Record<string, unknown>)[lang as SupportedLanguage] ?? {}
+      translations.title[lang as SupportedLanguage] = safeString((perLang as Record<string, unknown>).title ?? '')
+      translations.annotation[lang as SupportedLanguage] = safeString(
+        (perLang as Record<string, unknown>).annotation ?? ''
+      )
+      translations.description[lang as SupportedLanguage] = safeString(
+        (perLang as Record<string, unknown>).description ?? ''
+      )
+    }
   }
 
   const tagsRaw = obj.tags
-  const tags = Array.isArray(tagsRaw) ? tagsRaw.map((x) => safeString(x)).filter(Boolean) : []
+  let tags: string[] = []
+  if (Array.isArray(tagsRaw)) {
+    tags = tagsRaw.map((x) => safeString(x)).filter(Boolean)
+  } else if (typeof tagsRaw === 'string') {
+    tags = tagsRaw
+      .split(',')
+      .map((s) => s.trim())
+      .map(safeString)
+      .filter(Boolean)
+  }
 
-  const createdAt = safeString(obj.createdAt ?? new Date().toISOString())
+  let createdAt: string
+  if (obj.createdAt == null) {
+    // Avoid fabricating a creation timestamp; log a warning and leave empty string
+    // so UI can detect missing value instead of silently using current time.
+    // This helps surface data quality issues from the backend.
+    // eslint-disable-next-line no-console
+    console.warn('mapExercise: missing createdAt for exercise', id)
+    createdAt = ''
+  } else {
+    createdAt = safeString(obj.createdAt)
+  }
+
   const updatedAt = obj.updatedAt ? safeString(obj.updatedAt) : undefined
 
   return {
