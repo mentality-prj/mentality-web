@@ -3,11 +3,16 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
-import { getExercises, getUnpublishedExercises } from '@/requests/exercises'
+import { getCorrectedExercises, getExercises, getUnpublishedExercises } from '@/requests/exercises'
 import { ExerciseEntity, PaginatedExercises } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-export default function useExercises(fetchUnpublished = false, page = 1, reloadTrigger?: number) {
+export default function useExercises(
+  fetchUnpublished = false,
+  page = 1,
+  reloadTrigger?: number,
+  fetchCorrected = false
+) {
   const { data, status } = useSession()
   const [items, setItems] = useState<ExerciseEntity[]>([])
   const [total, setTotal] = useState(0)
@@ -23,6 +28,11 @@ export default function useExercises(fetchUnpublished = false, page = 1, reloadT
 
       if (fetchUnpublished) {
         res = await getUnpublishedExercises(sessionData, page, ADMIN_PAGE_SIZE)
+      } else if (fetchCorrected) {
+        const r = await getCorrectedExercises(sessionData)
+        if ('error' in r) throw new Error(r.error)
+        // Convert to paginated shape
+        res = { data: { items: r.data ?? [], total: Array.isArray(r.data) ? r.data.length : 0 } }
       } else {
         const r = await getExercises(sessionData)
         if ('error' in r) throw new Error(r.error)

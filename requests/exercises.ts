@@ -1,4 +1,5 @@
 import { apiRequestWithAuth } from '@/helpers/apiRequestWithAuth'
+import { mapExercises } from '@/helpers/exerciseMapper'
 import { logger } from '@/lib/logger'
 import { CreateExerciseDto, ExerciseCategory, ExerciseEntity, GeneratedExercise } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -73,8 +74,31 @@ export async function getExercises(session: CustomSession | null): Promise<ApiRe
     : data && typeof data === 'object' && 'data' in data && Array.isArray((data as { data?: unknown }).data)
       ? (data as { data: ExerciseEntity[] }).data
       : []
-  logger.info('Exercises retrieved', { count: Array.isArray(exercises) ? exercises.length : 0 })
-  return { data: exercises }
+  const cleaned = mapExercises(exercises)
+  logger.info('Exercises retrieved', { count: cleaned.length })
+  return { data: cleaned }
+}
+
+export async function getCorrectedExercises(session: CustomSession | null): Promise<ApiResult<ExerciseEntity[]>> {
+  const check = checkAdmin(session, 'get corrected exercises')
+  if (check) return check
+
+  const { data, error } = await apiRequestWithAuth<ExerciseEntity[]>(session, `${APIUrl}/exercises/corrected`, {
+    method: 'GET',
+  })
+
+  if (error) {
+    return logAndReturnError('Failed to get corrected exercises', error)
+  }
+
+  const exercises = Array.isArray(data)
+    ? data
+    : data && typeof data === 'object' && 'data' in data && Array.isArray((data as { data?: unknown }).data)
+      ? (data as { data: ExerciseEntity[] }).data
+      : []
+  const cleaned = mapExercises(exercises)
+  logger.info('Corrected exercises retrieved', { count: cleaned.length })
+  return { data: cleaned }
 }
 
 export async function getUnpublishedExercises(
@@ -94,10 +118,11 @@ export async function getUnpublishedExercises(
   }
 
   const items = Array.isArray(res.data) ? res.data : []
+  const cleanedItems = mapExercises(items)
   const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
   const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
-  logger.info('Unpublished exercises retrieved', { count: items.length, total })
-  return { data: { items, total } }
+  logger.info('Unpublished exercises retrieved', { count: cleanedItems.length, total })
+  return { data: { items: cleanedItems, total } }
 }
 
 export async function updateExercise(
