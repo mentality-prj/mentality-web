@@ -1,0 +1,80 @@
+{
+  "generated": "2026-01-17",
+  "summary": "Comprehensive mapping of pages -> components -> requests",
+  "public": {
+    "/(public)/page": {
+      "components": ["HeroSection", "FeatureCardsSection", "ServicesSection", "HowItWorksSection"],
+      "api": [],
+      "type": "ui"
+    },
+    "/(public)/services": { "components": ["ServicesPage"], "api": [], "type": "ui" },
+    "/(public)/faq": { "components": ["FAQPage"], "api": [], "type": "ui" },
+    "/(public)/(auth)/signin": { "components": ["SignInButton"], "api": ["next-auth"], "type": "auth" }
+  },
+  "protected": {
+    "guide": {
+      "pages": ["meditations", "breathing", "calming"],
+      "components": [
+        "GuideMeditationsClient",
+        "GuideCalmingClient",
+        "GuideBreathingClient",
+        "ExerciseCard",
+        "FavoriteButtonWrapper"
+      ],
+      "api": ["fetchExercisesItems -> requests/exercises", "requests/favorites"],
+      "type": ["api", "ui", "mapper"]
+    },
+    "tips_affirmations": {
+      "components": ["DailyTipClient", "TipsList", "DailyAffirmationClient", "AffirmationsList"],
+      "api": ["requests/tips", "requests/affirmations"],
+      "type": ["api", "ui"]
+    },
+    "mood_tracker": {
+      "components": ["TenDaysSummary", "TodayObservations", "StressLevel", "MoodMarks", "BestDay"],
+      "api": ["requests/summary"],
+      "type": ["api", "ui"]
+    }
+  },
+  "admin": {
+    "tags": { "components": ["AddTag"], "api": ["requests/tags"], "type": ["api", "ui"] },
+    "tips": { "components": ["AddTip"], "api": ["requests/tips"], "type": ["api", "ui"] },
+    "affirmations": { "components": ["AddAffirmation"], "api": ["requests/affirmations"], "type": ["api", "ui"] },
+    "exercises": {
+      "components": [
+        "AddExercise",
+        "AddExerciseForm",
+        "GenerateExercise",
+        "ExercisesListClient",
+        "PublishExerciseButton",
+        "DeleteExerciseButton",
+        "EditExerciseButton",
+        "ExerciseCard"
+      ],
+      "api": [
+        "getUnpublishedExercises",
+        "getCorrectedExercises",
+        "getExercises",
+        "addExercise",
+        "updateExercise",
+        "deleteExercise",
+        "publishExercise",
+        "generateExercise"
+      ],
+      "mapper": "helpers/exerciseMapper.mapExercises",
+      "type": ["api", "ui", "mapper"]
+    }
+  },
+  "shared": {
+    "tabs": {
+      "file": "ds/shadcn/tabs.tsx",
+      "features": ["grey variant", "variant forwarding", "TS fixes"],
+      "type": ["ui", "helper"]
+    },
+    "pagination": { "file": "components/Pagination", "type": "ui" },
+    "helpers": { "exerciseMapper": "helpers/exerciseMapper.ts", "apiRequest": "helpers/apiRequestWithAuth" }
+  },
+  "mocks_tests": {
+    "mockFile": "REST/mockApi.ts",
+    "tests": "__tests__ and __mocks__ exist"
+  }
+}

@@ -125,6 +125,10 @@
       "meditations": "Medytacje",
       "breathing": "Ćwiczenia oddechowe",
       "calming": "Uspokój mnie teraz"
+    },
+    "tabs": {
+      "unpublished": "Nieopublikowane",
+      "corrected": "Poprawione"
     }
   }
 }

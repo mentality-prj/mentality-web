@@ -3,11 +3,16 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
-import { getExercises, getUnpublishedExercises } from '@/requests/exercises'
+import { getCorrectedExercises, getExercises, getUnpublishedExercises } from '@/requests/exercises'
 import { ExerciseEntity, PaginatedExercises } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-export default function useExercises(fetchUnpublished = false, page = 1, reloadTrigger?: number) {
+export default function useExercises(
+  fetchUnpublished = false,
+  page = 1,
+  reloadTrigger?: number,
+  fetchCorrected = false
+) {
   const { data, status } = useSession()
   const [items, setItems] = useState<ExerciseEntity[]>([])
   const [total, setTotal] = useState(0)
@@ -23,6 +28,15 @@ export default function useExercises(fetchUnpublished = false, page = 1, reloadT
 
       if (fetchUnpublished) {
         res = await getUnpublishedExercises(sessionData, page, ADMIN_PAGE_SIZE)
+      } else if (fetchCorrected) {
+        const r = await getCorrectedExercises(sessionData)
+        if ('error' in r) throw new Error(r.error)
+        // Server does not support pagination for corrected exercises: perform client-side pagination
+        const allItems = Array.isArray(r.data) ? r.data : []
+        const totalItems = allItems.length
+        const start = (page - 1) * ADMIN_PAGE_SIZE
+        const pagedItems = allItems.slice(start, start + ADMIN_PAGE_SIZE)
+        res = { data: { items: pagedItems, total: totalItems } }
       } else {
         const r = await getExercises(sessionData)
         if ('error' in r) throw new Error(r.error)
@@ -45,7 +59,7 @@ export default function useExercises(fetchUnpublished = false, page = 1, reloadT
     } finally {
       setLoading(false)
     }
-  }, [data, fetchUnpublished, page])
+  }, [data, fetchUnpublished, fetchCorrected, page])
 
   useEffect(() => {
     let cancelled = false

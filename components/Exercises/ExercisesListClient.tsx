@@ -12,13 +12,19 @@ import ExerciseCard from './ExerciseCard'
 
 interface Props {
   fetchUnpublished?: boolean
+  fetchCorrected?: boolean
   renderTools?: (item: ExerciseEntity, remove: (id: string) => void) => ReactNode
   reloadTrigger?: number
 }
 
-export default function ExercisesListClient({ fetchUnpublished = false, renderTools, reloadTrigger }: Props) {
+export default function ExercisesListClient({
+  fetchUnpublished = false,
+  fetchCorrected = false,
+  renderTools,
+  reloadTrigger,
+}: Props) {
   const [page, setPage] = useState(1)
-  const { items, total, loading, error, setItems } = useExercises(fetchUnpublished, page, reloadTrigger)
+  const { items, total, loading, error, setItems } = useExercises(fetchUnpublished, page, reloadTrigger, fetchCorrected)
 
   const removeItem = (id: string) => setItems((prev) => prev.filter((i) => String(i.id) !== String(id)))
 
