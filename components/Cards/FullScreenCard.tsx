@@ -6,8 +6,9 @@ import { X } from 'lucide-react'
 import Card from '@/components/Cards/Card'
 import FullScreenBackdrop from '@/components/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 
-interface Props {
-  title: string
+interface FullScreenCardProps {
+  type?: 'small' | 'default'
+  title?: string
   text?: string
   children?: ReactNode
   createdAt?: string
@@ -20,6 +21,7 @@ interface Props {
 }
 
 export default function FullScreenCard({
+  type,
   title,
   text,
   children,
@@ -30,12 +32,14 @@ export default function FullScreenCard({
   tags,
   className = '',
   onClose,
-}: Props) {
+}: FullScreenCardProps) {
+  const maxWidthClass = type === 'small' ? 'max-w-lg' : 'max-w-3xl'
+
   return (
     <>
       <FullScreenBackdrop onClick={onClose} />
       <div className="fixed inset-0 z-50 flex items-center justify-center p-4">
-        <div className="w-full max-w-3xl">
+        <div className={`w-full ${maxWidthClass}`}>
           <Card
             className={`p-6 ${className}`}
             sup={createdAt}
