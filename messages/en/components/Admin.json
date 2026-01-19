@@ -60,6 +60,13 @@
     "submitting": "Generating...",
     "loginRequired": "Please log in to continue"
   },
+  "EditTip": {
+    "title": "Edit Tip",
+    "contentLabel": "Edit the tip",
+    "saving": "Saving...",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
   "GenerateAffirmation": {
     "generateButton": "Generate affirmation",
     "submitting": "Generating...",

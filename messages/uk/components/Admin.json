@@ -60,6 +60,13 @@
     "submitting": "Генерація...",
     "loginRequired": "Будь ласка, увійдіть щоб продовжити"
   },
+  "EditTip": {
+    "title": "Редагування поради",
+    "contentLabel": "Відредагуйте пораду",
+    "saving": "Збереження...",
+    "save": "Зберегти",
+    "cancel": "Скасувати"
+  },
   "GenerateAffirmation": {
     "generateButton": "Згенерувати афірмацію",
     "submitting": "Генерація...",

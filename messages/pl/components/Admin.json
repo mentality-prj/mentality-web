@@ -60,6 +60,13 @@
     "submitting": "Generowanie...",
     "loginRequired": "Proszę zaloguj się, aby kontynuować"
   },
+  "EditTip": {
+    "title": "Edycja porady",
+    "contentLabel": "Edytuj poradę",
+    "saving": "Zapisywanie...",
+    "save": "Zapisz",
+    "cancel": "Anuluj"
+  },
   "GenerateAffirmation": {
     "generateButton": "Wygeneruj afirmację",
     "submitting": "Generowanie...",
