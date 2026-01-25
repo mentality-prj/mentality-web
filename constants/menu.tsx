@@ -66,3 +66,15 @@ export const guideMenu = [
   { key: 'breathing', href: `${Routes.GUIDE}/breathing`, icon: 'wind' },
   { key: 'calming', href: `${Routes.GUIDE}/calming`, icon: 'heartHandshake' },
 ]
+
+export type MyProgressInnerMenuItem = {
+  key: 'achievements' | 'goals' | 'statistics'
+  href: string
+  icon: string
+}
+
+export const myProgressInnerMenuItems: MyProgressInnerMenuItem[] = [
+  { key: 'achievements', href: `${Routes.MYPROGRESS}/achievements`, icon: 'trophy' },
+  { key: 'goals', href: `${Routes.MYPROGRESS}/goals`, icon: 'goal' },
+  { key: 'statistics', href: `${Routes.MYPROGRESS}/statistics`, icon: 'chart' },
+]

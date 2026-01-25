@@ -39,19 +39,19 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
     return null
   }
   const handleClick = async () => {
-    await updatePersonalGoal({ id, userId, check })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    await updatePersonalGoal({ id, check })
+    await fetchPersonalGoals().then((goals) => setPersonalGoals(goals))
   }
 
   const resetClick = async () => {
-    await resetPersonalGoal({ id, userId })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    await resetPersonalGoal({ id })
+    await fetchPersonalGoals().then((goals) => setPersonalGoals(goals))
     setDialogAction(null)
   }
 
   const deleteClick = async () => {
-    await deletePersonalGoal({ id, userId })
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    await deletePersonalGoal({ id })
+    await fetchPersonalGoals().then((goals) => setPersonalGoals(goals))
     setDialogAction(null)
   }
 

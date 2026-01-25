@@ -6,12 +6,15 @@ import {
   BookHeart,
   BookOpen,
   Brain,
+  ChartPie,
   FileText,
   Flower,
+  GoalIcon,
   HeartHandshake,
   LayoutDashboard,
   Lightbulb,
   Tag,
+  Trophy,
   Waves,
   Wind,
 } from 'lucide-react'
@@ -38,6 +41,9 @@ export const iconMap: Record<string, ReactNode> = {
   waves: <Waves size={16} className="icon" />,
   wind: <Wind size={16} className="icon" />,
   heartHandshake: <HeartHandshake size={16} className="icon" />,
+  trophy: <Trophy size={16} className="icon" />,
+  goal: <GoalIcon size={16} className="icon" />,
+  chart: <ChartPie size={16} className="icon" />,
 }
 
 export default function Sitemap() {

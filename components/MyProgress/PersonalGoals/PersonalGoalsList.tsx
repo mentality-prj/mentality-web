@@ -20,7 +20,7 @@ export const PersonalGoalsList = ({ filter }: { filter: Filter }) => {
       return
     }
     const fetchGoals = async () => {
-      const personalGoalsData = await fetchPersonalGoals(userId)
+      const personalGoalsData = await fetchPersonalGoals()
       setPersonalGoals(personalGoalsData)
     }
     fetchGoals()

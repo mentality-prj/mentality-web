@@ -33,12 +33,11 @@ export const CreatePersonalGoals = ({
   if (!data?.user?.id) {
     return null
   }
-  const userId = data.user.id
 
   const createPersonalGoalClick = async () => {
-    await createPersonalGoal({ userId, text, repeat: quantity })
+    await createPersonalGoal({ text, repeat: quantity })
     closeDialog()
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    await fetchPersonalGoals().then((goals) => setPersonalGoals(goals))
   }
 
   const closeDialog = () => {
