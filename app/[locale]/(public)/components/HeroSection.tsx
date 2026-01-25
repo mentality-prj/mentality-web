@@ -4,6 +4,7 @@ import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import AvatarStack from '@/components/AvatarStack'
+import { Routes } from '@/constants/routes'
 import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
 
@@ -52,7 +53,7 @@ export function HeroSection() {
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
             <div>
               <Button asChild variant="volume" size="large">
-                <Link href="/signin">{t('Hero.cta')}</Link>
+                <Link href={Routes.SIGNIN}>{t('Hero.cta')}</Link>
               </Button>
             </div>
           </div>

@@ -1,43 +1,76 @@
-'use client'
-
-import { useLocale, useTranslations } from 'next-intl'
-
+import CardsList from '@/components/Cards/CardsList'
 import { useSavedFilters } from '@/context/savedFilterContext'
-import CustomCard from '@/ds/components/CustomCard'
-import { StarIcon } from '@/ds/icons/star'
-import { SupportedLanguage } from '@/types/languages'
 
-import { FilteredHistoryProps } from '../AffirmationsAndTips/FilteredHistory'
+import { FavoriteEntity, AffirmationEntity, TipEntity, ExerciseEntity } from '@/types/api-responses'
+import FavoriteButton from '@/components/Buttons/FavoriteButton'
+import { ITEM_TYPE_DEFS, ItemType } from '@/types/itemTypes'
+import AffirmationCard from '@/components/Affirmations/AffirmationCard'
+import TipCard from '@/components/Tips/TipCard'
+import ExerciseCard from '@/components/Exercises/ExerciseCard'
 
-export const FilteredList = ({ items }: FilteredHistoryProps) => {
+type Props = {
+  items: FavoriteEntity[]
+}
+
+function normalizePluralType(f: FavoriteEntity): ItemType {
+  const raw = (f.itemType || (f.item && (f.item as Record<string, unknown>).type) || '').toString()
+  const plural = raw.endsWith('s') ? raw : `${raw}s`
+  if ((ITEM_TYPE_DEFS as Record<string, string>)[plural]) return plural as ItemType
+  if (plural.startsWith('affirm')) return 'affirmations'
+  if (plural.startsWith('tip')) return 'tips'
+  if (plural.startsWith('exerc')) return 'exercises'
+  return 'affirmations'
+}
+
+export const FilteredList = ({ items }: Props) => {
   const { filters } = useSavedFilters()
   const SortOrder = filters.order
   const filter = filters.tags
-  const t = useTranslations('components.DailyCard')
-  const locale = useLocale() as SupportedLanguage
+
   const getSortedItems = () => {
+    let result = items
     if (filter) {
-      items = items.filter((item) => item.type === filter)
+      result = result.filter((fav) => {
+        const raw = (fav.itemType || (fav.item && (fav.item as Record<string, unknown>).type) || '').toString()
+        const type = raw.replace(/s$/, '')
+        return type === filter
+      })
     }
-    return [...items].sort((a, b) => {
+    return [...result].sort((a, b) => {
       const timeA = new Date(a.createdAt).getTime()
       const timeB = new Date(b.createdAt).getTime()
-
       return SortOrder === 'newest' ? timeB - timeA : timeA - timeB
     })
   }
+
+  const CardComponent: React.ComponentType<{ item: FavoriteEntity; tools?: React.ReactNode; className?: string }> = ({
+    item: fav,
+    tools,
+    className,
+  }) => {
+    const payload = fav.item as unknown as AffirmationEntity | TipEntity | ExerciseEntity
+    const typePlural = normalizePluralType(fav)
+
+    if (typePlural === ITEM_TYPE_DEFS.tips)
+      return <TipCard item={payload as TipEntity} tools={tools} className={className} />
+    if (typePlural === ITEM_TYPE_DEFS.exercises)
+      return <ExerciseCard item={payload as ExerciseEntity} tools={tools} className={className} />
+    return <AffirmationCard item={payload as AffirmationEntity} tools={tools} className={className} />
+  }
+
+  const renderTools = (fav: FavoriteEntity) => {
+    const typePlural = normalizePluralType(fav)
+    return (
+      <FavoriteButton itemType={typePlural} itemId={String(fav.itemId ?? fav.item?.id ?? fav.id)} isFavorite={true} />
+    )
+  }
+
   return (
-    <div className="flex flex-col gap-default">
-      {getSortedItems().map((item) => (
-        <CustomCard
-          key={item.id}
-          variant="withDate"
-          button={<StarIcon />}
-          badge={t('type', { type: item.type })}
-          date={new Date(item.createdAt).toLocaleDateString('uk-UA')}
-          text={item.translations[`${locale}`]}
-        />
-      ))}
-    </div>
+    <CardsList
+      items={getSortedItems()}
+      CardComponent={CardComponent}
+      getKey={(i) => String(i.itemId ?? i.id)}
+      renderTools={renderTools}
+    />
   )
 }

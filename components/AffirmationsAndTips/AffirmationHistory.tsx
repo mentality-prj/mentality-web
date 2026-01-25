@@ -6,7 +6,7 @@ import { SectionCard } from '@/ds/components/SectionCard'
 import { getAffirmations } from '@/requests/affirmations'
 import { getTips } from '@/requests/tips'
 
-import { Filter } from '../Filter'
+import { Filter } from '../Filter/Filter'
 
 import { AffirmationWithType, FilteredHistory } from './FilteredHistory'
 

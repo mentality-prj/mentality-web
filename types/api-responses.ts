@@ -1,4 +1,5 @@
 import { SupportedLanguage } from './languages'
+import { ITEM_TYPE_DEFS } from './itemTypes'
 
 // Affirmations
 export type AffirmationEntity = {
@@ -30,6 +31,18 @@ export type PaginatedTips = { items: TipEntity[]; total: number }
 export type GenerateTipDto = {
   prompt?: string
   lang: SupportedLanguage
+}
+
+// Favorites
+export type FavoriteItemType = keyof typeof ITEM_TYPE_DEFS
+
+export type FavoriteEntity = {
+  id: string
+  user: string
+  itemType: string
+  itemId: string
+  item?: Record<string, unknown> | null
+  createdAt: string
 }
 
 // Tags

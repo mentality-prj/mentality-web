@@ -4,6 +4,7 @@ import { Calendar } from 'lucide-react'
 import { DeleteIcon, EditIcon } from '@/components/Cards'
 import Card from '@/components/Cards/Card'
 import CardStack from '@/components/Cards/CardStack'
+import { Routes } from '@/constants/routes'
 import CustomCard from '@/ds/components/CustomCard'
 import { CloudIcon } from '@/ds/icons/summary/cloud'
 import { Link } from '@/i18n/navigation'
@@ -41,7 +42,7 @@ export default function AdminPage() {
           text={
             <>
               Text with link to&nbsp;
-              <Link href="/my-day" className="whitespace-nowrap underline">
+              <Link href={Routes.MYDAY} className="whitespace-nowrap underline">
                 My day
               </Link>
               . Use it instead of an additional link.
@@ -55,13 +56,13 @@ export default function AdminPage() {
           icon={<Calendar size={12} />}
           sup="25.12.2025"
           title={
-            <Link href="/my-day" className="whitespace-nowrap underline">
+            <Link href={Routes.MYDAY} className="whitespace-nowrap underline">
               Title 01
             </Link>
           }
           text="Lorem ipsum"
           remark={
-            <Link href="/my-day" className="whitespace-nowrap underline">
+            <Link href={Routes.MYDAY} className="whitespace-nowrap underline">
               success
             </Link>
           }

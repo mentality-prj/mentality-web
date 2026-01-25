@@ -1,4 +1,4 @@
 {
-  "title": "{title, select, affirmation {Poprzednie afirmacje i porady} exercises {Ćwiczenia i porady na regenerację} mySpace {Moja przestrzeń} myThoughts {Moje notatki} recordingThoughts {Zapisywanie myśli} other {}}",
+  "title": "{title, select, affirmation {Poprzednie afirmacje i porady} exercises {Ćwiczenia i porady na regenerację} myThoughts {Moje notatki} recordingThoughts {Zapisywanie myśli} other {}}",
   "subtitle": "{subtitle, select, affirmation {Nie masz jeszcze żadnych poprzednich afirmacji i porad.} myThoughts {Nie masz jeszcze żadnych notatek.} other {}}"
 }

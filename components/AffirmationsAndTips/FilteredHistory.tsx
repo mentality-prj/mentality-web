@@ -9,7 +9,7 @@ import { Affirmation } from '@/types/affirmation'
 import { SupportedLanguage } from '@/types/languages'
 
 export interface AffirmationWithType extends Affirmation {
-  type: 'affirmation' | 'tip'
+  type: string
 }
 
 export interface FilteredHistoryProps {
