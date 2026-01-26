@@ -519,10 +519,10 @@ body {
   .inner-menu-item.active .icon {
     color: inherit;
   }
-  .tool-icon-text {
+  .icon-tool-text {
     @apply text-textcolor-secondary hover:text-textcolor-primary;
   }
-  .tool-icon {
+  .icon-tool {
     @apply rounded p-1 hover:bg-background-muted;
   }
 }

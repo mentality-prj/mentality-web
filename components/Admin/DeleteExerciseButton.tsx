@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Trash } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
+import { Button } from '@/ds/shadcn/button'
 import { deleteExercise } from '@/requests/exercises'
 import { CustomSession } from '@/types/auth'
 import { notifyError, notifySuccess } from '@/utils/toast'
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export default function DeleteExerciseButton({ id, session, onDeleted, className = '' }: Props) {
+  const t = useTranslations('common.Buttons')
   const [isDeleting, setIsDeleting] = useState(false)
 
   const handleDelete = async () => {
@@ -30,15 +33,15 @@ export default function DeleteExerciseButton({ id, session, onDeleted, className
   }
 
   return (
-    <button
-      type="button"
-      aria-label="Видалити"
-      title="Видалити"
+    <Button
+      variant="iconTool"
+      aria-label={t('delete')}
+      title={t('delete')}
       onClick={handleDelete}
       disabled={isDeleting}
-      className={`tool-icon ${className}`}
+      className={className}
     >
       <Trash size={12} />
-    </button>
+    </Button>
   )
 }

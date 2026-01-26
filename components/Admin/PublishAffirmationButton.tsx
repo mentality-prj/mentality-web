@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import { BookPlus } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
+import { Button } from '@/ds/shadcn/button'
 import { publishAffirmation } from '@/requests/affirmations'
 import { CustomSession } from '@/types/auth'
 import { notifyError, notifySuccess } from '@/utils/toast'
@@ -13,6 +15,7 @@ interface Props {
 }
 
 export default function PublishAffirmationButton({ id, session, onPublished, className = '' }: Props) {
+  const t = useTranslations('common.Buttons')
   const [isPublishing, setIsPublishing] = useState(false)
 
   const handlePublish = async () => {
@@ -23,21 +26,21 @@ export default function PublishAffirmationButton({ id, session, onPublished, cla
     if ('error' in result) {
       notifyError(String(result.error ?? 'Unknown error'))
     } else {
-      notifySuccess('Опубліковано')
+      notifySuccess(t('publish'))
       onPublished?.(id)
     }
   }
 
   return (
-    <button
-      type="button"
-      aria-label="Опублікувати"
-      title="Опублікувати"
+    <Button
+      variant="iconTool"
+      aria-label={t('publish')}
+      title={t('publish')}
       onClick={handlePublish}
       disabled={isPublishing}
-      className={`tool-icon ${className}`}
+      className={className}
     >
       <BookPlus size={12} />
-    </button>
+    </Button>
   )
 }

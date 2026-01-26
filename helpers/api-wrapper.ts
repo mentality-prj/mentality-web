@@ -63,8 +63,9 @@ export async function apiRequest<T = unknown>(
     }
   }
 
-  // Get OAuth token from session
-  const token = session.OAuthToken
+  // Get token from session and standardize on JWT (prefer idToken, then accessToken, then OAuthToken)
+  const possible = session as Partial<{ accessToken: string; idToken: string; OAuthToken: string }>
+  const token = possible.idToken ?? possible.accessToken ?? session.OAuthToken
 
   if (!token) {
     logger.warn('API request attempted without OAuth token', { url, method, userId: session.user?.email })
@@ -81,6 +82,11 @@ export async function apiRequest<T = unknown>(
     // Prepare headers
     const headers = new Headers({
       Authorization: `Bearer ${token}`,
+    })
+    logger.debug('API auth header set', {
+      url,
+      method,
+      authHeaderPresent: headers.has('Authorization'),
     })
 
     // Merge custom headers

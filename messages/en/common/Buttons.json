@@ -6,5 +6,9 @@
   "close": "Close",
   "cancel": "Cancel",
   "delete": "Delete",
-  "create": "Create"
+  "create": "Create",
+  "reset": "Reset",
+  "duplicate": "Duplicate",
+  "edit": "Edit",
+  "publish": "Publish"
 }

@@ -20,11 +20,18 @@
     "Buttons": {
       "Create": "Create",
       "Cancel": "Cancel"
+    },
+    "Validation": {
+      "Empty": "Please enter a goal"
+    },
+    "Toast": {
+      "Created": "Goal created",
+      "Failed": "Failed to create goal"
     }
   },
   "PersonalGoalsCard": {
     "Progress": "Progress",
-    "GoalAchieved": "Wow! Goal achieved, keep it up!",
+    "GoalAchieved": "Goal achieved, keep it up!",
     "Mark": "Mark",
     "Dialog": {
       "DeleteTitle": "Delete goal?",

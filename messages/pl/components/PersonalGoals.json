@@ -20,11 +20,18 @@
     "Buttons": {
       "Create": "Utwórz",
       "Cancel": "Anuluj"
+    },
+    "Validation": {
+      "Empty": "Proszę wpisać cel"
+    },
+    "Toast": {
+      "Created": "Cel utworzony",
+      "Failed": "Nie udało się utworzyć celu"
     }
   },
   "PersonalGoalsCard": {
     "Progress": "Postęp",
-    "GoalAchieved": "Wow! Cel osiągnięty, tak trzymaj!",
+    "GoalAchieved": "Cel osiągnięty, tak trzymaj!",
     "Mark": "Zaznacz",
     "Dialog": {
       "DeleteTitle": "Usunąć cel?",

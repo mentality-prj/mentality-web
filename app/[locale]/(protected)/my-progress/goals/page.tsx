@@ -1,4 +1,4 @@
-import { PersonalGoals } from '@/components/MyProgress/PersonalGoals'
+import { PersonalGoals } from '@/components/MyProgress/PersonalGoals/PersonalGoals'
 
 export default function MyProgressGoalsPage() {
   return <PersonalGoals />

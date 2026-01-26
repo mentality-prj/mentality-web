@@ -1,6 +1,8 @@
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { Trash } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
+import { Button } from '@/ds/shadcn/button'
 import { deleteTip } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
 import { notifyError, notifySuccess } from '@/utils/toast'
@@ -13,6 +15,8 @@ interface Props {
 }
 
 export default function DeleteTipButton({ id, session, onDeleted, className = '' }: Props) {
+  const t = useTranslations('common.Buttons')
+  const ta = useTranslations('components.Admin.GenerateAffirmation')
   const [isDeleting, setIsDeleting] = useState(false)
 
   const handleDelete = async () => {
@@ -24,21 +28,21 @@ export default function DeleteTipButton({ id, session, onDeleted, className = ''
     if ('error' in result) {
       notifyError(String(result.error ?? 'Unknown error'))
     } else {
-      notifySuccess('Видалено')
+      notifySuccess(ta('deleted'))
       onDeleted?.(id)
     }
   }
 
   return (
-    <button
-      type="button"
-      aria-label="Видалити"
-      title="Видалити"
+    <Button
+      variant="iconTool"
+      aria-label={t('delete')}
+      title={t('delete')}
       onClick={handleDelete}
       disabled={isDeleting}
-      className={`tool-icon ${className}`}
+      className={className}
     >
       <Trash size={12} />
-    </button>
+    </Button>
   )
 }

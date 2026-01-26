@@ -23,10 +23,15 @@ export async function performAuthRequest<T = unknown>(
       : undefined
     : 'GET'
 
-  const { data, error, headers } = await apiRequestWithAuth<T>(session, url, {
-    method,
-    body: options?.body,
-  })
+  const { data, error, headers } = await apiRequestWithAuth<T>(
+    session,
+    url,
+    {
+      method,
+      body: options?.body,
+    },
+    { autoSignOutOn401: false }
+  )
 
   if (error) {
     logger.error('API request failed', { url, method, error })

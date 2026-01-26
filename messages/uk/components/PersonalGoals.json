@@ -20,11 +20,18 @@
     "Buttons": {
       "Create": "Створити",
       "Cancel": "Скасувати"
+    },
+    "Validation": {
+      "Empty": "Введіть, будь ласка, текст цілі"
+    },
+    "Toast": {
+      "Created": "Ціль створена",
+      "Failed": "Не вдалося створити ціль"
     }
   },
   "PersonalGoalsCard": {
     "Progress": "Прогрес",
-    "GoalAchieved": "Вау! Ціль досягнута, так тримати!",
+    "GoalAchieved": "Ціль досягнута, так тримати!",
     "Mark": "Відмітити",
     "Dialog": {
       "DeleteTitle": "Видалити ціль ?",

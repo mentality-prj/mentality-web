@@ -2,33 +2,46 @@
 import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
-import { fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
+import { fetchPersonalGoals, PersonalGoal } from '@/requests/personalGoals'
+import { Statuses } from '@/types/goals'
 
 import { CreatePersonalGoals } from './CreatePersonalGoals'
 import { PersonalGoalsCard } from './PersonalGoalsCard'
 import { Filter } from './PersonalGoalsFilter'
 
-export const PersonalGoalsList = ({ filter }: { filter: Filter }) => {
+export const PersonalGoalsList = ({ filter, refreshKey = 0 }: { filter: Filter; refreshKey?: number }) => {
   const { data: session } = useSession()
-
-  const userId = session?.user?.id
-
   const [personalGoals, setPersonalGoals] = useState<PersonalGoal[]>([])
 
-  useEffect(() => {
-    if (!userId) {
+  const handleCreated = (newGoal?: PersonalGoal) => {
+    if (!newGoal) {
+      // if no goal provided, fallback to refetch
+      const refetch = async () => {
+        const res = await fetchPersonalGoals(session)
+        if ('error' in res) return
+        setPersonalGoals(res.data ?? [])
+      }
+      void refetch()
       return
     }
+
+    setPersonalGoals((prev) => [newGoal, ...prev])
+  }
+
+  useEffect(() => {
     const fetchGoals = async () => {
-      const personalGoalsData = await fetchPersonalGoals()
-      setPersonalGoals(personalGoalsData)
+      const res = await fetchPersonalGoals(session)
+      if ('error' in res) return
+      setPersonalGoals(res.data ?? [])
     }
     fetchGoals()
-  }, [userId])
+  }, [session, refreshKey])
 
   return (
-    <div className="grid grid-cols-1 items-stretch gap-default laptop:grid-cols-2 desktop:grid-cols-3">
-      <CreatePersonalGoals setPersonalGoals={setPersonalGoals} />
+    <div className="grid w-full grid-cols-1 items-stretch gap-default laptop:grid-cols-2 desktop:grid-cols-3">
+      {/* First card: create new goal */}
+      <CreatePersonalGoals onCreated={handleCreated} />
+
       {filter === 'all'
         ? personalGoals.map((goal) => (
             <PersonalGoalsCard
@@ -43,7 +56,7 @@ export const PersonalGoalsList = ({ filter }: { filter: Filter }) => {
           ))
         : filter === 'pending'
           ? personalGoals
-              .filter((goal) => goal.status === 'pending' || goal.status === 'in progress')
+              .filter((goal) => goal.status === Statuses.PENDING || goal.status === Statuses.IN_PROGRESS)
               .map((goal) => (
                 <PersonalGoalsCard
                   key={goal.id}
@@ -57,7 +70,7 @@ export const PersonalGoalsList = ({ filter }: { filter: Filter }) => {
               ))
           : filter === 'completed'
             ? personalGoals
-                .filter((goal) => goal.status === 'completed')
+                .filter((goal) => goal.status === Statuses.COMPLETED)
                 .map((goal) => (
                   <PersonalGoalsCard
                     key={goal.id}

@@ -1,5 +1,6 @@
 import { Heart } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { toggleFavoriteWithSession } from '@/requests/favorites'
 import { ItemType } from '@/types/itemTypes'
@@ -16,6 +17,7 @@ interface Props {
 
 export const FavoriteButton = ({ itemType, itemId, isFavorite, className = '', onChange }: Props) => {
   const { data: session } = useSession()
+  const t = useTranslations('components.FavoriteButton')
 
   const toggle = async () => {
     try {
@@ -44,8 +46,8 @@ export const FavoriteButton = ({ itemType, itemId, isFavorite, className = '', o
       aria-pressed={isFavorite}
       onClick={toggle}
       className={className}
-      title={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
-      aria-label={isFavorite ? 'Remove from favorites' : 'Add to favorites'}
+      title={isFavorite ? t('removeFromFavorites') : t('addToFavorites')}
+      aria-label={isFavorite ? t('removeFromFavorites') : t('addToFavorites')}
       style={{
         display: 'inline-flex',
         alignItems: 'center',

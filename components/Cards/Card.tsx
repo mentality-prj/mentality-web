@@ -19,6 +19,8 @@ interface CardProps {
   tags?: string[]
   tools?: ReactNode | ReactNode[]
   onClick?: () => void
+  onMouseEnter?: () => void
+  onMouseLeave?: () => void
 }
 
 const darkTypes = [Statuses.dark, Statuses.accent, Statuses.warn, Statuses.error, Statuses.special, Statuses.support]
@@ -37,6 +39,8 @@ const Card = ({
   tags,
   tools,
   onClick,
+  onMouseEnter,
+  onMouseLeave,
 }: CardProps) => {
   const isDark = darkTypes.includes(type as (typeof darkTypes)[number])
   const textClass = isDark ? 'text-white' : ''
@@ -50,9 +54,11 @@ const Card = ({
       <div
         onClick={handleContainerClick}
         onKeyDown={handleContainerKeyDown}
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         role={onClick ? 'button' : undefined}
         tabIndex={onClick ? 0 : undefined}
-        className={`flex min-w-[140px] flex-col gap-1 rounded-2xl ${sup || tools ? 'px-6 pb-6 pt-2' : 'p-6'} ${Statuses[type as StatusType]} ${className}`}
+        className={`flex min-w-[140px] flex-col gap-1.5 rounded-2xl ${sup || tools ? 'px-6 pb-6 pt-2' : 'p-6'} ${Statuses[type as StatusType]} ${className}`}
       >
         {(sup || tools) && (
           <div className={`sup mt-2 flex h-3 items-center justify-between ${textClass}`}>
@@ -61,7 +67,7 @@ const Card = ({
               {sup && <div className="">{sup}</div>}
             </div>
             {tools && (
-              <div className="flex gap-1.5" data-card-tools>
+              <div className="flex gap-1" data-card-tools>
                 {Array.isArray(tools) ? tools.map((tool, idx) => <span key={idx}>{tool}</span>) : tools}
               </div>
             )}
@@ -87,6 +93,8 @@ const Card = ({
     <div
       onClick={handleContainerClick}
       onKeyDown={handleContainerKeyDown}
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
       className={`min-w-[140px] flex-1 rounded-2xl p-6 ${className}`}

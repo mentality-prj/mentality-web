@@ -23,6 +23,7 @@ const buttonVariants = cva(
           'px-3 rounded-sm bg-transparent text-primary hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed disabled:bg-disable',
         linkButton:
           'px-2 bg-transparent text-textcolor-primary hover:text-primary-hover focus:text-primary-focus focus-visible:ring-primary-focus focus-visible:ring-offset-1 active:text-primary-pressed underline [text-underline-offset:3px] decoration-1',
+        iconTool: 'icon-tool icon-tool-text',
         iconButton:
           'shrink-0 bg-border text-iconcolor-primary hover:opacity-75 focus-visible:ring-offset-0 hover:bg-secondary-hover focus:bg-secondary-focus focus-visible:ring-primary-focus active:bg-secondary-pressed disabled:bg-disable rounded-full',
         volume:
@@ -45,6 +46,12 @@ const buttonVariants = cva(
       variant: 'default',
       size: 'default',
     },
+    compoundVariants: [
+      {
+        variant: 'iconTool',
+        class: 'h-6 w-6',
+      },
+    ],
   }
 )
 
