@@ -1,12 +1,11 @@
-import CardsList from '@/components/Cards/CardsList'
-import { useSavedFilters } from '@/context/savedFilterContext'
-
-import { FavoriteEntity, AffirmationEntity, TipEntity, ExerciseEntity } from '@/types/api-responses'
-import FavoriteButton from '@/components/Buttons/FavoriteButton'
-import { ITEM_TYPE_DEFS, ItemType } from '@/types/itemTypes'
 import AffirmationCard from '@/components/Affirmations/AffirmationCard'
-import TipCard from '@/components/Tips/TipCard'
+import FavoriteButton from '@/components/Buttons/FavoriteButton'
+import CardsList from '@/components/Cards/CardsList'
 import ExerciseCard from '@/components/Exercises/ExerciseCard'
+import TipCard from '@/components/Tips/TipCard'
+import { useSavedFilters } from '@/context/savedFilterContext'
+import { AffirmationEntity, ExerciseEntity, FavoriteEntity, TipEntity } from '@/types/api-responses'
+import { ITEM_TYPE_DEFS, ItemType } from '@/types/itemTypes'
 
 type Props = {
   items: FavoriteEntity[]
@@ -15,7 +14,7 @@ type Props = {
 function normalizePluralType(f: FavoriteEntity): ItemType {
   const raw = (f.itemType || (f.item && (f.item as Record<string, unknown>).type) || '').toString()
   const plural = raw.endsWith('s') ? raw : `${raw}s`
-  if ((ITEM_TYPE_DEFS as Record<string, string>)[plural]) return plural as ItemType
+  if ((ITEM_TYPE_DEFS as Record<string, string>)[plural as keyof typeof ITEM_TYPE_DEFS]) return plural as ItemType
   if (plural.startsWith('affirm')) return 'affirmations'
   if (plural.startsWith('tip')) return 'tips'
   if (plural.startsWith('exerc')) return 'exercises'

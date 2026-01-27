@@ -1,5 +1,5 @@
-import { SupportedLanguage } from './languages'
 import { ITEM_TYPE_DEFS } from './itemTypes'
+import { SupportedLanguage } from './languages'
 
 // Affirmations
 export type AffirmationEntity = {
@@ -146,8 +146,9 @@ export type UpdateGoalDto = {
 
 // Mood records
 export type CreateMoodRecordDto = {
-  mood: string
-  note?: string
+  userId?: string
+  moodLevel: number
+  description?: string
   tags?: string[]
   stressLevel?: number
   active?: boolean
@@ -156,8 +157,8 @@ export type CreateMoodRecordDto = {
 export type MoodRecordEntity = {
   id: string
   userId?: string
-  mood: string
-  note?: string
+  moodLevel?: number
+  description?: string
   tags?: string[]
   stressLevel?: number
   active?: boolean
@@ -168,8 +169,8 @@ export type MoodRecordEntity = {
 export type SetActiveDto = { active: boolean }
 
 export type UpdateMoodRecordDto = {
-  mood?: string
-  note?: string
+  moodLevel?: number
+  description?: string
   tags?: string[]
   stressLevel?: number
   active?: boolean

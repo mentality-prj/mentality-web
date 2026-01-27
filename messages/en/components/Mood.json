@@ -8,6 +8,16 @@
   "changeTags": "Change tags",
   "chooseStress": "Choose stress level",
 
+  "Validation": {
+    "SelectMood": "Please select a mood",
+    "NotSignedIn": "You must be signed in to save a mood"
+  },
+
+  "Toast": {
+    "Saved": "Mood saved",
+    "Failed": "Failed to save mood"
+  },
+
   "very-bad": "Very bad",
   "bad": "Bad",
   "neutral": "Neutral",

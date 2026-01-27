@@ -1,11 +1,11 @@
 import { auth } from '@/auth'
 import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
+import CardsList from '@/components/Cards/CardsList'
 import { PAGE_SIZE } from '@/constants/pagination'
 import { getTips, getUnpublishedTips } from '@/requests/tips'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
 import TipCard from './TipCard'
-import CardsList from '@/components/Cards/CardsList'
 
 interface Props {
   fetchUnpublished?: boolean

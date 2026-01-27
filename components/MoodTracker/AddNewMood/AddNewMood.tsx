@@ -1,5 +1,4 @@
 'use client'
-import { useEffect, useState } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -14,6 +13,8 @@ import { UserTag } from '@/types/tags'
 import FullScreenBackdrop from '../../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 import { MOODS } from '../moods'
 
+import useAddNewMood from './useAddNewMood'
+
 interface AddNewMoodProps {
   onClose: () => void
   onSave: () => void
@@ -26,61 +27,29 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
   const tt = useTranslations('components.Tags')
   const mn = useTranslations('components.Mood')
 
-  const [selectedMood, setSelectedMood] = useState<string | null>(null)
-  const [note, setNote] = useState('')
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [localAvailableTags, setLocalAvailableTags] = useState<UserTag[]>(availableTags)
-  const [tagLabels, setTagLabels] = useState<Record<string, string>>(() => {
-    const map: Record<string, string> = {}
-    availableTags.forEach((t) => {
-      if (t && t.key && t.name) map[t.key] = t.name
-    })
-    return map
-  })
-  const [showAddTag, setShowAddTag] = useState(false)
-
-  useEffect(() => {
-    setLocalAvailableTags(availableTags)
-    // update label map from incoming tags
-    setTagLabels(() => {
-      const map: Record<string, string> = {}
-      availableTags.forEach((t) => {
-        if (t && t.key && t.name) map[t.key] = t.name
-      })
-      return map
-    })
-  }, [availableTags])
-
-  useEffect(() => {
-    // Clear labels for tags that are no longer available
-    setTagLabels((prev) => {
-      const next: Record<string, string> = {}
-      localAvailableTags.forEach((k) => {
-        if (prev[k.key]) next[k.key] = prev[k.key]
-      })
-      return next
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localAvailableTags])
-
-  const addTag = (t: string) => {
-    setSelectedTags((prev) => (prev.includes(t) ? prev : [...prev, t]))
-  }
-
-  const removeTag = (t: string) => {
-    setSelectedTags((prev) => prev.filter((x) => x !== t))
-  }
-
-  const handleSubmit = () => {
-    onSave()
-    onClose()
-  }
+  const {
+    selectedMood,
+    setSelectedMood,
+    note,
+    setNote,
+    selectedTags,
+    addTag,
+    removeTag,
+    localAvailableTags,
+    tagLabels,
+    showAddTag,
+    setShowAddTag,
+    isSubmitting,
+    handleSubmit,
+    onTagCreated,
+  } = useAddNewMood({ availableTags, onSave, onClose })
 
   return (
     <FormCard
       title={tm('title')}
       tools={<CloseIconButton onClick={onClose} className="ml-4 h-7 w-7" />}
       onSubmit={handleSubmit}
+      submitDisabled={isSubmitting}
       onCancel={onClose}
       submitLabel={ct('save')}
       className="p-6"
@@ -145,11 +114,8 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
               <div className="absolute inset-0 z-50 flex items-center justify-center">
                 <AddNewTag
                   onClose={() => setShowAddTag(false)}
-                  onCreated={({ key, name }) => {
-                    // add to local list and select; store human-readable label
-                    setLocalAvailableTags((prev) => (prev.some((x) => x.key === key) ? prev : [...prev, { key, name }]))
-                    setTagLabels((prev) => ({ ...prev, [key]: name }))
-                    addTag(key)
+                  onCreated={(t) => {
+                    onTagCreated(t)
                     setShowAddTag(false)
                   }}
                 />
