@@ -8,6 +8,16 @@
   "changeTags": "Zmień tagi",
   "chooseStress": "Wybierz poziom stresu",
 
+  "Validation": {
+    "SelectMood": "Proszę wybrać nastrój",
+    "NotSignedIn": "Musisz być zalogowany, aby zapisać nastrój"
+  },
+
+  "Toast": {
+    "Saved": "Nastrój zapisany",
+    "Failed": "Nie udało się zapisać nastroju"
+  },
+
   "very-bad": "Bardzo źle",
   "bad": "Źle",
   "neutral": "Neutralnie",

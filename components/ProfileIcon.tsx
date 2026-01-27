@@ -1,10 +1,12 @@
 import { User2 } from 'lucide-react'
 import Link from 'next/link'
 
+import { Routes } from '@/constants/routes'
+
 export function ProfileIcon() {
   return (
     <Link
-      href="/profile"
+      href={Routes.PROFILE}
       aria-label="Profile"
       className="flex items-center justify-center rounded-full p-2 hover:bg-gray-100"
     >

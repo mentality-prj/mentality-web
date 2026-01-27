@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 
+import { Routes } from '@/constants/routes'
 import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
 
@@ -62,7 +63,7 @@ export function HowItWorksSection() {
           <ol className="mt-6 flex flex-col gap-5">{howItWorksSteps}</ol>
           <div className="mt-8">
             <Button asChild variant="volume" size="large">
-              <Link href="/signin">{t(stepsSectionConfig.ctaKey)}</Link>
+              <Link href={Routes.SIGNIN}>{t(stepsSectionConfig.ctaKey)}</Link>
             </Button>
           </div>
         </div>

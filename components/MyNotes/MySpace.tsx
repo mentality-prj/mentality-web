@@ -1,36 +1,32 @@
 import { getTranslations } from 'next-intl/server'
 
-import { SectionCard } from '@/ds/components/SectionCard'
+import { SavedList } from '@/components/SavedList/SavedList'
+import { Routes } from '@/constants/routes'
+import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
 
-import Card from '../Cards/Card'
-
 export async function MySpace() {
-  const t = await getTranslations()
-
-  const cardMyNotesData = [
-    { key: 'card1', link: '/my-thoughts' },
-    { key: 'card2', link: '/tests' },
-    { key: 'card3', link: '/affirmations' },
-    { key: 'card4', link: '/saved' },
-  ] as const
+  const t = await getTranslations('components.MySpaceCards')
 
   return (
-    <SectionCard title={t('common.SectionCard.title', { title: 'mySpace' })}>
-      <div className="grid grid-cols-1 gap-8 laptop:grid-cols-2">
-        {cardMyNotesData.map(({ key, link }) => (
-          <Card
-            key={key}
-            title={t(`components.MySpaceCards.${key}.title`)}
-            text={t(`components.MySpaceCards.${key}.desc`)}
-            aftertext={
-              <Link className="text-blue-600 underline" href={`/my-notes/${link}`}>
-                {t('common.Buttons.goTo')}
-              </Link>
-            }
-          />
-        ))}
+    <section className="grid gap-default laptop:grid-cols-[3fr_1fr]">
+      <div>
+        <SavedList />
       </div>
-    </SectionCard>
+
+      <div className="flex flex-col gap-4">
+        <h3 className="landing-h3">{t('title')}</h3>
+        <Link href={`${Routes.MYNOTES}/my-thoughts`}>
+          <Button size="large" className="w-full">
+            {t('card1.title')}
+          </Button>
+        </Link>
+        <Link href={`${Routes.MYNOTES}/tests`}>
+          <Button variant="secondary" size="large" className="w-full">
+            {t('card2.title')}
+          </Button>
+        </Link>
+      </div>
+    </section>
   )
 }
