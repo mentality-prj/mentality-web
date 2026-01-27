@@ -1,4 +1,7 @@
 {
   "title": "Mój postęp",
-  "subtitle": "Osiągnięcia, statystyki i cele osobiste — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛"
+  "subtitle": "Osiągnięcia, statystyki i cele osobiste — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛",
+  "achievements": { "title": "Moje osiągnięcia" },
+  "goals": { "title": "Moje cele" },
+  "statistics": { "title": "Moje statystyki" }
 }

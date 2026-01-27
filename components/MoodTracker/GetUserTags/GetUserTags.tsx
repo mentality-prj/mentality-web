@@ -1,5 +1,5 @@
 'use client'
-import React, { JSX, useEffect, useState } from 'react'
+import { JSX, ReactNode, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { getUserTags } from '@/requests/userTags'
@@ -8,7 +8,7 @@ import { UserTag } from '@/types/tags'
 import { CustomSession } from '../../../types/auth'
 
 type Props = {
-  children: (tags: UserTag[]) => React.ReactNode
+  children: (tags: UserTag[]) => ReactNode
 }
 
 export default function GetUserTags({ children }: Props): JSX.Element {

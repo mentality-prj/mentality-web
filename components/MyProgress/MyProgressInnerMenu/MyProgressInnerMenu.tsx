@@ -3,12 +3,12 @@ import { useTranslations } from 'next-intl'
 
 import { InnerMenu } from '@/components/InnerMenu'
 import { iconMap } from '@/components/Sitemap'
-import { guideMenu } from '@/constants/menu'
+import { myProgressInnerMenuItems } from '@/constants/menu'
 
-export default function GuideInnerMenu() {
-  const t = useTranslations('pages.Guide')
+export default function MyProgressInnerMenu() {
+  const t = useTranslations('pages.MyProgress')
 
-  const items = guideMenu.map((it) => ({
+  const items = myProgressInnerMenuItems.map((it) => ({
     key: it.key,
     href: it.href,
     label: t(`${it.key}.title`),

@@ -1,8 +1,9 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { PlusIcon, X } from 'lucide-react'
+import { PlusIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import CloseIconButton from '@/components/Buttons/CloseIconButton'
 import FormCard from '@/components/Cards/FormCard'
 import StyledTextarea from '@/components/Forms/StyledTextarea'
 import AddNewTag from '@/components/MoodTracker/AddNewTag/AddNewTag'
@@ -78,17 +79,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
   return (
     <FormCard
       title={tm('title')}
-      tools={
-        <button
-          type="button"
-          aria-label={ct('close')}
-          title={ct('close')}
-          onClick={onClose}
-          className="tool-icon tool-icon-text ml-4 rounded p-1"
-        >
-          <X className="h-5 w-5" />
-        </button>
-      }
+      tools={<CloseIconButton onClick={onClose} className="ml-4 h-7 w-7" />}
       onSubmit={handleSubmit}
       onCancel={onClose}
       submitLabel={ct('save')}

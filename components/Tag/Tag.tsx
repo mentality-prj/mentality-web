@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react'
+import { ReactNode } from 'react'
 import { X } from 'lucide-react'
 
 import { Statuses, StatusType } from '../../types/status.types'
@@ -32,7 +32,7 @@ const Tag = ({ children, text, type = 'tag', onRemove, onClick, className = '' }
           aria-label={`remove-${text}`}
           title="Remove"
           onClick={() => onRemove(text)}
-          className="tool-icon-text -mr-1 p-0"
+          className="icon-tool-text -mr-1 p-0"
         >
           <X size={12} />
         </button>

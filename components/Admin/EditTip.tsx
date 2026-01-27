@@ -22,7 +22,7 @@ export default function EditTip({ tip, onUpdate, onCancel }: EditTipProps) {
   const t = useTranslations('components.Admin.EditTip')
   const locale = useLocale() as SupportedLanguage
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [content, setContent] = useState(tip.translations?.[locale] || '')
+  const [content, setContent] = useState(tip.translations?.[locale as SupportedLanguage] || '')
 
   const { data } = useSession()
   const session = data as CustomSession

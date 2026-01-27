@@ -1,8 +1,7 @@
 'use client'
-
 import { ReactNode } from 'react'
-import { X } from 'lucide-react'
 
+import CloseIconButton from '@/components/Buttons/CloseIconButton'
 import Card from '@/components/Cards/Card'
 import FullScreenBackdrop from '@/components/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 
@@ -44,18 +43,7 @@ export default function FullScreenCard({
             className={`p-6 ${className}`}
             sup={createdAt}
             icon={icon}
-            tools={
-              tools ?? (
-                <button
-                  type="button"
-                  aria-label="Close"
-                  onClick={onClose}
-                  className="tool-icon tool-icon-text ml-4 rounded p-1"
-                >
-                  <X className="h-5 w-5" />
-                </button>
-              )
-            }
+            tools={tools ?? <CloseIconButton onClick={onClose} />}
             title={title}
             text={text}
             remark={remark}

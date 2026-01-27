@@ -6,5 +6,9 @@
   "close": "Zamknij",
   "cancel": "Anuluj",
   "delete": "Usuń",
-  "create": "Utwórz"
+  "create": "Utwórz",
+  "reset": "Zresetuj",
+  "duplicate": "Duplikuj",
+  "edit": "Edytuj",
+  "publish": "Opublikuj"
 }

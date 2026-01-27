@@ -1,106 +1,87 @@
 'use client'
-
-import { Dispatch, SetStateAction, useState } from 'react'
+import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import { createPersonalGoal, fetchPersonalGoals, PersonalGoal } from '@/actions/personalGoals.action'
-import { Tag } from '@/ds/components/Tag'
-import { AddIcon } from '@/ds/icons/add'
-import { AddSquareIcon } from '@/ds/icons/add-square'
-import { MinusSquareIcon } from '@/ds/icons/minus-square'
-import { Button } from '@/ds/shadcn/button'
-import { Dialog, DialogClose, DialogContent, DialogDescription, DialogTitle, DialogTrigger } from '@/ds/shadcn/dialog'
-import { Textarea } from '@/ds/shadcn/textarea'
-import { ToggleGroup } from '@/ds/shadcn/toggle-group'
+import FullScreenBackdrop from '@/components/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import type { PersonalGoal } from '@/requests/personalGoals'
 
-export const CreatePersonalGoals = ({
-  setPersonalGoals,
-}: {
-  setPersonalGoals: Dispatch<SetStateAction<PersonalGoal[]>>
-}) => {
+import CreatePersonalGoalButton from './CreatePersonalGoalButton'
+import CreatePersonalGoalForm from './CreatePersonalGoalForm'
+import useCreatePersonalGoal from './useCreatePersonalGoal'
+
+export const CreatePersonalGoals = ({ onCreated }: { onCreated?: (goal?: PersonalGoal) => void }) => {
   const [text, setText] = useState('')
   const [quantity, setQuantity] = useState(1)
   const [open, setOpen] = useState(false)
-  const { data } = useSession()
+  const { data: session } = useSession()
   const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
   const defaultTextSuggestions = [
     t('DefaultTextSuggestions.SleepBetter'),
     t('DefaultTextSuggestions.DayWithoutMedia'),
     t('DefaultTextSuggestions.CoffeeLimit'),
   ]
+  const [activeSuggestion, setActiveSuggestion] = useState<string | null>(null)
+  const { create, loading } = useCreatePersonalGoal()
 
-  if (!data?.user?.id) {
+  if (!session?.user?.id) {
     return null
   }
-  const userId = data.user.id
 
   const createPersonalGoalClick = async () => {
-    await createPersonalGoal({ userId, text, repeat: quantity })
-    closeDialog()
-    await fetchPersonalGoals(userId).then((goals) => setPersonalGoals(goals))
+    const res = await create(text, quantity)
+    if (res?.data) {
+      closeForm()
+      onCreated?.(res.data)
+    }
   }
 
-  const closeDialog = () => {
+  const closeForm = () => {
     setText('')
     setQuantity(1)
+    setActiveSuggestion(null)
     setOpen(false)
   }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger className="border-outline-secondary group flex aspect-[11/8] flex-col items-center justify-center gap-[14px] rounded-md border p-2 px-9 py-20 hover:cursor-pointer hover:border-2 hover:border-primary-hover">
-        <div className="text-primary group-hover:text-primary-hover">
-          <AddIcon />
-        </div>
-        <span className="bg-secondary-hover group-hover:bg-secondary-pressed whitespace-nowrap rounded-sm px-3 py-2 font-semibold text-primary group-hover:text-primary-hover">
-          {t('Text')}
-        </span>
-      </DialogTrigger>
-      <DialogContent className="max-w-[680px]">
-        <DialogTitle>{t('Title')}</DialogTitle>
-        <DialogDescription>
-          <div>
-            <div className="mb-2">{t('WeOffer')}</div>
-            <div>
-              <ToggleGroup
-                onValueChange={(value) => setText(value)}
-                className="flex flex-wrap justify-start gap-2"
-                type="single"
-              >
-                {defaultTextSuggestions.map((suggestion) => (
-                  <Tag key={suggestion} text={suggestion} value={suggestion} />
-                ))}
-              </ToggleGroup>
-            </div>
-            <div className="my-5">
-              <Textarea value={text} onChange={(e) => setText(e.target.value)} maxLength={60} />
-              <p className="text-textcolor-tertiary text-xs font-normal">{t('TextareaDescription')}</p>
-            </div>
-            <div className="">
-              <div className="">{t('QuantityOfRepeat')}</div>
-              <div className="mt-2 flex items-center gap-2">
-                <Button disabled={quantity <= 1} onClick={() => setQuantity(quantity - 1)} variant="iconButton">
-                  <MinusSquareIcon />
-                </Button>
-                <span>{quantity}</span>
-                <Button onClick={() => setQuantity(quantity + 1)} variant="iconButton">
-                  <AddSquareIcon />
-                </Button>
-              </div>
-              <div className="mt-5 flex gap-4">
-                <DialogClose asChild>
-                  <Button onClick={closeDialog} variant="secondary" className="w-full">
-                    {t('Buttons.Cancel')}
-                  </Button>
-                </DialogClose>
-                <Button onClick={createPersonalGoalClick} variant="default" className="w-full">
-                  {t('Buttons.Create')}
-                </Button>
-              </div>
+    <>
+      {!open ? (
+        <CreatePersonalGoalButton text={t('Text')} onClick={() => setOpen(true)} />
+      ) : (
+        <>
+          <FullScreenBackdrop onClick={closeForm} />
+          <div className="fixed inset-0 z-50 overflow-y-auto p-4">
+            <div className="mx-auto w-full max-w-[680px]">
+              <CreatePersonalGoalForm
+                title={t('Title')}
+                weOfferLabel={t('WeOffer')}
+                textareaDescription={t('TextareaDescription')}
+                quantityLabel={t('QuantityOfRepeat')}
+                createLabel={t('Buttons.Create')}
+                cancelLabel={t('Buttons.Cancel')}
+                suggestions={defaultTextSuggestions}
+                text={text}
+                onTextChange={setText}
+                activeSuggestion={activeSuggestion}
+                onSelectSuggestion={(s) => {
+                  setText(s)
+                  setActiveSuggestion(s)
+                }}
+                quantity={quantity}
+                onIncrement={() => setQuantity(quantity + 1)}
+                onDecrement={() => setQuantity(quantity - 1)}
+                canDecrement={quantity > 1}
+                submitDisabled={text.trim().length === 0}
+                loading={loading}
+                onSubmit={createPersonalGoalClick}
+                onCancel={closeForm}
+                showValidationEmpty={text.trim().length === 0}
+                validationEmptyMessage={t('Validation.Empty')}
+              />
             </div>
           </div>
-        </DialogDescription>
-      </DialogContent>
-    </Dialog>
+        </>
+      )}
+    </>
   )
 }

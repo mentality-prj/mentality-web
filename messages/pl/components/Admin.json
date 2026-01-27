@@ -77,6 +77,7 @@
     "promptLabel": "Prompt afirmacji",
     "promptPlaceholder": "Dodaj żądanie, jeśli potrzebne",
     "success": "Afirmacja wygenerowana pomyślnie!",
+    "deleted": "Usunięto",
     "allAffirmationsTitle": "Wszystkie afirmacje",
     "empty": "Brak afirmacji"
   },

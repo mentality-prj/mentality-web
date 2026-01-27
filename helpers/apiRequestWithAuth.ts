@@ -7,10 +7,12 @@ import { apiRequest, ApiRequestOptions } from './api-wrapper'
 export async function apiRequestWithAuth<T>(
   session: CustomSession | null,
   url: string,
-  options?: ApiRequestOptions
+  options?: ApiRequestOptions,
+  opts?: { autoSignOutOn401?: boolean }
 ): Promise<{ data?: T; headers?: Headers; error?: unknown }> {
   const result = await apiRequest<T>(session, url, options)
-  if (result.error?.status === 401) {
+  const shouldAutoSignOut = opts?.autoSignOutOn401 ?? true
+  if (shouldAutoSignOut && result.error?.status === 401) {
     signOut()
   }
   return result
