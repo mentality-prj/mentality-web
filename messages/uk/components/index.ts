@@ -8,6 +8,7 @@ import CookieConsent from './CookieConsent.json'
 import DailyCard from './DailyCard.json'
 import Days from './Days.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
+import FavoriteButton from './FavoriteButton.json'
 import Filter from './Filter.json'
 import Header from './Header.json'
 import Mood from './Mood.json'
@@ -61,4 +62,5 @@ export const components = {
   TodayObservations,
   CookieConsent,
   AvatarMenu,
+  FavoriteButton,
 }

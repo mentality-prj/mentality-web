@@ -18,6 +18,11 @@
     "Failed": "Failed to save mood"
   },
 
+  "History": {
+    "Title": "Mood history",
+    "Empty": "No records yet. Create your first entry"
+  },
+
   "very-bad": "Very bad",
   "bad": "Bad",
   "neutral": "Neutral",

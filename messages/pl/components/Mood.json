@@ -17,6 +17,10 @@
     "Saved": "Nastrój zapisany",
     "Failed": "Nie udało się zapisać nastroju"
   },
+  "History": {
+    "Title": "Historia zapisów nastroju",
+    "Empty": "Na razie brak zapisów. Stwórz swój pierwszy wpis"
+  },
 
   "very-bad": "Bardzo źle",
   "bad": "Źle",

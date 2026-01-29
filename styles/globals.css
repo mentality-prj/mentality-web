@@ -83,7 +83,7 @@ body {
       hsla(260, 70%, 88%, 0) 74%
     ),
     /* a soft multi-stop linear wash for color richness */
-      linear-gradient(
+    linear-gradient(
         300deg,
         hsla(250, 33%, 91%, 0.92) 0%,
         hsla(255, 33%, 88%, 0.6) 28%,
@@ -107,7 +107,7 @@ body {
       hsla(260, 80%, 96%, 0) 64%
     ),
     /* inner multi-light bands (four light tones) */
-      repeating-radial-gradient(
+    repeating-radial-gradient(
         circle at var(--hero-gradient-x) var(--hero-gradient-y),
         hsla(260, 95%, 99%, 0.4) 0px,
         hsla(260, 95%, 99%, 0.4) 16px,
@@ -119,7 +119,7 @@ body {
         hsla(260, 86%, 94%, 0.14) 84px
       ),
     /* darker troughs (four darker tones stretched wider) */
-      repeating-radial-gradient(
+    repeating-radial-gradient(
         circle at var(--hero-gradient-x) var(--hero-gradient-y),
         hsla(260, 50%, 80%, 0.14) 84px,
         hsla(260, 50%, 80%, 0.14) 136px,
@@ -131,7 +131,7 @@ body {
         hsla(260, 32%, 62%, 0.05) 380px
       ),
     /* medium faint rings for longer reach */
-      repeating-radial-gradient(
+    repeating-radial-gradient(
         circle at var(--hero-gradient-x) var(--hero-gradient-y),
         hsla(260, 80%, 96%, 0.1) 160px,
         hsla(260, 80%, 96%, 0.1) 320px,

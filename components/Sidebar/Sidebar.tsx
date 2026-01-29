@@ -45,7 +45,7 @@ const Sidebar = async ({ menu, type }: { menu: SidebarMenuItemType[]; type?: Sid
       <div className="mb-24 mt-10 flex w-full items-end">
         <Link
           href={`/${Routes.SETTINGS}`}
-          className="hover:text-title-light mr-8 box-border flex items-center justify-center gap-2 rounded-xl border border-dashed border-border px-8 py-3 transition hover:mr-0 hover:w-full hover:rounded-r-none hover:border-background-alt hover:bg-background-alt hover:pr-16"
+          className="text-remark hover:text-title-light mr-8 box-border flex items-center justify-center gap-2 overflow-hidden rounded-xl border border-dashed border-border px-8 py-3 transition hover:mr-0 hover:w-full hover:rounded-r-none hover:border-background-alt hover:bg-background-alt hover:pr-16"
         >
           <Settings2 />
           {t('settings')}
