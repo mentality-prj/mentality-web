@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { moodKeyToLevel } from '@/helpers/moodMapper'
+import { logger } from '@/lib/logger'
 import { createMoodRecord } from '@/requests/moodRecord'
 import type { CreateMoodRecordDto } from '@/types/api-responses'
 import type { CustomSession } from '@/types/auth'
@@ -19,6 +20,15 @@ type Params = {
 export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
   const { data: session } = useSession()
   const t = useTranslations('components.Mood')
+
+  const safeT = (k: string, fallback: string) => {
+    try {
+      return t(k)
+    } catch (err) {
+      logger.warn('Missing translation key', { key: k, error: err })
+      return fallback
+    }
+  }
 
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [note, setNote] = useState('')
@@ -74,12 +84,12 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     e?.preventDefault()
     if (isSubmitting) return
     if (!selectedMood) {
-      notifyError(t('Validation.SelectMood'))
+      notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
     }
 
     if (!session?.user) {
-      notifyError(t('Validation.NotSignedIn'))
+      notifyError(safeT('Validation.NotSignedIn', 'You must be signed in to save a mood'))
       return
     }
 
@@ -96,11 +106,11 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
 
       const result = await createMoodRecord(session as unknown as CustomSession | null, dto)
       if ('error' in result) {
-        notifyError(extractErrorMessage(result.error, t('Toast.Failed')))
+        notifyError(extractErrorMessage(result.error, safeT('Toast.Failed', 'Failed to save mood')))
         return
       }
 
-      notifySuccess(t('Toast.Saved'))
+      notifySuccess(safeT('Toast.Saved', 'Mood saved'))
       onSave()
       onClose()
     } finally {
