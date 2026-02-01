@@ -1,6 +1,4 @@
-'use client'
-import React from 'react'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 import Card from '@/components/Cards/Card'
 import { MOODS } from '@/components/MoodTracker/moods'
@@ -10,8 +8,8 @@ type Props = {
   records: MoodRecordEntity[]
 }
 
-export default function MoodRecordsList({ records }: Props) {
-  const t = useTranslations('components.Mood')
+export default async function MoodRecordsList({ records }: Props) {
+  const t = await getTranslations('components.Mood')
 
   return (
     <div className="grid gap-4">

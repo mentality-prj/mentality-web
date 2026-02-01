@@ -1,9 +1,9 @@
 import { ArrowUp, Facebook, Instagram } from 'lucide-react'
 import Link from 'next/link'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-const LandingFooter = ({ type, className }: { type?: 'small' | 'default'; className?: string }) => {
-  const t = useTranslations('pages.Landing')
+export async function LandingFooter({ type, className }: { type?: 'small' | 'default'; className?: string }) {
+  const t = await getTranslations('pages.Landing')
 
   const socialLinks = [
     {
@@ -66,5 +66,3 @@ const LandingFooter = ({ type, className }: { type?: 'small' | 'default'; classN
     </footer>
   )
 }
-
-export default LandingFooter

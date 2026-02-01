@@ -8,12 +8,10 @@ interface SummaryCardProps {
 
 export const SummaryCard = ({ title, children, icon }: SummaryCardProps) => {
   return (
-    <div className="border-outline-secondary relative flex h-full flex-col p-6 shadow-none">
-      <div className="pointer-events-none absolute right-0 top-4">{icon}</div>
-      <div className="p-0">
-        <div>{title}</div>
-      </div>
-      <div className="z-10 mt-8 p-0">{children}</div>
+    <div className="relative flex min-h-40 w-full flex-col gap-6">
+      <div className="pointer-events-none absolute right-0 top-0">{icon}</div>
+      <h4>{title}</h4>
+      <div className="z-10">{children}</div>
     </div>
   )
 }

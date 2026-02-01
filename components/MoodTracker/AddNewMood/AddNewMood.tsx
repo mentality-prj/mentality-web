@@ -16,8 +16,8 @@ import { MOODS } from '../moods'
 import useAddNewMood from './useAddNewMood'
 
 interface AddNewMoodProps {
-  onClose: () => void
-  onSave: () => void
+  onClose?: () => void
+  onSave?: () => void
   availableTags?: UserTag[]
 }
 
@@ -44,10 +44,12 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
     onTagCreated,
   } = useAddNewMood({ availableTags, onSave, onClose })
 
+  const tools = onClose && <CloseIconButton onClick={onClose} />
+
   return (
     <FormCard
       title={tm('title')}
-      tools={<CloseIconButton onClick={onClose} className="ml-4 h-7 w-7" />}
+      tools={tools}
       onSubmit={handleSubmit}
       submitDisabled={isSubmitting}
       onCancel={onClose}

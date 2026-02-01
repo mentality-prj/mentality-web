@@ -1,14 +1,13 @@
+import { CloudLightning } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
-import { CloudIcon } from '@/ds/icons/summary/cloud'
 import { Progress } from '@/ds/shadcn/progress'
-import { getStressLevel } from '@/requests/summary'
 
 import { SummaryCard } from './SummaryCard'
 
 export const StressLevel = async () => {
-  const res = await getStressLevel(await (await import('@/auth')).auth())
-  const stressLevel = 'error' in res ? null : res.data
+  // Summary endpoints removed; show empty/fallback state until backend API is available.
+  const stressLevel = null
   const t = await getTranslations('components.StressLevel')
   const getStressLabel = (level: number) => {
     switch (true) {
@@ -39,7 +38,7 @@ export const StressLevel = async () => {
     }
   }
   return (
-    <SummaryCard title={t('title')} icon={<CloudIcon />}>
+    <SummaryCard title={t('title')} icon={<CloudLightning className="opacity-50" color="white" size="128" />}>
       <div className="flex w-full flex-col gap-3">
         {stressLevel != null ? (
           <>

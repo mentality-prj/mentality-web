@@ -45,12 +45,12 @@ Summary
 
 - Mood Tracker / Summary views
   - Components: `TenDaysSummary/*`, `TodayObservations`, `StressLevel`, `MoodMarks`, `BestDay`
-  - API: `requests/summary` endpoints (getMoodMarks, getStressLevel, getBestDay, getTodayObservations)
+  - API: summary endpoints removed / unavailable (no `/summary/*` on backend)
   - Type: api, ui
 
 - My Notes / My Progress / My Day
   - Components: various note lists, saved lists, and charts
-  - API: `requests/diary`, `requests/summary`, `requests/affirmations`, `requests/tips` as needed
+  - API: `requests/diary`, `requests/affirmations`, `requests/tips` as needed
   - Type: api, ui
 
 - Favorites / Saved

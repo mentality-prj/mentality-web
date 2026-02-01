@@ -41,7 +41,7 @@ export const SectionCard = ({
   const typeBg = getTypeBg(type)
 
   return (
-    <div className={cn(typeBg, 'relative overflow-hidden rounded p-8', className)}>
+    <div className={cn(typeBg, 'relative overflow-hidden rounded p-6', className)}>
       {decoration && <div className="pointer-events-none absolute inset-0">{decoration}</div>}
       {(title || subtitle) && (
         <div className="relative z-10 mb-6 flex flex-col gap-2">

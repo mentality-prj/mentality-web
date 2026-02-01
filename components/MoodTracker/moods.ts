@@ -1,6 +1,7 @@
 import { ElementType } from 'react'
 
 import { Bad, Good, Neutral, VeryBad, VeryGood } from '@/ds/icons/moodNote'
+import { StatusType } from '@/types/status.types'
 
 export type MoodKey = 'very-bad' | 'bad' | 'neutral' | 'good' | 'great'
 
@@ -8,7 +9,7 @@ export type MoodInfo = {
   key: MoodKey
   label: string
   icon: ElementType<{ color?: string; fillColor?: string }>
-  statusClass: string
+  statusClass: StatusType
 }
 
 export const MOODS: MoodInfo[] = [
@@ -26,3 +27,5 @@ export const MOODS_MAP: Record<MoodKey, MoodInfo> = MOODS.reduce<Record<MoodKey,
   },
   {} as Record<MoodKey, MoodInfo>
 )
+
+export type MoodMarksData = Record<string, number> | undefined

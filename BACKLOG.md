@@ -145,10 +145,6 @@ gh issue create --title "Implement Statistics API integration" --body "Endpoints
 ```
 
 ```
-gh issue create --title "Integrate Achievements and BestDay APIs" --body "Endpoints: achievements, best-day, mood-marks.\n\nTasks:\n- Implement `requests/achievements.ts` and `requests/summary.ts` wrappers\n- Render achievements in UI and update progress handling\n- Ensure i18n strings for achievement titles/descriptions" --label backend
-```
-
-```
 gh issue create --title "Implement Shop & Cart API wrappers" --body "Endpoints: shop products, cart data.\n\nTasks:\n- Add `requests/shop.ts` and `requests/cart.ts` wrappers\n- Replace `REST/mockApi.ts` usages for shop/cart pages\n- Add tests and e2e flows for checkout (if applicable)" --label backend
 ```
 
