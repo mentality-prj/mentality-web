@@ -39,7 +39,7 @@
       }
     }
   },
-  "GenerateTip": {
+  "AddTip": {
     "generateButton": "Generuj poradę",
     "showUnpublishedButton": "Pokaż nieopublikowane",
     "description": "Wygeneruj poradę za pomocą usługi OpenAI.",
@@ -55,17 +55,12 @@
     "unpublishedSuccess": "Znaleziono {count} nieopublikowanych porad",
     "allTipsSuccess": "Wczytano {count} porad",
     "allTipsTitle": "Wszystkie porady",
+    "createLabel": "Utworzyć poradę",
+    "editLabel": "Edytuj poradę",
     "loading": "Ładowanie...",
     "empty": "Brak porad",
     "submitting": "Generowanie...",
     "loginRequired": "Proszę zaloguj się, aby kontynuować"
-  },
-  "EditTip": {
-    "title": "Edycja porady",
-    "contentLabel": "Edytuj poradę",
-    "saving": "Zapisywanie...",
-    "save": "Zapisz",
-    "cancel": "Anuluj"
   },
   "GenerateAffirmation": {
     "generateButton": "Wygeneruj afirmację",

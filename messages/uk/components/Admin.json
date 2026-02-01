@@ -39,7 +39,7 @@
       }
     }
   },
-  "GenerateTip": {
+  "AddTip": {
     "generateButton": "Згенерувати пораду",
     "showUnpublishedButton": "Показати неопубліковані",
     "description": "Згенерувати пораду за допомогою сервісу OpenAI.",
@@ -55,17 +55,12 @@
     "unpublishedSuccess": "Знайдено {count} неопублікованих порад",
     "allTipsSuccess": "Завантажено {count} порад",
     "allTipsTitle": "Всі поради",
+    "createLabel": "Створити пораду",
+    "editLabel": "Відредагувати пораду",
     "loading": "Завантаження...",
     "empty": "Поради відсутні",
     "submitting": "Генерація...",
     "loginRequired": "Будь ласка, увійдіть щоб продовжити"
-  },
-  "EditTip": {
-    "title": "Редагування поради",
-    "contentLabel": "Відредагуйте пораду",
-    "saving": "Збереження...",
-    "save": "Зберегти",
-    "cancel": "Скасувати"
   },
   "GenerateAffirmation": {
     "generateButton": "Згенерувати афірмацію",

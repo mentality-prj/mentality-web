@@ -39,7 +39,7 @@
       }
     }
   },
-  "GenerateTip": {
+  "AddTip": {
     "generateButton": "Generate tip",
     "showUnpublishedButton": "Show unpublished",
     "description": "Generate tip using OpenAI service.",
@@ -54,18 +54,13 @@
     "unpublishedError": "Failed to get unpublished tips",
     "unpublishedSuccess": "Found {count} unpublished tips",
     "allTipsSuccess": "Loaded {count} tips",
-    "allTipsTitle": "All tips",
+    "createLabel": "Create a tip",
+    "editLabel": "Update a tip",
+    "allTipsTitle": "All unpablished tips",
     "loading": "Loading...",
     "empty": "No tips found",
     "submitting": "Generating...",
     "loginRequired": "Please log in to continue"
-  },
-  "EditTip": {
-    "title": "Edit Tip",
-    "contentLabel": "Edit the tip",
-    "saving": "Saving...",
-    "save": "Save",
-    "cancel": "Cancel"
   },
   "GenerateAffirmation": {
     "generateButton": "Generate affirmation",
