@@ -1,4 +1,4 @@
-import LandingFooter from './LandingFooter'
-import LandingHeader from './LandingHeader'
+import { LandingFooter } from './LandingFooter'
+import { LandingHeader } from './LandingHeader'
 
 export { LandingFooter, LandingHeader }

@@ -1,5 +1,5 @@
 'use client'
-import React, { useState } from 'react'
+import { ReactNode, useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
@@ -14,8 +14,8 @@ import GetUserTags from '../GetUserTags/GetUserTags'
 import { MOODS, MOODS_MAP } from '../moods'
 
 interface MoodSummaryCardProps {
-  title?: React.ReactNode
-  subtitle?: React.ReactNode
+  title?: ReactNode
+  subtitle?: ReactNode
   counts?: { mood: string; count: number }[]
 }
 

@@ -1,38 +1,36 @@
+import { AudioLines } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
-import { ChartIcon } from '@/ds/icons/summary/chart'
-import { getMoodMarks } from '@/requests/summary'
-import { Mood } from '@/types/bestDay'
+import Tag from '../../Tag'
+import { MoodMarksData, MOODS_MAP } from '../moods'
 
-import { MoodBadge } from './MoodBadge'
 import { SummaryCard } from './SummaryCard'
 
-export const MoodMarks = async () => {
-  const moods: Mood[] = ['very good', 'good', 'neutral', 'bad', 'very bad']
-  const res = await getMoodMarks(await (await import('@/auth')).auth())
-  const moodMarksData = 'error' in res ? {} : (res.data ?? {})
+export const MoodMarks = async ({ data }: { data?: MoodMarksData } = {}) => {
+  const moods = Object.keys(MOODS_MAP)
+
+  let moodMarksData: Record<string, number> = {}
+  if (data && Object.keys(data).length > 0) {
+    moodMarksData = data
+  }
+
   const t = await getTranslations('components.MoodMarks')
+  const tMood = await getTranslations('components.Mood')
 
   return (
-    <SummaryCard icon={<ChartIcon />} title={t('title')}>
-      <div className="mt-6 grid auto-rows-min grid-cols-2 gap-x-4 gap-y-2">
-        <div className="flex flex-col gap-2">
-          {moods.slice(0, 3).map((mood) => (
+    <SummaryCard icon={<AudioLines className="opacity-50" color="white" size="128" />} title={t('title')}>
+      <div className="grid grid-flow-col auto-rows-min grid-rows-3 content-start items-start gap-x-8 gap-y-2">
+        {moods.map((mood) => {
+          const info = MOODS_MAP[mood as keyof typeof MOODS_MAP]
+          const label = info ? tMood(info.label) : mood
+          const status = info?.statusClass || 'tag'
+          return (
             <div key={mood} className="flex w-full justify-between">
-              <MoodBadge className="w-full" data={mood} />
-              <span className="ml-2">{(moodMarksData[`${mood}`] ?? 0) < 1 ? '-' : moodMarksData[`${mood}`]}</span>
+              <Tag className="truncate" type={status} text={label} />
+              <span className="ml-2">{(moodMarksData[`${mood}`] ?? 0) < 1 ? 0 : moodMarksData[`${mood}`]}</span>
             </div>
-          ))}
-        </div>
-
-        <div className="flex flex-col justify-end gap-2">
-          {moods.slice(3).map((mood) => (
-            <div key={mood} className="flex w-full justify-between">
-              <MoodBadge className="w-full" data={mood} />
-              <span className="ml-2">{(moodMarksData[`${mood}`] ?? 0) < 1 ? '-' : moodMarksData[`${mood}`]}</span>
-            </div>
-          ))}
-        </div>
+          )
+        })}
       </div>
     </SummaryCard>
   )

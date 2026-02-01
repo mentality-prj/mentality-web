@@ -1,11 +1,9 @@
-import { useTranslations } from 'next-intl'
-
 import { cn } from '@/lib/utils'
 
-export const Days = () => {
-  const t = useTranslations('components.Days')
-  const weekDays = t.raw('days')
-  const days = Array.from({ length: 10 }, (_, i) => weekDays[i % weekDays.length])
+export const Days = ({ weekDays }: { weekDays?: string[] }) => {
+  const defaultWeekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+  const source = weekDays && weekDays.length ? weekDays : defaultWeekDays
+  const days = Array.from({ length: 10 }, (_, i) => source[i % source.length])
 
   return (
     <div className="grid grid-cols-5 grid-rows-2 gap-1 tablet:flex">

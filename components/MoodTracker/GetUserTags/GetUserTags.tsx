@@ -3,9 +3,8 @@ import { JSX, ReactNode, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { getUserTags } from '@/requests/userTags'
+import { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
-
-import { CustomSession } from '../../../types/auth'
 
 type Props = {
   children: (tags: UserTag[]) => ReactNode

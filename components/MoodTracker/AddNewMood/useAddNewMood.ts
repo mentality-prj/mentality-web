@@ -13,8 +13,8 @@ import { notifyError, notifySuccess } from '@/utils/toast'
 
 type Params = {
   availableTags?: UserTag[]
-  onSave: () => void
-  onClose: () => void
+  onSave?: () => void
+  onClose?: () => void
 }
 
 export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
@@ -111,8 +111,8 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
       }
 
       notifySuccess(safeT('Toast.Saved', 'Mood saved'))
-      onSave()
-      onClose()
+      if (onSave) onSave()
+      if (onClose) onClose()
     } finally {
       setIsSubmitting(false)
     }

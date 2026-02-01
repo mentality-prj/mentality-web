@@ -1,16 +1,14 @@
+import { SunIcon } from 'lucide-react'
 import { getLocale, getTranslations } from 'next-intl/server'
 
-import { SunIcon } from '@/ds/icons/summary/sun'
-import { getBestDay } from '@/requests/summary'
 import { SupportedLanguage } from '@/types/languages'
 
-import { MoodBadge } from './MoodBadge'
 import { SummaryCard } from './SummaryCard'
 
 export const BestDay = async () => {
   const t = await getTranslations('components.BestDay')
-  const res = await getBestDay(await (await import('@/auth')).auth())
-  const data = 'error' in res ? null : res.data
+  // Summary endpoints removed; no best-day data available from backend.
+  const data = null
   const locale = (await getLocale()) as SupportedLanguage
   function splitDate(dateStr: string, locale: SupportedLanguage) {
     const date = new Date(dateStr)
@@ -33,13 +31,13 @@ export const BestDay = async () => {
   let weekday = ''
   let dayMonth = ''
   if (data) {
-    const parts = splitDate(data.date, locale)
+    const parts = splitDate(data, locale)
     weekday = parts.weekday
     dayMonth = parts.dayMonth
   }
 
   return (
-    <SummaryCard icon={<SunIcon />} title={t('title')}>
+    <SummaryCard icon={<SunIcon className="opacity-50" color="white" size="128" />} title={t('title')}>
       {data ? (
         <div className="w-fit">
           <div className="mb-4 mt-5 text-xl/[24px] font-semibold text-textcolor-primary">
@@ -48,9 +46,9 @@ export const BestDay = async () => {
           </div>
           <div className="grid grid-cols-2 gap-2">
             <div className="">{t('stressLevel')}</div>
-            <MoodBadge data={data.stress} />
+            {/* <MoodBadge data={data.stress} /> */}
             <div className="">{t('yourMood')}</div>
-            <MoodBadge data={data.mood} />
+            {/* <MoodBadge data={data.mood} /> */}
           </div>
         </div>
       ) : (
