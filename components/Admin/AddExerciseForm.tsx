@@ -7,18 +7,17 @@ import Tag from '@/components/Tag/Tag'
 import { DropdownInput } from '@/ds/components/DropdownInput'
 import { Button } from '@/ds/shadcn/button'
 import { Input } from '@/ds/shadcn/input'
-import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 import { Textarea } from '@/ds/shadcn/textarea'
 import { addExercise, updateExercise } from '@/requests/exercises'
 import { ExerciseCategory, ExerciseEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import type { SupportedLanguage } from '@/types/languages'
-import { LocaleNativeLabels, supportedLanguages } from '@/types/languages'
 import type { AdminTag as TagType } from '@/types/tags'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 import { buildCreatePayload, buildUpdatePayload } from './helpers/exerciseMappers'
 import useExerciseTranslations from './hooks/useExerciseTranslations'
+import TabsLanguages from './TabsLanguages'
 
 interface AddExerciseFormProps {
   tags: TagType[]
@@ -71,7 +70,7 @@ export default function AddExerciseForm({ tags = [], editing = null, onSaved }: 
         const { error } = await updateExercise(session, editing.id, payload)
         if (error) notifyError(String(error))
         else {
-          notifySuccess(t('saved'))
+          notifySuccess(tCommon('notifications.updated'))
           if (onSaved) onSaved()
         }
       } else {
@@ -127,15 +126,7 @@ export default function AddExerciseForm({ tags = [], editing = null, onSaved }: 
       </div>
 
       <div className="mb-4">
-        <Tabs value={activeLang} onValueChange={(v) => setActiveLang(v as SupportedLanguage)}>
-          <TabsList className="gap-2">
-            {supportedLanguages.map((l) => (
-              <TabsTrigger key={l} value={l}>
-                {LocaleNativeLabels[l as SupportedLanguage]}
-              </TabsTrigger>
-            ))}
-          </TabsList>
-        </Tabs>
+        <TabsLanguages activeLang={activeLang} onLangChange={setActiveLang} />
       </div>
 
       <div className="mb-4">

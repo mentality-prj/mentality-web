@@ -50,12 +50,12 @@ export default function AddExercise() {
 
   return (
     <div className="w-full space-y-8 p-6">
-      <h2>{t('title')}</h2>
+      <h2 className="mb-4 font-semibold">{t('title')}</h2>
 
       <GenerateExercise />
 
       <div>
-        <h3 className="mb-4 text-lg font-medium">{t('addForm.title') || t('buttonAdd')}</h3>
+        <h2 className="mb-4 text-xl font-semibold">{t('addForm.title') || t('buttonAdd')}</h2>
         <AddExerciseForm tags={tags} editing={editingExercise} onSaved={() => setEditingExercise(null)} />
       </div>
 
