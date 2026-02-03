@@ -74,12 +74,14 @@
     "success": "Affirmation generated successfully!",
     "deleted": "Deleted",
     "allAffirmationsTitle": "All affirmations",
-    "empty": "No affirmations found"
+    "empty": "No affirmations found",
+    "editLabel": "Update an affirmation"
   },
   "AddExercise": {
     "generateButton": "Generate exercise",
     "generating": "Generating...",
     "descriptionGenerate": "Generate an exercise using the OpenAI service.",
+    "autoAppear": "This exercise will automatically appear on pages as current tip",
     "promptLabel": "Prompt",
     "promptPlaceholder": "Add request if needed",
     "noPrompt": "If no prompt is specified, the exercise will be generated with the default prompt.",

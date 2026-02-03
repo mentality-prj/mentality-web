@@ -74,12 +74,14 @@
     "success": "Afirmacja wygenerowana pomyślnie!",
     "deleted": "Usunięto",
     "allAffirmationsTitle": "Wszystkie afirmacje",
-    "empty": "Brak afirmacji"
+    "empty": "Brak afirmacji",
+    "editLabel": "Edytuj afirmację"
   },
   "AddExercise": {
     "generateButton": "Generuj ćwiczenie",
     "generating": "Generowanie...",
     "descriptionGenerate": "Generuj ćwiczenie używając usługi OpenAI.",
+    "autoAppear": "Ta ćwiczenie automatycznie pojawi się na stronach jako bieżąca afirmacja.",
     "promptLabel": "Prompt",
     "promptPlaceholder": "Dodaj żądanie, jeśli potrzebne",
     "noPrompt": "Jeśli prompt nie jest podany, ćwiczenie zostanie wygenerowane z domyślnym promptem.",
