@@ -5,13 +5,13 @@ import { useTranslations } from 'next-intl'
 
 import Card from '@/components/Cards/Card'
 import { MOOD_COL_HEIGHT_PX } from '@/constants/general'
+import { MOODS, MOODS_MAP } from '@/constants/moods'
 import HelloIcon from '@/ds/icons/moodNote/hello.svg'
 import { Button } from '@/ds/shadcn/button'
 
 import FullScreenBackdrop from '../../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 import AddNewMood from '../AddNewMood/AddNewMood'
 import GetUserTags from '../GetUserTags/GetUserTags'
-import { MOODS, MOODS_MAP } from '../moods'
 
 interface MoodSummaryCardProps {
   title?: ReactNode

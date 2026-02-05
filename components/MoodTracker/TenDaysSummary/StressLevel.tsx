@@ -1,68 +1,23 @@
 import { CloudLightning } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
-import { Progress } from '@/ds/shadcn/progress'
+import { DaySummary } from '@/types/daySummary'
 
+import { StressLevelChart } from './StressLevelChart'
 import { SummaryCard } from './SummaryCard'
 
-export const StressLevel = async () => {
-  // Summary endpoints removed; show empty/fallback state until backend API is available.
-  const stressLevel = null
+export const StressLevel = async ({ summaries }: { summaries?: DaySummary[] }) => {
   const t = await getTranslations('components.StressLevel')
-  const getStressLabel = (level: number) => {
-    switch (true) {
-      case level === 0:
-        return t('stressLevel', { stressLevel: 'absent' })
-      case level <= 25:
-        return t('stressLevel', { stressLevel: 'low' })
-      case level <= 50:
-        return t('stressLevel', { stressLevel: 'avarage' })
-      case level <= 75:
-        return t('stressLevel', { stressLevel: 'high' })
-      default:
-        return t('stressLevel', { stressLevel: 'very_high' })
-    }
-  }
-  const getStressProgressColor = (level: number) => {
-    switch (true) {
-      case level === 0:
-        return ''
-      case level <= 25:
-        return 'bg-[#905FFF]'
-      case level <= 50:
-        return 'bg-[#734CCC]'
-      case level <= 75:
-        return 'bg-[#563999]'
-      default:
-        return 'bg-[#3A2766]'
-    }
-  }
+  const locale = await getLocale()
+
   return (
-    <SummaryCard title={t('title')} icon={<CloudLightning className="opacity-50" color="white" size="128" />}>
+    <SummaryCard
+      className="gap-0"
+      title={t('title')}
+      icon={<CloudLightning className="opacity-50" color="white" size="128" />}
+    >
       <div className="flex w-full flex-col gap-3">
-        {stressLevel != null ? (
-          <>
-            <div className="text-xl/[24px] font-semibold text-textcolor-primary">{getStressLabel(stressLevel)}</div>
-            <div>
-              <Progress
-                className="bg-background-alt-secondary h-[6px]"
-                indicatorClassName={getStressProgressColor(stressLevel)}
-                value={stressLevel}
-              />
-            </div>
-          </>
-        ) : (
-          <>
-            <div className="text-textcolor-tertiary text-sm">{t('empty')}</div>
-            <div>
-              <Progress className="bg-background-alt-secondary h-[6px]" value={0} />
-            </div>
-          </>
-        )}
-        <div className="flex w-full justify-between text-xs/[14px] font-normal text-[#56566C]">
-          <div className="">{t('stressLevel', { stressLevel: 'absent' })}</div>
-          <div className="">{t('stressLevel', { stressLevel: 'very_high' })}</div>
-        </div>
+        <StressLevelChart summaries={summaries} locale={locale} />
       </div>
     </SummaryCard>
   )

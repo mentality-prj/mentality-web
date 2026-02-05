@@ -32,9 +32,14 @@ export async function getMoodRecords(
   return { data: res.data }
 }
 
-export async function getLastMoodRecords(session: CustomSession | null, params?: { limit?: number; active?: boolean }) {
+export async function getLastMoodRecords(
+  session: CustomSession | null,
+  params?: { limit?: number; active?: boolean; days?: number }
+) {
   const query = new URLSearchParams()
-  if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+  // If days is provided (>0) use it; otherwise fall back to limit for backward compatibility
+  if (typeof params?.days === 'number' && params.days > 0) query.set('days', String(params.days))
+  else if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
   if (typeof params?.active === 'boolean') query.set('active', String(params.active))
   const url = `${APIUrl}/mood-record/last${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })

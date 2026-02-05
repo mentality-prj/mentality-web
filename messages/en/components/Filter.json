@@ -5,7 +5,7 @@
   "by_stressLevel": "By stress level",
   "by_moodLevel": "By mood",
   "filterOptions": {
-    "tags": "{tag, select, affirmation {Affirmation} tip {Tip} very_good {Very good} good {Good} neutral {Neutral} bad {Bad} very_bad {Very bad} absent {Absent} low {Low} medium {Medium} high {High} very_high{Very high} weekDays {Weekdays} weekends {Weekends}  other {}}"
+    "tags": "{tag, select, affirmation {Affirmation} tip {Tip} very_good {Very good} good {Good} neutral {Neutral} bad {Bad} very_bad {Very bad} absent {Absent} low {Low} medium {Medium} high {High} veryHigh{Very high} weekDays {Weekdays} weekends {Weekends}  other {}}"
   },
   "clear": "Clear"
 }

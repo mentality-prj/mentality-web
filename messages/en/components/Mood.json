@@ -23,7 +23,7 @@
     "Empty": "No records yet. Create your first entry"
   },
 
-  "very-bad": "Very bad",
+  "veryBad": "Very bad",
   "bad": "Bad",
   "neutral": "Neutral",
   "good": "Good",

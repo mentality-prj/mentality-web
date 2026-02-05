@@ -7,11 +7,12 @@ import FormCard from '@/components/Cards/FormCard'
 import StyledTextarea from '@/components/Forms/StyledTextarea'
 import AddNewTag from '@/components/MoodTracker/AddNewTag/AddNewTag'
 import Tag from '@/components/Tag/Tag'
+import { MOODS } from '@/constants/moods'
 import { Button } from '@/ds/shadcn/button'
 import { UserTag } from '@/types/tags'
 
 import FullScreenBackdrop from '../../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
-import { MOODS } from '../moods'
+import { StressLevelScale } from '../NewMoodNoteSection/StressLevelScale'
 
 import useAddNewMood from './useAddNewMood'
 
@@ -32,6 +33,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
     setSelectedMood,
     note,
     setNote,
+    setStressLevel,
     selectedTags,
     addTag,
     removeTag,
@@ -128,7 +130,9 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
 
         <div>
           <h5>{tm('chooseStress')}</h5>
-          <div className="w-full rounded-lg bg-gray-50 p-4">[стрічка рівня стресу]</div>
+          <div className="p-4">
+            <StressLevelScale onChange={(v) => setStressLevel(v)} />
+          </div>
         </div>
       </div>
     </FormCard>

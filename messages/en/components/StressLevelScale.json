@@ -5,5 +5,12 @@
     "medium": "Average",
     "high": "High",
     "veryHigh": "Very high"
+  },
+  "labelsStress": {
+    "absent": "Absent",
+    "low": "Low",
+    "medium": "Average",
+    "high": "High",
+    "veryHigh": "Very high"
   }
 }

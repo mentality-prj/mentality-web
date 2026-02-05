@@ -1,5 +1,5 @@
 {
   "title": "Średni poziom stresu",
   "empty": "Niewystarczające dane do obliczenia",
-  "stressLevel": "{stressLevel, select, absent {Brak} low {Niski} average {Średni} high {Wysoki} very_high{Bardzo wysoki} other {} }"
+  "stressLevel": "{stressLevel, select, absent {Brak} low {Niski} average {Średni} high {Wysoki} veryHigh{Bardzo wysoki} other {} }"
 }
