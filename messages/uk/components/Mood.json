@@ -7,6 +7,9 @@
   "addTags": "Додай теги",
   "changeTags": "Змінити теги",
   "chooseStress": "Обери рівень стресу",
+  "quickAssessmentPrefix": "(або пройди ",
+  "quickAssessmentLink": "швидку оцінку",
+  "quickAssessmentSuffix": " для визначення рівня стресу)",
 
   "Validation": {
     "SelectMood": "Будь ласка, оберіть настрій",

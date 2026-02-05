@@ -13,6 +13,13 @@ export function StressLevelScale({ onChange }: { onChange?: (value: number) => v
     label: t(label),
   }))
 
+  const habdleChange = (value: number) => {
+    console.log('value', value)
+    if (onChange) {
+      onChange(value)
+    }
+  }
+
   return (
     <Slider
       defaultValue={0}
@@ -21,8 +28,8 @@ export function StressLevelScale({ onChange }: { onChange?: (value: number) => v
       step={1}
       marks={marks}
       orientation="vertical"
-      className="h-60"
-      onChange={onChange}
+      className="h-40"
+      onChange={habdleChange}
     />
   )
 }

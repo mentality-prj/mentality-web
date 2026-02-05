@@ -10,10 +10,10 @@ import ExercisesForRecovery from './ExercisesForRecovery.json'
 import FavoriteButton from './FavoriteButton.json'
 import Filter from './Filter.json'
 import Header from './Header.json'
+import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
 import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
 import MoodMarks from './MoodMarks.json'
-import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
 import MySpaceCards from './MySpaceCards.json'
 import Navbar from './Navbar.json'
 import Navigation from './Navigation.json'
@@ -21,7 +21,6 @@ import PersonalGoals from './PersonalGoals.json'
 import RecordingThoughts from './RecordingThoughts.json'
 import Sidebar from './Sidebar.json'
 import Sort from './Sort.json'
-import StressAssessment from './StressAssessment.json'
 import StressLevel from './StressLevel.json'
 import StressLevelScale from './StressLevelScale.json'
 import Tags from './Tags.json'
@@ -50,7 +49,6 @@ export const components = {
   RecordingThoughts,
   Sidebar,
   Sort,
-  StressAssessment,
   StressLevel,
   StressLevelScale,
   Tags,

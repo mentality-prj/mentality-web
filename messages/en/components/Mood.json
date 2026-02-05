@@ -7,6 +7,9 @@
   "addTags": "Add tags",
   "changeTags": "Change tags",
   "chooseStress": "Choose stress level",
+  "quickAssessmentPrefix": "(or take a ",
+  "quickAssessmentLink": "quick assessment",
+  "quickAssessmentSuffix": " to determine stress level)",
 
   "Validation": {
     "SelectMood": "Please select a mood",

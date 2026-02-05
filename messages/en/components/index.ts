@@ -21,7 +21,6 @@ import PersonalGoals from './PersonalGoals.json'
 import RecordingThoughts from './RecordingThoughts.json'
 import Sidebar from './Sidebar.json'
 import Sort from './Sort.json'
-import StressAssessment from './StressAssessment.json'
 import StressLevel from './StressLevel.json'
 import StressLevelScale from './StressLevelScale.json'
 import Tags from './Tags.json'
@@ -50,7 +49,6 @@ export const components = {
   RecordingThoughts,
   Sidebar,
   Sort,
-  StressAssessment,
   StressLevel,
   StressLevelScale,
   Tags,

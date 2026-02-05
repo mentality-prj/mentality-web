@@ -173,14 +173,9 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
   const thumbStyle = orientation === 'horizontal' ? { left: `${percent}%` } : { bottom: `${percent}%` }
 
   const rootClasses = cn(
-    'inline-flex rounded-lg bg-gray-50 p-2',
-    orientation === 'vertical' ? 'h-full' : 'w-full',
+    'inline-flex rounded-lg ghost',
+    orientation === 'vertical' ? 'h-full p-1 pt-5 pb-0' : 'w-full p-1',
     className
-  )
-
-  const railClasses = cn(
-    'absolute rounded-full bg-secondary',
-    orientation === 'horizontal' ? 'top-1/2 h-1 w-full -translate-y-1/2' : 'left-1/2 h-full w-1 -translate-x-1/2'
   )
 
   const fillClasses = cn(
@@ -223,8 +218,6 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
         onPointerCancel={handlePointerUp}
         onKeyDown={handleKeyDown}
       >
-        <div className={railClasses} style={orientation === 'horizontal' ? undefined : { top: '0', height: '100%' }} />
-
         <div className={fillClasses} style={fillStyle} />
 
         <div

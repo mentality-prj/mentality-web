@@ -12,7 +12,7 @@ import { Button } from '@/ds/shadcn/button'
 import { UserTag } from '@/types/tags'
 
 import FullScreenBackdrop from '../../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
-import { StressLevelScale } from '../NewMoodNoteSection/StressLevelScale'
+import { StressAssessment } from '../StressAssessment/StressAssessment'
 
 import useAddNewMood from './useAddNewMood'
 
@@ -85,16 +85,26 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
           })}
         </div>
 
-        <div className="flex flex-col gap-2">
-          <h5>{tm('describe')}</h5>
-          <StyledTextarea value={note} onChange={(e) => setNote(e.target.value)} placeholder={tm('placeholderNote')} />
-          {selectedTags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
-              {selectedTags.map((t) => (
-                <Tag key={t} text={tagLabels[t as string] ?? t} onRemove={() => removeTag(t)} />
-              ))}
-            </div>
-          )}
+        <div className="flex gap-4">
+          <div className="flex flex-1 flex-col gap-2">
+            <h5>{tm('describe')}</h5>
+            <StyledTextarea
+              id="mood-note"
+              name="note"
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder={tm('placeholderNote')}
+              className="flex-1"
+            />
+            {selectedTags.length > 0 && (
+              <div className="flex flex-wrap gap-2">
+                {selectedTags.map((t) => (
+                  <Tag key={t} text={tagLabels[t as string] ?? t} onRemove={() => removeTag(t)} />
+                ))}
+              </div>
+            )}
+          </div>
+          <StressAssessment onChange={(v) => setStressLevel(v)} />
         </div>
 
         <div>
@@ -126,13 +136,6 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
               </div>
             </>
           )}
-        </div>
-
-        <div>
-          <h5>{tm('chooseStress')}</h5>
-          <div className="p-4">
-            <StressLevelScale onChange={(v) => setStressLevel(v)} />
-          </div>
         </div>
       </div>
     </FormCard>
