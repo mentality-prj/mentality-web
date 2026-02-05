@@ -54,7 +54,7 @@ export function Scale({
                   i === 0 ? 'rounded-l-full' : i === labels.length - 2 ? 'rounded-r-full' : 'rounded-none'
                 }`}
                 style={{
-                  backgroundColor: value && i < value - 1 ? colors[i % colors.length] : 'var(--secondary-hover)',
+                  backgroundColor: value && i < value - 1 ? colors[i % colors.length] : 'var(--secondary)',
                 }}
               />
             )}

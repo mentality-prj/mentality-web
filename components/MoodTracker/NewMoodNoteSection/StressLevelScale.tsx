@@ -1,16 +1,35 @@
 'use client'
 
-import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { Scale } from '@/ds/components/Scale'
+import { STRESSES } from '@/constants/stress'
+import { Slider } from '@/ds/components/Slider'
 
-export function StressLevelScale() {
-  const t = useTranslations('components.StressLevelScale.labelsArray')
+export function StressLevelScale({ onChange }: { onChange?: (value: number) => void }) {
+  const t = useTranslations('components.StressLevelScale')
 
-  const labelsArray = [t('none'), t('low'), t('medium'), t('high'), t('veryHigh')]
+  const marks = STRESSES.map(({ value, label }) => ({
+    value,
+    label: t(label),
+  }))
 
-  const [value, setValue] = useState<number | null>(null)
+  const habdleChange = (value: number) => {
+    console.log('value', value)
+    if (onChange) {
+      onChange(value)
+    }
+  }
 
-  return <Scale labels={labelsArray} value={value} onChange={setValue} />
+  return (
+    <Slider
+      defaultValue={0}
+      min={0}
+      max={4}
+      step={1}
+      marks={marks}
+      orientation="vertical"
+      className="h-40"
+      onChange={habdleChange}
+    />
+  )
 }

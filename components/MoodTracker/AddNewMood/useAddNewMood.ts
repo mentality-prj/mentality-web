@@ -43,6 +43,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
   })
   const [showAddTag, setShowAddTag] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [stressLevel, setStressLevel] = useState<number | undefined>()
 
   useEffect(() => {
     setLocalAvailableTags(availableTags)
@@ -100,7 +101,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
         moodLevel: moodLevel!,
         description: note || undefined,
         tags: selectedTags.length ? selectedTags : undefined,
-        // stressLevel: undefined,
+        stressLevel: typeof stressLevel === 'number' ? stressLevel : undefined,
         active: true,
       }
 
@@ -123,6 +124,8 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     setSelectedMood,
     note,
     setNote,
+    stressLevel,
+    setStressLevel,
     selectedTags,
     addTag,
     removeTag,

@@ -7,6 +7,9 @@
   "addTags": "Додай теги",
   "changeTags": "Змінити теги",
   "chooseStress": "Обери рівень стресу",
+  "quickAssessmentPrefix": "(або пройди ",
+  "quickAssessmentLink": "швидку оцінку",
+  "quickAssessmentSuffix": " для визначення рівня стресу)",
 
   "Validation": {
     "SelectMood": "Будь ласка, оберіть настрій",
@@ -21,7 +24,7 @@
     "Title": "Історія записів настрою",
     "Empty": "Поки що немає записів. Створи свій перший запис"
   },
-  "very-bad": "Дуже погано",
+  "veryBad": "Дуже погано",
   "bad": "Погано",
   "neutral": "Нейтрально",
   "good": "Добре",

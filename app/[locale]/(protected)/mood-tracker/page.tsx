@@ -12,7 +12,7 @@ export default async function MoodTracker() {
   const t = await getTranslations('pages.MoodTracker')
 
   const session = await auth()
-  const res = await getLastMoodRecords(session, { limit: 10, active: true })
+  const res = await getLastMoodRecords(session, { days: 10, active: true })
 
   const moodMarksData = (res?.data ?? []).reduce<Record<string, number>>((acc, record) => {
     const raw = record.moodLevel
@@ -36,6 +36,17 @@ export default async function MoodTracker() {
     return acc
   }, {})
 
+  // build daily summaries: { date: 'YYYY-MM-DD', records: number }
+  const summaries = Object.entries(
+    (res?.data ?? []).reduce<Record<string, number>>((acc, r) => {
+      const created = r.createdAt ? new Date(r.createdAt).toISOString().slice(0, 10) : 'unknown'
+      acc[created as string] = (acc[created as string] ?? 0) + 1
+      return acc
+    }, {})
+  )
+    .map(([date, records]) => ({ date, records }))
+    .sort((a, b) => (a.date < b.date ? 1 : -1))
+
   return (
     <div className="flex flex-col gap-8">
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
@@ -44,7 +55,7 @@ export default async function MoodTracker() {
           <NewMoodNoteSection />
         </div>
         <div className="desktop:w-2/5">
-          <TenDaysSummary moodMarksData={moodMarksData} />
+          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} />
         </div>
       </div>
       <MoodRecords records={res.data ?? []} />

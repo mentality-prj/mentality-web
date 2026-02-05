@@ -1,5 +1,5 @@
 {
   "title": "Середній рівень стресу",
   "empty": "Недостатньо даних для розрахунку",
-  "stressLevel": "{stressLevel, select, absent {Відсутній} low {Низький} average {Середній} high {Високий} very_high{Дуже високий} other {} }"
+  "stressLevel": "{stressLevel, select, absent {Відсутній} low {Низький} average {Середній} high {Високий} veryHigh{Дуже високий} other {} }"
 }

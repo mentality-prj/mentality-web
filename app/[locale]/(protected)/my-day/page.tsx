@@ -14,7 +14,7 @@ const MyDay = async () => {
   // const moodCounts = 'error' in res ? [] : (res ?? [])
 
   const moodCounts = [
-    { mood: 'very-bad', count: 2 },
+    { mood: 'veryBad', count: 2 },
     { mood: 'bad', count: 5 },
     { mood: 'neutral', count: 27 },
     { mood: 'good', count: 7 },

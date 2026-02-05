@@ -1,6 +1,9 @@
+import { MOOD_KEYS } from '@/helpers/moodMapper'
+import { STRESS_LEVELS } from '@/types/stress'
+
 export const filterOptions = {
   tags: ['affirmation', 'tip'],
-  moodLevel: ['very_good', 'good', 'neutral', 'bad', 'very_bad'],
-  stressLevel: ['absent', 'low', 'medium', 'high', 'very_high'],
+  moodLevel: MOOD_KEYS,
+  stressLevel: STRESS_LEVELS,
   week: ['weekDays', 'weekends'],
 } as const

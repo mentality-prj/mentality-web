@@ -6,15 +6,14 @@ import Calendar from './Calendar.json'
 import ChartDynamics from './ChartDynamics.json'
 import CookieConsent from './CookieConsent.json'
 import DailyCard from './DailyCard.json'
-import Days from './Days.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import FavoriteButton from './FavoriteButton.json'
 import Filter from './Filter.json'
 import Header from './Header.json'
+import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
 import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
 import MoodMarks from './MoodMarks.json'
-import MoodRecording from './MoodRecording.json'
 import MySpaceCards from './MySpaceCards.json'
 import Navbar from './Navbar.json'
 import Navigation from './Navigation.json'
@@ -22,7 +21,6 @@ import PersonalGoals from './PersonalGoals.json'
 import RecordingThoughts from './RecordingThoughts.json'
 import Sidebar from './Sidebar.json'
 import Sort from './Sort.json'
-import StressAssessment from './StressAssessment.json'
 import StressLevel from './StressLevel.json'
 import StressLevelScale from './StressLevelScale.json'
 import Tags from './Tags.json'
@@ -37,14 +35,12 @@ export const components = {
   Calendar,
   ChartDynamics,
   DailyCard,
-  Days,
   ExercisesForRecovery,
   Filter,
   Header,
   MoodBadge,
   MoodMarks,
-
-  MoodRecording,
+  LastTenDaysMoodRecords,
   Mood,
   MySpaceCards,
   Navbar,
@@ -53,7 +49,6 @@ export const components = {
   RecordingThoughts,
   Sidebar,
   Sort,
-  StressAssessment,
   StressLevel,
   StressLevelScale,
   Tags,

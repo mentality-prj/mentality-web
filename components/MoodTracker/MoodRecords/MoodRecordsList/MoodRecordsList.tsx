@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import Card from '@/components/Cards/Card'
-import { MOODS } from '@/components/MoodTracker/moods'
+import { MOODS } from '@/constants/moods'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 type Props = {

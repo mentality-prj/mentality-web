@@ -349,6 +349,11 @@ body {
     @apply text-sm font-medium;
   }
 
+  .defalt-link {
+    @apply text-sm font-medium underline underline-offset-4;
+    color: hsl(var(--primary));
+  }
+
   .sup {
     @apply text-xs;
     color: hsl(var(--text-muted));

@@ -7,6 +7,9 @@
   "addTags": "Add tags",
   "changeTags": "Change tags",
   "chooseStress": "Choose stress level",
+  "quickAssessmentPrefix": "(or take a ",
+  "quickAssessmentLink": "quick assessment",
+  "quickAssessmentSuffix": " to determine stress level)",
 
   "Validation": {
     "SelectMood": "Please select a mood",
@@ -23,7 +26,7 @@
     "Empty": "No records yet. Create your first entry"
   },
 
-  "very-bad": "Very bad",
+  "veryBad": "Very bad",
   "bad": "Bad",
   "neutral": "Neutral",
   "good": "Good",
