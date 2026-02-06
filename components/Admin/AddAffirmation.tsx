@@ -123,9 +123,9 @@ export default function AddAffirmation() {
           </div>
 
           <div className="mb-4">
-            <h3 className="mb-4 font-semibold">{t('editLabel')}</h3>
+            <h3 className="mb-4 text-xl font-semibold">{t('editLabel')}</h3>
             <Textarea
-              id="tipInput"
+              id="afirmationInput"
               value={translationsState[activeLang as SupportedLanguage]}
               onChange={(e) => {
                 setTranslationsState((prev) => ({ ...prev, [activeLang]: e.target.value }))
