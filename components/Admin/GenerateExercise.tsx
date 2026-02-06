@@ -52,12 +52,6 @@ export default function GenerateExercise() {
   return (
     <div className="flex w-full gap-default">
       <div className="flex flex-1 flex-col gap-default">
-        <p className="text-sm">
-          {t('descriptionGenerate')}
-          <br />
-          <em>{t('noPrompt')}</em>
-        </p>
-
         <DropdownInput
           id="category"
           label={t('fields.category.label')}

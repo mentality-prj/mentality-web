@@ -50,7 +50,13 @@ export default function AddExercise() {
 
   return (
     <div className="w-full space-y-8 p-6">
-      <h2 className="mb-4 font-semibold">{t('title')}</h2>
+      <div>
+        <h3 className="mb-4 text-xl font-semibold">{t('descriptionGenerate')}</h3>
+        <h4>{t('autoAppear')}</h4>
+        <p>
+          <em>{t('noPrompt')}</em>
+        </p>
+      </div>
 
       <GenerateExercise />
 

@@ -5,6 +5,7 @@ import { useLocale, useTranslations } from 'next-intl'
 
 import DeleteTipButton from '@/components/Admin/DeleteTipButton'
 import EditTipButton from '@/components/Admin/EditTipButton'
+import { useEditTranslations } from '@/components/Admin/hooks/useEditTranslations'
 import PublishTipButton from '@/components/Admin/PublishTipButton'
 import TipsList from '@/components/Tips/TipsListClient'
 import { Button } from '@/ds/shadcn/button'
@@ -13,7 +14,7 @@ import { Textarea } from '@/ds/shadcn/textarea'
 import { addTip, updateTip } from '@/requests/tips'
 import { TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
-import { SupportedLanguage, supportedLanguages } from '@/types/languages'
+import { SupportedLanguage } from '@/types/languages'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 import TabsLanguages from './TabsLanguages'
@@ -25,16 +26,20 @@ export default function AddTip() {
   const [prompt, setPrompt] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [reloadKey, setReloadKey] = useState(0)
-  const [editingTip, setEditingTip] = useState<TipEntity | null>(null)
   const [isSaving, setIsSaving] = useState(false)
-  const [activeLang, setActiveLang] = useState<SupportedLanguage>(locale)
-  const [translationsState, setTranslationsState] = useState<Record<SupportedLanguage, string>>(() => {
-    const initial = {} as Record<SupportedLanguage, string>
-    supportedLanguages.forEach((lang) => {
-      initial[lang as SupportedLanguage] = ''
-    })
-    return initial
-  })
+
+  const {
+    editingEntity: editingTip,
+    setEditingEntity: setEditingTip,
+    translationsState,
+    setTranslationsState,
+    activeLang,
+    setActiveLang,
+    startEditing,
+    handleCancel,
+    getUpdatedTranslations,
+    clearTranslations,
+  } = useEditTranslations<TipEntity>(locale)
 
   const { data } = useSession()
   const session = data as CustomSession
@@ -63,10 +68,7 @@ export default function AddTip() {
 
     setIsSaving(true)
     try {
-      const updatedTranslations = { ...(editingTip.translations || {}) } as Record<string, string>
-      supportedLanguages.forEach((l) => {
-        updatedTranslations[l as SupportedLanguage] = translationsState[l as SupportedLanguage]
-      })
+      const updatedTranslations = getUpdatedTranslations()
 
       const res = await updateTip(session, String(editingTip.id), { translations: updatedTranslations })
       if ('error' in res) {
@@ -74,35 +76,12 @@ export default function AddTip() {
       } else {
         notifySuccess(tCommon('notifications.updated'))
         setEditingTip(null)
-        setTranslationsState((prev) => {
-          const cleared = { ...prev }
-          supportedLanguages.forEach((l) => (cleared[l as SupportedLanguage] = ''))
-          return cleared
-        })
+        clearTranslations()
         setReloadKey((k) => k + 1)
       }
     } finally {
       setIsSaving(false)
     }
-  }
-
-  const handleCancel = () => {
-    setEditingTip(null)
-    setTranslationsState((prev) => {
-      const cleared = { ...prev }
-      supportedLanguages.forEach((lang) => (cleared[lang as SupportedLanguage] = ''))
-      return cleared
-    })
-  }
-
-  const startEditing = (tip: TipEntity) => {
-    setEditingTip(tip)
-    const next = {} as Record<SupportedLanguage, string>
-    supportedLanguages.forEach((l) => {
-      next[l as SupportedLanguage] =
-        (tip.translations as Record<SupportedLanguage, string>)?.[l as SupportedLanguage] || ''
-    })
-    setTranslationsState(next)
   }
 
   return (
@@ -111,7 +90,7 @@ export default function AddTip() {
         <>
           <div className="flex w-full gap-default">
             <div>
-              <h3 className="mb-4">{t('description')}</h3>
+              <h3 className="mb-4 text-xl font-semibold">{t('description')}</h3>
               <h4>{t('autoAppear')}</h4>
               <p>
                 <em>{t('noPrompt')}</em>
@@ -142,7 +121,7 @@ export default function AddTip() {
           </div>
 
           <div className="mb-4">
-            <h2 className="mb-4 font-semibold">{t('editLabel')}</h2>
+            <h3 className="mb-4 text-xl font-semibold">{t('editLabel')}</h3>
             <Textarea
               id="tipInput"
               value={translationsState[activeLang as SupportedLanguage]}
