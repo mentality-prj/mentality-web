@@ -1,0 +1,30 @@
+{
+  "AddNewNote": {
+    "title": "Dodaj notatkę",
+    "submitLabel": "Zapisz notatkę",
+    "textareaPlaceholder": "Wpisz swoją notatkę",
+    "addTag": "Dodaj znaczniki:",
+    "addNewTag": "Dodaj nowy znacznik",
+    "notAuthenticated": "Musisz być zalogowany, aby dodać notatkę",
+    "saveError": "Nie udało się dodać notatki",
+    "saveSuccess": "Notatka dodana pomyślnie"
+  },
+  "EditNoteForm": {
+    "title": "Edytuj notatkę",
+    "submitLabel": "Zapisz zmiany",
+    "success": "Notatka zaktualizowana pomyślnie",
+    "notAuthenticated": "Musisz być zalogowany, aby edytować notatkę",
+    "loadError": "Nie udało się załadować notatki",
+    "notFoundError": "Notatka nie znaleziona",
+    "inputError": "Proszę wpisać notatkę",
+    "updateError": "Nie udało się zaktualizować notatki"
+  },
+  "UserNoteCard": {
+    "notAuthenticated": "Musisz być zalogowany, aby zarchiwizować notatkę",
+    "archiveError": "Nie udało się zarchiwizować notatki",
+    "archiveSuccess": "Notatka zarchiwizowana pomyślnie",
+    "edit": "Edytuj",
+    "archive": "Archiwizuj"
+  },
+  "Empty": "Nie masz jeszcze żadnych notatek"
+}

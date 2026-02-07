@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { ArchiveIcon, Calendar, EditIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { TooltipIcon } from '../../ds/components/TooltipIcon'
 import { formatDate } from '../../helpers/data'
@@ -28,6 +29,7 @@ export const UserNoteCard = ({ id, content, createdAt, tags, availableTags }: Pr
   const [showEntry, setShowEntry] = useState(false)
   const [isArchiving, setIsArchiving] = useState(false)
   const { data: session } = useSession()
+  const t = useTranslations('components.Diary.UserNoteCard')
   const router = useRouter()
 
   const safeTags = tags ?? []
@@ -39,17 +41,17 @@ export const UserNoteCard = ({ id, content, createdAt, tags, availableTags }: Pr
   const onArchive = async () => {
     if (isArchiving) return
     if (!session?.user) {
-      notifyError('You must be signed in to archive a note')
+      notifyError(t('notAuthenticated'))
       return
     }
     setIsArchiving(true)
     try {
       const result = await activateDiary(session, id)
       if ('error' in result) {
-        notifyError(extractErrorMessage(result.error, 'Failed to archive note'))
+        notifyError(extractErrorMessage(result.error, t('archiveError')))
         return
       }
-      notifySuccess('Note archived successfully')
+      notifySuccess(t('archiveSuccess'))
       router.refresh()
     } finally {
       setIsArchiving(false)
@@ -61,13 +63,13 @@ export const UserNoteCard = ({ id, content, createdAt, tags, availableTags }: Pr
   }
 
   const editIcon = (
-    <TooltipIcon label="Редактувати" onClick={onEdit}>
+    <TooltipIcon label={t('edit')} onClick={onEdit}>
       <EditIcon size={24} />
     </TooltipIcon>
   )
 
   const archiveIcon = (
-    <TooltipIcon label="Архівувати" onClick={onArchive}>
+    <TooltipIcon label={t('archive')} onClick={onArchive}>
       <ArchiveIcon size={24} />
     </TooltipIcon>
   )

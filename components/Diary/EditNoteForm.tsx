@@ -2,6 +2,7 @@
 import { useEffect, useState } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '../../ds/shadcn/button'
 import useTags from '../../hooks/useTags'
@@ -25,6 +26,8 @@ type Props = {
 
 export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => {
   const { data: session } = useSession()
+  const te = useTranslations('components.Diary.EditNoteForm')
+  const ta = useTranslations('components.Diary.AddNewNote')
   const [note, setNote] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -50,12 +53,12 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
       const result = await getDiaryById(session, idNote)
       if (!isMounted) return
       if ('error' in result) {
-        notifyError(extractErrorMessage(result.error, 'Failed to load note'))
+        notifyError(extractErrorMessage(result.error, te('loadError')))
         return
       }
 
       if (!result.data) {
-        notifyError('Note not found')
+        notifyError(te('notFoundError'))
         return
       }
 
@@ -66,18 +69,17 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
     return () => {
       isMounted = false
     }
-  }, [idNote, session, setSelectedTags])
+  }, [idNote, session, setSelectedTags, te])
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
     if (!note.trim()) {
-      notifyError('Please input a note')
-      console.log('input error')
+      notifyError(te('inputError'))
       return
     }
     if (!session?.user) {
-      notifyError('You must be signed in to save a note')
+      notifyError(te('notAuthenticated'))
       return
     }
     setIsSubmitting(true)
@@ -90,10 +92,10 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
       }
       const result = await updateDiary(session, idNote, dto)
       if ('error' in result) {
-        notifyError(extractErrorMessage(result.error, 'Failed to update note'))
+        notifyError(extractErrorMessage(result.error, te('updateError')))
         return
       }
-      notifySuccess('Note updated')
+      notifySuccess(te('success'))
       isSuccess = true
     } finally {
       setIsSubmitting(false)
@@ -107,16 +109,14 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
   }
 
   return (
-    <FormCard
-      title="Зміни запис"
-      submitLabel="Зберегти зміни"
-      submitDisabled={isSubmitting}
-      className=""
-      onSubmit={handleSubmit}
-    >
+    <FormCard title={te('title')} submitLabel={te('submitLabel')} submitDisabled={isSubmitting} onSubmit={handleSubmit}>
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <StyledTextarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Введіть запис" />
+          <StyledTextarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder={ta('textareaPlaceholder')}
+          />
           {selectedTags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {selectedTags.map((t) => (
@@ -126,7 +126,7 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
           )}
         </div>
         <div>
-          <h5>Додай теги:</h5>
+          <h5>{ta('addTag')}</h5>
 
           <div className="flex items-center justify-between">
             <div className="mt-2 flex flex-wrap gap-2">
@@ -136,7 +136,7 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
             </div>
             <Button variant="ghost" size="small" onClick={() => setShowAddTag(true)}>
               <PlusIcon size={12} />
-              Додати тег
+              {ta('addNewTag')}
             </Button>
           </div>
 

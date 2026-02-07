@@ -6,6 +6,7 @@ import Calendar from './Calendar.json'
 import ChartDynamics from './ChartDynamics.json'
 import CookieConsent from './CookieConsent.json'
 import DailyCard from './DailyCard.json'
+import Diary from './Diary.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import FavoriteButton from './FavoriteButton.json'
 import Filter from './Filter.json'
@@ -35,6 +36,7 @@ export const components = {
   Calendar,
   ChartDynamics,
   DailyCard,
+  Diary,
   ExercisesForRecovery,
   Filter,
   Header,

@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '../../ds/shadcn/button'
 import useTags from '../../hooks/useTags'
@@ -24,6 +25,7 @@ interface AddNewNoteProps {
 
 export const AddNewNote = ({ availableTags = [] }: AddNewNoteProps) => {
   const { data: session } = useSession()
+  const t = useTranslations('components.Diary.AddNewNote')
   const {
     selectedTags,
     localAvailableTags,
@@ -45,7 +47,7 @@ export const AddNewNote = ({ availableTags = [] }: AddNewNoteProps) => {
     if (isSubmitting || !isValid) return
 
     if (!session?.user) {
-      notifyError('You must be signed in to save a note')
+      notifyError(t('notAuthenticated'))
       return
     }
     setIsSubmitting(true)
@@ -59,10 +61,10 @@ export const AddNewNote = ({ availableTags = [] }: AddNewNoteProps) => {
       const result = await createDiary(session, dto)
 
       if ('error' in result) {
-        notifyError(extractErrorMessage(result.error, 'Failed to save note'))
+        notifyError(extractErrorMessage(result.error, t('saveError')))
         return
       }
-      notifySuccess('Note saved')
+      notifySuccess(t('saveSuccess'))
       isSuccess = true
     } finally {
       setIsSubmitting(false)
@@ -76,13 +78,17 @@ export const AddNewNote = ({ availableTags = [] }: AddNewNoteProps) => {
   return (
     <FormCard
       submitDisabled={isSubmitting || !isValid}
-      title="Запис думок"
-      submitLabel="Зберегти запис"
+      title={t('title')}
+      submitLabel={t('submitLabel')}
       onSubmit={handleSubmit}
     >
       <div className="flex flex-col gap-4">
         <div className="flex flex-col gap-2">
-          <StyledTextarea value={note} onChange={(e) => setNote(e.target.value)} placeholder="Введіть запис" />
+          <StyledTextarea
+            value={note}
+            onChange={(e) => setNote(e.target.value)}
+            placeholder={t('textareaPlaceholder')}
+          />
           {selectedTags.length > 0 && (
             <div className="flex flex-wrap gap-2">
               {selectedTags.map((t) => (
@@ -92,7 +98,7 @@ export const AddNewNote = ({ availableTags = [] }: AddNewNoteProps) => {
           )}
         </div>
         <div>
-          <h5>Додай теги:</h5>
+          <h5>{t('addTag')}</h5>
 
           <div className="flex items-center justify-between">
             <div className="mt-2 flex flex-wrap gap-2">
@@ -102,7 +108,7 @@ export const AddNewNote = ({ availableTags = [] }: AddNewNoteProps) => {
             </div>
             <Button variant="ghost" size="small" onClick={() => setShowAddTag(true)}>
               <PlusIcon size={12} />
-              Додати тег
+              {t('addNewTag')}
             </Button>
           </div>
 
