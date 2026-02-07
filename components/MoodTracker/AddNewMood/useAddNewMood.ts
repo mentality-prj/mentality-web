@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
@@ -10,6 +10,8 @@ import type { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
 import { extractErrorMessage } from '@/utils/apiError'
 import { notifyError, notifySuccess } from '@/utils/toast'
+
+import useTags from '../../../hooks/useTags'
 
 type Params = {
   availableTags?: UserTag[]
@@ -32,54 +34,10 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
 
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [note, setNote] = useState('')
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
-  const [localAvailableTags, setLocalAvailableTags] = useState<UserTag[]>(availableTags)
-  const [tagLabels, setTagLabels] = useState<Record<string, string>>(() => {
-    const map: Record<string, string> = {}
-    availableTags.forEach((t) => {
-      if (t && t.key && t.name) map[t.key] = t.name
-    })
-    return map
-  })
-  const [showAddTag, setShowAddTag] = useState(false)
+  const { selectedTags, localAvailableTags, tagLabels, showAddTag, setShowAddTag, addTag, removeTag, onTagCreated } =
+    useTags({ availableTags })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [stressLevel, setStressLevel] = useState<number | undefined>()
-
-  useEffect(() => {
-    setLocalAvailableTags(availableTags)
-    setTagLabels(() => {
-      const map: Record<string, string> = {}
-      availableTags.forEach((t) => {
-        if (t && t.key && t.name) map[t.key] = t.name
-      })
-      return map
-    })
-  }, [availableTags])
-
-  useEffect(() => {
-    setTagLabels((prev) => {
-      const next: Record<string, string> = {}
-      localAvailableTags.forEach((k) => {
-        if (prev[k.key]) next[k.key] = prev[k.key]
-      })
-      return next
-    })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [localAvailableTags])
-
-  const addTag = (t: string) => {
-    setSelectedTags((prev) => (prev.includes(t) ? prev : [...prev, t]))
-  }
-
-  const removeTag = (t: string) => {
-    setSelectedTags((prev) => prev.filter((x) => x !== t))
-  }
-
-  const onTagCreated = ({ key, name }: { key: string; name: string }) => {
-    setLocalAvailableTags((prev) => (prev.some((x) => x.key === key) ? prev : [...prev, { key, name }]))
-    setTagLabels((prev) => ({ ...prev, [key]: name }))
-    addTag(key)
-  }
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
