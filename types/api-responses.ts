@@ -180,6 +180,7 @@ export type UpdateMoodRecordDto = {
 export type CreateDiaryDto = {
   content: string
   tags?: string[]
+  isActive: boolean
 }
 
 export type DiaryEntity = {
@@ -187,7 +188,7 @@ export type DiaryEntity = {
   userId?: string
   content: string
   tags?: string[]
-  active?: boolean
+  isActive?: boolean
   createdAt?: string
   updatedAt?: string
 }
@@ -195,5 +196,5 @@ export type DiaryEntity = {
 export type UpdateDiaryDto = {
   content?: string
   tags?: string[]
-  active?: boolean
+  isActive?: boolean
 }
