@@ -1,6 +1,6 @@
-import { apiRequestWithAuth } from '@/helpers/apiRequestWithAuth'
-import { mapExercises } from '@/helpers/exerciseMapper'
+import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { logger } from '@/lib/logger'
+import { mapExercises } from '@/mappers/exercise.mappers'
 import { CreateExerciseDto, ExerciseCategory, ExerciseEntity, GeneratedExercise } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'

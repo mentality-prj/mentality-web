@@ -151,7 +151,7 @@ export function ChartDynamics() {
           </ResponsiveContainer>
         </ChartContainer>
       </div>
-      <div className="flex justify-end gap-4 pt-6">
+      <div className="flex justify-end gap-sm pt-6">
         <div className="flex items-center gap-2">
           <Switch defaultChecked={true} onCheckedChange={setMoodChart} /> {t('mood')}
         </div>

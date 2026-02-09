@@ -18,7 +18,7 @@ export const TagsEditor = ({ tags, onChange }: TagsEditorProps) => {
   const t = useTranslations('components.Mood')
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-sm">
       <div className="flex items-center justify-between">
         <div>{t('addTags')}</div>
         <Dialog>

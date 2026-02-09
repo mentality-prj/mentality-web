@@ -21,7 +21,7 @@ export default async function AffirmationsPage() {
   const dailyTip = 'error' in tipRes ? null : (tipRes.data?.items ?? [])[0]
 
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-md">
       <Breadcrumbs
         currentPage={t('pages.AffirmationsPage.title')}
         breadcrumbList={[

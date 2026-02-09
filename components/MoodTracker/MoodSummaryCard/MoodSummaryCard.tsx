@@ -54,7 +54,7 @@ const MoodSummaryCard = ({ title = '', subtitle, counts = [] }: MoodSummaryCardP
       </h2>
       {subtitle && <p className="mt-2 text-sm text-gray-600">{subtitle}</p>}
 
-      <div className="mt-6 flex flex-col gap-4">
+      <div className="mt-6 flex flex-col gap-sm">
         <section className="grid w-full grid-cols-5 items-end gap-1 px-2">
           {counts.map((c, idx) => {
             const moodInfo = MOODS_MAP[c.mood as keyof typeof MOODS_MAP]

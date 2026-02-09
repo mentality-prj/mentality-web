@@ -22,10 +22,10 @@ const MyDay = async () => {
   ]
 
   return (
-    <article className="grid gap-4 laptop:grid-cols-2">
+    <article className="grid gap-sm laptop:grid-cols-2">
       <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
 
-      <section className="grid grid-cols-2 gap-4">
+      <section className="grid grid-cols-2 gap-sm">
         <DailyAffirmationClient />
         <DailyTipClient />
       </section>

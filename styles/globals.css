@@ -17,6 +17,7 @@ body {
   padding: 0;
   margin: 0;
   font-family: 'Inter', sans-serif;
+  color: hsl(var(--text-primary));
 }
 
 * {
@@ -222,6 +223,11 @@ body {
     --special-from: 0 84% 67%; /* red-500 (#ef4444) */
     --special-to: 230 60% 30%; /* Custom, deep blue (#1e40af) */
     --special-foreground: 0 0% 100%; /* white */
+
+    /* Joy */
+    --joy-from: 20 100% 95%; /* light peach (#ffe4cc) */
+    --joy-to: 340 100% 70%; /* bright pink (#ff66b3) */
+    --joy-foreground: 0 0% 20%; /* dark gray for readability */
 
     /* Admin */
     --admin-background: 225 11% 27%; /* Custom, dark blue-gray (#1e293b) */
@@ -488,6 +494,7 @@ body {
   .support {
     background-image: linear-gradient(to bottom right, hsl(var(--support-from)), hsl(var(--support-to)));
     color: hsl(var(--special-foreground));
+    text-shadow: none;
   }
 
   .warn {
@@ -504,6 +511,12 @@ body {
     background-image: linear-gradient(to bottom right, hsl(var(--special-from)), hsl(var(--special-to)));
     color: hsl(var(--special-foreground));
     @apply dark-shadow;
+  }
+
+  .joy {
+    background-image: linear-gradient(to bottom right, hsl(var(--joy-from)), hsl(var(--joy-to)));
+    color: hsl(var(--joy-foreground));
+    @apply light-shadow border border-border border-white;
   }
 
   .tag {

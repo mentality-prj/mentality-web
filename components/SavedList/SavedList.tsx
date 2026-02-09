@@ -4,7 +4,7 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import Pagination from '@/components/Pagination/Pagination'
+import { Pagination } from '@/components/Pagination/Pagination'
 import { PAGE_SIZE } from '@/constants/pagination'
 import { useSavedFilters } from '@/context/savedFilterContext'
 import { getFavorites } from '@/requests/favorites'

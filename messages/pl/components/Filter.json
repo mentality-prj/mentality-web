@@ -5,7 +5,9 @@
   "by_stressLevel": "Według poziomu stresu",
   "by_moodLevel": "Według nastroju",
   "filterOptions": {
-    "tags": "{tag, select, affirmation {Afirmacja} tip {Porada} very_good {Bardzo dobry} good {Dobry} neutral {Neutralny} bad {Zły} very_bad {Bardzo zły} absent {Brak} low {Niski} medium {Średni} high {Wysoki} veryHigh{Bardzo wysoki} weekDays {Dni powszednie} weekends {Weekendy}  other {}}"
+    "tags": "{tag, select, affirmation {Afirmacja} tip {Porada} veryBad {Bardzo zły} bad {Zły} neutral {Neutralny} good {Dobry} great {Świetny} absent {Brak} low {Niski} medium {Średni} high {Wysoki} veryHigh {Bardzo wysoki} weekDays {Dni powszednie} weekends {Weekendy} other {}}"
   },
-  "clear": "Wyczyść"
+  "clear": "Wyczyść",
+  "showFilters": "Pokaż filtry",
+  "hideFilters": "Ukryj filtry"
 }

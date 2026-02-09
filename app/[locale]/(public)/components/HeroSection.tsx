@@ -47,7 +47,7 @@ export function HeroSection() {
   return (
     <section ref={heroRef} className="hero-zen mb-10 w-full py-16">
       <div className="container-max-width mx-auto px-8">
-        <div className="grid grid-cols-1 items-center gap-8 md:grid-cols-2">
+        <div className="grid grid-cols-1 items-center gap-md md:grid-cols-2">
           <div className="flex max-w-[720px] flex-col gap-default">
             <h1 className="landing-h1">{t('Hero.title')}</h1>
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
@@ -59,7 +59,7 @@ export function HeroSection() {
           </div>
           <div className="flex justify-end">
             <div className="h-[197.83px] w-[375px] rounded-[14px] bg-white p-8 shadow-sm">
-              <div className="flex items-center justify-between gap-4">
+              <div className="flex items-center justify-between gap-sm">
                 <h3 className="text-title line-clamp-2 w-[60%] pr-2 text-base leading-[120%]">
                   {t('Hero.testimonial.title')}
                 </h3>

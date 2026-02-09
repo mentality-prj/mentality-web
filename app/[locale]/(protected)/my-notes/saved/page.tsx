@@ -6,7 +6,7 @@ import { PageTitle } from '@/ds/components/PageTitle'
 export default function SavedPage() {
   const t = useTranslations()
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-md">
       <Breadcrumbs
         currentPage={t('pages.SavedPage.title')}
         breadcrumbList={[

@@ -1,7 +1,8 @@
 import { ReactNode } from 'react'
 import { X } from 'lucide-react'
 
-import { Statuses, StatusType } from '../../types/status.types'
+import { cn } from '@/lib/utils'
+import { Statuses, StatusType } from '@/types/status.types'
 
 interface TagProps {
   children?: ReactNode
@@ -12,19 +13,26 @@ interface TagProps {
   className?: string
 }
 
-const Tag = ({ children, text, type = 'tag', onRemove, onClick, className = '' }: TagProps) => {
+export const Tag = ({ children, text, type = 'tag', onRemove, onClick, className = '' }: TagProps) => {
   const base = `whitespace-nowrap rounded px-3 py-1 text-xs ${Statuses[type as StatusType]}`
+
+  const hoverClass = onClick ? 'hover:bg-accent-soft hover:text-accent-foreground' : ''
 
   if (onClick) {
     return (
-      <button type="button" onClick={onClick} className={`${base} ${className}`}>
+      <button
+        type="button"
+        onClick={onClick}
+        className={cn(base, hoverClass, 'transition-colors', className)}
+        style={{ textShadow: 'none' }}
+      >
         {text || children}
       </button>
     )
   }
 
   return (
-    <span className={`inline-flex items-center gap-1 ${base} ${className}`}>
+    <span className={cn('inline-flex items-center gap-1', base, className)}>
       <span>{text || children}</span>
       {onRemove && (
         <button
@@ -40,5 +48,3 @@ const Tag = ({ children, text, type = 'tag', onRemove, onClick, className = '' }
     </span>
   )
 }
-
-export default Tag

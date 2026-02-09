@@ -6,6 +6,7 @@ import TipCard from '@/components/Tips/TipCard'
 import { useSavedFilters } from '@/context/savedFilterContext'
 import { AffirmationEntity, ExerciseEntity, FavoriteEntity, TipEntity } from '@/types/api-responses'
 import { ITEM_TYPE_DEFS, ItemType } from '@/types/itemTypes'
+import { SORT_ORDER } from '@/types/sort'
 
 type Props = {
   items: FavoriteEntity[]
@@ -38,7 +39,7 @@ export const FilteredList = ({ items }: Props) => {
     return [...result].sort((a, b) => {
       const timeA = new Date(a.createdAt).getTime()
       const timeB = new Date(b.createdAt).getTime()
-      return SortOrder === 'newest' ? timeB - timeA : timeA - timeB
+      return SortOrder === SORT_ORDER.NEWEST ? timeB - timeA : timeA - timeB
     })
   }
 

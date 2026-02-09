@@ -37,7 +37,7 @@ export default async function ExercisesList({ fetchUnpublished = false, page = 1
 
   return (
     <div className="space-y-4">
-      <ul className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2 lg:grid-cols-3">
         {items.map((a) => {
           const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(a.id)} />
           return (

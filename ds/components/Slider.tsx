@@ -19,6 +19,7 @@ type SliderProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   marks?: boolean | SliderMark[]
   orientation?: 'horizontal' | 'vertical'
   disabled?: boolean
+  fillColor?: string
 }
 
 export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Slider(
@@ -32,6 +33,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
     marks = false,
     orientation = 'horizontal',
     disabled = false,
+    fillColor,
     className,
     'aria-label': ariaLabel,
     ...rest
@@ -168,7 +170,9 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
   )
 
   const fillStyle =
-    orientation === 'horizontal' ? { width: `${percent}%`, left: 0 } : { height: `calc(${percent}% + 10px)`, bottom: 0 }
+    orientation === 'horizontal'
+      ? { width: `${percent}%`, left: 0, ...(fillColor && { backgroundColor: fillColor }) }
+      : { height: `calc(${percent}% + 10px)`, bottom: 0, ...(fillColor && { backgroundColor: fillColor }) }
 
   const thumbStyle = orientation === 'horizontal' ? { left: `${percent}%` } : { bottom: `${percent}%` }
 
@@ -179,7 +183,8 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
   )
 
   const fillClasses = cn(
-    'absolute bg-primary',
+    'absolute',
+    !fillColor && 'bg-primary',
     orientation === 'horizontal'
       ? 'top-1/2 h-1 w-full -translate-y-1/2 rounded-full'
       : 'left-1/2 w-5 -translate-x-1/2 rounded-b-full'

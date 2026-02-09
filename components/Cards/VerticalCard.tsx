@@ -63,7 +63,7 @@ export default function VerticalCard({
             )}
           </div>
         )}
-        <div className="relative z-10 flex flex-col gap-4 p-8 text-[#6B7280]">
+        <div className="relative z-10 flex flex-col gap-sm p-8 text-[#6B7280]">
           {tag && <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6B7280]/70">{tag}</span>}
           {title && <h3 className="text-title text-2xl leading-[130%] text-[#6B7280] md:text-3xl">{title}</h3>}
           <p className="text-base leading-relaxed text-[#6B7280]">{description}</p>
@@ -103,7 +103,7 @@ export default function VerticalCard({
         )
       )}
 
-      <div className="flex flex-1 flex-col gap-4 px-6 pb-6 pt-5">
+      <div className="flex flex-1 flex-col gap-sm px-6 pb-6 pt-5">
         <div className="flex flex-col gap-1.5">
           {tag && (
             <span className="text-textcolor-tertiary text-xs font-semibold uppercase tracking-[0.2em]">{tag}</span>

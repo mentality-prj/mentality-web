@@ -1,4 +1,4 @@
-import { MOOD_KEYS } from '@/helpers/moodMapper'
+import { MOOD_KEYS } from '@/mappers/mood.mappers'
 import { STRESS_LEVELS } from '@/types/stress'
 
 export const filterOptions = {

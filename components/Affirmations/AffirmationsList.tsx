@@ -24,7 +24,7 @@ export default async function AffirmationsList({ fetchUnpublished = false, page 
 
   return (
     <div className="space-y-4">
-      <ul className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2 lg:grid-cols-4">
         {items.map((a) => {
           const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.affirmations} itemId={String(a.id)} />
           return (

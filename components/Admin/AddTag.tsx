@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import Card from '@/components/Cards/Card'
-import Tag from '@/components/Tag'
+import { Tag } from '@/components/Tag/Tag'
 import { tagproperties } from '@/constants/tags'
 import { Button } from '@/ds/shadcn/button'
 import { Input } from '@/ds/shadcn/input'

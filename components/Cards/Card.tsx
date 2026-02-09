@@ -1,8 +1,9 @@
 'use client'
 import React, { ReactNode } from 'react'
 
-import { Statuses, StatusType } from '../../types/status.types'
-import Tag from '../Tag'
+import { darkTypes, Statuses, StatusType, whiteTypes } from '@/types/status.types'
+
+import { Tag } from '../Tag/Tag'
 
 import { makeContainerClickHandler, makeContainerKeyDownHandler } from './helpers/cardHandlers'
 
@@ -10,7 +11,7 @@ interface CardProps {
   className?: string
   type?: StatusType
   icon?: ReactNode
-  sup?: string
+  sup?: string | ReactNode | ReactNode[]
   title?: ReactNode
   text?: ReactNode
   aftertext?: ReactNode
@@ -22,9 +23,6 @@ interface CardProps {
   onMouseEnter?: () => void
   onMouseLeave?: () => void
 }
-
-const darkTypes = [Statuses.dark, Statuses.accent, Statuses.warn, Statuses.error, Statuses.special, Statuses.support]
-const whiteTypes = [Statuses.default, Statuses.ghost]
 
 const Card = ({
   className = '',

@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { MoodMarksData, MOODS_MAP } from '@/constants/moods'
 
 import Card from '../../Cards/Card'
-import Tag from '../../Tag'
+import { Tag } from '../../Tag/Tag'
 
 import { SummaryCard } from './SummaryCard'
 

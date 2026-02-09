@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { STRESSES } from '@/constants/stress'
 import { Slider } from '@/ds/components/Slider'
 
-export function StressLevelScale({ onChange }: { onChange?: (value: number) => void }) {
+export function StressLevelScale({ value, onChange }: { value?: number; onChange?: (value: number) => void }) {
   const t = useTranslations('components.StressLevelScale')
 
   const marks = STRESSES.map(({ value, label }) => ({
@@ -13,8 +13,9 @@ export function StressLevelScale({ onChange }: { onChange?: (value: number) => v
     label: t(label),
   }))
 
-  const habdleChange = (value: number) => {
-    console.log('value', value)
+  const fillColor = value !== undefined ? STRESSES.find((s) => s.value === value)?.color : undefined
+
+  const handleChange = (value: number) => {
     if (onChange) {
       onChange(value)
     }
@@ -22,6 +23,7 @@ export function StressLevelScale({ onChange }: { onChange?: (value: number) => v
 
   return (
     <Slider
+      value={value}
       defaultValue={0}
       min={0}
       max={4}
@@ -29,7 +31,8 @@ export function StressLevelScale({ onChange }: { onChange?: (value: number) => v
       marks={marks}
       orientation="vertical"
       className="h-40"
-      onChange={habdleChange}
+      onChange={handleChange}
+      fillColor={fillColor}
     />
   )
 }

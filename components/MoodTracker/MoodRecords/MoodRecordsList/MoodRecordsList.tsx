@@ -1,4 +1,6 @@
-import { getTranslations } from 'next-intl/server'
+'use client'
+
+import { useTranslations } from 'next-intl'
 
 import Card from '@/components/Cards/Card'
 import { MOODS } from '@/constants/moods'
@@ -8,11 +10,11 @@ type Props = {
   records: MoodRecordEntity[]
 }
 
-export default async function MoodRecordsList({ records }: Props) {
-  const t = await getTranslations('components.Mood')
+export function MoodRecordsList({ records }: Props) {
+  const t = useTranslations('components.Mood')
 
   return (
-    <div className="grid gap-4">
+    <div className="grid gap-sm">
       {records.map((r) => {
         const level = r.moodLevel ?? 3
         const moodIndex = Math.max(1, Math.min(5, level))

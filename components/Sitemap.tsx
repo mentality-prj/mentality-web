@@ -72,7 +72,7 @@ export default function Sitemap() {
 
   return (
     <nav aria-label="Sitemap" className="mt-6 w-full max-w-2xl">
-      <div className="grid grid-cols-2 gap-6">
+      <div className="grid grid-cols-2 gap-default">
         {groups
           .filter((g) => !loading && canShowGroup(g.access))
           .map((g) => (

@@ -13,7 +13,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
         <meta name="msapplication-TileImage" content="/favicons/mstile-150x150.png" />
         <meta name="theme-color" content="#ffffff" />
       </head>
-      <body>{children}</body>
+      <body className="text-textcolor-primary">{children}</body>
     </html>
   )
 }

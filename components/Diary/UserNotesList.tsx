@@ -5,7 +5,7 @@ import { useSession } from 'next-auth/react'
 import { PAGE_SIZE } from '../../constants/pagination'
 import { getUserTags } from '../../requests/userTags'
 import { UserTag } from '../../types/tags'
-import Pagination from '../Pagination/Pagination'
+import { Pagination } from '../Pagination/Pagination'
 
 import { UserNoteCard } from './UserNoteCard'
 

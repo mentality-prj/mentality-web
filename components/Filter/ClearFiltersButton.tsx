@@ -1,17 +1,17 @@
+import { Eraser } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Button } from '@/ds/shadcn/button'
 
 interface ClearFiltersButtonProps {
   reset: () => void
-  hasActiveFilters: boolean
-  sort: 'newest' | 'oldest'
 }
 
-export const ClearFiltersButton = ({ reset, hasActiveFilters, sort }: ClearFiltersButtonProps) => {
+export const ClearFiltersButton = ({ reset }: ClearFiltersButtonProps) => {
   const t = useTranslations('components.Filter')
   return (
-    <Button variant="linkButton" onClick={reset} disabled={!hasActiveFilters && sort === 'newest'}>
+    <Button variant="iconButton" onClick={reset} size="small" className="pr-4">
+      <Eraser />
       {t('clear')}
     </Button>
   )

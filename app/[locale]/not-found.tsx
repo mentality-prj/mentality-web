@@ -17,10 +17,10 @@ export default function NotFoundPage() {
         backgroundPosition: 'bottom center',
       }}
     >
-      <article className="container-max-width container-center container gap-8">
+      <article className="container-max-width container-center container gap-md">
         <h1>{t('common.title.NotFoundPage')}</h1>
 
-        <div className="grid w-full max-w-4xl grid-cols-1 items-start gap-8 md:grid-cols-2">
+        <div className="grid w-full max-w-4xl grid-cols-1 items-start gap-md md:grid-cols-2">
           <Sitemap />
 
           <div className="">
