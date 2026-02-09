@@ -85,7 +85,7 @@ export const UserNoteCard = ({ id, content, createdAt, tags, availableTags }: Pr
       {showEntry && (
         <>
           <FullScreenBackdrop onClick={() => setShowEntry(false)} />
-          <div className="absolute inset-0 z-50">
+          <div className="absolute -top-24 z-50">
             <EditNoteForm idNote={id} availableTags={availableTags} onClose={() => setShowEntry(false)} />
           </div>
         </>

@@ -100,32 +100,34 @@ export const AddNewNote = ({ availableTags = [] }: AddNewNoteProps) => {
         <div>
           <h5>{t('addTag')}</h5>
 
-          <div className="flex items-center justify-between">
+          <div className="relative flex items-center justify-between">
             <div className="mt-2 flex flex-wrap gap-2">
               {localAvailableTags.map((t) => (
                 <Tag key={t.key} text={tagLabels[t.key] ?? t.name ?? t.key} onClick={() => addTag(t.key)} />
               ))}
             </div>
-            <Button variant="ghost" size="small" onClick={() => setShowAddTag(true)}>
-              <PlusIcon size={12} />
-              {t('addNewTag')}
-            </Button>
-          </div>
+            <div className="relative">
+              <Button variant="ghost" size="small" onClick={() => setShowAddTag(true)}>
+                <PlusIcon size={12} />
+                {t('addNewTag')}
+              </Button>
 
-          {showAddTag && (
-            <>
-              <FullScreenBackdrop onClick={() => setShowAddTag(false)} />
-              <div className="fixed inset-0 z-50 flex items-center justify-center">
-                <AddNewTag
-                  onClose={() => setShowAddTag(false)}
-                  onCreated={(t) => {
-                    onTagCreated(t)
-                    setShowAddTag(false)
-                  }}
-                />
-              </div>
-            </>
-          )}
+              {showAddTag && (
+                <>
+                  <FullScreenBackdrop onClick={() => setShowAddTag(false)} />
+                  <div className="absolute -top-44 right-0 z-50">
+                    <AddNewTag
+                      onClose={() => setShowAddTag(false)}
+                      onCreated={(t) => {
+                        onTagCreated(t)
+                        setShowAddTag(false)
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </FormCard>

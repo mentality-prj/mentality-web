@@ -57,8 +57,6 @@ export const UserNotesList = ({ notes }: Props) => {
     }
   }, [session])
 
-  console.log('availableTags', availableTags)
-
   return (
     <div className="grid gap-4">
       {paginatedNotes.map((note) => (

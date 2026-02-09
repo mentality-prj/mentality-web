@@ -1,12 +1,11 @@
 import { getTranslations } from 'next-intl/server'
 
+import { auth } from '@/auth'
+import AddNewNote from '@/components/Diary/AddNewNoteClient'
+import UserNotes from '@/components/Diary/UserNotes'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
 import { PageTitle } from '@/ds/components/PageTitle'
-
-import { auth } from '../../../../../auth'
-import AddNewNote from '../../../../../components/Diary/AddNewNoteClient'
-import UserNotes from '../../../../../components/Diary/UserNotes'
-import { getUserDiaries } from '../../../../../requests/diary'
+import { getUserDiaries } from '@/requests/diary'
 
 export default async function MyThoughtsPage() {
   const t = await getTranslations()

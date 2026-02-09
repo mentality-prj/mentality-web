@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { moodKeyToLevel } from '@/helpers/moodMapper'
+import useTags from '@/hooks/useTags'
 import { logger } from '@/lib/logger'
 import { createMoodRecord } from '@/requests/moodRecord'
 import type { CreateMoodRecordDto } from '@/types/api-responses'
@@ -10,8 +11,6 @@ import type { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
 import { extractErrorMessage } from '@/utils/apiError'
 import { notifyError, notifySuccess } from '@/utils/toast'
-
-import useTags from '../../../hooks/useTags'
 
 type Params = {
   availableTags?: UserTag[]

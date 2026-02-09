@@ -13,7 +13,7 @@ type Props = {
 }
 
 export default async function UserNotes({ notes }: Props) {
-  const availableNotes = notes.filter((note) => !note.isActive)
+  const availableNotes = notes.filter((note) => !note.isActive) // Show only inactive notes (not archived)
   const hasAvailableNotes = availableNotes.length > 0
   const t = await getTranslations('components.Diary')
 

@@ -38,7 +38,6 @@ export default function useTags({ availableTags = [] }: Params) {
       })
       return next
     })
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [localAvailableTags])
 
   const addTag = (t: string) => {
