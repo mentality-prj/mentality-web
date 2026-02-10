@@ -1,8 +1,8 @@
 import { AffirmationWithType } from '@/components/AffirmationsAndTips/FilteredHistory'
 import { logger } from '@/lib/logger'
-import { mapAffirmation } from '@/mappers/affirmationMapper'
-import { mapExercise } from '@/mappers/exerciseMapper'
-import { mapTip } from '@/mappers/tipMapper'
+import { mapAffirmation } from '@/mappers/affirmation.mappers'
+import { mapExercise } from '@/mappers/exercise.mappers'
+import { mapTip } from '@/mappers/tip.mappers'
 import { FavoriteEntity } from '@/types/api-responses'
 import { SupportedLanguage, supportedLanguages } from '@/types/languages'
 

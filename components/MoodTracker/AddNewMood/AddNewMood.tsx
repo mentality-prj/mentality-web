@@ -6,7 +6,7 @@ import CloseIconButton from '@/components/Buttons/CloseIconButton'
 import FormCard from '@/components/Cards/FormCard'
 import StyledTextarea from '@/components/Forms/StyledTextarea'
 import AddNewTag from '@/components/MoodTracker/AddNewTag/AddNewTag'
-import Tag from '@/components/Tag/Tag'
+import { Tag } from '@/components/Tag/Tag'
 import { MOODS } from '@/constants/moods'
 import { Button } from '@/ds/shadcn/button'
 import { UserTag } from '@/types/tags'
@@ -33,6 +33,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
     setSelectedMood,
     note,
     setNote,
+    stressLevel,
     setStressLevel,
     selectedTags,
     addTag,
@@ -44,6 +45,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
     isSubmitting,
     handleSubmit,
     onTagCreated,
+    formKey,
   } = useAddNewMood({ availableTags, onSave, onClose })
 
   const tools = onClose && <CloseIconButton onClick={onClose} />
@@ -58,7 +60,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
       submitLabel={ct('save')}
       className="p-6"
     >
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-default">
         <h5>{tm('howAreYou')}</h5>
         <div className="grid grid-cols-5 px-4" style={{ gridAutoColumns: 'max-content' }}>
           {MOODS.map((mood) => {
@@ -85,7 +87,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
           })}
         </div>
 
-        <div className="flex gap-4">
+        <div className="flex gap-sm">
           <div className="flex flex-1 flex-col gap-2">
             <h5>{tm('describe')}</h5>
             <StyledTextarea
@@ -104,38 +106,40 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
               </div>
             )}
           </div>
-          <StressAssessment onChange={(v) => setStressLevel(v)} />
+          <StressAssessment key={formKey} value={stressLevel} onChange={(v) => setStressLevel(v)} />
         </div>
 
         <div>
           <h5>{tm('addTags')}</h5>
 
-          <div className="flex items-center justify-between">
+          <div className="relative flex items-center justify-between">
             <div className="mt-2 flex flex-wrap gap-2">
               {localAvailableTags.map((t) => (
                 <Tag key={t.key} text={tagLabels[t.key] ?? t.name ?? t.key} onClick={() => addTag(t.key)} />
               ))}
             </div>
-            <Button variant="ghost" size="small" onClick={() => setShowAddTag(true)}>
-              <PlusIcon size={12} />
-              {tt('addNewTag.add')}
-            </Button>
-          </div>
+            <div className="relative">
+              <Button variant="ghost" size="small" onClick={() => setShowAddTag(true)}>
+                <PlusIcon size={12} />
+                {tt('addNewTag.add')}
+              </Button>
 
-          {showAddTag && (
-            <>
-              <FullScreenBackdrop onClick={() => setShowAddTag(false)} />
-              <div className="absolute inset-0 z-50 flex items-center justify-center">
-                <AddNewTag
-                  onClose={() => setShowAddTag(false)}
-                  onCreated={(t) => {
-                    onTagCreated(t)
-                    setShowAddTag(false)
-                  }}
-                />
-              </div>
-            </>
-          )}
+              {showAddTag && (
+                <>
+                  <FullScreenBackdrop onClick={() => setShowAddTag(false)} />
+                  <div className="absolute -top-44 right-0 z-50">
+                    <AddNewTag
+                      onClose={() => setShowAddTag(false)}
+                      onCreated={(t) => {
+                        onTagCreated(t)
+                        setShowAddTag(false)
+                      }}
+                    />
+                  </div>
+                </>
+              )}
+            </div>
+          </div>
         </div>
       </div>
     </FormCard>

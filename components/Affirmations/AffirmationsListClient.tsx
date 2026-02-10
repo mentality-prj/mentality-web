@@ -2,7 +2,7 @@
 import { ReactNode, useState } from 'react'
 
 import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
-import Pagination from '@/components/Pagination/Pagination'
+import { Pagination } from '@/components/Pagination/Pagination'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import useAffirmations from '@/hooks/useAffirmations'
 import { AffirmationEntity } from '@/types/api-responses'
@@ -27,7 +27,7 @@ export default function AffirmationsListClient({ fetchUnpublished = false, rende
       {error && <div className="text-sm text-red-500">{error}</div>}
       {!loading && !error && items.length === 0 && <div className="text-sm text-gray-500">No affirmations found.</div>}
 
-      <ul className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <ul className="grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2 lg:grid-cols-4">
         {items.map((a) => {
           const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.affirmations} itemId={String(a.id)} />
           return (

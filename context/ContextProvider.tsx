@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
 
+import { SORT_ORDER } from '@/types/sort'
+
 import { AffirmationsFilterProvider } from './affirmationsFilterContext'
 import { SavedFilterProvider } from './savedFilterContext'
 
@@ -8,13 +10,13 @@ const providers = [
   {
     Component: AffirmationsFilterProvider,
     props: {
-      initial: { order: 'newest', tags: '' } as const,
+      initial: { order: SORT_ORDER.NEWEST, tags: '' } as const,
     },
   },
   {
     Component: SavedFilterProvider,
     props: {
-      initial: { order: 'newest', tags: '' } as const,
+      initial: { order: SORT_ORDER.NEWEST, tags: '' } as const,
     },
   },
 ] as const

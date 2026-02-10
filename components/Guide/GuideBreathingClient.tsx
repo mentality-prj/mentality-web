@@ -20,7 +20,7 @@ export default async function GuideBreathingClient() {
   if (!breathing || breathing.length === 0) return <div className="text-sm text-gray-500">{t('breathing.empty')}</div>
 
   return (
-    <ul className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
+    <ul className="grid grid-cols-1 gap-sm sm:grid-cols-2 lg:grid-cols-3">
       {breathing.map((m) => {
         const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(m.id)} />
         return (

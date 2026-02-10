@@ -9,7 +9,7 @@ interface Props {
   className?: string
 }
 
-export default function Pagination({ page, totalPages, onPageChange, className = '' }: Props) {
+export function Pagination({ page, totalPages, onPageChange, className = '' }: Props) {
   const t = useTranslations('common.General')
   return (
     <nav className={`flex items-center justify-between ${className}`} aria-label="Pagination">

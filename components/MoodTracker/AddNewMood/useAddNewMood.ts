@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import { moodKeyToLevel } from '@/helpers/moodMapper'
 import useTags from '@/hooks/useTags'
 import { logger } from '@/lib/logger'
+import { moodKeyToLevel } from '@/mappers/mood.mappers'
 import { createMoodRecord } from '@/requests/moodRecord'
 import type { CreateMoodRecordDto } from '@/types/api-responses'
 import type { CustomSession } from '@/types/auth'
@@ -33,10 +33,29 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
 
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
   const [note, setNote] = useState('')
-  const { selectedTags, localAvailableTags, tagLabels, showAddTag, setShowAddTag, addTag, removeTag, onTagCreated } =
-    useTags({ availableTags })
+  const {
+    selectedTags,
+    localAvailableTags,
+    tagLabels,
+    showAddTag,
+    setShowAddTag,
+    addTag,
+    removeTag,
+    onTagCreated,
+    clearSelectedTags,
+  } = useTags({ availableTags })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [stressLevel, setStressLevel] = useState<number | undefined>()
+  const [formKey, setFormKey] = useState(0)
+
+  const resetForm = () => {
+    setSelectedMood(null)
+    setNote('')
+    clearSelectedTags()
+    setStressLevel(undefined)
+    setShowAddTag(false)
+    setFormKey((prev) => prev + 1)
+  }
 
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
@@ -69,6 +88,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
       }
 
       notifySuccess(safeT('Toast.Saved', 'Mood saved'))
+      resetForm()
       if (onSave) onSave()
       if (onClose) onClose()
     } finally {
@@ -93,6 +113,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     isSubmitting,
     handleSubmit,
     onTagCreated,
+    formKey,
   }
 }
 

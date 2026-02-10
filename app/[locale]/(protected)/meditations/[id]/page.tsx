@@ -30,8 +30,8 @@ export default async function MeditationPage({ params }: { params: { id: string 
       />
 
       <PageTitle className="py-8" title={meditationCard.title} />
-      <div className="flex flex-col gap-8">
-        <div className="flex h-full w-full flex-row gap-8">
+      <div className="flex flex-col gap-md">
+        <div className="flex h-full w-full flex-row gap-md">
           <SectionCard title={t('pages.Guide.TechniqueOverview')} className="flex-[2_1_0] overflow-hidden">
             <div dangerouslySetInnerHTML={{ __html: meditationCard.description }} />
           </SectionCard>

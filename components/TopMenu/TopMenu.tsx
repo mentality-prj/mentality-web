@@ -20,7 +20,7 @@ const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
     type === APP_VIEW_TYPE.LANDING ? 'text-textcolor-primary hover:text-primary' : 'text-remark hover:text-title-light'
 
   return (
-    <nav className="hidden items-center gap-8 font-normal leading-[120%] tracking-normal md:flex">
+    <nav className="hidden items-center gap-md font-normal leading-[120%] tracking-normal md:flex">
       {menu.map((item) => {
         const isActive = pathname === item.href
 

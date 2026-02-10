@@ -17,7 +17,7 @@ import FormCard from '../Cards/FormCard'
 import StyledTextarea from '../Forms/StyledTextarea'
 import FullScreenBackdrop from '../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 import AddNewTag from '../MoodTracker/AddNewTag/AddNewTag'
-import Tag from '../Tag'
+import { Tag } from '../Tag/Tag'
 
 interface AddNewNoteProps {
   availableTags?: UserTag[]

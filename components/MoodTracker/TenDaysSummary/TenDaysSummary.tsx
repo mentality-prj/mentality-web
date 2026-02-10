@@ -1,7 +1,8 @@
-import { getTranslations } from 'next-intl/server'
+// import { getTranslations } from 'next-intl/server'
 
 import { MoodMarksData } from '@/constants/moods'
 import { SectionCard } from '@/ds/components/SectionCard'
+import { MoodRecordEntity } from '@/types/api-responses'
 import { DaySummary } from '@/types/daySummary'
 
 import { BestDay } from './BestDay'
@@ -12,19 +13,22 @@ import { StressLevel } from './StressLevel'
 export async function TenDaysSummary({
   moodMarksData,
   lastRecordsSummary,
+  records,
 }: {
   moodMarksData?: MoodMarksData
   lastRecordsSummary?: DaySummary[]
+  records?: MoodRecordEntity[]
 }) {
-  const t = await getTranslations('components.TenDaysSummary')
+  // const t = await getTranslations('components.TenDaysSummary')
   return (
-    <SectionCard className="max-w-fit">
-      <h2>{t('title')}</h2>
-      <div className="mt-6 flex flex-col items-center justify-center gap-default">
-        <BestDay />
+    <SectionCard className="max-w-fit pt-0">
+      {/* TODO: Remove hardcoded title and use translations */}
+      {/* <h2>{t('title')}</h2> */}
+      <div className="flex flex-col items-center justify-center gap-md">
+        <BestDay summaries={lastRecordsSummary} records={records} />
         <LastTenDaysMoodRecords summaries={lastRecordsSummary} />
-        <StressLevel summaries={lastRecordsSummary} />
         <MoodMarks data={moodMarksData} />
+        <StressLevel summaries={lastRecordsSummary} />
       </div>
     </SectionCard>
   )

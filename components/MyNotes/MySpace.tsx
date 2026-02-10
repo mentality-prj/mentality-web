@@ -14,7 +14,7 @@ export async function MySpace() {
         <SavedList />
       </div>
 
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-sm">
         <h3 className="landing-h3">{t('title')}</h3>
         <Link href={`${Routes.MYNOTES}/my-thoughts`}>
           <Button size="large" className="w-full">

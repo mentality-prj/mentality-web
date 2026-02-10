@@ -2,7 +2,7 @@ import { MinusIcon, PlusIcon } from 'lucide-react'
 
 import CloseIconButton from '@/components/Buttons/CloseIconButton'
 import FormCard from '@/components/Cards/FormCard'
-import Tag from '@/components/Tag'
+import { Tag } from '@/components/Tag/Tag'
 import { Button } from '@/ds/shadcn/button'
 import { Textarea } from '@/ds/shadcn/textarea'
 import { cn } from '@/lib/utils'
@@ -64,7 +64,7 @@ export const CreatePersonalGoalForm = ({
       cancelLabel={cancelLabel}
       tools={<CloseIconButton onClick={onCancel} />}
     >
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-default">
         <div className="flex flex-col gap-2">
           <h5 className="mb-2">{weOfferLabel}</h5>
           <div className="flex flex-wrap justify-start gap-2">

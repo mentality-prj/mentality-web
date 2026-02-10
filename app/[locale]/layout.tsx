@@ -34,7 +34,7 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale} suppressHydrationWarning={true} className={`${fontSans.variable} antialiased`}>
-      <body>
+      <body className="text-textcolor-primary">
         <AppIntlProvider>
           <Providers>
             <Toaster position="top-right" reverseOrder={false} />

@@ -2,7 +2,7 @@
 import { ReactNode, useState } from 'react'
 
 import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
-import Pagination from '@/components/Pagination/Pagination'
+import { Pagination } from '@/components/Pagination/Pagination'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import useTips from '@/hooks/useTips'
 import { TipEntity } from '@/types/api-responses'
@@ -27,7 +27,7 @@ export default function TipsListClient({ fetchUnpublished = false, renderTools, 
       {error && <div className="text-sm text-red-500">{error}</div>}
       {!loading && !error && items.length === 0 && <div className="text-sm text-gray-500">No tips found.</div>}
 
-      <ul className="grid grid-cols-1 items-stretch gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <ul className="grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2 lg:grid-cols-3">
         {items.map((a) => {
           const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.tips} itemId={String(a.id)} />
           return (

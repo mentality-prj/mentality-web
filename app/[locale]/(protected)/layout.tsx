@@ -17,7 +17,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
           <Sidebar menu={userSidebarMenu} />
         </div>
         <main className="old-paper min-h-screen w-full flex-1 flex-col items-start justify-between">
-          <div className="padded flex w-full flex-col gap-8">
+          <div className="padded flex w-full flex-col gap-md">
             <Header />
             {children}
           </div>

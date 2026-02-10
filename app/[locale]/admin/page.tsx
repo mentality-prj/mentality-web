@@ -91,6 +91,7 @@ export default function AdminPage() {
         <Card type="special" title="Special Card">
           some children here
         </Card>
+        <Card type="joy" title="Joy Card" text="Lorem ipsum" remark="joy" />
       </div>
 
       <CardStack cols={3}>

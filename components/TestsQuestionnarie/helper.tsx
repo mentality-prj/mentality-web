@@ -1,9 +1,9 @@
 import { TestConfig } from './typesTestPage'
 
-// Тип для відповідей
+// Type for test answers
 export type TestAnswers = Record<string, number | boolean>
 
-// Підрахунок для тесту Щербатих
+// Calculation for the Scherbatih test
 export function calculateScherbatihResult(test: TestConfig<'checkbox'>, answers: TestAnswers): string {
   let totalScore = 0
 
@@ -19,7 +19,7 @@ export function calculateScherbatihResult(test: TestConfig<'checkbox'>, answers:
   return result?.label ?? 'Невизначено'
 }
 
-// Підрахунок для тесту K10 (радіо)
+// Calculation for the K10 test (radio choices)
 export function calculateK10Result(test: TestConfig<'radio'>, answers: TestAnswers): string {
   let totalScore = 0
 

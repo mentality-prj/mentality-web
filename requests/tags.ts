@@ -1,4 +1,4 @@
-import { apiRequestWithAuth } from '@/helpers/apiRequestWithAuth'
+import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { logger } from '@/lib/logger'
 import { TagEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'

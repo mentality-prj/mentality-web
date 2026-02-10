@@ -7,8 +7,8 @@ import { HeartHandsEmoji } from '@/ds/icons/emoji/heart-hands'
 export default function MyProgressStatisticsPage() {
   const t = useTranslations()
   return (
-    <div className="flex flex-col gap-6">
-      <div className="grid grid-cols-2 gap-4">
+    <div className="flex flex-col gap-default">
+      <div className="grid grid-cols-2 gap-sm">
         <Calendar
           title={t('components.Calendar.title', { type: 'myProgress' })}
           subtitle={

@@ -98,7 +98,7 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
           </>
         }
       >
-        <div className="flex h-full flex-col justify-end gap-4">
+        <div className="flex h-full flex-col justify-end gap-sm">
           {repeat > 1 && (
             <div>
               <Progress value={(check / repeat) * 100} className="h-[6px] bg-background-alt" />
@@ -128,7 +128,7 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
           title={dialogAction === 'delete' ? t('Dialog.DeleteTitle') : t('Dialog.ResetTitle')}
         >
           <div className="">{dialogAction === 'delete' ? t('Dialog.DeleteText') : t('Dialog.ResetText')}</div>
-          <div className="mt-6 grid grid-cols-2 gap-4">
+          <div className="mt-6 grid grid-cols-2 gap-sm">
             <Button className="w-full" variant="secondary" onClick={() => setDialogAction(null)}>
               {t('Dialog.Buttons.Cancel')}
             </Button>

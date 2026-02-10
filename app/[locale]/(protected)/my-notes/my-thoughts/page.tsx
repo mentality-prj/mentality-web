@@ -14,7 +14,7 @@ export default async function MyThoughtsPage() {
 
   // const count = 0
   return (
-    <div className="flex flex-col gap-8">
+    <div className="flex flex-col gap-md">
       <Breadcrumbs
         currentPage={t('pages.MyThoughts.title')}
         breadcrumbList={[

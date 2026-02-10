@@ -17,12 +17,12 @@ export default function ServerErrorPage() {
         backgroundPosition: 'bottom center',
       }}
     >
-      <article className="container-max-width container-center container gap-8">
+      <article className="container-max-width container-center container gap-md">
         <h1>{t('title')}</h1>
 
-        <div className="grid w-full max-w-4xl grid-cols-1 items-start gap-8 md:grid-cols-2">
+        <div className="grid w-full max-w-4xl grid-cols-1 items-start gap-md md:grid-cols-2">
           <div>
-            <div className="flex flex-col items-start gap-6">
+            <div className="flex flex-col items-start gap-default">
               <p className="text-muted-foreground max-w-md text-lg">{t('description')}</p>
               <div className="flex flex-col items-start gap-3 text-left">
                 <h3>{t('suggestions')}</h3>

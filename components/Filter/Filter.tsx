@@ -2,8 +2,9 @@
 
 import { useTranslations } from 'next-intl'
 
-import { Sort } from '@/components/Sort'
+import { Sort } from '@/components/Sort/Sort'
 import { filterOptions } from '@/constants/filter'
+import { SortOrder } from '@/types/sort'
 
 import { ClearFiltersButton } from './ClearFiltersButton'
 import { FilterOptionGroup } from './FilterOptionsGroup'
@@ -17,10 +18,9 @@ interface FilterProps<TFilters> {
   }
 }
 
-export const Filter = <TFilters extends { order: 'newest' | 'oldest' }>({ useFilters }: FilterProps<TFilters>) => {
+export const Filter = <TFilters extends { order: SortOrder }>({ useFilters }: FilterProps<TFilters>) => {
   const { filters, setFilters, reset } = useFilters()
   const { order: sort, ...otherFilters } = filters
-  const hasActiveFilters = Object.values(otherFilters).some(Boolean)
 
   const t = useTranslations('components.Filter')
 
@@ -28,8 +28,7 @@ export const Filter = <TFilters extends { order: 'newest' | 'oldest' }>({ useFil
     <div className="border-outline-secondary flex max-h-fit flex-col gap-5 rounded-md border p-6">
       <div className="flex justify-between">
         <div>{t('title')}</div>
-
-        <ClearFiltersButton hasActiveFilters={hasActiveFilters} reset={reset} sort={sort} />
+        <ClearFiltersButton reset={reset} />
       </div>
 
       {(Object.keys(otherFilters) as (keyof typeof filterOptions)[]).map((k) => {

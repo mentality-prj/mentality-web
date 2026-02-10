@@ -33,7 +33,7 @@ export default function AddTags({ tags, onChange }: AddTagsProps) {
   }
 
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-sm">
       <div className="flex flex-col gap-2 tablet:flex-row">
         <div className="w-full">
           <CustomInput

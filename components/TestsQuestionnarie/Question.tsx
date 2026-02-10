@@ -9,7 +9,7 @@ interface Props {
   type: ChoiceType
   selectedValue?: number
   onChange: (value: number | boolean) => void
-  checkedValues?: Record<string, boolean> // для чекбоксів: збереження стану
+  checkedValues?: Record<string, boolean> // for checkboxes: store checked state
 }
 
 export default function Question({ data, index, type, selectedValue, onChange, checkedValues = {} }: Props) {

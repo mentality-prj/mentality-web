@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
-import Tag from '@/components/Tag/Tag'
+import { Tag } from '@/components/Tag/Tag'
 import { DropdownInput } from '@/ds/components/DropdownInput'
 import { Button } from '@/ds/shadcn/button'
 import { Input } from '@/ds/shadcn/input'
