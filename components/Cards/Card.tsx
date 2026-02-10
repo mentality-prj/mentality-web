@@ -1,9 +1,9 @@
 'use client'
-import React, { ReactNode } from 'react'
 
+import { ReactNode } from 'react'
+
+import { Tag } from '@/ds/components/Tag'
 import { darkTypes, Statuses, StatusType, whiteTypes } from '@/types/status.types'
-
-import { Tag } from '../Tag/Tag'
 
 import { makeContainerClickHandler, makeContainerKeyDownHandler } from './helpers/cardHandlers'
 

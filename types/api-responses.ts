@@ -83,6 +83,10 @@ export type PaginatedExercises = { items: ExerciseEntity[]; total: number }
 export type ExerciseCategory = 'meditation' | 'breathing' | 'calming'
 export type LocalExercise = ExerciseEntity & { isFavorite?: boolean }
 
+export type LocalFavorite = FavoriteEntity & {
+  item: AffirmationEntity | TipEntity | ExerciseEntity
+}
+
 export type GenerateExerciseDto = {
   category: ExerciseCategory
   prompt?: string

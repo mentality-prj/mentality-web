@@ -1,8 +1,8 @@
 {
-  "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} other {}}",
-  "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} other {}}",
-  "toastText": "{type, select, affirmation {Afirmacja dodana do Zapisanych} tip {Porada dodana do Zapisanych} other {}}",
-  "type": "{type, select, affirmation {Afirmacja} tip {Porada} other {}}",
+  "title": "{type, select, affirmation {Twoja codzienna afirmacja} tip {Porada dnia} breathing {Ćwiczenie oddechowe} calming {Ćwiczenie uspokajające} meditation {Medytacja} other {}}",
+  "buttonText": "{type, select, affirmation {Wszystkie afirmacje} tip {Wszystkie porady} breathing {Wszystkie ćwiczenia oddechowe} calming {Wszystkie ćwiczenia uspokajające} meditation {Wszystkie medytacje} other {}}",
+  "toastText": "{type, select, affirmation {Afirmacja dodana do zapisanych} tip {Porada dodana do zapisanych} breathing {Ćwiczenie oddechowe dodane do zapisanych} calming {Ćwiczenie uspokajające dodane do zapisanych} meditation {Medytacja dodana do zapisanych} other {}}",
+  "type": "{type, select, affirmation {Afirmacja} tip {Porada} breathing {Oddychanie} calming {Uspokajanie} meditation {Medytacja} other {}}",
   "cards": {
     "notes": "Zapisz myśli",
     "tests": "Testy psychologiczne",

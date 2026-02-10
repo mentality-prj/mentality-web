@@ -4,6 +4,8 @@ import { PlusIcon } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { Tag } from '@/ds/components/Tag'
+
 import { Button } from '../../ds/shadcn/button'
 import useTags from '../../hooks/useTags'
 import { useRouter } from '../../i18n/navigation'
@@ -16,7 +18,6 @@ import FormCard from '../Cards/FormCard'
 import StyledTextarea from '../Forms/StyledTextarea'
 import FullScreenBackdrop from '../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 import AddNewTag from '../MoodTracker/AddNewTag/AddNewTag'
-import { Tag } from '../Tag/Tag'
 
 type Props = {
   idNote: string

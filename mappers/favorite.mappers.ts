@@ -1,76 +1,59 @@
-import { AffirmationWithType } from '@/components/AffirmationsAndTips/FilteredHistory'
 import { logger } from '@/lib/logger'
 import { mapAffirmation } from '@/mappers/affirmation.mappers'
 import { mapExercise } from '@/mappers/exercise.mappers'
 import { mapTip } from '@/mappers/tip.mappers'
-import { FavoriteEntity } from '@/types/api-responses'
-import { SupportedLanguage, supportedLanguages } from '@/types/languages'
+import { AffirmationEntity, ExerciseEntity, FavoriteEntity, LocalFavorite, TipEntity } from '@/types/api-responses'
 
-function safeString(v: unknown) {
-  if (typeof v === 'string') return v
-  if (v == null) return ''
-  return String(v)
-}
+/**
+ * Maps a FavoriteEntity from API to LocalFavorite with properly typed item.
+ * Ensures the item field contains the actual entity (AffirmationEntity | TipEntity | ExerciseEntity).
+ */
+export function mapFavoriteToLocal(fav: FavoriteEntity): LocalFavorite {
+  const itemData = (fav.item as Record<string, unknown>) ?? {}
+  const typeRaw = String(fav.itemType ?? '')
+  const typeSingular = typeRaw.replace(/s$/, '')
 
-export function mapFavoriteToLocal(fav: FavoriteEntity): AffirmationWithType {
-  const item = (fav.item as Record<string, unknown>) ?? {}
-  const id = fav.itemId ?? (item['id'] as string | undefined) ?? (item['_id'] as string | undefined) ?? fav.id
-  const typeRaw = String(fav.itemType ?? item['type'] ?? '')
-  const type = typeRaw.replace(/s$/, '') || ''
-
-  let translations: Record<SupportedLanguage, string> = (item.translations as
-    | Record<SupportedLanguage, string>
-    | undefined) ?? {
-    en: safeString(item['en']),
-    uk: safeString(item['uk']),
-    pl: safeString(item['pl']),
-  }
+  let typedItem: AffirmationEntity | TipEntity | ExerciseEntity
 
   try {
-    if (type === 'exercise') {
-      const mapped = mapExercise(item)
-      if (mapped) {
-        // Combine exercise translations (title, annotation, description) into a single string per locale
-        const t: Record<SupportedLanguage, string> = {
-          en: '',
-          uk: '',
-          pl: '',
-        }
-        const titleMap = mapped.translations.title || ({} as Record<SupportedLanguage, string>)
-        const annotationMap = mapped.translations.annotation || ({} as Record<SupportedLanguage, string>)
-        const descriptionMap = mapped.translations.description || ({} as Record<SupportedLanguage, string>)
-        for (const k of supportedLanguages) {
-          const title = safeString(titleMap[k as SupportedLanguage])
-          const annotation = safeString(annotationMap[k as SupportedLanguage])
-          const description = safeString(descriptionMap[k as SupportedLanguage])
-          const parts = [title, annotation, description].filter(Boolean)
-          t[k as SupportedLanguage] = parts.join('\n\n')
-        }
-        translations = t
+    if (typeSingular === 'exercise') {
+      const mapped = mapExercise(itemData)
+      if (!mapped) {
+        logger.error('mapFavoriteToLocal: failed to map exercise')
+        throw new Error('Failed to map exercise')
       }
-    } else if (type === 'affirmation') {
-      const mapped = mapAffirmation(item)
-      if (mapped) translations = mapped.translations
-    } else if (type === 'tip') {
-      const mapped = mapTip(item)
-      if (mapped) translations = mapped.translations
+      typedItem = mapped
+    } else if (typeSingular === 'affirmation') {
+      const mapped = mapAffirmation(itemData)
+      if (!mapped) {
+        logger.error('mapFavoriteToLocal: failed to map affirmation')
+        throw new Error('Failed to map affirmation')
+      }
+      typedItem = mapped
+    } else if (typeSingular === 'tip') {
+      const mapped = mapTip(itemData)
+      if (!mapped) {
+        logger.error('mapFavoriteToLocal: failed to map tip')
+        throw new Error('Failed to map tip')
+      }
+      typedItem = mapped
+    } else {
+      logger.error('mapFavoriteToLocal: unknown item type', { type: typeSingular })
+      throw new Error(`Unknown item type: ${typeSingular}`)
     }
   } catch (e) {
     if (e instanceof Error) {
-      logger.error('mapFavoriteToLocal: failed to build translations', e)
+      logger.error('mapFavoriteToLocal: failed to map item', e)
     } else {
-      logger.error('mapFavoriteToLocal: failed to build translations', { error: String(e) })
+      logger.error('mapFavoriteToLocal: failed to map item', { error: String(e) })
     }
+    // Fallback: return raw data as affirmation
+    typedItem = itemData as AffirmationEntity
   }
 
-  const createdAt = (item['createdAt'] as string | undefined) ?? fav.createdAt ?? new Date().toISOString()
-
   return {
-    id: String(id),
-    isPublished: typeof item['isPublished'] === 'boolean' ? (item['isPublished'] as boolean) : true,
-    translations,
-    createdAt: safeString(createdAt),
-    type,
+    ...fav,
+    item: typedItem,
   }
 }
 
