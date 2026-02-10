@@ -1,56 +1,55 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
-import { getMeditations } from '@/actions/meditations.actions'
+import { auth } from '@/auth'
+import Card from '@/components/Cards/Card'
+import { OtherMeditations } from '@/components/Meditations/OtherMeditations'
+import { StyledDescription } from '@/components/Meditations/StyledDescription'
 import { Breadcrumbs } from '@/ds/components/Breadcrumbs'
-import CustomCard from '@/ds/components/CustomCard'
 import { PageTitle } from '@/ds/components/PageTitle'
-import { SectionCard } from '@/ds/components/SectionCard'
+import { Link } from '@/i18n/navigation'
+import { getExerciseById } from '@/requests/exercises'
+import { SupportedLanguage } from '@/types/languages'
 
 export default async function MeditationPage({ params }: { params: { id: string } }) {
   const t = await getTranslations()
-  const meditationsData = await getMeditations()
+  const session = await auth()
+  const locale = (await getLocale()) as SupportedLanguage
 
-  const meditationCard = meditationsData.find((m) => String(m.id) === params.id)
-  //add condition of "not founding"
-  if (!meditationCard) return <div>Not found</div>
+  const res = await getExerciseById(session, params.id)
 
-  const otherMeditations = meditationsData
-    .filter((m) => m.id !== meditationCard.id && m.category === meditationCard?.category)
-    .sort(() => Math.random() - 0.5)
-    .slice(0, 3)
-
+  if (!res.data)
+    return (
+      <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
+        <div className="flex flex-col items-center gap-4">
+          <p className="mt-1 text-2xl text-gray-500">{t('pages.Meditation.notExist')}</p>
+          <Link href="/guide/meditations">{t('pages.Meditation.backToMeditations')}</Link>
+        </div>
+      </div>
+    )
+  const meditation = res.data
   return (
-    <>
+    <article>
       <Breadcrumbs
-        currentPage={meditationCard.title}
+        currentPage={meditation.translations.title[`${locale}`]}
         breadcrumbList={[
-          { title: `${t('pages.Guide.title')}`, href: '/guide' },
-          { title: `${t(`pages.Guide.Tabs.${meditationCard.category}`)}`, href: '/meditation/${meditation.id}' },
+          { title: t('pages.Guide.title'), href: '/guide' },
+          { title: t('common.Breadcrumbs.breadcrumbsList', { title: 'meditation' }), href: '/guide/meditations' },
         ]}
       />
-
-      <PageTitle className="py-8" title={meditationCard.title} />
-      <div className="flex flex-col gap-md">
-        <div className="flex h-full w-full flex-row gap-md">
-          <SectionCard title={t('pages.Guide.TechniqueOverview')} className="flex-[2_1_0] overflow-hidden">
-            <div dangerouslySetInnerHTML={{ __html: meditationCard.description }} />
-          </SectionCard>
-          <SectionCard className="flex-[1_1_0] overflow-hidden">from backend 2</SectionCard>
+      <PageTitle
+        className="py-8"
+        title={meditation.translations.title[`${locale}`]}
+        subtitle={meditation.translations.annotation[`${locale}`]}
+      />
+      <div className="flex flex-col gap-6">
+        <div className="flex w-full flex-col gap-6 lg:flex-row lg:gap-8">
+          <Card title={t('pages.Meditation.descriptionTitle')}>
+            <StyledDescription text={meditation.translations.description[`${locale}`]} />
+          </Card>
+          {/* TODO: Add card  */}
         </div>
-        <SectionCard title={t(`pages.Guide.CardCategory.${meditationCard.category}`)}>
-          <div className="grid grid-cols-1 gap-default laptop:grid-cols-2 desktop:grid-cols-3">
-            {otherMeditations.map((meditation) => (
-              <CustomCard
-                key={meditation.id}
-                title={meditation.title}
-                text={meditation.annotation}
-                hrefLink={`/meditations/${meditation.id}`}
-                textLink={t('pages.Guide.textLink')}
-              />
-            ))}
-          </div>
-        </SectionCard>
+        <OtherMeditations currentMeditationId={params.id} />
       </div>
-    </>
+    </article>
   )
 }

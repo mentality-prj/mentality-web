@@ -2,10 +2,11 @@ import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
-import ExerciseCard from '@/components/Exercises/ExerciseCard'
 import { fetchExercisesItems } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
+
+import MeditationCard from '../Meditations/MeditationCard'
 
 export default async function GuideMeditationsClient() {
   const session = await auth()
@@ -26,7 +27,7 @@ export default async function GuideMeditationsClient() {
         const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(m.id)} />
         return (
           <li key={String(m.id)} className="h-full">
-            <ExerciseCard item={m} tools={tools} />
+            <MeditationCard item={m} tools={tools} />
           </li>
         )
       })}

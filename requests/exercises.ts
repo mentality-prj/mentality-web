@@ -7,7 +7,7 @@ import { SupportedLanguage } from '@/types/languages'
 import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
-import { performAdminRequest } from './genericFetch'
+import { performAdminRequest, performAuthRequest } from './genericFetch'
 
 type ApiResult<T> = { data?: T; error?: string }
 
@@ -239,4 +239,10 @@ export async function fetchExercisesItems(
   }
 
   return { items }
+}
+
+export async function getExerciseById(session: CustomSession | null, id: string) {
+  const res = await performAuthRequest<ExerciseEntity>(session, `${APIUrl}/exercises/${id}`, { method: 'GET' })
+  if ('error' in res) return { error: res.error }
+  return { data: res.data }
 }
