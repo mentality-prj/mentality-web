@@ -12,6 +12,7 @@ import { SupportedLanguage } from '@/types/languages'
 
 export default async function MeditationPage({ params }: { params: { id: string } }) {
   const t = await getTranslations()
+  const tpm = await getTranslations('pages.Meditation')
   const session = await auth()
   const locale = (await getLocale()) as SupportedLanguage
 
@@ -21,8 +22,8 @@ export default async function MeditationPage({ params }: { params: { id: string 
     return (
       <div className="rounded-2xl border border-gray-100 bg-white p-6 shadow-sm">
         <div className="flex flex-col items-center gap-4">
-          <p className="mt-1 text-2xl text-gray-500">{t('pages.Meditation.notExist')}</p>
-          <Link href="/guide/meditations">{t('pages.Meditation.backToMeditations')}</Link>
+          <p className="mt-1 text-2xl text-gray-500">{tpm('notExist')}</p>
+          <Link href="/guide/meditations">{tpm('backToMeditations')}</Link>
         </div>
       </div>
     )
@@ -43,7 +44,7 @@ export default async function MeditationPage({ params }: { params: { id: string 
       />
       <div className="flex flex-col gap-6">
         <div className="flex w-full flex-col gap-6 lg:flex-row lg:gap-8">
-          <Card title={t('pages.Meditation.descriptionTitle')}>
+          <Card title={tpm('descriptionTitle')}>
             <StyledDescription text={meditation.translations.description[`${locale}`]} />
           </Card>
           {/* TODO: Add card  */}
