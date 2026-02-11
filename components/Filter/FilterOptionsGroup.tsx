@@ -15,11 +15,12 @@ export function FilterOptionGroup({
   filterKey?: 'tags' | 'categories' | 'moodLevel' | 'stressLevel' | 'week'
 }) {
   const t = useTranslations('components.Filter')
+  const translationKey = filterKey === 'categories' ? 'categories' : 'tags'
   return (
     <ToggleGroup type="single" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-2">
       {options.map((opt) => (
         <Tag
-          text={t(`filterOptions.${filterKey}`, { tag: `${opt}` })}
+          text={t(`filterOptions.${translationKey}`, { tag: `${opt}` })}
           key={opt}
           value={opt}
           aria-label={`Toggle ${opt}`}

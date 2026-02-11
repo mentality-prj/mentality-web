@@ -9,11 +9,19 @@ import { AffirmationEntity, ExerciseEntity, FavoriteEntity, LocalFavorite, TipEn
  * Ensures the item field contains the actual entity (AffirmationEntity | TipEntity | ExerciseEntity).
  */
 export function mapFavoriteToLocal(fav: FavoriteEntity): LocalFavorite {
-  const itemData = (fav.item as Record<string, unknown>) ?? {}
+  const itemData = (fav.item as Record<string, unknown> | null) ?? null
   const typeRaw = String(fav.itemType ?? '')
   const typeSingular = typeRaw.replace(/s$/, '')
 
-  let typedItem: AffirmationEntity | TipEntity | ExerciseEntity
+  if (!itemData) {
+    logger.warn('mapFavoriteToLocal: missing item payload', { favoriteId: fav.id, type: fav.itemType })
+    return {
+      ...fav,
+      item: null,
+    }
+  }
+
+  let typedItem: AffirmationEntity | TipEntity | ExerciseEntity | null = null
 
   try {
     if (typeSingular === 'exercise') {
@@ -47,8 +55,10 @@ export function mapFavoriteToLocal(fav: FavoriteEntity): LocalFavorite {
     } else {
       logger.error('mapFavoriteToLocal: failed to map item', { error: String(e) })
     }
-    // Fallback: return raw data as affirmation
-    typedItem = itemData as AffirmationEntity
+    return {
+      ...fav,
+      item: null,
+    }
   }
 
   return {

@@ -25,6 +25,7 @@ interface ClickableTagProps extends BaseTagProps {
 }
 
 interface RemovableTagProps extends BaseTagProps {
+  text: string
   onRemove: (text: string) => void
   onClick?: never
   value?: never
@@ -81,14 +82,16 @@ export const Tag = ({ children, text, type = 'tag', className, ...props }: TagPr
 
   // When used with remove functionality
   if ('onRemove' in props && props.onRemove) {
+    const rawRemovalText = text ?? (typeof content === 'string' ? content : '')
+    const removalText = (typeof rawRemovalText === 'string' ? rawRemovalText.trim() : '') || 'tag'
     return (
       <span className={cn('inline-flex items-center gap-1', base, className)}>
         <span>{content}</span>
         <button
           type="button"
-          aria-label={`remove-${text}`}
+          aria-label={removalText ? `remove-${removalText}` : 'remove-tag'}
           title="Remove"
-          onClick={() => props.onRemove(text || '')}
+          onClick={() => props.onRemove(removalText)}
           className="icon-tool-text -mr-1 p-0"
         >
           <X size={12} />
