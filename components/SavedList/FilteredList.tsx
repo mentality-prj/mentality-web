@@ -25,14 +25,16 @@ function normalizePluralType(f: FavoriteEntity): ItemType {
 export const FilteredList = ({ items }: Props) => {
   const { filters } = useSavedFilters()
   const SortOrder = filters.order
-  const filter = filters.tags
+  const filter = filters.categories
 
   const getSortedItems = () => {
     let result = items
     if (filter) {
       result = result.filter((fav) => {
-        const raw = (fav.itemType || (fav.item && (fav.item as Record<string, unknown>).type) || '').toString()
-        const type = raw.replace(/s$/, '')
+        const itemData = fav.item as Record<string, unknown>
+        const raw = (fav.itemType || '').toString()
+        // For exercises, check category field; for others, remove 's' from type
+        const type = itemData?.category ? String(itemData.category) : raw.replace(/s$/, '')
         return type === filter
       })
     }

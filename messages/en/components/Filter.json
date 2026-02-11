@@ -1,11 +1,13 @@
 {
   "title": "Filters",
   "by_tags": "By tags",
+  "by_categories": "By category",
   "by_week": "By week days",
   "by_stressLevel": "By stress level",
   "by_moodLevel": "By mood",
   "filterOptions": {
-    "tags": "{tag, select, affirmation {Affirmation} tip {Tip} veryBad {Very bad} bad {Bad} neutral {Neutral} good {Good} great {Great} absent {Absent} low {Low} medium {Medium} high {High} veryHigh {Very high} weekDays {Weekdays} weekends {Weekends} other {}}"
+    "tags": "{tag, select, affirmation {Affirmation} tip {Tip} veryBad {Very bad} bad {Bad} neutral {Neutral} good {Good} great {Great} absent {Absent} low {Low} medium {Medium} high {High} veryHigh {Very high} weekDays {Weekdays} weekends {Weekends} other {}}",
+    "categories": "{tag, select, affirmation {Affirmation} tip {Tip} breathing {Breathing} calming {Calming} meditation {Meditation} other {}}"
   },
   "clear": "Clear",
   "showFilters": "Show filters",

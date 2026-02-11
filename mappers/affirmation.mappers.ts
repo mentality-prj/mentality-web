@@ -19,7 +19,9 @@ export function mapAffirmation(input: unknown): AffirmationEntity | null {
   if (!id) return null
 
   const translationsRaw = obj.translations ?? {}
-  const translations: AffirmationEntity['translations'] = {} as any
+  const translations: AffirmationEntity['translations'] = Object.fromEntries(
+    supportedLanguages.map((lang) => [lang, ''])
+  ) as AffirmationEntity['translations']
 
   for (const lang of supportedLanguages) {
     const v = (translationsRaw as Record<string, unknown>)[lang as SupportedLanguage] ?? ''

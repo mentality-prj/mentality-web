@@ -2,9 +2,9 @@ import { AudioLines } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
 import { MoodMarksData, MOODS_MAP } from '@/constants/moods'
+import { Tag } from '@/ds/components/Tag'
 
 import Card from '../../Cards/Card'
-import { Tag } from '../../Tag/Tag'
 
 import { SummaryCard } from './SummaryCard'
 

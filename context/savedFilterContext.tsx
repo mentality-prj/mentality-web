@@ -8,7 +8,7 @@ type FilterValue<K extends keyof typeof filterOptions> = '' | (typeof filterOpti
 
 export type SavedFilters = {
   order: SortOrder
-  tags: FilterValue<'tags'>
+  categories: FilterValue<'categories'>
 }
 
 export const { Provider: SavedFilterProvider, useFilters: useSavedFilters } = createFilterContext<SavedFilters>()

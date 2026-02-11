@@ -1,24 +1,29 @@
-import { ReactNode } from 'react'
+import { ComponentType, ReactNode } from 'react'
 
 import { SORT_ORDER } from '@/types/sort'
 
-import { AffirmationsFilterProvider } from './affirmationsFilterContext'
 import { SavedFilterProvider } from './savedFilterContext'
 
-// TODO: add types so that it works when contexts have different types
+type ProviderConfig<TProps = unknown> = {
+  Component: ComponentType<TProps & { children: ReactNode }>
+  props: TProps
+}
+
+/**
+ * Helper function to create type-safe provider configurations.
+ * Ensures that props match the Component's expected prop types.
+ */
+function createProviderConfig<TProps>(
+  Component: ComponentType<TProps & { children: ReactNode }>,
+  props: TProps
+): ProviderConfig<TProps> {
+  return { Component, props }
+}
+
 const providers = [
-  {
-    Component: AffirmationsFilterProvider,
-    props: {
-      initial: { order: SORT_ORDER.NEWEST, tags: '' } as const,
-    },
-  },
-  {
-    Component: SavedFilterProvider,
-    props: {
-      initial: { order: SORT_ORDER.NEWEST, tags: '' } as const,
-    },
-  },
+  createProviderConfig(SavedFilterProvider, {
+    initial: { order: SORT_ORDER.NEWEST, categories: '' as const },
+  }),
 ] as const
 
 export const ContextProvider = ({ children }: { children: ReactNode }) =>

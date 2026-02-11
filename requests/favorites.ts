@@ -3,7 +3,7 @@ import { logger } from '@/lib/logger'
 import { mapAffirmation } from '@/mappers/affirmation.mappers'
 import { mapExercise } from '@/mappers/exercise.mappers'
 import { mapTip } from '@/mappers/tip.mappers'
-import { FavoriteEntity, FavoriteItemType } from '@/types/api-responses'
+import { FavoriteEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { ItemType, plural } from '@/types/itemTypes'
 
