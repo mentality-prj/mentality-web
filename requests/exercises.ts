@@ -7,7 +7,7 @@ import { SupportedLanguage } from '@/types/languages'
 import { Roles } from '@/types/security'
 
 import { APIUrl } from './config'
-import { performAdminRequest } from './genericFetch'
+import { performAdminRequest, performAuthRequest } from './genericFetch'
 
 type ApiResult<T> = { data?: T; error?: string }
 
@@ -58,9 +58,6 @@ export async function addExercise(
 }
 
 export async function getExercises(session: CustomSession | null): Promise<ApiResult<ExerciseEntity[]>> {
-  const check = checkAdmin(session, 'get exercise')
-  if (check) return check
-
   const { data, error } = await apiRequestWithAuth<ExerciseEntity[]>(session, `${APIUrl}/exercises`, {
     method: 'GET',
   })
@@ -239,4 +236,13 @@ export async function fetchExercisesItems(
   }
 
   return { items }
+}
+
+export async function getExerciseById(session: CustomSession | null, id: string): Promise<ApiResult<ExerciseEntity>> {
+  const res = await performAuthRequest<ExerciseEntity>(session, `${APIUrl}/exercises/${id}`, { method: 'GET' })
+  if ('error' in res) {
+    logger.error('Failed to get exercise by id', { error: res.error, id })
+    return { error: res.error }
+  }
+  return { data: res.data }
 }
