@@ -16,6 +16,7 @@ export const OtherMeditations = async ({ currentMeditationId }: Params) => {
   const session = await auth()
   const t = await getTranslations('pages.Meditation')
   const { items } = await fetchExercisesItems(session)
+
   const meditations: ExerciseEntity[] = items
     .filter((i) => i.category === 'meditation')
     .filter((m) => m.id !== currentMeditationId)

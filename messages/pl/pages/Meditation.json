@@ -1,7 +1,8 @@
 {
   "descriptionTitle": "Opis techniki",
-  "notExist": "Taka meditacja nie istnieje",
-  "backToMeditations": "Wróć do meditacji",
-  "otherMeditations": "Inne meditacje",
-  "linkText": "Dowiedz się więcej"
+  "notExist": "Taka medytacja nie istnieje",
+  "backToMeditations": "Wróć do medytacji",
+  "otherMeditations": "Inne medytacje",
+  "linkText": "Dowiedz się więcej",
+  "somethingWentWrong": "Coś poszło nie tak"
 }

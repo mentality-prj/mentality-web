@@ -30,7 +30,7 @@ export default function MeditationCard({ item, tools, className = '' }: Props) {
       text={annotation}
       tools={tools}
     >
-      <Link className="underline" href={`/meditations/${item.id}`}>
+      <Link className="underline" href={`/guide/meditations/${item.id}`}>
         {t('linkText')}
       </Link>
     </Card>

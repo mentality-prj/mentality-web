@@ -12,7 +12,7 @@ export const StyledDescription = ({ text }: Props) => {
     <ul className="list-inside list-disc space-y-2 text-base leading-relaxed">
       {items.map((item, index) => (
         <li key={index} className="text-base leading-relaxed">
-          {item}.
+          {item.endsWith('.') ? item : item + '.'}
         </li>
       ))}
     </ul>
