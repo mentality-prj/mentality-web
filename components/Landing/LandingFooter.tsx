@@ -1,23 +1,17 @@
-import { ArrowUp } from 'lucide-react'
+import { ArrowUp, Linkedin } from 'lucide-react'
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 
 export async function LandingFooter({ type, className }: { type?: 'small' | 'default'; className?: string }) {
   const t = await getTranslations('pages.Landing')
 
-  //temporarily commented out until we have the actual social media links and icons to use
-  // const socialLinks = [
-  //   {
-  //     name: 'Facebook',
-  //     href: 'https://www.facebook.com/',
-  //     icon: <Facebook className="icon" size={24} />,
-  //   },
-  //   {
-  //     name: 'Instagram',
-  //     href: 'https://www.instagram.com/',
-  //     icon: <Instagram className="icon" size={24} />,
-  //   },
-  // ] as const
+  const socialLinks = [
+    {
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/company/dzvin-co/',
+      icon: <Linkedin className="icon" size={24} />,
+    },
+  ] as const
 
   const gradientStyle = {
     backgroundImage:
@@ -38,8 +32,7 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
       style={background}
     >
       <div className="container-max-width mx-auto flex flex-col items-center gap-default md:flex-row md:items-center md:justify-between">
-        {/* temporarily commented out until we have the actual social media links and icons to use
-         <nav aria-label="Social media">
+        <nav aria-label="Social media">
           <ul className="flex items-center gap-1">
             {socialLinks.map(({ name, href, icon: Icon }) => (
               <li key={name}>
@@ -55,7 +48,7 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
               </li>
             ))}
           </ul>
-        </nav> */}
+        </nav>
         <div className="light-shadow text-center text-sm">{t('Footer.copyright')}</div>
         <Link
           href="#"
