@@ -1,10 +1,12 @@
 {
   "mood-tracker": "Tracker nastroju",
   "guide": "Poradnik",
-  "my-notes": "Moje notatki",
+  "my-space": "Moja przestrzeń",
+  "diary": "Pamiętnik",
   "my-progress": "Mój postęp",
   "affirmations": "Afirmacje",
   "tags": "Tagi",
   "tips": "Porady",
-  "exercises": "Ćwiczenia"
+  "exercises": "Ćwiczenia",
+  "psychological-tests": "Testy psychologiczne"
 }
