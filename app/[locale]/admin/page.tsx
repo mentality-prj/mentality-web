@@ -1,6 +1,7 @@
 'use client'
 import { Calendar } from 'lucide-react'
 
+import ButtonShowcase from '@/components/Admin/ButtonShowcase'
 import { DeleteIcon, EditIcon } from '@/components/Cards'
 import Card from '@/components/Cards/Card'
 import CardStack from '@/components/Cards/CardStack'
@@ -15,6 +16,8 @@ export default function AdminPage() {
 
   return (
     <>
+      <ButtonShowcase />
+
       <div className="mb-8 grid grid-cols-5 gap-default">
         <Card
           icon={<Calendar size={12} />}

@@ -60,7 +60,7 @@ export function HowItWorksSection() {
       <div className="container-max-width mx-auto grid grid-cols-1 gap-10 px-4 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
         <div className="rounded-[40px] bg-background-muted p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>{' '}
-          <ol className="mt-6 flex flex-col gap-5">{howItWorksSteps}</ol>
+          <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
           <div className="mt-8">
             <Button asChild variant="volume" size="large">
               <Link href={Routes.SIGNIN}>{t(stepsSectionConfig.ctaKey)}</Link>
