@@ -15,7 +15,6 @@ import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
 import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
 import MoodMarks from './MoodMarks.json'
-import MySpaceCards from './MySpaceCards.json'
 import Navbar from './Navbar.json'
 import Navigation from './Navigation.json'
 import PersonalGoals from './PersonalGoals.json'
@@ -44,7 +43,6 @@ export const components = {
   MoodMarks,
   LastTenDaysMoodRecords,
   Mood,
-  MySpaceCards,
   Navbar,
   Navigation,
   PersonalGoals,

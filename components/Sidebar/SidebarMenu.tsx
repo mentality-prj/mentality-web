@@ -2,9 +2,11 @@
 import { ReactNode } from 'react'
 import {
   ActivityIcon,
+  Bookmark,
   BookOpenCheckIcon,
   Brain,
   ChartNoAxesCombined,
+  FileQuestionMark,
   Flower,
   Lightbulb,
   NotebookPenIcon,
@@ -25,6 +27,8 @@ const iconMap: Record<string, ReactNode> = {
   notebookPen: <NotebookPenIcon className="h-5 w-5" size={12} />,
   tag: <Tag className="h-5 w-5" size={12} />,
   flower: <Flower className="h-5 w-5" size={12} />,
+  test: <FileQuestionMark className="h-5 w-5" size={12} />,
+  bookmark: <Bookmark className="h-5 w-5" size={12} />,
 }
 
 export default function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType[]; type?: SidebarMenuType }) {

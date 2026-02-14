@@ -1,10 +1,12 @@
 {
   "mood-tracker": "Mood tracker",
   "guide": "Guide",
-  "my-notes": "My notes",
+  "my-space": "My space",
+  "diary": "Diary",
   "my-progress": "My progress",
   "affirmations": "Affirmations",
   "tags": "Tags",
   "tips": "Tips",
-  "exercises": "Exercises"
+  "exercises": "Exercises",
+  "psychological-tests": "Psychological tests"
 }

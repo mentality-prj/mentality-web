@@ -50,14 +50,16 @@ export const adminSidebarMenu: SidebarMenuItemType[] = [
 
 export const userSidebarMenu: SidebarMenuItemType[] = [
   { key: 'affirmations', href: Routes.AFFIRMATIONS, icon: 'flower' },
+  { key: 'my-space', href: Routes.MYSPACE, icon: 'bookmark' },
   {
     key: 'mood-tracker',
     href: Routes.MOODTRACKER,
     icon: 'activity',
   },
   { key: 'guide', href: Routes.GUIDE, icon: 'bookOpenCheck' },
-  { key: 'my-notes', href: Routes.MYNOTES, icon: 'notebookPen' },
+  { key: 'diary', href: Routes.DIARY, icon: 'notebookPen' },
   { key: 'my-progress', href: Routes.MYPROGRESS, icon: 'chartNoAxesCombined' },
+  { key: 'psychological-tests', href: Routes.PSYCHOLOGICALTESTS, icon: 'test' },
 ]
 
 export const guideMenu = [
