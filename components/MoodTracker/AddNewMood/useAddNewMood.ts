@@ -45,14 +45,14 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     clearSelectedTags,
   } = useTags({ availableTags })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [stressLevel, setStressLevel] = useState<number | undefined>()
+  const [stressLevel, setStressLevel] = useState<number>(0)
   const [formKey, setFormKey] = useState(0)
 
   const resetForm = () => {
     setSelectedMood(null)
     setNote('')
     clearSelectedTags()
-    setStressLevel(undefined)
+    setStressLevel(0)
     setShowAddTag(false)
     setFormKey((prev) => prev + 1)
   }
@@ -77,7 +77,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
         moodLevel: moodLevel!,
         description: note || undefined,
         tags: selectedTags.length ? selectedTags : undefined,
-        stressLevel: typeof stressLevel === 'number' ? stressLevel : undefined,
+        stressLevel: stressLevel,
         active: true,
       }
 

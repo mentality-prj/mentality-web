@@ -154,7 +154,7 @@ export type CreateMoodRecordDto = {
   moodLevel: number
   description?: string
   tags?: string[]
-  stressLevel?: number
+  stressLevel: number
   active?: boolean
 }
 
@@ -164,7 +164,7 @@ export type MoodRecordEntity = {
   moodLevel?: number
   description?: string
   tags?: string[]
-  stressLevel?: number
+  stressLevel: number
   active?: boolean
   createdAt?: string
   updatedAt?: string
