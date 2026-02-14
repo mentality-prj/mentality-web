@@ -1,4 +1,4 @@
-import { ArrowUp, Facebook, Instagram } from 'lucide-react'
+import { ArrowUp, Linkedin } from 'lucide-react'
 import Link from 'next/link'
 import { getTranslations } from 'next-intl/server'
 
@@ -7,14 +7,9 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
 
   const socialLinks = [
     {
-      name: 'Facebook',
-      href: 'https://www.facebook.com/',
-      icon: <Facebook className="icon" size={24} />,
-    },
-    {
-      name: 'Instagram',
-      href: 'https://www.instagram.com/',
-      icon: <Instagram className="icon" size={24} />,
+      name: 'LinkedIn',
+      href: 'https://www.linkedin.com/company/dzvin-co/',
+      icon: <Linkedin className="icon" size={24} />,
     },
   ] as const
 
