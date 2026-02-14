@@ -10,7 +10,7 @@ interface ClearFiltersButtonProps {
 export const ClearFiltersButton = ({ reset }: ClearFiltersButtonProps) => {
   const t = useTranslations('components.Filter')
   return (
-    <Button variant="iconButton" onClick={reset} size="small" className="pr-4">
+    <Button variant="secondary" onClick={reset} size="small" className="pr-4">
       <Eraser />
       {t('clear')}
     </Button>

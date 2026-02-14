@@ -40,7 +40,6 @@ export const Filter = <TFilters extends { order: SortOrder }>({
   useFilters,
   variant = 'default',
   customSections,
-  hideTitle = false,
   sup,
   tools: customTools,
 }: FilterProps<TFilters>) => {
@@ -98,22 +97,16 @@ export const Filter = <TFilters extends { order: SortOrder }>({
   }
 
   return (
-    <div className="border-outline-secondary flex max-h-fit flex-col gap-5 rounded-md border p-6">
-      {!hideTitle && (
-        <div className="flex justify-between">
-          <div>{t('title')}</div>
-          <ClearFiltersButton reset={reset} />
-        </div>
-      )}
-
+    <div className="flex flex-col gap-xs p-6">
+      <div className="flex justify-between">
+        <Sort
+          id="filter-sort"
+          value={sort}
+          onValueChange={(value) => setFilters((prev) => ({ ...prev, order: value }))}
+        />
+        <ClearFiltersButton reset={reset} />
+      </div>
       {filterContent}
-
-      <hr />
-      <Sort
-        id="filter-sort"
-        value={sort}
-        onValueChange={(value) => setFilters((prev) => ({ ...prev, order: value }))}
-      />
     </div>
   )
 }

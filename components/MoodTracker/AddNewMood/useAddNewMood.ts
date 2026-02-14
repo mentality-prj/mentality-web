@@ -96,6 +96,8 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     }
   }
 
+  const isFormValid = !!selectedMood
+
   return {
     selectedMood,
     setSelectedMood,
@@ -111,6 +113,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     showAddTag,
     setShowAddTag,
     isSubmitting,
+    isFormValid,
     handleSubmit,
     onTagCreated,
     formKey,

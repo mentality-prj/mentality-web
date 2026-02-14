@@ -15,7 +15,7 @@ export async function LandingHeader() {
       <div className="container-max-width mx-auto flex items-center justify-between px-4 tablet:px-6 md:px-8 lg:px-10">
         <Logo />
         <TopMenu menu={landingMenu} type={APP_VIEW_TYPE.LANDING} />
-        <div className="flex shrink-0 items-center gap-5">
+        <div className="flex shrink-0 items-center gap-sm">
           <LangSwitch type={APP_VIEW_TYPE.LANDING} />
           {user ? <AvatarMenu /> : <LoginButton title="login" />}
         </div>

@@ -43,6 +43,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
     showAddTag,
     setShowAddTag,
     isSubmitting,
+    isFormValid,
     handleSubmit,
     onTagCreated,
     formKey,
@@ -55,7 +56,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
       title={tm('title')}
       tools={tools}
       onSubmit={handleSubmit}
-      submitDisabled={isSubmitting}
+      submitDisabled={!isFormValid || isSubmitting}
       onCancel={onClose}
       submitLabel={ct('save')}
       className="p-6"
