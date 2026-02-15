@@ -65,9 +65,9 @@ export const CreatePersonalGoalForm = ({
       tools={<CloseIconButton onClick={onCancel} />}
     >
       <div className="flex flex-col gap-default">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-xs">
           <h5 className="mb-2">{weOfferLabel}</h5>
-          <div className="flex flex-wrap justify-start gap-2">
+          <div className="flex flex-wrap justify-start gap-xs">
             {suggestions.map((suggestion) => (
               <Tag
                 key={suggestion}
@@ -79,15 +79,15 @@ export const CreatePersonalGoalForm = ({
           </div>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-xs">
           {showValidationEmpty && <h5>{validationEmptyMessage}</h5>}
           <Textarea value={text} onChange={(e) => onTextChange(e.target.value)} maxLength={60} />
           <p className="remark">{textareaDescription}</p>
         </div>
 
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-xs">
           <h5>{quantityLabel}</h5>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center gap-xs">
             <Button disabled={!canDecrement} onClick={onDecrement} variant="iconTool" className="h-8 w-8">
               <MinusIcon />
             </Button>

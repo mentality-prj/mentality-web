@@ -112,14 +112,14 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
   return (
     <FormCard title={te('title')} submitLabel={te('submitLabel')} submitDisabled={isSubmitting} onSubmit={handleSubmit}>
       <div className="flex flex-col gap-4">
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col gap-xs">
           <StyledTextarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
             placeholder={ta('textareaPlaceholder')}
           />
           {selectedTags.length > 0 && (
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-xs">
               {selectedTags.map((t) => (
                 <Tag key={t} text={tagLabels[t as string] ?? t} onRemove={() => removeTag(t)} />
               ))}
@@ -130,7 +130,7 @@ export const EditNoteForm = ({ availableTags = [], idNote, onClose }: Props) => 
           <h5>{ta('addTag')}</h5>
 
           <div className="relative flex items-center justify-between">
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-2 flex flex-wrap gap-xs">
               {localAvailableTags.map((t) => (
                 <Tag key={t.key} text={tagLabels[t.key] ?? t.name ?? t.key} onClick={() => addTag(t.key)} />
               ))}

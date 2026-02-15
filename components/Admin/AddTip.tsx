@@ -102,7 +102,7 @@ export default function AddTip() {
               </Button>
             </div>
           </div>
-          <div className="mt-8 flex w-full flex-col gap-2">
+          <div className="mt-8 flex w-full flex-col gap-xs">
             <em>{t('ukrainianOnly')}</em>
             <Label htmlFor="tipPrompt">{t('promptLabel')}</Label>
             <Textarea
@@ -131,7 +131,7 @@ export default function AddTip() {
               rows={6}
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-xs">
             <Button variant="ghost" onClick={handleCancel} disabled={isSaving}>
               {tCommon('Buttons.cancel')}
             </Button>

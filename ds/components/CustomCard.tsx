@@ -20,7 +20,7 @@ const CustomCard: React.FC<CustomCardProps> = ({
         <div className="absolute -right-4 -top-4 text-textcolor-secondary [&_svg]:size-[108px]">{backgroundIcon}</div>
       )}
       <div className="flex flex-row items-center justify-between">
-        <div className="flex flex-row items-center gap-2 text-base font-normal leading-[120%] text-[var(--title-color)]">
+        <div className="flex flex-row items-center gap-xs text-base font-normal leading-[120%] text-[var(--title-color)]">
           {icon && <div className="h-6 w-6 [&>svg]:h-6 [&>svg]:w-6">{icon}</div>}
           {title}
           {date && <span className="ml-2 text-xs text-gray-500">{date}</span>}

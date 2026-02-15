@@ -45,7 +45,7 @@ const TabsList = React.forwardRef<React.ElementRef<typeof TabsPrimitive.List>, T
       <TabsPrimitive.List
         ref={ref}
         className={cn(
-          `${variant === 'grey' ? 'rounded-md bg-background-muted p-2' : ''} text-muted-foreground flex w-full items-center justify-start gap-2`,
+          `${variant === 'grey' ? 'rounded-md bg-background-muted p-2' : ''} text-muted-foreground flex w-full items-center justify-start gap-xs`,
           className
         )}
         {...props}

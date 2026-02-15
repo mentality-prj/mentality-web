@@ -62,7 +62,7 @@ export default function AddNewTag({ onClose, onCreated }: Props) {
         <div>
           <Input id="tag-name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>
-        <div className="flex gap-2">
+        <div className="flex gap-xs">
           <Button type="button" variant="secondary" size="medium" onClick={onClose} className="flex-1">
             {t('addNewTag.cancel')}
           </Button>

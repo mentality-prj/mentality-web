@@ -12,7 +12,7 @@ interface MoodSummaryCardProps {
   counts?: { mood: string; count: number }[]
 }
 
-const MoodSummaryCard = async ({ title = '', subtitle, counts = [] }: MoodSummaryCardProps) => {
+export const MoodSummaryCard = async ({ title = '', subtitle, counts = [] }: MoodSummaryCardProps) => {
   const session = await auth()
   const res = await fetchUserTagsCached(session)
 
@@ -25,5 +25,3 @@ const MoodSummaryCard = async ({ title = '', subtitle, counts = [] }: MoodSummar
 
   return <MoodSummaryCardClient title={title} subtitle={subtitle} counts={counts} availableTags={tags} />
 }
-
-export default MoodSummaryCard

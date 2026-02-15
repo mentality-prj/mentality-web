@@ -25,7 +25,7 @@ export default function Question({ data, index, type, selectedValue, onChange, c
             onValueChange={(value) => onChange?.(Number(value))}
           >
             {data.options.map((opt, i) => (
-              <div key={i} className="flex items-center gap-2">
+              <div key={i} className="flex items-center gap-xs">
                 <RadioGroupItem value={String(opt.value)} id={`question-${index}-option-${opt.value}`} />
                 <Label htmlFor={`question-${index}-option-${opt.value}`}>{opt.text}</Label>
               </div>

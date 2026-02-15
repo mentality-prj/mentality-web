@@ -12,7 +12,7 @@ export function UserTagsFilterGroup({
   onChange: (v: string) => void
 }) {
   return (
-    <ToggleGroup type="single" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-2">
+    <ToggleGroup type="single" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-xs">
       {tags.map((tag) => (
         <Tag text={tag.name || tag.key} key={tag.key} value={tag.key} aria-label={`Toggle ${tag.name || tag.key}`} />
       ))}

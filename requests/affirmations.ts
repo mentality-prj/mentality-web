@@ -66,7 +66,6 @@ export async function getAffirmations(
 ): Promise<{ data: PaginatedAffirmations } | { error: string }> {
   const url = `${APIUrl}/affirmations?page=${page}&limit=${limit}`
 
-  // This endpoint requires authentication: do not allow public access
   if (!session || !session.user) {
     logger.warn('Unauthorized attempt to get affirmations (no session)')
     return { error: 'Unauthorized: authentication required' }

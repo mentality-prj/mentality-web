@@ -9,5 +9,8 @@
     "activity": "Twoja aktywność"
   },
   "greeting": "Cześć! Świetnie Cię tutaj widzieć",
-  "greetingText": "Jak się dzisiaj czujesz?"
+  "greetingText": "Jak się dzisiaj czujesz?",
+  "showMyAffirmation": "Pokaż moją afirmację",
+  "showAnother": "Pokaż inną",
+  "affirmationEncouragement": "Każda afirmacja to mały krok ku pozytywnym zmianom"
 }

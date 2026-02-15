@@ -157,14 +157,14 @@ export default function AddExerciseForm({ tags = [], editing = null, onSaved }: 
       <div className="mb-4">
         <label className="block text-sm">{t('fields.tags.label')}</label>
         {selectedTags.length > 0 && (
-          <div className="mt-2 flex flex-wrap gap-2">
+          <div className="mt-2 flex flex-wrap gap-xs">
             {selectedTags.map((tg) => (
               <Tag key={tg} text={getTagLabel(tg)} onRemove={() => removeTag(tg)} />
             ))}
           </div>
         )}
 
-        <div className="mt-2 flex flex-wrap gap-2">
+        <div className="mt-2 flex flex-wrap gap-xs">
           {tags.map((tg) => {
             const tagId = tg.id ?? tg.key
             return <Tag key={tagId} text={getTagLabel(tagId)} onClick={() => addTag(tagId)} />
@@ -172,7 +172,7 @@ export default function AddExerciseForm({ tags = [], editing = null, onSaved }: 
         </div>
       </div>
 
-      <div className="flex gap-2">
+      <div className="flex gap-xs">
         {editing && (
           <Button variant="ghost" onClick={handleCancel} disabled={isSaving}>
             {t('buttonCancel')}

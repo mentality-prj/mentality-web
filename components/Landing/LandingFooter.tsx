@@ -52,7 +52,7 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
         <div className="light-shadow text-center text-sm">{t('Footer.copyright')}</div>
         <Link
           href="#"
-          className="light-shadow inline-flex items-center justify-center gap-2 rounded-full border border-[var(--outline-secondary)] px-6 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--text-muted)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+          className="light-shadow inline-flex items-center justify-center gap-xs rounded-full border border-[var(--outline-secondary)] px-6 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--text-muted)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
         >
           {t('Footer.backToTop')}
           <ArrowUp className="h-4 w-4" />

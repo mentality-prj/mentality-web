@@ -417,7 +417,7 @@ body {
   }
 
   .inner-menu-item {
-    @apply flex items-center gap-2 px-5 py-4 text-textcolor-secondary hover:bg-background-muted hover:text-textcolor-state;
+    @apply flex items-center gap-xs px-5 py-4 text-textcolor-secondary hover:bg-background-muted hover:text-textcolor-state;
   }
   .inner-menu-item.active {
     @apply bg-accent-soft text-accent-foreground hover:bg-accent-soft hover:text-accent-foreground;

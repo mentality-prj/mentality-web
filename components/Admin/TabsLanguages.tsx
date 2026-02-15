@@ -9,7 +9,7 @@ export default function TabsLanguages({ activeLang, onLangChange }: TabsLanguage
   return (
     <>
       <Tabs value={activeLang} onValueChange={(v) => onLangChange(v as SupportedLanguage)}>
-        <TabsList className="gap-2">
+        <TabsList className="gap-xs">
           {supportedLanguages.map((l) => (
             <TabsTrigger key={l} value={l}>
               {LocaleNativeLabels[l as SupportedLanguage]}

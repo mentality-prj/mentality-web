@@ -103,7 +103,7 @@ export default function AddAffirmation() {
               </Button>
             </div>
           </div>
-          <div className="mt-8 flex w-full flex-col gap-2">
+          <div className="mt-8 flex w-full flex-col gap-xs">
             <Label htmlFor="affirmationPrompt">
               <em>{t('ukrainianOnly')}</em>
             </Label>
@@ -133,7 +133,7 @@ export default function AddAffirmation() {
               rows={6}
             />
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-xs">
             <Button variant="ghost" onClick={handleCancel} disabled={isSaving}>
               {tCommon('Buttons.cancel')}
             </Button>
