@@ -84,6 +84,31 @@ export async function getAffirmations(
   return { data: { items, total } }
 }
 
+export async function getRandomAffirmation(
+  session: CustomSession | null
+): Promise<{ data: AffirmationEntity } | { error: string }> {
+  const url = `${APIUrl}/affirmations/random`
+
+  if (!session || !session.user) {
+    logger.warn('Unauthorized attempt to get random affirmation (no session)')
+    return { error: 'Unauthorized: authentication required' }
+  }
+
+  const res = await performAuthRequest<AffirmationEntity>(session, url, { method: 'GET' })
+
+  if ('error' in res) {
+    logger.error('Failed to get random affirmation', { error: res.error })
+    return { error: res.error }
+  }
+
+  if (!res.data) {
+    logger.warn('No random affirmation returned')
+    return { error: 'No affirmation available' }
+  }
+
+  return { data: res.data }
+}
+
 export async function publishAffirmation(session: CustomSession | null, id: string) {
   if (!session?.user || session.user.role !== Roles.ADMIN) {
     logger.warn('Unauthorized attempt to publish affirmation', {

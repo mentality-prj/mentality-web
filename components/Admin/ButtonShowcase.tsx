@@ -1,18 +1,21 @@
 'use client'
 
 import { Heart, Mail, Plus, Settings, Trash2 } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/ds/shadcn/button'
 
 export function ButtonShowcase() {
+  const t = useTranslations('components.Admin.ButtonShowcase')
+
   return (
     <div className="mb-8 rounded-2xl bg-white p-6 shadow-sm">
-      <h2 className="mb-6 text-2xl font-bold">Button Variants Showcase</h2>
+      <h2 className="mb-6 text-2xl font-bold">{t('title')}</h2>
 
       <div className="space-y-8">
         {/* Standard buttons with text */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Standard Variants</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.standard')}</h3>
           <div className="flex flex-wrap gap-4">
             <div className="flex flex-col gap-xs">
               <Button variant="default">Default</Button>
@@ -35,7 +38,7 @@ export function ButtonShowcase() {
 
         {/* Text-based buttons */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Text-based Variants</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.textBased')}</h3>
           <div className="flex flex-wrap gap-4">
             <div className="flex flex-col gap-xs">
               <Button variant="textIconButton">
@@ -57,7 +60,7 @@ export function ButtonShowcase() {
 
         {/* Icon buttons */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Icon Variants</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.icon')}</h3>
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex flex-col items-center gap-xs">
               <Button variant="iconButton" size="iconButton">
@@ -88,7 +91,7 @@ export function ButtonShowcase() {
 
         {/* Special variants */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Special Variants</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.special')}</h3>
           <div className="flex flex-wrap gap-4">
             <div className="flex flex-col gap-xs">
               <Button variant="volume">Volume Button</Button>
@@ -106,7 +109,7 @@ export function ButtonShowcase() {
 
         {/* Sizes */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Sizes</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.sizes')}</h3>
           <div className="flex flex-wrap items-end gap-4">
             <div className="flex flex-col gap-xs">
               <Button size="small">Small</Button>
@@ -129,7 +132,7 @@ export function ButtonShowcase() {
 
         {/* Disabled states */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Disabled States</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.disabled')}</h3>
           <div className="flex flex-wrap gap-4">
             <div className="flex flex-col gap-xs">
               <Button variant="default" disabled>

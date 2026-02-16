@@ -7,34 +7,53 @@ import { useTranslations } from 'next-intl'
 import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
 import { AffirmationEntity } from '@/types/api-responses'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
+import { saveAffirmation } from '@/utils/dailyAffirmation'
 
 import { Button } from '../../ds/shadcn/button'
 
 import AffirmationCard from './AffirmationCard'
 
 interface Props {
-  affirmations: AffirmationEntity[]
+  randomAffirmation: AffirmationEntity
+  onLoadNewAffirmation: () => Promise<AffirmationEntity | null>
+  initialShowState: boolean
 }
 
-export function DailyAffirmationRandomClient({ affirmations }: Props) {
+export function DailyAffirmationRandomClient({ randomAffirmation, onLoadNewAffirmation, initialShowState }: Props) {
   const t = useTranslations('components.DailyCard')
-  const [showAffirmation, setShowAffirmation] = useState(false)
-  const [currentIndex, setCurrentIndex] = useState(() => Math.floor(Math.random() * affirmations.length))
+  const [showAffirmation, setShowAffirmation] = useState(initialShowState)
+  const [currentAffirmation, setCurrentAffirmation] = useState<AffirmationEntity>(randomAffirmation)
+  const [isUsedToday, setIsUsedToday] = useState(initialShowState)
+  const [isLoading, setIsLoading] = useState(false)
 
-  if (!affirmations || affirmations.length === 0) return null
+  const handleShowAffirmation = async () => {
+    if (isUsedToday) return
 
-  const currentAffirmation = affirmations[currentIndex as number]
-
-  const handleShowNext = () => {
-    const newIndex = Math.floor(Math.random() * affirmations.length)
-    setCurrentIndex(newIndex)
-    setShowAffirmation(true)
+    setIsLoading(true)
+    try {
+      const newAffirmation = await onLoadNewAffirmation()
+      if (newAffirmation) {
+        setCurrentAffirmation(newAffirmation)
+        saveAffirmation(newAffirmation)
+        setShowAffirmation(true)
+        setIsUsedToday(true)
+      }
+    } catch (error) {
+      console.error('Failed to load affirmation:', error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   if (!showAffirmation) {
     return (
       <div className="flex flex-col items-start gap-default">
-        <Button variant="volume" onClick={handleShowNext} className="w-full whitespace-nowrap">
+        <Button
+          variant="volume"
+          onClick={handleShowAffirmation}
+          className="w-full whitespace-nowrap"
+          disabled={isLoading || isUsedToday}
+        >
           <Sparkles />
           {t('showMyAffirmation')}
         </Button>

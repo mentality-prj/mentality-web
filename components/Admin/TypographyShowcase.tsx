@@ -1,14 +1,18 @@
+import { useTranslations } from 'next-intl'
+
 import { Link } from '@/i18n/navigation'
 
 export function TypographyShowcase() {
+  const t = useTranslations('components.Admin.TypographyShowcase')
+
   return (
     <div className="mb-8 rounded-2xl bg-white p-6 shadow-sm">
-      <h2 className="mb-6 text-2xl font-bold">Typography & Font Colors</h2>
+      <h2 className="mb-6 text-2xl font-bold">{t('title')}</h2>
 
       <div className="space-y-8">
         {/* Headings */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Headings</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.headings')}</h3>
           <div className="space-y-3">
             <div>
               <span className="text-muted text-xs">h1: </span>
@@ -39,7 +43,7 @@ export function TypographyShowcase() {
 
         {/* Landing Page Headings */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Landing Page Headings</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.landingHeadings')}</h3>
           <div className="space-y-3">
             <div>
               <span className="text-muted text-xs">landing-h1: </span>
@@ -58,7 +62,7 @@ export function TypographyShowcase() {
 
         {/* Text Color Classes */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Text Color Classes</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.textColors')}</h3>
           <div className="space-y-2">
             <div className="text-title">text-title - hsl(var(--title-color)) #3d4e5c</div>
             <div className="text-title-light">text-title-light - hsl(var(--title-color-light)) #5d7a91</div>
@@ -74,19 +78,19 @@ export function TypographyShowcase() {
 
         {/* Text Utilities */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Text Utilities</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.utilities')}</h3>
           <div className="space-y-2">
             <div className="sup">sup - text-xs with muted color</div>
             <div className="remark">remark - text-sm font-normal with text-remark</div>
-            <Link href="#" className="defalt-link">
-              defalt-link - text-sm font-medium underline
+            <Link href="#" className="default-link">
+              default-link - text-sm font-medium underline
             </Link>
           </div>
         </section>
 
         {/* Font Families */}
         <section>
-          <h3 className="mb-4 text-lg font-semibold text-primary">Font Families</h3>
+          <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.fontFamilies')}</h3>
           <div className="space-y-2">
             <div className="font-logo text-2xl">font-logo - Pacifico (for brand/logo)</div>
             <div style={{ fontFamily: 'Inter, sans-serif' }}>Default - Inter, sans-serif</div>

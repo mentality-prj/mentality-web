@@ -135,5 +135,26 @@
       "unpublished": "Unpublished",
       "corrected": "Corrected"
     }
+  },
+  "ButtonShowcase": {
+    "title": "Button Variants Showcase",
+    "sections": {
+      "standard": "Standard Variants",
+      "textBased": "Text-based Variants",
+      "icon": "Icon Variants",
+      "special": "Special Variants",
+      "sizes": "Sizes",
+      "disabled": "Disabled States"
+    }
+  },
+  "TypographyShowcase": {
+    "title": "Typography & Font Colors",
+    "sections": {
+      "headings": "Headings",
+      "landingHeadings": "Landing Page Headings",
+      "textColors": "Text Color Classes",
+      "utilities": "Text Utilities",
+      "fontFamilies": "Font Families"
+    }
   }
 }
