@@ -15,6 +15,7 @@ const interactiveStates = {
 const focusRing = {
   primary: 'focus-visible:ring-primary-focus focus-visible:ring-offset-4',
   primarySmall: 'focus-visible:ring-primary-focus focus-visible:ring-offset-1',
+  iconButton: 'focus-visible:ring-primary-focus focus-visible:ring-offset-0',
   destructive: 'focus-visible:ring-destructive-focus focus-visible:ring-offset-4',
 }
 
@@ -38,7 +39,7 @@ const textButtonStyles = `px-3 rounded-sm bg-transparent text-primary ${interact
 
 const linkButtonStyles = `px-2 bg-transparent text-textcolor-primary ${interactiveStates.textPrimary} ${focusRing.primarySmall} underline [text-underline-offset:3px] decoration-1`
 
-const iconButtonStyles = `bg-transparent text-iconcolor-primary hover:opacity-75 focus-visible:ring-offset-0 ${interactiveStates.secondary} ${focusRing.primary} ${disabledStates.solid} rounded-full`
+const iconButtonStyles = `bg-transparent text-iconcolor-primary hover:opacity-75 ${interactiveStates.secondary} ${focusRing.iconButton} ${disabledStates.solid} rounded-full`
 
 const volumeButtonStyles = `px-6 py-4 bg-primary text-primary-foreground ${interactiveStates.primary} ${focusRing.primary} shadow-md [background-image:linear-gradient(45deg,rgba(31,210,192,0)_60%,rgba(31,210,192,0.5)_80%,rgba(255,255,255,0.5)_100%)] [box-shadow:inset_0px_2px_4px_rgba(255,255,255,0.3)] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale] disabled:[background-image:none]`
 
@@ -70,7 +71,7 @@ const buttonVariants = cva(
         // Text button sizes
         default: 'h-10 text-base gap-1 [&_svg]:h-6',
         base: 'h-10 text-sm gap-1 [&_svg]:h-4',
-        large: 'h-14 px-6 text-lg gap-2 [&_svg]:h-6',
+        large: 'h-14 px-6 text-lg gap-xs [&_svg]:h-6',
         medium: 'h-10 px-4 text-sm gap-1 [&_svg]:h-5',
         small: 'h-8 px-2 text-xs gap-1 [&_svg]:h-4',
 

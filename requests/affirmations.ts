@@ -66,7 +66,6 @@ export async function getAffirmations(
 ): Promise<{ data: PaginatedAffirmations } | { error: string }> {
   const url = `${APIUrl}/affirmations?page=${page}&limit=${limit}`
 
-  // This endpoint requires authentication: do not allow public access
   if (!session || !session.user) {
     logger.warn('Unauthorized attempt to get affirmations (no session)')
     return { error: 'Unauthorized: authentication required' }
@@ -83,6 +82,31 @@ export async function getAffirmations(
   const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
   const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
   return { data: { items, total } }
+}
+
+export async function getRandomAffirmation(
+  session: CustomSession | null
+): Promise<{ data: AffirmationEntity } | { error: string }> {
+  const url = `${APIUrl}/affirmations/random`
+
+  if (!session || !session.user) {
+    logger.warn('Unauthorized attempt to get random affirmation (no session)')
+    return { error: 'Unauthorized: authentication required' }
+  }
+
+  const res = await performAuthRequest<AffirmationEntity>(session, url, { method: 'GET' })
+
+  if ('error' in res) {
+    logger.error('Failed to get random affirmation', { error: res.error })
+    return { error: res.error }
+  }
+
+  if (!res.data) {
+    logger.warn('No random affirmation returned')
+    return { error: 'No affirmation available' }
+  }
+
+  return { data: res.data }
 }
 
 export async function publishAffirmation(session: CustomSession | null, id: string) {

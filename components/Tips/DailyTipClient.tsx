@@ -10,7 +10,7 @@ import { Statuses } from '@/types/status.types'
 
 import FavoriteButtonWrapper from '../Buttons/FavoriteButtonWrapper'
 
-const DailyTipClient = async () => {
+export const DailyTipClient = async () => {
   const session = await auth()
   const locale = await getLocale()
 
@@ -29,5 +29,3 @@ const DailyTipClient = async () => {
     </Card>
   )
 }
-
-export default DailyTipClient

@@ -1,7 +1,7 @@
 import { SidebarMenuType } from '../constants/menu'
 
 export const getMenuItemClass = (active: boolean, type: SidebarMenuType) => {
-  const base = 'flex items-center gap-2 border border-transparent px-4 py-4 font-normal transition-colors'
+  const base = 'flex items-center gap-xs border border-transparent px-4 py-4 font-normal transition-colors'
   const isAdmin = type === 'admin'
 
   const activePart = isAdmin

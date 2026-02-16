@@ -11,9 +11,10 @@ interface Props {
   item: AffirmationEntity
   tools?: ReactNode
   className?: string
+  hideDate?: boolean
 }
 
-export default function AffirmationCard({ item, tools, className = '' }: Props) {
+export default function AffirmationCard({ item, tools, className = '', hideDate = false }: Props) {
   const text = item.translations?.uk || item.translations?.en || item.translations?.pl || ''
   const imageUrl = item.imageUrl
   const currentDate = formatDate(new Date(Date.now()).toISOString())
@@ -21,8 +22,8 @@ export default function AffirmationCard({ item, tools, className = '' }: Props) 
   return (
     <Card
       className={`h-full border bg-white ${className}`}
-      sup={currentDate}
-      icon={<Calendar size={12} />}
+      sup={hideDate ? undefined : currentDate}
+      icon={hideDate ? undefined : <Calendar size={12} />}
       aftertext={text}
       tools={tools}
     >

@@ -77,7 +77,7 @@ const Card = ({
         {children}
         {aftertext && <p className={textClass}>{aftertext}</p>}
         {tags && (
-          <div className="mt-auto flex flex-wrap gap-2">
+          <div className="mt-auto flex flex-wrap gap-xs">
             {tags.map((tag) => (
               <Tag key={tag} text={tag} className={tagClass} />
             ))}

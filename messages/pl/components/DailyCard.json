@@ -6,8 +6,19 @@
   "cards": {
     "notes": "Zapisz myśli",
     "tests": "Testy psychologiczne",
-    "activity": "Twoja aktywność"
+    "activity": "Twoja aktywność",
+    "detailed": "Szczegółowe statystyki za {date}"
+  },
+  "statistics": {
+    "recordsForDay": "Zapisy dzienne:",
+    "averageMood": "Średni nastrój:",
+    "averageStress": "Średni stres:",
+    "mood": "Nastrój:",
+    "stress": "Stres:",
+    "noRecordsToday": "Brak zapisów na dziś"
   },
   "greeting": "Cześć! Świetnie Cię tutaj widzieć",
-  "greetingText": "Jak się dzisiaj czujesz?"
+  "greetingText": "Jak się dzisiaj czujesz?",
+  "showMyAffirmation": "Pokaż moją afirmację",
+  "affirmationEncouragement": "Każda afirmacja to mały krok ku pozytywnym zmianom"
 }

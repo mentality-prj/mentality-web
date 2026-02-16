@@ -84,7 +84,7 @@ export default function Sitemap() {
                     <div>
                       <Link
                         href={item.href}
-                        className="flex items-center gap-2 text-textcolor-state hover:text-tertiary hover:underline"
+                        className="flex items-center gap-xs text-textcolor-state hover:text-tertiary hover:underline"
                       >
                         {item.icon && iconMap[item.icon]}
                         <span>{t(item.key)}</span>
@@ -98,7 +98,7 @@ export default function Sitemap() {
                           <li key={sub.href}>
                             <Link
                               href={sub.href}
-                              className="flex items-center gap-2 text-textcolor-state hover:text-tertiary hover:underline"
+                              className="flex items-center gap-xs text-textcolor-state hover:text-tertiary hover:underline"
                             >
                               {sub.icon && iconMap[sub.icon]}
                               {t(sub.key)}

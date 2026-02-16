@@ -17,7 +17,7 @@ export function FilterOptionGroup({
   const t = useTranslations('components.Filter')
   const translationKey = filterKey === 'categories' ? 'categories' : 'tags'
   return (
-    <ToggleGroup type="single" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-2">
+    <ToggleGroup type="single" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-xs">
       {options.map((opt) => (
         <Tag
           text={t(`filterOptions.${translationKey}`, { tag: `${opt}` })}

@@ -135,5 +135,26 @@
       "unpublished": "Неопубліковані",
       "corrected": "Виправлені"
     }
+  },
+  "ButtonShowcase": {
+    "title": "Варіанти кнопок",
+    "sections": {
+      "standard": "Стандартні варіанти",
+      "textBased": "Текстові варіанти",
+      "icon": "Іконкові варіанти",
+      "special": "Спеціальні варіанти",
+      "sizes": "Розміри",
+      "disabled": "Неактивні стани"
+    }
+  },
+  "TypographyShowcase": {
+    "title": "Типографіка та кольори шрифтів",
+    "sections": {
+      "headings": "Заголовки",
+      "landingHeadings": "Заголовки лендінгу",
+      "textColors": "Класи кольорів тексту",
+      "utilities": "Утиліти тексту",
+      "fontFamilies": "Сімейства шрифтів"
+    }
   }
 }

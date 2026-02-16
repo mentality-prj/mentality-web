@@ -71,7 +71,7 @@ export default function VerticalCard({
           {showCta && (
             <Link
               href={href ?? '#'}
-              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[#6B7280] transition-colors hover:text-primary-hover"
+              className="mt-4 inline-flex items-center gap-xs text-sm font-semibold text-[#6B7280] transition-colors hover:text-primary-hover"
             >
               {ctaLabel}
               <ArrowUpRight className="h-4 w-4" />
@@ -115,7 +115,7 @@ export default function VerticalCard({
         {showCta && (
           <Link
             href={href ?? '#'}
-            className="mt-auto inline-flex items-center gap-2 text-sm font-semibold text-textcolor-primary transition-colors hover:text-primary-hover"
+            className="mt-auto inline-flex items-center gap-xs text-sm font-semibold text-textcolor-primary transition-colors hover:text-primary-hover"
           >
             {ctaLabel}
             <ArrowUpRight className="h-4 w-4" />

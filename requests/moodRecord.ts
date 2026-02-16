@@ -27,7 +27,7 @@ export async function getMoodRecords(
   if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
 
   const url = `${APIUrl}/mood-record${query.toString() ? `?${query.toString()}` : ''}`
-  const res = await performAuthRequest<{ data: MoodRecordEntity[]; total: number }>(session, url, { method: 'GET' })
+  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }
   return { data: res.data }
 }

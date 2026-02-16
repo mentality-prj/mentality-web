@@ -135,5 +135,26 @@
       "unpublished": "Nieopublikowane",
       "corrected": "Poprawione"
     }
+  },
+  "ButtonShowcase": {
+    "title": "Warianty przycisków",
+    "sections": {
+      "standard": "Standardowe warianty",
+      "textBased": "Warianty tekstowe",
+      "icon": "Warianty ikon",
+      "special": "Specjalne warianty",
+      "sizes": "Rozmiary",
+      "disabled": "Stany wyłączone"
+    }
+  },
+  "TypographyShowcase": {
+    "title": "Typografia i kolory czcionek",
+    "sections": {
+      "headings": "Nagłówki",
+      "landingHeadings": "Nagłówki strony głównej",
+      "textColors": "Klasy kolorów tekstu",
+      "utilities": "Narzędzia tekstowe",
+      "fontFamilies": "Familie czcionek"
+    }
   }
 }

@@ -11,7 +11,6 @@ export default async function DiaryPage() {
   const session = await auth()
   const response = await getUserDiaries(session)
 
-  // const count = 0
   return (
     <div className="flex flex-col gap-md">
       <PageTitle title={t('pages.Diary.title')} subtitle={t('pages.Diary.subtitle')} />

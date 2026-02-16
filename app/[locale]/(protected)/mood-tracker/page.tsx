@@ -22,7 +22,7 @@ export default async function MoodTracker() {
   return (
     <div className="flex flex-col gap-md">
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
-      <div className="flex w-full flex-col gap-2 tablet:gap-md desktop:flex-row">
+      <div className="flex w-full flex-col gap-xs tablet:gap-md desktop:flex-row">
         <div className="desktop:w-3/5">
           <NewMoodNoteSection />
         </div>

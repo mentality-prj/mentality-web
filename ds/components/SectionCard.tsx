@@ -44,10 +44,10 @@ export const SectionCard = ({
     <div className={cn(typeBg, 'relative overflow-hidden rounded p-6', className)}>
       {decoration && <div className="pointer-events-none absolute inset-0">{decoration}</div>}
       {(title || subtitle) && (
-        <div className="relative z-10 mb-6 flex flex-col gap-2">
+        <div className="relative z-10 mb-6 flex flex-col gap-xs">
           {title && <h3 className={cn('landing-h3', titleClassName)}>{title}</h3>}
           {(subtitle || subtitlePrefix) && (
-            <div className="flex flex-row gap-2 text-base font-normal text-textcolor-secondary">
+            <div className="flex flex-row gap-xs text-base font-normal text-textcolor-secondary">
               {subtitlePrefix && <span className="h-6 w-6 [&>svg]:h-6 [&>svg]:w-6">{subtitlePrefix}</span>}
               {subtitle && <span>{subtitle}</span>}
             </div>

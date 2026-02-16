@@ -19,7 +19,6 @@ interface BaseFilterProps<TFilters> {
     reset: () => void
   }
   customSections?: ReactNode
-  hideTitle?: boolean
 }
 
 interface DefaultVariantProps<TFilters> extends BaseFilterProps<TFilters> {

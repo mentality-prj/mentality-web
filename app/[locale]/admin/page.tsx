@@ -1,7 +1,8 @@
 'use client'
 import { Calendar } from 'lucide-react'
 
-import ButtonShowcase from '@/components/Admin/ButtonShowcase'
+import { ButtonShowcase } from '@/components/Admin/ButtonShowcase'
+import { TypographyShowcase } from '@/components/Admin/TypographyShowcase'
 import { DeleteIcon, EditIcon } from '@/components/Cards'
 import Card from '@/components/Cards/Card'
 import CardStack from '@/components/Cards/CardStack'
@@ -16,7 +17,14 @@ export default function AdminPage() {
 
   return (
     <>
-      <ButtonShowcase />
+      <div className="mb-8 grid gap-6 laptop:grid-cols-2">
+        <Card type="ghost">
+          <ButtonShowcase />
+        </Card>
+        <Card type="ghost">
+          <TypographyShowcase />
+        </Card>
+      </div>
 
       <div className="mb-8 grid grid-cols-5 gap-default">
         <Card

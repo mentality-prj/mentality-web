@@ -126,7 +126,7 @@ export default function AddTag() {
         <form ref={formRef} action={createTag} className="flex w-full flex-col gap-default">
           <h2>{t('title')}</h2>
           {tagproperties.map((prop: TagProperties) => (
-            <div key={prop.key} className="flex flex-col gap-2">
+            <div key={prop.key} className="flex flex-col gap-xs">
               <Label htmlFor={prop.key}>{t(`fields.${prop.name}.label`)}</Label>
               <Input required id={prop.key} name={prop.name} type="text" className="w-full" />
               <span className="remark">{t(`fields.${prop.name}.description`)}</span>
@@ -146,7 +146,7 @@ export default function AddTag() {
         ) : tags.length === 0 ? (
           <p className="text-center text-textcolor-secondary">{t('tagsList.empty')}</p>
         ) : (
-          <div className="flex flex-wrap gap-2">
+          <div className="flex flex-wrap gap-xs">
             {tags.map((tag) => {
               const translation = tag.translations?.[locale as SupportedLanguage] || tag.translations?.en || tag.key
               return <Tag key={tag.id} text={translation} />

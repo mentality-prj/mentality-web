@@ -1,25 +1,57 @@
+import { cookies } from 'next/headers'
+
 import { auth } from '@/auth'
-import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
-import { getAffirmations } from '@/requests/affirmations'
-import type { LocalAffirmation } from '@/types/api-responses'
-import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
+import { getRandomAffirmation } from '@/requests/affirmations'
+import { AffirmationEntity } from '@/types/api-responses'
+import { COOKIE_KEY, getTodayDate, StoredAffirmation } from '@/utils/dailyAffirmation'
 
-import AffirmationCard from './AffirmationCard'
+import { DailyAffirmationRandomClient } from './DailyAffirmationRandomClient'
 
-const DailyAffirmationClient = async () => {
+export const DailyAffirmationClient = async () => {
   const session = await auth()
+  const cookieStore = cookies()
 
-  const res = await getAffirmations(session, 1, 1)
-  if ('error' in res) return null
+  // Check if there's a saved affirmation for today
+  const storedCookie = cookieStore.get(COOKIE_KEY)
+  let storedAffirmation: AffirmationEntity | null = null
+  let isUsedToday = false
 
-  const items = res.data?.items ?? []
-  const localItem = items && items.length > 0 ? (items[0] as LocalAffirmation) : null
+  if (storedCookie) {
+    try {
+      const parsed: StoredAffirmation = JSON.parse(storedCookie.value)
+      if (parsed.date === getTodayDate()) {
+        storedAffirmation = parsed.affirmation
+        isUsedToday = true
+      }
+    } catch {
+      // Invalid cookie, ignore
+    }
+  }
 
-  if (!localItem) return null
+  // If no saved affirmation for today, load a new one
+  const initialAffirmation =
+    storedAffirmation ||
+    (async () => {
+      const res = await getRandomAffirmation(session)
+      return 'error' in res ? null : res.data
+    })()
 
-  const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.affirmations} itemId={localItem.id} />
+  const affirmation = await initialAffirmation
+  if (!affirmation) return null
 
-  return <AffirmationCard item={localItem} tools={tools} />
+  const loadNewAffirmation = async (): Promise<AffirmationEntity | null> => {
+    'use server'
+    const session = await auth()
+    const res = await getRandomAffirmation(session)
+    if ('error' in res) return null
+    return res.data
+  }
+
+  return (
+    <DailyAffirmationRandomClient
+      randomAffirmation={affirmation}
+      onLoadNewAffirmation={loadNewAffirmation}
+      initialShowState={isUsedToday}
+    />
+  )
 }
-
-export default DailyAffirmationClient

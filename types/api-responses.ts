@@ -176,7 +176,7 @@ export type UpdateMoodRecordDto = {
   moodLevel?: number
   description?: string
   tags?: string[]
-  stressLevel?: number
+  stressLevel: number
   active?: boolean
 }
 

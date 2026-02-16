@@ -6,8 +6,19 @@
   "cards": {
     "notes": "Recording thoughts",
     "tests": "Psychological tests",
-    "activity": "Your activity"
+    "activity": "Your activity",
+    "detailed": "Detailed statistics for {date}"
+  },
+  "statistics": {
+    "recordsForDay": "Records for the day:",
+    "averageMood": "Average mood:",
+    "averageStress": "Average stress:",
+    "mood": "Mood:",
+    "stress": "Stress:",
+    "noRecordsToday": "No records for today"
   },
   "greeting": "Hi! Great to see you here",
-  "greetingText": "How are you feeling today?"
+  "greetingText": "How are you feeling today?",
+  "showMyAffirmation": "Show my affirmation",
+  "affirmationEncouragement": "Each affirmation is a small step towards positive change"
 }

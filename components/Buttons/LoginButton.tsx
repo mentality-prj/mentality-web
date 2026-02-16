@@ -9,7 +9,7 @@ export default function LoginButton() {
   return (
     <form action={redirectToSignin}>
       <button
-        className="flex gap-2 py-2 pr-4 group-data-[collapsible=icon]:px-1 group-data-[collapsible=icon]:py-0"
+        className="flex gap-xs py-2 pr-4 group-data-[collapsible=icon]:px-1 group-data-[collapsible=icon]:py-0"
         type="submit"
       >
         <LoginIcon />

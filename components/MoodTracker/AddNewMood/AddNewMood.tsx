@@ -89,7 +89,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
         </div>
 
         <div className="flex gap-sm">
-          <div className="flex flex-1 flex-col gap-2">
+          <div className="flex flex-1 flex-col gap-xs">
             <h5>{tm('describe')}</h5>
             <StyledTextarea
               id="mood-note"
@@ -100,7 +100,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
               className="flex-1"
             />
             {selectedTags.length > 0 && (
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-xs">
                 {selectedTags.map((t) => (
                   <Tag key={t} text={tagLabels[t as string] ?? t} onRemove={() => removeTag(t)} />
                 ))}
@@ -114,7 +114,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
           <h5>{tm('addTags')}</h5>
 
           <div className="relative flex items-center justify-between">
-            <div className="mt-2 flex flex-wrap gap-2">
+            <div className="mt-2 flex flex-wrap gap-xs">
               {localAvailableTags.map((t) => (
                 <Tag key={t.key} text={tagLabels[t.key] ?? t.name ?? t.key} onClick={() => addTag(t.key)} />
               ))}

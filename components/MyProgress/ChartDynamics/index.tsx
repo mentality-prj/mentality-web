@@ -152,10 +152,10 @@ export function ChartDynamics() {
         </ChartContainer>
       </div>
       <div className="flex justify-end gap-sm pt-6">
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-xs">
           <Switch defaultChecked={true} onCheckedChange={setMoodChart} /> {t('mood')}
         </div>
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-xs">
           <Switch onCheckedChange={setStressChart} /> {t('stress')}
         </div>
       </div>

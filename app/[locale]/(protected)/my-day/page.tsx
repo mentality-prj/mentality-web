@@ -1,28 +1,24 @@
 import { getTranslations } from 'next-intl/server'
 
-// import { auth } from '@/auth'
-import DailyAffirmationClient from '@/components/Affirmations/DailyAffirmationClient'
-import MoodSummaryCard from '@/components/MoodTracker/MoodSummaryCard/MoodSummaryCard'
-// import DailyStatistics from '@/components/Statistics/DailyStatistics/DailyStatistics'
-import DailyTipClient from '@/components/Tips/DailyTipClient'
-// import { getMoodCounts } from '@/requests/summary'
+import { auth } from '@/auth'
+import { DailyAffirmationClient } from '@/components/Affirmations/DailyAffirmationClient'
+import { MoodSummaryCard } from '@/components/MoodTracker/MoodSummaryCard/MoodSummaryCard'
+import { DailyStatistics } from '@/components/Statistics/DailyStatistics/DailyStatistics'
+import { DailyTipClient } from '@/components/Tips/DailyTipClient'
+import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
+import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 
 const MyDay = async () => {
-  // const session = await auth()
+  const session = await auth()
   const t = await getTranslations('components.DailyCard')
-  // const res = await getMoodCounts(session)
-  // const moodCounts = 'error' in res ? [] : (res ?? [])
+  const res = await getMoodRecords(session)
+  const moodCounts = 'error' in res ? [] : mapMoodRecordsToCounts(res?.data ?? [])
 
-  const moodCounts = [
-    { mood: 'veryBad', count: 2 },
-    { mood: 'bad', count: 5 },
-    { mood: 'neutral', count: 27 },
-    { mood: 'good', count: 7 },
-    { mood: 'great', count: 19 },
-  ]
+  const todayRes = await getLastMoodRecords(session, { days: 1, active: true })
+  const todayRecords = 'error' in todayRes ? [] : (todayRes?.data ?? [])
 
   return (
-    <article className="grid gap-sm laptop:grid-cols-2">
+    <article className="grid gap-default laptop:grid-cols-2">
       <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
 
       <section className="grid grid-cols-2 gap-sm">
@@ -30,7 +26,7 @@ const MyDay = async () => {
         <DailyTipClient />
       </section>
 
-      {/* <DailyStatistics /> */}
+      <DailyStatistics records={todayRecords} />
     </article>
   )
 }

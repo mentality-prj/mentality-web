@@ -34,7 +34,7 @@ export default function AddTags({ tags, onChange }: AddTagsProps) {
 
   return (
     <div className="flex flex-col gap-sm">
-      <div className="flex flex-col gap-2 tablet:flex-row">
+      <div className="flex flex-col gap-xs tablet:flex-row">
         <div className="w-full">
           <CustomInput
             id="add-tag-input"
@@ -47,7 +47,7 @@ export default function AddTags({ tags, onChange }: AddTagsProps) {
         <Button onClick={addTag}>{t('add')}</Button>
       </div>
 
-      <div className="flex flex-wrap gap-2">
+      <div className="flex flex-wrap gap-xs">
         {tags.map((tag) => (
           <Badge key={tag} variant="outline" className="flex items-center gap-1 pr-1">
             {tag}
