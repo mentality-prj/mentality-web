@@ -7,7 +7,6 @@ import { DeleteIcon, EditIcon } from '@/components/Cards'
 import Card from '@/components/Cards/Card'
 import CardStack from '@/components/Cards/CardStack'
 import { Routes } from '@/constants/routes'
-import CustomCard from '@/ds/components/CustomCard'
 import { CloudIcon } from '@/ds/icons/summary/cloud'
 import { Link } from '@/i18n/navigation'
 
@@ -88,16 +87,18 @@ export default function AdminPage() {
         <Card title="Title 08" text="Lorem ipsum" remark="accent-foreground" className="bg-accent-foreground" />
         <Card title="Title 09" text="Lorem ipsum" remark="accent-soft" className="bg-accent-soft" />
 
-        <CustomCard
+        <Card
           icon={<CloudIcon />}
           title="custom card"
+          sup="2024-06-01"
           text="custom card"
-          textLink="click"
-          hrefLink="/"
-          variant="daily"
-          date="2024-06-01"
-          badge="affirmation"
-          tagList={['one', 'two']}
+          remark="affirmation"
+          tags={['one', 'two']}
+          aftertext={
+            <Link href="/" className="whitespace-nowrap underline">
+              click
+            </Link>
+          }
         />
         <Card type="special" title="Special Card">
           some children here
