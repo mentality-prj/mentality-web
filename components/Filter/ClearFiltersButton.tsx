@@ -1,7 +1,7 @@
 import { Eraser } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/ds/shadcn/button'
+import { Button } from '@/ui/button'
 
 interface ClearFiltersButtonProps {
   reset: () => void

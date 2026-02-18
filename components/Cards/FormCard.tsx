@@ -1,7 +1,7 @@
 'use client'
 import { ReactNode } from 'react'
 
-import { Button } from '@/ds/shadcn/button'
+import { Button } from '@/ui/button'
 
 interface FormCardProps {
   title: ReactNode

@@ -5,8 +5,8 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { Tag } from '@/ds/components/Tag'
+import { Button } from '@/ui/button'
 
-import { Button } from '../../ds/shadcn/button'
 import useTags from '../../hooks/useTags'
 import { useRouter } from '../../i18n/navigation'
 import { getDiaryById, updateDiary } from '../../requests/diary'

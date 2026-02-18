@@ -3,7 +3,7 @@
 import { Heart, Mail, Plus, Settings, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/ds/shadcn/button'
+import { Button } from '@/ui/button'
 
 export function ButtonShowcase() {
   const t = useTranslations('components.Admin.ButtonShowcase')

@@ -1,6 +1,6 @@
 import { Tag } from '@/ds/components/Tag'
-import { ToggleGroup } from '@/ds/shadcn/toggle-group'
 import { UserTag } from '@/types/tags'
+import { ToggleGroup } from '@/ui/toggle-group'
 
 export function UserTagsFilterGroup({
   value,

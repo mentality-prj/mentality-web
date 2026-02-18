@@ -3,9 +3,9 @@ import { MinusIcon, PlusIcon } from 'lucide-react'
 import CloseIconButton from '@/components/Buttons/CloseIconButton'
 import FormCard from '@/components/Cards/FormCard'
 import { Tag } from '@/ds/components/Tag'
-import { Button } from '@/ds/shadcn/button'
-import { Textarea } from '@/ds/shadcn/textarea'
 import { cn } from '@/lib/utils'
+import { Button } from '@/ui/button'
+import { Textarea } from '@/ui/textarea'
 
 type CreatePersonalGoalFormProps = {
   title: string

@@ -4,12 +4,12 @@ import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { DropdownInput } from '@/ds/components/DropdownInput'
-import { Button } from '@/ds/shadcn/button'
-import { Textarea } from '@/ds/shadcn/textarea'
 import { generateExercise } from '@/requests/exercises'
 import { ExerciseCategory } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
+import { Button } from '@/ui/button'
+import { Textarea } from '@/ui/textarea'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 export default function GenerateExercise() {

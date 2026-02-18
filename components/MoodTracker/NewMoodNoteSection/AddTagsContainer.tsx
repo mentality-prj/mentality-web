@@ -3,9 +3,9 @@
 import { Pencil } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/ds/shadcn/button'
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/ds/shadcn/dialog'
-import { ToggleGroup, ToggleGroupItem } from '@/ds/shadcn/toggle-group'
+import { Button } from '@/ui/button'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from '@/ui/dialog'
+import { ToggleGroup, ToggleGroupItem } from '@/ui/toggle-group'
 
 import AddTags from './AddTags'
 

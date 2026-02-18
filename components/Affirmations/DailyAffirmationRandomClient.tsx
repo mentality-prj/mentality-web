@@ -7,9 +7,8 @@ import { useTranslations } from 'next-intl'
 import FavoriteButtonWrapper from '@/components/Buttons/FavoriteButtonWrapper'
 import { AffirmationEntity } from '@/types/api-responses'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
+import { Button } from '@/ui/button'
 import { saveAffirmation } from '@/utils/dailyAffirmation'
-
-import { Button } from '../../ds/shadcn/button'
 
 import AffirmationCard from './AffirmationCard'
 

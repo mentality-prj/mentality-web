@@ -5,8 +5,8 @@ import { X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
-import { Badge } from '@/ds/shadcn/badge'
-import { Button } from '@/ds/shadcn/button'
+import { Badge } from '@/ui/badge'
+import { Button } from '@/ui/button'
 
 type AddTagsProps = {
   tags: string[]

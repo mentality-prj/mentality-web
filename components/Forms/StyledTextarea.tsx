@@ -1,8 +1,8 @@
 'use client'
 import { ComponentProps } from 'react'
 
-import { Textarea as BaseTextarea } from '@/ds/shadcn/textarea'
 import { cn } from '@/lib/utils'
+import { Textarea as BaseTextarea } from '@/ui/textarea'
 
 interface Props extends ComponentProps<'textarea'> {
   className?: string

@@ -1,7 +1,7 @@
 import { ChoiceType, QuestionTypes } from '@/components/TestsQuestionnarie/typesTestPage'
-import { Checkbox } from '@/ds/shadcn/checkbox'
-import { Label } from '@/ds/shadcn/label'
-import { RadioGroup, RadioGroupItem } from '@/ds/shadcn/radio-group'
+import { Checkbox } from '@/ui/checkbox'
+import { Label } from '@/ui/label'
+import { RadioGroup, RadioGroupItem } from '@/ui/radio-group'
 
 interface Props {
   data: QuestionTypes

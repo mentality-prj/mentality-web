@@ -1,5 +1,6 @@
-import { Button } from 'ds/shadcn/button'
 import { Moon } from 'lucide-react'
+
+import { Button } from '@/ui/button'
 
 export const ThemeToggleButton = () => {
   return (

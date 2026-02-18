@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 
-import { Button } from '@/ds/shadcn/button'
+import { Button } from '@/ui/button'
 
 import { calculateK10Result, calculateScherbatihResult, TestAnswers } from './helper'
 import Question from './Question'

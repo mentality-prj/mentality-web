@@ -5,10 +5,10 @@ import { useRouter } from 'next/navigation'
 import { useLocale } from 'next-intl'
 
 import { APP_VIEW_TYPE, AppViewType } from '@/constants/general'
-import { Button } from '@/ds/shadcn/button'
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ds/shadcn/dropdown-menu'
 import { usePathname } from '@/i18n/navigation'
 import { LocaleNativeLabels, LocaleTriggerShortLabels, SupportedLanguage, supportedLanguages } from '@/types/languages'
+import { Button } from '@/ui/button'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ui/dropdown-menu'
 
 export default function LangSwitch({ type }: { type?: AppViewType }) {
   const [isPending, startTransition] = useTransition()

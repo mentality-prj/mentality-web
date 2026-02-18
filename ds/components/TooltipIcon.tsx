@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '../shadcn/tooltip'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/ui/tooltip'
 
 type Props = {
   label: string

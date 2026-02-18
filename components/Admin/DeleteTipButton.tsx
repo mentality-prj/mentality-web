@@ -2,9 +2,9 @@ import { useState } from 'react'
 import { Trash } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/ds/shadcn/button'
 import { deleteTip } from '@/requests/tips'
 import { CustomSession } from '@/types/auth'
+import { Button } from '@/ui/button'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 interface Props {

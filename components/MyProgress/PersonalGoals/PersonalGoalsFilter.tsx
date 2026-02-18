@@ -1,8 +1,8 @@
 import { Dispatch, SetStateAction } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 import { Statuses } from '@/types/goals'
+import { Tabs, TabsList, TabsTrigger } from '@/ui/tabs'
 
 export type Filter = 'all' | typeof Statuses.PENDING | typeof Statuses.COMPLETED
 interface PersonalGoalsFilterProps {

@@ -1,5 +1,5 @@
-import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 import { LocaleNativeLabels, SupportedLanguage, supportedLanguages } from '@/types/languages'
+import { Tabs, TabsList, TabsTrigger } from '@/ui/tabs'
 
 interface TabsLanguageProps {
   activeLang: SupportedLanguage

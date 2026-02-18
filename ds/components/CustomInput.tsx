@@ -1,8 +1,8 @@
 import React from 'react'
 import { TriangleAlert } from 'lucide-react'
 
-import { Input } from '@/ds/shadcn/input'
-import { Label } from '@/ds/shadcn/label'
+import { Input } from '@/ui/input'
+import { Label } from '@/ui/label'
 import { cn } from '@/lib/utils'
 
 type CustomInputProps = React.InputHTMLAttributes<HTMLInputElement> & {

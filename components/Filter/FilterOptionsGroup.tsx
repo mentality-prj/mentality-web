@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 
 import { Tag } from '@/ds/components/Tag'
-import { ToggleGroup } from '@/ds/shadcn/toggle-group'
+import { ToggleGroup } from '@/ui/toggle-group'
 
 export function FilterOptionGroup({
   value,

@@ -3,8 +3,8 @@ import { useTranslations } from 'next-intl'
 
 import Sitemap from '@/components/Sitemap'
 import { Routes } from '@/constants/routes'
-import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
+import { Button } from '@/ui/button'
 
 export default function NotFoundPage() {
   const t = useTranslations()

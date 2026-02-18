@@ -1,8 +1,8 @@
 import { ChevronDown, ChevronUp } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/ds/shadcn/button'
 import { SORT_ORDER, SortOrder } from '@/types/sort'
+import { Button } from '@/ui/button'
 
 interface SortProps {
   id: string

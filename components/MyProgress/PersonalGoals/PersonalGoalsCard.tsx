@@ -6,8 +6,6 @@ import { useTranslations } from 'next-intl'
 
 import Card from '@/components/Cards/Card'
 import FullScreenCard from '@/components/Cards/FullScreenCard'
-import { Button } from '@/ds/shadcn/button'
-import { Progress } from '@/ds/shadcn/progress'
 import {
   createPersonalGoal,
   deletePersonalGoal,
@@ -17,6 +15,8 @@ import {
   updatePersonalGoal,
 } from '@/requests/personalGoals'
 import { GoalStatus, Statuses } from '@/types/goals'
+import { Button } from '@/ui/button'
+import { Progress } from '@/ui/progress'
 
 export interface PersonalGoalsCardProps {
   id: string

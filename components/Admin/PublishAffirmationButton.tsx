@@ -2,9 +2,9 @@ import React, { useState } from 'react'
 import { BookPlus } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { Button } from '@/ds/shadcn/button'
 import { publishAffirmation } from '@/requests/affirmations'
 import { CustomSession } from '@/types/auth'
+import { Button } from '@/ui/button'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 interface Props {

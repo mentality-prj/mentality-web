@@ -8,8 +8,8 @@ import FormCard from '@/components/Cards/FormCard'
 import StyledTextarea from '@/components/Forms/StyledTextarea'
 import AddNewTag from '@/components/MoodTracker/AddNewTag/AddNewTag'
 import { Tag } from '@/ds/components/Tag'
-import { Button } from '@/ds/shadcn/button'
 import { UserTag } from '@/types/tags'
+import { Button } from '@/ui/button'
 
 import FullScreenBackdrop from '../FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 

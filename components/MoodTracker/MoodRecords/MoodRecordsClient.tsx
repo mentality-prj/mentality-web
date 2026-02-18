@@ -7,12 +7,12 @@ import { MoodRecordsList } from '@/components/MoodTracker/MoodRecords/MoodRecord
 import { Pagination } from '@/components/Pagination/Pagination'
 import { PAGE_SIZE } from '@/constants/pagination'
 import { useMoodRecordsFilters } from '@/context/moodRecordsFilterContext'
-import { Button } from '@/ds/shadcn/button'
 import { levelToMoodKey } from '@/mappers/mood.mappers'
 import type { MoodRecordEntity } from '@/types/api-responses'
 import { SORT_ORDER } from '@/types/sort'
 import { STRESS_LEVELS } from '@/types/stress'
 import { UserTag } from '@/types/tags'
+import { Button } from '@/ui/button'
 
 import { MoodRecordsFilter } from './MoodRecordsFilter'
 

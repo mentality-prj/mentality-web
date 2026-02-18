@@ -4,8 +4,8 @@ import { enUS, pl, uk } from 'react-day-picker/locale'
 import { isAfter, startOfToday } from 'date-fns'
 import { useLocale } from 'next-intl'
 
-import { Calendar as ShadcnCalendar } from '@/ds/shadcn/calendar'
 import { SelectedDays } from '@/types/calendar'
+import { Calendar as ShadcnCalendar } from '@/ui/calendar'
 
 export interface CalendarActivityProps {
   selectedDays: SelectedDays

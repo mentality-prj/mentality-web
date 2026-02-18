@@ -4,8 +4,9 @@ import { useRouter } from 'next/navigation'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import { Avatar, AvatarFallback, AvatarImage } from '@/ds/shadcn/avatar'
-import { Button } from '@/ds/shadcn/button'
+import { SUPPORTED_LANGUAGES } from '@/types/languages'
+import { Avatar, AvatarFallback, AvatarImage } from '@/ui/avatar'
+import { Button } from '@/ui/button'
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -13,8 +14,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/ds/shadcn/dropdown-menu'
-import { SUPPORTED_LANGUAGES } from '@/types/languages'
+} from '@/ui/dropdown-menu'
 
 import { getMenuItems } from './avatarMenu.config'
 

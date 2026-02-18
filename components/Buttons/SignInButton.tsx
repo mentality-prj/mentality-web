@@ -4,7 +4,7 @@ import { signIn } from '@/auth'
 import { ProviderKey, Providers } from '@/constants/providers'
 import { Routes } from '@/constants/routes'
 import { Texts } from '@/constants/texts'
-import { Button } from '@/ds/shadcn/button'
+import { Button } from '@/ui/button'
 
 interface SignInButtonProps {
   provider: ProviderKey

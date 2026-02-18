@@ -4,10 +4,10 @@ import { useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
-import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ds/shadcn/chart'
-import { Switch } from '@/ds/shadcn/switch'
-import { Tabs, TabsList, TabsTrigger } from '@/ds/shadcn/tabs'
 import { SupportedLanguage } from '@/types/languages'
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ui/chart'
+import { Switch } from '@/ui/switch'
+import { Tabs, TabsList, TabsTrigger } from '@/ui/tabs'
 
 const chartData = [
   { date: '2025-08-08', mood: 46, stress: 33 },
