@@ -5,6 +5,7 @@ const config: Config = {
     './pages/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
     './ds/**/*.{ts,tsx}',
+    './ui/**/*.{ts,tsx}',
     './app/**/*.{ts,tsx}',
     './helpers/**/*.{ts,tsx}',
   ],

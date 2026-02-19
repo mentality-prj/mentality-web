@@ -3,7 +3,7 @@ import { useEffect, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import AvatarStack from '@/components/AvatarStack'
+import AvatarStack from '@/components/shared/AvatarStack'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/ui/button'

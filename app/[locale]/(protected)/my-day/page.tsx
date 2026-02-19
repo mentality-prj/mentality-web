@@ -1,10 +1,10 @@
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import { DailyAffirmationClient } from '@/components/Affirmations/DailyAffirmationClient'
-import { MoodSummaryCard } from '@/components/MoodTracker/MoodSummaryCard/MoodSummaryCard'
-import { DailyStatistics } from '@/components/Statistics/DailyStatistics/DailyStatistics'
-import { DailyTipClient } from '@/components/Tips/DailyTipClient'
+import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
+import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
+import { DailyStatistics } from '@/components/features/Statistics/DailyStatistics/DailyStatistics'
+import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 

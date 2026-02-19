@@ -2,7 +2,7 @@ import { render, screen, waitFor } from '@testing-library/react'
 import { usePathname } from 'next/navigation'
 import { signOut, useSession } from 'next-auth/react'
 
-import { SessionWrapper } from '@/components/SessionWrapper'
+import { SessionWrapper } from '@/components/shared/SessionWrapper'
 
 jest.mock('next-auth/react')
 jest.mock('next/navigation', () => ({

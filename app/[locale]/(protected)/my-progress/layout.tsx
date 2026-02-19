@@ -1,8 +1,7 @@
 import { useTranslations } from 'next-intl'
 
+import MyProgressInnerMenu from '@/components/features/MyProgress/MyProgressInnerMenu/MyProgressInnerMenu'
 import { PageTitle } from '@/ds/components/PageTitle'
-
-import MyProgressInnerMenu from '../../../../components/MyProgress/MyProgressInnerMenu/MyProgressInnerMenu'
 
 export default function MyProgressLayout({ children }: { children: React.ReactNode }) {
   const t = useTranslations()

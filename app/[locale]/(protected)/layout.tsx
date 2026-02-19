@@ -1,8 +1,8 @@
 import { ReactNode } from 'react'
 
-import { Header } from '@/components/Header'
-import { LandingFooter } from '@/components/Landing'
-import Sidebar from '@/components/Sidebar/Sidebar'
+import { LandingFooter } from '@/components/features/Landing'
+import { Header } from '@/components/Layout/Header'
+import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { userSidebarMenu } from '@/constants/menu'
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {

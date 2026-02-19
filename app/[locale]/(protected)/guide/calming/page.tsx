@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import GuideCalmingClient from '@/components/Guide/GuideCalmingClient'
+import GuideCalmingClient from '@/components/features/Guide/GuideCalmingClient'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function GuideCalmingPage() {

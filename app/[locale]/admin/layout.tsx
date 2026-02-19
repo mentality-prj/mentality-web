@@ -1,9 +1,9 @@
 import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 
+import { AdminHeader } from '@/app/[locale]/admin/components'
 import { auth } from '@/auth'
-import { AdminHeader } from '@/components/Admin'
-import { Sidebar } from '@/components/Sidebar'
+import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {

@@ -3,7 +3,7 @@ import { ReactNode } from 'react'
 import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes'
 
-import { SessionWrapper } from '@/components/SessionWrapper'
+import { SessionWrapper } from '@/components/shared/SessionWrapper'
 import { ContextProvider } from '@/context/ContextProvider'
 
 export interface ProvidersProps {

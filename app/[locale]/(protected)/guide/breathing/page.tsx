@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import GuideBreathingClient from '@/components/Guide/GuideBreathingClient'
+import GuideBreathingClient from '@/components/features/Guide/GuideBreathingClient'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function GuideBreathingPage() {

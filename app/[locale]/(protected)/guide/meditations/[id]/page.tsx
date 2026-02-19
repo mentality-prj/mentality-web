@@ -1,9 +1,9 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import Card from '@/components/Cards/Card'
-import { OtherMeditations } from '@/components/Meditations/OtherMeditations'
-import { StyledDescription } from '@/components/Meditations/StyledDescription'
+import { OtherMeditations } from '@/components/features/Meditations/OtherMeditations'
+import { StyledDescription } from '@/components/features/Meditations/StyledDescription'
+import Card from '@/components/shared/Cards/Card'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
 import { getExerciseById } from '@/requests/exercises'

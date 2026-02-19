@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { MySpace } from '@/components/MySpace/MySpace'
+import { MySpace } from '@/components/features/MySpace/MySpace'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function MySpacePage() {

@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import GuideMeditationsClient from '@/components/Guide/GuideMeditationsClient'
+import GuideMeditationsClient from '@/components/features/Guide/GuideMeditationsClient'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function GuideMeditationsPage() {

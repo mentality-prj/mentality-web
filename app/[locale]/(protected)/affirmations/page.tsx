@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import AffirmationsList from '@/components/Affirmations/AffirmationsList'
+import AffirmationsList from '@/components/features/Affirmations/AffirmationsList'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function affirmations() {

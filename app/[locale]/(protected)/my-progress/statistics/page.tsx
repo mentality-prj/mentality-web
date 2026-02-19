@@ -1,7 +1,7 @@
 import { useTranslations } from 'next-intl'
 
-import { Calendar } from '@/components/Calendar'
-import { ChartDynamics } from '@/components/MyProgress/ChartDynamics'
+import { ChartDynamics } from '@/components/features/MyProgress/ChartDynamics'
+import { Calendar } from '@/components/shared/Calendar'
 import { HeartHandsEmoji } from '@/ds/icons/emoji/heart-hands'
 
 export default function MyProgressStatisticsPage() {
