@@ -1,4 +1,4 @@
-import { IconKey } from '@/components/icons/iconsMap'
+import { IconKey } from '@/ds/icons/iconsMap'
 
 import { SupportedLanguage } from './languages'
 
