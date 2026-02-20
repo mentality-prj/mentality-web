@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import { MoodRecords } from '@/components/MoodTracker/MoodRecords/MoodRecords'
-import { NewMoodNoteSection } from '@/components/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
-import { TenDaysSummary } from '@/components/MoodTracker/TenDaysSummary/TenDaysSummary'
+import { MoodRecords } from '@/components/features/MoodTracker/MoodRecords/MoodRecords'
+import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
+import { TenDaysSummary } from '@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
 import { getLastMoodRecords } from '@/requests/moodRecord'

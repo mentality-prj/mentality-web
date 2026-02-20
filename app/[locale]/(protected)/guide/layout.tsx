@@ -1,4 +1,4 @@
-import GuideInnerMenu from '@/components/Guide/GuideInnerMenu'
+import GuideInnerMenu from '@/components/features/Guide/GuideInnerMenu'
 
 export default function GuideLayout({ children }: { children: React.ReactNode }) {
   return (

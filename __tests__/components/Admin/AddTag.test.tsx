@@ -2,7 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
-import AddTag from '@/components/Admin/AddTag'
+import AddTag from '@/admin/AddTag'
 import { addTag, getTags } from '@/requests/tags'
 
 // Mock dependencies

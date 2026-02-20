@@ -1,8 +1,8 @@
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
-import { Button } from '@/ds/shadcn/button'
 import { Link } from '@/i18n/navigation'
+import { Button } from '@/ui/button'
 
 import { HighlightInfoCard } from './HighlightInfoCard'
 

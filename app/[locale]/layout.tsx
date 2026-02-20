@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
 import AppIntlProvider from '@/app/(providers)/AppIntlProvider'
-import CookieConsent from '@/components/CookieConsent'
+import CookieConsent from '@/components/shared/CookieConsent'
 import { fontSans } from '@/config/fonts'
 import { routing } from '@/i18n/routing'
 import { SupportedLanguage } from '@/types/languages'

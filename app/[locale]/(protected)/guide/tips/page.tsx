@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import TipsListClient from '@/components/Tips/TipsListClient'
+import TipsListClient from '@/components/features/Tips/TipsListClient'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function GuideTipsPage() {

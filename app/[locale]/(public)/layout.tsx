@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { LandingFooter, LandingHeader } from '@/components/Landing'
+import { LandingFooter, LandingHeader } from '@/components/features/Landing'
 
 export default function PublicLayout({ children }: { children: ReactNode }) {
   return (
