@@ -1,4 +1,4 @@
-import { AdminComponents } from '@/app/[locale]/admin/components'
+import { AdminComponents } from '@/admin/index'
 
 export default function AdminTagsPage() {
   return <AdminComponents.TAGS />

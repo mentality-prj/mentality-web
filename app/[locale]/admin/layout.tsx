@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 
-import { AdminHeader } from '@/app/[locale]/admin/components'
+import { AdminHeader } from '@/admin/index'
 import { auth } from '@/auth'
 import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
