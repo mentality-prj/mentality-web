@@ -1,3 +1,4 @@
+import Admin from './Admin.json'
 import AffirmationsPage from './AffirmationsPage.json'
 import Diary from './Diary.json'
 import Guide from './Guide.json'
@@ -9,6 +10,7 @@ import MySpace from './MySpace.json'
 import ServerError from './ServerError.json'
 
 export const pages = {
+  Admin,
   AffirmationsPage,
   Diary,
   Guide,

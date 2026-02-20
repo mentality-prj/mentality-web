@@ -7,16 +7,71 @@
     "Completed": "Completed"
   },
   "CreatePersonalGoals": {
-    "DefaultTextSuggestions": {
-      "SleepBetter": "Go to bed before 22:00 during the week",
-      "DayWithoutMedia": "Spend a day without social media",
-      "CoffeeLimit": "Drink no more than one cup of coffee per day"
-    },
     "Title": "Formulate your goal",
     "Text": "Create new goal",
     "WeOffer": "We offer:",
+    "GoalTypeLabel": "Type of goal",
+    "GoalTypes": {
+      "onetime": "One-time",
+      "shortterm": "Short-term",
+      "longterm": "Long-term",
+      "repeating": "Repeating"
+    },
+    "Suggestions": {
+      "Onetime": {
+        "DayWithoutMedia": "Spend a day without social media",
+        "ReadBook": "Read a book from cover to cover",
+        "CallFriend": "Call a friend you haven't spoken to in a while",
+        "WriteGratitudeList": "Write a list of 10 things you're grateful for",
+        "MorningWithoutPhone": "Spend a morning without your phone",
+        "CookNewDish": "Cook a dish you've never made before",
+        "WalkNewRoute": "Take a walk on a route you've never tried",
+        "ArtSession": "Draw or paint something",
+        "JournalEntry": "Write a page in your journal"
+      },
+      "Shortterm": {
+        "SleepBetter": "Go to bed before 22:00 during the week",
+        "NoSugar": "A week without sweets",
+        "MorningWalk": "Walk every morning for a week",
+        "NoPhoneEvening": "No phone after 21:00 for a week",
+        "Stretch": "Morning stretching every day for a week",
+        "ReadDaily": "Read at least 10 pages a day for a week",
+        "NoCoffee": "A week without coffee",
+        "GratitudeDiary": "Write 3 things you're grateful for each day for a week",
+        "EarlyRise": "Wake up an hour earlier for a week"
+      },
+      "Longterm": {
+        "LearnLanguage": "Start learning a new language",
+        "Sport": "Exercise regularly for a month",
+        "Meditation": "Meditate daily for 30 days",
+        "ReadBook30": "Read a book within a month",
+        "DigitalDetox": "A month without TV and video games",
+        "HealthyEating": "Eat healthy for a month",
+        "JournalMonth": "Keep a journal for a month",
+        "NewSkill": "Learn a new skill",
+        "Volunteer": "Start volunteering"
+      },
+      "Repeating": {
+        "CoffeeLimit": "Drink no more than one cup of coffee per day",
+        "Water": "Drink more water throughout the day",
+        "Evening": "Evening walk without phone",
+        "NoSnacks": "No eating after 20:00",
+        "Floss": "Use dental floss every day",
+        "Steps": "Walk more steps each day",
+        "Vitamins": "Take vitamins every day",
+        "MindfulBreathing": "Do breathing exercises every day",
+        "NoPhoneMorning": "No phone for the first hour after waking up"
+      }
+    },
     "TextareaDescription": "Maximum 60 characters",
-    "QuantityOfRepeat": "Specify the number of repetitions to achieve your goal (optional)",
+    "QuantityOfRepeat": "Number of repetitions to achieve the goal",
+    "Deadline": {
+      "Label": "Set a deadline (optional)",
+      "Units": {
+        "hour": "hour",
+        "day": "day"
+      }
+    },
     "Buttons": {
       "Create": "Create",
       "Cancel": "Cancel"
@@ -32,6 +87,9 @@
   "PersonalGoalsCard": {
     "Progress": "Progress",
     "GoalAchieved": "Goal achieved, keep it up!",
+    "GoalFailed": "Time's up — goal not reached",
+    "DaysLeft": "{count, plural, one {# day left} other {# days left}}",
+    "DeadlineToday": "Deadline is today!",
     "Mark": "Mark",
     "Dialog": {
       "DeleteTitle": "Delete goal?",

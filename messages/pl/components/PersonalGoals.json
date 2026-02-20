@@ -7,16 +7,71 @@
     "Completed": "Ukończone"
   },
   "CreatePersonalGoals": {
-    "DefaultTextSuggestions": {
-      "SleepBetter": "Zasnąć przed 22:00 w ciągu tygodnia",
-      "DayWithoutMedia": "Spędź dzień bez mediów społecznych",
-      "CoffeeLimit": "Nie pij więcej niż jedną filiżankę kawy dziennie"
-    },
     "Title": "Sformułuj swój cel",
     "Text": "Utwórz nowy cel",
     "WeOffer": "Oferujemy:",
+    "GoalTypeLabel": "Typ celu",
+    "GoalTypes": {
+      "onetime": "Jednorazowy",
+      "shortterm": "Krótkoterminowy",
+      "longterm": "Długoterminowy",
+      "repeating": "Wielokrotny"
+    },
+    "Suggestions": {
+      "Onetime": {
+        "DayWithoutMedia": "Spędź dzień bez mediów społecznych",
+        "ReadBook": "Przeczytaj książkę od początku do końca",
+        "CallFriend": "Zadzwoń do przyjaciela, z którym dawno nie rozmawiałeś",
+        "WriteGratitudeList": "Napisz listę 10 rzeczy, za które jesteś wdzięczny",
+        "MorningWithoutPhone": "Spędź poranek bez telefonu",
+        "CookNewDish": "Ugotuj potrawę, której nigdy nie robiłeś",
+        "WalkNewRoute": "Przejdź się trasą, którą nigdy nie szłeś",
+        "ArtSession": "Narysuj lub pokoloruj coś",
+        "JournalEntry": "Napisz stronę w swoim dzienniku"
+      },
+      "Shortterm": {
+        "SleepBetter": "Zasnąć przed 22:00 przez tydzień",
+        "NoSugar": "Tydzień bez słodyczy",
+        "MorningWalk": "Poranny spacer każdego ranka przez tydzień",
+        "NoPhoneEvening": "Tydzień bez telefonu po 21:00",
+        "Stretch": "Poranne rozciąganie każdego dnia przez tydzień",
+        "ReadDaily": "Czytać co najmniej 10 stron dziennie przez tydzień",
+        "NoCoffee": "Tydzień bez kawy",
+        "GratitudeDiary": "Zapisywać 3 rzeczy wdzięczności każdego dnia przez tydzień",
+        "EarlyRise": "Wstawać godzinę wcześniej przez tydzień"
+      },
+      "Longterm": {
+        "LearnLanguage": "Zacznij uczyć się nowego języka",
+        "Sport": "Regularnie ćwiczy przez miesiąc",
+        "Meditation": "Medytuj codziennie przez 30 dni",
+        "ReadBook30": "Przeczytaj książkę w ciągu miesiąca",
+        "DigitalDetox": "Miesiąc bez TV i gier wideo",
+        "HealthyEating": "Zdrowo się odżywiaj przez miesiąc",
+        "JournalMonth": "Prowadź dziennik przez miesiąc",
+        "NewSkill": "Naucz się nowej umiejętności",
+        "Volunteer": "Zacznij wolontariat"
+      },
+      "Repeating": {
+        "CoffeeLimit": "Nie pij więcej niż jednej filiżanki kawy dziennie",
+        "Water": "Pić więcej wody w ciągu dnia",
+        "Evening": "Wieczorny spacer bez telefonu",
+        "NoSnacks": "Nie jeść po 20:00",
+        "Floss": "Używać nici dentystycznej każdego dnia",
+        "Steps": "Chodzić więcej kroków każdego dnia",
+        "Vitamins": "Brać witaminy każdego dnia",
+        "MindfulBreathing": "Robić ćwiczenia oddechowe każdego dnia",
+        "NoPhoneMorning": "Nie sprawdzać telefonu przez pierwszą godzinę po przebudzeniu"
+      }
+    },
     "TextareaDescription": "Maksymalnie 60 znaków",
-    "QuantityOfRepeat": "Określ liczbę powtórzeń w celu osiągnięcia celu (opcjonalnie)",
+    "QuantityOfRepeat": "Liczba powtórzeń do osiągnięcia celu",
+    "Deadline": {
+      "Label": "Ustaw termin (opcjonalnie)",
+      "Units": {
+        "hour": "godzina",
+        "day": "dzień"
+      }
+    },
     "Buttons": {
       "Create": "Utwórz",
       "Cancel": "Anuluj"
@@ -32,6 +87,9 @@
   "PersonalGoalsCard": {
     "Progress": "Postęp",
     "GoalAchieved": "Cel osiągnięty, tak trzymaj!",
+    "GoalFailed": "Czas minął — cel nie osiągnięty",
+    "DaysLeft": "{count, plural, one {# dzień pozostał} few {# dni pozostały} other {# dni pozostało}}",
+    "DeadlineToday": "Termin mija dzisiaj!",
     "Mark": "Zaznacz",
     "Dialog": {
       "DeleteTitle": "Usunąć cel?",

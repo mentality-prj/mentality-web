@@ -1,19 +1,24 @@
 'use client'
-import { useEffect, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
-import { fetchPersonalGoals, PersonalGoal } from '@/requests/personalGoals'
+import { fetchPersonalGoals } from '@/requests/personalGoals'
+import { GoalEntity } from '@/types/api-responses'
 import { Statuses } from '@/types/goals'
 
 import { CreatePersonalGoals } from './CreatePersonalGoals'
 import { PersonalGoalsCard } from './PersonalGoalsCard'
 import { Filter } from './PersonalGoalsFilter'
+import { buildGoalIconLookup } from './personalGoalSuggestions'
 
 export const PersonalGoalsList = ({ filter, refreshKey = 0 }: { filter: Filter; refreshKey?: number }) => {
   const { data: session } = useSession()
-  const [personalGoals, setPersonalGoals] = useState<PersonalGoal[]>([])
+  const [personalGoals, setPersonalGoals] = useState<GoalEntity[]>([])
+  const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
+  const iconLookup = useMemo(() => buildGoalIconLookup(t), [t])
 
-  const handleCreated = (newGoal?: PersonalGoal) => {
+  const handleCreated = (newGoal?: GoalEntity) => {
     if (!newGoal) {
       // if no goal provided, fallback to refetch
       const refetch = async () => {
@@ -51,6 +56,8 @@ export const PersonalGoalsList = ({ filter, refreshKey = 0 }: { filter: Filter; 
               repeat={goal.repeat}
               check={goal.check}
               status={goal.status}
+              deadline={goal.deadline}
+              iconKey={iconLookup[goal.text]}
               setPersonalGoals={setPersonalGoals}
             />
           ))
@@ -65,6 +72,8 @@ export const PersonalGoalsList = ({ filter, refreshKey = 0 }: { filter: Filter; 
                   repeat={goal.repeat}
                   check={goal.check}
                   status={goal.status}
+                  deadline={goal.deadline}
+                  iconKey={iconLookup[goal.text]}
                   setPersonalGoals={setPersonalGoals}
                 />
               ))
@@ -79,6 +88,8 @@ export const PersonalGoalsList = ({ filter, refreshKey = 0 }: { filter: Filter; 
                     repeat={goal.repeat}
                     check={goal.check}
                     status={goal.status}
+                    deadline={goal.deadline}
+                    iconKey={iconLookup[goal.text]}
                     setPersonalGoals={setPersonalGoals}
                   />
                 ))

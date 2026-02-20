@@ -2,8 +2,8 @@ import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import type { PersonalGoal } from '@/requests/personalGoals'
 import { createPersonalGoal } from '@/requests/personalGoals'
+import type { GoalEntity } from '@/types/api-responses'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 export const useCreatePersonalGoal = () => {
@@ -11,7 +11,11 @@ export const useCreatePersonalGoal = () => {
   const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
   const [loading, setLoading] = useState(false)
 
-  const create = async (text: string, repeat = 1): Promise<{ data?: PersonalGoal; error?: string }> => {
+  const create = async (
+    text: string,
+    repeat = 1,
+    deadline?: string
+  ): Promise<{ data?: GoalEntity; error?: string }> => {
     if (!session?.user?.id) {
       notifyError(t('Toast.Failed'))
       return { error: 'no-session' }
@@ -24,7 +28,7 @@ export const useCreatePersonalGoal = () => {
 
     setLoading(true)
     try {
-      const res = await createPersonalGoal(session, { text, repeat })
+      const res = await createPersonalGoal(session, { text, repeat, deadline })
       if ('error' in res) {
         notifyError(t('Toast.Failed'))
         return { error: 'api' }

@@ -448,6 +448,7 @@ body {
 
   /* Cards / surfaces */
   .default {
+    @apply border;
     color: hsl(var(--text-primary));
     background-color: hsl(var(--background));
   }

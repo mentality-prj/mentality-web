@@ -1,22 +1,18 @@
 'use client'
 import { Dispatch, SetStateAction, useState } from 'react'
-import { CircleCheckBig, CopyPlus, RefreshCcw, TrashIcon } from 'lucide-react'
+import { CircleCheckBig, CopyPlus, RefreshCcw, Timer, TrashIcon, TriangleAlert } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
 import FullScreenCard from '@/components/shared/Cards/FullScreenCard'
-import {
-  createPersonalGoal,
-  deletePersonalGoal,
-  fetchPersonalGoals,
-  PersonalGoal,
-  resetPersonalGoal,
-  updatePersonalGoal,
-} from '@/requests/personalGoals'
+import type { GoalEntity } from '@/types/api-responses'
 import { GoalStatus, Statuses } from '@/types/goals'
 import { Button } from '@/ui/button'
 import { Progress } from '@/ui/progress'
+
+import { GOAL_ICONS, GoalIconKey } from './personalGoalSuggestions'
+import { usePersonalGoalActions } from './usePersonalGoalActions'
 
 export interface PersonalGoalsCardProps {
   id: string
@@ -24,50 +20,62 @@ export interface PersonalGoalsCardProps {
   check: number
   repeat: number
   status: GoalStatus
-  setPersonalGoals: Dispatch<SetStateAction<PersonalGoal[]>>
+  deadline?: string
+  iconKey?: GoalIconKey
+  setPersonalGoals: Dispatch<SetStateAction<GoalEntity[]>>
 }
 
-export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonalGoals }: PersonalGoalsCardProps) => {
+function getRemainingDays(deadline: string): number {
+  return Math.ceil((new Date(deadline).getTime() - Date.now()) / (1000 * 60 * 60 * 24))
+}
+
+export const PersonalGoalsCard = ({
+  id,
+  text,
+  check,
+  repeat,
+  status,
+  deadline,
+  iconKey,
+  setPersonalGoals,
+}: PersonalGoalsCardProps) => {
   const { data: session } = useSession()
   const [dialogAction, setDialogAction] = useState<'reset' | 'delete' | null>(null)
   const t = useTranslations('components.PersonalGoals.PersonalGoalsCard')
   const tBtn = useTranslations('common.Buttons')
 
+  const { mark, reset, duplicate, remove } = usePersonalGoalActions(setPersonalGoals)
+
   const userId = session?.user?.id
   if (!userId) {
     return null
   }
-  const handleClick = async () => {
-    await updatePersonalGoal(session, { id, check })
-    const res = await fetchPersonalGoals(session)
-    setPersonalGoals(res.data ?? [])
-  }
+
+  const handleClick = () => mark(id, check)
 
   const resetClick = async () => {
-    await resetPersonalGoal(session, { id })
-    const res = await fetchPersonalGoals(session)
-    setPersonalGoals(res.data ?? [])
+    await reset(id)
     setDialogAction(null)
   }
 
-  const duplicateClick = async () => {
-    await createPersonalGoal(session, { text, repeat })
-    const res = await fetchPersonalGoals(session)
-    setPersonalGoals(res.data ?? [])
-  }
+  const duplicateClick = () => duplicate(text, repeat)
 
   const deleteClick = async () => {
-    await deletePersonalGoal(session, { id })
-    const res = await fetchPersonalGoals(session)
-    setPersonalGoals(res.data ?? [])
+    await remove(id)
     setDialogAction(null)
   }
+
+  const isFailed = status === Statuses.FAILED
+  const isCompleted = status === Statuses.COMPLETED
+  const remainingDays = deadline && !isCompleted && !isFailed ? getRemainingDays(deadline) : null
+
+  const IconComponent = iconKey ? GOAL_ICONS[iconKey] : null
 
   return (
     <>
       <Card
-        className={`${status === Statuses.COMPLETED ? 'border border-white' : ''} min-h-44`}
-        type={status === Statuses.COMPLETED ? 'success' : 'default'}
+        className={`${isCompleted ? 'border border-white' : ''} min-h-44`}
+        type={isCompleted ? 'success' : isFailed ? 'error' : 'default'}
         text={text}
         tools={
           <>
@@ -98,7 +106,18 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
           </>
         }
       >
-        <div className="flex h-full flex-col justify-end gap-sm">
+        <div className="relative flex h-full flex-col justify-end gap-sm">
+          {IconComponent && (
+            <div className="pointer-events-none absolute -left-4 -top-14 opacity-10">
+              <IconComponent size={72} />
+            </div>
+          )}
+          {remainingDays !== null && (
+            <div className="text-textcolor-tertiary flex items-center gap-xs text-xs/[14px]">
+              <Timer size={14} />
+              <span>{remainingDays > 0 ? t('DaysLeft', { count: remainingDays }) : t('DeadlineToday')}</span>
+            </div>
+          )}
           {repeat > 1 && (
             <div>
               <Progress value={(check / repeat) * 100} className="h-[6px] bg-background-alt" />
@@ -110,10 +129,15 @@ export const PersonalGoalsCard = ({ id, text, check, repeat, status, setPersonal
               </div>
             </div>
           )}
-          {status === Statuses.COMPLETED ? (
+          {isCompleted ? (
             <div className="flex items-center justify-center gap-3 text-primary">
               <p>{t('GoalAchieved')}</p>
               <CircleCheckBig size={48} />
+            </div>
+          ) : isFailed ? (
+            <div className="flex items-center justify-center gap-3">
+              <p>{t('GoalFailed')}</p>
+              <TriangleAlert size={48} />
             </div>
           ) : (
             <Button onClick={handleClick}>{t('Mark')}</Button>

@@ -1,0 +1,8 @@
+{
+  "title": "Admin",
+  "subtitle": "System projektowania, komponenty i narzędzia deweloperskie",
+  "dashboard": { "title": "Pulpit" },
+  "ds": { "title": "System projektowania" },
+  "goals": { "title": "Cele" },
+  "achievements": { "title": "Osiągnięcia" }
+}
