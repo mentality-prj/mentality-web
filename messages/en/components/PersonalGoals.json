@@ -1,10 +1,14 @@
 {
   "Title": "Personal goals",
   "Subtitle": "Important steps towards inner balance",
+  "PersonalGoalsList": {
+    "ViewAll": "Show all goals"
+  },
   "Filter": {
     "All": "All",
     "Active": "Active",
-    "Completed": "Completed"
+    "Completed": "Completed",
+    "Failed": "Failed"
   },
   "CreatePersonalGoals": {
     "Title": "Formulate your goal",
@@ -24,20 +28,20 @@
         "CallFriend": "Call a friend you haven't spoken to in a while",
         "WriteGratitudeList": "Write a list of 10 things you're grateful for",
         "MorningWithoutPhone": "Spend a morning without your phone",
-        "CookNewDish": "Cook a dish you've never made before",
+        "LetterToFutureSelf": "Write a letter to your future self",
         "WalkNewRoute": "Take a walk on a route you've never tried",
         "ArtSession": "Draw or paint something",
-        "JournalEntry": "Write a page in your journal"
+        "PersonalValues": "Write down your personal values and reflect on them"
       },
       "Shortterm": {
         "SleepBetter": "Go to bed before 22:00 during the week",
-        "NoSugar": "A week without sweets",
+        "DailyMindfulness": "Practice mindfulness for 10 minutes every day for a week",
         "MorningWalk": "Walk every morning for a week",
         "NoPhoneEvening": "No phone after 21:00 for a week",
-        "Stretch": "Morning stretching every day for a week",
+        "TalkAboutFeelings": "Talk openly about your feelings with someone each day for a week",
         "ReadDaily": "Read at least 10 pages a day for a week",
-        "NoCoffee": "A week without coffee",
-        "GratitudeDiary": "Write 3 things you're grateful for each day for a week",
+        "NatureTime": "Spend 20 minutes in nature each day for a week",
+        "MorningIntention": "Set a positive intention every morning for a week",
         "EarlyRise": "Wake up an hour earlier for a week"
       },
       "Longterm": {
@@ -46,19 +50,19 @@
         "Meditation": "Meditate daily for 30 days",
         "ReadBook30": "Read a book within a month",
         "DigitalDetox": "A month without TV and video games",
-        "HealthyEating": "Eat healthy for a month",
-        "JournalMonth": "Keep a journal for a month",
-        "NewSkill": "Learn a new skill",
+        "SelfCompassion": "Practice a daily self-compassion exercise for a month",
+        "DailyGrounding": "Practice the 5-4-3-2-1 grounding technique every day for a month",
+        "CopingStrategy": "Learn a new psychological coping strategy",
         "Volunteer": "Start volunteering"
       },
       "Repeating": {
-        "CoffeeLimit": "Drink no more than one cup of coffee per day",
-        "Water": "Drink more water throughout the day",
+        "ShareFeelings": "Share how you feel with someone close to you",
+        "PositiveReflection": "Reflect on one positive thing that happened today",
         "Evening": "Evening walk without phone",
-        "NoSnacks": "No eating after 20:00",
-        "Floss": "Use dental floss every day",
-        "Steps": "Walk more steps each day",
-        "Vitamins": "Take vitamins every day",
+        "SilenceReflection": "Spend 10 minutes in silence and reflection",
+        "SocialMediaLimit": "Limit social media to 20 minutes a day",
+        "SupportSomeone": "Reach out to someone who might need support",
+        "CreativeHobby": "Spend time on a creative activity you enjoy",
         "MindfulBreathing": "Do breathing exercises every day",
         "NoPhoneMorning": "No phone for the first hour after waking up"
       }
@@ -89,8 +93,11 @@
     "GoalAchieved": "Goal achieved, keep it up!",
     "GoalFailed": "Time's up — goal not reached",
     "DaysLeft": "{count, plural, one {# day left} other {# days left}}",
+    "HoursLeft": "{count, plural, one {# hour left} other {# hours left}}",
+    "MinutesLeft": "{count, plural, one {# minute left} other {# minutes left}}",
     "DeadlineToday": "Deadline is today!",
     "Mark": "Mark",
+    "MarkedToday": "Done for today",
     "Dialog": {
       "DeleteTitle": "Delete goal?",
       "ResetTitle": "Reset goal?",

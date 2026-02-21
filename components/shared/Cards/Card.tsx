@@ -65,7 +65,7 @@ const Card = ({
               {sup && <div className="">{sup}</div>}
             </div>
             {tools && (
-              <div className="flex gap-1" data-card-tools>
+              <div className={`flex gap-1 ${isDark ? 'tools-dark' : ''}`} data-card-tools>
                 {Array.isArray(tools) ? tools.map((tool, idx) => <span key={idx}>{tool}</span>) : tools}
               </div>
             )}

@@ -1,10 +1,14 @@
 {
   "Title": "Cele osobiste",
   "Subtitle": "Ważne kroki w kierunku równowagi wewnętrznej",
+  "PersonalGoalsList": {
+    "ViewAll": "Pokaż wszystkie cele"
+  },
   "Filter": {
     "All": "Wszystkie",
     "Active": "Aktywne",
-    "Completed": "Ukończone"
+    "Completed": "Ukończone",
+    "Failed": "Nieukończone"
   },
   "CreatePersonalGoals": {
     "Title": "Sformułuj swój cel",
@@ -24,20 +28,20 @@
         "CallFriend": "Zadzwoń do przyjaciela, z którym dawno nie rozmawiałeś",
         "WriteGratitudeList": "Napisz listę 10 rzeczy, za które jesteś wdzięczny",
         "MorningWithoutPhone": "Spędź poranek bez telefonu",
-        "CookNewDish": "Ugotuj potrawę, której nigdy nie robiłeś",
+        "LetterToFutureSelf": "Napisz list do swojego przyszłego \"ja\"",
         "WalkNewRoute": "Przejdź się trasą, którą nigdy nie szłeś",
         "ArtSession": "Narysuj lub pokoloruj coś",
-        "JournalEntry": "Napisz stronę w swoim dzienniku"
+        "PersonalValues": "Zapisz swoje osobiste wartości i zastanów się nad nimi"
       },
       "Shortterm": {
         "SleepBetter": "Zasnąć przed 22:00 przez tydzień",
-        "NoSugar": "Tydzień bez słodyczy",
+        "DailyMindfulness": "Ćwicz uważność przez 10 minut każdego dnia przez tydzień",
         "MorningWalk": "Poranny spacer każdego ranka przez tydzień",
         "NoPhoneEvening": "Tydzień bez telefonu po 21:00",
-        "Stretch": "Poranne rozciąganie każdego dnia przez tydzień",
+        "TalkAboutFeelings": "Rozmawiaj otwarcie o swoich uczuciach z kimś każdego dnia przez tydzień",
         "ReadDaily": "Czytać co najmniej 10 stron dziennie przez tydzień",
-        "NoCoffee": "Tydzień bez kawy",
-        "GratitudeDiary": "Zapisywać 3 rzeczy wdzięczności każdego dnia przez tydzień",
+        "NatureTime": "Spędź 20 minut na łonie natury każdego dnia przez tydzień",
+        "MorningIntention": "Ustalaj pozytywny zamiar każdego ranka przez tydzień",
         "EarlyRise": "Wstawać godzinę wcześniej przez tydzień"
       },
       "Longterm": {
@@ -46,19 +50,19 @@
         "Meditation": "Medytuj codziennie przez 30 dni",
         "ReadBook30": "Przeczytaj książkę w ciągu miesiąca",
         "DigitalDetox": "Miesiąc bez TV i gier wideo",
-        "HealthyEating": "Zdrowo się odżywiaj przez miesiąc",
-        "JournalMonth": "Prowadź dziennik przez miesiąc",
-        "NewSkill": "Naucz się nowej umiejętności",
+        "SelfCompassion": "Codziennie ćwicz samowspółczucie przez miesiąc",
+        "DailyGrounding": "Ćwicz technikę uziemienia 5-4-3-2-1 każdego dnia przez miesiąc",
+        "CopingStrategy": "Naucz się nowej psychologicznej strategii radzenia sobie ze stresem",
         "Volunteer": "Zacznij wolontariat"
       },
       "Repeating": {
-        "CoffeeLimit": "Nie pij więcej niż jednej filiżanki kawy dziennie",
-        "Water": "Pić więcej wody w ciągu dnia",
+        "ShareFeelings": "Podziel się swoimi uczuciami z bliską osobą",
+        "PositiveReflection": "Zastanów się nad jedną pozytywną rzeczą, która wydarzyła się dzisiaj",
         "Evening": "Wieczorny spacer bez telefonu",
-        "NoSnacks": "Nie jeść po 20:00",
-        "Floss": "Używać nici dentystycznej każdego dnia",
-        "Steps": "Chodzić więcej kroków każdego dnia",
-        "Vitamins": "Brać witaminy każdego dnia",
+        "SilenceReflection": "Spędź 10 minut w ciszy i refleksji",
+        "SocialMediaLimit": "Ogranicz media społecznościowe do 20 minut dziennie",
+        "SupportSomeone": "Napisz lub zadzwoń do kogoś, kto może potrzebować wsparcia",
+        "CreativeHobby": "Poświęć czas twórczej aktywności, którą lubisz",
         "MindfulBreathing": "Robić ćwiczenia oddechowe każdego dnia",
         "NoPhoneMorning": "Nie sprawdzać telefonu przez pierwszą godzinę po przebudzeniu"
       }
@@ -89,8 +93,11 @@
     "GoalAchieved": "Cel osiągnięty, tak trzymaj!",
     "GoalFailed": "Czas minął — cel nie osiągnięty",
     "DaysLeft": "{count, plural, one {# dzień pozostał} few {# dni pozostały} other {# dni pozostało}}",
+    "HoursLeft": "{count, plural, one {# godzina pozostała} few {# godziny pozostały} other {# godzin pozostało}}",
+    "MinutesLeft": "{count, plural, one {# minuta pozostała} few {# minuty pozostały} other {# minut pozostało}}",
     "DeadlineToday": "Termin mija dzisiaj!",
     "Mark": "Zaznacz",
+    "MarkedToday": "Na dziś gotowe",
     "Dialog": {
       "DeleteTitle": "Usunąć cel?",
       "ResetTitle": "Zresetować cel?",

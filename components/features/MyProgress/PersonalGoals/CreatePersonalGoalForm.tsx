@@ -168,10 +168,11 @@ export const CreatePersonalGoalForm = ({
                 <Input
                   type="number"
                   min={1}
+                  step={1}
                   value={deadlineCustomValue}
                   onChange={(e) => {
                     const v = e.target.value
-                    onCustomDeadlineChange(v === '' ? '' : Math.max(1, Number(v)))
+                    onCustomDeadlineChange(v === '' ? '' : Math.max(1, parseInt(v, 10)))
                   }}
                   className="w-20"
                   placeholder="—"

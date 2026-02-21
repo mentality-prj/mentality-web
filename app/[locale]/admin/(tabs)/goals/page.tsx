@@ -6,6 +6,9 @@ import { GoalIconKey } from '@/components/features/MyProgress/PersonalGoals/pers
 import type { GoalEntity } from '@/types/api-responses'
 import { Statuses } from '@/types/goals'
 
+// Note: This admin page is a static showcase for the PersonalGoalsCard component.
+// We intentionally use a no-op setter here so actions (mark/reset/duplicate/delete)
+// do not update the displayed goals in this read-only demo.
 // eslint-disable-next-line @typescript-eslint/no-empty-function
 const noop: Dispatch<SetStateAction<GoalEntity[]>> = () => {}
 

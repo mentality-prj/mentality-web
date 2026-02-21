@@ -15,6 +15,7 @@ export const RoutesTitles = Object.freeze({
   MOODTRACKER: 'Mood-Tracker',
   MYSPACE: 'My-Space',
   MYPROGRESS: 'My-Progress',
+  MYPROGRESSGOALS: 'My-Progress/Goals',
   PSYCHOLOGICALTESTS: 'Psychological-Tests',
   PROFILE: 'Profile',
   SETTINGS: 'Settings',

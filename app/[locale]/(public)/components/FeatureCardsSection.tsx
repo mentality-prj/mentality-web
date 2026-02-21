@@ -47,21 +47,21 @@ export function FeatureCardsSection() {
           type={Statuses.note}
           title={t('Features.interactivity.title')}
           subtitle={t('Features.interactivity.subtitle')}
-          titleClassName="text-title light-shadow text-textcolor-primary"
+          titleClassName="text-title shadow-light text-textcolor-primary"
           decoration={interactivityDecoration}
         />
         <SectionCard
           type={Statuses.info}
           title={t('Features.support.title')}
           subtitle={t('Features.support.subtitle')}
-          titleClassName="text-title light-shadow text-textcolor-primary"
+          titleClassName="text-title shadow-light text-textcolor-primary"
           decoration={supportDecoration}
         />
         <SectionCard
           type="success"
           title={t('Features.ai.title')}
           subtitle={t('Features.ai.subtitle')}
-          titleClassName="text-title light-shadow text-textcolor-primary"
+          titleClassName="text-title shadow-light text-textcolor-primary"
           decoration={aiDecoration}
         />
       </div>

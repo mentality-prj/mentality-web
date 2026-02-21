@@ -10,30 +10,54 @@ export const usePersonalGoalActions = (setPersonalGoals: SetGoals) => {
   const { data: session } = useSession()
 
   const mark = async (id: string, check: number) => {
-    const res = await updatePersonalGoal(session, { id, check })
-    if (res.data) {
-      setPersonalGoals((prev) => prev.map((g) => (g.id === id ? res.data! : g)))
+    try {
+      const res = await updatePersonalGoal(session, { id, check })
+      if (res.data) {
+        setPersonalGoals((prev) => prev.map((g) => (g.id === id ? res.data! : g)))
+      } else {
+        console.error('Failed to update personal goal progress: missing response data.', res)
+      }
+    } catch (error) {
+      console.error('Failed to update personal goal progress.', error)
     }
   }
 
   const reset = async (id: string) => {
-    const res = await resetPersonalGoal(session, { id })
-    if (res.data) {
-      setPersonalGoals((prev) => prev.map((g) => (g.id === id ? res.data! : g)))
+    try {
+      const res = await resetPersonalGoal(session, { id })
+      if (res.data) {
+        setPersonalGoals((prev) => prev.map((g) => (g.id === id ? res.data! : g)))
+      } else {
+        console.error('Failed to reset personal goal: missing response data.', res)
+      }
+    } catch (error) {
+      console.error('Failed to reset personal goal.', error)
     }
   }
 
-  const duplicate = async (text: string, repeat: number) => {
-    const res = await createPersonalGoal(session, { text, repeat })
-    if (res.data) {
-      setPersonalGoals((prev) => [res.data!, ...prev])
+  const duplicate = async (text: string, repeat: number, deadline?: string) => {
+    try {
+      const res = await createPersonalGoal(session, { text, repeat, deadline })
+      if (res.data) {
+        setPersonalGoals((prev) => [res.data!, ...prev])
+      } else {
+        console.error('Failed to duplicate personal goal: missing response data.', res)
+      }
+    } catch (error) {
+      console.error('Failed to duplicate personal goal.', error)
     }
   }
 
   const remove = async (id: string) => {
-    const res = await deletePersonalGoal(session, { id })
-    if (!res.error) {
-      setPersonalGoals((prev) => prev.filter((g) => g.id !== id))
+    try {
+      const res = await deletePersonalGoal(session, { id })
+      if (!res.error) {
+        setPersonalGoals((prev) => prev.filter((g) => g.id !== id))
+      } else {
+        console.error('Failed to remove personal goal.', res.error)
+      }
+    } catch (error) {
+      console.error('Failed to remove personal goal.', error)
     }
   }
 
