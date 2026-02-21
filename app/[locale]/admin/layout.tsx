@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { AdminHeader } from '@/admin/index'
 import { auth } from '@/auth'
+import { LandingFooter } from '@/components/features/Landing'
 import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
 
@@ -19,9 +20,12 @@ export default async function AdminLayout({ children }: { children: ReactNode })
         <div className="admin-background h-full w-1/2" />
       </div>
       <div className="container-max-width relative z-10 flex min-h-screen w-full">
-        <main className="paper flex-1 flex-col items-start pr-8">
-          <AdminHeader />
-          {children}
+        <main className="paper flex flex-1 flex-col items-start justify-between pr-8">
+          <div className="w-full">
+            <AdminHeader />
+            {children}
+          </div>
+          <LandingFooter type="small" className="bg-none" />
         </main>
         <div className="admin-background flex">
           <Sidebar menu={adminSidebarMenu} type="admin" />

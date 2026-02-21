@@ -1,3 +1,4 @@
+import { GoalCategory, GoalStatus } from './goals'
 import { ITEM_TYPE_DEFS } from './itemTypes'
 import { SupportedLanguage } from './languages'
 
@@ -124,28 +125,18 @@ export type UserEntity = {
 }
 
 // Goals
+
 export type GoalEntity = {
   id: string
   userId?: string
   text: string
   check: number
   repeat: number
-  status?: 'pending' | 'completed' | 'in progress'
+  status: GoalStatus
+  deadline?: string
   createdAt?: string
   updatedAt?: string
-}
-
-export type CreateGoalDto = {
-  userId?: string
-  text: string
-  repeat?: number
-}
-
-export type UpdateGoalDto = {
-  text?: string
-  check?: number
-  repeat?: number
-  status?: 'pending' | 'completed' | 'in progress'
+  category: GoalCategory
 }
 
 // Mood records

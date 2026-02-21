@@ -1,9 +1,9 @@
 import { ComponentProps, ReactNode } from 'react'
 import { X } from 'lucide-react'
 
-import { ToggleGroupItem } from '@/ui/toggle-group'
 import { cn } from '@/lib/utils'
 import { Statuses, StatusType } from '@/types/status.types'
+import { ToggleGroupItem } from '@/ui/toggle-group'
 
 interface BaseTagProps {
   children?: ReactNode

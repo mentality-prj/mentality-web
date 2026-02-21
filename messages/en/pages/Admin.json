@@ -1,0 +1,8 @@
+{
+  "title": "Admin",
+  "subtitle": "Design system, components and developer tools",
+  "dashboard": { "title": "Dashboard" },
+  "ds": { "title": "Design System" },
+  "goals": { "title": "Goals" },
+  "achievements": { "title": "Achievements" }
+}

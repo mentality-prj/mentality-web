@@ -25,7 +25,7 @@ const disabledStates = {
 }
 
 // Button variant styles
-const defaultButtonStyles = `px-6 bg-primary text-reversed ${interactiveStates.primary} ${focusRing.primary} ${disabledStates.solid}`
+const defaultButtonStyles = `px-6 bg-primary text-reversed ${interactiveStates.primary} ${focusRing.primary}`
 
 const secondaryButtonStyles = `px-6 bg-transparent text-primary border border-primary ${interactiveStates.secondary} ${focusRing.primary} ${disabledStates.bordered}`
 
@@ -44,7 +44,7 @@ const iconButtonStyles = `bg-transparent text-iconcolor-primary hover:opacity-75
 const volumeButtonStyles = `px-6 py-4 bg-primary text-primary-foreground ${interactiveStates.primary} ${focusRing.primary} shadow-md [background-image:linear-gradient(45deg,rgba(31,210,192,0)_60%,rgba(31,210,192,0.5)_80%,rgba(255,255,255,0.5)_100%)] [box-shadow:inset_0px_2px_4px_rgba(255,255,255,0.3)] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale] disabled:[background-image:none]`
 
 const buttonVariants = cva(
-  'inline-flex items-center justify-center whitespace-normal rounded-full text-base leading-none transition-colors focus:outline-none disabled:pointer-events-none disabled:bg-background-muted disabled:text-tertiary [&_svg]:pointer-events-none [&_svg]:shrink-0 h-10',
+  'inline-flex items-center justify-center whitespace-normal rounded-full text-base leading-none transition-colors focus:outline-none disabled:pointer-events-none disabled:bg-background-muted disabled:text-textcolor-muted disabled:[text-shadow:0_1px_0_hsla(0,0%,100%,0.8)] [&_svg]:pointer-events-none [&_svg]:shrink-0 h-10',
   {
     variants: {
       variant: {
@@ -69,11 +69,11 @@ const buttonVariants = cva(
 
       size: {
         // Text button sizes
-        default: 'h-10 text-base gap-1 [&_svg]:h-6',
-        base: 'h-10 text-sm gap-1 [&_svg]:h-4',
-        large: 'h-14 px-6 text-lg gap-xs [&_svg]:h-6',
-        medium: 'h-10 px-4 text-sm gap-1 [&_svg]:h-5',
-        small: 'h-8 px-2 text-xs gap-1 [&_svg]:h-4',
+        default: 'h-10 text-base leading-none gap-1 [&_svg]:h-6',
+        base: 'h-10 text-sm leading-none gap-1 [&_svg]:h-4',
+        large: 'h-14 px-6 text-lg leading-none gap-xs [&_svg]:h-6',
+        medium: 'h-10 px-4 text-sm leading-none gap-1 [&_svg]:h-5',
+        small: 'h-8 px-2 text-xs leading-none gap-1 [&_svg]:h-4',
 
         // Icon button sizes
         iconBig: 'h-12',
