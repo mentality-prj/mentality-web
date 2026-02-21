@@ -4,6 +4,7 @@ import { useTranslations } from 'next-intl'
 
 import { createPersonalGoal } from '@/requests/personalGoals'
 import type { GoalEntity } from '@/types/api-responses'
+import type { GoalCategory } from '@/types/goals'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 export const useCreatePersonalGoal = () => {
@@ -14,6 +15,7 @@ export const useCreatePersonalGoal = () => {
   const create = async (
     text: string,
     repeat = 1,
+    category: GoalCategory,
     deadline?: string
   ): Promise<{ data?: GoalEntity; error?: string }> => {
     if (!session?.user?.id) {
@@ -28,7 +30,7 @@ export const useCreatePersonalGoal = () => {
 
     setLoading(true)
     try {
-      const res = await createPersonalGoal(session, { text, repeat, deadline })
+      const res = await createPersonalGoal(session, { text, repeat, deadline, category })
       if ('error' in res) {
         notifyError(t('Toast.Failed'))
         return { error: 'api' }

@@ -80,7 +80,15 @@ export const PersonalGoalsList = ({
   }, [session, refreshKey, initialGoals])
 
   const filteredGoals = (() => {
-    if (filter === 'all') return sortByDeadline(personalGoals)
+    if (filter === 'all') {
+      const pending = sortByDeadline(
+        personalGoals.filter((g) => g.status === Statuses.PENDING || g.status === Statuses.IN_PROGRESS)
+      )
+      const completed = sortByDeadline(
+        personalGoals.filter((g) => g.status === Statuses.COMPLETED || g.status === Statuses.FAILED)
+      )
+      return [...pending, ...completed]
+    }
     if (filter === 'pending')
       return sortByDeadline(
         personalGoals.filter((g) => g.status === Statuses.PENDING || g.status === Statuses.IN_PROGRESS)
@@ -114,7 +122,7 @@ export const PersonalGoalsList = ({
           deadline={goal.deadline}
           createdAt={goal.createdAt}
           updatedAt={goal.updatedAt}
-          iconKey={iconLookup[goal.text]}
+          category={goal.category ?? iconLookup[goal.text]}
           readonly={readonly}
           setPersonalGoals={setPersonalGoals}
         />

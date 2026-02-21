@@ -7,11 +7,11 @@ import { useTranslations } from 'next-intl'
 import Card from '@/components/shared/Cards/Card'
 import FullScreenCard from '@/components/shared/Cards/FullScreenCard'
 import type { GoalEntity } from '@/types/api-responses'
-import { GoalStatus, Statuses } from '@/types/goals'
+import { GoalCategory, GoalStatus, Statuses } from '@/types/goals'
 import { Button } from '@/ui/button'
 import { Progress } from '@/ui/progress'
 
-import { getGoalIcon, GoalIconKey } from './personalGoalSuggestions'
+import { getGoalIcon } from './personalGoalSuggestions'
 import { usePersonalGoalActions } from './usePersonalGoalActions'
 
 export interface PersonalGoalsCardProps {
@@ -23,7 +23,7 @@ export interface PersonalGoalsCardProps {
   deadline?: string
   createdAt?: string
   updatedAt?: string
-  iconKey?: GoalIconKey
+  category: GoalCategory
   readonly?: boolean
   setPersonalGoals: Dispatch<SetStateAction<GoalEntity[]>>
 }
@@ -52,7 +52,7 @@ export const PersonalGoalsCard = ({
   deadline,
   createdAt,
   updatedAt,
-  iconKey,
+  category,
   readonly = false,
   setPersonalGoals,
 }: PersonalGoalsCardProps) => {
@@ -100,7 +100,7 @@ export const PersonalGoalsCard = ({
         newDeadline = new Date(Date.now() + duration).toISOString()
       }
     }
-    duplicate(text, repeat, newDeadline)
+    duplicate(text, repeat, category, newDeadline)
   }
 
   const deleteClick = async () => {
@@ -108,7 +108,7 @@ export const PersonalGoalsCard = ({
     setDialogAction(null)
   }
 
-  const IconComponent = iconKey ? getGoalIcon(iconKey) : Target
+  const IconComponent = category ? getGoalIcon(category) : Target
 
   const isMarkedToday =
     repeat > 1 &&

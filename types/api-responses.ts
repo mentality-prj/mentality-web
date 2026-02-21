@@ -1,4 +1,4 @@
-import { GoalStatus } from './goals'
+import { GoalCategory, GoalStatus } from './goals'
 import { ITEM_TYPE_DEFS } from './itemTypes'
 import { SupportedLanguage } from './languages'
 
@@ -136,6 +136,7 @@ export type GoalEntity = {
   deadline?: string
   createdAt?: string
   updatedAt?: string
+  category: GoalCategory
 }
 
 // Mood records

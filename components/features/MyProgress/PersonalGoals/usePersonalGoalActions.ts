@@ -3,6 +3,7 @@ import { useSession } from 'next-auth/react'
 
 import { createPersonalGoal, deletePersonalGoal, resetPersonalGoal, updatePersonalGoal } from '@/requests/personalGoals'
 import { GoalEntity } from '@/types/api-responses'
+import type { GoalCategory } from '@/types/goals'
 
 type SetGoals = Dispatch<SetStateAction<GoalEntity[]>>
 
@@ -35,9 +36,9 @@ export const usePersonalGoalActions = (setPersonalGoals: SetGoals) => {
     }
   }
 
-  const duplicate = async (text: string, repeat: number, deadline?: string) => {
+  const duplicate = async (text: string, repeat: number, category: GoalCategory, deadline?: string) => {
     try {
-      const res = await createPersonalGoal(session, { text, repeat, deadline })
+      const res = await createPersonalGoal(session, { text, repeat, category, deadline })
       if (res.data) {
         setPersonalGoals((prev) => [res.data!, ...prev])
       } else {

@@ -2,9 +2,8 @@
 import { Dispatch, SetStateAction } from 'react'
 
 import { PersonalGoalsCard } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsCard'
-import { GoalIconKey } from '@/components/features/MyProgress/PersonalGoals/personalGoalSuggestions'
 import type { GoalEntity } from '@/types/api-responses'
-import { Statuses } from '@/types/goals'
+import { GoalCategory, Statuses } from '@/types/goals'
 
 // Note: This admin page is a static showcase for the PersonalGoalsCard component.
 // We intentionally use a no-op setter here so actions (mark/reset/duplicate/delete)
@@ -18,19 +17,19 @@ function daysFromNow(n: number): string {
   return d.toISOString()
 }
 
-const iconShowcaseItems: Array<{ id: string; iconKey: GoalIconKey; text: string }> = [
-  { id: 'i-food', iconKey: 'food', text: 'Healthy eating' },
-  { id: 'i-reading', iconKey: 'reading', text: 'Read every day' },
-  { id: 'i-social', iconKey: 'social', text: 'Connect with friends' },
-  { id: 'i-journaling', iconKey: 'journaling', text: 'Daily journal' },
-  { id: 'i-noPhone', iconKey: 'noPhone', text: 'No phone morning' },
-  { id: 'i-walk', iconKey: 'walk', text: 'Evening walk' },
-  { id: 'i-art', iconKey: 'art', text: 'Art session' },
-  { id: 'i-sleep', iconKey: 'sleep', text: 'Better sleep' },
-  { id: 'i-sport', iconKey: 'sport', text: 'Morning workout' },
-  { id: 'i-learning', iconKey: 'learning', text: 'Learn something new' },
-  { id: 'i-health', iconKey: 'health', text: 'Drink 2L water' },
-  { id: 'i-meditation', iconKey: 'meditation', text: 'Mindful breathing' },
+const iconShowcaseItems: Array<{ id: string; category: GoalCategory; text: string }> = [
+  { id: 'i-food', category: 'food', text: 'Healthy eating' },
+  { id: 'i-reading', category: 'reading', text: 'Read every day' },
+  { id: 'i-social', category: 'social', text: 'Connect with friends' },
+  { id: 'i-journaling', category: 'journaling', text: 'Daily journal' },
+  { id: 'i-noPhone', category: 'noPhone', text: 'No phone morning' },
+  { id: 'i-walk', category: 'walk', text: 'Evening walk' },
+  { id: 'i-art', category: 'art', text: 'Art session' },
+  { id: 'i-sleep', category: 'sleep', text: 'Better sleep' },
+  { id: 'i-sport', category: 'sport', text: 'Morning workout' },
+  { id: 'i-learning', category: 'learning', text: 'Learn something new' },
+  { id: 'i-health', category: 'health', text: 'Drink 2L water' },
+  { id: 'i-meditation', category: 'meditation', text: 'Mindful breathing' },
 ]
 
 export default function AdminGoalsPage() {
@@ -43,6 +42,7 @@ export default function AdminGoalsPage() {
           <PersonalGoalsCard
             id="s-active"
             text="Active goal without icon"
+            category="default"
             check={0}
             repeat={1}
             status={Statuses.PENDING}
@@ -55,7 +55,7 @@ export default function AdminGoalsPage() {
             repeat={7}
             status={Statuses.PENDING}
             deadline={daysFromNow(4)}
-            iconKey="sleep"
+            category="sleep"
             setPersonalGoals={noop}
           />
           <PersonalGoalsCard
@@ -64,7 +64,7 @@ export default function AdminGoalsPage() {
             check={7}
             repeat={7}
             status={Statuses.COMPLETED}
-            iconKey="food"
+            category="food"
             setPersonalGoals={noop}
           />
           <PersonalGoalsCard
@@ -73,7 +73,7 @@ export default function AdminGoalsPage() {
             check={2}
             repeat={30}
             status={Statuses.FAILED}
-            iconKey="sport"
+            category="sport"
             setPersonalGoals={noop}
           />
         </div>
@@ -83,7 +83,7 @@ export default function AdminGoalsPage() {
       <section>
         <h2 className="mb-4 text-lg font-semibold text-textcolor-primary">Icon Variants</h2>
         <div className="grid grid-cols-4 gap-default">
-          {iconShowcaseItems.map(({ id, iconKey, text }) => (
+          {iconShowcaseItems.map(({ id, category, text }) => (
             <PersonalGoalsCard
               key={id}
               id={id}
@@ -91,7 +91,7 @@ export default function AdminGoalsPage() {
               check={0}
               repeat={1}
               status={Statuses.PENDING}
-              iconKey={iconKey}
+              category={category}
               setPersonalGoals={noop}
             />
           ))}
@@ -109,7 +109,7 @@ export default function AdminGoalsPage() {
             repeat={30}
             status={Statuses.PENDING}
             deadline={daysFromNow(30)}
-            iconKey="reading"
+            category="reading"
             setPersonalGoals={noop}
           />
           <PersonalGoalsCard
@@ -119,7 +119,7 @@ export default function AdminGoalsPage() {
             repeat={30}
             status={Statuses.PENDING}
             deadline={daysFromNow(20)}
-            iconKey="walk"
+            category="walk"
             setPersonalGoals={noop}
           />
           <PersonalGoalsCard
@@ -129,7 +129,7 @@ export default function AdminGoalsPage() {
             repeat={30}
             status={Statuses.PENDING}
             deadline={daysFromNow(15)}
-            iconKey="health"
+            category="health"
             setPersonalGoals={noop}
           />
           <PersonalGoalsCard
@@ -139,7 +139,7 @@ export default function AdminGoalsPage() {
             repeat={30}
             status={Statuses.PENDING}
             deadline={daysFromNow(3)}
-            iconKey="meditation"
+            category="meditation"
             setPersonalGoals={noop}
           />
           <PersonalGoalsCard
@@ -149,7 +149,7 @@ export default function AdminGoalsPage() {
             repeat={30}
             status={Statuses.PENDING}
             deadline={daysFromNow(0)}
-            iconKey="food"
+            category="food"
             setPersonalGoals={noop}
           />
         </div>

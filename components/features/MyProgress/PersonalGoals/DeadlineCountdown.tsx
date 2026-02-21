@@ -2,13 +2,15 @@
 import { useEffect, useRef, useState } from 'react'
 import { Timer } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
+import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import { Link } from '@/i18n/navigation'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { GoalEntity } from '@/types/api-responses'
 import { Statuses } from '@/types/goals'
 
-const THRESHOLD_MS = 30 * 60 * 1000 // 30 minutes
+const THRESHOLD_MS = 60 * 60 * 1000 // 1 hour
 
 function getMsLeft(deadline: string): number {
   return new Date(deadline).getTime() - Date.now()
@@ -44,7 +46,7 @@ interface DeadlineCountdownProps {
 
 export const DeadlineCountdown = ({ initialGoals, href }: DeadlineCountdownProps) => {
   const { data: session } = useSession()
-  const [goals, setGoals] = useState<GoalEntity[]>(initialGoals ?? [])
+  const t = useTranslations('common.Buttons')
   const goalsRef = useRef<GoalEntity[]>(initialGoals ?? [])
   const [urgentGoal, setUrgentGoal] = useState<GoalEntity | null>(() =>
     initialGoals ? findUrgentGoal(initialGoals) : null
@@ -59,7 +61,6 @@ export const DeadlineCountdown = ({ initialGoals, href }: DeadlineCountdownProps
       if ('error' in res) return
       const fetched = res.data ?? []
       goalsRef.current = fetched
-      setGoals(fetched)
       setUrgentGoal(findUrgentGoal(fetched))
     }
     void fetch()
@@ -73,6 +74,8 @@ export const DeadlineCountdown = ({ initialGoals, href }: DeadlineCountdownProps
   }, [initialGoals])
 
   // Countdown tick — every second
+  const [visible, setVisible] = useState(true)
+
   useEffect(() => {
     if (!urgentGoal?.deadline) {
       setCountdown('')
@@ -89,18 +92,25 @@ export const DeadlineCountdown = ({ initialGoals, href }: DeadlineCountdownProps
     tick()
     const id = setInterval(tick, 1000)
     return () => clearInterval(id)
-  }, [urgentGoal, goals])
+  }, [urgentGoal])
 
-  if (!urgentGoal) return null
+  if (!urgentGoal || !visible) {
+    return null
+  }
 
   return (
     <Link
       href={href}
-      className="fixed bottom-6 right-6 z-50 flex items-center gap-3 rounded-2xl bg-white px-4 py-3 shadow-lg transition-transform hover:scale-105"
+      aria-label={`${urgentGoal.text} — ${countdown}`}
+      role="timer"
+      className="fixed bottom-6 right-6 z-50 flex items-center rounded-2xl bg-white px-4 py-3 shadow-lg transition-transform hover:scale-105"
     >
-      <Timer size={18} className="shrink-0 text-primary" />
-      <span className="max-w-[180px] truncate text-sm font-medium">{urgentGoal.text}</span>
-      <span className="font-mono text-lg font-bold tabular-nums text-primary">{countdown}</span>
+      <div className="flex items-center gap-3">
+        <Timer size={18} className="shrink-0 text-primary" />
+        <span className="max-w-[180px] truncate text-sm font-medium">{urgentGoal.text}</span>
+        <span className="font-mono text-lg font-bold tabular-nums text-primary">{countdown}</span>
+      </div>
+      <CloseIconButton onClick={() => setVisible(false)} aria-label={t('Close')} />
     </Link>
   )
 }

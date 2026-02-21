@@ -1,5 +1,6 @@
 import { GoalEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
+import type { GoalCategory } from '@/types/goals'
 
 import { APIUrl } from './config'
 import { performAuthRequest } from './genericFetch'
@@ -13,11 +14,16 @@ export async function fetchPersonalGoals(
 
 export async function createPersonalGoal(
   session: CustomSession | null,
-  { text, repeat, deadline }: Pick<GoalEntity, 'text' | 'repeat'> & { deadline?: string }
+  {
+    text,
+    repeat,
+    deadline,
+    category,
+  }: Pick<GoalEntity, 'text' | 'repeat'> & { deadline?: string; category: GoalCategory }
 ): Promise<{ data?: GoalEntity; error?: string }> {
   const res = await performAuthRequest<GoalEntity>(session, `${APIUrl}/goals`, {
     method: 'POST',
-    body: { text, repeat, ...(deadline ? { deadline } : {}) },
+    body: { text, repeat, category, ...(deadline ? { deadline } : {}) },
   })
   return 'error' in res ? { error: res.error } : { data: res.data }
 }

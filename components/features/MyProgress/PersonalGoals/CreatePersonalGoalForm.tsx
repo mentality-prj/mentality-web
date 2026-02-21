@@ -4,9 +4,13 @@ import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FormCard from '@/components/shared/Cards/FormCard'
 import { Tag } from '@/ds/components/Tag'
 import { cn } from '@/lib/utils'
+import { GoalCategory } from '@/types/goals'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Textarea } from '@/ui/textarea'
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/ui/tooltip'
+
+import { GOAL_CATEGORIES, GOAL_ICONS } from './personalGoalSuggestions'
 
 export const DEADLINE_UNITS = ['hour', 'day'] as const
 export type DeadlineUnit = (typeof DEADLINE_UNITS)[number]
@@ -49,6 +53,15 @@ type CreatePersonalGoalFormProps = {
   onCancel: () => void
   showValidationEmpty: boolean
   validationEmptyMessage: string
+  // show more suggestions
+  hasMoreSuggestions: boolean
+  showMoreLabel: string
+  onShowMoreSuggestions: () => void
+  // icon picker
+  category: GoalCategory | null
+  onSelectCategory: (key: GoalCategory) => void
+  iconPickerLabel: string
+  iconLabels: Record<Exclude<GoalCategory, 'default'>, string>
 }
 
 export const CreatePersonalGoalForm = ({
@@ -84,6 +97,13 @@ export const CreatePersonalGoalForm = ({
   onCancel,
   showValidationEmpty,
   validationEmptyMessage,
+  hasMoreSuggestions,
+  showMoreLabel,
+  onShowMoreSuggestions,
+  category,
+  onSelectCategory,
+  iconPickerLabel,
+  iconLabels,
 }: CreatePersonalGoalFormProps) => {
   const hasRepeatControls =
     selectedGoalType === 'repeating' ||
@@ -130,9 +150,42 @@ export const CreatePersonalGoalForm = ({
                   className={cn(activeSuggestion === suggestion ? 'text-reversed bg-info' : '')}
                 />
               ))}
+              {hasMoreSuggestions && <Tag type="info" text={showMoreLabel} onClick={onShowMoreSuggestions} />}
             </div>
           </div>
         )}
+
+        {/* Icon picker */}
+        <div className="flex flex-col gap-xs">
+          <h5>{iconPickerLabel}</h5>
+          <TooltipProvider>
+            <div className="grid grid-cols-12 gap-xs">
+              {GOAL_CATEGORIES.filter((key) => key !== 'default').map((key) => {
+                const Icon = GOAL_ICONS[key as Exclude<GoalCategory, 'default'>]
+                const isSelected = category === key
+                return (
+                  <Tooltip key={key}>
+                    <TooltipTrigger asChild>
+                      <button
+                        type="button"
+                        onClick={() => onSelectCategory(key as GoalCategory)}
+                        className={cn(
+                          'icon-tool icon-tool-text flex h-9 w-9 items-center justify-center rounded-full transition-colors',
+                          isSelected ? '!bg-background-muted !text-primary' : ''
+                        )}
+                        aria-label={iconLabels[key as Exclude<GoalCategory, 'default'>]}
+                        aria-pressed={isSelected}
+                      >
+                        <Icon size={20} />
+                      </button>
+                    </TooltipTrigger>
+                    <TooltipContent>{iconLabels[key as Exclude<GoalCategory, 'default'>]}</TooltipContent>
+                  </Tooltip>
+                )
+              })}
+            </div>
+          </TooltipProvider>
+        </div>
 
         {/* Text input */}
         <div className="flex flex-col gap-xs">
@@ -172,7 +225,8 @@ export const CreatePersonalGoalForm = ({
                   value={deadlineCustomValue}
                   onChange={(e) => {
                     const v = e.target.value
-                    onCustomDeadlineChange(v === '' ? '' : Math.max(1, parseInt(v, 10)))
+                    const parsed = parseInt(v, 10)
+                    onCustomDeadlineChange(v === '' ? '' : Number.isNaN(parsed) ? 1 : Math.max(1, parsed))
                   }}
                   className="w-20"
                   placeholder="—"
