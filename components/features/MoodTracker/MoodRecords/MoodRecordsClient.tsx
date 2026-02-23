@@ -103,7 +103,7 @@ export function MoodRecordsClient({ records, availableTags }: Props) {
   }, [totalPages, page])
 
   return (
-    <div className="flex flex-col gap-sm">
+    <div id="mood-records-list" className="flex flex-col gap-sm">
       <div className="flex items-start justify-between">
         <h2>{mt('History.Title')}</h2>
 

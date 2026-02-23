@@ -4,7 +4,7 @@ import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/ui/t
 
 type Props = {
   label: string
-  onClick: () => void
+  onClick?: () => void
   children: ReactNode
 }
 
@@ -13,9 +13,13 @@ export const TooltipIcon = ({ label, onClick, children }: Props) => {
     <TooltipProvider delayDuration={200}>
       <Tooltip>
         <TooltipTrigger asChild>
-          <button type="button" aria-label={label} onClick={onClick}>
-            {children}
-          </button>
+          {onClick ? (
+            <button type="button" aria-label={label} onClick={onClick}>
+              {children}
+            </button>
+          ) : (
+            children
+          )}
         </TooltipTrigger>
         <TooltipContent>{label}</TooltipContent>
       </Tooltip>
