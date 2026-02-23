@@ -472,7 +472,6 @@ body {
   .dark {
     background-color: hsl(var(--admin-background));
     color: hsl(var(--admin-text));
-    @apply shadow-dark;
   }
 
   .info {
