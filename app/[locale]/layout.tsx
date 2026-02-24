@@ -2,6 +2,7 @@ import { ReactNode } from 'react'
 import { Toaster } from 'react-hot-toast'
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+import Script from 'next/script'
 import { getTranslations } from 'next-intl/server'
 
 import AppIntlProvider from '@/app/(providers)/AppIntlProvider'
@@ -42,6 +43,7 @@ export default async function LocaleLayout({
             <CookieConsent />
           </Providers>
         </AppIntlProvider>
+        <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
       </body>
     </html>
   )

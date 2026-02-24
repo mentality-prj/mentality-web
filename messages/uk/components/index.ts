@@ -4,6 +4,7 @@ import AvatarMenu from './AvatarMenu.json'
 import BestDay from './BestDay.json'
 import Calendar from './Calendar.json'
 import ChartDynamics from './ChartDynamics.json'
+import ContactForm from './ContactForm.json'
 import CookieConsent from './CookieConsent.json'
 import DailyCard from './DailyCard.json'
 import Diary from './Diary.json'
@@ -58,4 +59,5 @@ export const components = {
   CookieConsent,
   AvatarMenu,
   FavoriteButton,
+  ContactForm,
 }

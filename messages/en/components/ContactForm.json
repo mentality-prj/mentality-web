@@ -1,0 +1,10 @@
+{
+  "title": "Contact Us",
+  "name": "Name",
+  "email": "Email",
+  "message": "Message",
+  "send": "Send Message",
+  "sending": "Sending...",
+  "success": "Message sent!",
+  "error": "Failed to send message"
+}
