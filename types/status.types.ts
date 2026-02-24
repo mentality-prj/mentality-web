@@ -3,7 +3,7 @@ export const Statuses = {
   default: 'default',
   ghost: 'ghost',
   accent: 'accent',
-  dark: 'dark',
+  dark: 'cardDark',
   error: 'error',
   info: 'info',
   note: 'note',
