@@ -469,7 +469,7 @@ body {
     color: hsl(var(--accent-foreground));
   }
 
-  .dark {
+  .cardDark {
     background-color: hsl(var(--admin-background));
     color: hsl(var(--admin-text));
     @apply shadow-dark;
