@@ -12,7 +12,7 @@ import { Tag } from '@/ds/components/Tag'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
 
-import useAddNewNote from '../useAddNewNote'
+import useAddNewNote from './useAddNewNote'
 
 interface AddNewNoteProps {
   onClose?: () => void

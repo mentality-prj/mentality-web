@@ -4,7 +4,7 @@ import { useRouter } from 'next/navigation'
 
 import { UserTag } from '@/types/tags'
 
-import { AddNewNote } from './AddNewNote/AddNewNote'
+import { AddNewNote } from '../AddNewNote/AddNewNote'
 
 interface Props {
   availableTags?: UserTag[]

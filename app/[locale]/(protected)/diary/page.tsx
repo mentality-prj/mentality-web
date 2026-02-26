@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection'
+import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getUserDiaries } from '@/requests/diary'
