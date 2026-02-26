@@ -2,9 +2,9 @@ import { auth } from '@/auth'
 import { fetchUserTagsCached } from '@/lib/userTagsCache'
 import type { UserTag } from '@/types/tags'
 
-import { AddNewNote } from './AddNewNote'
+import { AddNewNoteSectionClient } from './AddNewNoteSectionClient'
 
-export default async function AddNewNoteClient() {
+export default async function AddNewNoteSection() {
   const session = await auth()
   const res = await fetchUserTagsCached(session)
 
@@ -15,5 +15,5 @@ export default async function AddNewNoteClient() {
       .map((t) => ({ key: t!.key as string, name: (t!.name as string) ?? '' }))
   }
 
-  return <AddNewNote availableTags={tags} />
+  return <AddNewNoteSectionClient availableTags={tags} />
 }

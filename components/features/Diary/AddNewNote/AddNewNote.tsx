@@ -3,7 +3,7 @@
 import { PlusIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import AddNewTag from '@/components/features/MoodTracker/AddNewTag/AddNewTag'
+import AddNewTag from '@/components/features/AddNewTag/AddNewTag'
 import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FormCard from '@/components/shared/Cards/FormCard'
 import StyledTextarea from '@/components/shared/Forms/StyledTextarea'
@@ -12,7 +12,7 @@ import { Tag } from '@/ds/components/Tag'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
 
-import useAddNewNote from './useAddNewNote'
+import useAddNewNote from '../useAddNewNote'
 
 interface AddNewNoteProps {
   onClose?: () => void

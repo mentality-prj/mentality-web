@@ -1,9 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '../../../auth'
-import { fetchUserTagsCached } from '../../../lib/userTagsCache'
+import { auth } from '../../../../auth'
+import { fetchUserTagsCached } from '../../../../lib/userTagsCache'
 
-import { UserNotesList } from './UserNotesList'
+import { UserNotesContainer } from './UserNotesContainer'
 
 type Props = {
   notes: {
@@ -36,7 +36,7 @@ export default async function UserNotes({ notes }: Props) {
           </div>
         </div>
       )}
-      {hasAvailableNotes && <UserNotesList notes={availableNotes} />}
+      {hasAvailableNotes && <UserNotesContainer notes={availableNotes} availableTags={tags} />}
     </>
   )
 }
