@@ -26,5 +26,6 @@
     "edit": "Edit",
     "archive": "Archive"
   },
-  "Empty": "You have no notes yet"
+  "Empty": "You have no notes yet",
+  "HistoryTitle": "Notes history"
 }
