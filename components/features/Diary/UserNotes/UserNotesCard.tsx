@@ -8,6 +8,7 @@ import { useTranslations } from 'next-intl'
 import Card from '@/components/shared/Cards/Card'
 import FullScreenBackdrop from '@/components/shared/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 import { TooltipIcon } from '@/ds/components/TooltipIcon'
+import { formatDate } from '@/helpers/data'
 import { useRouter } from '@/i18n/navigation'
 import { activateDiary } from '@/requests/diary'
 import { UserTag } from '@/types/tags'
@@ -30,7 +31,7 @@ export function UserNotesCard({ id, content, createdAt, availableTags, tags }: P
   const { data: session } = useSession()
   const t = useTranslations('components.Diary.UserNoteCard')
   const router = useRouter()
-  const date = createdAt ? new Date(createdAt).toLocaleString() : ''
+  const date = createdAt ? formatDate(createdAt) : ''
   const safeTags = tags ?? []
 
   const cardTags = availableTags.filter((t) => safeTags.includes(t.key)).map((t) => t.name)
