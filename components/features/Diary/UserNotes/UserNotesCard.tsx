@@ -15,7 +15,7 @@ import { UserTag } from '@/types/tags'
 import extractErrorMessage from '@/utils/apiError'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
-import { EditNoteForm } from './EditNoteForm'
+import { EditNoteForm } from '../EditNoteForm'
 
 type Props = {
   id: string
@@ -25,19 +25,16 @@ type Props = {
   tags?: string[]
 }
 
-export const UserNoteCard = ({ id, content, createdAt, tags, availableTags }: Props) => {
+export function UserNotesCard({ id, content, createdAt, availableTags, tags }: Props) {
   const [showEntry, setShowEntry] = useState(false)
   const [isArchiving, setIsArchiving] = useState(false)
   const { data: session } = useSession()
   const t = useTranslations('components.Diary.UserNoteCard')
   const router = useRouter()
-
+  const date = createdAt ? formatDate(createdAt) : ''
   const safeTags = tags ?? []
 
   const cardTags = availableTags.filter((t) => safeTags.includes(t.key)).map((t) => t.name)
-
-  const date = formatDate(createdAt)
-
   const onArchive = async () => {
     if (isArchiving) return
     if (!session?.user) {
@@ -75,6 +72,7 @@ export const UserNoteCard = ({ id, content, createdAt, tags, availableTags }: Pr
   )
   return (
     <Card
+      key={id}
       className="relative"
       text={content}
       tags={cardTags}

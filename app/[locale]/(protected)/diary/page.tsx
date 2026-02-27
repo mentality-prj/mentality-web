@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import AddNewNote from '@/components/features/Diary/AddNewNoteClient'
-import UserNotes from '@/components/features/Diary/UserNotes'
+import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
+import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getUserDiaries } from '@/requests/diary'
 
@@ -15,7 +15,7 @@ export default async function DiaryPage() {
     <div className="flex flex-col gap-md">
       <PageTitle title={t('pages.Diary.title')} subtitle={t('pages.Diary.subtitle')} />
       <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
-        <AddNewNote />
+        <AddNewNoteSection />
         {/* TODO: fix calendar */}
         {/* <Calendar
           selectedDays={[new Date()]}
