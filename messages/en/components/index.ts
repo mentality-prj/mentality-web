@@ -15,6 +15,7 @@ import Header from './Header.json'
 import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
 import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
+import MoodCard from './MoodCard.json'
 import MoodMarks from './MoodMarks.json'
 import Navbar from './Navbar.json'
 import Navigation from './Navigation.json'
@@ -27,6 +28,7 @@ import StressLevelScale from './StressLevelScale.json'
 import Tags from './Tags.json'
 import TenDaysSummary from './TenDaysSummary.json'
 import TextareaWithLabel from './TextareaWithLabel.json'
+import TodayMoodNotes from './TodayMoodNotes.json'
 import TodayObservations from './TodayObservations.json'
 
 export const components = {
@@ -58,6 +60,8 @@ export const components = {
   CookieConsent,
   Diary,
   AvatarMenu,
+  TodayMoodNotes,
+  MoodCard,
   FavoriteButton,
   ContactForm,
 }

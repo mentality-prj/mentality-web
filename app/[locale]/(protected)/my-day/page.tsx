@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
+import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
 import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoals/DeadlineCountdown'
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyStatistics } from '@/components/features/Statistics/DailyStatistics/DailyStatistics'
@@ -26,8 +27,9 @@ const MyDay = async () => {
 
   return (
     <article className="grid gap-default laptop:grid-cols-4">
-      <div className="laptop:col-span-2">
+      <div className="flex flex-col gap-sm laptop:col-span-2">
         <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+        <TodayMoodNotes />
       </div>
 
       <PersonalGoalsList
