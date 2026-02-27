@@ -7,7 +7,6 @@ import { DeleteIcon, EditIcon } from '@/components/shared/Cards'
 import Card from '@/components/shared/Cards/Card'
 import CardStack from '@/components/shared/Cards/CardStack'
 import { Routes } from '@/constants/routes'
-import { CloudIcon } from '@/ds/icons/summary/cloud'
 import { Link } from '@/i18n/navigation'
 
 export default function AdminDsPage() {
@@ -87,19 +86,6 @@ export default function AdminDsPage() {
         <Card title="Title 08" text="Lorem ipsum" remark="accent-foreground" className="bg-accent-foreground" />
         <Card title="Title 09" text="Lorem ipsum" remark="accent-soft" className="bg-accent-soft" />
 
-        <Card
-          icon={<CloudIcon />}
-          title="custom card"
-          sup="2024-06-01"
-          text="custom card"
-          remark="affirmation"
-          tags={['one', 'two']}
-          aftertext={
-            <Link href="/" className="whitespace-nowrap underline">
-              click
-            </Link>
-          }
-        />
         <Card type="special" title="Special Card">
           some children here
         </Card>

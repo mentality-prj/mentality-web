@@ -4,6 +4,9 @@
 }
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
+/* Flaticon UICONS (webfont) */
+@import '~@flaticon/flaticon-uicons/css/all/all';
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -167,6 +170,9 @@ body {
 .shadow-dark {
   text-shadow: 0 -1px 0 hsla(220, 18%, 14%, 0.8);
 }
+.border-inner-white {
+  @apply ring-1 ring-inset ring-white/50;
+}
 
 /* =====================================================
    BASE TOKENS
@@ -224,7 +230,19 @@ body {
     --special-to: 230 60% 30%; /* Custom, deep blue (#1e40af) */
     --special-foreground: 0 0% 100%; /* white */
 
-    /* Joy */
+    /* Once (short, light green) */
+    --once-from: 140 100% 100%; /* light green (#bbf7d0) */
+    --once-to: 140 50% 50%; /* green-500 (#22c55e) */
+
+    /* Some (mid) gradient - blue with higher contrast */
+    --some-from: 210 90% 96%; /* very light sky (#f0f9ff) */
+    --some-to: 210 90% 70%; /* sky-400 (#38bdf8) */
+
+    /* Royal (long) gradient - dark burgundy / velvet */
+    --royal-from: 0 100% 50%; /* bright red (#ff0000) */
+    --royal-to: 345 75% 40%; /* burgundy (#7b1e3a) */
+
+    /* Joy (kept for legacy/shared use) */
     --joy-from: 20 100% 95%; /* light peach (#ffe4cc) */
     --joy-to: 340 100% 70%; /* bright pink (#ff66b3) */
     --joy-foreground: 0 0% 20%; /* dark gray for readability */
@@ -518,6 +536,26 @@ body {
     background-image: linear-gradient(to bottom right, hsl(var(--joy-from)), hsl(var(--joy-to)));
     color: hsl(var(--joy-foreground));
     @apply shadow-light border border-border border-white;
+  }
+
+  /* TimeType gradients */
+  .time-once {
+    background-image: linear-gradient(to bottom right, hsl(var(--once-from)), hsl(var(--once-to)));
+    color: hsl(var(--text-state));
+    @apply shadow-light border-inner-white border border-border-success;
+  }
+
+  .time-some {
+    background-image: linear-gradient(to bottom right, hsl(var(--some-from)), hsl(var(--some-to)));
+    color: hsl(var(--text-state));
+
+    @apply shadow-light border-inner-white border border-border-info;
+  }
+
+  .time-long {
+    background-image: linear-gradient(135deg, hsl(var(--royal-from)), hsl(var(--royal-to)));
+    color: hsl(var(--special-foreground));
+    @apply shadow-dark border-inner-white border border-border-error;
   }
 
   .tag {

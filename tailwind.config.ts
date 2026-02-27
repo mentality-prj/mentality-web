@@ -33,7 +33,12 @@ const config: Config = {
           accent: 'hsl(var(--admin-accent))',
           text: 'hsl(var(--admin-text))',
         },
-        border: 'hsl(var(--border))',
+        border: {
+          DEFAULT: 'hsl(var(--border))',
+          success: 'hsl(var(--success))',
+          error: 'hsl(var(--error))',
+          info: 'hsl(var(--info))',
+        },
 
         /* ===== Text ===== */
         textcolor: {
