@@ -108,7 +108,15 @@ export async function middleware(request: NextRequest) {
 
   // Auth logic
   const session = await auth()
-  const publicRoutes = [Routes.SIGNIN, Routes.MAIN, Routes.SERVERERROR]
+  const publicRoutes = [
+    Routes.SIGNIN,
+    Routes.MAIN,
+    Routes.ABOUT,
+    Routes.FAQ,
+    Routes.CONTACTS,
+    Routes.SERVICES,
+    Routes.SERVERERROR,
+  ]
 
   // Use locale from URL or default if not set
   const locale = localeInUrl || routing.defaultLocale
