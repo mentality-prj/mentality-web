@@ -7,12 +7,14 @@ import {
   BookOpen,
   Brain,
   ChartPie,
+  FileQuestionMark,
   FileText,
   Flower,
   GoalIcon,
   HeartHandshake,
   LayoutDashboard,
   Lightbulb,
+  Speech,
   Tag,
   Trophy,
   Waves,
@@ -44,6 +46,8 @@ export const iconMap: Record<string, ReactNode> = {
   trophy: <Trophy size={16} className="icon" />,
   goal: <GoalIcon size={16} className="icon" />,
   chart: <ChartPie size={16} className="icon" />,
+  test: <FileQuestionMark size={16} className="icon" />,
+  speech: <Speech size={16} className="icon" />,
 }
 
 export default function Sitemap() {

@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import FavoriteButtonWrapper from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import { getAffirmations, getUnpublishedAffirmations } from '@/requests/affirmations'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'

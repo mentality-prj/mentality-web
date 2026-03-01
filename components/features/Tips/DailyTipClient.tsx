@@ -1,7 +1,7 @@
 import { getLocale } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import FavoriteButtonWrapper from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import Card from '@/components/shared/Cards/Card'
 import Quote from '@/components/shared/Quote'
 import { getTips } from '@/requests/tips'

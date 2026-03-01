@@ -13,7 +13,7 @@ export default function CloseIconButton({ onClick, className = 'ml-4 h-7 w-7' }:
 
   return (
     <Button variant="iconTool" aria-label={t('close')} title={t('close')} onClick={onClick} className={className}>
-      <X className="h-5 w-5" />
+      <X size={20} />
     </Button>
   )
 }

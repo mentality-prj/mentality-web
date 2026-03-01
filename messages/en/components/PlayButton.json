@@ -1,0 +1,7 @@
+{
+  "play": "Play",
+  "pause": "Pause",
+  "resume": "Resume",
+  "stop": "Stop",
+  "speechNotSupported": "Speech synthesis not supported"
+}

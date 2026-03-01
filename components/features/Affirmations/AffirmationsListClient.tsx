@@ -1,7 +1,7 @@
 'use client'
 import { ReactNode, useState } from 'react'
 
-import FavoriteButtonWrapper from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import useAffirmations from '@/hooks/useAffirmations'

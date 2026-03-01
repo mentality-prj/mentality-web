@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import FavoriteButtonWrapper from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { fetchExercisesItems } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'

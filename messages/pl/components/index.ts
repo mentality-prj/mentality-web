@@ -10,6 +10,7 @@ import DailyCard from './DailyCard.json'
 import Diary from './Diary.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import FavoriteButton from './FavoriteButton.json'
+import PlayButton from './PlayButton.json'
 import Filter from './Filter.json'
 import Header from './Header.json'
 import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
@@ -63,5 +64,6 @@ export const components = {
   AvatarMenu,
   MoodCard,
   FavoriteButton,
+  PlayButton,
   ContactForm,
 }

@@ -4,5 +4,6 @@
   "dashboard": { "title": "Dashboard" },
   "ds": { "title": "Design System" },
   "goals": { "title": "Goals" },
-  "achievements": { "title": "Achievements" }
+  "achievements": { "title": "Achievements" },
+  "speech-demo": { "title": "Speech demo" }
 }
