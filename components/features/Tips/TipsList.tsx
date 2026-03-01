@@ -1,5 +1,5 @@
 import { auth } from '@/auth'
-import FavoriteButtonWrapper from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import CardsList from '@/components/shared/Cards/CardsList'
 import { PAGE_SIZE } from '@/constants/pagination'
 import { getTips, getUnpublishedTips } from '@/requests/tips'

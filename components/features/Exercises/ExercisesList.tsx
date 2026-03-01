@@ -1,9 +1,7 @@
 import { auth } from '@/auth'
-import FavoriteButtonWrapper from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import { getExercises, getUnpublishedExercises } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
-import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
 import ExerciseCard from './ExerciseCard'
 
@@ -39,10 +37,9 @@ export default async function ExercisesList({ fetchUnpublished = false, page = 1
     <div className="space-y-4">
       <ul className="grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2 lg:grid-cols-3">
         {items.map((a) => {
-          const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(a.id)} />
           return (
             <li key={String(a.id)} className="h-full flex-1">
-              <ExerciseCard item={a} tools={tools} />
+              <ExerciseCard item={a} />
             </li>
           )
         })}

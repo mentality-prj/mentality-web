@@ -9,10 +9,8 @@ interface FavoriteButtonWrapperProps {
   itemId: string
 }
 
-const FavoriteButtonWrapper = ({ itemType, itemId }: FavoriteButtonWrapperProps) => {
+export const FavoriteButtonWrapper = ({ itemType, itemId }: FavoriteButtonWrapperProps) => {
   const { isFavorite, setIsFavorite } = useFavorite(itemType, itemId, false)
 
   return <FavoriteButton itemType={itemType} itemId={itemId} isFavorite={isFavorite} onChange={setIsFavorite} />
 }
-
-export default FavoriteButtonWrapper

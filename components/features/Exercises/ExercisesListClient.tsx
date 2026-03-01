@@ -1,12 +1,10 @@
 'use client'
 import { ReactNode, useState } from 'react'
 
-import FavoriteButtonWrapper from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import useExercises from '@/hooks/useExercises'
 import { ExerciseEntity } from '@/types/api-responses'
-import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
 import ExerciseCard from './ExerciseCard'
 
@@ -35,10 +33,9 @@ export default function ExercisesListClient({
 
       <ul className="grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2 lg:grid-cols-3">
         {items.map((a) => {
-          const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(a.id)} />
           return (
             <li key={String(a.id)} className="h-full flex-1">
-              <ExerciseCard item={a} tools={renderTools ? renderTools(a, removeItem) : tools} />
+              <ExerciseCard item={a} tools={renderTools && renderTools(a, removeItem)} />
             </li>
           )
         })}

@@ -4,5 +4,6 @@
   "dashboard": { "title": "Pulpit" },
   "ds": { "title": "System projektowania" },
   "goals": { "title": "Cele" },
-  "achievements": { "title": "Osiągnięcia" }
+  "achievements": { "title": "Osiągnięcia" },
+  "speech-demo": { "title": "Demo mowy" }
 }

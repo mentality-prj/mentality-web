@@ -1,3 +1,5 @@
+import { ComponentType, ReactNode } from 'react'
+
 import AffirmationCard from '@/components/features/Affirmations/AffirmationCard'
 import ExerciseCard from '@/components/features/Exercises/ExerciseCard'
 import TipCard from '@/components/features/Tips/TipCard'
@@ -45,7 +47,7 @@ export const FilteredList = ({ items }: Props) => {
     })
   }
 
-  const CardComponent: React.ComponentType<{ item: FavoriteEntity; tools?: React.ReactNode; className?: string }> = ({
+  const CardComponent: ComponentType<{ item: FavoriteEntity; tools?: ReactNode; className?: string }> = ({
     item: fav,
     tools,
     className,

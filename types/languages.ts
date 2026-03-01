@@ -19,3 +19,10 @@ export const LocaleTriggerShortLabels: Record<'uk' | 'en' | 'pl', string> = Obje
   en: 'Eng',
   pl: 'Pol',
 })
+
+// Centralized mapping from our `SupportedLanguage` codes to BCP-47 locale tags
+export const languageToLocale: Record<SupportedLanguage, string> = Object.freeze({
+  uk: 'uk-UA',
+  en: 'en-US',
+  pl: 'pl-PL',
+})

@@ -1,22 +1,26 @@
 'use client'
+
 import { ReactNode, useState } from 'react'
 import { Calendar } from 'lucide-react'
 import { useLocale } from 'next-intl'
 
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { PlayButton } from '@/components/shared/Buttons/PlayButton'
 import Card from '@/components/shared/Cards/Card'
 import FullScreenCard from '@/components/shared/Cards/FullScreenCard'
 import TextRenderer from '@/components/shared/Content/TextRenderer'
 import { formatDate } from '@/helpers/data'
 import { ExerciseEntity } from '@/types/api-responses'
+import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 import { SupportedLanguage } from '@/types/languages'
 
-interface Props {
+interface ExerciseCardProps {
   item: ExerciseEntity
-  tools?: ReactNode
   className?: string
+  tools?: ReactNode
 }
 
-export default function ExerciseCard({ item, tools, className = '' }: Props) {
+export default function ExerciseCard({ item, className = '', tools }: ExerciseCardProps) {
   const locale = useLocale() as SupportedLanguage
   const [open, setOpen] = useState(false)
 
@@ -24,6 +28,14 @@ export default function ExerciseCard({ item, tools, className = '' }: Props) {
   const annotation = item.translations?.annotation[locale as SupportedLanguage] || ''
   const description = item.translations?.description[locale as SupportedLanguage] || ''
   const createdAt = formatDate(item.createdAt)
+
+  const combinedtools = (
+    <>
+      <PlayButton text={description} language={locale} />
+      <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(item.id)} />
+      {tools}
+    </>
+  )
 
   return (
     <>
@@ -33,7 +45,7 @@ export default function ExerciseCard({ item, tools, className = '' }: Props) {
         icon={<Calendar size={12} />}
         title={title}
         text={annotation}
-        tools={tools}
+        tools={combinedtools}
         remark={item.category}
         onClick={() => setOpen(true)}
       />

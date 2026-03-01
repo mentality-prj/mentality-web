@@ -32,9 +32,7 @@ const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
             aria-current={isActive ? 'page' : undefined}
           >
             {item.icon && iconMap[item.icon]}
-            <span className={type === APP_VIEW_TYPE.LANDING ? 'menu-hover-landing' : 'menu-hover'}>
-              {t(item.key)}
-            </span>{' '}
+            <span className={type === APP_VIEW_TYPE.LANDING ? 'menu-hover-landing' : 'menu-hover'}>{t(item.key)}</span>
           </Link>
         )
       })}

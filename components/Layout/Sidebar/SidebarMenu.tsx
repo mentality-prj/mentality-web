@@ -10,6 +10,7 @@ import {
   Flower,
   Lightbulb,
   NotebookPenIcon,
+  Speech,
   Tag,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
@@ -29,6 +30,7 @@ const iconMap: Record<string, ReactNode> = {
   flower: <Flower className="h-5 w-5" size={12} />,
   test: <FileQuestionMark className="h-5 w-5" size={12} />,
   bookmark: <Bookmark className="h-5 w-5" size={12} />,
+  speech: <Speech className="h-5 w-5" size={12} />,
 }
 
 export default function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType[]; type?: SidebarMenuType }) {

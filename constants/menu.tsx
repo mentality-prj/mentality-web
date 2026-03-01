@@ -81,7 +81,7 @@ export const myProgressInnerMenuItems: MyProgressInnerMenuItem[] = [
   { key: 'statistics', href: `${Routes.MYPROGRESS}/statistics`, icon: 'chart' },
 ]
 
-export type AdminInnerMenuItemKey = 'dashboard' | 'ds' | 'goals' | 'achievements'
+export type AdminInnerMenuItemKey = 'dashboard' | 'ds' | 'goals' | 'achievements' | 'speech-demo'
 export type AdminInnerMenuItem = {
   key: AdminInnerMenuItemKey
   href: string
@@ -93,4 +93,5 @@ export const adminInnerMenuItems: AdminInnerMenuItem[] = [
   { key: 'ds', href: `${Routes.ADMIN}/ds`, icon: 'brain' },
   { key: 'goals', href: `${Routes.ADMIN}/goals`, icon: 'goal' },
   { key: 'achievements', href: `${Routes.ADMIN}/achievements`, icon: 'trophy' },
+  { key: 'speech-demo', href: `${Routes.ADMIN}/speech-demo`, icon: 'speech' },
 ]
