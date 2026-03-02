@@ -5,5 +5,6 @@
   "ds": { "title": "System projektowania" },
   "goals": { "title": "Cele" },
   "achievements": { "title": "Osiągnięcia" },
-  "speech-demo": { "title": "Demo mowy" }
+  "speech-demo": { "title": "Demo mowy" },
+  "phq9": { "title": "PHQ-9" }
 }

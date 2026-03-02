@@ -7,7 +7,6 @@ import { useLocale } from 'next-intl'
 import { APP_VIEW_TYPE, AppViewType } from '@/constants/general'
 import { usePathname } from '@/i18n/navigation'
 import { LocaleNativeLabels, LocaleTriggerShortLabels, SupportedLanguage, supportedLanguages } from '@/types/languages'
-import { Button } from '@/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ui/dropdown-menu'
 
 export default function LangSwitch({ type }: { type?: AppViewType }) {
@@ -45,11 +44,10 @@ export default function LangSwitch({ type }: { type?: AppViewType }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
+        <button
+          type="button"
           disabled={isPending}
-          variant="textIconButton"
-          size="base"
-          className="group flex h-12 items-center gap-1.5 rounded-full border-0 bg-transparent px-0 py-0 text-sm shadow-none outline-none ring-0 hover:bg-transparent focus:border-0 focus:outline-none focus:ring-0 focus-visible:outline-none focus-visible:ring-0 data-[state=open]:ring-0"
+          className={`group flex items-center gap-1.5 bg-transparent p-0 text-sm outline-none disabled:opacity-50 ${isPending ? 'cursor-not-allowed' : 'cursor-pointer'}`}
         >
           <span className="inline-flex w-4 items-center justify-center">
             <Globe size={18} className={textColor} />
@@ -57,10 +55,8 @@ export default function LangSwitch({ type }: { type?: AppViewType }) {
           <span className={`text-sm font-medium leading-none group-hover:underline ${textColor}`}>
             {localeTriggerShort[activeLocale as SupportedLanguage]}
           </span>
-          <span className={`text-textcolor-tertiary inline-flex w-3 items-center justify-center text-xs ${textColor}`}>
-            ▾
-          </span>
-        </Button>
+          <span className={`inline-flex w-3 items-center justify-center text-xs ${textColor}`}>▾</span>
+        </button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"

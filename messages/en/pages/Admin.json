@@ -5,5 +5,6 @@
   "ds": { "title": "Design System" },
   "goals": { "title": "Goals" },
   "achievements": { "title": "Achievements" },
-  "speech-demo": { "title": "Speech demo" }
+  "speech-demo": { "title": "Speech demo" },
+  "phq9": { "title": "PHQ-9" }
 }

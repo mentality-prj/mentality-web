@@ -9,9 +9,9 @@ const AdminHeader = () => {
       <div className="flex items-center gap-sm">
         <Logo />
       </div>
-      <nav className="text-title mr-10 flex items-center gap-default">
+      <div className="mr-4 flex items-center gap-default md:mr-10">
         <TopMenu menu={adminTopMenu} />
-      </nav>
+      </div>
     </header>
   )
 }

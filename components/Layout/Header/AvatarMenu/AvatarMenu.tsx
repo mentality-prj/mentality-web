@@ -45,7 +45,7 @@ const AvatarMenu = () => {
         </Button>
       </DropdownMenuTrigger>
 
-      <DropdownMenuContent align="end" className="overflow-hidden rounded bg-background">
+      <DropdownMenuContent align="end" className="max-h-[calc(100dvh-5rem)] overflow-y-auto rounded bg-background">
         <DropdownMenuLabel>
           <div className="w-auto text-center">
             <div className="flex items-center gap-1">

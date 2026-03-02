@@ -69,6 +69,17 @@ export const guideMenu = [
   { key: 'calming', href: `${Routes.GUIDE}/calming`, icon: 'heartHandshake' },
 ]
 
+export type PsychologicalTestsInnerMenuItemKey = 'mental-check'
+export type PsychologicalTestsInnerMenuItem = {
+  key: PsychologicalTestsInnerMenuItemKey
+  href: string
+  icon: string
+}
+
+export const psychologicalTestsInnerMenuItems: PsychologicalTestsInnerMenuItem[] = [
+  { key: 'mental-check', href: `${Routes.PSYCHOLOGICALTESTS}/mental-check`, icon: 'brainCircuit' },
+]
+
 export type MyProgressInnerMenuItem = {
   key: 'achievements' | 'goals' | 'statistics'
   href: string
@@ -81,7 +92,7 @@ export const myProgressInnerMenuItems: MyProgressInnerMenuItem[] = [
   { key: 'statistics', href: `${Routes.MYPROGRESS}/statistics`, icon: 'chart' },
 ]
 
-export type AdminInnerMenuItemKey = 'dashboard' | 'ds' | 'goals' | 'achievements' | 'speech-demo'
+export type AdminInnerMenuItemKey = 'dashboard' | 'ds' | 'goals' | 'achievements' | 'speech-demo' | 'phq9'
 export type AdminInnerMenuItem = {
   key: AdminInnerMenuItemKey
   href: string
@@ -94,4 +105,5 @@ export const adminInnerMenuItems: AdminInnerMenuItem[] = [
   { key: 'goals', href: `${Routes.ADMIN}/goals`, icon: 'goal' },
   { key: 'achievements', href: `${Routes.ADMIN}/achievements`, icon: 'trophy' },
   { key: 'speech-demo', href: `${Routes.ADMIN}/speech-demo`, icon: 'speech' },
+  { key: 'phq9', href: `${Routes.ADMIN}/phq9`, icon: 'brainCircuit' },
 ]
