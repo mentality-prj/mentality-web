@@ -118,6 +118,7 @@ const config: Config = {
 
       gap: {
         default: '1.5rem', // gap-6
+        xxs: '0.25rem', // gap-1
         xs: '0.5rem', // gap-2
         sm: '1rem', // gap-4
         md: '2rem', // gap-8

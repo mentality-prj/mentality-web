@@ -39,7 +39,7 @@ export default function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenu
 
   return (
     <ul
-      className={`flex flex-col ${type === 'admin' ? 'text-color-white' : 'text-remark mr-8 overflow-hidden rounded border border-border'}`}
+      className={`flex flex-col max-md:w-full ${type === 'admin' ? 'text-color-white' : 'text-remark mr-8 overflow-hidden rounded border border-border'}`}
     >
       {menu.map((item: SidebarMenuItemType) => {
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/')

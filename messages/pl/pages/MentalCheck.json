@@ -1,0 +1,63 @@
+{
+  "page": {
+    "title": "Tygodniowy test mentalny",
+    "subtitle": "Prywatne narzędzie do autorefleksji. Odpowiadaj szczerze — nie ma złych ani dobrych odpowiedzi.",
+    "disclaimer": "To narzędzie służy do autorefleksji i nie stanowi diagnozy medycznej.",
+    "loadingHistory": "Ładowanie historii…"
+  },
+  "form": {
+    "weekCompleted": "Test tego tygodnia został ukończony.",
+    "lastCompleted": "Ostatnio ukończono: {date}.",
+    "rateLimitError": "Wysłałeś test w ciągu ostatnich 24 godzin. Spróbuj ponownie jutro.",
+    "submit": "Prześlij test",
+    "submitting": "Przesyłanie…",
+    "startNew": "Rozpocznij nowy test",
+    "adminPreviewLabel": "Podgląd formularza",
+    "adminClearData": "Wyczyść dane"
+  },
+  "result": {
+    "outOf": "z 27",
+    "mentalityIndexLabel": "Indeks zdrowia psychicznego",
+    "severityLabel": "Nasilenie",
+    "interpretationTitle": "Interpretacja"
+  },
+  "chart": {
+    "title": "Historia wyników",
+    "loading": "Ładowanie historii…",
+    "error": "Nie można załadować historii.",
+    "empty": "Brak poprzednich testów.",
+    "stubNote": "Przewidywany postęp"
+  },
+  "questions": {
+    "q0": "Brak zainteresowania lub przyjemności z wykonywanych czynności",
+    "q1": "Przygnębienie, depresja lub poczucie beznadziei",
+    "q2": "Trudności z zasypianiem lub utrzymaniem snu albo zbyt długie spanie",
+    "q3": "Zmęczenie lub brak energii",
+    "q4": "Słaby apetyt lub przejadanie się",
+    "q5": "Złe myśli o sobie — poczucie bycia porażką lub rozczarowaniem dla siebie i rodziny",
+    "q6": "Trudności z koncentracją, np. podczas czytania gazety lub oglądania telewizji",
+    "q7": "Spowolnienie ruchów lub mowy zauważalne przez innych, lub przeciwnie — nadmierne pobudzenie i niepokój",
+    "q8": "Myśli, że lepiej by było nie żyć, lub chęć skrzywdzenia siebie"
+  },
+  "options": {
+    "0": "Wcale",
+    "1": "Kilka dni",
+    "2": "Ponad połowę dni",
+    "3": "Prawie każdego dnia"
+  },
+  "severity": {
+    "minimal": "Minimalny",
+    "mild": "Łagodny",
+    "moderate": "Umiarkowany",
+    "moderately-severe": "Umiarkowanie ciężki",
+    "severe": "Ciężki"
+  },
+  "summary": {
+    "minimal": "Twoje odpowiedzi sugerują minimalne objawy. Dbaj o swoje samopoczucie, utrzymując zdrowe nawyki.",
+    "mild": "Twoje odpowiedzi sugerują łagodne objawy. Rozważ niewielkie zmiany w stylu życia i obserwuj swój stan przez najbliższe dni.",
+    "moderate": "Twoje odpowiedzi sugerują umiarkowane objawy. Pomocna może być rozmowa ze specjalistą ds. zdrowia psychicznego.",
+    "moderately-severe": "Twoje odpowiedzi sugerują umiarkowanie ciężkie objawy. Zalecamy skontaktowanie się ze specjalistą ds. zdrowia psychicznego.",
+    "severe": "Twoje odpowiedzi sugerują ciężkie objawy. Prosimy jak najszybciej skontaktować się ze specjalistą ds. zdrowia psychicznego."
+  },
+  "crisisNotice": "Jeśli te myśli nasilają się lub pojawiają się częściej, skontaktuj się ze specjalistą ds. zdrowia psychicznego lub zadzwoń na telefon zaufania w swoim regionie."
+}

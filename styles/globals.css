@@ -320,7 +320,7 @@ body {
   }
 
   .old-paper {
-    @apply flex rounded-[32px] bg-background-alt;
+    @apply flex bg-background-alt md:rounded-[32px];
   }
 
   .padded {

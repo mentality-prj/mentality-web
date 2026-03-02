@@ -1,0 +1,63 @@
+{
+  "page": {
+    "title": "Weekly Mental Check",
+    "subtitle": "A private self-reflection tool. Answer honestly — there are no right or wrong responses.",
+    "disclaimer": "This tool is for self-reflection and does not provide medical diagnosis.",
+    "loadingHistory": "Loading history…"
+  },
+  "form": {
+    "weekCompleted": "This week's check completed.",
+    "lastCompleted": "Last completed: {date}.",
+    "rateLimitError": "You have already submitted a check-in in the last 24 hours. Please try again tomorrow.",
+    "submit": "Submit check-in",
+    "submitting": "Submitting…",
+    "startNew": "Start new check-in",
+    "adminPreviewLabel": "Preview form",
+    "adminClearData": "Clear data"
+  },
+  "result": {
+    "outOf": "out of 27",
+    "mentalityIndexLabel": "Mentality Index",
+    "severityLabel": "Severity",
+    "interpretationTitle": "Interpretation"
+  },
+  "chart": {
+    "title": "Score History",
+    "loading": "Loading history…",
+    "error": "Unable to load history.",
+    "empty": "No previous check-ins yet.",
+    "stubNote": "Your projected progress"
+  },
+  "questions": {
+    "q0": "Little interest or pleasure in doing things",
+    "q1": "Feeling down, depressed, or hopeless",
+    "q2": "Trouble falling or staying asleep, or sleeping too much",
+    "q3": "Feeling tired or having little energy",
+    "q4": "Poor appetite or overeating",
+    "q5": "Feeling bad about yourself — or that you are a failure or have let yourself or your family down",
+    "q6": "Trouble concentrating on things, such as reading the newspaper or watching television",
+    "q7": "Moving or speaking so slowly that other people could have noticed, or the opposite — being so fidgety or restless that you have been moving around a lot more than usual",
+    "q8": "Thoughts that you would be better off dead, or of hurting yourself in some way"
+  },
+  "options": {
+    "0": "Not at all",
+    "1": "Several days",
+    "2": "More than half the days",
+    "3": "Nearly every day"
+  },
+  "severity": {
+    "minimal": "Minimal",
+    "mild": "Mild",
+    "moderate": "Moderate",
+    "moderately-severe": "Moderately Severe",
+    "severe": "Severe"
+  },
+  "summary": {
+    "minimal": "Your responses suggest minimal symptoms. Continue caring for your wellbeing with healthy routines.",
+    "mild": "Your responses suggest mild symptoms. Consider small lifestyle adjustments and monitor how you feel over the coming days.",
+    "moderate": "Your responses suggest moderate symptoms. It may be helpful to speak with a mental health professional for additional support.",
+    "moderately-severe": "Your responses suggest moderately severe symptoms. Reaching out to a mental health professional is encouraged.",
+    "severe": "Your responses suggest severe symptoms. Please consider connecting with a mental health professional as soon as possible."
+  },
+  "crisisNotice": "If these thoughts become stronger or more frequent, consider contacting a mental health professional or a support line in your area."
+}
