@@ -2,10 +2,12 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
 
 import { TestAnswers } from '@/components/features/TestsQuestionnarie/helper'
 import { PHQ9_CRISIS_QUESTION_INDEX, PHQ9_SEVERITY_MAP, PHQ9_TEST_CONFIG } from '@/constants/phq9'
 import { getPhq9Latest, submitPhq9 } from '@/requests/phq9'
+import { CustomSession } from '@/types/auth'
 import { Phq9ApiResponse, Phq9HistoryEntry, Phq9Severity } from '@/types/phq9'
 
 // ─── Pure calculations ──────────────────────────────────────────────────────
@@ -158,6 +160,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter()
+  const { data: session } = useSession()
 
   useEffect(() => {
     const stored = loadStoredSubmission()
@@ -168,7 +171,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
     }
 
     // No sessionStorage — fetch latest from backend (e.g. fresh browser session)
-    getPhq9Latest()
+    getPhq9Latest(session as CustomSession)
       .then(({ data }) => {
         if (data) {
           setResult(data)
@@ -177,7 +180,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
         }
       })
       .catch(() => {})
-  }, [])
+  }, [session])
 
   const handleChange = (questionId: string, value: number | boolean) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }))
@@ -197,11 +200,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
     setError(null)
 
     try {
-      const { data, status, error } = await submitPhq9({ answers: answersRecordToArray(answers) })
-
-      if (status === 429) {
-        throw new Error('429')
-      }
+      const { data, error } = await submitPhq9(session as CustomSession, { answers: answersRecordToArray(answers) })
 
       if (error || !data) {
         throw new Error(error ?? 'Submission failed. Please try again.')
