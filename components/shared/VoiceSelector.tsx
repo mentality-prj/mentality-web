@@ -1,11 +1,13 @@
 'use client'
 
 import React, { useEffect, useState } from 'react'
+import { useTranslations } from 'next-intl'
 
 import { Button } from '@/ui/button'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/ui/dropdown-menu'
 
 export function VoiceSelector() {
+  const t = useTranslations('components.VoiceSelector')
   const [voices, setVoices] = useState<SpeechSynthesisVoice[]>([])
   const [selected, setSelected] = useState<string | null>(() => {
     if (typeof window === 'undefined') return null
@@ -49,19 +51,21 @@ export function VoiceSelector() {
     } catch {}
   }
 
-  const triggerLabel = selected ? `${selected}` : `(auto)`
+  const triggerLabel = selected ? `${selected}` : t('autoLabel')
 
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="secondary">Voice: {triggerLabel} ▾</Button>
+        <Button variant="secondary">
+          {t('label')}: {triggerLabel} ▾
+        </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent className="min-w-[220px] bg-white">
         <DropdownMenuItem className="px-4 py-1" onSelect={() => handleSelect(undefined)}>
-          Auto (by language)
+          {t('autoOption')}
         </DropdownMenuItem>
         {voices.length === 0 ? (
-          <DropdownMenuItem disabled>No voices available</DropdownMenuItem>
+          <DropdownMenuItem disabled>{t('noVoicesAvailable')}</DropdownMenuItem>
         ) : (
           voices.map((v) => (
             <DropdownMenuItem key={`${v.name}::${v.lang}`} className="px-4 py-1" onSelect={() => handleSelect(v.name)}>

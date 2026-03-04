@@ -7,7 +7,9 @@ const AdminHeader = () => {
   return (
     <header className="flex w-full items-center justify-between bg-white py-4">
       <div className="flex items-center gap-sm">
-        <Logo />
+        <span className="hidden md:block">
+          <Logo />
+        </span>
       </div>
       <div className="mr-4 flex items-center gap-default md:mr-10">
         <TopMenu menu={adminTopMenu} />

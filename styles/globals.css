@@ -316,7 +316,7 @@ body {
   }
 
   .paper {
-    @apply flex rounded-[32px] bg-background;
+    @apply flex bg-background md:rounded-[32px];
   }
 
   .old-paper {

@@ -1,43 +1,37 @@
+import { CustomSession } from '@/types/auth'
 import { Phq9ApiResponse, Phq9HistoryEntry, Phq9SubmitPayload } from '@/types/phq9'
 
-import { APPUrl } from './config'
+import { APIUrl } from './config'
+import { performAuthRequest } from './genericFetch'
 
 export async function submitPhq9(
+  session: CustomSession | null,
   payload: Phq9SubmitPayload
-): Promise<{ data?: Phq9ApiResponse; error?: string; status?: number }> {
-  const res = await fetch(`${APPUrl}/phq9`, {
+): Promise<{ data?: Phq9ApiResponse; error?: string }> {
+  const res = await performAuthRequest<Phq9ApiResponse>(session, `${APIUrl}/phq9`, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
+    body: payload as unknown as Record<string, unknown>,
   })
-
-  if (!res.ok) {
-    const body: { message?: string } = await res.json().catch(() => ({}))
-    return { status: res.status, error: body?.message ?? 'Submission failed. Please try again.' }
+  if ('error' in res) {
+    return { error: res.status === 429 ? 'RATE_LIMITED' : res.error }
   }
-
-  const data: Phq9ApiResponse = await res.json()
-  return { data }
+  return { data: res.data }
 }
 
-export async function getPhq9Latest(): Promise<{ data?: Phq9ApiResponse | null; error?: string }> {
-  const res = await fetch(`${APPUrl}/phq9/latest`)
-
-  if (!res.ok) {
-    return { error: 'Failed to fetch latest result.' }
-  }
-
-  const data: Phq9ApiResponse | null = await res.json()
-  return { data }
+export async function getPhq9Latest(
+  session: CustomSession | null
+): Promise<{ data?: Phq9ApiResponse | null; error?: string }> {
+  const res = await performAuthRequest<Phq9ApiResponse | null>(session, `${APIUrl}/phq9/latest`, {
+    method: 'GET',
+  })
+  return 'error' in res ? { error: res.error } : { data: res.data }
 }
 
-export async function getPhq9History(): Promise<{ data?: Phq9HistoryEntry[]; error?: string }> {
-  const res = await fetch(`${APPUrl}/phq9/history`)
-
-  if (!res.ok) {
-    return { error: 'Failed to fetch history.' }
-  }
-
-  const data: Phq9HistoryEntry[] = await res.json()
-  return { data }
+export async function getPhq9History(
+  session: CustomSession | null
+): Promise<{ data?: Phq9HistoryEntry[]; error?: string }> {
+  const res = await performAuthRequest<Phq9HistoryEntry[]>(session, `${APIUrl}/phq9/history`, {
+    method: 'GET',
+  })
+  return 'error' in res ? { error: res.error } : { data: res.data ?? [] }
 }

@@ -2,11 +2,14 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
+import { useSession } from 'next-auth/react'
+import { useLocale } from 'next-intl'
 
 import { TestAnswers } from '@/components/features/TestsQuestionnarie/helper'
 import { PHQ9_CRISIS_QUESTION_INDEX, PHQ9_SEVERITY_MAP, PHQ9_TEST_CONFIG } from '@/constants/phq9'
 import { getPhq9Latest, submitPhq9 } from '@/requests/phq9'
-import { Phq9ApiResponse, Phq9HistoryEntry, Phq9Severity } from '@/types/phq9'
+import { CustomSession } from '@/types/auth'
+import { Phq9AnswerValue, Phq9ApiResponse, Phq9HistoryEntry, Phq9Severity } from '@/types/phq9'
 
 // ─── Pure calculations ──────────────────────────────────────────────────────
 
@@ -74,13 +77,16 @@ export function isWithin24Hours(isoTimestamp: string): boolean {
 export function isWithinCurrentWeek(isoTimestamp: string): boolean {
   const then = new Date(isoTimestamp)
   const startOfWeek = new Date()
-  startOfWeek.setDate(startOfWeek.getDate() - startOfWeek.getDay())
+  const day = startOfWeek.getDay()
+  // Monday-based week — consistent with calculateStreak
+  const diff = startOfWeek.getDate() - day + (day === 0 ? -6 : 1)
+  startOfWeek.setDate(diff)
   startOfWeek.setHours(0, 0, 0, 0)
   return then >= startOfWeek
 }
 
-export function formatSubmissionDate(isoTimestamp: string): string {
-  return new Date(isoTimestamp).toLocaleDateString('en-US', {
+export function formatSubmissionDate(isoTimestamp: string, locale = 'en'): string {
+  return new Date(isoTimestamp).toLocaleDateString(locale, {
     weekday: 'long',
     month: 'long',
     day: 'numeric',
@@ -91,35 +97,45 @@ export function formatSubmissionDate(isoTimestamp: string): string {
 
 // ─── SessionStorage helpers ──────────────────────────────────────────────────
 
-const STORAGE_KEY = 'phq9_last_submission'
+const STORAGE_KEY_PREFIX = 'phq9_last_submission_'
+const getStorageKey = (userId: string): string => `${STORAGE_KEY_PREFIX}${userId}`
 
 interface StoredSubmission {
   submittedAt: string
   result: Phq9ApiResponse
 }
 
-export function loadStoredSubmission(): StoredSubmission | null {
+export function loadStoredSubmission(userId: string): StoredSubmission | null {
   try {
-    const raw = sessionStorage.getItem(STORAGE_KEY)
+    const raw = sessionStorage.getItem(getStorageKey(userId))
     return raw ? (JSON.parse(raw) as StoredSubmission) : null
   } catch {
     return null
   }
 }
 
-export function saveSubmission(submission: StoredSubmission): void {
-  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(submission))
+export function saveSubmission(userId: string, submission: StoredSubmission): void {
+  sessionStorage.setItem(getStorageKey(userId), JSON.stringify(submission))
 }
 
-export function clearSubmission(): void {
-  sessionStorage.removeItem(STORAGE_KEY)
+export function clearSubmission(userId: string): void {
+  sessionStorage.removeItem(getStorageKey(userId))
 }
 
 // ─── Answers helpers ─────────────────────────────────────────────────────────
 
-/** Convert Record<questionId, number> → ordered number[] for API payload */
-export function answersRecordToArray(answers: TestAnswers): number[] {
-  return PHQ9_TEST_CONFIG.questions.map((q) => (answers[q.id] as number | undefined) ?? 0)
+/** Convert Record<questionId, number> → ordered Phq9AnswerValue[] for API payload */
+export function answersRecordToArray(answers: TestAnswers): Phq9AnswerValue[] {
+  return PHQ9_TEST_CONFIG.questions.map((q) => {
+    const raw = answers[q.id]
+    // Only accept finite numbers; default to 0 otherwise
+    if (typeof raw !== 'number' || !Number.isFinite(raw)) {
+      return 0 as Phq9AnswerValue
+    }
+    // Clamp to valid PHQ-9 range [0, 3]
+    const clamped = Math.max(0, Math.min(3, raw))
+    return clamped as Phq9AnswerValue
+  })
 }
 
 /** All 9 questions answered */
@@ -158,9 +174,11 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter()
+  const { data: session } = useSession()
+  const locale = useLocale()
 
   useEffect(() => {
-    const stored = loadStoredSubmission()
+    const stored = loadStoredSubmission(userId)
     if (stored) {
       setResult(stored.result)
       setLastSubmittedAt(stored.submittedAt)
@@ -168,16 +186,20 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
     }
 
     // No sessionStorage — fetch latest from backend (e.g. fresh browser session)
-    getPhq9Latest()
+    if (!session?.user) {
+      // Avoid triggering unauthorized requests while the session is loading or absent
+      return
+    }
+    getPhq9Latest(session as CustomSession)
       .then(({ data }) => {
         if (data) {
           setResult(data)
           setLastSubmittedAt(data.submittedAt)
-          saveSubmission({ submittedAt: data.submittedAt, result: data })
+          saveSubmission(userId, { submittedAt: data.submittedAt, result: data })
         }
       })
       .catch(() => {})
-  }, [])
+  }, [session, userId])
 
   const handleChange = (questionId: string, value: number | boolean) => {
     setAnswers((prev) => ({ ...prev, [questionId]: value }))
@@ -185,36 +207,40 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
 
   const allAnswered = isPhq9Complete(answers)
   const canSubmit =
-    allAnswered && !isSubmitting && !result && (lastSubmittedAt ? !isWithin24Hours(lastSubmittedAt) : true)
+    !!session?.user &&
+    allAnswered &&
+    !isSubmitting &&
+    !result &&
+    (lastSubmittedAt ? !isWithin24Hours(lastSubmittedAt) : true)
   const isCompletedThisWeek = lastSubmittedAt ? isWithinCurrentWeek(lastSubmittedAt) : false
-  const formattedLastSubmission = lastSubmittedAt ? formatSubmissionDate(lastSubmittedAt) : null
+  const formattedLastSubmission = lastSubmittedAt ? formatSubmissionDate(lastSubmittedAt, locale) : null
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!canSubmit) return
+    if (!session?.user) {
+      setError('UNEXPECTED_ERROR')
+      return
+    }
 
     setIsSubmitting(true)
     setError(null)
 
     try {
-      const { data, status, error } = await submitPhq9({ answers: answersRecordToArray(answers) })
-
-      if (status === 429) {
-        throw new Error('429')
-      }
+      const { data, error } = await submitPhq9(session as CustomSession, { answers: answersRecordToArray(answers) })
 
       if (error || !data) {
-        throw new Error(error ?? 'Submission failed. Please try again.')
+        throw new Error(error ?? 'SUBMISSION_FAILED')
       }
 
       setResult(data)
       setLastSubmittedAt(data.submittedAt)
-      saveSubmission({ submittedAt: data.submittedAt, result: data })
+      saveSubmission(userId, { submittedAt: data.submittedAt, result: data })
       router.refresh()
 
       setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unexpected error occurred.')
+      setError(err instanceof Error ? err.message : 'UNEXPECTED_ERROR')
     } finally {
       setIsSubmitting(false)
     }
@@ -225,7 +251,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
     setAnswers({})
     setError(null)
     setLastSubmittedAt(null)
-    clearSubmission()
+    clearSubmission(userId)
   }
 
   return {

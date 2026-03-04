@@ -11,5 +11,7 @@
   "profile": "Profile",
   "services": "Services",
   "signup": "Sign up",
-  "quickLinks": "Navigation"
+  "quickLinks": "Navigation",
+  "openNavigation": "Open navigation",
+  "closeNavigation": "Close navigation"
 }

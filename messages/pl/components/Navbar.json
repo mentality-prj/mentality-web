@@ -11,5 +11,7 @@
   "profile": "Profil",
   "services": "Usługi",
   "signup": "Zarejestruj się",
-  "quickLinks": "Nawigacja"
+  "quickLinks": "Nawigacja",
+  "openNavigation": "Otwórz menu",
+  "closeNavigation": "Zamknij menu"
 }
