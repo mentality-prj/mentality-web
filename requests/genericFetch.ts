@@ -3,7 +3,7 @@ import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import { Roles } from '@/types/security'
 
-type Result<T> = { data?: T; headers?: Headers } | { error: string }
+type Result<T> = { data?: T; headers?: Headers } | { error: string; status?: number }
 
 /**
  * Perform an authenticated API request and normalize the result to { data } | { error }
@@ -37,8 +37,9 @@ export async function performAuthRequest<T = unknown>(
     logger.error('API request failed', { url, method, error })
     let message: string
     if (typeof error === 'object' && error !== null && 'message' in error) {
-      const errObj = error as { message?: unknown }
+      const errObj = error as { message?: unknown; status?: number }
       message = typeof errObj.message === 'string' ? errObj.message : String(errObj.message ?? String(error))
+      return { error: message, status: errObj.status }
     } else {
       message = String(error)
     }

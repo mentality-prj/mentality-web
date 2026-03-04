@@ -9,6 +9,8 @@
     "weekCompleted": "Test tego tygodnia został ukończony.",
     "lastCompleted": "Ostatnio ukończono: {date}.",
     "rateLimitError": "Wysłałeś test w ciągu ostatnich 24 godzin. Spróbuj ponownie jutro.",
+    "submissionError": "Wysłanie nie powiodło się. Spróbuj ponownie.",
+    "unexpectedError": "Wystąpił nieoczekiwany błąd.",
     "submit": "Prześlij test",
     "submitting": "Przesyłanie…",
     "startNew": "Rozpocznij nowy test",
@@ -59,5 +61,8 @@
     "moderately-severe": "Twoje odpowiedzi sugerują umiarkowanie ciężkie objawy. Zalecamy skontaktowanie się ze specjalistą ds. zdrowia psychicznego.",
     "severe": "Twoje odpowiedzi sugerują ciężkie objawy. Prosimy jak najszybciej skontaktować się ze specjalistą ds. zdrowia psychicznego."
   },
-  "crisisNotice": "Jeśli te myśli nasilają się lub pojawiają się częściej, skontaktuj się ze specjalistą ds. zdrowia psychicznego lub zadzwoń na telefon zaufania w swoim regionie."
+  "crisisNotice": "Jeśli te myśli nasilają się lub pojawiają się częściej, skontaktuj się ze specjalistą ds. zdrowia psychicznego lub zadzwoń na telefon zaufania w swoim regionie.",
+  "admin": {
+    "resultCardsHeading": "Karty wyników PHQ-9"
+  }
 }

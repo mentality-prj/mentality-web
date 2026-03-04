@@ -46,7 +46,14 @@ export default function Phq9Form({ userId, isAdmin = false }: Phq9FormProps) {
     })),
   }))
 
-  const displayError = error === '429' ? t('form.rateLimitError') : error
+  const displayError =
+    error === 'RATE_LIMITED'
+      ? t('form.rateLimitError')
+      : error === 'SUBMISSION_FAILED'
+        ? t('form.submissionError')
+        : error === 'UNEXPECTED_ERROR'
+          ? t('form.unexpectedError')
+          : error
 
   return (
     <div className="flex flex-col gap-6">

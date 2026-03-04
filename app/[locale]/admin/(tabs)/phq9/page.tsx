@@ -42,7 +42,7 @@ export default function AdminPhq9Page() {
 
   return (
     <div className="flex flex-col gap-default">
-      <h2 className="text-xl font-semibold text-textcolor-primary">PHQ-9 Result Cards</h2>
+      <h2 className="text-xl font-semibold text-textcolor-primary">{t('admin.resultCardsHeading')}</h2>
 
       <div className="grid gap-default laptop:grid-cols-2">
         {mockResults.map((result) => {

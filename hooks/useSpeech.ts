@@ -45,11 +45,22 @@ export function useSpeech(options?: UseSpeechOptions) {
 
     loadVoices()
 
-    // Some browsers populate voices asynchronously
-    window.speechSynthesis.onvoiceschanged = loadVoices
+    // Some browsers populate voices asynchronously.
+    // Use addEventListener so multiple hook instances don't overwrite each other.
+    // Guard with try/catch because a minority of browsers don't implement addEventListener on speechSynthesis.
+    const synth = window.speechSynthesis
+    try {
+      synth.addEventListener('voiceschanged', loadVoices)
+    } catch {
+      synth.onvoiceschanged = loadVoices
+    }
 
     return () => {
-      window.speechSynthesis.onvoiceschanged = null
+      try {
+        synth.removeEventListener('voiceschanged', loadVoices)
+      } catch {
+        synth.onvoiceschanged = null
+      }
     }
   }, [])
 
@@ -142,15 +153,17 @@ export function useSpeech(options?: UseSpeechOptions) {
       setIsSpeaking(true)
       setIsPaused(false)
 
-      // Small diagnostic log to help debug voice selection and input text
-      try {
-        // eslint-disable-next-line no-console
-        console.debug('[useSpeech] speak start', {
-          locale,
-          voiceForLocale: findVoiceForLocale(voices, locale)?.name,
-          textPreview: cleanText.slice(0, 120),
-        })
-      } catch {}
+      // Small diagnostic log to help debug voice selection (no user text logged)
+      if (process.env.NODE_ENV !== 'production') {
+        try {
+          // eslint-disable-next-line no-console
+          console.debug('[useSpeech] speak start', {
+            locale,
+            voiceForLocale: findVoiceForLocale(voices, locale)?.name,
+            textLength: cleanText.length,
+          })
+        } catch {}
+      }
 
       utterances.forEach((u, idx) => {
         u.onstart = () => {
@@ -286,6 +299,8 @@ export function useSpeech(options?: UseSpeechOptions) {
 
   const stop = useCallback(() => {
     if (!isSupported) return
+    // Bump session so any in-flight utterance callbacks are ignored
+    sessionRef.current += 1
     window.speechSynthesis.cancel()
     if (timerRef.current) {
       clearTimeout(timerRef.current)
@@ -293,10 +308,14 @@ export function useSpeech(options?: UseSpeechOptions) {
     }
     queueRef.current = []
     currentIndexRef.current = 0
+    currentCharIndexRef.current = 0
     pausedDuringDelayRef.current = false
+    pausedByUserRef.current = false
+    chunksRef.current = []
+    currentLanguageRef.current = null
+    utteranceRef.current = null
     setIsSpeaking(false)
     setIsPaused(false)
-    utteranceRef.current = null
   }, [isSupported])
 
   return {

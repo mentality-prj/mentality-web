@@ -40,6 +40,7 @@ export function PlayButton({ text, language }: Props) {
   return (
     <>
       <Button
+        type="button"
         variant="iconTool"
         onClick={(e) => {
           e.stopPropagation()
@@ -54,7 +55,7 @@ export function PlayButton({ text, language }: Props) {
       </Button>
 
       {isSpeaking && (
-        <Button variant="iconTool" onClick={handleStop} aria-label={t('stop')} title={t('stop')}>
+        <Button type="button" variant="iconTool" onClick={handleStop} aria-label={t('stop')} title={t('stop')}>
           <Stop size={16} />
         </Button>
       )}

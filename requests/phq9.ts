@@ -12,7 +12,10 @@ export async function submitPhq9(
     method: 'POST',
     body: payload as unknown as Record<string, unknown>,
   })
-  return 'error' in res ? { error: res.error } : { data: res.data }
+  if ('error' in res) {
+    return { error: res.status === 429 ? 'RATE_LIMITED' : res.error }
+  }
+  return { data: res.data }
 }
 
 export async function getPhq9Latest(

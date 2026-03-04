@@ -1,5 +1,5 @@
 import { TestConfig } from '@/components/features/TestsQuestionnarie/typesTestPage'
-import { Phq9Severity } from '@/types/phq9'
+import { Phq9HistoryEntry, Phq9Severity } from '@/types/phq9'
 
 export const PHQ9_QUESTIONS = [
   'Little interest or pleasure in doing things',
@@ -39,6 +39,21 @@ export const PHQ9_SEVERITY_LABELS: Record<Phq9Severity, string> = {
 export const PHQ9_RESUBMIT_COOLDOWN_MS = 24 * 60 * 60 * 1000 // 24 hours
 
 export const PHQ9_CRISIS_QUESTION_INDEX = 8 // Q9: thoughts of self-harm
+
+// TODO: remove when backend history endpoint returns real data
+const PHQ9_STUB_SCORES = [20, 18, 16, 14, 12, 10, 9, 8, 7, 6, 5, 3] as const
+function generatePhq9StubHistory(): Phq9HistoryEntry[] {
+  const baseDate = new Date()
+  // Anchor all stub entries at 10:00:00.000 UTC on the base day
+  baseDate.setUTCHours(10, 0, 0, 0)
+  const weekMs = 7 * 24 * 60 * 60 * 1000
+  return PHQ9_STUB_SCORES.map((score, index) => {
+    const weeksAgo = PHQ9_STUB_SCORES.length - 1 - index
+    const date = new Date(baseDate.getTime() - weeksAgo * weekMs)
+    return { date: date.toISOString(), score }
+  })
+}
+export const PHQ9_STUB_HISTORY: Phq9HistoryEntry[] = generatePhq9StubHistory()
 
 /**
  * PHQ-9 as a TestConfig<'radio'> — compatible with the TestsQuestionnarie infrastructure.

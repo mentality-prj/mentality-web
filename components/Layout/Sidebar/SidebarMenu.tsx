@@ -33,7 +33,15 @@ const iconMap: Record<string, ReactNode> = {
   speech: <Speech className="h-5 w-5" size={12} />,
 }
 
-export default function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenuItemType[]; type?: SidebarMenuType }) {
+export default function SidebarMenu({
+  menu,
+  type = 'user',
+  onLinkClick,
+}: {
+  menu: SidebarMenuItemType[]
+  type?: SidebarMenuType
+  onLinkClick?: () => void
+}) {
   const t = useTranslations('components.Sidebar')
   const pathname = usePathname()
 
@@ -45,7 +53,7 @@ export default function SidebarMenu({ menu, type = 'user' }: { menu: SidebarMenu
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
         return (
           <li key={item.key}>
-            <Link href={item.href} className={getMenuItemClass(isActive, type)}>
+            <Link href={item.href} className={getMenuItemClass(isActive, type)} onClick={onLinkClick}>
               {item.icon && iconMap[item.icon]}
               {t(item.key)}
             </Link>

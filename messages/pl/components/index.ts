@@ -11,6 +11,7 @@ import Diary from './Diary.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import FavoriteButton from './FavoriteButton.json'
 import PlayButton from './PlayButton.json'
+import VoiceSelector from './VoiceSelector.json'
 import Filter from './Filter.json'
 import Header from './Header.json'
 import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
@@ -65,5 +66,6 @@ export const components = {
   MoodCard,
   FavoriteButton,
   PlayButton,
+  VoiceSelector,
   ContactForm,
 }

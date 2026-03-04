@@ -41,6 +41,7 @@ export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange }: Props
 
   return (
     <Button
+      type="button"
       variant="iconTool"
       aria-pressed={isFavorite}
       onClick={toggle}

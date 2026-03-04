@@ -9,6 +9,8 @@
     "weekCompleted": "This week's check completed.",
     "lastCompleted": "Last completed: {date}.",
     "rateLimitError": "You have already submitted a check-in in the last 24 hours. Please try again tomorrow.",
+    "submissionError": "Submission failed. Please try again.",
+    "unexpectedError": "An unexpected error occurred.",
     "submit": "Submit check-in",
     "submitting": "Submitting…",
     "startNew": "Start new check-in",
@@ -59,5 +61,8 @@
     "moderately-severe": "Your responses suggest moderately severe symptoms. Reaching out to a mental health professional is encouraged.",
     "severe": "Your responses suggest severe symptoms. Please consider connecting with a mental health professional as soon as possible."
   },
-  "crisisNotice": "If these thoughts become stronger or more frequent, consider contacting a mental health professional or a support line in your area."
+  "crisisNotice": "If these thoughts become stronger or more frequent, consider contacting a mental health professional or a support line in your area.",
+  "admin": {
+    "resultCardsHeading": "PHQ-9 Result Cards"
+  }
 }

@@ -67,7 +67,7 @@ export default function Phq9Result({ result }: Phq9ResultProps) {
 
       {/* Crisis notice */}
       {result.crisisNotice && (
-        <Card type={Statuses.special} text={t('crisisNotice')} className="text-sm tracking-wide" />
+        <Card type={Statuses.special} text={result.crisisNotice} className="text-sm tracking-wide" />
       )}
     </div>
   )

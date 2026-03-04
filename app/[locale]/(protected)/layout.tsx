@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import Script from 'next/script'
 
 import { LandingFooter } from '@/components/features/Landing'
 import { Header } from '@/components/Layout/Header'
@@ -24,6 +25,7 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
           <LandingFooter type="small" className="bg-none" />
         </main>
       </div>
+      <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
     </div>
   )
 }

@@ -11,5 +11,7 @@
   "profile": "Профіль",
   "services": "Сервіси",
   "signup": "Зареєструватися",
-  "quickLinks": "Навігація"
+  "quickLinks": "Навігація",
+  "openNavigation": "Відкрити меню",
+  "closeNavigation": "Закрити меню"
 }
