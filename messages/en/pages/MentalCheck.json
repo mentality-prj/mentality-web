@@ -2,12 +2,18 @@
   "page": {
     "title": "Weekly Mental Check",
     "subtitle": "A private self-reflection tool. Answer honestly — there are no right or wrong responses.",
+    "description": "The Mental Check is based on the international PHQ-9 questionnaire and helps assess your level of low mood.",
     "disclaimer": "This tool is for self-reflection and does not provide medical diagnosis.",
     "loadingHistory": "Loading history…"
+  },
+  "intro": {
+    "title": "Mental Check-up",
+    "subtitle": "3 minutes · 9 questions"
   },
   "form": {
     "weekCompleted": "This week's check completed.",
     "lastCompleted": "Last completed: {date}.",
+    "questionCount": "Question {current} of {total}",
     "rateLimitError": "You have already submitted a check-in in the last 24 hours. Please try again tomorrow.",
     "submissionError": "Submission failed. Please try again.",
     "unexpectedError": "An unexpected error occurred.",
@@ -21,7 +27,9 @@
     "outOf": "out of 27",
     "mentalityIndexLabel": "Mentality Index",
     "severityLabel": "Severity",
-    "interpretationTitle": "Interpretation"
+    "interpretationTitle": "Interpretation",
+    "ctaProgram": "Start a wellbeing programme",
+    "ctaRetry": "Start new check-in"
   },
   "chart": {
     "title": "Score History",

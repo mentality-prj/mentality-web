@@ -1,0 +1,68 @@
+{
+  "page": {
+    "title": "Anxiety Level",
+    "subtitle": "2 minutes · 7 questions",
+    "disclaimer": "This test is a self-check tool and does not constitute a medical diagnosis.",
+    "description": "The Anxiety Check is based on the international GAD-7 questionnaire and helps assess your level of anxiety.",
+    "loadingHistory": "Loading history…"
+  },
+  "intro": {
+    "title": "Anxiety Level",
+    "subtitle": "2 minutes · 7 questions",
+    "cta": "Start"
+  },
+  "form": {
+    "questionCount": "Question {current} of {total}",
+    "submitting": "Calculating your results…",
+    "rateLimitError": "You have already submitted this check recently. Please try again later.",
+    "submissionError": "Submission failed. Please try again.",
+    "unexpectedError": "An unexpected error occurred.",
+    "tryAgain": "Try again",
+    "startNew": "Try again",
+    "back": "Back",
+    "submit": "Submit",
+    "readyToSubmit": "All questions answered. Submit when ready.",
+    "adminPreviewLabel": "Preview form",
+    "adminClearData": "Clear data",
+    "retake": "Retake test"
+  },
+  "result": {
+    "scoreLabel": "out of 21",
+    "levelLabel": "Level",
+    "recommendationTitle": "Recommendation",
+    "supportiveMessage": "It looks like you may be experiencing high anxiety. Remember — you're not alone. Consider speaking with a mental health professional or someone you trust.",
+    "ctaProgram": "Start stress reduction programme",
+    "ctaRetry": "Retake in 30 days"
+  },
+  "chart": {
+    "title": "Score History",
+    "stubNote": "Your projected progress"
+  },
+  "questions": {
+    "q0": "Feeling nervous, anxious, or on edge",
+    "q1": "Not being able to stop or control worrying",
+    "q2": "Worrying too much about different things",
+    "q3": "Trouble relaxing",
+    "q4": "Being so restless that it is hard to sit still",
+    "q5": "Becoming easily annoyed or irritable",
+    "q6": "Feeling afraid, as if something awful might happen"
+  },
+  "options": {
+    "0": "Not at all",
+    "1": "Several days",
+    "2": "More than half the days",
+    "3": "Nearly every day"
+  },
+  "level": {
+    "minimal": "Minimal Anxiety",
+    "mild": "Mild Anxiety",
+    "moderate": "Moderate Anxiety",
+    "severe": "High Anxiety"
+  },
+  "summary": {
+    "minimal": "Your responses suggest minimal anxiety. Keep maintaining healthy habits and routines.",
+    "mild": "Your responses suggest mild anxiety. Small lifestyle changes and relaxation practices can help.",
+    "moderate": "Your responses suggest moderate anxiety. Consider speaking with a mental health professional for additional support.",
+    "severe": "Your responses suggest high anxiety. We recommend reaching out to a mental health professional."
+  }
+}

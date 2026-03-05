@@ -2,12 +2,18 @@
   "page": {
     "title": "Tygodniowy test mentalny",
     "subtitle": "Prywatne narzędzie do autorefleksji. Odpowiadaj szczerze — nie ma złych ani dobrych odpowiedzi.",
+    "description": "Test mentalny oparty jest na międzynarodowym kwestionariuszu PHQ-9 i pomaga ocenić poziom obniżonego nastroju.",
     "disclaimer": "To narzędzie służy do autorefleksji i nie stanowi diagnozy medycznej.",
     "loadingHistory": "Ładowanie historii…"
+  },
+  "intro": {
+    "title": "Mentalny check-up",
+    "subtitle": "3 minuty · 9 pytań"
   },
   "form": {
     "weekCompleted": "Test tego tygodnia został ukończony.",
     "lastCompleted": "Ostatnio ukończono: {date}.",
+    "questionCount": "Pytanie {current} z {total}",
     "rateLimitError": "Wysłałeś test w ciągu ostatnich 24 godzin. Spróbuj ponownie jutro.",
     "submissionError": "Wysłanie nie powiodło się. Spróbuj ponownie.",
     "unexpectedError": "Wystąpił nieoczekiwany błąd.",
@@ -21,7 +27,9 @@
     "outOf": "z 27",
     "mentalityIndexLabel": "Indeks zdrowia psychicznego",
     "severityLabel": "Nasilenie",
-    "interpretationTitle": "Interpretacja"
+    "interpretationTitle": "Interpretacja",
+    "ctaProgram": "Rozpocznij program dobrostanu",
+    "ctaRetry": "Rozpocznij nowy test"
   },
   "chart": {
     "title": "Historia wyników",
