@@ -27,6 +27,8 @@ export interface TestConfig<T extends ChoiceType> {
   id: string
   title: string
   type: T
+  /** next-intl namespace used by QuestionFormRadio (e.g. 'pages.AnxietyCheck') */
+  i18nNamespace?: string
   groupWeights?: T extends 'checkbox' ? Record<QuestionGroup, number> : never
   questions: T extends 'checkbox' ? CheckboxQuestionWithGroups[] : RadioQuestion[]
   scoring: {

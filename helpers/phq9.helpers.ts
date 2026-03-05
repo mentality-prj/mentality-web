@@ -162,7 +162,8 @@ export interface UsePhq9FormReturn {
   isCompletedThisWeek: boolean
   formattedLastSubmission: string | null
   handleChange: (questionId: string, value: number | boolean) => void
-  handleSubmit: (e: React.FormEvent) => Promise<void>
+  handleSubmit: (e: React.FormEvent<HTMLFormElement>) => Promise<void>
+  submitAnswers: (latestAnswers: TestAnswers) => Promise<void>
   handleReset: () => void
 }
 
@@ -215,9 +216,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
   const isCompletedThisWeek = lastSubmittedAt ? isWithinCurrentWeek(lastSubmittedAt) : false
   const formattedLastSubmission = lastSubmittedAt ? formatSubmissionDate(lastSubmittedAt, locale) : null
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    if (!canSubmit) return
+  const doSubmit = async (answersToSend: TestAnswers) => {
     if (!session?.user) {
       setError('UNEXPECTED_ERROR')
       return
@@ -227,7 +226,9 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
     setError(null)
 
     try {
-      const { data, error } = await submitPhq9(session as CustomSession, { answers: answersRecordToArray(answers) })
+      const { data, error } = await submitPhq9(session as CustomSession, {
+        answers: answersRecordToArray(answersToSend),
+      })
 
       if (error || !data) {
         throw new Error(error ?? 'SUBMISSION_FAILED')
@@ -244,6 +245,24 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
     } finally {
       setIsSubmitting(false)
     }
+  }
+
+  const submitAnswers = async (latestAnswers: TestAnswers) => {
+    // replicate the same guard used by handleSubmit so callers can't bypass cooldown
+    if (!canSubmit) {
+      // provide a deterministic error for UI flows to detect rate limiting
+      if (lastSubmittedAt && isWithin24Hours(lastSubmittedAt)) {
+        setError('RATE_LIMITED')
+      }
+      return
+    }
+    await doSubmit(latestAnswers)
+  }
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    if (!canSubmit) return
+    await doSubmit(answers)
   }
 
   const handleReset = () => {
@@ -267,6 +286,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
     formattedLastSubmission,
     handleChange,
     handleSubmit,
+    submitAnswers,
     handleReset,
   }
 }

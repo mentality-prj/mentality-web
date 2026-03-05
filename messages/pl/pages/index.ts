@@ -1,5 +1,6 @@
 import Admin from './Admin.json'
 import AffirmationsPage from './AffirmationsPage.json'
+import AnxietyCheck from './AnxietyCheck.json'
 import Diary from './Diary.json'
 import Guide from './Guide.json'
 import Landing from './Landing.json'
@@ -14,6 +15,7 @@ import ServerError from './ServerError.json'
 export const pages = {
   Admin,
   AffirmationsPage,
+  AnxietyCheck,
   Diary,
   Guide,
   Landing,

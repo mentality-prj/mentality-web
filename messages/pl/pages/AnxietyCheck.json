@@ -1,0 +1,68 @@
+{
+  "page": {
+    "title": "Poziom lęku",
+    "subtitle": "2 minuty · 7 pytań",
+    "disclaimer": "Ten test jest narzędziem samooceny i nie stanowi diagnozy medycznej.",
+    "description": "Test oparty jest na międzynarodowym kwestionariuszu GAD-7 i pomaga ocenić poziom lęku.",
+    "loadingHistory": "Ładowanie historii…"
+  },
+  "intro": {
+    "title": "Poziom lęku",
+    "subtitle": "2 minuty · 7 pytań",
+    "cta": "Rozpocznij"
+  },
+  "form": {
+    "questionCount": "Pytanie {current} z {total}",
+    "submitting": "Obliczamy Twoje wyniki…",
+    "rateLimitError": "Niedawno wypełniłeś już ten test. Spróbuj ponownie później.",
+    "submissionError": "Wysłanie nie powiodło się. Spróbuj ponownie.",
+    "unexpectedError": "Wystąpił nieoczekiwany błąd.",
+    "tryAgain": "Spróbuj ponownie",
+    "startNew": "Spróbuj ponownie",
+    "back": "Wstecz",
+    "submit": "Wyślij",
+    "readyToSubmit": "Wszystkie pytania wypełnione. Wyślij, gdy będziesz gotowy.",
+    "adminPreviewLabel": "Podgląd formularza",
+    "adminClearData": "Wyczyść dane",
+    "retake": "Wypełnij ponownie"
+  },
+  "result": {
+    "scoreLabel": "z 21",
+    "levelLabel": "Poziom",
+    "recommendationTitle": "Rekomendacja",
+    "supportiveMessage": "Wygląda na to, że możesz doświadczać wysokiego poziomu lęku. Pamiętaj — nie jesteś sam. Rozważ rozmowę ze specjalistą ds. zdrowia psychicznego lub zaufaną osobą.",
+    "ctaProgram": "Rozpocznij program redukcji napięcia",
+    "ctaRetry": "Powtórz za 30 dni"
+  },
+  "chart": {
+    "title": "Historia wyników",
+    "stubNote": "Twój prognozowany postęp"
+  },
+  "questions": {
+    "q0": "Uczucie nerwowości, lęku lub napięcia",
+    "q1": "Niemożność zatrzymania lub kontrolowania zamartwiania się",
+    "q2": "Nadmierne zamartwianie się różnymi sprawami",
+    "q3": "Trudności z odprężeniem się",
+    "q4": "Niepokój ruchowy, trudność w spokojnym siedzeniu",
+    "q5": "Łatwe wpadanie w irytację",
+    "q6": "Uczucie strachu, jakby miało się wydarzyć coś strasznego"
+  },
+  "options": {
+    "0": "Wcale",
+    "1": "Kilka dni",
+    "2": "Ponad połowę dni",
+    "3": "Prawie każdego dnia"
+  },
+  "level": {
+    "minimal": "Minimalny lęk",
+    "mild": "Łagodny lęk",
+    "moderate": "Umiarkowany lęk",
+    "severe": "Wysoki lęk"
+  },
+  "summary": {
+    "minimal": "Twoje odpowiedzi sugerują minimalny poziom lęku. Kontynuuj zdrowe nawyki i rutyny.",
+    "mild": "Twoje odpowiedzi sugerują łagodny poziom lęku. Małe zmiany w stylu życia i ćwiczenia relaksacyjne mogą pomóc.",
+    "moderate": "Twoje odpowiedzi sugerują umiarkowany poziom lęku. Rozważ rozmowę ze specjalistą ds. zdrowia psychicznego.",
+    "severe": "Twoje odpowiedzi sugerują wysoki poziom lęku. Zalecamy kontakt ze specjalistą ds. zdrowia psychicznego."
+  }
+}

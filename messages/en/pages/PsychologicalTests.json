@@ -1,7 +1,12 @@
 {
   "title": "Psychological Tests",
   "subtitle": "Track your mental health with evidence-based assessments",
+  "questionsLabel": "questions",
+  "duration": "{minutes} min",
   "mental-check": {
     "title": "Mental Check"
+  },
+  "anxiety-check": {
+    "title": "Anxiety Level"
   }
 }

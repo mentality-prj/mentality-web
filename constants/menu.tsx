@@ -69,7 +69,7 @@ export const guideMenu = [
   { key: 'calming', href: `${Routes.GUIDE}/calming`, icon: 'heartHandshake' },
 ]
 
-export type PsychologicalTestsInnerMenuItemKey = 'mental-check'
+export type PsychologicalTestsInnerMenuItemKey = 'mental-check' | 'anxiety-check'
 export type PsychologicalTestsInnerMenuItem = {
   key: PsychologicalTestsInnerMenuItemKey
   href: string
@@ -78,6 +78,7 @@ export type PsychologicalTestsInnerMenuItem = {
 
 export const psychologicalTestsInnerMenuItems: PsychologicalTestsInnerMenuItem[] = [
   { key: 'mental-check', href: `${Routes.PSYCHOLOGICALTESTS}/mental-check`, icon: 'brainCircuit' },
+  { key: 'anxiety-check', href: `${Routes.PSYCHOLOGICALTESTS}/anxiety-check`, icon: 'activity' },
 ]
 
 export type MyProgressInnerMenuItem = {

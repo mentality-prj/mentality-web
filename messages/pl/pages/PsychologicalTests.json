@@ -1,7 +1,12 @@
 {
   "title": "Testy psychologiczne",
   "subtitle": "Monitoruj swoje zdrowie psychiczne za pomocą sprawdzonych narzędzi",
+  "questionsLabel": "pytań",
+  "duration": "{minutes} min",
   "mental-check": {
     "title": "Kontrola mentalna"
+  },
+  "anxiety-check": {
+    "title": "Poziom lęku"
   }
 }
