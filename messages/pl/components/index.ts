@@ -1,5 +1,6 @@
 import Achievements from './Achievements.json'
 import Admin from './Admin.json'
+import AttentionSprint from './AttentionSprint.json'
 import AvatarMenu from './AvatarMenu.json'
 import BestDay from './BestDay.json'
 import Calendar from './Calendar.json'
@@ -36,6 +37,7 @@ import TodayObservations from './TodayObservations.json'
 export const components = {
   Achievements,
   Admin,
+  AttentionSprint,
   BestDay,
   Calendar,
   ChartDynamics,

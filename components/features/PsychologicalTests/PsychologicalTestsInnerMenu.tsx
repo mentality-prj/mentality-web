@@ -2,7 +2,7 @@
 import { useTranslations } from 'next-intl'
 
 import { InnerMenu } from '@/components/shared/InnerMenu'
-import { iconMap } from '@/components/shared/Sitemap'
+import { iconMapSitemap } from '@/components/shared/Sitemap'
 import { psychologicalTestsInnerMenuItems } from '@/constants/menu'
 
 export default function PsychologicalTestsInnerMenu() {
@@ -12,7 +12,7 @@ export default function PsychologicalTestsInnerMenu() {
     key: it.key,
     href: it.href,
     label: t(`${it.key}.title`),
-    icon: it.icon ? iconMap[it.icon] : undefined,
+    icon: it.icon ? iconMapSitemap[it.icon] : undefined,
   }))
 
   return <InnerMenu items={items} />

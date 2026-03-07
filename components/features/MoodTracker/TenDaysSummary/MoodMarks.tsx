@@ -2,10 +2,9 @@ import { AudioLines } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
 import Card from '@/components/shared/Cards/Card'
+import { SummaryCard } from '@/components/shared/Cards/SummaryCard'
 import { MoodMarksData, MOODS_MAP } from '@/constants/moods'
 import { Tag } from '@/ds/components/Tag'
-
-import { SummaryCard } from './SummaryCard'
 
 export const MoodMarks = async ({ data }: { data?: MoodMarksData } = {}) => {
   const moods = Object.keys(MOODS_MAP)

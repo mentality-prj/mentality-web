@@ -1,0 +1,20 @@
+{
+  "title": "Sprint uwagi",
+  "tabGame": "Gra",
+  "tabStats": "Statystyki",
+  "difficulty": "Poziom trudności:",
+  "level0": "🟢 Łatwy",
+  "level1": "🟡 Średni",
+  "level2": "🟠 Trudny",
+  "level3": "🔴 Zaawansowany",
+  "startGame": "Rozpocznij grę",
+  "prompt": "Znaleźć wszystkie \"{symbol}\" w {duration} sekund!",
+  "included": "(w zestawie: {list})",
+  "time": "Czas: {time}s",
+  "score": "✅ Poprawne: {score}",
+  "errors": "❌ Błędy: {errors}",
+  "gameOver": "Koniec gry!",
+  "result": "Twój wynik: {score} poprawnych, {errors} błędów.",
+  "playAgain": "Zagraj ponownie",
+  "statsEmpty": "Twoje statystyki gier pojawią się tutaj"
+}

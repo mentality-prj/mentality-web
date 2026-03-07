@@ -6,6 +6,7 @@ import Guide from './Guide.json'
 import Landing from './Landing.json'
 import Meditation from './Meditation.json'
 import MentalCheck from './MentalCheck.json'
+import MentalGames from './MentalGames.json'
 import MoodTracker from './MoodTracker.json'
 import MyProgress from './MyProgress.json'
 import MySpace from './MySpace.json'
@@ -25,5 +26,6 @@ export const pages = {
   MyProgress,
   MySpace,
   PsychologicalTests,
+  MentalGames,
   ServerError,
 }

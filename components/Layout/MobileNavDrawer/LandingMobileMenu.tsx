@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Menu as LucideMenu, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -10,8 +10,22 @@ import { Link, usePathname } from '@/i18n/navigation'
 
 export default function LandingMobileMenu() {
   const [open, setOpen] = useState(false)
+  const drawerRef = useRef<HTMLDivElement | null>(null)
   const t = useTranslations('components.Navbar')
   const pathname = usePathname()
+
+  useEffect(() => {
+    const drawer = drawerRef.current
+    if (!drawer) return
+
+    if (open) {
+      drawer.removeAttribute('inert')
+      return
+    }
+
+    // Use native DOM attribute instead of JSX prop to avoid React warnings for non-boolean attributes.
+    drawer.setAttribute('inert', '')
+  }, [open])
 
   return (
     <>
@@ -30,13 +44,11 @@ export default function LandingMobileMenu() {
 
       {/* Drawer */}
       <div
+        ref={drawerRef}
         role="dialog"
         aria-modal="true"
         aria-label={t('openNavigation')}
         aria-hidden={!open}
-        // inert prevents focus and screen-reader access when the drawer is off-screen.
-        // The attribute is declared on React.HTMLAttributes in global.d.ts.
-        {...(!open ? { inert: true } : {})}
         className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-hidden bg-white shadow-xl transition-transform duration-300 ease-in-out md:hidden ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}

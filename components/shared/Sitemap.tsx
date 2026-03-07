@@ -15,6 +15,7 @@ import {
   HeartHandshake,
   LayoutDashboard,
   Lightbulb,
+  Puzzle,
   Speech,
   Tag,
   Trophy,
@@ -30,7 +31,7 @@ import { Roles } from '@/types/security'
 
 type Access = 'public' | 'private' | 'admin'
 
-export const iconMap: Record<string, ReactNode> = {
+export const iconMapSitemap: Record<string, ReactNode> = {
   bookHeart: <BookHeart size={16} className="icon" />,
   layoutDashboard: <LayoutDashboard size={16} className="icon" />,
   tag: <Tag size={16} className="icon" />,
@@ -50,6 +51,7 @@ export const iconMap: Record<string, ReactNode> = {
   chart: <ChartPie size={16} className="icon" />,
   test: <FileQuestionMark size={16} className="icon" />,
   speech: <Speech size={16} className="icon" />,
+  puzzle: <Puzzle size={16} className="icon" />,
 }
 
 export default function Sitemap() {
@@ -92,7 +94,7 @@ export default function Sitemap() {
                         href={item.href}
                         className="flex items-center gap-xs text-textcolor-state hover:text-tertiary hover:underline"
                       >
-                        {item.icon && iconMap[item.icon]}
+                        {item.icon && iconMapSitemap[item.icon]}
                         <span>{t(item.key)}</span>
                       </Link>
                     </div>
@@ -106,7 +108,7 @@ export default function Sitemap() {
                               href={sub.href}
                               className="flex items-center gap-xs text-textcolor-state hover:text-tertiary hover:underline"
                             >
-                              {sub.icon && iconMap[sub.icon]}
+                              {sub.icon && iconMapSitemap[sub.icon]}
                               {t(sub.key)}
                             </Link>
                           </li>

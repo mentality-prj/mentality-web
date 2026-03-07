@@ -11,6 +11,7 @@ import MyProgress from './MyProgress.json'
 import MySpace from './MySpace.json'
 import PsychologicalTests from './PsychologicalTests.json'
 import ServerError from './ServerError.json'
+import MentalGames from './MentalGames.json'
 
 export const pages = {
   Admin,
@@ -25,5 +26,6 @@ export const pages = {
   MyProgress,
   MySpace,
   PsychologicalTests,
+  MentalGames,
   ServerError,
 }
