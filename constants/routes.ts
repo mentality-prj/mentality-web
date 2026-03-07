@@ -16,6 +16,7 @@ export const RoutesTitles = Object.freeze({
   MYSPACE: 'My-Space',
   MYPROGRESS: 'My-Progress',
   MYPROGRESSGOALS: 'My-Progress/Goals',
+  MENTAL_GAMES: 'Mental-Games',
   PSYCHOLOGICALTESTS: 'Psychological-Tests',
   MENTAL_CHECK: 'Psychological-Tests/mental-check',
   ANXIETY_CHECK: 'Psychological-Tests/anxiety-check',
@@ -23,6 +24,7 @@ export const RoutesTitles = Object.freeze({
   SETTINGS: 'Settings',
   SIGNIN: 'Signin',
   TIPS: 'Tips',
+  ATTENTION_SPRINT: 'Attention-Sprint',
   SERVERERROR: 'Server-Error',
 })
 

@@ -10,6 +10,7 @@ import {
   Flower,
   Lightbulb,
   NotebookPenIcon,
+  Puzzle,
   Speech,
   Tag,
 } from 'lucide-react'
@@ -19,7 +20,7 @@ import { SidebarMenuItemType, SidebarMenuType } from '@/constants/menu'
 import { getMenuItemClass } from '@/helpers/side-menu.helpers'
 import { Link, usePathname } from '@/i18n/navigation'
 
-const iconMap: Record<string, ReactNode> = {
+const iconMapSidebar: Record<string, ReactNode> = {
   activity: <ActivityIcon className="h-5 w-5" size={12} />,
   bookOpenCheck: <BookOpenCheckIcon className="h-5 w-5" size={12} />,
   brain: <Brain className="h-5 w-5" size={12} />,
@@ -31,6 +32,7 @@ const iconMap: Record<string, ReactNode> = {
   test: <FileQuestionMark className="h-5 w-5" size={12} />,
   bookmark: <Bookmark className="h-5 w-5" size={12} />,
   speech: <Speech className="h-5 w-5" size={12} />,
+  puzzle: <Puzzle className="h-5 w-5" size={12} />,
 }
 
 export default function SidebarMenu({
@@ -54,7 +56,7 @@ export default function SidebarMenu({
         return (
           <li key={item.key}>
             <Link href={item.href} className={getMenuItemClass(isActive, type)} onClick={onLinkClick}>
-              {item.icon && iconMap[item.icon]}
+              {item.icon && iconMapSidebar[item.icon]}
               {t(item.key)}
             </Link>
           </li>

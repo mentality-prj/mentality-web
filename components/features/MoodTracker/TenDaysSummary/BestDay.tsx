@@ -2,6 +2,7 @@ import { Calendar, SunIcon } from 'lucide-react'
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import Card from '@/components/shared/Cards/Card'
+import { SummaryCard } from '@/components/shared/Cards/SummaryCard'
 import { MOODS } from '@/constants/moods'
 import { STRESSES } from '@/constants/stress'
 import { Tag } from '@/ds/components/Tag'
@@ -9,8 +10,6 @@ import { levelToMoodKey } from '@/mappers/mood.mappers'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { DaySummary } from '@/types/daySummary'
 import { SupportedLanguage } from '@/types/languages'
-
-import { SummaryCard } from './SummaryCard'
 
 interface BestDayProps {
   summaries?: DaySummary[]

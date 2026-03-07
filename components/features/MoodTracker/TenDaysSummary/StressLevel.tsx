@@ -1,10 +1,10 @@
 import { CloudLightning } from 'lucide-react'
 import { getLocale, getTranslations } from 'next-intl/server'
 
+import { SummaryCard } from '@/components/shared/Cards/SummaryCard'
 import { DaySummary } from '@/types/daySummary'
 
 import { StressLevelChart } from './StressLevelChart'
-import { SummaryCard } from './SummaryCard'
 
 export const StressLevel = async ({ summaries }: { summaries?: DaySummary[] }) => {
   const t = await getTranslations('components.StressLevel')

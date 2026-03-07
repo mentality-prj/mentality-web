@@ -1,5 +1,6 @@
 import Achievements from './Achievements.json'
 import Admin from './Admin.json'
+import AttentionSprint from './AttentionSprint.json'
 import AvatarMenu from './AvatarMenu.json'
 import BestDay from './BestDay.json'
 import Calendar from './Calendar.json'
@@ -10,8 +11,6 @@ import DailyCard from './DailyCard.json'
 import Diary from './Diary.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import FavoriteButton from './FavoriteButton.json'
-import PlayButton from './PlayButton.json'
-import VoiceSelector from './VoiceSelector.json'
 import Filter from './Filter.json'
 import Header from './Header.json'
 import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
@@ -22,6 +21,7 @@ import MoodMarks from './MoodMarks.json'
 import Navbar from './Navbar.json'
 import Navigation from './Navigation.json'
 import PersonalGoals from './PersonalGoals.json'
+import PlayButton from './PlayButton.json'
 import RecordingThoughts from './RecordingThoughts.json'
 import Sidebar from './Sidebar.json'
 import Sort from './Sort.json'
@@ -32,10 +32,12 @@ import TenDaysSummary from './TenDaysSummary.json'
 import TextareaWithLabel from './TextareaWithLabel.json'
 import TodayMoodNotes from './TodayMoodNotes.json'
 import TodayObservations from './TodayObservations.json'
+import VoiceSelector from './VoiceSelector.json'
 
 export const components = {
   Achievements,
   Admin,
+  AttentionSprint,
   BestDay,
   Calendar,
   ChartDynamics,

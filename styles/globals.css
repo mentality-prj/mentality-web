@@ -588,4 +588,8 @@ body {
   .tools-dark .icon-tool {
     @apply hover:bg-white/20;
   }
+
+  .card-container {
+    @apply flex flex-col gap-sm sm:flex-row sm:flex-wrap;
+  }
 }

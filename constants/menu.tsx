@@ -60,6 +60,7 @@ export const userSidebarMenu: SidebarMenuItemType[] = [
   { key: 'diary', href: Routes.DIARY, icon: 'notebookPen' },
   { key: 'my-progress', href: Routes.MYPROGRESS, icon: 'chartNoAxesCombined' },
   { key: 'psychological-tests', href: Routes.PSYCHOLOGICALTESTS, icon: 'test' },
+  { key: 'mental-games', href: Routes.MENTAL_GAMES, icon: 'puzzle' },
 ]
 
 export const guideMenu = [
@@ -91,6 +92,17 @@ export const myProgressInnerMenuItems: MyProgressInnerMenuItem[] = [
   { key: 'achievements', href: `${Routes.MYPROGRESS}/achievements`, icon: 'trophy' },
   { key: 'goals', href: `${Routes.MYPROGRESS}/goals`, icon: 'goal' },
   { key: 'statistics', href: `${Routes.MYPROGRESS}/statistics`, icon: 'chart' },
+]
+
+export type MentalGamesInnerMenuItemKey = 'attentionSprint'
+export type MentalGamesInnerMenuItem = {
+  key: MentalGamesInnerMenuItemKey
+  href: string
+  icon: string
+}
+
+export const mentalGamesInnerMenuItems: MentalGamesInnerMenuItem[] = [
+  { key: 'attentionSprint', href: Routes.ATTENTION_SPRINT, icon: 'brainCircuit' },
 ]
 
 export type AdminInnerMenuItemKey = 'dashboard' | 'ds' | 'goals' | 'achievements' | 'speech-demo' | 'phq9'

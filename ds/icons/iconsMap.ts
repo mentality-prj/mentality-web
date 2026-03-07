@@ -9,7 +9,7 @@ import { SparklesIcon } from '@/ds/icons/sparkles'
 import { SunIcon } from '@/ds/icons/sun-icon'
 import { WritingHandIcon } from '@/ds/icons/writing-hand'
 
-export const iconsMap = {
+export const iconsMapOld = {
   sun: SunIcon,
   medal: MedalCircleIcon,
   sparkles: SparklesIcon,
@@ -22,4 +22,4 @@ export const iconsMap = {
   meditation: ManInLotusIcon,
 } as const
 
-export type IconKey = keyof typeof iconsMap
+export type IconKey = keyof typeof iconsMapOld

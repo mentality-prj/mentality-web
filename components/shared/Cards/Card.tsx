@@ -56,7 +56,7 @@ const Card = ({
         onMouseLeave={onMouseLeave}
         role={onClick ? 'button' : undefined}
         tabIndex={onClick ? 0 : undefined}
-        className={`flex min-w-[140px] flex-col gap-1.5 rounded-2xl ${sup || tools ? 'px-6 pb-6 pt-2' : 'p-6'} ${Statuses[type as StatusType]} ${className}`}
+        className={`flex flex-col gap-1.5 rounded-2xl ${sup || tools ? 'px-6 pb-6 pt-2' : 'p-6'} ${Statuses[type as StatusType]} ${className}`}
       >
         {(sup || tools) && (
           <div className={`sup mt-2 flex h-3 items-center justify-between ${textClass}`}>
@@ -95,7 +95,7 @@ const Card = ({
       onMouseLeave={onMouseLeave}
       role={onClick ? 'button' : undefined}
       tabIndex={onClick ? 0 : undefined}
-      className={`min-w-[140px] flex-1 rounded-2xl p-6 ${className}`}
+      className={`flex-1 rounded-2xl p-6 ${className}`}
     >
       {children}
     </div>

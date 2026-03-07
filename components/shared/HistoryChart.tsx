@@ -4,7 +4,7 @@ import { ReactNode } from 'react'
 import { useLocale } from 'next-intl'
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 
-import { SummaryCard } from '@/components/features/MoodTracker/TenDaysSummary/SummaryCard'
+import { SummaryCard } from '@/components/shared/Cards/SummaryCard'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ui/chart'
 
 export interface HistoryEntry {

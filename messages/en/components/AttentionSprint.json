@@ -1,0 +1,20 @@
+{
+  "title": "Attention Sprint",
+  "tabGame": "Game",
+  "tabStats": "Statistics",
+  "difficulty": "Difficulty level:",
+  "level0": "🟢 Easy",
+  "level1": "🟡 Medium",
+  "level2": "🟠 Hard",
+  "level3": "🔴 Advanced",
+  "startGame": "Start Game",
+  "prompt": "Find all \"{symbol}\" in {duration} seconds!",
+  "included": "(available symbols: {list})",
+  "time": "Time: {time}s",
+  "score": "✅ Correct: {score}",
+  "errors": "❌ Errors: {errors}",
+  "gameOver": "Game over!",
+  "result": "Your score: {score} correct, {errors} errors.",
+  "playAgain": "Play again",
+  "statsEmpty": "Your game statistics will appear here"
+}
