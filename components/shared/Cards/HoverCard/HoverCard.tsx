@@ -13,8 +13,8 @@ import { Statuses } from '@/types/status.types'
 interface HoverCardProps {
   href: string
   icon?: keyof typeof iconMapHover | ReactNode
-  title: string
-  description: ReactNode
+  title?: string
+  description?: ReactNode
   center?: boolean
 }
 
@@ -38,7 +38,7 @@ export const HoverCard = ({ href, icon, title, description, center }: HoverCardP
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <SummaryCard className={cn('flex gap-3', align)} icon={renderedIcon} title={wrapInAngleQuotes(title)}>
+        <SummaryCard className={cn('flex gap-3', align)} icon={renderedIcon} title={wrapInAngleQuotes(title ?? '')}>
           {description}
         </SummaryCard>
       </Card>

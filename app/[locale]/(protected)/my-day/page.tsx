@@ -26,7 +26,7 @@ const MyDay = async () => {
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
 
   return (
-    <article className="grid gap-default laptop:grid-cols-4">
+    <article className="grid grid-cols-1 gap-default laptop:grid-cols-4">
       <div className="flex flex-col gap-sm laptop:col-span-2">
         <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
         <TodayMoodNotes />

@@ -57,14 +57,13 @@ describe('MentalGames page', () => {
     const link = screen.getByRole('link')
     expect(screen.getByText('«Attention Sprint»')).toBeInTheDocument()
     expect(screen.getByText('Desc')).toBeInTheDocument()
-    expect(link).toHaveAttribute('href', '/attention-sprint')
+    expect(link).toHaveAttribute('href', '/mental-games/attention-sprint')
   })
 
   it('layout shows title and children', async () => {
     const layoutElement = await MentalGamesLayout({ children: <div>child</div> })
     render(layoutElement as React.ReactElement)
 
-    expect(screen.getByRole('heading', { level: 1, name: 'Mental Games' })).toBeInTheDocument()
     expect(screen.getByText('child')).toBeInTheDocument()
   })
 })

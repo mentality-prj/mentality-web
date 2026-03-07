@@ -17,7 +17,13 @@ export const NewMoodNoteSectionClient = ({ availableTags = [] }: Props) => {
     router.refresh()
   }
 
-  return <AddNewMood availableTags={availableTags} onSave={handleSave} />
+  return (
+    <div className="w-full wide:w-auto">
+      <div className="m-6 wide:m-0">
+        <AddNewMood availableTags={availableTags} onSave={handleSave} />
+      </div>
+    </div>
+  )
 }
 
 export default NewMoodNoteSectionClient

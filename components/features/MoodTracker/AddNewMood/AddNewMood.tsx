@@ -88,7 +88,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
           })}
         </div>
 
-        <div className="flex gap-sm">
+        <div className="flex flex-col gap-sm wide:flex-row">
           <div className="flex flex-1 flex-col gap-xs">
             <h5>{tm('describe')}</h5>
             <StyledTextarea
