@@ -24,7 +24,7 @@ export const RoutesTitles = Object.freeze({
   SETTINGS: 'Settings',
   SIGNIN: 'Signin',
   TIPS: 'Tips',
-  ATTENTION_SPRINT: 'Attention-Sprint',
+  ATTENTION_SPRINT: 'Mental-Games/Attention-Sprint',
   SERVERERROR: 'Server-Error',
 })
 

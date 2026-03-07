@@ -11,7 +11,7 @@ const LocalDate = () => {
   const date = new Intl.DateTimeFormat(locale, { day: 'numeric', month: 'long' }).format(now)
 
   return (
-    <div className="text-textcolor-tertiary flex items-center gap-1 text-sm">
+    <div className="text-textcolor-tertiary flex items-center gap-1 text-sm max-lg:hidden">
       <Calendar size={12} />
       <em>{weekday},</em>
       <em>{date}</em>

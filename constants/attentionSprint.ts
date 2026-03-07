@@ -48,7 +48,6 @@ export const TAB_VALUES = {
 // CSS classes
 export const CSS_CLASSES = {
   container: 'mx-auto max-w-lg p-4',
-  title: 'mb-4 text-center text-2xl font-semibold',
   tabsList: 'mb-6 grid w-full grid-cols-2',
   difficultyContainer: 'mt-8',
   difficultyLabel: 'mb-4 text-lg font-medium',

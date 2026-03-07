@@ -22,7 +22,7 @@ const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
   return (
     <>
       {/* Desktop */}
-      <nav className="hidden items-center gap-md font-normal leading-[120%] tracking-normal md:flex">
+      <nav className="hidden items-center gap-sm font-normal leading-[120%] tracking-normal md:flex wide:gap-md">
         {menu.map((item) => {
           const isActive = pathname === item.href
           return (

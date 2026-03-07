@@ -49,8 +49,6 @@ export const AttentionSprint = ({
 
   return (
     <div className={CSS_CLASSES.container}>
-      <h2 className={CSS_CLASSES.title}>{t('title')}</h2>
-
       <Tabs defaultValue={TAB_VALUES.GAME} className="w-full">
         <TabsList className={CSS_CLASSES.tabsList}>
           <TabsTrigger value={TAB_VALUES.GAME}>{t('tabGame')}</TabsTrigger>

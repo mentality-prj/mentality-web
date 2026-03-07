@@ -1,5 +1,6 @@
 'use client'
 import { SubmitEventHandler, useState } from 'react'
+import Script from 'next/script'
 import { useTranslations } from 'next-intl'
 
 import { sendContactForm } from '@/requests/contact'
@@ -72,6 +73,7 @@ const ContactPage = () => {
 
   return (
     <div className="mx-auto max-w-lg py-10">
+      <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
       <h1 className="mb-6 text-2xl font-bold">{t('title')}</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-sm">
         <Input type="text" placeholder={t('name')} value={name} onChange={(e) => setName(e.target.value)} required />
@@ -89,7 +91,6 @@ const ContactPage = () => {
           {loading ? t('sending') : t('send')}
         </Button>
       </form>
-      {/* reCAPTCHA script should be loaded globally in _document or _app */}
     </div>
   )
 }
