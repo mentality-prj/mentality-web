@@ -2,27 +2,47 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import Phq9Form from '@/components/phq9/Phq9Form'
-import Phq9HistoryChart from '@/components/phq9/Phq9HistoryChart'
-import TestDisclaimer from '@/components/shared/TestDisclaimer'
+import { TestHistoryChart } from '@/components/features/TestsQuestionnarie/TestHistoryChart'
+import { TestPageGenerator } from '@/components/features/TestsQuestionnarie/TestPageGenerator'
+import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
+import { PHQ9_MAX_SCORE, PHQ9_SEVERITY_MAP, PHQ9_TEST_CONFIG } from '@/config/phq9.config'
 
 export default async function MentalCheckPage() {
   const [session, t] = await Promise.all([auth(), getTranslations('pages.MentalCheck')])
   const userId = session?.user?.id ?? ''
   const isAdmin = session?.user?.role === 'admin'
 
+  const config = {
+    ...PHQ9_TEST_CONFIG,
+    questions: PHQ9_TEST_CONFIG.questions.map((q, i) => ({
+      ...q,
+      text: t(`questions.q${i}` as Parameters<typeof t>[0]),
+      options: q.options.map((opt) => ({
+        ...opt,
+        text: t(`options.${opt.value}` as Parameters<typeof t>[0]),
+      })),
+    })),
+    resultMapping: PHQ9_SEVERITY_MAP.map((s) => ({
+      min: s.min,
+      max: s.max,
+      label: t(`severity.${s.label}` as Parameters<typeof t>[0]),
+    })),
+    scoreLabel: t('result.mentalityIndexLabel'),
+    categoryTitle: t('result.severityLabel'),
+    summaryTitle: t('result.interpretationTitle'),
+    ctaRetryLabel: t('result.ctaRetry'),
+    ctaProgramLabel: t('result.ctaProgram'),
+  }
+
   return (
     <div className="flex flex-col gap-md">
       <div className="flex flex-col gap-6 laptop:flex-row laptop:items-start">
-        {/* Main form column — 60% */}
         <div className="flex flex-col gap-6 laptop:w-[60%]">
           <p className="text-sm text-textcolor-secondary">{t('page.description')}</p>
-          <Phq9Form userId={userId} isAdmin={isAdmin} />
-
+          <TestPageGenerator test={config} userId={userId} isAdmin={isAdmin} />
           <TestDisclaimer text={t('page.disclaimer')} />
         </div>
 
-        {/* Side column: history — 40% */}
         <div className="flex flex-col gap-6 laptop:w-[40%]">
           <Suspense
             fallback={
@@ -31,7 +51,7 @@ export default async function MentalCheckPage() {
               </div>
             }
           >
-            <Phq9HistoryChart />
+            <TestHistoryChart apiEndpoint="phq9" maxScore={PHQ9_MAX_SCORE} chartLabel="PHQ-9" />
           </Suspense>
         </div>
       </div>

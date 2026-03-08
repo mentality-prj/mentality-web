@@ -17,6 +17,9 @@ const k10Test: TestConfig<'radio'> = {
   id: 'k10',
   title: 'Шкала психологічного дистресу K10',
   type: 'radio',
+  apiEndpoint: 'k10',
+  maxScore: 50,
+  cooldownDays: 30,
   questions: k10Questions.map((text, i) => ({
     id: `K10test${i + 1}`,
     text,
@@ -57,4 +60,4 @@ const k10Test: TestConfig<'radio'> = {
   ],
 }
 
-export default k10Test
+export { k10Test }

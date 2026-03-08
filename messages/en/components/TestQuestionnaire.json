@@ -1,0 +1,18 @@
+{
+  "submitting": "Submitting results...",
+  "errorRateLimited": "Too many attempts. Please try again later.",
+  "errorSubmissionFailed": "Failed to submit results. Please try again.",
+  "errorUnknown": "An error occurred.",
+  "retryFromStart": "Start over",
+  "cooldownBanner": "You have already completed this test. Available again in {days, plural, one {# day} other {# days}}.",
+  "questionOf": "Question {current} of {total}",
+  "buttonBack": "Back",
+  "buttonSeeResult": "See results",
+  "adminModeLabel": "Admin mode",
+  "adminResetButton": "Clear data",
+  "scoreLabelFallback": "total score",
+  "categoryTitleFallback": "Result",
+  "ctaProgramFallback": "Support programs",
+  "ctaRetryFallback": "Start new check",
+  "unknownResult": "Undefined"
+}

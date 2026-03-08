@@ -1,0 +1,205 @@
+'use client'
+
+import { useEffect, useRef, useState } from 'react'
+import { useSession } from 'next-auth/react'
+
+import { APIUrl } from '@/requests/config'
+import { performAuthRequest } from '@/requests/genericFetch'
+import { CustomSession } from '@/types/auth'
+
+import { TestAnswers } from '../helper'
+import { ChoiceType, TestConfig } from '../typesTestPage'
+
+// ─── SessionStorage helpers ──────────────────────────────────────────────────
+
+const STORAGE_KEY_PREFIX = 'test_submission_'
+
+function getStorageKey(testId: string, userId: string): string {
+  return `${STORAGE_KEY_PREFIX}${testId}_${userId}`
+}
+
+interface StoredSubmission {
+  submittedAt: string
+  result: TestSubmissionResult
+}
+
+function loadStored(testId: string, userId: string): StoredSubmission | null {
+  try {
+    const raw = sessionStorage.getItem(getStorageKey(testId, userId))
+    return raw ? (JSON.parse(raw) as StoredSubmission) : null
+  } catch {
+    return null
+  }
+}
+
+function saveStored(testId: string, userId: string, data: StoredSubmission): void {
+  sessionStorage.setItem(getStorageKey(testId, userId), JSON.stringify(data))
+}
+
+function clearStored(testId: string, userId: string): void {
+  sessionStorage.removeItem(getStorageKey(testId, userId))
+}
+
+// ─── Score computation ────────────────────────────────────────────────────────
+
+function computeLocalScore<T extends ChoiceType>(test: TestConfig<T>, answers: TestAnswers): number {
+  if (test.type === 'checkbox') {
+    const checkboxTest = test as TestConfig<'checkbox'>
+    return checkboxTest.questions.reduce((sum, q) => {
+      if (!answers[q.id]) return sum
+      const weight = checkboxTest.groupWeights?.[q.group] ?? 1
+      return sum + weight
+    }, 0)
+  }
+  return (test as TestConfig<'radio'>).questions.reduce(
+    (sum, q) => sum + ((answers[q.id] as number | undefined) ?? 0),
+    0
+  )
+}
+
+// ─── Types ────────────────────────────────────────────────────────────────────
+
+export interface TestSubmissionResult {
+  score: number
+  label: string
+  submittedAt: string
+  /** Summary/recommendation text extracted from the API response (e.g. aiSummary, recommendation) */
+  summaryText?: string
+  /** Alert/crisis text extracted from the API response (e.g. crisisNotice) */
+  alertText?: string
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
+function computeLabelFromMapping<T extends ChoiceType>(test: TestConfig<T>, score: number): string {
+  return test.resultMapping.find(({ min, max }) => score >= min && score <= max)?.label ?? ''
+}
+
+function extractStringField(raw: Record<string, unknown>, key: string): string | undefined {
+  const entry = Object.entries(raw).find(([k]) => k === key)
+  const val = entry?.[1]
+  return typeof val === 'string' && val.length > 0 ? val : undefined
+}
+
+function buildResultFromRaw<T extends ChoiceType>(
+  test: TestConfig<T>,
+  raw: Record<string, unknown>
+): TestSubmissionResult {
+  const score = typeof raw.score === 'number' ? raw.score : 0
+  const submittedAt = typeof raw.submittedAt === 'string' ? raw.submittedAt : new Date().toISOString()
+  return {
+    score,
+    label: computeLabelFromMapping(test, score),
+    submittedAt,
+    summaryText: test.summaryField ? extractStringField(raw, test.summaryField) : undefined,
+    alertText: test.alertField ? extractStringField(raw, test.alertField) : undefined,
+  }
+}
+
+export interface UseTestPageFormReturn {
+  step: number
+  setStep: React.Dispatch<React.SetStateAction<number>>
+  answers: TestAnswers
+  setAnswers: React.Dispatch<React.SetStateAction<TestAnswers>>
+  isSubmitting: boolean
+  result: TestSubmissionResult | null
+  isCooldown: boolean
+  error: string | null
+  resultRef: React.RefObject<HTMLDivElement | null>
+  handleReset: () => void
+  submitAnswers: (finalAnswers: TestAnswers) => Promise<void>
+}
+
+// ─── Hook ─────────────────────────────────────────────────────────────────────
+
+export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userId: string): UseTestPageFormReturn {
+  const [step, setStep] = useState(0)
+  const [answers, setAnswers] = useState<TestAnswers>({})
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [result, setResult] = useState<TestSubmissionResult | null>(null)
+  const [error, setError] = useState<string | null>(null)
+  const resultRef = useRef<HTMLDivElement | null>(null)
+  const { data: session } = useSession()
+
+  // Rehydrate from sessionStorage; fall back to fetching /latest from backend
+  useEffect(() => {
+    if (!userId || !test.apiEndpoint) return
+    const stored = loadStored(test.id, userId)
+    if (stored) {
+      setResult(stored.result)
+      return
+    }
+    if (!session?.user) return
+    void performAuthRequest<Record<string, unknown>>(session as CustomSession, `${APIUrl}/${test.apiEndpoint}/latest`, {
+      method: 'GET',
+    }).then((res) => {
+      if ('error' in res || !res.data) return
+      const result = buildResultFromRaw(test, res.data)
+      setResult(result)
+      saveStored(test.id, userId, { submittedAt: result.submittedAt, result })
+    })
+  }, [test, session, userId])
+
+  const submitAnswers = async (finalAnswers: TestAnswers) => {
+    // ── Local-only mode: no backend ──────────────────────────────────────────
+    if (!test.apiEndpoint) {
+      const score = computeLocalScore(test, finalAnswers)
+      const mapping = test.resultMapping.find(({ min, max }) => score >= min && score <= max)
+      setResult({ score, label: mapping?.label ?? '', submittedAt: new Date().toISOString() })
+      return
+    }
+
+    // ── API mode ─────────────────────────────────────────────────────────────
+    setIsSubmitting(true)
+    setError(null)
+
+    try {
+      if (!session?.user) throw new Error('UNEXPECTED_ERROR')
+
+      const answersPayload = test.questions.map((q) => finalAnswers[q.id] ?? (test.type === 'checkbox' ? false : 0))
+
+      const res = await performAuthRequest<Record<string, unknown>>(
+        session as CustomSession,
+        `${APIUrl}/${test.apiEndpoint}`,
+        { method: 'POST', body: { answers: answersPayload } as Record<string, unknown> }
+      )
+
+      if ('error' in res || !res.data) throw new Error('error' in res ? res.error : 'SUBMISSION_FAILED')
+      const data = buildResultFromRaw(test, res.data)
+
+      setResult(data)
+      if (userId) saveStored(test.id, userId, { submittedAt: data.submittedAt, result: data })
+      setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'UNEXPECTED_ERROR')
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  const handleReset = () => {
+    setResult(null)
+    setAnswers({})
+    setError(null)
+    setStep(0)
+    if (userId && test.apiEndpoint) clearStored(test.id, userId)
+  }
+
+  const cooldownMs = (test.cooldownDays ?? 1) * 24 * 60 * 60 * 1000
+  const isCooldown =
+    result !== null && !!result.submittedAt && Date.now() - new Date(result.submittedAt).getTime() < cooldownMs
+
+  return {
+    step,
+    setStep,
+    answers,
+    setAnswers,
+    isSubmitting,
+    result,
+    isCooldown,
+    error,
+    resultRef,
+    handleReset,
+    submitAnswers,
+  }
+}

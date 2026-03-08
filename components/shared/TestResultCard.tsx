@@ -6,6 +6,7 @@ import Card from '@/components/shared/Cards/Card'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { Link } from '@/i18n/navigation'
 import { StatusType } from '@/types/status.types'
+import { Button } from '@/ui/button'
 
 export interface TestResultCardProps {
   cardType: StatusType
@@ -85,13 +86,11 @@ export function TestResultCard({
           </Link>
         )}
 
-        <button
-          type="button"
-          onClick={onRetry}
-          className="border-outline-secondary flex-1 rounded-full border px-6 py-3 text-sm font-medium text-textcolor-primary transition-all hover:border-primary hover:bg-background-soft focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
-        >
-          {ctaRetryLabel}
-        </button>
+        {onRetry && (
+          <Button variant="secondary" onClick={onRetry} className="flex-1">
+            {ctaRetryLabel}
+          </Button>
+        )}
       </div>
     </div>
   )

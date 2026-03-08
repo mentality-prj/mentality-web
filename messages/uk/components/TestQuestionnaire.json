@@ -1,0 +1,18 @@
+{
+  "submitting": "Надсилання результатів...",
+  "errorRateLimited": "Забагато спроб. Спробуйте пізніше.",
+  "errorSubmissionFailed": "Не вдалося надіслати результати. Спробуйте знову.",
+  "errorUnknown": "Сталася помилка.",
+  "retryFromStart": "Спочатку",
+  "cooldownBanner": "Ви вже пройшли цей тест. Доступний знову через {days, plural, one {# день} few {# дні} many {# днів} other {# днів}}.",
+  "questionOf": "Питання {current} з {total}",
+  "buttonBack": "Назад",
+  "buttonSeeResult": "Дізнатися результат",
+  "adminModeLabel": "Режим адміна",
+  "adminResetButton": "Очистити дані",
+  "scoreLabelFallback": "загальний бал",
+  "categoryTitleFallback": "Результат",
+  "ctaProgramFallback": "Програми підтримки",
+  "ctaRetryFallback": "Почати новий чекап",
+  "unknownResult": "Невизначено"
+}
