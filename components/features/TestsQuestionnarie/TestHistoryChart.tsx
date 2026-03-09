@@ -25,9 +25,11 @@ interface Props {
   apiEndpoint: string
   maxScore: number
   chartLabel: string
+  title: string
+  stubTitle: string
 }
 
-export async function TestHistoryChart({ apiEndpoint, maxScore, chartLabel }: Props) {
+export async function TestHistoryChart({ apiEndpoint, maxScore, chartLabel, title, stubTitle }: Props) {
   const headers = await getAuthHeaders()
 
   let history: HistoryEntry[] = []
@@ -58,8 +60,8 @@ export async function TestHistoryChart({ apiEndpoint, maxScore, chartLabel }: Pr
       isStub={isStub}
       chartLabel={chartLabel}
       gradientId={`${apiEndpoint}Fill`}
-      title="Динаміка результатів"
-      stubTitle="Пройдіть тест кілька разів, щоб побачити динаміку"
+      title={title}
+      stubTitle={stubTitle}
       icon={<Activity className="opacity-50" color="white" size={128} />}
       maxScore={maxScore}
     />

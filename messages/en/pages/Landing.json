@@ -59,6 +59,9 @@
   },
   "Footer": {
     "copyright": "© 2025 Dzvin.co. All rights reserved.",
-    "backToTop": "Back to top"
+    "backToTop": "Back to top",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Service",
+    "cookies": "Cookies Policy"
   }
 }

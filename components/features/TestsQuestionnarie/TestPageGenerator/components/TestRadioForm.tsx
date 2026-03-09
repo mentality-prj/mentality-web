@@ -47,12 +47,15 @@ export function TestRadioForm({ test, step, answers, adminBar, onAnswer, onBack,
           onChange={(value) => onAnswer(currentQuestion.id, value)}
         />
 
+        {/* Last step action buttons: Back (to review/edit previous answers) and Submit (see results) */}
         {isLastStep && currentAnswer !== undefined && (
           <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+            {/* Back button on last step allows navigation to previous questions */}
             <Button variant="secondary" onClick={onBack} className="flex items-center gap-2">
               <ArrowLeft size={16} />
               {t('buttonBack')}
             </Button>
+            {/* Submit button calculates score and displays results. onAnswer hook prevents step advancement beyond last index */}
             <Button onClick={onSubmit} className="flex items-center gap-2">
               <Send size={16} />
               {t('buttonSeeResult')}
@@ -61,6 +64,12 @@ export function TestRadioForm({ test, step, answers, adminBar, onAnswer, onBack,
         )}
       </SectionCard>
 
+      {/* Back button outside the card for non-final steps.
+          NOTE: On the last step, this button is hidden (!isLastStep),
+          but the inner back button (inside the card) is shown instead.
+          Both use equivalent conditions (step === safeStep for valid values),
+          but the different positioning creates redundant Back buttons on the last step.
+          Consider always hiding this outer button on last step to maintain visual consistency. */}
       {step > 0 && !isLastStep && (
         <Button variant="secondary" className="flex items-center gap-2 self-start" onClick={onBack}>
           <ArrowLeft size={16} />

@@ -1,0 +1,57 @@
+{
+  "title": "Terms of Service",
+  "lastUpdated": "Last updated: March 8, 2026",
+  "acceptance": {
+    "title": "Acceptance of Terms",
+    "content": "By accessing and using Dzvin.co's services, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to abide by the above, please do not use this service."
+  },
+  "serviceDescription": {
+    "title": "Service Description",
+    "content": "Dzvin.co provides mental health and wellness services including mood tracking, psychological assessments, meditation exercises, and therapeutic chat support. Our services are designed to support your mental well-being but are not a substitute for professional medical advice, diagnosis, or treatment."
+  },
+  "aiGeneratedContentDisclaimer": {
+    "title": "AI-Generated Content Disclaimer",
+    "content": "Some features of the service provide AI-generated content, including recommendations, summaries, and conversational responses. AI-generated content may be incomplete, inaccurate, or not suitable for your specific situation. You are solely responsible for evaluating such content before relying on it."
+  },
+  "noMedicalAdvice": {
+    "title": "No Medical Advice",
+    "content": "Dzvin.co does not provide medical advice, diagnosis, psychotherapy, crisis intervention, or treatment. The service is for informational and self-support purposes only and is not a substitute for professional care from a qualified healthcare provider. If you are in crisis, believe you may harm yourself or others, or need urgent support, contact emergency services or a licensed mental health professional immediately."
+  },
+  "userResponsibilities": {
+    "title": "User Responsibilities",
+    "content": "As a user of our service, you agree to:",
+    "responsibilities": [
+      "Provide accurate and complete information when creating your account",
+      "Maintain the security and confidentiality of your account credentials",
+      "Use the service only for lawful purposes and in accordance with these Terms",
+      "Not attempt to gain unauthorized access to any portion of the service",
+      "Not transmit any viruses, malware, or other malicious code",
+      "Not impersonate another person or entity"
+    ]
+  },
+  "intellectualProperty": {
+    "title": "Intellectual Property",
+    "content": "The service and its original content, features, and functionality are and will remain the exclusive property of Dzvin.co and its licensors. The service is protected by copyright, trademark, and other laws. Our trademarks may not be used in connection with any product or service without our prior written consent."
+  },
+  "disclaimer": {
+    "title": "Disclaimer of Warranties",
+    "content": "The service is provided on an \"AS IS\" and \"AS AVAILABLE\" basis. Dzvin.co makes no warranties, expressed or implied, and hereby disclaims and negates all other warranties including, without limitation, implied warranties or conditions of merchantability, fitness for a particular purpose, or non-infringement of intellectual property or other violation of rights."
+  },
+  "limitation": {
+    "title": "Limitation of Liability",
+    "content": "In no event shall Dzvin.co, nor its directors, employees, partners, agents, suppliers, or affiliates, be liable for any indirect, incidental, special, consequential or punitive damages, including without limitation, loss of profits, data, use, goodwill, or other intangible losses, resulting from your access to or use of or inability to access or use the service."
+  },
+  "termination": {
+    "title": "Termination",
+    "content": "We may terminate or suspend your account and bar access to the service immediately, without prior notice or liability, under our sole discretion, for any reason whatsoever and without limitation, including but not limited to a breach of the Terms. Upon termination, your right to use the service will immediately cease."
+  },
+  "changes": {
+    "title": "Changes to Terms",
+    "content": "We reserve the right to modify or replace these Terms at any time. If a revision is material, we will provide at least 30 days' notice prior to any new terms taking effect. What constitutes a material change will be determined at our sole discretion."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "content": "If you have any questions about these Terms, please contact us at:",
+    "email": "support@dzvin.co"
+  }
+}

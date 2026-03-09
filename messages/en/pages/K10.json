@@ -1,0 +1,56 @@
+{
+  "page": {
+    "title": "Psychological Distress (K10)",
+    "subtitle": "3 minutes · 10 questions",
+    "description": "The K10 questionnaire helps assess your recent level of psychological distress.",
+    "disclaimer": "This tool is for self-reflection and does not provide medical diagnosis.\nKessler, R.C., et al. (2003) Copyright © World Health Organization 2003",
+    "loadingHistory": "Loading history…"
+  },
+  "intro": {
+    "title": "Stress & Well-being",
+    "subtitle": "3 minutes · 10 questions",
+    "cta": "Start"
+  },
+  "result": {
+    "scoreLabel": "out of 50",
+    "levelLabel": "Distress Level",
+    "recommendationTitle": "Interpretation",
+    "ctaProgram": "Start a wellbeing programme",
+    "ctaRetry": "Retake in 30 days"
+  },
+  "chart": {
+    "title": "Score History",
+    "stubNote": "Your projected progress"
+  },
+  "questions": {
+    "q0": "During the past 30 days, how often did you feel tired out for no good reason?",
+    "q1": "During the past 30 days, how often did you feel nervous?",
+    "q2": "During the past 30 days, how often did you feel so nervous that nothing could calm you down?",
+    "q3": "During the past 30 days, how often did you feel restless or fidgety?",
+    "q4": "During the past 30 days, how often were you so restless you could not sit still?",
+    "q5": "During the past 30 days, how often did you feel depressed?",
+    "q6": "During the past 30 days, how often did you feel that everything was an effort?",
+    "q7": "During the past 30 days, how often did you feel so sad that nothing could cheer you up?",
+    "q8": "During the past 30 days, how often did you feel hopeless?",
+    "q9": "During the past 30 days, how often did you feel worthless?"
+  },
+  "options": {
+    "1": "None of the time",
+    "2": "A little of the time",
+    "3": "Some of the time",
+    "4": "Most of the time",
+    "5": "All of the time"
+  },
+  "level": {
+    "green": "Low Distress",
+    "yellow": "Mild Distress",
+    "orange": "Moderate Distress",
+    "red": "High Distress"
+  },
+  "summary": {
+    "green": "Your responses suggest a low level of distress. Keep supporting your wellbeing with healthy routines.",
+    "yellow": "Your responses suggest mild distress. Consider adding rest, recovery, and daily stress-management habits.",
+    "orange": "Your responses suggest moderate distress. It may be helpful to speak with a mental health professional.",
+    "red": "Your responses suggest high distress. Please consider contacting a mental health professional for support."
+  }
+}

@@ -11,7 +11,7 @@ export function TestDisclaimer({ text }: TestDisclaimerProps) {
     <Card type="note">
       <div className="flex flex-row items-center gap-xs text-sm">
         <CircleAlert size={32} className="text-white opacity-50" />
-        {text}
+        <span className="whitespace-pre-line">{text}</span>
       </div>
     </Card>
   )

@@ -14,6 +14,7 @@ export default async function AnxietyCheckPage() {
 
   const config = {
     ...GAD7_TEST_CONFIG,
+    title: t('intro.title'),
     questions: GAD7_TEST_CONFIG.questions.map((q, i) => ({
       ...q,
       text: t(`questions.q${i}` as Parameters<typeof t>[0]),
@@ -53,7 +54,13 @@ export default async function AnxietyCheckPage() {
               </div>
             }
           >
-            <TestHistoryChart apiEndpoint="gad7" maxScore={GAD7_MAX_SCORE} chartLabel="GAD-7" />
+            <TestHistoryChart
+              apiEndpoint="gad7"
+              maxScore={GAD7_MAX_SCORE}
+              chartLabel="GAD-7"
+              title={t('chart.title')}
+              stubTitle={t('chart.stubNote')}
+            />
           </Suspense>
         </div>
       </div>

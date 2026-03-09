@@ -8,5 +8,8 @@
   },
   "anxiety-check": {
     "title": "Poziom lęku"
+  },
+  "well-being-check": {
+    "title": "Stres i dobre samopoczucie"
   }
 }

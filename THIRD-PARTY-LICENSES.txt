@@ -1,0 +1,302 @@
+THIRD-PARTY SOFTWARE LICENSES
+=================================
+
+This project uses the following third-party libraries and dependencies:
+
+=================================
+PRODUCTION DEPENDENCIES
+=================================
+
+@flaticon/flaticon-uicons (v3.3.1)
+License: Custom License
+https://www.npmjs.com/package/@flaticon/flaticon-uicons
+
+@radix-ui/react-avatar (v1.1.3)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-checkbox (v1.3.2)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-dialog (v1.1.14)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-dropdown-menu (v2.1.6)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-label (v2.1.2)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-navigation-menu (v1.2.5)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-popover (v1.1.6)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-progress (v1.1.7)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-radio-group (v1.2.3)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-select (v2.1.7)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-separator (v1.1.7)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-slot (v1.2.3)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-switch (v1.1.3)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-tabs (v1.1.3)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-toggle (v1.1.9)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-toggle-group (v1.1.10)
+License: MIT
+https://www.radix-ui.com/
+
+@radix-ui/react-tooltip (v1.2.7)
+License: MIT
+https://www.radix-ui.com/
+
+class-variance-authority (v0.7.1)
+License: Apache-2.0
+https://github.com/joe-bell/cva
+
+clsx (v2.1.1)
+License: MIT
+https://github.com/lukeed/clsx
+
+date-fns (v4.1.0)
+License: MIT
+https://date-fns.org/
+
+dotenv (v16.4.5)
+License: BSD-2-Clause
+https://github.com/motdotla/dotenv
+
+framer-motion (v11.11.9)
+License: MIT
+https://www.framer.com/motion/
+
+lucide-react (v0.542.0)
+License: ISC
+https://lucide.dev/
+
+next (v14.2.35)
+License: MIT
+https://nextjs.org/
+
+next-auth (v5.0.0-beta.25)
+License: ISC
+https://next-auth.js.org/
+
+next-intl (v3.25.0)
+License: MIT
+https://next-intl-docs.vercel.app/
+
+next-themes (v0.4.3)
+License: MIT
+https://github.com/pacocoursey/next-themes
+
+react (v18)
+License: MIT
+https://reactjs.org/
+
+react-day-picker (v9.9.0)
+License: MIT
+https://react-day-picker.js.org/
+
+react-dom (v18)
+License: MIT
+https://reactjs.org/
+
+react-hot-toast (v2.4.1)
+License: MIT
+https://react-hot-toast.com/
+
+recharts (v2.15.4)
+License: MIT
+https://recharts.org/
+
+tailwind-merge (v3.0.2)
+License: MIT
+https://github.com/dcastil/tailwind-merge
+
+tailwindcss-animate (v1.0.7)
+License: MIT
+https://github.com/jamiebuilds/tailwindcss-animate
+
+zod (v3.24.1)
+License: MIT
+https://zod.dev/
+
+=================================
+DEVELOPMENT DEPENDENCIES
+=================================
+
+@commitlint/cli (v19.6.0)
+License: MIT
+https://commitlint.js.org/
+
+@commitlint/config-conventional (v19.6.0)
+License: MIT
+https://commitlint.js.org/
+
+@commitlint/types (v19.5.0)
+License: MIT
+https://commitlint.js.org/
+
+@edge-runtime/jest-environment (v4.0.0)
+License: MPL-2.0
+https://github.com/vercel/edge-runtime
+
+@testing-library/dom (v10.4.0)
+License: MIT
+https://testing-library.com/
+
+@testing-library/jest-dom (v6.6.2)
+License: MIT
+https://testing-library.com/
+
+@testing-library/react (v16.0.1)
+License: MIT
+https://testing-library.com/
+
+@types/jest (v29.5.14)
+License: MIT
+https://github.com/DefinitelyTyped/DefinitelyTyped
+
+@types/node (v22.7.6)
+License: MIT
+https://github.com/DefinitelyTyped/DefinitelyTyped
+
+@types/react (v19.0.1)
+License: MIT
+https://github.com/DefinitelyTyped/DefinitelyTyped
+
+@types/react-dom (v18)
+License: MIT
+https://github.com/DefinitelyTyped/DefinitelyTyped
+
+autoprefixer (v10.4.20)
+License: MIT
+https://github.com/postcss/autoprefixer
+
+conventional-changelog-atom (v5.0.0)
+License: ISC
+https://github.com/conventional-changelog/conventional-changelog
+
+depcheck (v1.4.7)
+License: MIT
+https://github.com/depcheck/depcheck
+
+eslint (v8.23.0)
+License: MIT
+https://eslint.org/
+
+eslint-config-next (v14.2.15)
+License: MIT
+https://nextjs.org/
+
+eslint-config-prettier (v9.1.0)
+License: MIT
+https://github.com/prettier/eslint-config-prettier
+
+eslint-plugin-jsx-a11y (v6.10.2)
+License: MIT
+https://github.com/jsx-eslint/eslint-plugin-jsx-a11y
+
+eslint-plugin-prettier (v5.2.1)
+License: MIT
+https://github.com/prettier/eslint-plugin-prettier
+
+eslint-plugin-security (v3.0.1)
+License: Apache-2.0
+https://github.com/eslint-community/eslint-plugin-security
+
+eslint-plugin-simple-import-sort (v12.1.1)
+License: MIT
+https://github.com/lydell/eslint-plugin-simple-import-sort
+
+husky (v9.1.6)
+License: MIT
+https://typicode.github.io/husky/
+
+jest (v29.7.0)
+License: MIT
+https://jestjs.io/
+
+jest-environment-jsdom (v29.7.0)
+License: MIT
+https://jestjs.io/
+
+lint-staged (v15.2.10)
+License: MIT
+https://github.com/okonet/lint-staged
+
+postcss (v8)
+License: MIT
+https://postcss.org/
+
+prettier (v3.3.3)
+License: MIT
+https://prettier.io/
+
+prettier-plugin-tailwindcss (v0.6.8)
+License: MIT
+https://github.com/tailwindlabs/prettier-plugin-tailwindcss
+
+tailwindcss (v3.4.1)
+License: MIT
+https://tailwindcss.com/
+
+typescript (v5)
+License: Apache-2.0
+https://www.typescriptlang.org/
+
+wait-on (v8.0.1)
+License: MIT
+https://github.com/jeffbski/wait-on
+
+=================================
+ADDITIONAL LICENSES
+=================================
+
+OpenMoji Icons
+License: CC BY-SA 4.0
+See LICENSE-OPENMOJI.txt for full license text
+https://openmoji.org/
+
+=================================
+
+For full license texts, please visit the respective package repositories or the following resources:
+
+MIT License: https://opensource.org/licenses/MIT
+Apache-2.0 License: https://opensource.org/licenses/Apache-2.0
+ISC License: https://opensource.org/licenses/ISC
+BSD-2-Clause License: https://opensource.org/licenses/BSD-2-Clause
+MPL-2.0 License: https://opensource.org/licenses/MPL-2.0
+CC BY-SA 4.0: https://creativecommons.org/licenses/by-sa/4.0/
+
+Last updated: March 8, 2026

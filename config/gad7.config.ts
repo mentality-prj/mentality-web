@@ -65,7 +65,7 @@ export const GAD7_LEVEL_BORDER_MAP: Record<Gad7Level, string> = {
 
 export const GAD7_TEST_CONFIG: TestConfig<'radio'> = {
   id: 'gad7',
-  title: 'GAD-7 Anxiety Check',
+  title: 'Anxiety Level',
   type: 'radio',
   i18nNamespace: 'pages.AnxietyCheck',
   apiEndpoint: 'gad7',

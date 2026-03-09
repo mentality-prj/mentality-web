@@ -116,6 +116,9 @@ export async function middleware(request: NextRequest) {
     Routes.CONTACTS,
     Routes.SERVICES,
     Routes.SERVERERROR,
+    Routes.PRIVACY,
+    Routes.TERMS,
+    Routes.COOKIES,
   ]
 
   // Use locale from URL or default if not set

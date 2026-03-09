@@ -76,8 +76,7 @@ function computeLabelFromMapping<T extends ChoiceType>(test: TestConfig<T>, scor
 }
 
 function extractStringField(raw: Record<string, unknown>, key: string): string | undefined {
-  const entry = Object.entries(raw).find(([k]) => k === key)
-  const val = entry?.[1]
+  const val = raw[key as string]
   return typeof val === 'string' && val.length > 0 ? val : undefined
 }
 
@@ -138,6 +137,18 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
       setResult(result)
       saveStored(test.id, userId, { submittedAt: result.submittedAt, result })
     })
+    /*
+    DEPENDENCY ARRAY NOTE:
+    The current dependency array includes `test` (an object), which is constructed inline
+    in the parent page component. On every render, the test object is recreated with a new
+    reference, even though its properties are identical. This causes the effect to re-run
+    unnecessarily, potentially triggering multiple API calls for the same test.
+
+    RECOMMENDATION: Replace `test` with specific primitives: [test.id, test.apiEndpoint, session, userId]
+    This ensures the effect only re-runs if the test ID or endpoint actually changes, not just
+    because the object reference changed. This pattern is more precise and avoids potential
+    infinite fetch loops during hot reload or client-side re-renders.
+    */
   }, [test, session, userId])
 
   const submitAnswers = async (finalAnswers: TestAnswers) => {
@@ -164,7 +175,13 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
         { method: 'POST', body: { answers: answersPayload } as Record<string, unknown> }
       )
 
-      if ('error' in res || !res.data) throw new Error('error' in res ? res.error : 'SUBMISSION_FAILED')
+      if ('error' in res || !res.data) {
+        // Map HTTP 429 to a dedicated RATE_LIMITED error for downstream handling
+        if ('status' in res && res.status === 429) {
+          throw new Error('RATE_LIMITED')
+        }
+        throw new Error('error' in res ? (res as { error: string }).error : 'SUBMISSION_FAILED')
+      }
       const data = buildResultFromRaw(test, res.data)
 
       setResult(data)

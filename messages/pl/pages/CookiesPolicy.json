@@ -1,0 +1,63 @@
+{
+  "title": "Polityka plików cookie",
+  "lastUpdated": "Ostatnia aktualizacja: 8 marca 2026",
+  "introduction": {
+    "title": "Czym są pliki cookie",
+    "content": "Pliki cookie to małe fragmenty tekstu wysyłane do przeglądarki internetowej przez odwiedzaną witrynę. Plik cookie jest przechowywany w przeglądarce internetowej i umożliwia Usłudze lub stronie trzeciej rozpoznanie Cię i ułatwienie kolejnej wizyty oraz uczynienie Usługi bardziej przydatną dla Ciebie."
+  },
+  "howWeUseCookies": {
+    "title": "Jak używamy plików cookie",
+    "content": "Kiedy korzystasz z Usługi i uzyskujesz do niej dostęp, możemy umieścić szereg plików cookie w Twojej przeglądarce internetowej. Używamy plików cookie w następujących celach:",
+    "purposes": [
+      "Aby umożliwić określone funkcje Usługi",
+      "Aby zapewnić analizy i śledzić korzystanie z Usługi",
+      "Aby przechowywać Twoje preferencje i ustawienia",
+      "Aby umożliwić dostarczanie reklam, w tym reklamy behawioralnej"
+    ]
+  },
+  "typesOfCookies": {
+    "title": "Rodzaje plików cookie, których używamy",
+    "essential": {
+      "title": "Niezbędne pliki cookie",
+      "content": "Te pliki cookie są niezbędne do przeglądania witryny i korzystania z jej funkcji. Bez tych plików cookie usługi, o które prosiłeś, nie mogą być świadczone."
+    },
+    "analytics": {
+      "title": "Pliki cookie analityczne i wydajnościowe",
+      "content": "Te pliki cookie zbierają informacje o tym, jak odwiedzający korzystają z naszej witryny, na przykład które strony odwiedzający najczęściej odwiedzają. Te dane pomagają nam zoptymalizować naszą witrynę i ułatwić nawigację."
+    },
+    "functional": {
+      "title": "Funkcjonalne pliki cookie",
+      "content": "Te pliki cookie pozwalają naszej witrynie zapamiętać dokonane przez Ciebie wybory (takie jak preferowany język) i zapewniają ulepszone, bardziej osobiste funkcje."
+    },
+    "advertising": {
+      "title": "Reklamowe pliki cookie",
+      "content": "Te pliki cookie są używane do dostarczania reklam bardziej odpowiednich dla Ciebie i Twoich zainteresowań. Są również używane do ograniczenia liczby wyświetleń reklamy i pomiaru skuteczności kampanii reklamowych."
+    }
+  },
+  "thirdPartyCookies": {
+    "title": "Pliki cookie stron trzecich",
+    "content": "Oprócz naszych własnych plików cookie możemy również używać różnych plików cookie stron trzecich do raportowania statystyk użytkowania Usługi, dostarczania reklam w Usłudze i przez Usługę itp. Te usługi stron trzecich mają własne polityki prywatności dotyczące sposobu wykorzystywania takich informacji."
+  },
+  "manageCookies": {
+    "title": "Jak kontrolować pliki cookie",
+    "content": "Możesz kontrolować i/lub usuwać pliki cookie według własnego uznania. Możesz usunąć wszystkie pliki cookie, które są już na Twoim komputerze i możesz ustawić większość przeglądarek, aby zapobiec ich umieszczaniu. Jednak jeśli to zrobisz, możesz być zmuszony do ręcznego dostosowania niektórych preferencji za każdym razem, gdy odwiedzasz naszą witrynę, a niektóre usługi i funkcjonalności mogą nie działać.",
+    "methods": [
+      "Ustawienia przeglądarki: Większość przeglądarek internetowych umożliwia pewną kontrolę nad większością plików cookie poprzez ustawienia przeglądarki",
+      "Narzędzia stron trzecich: Dostępne są różne narzędzia stron trzecich, które umożliwiają zarządzanie plikami cookie",
+      "Linki do rezygnacji: Niektóre sieci reklamowe stron trzecich zapewniają mechanizmy rezygnacji"
+    ]
+  },
+  "consent": {
+    "title": "Twoja zgoda",
+    "content": "Korzystając z naszej Usługi, wyrażasz zgodę na nasze używanie plików cookie zgodnie z niniejszą Polityką plików cookie. Jeśli nie zgadzasz się na nasze używanie plików cookie, powinieneś odpowiednio ustawić ustawienia przeglądarki lub nie korzystać z naszej Usługi."
+  },
+  "changes": {
+    "title": "Zmiany w niniejszej polityce",
+    "content": "Możemy od czasu do czasu aktualizować naszą Politykę plików cookie. Powiadomimy Cię o wszelkich zmianach, publikując nową Politykę plików cookie na tej stronie i aktualizując datę \"Ostatnia aktualizacja\"."
+  },
+  "contact": {
+    "title": "Skontaktuj się z nami",
+    "content": "Jeśli masz jakiekolwiek pytania dotyczące naszego używania plików cookie, skorzystaj z formularza kontaktowego:",
+    "cta": "Otwórz formularz kontaktowy"
+  }
+}

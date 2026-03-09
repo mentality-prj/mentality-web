@@ -70,7 +70,7 @@ export const PHQ9_SEVERITY_BORDER_MAP: Record<Phq9Severity, string> = {
 
 export const PHQ9_TEST_CONFIG: TestConfig<'radio'> = {
   id: 'phq9',
-  title: 'PHQ-9 Weekly Mental Check',
+  title: 'Mental Check',
   type: 'radio',
   i18nNamespace: 'pages.MentalCheck',
   apiEndpoint: 'phq9',

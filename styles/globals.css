@@ -590,6 +590,6 @@ body {
   }
 
   .card-container {
-    @apply flex flex-col gap-sm sm:flex-row sm:flex-wrap;
+    @apply flex flex-col gap-sm sm:flex-row sm:flex-wrap sm:items-stretch;
   }
 }

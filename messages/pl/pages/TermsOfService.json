@@ -1,0 +1,57 @@
+{
+  "title": "Regulamin",
+  "lastUpdated": "Ostatnia aktualizacja: 8 marca 2026",
+  "acceptance": {
+    "title": "Akceptacja warunków",
+    "content": "Uzyskując dostęp do usług Dzvin.co i korzystając z nich, akceptujesz i zgadzasz się być związany warunkami i postanowieniami niniejszej umowy. Jeśli nie zgadzasz się z powyższym, nie korzystaj z tej usługi."
+  },
+  "serviceDescription": {
+    "title": "Opis usługi",
+    "content": "Dzvin.co świadczy usługi w zakresie zdrowia psychicznego i dobrego samopoczucia, w tym śledzenie nastroju, oceny psychologiczne, ćwiczenia medytacyjne i wsparcie czatu terapeutycznego. Nasze usługi mają na celu wspieranie Twojego dobrego samopoczucia psychicznego, ale nie zastępują profesjonalnej porady medycznej, diagnozy lub leczenia."
+  },
+  "aiGeneratedContentDisclaimer": {
+    "title": "Zastrzeżenie dotyczące treści generowanych przez AI",
+    "content": "Niektóre funkcje usługi dostarczają treści generowane przez AI, w tym rekomendacje, podsumowania i odpowiedzi konwersacyjne. Treści generowane przez AI mogą być niepełne, niedokładne lub nieodpowiednie dla Twojej sytuacji. Wyłącznie Ty odpowiadasz za ocenę takich treści przed podjęciem decyzji o poleganiu na nich."
+  },
+  "noMedicalAdvice": {
+    "title": "Brak porady medycznej",
+    "content": "Dzvin.co nie świadczy porady medycznej, diagnozy, psychoterapii, interwencji kryzysowej ani leczenia. Usługa ma charakter wyłącznie informacyjny i wspierający i nie zastępuje profesjonalnej opieki wykwalifikowanego specjalisty ochrony zdrowia. Jeśli jesteś w kryzysie, uważasz, że możesz skrzywdzić siebie lub innych, albo potrzebujesz pilnej pomocy, natychmiast skontaktuj się ze służbami ratunkowymi lub licencjonowanym specjalistą zdrowia psychicznego."
+  },
+  "userResponsibilities": {
+    "title": "Obowiązki użytkownika",
+    "content": "Jako użytkownik naszej usługi zgadzasz się:",
+    "responsibilities": [
+      "Podawać dokładne i pełne informacje podczas tworzenia konta",
+      "Utrzymywać bezpieczeństwo i poufność danych logowania do konta",
+      "Korzystać z usługi wyłącznie w celach zgodnych z prawem i zgodnie z niniejszym Regulaminem",
+      "Nie próbować uzyskać nieautoryzowanego dostępu do żadnej części usługi",
+      "Nie przesyłać żadnych wirusów, złośliwego oprogramowania ani innego złośliwego kodu",
+      "Nie podszywać się pod inną osobę lub podmiot"
+    ]
+  },
+  "intellectualProperty": {
+    "title": "Własność intelektualna",
+    "content": "Usługa oraz jej oryginalna treść, funkcje i funkcjonalność są i pozostaną wyłączną własnością Dzvin.co i jej licencjodawców. Usługa jest chroniona prawem autorskim, znakami towarowymi i innymi przepisami prawa. Nasze znaki towarowe nie mogą być używane w związku z żadnym produktem lub usługą bez naszej uprzedniej pisemnej zgody."
+  },
+  "disclaimer": {
+    "title": "Wyłączenie gwarancji",
+    "content": "Usługa jest świadczona \"TAK JAK JEST\" i \"W MIARĘ DOSTĘPNOŚCI\". Dzvin.co nie udziela żadnych gwarancji, wyrażonych lub dorozumianych, i niniejszym zrzeka się i neguje wszystkie inne gwarancje, w tym między innymi dorozumiane gwarancje lub warunki przydatności handlowej, przydatności do określonego celu lub nienaruszania własności intelektualnej lub innego naruszenia praw."
+  },
+  "limitation": {
+    "title": "Ograniczenie odpowiedzialności",
+    "content": "W żadnym wypadku Dzvin.co ani jej dyrektorzy, pracownicy, partnerzy, agenci, dostawcy lub podmioty stowarzyszone nie ponoszą odpowiedzialności za jakiekolwiek pośrednie, przypadkowe, szczególne, wynikowe lub karne szkody, w tym między innymi utratę zysków, danych, możliwości korzystania, wartości firmy lub inne niematerialne straty wynikające z dostępu do usługi lub korzystania z niej lub niemożności uzyskania dostępu do usługi lub korzystania z niej."
+  },
+  "termination": {
+    "title": "Rozwiązanie umowy",
+    "content": "Możemy zakończyć lub zawiesić Twoje konto i zablokować dostęp do usługi natychmiast, bez uprzedniego powiadomienia lub odpowiedzialności, według naszego wyłącznego uznania, z jakiegokolwiek powodu i bez ograniczeń, w tym między innymi z powodu naruszenia Regulaminu. Po rozwiązaniu umowy, Twoje prawo do korzystania z usługi natychmiast ustanie."
+  },
+  "changes": {
+    "title": "Zmiany w warunkach",
+    "content": "Zastrzegamy sobie prawo do modyfikacji lub zastąpienia niniejszych Warunków w dowolnym czasie. Jeśli zmiana jest istotna, powiadomimy o tym z co najmniej 30-dniowym wyprzedzeniem przed wejściem w życie nowych warunków. To, co stanowi istotną zmianę, zostanie określone według naszego wyłącznego uznania."
+  },
+  "contact": {
+    "title": "Skontaktuj się z nami",
+    "content": "Jeśli masz jakiekolwiek pytania dotyczące tych Warunków, skontaktuj się z nami pod adresem:",
+    "email": "support@dzvin.co"
+  }
+}

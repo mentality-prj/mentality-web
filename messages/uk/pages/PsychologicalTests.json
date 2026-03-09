@@ -8,5 +8,8 @@
   },
   "anxiety-check": {
     "title": "Рівень тривожності"
+  },
+  "well-being-check": {
+    "title": "Стрес і добре самопочуття"
   }
 }

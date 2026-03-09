@@ -32,8 +32,7 @@ export function TestResultScreen<T extends ChoiceType>({
   const safeIndex = resultIndex === -1 ? 0 : resultIndex
   const cardType: StatusType =
     test.cardTypeByIndex?.at(safeIndex) ?? deriveCardStatus(safeIndex, test.resultMapping.length)
-  const cardBorder =
-    test.cardBorderByIndex?.at(safeIndex) ?? Object.entries(BORDER_BY_STATUS).find(([k]) => k === cardType)?.[1] ?? ''
+  const cardBorder = test.cardBorderByIndex?.at(safeIndex) ?? BORDER_BY_STATUS[cardType as StatusType] ?? ''
 
   const scoreDisplay =
     test.scoreFormat === 'percentage' && test.maxScore

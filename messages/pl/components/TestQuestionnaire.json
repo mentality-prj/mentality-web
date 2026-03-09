@@ -1,6 +1,7 @@
 {
   "submitting": "Wysyłanie wyników...",
   "errorRateLimited": "Zbyt wiele prób. Spróbuj ponownie później.",
+
   "errorSubmissionFailed": "Nie udało się wysłać wyników. Spróbuj ponownie.",
   "errorUnknown": "Wystąpił błąd.",
   "retryFromStart": "Zacznij od nowa",

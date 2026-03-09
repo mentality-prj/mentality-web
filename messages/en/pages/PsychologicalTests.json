@@ -8,5 +8,8 @@
   },
   "anxiety-check": {
     "title": "Anxiety Level"
+  },
+  "well-being-check": {
+    "title": "Stress & Well-being"
   }
 }

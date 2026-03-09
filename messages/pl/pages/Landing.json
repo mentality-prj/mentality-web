@@ -49,7 +49,7 @@
     "steps": {
       "register": "Zarejestruj się — utwórz konto w kilka kliknięć.",
       "choose": "Wybierz wsparcie — konsultacje, medytacje lub interaktywne ćwiczenia.",
-      "receive": "Otrzymuj pomoc — spersonalizowane rozwiązania dla twojego dobrostanu."
+      "receive": "Otrzymuj pomoc — spersonalizowane rozwiązania dla twojego dobrego samopoczucia."
     },
     "cta": "Rozpocznij teraz"
   },
@@ -59,6 +59,9 @@
   },
   "Footer": {
     "copyright": "© 2025 Dzvin.co. Wszelkie prawa zastrzeżone.",
-    "backToTop": "Wróć na górę"
+    "backToTop": "Wróć na górę",
+    "privacy": "Polityka prywatności",
+    "terms": "Regulamin",
+    "cookies": "Polityka plików cookie"
   }
 }

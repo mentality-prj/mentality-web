@@ -29,7 +29,7 @@ export interface TestConfig<T extends ChoiceType> {
   id: string
   title: string
   type: T
-  /** next-intl namespace used by QuestionFormRadio (e.g. 'pages.AnxietyCheck') */
+  /** Optional next-intl namespace for test page translations (e.g. 'pages.AnxietyCheck') */
   i18nNamespace?: string
   /** Relative backend path for POST answers and GET /history, e.g. 'k10' */
   apiEndpoint?: string
@@ -43,7 +43,18 @@ export interface TestConfig<T extends ChoiceType> {
   cardTypeByIndex?: StatusType[]
   /** Border class per resultMapping index — overrides the default border */
   cardBorderByIndex?: string[]
-  /** 'percentage' renders Math.round((1 - score/maxScore) * 100)%; default 'raw' */
+  /**
+   * Score display format: 'raw' (default) or 'percentage'
+   *
+   * 'percentage' renders Math.round((1 - score/maxScore) * 100)%
+   * This INVERTS the semantic meaning of the score:
+   * - High PHQ-9 score (e.g., 27) = high depression severity, but displays as 0% (low wellness)
+   * - Low PHQ-9 score (e.g., 0) = no depression, displays as 100% (high wellness)
+   *
+   * This inversion transforms severity scores into wellness percentages, which may be
+   * intentional for user-friendly UI display, but the formula converts severity into
+   * its opposite. Ensure this behavior is intentional before using 'percentage' format.
+   */
   scoreFormat?: 'raw' | 'percentage'
   /** Key in the API response to use as summary/recommendation text (e.g. 'aiSummary') */
   summaryField?: string

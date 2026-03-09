@@ -14,6 +14,7 @@ export default async function MentalCheckPage() {
 
   const config = {
     ...PHQ9_TEST_CONFIG,
+    title: t('intro.title'),
     questions: PHQ9_TEST_CONFIG.questions.map((q, i) => ({
       ...q,
       text: t(`questions.q${i}` as Parameters<typeof t>[0]),
@@ -51,7 +52,13 @@ export default async function MentalCheckPage() {
               </div>
             }
           >
-            <TestHistoryChart apiEndpoint="phq9" maxScore={PHQ9_MAX_SCORE} chartLabel="PHQ-9" />
+            <TestHistoryChart
+              apiEndpoint="phq9"
+              maxScore={PHQ9_MAX_SCORE}
+              chartLabel="PHQ-9"
+              title={t('chart.title')}
+              stubTitle={t('chart.stubNote')}
+            />
           </Suspense>
         </div>
       </div>
