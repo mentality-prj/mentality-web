@@ -1,0 +1,143 @@
+{
+  "title": "Polityka prywatności",
+  "lastUpdated": "Ostatnia aktualizacja: 8 marca 2026",
+  "introduction": "Dzvin.co (\"my\", \"nasz\" lub \"nas\") prowadzi platformę Dzvin i powiązane usługi (\"Usługa\"). Niniejsza Polityka Prywatności wyjaśnia, w jaki sposób gromadzimy, wykorzystujemy i chronimy Twoje dane osobowe podczas korzystania z naszej Usługi. Korzystając z Usługi, wyrażasz zgodę na gromadzenie i wykorzystywanie informacji zgodnie z niniejszą Polityką Prywatności.",
+  "informationWeCollect": {
+    "title": "1. Informacje, które gromadzimy",
+    "content": "Możemy gromadzić następujące rodzaje informacji:",
+    "accountInfo": {
+      "title": "Informacje o koncie",
+      "content": "Podczas tworzenia konta możemy gromadzić:",
+      "items": [
+        "imię i nazwisko",
+        "adres e-mail",
+        "informacje uwierzytelniające (dostawcy OAuth, tacy jak Google lub inni)",
+        "preferencje konta"
+      ]
+    },
+    "usageData": {
+      "title": "Dane użytkowania",
+      "content": "Możemy automatycznie gromadzić dane techniczne podczas korzystania z Usługi, w tym:",
+      "items": [
+        "adres IP",
+        "typ przeglądarki",
+        "informacje o urządzeniu",
+        "system operacyjny",
+        "odwiedzone strony",
+        "znaczniki czasu aktywności"
+      ]
+    },
+    "cookies": {
+      "title": "Pliki cookie i technologie śledzenia",
+      "content": "Możemy używać plików cookie i podobnych technologii w celu:",
+      "purposes": ["utrzymania sesji użytkownika", "poprawy wydajności usługi", "analizy użytkowania"],
+      "disableNote": "Możesz wyłączyć pliki cookie w ustawieniach przeglądarki."
+    }
+  },
+  "howWeUseData": {
+    "title": "2. Jak wykorzystujemy Twoje informacje",
+    "content": "Wykorzystujemy Twoje informacje w celu:",
+    "purposes": [
+      "świadczenia i utrzymania Usługi",
+      "uwierzytelniania użytkowników",
+      "poprawy funkcjonalności produktu",
+      "monitorowania użytkowania i wykrywania nadużyć",
+      "komunikacji z użytkownikami",
+      "przestrzegania zobowiązań prawnych"
+    ]
+  },
+  "legalBasis": {
+    "title": "3. Podstawa prawna przetwarzania (RODO)",
+    "content": "Jeśli znajdujesz się w Europejskim Obszarze Gospodarczym (EOG), przetwarzamy dane osobowe na następujących podstawach prawnych:",
+    "bases": [
+      {
+        "name": "Konieczność umowna",
+        "description": "w celu świadczenia żądanej Usługi"
+      },
+      {
+        "name": "Uzasadniony interes",
+        "description": "w celu poprawy i zabezpieczenia Usługi"
+      },
+      {
+        "name": "Obowiązki prawne",
+        "description": "gdy jest to wymagane przez prawo"
+      },
+      {
+        "name": "Zgoda",
+        "description": "gdy udzieliłeś zgody (np. na pliki cookie)"
+      }
+    ]
+  },
+  "dataSecurity": {
+    "title": "4. Przechowywanie i bezpieczeństwo danych",
+    "content": "Podejmujemy rozsądne środki techniczne i organizacyjne w celu ochrony Twoich danych osobowych przed nieautoryzowanym dostępem, utratą lub niewłaściwym wykorzystaniem.",
+    "disclaimer": "Jednak żadna metoda transmisji przez Internet ani przechowywania elektronicznego nie jest w 100% bezpieczna."
+  },
+  "thirdPartyServices": {
+    "title": "5. Usługi stron trzecich",
+    "content": "Możemy korzystać z następujących zaufanych usług stron trzecich do obsługi platformy:",
+    "services": [
+      {
+        "name": "Google / Google Analytics",
+        "description": "zbiera anonimowe dane użytkowania, aby pomóc nam ulepszyć Usługę."
+      },
+      {
+        "name": "PostHog",
+        "description": "platforma analityki produktu do monitorowania interakcji użytkowników w celu poprawy wydajności i funkcji."
+      },
+      {
+        "name": "Stripe",
+        "description": "usługa przetwarzania płatności; zbiera informacje rozliczeniowe niezbędne do subskrypcji."
+      },
+      {
+        "name": "Vercel",
+        "description": "dostawca hostingu; może przetwarzać adresy IP i logi w celu świadczenia Usługi."
+      },
+      {
+        "name": "Dostawcy OAuth (np. Google, GitHub)",
+        "description": "używani do uwierzytelniania użytkowników; zbierane są tylko podstawowe informacje profilowe."
+      }
+    ],
+    "cookieNote": "Niektóre z tych usług wykorzystują pliki cookie lub podobne technologie śledzenia. Aby dowiedzieć się więcej, zapoznaj się z naszą Polityką plików cookie.",
+    "compliance": "Ci dostawcy mogą przetwarzać dane osobowe w naszym imieniu i są zobowiązani do przestrzegania obowiązujących przepisów dotyczących prywatności."
+  },
+  "dataRetention": {
+    "title": "6. Okres przechowywania danych",
+    "content": "Przechowujemy dane osobowe tylko tak długo, jak jest to niezbędne do:",
+    "reasons": [
+      "świadczenia Usługi",
+      "przestrzegania zobowiązań prawnych",
+      "rozwiązywania sporów",
+      "egzekwowania umów"
+    ],
+    "deletionNote": "Możesz w każdej chwili zażądać usunięcia swojego konta i powiązanych danych osobowych."
+  },
+  "yourRights": {
+    "title": "7. Twoje prawa wynikające z RODO",
+    "content": "Jeśli znajdujesz się w Unii Europejskiej, masz prawo do:",
+    "rights": [
+      "dostępu do swoich danych osobowych",
+      "poprawiania nieprawidłowych danych",
+      "żądania usunięcia swoich danych",
+      "ograniczenia przetwarzania",
+      "sprzeciwu wobec przetwarzania",
+      "żądania przenoszenia danych"
+    ],
+    "exerciseNote": "Aby skorzystać z tych praw, skontaktuj się z nami, korzystając z poniższych informacji."
+  },
+  "childrenPrivacy": {
+    "title": "8. Prywatność dzieci",
+    "content": "Usługa nie jest przeznaczona dla dzieci poniżej 13. roku życia (lub minimalnego wieku wymaganego w Twojej jurysdykcji).",
+    "disclaimer": "Nie gromadzimy świadomie danych osobowych od dzieci."
+  },
+  "changes": {
+    "title": "9. Zmiany w niniejszej Polityce Prywatności",
+    "content": "Możemy od czasu do czasu aktualizować niniejszą Politykę Prywatności.",
+    "updateNote": "Gdy nastąpią zmiany, zaktualizujemy datę \"Ostatnia aktualizacja\"."
+  },
+  "contact": {
+    "title": "10. Kontakt",
+    "content": "Jeśli masz pytania dotyczące niniejszej Polityki Prywatności lub swoich danych osobowych, możesz skontaktować się z nami pod adresem:",
+    "cta": "Otwórz formularz kontaktowy"
+  }
+}

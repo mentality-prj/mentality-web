@@ -1,4 +1,4 @@
-import { Activity, BrainCircuit } from 'lucide-react'
+import { Activity, BadgeCheck, BrainCircuit } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
 import { HoverCard } from '@/components/shared/Cards/HoverCard/HoverCard'
@@ -6,10 +6,17 @@ import { Routes } from '@/constants/routes'
 
 const tests = [
   {
+    key: 'well-being-check',
+    href: Routes.WELL_BEING_CHECK,
+    icon: BadgeCheck,
+    duration: 2,
+    questions: 10,
+  },
+  {
     key: 'mental-check',
     href: Routes.MENTAL_CHECK,
     icon: BrainCircuit,
-    duration: 3,
+    duration: 2,
     questions: 9,
   },
   {

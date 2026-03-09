@@ -2,6 +2,7 @@
 import { ReactNode } from 'react'
 import {
   Activity,
+  BadgeCheck,
   BarChart,
   BookHeart,
   BookOpen,
@@ -46,6 +47,7 @@ export const iconMapSitemap: Record<string, ReactNode> = {
   waves: <Waves size={16} className="icon" />,
   wind: <Wind size={16} className="icon" />,
   heartHandshake: <HeartHandshake size={16} className="icon" />,
+  badgeCheck: <BadgeCheck size={16} className="icon" />,
   trophy: <Trophy size={16} className="icon" />,
   goal: <GoalIcon size={16} className="icon" />,
   chart: <ChartPie size={16} className="icon" />,

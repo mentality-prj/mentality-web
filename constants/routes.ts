@@ -20,12 +20,16 @@ export const RoutesTitles = Object.freeze({
   PSYCHOLOGICALTESTS: 'Psychological-Tests',
   MENTAL_CHECK: 'Psychological-Tests/mental-check',
   ANXIETY_CHECK: 'Psychological-Tests/anxiety-check',
+  WELL_BEING_CHECK: 'Psychological-Tests/well-being-check',
   PROFILE: 'Profile',
   SETTINGS: 'Settings',
   SIGNIN: 'Signin',
   TIPS: 'Tips',
   ATTENTION_SPRINT: 'Mental-Games/Attention-Sprint',
   SERVERERROR: 'Server-Error',
+  PRIVACY: 'Privacy',
+  TERMS: 'Terms',
+  COOKIES: 'Cookies',
 })
 
 export const Routes: RoutesType = Object.freeze({

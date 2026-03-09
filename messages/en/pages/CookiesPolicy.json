@@ -1,0 +1,63 @@
+{
+  "title": "Cookies Policy",
+  "lastUpdated": "Last updated: March 8, 2026",
+  "introduction": {
+    "title": "What Are Cookies",
+    "content": "Cookies are small pieces of text sent to your web browser by a website you visit. A cookie file is stored in your web browser and allows the Service or a third-party to recognize you and make your next visit easier and the Service more useful to you."
+  },
+  "howWeUseCookies": {
+    "title": "How We Use Cookies",
+    "content": "When you use and access the Service, we may place a number of cookies files in your web browser. We use cookies for the following purposes:",
+    "purposes": [
+      "To enable certain functions of the Service",
+      "To provide analytics and track usage of the Service",
+      "To store your preferences and settings",
+      "To enable advertisements delivery, including behavioral advertising"
+    ]
+  },
+  "typesOfCookies": {
+    "title": "Types of Cookies We Use",
+    "essential": {
+      "title": "Essential Cookies",
+      "content": "These cookies are essential for you to browse the website and use its features. Without these cookies, the services you have asked for cannot be provided."
+    },
+    "analytics": {
+      "title": "Analytics and Performance Cookies",
+      "content": "These cookies collect information about how visitors use our website, such as which pages visitors go to most often. This data helps us optimize our website and make it easier for you to navigate."
+    },
+    "functional": {
+      "title": "Functionality Cookies",
+      "content": "These cookies allow our website to remember choices you make (such as your language preference) and provide enhanced, more personal features."
+    },
+    "advertising": {
+      "title": "Advertising Cookies",
+      "content": "These cookies are used to deliver advertisements more relevant to you and your interests. They are also used to limit the number of times you see an advertisement and help measure the effectiveness of advertising campaigns."
+    }
+  },
+  "thirdPartyCookies": {
+    "title": "Third-Party Cookies",
+    "content": "In addition to our own cookies, we may also use various third-party cookies to report usage statistics of the Service, deliver advertisements on and through the Service, and so on. These third-party services have their own privacy policies addressing how they use such information."
+  },
+  "manageCookies": {
+    "title": "How to Control Cookies",
+    "content": "You can control and/or delete cookies as you wish. You can delete all cookies that are already on your computer and you can set most browsers to prevent them from being placed. However, if you do this, you may have to manually adjust some preferences every time you visit our site and some services and functionalities may not work.",
+    "methods": [
+      "Browser settings: Most web browsers allow some control of most cookies through the browser settings",
+      "Third-party tools: Various third-party tools are available that allow you to manage cookies",
+      "Opt-out links: Some third-party advertising networks provide opt-out mechanisms"
+    ]
+  },
+  "consent": {
+    "title": "Your Consent",
+    "content": "By using our Service, you consent to our use of cookies in accordance with this Cookies Policy. If you do not agree to our use of cookies, you should set your browser settings accordingly or not use our Service."
+  },
+  "changes": {
+    "title": "Changes to This Policy",
+    "content": "We may update our Cookies Policy from time to time. We will notify you of any changes by posting the new Cookies Policy on this page and updating the \"Last updated\" date."
+  },
+  "contact": {
+    "title": "Contact Us",
+    "content": "If you have any questions about our use of cookies, please use our contact form:",
+    "cta": "Open contact form"
+  }
+}

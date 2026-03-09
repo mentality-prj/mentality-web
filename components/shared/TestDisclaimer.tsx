@@ -6,12 +6,12 @@ interface TestDisclaimerProps {
   text: string
 }
 
-export default function TestDisclaimer({ text }: TestDisclaimerProps) {
+export function TestDisclaimer({ text }: TestDisclaimerProps) {
   return (
     <Card type="note">
       <div className="flex flex-row items-center gap-xs text-sm">
         <CircleAlert size={32} className="text-white opacity-50" />
-        {text}
+        <span className="whitespace-pre-line">{text}</span>
       </div>
     </Card>
   )

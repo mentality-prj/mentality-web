@@ -1,0 +1,56 @@
+{
+  "page": {
+    "title": "Dystres psychiczny (K10)",
+    "subtitle": "3 minuty · 10 pytań",
+    "description": "Kwestionariusz K10 pomaga ocenić Twój aktualny poziom dystresu psychicznego.",
+    "disclaimer": "To narzędzie służy do autorefleksji i nie stanowi diagnozy medycznej.\nKessler, R.C., et al. (2003) Copyright © World Health Organization 2003",
+    "loadingHistory": "Ładowanie historii…"
+  },
+  "intro": {
+    "title": "Stres i dobre samopoczucie",
+    "subtitle": "3 minuty · 10 pytań",
+    "cta": "Start"
+  },
+  "result": {
+    "scoreLabel": "z 50",
+    "levelLabel": "Poziom dystresu",
+    "recommendationTitle": "Interpretacja",
+    "ctaProgram": "Rozpocznij program dobrego samopoczucia",
+    "ctaRetry": "Powtórz za 30 dni"
+  },
+  "chart": {
+    "title": "Historia wyników",
+    "stubNote": "Twój przewidywany postęp"
+  },
+  "questions": {
+    "q0": "W ciągu ostatnich 30 dni, jak często czułeś/czułaś się zmęczony/zmęczona bez wyraźnego powodu?",
+    "q1": "W ciągu ostatnich 30 dni, jak często czułeś/czułaś się zdenerwowany/zdenerwowana?",
+    "q2": "W ciągu ostatnich 30 dni, jak często byłeś/byłaś tak zdenerwowany/zdenerwowana, że nie mogłeś/mogłaś się uspokoić?",
+    "q3": "W ciągu ostatnich 30 dni, jak często czułeś/czułaś się niespokojny/niespokojna?",
+    "q4": "W ciągu ostatnich 30 dni, jak często byłeś/byłaś tak niespokojny/niespokojna, że nie mogłeś/mogłaś usiedzieć w miejscu?",
+    "q5": "W ciągu ostatnich 30 dni, jak często czułeś/czułaś się przygnębiony/przygnębiona?",
+    "q6": "W ciągu ostatnich 30 dni, jak często miałeś/miałaś poczucie, że wszystko wymaga ogromnego wysiłku?",
+    "q7": "W ciągu ostatnich 30 dni, jak często czułeś/czułaś się tak smutny/smutna, że nic nie mogło Cię pocieszyć?",
+    "q8": "W ciągu ostatnich 30 dni, jak często czułeś/czułaś beznadzieję?",
+    "q9": "W ciągu ostatnich 30 dni, jak często czułeś/czułaś się bezwartościowy/bezwartościowa?"
+  },
+  "options": {
+    "1": "Nigdy",
+    "2": "Rzadko",
+    "3": "Czasami",
+    "4": "Często",
+    "5": "Prawie zawsze"
+  },
+  "level": {
+    "green": "Niski dystres",
+    "yellow": "Łagodny dystres",
+    "orange": "Umiarkowany dystres",
+    "red": "Wysoki dystres"
+  },
+  "summary": {
+    "green": "Twoje odpowiedzi wskazują na niski poziom dystresu. Kontynuuj wspieranie dobrego samopoczucia zdrowymi nawykami.",
+    "yellow": "Twoje odpowiedzi wskazują na łagodny dystres. Warto dodać więcej odpoczynku i codziennych praktyk regeneracyjnych.",
+    "orange": "Twoje odpowiedzi wskazują na umiarkowany dystres. Pomocna może być konsultacja ze specjalistą zdrowia psychicznego.",
+    "red": "Twoje odpowiedzi wskazują na wysoki dystres. Rozważ kontakt ze specjalistą zdrowia psychicznego."
+  }
+}

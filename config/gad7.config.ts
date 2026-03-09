@@ -65,9 +65,26 @@ export const GAD7_LEVEL_BORDER_MAP: Record<Gad7Level, string> = {
 
 export const GAD7_TEST_CONFIG: TestConfig<'radio'> = {
   id: 'gad7',
-  title: 'GAD-7 Anxiety Check',
+  title: 'Anxiety Level',
   type: 'radio',
   i18nNamespace: 'pages.AnxietyCheck',
+  apiEndpoint: 'gad7',
+  maxScore: GAD7_MAX_SCORE,
+  cooldownDays: 30,
+  summaryField: 'recommendation',
+  alertThreshold: GAD7_HIGH_SCORE_THRESHOLD,
+  cardTypeByIndex: [
+    GAD7_LEVEL_CARD_MAP.minimal,
+    GAD7_LEVEL_CARD_MAP.mild,
+    GAD7_LEVEL_CARD_MAP.moderate,
+    GAD7_LEVEL_CARD_MAP.severe,
+  ],
+  cardBorderByIndex: [
+    GAD7_LEVEL_BORDER_MAP.minimal,
+    GAD7_LEVEL_BORDER_MAP.mild,
+    GAD7_LEVEL_BORDER_MAP.moderate,
+    GAD7_LEVEL_BORDER_MAP.severe,
+  ],
   questions: GAD7_QUESTIONS.map((text, i) => ({
     id: `gad7_q${i}`,
     text,

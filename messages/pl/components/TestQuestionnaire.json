@@ -1,0 +1,19 @@
+{
+  "submitting": "Wysyłanie wyników...",
+  "errorRateLimited": "Zbyt wiele prób. Spróbuj ponownie później.",
+
+  "errorSubmissionFailed": "Nie udało się wysłać wyników. Spróbuj ponownie.",
+  "errorUnknown": "Wystąpił błąd.",
+  "retryFromStart": "Zacznij od nowa",
+  "cooldownBanner": "Ukończyłeś już ten test. Dostępny ponownie za {days, plural, one {# dzień} few {# dni} many {# dni} other {# dni}}.",
+  "questionOf": "Pytanie {current} z {total}",
+  "buttonBack": "Wstecz",
+  "buttonSeeResult": "Sprawdź wynik",
+  "adminModeLabel": "Tryb admina",
+  "adminResetButton": "Wyczyść dane",
+  "scoreLabelFallback": "łączny wynik",
+  "categoryTitleFallback": "Wynik",
+  "ctaProgramFallback": "Programy wsparcia",
+  "ctaRetryFallback": "Rozpocznij nowy test",
+  "unknownResult": "Nieokreślono"
+}

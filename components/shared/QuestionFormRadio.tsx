@@ -6,7 +6,6 @@ import { useTranslations } from 'next-intl'
 
 import { TestConfig } from '@/components/features/TestsQuestionnarie/typesTestPage'
 import { AdminPreviewToggle } from '@/components/phq9/AdminPreviewToggle'
-import { QuestionRadio } from '@/components/shared/QuestionRadio'
 import { QuestionStep } from '@/components/shared/QuestionStep'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { Button } from '@/ui/button'
@@ -36,10 +35,6 @@ export interface QuestionFormRadioProps {
   /** When true, renders the result slot instead of the question step */
   showResult: boolean
   resultRef?: React.RefObject<HTMLDivElement | null>
-  /** All answers by index — used to render the admin preview list */
-  previewAnswers: (number | null)[]
-  /** Called when the user changes an answer in the admin preview list */
-  onPreviewAnswerChange: (index: number, value: number) => void
 
   /** Test-specific result card (e.g. Phq9Result or Gad7Result) */
   resultSlot: ReactNode
@@ -84,8 +79,6 @@ export function QuestionFormRadio({
   showResult,
   resultRef,
   resultSlot,
-  previewAnswers,
-  onPreviewAnswerChange,
   isAdmin = false,
   showFormPreview,
   onPreviewToggle,
@@ -128,36 +121,11 @@ export function QuestionFormRadio({
 
   // ─── Result screen ────────────────────────────────────────────────────────────
 
-  if (showResult) {
-    const allAnswered = previewAnswers.every((a) => a !== null)
+  if (showResult && !showFormPreview) {
     return (
       <div ref={resultRef} className="flex flex-col gap-4">
         {adminBar}
-        {showFormPreview ? (
-          <div className="flex flex-col gap-6">
-            {questions.map((q, index) => (
-              <SectionCard key={q.id}>
-                <QuestionRadio
-                  question={q.text}
-                  index={index}
-                  options={q.options}
-                  selectedValue={previewAnswers[index as number] ?? null}
-                  onChange={(value) => onPreviewAnswerChange(index, value)}
-                />
-              </SectionCard>
-            ))}
-            <Button
-              type="button"
-              disabled={!allAnswered || isSubmitting}
-              className="self-start"
-              onClick={onConfirmSubmit}
-            >
-              {isSubmitting ? t('form.submitting') : t('form.retake')}
-            </Button>
-          </div>
-        ) : (
-          resultSlot
-        )}
+        {resultSlot}
       </div>
     )
   }
@@ -183,13 +151,9 @@ export function QuestionFormRadio({
           <p role="alert" className="text-sm text-textcolor-secondary">
             {displayError}
           </p>
-          <button
-            type="button"
-            onClick={onReset}
-            className="border-outline-secondary self-start rounded-full border px-5 py-2 text-sm font-medium text-textcolor-primary hover:border-primary"
-          >
+          <Button variant="secondary" onClick={onReset}>
             {t('form.startNew')}
-          </button>
+          </Button>
         </div>
       </SectionCard>
     )

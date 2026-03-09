@@ -34,7 +34,7 @@ export const HoverCard = ({ href, icon, title, description, center }: HoverCardP
     <Link href={href}>
       <Card
         type={hovered ? Statuses.success : Statuses.default}
-        className="w-full min-w-80 border border-white transition-shadow hover:shadow-md md:max-w-xs"
+        className="h-full w-full min-w-80 border border-white transition-shadow hover:shadow-md md:max-w-xs"
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >

@@ -70,9 +70,29 @@ export const PHQ9_SEVERITY_BORDER_MAP: Record<Phq9Severity, string> = {
 
 export const PHQ9_TEST_CONFIG: TestConfig<'radio'> = {
   id: 'phq9',
-  title: 'PHQ-9 Weekly Mental Check',
+  title: 'Mental Check',
   type: 'radio',
   i18nNamespace: 'pages.MentalCheck',
+  apiEndpoint: 'phq9',
+  maxScore: PHQ9_MAX_SCORE,
+  cooldownDays: 1,
+  scoreFormat: 'percentage',
+  summaryField: 'aiSummary',
+  alertField: 'crisisNotice',
+  cardTypeByIndex: [
+    PHQ9_SEVERITY_CARD_MAP.minimal,
+    PHQ9_SEVERITY_CARD_MAP.mild,
+    PHQ9_SEVERITY_CARD_MAP.moderate,
+    PHQ9_SEVERITY_CARD_MAP['moderately-severe'],
+    PHQ9_SEVERITY_CARD_MAP.severe,
+  ],
+  cardBorderByIndex: [
+    PHQ9_SEVERITY_BORDER_MAP.minimal,
+    PHQ9_SEVERITY_BORDER_MAP.mild,
+    PHQ9_SEVERITY_BORDER_MAP.moderate,
+    PHQ9_SEVERITY_BORDER_MAP['moderately-severe'],
+    PHQ9_SEVERITY_BORDER_MAP.severe,
+  ],
   questions: PHQ9_QUESTIONS.map((text, i) => ({
     id: `phq9_q${i}`,
     text,
