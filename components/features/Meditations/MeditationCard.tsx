@@ -22,17 +22,15 @@ export default function MeditationCard({ item, tools, className = '' }: Props) {
   const createdAt = formatDate(item.createdAt)
 
   return (
-    <Card
-      className={`h-full border bg-white ${className}`}
-      sup={createdAt}
-      icon={<Calendar size={12} />}
-      title={title}
-      text={annotation}
-      tools={tools}
-    >
-      <Link className="underline" href={`/guide/meditations/${item.id}`}>
-        {t('linkText')}
-      </Link>
-    </Card>
+    <Link href={`/guide/meditations/${item.id}`} title={t('linkText')}>
+      <Card
+        className={`h-full border bg-white ${className}`}
+        sup={createdAt}
+        icon={<Calendar size={12} />}
+        title={title}
+        text={annotation}
+        tools={tools}
+      />
+    </Link>
   )
 }
