@@ -60,7 +60,7 @@ export const TodayMoodNotes = async () => {
       ) : (
         <div className="h-full">{t('empty')}</div>
       )}
-      <Link className="mt-auto underline" href="/mood-tracker#mood-records-list">
+      <Link className="text-sm text-primary underline" href="/mood-tracker#mood-records-list">
         {t('more')}
       </Link>
     </Card>

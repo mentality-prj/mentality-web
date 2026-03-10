@@ -6,7 +6,7 @@
   "by_stressLevel": "За рівнем стресу",
   "by_moodLevel": "За настроєм",
   "filterOptions": {
-    "tags": "{tag, select, affirmation {Афірмація} tip {Порада} veryBad {Дуже поганий} bad {Поганий} neutral {Нормальний} good {Хороший} great {Чудовий} absent {Відсутній} low {Низький} medium {Середній} high {Високий} veryHigh {Дуже високий} weekDays {Будні дні} weekends {Вихідні} other {}}",
+    "tags": "{tag, select, affirmation {Афірмація} tip {Порада} veryBad {Дуже поганий} bad {Поганий} neutral {Нормальний} good {Хороший} great {Чудовий} absent {Відсутній} low {Низький} medium {Середній} high {Високий} veryHigh {Дуже високий} weekDays {Будні дні} weekends {Вихідні} mon {Пн} tue {Вт} wed {Ср} thu {Чт} fri {Пт} sat {Сб} sun {Нд}  other {}}",
     "categories": "{tag, select, affirmation {Афірмація} tip {Порада} breathing {Дихання} calming {Заспокоєння} meditation {Медитація} other {}}"
   },
   "clear": "Очистити",

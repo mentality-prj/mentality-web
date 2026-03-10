@@ -60,17 +60,32 @@ export function MoodRecordsClient({ records, availableTags }: Props) {
       result = result.filter((r) => r.tags && r.tags.includes(filters.tags))
     }
 
-    // Filter by week (weekDays/weekends)
+    // Filter by week (weekDays/weekends/day)
+    const dayMap: Record<number, string> = {
+      0: 'sun',
+      1: 'mon',
+      2: 'tue',
+      3: 'wed',
+      4: 'thu',
+      5: 'fri',
+      6: 'sat',
+    }
+
     if (filters.week) {
       result = result.filter((r) => {
         if (!r.createdAt) return false
         const date = new Date(r.createdAt)
         const dayOfWeek = date.getDay()
-        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6
+        const dayShort = dayMap[`${dayOfWeek}`]
 
-        if (filters.week === 'weekends') return isWeekend
-        if (filters.week === 'weekDays') return !isWeekend
-        return true
+        switch (filters.week) {
+          case 'weekends':
+            return dayShort === 'sat' || dayShort === 'sun'
+          case 'weekDays':
+            return dayShort !== 'sat' && dayShort !== 'sun'
+          default:
+            return dayShort === filters.week
+        }
       })
     }
 
