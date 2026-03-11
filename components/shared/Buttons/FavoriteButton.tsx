@@ -12,9 +12,10 @@ interface Props {
   itemId: string
   isFavorite: boolean
   onChange?: (isFavorite: boolean) => void
+  className?: string
 }
 
-export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange }: Props) => {
+export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange, className }: Props) => {
   const { data: session } = useSession()
   const t = useTranslations('components.FavoriteButton')
 
@@ -47,6 +48,7 @@ export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange }: Props
       onClick={toggle}
       title={isFavorite ? t('removeFromFavorites') : t('addToFavorites')}
       aria-label={isFavorite ? t('removeFromFavorites') : t('addToFavorites')}
+      className={className}
     >
       {isFavorite ? <Heart size={16} fill="currentColor" /> : <Heart size={16} />}
     </Button>

@@ -5,6 +5,7 @@ import { Sparkles } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { Link } from '@/i18n/navigation'
 import { AffirmationEntity } from '@/types/api-responses'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 import { Button } from '@/ui/button'
@@ -61,7 +62,17 @@ export function DailyAffirmationRandomClient({ randomAffirmation, onLoadNewAffir
     )
   }
 
-  const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.affirmations} itemId={currentAffirmation.id} />
+  const tools = (
+    <FavoriteButtonWrapper
+      className="absolute right-6 top-2 z-20"
+      itemType={ITEM_TYPE_DEFS.affirmations}
+      itemId={currentAffirmation.id}
+    />
+  )
 
-  return <AffirmationCard item={currentAffirmation} tools={tools} hideDate />
+  return (
+    <AffirmationCard className="relative" item={currentAffirmation} tools={tools} hideDate>
+      <Link className="absolute inset-0 z-0" href="/affirmations" title={t('linkText', { type: 'affirmation' })} />
+    </AffirmationCard>
+  )
 }

@@ -3,6 +3,7 @@
   "buttonText": "{type, select, affirmation {All affirmations} tip {All tips} breathing {All breathing} calming {All calming} meditation {All meditations} other {}}",
   "toastText": "{type, select, affirmation {Affirmation added to Saved} tip {Tip added to Saved} breathing {Breathing exercise added to Saved} calming {Calming exercise added to Saved} meditation {Meditation added to Saved} other {}}",
   "type": "{type, select, affirmation {Affirmation} tip {Tip} breathing {Breathing} calming {Calming} meditation {Meditation} other {}}",
+  "linkText": "{type, select, statistics {Go to statistics} affirmation {Go to affirmations} tip {Go to tips} other {}}",
   "cards": {
     "notes": "Recording thoughts",
     "tests": "Psychological tests",
