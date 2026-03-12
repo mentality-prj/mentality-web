@@ -10,5 +10,7 @@
   "reset": "Reset",
   "duplicate": "Duplicate",
   "edit": "Edit",
-  "publish": "Publish"
+  "publish": "Publish",
+  "signInWith": "Signin with",
+  "signOut": "Sign Out"
 }
