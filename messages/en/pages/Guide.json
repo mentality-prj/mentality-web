@@ -16,5 +16,6 @@
     "title": "Calm me now",
     "empty": "No calming exercises found."
   },
+  "category": "{type, select, meditation {Meditation} breathing {Breathing} calming {Calming} other {}}",
   "TechniqueOverview": "Technique Overview"
 }

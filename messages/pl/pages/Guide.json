@@ -16,5 +16,6 @@
     "title": "Uspokój mnie teraz",
     "empty": "Nie znaleziono ćwiczeń uspokajających."
   },
+  "category": "{type, select, meditation {Medytacja} breathing {Oddychanie} calming {Uspokajający} other {}}",
   "TechniqueOverview": "Przegląd techniki"
 }
