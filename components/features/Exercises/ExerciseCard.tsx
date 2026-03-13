@@ -2,7 +2,7 @@
 
 import { ReactNode, useState } from 'react'
 import { Calendar } from 'lucide-react'
-import { useLocale } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { PlayButton } from '@/components/shared/Buttons/PlayButton'
@@ -24,9 +24,12 @@ export default function ExerciseCard({ item, className = '', tools }: ExerciseCa
   const locale = useLocale() as SupportedLanguage
   const [open, setOpen] = useState(false)
 
+  const t = useTranslations('pages.Guide')
+
   const title = item.translations?.title[locale as SupportedLanguage] || ''
   const annotation = item.translations?.annotation[locale as SupportedLanguage] || ''
   const description = item.translations?.description[locale as SupportedLanguage] || ''
+  const category = t('category', { type: item.category })
   const createdAt = formatDate(item.createdAt)
 
   const combinedtools = (
@@ -46,7 +49,7 @@ export default function ExerciseCard({ item, className = '', tools }: ExerciseCa
         title={title}
         text={annotation}
         tools={combinedtools}
-        remark={item.category}
+        remark={category}
         onClick={() => setOpen(true)}
       />
 
@@ -57,7 +60,7 @@ export default function ExerciseCard({ item, className = '', tools }: ExerciseCa
           icon={<Calendar size={12} />}
           title={title}
           text={annotation}
-          remark={item.category}
+          remark={category}
           tags={item.tags}
           className="p-6"
         >

@@ -16,5 +16,6 @@
     "title": "Заспокой мене зараз",
     "empty": "Вправи для заспокоєння не знайдені."
   },
+  "category": "{type, select, meditation {медитація}  breathing{дихання}  calming{заспокійливий} other {}}",
   "TechniqueOverview": "Огляд техніки"
 }
