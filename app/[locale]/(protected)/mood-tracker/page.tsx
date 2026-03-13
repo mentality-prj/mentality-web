@@ -12,7 +12,7 @@ export default async function MoodTracker() {
   const t = await getTranslations('pages.MoodTracker')
 
   const session = await auth()
-  const res = await getLastMoodRecords(session, { days: 10, active: true })
+  const res = await getLastMoodRecords(session, { days: 10 })
 
   const moodMarksData = buildMoodMarksData(res?.data ?? [])
 

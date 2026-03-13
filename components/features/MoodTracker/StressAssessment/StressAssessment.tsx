@@ -1,8 +1,6 @@
 'use client'
 import { useTranslations } from 'next-intl'
 
-import { Link } from '@/i18n/navigation'
-
 import { StressLevelScale } from '../NewMoodNoteSection/StressLevelScale'
 
 interface StressAssessmentProps {
@@ -15,17 +13,10 @@ export function StressAssessment({ value, onChange }: StressAssessmentProps) {
 
   return (
     <div className="flex w-40 flex-col">
-      <h5>{tm('chooseStress')}</h5>
+      <h6 className="pl-4">{tm('chooseStress')}</h6>
       <div className="p-4">
         <StressLevelScale value={value} onChange={onChange} />
       </div>
-      <p className="text-xs">
-        {tm('quickAssessmentPrefix')}
-        <Link href="#" className="defalt-link text-xs">
-          {tm('quickAssessmentLink')}
-        </Link>
-        {tm('quickAssessmentSuffix')}
-      </p>
     </div>
   )
 }

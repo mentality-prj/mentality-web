@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
+/* eslint-disable security/detect-object-injection */
 import { render, screen } from '@testing-library/react'
 import { useTranslations } from 'next-intl'
 import { getTranslations } from 'next-intl/server'
@@ -28,7 +30,7 @@ describe('MentalGames page', () => {
 
       return translations[key] ?? key
     })
-    ;(getTranslations as jest.Mock).mockResolvedValue((key: string, vars?: any) => {
+    ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => {
       type TransObj = { [key: string]: string | TransObj }
       const translations: TransObj = {
         title: 'Mental Games',

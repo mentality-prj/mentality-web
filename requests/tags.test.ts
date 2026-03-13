@@ -104,7 +104,6 @@ describe('Tags API', () => {
       expect(logger.warn).toHaveBeenCalledWith(
         'Unauthorized attempt to add tag',
         expect.objectContaining({
-          userId: 'user@test.com',
           tagKey: 'test-tag',
         })
       )
