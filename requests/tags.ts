@@ -3,7 +3,7 @@ import { logger } from '@/lib/logger'
 import { TagEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { Roles } from '@/types/security'
-import { AdminTag, Tag, UserTag } from '@/types/tags'
+import { AdminTag, UserTag } from '@/types/tags'
 
 import { APIUrl } from './config'
 import { performAdminRequest } from './genericFetch'

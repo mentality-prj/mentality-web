@@ -46,9 +46,7 @@ export function MoodRecordsClient({ records, availableTags }: Props) {
     if (filters.stressLevel) {
       result = result.filter((r) => {
         if (typeof r.stressLevel === 'number') {
-          // Map stress level number to stress key
-          const stressKeys = STRESS_LEVELS
-          const key = stressKeys[r.stressLevel]
+          const key = STRESS_LEVELS[r.stressLevel - 1]
           return key === filters.stressLevel
         }
         return false

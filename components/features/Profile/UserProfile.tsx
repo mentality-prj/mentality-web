@@ -1,7 +1,5 @@
 import Image from 'next/image'
 
-import DefaultProfileImage from '@/assets/default-profile.png'
-
 interface UserProfileProps {
   name: string
   email: string | null | undefined
@@ -10,7 +8,7 @@ interface UserProfileProps {
 export default function UserProfile({ name, email, image }: UserProfileProps) {
   return (
     <div className="flex gap-3">
-      <Image alt={name} height={40} className="rounded-[8px]" src={image ?? DefaultProfileImage} width={40} />
+      {image && <Image alt={name} height={40} className="rounded-[8px]" src={image} width={40} />}
       <div className="flex flex-col">
         <p className="text-md">{name}</p>
         <p className="text-small text-default-500">{email}</p>

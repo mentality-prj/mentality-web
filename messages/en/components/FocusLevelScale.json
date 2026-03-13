@@ -1,0 +1,9 @@
+{
+  "labelsFocus": {
+    "veryLow": "Very low",
+    "low": "Low",
+    "medium": "Medium",
+    "high": "High",
+    "veryHigh": "Very high"
+  }
+}
