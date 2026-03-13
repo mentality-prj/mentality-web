@@ -128,7 +128,6 @@ export type UserEntity = {
 
 export type GoalEntity = {
   id: string
-  userId?: string
   text: string
   check: number
   repeat: number
@@ -141,34 +140,25 @@ export type GoalEntity = {
 
 // Mood records
 export type CreateMoodRecordDto = {
-  userId?: string
   moodLevel: number
-  description?: string
-  tags?: string[]
   stressLevel: number
-  active?: boolean
+  energyLevel: number
+  focusLevel: number
+  tags?: string[]
 }
 
 export type MoodRecordEntity = {
   id: string
-  userId?: string
   moodLevel?: number
-  description?: string
-  tags?: string[]
   stressLevel: number
-  active?: boolean
+  energyLevel: number
+  focusLevel: number
+  tags?: string[]
   createdAt?: string
-  updatedAt?: string
 }
 
-export type SetActiveDto = { active: boolean }
-
-export type UpdateMoodRecordDto = {
-  moodLevel?: number
-  description?: string
-  tags?: string[]
-  stressLevel: number
-  active?: boolean
+export type SetActiveDto = {
+  active: boolean
 }
 
 // Diary
@@ -180,7 +170,6 @@ export type CreateDiaryDto = {
 
 export type DiaryEntity = {
   id: string
-  userId?: string
   content: string
   tags?: string[]
   isActive?: boolean

@@ -10,9 +10,11 @@ import TestQuestionnaire from './TestQuestionnaire.json'
 import CookieConsent from './CookieConsent.json'
 import DailyCard from './DailyCard.json'
 import Diary from './Diary.json'
+import EnergyLevelScale from './EnergyLevelScale.json'
 import ExercisesForRecovery from './ExercisesForRecovery.json'
 import FavoriteButton from './FavoriteButton.json'
 import Filter from './Filter.json'
+import FocusLevelScale from './FocusLevelScale.json'
 import Header from './Header.json'
 import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
 import Mood from './Mood.json'
@@ -44,8 +46,10 @@ export const components = {
   ChartDynamics,
   DailyCard,
   Diary,
+  EnergyLevelScale,
   ExercisesForRecovery,
   Filter,
+  FocusLevelScale,
   Header,
   MoodBadge,
   MoodMarks,
