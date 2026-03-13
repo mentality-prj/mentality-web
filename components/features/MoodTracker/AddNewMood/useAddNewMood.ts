@@ -32,7 +32,6 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
   }
 
   const [selectedMood, setSelectedMood] = useState<string | null>(null)
-  const [note, setNote] = useState('')
   const {
     selectedTags,
     localAvailableTags,
@@ -46,13 +45,16 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
   } = useTags({ availableTags })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [stressLevel, setStressLevel] = useState<number>(0)
+  const [energyLevel, setEnergyLevel] = useState<number>(0)
+  const [focusLevel, setFocusLevel] = useState<number>(0)
   const [formKey, setFormKey] = useState(0)
 
   const resetForm = () => {
     setSelectedMood(null)
-    setNote('')
     clearSelectedTags()
     setStressLevel(0)
+    setEnergyLevel(0)
+    setFocusLevel(0)
     setShowAddTag(false)
     setFormKey((prev) => prev + 1)
   }
@@ -75,10 +77,10 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
       const moodLevel = moodKeyToLevel(selectedMood)
       const dto: CreateMoodRecordDto = {
         moodLevel: moodLevel!,
-        description: note || undefined,
         tags: selectedTags.length ? selectedTags : undefined,
         stressLevel: stressLevel,
-        active: true,
+        energyLevel: energyLevel,
+        focusLevel: focusLevel,
       }
 
       const result = await createMoodRecord(session as unknown as CustomSession | null, dto)
@@ -101,8 +103,10 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
   return {
     selectedMood,
     setSelectedMood,
-    note,
-    setNote,
+    energyLevel,
+    setEnergyLevel,
+    focusLevel,
+    setFocusLevel,
     stressLevel,
     setStressLevel,
     selectedTags,

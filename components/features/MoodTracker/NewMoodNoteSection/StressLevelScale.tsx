@@ -1,5 +1,6 @@
 'use client'
 
+import { Cloud, CloudLightning, CloudRain, Sun, Wind } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { STRESSES } from '@/constants/stress'
@@ -14,6 +15,25 @@ export function StressLevelScale({ value, onChange }: { value?: number; onChange
   }))
 
   const fillColor = value !== undefined ? STRESSES.find((s) => s.value === value)?.color : undefined
+
+  const getStressIcon = () => {
+    const iconProps = { size: 14 }
+
+    switch (value) {
+      case 0:
+        return <Sun {...iconProps} />
+      case 1:
+        return <Wind {...iconProps} />
+      case 2:
+        return <Cloud {...iconProps} />
+      case 3:
+        return <CloudRain {...iconProps} />
+      case 4:
+        return <CloudLightning {...iconProps} />
+      default:
+        return <Sun {...iconProps} />
+    }
+  }
 
   const handleChange = (value: number) => {
     if (onChange) {
@@ -33,6 +53,7 @@ export function StressLevelScale({ value, onChange }: { value?: number; onChange
       className="h-40"
       onChange={handleChange}
       fillColor={fillColor}
+      thumbIcon={getStressIcon()}
     />
   )
 }
