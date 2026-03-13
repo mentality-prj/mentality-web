@@ -20,15 +20,15 @@ export function FocusLevelScale({ value, onChange }: { value?: number; onChange?
     const iconProps = { size: 14 }
 
     switch (value) {
-      case 0:
-        return <Scan {...iconProps} />
       case 1:
-        return <ScanSearch {...iconProps} />
+        return <Scan {...iconProps} />
       case 2:
-        return <Focus {...iconProps} />
+        return <ScanSearch {...iconProps} />
       case 3:
-        return <Fullscreen {...iconProps} />
+        return <Focus {...iconProps} />
       case 4:
+        return <Fullscreen {...iconProps} />
+      case 5:
         return <ScanEye {...iconProps} />
       default:
         return <Scan {...iconProps} />
@@ -44,9 +44,9 @@ export function FocusLevelScale({ value, onChange }: { value?: number; onChange?
   return (
     <Slider
       value={value}
-      defaultValue={0}
-      min={0}
-      max={4}
+      defaultValue={1}
+      min={1}
+      max={5}
       step={1}
       marks={marks}
       orientation="vertical"

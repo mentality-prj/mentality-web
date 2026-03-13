@@ -20,15 +20,15 @@ export function EnergyLevelScale({ value, onChange }: { value?: number; onChange
     const iconProps = { size: 14, style: { transform: 'rotate(-90deg)' } }
 
     switch (value) {
-      case 0:
-        return <Battery {...iconProps} />
       case 1:
-        return <BatteryLow {...iconProps} />
+        return <Battery {...iconProps} />
       case 2:
-        return <BatteryMedium {...iconProps} />
+        return <BatteryLow {...iconProps} />
       case 3:
-        return <BatteryFull {...iconProps} />
+        return <BatteryMedium {...iconProps} />
       case 4:
+        return <BatteryFull {...iconProps} />
+      case 5:
         return <BatteryPlus {...iconProps} />
       default:
         return <Battery {...iconProps} />
@@ -44,9 +44,9 @@ export function EnergyLevelScale({ value, onChange }: { value?: number; onChange
   return (
     <Slider
       value={value}
-      defaultValue={0}
-      min={0}
-      max={4}
+      defaultValue={1}
+      min={1}
+      max={5}
       step={1}
       marks={marks}
       orientation="vertical"

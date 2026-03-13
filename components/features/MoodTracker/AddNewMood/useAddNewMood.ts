@@ -44,17 +44,17 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     clearSelectedTags,
   } = useTags({ availableTags })
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [stressLevel, setStressLevel] = useState<number>(0)
-  const [energyLevel, setEnergyLevel] = useState<number>(0)
-  const [focusLevel, setFocusLevel] = useState<number>(0)
+  const [stressLevel, setStressLevel] = useState<number>(1)
+  const [energyLevel, setEnergyLevel] = useState<number>(1)
+  const [focusLevel, setFocusLevel] = useState<number>(1)
   const [formKey, setFormKey] = useState(0)
 
   const resetForm = () => {
     setSelectedMood(null)
     clearSelectedTags()
-    setStressLevel(0)
-    setEnergyLevel(0)
-    setFocusLevel(0)
+    setStressLevel(1)
+    setEnergyLevel(1)
+    setFocusLevel(1)
     setShowAddTag(false)
     setFormKey((prev) => prev + 1)
   }

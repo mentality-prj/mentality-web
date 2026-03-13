@@ -20,15 +20,15 @@ export function StressLevelScale({ value, onChange }: { value?: number; onChange
     const iconProps = { size: 14 }
 
     switch (value) {
-      case 0:
-        return <Sun {...iconProps} />
       case 1:
-        return <Wind {...iconProps} />
+        return <Sun {...iconProps} />
       case 2:
-        return <Cloud {...iconProps} />
+        return <Wind {...iconProps} />
       case 3:
-        return <CloudRain {...iconProps} />
+        return <Cloud {...iconProps} />
       case 4:
+        return <CloudRain {...iconProps} />
+      case 5:
         return <CloudLightning {...iconProps} />
       default:
         return <Sun {...iconProps} />
@@ -44,9 +44,9 @@ export function StressLevelScale({ value, onChange }: { value?: number; onChange
   return (
     <Slider
       value={value}
-      defaultValue={0}
-      min={0}
-      max={4}
+      defaultValue={1}
+      min={1}
+      max={5}
       step={1}
       marks={marks}
       orientation="vertical"
