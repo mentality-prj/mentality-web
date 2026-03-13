@@ -1,6 +1,10 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import Card from '@/components/shared/Cards/Card'
+import { ENERGIES } from '@/constants/energy'
+import { FOCUSES } from '@/constants/focus'
+import { STRESSES } from '@/constants/stress'
+import { Tag } from '@/ds/components/Tag'
 import { levelToMoodKey } from '@/mappers/mood.mappers'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { SupportedLanguage } from '@/types/languages'
@@ -13,6 +17,10 @@ export const DailyStatistics = async ({ records = [] }: DailyStatisticsProps) =>
   const t = await getTranslations('components.DailyCard')
   const commonMy = await getTranslations('common.My')
   const moodT = await getTranslations('components.Mood.labelsEmoji')
+  const moodMeta = await getTranslations('components.Mood')
+  const ts = await getTranslations('components.StressLevelScale')
+  const te = await getTranslations('components.EnergyLevelScale')
+  const tf = await getTranslations('components.FocusLevelScale')
   const locale = (await getLocale()) as SupportedLanguage
   const detailedDate = new Intl.DateTimeFormat(locale).format(new Date())
   const detailedTitle = commonMy('detailed', { date: detailedDate }) || t('cards.detailed', { date: detailedDate })
@@ -50,7 +58,9 @@ export const DailyStatistics = async ({ records = [] }: DailyStatisticsProps) =>
               {records.map((record) => {
                 const moodKey = record.moodLevel ? levelToMoodKey(record.moodLevel) : undefined
                 const moodLabel = moodKey ? moodT(moodKey === 'great' ? 'veryGood' : moodKey) : 'N/A'
-                const stressLabel = record.stressLevel ?? 'N/A'
+                const stressInfo = STRESSES.find((s) => s.value === record.stressLevel) ?? STRESSES[0]
+                const energyInfo = ENERGIES.find((e) => e.value === record.energyLevel) ?? ENERGIES[2]
+                const focusInfo = FOCUSES.find((f) => f.value === record.focusLevel) ?? FOCUSES[2]
 
                 return (
                   <div key={record.id} className="rounded border border-gray-200 bg-white p-3">
@@ -58,11 +68,15 @@ export const DailyStatistics = async ({ records = [] }: DailyStatisticsProps) =>
                       <span className="text-sm">
                         {t('statistics.mood')} {moodLabel}
                       </span>
-                      <span className="text-sm text-gray-500">
-                        {t('statistics.stress')} {stressLabel}
-                      </span>
                     </div>
-                    {record.description && <p className="mt-1 text-xs text-gray-600">{record.description}</p>}
+                    <div className="mt-1 flex flex-wrap items-center gap-xs">
+                      <span className="text-xs text-gray-500">{moodMeta('stressLabel')}:</span>
+                      <Tag type={stressInfo.statusClass} text={ts(stressInfo.label as string)} />
+                      <span className="text-xs text-gray-500">{moodMeta('energyLabel')}:</span>
+                      <Tag type={energyInfo.statusClass} text={te(energyInfo.label as string)} />
+                      <span className="text-xs text-gray-500">{moodMeta('focusLabel')}:</span>
+                      <Tag type={focusInfo.statusClass} text={tf(focusInfo.label as string)} />
+                    </div>
                   </div>
                 )
               })}

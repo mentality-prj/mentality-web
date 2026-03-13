@@ -20,6 +20,7 @@ type SliderProps = Omit<React.HTMLAttributes<HTMLDivElement>, 'onChange'> & {
   orientation?: 'horizontal' | 'vertical'
   disabled?: boolean
   fillColor?: string
+  thumbIcon?: React.ReactNode
 }
 
 export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Slider(
@@ -34,6 +35,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
     orientation = 'horizontal',
     disabled = false,
     fillColor,
+    thumbIcon,
     className,
     'aria-label': ariaLabel,
     ...rest
@@ -191,7 +193,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
   )
 
   const thumbClasses = cn(
-    'absolute flex h-5 w-5 -translate-x-1/2 items-center justify-center rounded-full border border-primary bg-background shadow transition-shadow',
+    'absolute flex h-6 w-6 -translate-x-1/2 items-center justify-center rounded-full border border-primary bg-background shadow transition-shadow',
     orientation === 'horizontal' && '-translate-y-1/2',
     disabled ? 'opacity-40' : 'focus-visible:ring-ring hover:shadow-md focus-visible:ring-2'
   )
@@ -228,7 +230,9 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
         <div
           className={thumbClasses}
           style={orientation === 'horizontal' ? { ...thumbStyle, top: '50%' } : { ...thumbStyle, left: '50%' }}
-        />
+        >
+          {thumbIcon}
+        </div>
 
         {markItems.map((mark) => {
           const markPercent = ((mark.value - min) / range) * 100
