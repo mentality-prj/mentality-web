@@ -19,7 +19,7 @@ const MyDay = async () => {
   const res = await getMoodRecords(session)
   const moodCounts = 'error' in res ? [] : mapMoodRecordsToCounts(res?.data ?? [])
 
-  const todayRes = await getLastMoodRecords(session, { days: 1, active: true })
+  const todayRes = await getLastMoodRecords(session, { days: 1 })
   const todayRecords = 'error' in todayRes ? [] : (todayRes?.data ?? [])
 
   const goalsRes = await fetchPersonalGoals(session)

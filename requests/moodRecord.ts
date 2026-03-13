@@ -18,12 +18,8 @@ export async function createMoodRecord(session: CustomSession | null, dto: Creat
   return { data: res.data }
 }
 
-export async function getMoodRecords(
-  session: CustomSession | null,
-  params?: { active?: boolean; page?: number; limit?: number }
-) {
+export async function getMoodRecords(session: CustomSession | null, params?: { page?: number; limit?: number }) {
   const query = new URLSearchParams()
-  if (typeof params?.active === 'boolean') query.set('active', String(params.active))
   if (typeof params?.page === 'number') query.set('page', String(params.page))
   if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
 
@@ -33,15 +29,11 @@ export async function getMoodRecords(
   return { data: res.data }
 }
 
-export async function getLastMoodRecords(
-  session: CustomSession | null,
-  params?: { limit?: number; active?: boolean; days?: number }
-) {
+export async function getLastMoodRecords(session: CustomSession | null, params?: { limit?: number; days?: number }) {
   const query = new URLSearchParams()
   // If days is provided (>0) use it; otherwise fall back to limit for backward compatibility
   if (typeof params?.days === 'number' && params.days > 0) query.set('days', String(params.days))
   else if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
-  if (typeof params?.active === 'boolean') query.set('active', String(params.active))
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.LAST}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }

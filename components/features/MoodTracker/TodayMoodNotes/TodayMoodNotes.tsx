@@ -20,7 +20,7 @@ export const TodayMoodNotes = async () => {
   const ts = await getTranslations('components.StressLevelScale')
   const te = await getTranslations('components.EnergyLevelScale')
   const tf = await getTranslations('components.FocusLevelScale')
-  const todayRecordMood = await getLastMoodRecords(session, { limit: 1, active: true })
+  const todayRecordMood = await getLastMoodRecords(session, { limit: 1 })
   const todayRecord = 'error' in todayRecordMood ? [] : (todayRecordMood?.data ?? [])
   const totalRecords = todayRecord.length
   return (
