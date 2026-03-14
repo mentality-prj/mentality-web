@@ -62,11 +62,11 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
       submitDisabled={!isFormValid || isSubmitting}
       onCancel={onClose}
       submitLabel={ct('save')}
-      className="p-6"
+      className="p-6 max-md:w-[100%] max-md:p-4"
     >
       <div className="flex flex-col gap-default">
         <h5>{tm('howAreYou')}</h5>
-        <div className="grid grid-cols-5 px-4" style={{ gridAutoColumns: 'max-content' }}>
+        <div className="grid grid-cols-5 px-4 max-lg:px-0" style={{ gridAutoColumns: 'max-content' }}>
           {MOODS.map((mood) => {
             const isSelected = selectedMood === mood.key
 
@@ -83,15 +83,13 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
                 >
                   <mood.icon />
                 </Button>
-                <span className="text-textcolor-tertiary mt-2 whitespace-nowrap text-xs font-normal">
-                  {mn(mood.label)}
-                </span>
+                <span className="text-textcolor-tertiary mt-2 text-xs font-normal max-md:hidden">{mn(mood.label)}</span>
               </div>
             )
           })}
         </div>
 
-        <div className="flex gap-sm">
+        <div className="flex gap-sm max-md:flex-col">
           <StressAssessment key={`stress-${formKey}`} value={stressLevel} onChange={(v) => setStressLevel(v)} />
           <EnergyAssessment key={`energy-${formKey}`} value={energyLevel} onChange={(v) => setEnergyLevel(v)} />
           <FocusAssessment key={`focus-${formKey}`} value={focusLevel} onChange={(v) => setFocusLevel(v)} />

@@ -1,5 +1,9 @@
 {
   "page": "Strona",
   "previous": "Poprzednia",
-  "next": "Następna"
+  "next": "Następna",
+  "mood": "Nastrój",
+  "stress": "Stres",
+  "energy": "Energia",
+  "focus": "Koncentracja"
 }

@@ -13,9 +13,10 @@ interface Props {
   className?: string
   hideDate?: boolean
   children?: ReactNode
+  link?: string
 }
 
-export default function AffirmationCard({ item, tools, className = '', hideDate = false, children }: Props) {
+export default function AffirmationCard({ item, tools, className = '', hideDate = false, children, link }: Props) {
   const text = item.translations?.uk || item.translations?.en || item.translations?.pl || ''
   const imageUrl = item.imageUrl
   const currentDate = formatDate(new Date(Date.now()).toISOString())
@@ -27,6 +28,7 @@ export default function AffirmationCard({ item, tools, className = '', hideDate 
       icon={hideDate ? undefined : <Calendar size={12} />}
       aftertext={text}
       tools={tools}
+      link={link}
     >
       {children}
       {imageUrl && (

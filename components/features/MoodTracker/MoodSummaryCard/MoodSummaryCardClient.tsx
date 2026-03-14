@@ -1,6 +1,7 @@
 'use client'
 import { ReactNode, useState } from 'react'
 import Image from 'next/image'
+import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
@@ -28,6 +29,7 @@ const MoodSummaryCardClient = ({
   availableTags = [],
 }: MoodSummaryCardClientProps) => {
   const tm = useTranslations('components.Mood')
+  const router = useRouter()
   const [showEntry, setShowEntry] = useState(false)
 
   return (
@@ -35,10 +37,13 @@ const MoodSummaryCardClient = ({
       {showEntry && (
         <>
           <FullScreenBackdrop onClick={() => setShowEntry(false)} />
-          <div className="absolute inset-0 z-50">
+          <div className="z-50 max-lg:fixed max-lg:inset-x-[10%] max-lg:bottom-4 max-lg:top-4 max-lg:overflow-y-auto lg:absolute lg:inset-0 lg:min-w-[543px] xl:min-w-0">
             <AddNewMood
               onClose={() => setShowEntry(false)}
-              onSave={() => setShowEntry(false)}
+              onSave={() => {
+                setShowEntry(false)
+                router.refresh()
+              }}
               availableTags={availableTags}
             />
           </div>

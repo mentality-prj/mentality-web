@@ -1,8 +1,11 @@
 'use client'
 
 import { ReactNode } from 'react'
+import { Calendar, Clock, SquareArrowOutUpRight } from 'lucide-react'
 
 import { Tag } from '@/ds/components/Tag'
+import { Link } from '@/i18n/navigation'
+import { cn } from '@/lib/utils'
 import { darkTypes, Statuses, StatusType, whiteTypes } from '@/types/status.types'
 
 import { makeContainerClickHandler, makeContainerKeyDownHandler } from './helpers/cardHandlers'
@@ -12,13 +15,17 @@ interface CardProps {
   type?: StatusType
   icon?: ReactNode
   sup?: string | ReactNode | ReactNode[]
+  date?: string
+  time?: string
   title?: ReactNode
+  subtitle?: ReactNode
   text?: ReactNode
   aftertext?: ReactNode
   remark?: ReactNode
   children?: ReactNode
   tags?: string[]
   tools?: ReactNode | ReactNode[]
+  link?: string
   onClick?: () => void
   onMouseEnter?: () => void
   onMouseLeave?: () => void
@@ -30,12 +37,16 @@ const Card = ({
   icon,
   remark,
   sup,
+  date,
+  time,
   text,
   aftertext,
   title,
+  subtitle,
   type = Statuses.default,
   tags,
   tools,
+  link,
   onClick,
   onMouseEnter,
   onMouseLeave,
@@ -48,30 +59,66 @@ const Card = ({
   const handleContainerKeyDown = makeContainerKeyDownHandler(onClick)
 
   if (type) {
-    return (
+    const cardDiv = (
       <div
-        onClick={handleContainerClick}
-        onKeyDown={handleContainerKeyDown}
+        onClick={link ? undefined : handleContainerClick}
+        onKeyDown={link ? undefined : handleContainerKeyDown}
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
-        role={onClick ? 'button' : undefined}
-        tabIndex={onClick ? 0 : undefined}
-        className={`flex flex-col gap-1.5 rounded-2xl ${sup || tools ? 'px-6 pb-6 pt-2' : 'p-6'} ${Statuses[type as StatusType]} ${className}`}
+        role={!link && onClick ? 'button' : undefined}
+        tabIndex={!link && onClick ? 0 : undefined}
+        className={cn(
+          'relative flex flex-col gap-1.5 rounded-2xl',
+          sup || tools || date || time ? 'px-6 pb-6 pt-2' : 'p-6',
+          Statuses[type as StatusType],
+          (link || onClick) && 'cursor-pointer transition-shadow hover:shadow-[0_4px_14px_0_hsl(var(--primary)/0.35)]',
+          className
+        )}
       >
-        {(sup || tools) && (
+        {link && (
+          <Link
+            href={link}
+            className="absolute inset-0 rounded-2xl"
+            aria-label={typeof title === 'string' ? title : typeof text === 'string' ? text : undefined}
+          />
+        )}
+        {(sup || tools || date || time) && (
           <div className={`sup mt-2 flex h-3 items-center justify-between ${textClass}`}>
-            <div className="flex items-center gap-1">
+            <div className="flex items-center gap-2">
               {icon && icon}
               {sup && <div className="">{sup}</div>}
+              {date && (
+                <div className="flex items-center gap-1">
+                  <Calendar size={12} />
+                  <span>{date}</span>
+                </div>
+              )}
+              {time && (
+                <div className="flex items-center gap-1">
+                  <Clock size={12} />
+                  <span>{time}</span>
+                </div>
+              )}
             </div>
-            {tools && (
-              <div className={`flex gap-1 ${isDark ? 'tools-dark' : ''}`} data-card-tools>
-                {Array.isArray(tools) ? tools.map((tool, idx) => <span key={idx}>{tool}</span>) : tools}
-              </div>
+            <div className={`relative z-10 flex gap-1 ${isDark ? 'tools-dark' : ''}`} data-card-tools>
+              {tools && (Array.isArray(tools) ? tools.map((tool, idx) => <span key={idx}>{tool}</span>) : tools)}
+              {tools && (link || onClick) && (
+                <div className="-mr-3 flex justify-center pt-1 align-middle opacity-65">
+                  <SquareArrowOutUpRight size={16} />
+                </div>
+              )}
+            </div>
+          </div>
+        )}
+        {title && (
+          <div className="flex items-start justify-between gap-2">
+            <h3 className={`mb-0.5 text-xl ${textClass}`}>{title}</h3>
+            {(link || onClick) && !tools && (
+              <SquareArrowOutUpRight size={16} className="relative z-10 -mr-3 mt-2 shrink-0 opacity-65" />
             )}
           </div>
         )}
-        {title && <h3 className={`mb-0.5 text-xl ${textClass}`}>{title}</h3>}
+        {subtitle && <h4 className={`text-sm ${textClass}`}>{subtitle}</h4>}
         {text && <p className={textClass}>{text}</p>}
         {remark && <div className={`remark ${textClass}`}>{remark}</div>}
         {children}
@@ -85,6 +132,7 @@ const Card = ({
         )}
       </div>
     )
+    return cardDiv
   }
 
   return (

@@ -128,7 +128,7 @@ export async function middleware(request: NextRequest) {
 
   const protectedRoutes = Object.fromEntries(
     Object.entries(Routes)
-      .filter(([, path]) => !publicRoutes.includes(path))
+      .filter((entry): entry is [string, string] => typeof entry[1] === 'string' && !publicRoutes.includes(entry[1]))
       .map(([key, path]) => [key, normalizedPath === path || normalizedPath.startsWith(path + '/')])
   )
 

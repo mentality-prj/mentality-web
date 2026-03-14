@@ -1,5 +1,9 @@
 {
   "page": "Page",
   "previous": "Previous",
-  "next": "Next"
+  "next": "Next",
+  "mood": "Mood",
+  "stress": "Stress",
+  "energy": "Energy",
+  "focus": "Focus"
 }

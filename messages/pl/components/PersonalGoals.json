@@ -2,6 +2,8 @@
   "Title": "Cele osobiste",
   "Subtitle": "Ważne kroki w kierunku równowagi wewnętrznej",
   "PersonalGoalsList": {
+    "EmptyTitle": "Nie masz jeszcze żadnych aktywnych celów",
+    "EmptyText": "Wyznacz dziś mały cel — to pierwszy krok do lepszego samopoczucia",
     "ViewAll": "Pokaż wszystkie cele"
   },
   "Filter": {

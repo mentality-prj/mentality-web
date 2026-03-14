@@ -11,11 +11,14 @@ export const RoutesTitles = Object.freeze({
   ARTICLES: 'Articles',
   DIARY: 'Diary',
   GUIDE: 'Guide',
+  MEDITATIONS: 'Guide/Meditations',
+  GUIDETIPS: 'Guide/Tips',
   MYDAY: 'My-day',
   MOODTRACKER: 'Mood-Tracker',
   MYSPACE: 'My-Space',
   MYPROGRESS: 'My-Progress',
   MYPROGRESSGOALS: 'My-Progress/Goals',
+  MYPROGRESSSTATISTICS: 'My-Progress/Statistics',
   MENTAL_GAMES: 'Mental-Games',
   PSYCHOLOGICALTESTS: 'Psychological-Tests',
   MENTAL_CHECK: 'Psychological-Tests/mental-check',
@@ -32,7 +35,8 @@ export const RoutesTitles = Object.freeze({
   COOKIES: 'Cookies',
 })
 
-export const Routes: RoutesType = Object.freeze({
+export const Routes = Object.freeze({
   ...transformToRoutes(RoutesTitles),
   MAIN: '/',
-})
+  meditationDetail: (id: string) => `/guide/meditations/${id}`,
+}) as RoutesType & { readonly meditationDetail: (id: string) => string }

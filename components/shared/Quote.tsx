@@ -10,7 +10,7 @@ interface QuoteProps {
  */
 const Quote = ({ text, author, className = '' }: QuoteProps) => {
   return (
-    <blockquote className={`rounded border-l-4 border-border px-4 py-2 ${className}`} aria-label="Quote">
+    <blockquote className={`rounded border-l-4 border-border py-2 pl-4 ${className}`} aria-label="Quote">
       <p className="text-base leading-relaxed text-textcolor-secondary">
         <em>«{text}»</em>
       </p>
