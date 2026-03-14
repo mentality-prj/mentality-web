@@ -12,9 +12,10 @@ interface Props {
   tools?: ReactNode
   className?: string
   hideDate?: boolean
+  children?: ReactNode
 }
 
-export default function AffirmationCard({ item, tools, className = '', hideDate = false }: Props) {
+export default function AffirmationCard({ item, tools, className = '', hideDate = false, children }: Props) {
   const text = item.translations?.uk || item.translations?.en || item.translations?.pl || ''
   const imageUrl = item.imageUrl
   const currentDate = formatDate(new Date(Date.now()).toISOString())
@@ -27,6 +28,7 @@ export default function AffirmationCard({ item, tools, className = '', hideDate 
       aftertext={text}
       tools={tools}
     >
+      {children}
       {imageUrl && (
         <div className="mt-1">
           <div className="relative w-full overflow-hidden rounded-md" style={{ paddingTop: '100%' }}>

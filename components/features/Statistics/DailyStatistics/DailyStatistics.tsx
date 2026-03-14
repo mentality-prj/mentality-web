@@ -5,6 +5,7 @@ import { ENERGIES } from '@/constants/energy'
 import { FOCUSES } from '@/constants/focus'
 import { STRESSES } from '@/constants/stress'
 import { Tag } from '@/ds/components/Tag'
+import { Link } from '@/i18n/navigation'
 import { levelToMoodKey } from '@/mappers/mood.mappers'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { SupportedLanguage } from '@/types/languages'
@@ -34,22 +35,24 @@ export const DailyStatistics = async ({ records = [] }: DailyStatisticsProps) =>
 
   return (
     <>
-      <Card title={detailedTitle}>
-        <div className="mt-2 space-y-3 p-4">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">{t('statistics.recordsForDay')}</span>
-            <span className="text-lg font-semibold">{totalRecords}</span>
+      <Link href="/my-progress/statistics" title={t('linkText', { type: 'statistics' })}>
+        <Card title={detailedTitle}>
+          <div className="mt-2 space-y-3 p-4">
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">{t('statistics.recordsForDay')}</span>
+              <span className="text-lg font-semibold">{totalRecords}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">{t('statistics.averageMood')}</span>
+              <span className="text-lg font-semibold">{avgMood} / 5</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm text-gray-600">{t('statistics.averageStress')}</span>
+              <span className="text-lg font-semibold">{avgStress} / 5</span>
+            </div>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">{t('statistics.averageMood')}</span>
-            <span className="text-lg font-semibold">{avgMood} / 5</span>
-          </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">{t('statistics.averageStress')}</span>
-            <span className="text-lg font-semibold">{avgStress} / 5</span>
-          </div>
-        </div>
-      </Card>
+        </Card>
+      </Link>
 
       <Card title={activityTitle} className="h-full">
         <div className="mt-2 h-full rounded bg-gray-50 p-4">
