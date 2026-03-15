@@ -2,6 +2,7 @@ import { Heart } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { logger } from '@/lib/logger'
 import { toggleFavoriteWithSession } from '@/requests/favorites'
 import { CustomSession } from '@/types/auth'
 import { ItemType } from '@/types/itemTypes'
@@ -23,7 +24,7 @@ export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange, classNa
     try {
       // Use session-based helper; get session via `useSession()` from next-auth
       if (!session) {
-        console.error('No session provided; cannot toggle favorite')
+        logger.error('No session provided; cannot toggle favorite')
         return
       }
 
@@ -33,10 +34,10 @@ export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange, classNa
         const next = !!result.data.isFavorite
         onChange?.(next)
       } else {
-        console.error('Toggle favorite failed', (result as { error?: unknown }).error)
+        logger.error('Toggle favorite failed', { error: (result as { error?: unknown }).error })
       }
     } catch (err) {
-      console.error('Failed to toggle favorite', err)
+      logger.error('Failed to toggle favorite', err instanceof Error ? err : { error: err })
     }
   }
 

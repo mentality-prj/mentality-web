@@ -2,7 +2,9 @@
   "Title": "Personal goals",
   "Subtitle": "Important steps towards inner balance",
   "PersonalGoalsList": {
-    "ViewAll": "Show all goals"
+    "ViewAll": "Show all goals",
+    "EmptyTitle": "You have no active goals yet",
+    "EmptyText": "Set a small goal today — it's the first step towards feeling better"
   },
   "Filter": {
     "All": "All",

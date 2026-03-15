@@ -4,6 +4,7 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
+import { logger } from '@/lib/logger'
 import { cn } from '@/lib/utils'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { GoalEntity } from '@/types/api-responses'
@@ -44,6 +45,8 @@ export const PersonalGoalsList = ({
 }) => {
   const { data: session } = useSession()
   const [personalGoals, setPersonalGoals] = useState<GoalEntity[]>(initialGoals ?? [])
+  const [isLoading, setIsLoading] = useState(!initialGoals)
+  const [error, setError] = useState(false)
   const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
   const tList = useTranslations('components.PersonalGoals.PersonalGoalsList')
   const iconLookup = useMemo(() => buildGoalIconLookup(t), [t])
@@ -54,7 +57,7 @@ export const PersonalGoalsList = ({
       const refetch = async () => {
         const res = await fetchPersonalGoals(session)
         if ('error' in res) {
-          console.error('Failed to refetch personal goals.', res.error)
+          logger.error('Failed to refetch personal goals.', { error: res.error })
           return
         }
         setPersonalGoals(res.data ?? [])
@@ -71,10 +74,13 @@ export const PersonalGoalsList = ({
     const fetchGoals = async () => {
       const res = await fetchPersonalGoals(session)
       if ('error' in res) {
-        console.error('Failed to fetch personal goals.', res.error)
+        logger.error('Failed to fetch personal goals.', { error: res.error })
+        setError(true)
+        setIsLoading(false)
         return
       }
       setPersonalGoals(res.data ?? [])
+      setIsLoading(false)
     }
     fetchGoals()
   }, [session, refreshKey, initialGoals])
@@ -111,6 +117,13 @@ export const PersonalGoalsList = ({
       )}
     >
       {showCreate && <CreatePersonalGoals onCreated={handleCreated} />}
+      {!showCreate && !isLoading && !error && visibleGoals.length === 0 && (
+        <div className="flex flex-col gap-xs text-textcolor-muted">
+          <h3>{tList('EmptyTitle')}</h3>
+          <p className="text-sm">{tList('EmptyText')}</p>
+          <CreatePersonalGoals onCreated={handleCreated} />
+        </div>
+      )}
       {visibleGoals.map((goal) => (
         <PersonalGoalsCard
           key={goal.id}

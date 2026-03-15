@@ -26,28 +26,30 @@ const MyDay = async () => {
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
 
   return (
-    <article className="grid grid-cols-1 gap-default laptop:grid-cols-4">
-      <div className="flex flex-col gap-sm laptop:col-span-2">
+    <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
+      <div className="flex flex-col gap-sm xl:col-span-2">
         <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
         <TodayMoodNotes />
       </div>
 
-      <PersonalGoalsList
-        filter="pending"
-        showCreate={false}
-        limit={3}
-        viewAllHref={Routes.MYPROGRESSGOALS}
-        readonly
-        initialGoals={initialGoals}
-        className="self-start"
-      />
+      <div className="flex flex-col gap-sm self-start xl:contents">
+        <PersonalGoalsList
+          filter="pending"
+          showCreate={false}
+          limit={3}
+          viewAllHref={Routes.MYPROGRESSGOALS}
+          readonly
+          initialGoals={initialGoals}
+          className="self-start"
+        />
 
-      <section className="flex flex-col gap-sm self-start">
-        <DailyAffirmationClient />
-        <DailyTipClient />
-      </section>
+        <section className="flex flex-col gap-sm self-start">
+          <DailyAffirmationClient />
+          <DailyTipClient />
+        </section>
+      </div>
 
-      <div className="grid gap-default laptop:col-span-4 laptop:grid-cols-2">
+      <div className="grid gap-default laptop:col-span-2 laptop:grid-cols-2 xl:col-span-4">
         <DailyStatistics records={todayRecords} />
       </div>
 

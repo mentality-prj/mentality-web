@@ -18,6 +18,19 @@ export async function generateMetadata({ params }: { params: { locale: string } 
   const t = await getTranslations({ locale: params.locale, namespace: 'common.title' })
   return {
     title: t('AppTitle', { default: 'Dzvin.co' }),
+    manifest: '/favicons/site.webmanifest',
+    themeColor: '#ffffff',
+    icons: {
+      apple: '/favicons/apple-touch-icon.png',
+      icon: [
+        { url: '/favicons/favicon-32x32.png', sizes: '32x32', type: 'image/png' },
+        { url: '/favicons/favicon-16x16.png', sizes: '16x16', type: 'image/png' },
+      ],
+      shortcut: '/favicons/favicon.ico',
+    },
+    other: {
+      'msapplication-TileColor': '#ffffff',
+    },
   }
 }
 

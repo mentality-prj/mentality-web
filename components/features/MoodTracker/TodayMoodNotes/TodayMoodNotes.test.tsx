@@ -15,7 +15,17 @@ jest.mock('@/i18n/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }))
 
-jest.mock('lucide-react', () => ({ Calendar: () => null }))
+jest.mock('lucide-react', () => ({ Calendar: () => null, Clock: () => null }))
+
+jest.mock('@/components/features/MoodTracker/MoodLevelBars/MoodLevelBars', () => ({
+  MoodLevelBars: () => (
+    <div>
+      <span>stress</span>
+      <span>energy</span>
+      <span>focus</span>
+    </div>
+  ),
+}))
 
 jest.mock('@/components/shared/Cards/Card', () => ({
   __esModule: true,
@@ -23,12 +33,15 @@ jest.mock('@/components/shared/Cards/Card', () => ({
     children,
     title,
     text,
+    link,
   }: {
     children?: React.ReactNode
     title?: React.ReactNode
     text?: React.ReactNode
+    link?: string
   }) => (
     <div>
+      {link && <a href={link} aria-label={typeof title === 'string' ? title : 'link'} />}
       {title && <h3>{title}</h3>}
       {text && <div data-testid="card-text">{text}</div>}
       {children}
@@ -87,15 +100,15 @@ describe('TodayMoodNotes', () => {
     expect(screen.getByText('empty')).toBeInTheDocument()
   })
 
-  it('renders stress, energy and focus tags for each record', async () => {
+  it('renders stress, energy and focus labels for each record', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     render(await TodayMoodNotes())
 
     expect(screen.queryByText('empty')).not.toBeInTheDocument()
-    // 3 tags per record: stress, energy, focus (plus 2 in tooltips = total may vary; check at least 3)
-    const tags = screen.getAllByTestId('tag')
-    expect(tags.length).toBeGreaterThanOrEqual(3)
+    expect(screen.getByText('stress')).toBeInTheDocument()
+    expect(screen.getByText('energy')).toBeInTheDocument()
+    expect(screen.getByText('focus')).toBeInTheDocument()
   })
 
   it('renders a tag for each of the three level dimensions', async () => {
@@ -103,9 +116,9 @@ describe('TodayMoodNotes', () => {
 
     render(await TodayMoodNotes())
 
-    expect(screen.getByText(/stressLabel/)).toBeInTheDocument()
-    expect(screen.getByText(/energyLabel/)).toBeInTheDocument()
-    expect(screen.getByText(/focusLabel/)).toBeInTheDocument()
+    expect(screen.getByText('stress')).toBeInTheDocument()
+    expect(screen.getByText('energy')).toBeInTheDocument()
+    expect(screen.getByText('focus')).toBeInTheDocument()
   })
 
   it('always renders the "more" link to mood-tracker', async () => {
@@ -126,8 +139,8 @@ describe('TodayMoodNotes', () => {
 
     render(await TodayMoodNotes())
 
-    // 3 label spans per record: one stressLabel: per record
-    const stressLabels = screen.getAllByText(/stressLabel/)
+    // one stress label span per record
+    const stressLabels = screen.getAllByText('stress')
     expect(stressLabels).toHaveLength(2)
   })
 

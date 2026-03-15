@@ -16,6 +16,7 @@ type Props = {
 
 export function MoodRecordsList({ records }: Props) {
   const t = useTranslations('components.Mood')
+  const commonGeneral = useTranslations('common.General')
   const ts = useTranslations('components.StressLevelScale')
   const te = useTranslations('components.EnergyLevelScale')
   const tf = useTranslations('components.FocusLevelScale')
@@ -41,11 +42,11 @@ export function MoodRecordsList({ records }: Props) {
             title={label}
             text={
               <span className="flex flex-wrap items-center gap-xs">
-                <span className="text-xs">{t('stressLabel')}:</span>
+                <span className="text-xs">{commonGeneral('stress')}:</span>
                 <Tag type={stressInfo.statusClass} text={ts(stressInfo.label as string)} />
-                <span className="text-xs">{t('energyLabel')}:</span>
+                <span className="text-xs">{commonGeneral('energy')}:</span>
                 <Tag type={energyInfo.statusClass} text={te(energyInfo.label as string)} />
-                <span className="text-xs">{t('focusLabel')}:</span>
+                <span className="text-xs">{commonGeneral('focus')}:</span>
                 <Tag type={focusInfo.statusClass} text={tf(focusInfo.label as string)} />
               </span>
             }

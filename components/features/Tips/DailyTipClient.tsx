@@ -1,17 +1,16 @@
-import { getLocale, getTranslations } from 'next-intl/server'
+import { getLocale } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import Card from '@/components/shared/Cards/Card'
 import Quote from '@/components/shared/Quote'
-import { Link } from '@/i18n/navigation'
+import { Routes } from '@/constants/routes'
 import { getTips } from '@/requests/tips'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 import { SupportedLanguage } from '@/types/languages'
 import { Statuses } from '@/types/status.types'
 
 export const DailyTipClient = async () => {
-  const t = await getTranslations('components.DailyCard')
   const session = await auth()
   const locale = await getLocale()
 
@@ -22,18 +21,10 @@ export const DailyTipClient = async () => {
   const item = items.length > 0 ? items[0] : null
   if (!item) return null
 
-  const tools = (
-    <FavoriteButtonWrapper
-      className="absolute right-6 top-2 z-20"
-      key="favorite"
-      itemType={ITEM_TYPE_DEFS.tips}
-      itemId={item.id}
-    />
-  )
+  const tools = <FavoriteButtonWrapper key="favorite" itemType={ITEM_TYPE_DEFS.tips} itemId={item.id} />
 
   return (
-    <Card className="relative" type={Statuses.base} tools={tools}>
-      <Link className="absolute inset-0 z-0" href="/guide/tips" title={t('linkText', { type: 'tip' })} />
+    <Card type={Statuses.base} tools={tools} link={Routes.GUIDETIPS} className="mx-0 py-0 pl-0 pr-6">
       <Quote text={item.translations?.[locale as SupportedLanguage] ?? item.translations?.en ?? ''} />
     </Card>
   )
