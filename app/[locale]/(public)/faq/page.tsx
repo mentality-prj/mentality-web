@@ -1,8 +1,4 @@
-import { SupportedLanguage } from '@/types/languages'
-
-export default function FAQPage({ params }: { params: { locale: SupportedLanguage } }) {
-  console.log('params', params)
-
+export default function FAQPage() {
   return (
     <main className="mx-auto max-w-3xl px-4 py-12">
       <h1 className="mb-4 text-3xl font-bold">FAQ</h1>

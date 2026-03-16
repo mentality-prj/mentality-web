@@ -9,12 +9,13 @@ import { Link } from '@/i18n/navigation'
 import { getExerciseById } from '@/requests/exercises'
 import { SupportedLanguage } from '@/types/languages'
 
-export default async function MeditationPage({ params }: { params: { id: string } }) {
+export default async function MeditationPage({ params }: { params: Promise<{ id: string }> }) {
   const tpm = await getTranslations('pages.Meditation')
   const session = await auth()
   const locale = (await getLocale()) as SupportedLanguage
+  const { id } = await params
 
-  const res = await getExerciseById(session, params.id)
+  const res = await getExerciseById(session, id)
 
   if (res.error) {
     return (
@@ -59,7 +60,7 @@ export default async function MeditationPage({ params }: { params: { id: string 
           </Card>
           {/* TODO: Add card  */}
         </div>
-        <OtherMeditations currentMeditationId={params.id} />
+        <OtherMeditations currentMeditationId={id} />
       </div>
     </article>
   )

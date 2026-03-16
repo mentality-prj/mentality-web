@@ -14,8 +14,9 @@ import { Providers } from './providers'
 
 import '@/styles/globals.css'
 
-export async function generateMetadata({ params }: { params: { locale: string } }): Promise<Metadata> {
-  const t = await getTranslations({ locale: params.locale, namespace: 'common.title' })
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'common.title' })
   return {
     title: t('AppTitle', { default: 'Dzvin.co' }),
     manifest: '/favicons/site.webmanifest',
@@ -36,11 +37,12 @@ export async function generateMetadata({ params }: { params: { locale: string } 
 
 export default async function LocaleLayout({
   children,
-  params: { locale },
+  params,
 }: {
   children: ReactNode
-  params: { locale: SupportedLanguage }
+  params: Promise<{ locale: SupportedLanguage }>
 }) {
+  const { locale } = await params
   if (!routing.locales.includes(locale)) {
     notFound()
   }

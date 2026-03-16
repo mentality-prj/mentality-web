@@ -1,0 +1,27 @@
+{
+  "loading": {
+    "ariaLabel": "Ładowanie story",
+    "text": "Twoje story się generuje…"
+  },
+  "notReady": {
+    "title": "Story jest jeszcze w przygotowaniu — zajrzyj za chwilę",
+    "description": "AI analizuje Twoje dane. Zazwyczaj trwa to mniej niż minutę."
+  },
+  "error": {
+    "title": "Nie udało się załadować story",
+    "description": "Sprawdź połączenie i spróbuj ponownie.",
+    "retryCta": "Spróbuj ponownie"
+  },
+  "progressDots": {
+    "ariaLabel": "Ekran {current} z {total}"
+  },
+  "card": {
+    "title": "Twoje Mood Story",
+    "description": "Spersonalizowana opowieść na podstawie Twoich danych",
+    "viewCta": "Zobacz swoje story",
+    "modalTitle": "Mood Story",
+    "closeAriaLabel": "Zamknij story",
+    "prevAriaLabel": "Poprzedni ekran",
+    "nextAriaLabel": "Następny ekran"
+  }
+}

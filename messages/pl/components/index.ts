@@ -22,6 +22,7 @@ import LastTenDaysMoodRecords from './LastTenDaysMoodRecords.json'
 import Mood from './Mood.json'
 import MoodBadge from './MoodBadge.json'
 import MoodCard from './MoodCard.json'
+import MoodStoryCard from './MoodStoryCard.json'
 import MoodMarks from './MoodMarks.json'
 import Navbar from './Navbar.json'
 import Navigation from './Navigation.json'
@@ -71,6 +72,7 @@ export const components = {
   Diary,
   AvatarMenu,
   MoodCard,
+  MoodStoryCard,
   FavoriteButton,
   PlayButton,
   VoiceSelector,
