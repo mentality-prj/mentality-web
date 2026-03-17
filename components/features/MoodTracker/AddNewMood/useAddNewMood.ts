@@ -95,7 +95,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
         return
       }
 
-      setLastSubmittedAt(new Date().toISOString())
+      setLastSubmittedAt(result.data?.createdAt ?? new Date().toISOString())
       notifySuccess(safeT('Toast.Saved', 'Mood saved'))
       resetForm()
       if (onSave) onSave()

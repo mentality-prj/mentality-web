@@ -91,7 +91,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
             return (
               <div key={mood.key} className="flex flex-col items-center justify-between py-5 text-center">
                 <Button
-                  size="iconBig"
+                  size="iconXL"
                   variant="iconButton"
                   className={`${isSelected ? 'rounded-full ring-4 ring-sky-400/30' : ''}`}
                   onClick={() => setSelectedMood(mood.key)}

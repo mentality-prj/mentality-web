@@ -1,9 +1,12 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
+import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { useRouter } from '@/i18n/navigation'
+import { getLatestMoodStory } from '@/requests/moodStory'
+import { CustomSession } from '@/types/auth'
 
 const POLL_INTERVAL_MS = 3_000
 const MAX_RETRIES = 5
@@ -12,19 +15,33 @@ export function StoryNotReady() {
   const t = useTranslations('components.MoodStoryCard.notReady')
   const router = useRouter()
   const retriesRef = useRef(0)
+  const { data: session } = useSession()
 
   useEffect(() => {
-    const timer = setInterval(() => {
+    if (!session) return
+
+    let isCancelled = false
+    retriesRef.current = 0
+
+    const intervalId = setInterval(async () => {
       if (retriesRef.current >= MAX_RETRIES) {
-        clearInterval(timer)
+        clearInterval(intervalId)
         return
       }
       retriesRef.current++
-      router.refresh()
+
+      const result = await getLatestMoodStory(session as CustomSession)
+      if (!('error' in result) && result.data.screens.length > 0 && !isCancelled) {
+        clearInterval(intervalId)
+        router.refresh()
+      }
     }, POLL_INTERVAL_MS)
 
-    return () => clearInterval(timer)
-  }, [router])
+    return () => {
+      isCancelled = true
+      clearInterval(intervalId)
+    }
+  }, [session, router])
 
   return (
     <div className="flex flex-col items-center gap-3 py-6 text-center">

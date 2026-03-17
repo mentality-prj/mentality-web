@@ -36,14 +36,14 @@ export const buildDailySummaries = (records: any[] = []) => {
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
-/** Returns true if the ISO timestamp falls on the same local calendar date as today. */
+/** Returns true if the ISO timestamp falls on the same UTC calendar date as "today" (in UTC). */
 export function isSubmittedToday(isoTimestamp: string): boolean {
   const submitted = new Date(isoTimestamp)
   if (Number.isNaN(submitted.getTime())) return false
   const now = new Date()
   return (
-    submitted.getFullYear() === now.getFullYear() &&
-    submitted.getMonth() === now.getMonth() &&
-    submitted.getDate() === now.getDate()
+    submitted.getUTCFullYear() === now.getUTCFullYear() &&
+    submitted.getUTCMonth() === now.getUTCMonth() &&
+    submitted.getUTCDate() === now.getUTCDate()
   )
 }

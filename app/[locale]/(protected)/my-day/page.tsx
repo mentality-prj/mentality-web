@@ -10,7 +10,6 @@ import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoal
 import { DailyStatistics } from '@/components/features/Statistics/DailyStatistics/DailyStatistics'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
-import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
@@ -18,16 +17,19 @@ import { fetchPersonalGoals } from '@/requests/personalGoals'
 const MyDay = async () => {
   const session = await auth()
   const t = await getTranslations('components.DailyCard')
-  const res = await getMoodRecords(session)
-  const moodCounts = 'error' in res ? [] : mapMoodRecordsToCounts(res?.data ?? [])
 
   const todayRes = await getLastMoodRecords(session, { days: 1 })
-  const todayRecords = 'error' in todayRes ? [] : (todayRes?.data ?? [])
+  const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
+  const submittedToday = todayRecords.length > 0
+
+  let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
+  if (!submittedToday) {
+    const res = await getMoodRecords(session)
+    moodCounts = 'error' in res ? [] : mapMoodRecordsToCounts(res?.data ?? [])
+  }
 
   const goalsRes = await fetchPersonalGoals(session)
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
-
-  const submittedToday = todayRecords.some((r) => r.createdAt && isSubmittedToday(r.createdAt))
 
   return (
     <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">

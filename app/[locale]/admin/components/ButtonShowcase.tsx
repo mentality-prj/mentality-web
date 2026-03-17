@@ -63,16 +63,16 @@ export function ButtonShowcase() {
           <h3 className="mb-4 text-lg font-semibold text-primary">{t('sections.icon')}</h3>
           <div className="flex flex-wrap items-center gap-4">
             <div className="flex flex-col items-center gap-xs">
-              <Button variant="iconButton" size="iconButton">
+              <Button variant="iconButton" size="iconLG">
                 <Heart size={20} />
               </Button>
               <span className="text-xs text-gray-500">variant=&quot;iconButton&quot;</span>
             </div>
             <div className="flex flex-col items-center gap-xs">
-              <Button variant="iconButton" size="iconBig">
+              <Button variant="iconButton" size="iconXL">
                 <Mail size={24} />
               </Button>
-              <span className="text-xs text-gray-500">size=&quot;iconBig&quot;</span>
+              <span className="text-xs text-gray-500">size=&quot;iconXL&quot;</span>
             </div>
             <div className="flex flex-col items-center gap-xs">
               <Button variant="iconButton" size="icon">
@@ -81,10 +81,10 @@ export function ButtonShowcase() {
               <span className="text-xs text-gray-500">size=&quot;icon&quot;</span>
             </div>
             <div className="flex flex-col items-center gap-xs">
-              <Button variant="iconButton" size="iconSm">
+              <Button variant="iconButton" size="iconSM">
                 <Plus size={12} />
               </Button>
-              <span className="text-xs text-gray-500">size=&quot;iconSm&quot;</span>
+              <span className="text-xs text-gray-500">size=&quot;iconSM&quot;</span>
             </div>
           </div>
         </section>
@@ -154,7 +154,7 @@ export function ButtonShowcase() {
               <span className="text-xs text-gray-500">disabled (no gradient)</span>
             </div>
             <div className="flex flex-col gap-xs">
-              <Button variant="iconButton" size="iconButton" disabled>
+              <Button variant="iconButton" size="iconLG" disabled>
                 <Settings size={20} />
               </Button>
               <span className="text-xs text-gray-500">icon disabled</span>

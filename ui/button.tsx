@@ -78,10 +78,10 @@ const buttonVariants = cva(
         small: 'h-8 px-2 text-xs leading-none gap-1 [&_svg]:h-4',
 
         // Icon button sizes
-        iconBig: 'h-10 w-10',
-        icon: 'h-8 w-8 rounded-full [&_svg]:w-6 [&_svg]:h-6',
-        iconSm: 'h-6 w-6 p-0 rounded-full [&_svg]:w-4 [&_svg]:h-4',
-        iconButton: 'h-10 w-10',
+        iconSM: 'h-6 w-6 p-0 rounded-full',
+        icon: 'h-8 w-8 rounded-full',
+        iconLG: 'h-10 w-10',
+        iconXL: 'h-12 w-12',
       },
     },
     defaultVariants: {
