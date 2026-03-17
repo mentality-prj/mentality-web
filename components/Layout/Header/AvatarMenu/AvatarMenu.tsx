@@ -37,7 +37,7 @@ const AvatarMenu = () => {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button variant="iconButton" className="rounded-full" size="iconButton">
+        <Button variant="iconButton" className="rounded-full" size="iconLG">
           <Avatar className="h-10 w-10">
             <AvatarImage src={image ?? undefined} alt={name ?? undefined} />
             <AvatarFallback>{initials}</AvatarFallback>

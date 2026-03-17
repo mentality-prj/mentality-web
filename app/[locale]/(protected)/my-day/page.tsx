@@ -17,11 +17,16 @@ import { fetchPersonalGoals } from '@/requests/personalGoals'
 const MyDay = async () => {
   const session = await auth()
   const t = await getTranslations('components.DailyCard')
-  const res = await getMoodRecords(session)
-  const moodCounts = 'error' in res ? [] : mapMoodRecordsToCounts(res?.data ?? [])
 
   const todayRes = await getLastMoodRecords(session, { days: 1 })
-  const todayRecords = 'error' in todayRes ? [] : (todayRes?.data ?? [])
+  const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
+  const submittedToday = todayRecords.length > 0
+
+  let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
+  if (!submittedToday) {
+    const res = await getMoodRecords(session)
+    moodCounts = 'error' in res ? [] : mapMoodRecordsToCounts(res?.data ?? [])
+  }
 
   const goalsRes = await fetchPersonalGoals(session)
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
@@ -29,9 +34,13 @@ const MyDay = async () => {
   return (
     <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
       <div className="flex flex-col gap-sm xl:col-span-2">
-        <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+        {submittedToday ? (
+          <MoodStoryCard />
+        ) : (
+          <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+        )}
         <TodayMoodNotes />
-        <MoodStoryCard />
+        {!submittedToday && <MoodStoryCard />}
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">

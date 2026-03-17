@@ -25,6 +25,9 @@
     "Saved": "Nastrój zapisany",
     "Failed": "Nie udało się zapisać nastroju"
   },
+  "DailyLimit": {
+    "Message": "Już zapisałeś(aś) swój nastrój dzisiaj. Wróć jutro!"
+  },
   "History": {
     "Title": "Historia zapisów nastroju",
     "Empty": "Na razie brak zapisów. Stwórz swój pierwszy wpis"

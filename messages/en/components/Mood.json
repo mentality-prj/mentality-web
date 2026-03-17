@@ -25,6 +25,9 @@
     "Saved": "Mood saved",
     "Failed": "Failed to save mood"
   },
+  "DailyLimit": {
+    "Message": "You've already recorded your mood today. Come back tomorrow!"
+  },
 
   "History": {
     "Title": "Mood history",

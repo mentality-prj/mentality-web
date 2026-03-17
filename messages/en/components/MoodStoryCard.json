@@ -1,8 +1,4 @@
 {
-  "loading": {
-    "ariaLabel": "Loading story",
-    "text": "Your story is generating…"
-  },
   "notReady": {
     "title": "Story is still being prepared — check back in a minute",
     "description": "AI is analyzing your data. This usually takes less than a minute."
@@ -17,10 +13,6 @@
   },
   "card": {
     "title": "Your Mood Story",
-    "description": "A personalized story based on your data",
-    "viewCta": "View your story",
-    "modalTitle": "Mood Story",
-    "closeAriaLabel": "Close story",
     "prevAriaLabel": "Previous screen",
     "nextAriaLabel": "Next screen"
   }

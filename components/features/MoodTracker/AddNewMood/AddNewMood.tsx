@@ -21,9 +21,10 @@ interface AddNewMoodProps {
   onClose?: () => void
   onSave?: () => void
   availableTags?: UserTag[]
+  initialLastSubmittedAt?: string | null
 }
 
-const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) => {
+const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedAt }: AddNewMoodProps) => {
   const tm = useTranslations('components.Mood')
   const ct = useTranslations('common.Buttons')
   const tt = useTranslations('components.Tags')
@@ -47,12 +48,29 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
     setShowAddTag,
     isSubmitting,
     isFormValid,
+    submittedToday,
     handleSubmit,
     onTagCreated,
     formKey,
-  } = useAddNewMood({ availableTags, onSave, onClose })
+  } = useAddNewMood({ availableTags, onSave, onClose, initialLastSubmittedAt })
 
   const tools = onClose && <CloseIconButton onClick={onClose} />
+
+  if (submittedToday) {
+    return (
+      <FormCard
+        title={tm('title')}
+        tools={tools}
+        onSubmit={handleSubmit}
+        submitDisabled
+        onCancel={onClose}
+        submitLabel={ct('save')}
+        className="p-6 max-md:w-[100%] max-md:p-4"
+      >
+        <p className="text-sm text-textcolor-secondary">{tm('DailyLimit.Message')}</p>
+      </FormCard>
+    )
+  }
 
   return (
     <FormCard
@@ -73,7 +91,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [] }: AddNewMoodProps) =>
             return (
               <div key={mood.key} className="flex flex-col items-center justify-between py-5 text-center">
                 <Button
-                  size="iconBig"
+                  size="iconXL"
                   variant="iconButton"
                   className={`${isSelected ? 'rounded-full ring-4 ring-sky-400/30' : ''}`}
                   onClick={() => setSelectedMood(mood.key)}

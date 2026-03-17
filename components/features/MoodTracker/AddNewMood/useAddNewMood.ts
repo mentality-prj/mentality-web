@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import useTags from '@/hooks/useTags'
 import { logger } from '@/lib/logger'
 import { moodKeyToLevel } from '@/mappers/mood.mappers'
@@ -16,9 +17,10 @@ type Params = {
   availableTags?: UserTag[]
   onSave?: () => void
   onClose?: () => void
+  initialLastSubmittedAt?: string | null
 }
 
-export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
+export function useAddNewMood({ availableTags = [], onSave, onClose, initialLastSubmittedAt }: Params) {
   const { data: session } = useSession()
   const t = useTranslations('components.Mood')
 
@@ -48,6 +50,9 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
   const [energyLevel, setEnergyLevel] = useState<number>(1)
   const [focusLevel, setFocusLevel] = useState<number>(1)
   const [formKey, setFormKey] = useState(0)
+  const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(initialLastSubmittedAt ?? null)
+
+  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt) : false
 
   const resetForm = () => {
     setSelectedMood(null)
@@ -62,6 +67,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
+    if (submittedToday) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -89,6 +95,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
         return
       }
 
+      setLastSubmittedAt(result.data?.createdAt ?? new Date().toISOString())
       notifySuccess(safeT('Toast.Saved', 'Mood saved'))
       resetForm()
       if (onSave) onSave()
@@ -98,7 +105,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     }
   }
 
-  const isFormValid = !!selectedMood
+  const isFormValid = !!selectedMood && !submittedToday
 
   return {
     selectedMood,
@@ -118,6 +125,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose }: Params) {
     setShowAddTag,
     isSubmitting,
     isFormValid,
+    submittedToday,
     handleSubmit,
     onTagCreated,
     formKey,

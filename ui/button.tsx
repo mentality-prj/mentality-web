@@ -41,7 +41,7 @@ const textButtonStyles = `px-3 rounded-sm bg-transparent text-primary ${interact
 
 const linkButtonStyles = `px-2 bg-transparent text-textcolor-primary ${interactiveStates.textPrimary} ${focusRing.primarySmall} underline [text-underline-offset:3px] decoration-1`
 
-const iconButtonStyles = `bg-transparent text-iconcolor-primary hover:opacity-75 ${interactiveStates.secondary} ${focusRing.iconButton} ${disabledStates.solid} rounded-full`
+const iconButtonStyles = `bg-transparent text-iconcolor-primary hover:bg-background-muted focus:bg-background-muted active:bg-background-muted ${focusRing.iconButton} ${disabledStates.solid} rounded-full`
 
 const volumeButtonStyles = `px-6 py-4 bg-primary text-primary-foreground ${interactiveStates.primary} ${focusRing.primary} shadow-md [background-image:linear-gradient(45deg,rgba(31,210,192,0)_60%,rgba(31,210,192,0.5)_80%,rgba(255,255,255,0.5)_100%)] [box-shadow:inset_0px_2px_4px_rgba(255,255,255,0.3)] [-webkit-font-smoothing:antialiased] [-moz-osx-font-smoothing:grayscale] disabled:[background-image:none]`
 
@@ -78,10 +78,10 @@ const buttonVariants = cva(
         small: 'h-8 px-2 text-xs leading-none gap-1 [&_svg]:h-4',
 
         // Icon button sizes
-        iconBig: 'h-12',
-        icon: 'h-8 w-8 rounded-full [&_svg]:w-6 [&_svg]:h-6',
-        iconSm: 'h-6 w-6 p-0 rounded-full [&_svg]:w-4 [&_svg]:h-4',
-        iconButton: 'h-10 w-10',
+        iconSM: 'h-6 w-6 p-0 rounded-full',
+        icon: 'h-8 w-8 rounded-full',
+        iconLG: 'h-10 w-10',
+        iconXL: 'h-12 w-12',
       },
     },
     defaultVariants: {

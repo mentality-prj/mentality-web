@@ -1,8 +1,4 @@
 {
-  "loading": {
-    "ariaLabel": "Ładowanie story",
-    "text": "Twoje story się generuje…"
-  },
   "notReady": {
     "title": "Story jest jeszcze w przygotowaniu — zajrzyj za chwilę",
     "description": "AI analizuje Twoje dane. Zazwyczaj trwa to mniej niż minutę."
@@ -16,11 +12,7 @@
     "ariaLabel": "Ekran {current} z {total}"
   },
   "card": {
-    "title": "Twoje Mood Story",
-    "description": "Spersonalizowana opowieść na podstawie Twoich danych",
-    "viewCta": "Zobacz swoje story",
-    "modalTitle": "Mood Story",
-    "closeAriaLabel": "Zamknij story",
+    "title": "Twoja opowieść nastroju",
     "prevAriaLabel": "Poprzedni ekran",
     "nextAriaLabel": "Następny ekran"
   }
