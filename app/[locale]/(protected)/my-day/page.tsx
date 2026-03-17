@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
+import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
 import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoals/DeadlineCountdown'
@@ -30,6 +31,7 @@ const MyDay = async () => {
       <div className="flex flex-col gap-sm xl:col-span-2">
         <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
         <TodayMoodNotes />
+        <MoodStoryCard />
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">

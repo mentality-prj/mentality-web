@@ -1,0 +1,27 @@
+{
+  "loading": {
+    "ariaLabel": "Завантаження story",
+    "text": "Твоя story генерується…"
+  },
+  "notReady": {
+    "title": "Story ще готується — зазирни за хвилину",
+    "description": "AI аналізує твої дані. Зазвичай це займає менше хвилини."
+  },
+  "error": {
+    "title": "Не вдалося завантажити story",
+    "description": "Перевір з'єднання та спробуй ще раз.",
+    "retryCta": "Спробувати знову"
+  },
+  "progressDots": {
+    "ariaLabel": "Екран {current} з {total}"
+  },
+  "card": {
+    "title": "Твоя Mood Story",
+    "description": "Персоналізована розповідь на основі твоїх даних",
+    "viewCta": "Переглянути свою story",
+    "modalTitle": "Mood Story",
+    "closeAriaLabel": "Закрити story",
+    "prevAriaLabel": "Попередній екран",
+    "nextAriaLabel": "Наступний екран"
+  }
+}

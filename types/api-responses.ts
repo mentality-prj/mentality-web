@@ -182,3 +182,14 @@ export type UpdateDiaryDto = {
   tags?: string[]
   isActive?: boolean
 }
+
+// Mood Story
+export type MoodStoryScreenEntity = {
+  title: string
+  text: string
+  action?: string
+}
+
+export type MoodStoryEntity = {
+  screens: MoodStoryScreenEntity[]
+}
