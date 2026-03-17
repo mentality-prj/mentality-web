@@ -35,3 +35,15 @@ export const buildDailySummaries = (records: any[] = []) => {
     .map(([date, records]) => ({ date, records }))
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 }
+
+/** Returns true if the ISO timestamp falls on the same local calendar date as today. */
+export function isSubmittedToday(isoTimestamp: string): boolean {
+  const submitted = new Date(isoTimestamp)
+  if (Number.isNaN(submitted.getTime())) return false
+  const now = new Date()
+  return (
+    submitted.getFullYear() === now.getFullYear() &&
+    submitted.getMonth() === now.getMonth() &&
+    submitted.getDate() === now.getDate()
+  )
+}

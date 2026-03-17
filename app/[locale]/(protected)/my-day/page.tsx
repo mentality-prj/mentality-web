@@ -10,6 +10,7 @@ import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoal
 import { DailyStatistics } from '@/components/features/Statistics/DailyStatistics/DailyStatistics'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
@@ -26,12 +27,18 @@ const MyDay = async () => {
   const goalsRes = await fetchPersonalGoals(session)
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
 
+  const submittedToday = todayRecords.some((r) => r.createdAt && isSubmittedToday(r.createdAt))
+
   return (
     <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
       <div className="flex flex-col gap-sm xl:col-span-2">
-        <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+        {submittedToday ? (
+          <MoodStoryCard />
+        ) : (
+          <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+        )}
         <TodayMoodNotes />
-        <MoodStoryCard />
+        {!submittedToday && <MoodStoryCard />}
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">
