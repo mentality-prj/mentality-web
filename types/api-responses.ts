@@ -177,12 +177,6 @@ export type DiaryEntity = {
   updatedAt?: string
 }
 
-export type UpdateDiaryDto = {
-  content?: string
-  tags?: string[]
-  isActive?: boolean
-}
-
 // Mood Story
 export type MoodStoryLocalizedString = Record<SupportedLanguage, string>
 

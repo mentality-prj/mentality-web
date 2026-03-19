@@ -1,5 +1,6 @@
 'use client'
 
+import { useState } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -8,6 +9,7 @@ import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FormCard from '@/components/shared/Cards/FormCard'
 import StyledTextarea from '@/components/shared/Forms/StyledTextarea'
 import FullScreenBackdrop from '@/components/shared/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import { USER_NOTE_LENGTH_LIMIT } from '@/constants/userNote'
 import { Tag } from '@/ds/components/Tag'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
@@ -23,6 +25,7 @@ interface AddNewNoteProps {
 export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNoteProps) => {
   const t = useTranslations('components.Diary.AddNewNote')
   const tt = useTranslations('components.Tags')
+  const [error, setError] = useState(false)
 
   const {
     note,
@@ -58,8 +61,24 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
             id="diary-note"
             name="note"
             value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder={t('textareaPlaceholder')}
+            onChange={(e) => {
+              setNote(e.target.value)
+              setError(false)
+            }}
+            placeholder={t('textareaPlaceholder', { max: USER_NOTE_LENGTH_LIMIT })}
+            spellCheck={true}
+            maxLength={USER_NOTE_LENGTH_LIMIT}
+            onKeyDown={(e) => {
+              if (note.length >= USER_NOTE_LENGTH_LIMIT && e.key.length === 1) {
+                setError(true)
+              }
+            }}
+            onPaste={(e) => {
+              const pasted = e.clipboardData.getData('text')
+              if (note.length + pasted.length > USER_NOTE_LENGTH_LIMIT) {
+                setError(true)
+              }
+            }}
           />
           {selectedTags.length > 0 && (
             <div className="flex flex-wrap gap-xs">
@@ -67,6 +86,9 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
                 <Tag key={t} text={tagLabels[t as string] ?? t} onRemove={() => removeTag(t)} />
               ))}
             </div>
+          )}
+          {error && (
+            <span className="text-sm text-red-500">{t('maxLengthError', { max: USER_NOTE_LENGTH_LIMIT })}</span>
           )}
         </div>
         <div>
