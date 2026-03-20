@@ -15,5 +15,8 @@
     "title": "Twoja opowieść nastroju",
     "prevAriaLabel": "Poprzedni ekran",
     "nextAriaLabel": "Następny ekran"
+  },
+  "admin": {
+    "refreshCta": "Odśwież Mood Story"
   }
 }

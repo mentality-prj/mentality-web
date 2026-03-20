@@ -15,5 +15,8 @@
     "title": "Your Mood Story",
     "prevAriaLabel": "Previous screen",
     "nextAriaLabel": "Next screen"
+  },
+  "admin": {
+    "refreshCta": "Refresh Mood Story"
   }
 }

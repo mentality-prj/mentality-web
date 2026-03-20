@@ -43,8 +43,15 @@ const mockSession: CustomSession = {
 }
 
 const mockScreens: MoodStoryScreenEntity[] = [
-  { title: 'Screen 1', text: 'First screen text' },
-  { title: 'Screen 2', text: 'Second screen text', action: 'Explore exercises' },
+  {
+    title: { en: 'Screen 1', uk: 'Екран 1', pl: 'Ekran 1' },
+    text: { en: 'First screen text', uk: 'Текст першого екрану', pl: 'Tekst pierwszego ekranu' },
+  },
+  {
+    title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
+    text: { en: 'Second screen text', uk: 'Текст другого екрану', pl: 'Tekst drugiego ekranu' },
+    action: 'Explore exercises',
+  },
 ]
 
 beforeEach(() => {

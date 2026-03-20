@@ -15,5 +15,8 @@
     "title": "Розповідь твого настрою",
     "prevAriaLabel": "Попередній екран",
     "nextAriaLabel": "Наступний екран"
+  },
+  "admin": {
+    "refreshCta": "Оновити Mood Story"
   }
 }

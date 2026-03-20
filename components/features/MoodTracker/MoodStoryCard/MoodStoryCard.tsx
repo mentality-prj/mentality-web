@@ -8,7 +8,7 @@ import { MoodStoryNavigator } from './MoodStoryNavigator'
 import { StoryError } from './StoryError'
 import { StoryNotReady } from './StoryNotReady'
 
-export async function MoodStoryCard() {
+export async function MoodStoryCard({ isAdmin }: { isAdmin?: boolean } = {}) {
   const session = await auth()
   const t = await getTranslations('components.MoodStoryCard.card')
 
@@ -28,5 +28,5 @@ export async function MoodStoryCard() {
     )
   }
 
-  return <MoodStoryNavigator screens={screens} />
+  return <MoodStoryNavigator screens={screens} isAdmin={isAdmin} />
 }

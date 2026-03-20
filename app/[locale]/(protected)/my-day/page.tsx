@@ -13,10 +13,12 @@ import { Routes } from '@/constants/routes'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
+import { Roles } from '@/types/security'
 
 const MyDay = async () => {
   const session = await auth()
   const t = await getTranslations('components.DailyCard')
+  const isAdmin = session?.user?.role === Roles.ADMIN
 
   const todayRes = await getLastMoodRecords(session, { days: 1 })
   const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
@@ -35,12 +37,11 @@ const MyDay = async () => {
     <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
       <div className="flex flex-col gap-sm xl:col-span-2">
         {submittedToday ? (
-          <MoodStoryCard />
+          <MoodStoryCard isAdmin={isAdmin} />
         ) : (
           <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
         )}
         <TodayMoodNotes />
-        {!submittedToday && <MoodStoryCard />}
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">
