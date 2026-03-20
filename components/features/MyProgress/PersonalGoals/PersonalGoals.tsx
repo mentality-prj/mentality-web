@@ -9,7 +9,7 @@ export const PersonalGoals = () => {
   const [filter, setFilter] = useState<Filter>('all')
   return (
     <section className="flex w-full flex-col items-center gap-default">
-      <div className="flex w-full items-center justify-between">
+      <div className="flex w-full flex-col gap-sm desktop:flex-row desktop:items-center desktop:justify-between">
         <PersonalGoalsTitle />
         <PersonalGoalsFilter filter={filter} setFilter={setFilter} />
       </div>

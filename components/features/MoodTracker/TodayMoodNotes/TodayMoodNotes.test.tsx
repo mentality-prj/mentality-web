@@ -139,9 +139,9 @@ describe('TodayMoodNotes', () => {
 
     render(await TodayMoodNotes())
 
-    // one stress label span per record
+    // component only renders the first (most recent) record — limit: 1
     const stressLabels = screen.getAllByText('stress')
-    expect(stressLabels).toHaveLength(2)
+    expect(stressLabels).toHaveLength(1)
   })
 
   it('calls getLastMoodRecords with limit 1', async () => {

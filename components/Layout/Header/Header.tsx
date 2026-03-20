@@ -15,7 +15,9 @@ const Header = () => (
     </div>
     <div className="flex items-center gap-sm md:gap-md">
       <TopMenu menu={userTopMenu} />
-      <SearchBar />
+      <span className="hidden w-40 laptop:block">
+        <SearchBar />
+      </span>
       <LangSwitch />
       <AvatarMenu />
     </div>

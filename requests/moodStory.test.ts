@@ -14,8 +14,12 @@ const mockSession: CustomSession = {
 
 const mockStory: MoodStoryEntity = {
   screens: [
-    { title: 'Screen 1', text: 'Body text' },
-    { title: 'Screen 2', text: 'More text', action: 'Дихальні вправи' },
+    { title: { en: 'Screen 1', uk: 'Екран 1', pl: 'Ekran 1' }, text: { en: 'Body text', uk: 'Текст', pl: 'Treść' } },
+    {
+      title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
+      text: { en: 'More text', uk: 'Більше тексту', pl: 'Więcej tekstu' },
+      action: 'Дихальні вправи',
+    },
   ],
 }
 

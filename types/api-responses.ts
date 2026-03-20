@@ -184,9 +184,11 @@ export type UpdateDiaryDto = {
 }
 
 // Mood Story
+export type MoodStoryLocalizedString = Record<SupportedLanguage, string>
+
 export type MoodStoryScreenEntity = {
-  title: string
-  text: string
+  title: MoodStoryLocalizedString
+  text: MoodStoryLocalizedString
   action?: string
 }
 

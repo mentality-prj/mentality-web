@@ -111,7 +111,7 @@ export const PersonalGoalsList = ({
     <div
       className={cn(
         showCreate
-          ? 'grid w-full grid-cols-1 items-stretch gap-default laptop:grid-cols-2 desktop:grid-cols-3'
+          ? 'grid w-full grid-cols-1 items-stretch gap-default desktop:grid-cols-2'
           : 'flex w-full flex-col gap-sm',
         className
       )}
