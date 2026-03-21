@@ -25,7 +25,7 @@ interface AddNewNoteProps {
 export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNoteProps) => {
   const t = useTranslations('components.Diary.AddNewNote')
   const tt = useTranslations('components.Tags')
-  const [error, setError] = useState(false)
+  const [isMaxLengthReached, setIsMaxLengthReached] = useState(false)
 
   const {
     note,
@@ -61,23 +61,13 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
             id="diary-note"
             name="note"
             value={note}
-            onChange={(e) => {
-              setNote(e.target.value)
-              setError(false)
-            }}
             placeholder={t('textareaPlaceholder', { max: USER_NOTE_LENGTH_LIMIT })}
             spellCheck={true}
             maxLength={USER_NOTE_LENGTH_LIMIT}
-            onKeyDown={(e) => {
-              if (note.length >= USER_NOTE_LENGTH_LIMIT && e.key.length === 1) {
-                setError(true)
-              }
-            }}
-            onPaste={(e) => {
-              const pasted = e.clipboardData.getData('text')
-              if (note.length + pasted.length > USER_NOTE_LENGTH_LIMIT) {
-                setError(true)
-              }
+            onChange={(e) => {
+              const value = e.target.value
+              setNote(value)
+              setIsMaxLengthReached(value.length === USER_NOTE_LENGTH_LIMIT)
             }}
           />
           {selectedTags.length > 0 && (
@@ -87,8 +77,10 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
               ))}
             </div>
           )}
-          {error && (
-            <span className="text-sm text-red-500">{t('maxLengthError', { max: USER_NOTE_LENGTH_LIMIT })}</span>
+          {isMaxLengthReached && (
+            <span className="text-sm text-textcolor-muted">
+              {t('maxLengthReached', { max: USER_NOTE_LENGTH_LIMIT })}
+            </span>
           )}
         </div>
         <div>

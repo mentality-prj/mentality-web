@@ -2,13 +2,13 @@
   "AddNewNote": {
     "title": "Запис думок",
     "submitLabel": "Зберегти запис",
-    "textareaPlaceholder": "Введіть запис(максимальна кількість символів {max})",
+    "textareaPlaceholder": "Введіть запис (максимальна кількість символів {max})",
     "addTag": "Додай теги:",
     "addNewTag": "Додати тег",
     "notAuthenticated": "Необхідно бути зареєстрованим щоб додати запис",
     "saveError": "Невдалось додати запис",
     "saveSuccess": "Запис додано",
-    "maxLengthError": "Максимальна кількість символів {max}"
+    "maxLengthReached": "Досягнуто максимальну кількість символів {max}"
   },
   "UserNoteCard": {
     "notAuthenticated": "Необхідно бути зареєстрованим щоб архівувати запис",

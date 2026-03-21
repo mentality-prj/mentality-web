@@ -8,7 +8,7 @@
     "notAuthenticated": "Musisz być zalogowany, aby dodać notatkę",
     "saveError": "Nie udało się dodać notatki",
     "saveSuccess": "Notatka dodana pomyślnie",
-    "maxLengthError": "Maksymalna liczba znaków to {max}"
+    "maxLengthReached": "Osiągnięto limit {max} znaków"
   },
   "UserNoteCard": {
     "notAuthenticated": "Musisz być zalogowany, aby zarchiwizować notatkę",
