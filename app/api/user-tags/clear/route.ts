@@ -7,9 +7,12 @@ export async function POST() {
   try {
     const session = await auth()
     const email = session?.user?.email
-    if (email) {
-      clearUserTagsCacheFor(email)
+
+    if (!email) {
+      return NextResponse.json({ ok: false, error: 'Unauthorized' }, { status: 401 })
     }
+
+    clearUserTagsCacheFor(email)
     return NextResponse.json({ ok: true })
   } catch (err) {
     return NextResponse.json({ ok: false, error: String(err) }, { status: 500 })

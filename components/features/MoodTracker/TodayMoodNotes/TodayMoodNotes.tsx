@@ -15,7 +15,7 @@ export const TodayMoodNotes = async () => {
   const locale = await getLocale()
   const t = await getTranslations('components.TodayMoodNotes')
   const tm = await getTranslations('components.Mood')
-  const todayRecordMood = await getLastMoodRecords(session, { limit: 1 })
+  const todayRecordMood = await getLastMoodRecords(session, { days: 1 })
   const todayRecord = 'error' in todayRecordMood ? null : (todayRecordMood?.data?.[0] ?? null)
 
   if (!todayRecord) {

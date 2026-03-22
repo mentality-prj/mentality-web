@@ -27,11 +27,9 @@ export async function getGad7Latest(
   return 'error' in res ? { error: res.error } : { data: res.data }
 }
 
-export async function getGad7History(): Promise<Gad7HistoryEntry[]> {
-  // Server-side only — uses auth headers directly
-  const { getAuthHeaders } = await import('@/actions/getAuthHeaders')
-  const headers = await getAuthHeaders()
-  const res = await fetch(`${APIUrl}/gad7/history`, { headers, cache: 'no-store' })
-  if (!res.ok) throw new Error(`GAD-7 history fetch failed: ${res.status}`)
-  return res.json() as Promise<Gad7HistoryEntry[]>
+export async function getGad7History(
+  session: CustomSession | null
+): Promise<{ data?: Gad7HistoryEntry[]; error?: string }> {
+  const res = await performAuthRequest<Gad7HistoryEntry[]>(session, `${APIUrl}/gad7/history`, { method: 'GET' })
+  return 'error' in res ? { error: res.error } : { data: res.data ?? [] }
 }

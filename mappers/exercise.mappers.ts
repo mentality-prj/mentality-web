@@ -1,4 +1,5 @@
 import { ExerciseCategory, ExerciseEntity } from '@/types/api-responses'
+import { logger } from '@/lib/logger'
 import { SupportedLanguage, supportedLanguages } from '@/types/languages'
 
 function isValidCategory(cat: unknown): cat is ExerciseCategory {
@@ -83,9 +84,7 @@ export function mapExercise(input: unknown): ExerciseEntity | null {
   if (obj.createdAt == null) {
     // Avoid fabricating a creation timestamp; log a warning and leave empty string
     // so UI can detect missing value instead of silently using current time.
-    // This helps surface data quality issues from the backend.
-    // eslint-disable-next-line no-console
-    console.warn('mapExercise: missing createdAt for exercise', id)
+    logger.warn('mapExercise: missing createdAt for exercise', { id })
     createdAt = ''
   } else {
     createdAt = safeString(obj.createdAt)

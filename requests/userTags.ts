@@ -1,4 +1,4 @@
-import { apiRequest } from '@/helpers/api-wrapper'
+import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
@@ -13,7 +13,7 @@ export async function addUserTag(session: CustomSession | null, tag: UserTag) {
 
   const url = `${APIUrl}/user-tags`
 
-  const { data, error } = await apiRequest(session, url, {
+  const { data, error } = await apiRequestWithAuth(session, url, {
     method: 'POST',
     body: { key: tag.key, name: tag.name },
   })
@@ -58,7 +58,7 @@ export async function getUserTags(session: CustomSession | null) {
   }
 
   const url = `${APIUrl}/user-tags`
-  const { data, error } = await apiRequest(session, url, { method: 'GET' })
+  const { data, error } = await apiRequestWithAuth(session, url, { method: 'GET' })
 
   if (error) {
     logger.error('Failed to fetch user tags', { error })

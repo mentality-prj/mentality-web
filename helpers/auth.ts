@@ -48,7 +48,7 @@ export async function refreshAccessToken(token: ExtendedToken): Promise<Extended
     if (!response.ok) {
       logger.error('[AUTH] Failed to refresh access token', {
         status: response.status,
-        error: refreshedTokens,
+        error: refreshedTokens?.error ?? 'unknown',
       })
       throw new Error('Failed to refresh access token')
     }
@@ -63,7 +63,9 @@ export async function refreshAccessToken(token: ExtendedToken): Promise<Extended
       refreshToken: refreshedTokens.refresh_token ?? token.refreshToken, // Use new refresh token if provided
     }
   } catch (error) {
-    logger.error('[AUTH] Error refreshing access token', { error })
+    logger.error('[AUTH] Error refreshing access token', {
+      error: error instanceof Error ? error.message : String(error),
+    })
     return {
       ...token,
       error: 'RefreshTokenError',

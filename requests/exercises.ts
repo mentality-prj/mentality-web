@@ -1,4 +1,5 @@
 import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
+import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { mapExercises } from '@/mappers/exercise.mappers'
 import { CreateExerciseDto, ExerciseCategory, ExerciseEntity, GeneratedExercise } from '@/types/api-responses'
@@ -116,8 +117,7 @@ export async function getUnpublishedExercises(
 
   const items = Array.isArray(res.data) ? res.data : []
   const cleanedItems = mapExercises(items)
-  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
-  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  const total = extractPaginationTotal(res.headers, cleanedItems.length)
   logger.info('Unpublished exercises retrieved', { count: cleanedItems.length, total })
   return { data: { items: cleanedItems, total } }
 }

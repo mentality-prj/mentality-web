@@ -9,6 +9,8 @@ import { Filter } from '@/components/shared/Filter/Filter'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { PAGE_SIZE } from '@/constants/pagination'
 import { useSavedFilters } from '@/context/savedFilterContext'
+import { extractPaginationTotal } from '@/lib/http'
+import { logger } from '@/lib/logger'
 import { getFavorites } from '@/requests/favorites'
 import { FavoriteEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -31,20 +33,18 @@ export const SavedList = () => {
       try {
         const res = await getFavorites(session as CustomSession | null, page, limit, true)
 
-        console.log('res', res)
         if (res.error || !res.data) {
-          setItems([])
+          if (mounted) setItems([])
           return
         }
 
         const list = res.data
-        const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
-        const totalCount = headerTotal ? parseInt(headerTotal, 10) || list.length : list.length
+        const totalCount = extractPaginationTotal(res.headers, list.length)
         if (mounted) setTotal(totalCount)
 
         if (mounted) setItems(list || [])
       } catch (err) {
-        console.error('Failed to load favorites', err)
+        logger.error('Failed to load favorites', { error: err instanceof Error ? err.message : String(err) })
         if (mounted) setItems([])
       }
     }
