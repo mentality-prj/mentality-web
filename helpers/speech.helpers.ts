@@ -3,6 +3,15 @@ export interface SpeechChunk {
   delay: number
 }
 
+const SPEECH_DELAYS = {
+  SENTENCE_END: 350, // '.', '!', '?'
+  CLAUSE_BREAK: 180, // ':', '—', '–', '-'
+  COMMA: 140, // ',', ';'
+  DEFAULT: 90,
+  BASE: 80,
+  MINIMUM: 60,
+} as const
+
 /**
  * Split text into chunks and calculate an inter-chunk delay based on punctuation and rate.
  * Kept as a pure helper so it can be reused and tested separately.
@@ -16,13 +25,13 @@ export function splitToChunksWithDelays(text: string, rate = 1): SpeechChunk[] {
     .filter(Boolean)
     .map((chunk) => {
       const lastChar = chunk.slice(-1)
-      let baseDelay = 80
-      if (['.', '!', '?'].includes(lastChar)) baseDelay = 350
-      else if ([',', ';'].includes(lastChar)) baseDelay = 140
-      else if ([':', '—', '–', '-'].includes(lastChar)) baseDelay = 180
-      else baseDelay = 90
+      let baseDelay: number = SPEECH_DELAYS.BASE
+      if (['.', '!', '?'].includes(lastChar)) baseDelay = SPEECH_DELAYS.SENTENCE_END
+      else if ([',', ';'].includes(lastChar)) baseDelay = SPEECH_DELAYS.COMMA
+      else if ([':', '—', '–', '-'].includes(lastChar)) baseDelay = SPEECH_DELAYS.CLAUSE_BREAK
+      else baseDelay = SPEECH_DELAYS.DEFAULT
 
-      const delay = Math.max(60, Math.round(baseDelay * (1 / (rate || 1))))
+      const delay = Math.max(SPEECH_DELAYS.MINIMUM, Math.round(baseDelay * (1 / (rate || 1))))
       return { text: chunk, delay }
     })
 }

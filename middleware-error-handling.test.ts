@@ -130,6 +130,39 @@ describe('Middleware Error Handling', () => {
     })
   })
 
+  describe('Security headers', () => {
+    it('should set Content-Security-Policy on normal responses', async () => {
+      ;(auth as jest.Mock).mockResolvedValue({
+        user: { id: '1', email: 'test@example.com', role: 'user' },
+        OAuthToken: 'valid-token',
+      })
+
+      const request = createRequest('/uk/my-day')
+      const response = await middleware(request)
+
+      const csp = response.headers.get('Content-Security-Policy')
+      expect(csp).toBeTruthy()
+      expect(csp).toContain("default-src 'self'")
+      expect(csp).toContain("frame-ancestors 'none'")
+      expect(csp).toContain("object-src 'none'")
+    })
+
+    it('should set Content-Security-Policy on redirect responses', async () => {
+      ;(auth as jest.Mock).mockResolvedValue({
+        user: { id: '1', email: 'test@example.com', role: 'user' },
+        error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
+      })
+
+      const request = createRequest('/uk/my-day')
+      const response = await middleware(request)
+
+      expect(response.headers.get('location')).toContain(Routes.SERVERERROR)
+      expect(response.headers.get('Content-Security-Policy')).toBeTruthy()
+      expect(response.headers.get('X-Frame-Options')).toBe('DENY')
+      expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff')
+    })
+  })
+
   describe('No errors', () => {
     it('should process normally when there are no session errors', async () => {
       ;(auth as jest.Mock).mockResolvedValue({

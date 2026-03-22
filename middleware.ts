@@ -44,6 +44,63 @@ const intlMiddleware = createMiddleware(routing)
 // Can be overridden with env var MAX_REQUEST_BODY_SIZE (in bytes).
 const MAX_REQUEST_BODY_SIZE = Number(process.env.MAX_REQUEST_BODY_SIZE ?? 1_000_000) // 1 MB default
 
+function buildCspHeader(): string {
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? ''
+  // Use only the origin (scheme + host + port) so that all API sub-paths are
+  // allowed. A full URL like https://api.example.com/api would only match the
+  // exact path and block /api/moods, /api/user-tags, etc.
+  let connectSrcExtra = ''
+  if (apiUrl) {
+    try {
+      connectSrcExtra = ` ${new URL(apiUrl).origin}`
+    } catch {
+      // If the API URL is malformed, omit it from connect-src rather than
+      // interpolating the raw value to avoid breaking or injecting into the CSP.
+      connectSrcExtra = ''
+    }
+  }
+  const isProduction = process.env.NODE_ENV === 'production'
+  return [
+    "default-src 'self'",
+    // 'unsafe-inline' is required for Next.js hydration scripts and CSS-in-JS.
+    // A nonce-based approach would allow removing it, but Next.js does not yet
+    // provide a stable nonce injection mechanism without a custom server setup.
+    // 'unsafe-eval' is additionally required in development for webpack HMR/eval.
+    isProduction ? "script-src 'self' 'unsafe-inline'" : "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+    // fonts.googleapis.com hosts the @font-face stylesheet imported in globals.css
+    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://images.pexels.com https://fakestoreapi.com https://via.placeholder.com",
+    // In development, Next.js HMR uses a WebSocket connection that must be
+    // explicitly allowed; the ws: scheme is separate from https:.
+    `connect-src 'self'${connectSrcExtra} https://oauth2.googleapis.com https://accounts.google.com${isProduction ? '' : ' ws:'}`,
+    // fonts.gstatic.com serves the actual font binary files
+    "font-src 'self' https://fonts.gstatic.com",
+    // style-src-attr must be set explicitly because Chrome 94+ treats it as a
+    // separate directive from style-src. Radix UI and floating-ui position their
+    // portal elements using element.style.setProperty() (inline style attributes
+    // set via JavaScript). Without this directive the positioning styles are
+    // blocked in Chromium browsers, causing dropdowns/popovers to not open.
+    "style-src-attr 'unsafe-inline'",
+    "frame-src 'none'",
+    "frame-ancestors 'none'",
+    "form-action 'self'",
+    "base-uri 'self'",
+    "object-src 'none'",
+    // Only enforce HTTPS upgrades in production; in development the API URL is
+    // typically http://localhost which would be broken by this directive.
+    ...(isProduction ? ['upgrade-insecure-requests'] : []),
+  ].join('; ')
+}
+
+function applySecurityHeaders(response: NextResponse): NextResponse {
+  response.headers.set('Content-Security-Policy', buildCspHeader())
+  response.headers.set('X-Content-Type-Options', 'nosniff')
+  response.headers.set('X-Frame-Options', 'DENY')
+  response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
+  response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
+  return response
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   // Protect mutating endpoints from excessively large request bodies by
@@ -55,7 +112,7 @@ export async function middleware(request: NextRequest) {
       if (contentLength) {
         const len = parseInt(contentLength, 10)
         if (!Number.isNaN(len) && len > MAX_REQUEST_BODY_SIZE) {
-          return new NextResponse('Payload Too Large', { status: 413 })
+          return applySecurityHeaders(new NextResponse('Payload Too Large', { status: 413 }))
         }
       }
     }
@@ -76,7 +133,7 @@ export async function middleware(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
     })
-    return response
+    return applySecurityHeaders(response)
   }
 
   // If no locale in URL (but not root), redirect to preferred locale
@@ -90,7 +147,7 @@ export async function middleware(request: NextRequest) {
       secure: process.env.NODE_ENV === 'production',
       sameSite: 'lax',
     })
-    return response
+    return applySecurityHeaders(response)
   }
 
   // Run next-intl middleware
@@ -149,31 +206,32 @@ export async function middleware(request: NextRequest) {
     if (isCriticalError) {
       // For BackendConnectionError, redirect to server-error page
       if (errorType === 'BackendConnectionError') {
-        return NextResponse.redirect(new URL(`/${locale}${Routes.SERVERERROR}`, request.url))
+        return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.SERVERERROR}`, request.url)))
       }
 
       // For other critical errors (InvalidToken, RefreshTokenError), redirect to signin
       const response = NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
       response.cookies.delete('authjs.session-token')
       response.cookies.delete('__Secure-authjs.session-token')
-      return response
+      return applySecurityHeaders(response)
     }
   }
 
   if (!session?.user && isProtectedPath) {
-    return NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
+    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url)))
   }
 
   // If the user is already authenticated, don't show the signin page —
   // redirect them to their main My-day page instead.
   if (session?.user && normalizedPath === Routes.SIGNIN) {
-    return NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url))
+    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url)))
   }
 
   if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {
-    return NextResponse.redirect(new URL(`/${locale}${Routes.PROFILE}`, request.url))
+    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.PROFILE}`, request.url)))
   }
 
+  applySecurityHeaders(intlResponse)
   return intlResponse
 }
 

@@ -1,8 +1,10 @@
 import { Activity } from 'lucide-react'
 
-import { getAuthHeaders } from '@/actions/getAuthHeaders'
+import { auth } from '@/auth'
 import { HistoryChart } from '@/components/shared/HistoryChart'
 import { APIUrl } from '@/requests/config'
+import { performAuthRequest } from '@/requests/genericFetch'
+import { CustomSession } from '@/types/auth'
 
 interface HistoryEntry {
   date: string
@@ -30,28 +32,21 @@ interface Props {
 }
 
 export async function TestHistoryChart({ apiEndpoint, maxScore, chartLabel, title, stubTitle }: Props) {
-  const headers = await getAuthHeaders()
+  const session = await auth()
 
   let history: HistoryEntry[] = []
   let isStub = false
 
-  try {
-    const res = await fetch(`${APIUrl}/${apiEndpoint}/history`, { headers, cache: 'no-store' })
-    if (!res.ok) {
-      history = buildStubHistory(maxScore)
-      isStub = true
-    } else {
-      const raw: HistoryEntry[] = await res.json()
-      if (Array.isArray(raw) && raw.length >= 2) {
-        history = raw
-      } else {
-        history = buildStubHistory(maxScore)
-        isStub = true
-      }
-    }
-  } catch {
+  const res = await performAuthRequest<HistoryEntry[]>(
+    session as CustomSession | null,
+    `${APIUrl}/${apiEndpoint}/history`
+  )
+
+  if ('error' in res || !Array.isArray(res.data) || res.data.length < 2) {
     history = buildStubHistory(maxScore)
     isStub = true
+  } else {
+    history = res.data
   }
 
   return (

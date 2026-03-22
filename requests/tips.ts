@@ -1,4 +1,5 @@
 import { PAGE_SIZE } from '@/constants/pagination'
+import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { PaginatedTips, TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -53,8 +54,7 @@ export async function getUnpublishedTips(
   }
 
   const items = Array.isArray(res.data) ? res.data : []
-  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
-  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  const total = extractPaginationTotal(res.headers, items.length)
   logger.info('Unpublished tips retrieved', { count: items.length, total })
   return { data: { items, total } }
 }
@@ -73,8 +73,7 @@ export async function getTips(
   }
 
   const items = Array.isArray(res.data) ? res.data : []
-  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
-  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  const total = extractPaginationTotal(res.headers, items.length)
   logger.info('Tips retrieved', { count: items.length, total })
   return { data: { items, total } }
 }

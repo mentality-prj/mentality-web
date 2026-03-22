@@ -7,7 +7,7 @@ export type ApiRequestOptions = {
   headers?: HeadersInit
 }
 
-type ApiWrapperResult<T> = {
+export type ApiWrapperResult<T> = {
   data?: T
   headers?: Headers
   error?: {
@@ -132,6 +132,9 @@ export async function apiRequest<T = unknown>(
     const fetchOptions: RequestInit = {
       method,
       headers,
+      // Authenticated requests contain personal data and must not be cached by
+      // Next.js's Data Cache (only the Router Cache is cleared by router.refresh()).
+      cache: 'no-store',
     }
 
     // Add body if present

@@ -1,4 +1,5 @@
 import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
+import { extractErrorMessage } from '@/utils/apiError'
 import { logger } from '@/lib/logger'
 import { TagEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -48,12 +49,7 @@ export async function addTag(session: CustomSession | null, tag: AdminTag | User
 
   if (error) {
     logger.error('Failed to add tag', { error, tagKey: key })
-    return {
-      error:
-        typeof error === 'object' && error !== null && 'message' in error
-          ? (error as { message: string }).message
-          : String(error),
-    }
+    return { error: extractErrorMessage(error) }
   }
 
   logger.info('Tag successfully added', { tagKey: key })
@@ -75,12 +71,7 @@ export async function getTags(session: CustomSession | null) {
 
   if (error) {
     logger.error('Failed to get tags', { error })
-    return {
-      error:
-        typeof error === 'object' && error !== null && 'message' in error
-          ? (error as { message: string }).message
-          : String(error),
-    }
+    return { error: extractErrorMessage(error) }
   }
 
   logger.info('Tags retrieved', { count: Array.isArray(data) ? data.length : 0 })

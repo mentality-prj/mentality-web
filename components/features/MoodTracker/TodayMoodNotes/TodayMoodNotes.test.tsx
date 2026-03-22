@@ -139,7 +139,7 @@ describe('TodayMoodNotes', () => {
 
     render(await TodayMoodNotes())
 
-    // component only renders the first (most recent) record — limit: 1
+    // component only renders the first (most recent) record — days: 1 (today only)
     const stressLabels = screen.getAllByText('stress')
     expect(stressLabels).toHaveLength(1)
   })
@@ -149,7 +149,7 @@ describe('TodayMoodNotes', () => {
 
     await TodayMoodNotes()
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { limit: 1 })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 1 })
   })
 
   it('falls back gracefully when stressLevel has an unknown value', async () => {

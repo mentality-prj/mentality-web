@@ -2,25 +2,34 @@
 
 ## Overview
 
-`apiRequest` is a wrapper utility for all API requests to the backend that automatically:
+`apiRequestWithAuth` is the standard wrapper for all authenticated API requests to the backend. It automatically:
 
 - ✅ Adds the user's OAuth token to headers
-- ✅ Handles authorization errors
+- ✅ Handles authorization errors and calls `signOut()` on 401
 - ✅ Logs all requests via a structured logger
 - ✅ Standardizes response format
 - ✅ Provides type-safety via TypeScript
+
+### Two available functions
+
+| Function             | File                               | Use when                                                                                         |
+| -------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `apiRequestWithAuth` | `helpers/api-request-with-auth.ts` | **Default — all authenticated requests.** Calls `signOut()` automatically on 401.                |
+| `apiRequest`         | `helpers/api-wrapper.ts`           | Internal/low-level use only. Does NOT auto sign-out on 401. Do not use directly in feature code. |
+
+> **Rule:** always import `apiRequestWithAuth` in `requests/*.ts` files. `apiRequest` is an implementation detail.
 
 ## Usage
 
 ### Basic example
 
 ```typescript
-import { apiRequest } from '@/helpers/api-wrapper'
+import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { CustomSession } from '@/types/auth'
 import { APIUrl } from './config'
 
 export async function addTag(session: CustomSession | null, tag: Tag) {
-  const { data, error } = await apiRequest(session, `${APIUrl}/tags`, {
+  const { data, error } = await apiRequestWithAuth(session, `${APIUrl}/tags`, {
     method: 'POST',
     body: { key: tag.key, translations: tag.translations },
   })
@@ -37,7 +46,7 @@ export async function addTag(session: CustomSession | null, tag: Tag) {
 
 ### Getting session in a component
 
-````typescript
+```typescript
 import { useSession } from 'next-auth/react'
 
 export default function MyComponent() {
@@ -56,10 +65,11 @@ export default function MyComponent() {
     }
   }
 }
+```
 
 ## API
 
-### `apiRequest<T>(session, url, options)`
+### `apiRequestWithAuth<T>(session, url, options, opts?)`
 
 #### Parameters
 
@@ -69,19 +79,23 @@ export default function MyComponent() {
   - `method`: `'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'` (default: `'GET'`)
   - `body`: `Record<string, unknown> | FormData` (optional)
   - `headers`: `HeadersInit` (optional — additional headers)
+- **opts**: (optional)
+  - `autoSignOutOn401`: `boolean` (default: `true`) — call `signOut()` when response is 401
 
 #### Returns
 
 ```typescript
-Promise<ApiWrapperResult<T>> = {
-  data?: T,           // Response data (if successful)
-  error?: {           // Error object (if failed)
-    name: string,     // Error name (Unauthorized, ServerError, etc.)
-    message: string,  // Error message
-    status?: number   // HTTP status code
+Promise<{
+  data?: T // Response data (if successful)
+  headers?: Headers // Response headers (if successful)
+  error?: {
+    // Error object (if failed)
+    name: string // Error name (Unauthorized, ServerError, etc.)
+    message: string // Human-readable error message
+    status?: number // HTTP status code
   }
-}
-````
+}>
+```
 
 ## Method examples
 
@@ -89,7 +103,7 @@ Promise<ApiWrapperResult<T>> = {
 
 ```typescript
 export async function getTags(session: CustomSession | null) {
-  const { data, error } = await apiRequest<Tag[]>(session, `${APIUrl}/tags`, {
+  const { data, error } = await apiRequestWithAuth<Tag[]>(session, `${APIUrl}/tags`, {
     method: 'GET',
   })
 
@@ -105,7 +119,7 @@ export async function getTags(session: CustomSession | null) {
 
 ```typescript
 export async function createUser(session: CustomSession | null, userData: UserData) {
-  const { data, error } = await apiRequest(session, `${APIUrl}/users`, {
+  const { data, error } = await apiRequestWithAuth(session, `${APIUrl}/users`, {
     method: 'POST',
     body: userData,
   })
@@ -122,7 +136,7 @@ export async function createUser(session: CustomSession | null, userData: UserDa
 
 ```typescript
 export async function uploadFile(session: CustomSession | null, formData: FormData) {
-  const { data, error } = await apiRequest(session, `${APIUrl}/upload`, {
+  const { data, error } = await apiRequestWithAuth(session, `${APIUrl}/upload`, {
     method: 'POST',
     body: formData, // FormData is detected automatically
   })
@@ -139,7 +153,7 @@ export async function uploadFile(session: CustomSession | null, formData: FormDa
 
 ```typescript
 export async function updateTag(session: CustomSession | null, tagId: string, updates: Partial<Tag>) {
-  const { data, error } = await apiRequest(session, `${APIUrl}/tags/${tagId}`, {
+  const { data, error } = await apiRequestWithAuth(session, `${APIUrl}/tags/${tagId}`, {
     method: 'PATCH',
     body: updates,
   })
@@ -156,7 +170,7 @@ export async function updateTag(session: CustomSession | null, tagId: string, up
 
 ```typescript
 export async function deleteTag(session: CustomSession | null, tagId: string) {
-  const { data, error } = await apiRequest(session, `${APIUrl}/tags/${tagId}`, {
+  const { data, error } = await apiRequestWithAuth(session, `${APIUrl}/tags/${tagId}`, {
     method: 'DELETE',
   })
 
@@ -262,7 +276,7 @@ if (session?.user) {
 
 ```typescript
 export async function addTag(session: CustomSession | null, tag: Tag) {
-  const { data, error } = await apiRequest(session, `${APIUrl}/tags`, {
+  const { data, error } = await apiRequestWithAuth(session, `${APIUrl}/tags`, {
     method: 'POST',
     body: { key: tag.key, translations: tag.translations },
   })
@@ -287,7 +301,7 @@ if (session) {
 1. **Always check errors**:
 
    ```typescript
-   const { data, error } = await apiRequest(...)
+   const { data, error } = await apiRequestWithAuth(...)
    if (error) {
      // Handle error
    }
@@ -296,7 +310,7 @@ if (session) {
 2. **Use TypeScript generics**:
 
    ```typescript
-   const { data, error } = await apiRequest<Tag[]>(session, url)
+   const { data, error } = await apiRequestWithAuth<Tag[]>(session, url)
    // data has type Tag[] | undefined
    ```
 

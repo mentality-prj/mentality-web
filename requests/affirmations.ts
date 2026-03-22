@@ -1,4 +1,5 @@
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
+import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { AffirmationEntity, PaginatedAffirmations } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -53,8 +54,7 @@ export async function getUnpublishedAffirmations(
   }
 
   const items: AffirmationEntity[] = Array.isArray(res.data) ? res.data : []
-  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
-  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  const total = extractPaginationTotal(res.headers, items.length)
   logger.info('Unpublished affirmations retrieved', { count: items.length, total })
   return { data: { items, total } }
 }
@@ -79,8 +79,7 @@ export async function getAffirmations(
   }
 
   const items: AffirmationEntity[] = Array.isArray(res.data) ? res.data : []
-  const headerTotal = res.headers?.get('X-Total-Count') ?? res.headers?.get('x-total-count')
-  const total = headerTotal ? parseInt(headerTotal, 10) || items.length : items.length
+  const total = extractPaginationTotal(res.headers, items.length)
   return { data: { items, total } }
 }
 

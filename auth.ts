@@ -60,7 +60,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
             throw new Error(`Backend validation failed: ${response.status} ${response.statusText}`)
           }
         } catch (error) {
-          logger.error('[AUTH] Backend connection error', { error })
+          logger.error('[AUTH] Backend connection error', {
+            error: error instanceof Error ? error.message : String(error),
+          })
           return {
             ...customToken,
             error: 'BackendConnectionError',
@@ -115,7 +117,9 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
           error: 'BackendConnectionError',
         }
       } catch (error) {
-        logger.error('[AUTH] Backend connection error during token refresh', { error })
+        logger.error('[AUTH] Backend connection error during token refresh', {
+          error: error instanceof Error ? error.message : String(error),
+        })
         return {
           ...refreshedToken,
           error: 'BackendConnectionError',
@@ -148,7 +152,17 @@ export const { handlers, signIn, signOut, auth } = NextAuth({
       }
 
       session.provider = token.provider as string
-      session.OAuthToken = (token.idToken ?? token.accessToken) as string
+
+      const authToken = token.idToken ?? token.accessToken
+      if (!authToken) {
+        logger.error('[AUTH] No idToken or accessToken available in token')
+        const customSession: CustomSession = {
+          ...session,
+          error: { error: 'InvalidToken', message: 'No idToken or accessToken available in token' },
+        }
+        return customSession
+      }
+      session.OAuthToken = authToken as string
 
       return session
     },
