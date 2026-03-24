@@ -6,9 +6,10 @@ import { MoodRecordsContainer } from './MoodRecordsContainer'
 
 type Props = {
   records?: MoodRecordEntity[]
+  totalCount?: number
 }
 
-export async function MoodRecords({ records }: Props) {
+export async function MoodRecords({ records, totalCount }: Props) {
   const session = await auth()
   const res = await fetchUserTagsCached(session)
 
@@ -17,5 +18,5 @@ export async function MoodRecords({ records }: Props) {
     tags = res.data
   }
 
-  return <MoodRecordsContainer records={records ?? []} availableTags={tags} />
+  return <MoodRecordsContainer totalCount={totalCount} records={records ?? []} availableTags={tags} />
 }

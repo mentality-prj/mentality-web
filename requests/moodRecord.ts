@@ -18,15 +18,55 @@ export async function createMoodRecord(session: CustomSession | null, dto: Creat
   return { data: res.data }
 }
 
-export async function getMoodRecords(session: CustomSession | null, params?: { page?: number; limit?: number }) {
+export async function getMoodRecords(
+  session: CustomSession | null,
+  params?: {
+    page?: number
+    limit?: number
+    moodMin?: number
+    moodMax?: number
+    stressMin?: number
+    stressMax?: number
+    energyMin?: number
+    energyMax?: number
+    focusMin?: number
+    focusMax?: number
+    tags?: string[]
+    weekdays?: number[]
+  }
+) {
   const query = new URLSearchParams()
+
+  if (!params) params = {}
+
   if (typeof params?.page === 'number') query.set('page', String(params.page))
   if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+
+  const ranges = [
+    ['moodMin', 'moodMax'],
+    ['stressMin', 'stressMax'],
+    ['energyMin', 'energyMax'],
+    ['focusMin', 'focusMax'],
+  ] as const
+
+  ranges.forEach(([minKey, maxKey]) => {
+    if (typeof params![minKey] === 'number') query.set(minKey, String(params![minKey]))
+    if (typeof params![maxKey] === 'number') query.set(maxKey, String(params![maxKey]))
+  })
+
+  params.tags?.forEach((tag) => query.append('tags', tag))
+  params.weekdays?.forEach((day) => query.append('weekdays', String(day)))
 
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }
-  return { data: res.data }
+  const totalCount = res.headers
+    ? (() => {
+        const count = res.headers.get('x-total-count')
+        return count ? Number(count) : undefined
+      })()
+    : undefined
+  return { data: res.data, totalCount }
 }
 
 export async function getLastMoodRecords(session: CustomSession | null, params?: { limit?: number; days?: number }) {

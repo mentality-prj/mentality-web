@@ -5,5 +5,4 @@ export const filterOptions = {
   categories: ['affirmation', 'tip', 'breathing', 'calming', 'meditation'],
   moodLevel: MOOD_KEYS,
   stressLevel: STRESS_LEVELS,
-  week: ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'],
 } as const
