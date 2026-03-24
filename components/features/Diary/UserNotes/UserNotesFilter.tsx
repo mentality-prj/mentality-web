@@ -8,6 +8,8 @@ import { UserTagsFilterGroup } from '@/components/shared/Filter/UserTagsFilterGr
 import { Sort } from '@/components/shared/Sort/Sort'
 import { useUserNotesFilters } from '@/context/userNotesFilterContext'
 import { UserTag } from '@/types/tags'
+import { WeekdaysFilterGroup } from '@/components/shared/Filter/WeekdaysFilterGroup'
+import { weekOptions } from '@/mappers/weekdays.mapper'
 
 type Props = {
   availableTags: UserTag[]
@@ -15,7 +17,7 @@ type Props = {
 
 export function UserNotesFilter({ availableTags }: Props) {
   const { filters, setFilters } = useUserNotesFilters()
-  const { order: sort, tags } = filters
+  const { order: sort, tags, weekdays } = filters
 
   const t = useTranslations('components.Filter')
 
@@ -24,20 +26,34 @@ export function UserNotesFilter({ availableTags }: Props) {
       variant="card"
       useFilters={useUserNotesFilters}
       customSections={
-        availableTags.length > 0 && (
-          <FilterSection title={t('by_tags')}>
-            <UserTagsFilterGroup
-              value={tags}
-              tags={availableTags}
+        <>
+          {availableTags.length > 0 && (
+            <FilterSection title={t('by_tags')}>
+              <UserTagsFilterGroup
+                value={tags ?? []}
+                tags={availableTags}
+                onChange={(v) =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    tags: v,
+                  }))
+                }
+              />
+            </FilterSection>
+          )}
+          <FilterSection title={t('by_week')}>
+            <WeekdaysFilterGroup
+              value={weekdays ?? []}
+              options={weekOptions}
               onChange={(v) =>
                 setFilters((prev) => ({
                   ...prev,
-                  tags: v,
+                  weekdays: v,
                 }))
               }
             />
           </FilterSection>
-        )
+        </>
       }
       sup={
         <Sort

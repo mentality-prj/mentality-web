@@ -28,20 +28,20 @@ export function UserNotesClient({ notes, availableTags }: Props) {
   const filteredNotes = useMemo(() => {
     let result = [...notes]
     // Filter by tags
-    if (filters.tags) {
-      result = result.filter((n) => n.tags && n.tags.includes(filters.tags))
+    if (filters.tags && filters.tags.length > 0) {
+      result = result.filter((n) => n.tags && n.tags.some((tag) => filters.tags!.includes(tag)))
     }
 
     // Filter by week (weekDays/weekends)
-    if (filters.week) {
+    if (filters.weekdays) {
       result = result.filter((n) => {
         if (!n.createdAt) return false
         const date = new Date(n.createdAt)
         const dayOfWeek = date.getDay()
         const isWeekend = dayOfWeek === 0 || dayOfWeek === 6
 
-        if (filters.week === 'weekends') return isWeekend
-        if (filters.week === 'weekDays') return !isWeekend
+        if (filters.weekdays.includes('weekends')) return isWeekend
+        if (filters.weekdays.includes('weekDays')) return !isWeekend
         return true
       })
     }
