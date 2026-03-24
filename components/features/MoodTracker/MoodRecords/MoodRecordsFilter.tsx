@@ -5,13 +5,12 @@ import { useTranslations } from 'next-intl'
 import { Filter } from '@/components/shared/Filter/Filter'
 import { FilterSection } from '@/components/shared/Filter/FilterSection'
 import { UserTagsFilterGroup } from '@/components/shared/Filter/UserTagsFilterGroup'
+import { WeekdaysFilterGroup } from '@/components/shared/Filter/WeekdaysFilterGroup'
 import { Sort } from '@/components/shared/Sort/Sort'
+import { useMoodRecordsFilter } from '@/hooks/useMoodRecordsFilter'
+import { weekOptions } from '@/mappers/weekdays.mapper'
+import { SORT_ORDER } from '@/types/sort'
 import { UserTag } from '@/types/tags'
-
-import { useMoodRecordsFilter } from '../../../../hooks/useMoodRecordsFilter'
-import { weekOptions } from '../../../../mappers/weekdays.mapper'
-import { SORT_ORDER } from '../../../../types/sort'
-import { WeekdaysFilterGroup } from '../../../shared/Filter/WeekdaysFilterGroup'
 
 type Props = {
   availableTags: UserTag[]

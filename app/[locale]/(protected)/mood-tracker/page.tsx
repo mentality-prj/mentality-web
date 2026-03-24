@@ -6,9 +6,8 @@ import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNot
 import { TenDaysSummary } from '@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
+import { parseMoodQuery } from '@/lib/moodQueryParser'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
-
-import { parseMoodQuery } from '../../../../lib/moodQueryParser'
 
 export default async function MoodTracker({
   searchParams,
