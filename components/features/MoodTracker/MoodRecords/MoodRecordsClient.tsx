@@ -1,10 +1,13 @@
 'use client'
 
 import { useState } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { MoodRecordsList } from '@/components/features/MoodTracker/MoodRecords/MoodRecordsList/MoodRecordsList'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
+import { PAGE_SIZE } from '@/constants/pagination'
+import { usePathname, useRouter } from '@/i18n/navigation'
 import type { MoodRecordEntity } from '@/types/api-responses'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
@@ -21,9 +24,20 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
   const mt = useTranslations('components.Mood')
   const ft = useTranslations('components.Filter')
 
-  const [page, setPage] = useState(1)
+  const searchParams = useSearchParams()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  const handlePageChange = (newPage: number) => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set('page', String(newPage))
+
+    router.push(`${pathname}?${params.toString()}`, { scroll: false })
+  }
+
+  const page = Number(searchParams.get('page') ?? '1')
   const [showFilters, setShowFilters] = useState(false)
-  const totalPages = Math.ceil(totalCount / 10)
+  const totalPages = Math.ceil(totalCount / PAGE_SIZE)
 
   return (
     <div id="mood-records-list" className="flex flex-col gap-sm">
@@ -45,7 +59,7 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
           {records.length === 0 && <p className="mt-2 text-sm text-gray-500">{mt('History.Empty')}</p>}
 
           <MoodRecordsList records={records} />
-          {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />}
+          {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />}
         </div>
         <div id="mood-records-filters" className={`${showFilters ? 'block' : 'hidden'}`}>
           <MoodRecordsFilter availableTags={availableTags} />

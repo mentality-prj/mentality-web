@@ -4,22 +4,28 @@ import { SortOrder } from '../types/sort'
 
 import { MapFiltersToApi, mapFiltersToApi } from './mapFiltersToApi'
 
-type MoodQueryParams = {
-  page?: string
-  limit?: string
-  order?: string
-  moodLevel?: string
-  stressLevel?: string
-  energyLevel?: string
-  focusLevel?: string
+type QueryValue = string | string[] | undefined
 
-  tags?: string[] | string
-  week?: string[] | string
+type MoodQueryParams = {
+  page?: QueryValue
+  limit?: QueryValue
+  order?: QueryValue
+  moodLevel?: QueryValue
+  stressLevel?: QueryValue
+  energyLevel?: QueryValue
+  focusLevel?: QueryValue
+  tags?: QueryValue
+  weekdays?: QueryValue
 }
 
 export function parseMoodQuery(params: MoodQueryParams) {
-  const page = Number(params.page) || 1
-  const limit = Number(params.limit) || 10
+  const getFirst = (value?: string | string[]): string | undefined => {
+    if (!value) return undefined
+    return Array.isArray(value) ? value[0] : value
+  }
+
+  const page = Number(getFirst(params.page)) || 1
+  const limit = Number(getFirst(params.limit)) || 10
 
   const normalizeArray = (value?: string[] | string): string[] | undefined => {
     if (!value) return undefined
@@ -27,14 +33,12 @@ export function parseMoodQuery(params: MoodQueryParams) {
     return value.split(',')
   }
 
-  // тоді
-
   const filters: MapFiltersToApi = {
-    order: (params.order as SortOrder) ?? 'newest',
-    tags: normalizeArray(params.tags) ?? [], // <- тепер завжди string[]
-    moodLevel: params.moodLevel as FilterValue<'moodLevel'>,
-    stressLevel: params.stressLevel as FilterValue<'stressLevel'>,
-    weekdays: (normalizeArray(params.week) as WeekValueType[]) ?? [], // <- тепер завжди string[]
+    order: (getFirst(params.order) as SortOrder) ?? 'newest',
+    tags: normalizeArray(params.tags) ?? [],
+    moodLevel: getFirst(params.moodLevel) as FilterValue<'moodLevel'>,
+    stressLevel: getFirst(params.stressLevel) as FilterValue<'stressLevel'>,
+    weekdays: (normalizeArray(params.weekdays) as WeekValueType[]) ?? [],
   }
 
   const mapped = mapFiltersToApi(filters)
@@ -42,7 +46,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
   return {
     page,
     limit,
-
+    // TODO: order parameter
     moodMin: mapped.moodLevel,
     moodMax: mapped.moodLevel,
 

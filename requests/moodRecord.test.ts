@@ -82,7 +82,12 @@ describe('getMoodRecords', () => {
 
     const result = await getMoodRecords(mockSession)
 
-    expect(result).toEqual({ data: [mockRecord] })
+    expect(result).toEqual({
+      data: {
+        moodNotes: [mockRecord],
+        total: 1,
+      },
+    })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSession,
       expect.not.stringContaining('?'),

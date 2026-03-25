@@ -70,6 +70,8 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
         }
       })
 
+      params.set('page', '1')
+
       router.replace(`${pathname}?${params.toString()}`, { scroll: false })
     },
     [filters, pathname, router, searchParams]
@@ -93,6 +95,7 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
         params.delete(key)
       }
     })
+    params.set('page', '1')
     router.replace(`${pathname}?${params.toString()}`, { scroll: false })
   }, [initial, pathname, router])
 

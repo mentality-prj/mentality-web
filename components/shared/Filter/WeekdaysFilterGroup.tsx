@@ -1,3 +1,5 @@
+'use client'
+
 import { useTranslations } from 'next-intl'
 
 import { Tag } from '@/ds/components/Tag'
@@ -17,7 +19,7 @@ export function WeekdaysFilterGroup({
   return (
     <ToggleGroup type="multiple" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-xs">
       {options.map((opt) => (
-        <Tag text={t('tags', { tag: opt })} key={opt} value={opt} aria-label={`Toggle ${opt}`} />
+        <Tag text={t('tags', { tag: opt })} key={opt} value={opt} aria-label={`Toggle ${t('tags', { tag: opt })}`} />
       ))}
     </ToggleGroup>
   )

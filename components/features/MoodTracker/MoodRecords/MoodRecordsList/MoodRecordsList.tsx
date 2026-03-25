@@ -1,3 +1,5 @@
+'use client'
+
 import { useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'

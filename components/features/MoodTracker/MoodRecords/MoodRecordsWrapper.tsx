@@ -9,6 +9,7 @@ type Props = {
   totalCount?: number
 }
 
-export function MoodRecordsWrapper({ records, availableTags = [], totalCount = 1 }: Props) {
-  return <MoodRecordsClient totalCount={totalCount} records={records} availableTags={availableTags} />
+export function MoodRecordsWrapper({ records, availableTags = [], totalCount }: Props) {
+  const effectiveTotalCount = totalCount ?? records.length
+  return <MoodRecordsClient totalCount={effectiveTotalCount} records={records} availableTags={availableTags} />
 }

@@ -3,6 +3,8 @@ import { logger } from '@/lib/logger'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
+import { extractPaginationTotal } from '../lib/http'
+
 import { APIUrl } from './config'
 import { performAuthRequest } from './genericFetch'
 
@@ -50,8 +52,8 @@ export async function getMoodRecords(
   ] as const
 
   ranges.forEach(([minKey, maxKey]) => {
-    if (typeof params![minKey] === 'number') query.set(minKey, String(params![minKey]))
-    if (typeof params![maxKey] === 'number') query.set(maxKey, String(params![maxKey]))
+    if (typeof params![`${minKey}`] === 'number') query.set(minKey, String(params![`${minKey}`]))
+    if (typeof params![`${maxKey}`] === 'number') query.set(maxKey, String(params![`${maxKey}`]))
   })
 
   params.tags?.forEach((tag) => query.append('tags', tag))
@@ -60,13 +62,9 @@ export async function getMoodRecords(
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }
-  const totalCount = res.headers
-    ? (() => {
-        const count = res.headers.get('x-total-count')
-        return count ? Number(count) : undefined
-      })()
-    : undefined
-  return { data: res.data, totalCount }
+  const moodNotes: MoodRecordEntity[] = Array.isArray(res.data) ? res.data : []
+  const total = extractPaginationTotal(res.headers, moodNotes.length)
+  return { data: { moodNotes, total } }
 }
 
 export async function getLastMoodRecords(session: CustomSession | null, params?: { limit?: number; days?: number }) {

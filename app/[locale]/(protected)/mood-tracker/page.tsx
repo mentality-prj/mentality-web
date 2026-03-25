@@ -18,7 +18,11 @@ export default async function MoodTracker({
 
   const session = await auth()
   const query = parseMoodQuery(searchParams)
-  const { data: moodRecordsData, totalCount } = await getMoodRecords(session, query)
+  const result = await getMoodRecords(session, query)
+  if ('error' in result) {
+    throw new Error(result.error)
+  }
+  const { moodNotes, total } = result.data
   const res = await getLastMoodRecords(session, { days: 10 })
   const moodMarksData = buildMoodMarksData(res?.data ?? [])
 
@@ -36,7 +40,7 @@ export default async function MoodTracker({
           <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res.data ?? []} />
         </div>
       </div>
-      <MoodRecords totalCount={totalCount} records={moodRecordsData ?? []} />
+      <MoodRecords totalCount={total} records={moodNotes ?? []} />
     </div>
   )
 }

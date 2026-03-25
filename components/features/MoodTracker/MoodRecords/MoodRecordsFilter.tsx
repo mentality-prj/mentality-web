@@ -24,9 +24,8 @@ export function MoodRecordsFilter({ availableTags }: Props) {
     stressLevel: '',
     weekdays: [],
   })
-  console.log('filters', filters)
-  const { order: sort, tags, weekdays } = filters
 
+  const { order: sort, tags, weekdays } = filters
   const t = useTranslations('components.Filter')
 
   return (

@@ -55,7 +55,9 @@ beforeEach(() => {
   ;(auth as jest.Mock).mockResolvedValue(mockSession)
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: mockRecords })
-  ;(getMoodRecords as jest.Mock).mockResolvedValue({ data: mockRecords, totalCount: mockRecords.length })
+  ;(getMoodRecords as jest.Mock).mockResolvedValue({
+    data: { moodNotes: mockRecords, total: mockRecords.length },
+  })
 })
 
 describe('MoodTracker page', () => {
@@ -96,7 +98,9 @@ describe('MoodTracker page', () => {
       message: 'No access',
       status: 403,
     })
-    ;(getMoodRecords as jest.Mock).mockResolvedValue({ data: [], totalCount: 0 })
+    ;(getMoodRecords as jest.Mock).mockResolvedValue({
+      data: { moodNotes: [], total: 0 },
+    })
 
     render(await MoodTrackerPage({ searchParams: {} }))
 
