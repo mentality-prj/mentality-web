@@ -2,7 +2,6 @@ import { useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import { USER_NOTE_LENGTH_LIMIT } from '@/constants/userNote'
 import useTags from '@/hooks/useTags'
 import { createDiary } from '@/requests/diary'
 import type { CreateDiaryDto } from '@/types/api-responses'
@@ -72,9 +71,7 @@ export function useAddNewNote({ availableTags = [], onSave, onClose }: Params) {
     }
   }
 
-  const isTooLong = note.length > USER_NOTE_LENGTH_LIMIT
-
-  const isFormValid = note.trim().length > 0 && !isTooLong
+  const isFormValid = note.trim().length > 0
 
   return {
     note,
