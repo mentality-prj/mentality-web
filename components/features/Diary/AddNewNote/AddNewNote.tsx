@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -25,7 +24,6 @@ interface AddNewNoteProps {
 export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNoteProps) => {
   const t = useTranslations('components.Diary.AddNewNote')
   const tt = useTranslations('components.Tags')
-  const [isMaxLengthReached, setIsMaxLengthReached] = useState(false)
 
   const {
     note,
@@ -42,6 +40,8 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
     handleSubmit,
     onTagCreated,
   } = useAddNewNote({ availableTags, onSave, onClose })
+
+  const isMaxLengthReached = note.length === USER_NOTE_LENGTH_LIMIT
 
   const tools = onClose && <CloseIconButton onClick={onClose} />
 
@@ -65,9 +65,7 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
             spellCheck={true}
             maxLength={USER_NOTE_LENGTH_LIMIT}
             onChange={(e) => {
-              const value = e.target.value
-              setNote(value)
-              setIsMaxLengthReached(value.length === USER_NOTE_LENGTH_LIMIT)
+              setNote(e.target.value)
             }}
           />
           {selectedTags.length > 0 && (
