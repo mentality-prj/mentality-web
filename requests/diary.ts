@@ -1,5 +1,5 @@
 import { logger } from '@/lib/logger'
-import { CreateDiaryDto, DiaryEntity, UpdateDiaryDto } from '@/types/api-responses'
+import { CreateDiaryDto, DiaryEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 import { APIUrl } from './config'
@@ -25,12 +25,6 @@ export async function getUserDiaries(session: CustomSession | null) {
 
 export async function getDiaryById(session: CustomSession | null, id: string) {
   const res = await performAuthRequest<DiaryEntity>(session, `${APIUrl}/diary/${id}`, { method: 'GET' })
-  if ('error' in res) return { error: res.error }
-  return { data: res.data }
-}
-
-export async function updateDiary(session: CustomSession | null, id: string, dto: UpdateDiaryDto) {
-  const res = await performAuthRequest<DiaryEntity>(session, `${APIUrl}/diary/${id}`, { method: 'PATCH', body: dto })
   if ('error' in res) return { error: res.error }
   return { data: res.data }
 }

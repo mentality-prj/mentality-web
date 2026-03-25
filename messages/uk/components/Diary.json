@@ -2,28 +2,18 @@
   "AddNewNote": {
     "title": "Запис думок",
     "submitLabel": "Зберегти запис",
-    "textareaPlaceholder": "Введіть запис",
+    "textareaPlaceholder": "Введіть запис (максимальна кількість символів {max})",
     "addTag": "Додай теги:",
     "addNewTag": "Додати тег",
     "notAuthenticated": "Необхідно бути зареєстрованим щоб додати запис",
     "saveError": "Невдалось додати запис",
-    "saveSuccess": "Запис додано"
-  },
-  "EditNoteForm": {
-    "title": "Зміни запис",
-    "submitLabel": "Зберегти зміни",
-    "success": "Запис оновлено",
-    "notAuthenticated": "Необхідно бути зареєстрованим щоб змінити запис",
-    "loadError": "Невдалось завантажити запис",
-    "notFoundError": "Запис не знайдено",
-    "inputError": "Введіть запис",
-    "updateError": "Невдалось оновити запис"
+    "saveSuccess": "Запис додано",
+    "maxLengthReached": "Досягнуто максимальну кількість символів {max}"
   },
   "UserNoteCard": {
     "notAuthenticated": "Необхідно бути зареєстрованим щоб архівувати запис",
     "archiveError": "Невдалось архівувати запис",
     "archiveSuccess": "Запис успішно архівовано",
-    "edit": "Редактувати",
     "archive": "Архівувати"
   },
   "Empty": "У тебе поки немає записів",

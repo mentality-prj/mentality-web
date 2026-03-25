@@ -2,28 +2,18 @@
   "AddNewNote": {
     "title": "Add Note",
     "submitLabel": "Save Note",
-    "textareaPlaceholder": "Enter your note",
+    "textareaPlaceholder": "Enter a note (maximum {max} characters)",
     "addTag": "Add tags:",
     "addNewTag": "Add new tag",
     "notAuthenticated": "You need to be logged in to add a note",
     "saveError": "Failed to add note",
-    "saveSuccess": "Note added successfully"
-  },
-  "EditNoteForm": {
-    "title": "Edit Note",
-    "submitLabel": "Save Changes",
-    "success": "Note updated successfully",
-    "notAuthenticated": "You need to be logged in to edit a note",
-    "loadError": "Failed to load note",
-    "notFoundError": "Note not found",
-    "inputError": "Please enter a note",
-    "updateError": "Failed to update note"
+    "saveSuccess": "Note added successfully",
+    "maxLengthReached": "You've reached the maximum of {max} characters"
   },
   "UserNoteCard": {
     "notAuthenticated": "You need to be logged in to archive a note",
     "archiveError": "Failed to archive note",
     "archiveSuccess": "Note archived successfully",
-    "edit": "Edit",
     "archive": "Archive"
   },
   "Empty": "You have no notes yet",

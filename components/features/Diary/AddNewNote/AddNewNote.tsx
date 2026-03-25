@@ -8,6 +8,7 @@ import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FormCard from '@/components/shared/Cards/FormCard'
 import StyledTextarea from '@/components/shared/Forms/StyledTextarea'
 import FullScreenBackdrop from '@/components/shared/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import { USER_NOTE_LENGTH_LIMIT } from '@/constants/userNote'
 import { Tag } from '@/ds/components/Tag'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
@@ -40,6 +41,8 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
     onTagCreated,
   } = useAddNewNote({ availableTags, onSave, onClose })
 
+  const isMaxLengthReached = note.length === USER_NOTE_LENGTH_LIMIT
+
   const tools = onClose && <CloseIconButton onClick={onClose} />
 
   return (
@@ -58,8 +61,12 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
             id="diary-note"
             name="note"
             value={note}
-            onChange={(e) => setNote(e.target.value)}
-            placeholder={t('textareaPlaceholder')}
+            placeholder={t('textareaPlaceholder', { max: USER_NOTE_LENGTH_LIMIT })}
+            spellCheck={true}
+            maxLength={USER_NOTE_LENGTH_LIMIT}
+            onChange={(e) => {
+              setNote(e.target.value)
+            }}
           />
           {selectedTags.length > 0 && (
             <div className="flex flex-wrap gap-xs">
@@ -67,6 +74,11 @@ export const AddNewNote = ({ onClose, onSave, availableTags = [] }: AddNewNotePr
                 <Tag key={t} text={tagLabels[t as string] ?? t} onRemove={() => removeTag(t)} />
               ))}
             </div>
+          )}
+          {isMaxLengthReached && (
+            <span className="text-sm text-textcolor-muted">
+              {t('maxLengthReached', { max: USER_NOTE_LENGTH_LIMIT })}
+            </span>
           )}
         </div>
         <div>

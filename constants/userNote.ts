@@ -1,0 +1,1 @@
+export const USER_NOTE_LENGTH_LIMIT = 1500
