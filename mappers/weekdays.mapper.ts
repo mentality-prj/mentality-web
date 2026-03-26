@@ -17,8 +17,12 @@ export const weekOptions: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue
 export function mapWeekToNumbers(input: WeekValueType | WeekValueType[]): number[] {
   const items = Array.isArray(input) ? input : [input]
 
-  return items.flatMap((day) => {
-    const value = weekToNumberMap[day]
+  const numbers = items.flatMap((day) => {
+    if (!(day in weekToNumberMap)) {
+      return []
+    }
+    const value = weekToNumberMap[`${day}`]
     return Array.isArray(value) ? value : [value]
   })
+  return Array.from(new Set(numbers))
 }

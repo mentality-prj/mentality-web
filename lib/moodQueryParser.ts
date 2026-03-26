@@ -1,6 +1,8 @@
-import { FilterValue } from '../context/moodRecordsFilterContext'
-import { WeekValueType } from '../mappers/weekdays.mapper'
-import { SortOrder } from '../types/sort'
+import { PAGE_SIZE } from '@/constants/pagination'
+import { FilterValue } from '@/context/moodRecordsFilterContext'
+import { WeekValueType } from '@/mappers/weekdays.mapper'
+import { SortOrder } from '@/types/sort'
+import { getSafePage } from '@/utils/getSafePage'
 
 import { MapFiltersToApi, mapFiltersToApi } from './mapFiltersToApi'
 
@@ -24,21 +26,22 @@ export function parseMoodQuery(params: MoodQueryParams) {
     return Array.isArray(value) ? value[0] : value
   }
 
-  const page = Number(getFirst(params.page)) || 1
-  const limit = Number(getFirst(params.limit)) || 10
+  const page = getSafePage(getFirst(params.page), PAGE_SIZE)
+  const limit = PAGE_SIZE
 
-  const normalizeArray = (value?: string[] | string): string[] | undefined => {
-    if (!value) return undefined
-    if (Array.isArray(value)) return value
-    return value.split(',')
-  }
+  const normalizeArray = (value?: string[] | string): string[] =>
+    value ? (Array.isArray(value) ? value : value.split(',')).map((v) => v.trim()).filter(Boolean) : []
+
+  const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
   const filters: MapFiltersToApi = {
     order: (getFirst(params.order) as SortOrder) ?? 'newest',
-    tags: normalizeArray(params.tags) ?? [],
+    tags: Array.from(new Set(normalizeArray(params.tags))),
     moodLevel: getFirst(params.moodLevel) as FilterValue<'moodLevel'>,
     stressLevel: getFirst(params.stressLevel) as FilterValue<'stressLevel'>,
-    weekdays: (normalizeArray(params.weekdays) as WeekValueType[]) ?? [],
+    weekdays: normalizeArray(params.weekdays).filter((d): d is WeekValueType =>
+      allowedWeekdays.includes(d as WeekValueType)
+    ),
   }
 
   const mapped = mapFiltersToApi(filters)
@@ -54,6 +57,6 @@ export function parseMoodQuery(params: MoodQueryParams) {
     stressMax: mapped.stressLevel,
 
     tags: filters.tags.length ? filters.tags : undefined,
-    weekdays: mapped.weekdays,
+    weekdays: mapped.weekdays?.length ? mapped.weekdays : undefined,
   }
 }

@@ -19,10 +19,12 @@ export default async function MoodTracker({
   const session = await auth()
   const query = parseMoodQuery(searchParams)
   const result = await getMoodRecords(session, query)
+  const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
+  const total = 'error' in result ? 0 : result.data.total
+
   if ('error' in result) {
-    throw new Error(result.error)
+    console.error('Failed to load mood records:', result.error)
   }
-  const { moodNotes, total } = result.data
   const res = await getLastMoodRecords(session, { days: 10 })
   const moodMarksData = buildMoodMarksData(res?.data ?? [])
 

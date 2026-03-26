@@ -31,7 +31,7 @@ const MyDay = async () => {
       throw new Error(res.error)
     }
     const { moodNotes } = res.data
-    moodCounts = 'error' in res ? [] : mapMoodRecordsToCounts(moodNotes ?? [])
+    moodCounts = mapMoodRecordsToCounts(moodNotes ?? [])
   }
 
   const goalsRes = await fetchPersonalGoals(session)

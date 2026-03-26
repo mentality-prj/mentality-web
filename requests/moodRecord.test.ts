@@ -1,5 +1,6 @@
 import { MOOD_RECORD_ENDPOINTS } from '@/constants/endpoints'
 import { logger } from '@/lib/logger'
+import { parseMoodQuery } from '@/lib/moodQueryParser'
 import { performAuthRequest } from '@/requests/genericFetch'
 import { createMoodRecord, getLastMoodRecords, getMoodRecordById, getMoodRecords } from '@/requests/moodRecord'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
@@ -131,6 +132,72 @@ describe('getMoodRecords', () => {
     const result = await getMoodRecords(mockSession)
 
     expect(result).toEqual({ error: 'Unauthorized' })
+  })
+
+  describe('query params', () => {
+    it('includes repeated tags and weekdays correctly in URL', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      const searchParams = {
+        tags: ['a', 'a', 'b', ''],
+        weekdays: ['mon', 'xyz', 'tue', ''],
+        moodLevel: 'great',
+      }
+
+      const query = parseMoodQuery(searchParams)
+
+      await getMoodRecords(mockSession, query)
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      console.log('called URL:', calledUrl)
+
+      const urlParams = new URL(calledUrl).searchParams
+
+      const tags = urlParams.getAll('tags')
+      expect(tags).toEqual(['a', 'b'])
+
+      const weekdays = urlParams.getAll('weekdays')
+      expect(weekdays).toEqual(['1', '2'])
+
+      expect(urlParams.get('moodMin')).toBe('5')
+      expect(urlParams.get('moodMax')).toBe('5')
+    })
+  })
+
+  describe('pagination total', () => {
+    it('returns total from X-Total-Count header', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({
+        data: [mockRecord],
+        headers: new Headers({
+          'X-Total-Count': '100',
+        }),
+      })
+
+      const result = await getMoodRecords(mockSession)
+
+      expect(result).toMatchObject({
+        data: {
+          moodNotes: [mockRecord],
+          total: 100,
+        },
+      })
+    })
+
+    it('fals back to moodNotes length when header is missing', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({
+        data: [mockRecord],
+        headers: new Headers(),
+      })
+
+      const result = await getMoodRecords(mockSession)
+
+      expect(result).toMatchObject({
+        data: {
+          moodNotes: [mockRecord],
+          total: 1,
+        },
+      })
+    })
   })
 })
 

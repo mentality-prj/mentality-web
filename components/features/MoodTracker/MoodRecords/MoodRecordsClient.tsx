@@ -11,6 +11,7 @@ import { usePathname, useRouter } from '@/i18n/navigation'
 import type { MoodRecordEntity } from '@/types/api-responses'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
+import { getSafePage } from '@/utils/getSafePage'
 
 import { MoodRecordsFilter } from './MoodRecordsFilter'
 
@@ -35,9 +36,10 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
     router.push(`${pathname}?${params.toString()}`, { scroll: false })
   }
 
-  const page = Number(searchParams.get('page') ?? '1')
   const [showFilters, setShowFilters] = useState(false)
-  const totalPages = Math.ceil(totalCount / PAGE_SIZE)
+
+  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+  const page = getSafePage(searchParams.get('page'), totalPages)
 
   return (
     <div id="mood-records-list" className="flex flex-col gap-sm">
