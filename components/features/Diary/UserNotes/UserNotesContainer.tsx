@@ -15,8 +15,8 @@ export function UserNotesContainer({ notes, availableTags = [] }: Props) {
     <UserNotesFilterProvider
       initial={{
         order: SORT_ORDER.NEWEST,
-        tags: '',
-        week: '',
+        tags: [],
+        weekdays: [],
       }}
     >
       <UserNotesWrapper notes={notes} availableTags={availableTags} />

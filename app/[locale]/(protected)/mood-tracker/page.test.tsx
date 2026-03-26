@@ -4,12 +4,12 @@ import { getTranslations } from 'next-intl/server'
 import MoodTrackerPage from '@/app/[locale]/(protected)/mood-tracker/page'
 import { auth } from '@/auth'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
-import { getLastMoodRecords } from '@/requests/moodRecord'
+import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/auth', () => ({ auth: jest.fn() }))
-jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn() }))
+jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn(), getMoodRecords: jest.fn() }))
 jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({
   buildMoodMarksData: jest.fn().mockReturnValue({}),
@@ -55,36 +55,39 @@ beforeEach(() => {
   ;(auth as jest.Mock).mockResolvedValue(mockSession)
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: mockRecords })
+  ;(getMoodRecords as jest.Mock).mockResolvedValue({
+    data: { moodNotes: mockRecords, total: mockRecords.length },
+  })
 })
 
 describe('MoodTracker page', () => {
   it('calls getLastMoodRecords with days: 10', async () => {
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10 })
   })
 
   it('renders page title and subtitle', async () => {
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(screen.getByRole('heading', { name: 'title' })).toBeInTheDocument()
     expect(screen.getByText('subtitle')).toBeInTheDocument()
   })
 
   it('renders NewMoodNoteSection', async () => {
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(screen.getByTestId('new-mood-note-section')).toBeInTheDocument()
   })
 
   it('renders TenDaysSummary', async () => {
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(screen.getByTestId('ten-days-summary')).toBeInTheDocument()
   })
 
   it('passes records from API to MoodRecords', async () => {
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(screen.getByTestId('mood-records')).toHaveTextContent('2 records')
   })
@@ -95,14 +98,17 @@ describe('MoodTracker page', () => {
       message: 'No access',
       status: 403,
     })
+    ;(getMoodRecords as jest.Mock).mockResolvedValue({
+      data: { moodNotes: [], total: 0 },
+    })
 
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(screen.getByTestId('mood-records')).toHaveTextContent('0 records')
   })
 
   it('calls buildMoodMarksData and buildDailySummaries with records', async () => {
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(buildMoodMarksData).toHaveBeenCalledWith(mockRecords)
     expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords)
@@ -111,7 +117,7 @@ describe('MoodTracker page', () => {
   it('passes empty array to helpers when API returns an error', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'error' })
 
-    render(await MoodTrackerPage())
+    render(await MoodTrackerPage({ searchParams: {} }))
 
     expect(buildMoodMarksData).toHaveBeenCalledWith([])
     expect(buildDailySummaries).toHaveBeenCalledWith([])

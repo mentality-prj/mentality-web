@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { PAGE_SIZE } from '@/constants/pagination'
 import { useUserNotesFilters } from '@/context/userNotesFilterContext'
+import { mapWeekToNumbers } from '@/mappers/weekdays.mapper'
 import { DiaryEntity } from '@/types/api-responses'
 import { SORT_ORDER } from '@/types/sort'
 import { UserTag } from '@/types/tags'
@@ -28,21 +29,21 @@ export function UserNotesClient({ notes, availableTags }: Props) {
   const filteredNotes = useMemo(() => {
     let result = [...notes]
     // Filter by tags
-    if (filters.tags) {
-      result = result.filter((n) => n.tags && n.tags.includes(filters.tags))
+    if (filters.tags && filters.tags.length > 0) {
+      result = result.filter((n) => n.tags && n.tags.some((tag) => filters.tags!.includes(tag)))
     }
 
     // Filter by week (weekDays/weekends)
-    if (filters.week) {
+    if (filters.weekdays.length > 0) {
+      const selectedDays = mapWeekToNumbers(filters.weekdays)
+
       result = result.filter((n) => {
         if (!n.createdAt) return false
-        const date = new Date(n.createdAt)
-        const dayOfWeek = date.getDay()
-        const isWeekend = dayOfWeek === 0 || dayOfWeek === 6
 
-        if (filters.week === 'weekends') return isWeekend
-        if (filters.week === 'weekDays') return !isWeekend
-        return true
+        const jsDay = new Date(n.createdAt).getDay()
+        const day = jsDay === 0 ? 7 : jsDay
+
+        return selectedDays.includes(day)
       })
     }
     // Sort by date

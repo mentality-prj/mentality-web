@@ -6,14 +6,26 @@ import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNot
 import { TenDaysSummary } from '@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
-import { getLastMoodRecords } from '@/requests/moodRecord'
+import { parseMoodQuery } from '@/lib/moodQueryParser'
+import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 
-export default async function MoodTracker() {
+export default async function MoodTracker({
+  searchParams,
+}: {
+  searchParams: Record<string, string | string[] | undefined>
+}) {
   const t = await getTranslations('pages.MoodTracker')
 
   const session = await auth()
-  const res = await getLastMoodRecords(session, { days: 10 })
+  const query = parseMoodQuery(searchParams)
+  const result = await getMoodRecords(session, query)
+  const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
+  const total = 'error' in result ? 0 : result.data.total
 
+  if ('error' in result) {
+    console.error('Failed to load mood records:', result.error)
+  }
+  const res = await getLastMoodRecords(session, { days: 10 })
   const moodMarksData = buildMoodMarksData(res?.data ?? [])
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
@@ -30,7 +42,7 @@ export default async function MoodTracker() {
           <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res.data ?? []} />
         </div>
       </div>
-      <MoodRecords records={res.data ?? []} />
+      <MoodRecords totalCount={total} records={moodNotes ?? []} />
     </div>
   )
 }
