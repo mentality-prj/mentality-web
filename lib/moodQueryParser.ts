@@ -39,6 +39,8 @@ export function parseMoodQuery(params: MoodQueryParams) {
     tags: Array.from(new Set(normalizeArray(params.tags))),
     moodLevel: getFirst(params.moodLevel) as FilterValue<'moodLevel'>,
     stressLevel: getFirst(params.stressLevel) as FilterValue<'stressLevel'>,
+    energyLevel: getFirst(params.energyLevel) as FilterValue<'energyLevel'>,
+    focusLevel: getFirst(params.focusLevel) as FilterValue<'focusLevel'>,
     weekdays: normalizeArray(params.weekdays).filter((d): d is WeekValueType =>
       allowedWeekdays.includes(d as WeekValueType)
     ),
@@ -55,6 +57,12 @@ export function parseMoodQuery(params: MoodQueryParams) {
 
     stressMin: mapped.stressLevel,
     stressMax: mapped.stressLevel,
+
+    energyMin: mapped.energyLevel,
+    energyMax: mapped.energyLevel,
+
+    focusMin: mapped.focusLevel,
+    focusMax: mapped.focusLevel,
 
     tags: filters.tags.length ? filters.tags : undefined,
     weekdays: mapped.weekdays?.length ? mapped.weekdays : undefined,

@@ -141,6 +141,8 @@ describe('getMoodRecords', () => {
       const searchParams = {
         tags: ['a', 'a', 'b', ''],
         weekdays: ['mon', 'xyz', 'tue', ''],
+        energyLevel: 'veryHigh',
+        focusLevel: 'veryHigh',
         moodLevel: 'great',
       }
 
@@ -161,6 +163,12 @@ describe('getMoodRecords', () => {
 
       expect(urlParams.get('moodMin')).toBe('5')
       expect(urlParams.get('moodMax')).toBe('5')
+
+      expect(urlParams.get('energyMin')).toBe('5')
+      expect(urlParams.get('energyMax')).toBe('5')
+
+      expect(urlParams.get('focusMin')).toBe('5')
+      expect(urlParams.get('focusMax')).toBe('5')
     })
   })
 
