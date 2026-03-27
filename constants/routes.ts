@@ -33,6 +33,10 @@ export const RoutesTitles = Object.freeze({
   PRIVACY: 'Privacy',
   TERMS: 'Terms',
   COOKIES: 'Cookies',
+  COMPANY: 'Company',
+  COMPANY_GLOBAL_ADMIN: 'Company/Global-Admin',
+  COMPANY_ADMIN: 'Company/Company-Admin',
+  COMPANY_MANAGER: 'Company/Manager',
 })
 
 export const Routes = Object.freeze({

@@ -1,0 +1,121 @@
+{
+  "globalAdmin": {
+    "title": "Administrator Globalny",
+    "createCompany": {
+      "title": "Utwórz firmę",
+      "namePlaceholder": "Acme Corp",
+      "nameLabel": "Nazwa firmy",
+      "submitButton": "Utwórz firmę",
+      "submitting": "Tworzenie…",
+      "success": "Firma utworzona.",
+      "errorRequired": "Nazwa firmy jest wymagana."
+    }
+  },
+  "companyAdmin": {
+    "title": "Administrator Firmy",
+    "groups": {
+      "title": "Zarządzaj grupami",
+      "newGroup": "Nowa grupa",
+      "rootPlaceholder": "Nazwa grupy głównej",
+      "subGroupPlaceholder": "Nazwa podgrupy",
+      "empty": "Brak grup. Utwórz pierwszą grupę.",
+      "created": "Grupa utworzona.",
+      "updated": "Grupa zaktualizowana.",
+      "deleted": "Grupa usunięta.",
+      "deleteConfirm": "Usunąć grupę \"{name}\"? Ta operacja jest nieodwracalna.",
+      "loading": "Ładowanie grup…"
+    },
+    "employees": {
+      "title": "Pracownicy",
+      "columns": {
+        "name": "Imię",
+        "email": "Email",
+        "role": "Rola",
+        "groups": "Grupy",
+        "actions": "Akcje"
+      },
+      "empty": "Nie znaleziono pracowników.",
+      "loading": "Ładowanie pracowników…",
+      "removeConfirm": "Usunąć tego pracownika z firmy?",
+      "removed": "Pracownik usunięty."
+    },
+    "invite": {
+      "title": "Zaproś pracownika",
+      "emailLabel": "Email",
+      "emailPlaceholder": "pracownik@firma.pl",
+      "roleLabel": "Rola",
+      "groupsLabel": "Grupy",
+      "submitButton": "Wyślij zaproszenie",
+      "submitting": "Wysyłanie…",
+      "success": "Zaproszenie wysłane do {email}.",
+      "errorEmail": "Podaj prawidłowy adres email.",
+      "errorGroups": "Wybierz co najmniej jedną grupę.",
+      "errorDuplicate": "Ten użytkownik już został zaproszony.",
+      "errorAlreadyMember": "Ten użytkownik jest już członkiem firmy."
+    },
+    "assignManager": {
+      "title": "Przypisz dostęp menedżerowi",
+      "managerLabel": "Menedżer",
+      "managerPlaceholder": "Wybierz menedżera…",
+      "groupsLabel": "Grupy",
+      "analyticsToggle": "Może przeglądać analizy",
+      "submitButton": "Przypisz dostęp",
+      "submitting": "Przypisywanie…",
+      "success": "Dostęp przypisany.",
+      "revoked": "Dostęp cofnięty.",
+      "currentScopes": "Bieżące zakresy dostępu",
+      "revokeButton": "Cofnij",
+      "errorUser": "Wybierz menedżera.",
+      "errorGroups": "Wybierz co najmniej jedną grupę."
+    }
+  },
+  "manager": {
+    "title": "Panel Menedżera",
+    "invite": {
+      "title": "Zaproś pracownika",
+      "noGroups": "Nie masz dostępnych grup. Skontaktuj się z administratorem."
+    },
+    "analytics": {
+      "title": "Analityka",
+      "fromLabel": "Od",
+      "toLabel": "Do",
+      "filterByGroup": "Filtruj według grupy",
+      "applyButton": "Zastosuj filtry",
+      "loading": "Ładowanie…",
+      "empty": "Brak danych dla wybranego okresu i grup.",
+      "errorDateRange": "Zakres dat nie może przekraczać 1 roku.",
+      "errorDateOrder": "Data końcowa musi być późniejsza niż data początkowa."
+    }
+  },
+  "invites": {
+    "title": "Zaproszenia",
+    "columns": {
+      "email": "Email",
+      "role": "Rola",
+      "groups": "Grupy",
+      "status": "Status",
+      "actions": "Akcje"
+    },
+    "status": {
+      "pending": "Oczekujące",
+      "accepted": "Przyjęte",
+      "expired": "Wygasłe"
+    },
+    "resent": "Zaproszenie wysłane ponownie.",
+    "cancelled": "Zaproszenie anulowane.",
+    "empty": "Brak zaproszeń.",
+    "loading": "Ładowanie zaproszeń…"
+  },
+  "roles": {
+    "GLOBAL_ADMIN": "Administrator Globalny",
+    "COMPANY_ADMIN": "Administrator",
+    "MANAGER": "Menedżer",
+    "EMPLOYEE": "Pracownik"
+  },
+  "groupSelector": {
+    "searchPlaceholder": "Szukaj grup…",
+    "empty": "Brak dostępnych grup.",
+    "selected": "Wybrano {count} grupę",
+    "selectedPlural": "Wybrano {count} grup"
+  }
+}

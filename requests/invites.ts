@@ -1,0 +1,99 @@
+import { INVITE_ENDPOINTS } from '@/constants/companyEndpoints'
+import { extractPaginationTotal } from '@/lib/http'
+import { logger } from '@/lib/logger'
+import { CustomSession } from '@/types/auth'
+import { CreateInviteDto, InviteEntity, PaginatedInvites } from '@/types/company'
+import { CAN_INVITE_EMPLOYEES } from '@/types/rbac'
+
+import { APIUrl } from './config'
+import { performAuthRequest } from './genericFetch'
+
+function assertCanInvite(session: CustomSession | null): boolean {
+  const role = session?.user?.companyRole
+  return !!role && CAN_INVITE_EMPLOYEES.includes(role)
+}
+
+export async function createInvite(
+  session: CustomSession | null,
+  dto: CreateInviteDto
+): Promise<{ data: InviteEntity } | { error: string }> {
+  if (!assertCanInvite(session)) {
+    logger.warn('Unauthorized attempt to create invite', { userId: session?.user?.email })
+    return { error: 'Unauthorized: insufficient role' }
+  }
+
+  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.BASE}`, {
+    method: 'POST',
+    body: dto as unknown as Record<string, unknown>,
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to create invite', { error: res.error })
+    return { error: res.error }
+  }
+
+  logger.info('Invite sent', { email: dto.email })
+  return { data: res.data as InviteEntity }
+}
+
+export async function getInvites(
+  session: CustomSession | null,
+  page = 1,
+  limit = 20
+): Promise<{ data: PaginatedInvites } | { error: string }> {
+  const url = `${APIUrl}${INVITE_ENDPOINTS.BASE}?page=${page}&limit=${limit}`
+  const res = await performAuthRequest<InviteEntity[]>(session, url)
+
+  if ('error' in res) {
+    logger.error('Failed to fetch invites', { error: res.error })
+    return { error: res.error }
+  }
+
+  const items = Array.isArray(res.data) ? res.data : []
+  const total = extractPaginationTotal(res.headers, items.length)
+  return { data: { items, total } }
+}
+
+export async function resendInvite(
+  session: CustomSession | null,
+  id: string
+): Promise<{ data: InviteEntity } | { error: string }> {
+  if (!assertCanInvite(session)) {
+    logger.warn('Unauthorized attempt to resend invite', { userId: session?.user?.email })
+    return { error: 'Unauthorized: insufficient role' }
+  }
+
+  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.resend(id)}`, {
+    method: 'POST',
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to resend invite', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  logger.info('Invite resent', { id })
+  return { data: res.data as InviteEntity }
+}
+
+export async function cancelInvite(
+  session: CustomSession | null,
+  id: string
+): Promise<{ data: InviteEntity } | { error: string }> {
+  if (!assertCanInvite(session)) {
+    logger.warn('Unauthorized attempt to cancel invite', { userId: session?.user?.email })
+    return { error: 'Unauthorized: insufficient role' }
+  }
+
+  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.byId(id)}`, {
+    method: 'DELETE',
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to cancel invite', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  logger.info('Invite cancelled', { id })
+  return { data: res.data as InviteEntity }
+}

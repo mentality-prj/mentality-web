@@ -1,0 +1,24 @@
+export const COMPANY_ROLES = Object.freeze({
+  GLOBAL_ADMIN: 'GLOBAL_ADMIN',
+  COMPANY_ADMIN: 'COMPANY_ADMIN',
+  MANAGER: 'MANAGER',
+  EMPLOYEE: 'EMPLOYEE',
+} as const)
+
+export type CompanyRole = (typeof COMPANY_ROLES)[keyof typeof COMPANY_ROLES]
+
+// ─── Feature-level access matrix ──────────────────────────────────────────────
+
+export const CAN_CREATE_COMPANY: CompanyRole[] = [COMPANY_ROLES.GLOBAL_ADMIN]
+export const CAN_MANAGE_GROUPS: CompanyRole[] = [COMPANY_ROLES.GLOBAL_ADMIN, COMPANY_ROLES.COMPANY_ADMIN]
+export const CAN_INVITE_EMPLOYEES: CompanyRole[] = [
+  COMPANY_ROLES.GLOBAL_ADMIN,
+  COMPANY_ROLES.COMPANY_ADMIN,
+  COMPANY_ROLES.MANAGER,
+]
+export const CAN_ASSIGN_MANAGERS: CompanyRole[] = [COMPANY_ROLES.GLOBAL_ADMIN, COMPANY_ROLES.COMPANY_ADMIN]
+export const CAN_VIEW_ANALYTICS: CompanyRole[] = [
+  COMPANY_ROLES.GLOBAL_ADMIN,
+  COMPANY_ROLES.COMPANY_ADMIN,
+  COMPANY_ROLES.MANAGER,
+]

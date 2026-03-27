@@ -1,0 +1,121 @@
+{
+  "globalAdmin": {
+    "title": "Global Admin",
+    "createCompany": {
+      "title": "Create Company",
+      "namePlaceholder": "Acme Corp",
+      "nameLabel": "Company name",
+      "submitButton": "Create Company",
+      "submitting": "Creating…",
+      "success": "Company created.",
+      "errorRequired": "Company name is required."
+    }
+  },
+  "companyAdmin": {
+    "title": "Company Admin",
+    "groups": {
+      "title": "Manage Groups",
+      "newGroup": "New group",
+      "rootPlaceholder": "Root group name",
+      "subGroupPlaceholder": "Sub-group name",
+      "empty": "No groups yet. Create your first group.",
+      "created": "Group created.",
+      "updated": "Group updated.",
+      "deleted": "Group deleted.",
+      "deleteConfirm": "Delete group \"{name}\"? This cannot be undone.",
+      "loading": "Loading groups…"
+    },
+    "employees": {
+      "title": "Employees",
+      "columns": {
+        "name": "Name",
+        "email": "Email",
+        "role": "Role",
+        "groups": "Groups",
+        "actions": "Actions"
+      },
+      "empty": "No employees found.",
+      "loading": "Loading employees…",
+      "removeConfirm": "Remove this employee from the company?",
+      "removed": "Employee removed."
+    },
+    "invite": {
+      "title": "Invite Employee",
+      "emailLabel": "Email",
+      "emailPlaceholder": "employee@company.com",
+      "roleLabel": "Role",
+      "groupsLabel": "Groups",
+      "submitButton": "Send Invite",
+      "submitting": "Sending…",
+      "success": "Invite sent to {email}.",
+      "errorEmail": "A valid email is required.",
+      "errorGroups": "Select at least one group.",
+      "errorDuplicate": "This user has already been invited.",
+      "errorAlreadyMember": "This user is already a member of the company."
+    },
+    "assignManager": {
+      "title": "Assign Manager Access",
+      "managerLabel": "Manager",
+      "managerPlaceholder": "Select manager…",
+      "groupsLabel": "Groups",
+      "analyticsToggle": "Can view analytics",
+      "submitButton": "Assign Access",
+      "submitting": "Assigning…",
+      "success": "Access assigned.",
+      "revoked": "Access revoked.",
+      "currentScopes": "Current Access Scopes",
+      "revokeButton": "Revoke",
+      "errorUser": "Select a manager.",
+      "errorGroups": "Select at least one group."
+    }
+  },
+  "manager": {
+    "title": "Manager Dashboard",
+    "invite": {
+      "title": "Invite Employee",
+      "noGroups": "You have no accessible groups. Contact your admin."
+    },
+    "analytics": {
+      "title": "Analytics",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "filterByGroup": "Filter by Group",
+      "applyButton": "Apply Filters",
+      "loading": "Loading…",
+      "empty": "No data for the selected period and groups.",
+      "errorDateRange": "Date range must not exceed 1 year.",
+      "errorDateOrder": "End date must be after start date."
+    }
+  },
+  "invites": {
+    "title": "Invites",
+    "columns": {
+      "email": "Email",
+      "role": "Role",
+      "groups": "Groups",
+      "status": "Status",
+      "actions": "Actions"
+    },
+    "status": {
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "expired": "Expired"
+    },
+    "resent": "Invite resent.",
+    "cancelled": "Invite cancelled.",
+    "empty": "No invites yet.",
+    "loading": "Loading invites…"
+  },
+  "roles": {
+    "GLOBAL_ADMIN": "Global Admin",
+    "COMPANY_ADMIN": "Admin",
+    "MANAGER": "Manager",
+    "EMPLOYEE": "Employee"
+  },
+  "groupSelector": {
+    "searchPlaceholder": "Search groups…",
+    "empty": "No groups available.",
+    "selected": "{count} group selected",
+    "selectedPlural": "{count} groups selected"
+  }
+}
