@@ -50,5 +50,29 @@
     "neutral": "Neutral",
     "good": "Good",
     "veryGood": "Very good"
+  },
+
+  "Guide": {
+    "openLabel": "How does it work?",
+    "stepLabel": "Step",
+    "next": "Next",
+    "prev": "Back",
+    "done": "Got it!",
+    "step1": {
+      "title": "What do you track?",
+      "description": "Each day, mark your mood, stress, energy, focus, and whether you exercised. It takes under a minute — and becomes the foundation of your personal insights."
+    },
+    "step2": {
+      "title": "How often?",
+      "description": "Once a day, whenever suits you. Morning, afternoon, or evening — what matters is doing it consistently. Missed a day? No worries, just keep going."
+    },
+    "step3": {
+      "title": "What will you get?",
+      "description": "Fewer than 3 check-ins this week → a basic overview. 3 or more → a personal AI analysis: mood patterns, stress detection, and a tailored recommendation just for you."
+    },
+    "step4": {
+      "title": "Trends & progress",
+      "description": "From the second week, the app compares: better or worse than last week? The longer you keep your journal, the more accurate and useful your insights become."
+    }
   }
 }

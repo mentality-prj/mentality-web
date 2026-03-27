@@ -43,6 +43,30 @@
   "save": "Zapisz",
   "add": "Dodaj",
   "placeholder": "Nowy tag",
+  "Guide": {
+    "openLabel": "Jak to działa?",
+    "stepLabel": "Krok",
+    "next": "Dalej",
+    "prev": "Wstecz",
+    "done": "Rozumiem!",
+    "step1": {
+      "title": "Co zaznaczać podczas check-inu?",
+      "description": "Każdego dnia zaznacz nastrój, poziom stresu, energii, koncentracji i aktywność fizyczną. Zajmuje to mniej niż minutę — i staje się podstawą Twoich osobistych spostrzeżeń."
+    },
+    "step2": {
+      "title": "Kiedy i jak często?",
+      "description": "Raz dziennie, o dowolnej porze. Rano, w południe czy wieczorem — ważne, żeby robić to regularnie. Opuściłeś dzień? Nic się nie stało, po prostu kontynuuj."
+    },
+    "step3": {
+      "title": "Co otrzymasz?",
+      "description": "Mniej niż 3 check-iny w tygodniu → podstawowy przegląd. 3 lub więcej → osobista analiza AI: wzorce nastroju, wykrywanie stresu i konkretna rekomendacja właśnie dla Ciebie."
+    },
+    "step4": {
+      "title": "Trendy i postępy",
+      "description": "Od drugiego tygodnia aplikacja porównuje: lepiej czy gorzej niż w poprzednim tygodniu? Im dłużej prowadzisz dziennik — tym trafniejsze i bardziej przydatne są Twoje spostrzeżenia."
+    }
+  },
+
   "labelsEmoji": {
     "veryBad": "Bardzo źle",
     "bad": "Źle",
