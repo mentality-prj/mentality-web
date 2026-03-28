@@ -34,7 +34,7 @@ export const RoutesTitles = Object.freeze({
   TERMS: 'Terms',
   COOKIES: 'Cookies',
   COMPANY: 'Company',
-  COMPANY_GLOBAL_ADMIN: 'Company/Global-Admin',
+  COMPANY_GLOBAL_ADMIN: 'Admin/Company',
   COMPANY_ADMIN: 'Company/Company-Admin',
   COMPANY_MANAGER: 'Company/Manager',
 })
@@ -43,4 +43,8 @@ export const Routes = Object.freeze({
   ...transformToRoutes(RoutesTitles),
   MAIN: '/',
   meditationDetail: (id: string) => `/guide/meditations/${id}`,
-}) as RoutesType & { readonly meditationDetail: (id: string) => string }
+  companyAdminDetail: (id: string) => `/admin/company/${id}`,
+}) as RoutesType & {
+  readonly meditationDetail: (id: string) => string
+  readonly companyAdminDetail: (id: string) => string
+}

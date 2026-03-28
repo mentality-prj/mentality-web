@@ -1,7 +1,18 @@
 {
   "title": "Admin",
   "subtitle": "System projektowania, komponenty i narzędzia deweloperskie",
-  "dashboard": { "title": "Pulpit" },
+  "dashboard": {
+    "title": "Pulpit",
+    "companySection": "Firmy",
+    "createCompany": {
+      "title": "Utwórz firmę",
+      "description": "Utwórz nową firmę na platformie"
+    },
+    "companyAdmin": {
+      "title": "Panel firmy",
+      "description": "Zarządzanie grupami, pracownikami i zaproszeniami"
+    }
+  },
   "ds": { "title": "System projektowania" },
   "goals": { "title": "Cele" },
   "achievements": { "title": "Osiągnięcia" },

@@ -33,8 +33,10 @@ export function useInvites(page = 1) {
 
   useEffect(() => {
     if (status === 'authenticated') fetch()
-    else {
+    else if (status === 'unauthenticated') {
       setItems([])
+      setTotal(0)
+      setError(null)
       setLoading(false)
     }
   }, [fetch, status])
@@ -55,7 +57,7 @@ export function useInvites(page = 1) {
       const res = await cancelInvite(session, id)
       if ('error' in res) return { error: res.error }
       setItems((prev) => prev.filter((i) => i.id !== id))
-      setTotal((t) => t - 1)
+      setTotal((t) => Math.max(0, t - 1))
       return { data: res.data }
     },
     [data]

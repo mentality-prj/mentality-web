@@ -30,8 +30,9 @@ export function useGroups(accessibleOnly = false) {
 
   useEffect(() => {
     if (status === 'authenticated') fetch()
-    else {
+    else if (status === 'unauthenticated') {
       setItems([])
+      setError(null)
       setLoading(false)
     }
   }, [fetch, status])

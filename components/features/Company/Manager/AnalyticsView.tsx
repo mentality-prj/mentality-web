@@ -31,7 +31,7 @@ function oneYearAgoStr(): string {
 }
 
 export function AnalyticsView() {
-  const { data } = useSession()
+  const { data, status } = useSession()
   const { items: groups } = useGroups(true)
 
   const [groupIds, setGroupIds] = useState<string[]>([])
@@ -42,7 +42,7 @@ export function AnalyticsView() {
   const [error, setError] = useState<string | null>(null)
   const [dateError, setDateError] = useState<DateRangeError>(null)
 
-  function validateDates(): boolean {
+  const validateDates = useCallback((): boolean => {
     const fromDate = new Date(from)
     const toDate = new Date(to)
     if (toDate <= fromDate) {
@@ -55,7 +55,7 @@ export function AnalyticsView() {
     }
     setDateError(null)
     return true
-  }
+  }, [from, to])
 
   const fetchAnalytics = useCallback(async () => {
     if (!validateDates()) return
@@ -71,11 +71,11 @@ export function AnalyticsView() {
       setChartData(Array.isArray(res.data) ? res.data : [])
     }
     setLoading(false)
-  }, [data, from, to, groupIds]) // eslint-disable-line react-hooks/exhaustive-deps
+  }, [data, from, to, groupIds, validateDates])
 
   useEffect(() => {
-    fetchAnalytics()
-  }, []) // eslint-disable-line react-hooks/exhaustive-deps
+    if (status === 'authenticated') fetchAnalytics()
+  }, [status, fetchAnalytics])
 
   return (
     <div className="flex flex-col gap-6">

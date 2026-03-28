@@ -76,27 +76,27 @@ export function InviteList() {
                 </td>
                 <td className="px-4 py-2">
                   <div className="flex items-center gap-1">
+                    {(inv.status === 'pending' || inv.status === 'expired') && (
+                      <Button
+                        size="small"
+                        variant="ghost"
+                        className="h-7 w-7 p-0"
+                        aria-label="Resend invite"
+                        onClick={() => onResend(inv.id)}
+                      >
+                        <RefreshCw size={13} />
+                      </Button>
+                    )}
                     {inv.status === 'pending' && (
-                      <>
-                        <Button
-                          size="small"
-                          variant="ghost"
-                          className="h-7 w-7 p-0"
-                          aria-label="Resend invite"
-                          onClick={() => onResend(inv.id)}
-                        >
-                          <RefreshCw size={13} />
-                        </Button>
-                        <Button
-                          size="small"
-                          variant="ghost"
-                          className="text-destructive hover:text-destructive h-7 w-7 p-0"
-                          aria-label="Cancel invite"
-                          onClick={() => onCancel(inv.id)}
-                        >
-                          <X size={13} />
-                        </Button>
-                      </>
+                      <Button
+                        size="small"
+                        variant="ghost"
+                        className="text-destructive hover:text-destructive h-7 w-7 p-0"
+                        aria-label="Cancel invite"
+                        onClick={() => onCancel(inv.id)}
+                      >
+                        <X size={13} />
+                      </Button>
                     )}
                   </div>
                 </td>

@@ -1,5 +1,6 @@
 import { GROUP_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
+import { mapGroup, mapGroups } from '@/mappers/group.mappers'
 import { CustomSession } from '@/types/auth'
 import { CreateGroupDto, GroupEntity, UpdateGroupDto } from '@/types/company'
 import { CAN_MANAGE_GROUPS } from '@/types/rbac'
@@ -20,7 +21,7 @@ export async function getGroups(session: CustomSession | null): Promise<{ data: 
     return { error: res.error }
   }
 
-  return { data: Array.isArray(res.data) ? res.data : [] }
+  return { data: mapGroups(res.data) }
 }
 
 export async function getAccessibleGroups(
@@ -33,7 +34,7 @@ export async function getAccessibleGroups(
     return { error: res.error }
   }
 
-  return { data: Array.isArray(res.data) ? res.data : [] }
+  return { data: mapGroups(res.data) }
 }
 
 export async function createGroup(
@@ -56,7 +57,12 @@ export async function createGroup(
   }
 
   logger.info('Group created', { name: dto.name })
-  return { data: res.data as GroupEntity }
+  const mapped = mapGroup(res.data)
+  if (!mapped) {
+    logger.error('Invalid group data returned from API', { name: dto.name })
+    return { error: 'Invalid group data' }
+  }
+  return { data: mapped }
 }
 
 export async function updateGroup(
@@ -80,7 +86,12 @@ export async function updateGroup(
   }
 
   logger.info('Group updated', { id })
-  return { data: res.data as GroupEntity }
+  const mapped = mapGroup(res.data)
+  if (!mapped) {
+    logger.error('Invalid group data returned from API', { id })
+    return { error: 'Invalid group data' }
+  }
+  return { data: mapped }
 }
 
 export async function deleteGroup(
@@ -102,5 +113,10 @@ export async function deleteGroup(
   }
 
   logger.info('Group deleted', { id })
-  return { data: res.data as GroupEntity }
+  const mapped = mapGroup(res.data)
+  if (!mapped) {
+    logger.error('Invalid group data returned from API', { id })
+    return { error: 'Invalid group data' }
+  }
+  return { data: mapped }
 }

@@ -14,9 +14,9 @@ import { Input } from '@/ui/input'
 
 type Props = {
   group: GroupEntity
-  onAdded: (group: GroupEntity) => void
-  onUpdated: (group: GroupEntity) => void
-  onDeleted: (id: string) => void
+  onAdded: () => void
+  onUpdated: () => void
+  onDeleted: () => void
 }
 
 export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
@@ -43,7 +43,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
     }
     toast.success('Group updated.')
     setEditing(false)
-    onUpdated(res.data)
+    onUpdated()
   }
 
   async function handleDelete() {
@@ -56,7 +56,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
       return
     }
     toast.success('Group deleted.')
-    onDeleted(group.id)
+    onDeleted()
   }
 
   async function handleAddChild() {
@@ -72,7 +72,8 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
     toast.success('Group created.')
     setNewChildName('')
     setAddingChild(false)
-    onAdded(res.data)
+    setOpen(true)
+    onAdded()
   }
 
   return (
@@ -138,16 +139,18 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
               >
                 <Pencil size={12} />
               </Button>
-              <Button
-                size="small"
-                variant="ghost"
-                className="text-destructive hover:text-destructive h-6 w-6 p-0"
-                aria-label="Delete group"
-                onClick={handleDelete}
-                disabled={loading}
-              >
-                <Trash2 size={12} />
-              </Button>
+              {group.children.length === 0 && (
+                <Button
+                  size="small"
+                  variant="ghost"
+                  className="text-destructive hover:text-destructive h-6 w-6 p-0"
+                  aria-label="Delete group"
+                  onClick={handleDelete}
+                  disabled={loading}
+                >
+                  <Trash2 size={12} />
+                </Button>
+              )}
             </div>
           </>
         )}

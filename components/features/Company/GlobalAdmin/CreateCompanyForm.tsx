@@ -3,19 +3,18 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
+import { useRouter } from '@/i18n/navigation'
 import { createCompany } from '@/requests/companies'
 import { CustomSession } from '@/types/auth'
-import { CompanyEntity } from '@/types/company'
 import { Button } from '@/ui/button'
 
-type Props = {
-  onCreated?: (company: CompanyEntity) => void
-}
-
-export function CreateCompanyForm({ onCreated }: Props) {
+export function CreateCompanyForm() {
   const { data } = useSession()
+  const router = useRouter()
+  const t = useTranslations('pages.Company.globalAdmin.createCompany')
   const [name, setName] = useState('')
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -24,7 +23,7 @@ export function CreateCompanyForm({ onCreated }: Props) {
     e.preventDefault()
     const trimmed = name.trim()
     if (!trimmed) {
-      setError('Company name is required.')
+      setError(t('errorRequired'))
       return
     }
 
@@ -41,17 +40,17 @@ export function CreateCompanyForm({ onCreated }: Props) {
       return
     }
 
-    toast.success(`Company "${res.data.name}" created.`)
+    toast.success(t('success'))
     setName('')
-    onCreated?.(res.data)
+    router.refresh()
   }
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <CustomInput
         id="company-name"
-        label="Company name"
-        placeholder="Acme Corp"
+        label={t('nameLabel')}
+        placeholder={t('namePlaceholder')}
         value={name}
         onChange={(e) => setName(e.target.value)}
         errorMsg={error ?? undefined}
@@ -59,7 +58,7 @@ export function CreateCompanyForm({ onCreated }: Props) {
         required
       />
       <Button type="submit" disabled={loading || !name.trim()}>
-        {loading ? 'Creating…' : 'Create Company'}
+        {loading ? t('submitting') : t('submitButton')}
       </Button>
     </form>
   )

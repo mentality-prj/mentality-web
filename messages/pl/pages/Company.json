@@ -9,10 +9,24 @@
       "submitting": "Tworzenie…",
       "success": "Firma utworzona.",
       "errorRequired": "Nazwa firmy jest wymagana."
+    },
+    "companyList": {
+      "title": "Wszystkie firmy",
+      "loading": "Ładowanie firm…",
+      "empty": "Brak firm.",
+      "retry": "Ponów",
+      "companyBadge": "Aktywna"
+    },
+    "companyDetail": {
+      "back": "Wszystkie firmy",
+      "idLabel": "ID",
+      "createdLabel": "Utworzono"
     }
   },
   "companyAdmin": {
     "title": "Administrator Firmy",
+    "systemAdmin": "Administrator systemowy",
+    "invitesSection": "Zaproszenia",
     "groups": {
       "title": "Zarządzaj grupami",
       "newGroup": "Nowa grupa",
@@ -71,6 +85,7 @@
   },
   "manager": {
     "title": "Panel Menedżera",
+    "invitesSection": "Zaproszenia",
     "invite": {
       "title": "Zaproś pracownika",
       "noGroups": "Nie masz dostępnych grup. Skontaktuj się z administratorem."
@@ -107,8 +122,7 @@
     "loading": "Ładowanie zaproszeń…"
   },
   "roles": {
-    "GLOBAL_ADMIN": "Administrator Globalny",
-    "COMPANY_ADMIN": "Administrator",
+    "SUPERUSER": "Administrator",
     "MANAGER": "Menedżer",
     "EMPLOYEE": "Pracownik"
   },

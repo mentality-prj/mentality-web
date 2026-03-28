@@ -8,16 +8,24 @@ import { COMPANY_ROLES } from '@/types/rbac'
 
 const ALLOWED_ROLES = Object.values(COMPANY_ROLES)
 
-export default async function CompanyLayout({ children }: { children: ReactNode }) {
+export default async function CompanyLayout({
+  children,
+  params,
+}: {
+  children: ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const session = await auth()
 
   if (!session?.user) {
-    redirect('/signin')
+    redirect(`/${locale}/signin`)
   }
 
+  const isSystemAdmin = session.user.role === 'admin'
   const companyRole = session.user.companyRole
-  if (!companyRole || !ALLOWED_ROLES.includes(companyRole)) {
-    redirect('/')
+  if (!isSystemAdmin && (!companyRole || !ALLOWED_ROLES.includes(companyRole))) {
+    redirect(`/${locale}`)
   }
 
   return (

@@ -236,5 +236,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|uk|pl)/:path*'],
+  matcher: ['/((?!_next|api|favicons|avatars|icons|images|services|.*\\..*).*)'],
 }

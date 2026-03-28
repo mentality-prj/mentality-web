@@ -6,17 +6,14 @@ import { Pencil, Trash2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
-import { extractPaginationTotal } from '@/lib/http'
-import { APIUrl } from '@/requests/config'
-import { performAuthRequest } from '@/requests/genericFetch'
+import { getEmployees, removeEmployee } from '@/requests/employees'
 import { CustomSession } from '@/types/auth'
 import { EmployeeEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
 import { Button } from '@/ui/button'
 
 const ROLE_LABELS: Record<string, string> = {
-  [COMPANY_ROLES.GLOBAL_ADMIN]: 'Global Admin',
-  [COMPANY_ROLES.COMPANY_ADMIN]: 'Admin',
+  [COMPANY_ROLES.SUPERUSER]: 'Admin',
   [COMPANY_ROLES.MANAGER]: 'Manager',
   [COMPANY_ROLES.EMPLOYEE]: 'Employee',
 }
@@ -24,7 +21,7 @@ const ROLE_LABELS: Record<string, string> = {
 const PAGE_SIZE = 20
 
 export function EmployeeTable() {
-  const { data } = useSession()
+  const { data, status } = useSession()
   const [items, setItems] = useState<EmployeeEntity[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
@@ -35,33 +32,36 @@ export function EmployeeTable() {
     setLoading(true)
     setError(null)
     const session = data as CustomSession
-    const url = `${APIUrl}/employees?page=${page}&limit=${PAGE_SIZE}`
-    const res = await performAuthRequest<EmployeeEntity[]>(session, url)
+    const res = await getEmployees(session, page, PAGE_SIZE)
     if ('error' in res) {
       setError(res.error)
     } else {
-      const list = Array.isArray(res.data) ? res.data : []
-      setItems(list)
-      setTotal(extractPaginationTotal(res.headers, list.length))
+      setItems(res.data.items)
+      setTotal(res.data.total)
     }
     setLoading(false)
   }, [data, page])
 
   useEffect(() => {
-    fetchEmployees()
-  }, [fetchEmployees])
+    if (status === 'authenticated') fetchEmployees()
+    else if (status === 'unauthenticated') {
+      setItems([])
+      setTotal(0)
+      setLoading(false)
+    }
+  }, [fetchEmployees, status])
 
   async function handleRemove(id: string) {
     if (!confirm('Remove this employee from the company?')) return
     const session = data as CustomSession
-    const res = await performAuthRequest(session, `${APIUrl}/employees/${id}`, { method: 'DELETE' })
+    const res = await removeEmployee(session, id)
     if ('error' in res) {
       toast.error(res.error)
       return
     }
     toast.success('Employee removed.')
     setItems((prev) => prev.filter((e) => e.id !== id))
-    setTotal((t) => t - 1)
+    setTotal((t) => Math.max(0, t - 1))
   }
 
   if (loading) return <p className="text-sm text-textcolor-secondary">Loading employees…</p>

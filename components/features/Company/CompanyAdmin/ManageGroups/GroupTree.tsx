@@ -8,7 +8,6 @@ import { useSession } from 'next-auth/react'
 import { useGroups } from '@/hooks/useGroups'
 import { createGroup } from '@/requests/groups'
 import { CustomSession } from '@/types/auth'
-import { GroupEntity } from '@/types/company'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 
@@ -16,7 +15,7 @@ import { GroupTreeNode } from './GroupTreeNode'
 
 export function GroupTree() {
   const { data } = useSession()
-  const { items, loading, error, addGroup, removeGroup, updateGroup } = useGroups()
+  const { items, loading, error, addGroup, refetch } = useGroups()
   const [newRootName, setNewRootName] = useState('')
   const [adding, setAdding] = useState(false)
   const [creating, setCreating] = useState(false)
@@ -35,16 +34,6 @@ export function GroupTree() {
     setNewRootName('')
     setAdding(false)
     addGroup(res.data)
-  }
-
-  // When a nested group is deleted, we need a deep remove
-  function deepRemove(id: string) {
-    removeGroup(id)
-  }
-
-  // When a nested group is updated, we need a deep update
-  function deepUpdate(updated: GroupEntity) {
-    updateGroup(updated)
   }
 
   if (loading) return <p className="text-sm text-textcolor-secondary">Loading groups…</p>
@@ -86,13 +75,7 @@ export function GroupTree() {
 
       <ul className="flex flex-col gap-0.5">
         {items.map((group) => (
-          <GroupTreeNode
-            key={group.id}
-            group={group}
-            onAdded={addGroup}
-            onUpdated={deepUpdate}
-            onDeleted={deepRemove}
-          />
+          <GroupTreeNode key={group.id} group={group} onAdded={refetch} onUpdated={refetch} onDeleted={refetch} />
         ))}
       </ul>
     </div>

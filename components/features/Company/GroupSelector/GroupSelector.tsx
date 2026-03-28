@@ -23,23 +23,32 @@ type TreeNodeProps = {
   selected: string[]
   disabledSet: Set<string>
   onToggle: (id: string) => void
-  matchSet: Set<string>
+  visibleSet: Set<string>
 }
 
-function TreeNode({ group, selected, disabledSet, onToggle, matchSet }: TreeNodeProps) {
+/**
+ * Precomputes which nodes should be shown during search: a node is visible if it
+ * matches the query OR any of its descendants match. Avoids per-node flattenGroups calls.
+ */
+function computeVisibleSet(groups: GroupEntity[], matchSet: Set<string>): Set<string> {
+  const visible = new Set<string>()
+  function walk(group: GroupEntity): boolean {
+    const selfMatch = matchSet.has(group.id)
+    const childMatch = group.children.some(walk)
+    if (selfMatch || childMatch) visible.add(group.id)
+    return selfMatch || childMatch
+  }
+  groups.forEach(walk)
+  return visible
+}
+
+function TreeNode({ group, selected, disabledSet, onToggle, visibleSet }: TreeNodeProps) {
   const [open, setOpen] = useState(true)
   const isDisabled = disabledSet.has(group.id)
   const isChecked = selected.includes(group.id)
   const hasChildren = group.children.length > 0
 
-  // Show node when it or any descendant matches
-  const descendantMatch = useMemo(() => {
-    if (matchSet.size === 0) return true
-    const flat = flattenGroups([group])
-    return flat.some((g) => matchSet.has(g.id))
-  }, [group, matchSet])
-
-  if (!descendantMatch) return null
+  if (visibleSet.size > 0 && !visibleSet.has(group.id)) return null
 
   return (
     <li>
@@ -87,7 +96,7 @@ function TreeNode({ group, selected, disabledSet, onToggle, matchSet }: TreeNode
               selected={selected}
               disabledSet={disabledSet}
               onToggle={onToggle}
-              matchSet={matchSet}
+              visibleSet={visibleSet}
             />
           ))}
         </ul>
@@ -112,6 +121,11 @@ export function GroupSelector({
     const flat = flattenGroups(groups)
     return new Set(flat.filter((g) => g.name.toLowerCase().includes(q)).map((g) => g.id))
   }, [query, groups])
+
+  const visibleSet = useMemo(() => {
+    if (matchSet.size === 0) return new Set<string>()
+    return computeVisibleSet(groups, matchSet)
+  }, [groups, matchSet])
 
   function toggle(id: string) {
     if (singleSelect) {
@@ -146,7 +160,7 @@ export function GroupSelector({
             selected={selected}
             disabledSet={disabledSet}
             onToggle={toggle}
-            matchSet={matchSet}
+            visibleSet={visibleSet}
           />
         ))}
       </ul>

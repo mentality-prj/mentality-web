@@ -9,10 +9,24 @@
       "submitting": "Створення…",
       "success": "Компанію створено.",
       "errorRequired": "Назва компанії обов'язкова."
+    },
+    "companyList": {
+      "title": "Всі компанії",
+      "loading": "Завантаження компаній…",
+      "empty": "Компаній ще немає.",
+      "retry": "Повторити",
+      "companyBadge": "Активна"
+    },
+    "companyDetail": {
+      "back": "Усі компанії",
+      "idLabel": "ID",
+      "createdLabel": "Створено"
     }
   },
   "companyAdmin": {
     "title": "Адмін компанії",
+    "systemAdmin": "Системний адміністратор",
+    "invitesSection": "Запрошення",
     "groups": {
       "title": "Управління групами",
       "newGroup": "Нова група",
@@ -71,6 +85,7 @@
   },
   "manager": {
     "title": "Панель менеджера",
+    "invitesSection": "Запрошення",
     "invite": {
       "title": "Запросити співробітника",
       "noGroups": "У вас немає доступних груп. Зверніться до адміна."
@@ -107,8 +122,7 @@
     "loading": "Завантаження запрошень…"
   },
   "roles": {
-    "GLOBAL_ADMIN": "Глобальний адмін",
-    "COMPANY_ADMIN": "Адмін",
+    "SUPERUSER": "Адмін",
     "MANAGER": "Менеджер",
     "EMPLOYEE": "Співробітник"
   },

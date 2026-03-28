@@ -7,8 +7,7 @@ import { useSession } from 'next-auth/react'
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
 import { useGroups } from '@/hooks/useGroups'
 import { createAccessScope, deleteAccessScope, getAccessScopes } from '@/requests/accessScopes'
-import { APIUrl } from '@/requests/config'
-import { performAuthRequest } from '@/requests/genericFetch'
+import { getEmployeesByRole } from '@/requests/employees'
 import { CustomSession } from '@/types/auth'
 import { AccessScopeEntity, EmployeeEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -16,7 +15,7 @@ import { Button } from '@/ui/button'
 import { Label } from '@/ui/label'
 
 export function AssignManagerForm() {
-  const { data } = useSession()
+  const { data, status } = useSession()
   const { items: groups } = useGroups()
 
   const [managers, setManagers] = useState<EmployeeEntity[]>([])
@@ -31,11 +30,11 @@ export function AssignManagerForm() {
   const loadManagersAndScopes = useCallback(async () => {
     const session = data as CustomSession
     const [managersRes, scopesRes] = await Promise.all([
-      performAuthRequest<EmployeeEntity[]>(session, `${APIUrl}/employees?role=${COMPANY_ROLES.MANAGER}`),
+      getEmployeesByRole(session, COMPANY_ROLES.MANAGER),
       getAccessScopes(session),
     ])
     if (!('error' in managersRes)) {
-      setManagers(Array.isArray(managersRes.data) ? managersRes.data : [])
+      setManagers(managersRes.data)
     }
     if (!('error' in scopesRes)) {
       setScopes(scopesRes.data)
@@ -43,8 +42,12 @@ export function AssignManagerForm() {
   }, [data])
 
   useEffect(() => {
-    loadManagersAndScopes()
-  }, [loadManagersAndScopes])
+    if (status === 'authenticated') loadManagersAndScopes()
+    else if (status === 'unauthenticated') {
+      setManagers([])
+      setScopes([])
+    }
+  }, [loadManagersAndScopes, status])
 
   function validate(): boolean {
     let valid = true

@@ -1,6 +1,7 @@
 import { INVITE_ENDPOINTS } from '@/constants/companyEndpoints'
 import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
+import { mapInvite, mapInvites } from '@/mappers/company.mappers'
 import { CustomSession } from '@/types/auth'
 import { CreateInviteDto, InviteEntity, PaginatedInvites } from '@/types/company'
 import { CAN_INVITE_EMPLOYEES } from '@/types/rbac'
@@ -32,8 +33,13 @@ export async function createInvite(
     return { error: res.error }
   }
 
+  const mapped = mapInvite(res.data)
+  if (!mapped) {
+    logger.error('Invalid invite data returned from API', { email: dto.email })
+    return { error: 'Invalid invite data' }
+  }
   logger.info('Invite sent', { email: dto.email })
-  return { data: res.data as InviteEntity }
+  return { data: mapped }
 }
 
 export async function getInvites(
@@ -49,7 +55,7 @@ export async function getInvites(
     return { error: res.error }
   }
 
-  const items = Array.isArray(res.data) ? res.data : []
+  const items = mapInvites(res.data)
   const total = extractPaginationTotal(res.headers, items.length)
   return { data: { items, total } }
 }
@@ -72,8 +78,13 @@ export async function resendInvite(
     return { error: res.error }
   }
 
+  const mapped = mapInvite(res.data)
+  if (!mapped) {
+    logger.error('Invalid invite data on resend', { id })
+    return { error: 'Invalid invite data' }
+  }
   logger.info('Invite resent', { id })
-  return { data: res.data as InviteEntity }
+  return { data: mapped }
 }
 
 export async function cancelInvite(
@@ -94,6 +105,11 @@ export async function cancelInvite(
     return { error: res.error }
   }
 
+  const mapped = mapInvite(res.data)
+  if (!mapped) {
+    logger.error('Invalid invite data on cancel', { id })
+    return { error: 'Invalid invite data' }
+  }
   logger.info('Invite cancelled', { id })
-  return { data: res.data as InviteEntity }
+  return { data: mapped }
 }

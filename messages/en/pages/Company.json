@@ -9,10 +9,24 @@
       "submitting": "Creating…",
       "success": "Company created.",
       "errorRequired": "Company name is required."
+    },
+    "companyList": {
+      "title": "All Companies",
+      "loading": "Loading companies…",
+      "empty": "No companies yet.",
+      "retry": "Retry",
+      "companyBadge": "Active"
+    },
+    "companyDetail": {
+      "back": "All companies",
+      "idLabel": "ID",
+      "createdLabel": "Created"
     }
   },
   "companyAdmin": {
     "title": "Company Admin",
+    "systemAdmin": "System Administrator",
+    "invitesSection": "Invites",
     "groups": {
       "title": "Manage Groups",
       "newGroup": "New group",
@@ -71,6 +85,7 @@
   },
   "manager": {
     "title": "Manager Dashboard",
+    "invitesSection": "Invites",
     "invite": {
       "title": "Invite Employee",
       "noGroups": "You have no accessible groups. Contact your admin."
@@ -107,8 +122,7 @@
     "loading": "Loading invites…"
   },
   "roles": {
-    "GLOBAL_ADMIN": "Global Admin",
-    "COMPANY_ADMIN": "Admin",
+    "SUPERUSER": "Admin",
     "MANAGER": "Manager",
     "EMPLOYEE": "Employee"
   },
