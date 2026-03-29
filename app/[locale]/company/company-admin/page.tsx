@@ -16,22 +16,14 @@ export default async function CompanyAdminPage({ params }: { params: Promise<{ l
   const { locale } = await params
   const session = await auth()
 
-  const isSystemAdmin = session?.user?.role === 'admin'
-  if (!isSystemAdmin && session?.user?.companyRole !== COMPANY_ROLES.SUPERUSER) {
+  if (session?.user?.companyRole !== COMPANY_ROLES.SUPERUSER) {
     redirect(`/${locale}${Routes.COMPANY}`)
   }
 
   const t = await getTranslations('pages.Company.companyAdmin')
 
-  let subtitle: string | undefined
-  if (isSystemAdmin) {
-    subtitle = t('systemAdmin')
-  } else {
-    const result = await getMyCompany(session)
-    if (!('error' in result)) {
-      subtitle = result.data.name
-    }
-  }
+  const result = await getMyCompany(session)
+  const subtitle = !('error' in result) ? result.data.name : undefined
 
   return (
     <div className="gap-xl flex flex-col">

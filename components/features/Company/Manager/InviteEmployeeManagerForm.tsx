@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
 import { CustomInput } from '@/ds/components/CustomInput'
@@ -18,6 +19,8 @@ type Props = {
 }
 
 export function InviteEmployeeManagerForm({ onInvited }: Props) {
+  const t = useTranslations('pages.Company.companyAdmin.invite')
+  const tManager = useTranslations('pages.Company.manager.invite')
   const { data } = useSession()
   // Managers can only invite to their accessible groups
   const { items: groups } = useGroups(true)
@@ -32,13 +35,13 @@ export function InviteEmployeeManagerForm({ onInvited }: Props) {
   function validate(): boolean {
     let valid = true
     if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError('A valid email is required.')
+      setEmailError(t('errorEmail'))
       valid = false
     } else {
       setEmailError(null)
     }
     if (groupIds.length === 0) {
-      setGroupError('Select at least one group.')
+      setGroupError(t('errorGroups'))
       valid = false
     } else {
       setGroupError(null)
@@ -60,16 +63,16 @@ export function InviteEmployeeManagerForm({ onInvited }: Props) {
 
     if ('error' in res) {
       if (res.error.includes('409') || res.error.toLowerCase().includes('duplicate')) {
-        toast.error('This user has already been invited.')
+        toast.error(t('errorDuplicate'))
       } else if (res.error.toLowerCase().includes('already in company')) {
-        toast.error('This user is already a member of the company.')
+        toast.error(t('errorAlreadyMember'))
       } else {
         toast.error(res.error)
       }
       return
     }
 
-    toast.success(`Invite sent to ${email.trim()}.`)
+    toast.success(t('success', { email: email.trim() }))
     setEmail('')
     setGroupIds([])
     onInvited?.()
@@ -79,9 +82,9 @@ export function InviteEmployeeManagerForm({ onInvited }: Props) {
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
       <CustomInput
         id="manager-invite-email"
-        label="Email"
+        label={t('emailLabel')}
         type="email"
-        placeholder="employee@company.com"
+        placeholder={t('emailPlaceholder')}
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         errorMsg={emailError ?? undefined}
@@ -90,9 +93,9 @@ export function InviteEmployeeManagerForm({ onInvited }: Props) {
       />
 
       <div className="flex flex-col gap-1.5">
-        <Label>Groups</Label>
+        <Label>{t('groupsLabel')}</Label>
         {noGroups ? (
-          <p className="text-sm text-textcolor-secondary">You have no accessible groups. Contact your admin.</p>
+          <p className="text-sm text-textcolor-secondary">{tManager('noGroups')}</p>
         ) : (
           <>
             <GroupSelector groups={groups} selected={groupIds} onChange={setGroupIds} />
@@ -102,7 +105,7 @@ export function InviteEmployeeManagerForm({ onInvited }: Props) {
       </div>
 
       <Button type="submit" disabled={loading || noGroups}>
-        {loading ? 'Sending…' : 'Invite Employee'}
+        {loading ? t('submitting') : t('submitButton')}
       </Button>
     </form>
   )

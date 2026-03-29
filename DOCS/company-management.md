@@ -94,10 +94,10 @@ Requests: `createGroup`, `updateGroup`, `deleteGroup` from `requests/groups.ts`
 
 A **paginated table** of current employees. Columns: full name, email, role, groups, joined date.
 
-Pagination is handled by the `useGroups` / employees hook; the page number is kept in local state and incremented via "Previous / Next" buttons.
+Pagination is handled inside the `EmployeeTable` component using local state; it calls `getEmployees` with the current page when the "Previous / Next" buttons are used.
 
 Components: `CompanyAdmin/EmployeeList/EmployeeTable`
-Requests: `GET /companies/:id/employees?page=N`
+Requests: `GET /employees?page={page}&limit={limit}`
 
 #### 3. Invite Employee
 

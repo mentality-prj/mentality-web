@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import { ChevronDown, ChevronRight, Search } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { cn } from '@/lib/utils'
 import { flattenGroups } from '@/mappers/group.mappers'
@@ -24,6 +25,7 @@ type TreeNodeProps = {
   disabledSet: Set<string>
   onToggle: (id: string) => void
   visibleSet: Set<string>
+  t: (key: string) => string
 }
 
 /**
@@ -42,7 +44,7 @@ function computeVisibleSet(groups: GroupEntity[], matchSet: Set<string>): Set<st
   return visible
 }
 
-function TreeNode({ group, selected, disabledSet, onToggle, visibleSet }: TreeNodeProps) {
+function TreeNode({ group, selected, disabledSet, onToggle, visibleSet, t }: TreeNodeProps) {
   const [open, setOpen] = useState(true)
   const isDisabled = disabledSet.has(group.id)
   const isChecked = selected.includes(group.id)
@@ -61,7 +63,7 @@ function TreeNode({ group, selected, disabledSet, onToggle, visibleSet }: TreeNo
         {hasChildren ? (
           <button
             type="button"
-            aria-label={open ? 'Collapse' : 'Expand'}
+            aria-label={open ? t('collapse') : t('expand')}
             onClick={() => setOpen((o) => !o)}
             className="shrink-0 text-textcolor-secondary"
           >
@@ -97,6 +99,7 @@ function TreeNode({ group, selected, disabledSet, onToggle, visibleSet }: TreeNo
               disabledSet={disabledSet}
               onToggle={onToggle}
               visibleSet={visibleSet}
+              t={t}
             />
           ))}
         </ul>
@@ -113,6 +116,7 @@ export function GroupSelector({
   singleSelect = false,
 }: GroupSelectorProps) {
   const [query, setQuery] = useState('')
+  const t = useTranslations('pages.Company.groupSelector')
   const disabledSet = useMemo(() => new Set(disabledIds), [disabledIds])
 
   const matchSet = useMemo<Set<string>>(() => {
@@ -136,7 +140,7 @@ export function GroupSelector({
   }
 
   if (groups.length === 0) {
-    return <p className="text-sm text-textcolor-secondary">No groups available.</p>
+    return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
   }
 
   return (
@@ -144,11 +148,11 @@ export function GroupSelector({
       <div className="relative">
         <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-textcolor-secondary" />
         <Input
-          placeholder="Search groups…"
+          placeholder={t('searchPlaceholder')}
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           className="pl-8 text-sm"
-          aria-label="Search groups"
+          aria-label={t('searchLabel')}
         />
       </div>
 
@@ -161,13 +165,14 @@ export function GroupSelector({
             disabledSet={disabledSet}
             onToggle={toggle}
             visibleSet={visibleSet}
+            t={t}
           />
         ))}
       </ul>
 
       {selected.length > 0 && (
         <p className="text-xs text-textcolor-secondary">
-          {selected.length} group{selected.length !== 1 ? 's' : ''} selected
+          {t(selected.length === 1 ? 'selected' : 'selectedPlural', { count: selected.length })}
         </p>
       )}
     </div>

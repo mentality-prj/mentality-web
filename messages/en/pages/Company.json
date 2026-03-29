@@ -37,7 +37,12 @@
       "updated": "Group updated.",
       "deleted": "Group deleted.",
       "deleteConfirm": "Delete group \"{name}\"? This cannot be undone.",
-      "loading": "Loading groups…"
+      "loading": "Loading groups…",
+      "collapse": "Collapse",
+      "expand": "Expand",
+      "ariaAddSubGroup": "Add sub-group",
+      "ariaEdit": "Edit group",
+      "ariaDelete": "Delete group"
     },
     "employees": {
       "title": "Employees",
@@ -51,7 +56,9 @@
       "empty": "No employees found.",
       "loading": "Loading employees…",
       "removeConfirm": "Remove this employee from the company?",
-      "removed": "Employee removed."
+      "removed": "Employee removed.",
+      "ariaEdit": "Edit employee",
+      "ariaRemove": "Remove employee"
     },
     "invite": {
       "title": "Invite Employee",
@@ -80,7 +87,8 @@
       "currentScopes": "Current Access Scopes",
       "revokeButton": "Revoke",
       "errorUser": "Select a manager.",
-      "errorGroups": "Select at least one group."
+      "errorGroups": "Select at least one group.",
+      "scopeGroups": "{count} groups"
     }
   },
   "manager": {
@@ -118,6 +126,8 @@
     },
     "resent": "Invite resent.",
     "cancelled": "Invite cancelled.",
+    "ariaResend": "Resend invite",
+    "ariaCancel": "Cancel invite",
     "empty": "No invites yet.",
     "loading": "Loading invites…"
   },
@@ -128,7 +138,10 @@
   },
   "groupSelector": {
     "searchPlaceholder": "Search groups…",
+    "searchLabel": "Search groups",
     "empty": "No groups available.",
+    "collapse": "Collapse",
+    "expand": "Expand",
     "selected": "{count} group selected",
     "selectedPlural": "{count} groups selected"
   }

@@ -19,7 +19,7 @@ export async function createInvite(
   dto: CreateInviteDto
 ): Promise<{ data: InviteEntity } | { error: string }> {
   if (!assertCanInvite(session)) {
-    logger.warn('Unauthorized attempt to create invite', { userId: session?.user?.email })
+    logger.warn('Unauthorized attempt to create invite')
     return { error: 'Unauthorized: insufficient role' }
   }
 
@@ -35,10 +35,10 @@ export async function createInvite(
 
   const mapped = mapInvite(res.data)
   if (!mapped) {
-    logger.error('Invalid invite data returned from API', { email: dto.email })
+    logger.error('Invalid invite data returned from API')
     return { error: 'Invalid invite data' }
   }
-  logger.info('Invite sent', { email: dto.email })
+  logger.info('Invite sent')
   return { data: mapped }
 }
 
@@ -65,7 +65,7 @@ export async function resendInvite(
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
   if (!assertCanInvite(session)) {
-    logger.warn('Unauthorized attempt to resend invite', { userId: session?.user?.email })
+    logger.warn('Unauthorized attempt to resend invite')
     return { error: 'Unauthorized: insufficient role' }
   }
 
@@ -92,7 +92,7 @@ export async function cancelInvite(
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
   if (!assertCanInvite(session)) {
-    logger.warn('Unauthorized attempt to cancel invite', { userId: session?.user?.email })
+    logger.warn('Unauthorized attempt to cancel invite')
     return { error: 'Unauthorized: insufficient role' }
   }
 

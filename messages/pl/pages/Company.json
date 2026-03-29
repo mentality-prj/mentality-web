@@ -37,7 +37,12 @@
       "updated": "Grupa zaktualizowana.",
       "deleted": "Grupa usunięta.",
       "deleteConfirm": "Usunąć grupę \"{name}\"? Ta operacja jest nieodwracalna.",
-      "loading": "Ładowanie grup…"
+      "loading": "Ładowanie grup…",
+      "collapse": "Zwiń",
+      "expand": "Rozwiń",
+      "ariaAddSubGroup": "Dodaj podgrupę",
+      "ariaEdit": "Edytuj grupę",
+      "ariaDelete": "Usuń grupę"
     },
     "employees": {
       "title": "Pracownicy",
@@ -51,7 +56,9 @@
       "empty": "Nie znaleziono pracowników.",
       "loading": "Ładowanie pracowników…",
       "removeConfirm": "Usunąć tego pracownika z firmy?",
-      "removed": "Pracownik usunięty."
+      "removed": "Pracownik usunięty.",
+      "ariaEdit": "Edytuj pracownika",
+      "ariaRemove": "Usuń pracownika"
     },
     "invite": {
       "title": "Zaproś pracownika",
@@ -80,7 +87,8 @@
       "currentScopes": "Bieżące zakresy dostępu",
       "revokeButton": "Cofnij",
       "errorUser": "Wybierz menedżera.",
-      "errorGroups": "Wybierz co najmniej jedną grupę."
+      "errorGroups": "Wybierz co najmniej jedną grupę.",
+      "scopeGroups": "{count} grup"
     }
   },
   "manager": {
@@ -118,6 +126,8 @@
     },
     "resent": "Zaproszenie wysłane ponownie.",
     "cancelled": "Zaproszenie anulowane.",
+    "ariaResend": "Wyślij ponownie zaproszenie",
+    "ariaCancel": "Anuluj zaproszenie",
     "empty": "Brak zaproszeń.",
     "loading": "Ładowanie zaproszeń…"
   },
@@ -128,7 +138,10 @@
   },
   "groupSelector": {
     "searchPlaceholder": "Szukaj grup…",
+    "searchLabel": "Szukaj grup",
     "empty": "Brak dostępnych grup.",
+    "collapse": "Zwiń",
+    "expand": "Rozwiń",
     "selected": "Wybrano {count} grupę",
     "selectedPlural": "Wybrano {count} grup"
   }

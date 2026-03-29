@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
@@ -31,6 +32,7 @@ function oneYearAgoStr(): string {
 }
 
 export function AnalyticsView() {
+  const t = useTranslations('pages.Company.manager.analytics')
   const { data, status } = useSession()
   const { items: groups } = useGroups(true)
 
@@ -46,16 +48,16 @@ export function AnalyticsView() {
     const fromDate = new Date(from)
     const toDate = new Date(to)
     if (toDate <= fromDate) {
-      setDateError('End date must be after start date.')
+      setDateError(t('errorDateOrder'))
       return false
     }
     if (toDate.getTime() - fromDate.getTime() > ONE_YEAR_MS) {
-      setDateError('Date range must not exceed 1 year.')
+      setDateError(t('errorDateRange'))
       return false
     }
     setDateError(null)
     return true
-  }, [from, to])
+  }, [from, t, to])
 
   const fetchAnalytics = useCallback(async () => {
     if (!validateDates()) return
@@ -81,7 +83,7 @@ export function AnalyticsView() {
     <div className="flex flex-col gap-6">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="analytics-from">From</Label>
+          <Label htmlFor="analytics-from">{t('fromLabel')}</Label>
           <Input
             id="analytics-from"
             type="date"
@@ -92,7 +94,7 @@ export function AnalyticsView() {
           />
         </div>
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="analytics-to">To</Label>
+          <Label htmlFor="analytics-to">{t('toLabel')}</Label>
           <Input
             id="analytics-to"
             type="date"
@@ -108,19 +110,17 @@ export function AnalyticsView() {
       {dateError && <p className="text-destructive text-sm">{dateError}</p>}
 
       <div className="flex flex-col gap-1.5">
-        <Label>Filter by Group</Label>
+        <Label>{t('filterByGroup')}</Label>
         <GroupSelector groups={groups} selected={groupIds} onChange={setGroupIds} />
       </div>
 
       <Button onClick={fetchAnalytics} disabled={loading} className="self-start">
-        {loading ? 'Loading…' : 'Apply Filters'}
+        {loading ? t('loading') : t('applyButton')}
       </Button>
 
       {error && <p className="text-destructive text-sm">{error}</p>}
 
-      {!loading && chartData.length === 0 && !error && (
-        <p className="text-sm text-textcolor-secondary">No data for the selected period and groups.</p>
-      )}
+      {!loading && chartData.length === 0 && !error && <p className="text-sm text-textcolor-secondary">{t('empty')}</p>}
 
       {chartData.length > 0 && (
         <div className="rounded-md border border-border p-4">

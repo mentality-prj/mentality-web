@@ -4,6 +4,7 @@ import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { ChevronDown, ChevronRight, Pencil, Plus, Trash2 } from 'lucide-react'
 import { useSession } from 'next-auth/react'
+import { useTranslations } from 'next-intl'
 
 import { cn } from '@/lib/utils'
 import { createGroup, deleteGroup, updateGroup } from '@/requests/groups'
@@ -20,6 +21,8 @@ type Props = {
 }
 
 export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
+  const t = useTranslations('pages.Company.companyAdmin.groups')
+  const tButtons = useTranslations('common.Buttons')
   const { data } = useSession()
   const [open, setOpen] = useState(true)
   const [editing, setEditing] = useState(false)
@@ -41,13 +44,13 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
       toast.error(res.error)
       return
     }
-    toast.success('Group updated.')
+    toast.success(t('updated'))
     setEditing(false)
     onUpdated()
   }
 
   async function handleDelete() {
-    if (!confirm(`Delete group "${group.name}"? This cannot be undone.`)) return
+    if (!confirm(t('deleteConfirm', { name: group.name }))) return
     setLoading(true)
     const res = await deleteGroup(data as CustomSession, group.id)
     setLoading(false)
@@ -55,7 +58,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
       toast.error(res.error)
       return
     }
-    toast.success('Group deleted.')
+    toast.success(t('deleted'))
     onDeleted()
   }
 
@@ -69,7 +72,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
       toast.error(res.error)
       return
     }
-    toast.success('Group created.')
+    toast.success(t('created'))
     setNewChildName('')
     setAddingChild(false)
     setOpen(true)
@@ -81,7 +84,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
       <div className="group flex items-center gap-1 rounded-md px-1 py-1 hover:bg-accent">
         <button
           type="button"
-          aria-label={open ? 'Collapse' : 'Expand'}
+          aria-label={open ? t('collapse') : t('expand')}
           onClick={() => setOpen((o) => !o)}
           className="shrink-0 text-textcolor-secondary"
         >
@@ -108,10 +111,10 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
               }}
             />
             <Button size="small" variant="ghost" onClick={handleSaveEdit} disabled={loading} className="h-7 px-2">
-              Save
+              {tButtons('save')}
             </Button>
             <Button size="small" variant="ghost" onClick={() => setEditing(false)} className="h-7 px-2">
-              Cancel
+              {tButtons('cancel')}
             </Button>
           </div>
         ) : (
@@ -122,7 +125,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
                 size="small"
                 variant="ghost"
                 className="h-6 w-6 p-0"
-                aria-label="Add sub-group"
+                aria-label={t('ariaAddSubGroup')}
                 onClick={() => setAddingChild(true)}
               >
                 <Plus size={12} />
@@ -131,7 +134,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
                 size="small"
                 variant="ghost"
                 className="h-6 w-6 p-0"
-                aria-label="Edit group"
+                aria-label={t('ariaEdit')}
                 onClick={() => {
                   setEditName(group.name)
                   setEditing(true)
@@ -144,7 +147,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
                   size="small"
                   variant="ghost"
                   className="text-destructive hover:text-destructive h-6 w-6 p-0"
-                  aria-label="Delete group"
+                  aria-label={t('ariaDelete')}
                   onClick={handleDelete}
                   disabled={loading}
                 >
@@ -159,7 +162,7 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
       {addingChild && (
         <div className="ml-5 mt-1 flex items-center gap-1">
           <Input
-            placeholder="Sub-group name"
+            placeholder={t('subGroupPlaceholder')}
             value={newChildName}
             onChange={(e) => setNewChildName(e.target.value)}
             className="h-7 text-xs"
@@ -169,10 +172,10 @@ export function GroupTreeNode({ group, onAdded, onUpdated, onDeleted }: Props) {
             }}
           />
           <Button size="small" onClick={handleAddChild} disabled={loading || !newChildName.trim()} className="h-7 px-2">
-            Add
+            {tButtons('add')}
           </Button>
           <Button size="small" variant="ghost" onClick={() => setAddingChild(false)} className="h-7 px-2">
-            Cancel
+            {tButtons('cancel')}
           </Button>
         </div>
       )}

@@ -38,7 +38,7 @@ export async function createAccessScope(
 export async function deleteAccessScope(
   session: CustomSession | null,
   id: string
-): Promise<{ data: AccessScopeEntity } | { error: string }> {
+): Promise<Record<string, never> | { error: string }> {
   if (!assertCanAssign(session)) {
     logger.warn('Unauthorized attempt to delete access scope', { userId: session?.user?.email })
     return { error: 'Unauthorized: insufficient role' }
@@ -54,7 +54,7 @@ export async function deleteAccessScope(
   }
 
   logger.info('Access scope deleted', { id })
-  return { data: res.data as AccessScopeEntity }
+  return {}
 }
 
 export async function getAccessScopes(

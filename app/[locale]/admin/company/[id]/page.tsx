@@ -3,11 +3,6 @@ import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
-import { AssignManagerForm } from '@/components/features/Company/CompanyAdmin/AssignManager/AssignManagerForm'
-import { EmployeeTable } from '@/components/features/Company/CompanyAdmin/EmployeeList/EmployeeTable'
-import { InviteEmployeeForm } from '@/components/features/Company/CompanyAdmin/InviteEmployee/InviteEmployeeForm'
-import { GroupTree } from '@/components/features/Company/CompanyAdmin/ManageGroups/GroupTree'
-import { InviteList } from '@/components/features/Company/InviteList/InviteList'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
@@ -22,7 +17,6 @@ export default async function AdminCompanyDetailPage({ params }: { params: Promi
 
   const company = result.data
   const t = await getTranslations('pages.Company.globalAdmin.companyDetail')
-  const tAdmin = await getTranslations('pages.Company.companyAdmin')
 
   return (
     <div className="gap-xl flex flex-col">
@@ -49,35 +43,6 @@ export default async function AdminCompanyDetailPage({ params }: { params: Promi
           </span>
         </div>
       </div>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{tAdmin('groups.title')}</h2>
-        <GroupTree />
-      </section>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{tAdmin('employees.title')}</h2>
-        <EmployeeTable />
-      </section>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{tAdmin('invite.title')}</h2>
-        <div className="max-w-md">
-          <InviteEmployeeForm />
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{tAdmin('assignManager.title')}</h2>
-        <div className="max-w-md">
-          <AssignManagerForm />
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{tAdmin('invitesSection')}</h2>
-        <InviteList />
-      </section>
     </div>
   )
 }

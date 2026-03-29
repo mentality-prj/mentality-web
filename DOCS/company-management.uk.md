@@ -97,7 +97,7 @@ CAN_VIEW_ANALYTICS = [SUPERUSER, MANAGER]
 Пагінація керується через локальний стан; кнопки «Попередня / Наступна».
 
 Компоненти: `CompanyAdmin/EmployeeList/EmployeeTable`
-Запити: `GET /companies/:id/employees?page=N`
+Запити: `GET /employees?page={page}&limit={limit}`
 
 #### 3. Запросити співробітника
 

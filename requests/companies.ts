@@ -2,6 +2,7 @@ import { COMPANY_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import { CompanyEntity, CreateCompanyDto } from '@/types/company'
+
 import { APIUrl } from './config'
 import { performAdminRequest, performAuthRequest } from './genericFetch'
 
@@ -26,7 +27,7 @@ export async function createCompany(
 export async function getCompanies(
   session: CustomSession | null
 ): Promise<{ data: CompanyEntity[] } | { error: string }> {
-  const res = await performAuthRequest<CompanyEntity[]>(session, `${APIUrl}${COMPANY_ENDPOINTS.BASE}`)
+  const res = await performAdminRequest<CompanyEntity[]>(session, `${APIUrl}${COMPANY_ENDPOINTS.BASE}`)
 
   if ('error' in res) {
     logger.error('Failed to fetch companies', { error: res.error })

@@ -3,19 +3,13 @@
 import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RefreshCw, X } from 'lucide-react'
+import { useTranslations } from 'next-intl'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { useInvites } from '@/hooks/useInvites'
 import { cn } from '@/lib/utils'
 import { InviteStatus } from '@/types/company'
-import { COMPANY_ROLES } from '@/types/rbac'
 import { Button } from '@/ui/button'
-
-const STATUS_LABELS: Record<InviteStatus, string> = {
-  pending: 'Pending',
-  accepted: 'Accepted',
-  expired: 'Expired',
-}
 
 const STATUS_CLASSES: Record<InviteStatus, string> = {
   pending: 'bg-yellow-100 text-yellow-800',
@@ -23,32 +17,29 @@ const STATUS_CLASSES: Record<InviteStatus, string> = {
   expired: 'bg-gray-100 text-gray-500',
 }
 
-const ROLE_LABELS: Record<string, string> = {
-  [COMPANY_ROLES.EMPLOYEE]: 'Employee',
-  [COMPANY_ROLES.MANAGER]: 'Manager',
-}
-
 const PAGE_SIZE = 20
 
 export function InviteList() {
+  const t = useTranslations('pages.Company.invites')
+  const tRoles = useTranslations('pages.Company.roles')
   const [page, setPage] = useState(1)
   const { items, total, loading, error, handleResend, handleCancel } = useInvites(page)
 
   async function onResend(id: string) {
     const res = await handleResend(id)
-    if (res && 'error' in res) toast.error(res.error ?? 'Failed to resend.')
-    else toast.success('Invite resent.')
+    if (res && 'error' in res) toast.error(res.error || '')
+    else toast.success(t('resent'))
   }
 
   async function onCancel(id: string) {
     const res = await handleCancel(id)
-    if (res && 'error' in res) toast.error(res.error ?? 'Failed to cancel.')
-    else toast.success('Invite cancelled.')
+    if (res && 'error' in res) toast.error(res.error || '')
+    else toast.success(t('cancelled'))
   }
 
-  if (loading) return <p className="text-sm text-textcolor-secondary">Loading invites…</p>
+  if (loading) return <p className="text-sm text-textcolor-secondary">{t('loading')}</p>
   if (error) return <p className="text-destructive text-sm">{error}</p>
-  if (items.length === 0) return <p className="text-sm text-textcolor-secondary">No invites yet.</p>
+  if (items.length === 0) return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
 
   return (
     <div className="flex flex-col gap-3">
@@ -56,22 +47,22 @@ export function InviteList() {
         <table className="w-full text-sm">
           <thead className="bg-muted text-textcolor-secondary">
             <tr>
-              <th className="px-4 py-2 text-left font-medium">Email</th>
-              <th className="px-4 py-2 text-left font-medium">Role</th>
-              <th className="px-4 py-2 text-left font-medium">Groups</th>
-              <th className="px-4 py-2 text-left font-medium">Status</th>
-              <th className="px-4 py-2 text-left font-medium">Actions</th>
+              <th className="px-4 py-2 text-left font-medium">{t('columns.email')}</th>
+              <th className="px-4 py-2 text-left font-medium">{t('columns.role')}</th>
+              <th className="px-4 py-2 text-left font-medium">{t('columns.groups')}</th>
+              <th className="px-4 py-2 text-left font-medium">{t('columns.status')}</th>
+              <th className="px-4 py-2 text-left font-medium">{t('columns.actions')}</th>
             </tr>
           </thead>
           <tbody>
             {items.map((inv) => (
               <tr key={inv.id} className="hover:bg-muted/40 border-t border-border">
                 <td className="px-4 py-2">{inv.email}</td>
-                <td className="px-4 py-2">{ROLE_LABELS[inv.role] ?? inv.role}</td>
+                <td className="px-4 py-2">{tRoles(inv.role)}</td>
                 <td className="px-4 py-2">{inv.groupIds.length}</td>
                 <td className="px-4 py-2">
                   <span className={cn('rounded-full px-2 py-0.5 text-xs font-medium', STATUS_CLASSES[inv.status])}>
-                    {STATUS_LABELS[inv.status]}
+                    {t(`status.${inv.status}`)}
                   </span>
                 </td>
                 <td className="px-4 py-2">
@@ -81,7 +72,7 @@ export function InviteList() {
                         size="small"
                         variant="ghost"
                         className="h-7 w-7 p-0"
-                        aria-label="Resend invite"
+                        aria-label={t('ariaResend')}
                         onClick={() => onResend(inv.id)}
                       >
                         <RefreshCw size={13} />
@@ -92,7 +83,7 @@ export function InviteList() {
                         size="small"
                         variant="ghost"
                         className="text-destructive hover:text-destructive h-7 w-7 p-0"
-                        aria-label="Cancel invite"
+                        aria-label={t('ariaCancel')}
                         onClick={() => onCancel(inv.id)}
                       >
                         <X size={13} />

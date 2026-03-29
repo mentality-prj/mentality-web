@@ -60,8 +60,11 @@ export function InviteEmployeeForm({ onInvited }: Props) {
     setLoading(false)
 
     if ('error' in res) {
-      if (res.error.includes('409') || res.error.toLowerCase().includes('duplicate')) {
+      const errorLower = res.error.toLowerCase()
+      if (res.error.includes('409') || errorLower.includes('duplicate')) {
         toast.error(t('errorDuplicate'))
+      } else if (errorLower.includes('already in company')) {
+        toast.error(t('errorAlreadyMember'))
       } else {
         toast.error(res.error)
       }

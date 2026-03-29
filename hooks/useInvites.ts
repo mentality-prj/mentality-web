@@ -46,7 +46,9 @@ export function useInvites(page = 1) {
       const session = data as CustomSession
       const res = await resendInvite(session, id)
       if ('error' in res) return { error: res.error }
-      return { data: res.data }
+      const updatedInvite = res.data as InviteEntity
+      setItems((prev) => prev.map((invite) => (invite.id === updatedInvite.id ? updatedInvite : invite)))
+      return { data: updatedInvite }
     },
     [data]
   )
