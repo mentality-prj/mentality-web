@@ -56,7 +56,7 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
         </Button>
       </div>
 
-      <div className="flex flex-col-reverse gap-md tablet:flex-row">
+      <div className="flex flex-col-reverse gap-md md:flex-row">
         <div className={`flex flex-col gap-sm ${showFilters ? 'md:w-3/5 xl:w-2/3' : 'w-full'}`}>
           {records.length === 0 && <p className="mt-2 text-sm text-gray-500">{mt('History.Empty')}</p>}
 
