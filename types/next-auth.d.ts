@@ -2,6 +2,7 @@ import 'next-auth'
 import 'next-auth/jwt'
 
 import { UserRole } from './auth'
+import { CompanyRole } from './rbac'
 
 declare module 'next-auth' {
   interface Session {
@@ -12,6 +13,7 @@ declare module 'next-auth' {
       image?: string | null
       role?: UserRole
       isAIAuthorized?: boolean
+      companyRole?: CompanyRole
     }
     OAuthToken?: string
     provider?: string
@@ -25,6 +27,7 @@ declare module 'next-auth' {
   interface User {
     role?: UserRole
     isAIAuthorized?: boolean
+    companyRole?: CompanyRole
   }
 }
 

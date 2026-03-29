@@ -1,7 +1,18 @@
 {
   "title": "Admin",
   "subtitle": "Design system, components and developer tools",
-  "dashboard": { "title": "Dashboard" },
+  "dashboard": {
+    "title": "Dashboard",
+    "companySection": "Companies",
+    "createCompany": {
+      "title": "Create Company",
+      "description": "Create a new company on the platform"
+    },
+    "companyAdmin": {
+      "title": "Company Admin",
+      "description": "Manage groups, employees, and invitations"
+    }
+  },
   "ds": { "title": "Design System" },
   "goals": { "title": "Goals" },
   "achievements": { "title": "Achievements" },

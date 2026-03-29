@@ -1,0 +1,148 @@
+{
+  "globalAdmin": {
+    "title": "Глобальний адмін",
+    "createCompany": {
+      "title": "Створити компанію",
+      "namePlaceholder": "Acme Corp",
+      "nameLabel": "Назва компанії",
+      "submitButton": "Створити компанію",
+      "submitting": "Створення…",
+      "success": "Компанію створено.",
+      "errorRequired": "Назва компанії обов'язкова."
+    },
+    "companyList": {
+      "title": "Всі компанії",
+      "loading": "Завантаження компаній…",
+      "empty": "Компаній ще немає.",
+      "retry": "Повторити",
+      "companyBadge": "Активна"
+    },
+    "companyDetail": {
+      "back": "Усі компанії",
+      "idLabel": "ID",
+      "createdLabel": "Створено"
+    }
+  },
+  "companyAdmin": {
+    "title": "Адмін компанії",
+    "systemAdmin": "Системний адміністратор",
+    "invitesSection": "Запрошення",
+    "groups": {
+      "title": "Управління групами",
+      "newGroup": "Нова група",
+      "rootPlaceholder": "Назва кореневої групи",
+      "subGroupPlaceholder": "Назва підгрупи",
+      "empty": "Груп ще немає. Створіть першу групу.",
+      "created": "Групу створено.",
+      "updated": "Групу оновлено.",
+      "deleted": "Групу видалено.",
+      "deleteConfirm": "Видалити групу \"{name}\"? Це незворотна дія.",
+      "loading": "Завантаження груп…",
+      "collapse": "Згорнути",
+      "expand": "Розгорнути",
+      "ariaAddSubGroup": "Додати підгрупу",
+      "ariaEdit": "Редагувати групу",
+      "ariaDelete": "Видалити групу"
+    },
+    "employees": {
+      "title": "Співробітники",
+      "columns": {
+        "name": "Ім'я",
+        "email": "Email",
+        "role": "Роль",
+        "groups": "Групи",
+        "actions": "Дії"
+      },
+      "empty": "Співробітників не знайдено.",
+      "loading": "Завантаження співробітників…",
+      "removeConfirm": "Видалити цього співробітника з компанії?",
+      "removed": "Співробітника видалено.",
+      "ariaEdit": "Редагувати співробітника",
+      "ariaRemove": "Видалити співробітника"
+    },
+    "invite": {
+      "title": "Запросити співробітника",
+      "emailLabel": "Email",
+      "emailPlaceholder": "employee@company.com",
+      "roleLabel": "Роль",
+      "groupsLabel": "Групи",
+      "submitButton": "Надіслати запрошення",
+      "submitting": "Відправлення…",
+      "success": "Запрошення надіслано {email}.",
+      "errorEmail": "Введіть дійсний email.",
+      "errorGroups": "Оберіть принаймні одну групу.",
+      "errorDuplicate": "Цей користувач вже запрошений.",
+      "errorAlreadyMember": "Цей користувач вже є учасником компанії."
+    },
+    "assignManager": {
+      "title": "Призначити доступ менеджеру",
+      "managerLabel": "Менеджер",
+      "managerPlaceholder": "Оберіть менеджера…",
+      "groupsLabel": "Групи",
+      "analyticsToggle": "Може переглядати аналітику",
+      "submitButton": "Призначити доступ",
+      "submitting": "Призначення…",
+      "success": "Доступ надано.",
+      "revoked": "Доступ скасовано.",
+      "currentScopes": "Поточні права доступу",
+      "revokeButton": "Скасувати",
+      "errorUser": "Оберіть менеджера.",
+      "errorGroups": "Оберіть принаймні одну групу.",
+      "scopeGroups": "{count} груп"
+    }
+  },
+  "manager": {
+    "title": "Панель менеджера",
+    "invitesSection": "Запрошення",
+    "invite": {
+      "title": "Запросити співробітника",
+      "noGroups": "У вас немає доступних груп. Зверніться до адміна."
+    },
+    "analytics": {
+      "title": "Аналітика",
+      "fromLabel": "Від",
+      "toLabel": "До",
+      "filterByGroup": "Фільтр за групою",
+      "applyButton": "Застосувати фільтри",
+      "loading": "Завантаження…",
+      "empty": "Немає даних за обраний період та групи.",
+      "errorDateRange": "Діапазон дат не може перевищувати 1 рік.",
+      "errorDateOrder": "Дата завершення має бути пізніше дати початку."
+    }
+  },
+  "invites": {
+    "title": "Запрошення",
+    "columns": {
+      "email": "Email",
+      "role": "Роль",
+      "groups": "Групи",
+      "status": "Статус",
+      "actions": "Дії"
+    },
+    "status": {
+      "pending": "Очікування",
+      "accepted": "Прийнято",
+      "expired": "Прострочено"
+    },
+    "resent": "Запрошення повторно відправлено.",
+    "cancelled": "Запрошення скасовано.",
+    "ariaResend": "Повторно надіслати запрошення",
+    "ariaCancel": "Скасувати запрошення",
+    "empty": "Запрошень ще немає.",
+    "loading": "Завантаження запрошень…"
+  },
+  "roles": {
+    "SUPERUSER": "Адмін",
+    "MANAGER": "Менеджер",
+    "EMPLOYEE": "Співробітник"
+  },
+  "groupSelector": {
+    "searchPlaceholder": "Пошук груп…",
+    "searchLabel": "Пошук груп",
+    "empty": "Груп немає.",
+    "collapse": "Згорнути",
+    "expand": "Розгорнути",
+    "selected": "{count} групу вибрано",
+    "selectedPlural": "{count} груп вибрано"
+  }
+}

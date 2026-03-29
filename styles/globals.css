@@ -164,14 +164,17 @@ body {
   z-index: 1;
 }
 
-.shadow-light {
-  text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.8);
-}
-.shadow-dark {
-  text-shadow: 0 -1px 0 hsla(220, 18%, 14%, 0.8);
-}
 .border-inner-white {
   @apply ring-1 ring-inset ring-white/50;
+}
+
+@layer utilities {
+  .shadow-light {
+    text-shadow: 0 1px 0 hsla(0, 0%, 100%, 0.8);
+  }
+  .shadow-dark {
+    text-shadow: 0 -1px 0 hsla(220, 18%, 14%, 0.8);
+  }
 }
 
 /* =====================================================

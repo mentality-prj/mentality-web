@@ -151,7 +151,6 @@ describe('getMoodRecords', () => {
       await getMoodRecords(mockSession, query)
 
       const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
-      console.log('called URL:', calledUrl)
 
       const urlParams = new URL(calledUrl).searchParams
 
