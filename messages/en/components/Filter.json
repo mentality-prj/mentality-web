@@ -5,8 +5,10 @@
   "by_week": "By week days",
   "by_stressLevel": "By stress level",
   "by_moodLevel": "By mood",
+  "by_energyLevel": "By energy level",
+  "by_focusLevel": "By focus level",
   "filterOptions": {
-    "tags": "{tag, select, affirmation {Affirmation} tip {Tip} veryBad {Very bad} bad {Bad} neutral {Neutral} good {Good} great {Great} absent {Absent} low {Low} medium {Medium} high {High} veryHigh {Very high} weekDays {Weekdays} weekends {Weekends} mon {Mon} tue {Tue} wed {Wed} thu {Thu} fri {Fri} sat {Sat} sun {Sun} other {}}",
+    "tags": "{tag, select, affirmation {Affirmation} tip {Tip} veryBad {Very bad} bad {Bad} neutral {Neutral} good {Good} great {Great} absent {Absent} veryLow {Very low} low {Low} middle {Medium} medium {Medium} high {High} veryHigh {Very high} weekDays {Weekdays} weekends {Weekends} mon {Mon} tue {Tue} wed {Wed} thu {Thu} fri {Fri} sat {Sat} sun {Sun} other {}}",
     "categories": "{tag, select, affirmation {Affirmation} tip {Tip} breathing {Breathing} calming {Calming} meditation {Meditation} other {}}"
   },
   "clear": "Clear",

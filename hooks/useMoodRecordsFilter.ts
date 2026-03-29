@@ -3,12 +3,14 @@
 import { useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 
-import { usePathname, useRouter } from '../i18n/navigation'
-import { MoodKey } from '../mappers/mood.mappers'
-import { WeekValueType } from '../mappers/weekdays.mapper'
-import { FilterType } from '../types/filter'
-import { SortOrder } from '../types/sort'
-import { StressLevel } from '../types/stress'
+import { usePathname, useRouter } from '@/i18n/navigation'
+import { EnergyKey } from '@/mappers/energy.mappers'
+import { FocusKey } from '@/mappers/focus.mappers'
+import { MoodKey } from '@/mappers/mood.mappers'
+import { WeekValueType } from '@/mappers/weekdays.mapper'
+import { FilterType } from '@/types/filter'
+import { SortOrder } from '@/types/sort'
+import { StressLevel } from '@/types/stress'
 
 type UseMoodRecordsFilter = { order: SortOrder } & FilterType
 
@@ -31,8 +33,8 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
       order: (v) => v as SortOrder,
       moodLevel: (v) => v as MoodKey,
       stressLevel: (v) => v as StressLevel,
-      energyLevel: (v) => v,
-      focusLevel: (v) => v,
+      energyLevel: (v) => v as EnergyKey,
+      focusLevel: (v) => v as FocusKey,
       tags: (v) => v.split(','),
       weekdays: (v) => v.split(',') as WeekValueType[],
     }

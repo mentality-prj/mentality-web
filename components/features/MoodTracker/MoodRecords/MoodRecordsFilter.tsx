@@ -22,6 +22,8 @@ export function MoodRecordsFilter({ availableTags }: Props) {
     tags: [],
     moodLevel: '',
     stressLevel: '',
+    energyLevel: '',
+    focusLevel: '',
     weekdays: [],
   })
 

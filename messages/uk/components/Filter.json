@@ -5,8 +5,10 @@
   "by_week": "Відносно днів тижня",
   "by_stressLevel": "За рівнем стресу",
   "by_moodLevel": "За настроєм",
+  "by_energyLevel": "За рівнем енергії",
+  "by_focusLevel": "За рівнем концентрації",
   "filterOptions": {
-    "tags": "{tag, select, affirmation {Афірмація} tip {Порада} veryBad {Дуже поганий} bad {Поганий} neutral {Нормальний} good {Хороший} great {Чудовий} absent {Відсутній} low {Низький} medium {Середній} high {Високий} veryHigh {Дуже високий} weekDays {Будні дні} weekends {Вихідні} mon {Пн} tue {Вт} wed {Ср} thu {Чт} fri {Пт} sat {Сб} sun {Нд}  other {}}",
+    "tags": "{tag, select, affirmation {Афірмація} tip {Порада} veryBad {Дуже поганий} bad {Поганий} neutral {Нормальний} good {Хороший} great {Чудовий} absent {Відсутній} veryLow {Дуже низький} low {Низький} middle {Середній} medium {Середній} high {Високий} veryHigh {Дуже високий} weekDays {Будні дні} weekends {Вихідні} mon {Пн} tue {Вт} wed {Ср} thu {Чт} fri {Пт} sat {Сб} sun {Нд}  other {}}",
     "categories": "{tag, select, affirmation {Афірмація} tip {Порада} breathing {Дихання} calming {Заспокоєння} meditation {Медитація} other {}}"
   },
   "clear": "Очистити",

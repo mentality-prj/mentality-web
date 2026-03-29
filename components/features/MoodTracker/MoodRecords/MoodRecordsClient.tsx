@@ -56,14 +56,14 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
         </Button>
       </div>
 
-      <div className="grid grid-cols-3 gap-md">
-        <div className={`flex flex-col gap-sm ${showFilters ? 'col-span-2' : 'col-span-3'}`}>
+      <div className="flex flex-col-reverse gap-md md:flex-row">
+        <div className={`flex flex-col gap-sm ${showFilters ? 'md:w-3/5 xl:w-2/3' : 'w-full'}`}>
           {records.length === 0 && <p className="mt-2 text-sm text-gray-500">{mt('History.Empty')}</p>}
 
           <MoodRecordsList records={records} />
           {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />}
         </div>
-        <div id="mood-records-filters" className={`${showFilters ? 'block' : 'hidden'}`}>
+        <div id="mood-records-filters" className={`${showFilters ? 'md:w-2/5 xl:w-1/3' : 'hidden'}`}>
           <MoodRecordsFilter availableTags={availableTags} />
         </div>
       </div>
