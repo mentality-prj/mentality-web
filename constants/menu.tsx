@@ -49,14 +49,14 @@ export const adminSidebarMenu: SidebarMenuItemType[] = [
 ]
 
 export const userSidebarMenu: SidebarMenuItemType[] = [
-  // { key: 'affirmations', href: Routes.AFFIRMATIONS, icon: 'flower' }, temporarily
+  // { key: 'affirmations', href: Routes.AFFIRMATIONS, icon: 'flower' }, TODO: temporarily hide #348
   { key: 'my-space', href: Routes.MYSPACE, icon: 'bookmark' },
   {
     key: 'mood-tracker',
     href: Routes.MOODTRACKER,
     icon: 'activity',
   },
-  // { key: 'guide', href: Routes.GUIDE, icon: 'bookOpenCheck' }, temporarily
+  // { key: 'guide', href: Routes.GUIDE, icon: 'bookOpenCheck' }, TODO: temporarily hide #348
   { key: 'diary', href: Routes.DIARY, icon: 'notebookPen' },
   { key: 'my-progress', href: Routes.MYPROGRESS, icon: 'chartNoAxesCombined' },
   { key: 'psychological-tests', href: Routes.PSYCHOLOGICALTESTS, icon: 'test' },
