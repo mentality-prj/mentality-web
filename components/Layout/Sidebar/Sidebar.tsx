@@ -24,7 +24,6 @@ const Sidebar = async ({ menu, type }: { menu: SidebarMenuItemType[]; type?: Sid
         </div>
       </>
     )
-
   return (
     <aside className={`flex min-w-64 flex-col rounded-l-3xl ${type === 'admin' ? 'text-white' : 'pl-6'}`}>
       {top}
