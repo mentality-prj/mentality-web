@@ -22,14 +22,14 @@ const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
   return (
     <>
       {/* Desktop */}
-      <nav className="hidden items-center gap-sm font-normal leading-[120%] tracking-normal md:flex wide:gap-md">
+      <nav className="hidden items-center gap-sm font-normal leading-[120%] tracking-normal md:flex wide:gap-5">
         {menu.map((item) => {
           const isActive = pathname === item.href
           return (
             <Link
               key={item.key}
               href={item.href}
-              className={`flex items-center gap-1 transition-colors ${textColor} ${isActive ? 'font-semibold' : ''}`}
+              className={`flex items-center gap-1 transition-colors ${item.key !== 'my-day' && 'hidden desktop:flex'} ${textColor} ${isActive ? 'font-semibold' : ''}`}
               aria-current={isActive ? 'page' : undefined}
             >
               {item.icon && iconMap[item.icon]}

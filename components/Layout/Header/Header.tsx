@@ -9,15 +9,13 @@ const Header = () => (
   <header className="text-remark shadow-light flex w-full items-center justify-between gap-sm md:px-1">
     <div className="flex items-center gap-sm">
       <MobileNavDrawer />
-      <span className="hidden md:block">
+      <span className="hidden xl:block">
         <LocalDate />
       </span>
     </div>
-    <div className="flex items-center gap-sm md:gap-md">
+    <div className="flex items-center gap-sm md:gap-5">
       <TopMenu menu={userTopMenu} />
-      <span className="hidden w-40 laptop:block">
-        <SearchBar />
-      </span>
+      <SearchBar />
       <LangSwitch />
       <AvatarMenu />
     </div>
