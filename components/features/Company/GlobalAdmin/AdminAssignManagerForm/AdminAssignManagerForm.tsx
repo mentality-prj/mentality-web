@@ -6,22 +6,31 @@ import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
-import { useGroups } from '@/hooks/useGroups'
-import { createAccessScope, deleteAccessScope, getAccessScopes } from '@/requests/accessScopes'
-import { getEmployeesByRole } from '@/requests/employees'
+import {
+  adminCreateAccessScope,
+  adminDeleteAccessScope,
+  adminGetAccessScopes,
+  adminGetEmployees,
+  adminGetGroups,
+} from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
-import { AccessScopeEntity, EmployeeEntity } from '@/types/company'
+import { AccessScopeEntity, EmployeeEntity, GroupEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
 import { Button } from '@/ui/button'
+import { Checkbox } from '@/ui/checkbox'
 import { Label } from '@/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 
-export function AssignManagerForm() {
+type Props = {
+  companyId: string
+}
+
+export function AdminAssignManagerForm({ companyId }: Props) {
   const { data, status } = useSession()
-  const { items: groups } = useGroups()
   const t = useTranslations('pages.Company.companyAdmin.assignManager')
 
   const [managers, setManagers] = useState<EmployeeEntity[]>([])
+  const [groups, setGroups] = useState<GroupEntity[]>([])
   const [scopes, setScopes] = useState<AccessScopeEntity[]>([])
   const [selectedUserId, setSelectedUserId] = useState('')
   const [selectedGroupIds, setSelectedGroupIds] = useState<string[]>([])
@@ -30,27 +39,43 @@ export function AssignManagerForm() {
   const [userError, setUserError] = useState<string | null>(null)
   const [groupError, setGroupError] = useState<string | null>(null)
 
-  const loadManagersAndScopes = useCallback(async () => {
+  const loadData = useCallback(async () => {
     const session = data as CustomSession
-    const [managersRes, scopesRes] = await Promise.all([
-      getEmployeesByRole(session, COMPANY_ROLES.MANAGER),
-      getAccessScopes(session),
+
+    const fetchAllManagers = async (): Promise<EmployeeEntity[] | null> => {
+      const pageSize = 200
+      let page = 1
+      const allManagers: EmployeeEntity[] = []
+      while (true) {
+        const res = await adminGetEmployees(session, companyId, page, pageSize)
+        if ('error' in res) return null
+        const items = res.data.items
+        allManagers.push(...items.filter((e) => e.role === COMPANY_ROLES.MANAGER))
+        if (items.length < pageSize) break
+        page += 1
+      }
+      return allManagers
+    }
+
+    const [managersResult, groupsRes, scopesRes] = await Promise.all([
+      fetchAllManagers(),
+      adminGetGroups(session, companyId),
+      adminGetAccessScopes(session, companyId),
     ])
-    if (!('error' in managersRes)) {
-      setManagers(managersRes.data)
-    }
-    if (!('error' in scopesRes)) {
-      setScopes(scopesRes.data)
-    }
-  }, [data])
+
+    if (managersResult) setManagers(managersResult)
+    if (!('error' in groupsRes)) setGroups(groupsRes.data)
+    if (!('error' in scopesRes)) setScopes(scopesRes.data)
+  }, [data, companyId])
 
   useEffect(() => {
-    if (status === 'authenticated') loadManagersAndScopes()
+    if (status === 'authenticated') loadData()
     else if (status === 'unauthenticated') {
       setManagers([])
+      setGroups([])
       setScopes([])
     }
-  }, [loadManagersAndScopes, status])
+  }, [loadData, status])
 
   function validate(): boolean {
     let valid = true
@@ -69,7 +94,7 @@ export function AssignManagerForm() {
     e.preventDefault()
     if (!validate()) return
     setLoading(true)
-    const res = await createAccessScope(data as CustomSession, {
+    const res = await adminCreateAccessScope(data as CustomSession, companyId, {
       userId: selectedUserId,
       groupIds: selectedGroupIds,
       canViewAnalytics,
@@ -87,8 +112,7 @@ export function AssignManagerForm() {
   }
 
   async function handleRevoke(id: string) {
-    const session = data as CustomSession
-    const res = await deleteAccessScope(session, id)
+    const res = await adminDeleteAccessScope(data as CustomSession, companyId, id)
     if ('error' in res) {
       toast.error(res.error)
       return
@@ -101,9 +125,9 @@ export function AssignManagerForm() {
     <div className="flex flex-col gap-6">
       <form onSubmit={handleAssign} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
-          <Label htmlFor="assign-user">{t('managerLabel')}</Label>
+          <Label htmlFor="admin-assign-user">{t('managerLabel')}</Label>
           <Select value={selectedUserId} onValueChange={setSelectedUserId} disabled={loading || managers.length === 0}>
-            <SelectTrigger id="assign-user">
+            <SelectTrigger id="admin-assign-user">
               <SelectValue placeholder={managers.length === 0 ? t('managerEmpty') : t('managerPlaceholder')} />
             </SelectTrigger>
             <SelectContent>
@@ -123,14 +147,13 @@ export function AssignManagerForm() {
           {groupError && <p className="text-destructive text-xs">{groupError}</p>}
         </div>
 
-        <label className="flex cursor-pointer items-center gap-2 text-sm">
-          <input
-            type="checkbox"
+        <label className="flex cursor-pointer items-center gap-3">
+          <Checkbox
             checked={canViewAnalytics}
-            onChange={(e) => setCanViewAnalytics(e.target.checked)}
-            className="accent-primary"
+            onCheckedChange={(v) => setCanViewAnalytics(v === true)}
+            disabled={loading}
           />
-          {t('analyticsToggle')}
+          <span className="text-sm font-normal">{t('analyticsToggle')}</span>
         </label>
 
         <Button type="submit" disabled={loading}>
@@ -140,8 +163,8 @@ export function AssignManagerForm() {
 
       {scopes.length > 0 && (
         <div className="flex flex-col gap-2">
-          <h4 className="text-sm font-semibold">{t('currentScopes')}</h4>
-          <ul className="flex flex-col gap-1">
+          <p className="text-sm font-medium">{t('currentScopes')}</p>
+          <ul className="flex flex-col gap-1.5">
             {scopes.map((scope) => {
               const manager = managers.find((m) => m.id === scope.userId)
               return (
@@ -149,14 +172,14 @@ export function AssignManagerForm() {
                   key={scope.id}
                   className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm"
                 >
-                  <span>{manager?.name || manager?.email || scope.userId}</span>
+                  <span>{manager ? manager.name || manager.email : scope.userId}</span>
                   <span className="text-xs text-textcolor-secondary">
                     {t('scopeGroups', { count: scope.groupIds.length })}
                   </span>
                   <Button
                     size="small"
                     variant="ghost"
-                    className="text-destructive hover:text-destructive h-7"
+                    className="text-destructive hover:text-destructive h-7 px-2 text-xs"
                     onClick={() => handleRevoke(scope.id)}
                   >
                     {t('revokeButton')}

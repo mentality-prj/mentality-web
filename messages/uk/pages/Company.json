@@ -20,7 +20,24 @@
     "companyDetail": {
       "back": "Усі компанії",
       "idLabel": "ID",
-      "createdLabel": "Створено"
+      "createdLabel": "Створено",
+      "groupsTitle": "Управління групами",
+      "employeesTitle": "Працівники",
+      "inviteMenuTitle": "Запрошення",
+      "inviteTitle": "Запросити працівника",
+      "assignManagerTitle": "Призначити доступ менеджера",
+      "invitesTitle": "Запрошення",
+      "changeRole": {
+        "title": "Змінити роль",
+        "roleLabel": "Нова роль",
+        "groupsLabel": "Групи",
+        "submitButton": "Змінити роль",
+        "submitting": "Збереження…",
+        "success": "Роль оновлено.",
+        "errorGroups": "Оберіть хоча б одну групу для Менеджера.",
+        "cancel": "Скасувати",
+        "close": "Закрити"
+      }
     }
   },
   "companyAdmin": {
@@ -42,7 +59,13 @@
       "expand": "Розгорнути",
       "ariaAddSubGroup": "Додати підгрупу",
       "ariaEdit": "Редагувати групу",
-      "ariaDelete": "Видалити групу"
+      "ariaDelete": "Видалити групу",
+      "typeLabel": "Тип",
+      "typeDepartment": "Відділ",
+      "typeTeam": "Команда",
+      "typeProject": "Проєкт",
+      "parentLabel": "Батьківська група",
+      "parentPlaceholder": "Немає (коренева група)"
     },
     "employees": {
       "title": "Співробітники",
@@ -78,6 +101,7 @@
       "title": "Призначити доступ менеджеру",
       "managerLabel": "Менеджер",
       "managerPlaceholder": "Оберіть менеджера…",
+      "managerEmpty": "Немає менеджерів",
       "groupsLabel": "Групи",
       "analyticsToggle": "Може переглядати аналітику",
       "submitButton": "Призначити доступ",
@@ -132,9 +156,9 @@
     "loading": "Завантаження запрошень…"
   },
   "roles": {
-    "SUPERUSER": "Адмін",
-    "MANAGER": "Менеджер",
-    "EMPLOYEE": "Співробітник"
+    "superuser": "Адмін",
+    "manager": "Менеджер",
+    "employee": "Співробітник"
   },
   "groupSelector": {
     "searchPlaceholder": "Пошук груп…",

@@ -1,4 +1,4 @@
-import { GroupEntity } from '@/types/company'
+import { GroupEntity, GroupType } from '@/types/company'
 
 function safeString(value: unknown): string {
   if (typeof value === 'string') return value
@@ -20,8 +20,9 @@ export function mapGroup(input: unknown): GroupEntity | null {
   return {
     id,
     name: safeString(obj.name),
+    type: (['team', 'department', 'project'].includes(obj.type as string) ? obj.type : 'department') as GroupType,
     companyId: safeString(obj.companyId),
-    parentId: obj.parentId != null ? safeString(obj.parentId) : null,
+    parentGroupId: obj.parentGroupId != null ? safeString(obj.parentGroupId) : null,
     children,
     createdAt: safeString(obj.createdAt),
     updatedAt: safeString(obj.updatedAt),
@@ -44,4 +45,20 @@ export function mapGroups(input: unknown): GroupEntity[] {
  */
 export function flattenGroups(groups: GroupEntity[]): GroupEntity[] {
   return groups.flatMap((g) => [g, ...flattenGroups(g.children)])
+}
+
+/**
+ * Build a nested tree from a flat list using parentGroupId references.
+ */
+export function buildTree(flat: GroupEntity[]): GroupEntity[] {
+  const byId = new Map(flat.map((g) => [g.id, { ...g, children: [] as GroupEntity[] }]))
+  const roots: GroupEntity[] = []
+  for (const g of byId.values()) {
+    if (g.parentGroupId && byId.has(g.parentGroupId)) {
+      byId.get(g.parentGroupId)!.children.push(g)
+    } else {
+      roots.push(g)
+    }
+  }
+  return roots
 }

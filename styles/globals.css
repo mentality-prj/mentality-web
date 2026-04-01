@@ -175,6 +175,25 @@ body {
   .shadow-dark {
     text-shadow: 0 -1px 0 hsla(220, 18%, 14%, 0.8);
   }
+
+  .scrollbar-styled {
+    scrollbar-width: auto;
+    scrollbar-color: hsl(var(--border)) transparent;
+  }
+  .scrollbar-styled::-webkit-scrollbar {
+    width: 12px;
+    height: 12px;
+  }
+  .scrollbar-styled::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .scrollbar-styled::-webkit-scrollbar-thumb {
+    background-color: hsl(var(--border));
+    border-radius: 9999px;
+  }
+  .scrollbar-styled::-webkit-scrollbar-thumb:hover {
+    background-color: hsl(var(--text-muted));
+  }
 }
 
 /* =====================================================

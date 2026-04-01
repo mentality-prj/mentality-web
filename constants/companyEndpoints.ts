@@ -27,3 +27,21 @@ export const EMPLOYEE_ENDPOINTS = Object.freeze({
   byRole: (role: string) => `/employees?role=${role}`,
   paginated: (page: number, limit: number) => `/employees?page=${page}&limit=${limit}`,
 })
+
+// ─── Admin-scoped (per-company) endpoints ────────────────────────────────────
+
+export const COMPANY_ADMIN_ENDPOINTS = Object.freeze({
+  employees: (companyId: string, page: number, limit: number) =>
+    `/companies/${companyId}/employees?page=${page}&limit=${limit}`,
+  employeeById: (companyId: string, empId: string) => `/companies/${companyId}/employees/${empId}`,
+  employeeRole: (companyId: string, empId: string) => `/companies/${companyId}/employees/${empId}/role`,
+  groups: (companyId: string) => `/companies/${companyId}/groups`,
+  groupById: (companyId: string, id: string) => `/companies/${companyId}/groups/${id}`,
+  inviteBase: (companyId: string) => `/companies/${companyId}/invites`,
+  invites: (companyId: string, page: number, limit: number) =>
+    `/companies/${companyId}/invites?page=${page}&limit=${limit}`,
+  inviteById: (companyId: string, id: string) => `/companies/${companyId}/invites/${id}`,
+  inviteResend: (companyId: string, id: string) => `/companies/${companyId}/invites/${id}/resend`,
+  accessScopes: (companyId: string) => `/companies/${companyId}/access-scopes`,
+  accessScopeById: (companyId: string, id: string) => `/companies/${companyId}/access-scopes/${id}`,
+})

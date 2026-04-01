@@ -38,8 +38,9 @@ const mockEmployeeSession: CustomSession = {
 const mockGroupRaw: GroupEntity = {
   id: 'g-1',
   name: 'Engineering',
+  type: 'department',
   companyId: 'c-1',
-  parentId: null,
+  parentGroupId: null,
   children: [],
   createdAt: '2026-01-01T00:00:00.000Z',
   updatedAt: '2026-01-01T00:00:00.000Z',
@@ -115,7 +116,7 @@ describe('createGroup', () => {
   it('returns data on success (SUPERUSER)', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
 
-    const result = await createGroup(mockSuperuserSession, { name: 'Engineering' })
+    const result = await createGroup(mockSuperuserSession, { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ data: mockGroupRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
@@ -129,7 +130,7 @@ describe('createGroup', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
-    const result = await createGroup(mockSuperuserSession, { name: 'Engineering' })
+    const result = await createGroup(mockSuperuserSession, { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Conflict' })
     expect(logger.error).toHaveBeenCalled()
@@ -138,13 +139,13 @@ describe('createGroup', () => {
   it('returns error on invalid mapped data', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await createGroup(mockSuperuserSession, { name: 'Engineering' })
+    const result = await createGroup(mockSuperuserSession, { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
 
   it('blocks MANAGER — returns unauthorized', async () => {
-    const result = await createGroup(mockManagerSession, { name: 'Engineering' })
+    const result = await createGroup(mockManagerSession, { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -152,14 +153,14 @@ describe('createGroup', () => {
   })
 
   it('blocks EMPLOYEE — returns unauthorized', async () => {
-    const result = await createGroup(mockEmployeeSession, { name: 'Engineering' })
+    const result = await createGroup(mockEmployeeSession, { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('blocks null session', async () => {
-    const result = await createGroup(null, { name: 'Engineering' })
+    const result = await createGroup(null, { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()

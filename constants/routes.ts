@@ -44,7 +44,13 @@ export const Routes = Object.freeze({
   MAIN: '/',
   meditationDetail: (id: string) => `/guide/meditations/${id}`,
   adminCompanyDetail: (id: string) => `/admin/company/${id}`,
+  adminCompanyGroups: (id: string) => `/admin/company/${id}/groups`,
+  adminCompanyEmployees: (id: string) => `/admin/company/${id}/employees`,
+  adminCompanyInvites: (id: string) => `/admin/company/${id}/invites`,
 }) as RoutesType & {
   readonly meditationDetail: (id: string) => string
   readonly adminCompanyDetail: (id: string) => string
+  readonly adminCompanyGroups: (id: string) => string
+  readonly adminCompanyEmployees: (id: string) => string
+  readonly adminCompanyInvites: (id: string) => string
 }

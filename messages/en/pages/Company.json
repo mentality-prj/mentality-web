@@ -20,7 +20,24 @@
     "companyDetail": {
       "back": "All companies",
       "idLabel": "ID",
-      "createdLabel": "Created"
+      "createdLabel": "Created",
+      "groupsTitle": "Manage Groups",
+      "employeesTitle": "Employees",
+      "inviteMenuTitle": "Invitations",
+      "inviteTitle": "Invite Employee",
+      "assignManagerTitle": "Assign Manager Access",
+      "invitesTitle": "Invites",
+      "changeRole": {
+        "title": "Change Role",
+        "roleLabel": "New Role",
+        "groupsLabel": "Groups",
+        "submitButton": "Change Role",
+        "submitting": "Saving…",
+        "success": "Role updated.",
+        "errorGroups": "Select at least one group for Manager.",
+        "cancel": "Cancel",
+        "close": "Close"
+      }
     }
   },
   "companyAdmin": {
@@ -42,7 +59,13 @@
       "expand": "Expand",
       "ariaAddSubGroup": "Add sub-group",
       "ariaEdit": "Edit group",
-      "ariaDelete": "Delete group"
+      "ariaDelete": "Delete group",
+      "typeLabel": "Type",
+      "typeDepartment": "Department",
+      "typeTeam": "Team",
+      "typeProject": "Project",
+      "parentLabel": "Parent group",
+      "parentPlaceholder": "None (root group)"
     },
     "employees": {
       "title": "Employees",
@@ -78,6 +101,7 @@
       "title": "Assign Manager Access",
       "managerLabel": "Manager",
       "managerPlaceholder": "Select manager…",
+      "managerEmpty": "No managers",
       "groupsLabel": "Groups",
       "analyticsToggle": "Can view analytics",
       "submitButton": "Assign Access",
@@ -132,9 +156,9 @@
     "loading": "Loading invites…"
   },
   "roles": {
-    "SUPERUSER": "Admin",
-    "MANAGER": "Manager",
-    "EMPLOYEE": "Employee"
+    "superuser": "Admin",
+    "manager": "Manager",
+    "employee": "Employee"
   },
   "groupSelector": {
     "searchPlaceholder": "Search groups…",

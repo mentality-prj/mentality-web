@@ -1,22 +1,23 @@
 'use client'
-import { Search } from 'lucide-react'
+import { useState } from 'react'
+import { X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
 
 const SearchBar = () => {
   const t = useTranslations('components.Header.SearchBar')
-
-  const handleSearch = () => console.log('click Search')
+  const [query, setQuery] = useState('')
 
   return (
     <CustomInput
       id="search"
       placeholder={t('placeholder')}
-      rightIcon={<Search size={16} color="var(--remark)" />}
-      onRightClick={handleSearch}
-      onClick={handleSearch}
-      className="border-none"
+      value={query}
+      onChange={(e) => setQuery(e.target.value)}
+      rightIcon={query ? <X size={16} /> : undefined}
+      onRightClick={() => setQuery('')}
+      className="placeholder-textcolor-tertiary h-8 border-none bg-background caret-textcolor-primary hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft"
     />
   )
 }
