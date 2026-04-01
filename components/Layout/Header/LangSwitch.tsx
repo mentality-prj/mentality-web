@@ -60,7 +60,7 @@ export default function LangSwitch({ type }: { type?: AppViewType }) {
       </DropdownMenuTrigger>
       <DropdownMenuContent
         align="start"
-        className="min-w-[200px] rounded-2xl bg-white px-0 text-textcolor-primary shadow-lg outline-none ring-0 focus:outline-none"
+        className="min-w-[200px] rounded-2xl border border-white bg-white px-0 text-textcolor-primary shadow-lg outline-none ring-0 focus:outline-none"
       >
         {supportedLanguages.map((locale) => (
           <DropdownMenuItem

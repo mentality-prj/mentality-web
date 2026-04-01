@@ -1,13 +1,14 @@
 'use client'
 
-import { useMemo, useState } from 'react'
-import { ChevronDown, ChevronRight, Search } from 'lucide-react'
+import { useId, useMemo, useState } from 'react'
+import { ChevronDown, ChevronRight, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import { CustomInput } from '@/ds/components/CustomInput'
 import { cn } from '@/lib/utils'
 import { flattenGroups } from '@/mappers/group.mappers'
 import { GroupEntity } from '@/types/company'
-import { Input } from '@/ui/input'
+import { Checkbox } from '@/ui/checkbox'
 
 type GroupSelectorProps = {
   groups: GroupEntity[]
@@ -57,7 +58,7 @@ function TreeNode({ group, selected, disabledSet, onToggle, visibleSet, t }: Tre
       <div
         className={cn(
           'flex items-center gap-2 rounded-md px-2 py-1.5 text-sm',
-          isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer hover:bg-accent'
+          isDisabled ? 'cursor-not-allowed opacity-40' : 'cursor-pointer hover:bg-background-alt'
         )}
       >
         {hasChildren ? (
@@ -73,13 +74,11 @@ function TreeNode({ group, selected, disabledSet, onToggle, visibleSet, t }: Tre
           <span className="w-[14px] shrink-0" />
         )}
 
-        <input
-          type="checkbox"
+        <Checkbox
           id={`group-${group.id}`}
           checked={isChecked}
           disabled={isDisabled}
-          onChange={() => !isDisabled && onToggle(group.id)}
-          className="accent-primary"
+          onCheckedChange={() => !isDisabled && onToggle(group.id)}
         />
         <label
           htmlFor={`group-${group.id}`}
@@ -116,6 +115,7 @@ export function GroupSelector({
   singleSelect = false,
 }: GroupSelectorProps) {
   const [query, setQuery] = useState('')
+  const searchId = useId()
   const t = useTranslations('pages.Company.groupSelector')
   const disabledSet = useMemo(() => new Set(disabledIds), [disabledIds])
 
@@ -145,18 +145,17 @@ export function GroupSelector({
 
   return (
     <div className="flex flex-col gap-2">
-      <div className="relative">
-        <Search size={14} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-textcolor-secondary" />
-        <Input
-          placeholder={t('searchPlaceholder')}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          className="pl-8 text-sm"
-          aria-label={t('searchLabel')}
-        />
-      </div>
+      <CustomInput
+        id={searchId}
+        placeholder={t('searchPlaceholder')}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        aria-label={t('searchLabel')}
+        rightIcon={query ? <X size={14} /> : undefined}
+        onRightClick={() => setQuery('')}
+      />
 
-      <ul className="max-h-64 overflow-y-auto rounded-md border border-border p-1">
+      <ul className="scrollbar-styled max-h-64 overflow-y-auto rounded-md border border-border p-1">
         {groups.map((g) => (
           <TreeNode
             key={g.id}

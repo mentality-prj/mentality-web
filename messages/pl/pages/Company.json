@@ -20,7 +20,24 @@
     "companyDetail": {
       "back": "Wszystkie firmy",
       "idLabel": "ID",
-      "createdLabel": "Utworzono"
+      "createdLabel": "Utworzono",
+      "groupsTitle": "Zarządzaj grupami",
+      "employeesTitle": "Pracownicy",
+      "inviteMenuTitle": "Zaproszenia",
+      "inviteTitle": "Zaproś pracownika",
+      "assignManagerTitle": "Przydziel dostęp menedżera",
+      "invitesTitle": "Zaproszenia",
+      "changeRole": {
+        "title": "Zmień rolę",
+        "roleLabel": "Nowa rola",
+        "groupsLabel": "Grupy",
+        "submitButton": "Zmień rolę",
+        "submitting": "Zapisywanie…",
+        "success": "Rola zaktualizowana.",
+        "errorGroups": "Wybierz co najmniej jedną grupę dla Menedżera.",
+        "cancel": "Anuluj",
+        "close": "Zamknij"
+      }
     }
   },
   "companyAdmin": {
@@ -42,7 +59,13 @@
       "expand": "Rozwiń",
       "ariaAddSubGroup": "Dodaj podgrupę",
       "ariaEdit": "Edytuj grupę",
-      "ariaDelete": "Usuń grupę"
+      "ariaDelete": "Usuń grupę",
+      "typeLabel": "Typ",
+      "typeDepartment": "Dział",
+      "typeTeam": "Zespół",
+      "typeProject": "Projekt",
+      "parentLabel": "Grupa nadrzędna",
+      "parentPlaceholder": "Brak (grupa główna)"
     },
     "employees": {
       "title": "Pracownicy",
@@ -78,6 +101,7 @@
       "title": "Przypisz dostęp menedżerowi",
       "managerLabel": "Menedżer",
       "managerPlaceholder": "Wybierz menedżera…",
+      "managerEmpty": "Brak menedżerów",
       "groupsLabel": "Grupy",
       "analyticsToggle": "Może przeglądać analizy",
       "submitButton": "Przypisz dostęp",
@@ -132,9 +156,9 @@
     "loading": "Ładowanie zaproszeń…"
   },
   "roles": {
-    "SUPERUSER": "Administrator",
-    "MANAGER": "Menedżer",
-    "EMPLOYEE": "Pracownik"
+    "superuser": "Administrator",
+    "manager": "Menedżer",
+    "employee": "Pracownik"
   },
   "groupSelector": {
     "searchPlaceholder": "Szukaj grup…",

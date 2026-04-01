@@ -9,8 +9,10 @@ import { useTranslations } from 'next-intl'
 import { useGroups } from '@/hooks/useGroups'
 import { createGroup } from '@/requests/groups'
 import { CustomSession } from '@/types/auth'
+import { GroupType } from '@/types/company'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 
 import { GroupTreeNode } from './GroupTreeNode'
 
@@ -20,6 +22,7 @@ export function GroupTree() {
   const { data } = useSession()
   const { items, loading, error, addGroup, refetch } = useGroups()
   const [newRootName, setNewRootName] = useState('')
+  const [newRootType, setNewRootType] = useState<GroupType>('department')
   const [adding, setAdding] = useState(false)
   const [creating, setCreating] = useState(false)
 
@@ -27,7 +30,7 @@ export function GroupTree() {
     const trimmed = newRootName.trim()
     if (!trimmed) return
     setCreating(true)
-    const res = await createGroup(data as CustomSession, { name: trimmed, parentId: null })
+    const res = await createGroup(data as CustomSession, { name: trimmed, type: newRootType, parentGroupId: null })
     setCreating(false)
     if ('error' in res) {
       toast.error(res.error)
@@ -52,7 +55,7 @@ export function GroupTree() {
       </div>
 
       {adding && (
-        <div className="flex items-center gap-2">
+        <div className="flex flex-wrap items-center gap-2">
           <Input
             placeholder={t('rootPlaceholder')}
             value={newRootName}
@@ -63,6 +66,16 @@ export function GroupTree() {
               if (e.key === 'Escape') setAdding(false)
             }}
           />
+          <Select value={newRootType} onValueChange={(v) => setNewRootType(v as GroupType)}>
+            <SelectTrigger className="h-8 w-36 text-sm">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem value="department">{t('typeDepartment')}</SelectItem>
+              <SelectItem value="team">{t('typeTeam')}</SelectItem>
+              <SelectItem value="project">{t('typeProject')}</SelectItem>
+            </SelectContent>
+          </Select>
           <Button size="small" onClick={handleCreateRoot} disabled={creating || !newRootName.trim()}>
             {tButtons('add')}
           </Button>

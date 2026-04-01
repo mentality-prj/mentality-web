@@ -1,17 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
-import { CustomInput } from '@/ds/components/CustomInput'
-import { useGroups } from '@/hooks/useGroups'
-import { createInvite } from '@/requests/invites'
+import { adminCreateInvite, adminGetGroups } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
+import { GroupEntity } from '@/types/company'
 import { COMPANY_ROLES, CompanyRole } from '@/types/rbac'
 import { Button } from '@/ui/button'
+import { Input } from '@/ui/input'
 import { Label } from '@/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 
@@ -20,20 +20,30 @@ type InviteRole = Extract<CompanyRole, 'employee' | 'manager'>
 const INVITE_ROLE_VALUES: InviteRole[] = [COMPANY_ROLES.EMPLOYEE, COMPANY_ROLES.MANAGER]
 
 type Props = {
+  companyId: string
   onInvited?: () => void
 }
 
-export function InviteEmployeeForm({ onInvited }: Props) {
-  const { data } = useSession()
-  const { items: groups } = useGroups()
+export function AdminInviteEmployeeForm({ companyId, onInvited }: Props) {
+  const { data, status } = useSession()
   const t = useTranslations('pages.Company.companyAdmin.invite')
   const tRoles = useTranslations('pages.Company.roles')
+  const [groups, setGroups] = useState<GroupEntity[]>([])
   const [email, setEmail] = useState('')
   const [role, setRole] = useState<InviteRole>(COMPANY_ROLES.EMPLOYEE)
   const [groupIds, setGroupIds] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [emailError, setEmailError] = useState<string | null>(null)
   const [groupError, setGroupError] = useState<string | null>(null)
+
+  const fetchGroups = useCallback(async () => {
+    const res = await adminGetGroups(data as CustomSession, companyId)
+    if (!('error' in res)) setGroups(res.data)
+  }, [data, companyId])
+
+  useEffect(() => {
+    if (status === 'authenticated') fetchGroups()
+  }, [fetchGroups, status])
 
   function validate(): boolean {
     let valid = true
@@ -57,7 +67,7 @@ export function InviteEmployeeForm({ onInvited }: Props) {
     if (!validate()) return
 
     setLoading(true)
-    const res = await createInvite(data as CustomSession, { email: email.trim(), role, groupIds })
+    const res = await adminCreateInvite(data as CustomSession, companyId, { email: email.trim(), role, groupIds })
     setLoading(false)
 
     if ('error' in res) {
@@ -81,22 +91,25 @@ export function InviteEmployeeForm({ onInvited }: Props) {
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-      <CustomInput
-        id="invite-email"
-        label={t('emailLabel')}
-        type="email"
-        placeholder={t('emailPlaceholder')}
-        value={email}
-        onChange={(e) => setEmail(e.target.value)}
-        errorMsg={emailError ?? undefined}
-        disabled={loading}
-        required
-      />
+      <div className="flex flex-col gap-1.5">
+        <Label htmlFor="admin-invite-email">{t('emailLabel')}</Label>
+        <Input
+          id="admin-invite-email"
+          type="email"
+          placeholder={t('emailPlaceholder')}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+          disabled={loading}
+          required
+          className="bg-white"
+        />
+        {emailError && <p className="text-destructive text-xs">{emailError}</p>}
+      </div>
 
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="invite-role">{t('roleLabel')}</Label>
+        <Label htmlFor="admin-invite-role">{t('roleLabel')}</Label>
         <Select value={role} onValueChange={(v) => setRole(v as InviteRole)} disabled={loading}>
-          <SelectTrigger id="invite-role">
+          <SelectTrigger id="admin-invite-role">
             <SelectValue />
           </SelectTrigger>
           <SelectContent>

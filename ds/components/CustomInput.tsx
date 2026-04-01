@@ -1,9 +1,9 @@
 import React from 'react'
 import { TriangleAlert } from 'lucide-react'
 
+import { cn } from '@/lib/utils'
 import { Input } from '@/ui/input'
 import { Label } from '@/ui/label'
-import { cn } from '@/lib/utils'
 
 type CustomInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   id: string
@@ -28,7 +28,7 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           {leftIcon && (
             <button
               type="button"
-              className="absolute left-3 top-1/2 -translate-y-1/2 text-textcolor-secondary focus:outline-none"
+              className="icon-tool icon-tool-text absolute left-2 top-1/2 -translate-y-1/2 focus:outline-none"
               onClick={onLeftClick}
               tabIndex={0}
               aria-label="Left icon button"
@@ -39,7 +39,7 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
           {rightIcon && (
             <button
               type="button"
-              className="absolute right-3 top-1/2 -translate-y-1/2 text-textcolor-secondary focus:outline-none"
+              className="icon-tool icon-tool-text absolute right-2 top-1/2 -translate-y-1/2 focus:outline-none"
               onClick={onRightClick}
               tabIndex={0}
               aria-label="Right icon button"
@@ -48,13 +48,7 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
             </button>
           )}
           <Input
-            className={cn(
-              'placeholder-textcolor-tertiary h-8 w-full rounded-full bg-background text-sm text-primary caret-primary shadow-none outline-none hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft [&:not(:placeholder-shown)]:caret-textcolor-primary',
-              leftIcon && 'pl-8',
-              rightIcon && 'pr-8',
-              className,
-              !!errorMsg && 'border-outline-error'
-            )}
+            className={cn(leftIcon && 'pl-8', rightIcon && 'pr-8', className, !!errorMsg && 'border-outline-error')}
             ref={ref}
             id={id}
             {...inputProps}

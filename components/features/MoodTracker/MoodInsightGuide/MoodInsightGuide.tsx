@@ -85,7 +85,7 @@ export function MoodInsightGuide() {
       {open && (
         <>
           <FullScreenBackdrop onClick={handleClose} />
-          <div role="dialog" aria-modal="true" aria-label={t('openLabel')} className="fixed inset-x-0 top-0 z-50">
+          <div role="dialog" aria-modal="true" aria-label={t('openLabel')} className="absolute inset-0 z-50">
             <Card className="flex flex-col gap-6" tools={<CloseIconButton onClick={handleClose} />}>
               <div className="flex flex-col items-center gap-5 text-center">
                 {getStepIcon(step)}

@@ -8,7 +8,7 @@ function safeString(value: unknown): string {
 }
 
 function safeRole(value: unknown): CompanyRole {
-  const v = safeString(value).toUpperCase()
+  const v = safeString(value).toLowerCase()
   if (Object.values(COMPANY_ROLES).includes(v as CompanyRole)) return v as CompanyRole
   return COMPANY_ROLES.EMPLOYEE
 }
@@ -22,18 +22,26 @@ export function mapEmployee(input: unknown): EmployeeEntity | null {
   if (!input || typeof input !== 'object') return null
   const obj = input as Record<string, unknown>
 
-  const id = safeString(obj.id ?? obj._id ?? '')
+  const id = safeString(obj.id ?? obj._id ?? obj.userId ?? '')
   if (!id) return null
+
+  const groupId = obj.groupId != null ? safeString(obj.groupId) : undefined
+  const safeGroupIds = safeStringArray(obj.groupIds)
+  const groupIds = safeGroupIds.length ? safeGroupIds : groupId ? [groupId] : []
 
   return {
     id,
     name: safeString(obj.name),
     email: safeString(obj.email),
-    role: safeRole(obj.role),
-    groupIds: safeStringArray(obj.groupIds),
-    groupsCount: typeof obj.groupsCount === 'number' ? obj.groupsCount : safeStringArray(obj.groupIds).length,
+    avatarUrl: obj.avatarUrl != null ? safeString(obj.avatarUrl) : undefined,
+    role: safeRole(obj.companyRole ?? obj.role),
+    groupIds,
+    groupsCount: typeof obj.groupsCount === 'number' ? obj.groupsCount : groupIds.length,
+    groupId,
+    groupName: obj.groupName != null ? safeString(obj.groupName) : undefined,
     companyId: safeString(obj.companyId),
-    createdAt: safeString(obj.createdAt),
+    createdAt: safeString(obj.createdAt ?? obj.joinedAt ?? ''),
+    joinedAt: obj.joinedAt != null ? safeString(obj.joinedAt) : undefined,
   }
 }
 
@@ -68,8 +76,8 @@ export function mapInvite(input: unknown): InviteEntity | null {
 
   return {
     id,
-    email: safeString(obj.email),
-    role: role as Extract<CompanyRole, 'EMPLOYEE' | 'MANAGER'>,
+    email: safeString(obj.email ?? obj.inviteeEmail),
+    role: role as Extract<CompanyRole, 'employee' | 'manager'>,
     groupIds: safeStringArray(obj.groupIds),
     companyId: safeString(obj.companyId),
     status,

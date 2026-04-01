@@ -1,7 +1,7 @@
 export const COMPANY_ROLES = Object.freeze({
-  SUPERUSER: 'SUPERUSER',
-  MANAGER: 'MANAGER',
-  EMPLOYEE: 'EMPLOYEE',
+  SUPERUSER: 'superuser',
+  MANAGER: 'manager',
+  EMPLOYEE: 'employee',
 } as const)
 
 export type CompanyRole = (typeof COMPANY_ROLES)[keyof typeof COMPANY_ROLES]
