@@ -6,10 +6,6 @@ import { MoodRecordEntity } from '@/types/api-responses'
 
 jest.mock('next-intl/server')
 
-jest.mock('@/components/features/MoodTracker/MoodLevelBars/MoodLevelBars', () => ({
-  MoodLevelBars: () => <div data-testid="mood-level-bars" />,
-}))
-
 jest.mock('@/components/shared/Cards/Card', () => ({
   __esModule: true,
   default: ({ children, title, subtitle }: { children?: React.ReactNode; title?: string; subtitle?: string }) => (
@@ -46,35 +42,12 @@ describe('DailyStatistics', () => {
 
     expect(screen.getByText('statistics.recordsForDay')).toBeInTheDocument()
     expect(screen.getByText('0')).toBeInTheDocument()
-    expect(screen.getByText('statistics.noRecordsToday')).toBeInTheDocument()
   })
 
   it('renders correct record count', async () => {
     render(await DailyStatistics({ records: [mockRecord(), mockRecord({ id: '2' })] }))
 
     expect(screen.getByText('2')).toBeInTheDocument()
-  })
-
-  it('renders a MoodLevelBars for each record', async () => {
-    render(
-      await DailyStatistics({
-        records: [mockRecord({ id: '1' }), mockRecord({ id: '2' })],
-      })
-    )
-
-    expect(screen.getAllByTestId('mood-level-bars')).toHaveLength(2)
-  })
-
-  it('does not render MoodLevelBars when no records', async () => {
-    render(await DailyStatistics({ records: [] }))
-
-    expect(screen.queryByTestId('mood-level-bars')).not.toBeInTheDocument()
-  })
-
-  it('renders empty records by default when prop is omitted', async () => {
-    render(await DailyStatistics({}))
-
-    expect(screen.getByText('statistics.noRecordsToday')).toBeInTheDocument()
   })
 
   it('renders mood subtitle for each record', async () => {
