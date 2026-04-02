@@ -104,47 +104,51 @@ export const PersonalGoalsList = ({
     return []
   })()
 
-  const hasMore = limit !== undefined && filteredGoals.length > limit
+  const hasMore = limit !== undefined && filteredGoals.length >= limit
   const visibleGoals = hasMore ? filteredGoals.slice(0, limit) : filteredGoals
+  const shouldShowCreate =
+    showCreate || (visibleGoals.length >= 1 && limit !== undefined && visibleGoals.length < limit)
 
   return (
-    <div
-      className={cn(
-        showCreate
-          ? 'grid w-full grid-cols-1 items-stretch gap-default desktop:grid-cols-2'
-          : 'flex w-full flex-col gap-sm',
-        className
-      )}
-    >
-      {showCreate && <CreatePersonalGoals onCreated={handleCreated} />}
-      {!showCreate && !isLoading && !error && visibleGoals.length === 0 && (
-        <div className="flex flex-col gap-xs text-textcolor-muted">
-          <h3>{tList('EmptyTitle')}</h3>
-          <p className="text-sm">{tList('EmptyText')}</p>
-          <CreatePersonalGoals onCreated={handleCreated} />
-        </div>
-      )}
-      {visibleGoals.map((goal) => (
-        <PersonalGoalsCard
-          key={goal.id}
-          id={goal.id}
-          text={goal.text}
-          repeat={goal.repeat}
-          check={goal.check}
-          status={goal.status}
-          deadline={goal.deadline}
-          createdAt={goal.createdAt}
-          updatedAt={goal.updatedAt}
-          category={goal.category ?? iconLookup[goal.text]}
-          readonly={readonly}
-          setPersonalGoals={setPersonalGoals}
-        />
-      ))}
+    <>
+      <div
+        className={cn(
+          showCreate
+            ? 'grid w-full grid-cols-1 items-stretch gap-default md:grid-cols-2 desktop:grid-cols-3'
+            : 'grid grid-cols-1 gap-sm sm:grid-cols-1 md:grid-cols-1 xl:grid-cols-2',
+          className
+        )}
+      >
+        {shouldShowCreate && <CreatePersonalGoals onCreated={handleCreated} />}
+        {!showCreate && !isLoading && !error && visibleGoals.length === 0 && (
+          <div className="flex flex-col gap-xs text-textcolor-muted tablet:justify-center tablet:gap-sm">
+            <h3>{tList('EmptyTitle')}</h3>
+            <p className="text-sm">{tList('EmptyText')}</p>
+            <CreatePersonalGoals onCreated={handleCreated} />
+          </div>
+        )}
+        {visibleGoals.map((goal) => (
+          <PersonalGoalsCard
+            key={goal.id}
+            id={goal.id}
+            text={goal.text}
+            repeat={goal.repeat}
+            check={goal.check}
+            status={goal.status}
+            deadline={goal.deadline}
+            createdAt={goal.createdAt}
+            updatedAt={goal.updatedAt}
+            category={goal.category ?? iconLookup[goal.text]}
+            readonly={readonly}
+            setPersonalGoals={setPersonalGoals}
+          />
+        ))}
+      </div>
       {hasMore && viewAllHref && (
-        <Link href={viewAllHref} className="text-sm text-primary underline">
+        <Link href={viewAllHref} className="mt-3 flex justify-center text-sm text-primary underline">
           {tList('ViewAll')}
         </Link>
       )}
-    </div>
+    </>
   )
 }
