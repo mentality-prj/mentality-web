@@ -104,7 +104,7 @@ export const PersonalGoalsList = ({
     return []
   })()
 
-  const hasMore = limit !== undefined && filteredGoals.length > limit
+  const hasMore = limit !== undefined && filteredGoals.length >= limit
   const visibleGoals = hasMore ? filteredGoals.slice(0, limit) : filteredGoals
   const shouldShowCreate =
     showCreate || (visibleGoals.length >= 1 && limit !== undefined && visibleGoals.length < limit)
