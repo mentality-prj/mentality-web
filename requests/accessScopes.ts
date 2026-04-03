@@ -1,11 +1,11 @@
-import { ACCESS_SCOPE_ENDPOINTS } from '@/constants/companyEndpoints'
+import { ACCESS_SCOPE_ENDPOINTS, COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
 import { CAN_ASSIGN_MANAGERS } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performAuthRequest } from './genericFetch'
+import { performAdminRequest, performAuthRequest } from './genericFetch'
 
 function assertCanAssign(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole
@@ -68,4 +68,57 @@ export async function getAccessScopes(
   }
 
   return { data: Array.isArray(res.data) ? res.data : [] }
+}
+
+// ─── Admin-scoped (per-company) variants ──────────────────────────────────────
+
+export async function getAccessScopesAdmin(
+  session: CustomSession | null,
+  companyId: string
+): Promise<{ data: AccessScopeEntity[] } | { error: string }> {
+  const res = await performAdminRequest<AccessScopeEntity[]>(
+    session,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`
+  )
+  if ('error' in res) {
+    logger.error('Admin: failed to fetch access scopes', { error: res.error, companyId })
+    return { error: res.error }
+  }
+  return { data: Array.isArray(res.data) ? res.data : [] }
+}
+
+export async function createAccessScopeAdmin(
+  session: CustomSession | null,
+  companyId: string,
+  dto: CreateAccessScopeDto
+): Promise<{ data: AccessScopeEntity } | { error: string }> {
+  const res = await performAdminRequest<AccessScopeEntity>(
+    session,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`,
+    { method: 'POST', body: dto as unknown as Record<string, unknown> }
+  )
+  if ('error' in res) {
+    logger.error('Admin: failed to create access scope', { error: res.error, companyId })
+    return { error: res.error }
+  }
+  logger.info('Admin: access scope created', { userId: dto.userId, companyId })
+  return { data: res.data as AccessScopeEntity }
+}
+
+export async function deleteAccessScopeAdmin(
+  session: CustomSession | null,
+  companyId: string,
+  id: string
+): Promise<Record<string, never> | { error: string }> {
+  const res = await performAdminRequest<AccessScopeEntity>(
+    session,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopeById(companyId, id)}`,
+    { method: 'DELETE' }
+  )
+  if ('error' in res) {
+    logger.error('Admin: failed to delete access scope', { error: res.error, companyId, id })
+    return { error: res.error }
+  }
+  logger.info('Admin: access scope deleted', { id, companyId })
+  return {}
 }

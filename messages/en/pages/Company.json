@@ -1,4 +1,10 @@
 {
+  "dashboard": {
+    "title": "Company Dashboard",
+    "adminPanel": "Admin Panel",
+    "managerPanel": "Manager Panel",
+    "createCompany": "Add Company"
+  },
   "globalAdmin": {
     "title": "Global Admin",
     "createCompany": {
@@ -168,5 +174,12 @@
     "expand": "Expand",
     "selected": "{count} group selected",
     "selectedPlural": "{count} groups selected"
+  },
+  "adminSelector": {
+    "label": "Select Company",
+    "description": "As a system admin, select a company to view and manage its data.",
+    "placeholder": "Choose a company…",
+    "loading": "Loading companies…",
+    "empty": "No companies found."
   }
 }

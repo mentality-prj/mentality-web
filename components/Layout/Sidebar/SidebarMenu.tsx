@@ -8,11 +8,14 @@ import {
   ChartNoAxesCombined,
   FileQuestionMark,
   Flower,
+  FolderTree,
   Lightbulb,
+  MailPlus,
   NotebookPenIcon,
   Puzzle,
   Speech,
   Tag,
+  Users,
 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -25,7 +28,9 @@ const iconMapSidebar: Record<string, ReactNode> = {
   bookOpenCheck: <BookOpenCheckIcon className="h-5 w-5" size={12} />,
   brain: <Brain className="h-5 w-5" size={12} />,
   chartNoAxesCombined: <ChartNoAxesCombined className="h-5 w-5" size={12} />,
+  folderTree: <FolderTree className="h-5 w-5" size={12} />,
   lightbulb: <Lightbulb className="h-5 w-5" size={12} />,
+  mailPlus: <MailPlus className="h-5 w-5" size={12} />,
   notebookPen: <NotebookPenIcon className="h-5 w-5" size={12} />,
   tag: <Tag className="h-5 w-5" size={12} />,
   flower: <Flower className="h-5 w-5" size={12} />,
@@ -33,6 +38,7 @@ const iconMapSidebar: Record<string, ReactNode> = {
   bookmark: <Bookmark className="h-5 w-5" size={12} />,
   speech: <Speech className="h-5 w-5" size={12} />,
   puzzle: <Puzzle className="h-5 w-5" size={12} />,
+  users: <Users className="h-5 w-5" size={12} />,
 }
 
 export default function SidebarMenu({

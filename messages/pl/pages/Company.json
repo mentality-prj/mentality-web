@@ -1,4 +1,10 @@
 {
+  "dashboard": {
+    "title": "Panel zarządzania firmą",
+    "adminPanel": "Panel administratora",
+    "managerPanel": "Panel menedżera",
+    "createCompany": "Dodaj firmę"
+  },
   "globalAdmin": {
     "title": "Administrator Globalny",
     "createCompany": {
@@ -168,5 +174,12 @@
     "expand": "Rozwiń",
     "selected": "Wybrano {count} grupę",
     "selectedPlural": "Wybrano {count} grup"
+  },
+  "adminSelector": {
+    "label": "Wybór firmy",
+    "description": "Jako administrator systemowy wybierz firmę, aby przeglądać i zarządzać jej danymi.",
+    "placeholder": "Wybierz firmę…",
+    "loading": "Ładowanie firm…",
+    "empty": "Nie znaleziono firm."
   }
 }

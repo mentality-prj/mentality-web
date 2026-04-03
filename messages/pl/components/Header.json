@@ -1,5 +1,6 @@
 {
   "SearchBar": {
-    "placeholder": "Szukaj..."
+    "placeholder": "Szukaj...",
+    "noResults": "Nie znaleziono wyników"
   }
 }

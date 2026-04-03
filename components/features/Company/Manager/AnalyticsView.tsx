@@ -1,83 +1,31 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 import { Bar, BarChart, CartesianGrid, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
-import { useGroups } from '@/hooks/useGroups'
-import { APIUrl } from '@/requests/config'
-import { performAuthRequest } from '@/requests/genericFetch'
-import { CustomSession } from '@/types/auth'
+import { todayStr } from '@/helpers/company.helpers'
+import { useAnalytics } from '@/hooks/useAnalytics'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Label } from '@/ui/label'
 
-type AnalyticsBucket = {
-  label: string
-  value: number
-}
-
-type DateRangeError = string | null
-
-const ONE_YEAR_MS = 365 * 24 * 60 * 60 * 1000
-
-function todayStr(): string {
-  return new Date().toISOString().slice(0, 10)
-}
-
-function oneYearAgoStr(): string {
-  return new Date(Date.now() - ONE_YEAR_MS).toISOString().slice(0, 10)
-}
-
 export function AnalyticsView() {
   const t = useTranslations('pages.Company.manager.analytics')
-  const { data, status } = useSession()
-  const { items: groups } = useGroups(true)
-
-  const [groupIds, setGroupIds] = useState<string[]>([])
-  const [from, setFrom] = useState(oneYearAgoStr())
-  const [to, setTo] = useState(todayStr())
-  const [chartData, setChartData] = useState<AnalyticsBucket[]>([])
-  const [loading, setLoading] = useState(false)
-  const [error, setError] = useState<string | null>(null)
-  const [dateError, setDateError] = useState<DateRangeError>(null)
-
-  const validateDates = useCallback((): boolean => {
-    const fromDate = new Date(from)
-    const toDate = new Date(to)
-    if (toDate <= fromDate) {
-      setDateError(t('errorDateOrder'))
-      return false
-    }
-    if (toDate.getTime() - fromDate.getTime() > ONE_YEAR_MS) {
-      setDateError(t('errorDateRange'))
-      return false
-    }
-    setDateError(null)
-    return true
-  }, [from, t, to])
-
-  const fetchAnalytics = useCallback(async () => {
-    if (!validateDates()) return
-    setLoading(true)
-    setError(null)
-    const session = data as CustomSession
-    const params = new URLSearchParams({ from, to })
-    if (groupIds.length) params.set('groupIds', groupIds.join(','))
-    const res = await performAuthRequest<AnalyticsBucket[]>(session, `${APIUrl}/analytics/mood?${params}`)
-    if ('error' in res) {
-      setError(res.error)
-    } else {
-      setChartData(Array.isArray(res.data) ? res.data : [])
-    }
-    setLoading(false)
-  }, [data, from, to, groupIds, validateDates])
-
-  useEffect(() => {
-    if (status === 'authenticated') fetchAnalytics()
-  }, [status, fetchAnalytics])
+  const {
+    groups,
+    groupIds,
+    setGroupIds,
+    from,
+    setFrom,
+    to,
+    setTo,
+    chartData,
+    loading,
+    error,
+    dateError,
+    fetchAnalytics,
+  } = useAnalytics()
 
   return (
     <div className="flex flex-col gap-6">
@@ -109,14 +57,18 @@ export function AnalyticsView() {
 
       {dateError && <p className="text-destructive text-sm">{dateError}</p>}
 
-      <div className="flex flex-col gap-1.5">
-        <Label>{t('filterByGroup')}</Label>
-        <GroupSelector groups={groups} selected={groupIds} onChange={setGroupIds} />
-      </div>
+      {groups.length > 0 && (
+        <div className="flex flex-col gap-1.5">
+          <Label>{t('filterByGroup')}</Label>
+          <GroupSelector groups={groups} selected={groupIds} onChange={setGroupIds} />
+        </div>
+      )}
 
-      <Button onClick={fetchAnalytics} disabled={loading} className="self-start">
-        {loading ? t('loading') : t('applyButton')}
-      </Button>
+      {groups.length > 0 && (
+        <Button onClick={fetchAnalytics} disabled={loading} className="self-start">
+          {loading ? t('loading') : t('applyButton')}
+        </Button>
+      )}
 
       {error && <p className="text-destructive text-sm">{error}</p>}
 

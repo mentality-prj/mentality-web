@@ -40,12 +40,12 @@ Company creation is guarded by the system `admin` role, not by a company role.
 
 All company pages live under `app/[locale]/company/`:
 
-| Path                     | Accessible by                                                                     |
-| ------------------------ | --------------------------------------------------------------------------------- |
-| `/company`               | Any authenticated user with a `companyRole` or system `admin` (redirects by role) |
-| `/admin/company`         | System `admin` only (`session.user.role === 'admin'`)                             |
-| `/company/company-admin` | `SUPERUSER` only                                                                  |
-| `/company/manager`       | `MANAGER` only                                                                    |
+| Path               | Accessible by                                                                     |
+| ------------------ | --------------------------------------------------------------------------------- |
+| `/company`         | Any authenticated user with a `companyRole` or system `admin` (redirects by role) |
+| `/admin/company`   | System `admin` only (`session.user.role === 'admin'`)                             |
+| `/company/admin`   | `SUPERUSER` only                                                                  |
+| `/company/manager` | `MANAGER` only                                                                    |
 
 The shared layout (`app/[locale]/company/layout.tsx`) performs server-side guards:
 
@@ -71,7 +71,7 @@ The index page (`/company`) then redirects the user to their role-specific panel
 
 ---
 
-### Company Admin — `/company/company-admin`
+### Company Admin — `/company/admin`
 
 **Who:** Company owner (`SUPERUSER`).
 

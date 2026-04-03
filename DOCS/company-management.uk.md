@@ -40,12 +40,12 @@ CAN_VIEW_ANALYTICS = [SUPERUSER, MANAGER]
 
 Усі сторінки компанії розміщені під `app/[locale]/company/`:
 
-| Шлях                     | Доступ                                                                                       |
-| ------------------------ | -------------------------------------------------------------------------------------------- |
-| `/company`               | Будь-який авторизований користувач з `companyRole` або системний `admin` (редирект за роллю) |
-| `/admin/company`         | Лише системний `admin` (`session.user.role === 'admin'`)                                     |
-| `/company/company-admin` | Лише `SUPERUSER`                                                                             |
-| `/company/manager`       | Лише `MANAGER`                                                                               |
+| Шлях               | Доступ                                                                                       |
+| ------------------ | -------------------------------------------------------------------------------------------- |
+| `/company`         | Будь-який авторизований користувач з `companyRole` або системний `admin` (редирект за роллю) |
+| `/admin/company`   | Лише системний `admin` (`session.user.role === 'admin'`)                                     |
+| `/company/admin`   | Лише `SUPERUSER`                                                                             |
+| `/company/manager` | Лише `MANAGER`                                                                               |
 
 Спільний layout (`app/[locale]/company/layout.tsx`) виконує серверні захисти:
 
@@ -71,7 +71,7 @@ CAN_VIEW_ANALYTICS = [SUPERUSER, MANAGER]
 
 ---
 
-### Company Admin — `/company/company-admin`
+### Company Admin — `/company/admin`
 
 **Хто:** Власник компанії (`SUPERUSER`).
 

@@ -1,83 +1,35 @@
 'use client'
 
-import { useState } from 'react'
-import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
+import { INVITE_ROLE_VALUES, InviteRole } from '@/constants/company'
 import { CustomInput } from '@/ds/components/CustomInput'
-import { useGroups } from '@/hooks/useGroups'
-import { createInvite } from '@/requests/invites'
-import { CustomSession } from '@/types/auth'
-import { COMPANY_ROLES, CompanyRole } from '@/types/rbac'
+import { useInviteForm } from '@/hooks/useInviteForm'
 import { Button } from '@/ui/button'
 import { Label } from '@/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
-
-type InviteRole = Extract<CompanyRole, 'employee' | 'manager'>
-
-const INVITE_ROLE_VALUES: InviteRole[] = [COMPANY_ROLES.EMPLOYEE, COMPANY_ROLES.MANAGER]
 
 type Props = {
   onInvited?: () => void
 }
 
 export function InviteEmployeeForm({ onInvited }: Props) {
-  const { data } = useSession()
-  const { items: groups } = useGroups()
   const t = useTranslations('pages.Company.companyAdmin.invite')
   const tRoles = useTranslations('pages.Company.roles')
-  const [email, setEmail] = useState('')
-  const [role, setRole] = useState<InviteRole>(COMPANY_ROLES.EMPLOYEE)
-  const [groupIds, setGroupIds] = useState<string[]>([])
-  const [loading, setLoading] = useState(false)
-  const [emailError, setEmailError] = useState<string | null>(null)
-  const [groupError, setGroupError] = useState<string | null>(null)
-
-  function validate(): boolean {
-    let valid = true
-    if (!email.trim() || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
-      setEmailError(t('errorEmail'))
-      valid = false
-    } else {
-      setEmailError(null)
-    }
-    if (groupIds.length === 0) {
-      setGroupError(t('errorGroups'))
-      valid = false
-    } else {
-      setGroupError(null)
-    }
-    return valid
-  }
-
-  async function handleSubmit(e: React.FormEvent) {
-    e.preventDefault()
-    if (!validate()) return
-
-    setLoading(true)
-    const res = await createInvite(data as CustomSession, { email: email.trim(), role, groupIds })
-    setLoading(false)
-
-    if ('error' in res) {
-      const errorLower = res.error.toLowerCase()
-      if (res.error.includes('409') || errorLower.includes('duplicate')) {
-        toast.error(t('errorDuplicate'))
-      } else if (errorLower.includes('already in company')) {
-        toast.error(t('errorAlreadyMember'))
-      } else {
-        toast.error(res.error)
-      }
-      return
-    }
-
-    toast.success(t('success', { email: email.trim() }))
-    setEmail('')
-    setGroupIds([])
-    setRole(COMPANY_ROLES.EMPLOYEE)
-    onInvited?.()
-  }
+  const {
+    groups,
+    email,
+    setEmail,
+    role,
+    setRole,
+    groupIds,
+    setGroupIds,
+    loading,
+    emailError,
+    groupError,
+    handleSubmit,
+  } = useInviteForm({ onInvited })
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
