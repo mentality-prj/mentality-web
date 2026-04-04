@@ -35,6 +35,14 @@ export function useAssignManager() {
   const [userError, setUserError] = useState<string | null>(null)
   const [groupError, setGroupError] = useState<string | null>(null)
 
+  useEffect(() => {
+    setSelectedUserId('')
+    setSelectedGroupIds([])
+    setCanViewAnalytics(false)
+    setUserError(null)
+    setGroupError(null)
+  }, [adminCompanyId])
+
   const loadManagersAndScopes = useCallback(async () => {
     const session = data as CustomSession
     const [managersRes, scopesRes] = adminCompanyId

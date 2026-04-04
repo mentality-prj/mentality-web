@@ -10,13 +10,13 @@ import { useGroups } from '@/hooks/useGroups'
 import { buildTree, flattenGroups } from '@/mappers/group.mappers'
 import { createGroup, createGroupAdmin } from '@/requests/groups'
 import { CustomSession } from '@/types/auth'
-import { GroupEntity, GroupType } from '@/types/company'
+import { GroupType } from '@/types/company'
 
 export function useGroupTree() {
   const t = useTranslations('pages.Company.companyAdmin.groups')
   const { data } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items, loading, error, addGroup, refetch } = useGroups()
+  const { items, loading, error, refetch } = useGroups()
   const [newRootName, setNewRootName] = useState('')
   const [newRootType, setNewRootType] = useState<GroupType>('department')
   const [newRootParentId, setNewRootParentId] = useState<string | null>(null)
@@ -43,7 +43,7 @@ export function useGroupTree() {
     setNewRootName('')
     setNewRootParentId(null)
     setAdding(false)
-    addGroup(res.data)
+    refetch()
   }
 
   function resetAdding() {

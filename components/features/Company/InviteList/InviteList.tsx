@@ -1,12 +1,13 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { RefreshCw, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { COMPANY_PAGE_SIZE, INVITE_STATUS_CLASSES } from '@/constants/company'
+import { useAdminCompany } from '@/context/adminCompanyContext'
 import { useInvites } from '@/hooks/useInvites'
 import { cn } from '@/lib/utils'
 import { Button } from '@/ui/button'
@@ -14,8 +15,13 @@ import { Button } from '@/ui/button'
 export function InviteList() {
   const t = useTranslations('pages.Company.invites')
   const tRoles = useTranslations('pages.Company.roles')
+  const { companyId: adminCompanyId } = useAdminCompany()
   const [page, setPage] = useState(1)
   const { items, total, loading, error, handleResend, handleCancel } = useInvites(page)
+
+  useEffect(() => {
+    setPage(1)
+  }, [adminCompanyId])
 
   async function onResend(id: string) {
     const res = await handleResend(id)

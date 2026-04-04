@@ -44,13 +44,19 @@ export function useCompanySelector() {
     if (!companyId && companies.length > 0) {
       const stored = localStorage.getItem(STORAGE_KEY)
       const isValid = stored && companies.some((c) => c.id === stored)
-      setCompanyId(isValid ? stored : companies[0].id)
+      const chosen = isValid ? stored : companies[0].id
+      localStorage.setItem(STORAGE_KEY, chosen)
+      setCompanyId(chosen)
     }
   }, [companyId, companies, setCompanyId])
 
   const handleSetCompanyId = useCallback(
     (id: string | null) => {
-      if (id) localStorage.setItem(STORAGE_KEY, id)
+      if (id) {
+        localStorage.setItem(STORAGE_KEY, id)
+      } else {
+        localStorage.removeItem(STORAGE_KEY)
+      }
       setCompanyId(id)
     },
     [setCompanyId]

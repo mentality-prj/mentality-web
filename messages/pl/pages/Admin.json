@@ -4,13 +4,17 @@
   "dashboard": {
     "title": "Pulpit",
     "companySection": "Firmy",
-    "createCompany": {
-      "title": "Utwórz firmę",
-      "description": "Utwórz nową firmę na platformie"
+    "companies": {
+      "title": "Firmy",
+      "description": "Tworzenie firm i zarządzanie nimi na platformie"
     },
     "companyAdmin": {
-      "title": "Panel firmy",
+      "title": "Superuser",
       "description": "Zarządzanie grupami, pracownikami i zaproszeniami"
+    },
+    "companyManager": {
+      "title": "Manager",
+      "description": "Analityka i zarządzanie zespołem"
     }
   },
   "ds": { "title": "System projektowania" },

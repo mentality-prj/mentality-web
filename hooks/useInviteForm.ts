@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
@@ -31,6 +31,12 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
   const [loading, setLoading] = useState(false)
   const [emailError, setEmailError] = useState<string | null>(null)
   const [groupError, setGroupError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setGroupIds([])
+    setEmailError(null)
+    setGroupError(null)
+  }, [adminCompanyId])
 
   function validate(): boolean {
     let valid = true

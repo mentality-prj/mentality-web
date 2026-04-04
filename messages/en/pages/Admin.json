@@ -4,13 +4,17 @@
   "dashboard": {
     "title": "Dashboard",
     "companySection": "Companies",
-    "createCompany": {
-      "title": "Create Company",
-      "description": "Create a new company on the platform"
+    "companies": {
+      "title": "Companies",
+      "description": "Create and manage companies on the platform"
     },
     "companyAdmin": {
       "title": "Company Admin",
       "description": "Manage groups, employees, and invitations"
+    },
+    "companyManager": {
+      "title": "Manager",
+      "description": "View analytics and manage your team"
     }
   },
   "ds": { "title": "Design System" },

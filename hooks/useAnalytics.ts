@@ -17,7 +17,8 @@ export function useAnalytics() {
   const t = useTranslations('pages.Company.manager.analytics')
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items: groups } = useGroups()
+  const [resolvedCompanyId, setResolvedCompanyId] = useState<string | null>(null)
+  const { items: groups } = useGroups(resolvedCompanyId ?? undefined)
 
   const [groupIds, setGroupIds] = useState<string[]>([])
 
@@ -29,6 +30,7 @@ export function useAnalytics() {
   const [dateError, setDateError] = useState<string | null>(null)
 
   useEffect(() => {
+    setResolvedCompanyId(null)
     setGroupIds([])
     setAnalytics(null)
     setError(null)
@@ -57,7 +59,7 @@ export function useAnalytics() {
     const session = data as CustomSession
     const analyticsParams = { from, to, groupIds: groupIds.length ? groupIds : undefined }
 
-    let companyId = adminCompanyId
+    let companyId = adminCompanyId ?? resolvedCompanyId
     if (!companyId) {
       const myCompanyRes = await getMyCompany(session)
       if ('error' in myCompanyRes) {
@@ -66,6 +68,7 @@ export function useAnalytics() {
         return
       }
       companyId = myCompanyRes.data.id
+      setResolvedCompanyId(companyId)
     }
 
     const res = adminCompanyId
@@ -78,7 +81,7 @@ export function useAnalytics() {
       setAnalytics(res.data)
     }
     setLoading(false)
-  }, [data, from, to, groupIds, validateDates, adminCompanyId])
+  }, [data, from, to, groupIds, validateDates, adminCompanyId, resolvedCompanyId])
 
   useEffect(() => {
     if (status === 'authenticated') fetchAnalytics()

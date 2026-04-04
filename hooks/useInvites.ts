@@ -78,7 +78,7 @@ export function useInvites(page = 1) {
       setTotal((t) => Math.max(0, t - 1))
       return { data: res.data }
     },
-    [data]
+    [data, adminCompanyId]
   )
 
   return { items, total, loading, error, refetch: fetch, handleResend, handleCancel }
