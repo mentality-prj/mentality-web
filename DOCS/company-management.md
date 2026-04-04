@@ -151,8 +151,8 @@ The page contains three sections:
 Same flow as the Admin invite form, but:
 
 - Role is fixed to **EMPLOYEE only** (Managers cannot invite other Managers).
-- The **Groups** picker shows only the groups the Manager has been granted access to (`accessibleOnly = true` in `useGroups`).
-- If the Manager has no accessible groups, the form is disabled with an explanatory message.
+- The **Groups** picker shows all groups belonging to the Manager's company. Groups are loaded via `useGroups()` which resolves the company ID automatically using `GET /companies/my`.
+- If the company has no groups, the form is disabled with an explanatory message.
 
 Components: `Manager/InviteEmployeeManagerForm`
 
@@ -162,13 +162,48 @@ Same shared `InviteList` table as above, filtered to invites created by this Man
 
 #### 3. Analytics
 
-A **bar chart** (Recharts `BarChart`) showing mood scores over time for the selected groups.
+A **dashboard** (Recharts `LineChart`) showing mood, stress, energy, and focus metrics over time. Consists of:
 
-- **Date range** — two date pickers (`from` / `to`). Maximum span is **1 year**; if the user selects a wider range, the form shows a validation error and the request is rejected until the range is corrected.
-- **Group filter** — multi-select tree; shows only accessible groups.
-- Submit fetches `GET /analytics/mood?from=...&to=...&groupIds=...`.
+- **Summary cards** — total employees, active employees, total check-ins, and average scores.
+- **Risk distribution** — low / medium / high risk employee counts as coloured badges.
+- **Trend chart** — line chart with four series (mood / stress / energy / focus) by month.
+- **Groups table** — per-group breakdown with all metrics.
+
+**Date range** — two date pickers (`from` / `to`). Maximum span is **1 year**; if the user selects a wider range, the form shows a validation error and the request is rejected until the range is corrected.
+
+**Group filter** — multi-select tree; shows all groups of the company.
+
+Analytics are fetched automatically on initial load and whenever `from`, `to`, or `groupIds` change, using `GET /companies/:companyId/analytics/mood?from=...&to=...&groupIds=...`.
+
+The `companyId` is resolved automatically: for system admins it comes from `AdminCompanyContext`; for managers it is fetched via `GET /companies/my` before the analytics call.
+
+Request functions: `requests/analytics.ts` — `getMoodAnalytics` (manager) and `getMoodAnalyticsAdmin` (system admin).
+
+Hook: `hooks/useAnalytics.ts`
 
 Components: `Manager/AnalyticsView`
+
+**Analytics response shape:**
+
+```ts
+type AnalyticsResponse = {
+  companyId: string
+  from: string
+  to: string
+  totalEmployees: number
+  activeEmployees: number
+  totalCheckins: number
+  avgMood: number
+  avgStress: number
+  avgEnergy: number
+  avgFocus: number
+  riskDistribution: { low: number; medium: number; high: number }
+  groups: AnalyticsGroupResult[]
+  trend: AnalyticsTrendPoint[]
+}
+```
+
+Full types are in `types/company.ts`.
 
 ---
 
@@ -260,16 +295,20 @@ interface GroupEntity {
 
 Defined in `constants/companyEndpoints.ts`:
 
-| Constant                          | Value                     | Method(s)     |
-| --------------------------------- | ------------------------- | ------------- |
-| `COMPANY_ENDPOINTS.BASE`          | `/companies`              | GET, POST     |
-| `GROUP_ENDPOINTS.BASE`            | `/groups`                 | GET, POST     |
-| `GROUP_ENDPOINTS.accessible`      | `/groups?accessible=true` | GET           |
-| `GROUP_ENDPOINTS.byId(id)`        | `/groups/:id`             | PATCH, DELETE |
-| `INVITE_ENDPOINTS.BASE`           | `/invites`                | GET, POST     |
-| `INVITE_ENDPOINTS.resend(id)`     | `/invites/:id/resend`     | POST          |
-| `ACCESS_SCOPE_ENDPOINTS.BASE`     | `/access-scopes`          | GET, POST     |
-| `ACCESS_SCOPE_ENDPOINTS.byId(id)` | `/access-scopes/:id`      | DELETE        |
+| Constant                                      | Value                                   | Method(s)     |
+| --------------------------------------------- | --------------------------------------- | ------------- |
+| `COMPANY_ENDPOINTS.BASE`                      | `/companies`                            | GET, POST     |
+| `COMPANY_ENDPOINTS.MY`                        | `/companies/my`                         | GET           |
+| `COMPANY_ENDPOINTS.byId(id)`                  | `/companies/:id`                        | GET           |
+| `GROUP_ENDPOINTS.byCompany(companyId)`        | `/groups?companyId=:companyId`          | GET           |
+| `GROUP_ENDPOINTS.byId(id)`                    | `/groups/:id`                           | PATCH, DELETE |
+| `COMPANY_ADMIN_ENDPOINTS.groups(companyId)`   | `/companies/:companyId/groups`          | GET, POST     |
+| `COMPANY_ADMIN_ENDPOINTS.groupById(cId, gId)` | `/companies/:companyId/groups/:groupId` | PATCH, DELETE |
+| `INVITE_ENDPOINTS.BASE`                       | `/invites`                              | GET, POST     |
+| `INVITE_ENDPOINTS.resend(id)`                 | `/invites/:id/resend`                   | POST          |
+| `ACCESS_SCOPE_ENDPOINTS.BASE`                 | `/access-scopes`                        | GET, POST     |
+| `ACCESS_SCOPE_ENDPOINTS.byId(id)`             | `/access-scopes/:id`                    | DELETE        |
+| _(analytics)_                                 | `/companies/:companyId/analytics/mood`  | GET           |
 
 ---
 

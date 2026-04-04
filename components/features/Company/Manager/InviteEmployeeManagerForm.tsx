@@ -16,22 +16,11 @@ type Props = {
 export function InviteEmployeeManagerForm({ onInvited }: Props) {
   const t = useTranslations('pages.Company.companyAdmin.invite')
   const tManager = useTranslations('pages.Company.manager.invite')
-  const {
-    groups,
-    email,
-    setEmail,
-    groupIds,
-    setGroupIds,
-    loading,
-    emailError,
-    groupError,
-    noGroups,
-    handleSubmit,
-  } = useInviteForm({
-    accessibleOnly: true,
-    fixedRole: COMPANY_ROLES.EMPLOYEE,
-    onInvited,
-  })
+  const { groups, email, setEmail, groupIds, setGroupIds, loading, emailError, groupError, noGroups, handleSubmit } =
+    useInviteForm({
+      fixedRole: COMPANY_ROLES.EMPLOYEE,
+      onInvited,
+    })
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">

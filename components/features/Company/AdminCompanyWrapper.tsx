@@ -3,13 +3,22 @@
 import { ReactNode } from 'react'
 
 import { AdminCompanySelector } from '@/components/features/Company/AdminCompanySelector'
-import { AdminCompanyProvider } from '@/context/adminCompanyContext'
+import { AdminCompanyProvider, useAdminCompany } from '@/context/adminCompanyContext'
+
+function AdminCompanyContent({ children }: { children: ReactNode }) {
+  const { isReady } = useAdminCompany()
+  return (
+    <>
+      <AdminCompanySelector />
+      {isReady ? children : null}
+    </>
+  )
+}
 
 export function AdminCompanyWrapper({ children }: { children: ReactNode }) {
   return (
     <AdminCompanyProvider>
-      <AdminCompanySelector />
-      {children}
+      <AdminCompanyContent>{children}</AdminCompanyContent>
     </AdminCompanyProvider>
   )
 }

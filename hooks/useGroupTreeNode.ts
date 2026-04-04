@@ -88,7 +88,9 @@ export function useGroupTreeNode(
     setLoading(true)
     const dto = { name: trimmed, type: newChildType, parentGroupId: group.id }
     const session = data as CustomSession
-    const res = effectiveCompanyId ? await createGroupAdmin(session, effectiveCompanyId, dto) : await createGroup(session, dto)
+    const res = effectiveCompanyId
+      ? await createGroupAdmin(session, effectiveCompanyId, dto)
+      : await createGroup(session, dto)
     setLoading(false)
     if ('error' in res) {
       toast.error(res.error)

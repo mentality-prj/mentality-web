@@ -6,30 +6,34 @@ import { useTranslations } from 'next-intl'
 
 import { ONE_YEAR_MS } from '@/constants/company'
 import { useAdminCompany } from '@/context/adminCompanyContext'
-import { oneYearAgoStr,todayStr } from '@/helpers/company.helpers'
+import { oneYearAgoStr, todayStr } from '@/helpers/company.helpers'
 import { useGroups } from '@/hooks/useGroups'
-import { APIUrl } from '@/requests/config'
-import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { getMoodAnalytics, getMoodAnalyticsAdmin } from '@/requests/analytics'
+import { getMyCompany } from '@/requests/companies'
 import { CustomSession } from '@/types/auth'
-
-type AnalyticsBucket = {
-  label: string
-  value: number
-}
+import { AnalyticsResponse } from '@/types/company'
 
 export function useAnalytics() {
   const t = useTranslations('pages.Company.manager.analytics')
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items: groups } = useGroups(true)
+  const { items: groups } = useGroups()
 
   const [groupIds, setGroupIds] = useState<string[]>([])
+
   const [from, setFrom] = useState(oneYearAgoStr())
   const [to, setTo] = useState(todayStr())
-  const [chartData, setChartData] = useState<AnalyticsBucket[]>([])
+  const [analytics, setAnalytics] = useState<AnalyticsResponse | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [dateError, setDateError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setGroupIds([])
+    setAnalytics(null)
+    setError(null)
+    setDateError(null)
+  }, [adminCompanyId])
 
   const validateDates = useCallback((): boolean => {
     const fromDate = new Date(from)
@@ -51,18 +55,27 @@ export function useAnalytics() {
     setLoading(true)
     setError(null)
     const session = data as CustomSession
-    const params = new URLSearchParams({ from, to })
-    if (groupIds.length) params.set('groupIds', groupIds.join(','))
-    const url = adminCompanyId
-      ? `${APIUrl}/companies/${adminCompanyId}/analytics/mood?${params}`
-      : `${APIUrl}/analytics/mood?${params}`
+    const analyticsParams = { from, to, groupIds: groupIds.length ? groupIds : undefined }
+
+    let companyId = adminCompanyId
+    if (!companyId) {
+      const myCompanyRes = await getMyCompany(session)
+      if ('error' in myCompanyRes) {
+        setError(myCompanyRes.error)
+        setLoading(false)
+        return
+      }
+      companyId = myCompanyRes.data.id
+    }
+
     const res = adminCompanyId
-      ? await performAdminRequest<AnalyticsBucket[]>(session, url)
-      : await performAuthRequest<AnalyticsBucket[]>(session, url)
+      ? await getMoodAnalyticsAdmin(session, companyId, analyticsParams)
+      : await getMoodAnalytics(session, companyId, analyticsParams)
+
     if ('error' in res) {
       setError(res.error)
     } else {
-      setChartData(Array.isArray(res.data) ? res.data : [])
+      setAnalytics(res.data)
     }
     setLoading(false)
   }, [data, from, to, groupIds, validateDates, adminCompanyId])
@@ -79,11 +92,10 @@ export function useAnalytics() {
     setFrom,
     to,
     setTo,
-    chartData,
+    analytics,
     loading,
     error,
     dateError,
-    fetchAnalytics,
     todayStr,
   }
 }

@@ -4,11 +4,12 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
-import { getGroups, getAccessibleGroups, getGroupsAdmin } from '@/requests/groups'
+import { getMyCompany } from '@/requests/companies'
+import { getGroups, getGroupsAdmin } from '@/requests/groups'
 import { GroupEntity } from '@/types/company'
 import { CustomSession } from '@/types/auth'
 
-export function useGroups(accessibleOnly = false) {
+export function useGroups(resolvedCompanyId?: string) {
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
   const [items, setItems] = useState<GroupEntity[]>([])
@@ -24,7 +25,13 @@ export function useGroups(accessibleOnly = false) {
       if (adminCompanyId) {
         res = await getGroupsAdmin(session, adminCompanyId)
       } else {
-        res = accessibleOnly ? await getAccessibleGroups(session) : await getGroups(session)
+        let companyId = resolvedCompanyId
+        if (!companyId) {
+          const myCompanyRes = await getMyCompany(session)
+          if ('error' in myCompanyRes) throw new Error(myCompanyRes.error)
+          companyId = myCompanyRes.data.id
+        }
+        res = await getGroups(session, companyId)
       }
       if ('error' in res) throw new Error(res.error)
       setItems(res.data)
@@ -33,7 +40,7 @@ export function useGroups(accessibleOnly = false) {
     } finally {
       setLoading(false)
     }
-  }, [data, accessibleOnly, adminCompanyId])
+  }, [data, adminCompanyId, resolvedCompanyId])
 
   useEffect(() => {
     if (status === 'authenticated') fetch()

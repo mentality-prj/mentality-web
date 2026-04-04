@@ -38,6 +38,12 @@ export function useEmployeeTable() {
   }, [data, page, adminCompanyId])
 
   useEffect(() => {
+    setPage(1)
+    setItems([])
+    setTotal(0)
+  }, [adminCompanyId])
+
+  useEffect(() => {
     if (status === 'authenticated') fetchEmployees()
     else if (status === 'unauthenticated') {
       setItems([])

@@ -13,24 +13,14 @@ function assertCanManageGroups(session: CustomSession | null): boolean {
   return !!role && CAN_MANAGE_GROUPS.includes(role)
 }
 
-export async function getGroups(session: CustomSession | null): Promise<{ data: GroupEntity[] } | { error: string }> {
-  const res = await performAuthRequest<GroupEntity[]>(session, `${APIUrl}${GROUP_ENDPOINTS.BASE}`)
+export async function getGroups(
+  session: CustomSession | null,
+  companyId: string
+): Promise<{ data: GroupEntity[] } | { error: string }> {
+  const res = await performAuthRequest<GroupEntity[]>(session, `${APIUrl}${GROUP_ENDPOINTS.byCompany(companyId)}`)
 
   if ('error' in res) {
     logger.error('Failed to fetch groups', { error: res.error })
-    return { error: res.error }
-  }
-
-  return { data: mapGroups(res.data) }
-}
-
-export async function getAccessibleGroups(
-  session: CustomSession | null
-): Promise<{ data: GroupEntity[] } | { error: string }> {
-  const res = await performAuthRequest<GroupEntity[]>(session, `${APIUrl}${GROUP_ENDPOINTS.accessible}`)
-
-  if ('error' in res) {
-    logger.error('Failed to fetch accessible groups', { error: res.error })
     return { error: res.error }
   }
 

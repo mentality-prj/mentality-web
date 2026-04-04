@@ -53,7 +53,9 @@ export function InviteList() {
                 <td className="px-4 py-2">{tRoles(inv.role)}</td>
                 <td className="px-4 py-2">{inv.groupIds.length}</td>
                 <td className="px-4 py-2">
-                  <span className={cn('rounded-full px-2 py-0.5 text-xs font-medium', INVITE_STATUS_CLASSES[inv.status])}>
+                  <span
+                    className={cn('rounded-full px-2 py-0.5 text-xs font-medium', INVITE_STATUS_CLASSES[inv.status])}
+                  >
                     {t(`status.${inv.status}`)}
                   </span>
                 </td>

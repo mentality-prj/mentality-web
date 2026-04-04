@@ -25,28 +25,44 @@ export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
       <div className="flex flex-col gap-1">
         {label && <Label htmlFor={id}>{label}</Label>}
         <div className="relative">
-          {leftIcon && (
-            <button
-              type="button"
-              className="icon-tool icon-tool-text absolute left-2 top-1/2 -translate-y-1/2 focus:outline-none"
-              onClick={onLeftClick}
-              tabIndex={0}
-              aria-label="Left icon button"
-            >
-              {leftIcon}
-            </button>
-          )}
-          {rightIcon && (
-            <button
-              type="button"
-              className="icon-tool icon-tool-text absolute right-2 top-1/2 -translate-y-1/2 focus:outline-none"
-              onClick={onRightClick}
-              tabIndex={0}
-              aria-label="Right icon button"
-            >
-              {rightIcon}
-            </button>
-          )}
+          {leftIcon &&
+            (onLeftClick ? (
+              <button
+                type="button"
+                className="icon-tool icon-tool-text absolute left-2 top-1/2 -translate-y-1/2 focus:outline-none"
+                onClick={onLeftClick}
+                tabIndex={0}
+                aria-label="Left icon button"
+              >
+                {leftIcon}
+              </button>
+            ) : (
+              <span
+                className="icon-tool icon-tool-text pointer-events-none absolute left-2 top-1/2 -translate-y-1/2"
+                aria-hidden="true"
+              >
+                {leftIcon}
+              </span>
+            ))}
+          {rightIcon &&
+            (onRightClick ? (
+              <button
+                type="button"
+                className="icon-tool icon-tool-text absolute right-2 top-1/2 -translate-y-1/2 focus:outline-none"
+                onClick={onRightClick}
+                tabIndex={0}
+                aria-label="Right icon button"
+              >
+                {rightIcon}
+              </button>
+            ) : (
+              <span
+                className="icon-tool icon-tool-text pointer-events-none absolute right-2 top-1/2 -translate-y-1/2"
+                aria-hidden="true"
+              >
+                {rightIcon}
+              </span>
+            ))}
           <Input
             className={cn(leftIcon && 'pl-8', rightIcon && 'pr-8', className, !!errorMsg && 'border-outline-error')}
             ref={ref}

@@ -15,7 +15,7 @@ import {
   getAccessScopes,
   getAccessScopesAdmin,
 } from '@/requests/accessScopes'
-import { getEmployeesAdmin, getEmployeesByRole } from '@/requests/employees'
+import { getEmployeesByRole, getEmployeesByRoleAdmin } from '@/requests/employees'
 import { CustomSession } from '@/types/auth'
 import { AccessScopeEntity, EmployeeEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -39,15 +39,12 @@ export function useAssignManager() {
     const session = data as CustomSession
     const [managersRes, scopesRes] = adminCompanyId
       ? await Promise.all([
-          getEmployeesAdmin(session, adminCompanyId, 1, 1000),
+          getEmployeesByRoleAdmin(session, adminCompanyId, COMPANY_ROLES.MANAGER),
           getAccessScopesAdmin(session, adminCompanyId),
         ])
       : await Promise.all([getEmployeesByRole(session, COMPANY_ROLES.MANAGER), getAccessScopes(session)])
     if (!('error' in managersRes)) {
-      const allEmployees = 'items' in managersRes.data ? managersRes.data.items : managersRes.data
-      setManagers(
-        adminCompanyId ? allEmployees.filter((e: EmployeeEntity) => e.role === COMPANY_ROLES.MANAGER) : allEmployees
-      )
+      setManagers(managersRes.data)
     }
     if (!('error' in scopesRes)) {
       setScopes(scopesRes.data)

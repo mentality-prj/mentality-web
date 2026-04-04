@@ -15,17 +15,16 @@ import { COMPANY_ROLES, CompanyRole } from '@/types/rbac'
 type InviteRole = Extract<CompanyRole, 'employee' | 'manager'>
 
 type UseInviteFormOptions = {
-  accessibleOnly?: boolean
   fixedRole?: InviteRole
   onInvited?: () => void
 }
 
 export function useInviteForm(options: UseInviteFormOptions = {}) {
-  const { accessibleOnly = false, fixedRole, onInvited } = options
+  const { fixedRole, onInvited } = options
   const t = useTranslations('pages.Company.companyAdmin.invite')
   const { data } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items: groups } = useGroups(accessibleOnly)
+  const { items: groups } = useGroups()
   const [email, setEmail] = useState('')
   const [role, setRole] = useState<InviteRole>(fixedRole ?? COMPANY_ROLES.EMPLOYEE)
   const [groupIds, setGroupIds] = useState<string[]>([])

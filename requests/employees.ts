@@ -94,6 +94,20 @@ export async function getEmployeesAdmin(
   return { data: { items, total } }
 }
 
+export async function getEmployeesByRoleAdmin(
+  session: CustomSession | null,
+  companyId: string,
+  role: CompanyRole
+): Promise<{ data: EmployeeEntity[] } | { error: string }> {
+  const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeesByRole(companyId, role)}`
+  const res = await performAdminRequest<EmployeeEntity[]>(session, url)
+  if ('error' in res) {
+    logger.error('Admin: failed to fetch employees by role', { error: res.error, companyId, role })
+    return { error: res.error }
+  }
+  return { data: mapEmployees(res.data) }
+}
+
 export async function removeEmployeeAdmin(
   session: CustomSession | null,
   companyId: string,

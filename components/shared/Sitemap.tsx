@@ -96,7 +96,7 @@ export default function Sitemap() {
 
   const b2bItems = [
     { key: 'company', href: Routes.COMPANY },
-    { key: 'admin', href: Routes.COMPANY_ADMIN },
+    { key: 'company-superuser', href: Routes.COMPANY_ADMIN },
     { key: 'manager', href: Routes.COMPANY_MANAGER },
   ]
 

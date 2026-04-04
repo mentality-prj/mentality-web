@@ -33,9 +33,7 @@ export function useGroupTree() {
     setCreating(true)
     const dto = { name: trimmed, type: newRootType, parentGroupId: newRootParentId }
     const session = data as CustomSession
-    const res = adminCompanyId
-      ? await createGroupAdmin(session, adminCompanyId, dto)
-      : await createGroup(session, dto)
+    const res = adminCompanyId ? await createGroupAdmin(session, adminCompanyId, dto) : await createGroup(session, dto)
     setCreating(false)
     if ('error' in res) {
       toast.error(res.error)

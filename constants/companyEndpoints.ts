@@ -6,8 +6,8 @@ export const COMPANY_ENDPOINTS = Object.freeze({
 
 export const GROUP_ENDPOINTS = Object.freeze({
   BASE: '/groups',
+  byCompany: (companyId: string) => `/groups?companyId=${companyId}`,
   byId: (id: string) => `/groups/${id}`,
-  accessible: '/groups?accessible=true',
 })
 
 export const INVITE_ENDPOINTS = Object.freeze({
@@ -35,6 +35,7 @@ export const COMPANY_ADMIN_ENDPOINTS = Object.freeze({
     `/companies/${companyId}/employees?page=${page}&limit=${limit}`,
   employeeById: (companyId: string, empId: string) => `/companies/${companyId}/employees/${empId}`,
   employeeRole: (companyId: string, empId: string) => `/companies/${companyId}/employees/${empId}/role`,
+  employeesByRole: (companyId: string, role: string) => `/companies/${companyId}/employees?role=${role}`,
   groups: (companyId: string) => `/companies/${companyId}/groups`,
   groupById: (companyId: string, id: string) => `/companies/${companyId}/groups/${id}`,
   inviteBase: (companyId: string) => `/companies/${companyId}/invites`,

@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
+import { COMPANY_PAGE_SIZE } from '@/constants/company'
 import {
   getInvites,
   resendInvite,
@@ -29,8 +30,8 @@ export function useInvites(page = 1) {
     try {
       const session = data as CustomSession
       const res = adminCompanyId
-        ? await getInvitesAdmin(session, adminCompanyId, page)
-        : await getInvites(session, page)
+        ? await getInvitesAdmin(session, adminCompanyId, page, COMPANY_PAGE_SIZE)
+        : await getInvites(session, page, COMPANY_PAGE_SIZE)
       if ('error' in res) throw new Error(res.error)
       const paginated = res.data as PaginatedInvites
       setItems(paginated.items)

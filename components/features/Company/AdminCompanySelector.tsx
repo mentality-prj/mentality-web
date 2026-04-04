@@ -8,9 +8,10 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 
 export function AdminCompanySelector() {
   const t = useTranslations('pages.Company.adminSelector')
-  const { companies, companyId, setCompanyId, loading } = useCompanySelector()
+  const { companies, companyId, setCompanyId, loading, error } = useCompanySelector()
 
   if (loading) return <p className="text-sm text-textcolor-secondary">{t('loading')}</p>
+  if (error) return <p className="text-sm text-textcolor-secondary">{error}</p>
   if (companies.length === 0) return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
 
   return (
@@ -19,7 +20,7 @@ export function AdminCompanySelector() {
         {t('label')}
       </Label>
       <p className="text-xs text-textcolor-secondary">{t('description')}</p>
-      <Select value={companyId ?? ''} onValueChange={setCompanyId}>
+      <Select value={companyId ?? undefined} onValueChange={(value) => setCompanyId(value === '' ? null : value)}>
         <SelectTrigger id="admin-company-select" className="max-w-sm">
           <SelectValue placeholder={t('placeholder')} />
         </SelectTrigger>

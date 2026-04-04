@@ -1,6 +1,6 @@
 'use client'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Search, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { searchItems } from '@/constants/searchItems'
@@ -103,14 +103,14 @@ const SearchBar = () => {
         onChange={(e) => setQuery(e.target.value)}
         onFocus={() => query.trim() && setIsOpen(true)}
         onKeyDown={handleKeyDown}
-        leftIcon={<Search size={14} />}
         rightIcon={query ? <X size={16} /> : undefined}
         onRightClick={clearSearch}
         role="combobox"
         aria-expanded={isOpen}
         aria-autocomplete="list"
         aria-controls="search-results"
-        className="placeholder-textcolor-tertiary h-8 border-none bg-background pl-8 caret-textcolor-primary hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft"
+        aria-activedescendant={isOpen && activeIndex >= 0 ? `search-option-${activeIndex}` : undefined}
+        className="placeholder-textcolor-tertiary h-8 border-none bg-background caret-textcolor-primary hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft"
       />
       {isOpen && (
         <ul
@@ -120,7 +120,7 @@ const SearchBar = () => {
         >
           {filteredItems.length > 0 ? (
             filteredItems.map((item, index) => (
-              <li key={item.key} role="option" aria-selected={index === activeIndex}>
+              <li key={item.key} id={`search-option-${index}`} role="option" aria-selected={index === activeIndex}>
                 <Link
                   href={item.href}
                   onClick={() => clearSearch()}
@@ -135,7 +135,14 @@ const SearchBar = () => {
               </li>
             ))
           ) : (
-            <li className="text-textcolor-tertiary px-3 py-2 text-sm">{t('noResults')}</li>
+            <li
+              role="option"
+              aria-selected={false}
+              aria-disabled={true}
+              className="text-textcolor-tertiary px-3 py-2 text-sm"
+            >
+              {t('noResults')}
+            </li>
           )}
         </ul>
       )}

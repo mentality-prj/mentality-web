@@ -7,10 +7,7 @@ export function isValidEmail(email: string): boolean {
   return EMAIL_REGEX.test(email.trim())
 }
 
-export function classifyInviteError(
-  error: string,
-  t: (key: string) => string
-): string {
+export function classifyInviteError(error: string, t: (key: string) => string): string {
   const lower = error.toLowerCase()
   if (error.includes('409') || lower.includes('duplicate')) return t('errorDuplicate')
   if (lower.includes('already in company')) return t('errorAlreadyMember')

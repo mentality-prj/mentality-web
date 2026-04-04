@@ -31,7 +31,7 @@
   "speech-demo": "Speech demo",
   "phq9": "PHQ-9",
   "company": "Company",
-  "admin": "Company Admin",
+  "company-superuser": "Company Admin",
   "manager": "Manager Dashboard",
   "settings": "Settings",
   "privacy": "Privacy Policy",

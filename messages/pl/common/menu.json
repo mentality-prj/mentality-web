@@ -31,7 +31,7 @@
   "speech-demo": "Demo mowy",
   "phq9": "PHQ-9",
   "company": "Firma",
-  "admin": "Admin firmy",
+  "company-superuser": "Admin firmy",
   "manager": "Panel menedżera",
   "settings": "Ustawienia",
   "privacy": "Polityka prywatności",
