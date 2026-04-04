@@ -8,6 +8,7 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { STRESSES } from '@/constants/stress'
 import { Tag } from '@/ds/components/Tag'
+import { formatDate } from '@/helpers/data'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 type Props = {
@@ -15,7 +16,6 @@ type Props = {
 }
 
 export function MoodRecordsList({ records }: Props) {
-  const locale = useLocale()
   const t = useTranslations('components.Mood')
   const commonGeneral = useTranslations('common.General')
   const ts = useTranslations('components.StressLevelScale')
@@ -30,7 +30,7 @@ export function MoodRecordsList({ records }: Props) {
         const moodInfo = MOODS[moodIndex - 1]
         const IconComponent = moodInfo.icon
         const label = t(moodInfo.label as string)
-        const date = r.createdAt ? new Date(r.createdAt).toLocaleString(locale) : ''
+        const date = r.createdAt ? formatDate(new Date(r.createdAt).toISOString()) : ''
 
         const stressInfo = STRESSES.find((s) => s.value === r.stressLevel) ?? STRESSES[0]
         const energyInfo = ENERGIES.find((e) => e.value === r.energyLevel) ?? ENERGIES[2]
