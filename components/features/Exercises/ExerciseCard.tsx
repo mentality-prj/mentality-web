@@ -4,14 +4,12 @@ import { ReactNode, useState } from 'react'
 import { Calendar } from 'lucide-react'
 import { useLocale, useTranslations } from 'next-intl'
 
-import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { PlayButton } from '@/components/shared/Buttons/PlayButton'
 import Card from '@/components/shared/Cards/Card'
 import FullScreenCard from '@/components/shared/Cards/FullScreenCard'
 import TextRenderer from '@/components/shared/Content/TextRenderer'
 import { formatDate } from '@/helpers/data'
 import { ExerciseEntity } from '@/types/api-responses'
-import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 import { SupportedLanguage } from '@/types/languages'
 
 interface ExerciseCardProps {
@@ -35,7 +33,6 @@ export default function ExerciseCard({ item, className = '', tools }: ExerciseCa
   const combinedtools = (
     <>
       <PlayButton text={description} language={locale} />
-      <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(item.id)} />
       {tools}
     </>
   )
