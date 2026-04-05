@@ -48,6 +48,16 @@ export const adminSidebarMenu: SidebarMenuItemType[] = [
   { key: 'exercises', href: `${Routes.ADMIN}/exercises`, icon: 'brain' },
 ]
 
+export const companyAdminSidebarMenu: SidebarMenuItemType[] = [
+  { key: 'company-employees', href: Routes.COMPANY_ADMIN_EMPLOYEES, icon: 'users' },
+  { key: 'company-groups', href: Routes.COMPANY_ADMIN_GROUPS, icon: 'folderTree' },
+]
+
+export const companyManagerSidebarMenu: SidebarMenuItemType[] = [
+  { key: 'company-invites', href: Routes.COMPANY_MANAGER_INVITES, icon: 'mailPlus' },
+  { key: 'company-analytics', href: Routes.COMPANY_MANAGER_ANALYTICS, icon: 'chartNoAxesCombined' },
+]
+
 export const userSidebarMenu: SidebarMenuItemType[] = [
   // { key: 'affirmations', href: Routes.AFFIRMATIONS, icon: 'flower' }, TODO: temporarily hide #348
   { key: 'my-space', href: Routes.MYSPACE, icon: 'bookmark' },

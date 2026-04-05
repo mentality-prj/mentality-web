@@ -94,6 +94,53 @@ export type AssignRoleDto = {
   groupIds?: string[]
 }
 
+// ─── Analytics ─────────────────────────────────────────────────────────────────
+
+export type RiskDistribution = {
+  low: number
+  medium: number
+  high: number
+}
+
+export type AnalyticsGroupResult = {
+  groupId: string
+  groupName: string
+  groupType: GroupType
+  totalEmployees: number
+  activeEmployees: number
+  totalCheckins: number
+  avgMood: number
+  avgStress: number
+  avgEnergy: number
+  avgFocus: number
+  riskDistribution: RiskDistribution
+}
+
+export type AnalyticsTrendPoint = {
+  period: string
+  avgMood: number
+  avgStress: number
+  avgEnergy: number
+  avgFocus: number
+  checkins: number
+}
+
+export type AnalyticsResponse = {
+  companyId: string
+  from: string
+  to: string
+  totalEmployees: number
+  activeEmployees: number
+  totalCheckins: number
+  avgMood: number
+  avgStress: number
+  avgEnergy: number
+  avgFocus: number
+  riskDistribution: RiskDistribution
+  groups: AnalyticsGroupResult[]
+  trend: AnalyticsTrendPoint[]
+}
+
 // ─── Paginated ────────────────────────────────────────────────────────────────
 
 export type PaginatedEmployees = {

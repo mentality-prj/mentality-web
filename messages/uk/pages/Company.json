@@ -1,4 +1,10 @@
 {
+  "dashboard": {
+    "title": "Панель управління компанією",
+    "adminPanel": "Панель адміністратора",
+    "managerPanel": "Панель менеджера",
+    "createCompany": "Додати компанію"
+  },
   "globalAdmin": {
     "title": "Глобальний адмін",
     "createCompany": {
@@ -127,11 +133,29 @@
       "fromLabel": "Від",
       "toLabel": "До",
       "filterByGroup": "Фільтр за групою",
-      "applyButton": "Застосувати фільтри",
+      "clearFilters": "Очистити фільтри",
+      "applyFilters": "Застосувати",
       "loading": "Завантаження…",
       "empty": "Немає даних за обраний період та групи.",
       "errorDateRange": "Діапазон дат не може перевищувати 1 рік.",
-      "errorDateOrder": "Дата завершення має бути пізніше дати початку."
+      "errorDateOrder": "Дата завершення має бути пізніше дати початку.",
+      "totalEmployees": "Всього працівників",
+      "activeEmployees": "Активних працівників",
+      "totalCheckins": "Всього чекінів",
+      "avgMood": "Сер. настрій",
+      "avgStress": "Сер. стрес",
+      "avgEnergy": "Сер. енергія",
+      "avgFocus": "Сер. фокус",
+      "riskDistribution": "Розподіл ризиків",
+      "riskLow": "Низький",
+      "riskMedium": "Середній",
+      "riskHigh": "Високий",
+      "trendTitle": "Тренд",
+      "groupsTitle": "Групи",
+      "groupName": "Група",
+      "clearRiskFilter": "Очистити фільтр ризику",
+      "collapseSubgroups": "Згорнути підгрупи",
+      "expandSubgroups": "Розгорнути підгрупи"
     }
   },
   "invites": {
@@ -168,5 +192,12 @@
     "expand": "Розгорнути",
     "selected": "{count} групу вибрано",
     "selectedPlural": "{count} груп вибрано"
+  },
+  "adminSelector": {
+    "label": "Вибір компанії",
+    "description": "Як системний адміністратор, оберіть компанію для перегляду та управління її даними.",
+    "placeholder": "Оберіть компанію…",
+    "loading": "Завантаження компаній…",
+    "empty": "Компаній не знайдено."
   }
 }

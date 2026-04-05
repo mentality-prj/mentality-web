@@ -1,4 +1,10 @@
 {
+  "dashboard": {
+    "title": "Panel zarządzania firmą",
+    "adminPanel": "Panel administratora",
+    "managerPanel": "Panel menedżera",
+    "createCompany": "Dodaj firmę"
+  },
   "globalAdmin": {
     "title": "Administrator Globalny",
     "createCompany": {
@@ -127,11 +133,29 @@
       "fromLabel": "Od",
       "toLabel": "Do",
       "filterByGroup": "Filtruj według grupy",
-      "applyButton": "Zastosuj filtry",
+      "clearFilters": "Wyczyść filtry",
+      "applyFilters": "Zastosuj",
       "loading": "Ładowanie…",
       "empty": "Brak danych dla wybranego okresu i grup.",
       "errorDateRange": "Zakres dat nie może przekraczać 1 roku.",
-      "errorDateOrder": "Data końcowa musi być późniejsza niż data początkowa."
+      "errorDateOrder": "Data końcowa musi być późniejsza niż data początkowa.",
+      "totalEmployees": "Łącznie pracowników",
+      "activeEmployees": "Aktywnych pracowników",
+      "totalCheckins": "Łącznie meldunków",
+      "avgMood": "Śr. nastrój",
+      "avgStress": "Śr. stres",
+      "avgEnergy": "Śr. energia",
+      "avgFocus": "Śr. skupienie",
+      "riskDistribution": "Rozkład ryzyka",
+      "riskLow": "Niski",
+      "riskMedium": "Średni",
+      "riskHigh": "Wysoki",
+      "trendTitle": "Trend",
+      "groupsTitle": "Grupy",
+      "groupName": "Grupa",
+      "clearRiskFilter": "Wyczyść filtr ryzyka",
+      "collapseSubgroups": "Zwiń podgrupy",
+      "expandSubgroups": "Rozwiń podgrupy"
     }
   },
   "invites": {
@@ -168,5 +192,12 @@
     "expand": "Rozwiń",
     "selected": "Wybrano {count} grupę",
     "selectedPlural": "Wybrano {count} grup"
+  },
+  "adminSelector": {
+    "label": "Wybór firmy",
+    "description": "Jako administrator systemowy wybierz firmę, aby przeglądać i zarządzać jej danymi.",
+    "placeholder": "Wybierz firmę…",
+    "loading": "Ładowanie firm…",
+    "empty": "Nie znaleziono firm."
   }
 }

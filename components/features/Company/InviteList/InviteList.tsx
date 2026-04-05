@@ -1,29 +1,19 @@
 'use client'
 
-import { useState } from 'react'
 import toast from 'react-hot-toast'
 import { RefreshCw, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
+import { COMPANY_PAGE_SIZE, INVITE_STATUS_CLASSES } from '@/constants/company'
 import { useInvites } from '@/hooks/useInvites'
 import { cn } from '@/lib/utils'
-import { InviteStatus } from '@/types/company'
 import { Button } from '@/ui/button'
-
-const STATUS_CLASSES: Record<InviteStatus, string> = {
-  pending: 'bg-yellow-100 text-yellow-800',
-  accepted: 'bg-green-100 text-green-800',
-  expired: 'bg-gray-100 text-gray-500',
-}
-
-const PAGE_SIZE = 20
 
 export function InviteList() {
   const t = useTranslations('pages.Company.invites')
   const tRoles = useTranslations('pages.Company.roles')
-  const [page, setPage] = useState(1)
-  const { items, total, loading, error, handleResend, handleCancel } = useInvites(page)
+  const { items, total, page, setPage, loading, error, handleResend, handleCancel } = useInvites()
 
   async function onResend(id: string) {
     const res = await handleResend(id)
@@ -61,7 +51,9 @@ export function InviteList() {
                 <td className="px-4 py-2">{tRoles(inv.role)}</td>
                 <td className="px-4 py-2">{inv.groupIds.length}</td>
                 <td className="px-4 py-2">
-                  <span className={cn('rounded-full px-2 py-0.5 text-xs font-medium', STATUS_CLASSES[inv.status])}>
+                  <span
+                    className={cn('rounded-full px-2 py-0.5 text-xs font-medium', INVITE_STATUS_CLASSES[inv.status])}
+                  >
                     {t(`status.${inv.status}`)}
                   </span>
                 </td>
@@ -97,7 +89,7 @@ export function InviteList() {
         </table>
       </div>
 
-      <Pagination page={page} totalPages={Math.max(1, Math.ceil(total / PAGE_SIZE))} onPageChange={setPage} />
+      <Pagination page={page} totalPages={Math.max(1, Math.ceil(total / COMPANY_PAGE_SIZE))} onPageChange={setPage} />
     </div>
   )
 }

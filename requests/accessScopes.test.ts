@@ -1,7 +1,14 @@
-import { ACCESS_SCOPE_ENDPOINTS } from '@/constants/companyEndpoints'
+import { ACCESS_SCOPE_ENDPOINTS, COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
-import { createAccessScope, deleteAccessScope, getAccessScopes } from '@/requests/accessScopes'
-import { performAuthRequest } from '@/requests/genericFetch'
+import {
+  createAccessScope,
+  createAccessScopeAdmin,
+  deleteAccessScope,
+  deleteAccessScopeAdmin,
+  getAccessScopes,
+  getAccessScopesAdmin,
+} from '@/requests/accessScopes'
+import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { AccessScopeEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -31,6 +38,12 @@ const mockManagerSession: CustomSession = {
 
 const mockEmployeeSession: CustomSession = {
   user: { email: 'emp@company.com', role: 'user' as const, companyRole: COMPANY_ROLES.EMPLOYEE },
+  OAuthToken: 'mock-token',
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+}
+
+const mockAdminSession: CustomSession = {
+  user: { email: 'sysadmin@mentality.app', role: 'admin' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
@@ -175,6 +188,95 @@ describe('getAccessScopes', () => {
     const result = await getAccessScopes(mockSuperuserSession)
 
     expect(result).toEqual({ error: 'Server error' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+// ─── Admin-scoped variants ────────────────────────────────────────────────────
+
+describe('getAccessScopesAdmin', () => {
+  it('calls performAdminRequest with company-scoped access-scopes URL', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockScope] })
+
+    const result = await getAccessScopesAdmin(mockAdminSession, 'c-1')
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toHaveLength(1)
+      expect(result.data[0].id).toBe('scope-1')
+    }
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.accessScopes('c-1'))
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('returns empty array when API returns non-array', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: null })
+
+    const result = await getAccessScopesAdmin(mockAdminSession, 'c-1')
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) expect(result.data).toEqual([])
+  })
+
+  it('propagates error from performAdminRequest', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+
+    const result = await getAccessScopesAdmin(mockAdminSession, 'c-1')
+
+    expect(result).toEqual({ error: 'Forbidden' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+describe('createAccessScopeAdmin', () => {
+  it('calls performAdminRequest with POST and company-scoped URL', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockScope })
+
+    const result = await createAccessScopeAdmin(mockAdminSession, 'c-1', mockDto)
+
+    expect(result).toEqual({ data: mockScope })
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.accessScopes('c-1')),
+      expect.objectContaining({ method: 'POST', body: mockDto })
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('propagates error from performAdminRequest', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
+
+    const result = await createAccessScopeAdmin(mockAdminSession, 'c-1', mockDto)
+
+    expect(result).toEqual({ error: 'Conflict' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+describe('deleteAccessScopeAdmin', () => {
+  it('calls performAdminRequest with DELETE and access-scope-by-id URL', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: {} })
+
+    const result = await deleteAccessScopeAdmin(mockAdminSession, 'c-1', 'scope-1')
+
+    expect(result).toEqual({})
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.accessScopeById('c-1', 'scope-1')),
+      expect.objectContaining({ method: 'DELETE' })
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('propagates error from performAdminRequest', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+
+    const result = await deleteAccessScopeAdmin(mockAdminSession, 'c-1', 'scope-1')
+
+    expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
   })
 })

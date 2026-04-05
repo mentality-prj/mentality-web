@@ -40,12 +40,12 @@ CAN_VIEW_ANALYTICS = [SUPERUSER, MANAGER]
 
 Усі сторінки компанії розміщені під `app/[locale]/company/`:
 
-| Шлях                     | Доступ                                                                                       |
-| ------------------------ | -------------------------------------------------------------------------------------------- |
-| `/company`               | Будь-який авторизований користувач з `companyRole` або системний `admin` (редирект за роллю) |
-| `/admin/company`         | Лише системний `admin` (`session.user.role === 'admin'`)                                     |
-| `/company/company-admin` | Лише `SUPERUSER`                                                                             |
-| `/company/manager`       | Лише `MANAGER`                                                                               |
+| Шлях               | Доступ                                                                                       |
+| ------------------ | -------------------------------------------------------------------------------------------- |
+| `/company`         | Будь-який авторизований користувач з `companyRole` або системний `admin` (редирект за роллю) |
+| `/admin/company`   | Лише системний `admin` (`session.user.role === 'admin'`)                                     |
+| `/company/admin`   | Лише `SUPERUSER`                                                                             |
+| `/company/manager` | Лише `MANAGER`                                                                               |
 
 Спільний layout (`app/[locale]/company/layout.tsx`) виконує серверні захисти:
 
@@ -71,7 +71,7 @@ CAN_VIEW_ANALYTICS = [SUPERUSER, MANAGER]
 
 ---
 
-### Company Admin — `/company/company-admin`
+### Company Admin — `/company/admin`
 
 **Хто:** Власник компанії (`SUPERUSER`).
 
@@ -151,8 +151,8 @@ CAN_VIEW_ANALYTICS = [SUPERUSER, MANAGER]
 Той самий флоу, що й форма адміна, але:
 
 - Роль зафіксована на **лише EMPLOYEE** (Менеджери не можуть запрошувати інших Менеджерів).
-- Селектор **Груп** показує лише ті групи, до яких Менеджеру надано доступ (`accessibleOnly = true` у `useGroups`).
-- Якщо Менеджер не має доступних груп, форма відключена з пояснювальним повідомленням.
+- Селектор **Груп** показує всі групи компанії Менеджера. Групи завантажуються через `useGroups()`, який автоматично розв'язує `companyId` через `GET /companies/my`.
+- Якщо в компанії немає груп, форма відключена з пояснювальним повідомленням.
 
 Компоненти: `Manager/InviteEmployeeManagerForm`
 
@@ -162,13 +162,48 @@ CAN_VIEW_ANALYTICS = [SUPERUSER, MANAGER]
 
 #### 3. Аналітика
 
-**Стовпчаста діаграма** (Recharts `BarChart`), що показує показники настрою за часом для вибраних груп.
+**Дашборд** (Recharts `LineChart`) з показниками настрою, стресу, енергії та фокусу за періодами. Складається з:
 
-- **Діапазон дат** — два date picker-и (`від` / `до`). Максимальний діапазон — **1 рік**; якщо вибрати більший діапазон, форма показує помилку й не застосовує фільтр.
-- **Фільтр груп** — мультиселект-дерево; показує лише доступні групи.
-- Надсилає запит `GET /analytics/mood?from=...&to=...&groupIds=...`.
+- **Сумарні картки** — всього співробітників, активні співробітники, загальна кількість чекінів та середні бали.
+- **Розподіл ризиків** — кількість співробітників з низьким / середнім / високим ризиком у вигляді кольорових бейджів.
+- **Графік тренду** — лінійний графік з чотирма рядами (настрій / стрес / енергія / фокус) по місяцях.
+- **Таблиця груп** — детальна розбивка за кожною групою з усіма метриками.
+
+**Діапазон дат** — два date picker-и (`від` / `до`). Максимальний діапазон — **1 рік**; якщо вибрати більший, форма показує помилку й не застосовує фільтр.
+
+**Фільтр груп** — мультиселект-дерево; показує всі групи компанії.
+
+Надсилає запит `GET /companies/:companyId/analytics/mood?from=...&to=...&groupIds=...`.
+
+`companyId` розв'язується автоматично: для системного адміна — з `AdminCompanyContext`; для менеджера — отримується через `GET /companies/my` перед запитом аналітики.
+
+Функції запитів: `requests/analytics.ts` — `getMoodAnalytics` (менеджер) та `getMoodAnalyticsAdmin` (системний адмін).
+
+Хук: `hooks/useAnalytics.ts`
 
 Компоненти: `Manager/AnalyticsView`
+
+**Формат відповіді аналітики:**
+
+```ts
+type AnalyticsResponse = {
+  companyId: string
+  from: string
+  to: string
+  totalEmployees: number
+  activeEmployees: number
+  totalCheckins: number
+  avgMood: number
+  avgStress: number
+  avgEnergy: number
+  avgFocus: number
+  riskDistribution: { low: number; medium: number; high: number }
+  groups: AnalyticsGroupResult[]
+  trend: AnalyticsTrendPoint[]
+}
+```
+
+Повні типи наведено в `types/company.ts`.
 
 ---
 
@@ -260,16 +295,20 @@ interface GroupEntity {
 
 Визначені у `constants/companyEndpoints.ts`:
 
-| Константа                         | Значення                  | Метод(и)      |
-| --------------------------------- | ------------------------- | ------------- |
-| `COMPANY_ENDPOINTS.BASE`          | `/companies`              | GET, POST     |
-| `GROUP_ENDPOINTS.BASE`            | `/groups`                 | GET, POST     |
-| `GROUP_ENDPOINTS.accessible`      | `/groups?accessible=true` | GET           |
-| `GROUP_ENDPOINTS.byId(id)`        | `/groups/:id`             | PATCH, DELETE |
-| `INVITE_ENDPOINTS.BASE`           | `/invites`                | GET, POST     |
-| `INVITE_ENDPOINTS.resend(id)`     | `/invites/:id/resend`     | POST          |
-| `ACCESS_SCOPE_ENDPOINTS.BASE`     | `/access-scopes`          | GET, POST     |
-| `ACCESS_SCOPE_ENDPOINTS.byId(id)` | `/access-scopes/:id`      | DELETE        |
+| Константа                                     | Значення                                | Метод(и)      |
+| --------------------------------------------- | --------------------------------------- | ------------- |
+| `COMPANY_ENDPOINTS.BASE`                      | `/companies`                            | GET, POST     |
+| `COMPANY_ENDPOINTS.MY`                        | `/companies/my`                         | GET           |
+| `COMPANY_ENDPOINTS.byId(id)`                  | `/companies/:id`                        | GET           |
+| `GROUP_ENDPOINTS.byCompany(companyId)`        | `/groups?companyId=:companyId`          | GET           |
+| `GROUP_ENDPOINTS.byId(id)`                    | `/groups/:id`                           | PATCH, DELETE |
+| `COMPANY_ADMIN_ENDPOINTS.groups(companyId)`   | `/companies/:companyId/groups`          | GET, POST     |
+| `COMPANY_ADMIN_ENDPOINTS.groupById(cId, gId)` | `/companies/:companyId/groups/:groupId` | PATCH, DELETE |
+| `INVITE_ENDPOINTS.BASE`                       | `/invites`                              | GET, POST     |
+| `INVITE_ENDPOINTS.resend(id)`                 | `/invites/:id/resend`                   | POST          |
+| `ACCESS_SCOPE_ENDPOINTS.BASE`                 | `/access-scopes`                        | GET, POST     |
+| `ACCESS_SCOPE_ENDPOINTS.byId(id)`             | `/access-scopes/:id`                    | DELETE        |
+| _(аналітика)_                                 | `/companies/:companyId/analytics/mood`  | GET           |
 
 ---
 

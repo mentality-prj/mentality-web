@@ -614,4 +614,17 @@ body {
   .card-container {
     @apply flex flex-col gap-sm sm:flex-row sm:flex-wrap sm:items-stretch;
   }
+
+  /* ADMIN */
+  .dashboard {
+    @apply flex flex-col gap-lg;
+  }
+
+  .dashboard section {
+    @apply flex flex-col gap-sm;
+  }
+
+  .panel {
+    @apply grid grid-cols-1 gap-sm sm:grid-cols-3;
+  }
 }

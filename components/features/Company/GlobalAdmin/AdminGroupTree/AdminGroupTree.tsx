@@ -6,6 +6,7 @@ import { Plus } from 'lucide-react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { GroupTreeNode } from '@/components/features/Company/CompanyAdmin/ManageGroups/GroupTreeNode'
 import { buildTree, flattenGroups } from '@/mappers/group.mappers'
 import { adminCreateGroup, adminGetGroups } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
@@ -13,8 +14,6 @@ import { GroupEntity, GroupType } from '@/types/company'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
-
-import { AdminGroupTreeNode } from './AdminGroupTreeNode'
 
 type Props = {
   companyId: string
@@ -152,7 +151,7 @@ export function AdminGroupTree({ companyId, initialGroups }: Props) {
           return (
             <ul className="flex flex-col gap-1">
               {roots.map((group) => (
-                <AdminGroupTreeNode
+                <GroupTreeNode
                   key={group.id}
                   group={group}
                   companyId={companyId}

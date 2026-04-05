@@ -1,7 +1,16 @@
-import { INVITE_ENDPOINTS } from '@/constants/companyEndpoints'
+import { COMPANY_ADMIN_ENDPOINTS, INVITE_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
-import { performAuthRequest } from '@/requests/genericFetch'
-import { cancelInvite, createInvite, getInvites, resendInvite } from '@/requests/invites'
+import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import {
+  cancelInvite,
+  cancelInviteAdmin,
+  createInvite,
+  createInviteAdmin,
+  getInvites,
+  getInvitesAdmin,
+  resendInvite,
+  resendInviteAdmin,
+} from '@/requests/invites'
 import { CustomSession } from '@/types/auth'
 import { CreateInviteDto, InviteEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -39,6 +48,12 @@ const mockEmployeeSession: CustomSession = {
 
 const noCompanyRoleSession: CustomSession = {
   user: { email: 'plain@example.com', role: 'user' as const },
+  OAuthToken: 'mock-token',
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+}
+
+const mockAdminSession: CustomSession = {
+  user: { email: 'sysadmin@mentality.app', role: 'admin' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
@@ -235,5 +250,130 @@ describe('cancelInvite', () => {
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+})
+
+// ─── Admin-scoped variants ────────────────────────────────────────────────────
+
+describe('getInvitesAdmin', () => {
+  it('calls performAdminRequest with company-scoped invites URL', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockInviteRaw] })
+
+    const result = await getInvitesAdmin(mockAdminSession, 'c-1', 2, 10)
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data.items).toHaveLength(1)
+      expect(result.data.items[0].id).toBe('inv-1')
+    }
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.invites('c-1', 2, 10))
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('returns empty items when API returns empty array', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
+
+    const result = await getInvitesAdmin(mockAdminSession, 'c-1')
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data.items).toHaveLength(0)
+      expect(result.data.total).toBe(0)
+    }
+  })
+
+  it('propagates error from performAdminRequest', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+
+    const result = await getInvitesAdmin(mockAdminSession, 'c-1')
+
+    expect(result).toEqual({ error: 'Forbidden' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+describe('createInviteAdmin', () => {
+  it('calls performAdminRequest with POST and company-scoped URL', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockInviteRaw })
+
+    const result = await createInviteAdmin(mockAdminSession, 'c-1', mockDto)
+
+    expect(result).toEqual({ data: mockInviteRaw })
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteBase('c-1')),
+      expect.objectContaining({ method: 'POST', body: mockDto })
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('returns error on invalid mapped data', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+
+    const result = await createInviteAdmin(mockAdminSession, 'c-1', mockDto)
+
+    expect(result).toEqual({ error: 'Invalid invite data' })
+  })
+
+  it('propagates error from performAdminRequest', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
+
+    const result = await createInviteAdmin(mockAdminSession, 'c-1', mockDto)
+
+    expect(result).toEqual({ error: 'Conflict' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+describe('resendInviteAdmin', () => {
+  it('calls performAdminRequest with POST and resend URL', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockInviteRaw })
+
+    const result = await resendInviteAdmin(mockAdminSession, 'c-1', 'inv-1')
+
+    expect(result).toEqual({ data: mockInviteRaw })
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteResend('c-1', 'inv-1')),
+      expect.objectContaining({ method: 'POST' })
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('propagates error from performAdminRequest', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+
+    const result = await resendInviteAdmin(mockAdminSession, 'c-1', 'inv-1')
+
+    expect(result).toEqual({ error: 'Not found' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+describe('cancelInviteAdmin', () => {
+  it('calls performAdminRequest with DELETE and invite-by-id URL', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockInviteRaw })
+
+    const result = await cancelInviteAdmin(mockAdminSession, 'c-1', 'inv-1')
+
+    expect(result).toEqual({ data: mockInviteRaw })
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteById('c-1', 'inv-1')),
+      expect.objectContaining({ method: 'DELETE' })
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('propagates error from performAdminRequest', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
+
+    const result = await cancelInviteAdmin(mockAdminSession, 'c-1', 'inv-1')
+
+    expect(result).toEqual({ error: 'Conflict' })
+    expect(logger.error).toHaveBeenCalled()
   })
 })

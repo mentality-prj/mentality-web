@@ -1,4 +1,10 @@
 {
+  "dashboard": {
+    "title": "Company Dashboard",
+    "adminPanel": "Admin Panel",
+    "managerPanel": "Manager Panel",
+    "createCompany": "Add Company"
+  },
   "globalAdmin": {
     "title": "Global Admin",
     "createCompany": {
@@ -127,11 +133,29 @@
       "fromLabel": "From",
       "toLabel": "To",
       "filterByGroup": "Filter by Group",
-      "applyButton": "Apply Filters",
+      "clearFilters": "Clear Filters",
+      "applyFilters": "Apply",
       "loading": "Loading…",
       "empty": "No data for the selected period and groups.",
       "errorDateRange": "Date range must not exceed 1 year.",
-      "errorDateOrder": "End date must be after start date."
+      "errorDateOrder": "End date must be after start date.",
+      "totalEmployees": "Total Employees",
+      "activeEmployees": "Active Employees",
+      "totalCheckins": "Total Check-ins",
+      "avgMood": "Avg Mood",
+      "avgStress": "Avg Stress",
+      "avgEnergy": "Avg Energy",
+      "avgFocus": "Avg Focus",
+      "riskDistribution": "Risk Distribution",
+      "riskLow": "Low",
+      "riskMedium": "Medium",
+      "riskHigh": "High",
+      "trendTitle": "Trend",
+      "groupsTitle": "Groups",
+      "groupName": "Group",
+      "clearRiskFilter": "Clear risk filter",
+      "collapseSubgroups": "Collapse subgroups",
+      "expandSubgroups": "Expand subgroups"
     }
   },
   "invites": {
@@ -168,5 +192,12 @@
     "expand": "Expand",
     "selected": "{count} group selected",
     "selectedPlural": "{count} groups selected"
+  },
+  "adminSelector": {
+    "label": "Select Company",
+    "description": "As a system admin, select a company to view and manage its data.",
+    "placeholder": "Choose a company…",
+    "loading": "Loading companies…",
+    "empty": "No companies found."
   }
 }

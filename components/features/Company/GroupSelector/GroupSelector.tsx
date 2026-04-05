@@ -5,6 +5,7 @@ import { ChevronDown, ChevronRight, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { CustomInput } from '@/ds/components/CustomInput'
+import { computeVisibleSet } from '@/helpers/company.helpers'
 import { cn } from '@/lib/utils'
 import { flattenGroups } from '@/mappers/group.mappers'
 import { GroupEntity } from '@/types/company'
@@ -27,22 +28,6 @@ type TreeNodeProps = {
   onToggle: (id: string) => void
   visibleSet: Set<string>
   t: (key: string) => string
-}
-
-/**
- * Precomputes which nodes should be shown during search: a node is visible if it
- * matches the query OR any of its descendants match. Avoids per-node flattenGroups calls.
- */
-function computeVisibleSet(groups: GroupEntity[], matchSet: Set<string>): Set<string> {
-  const visible = new Set<string>()
-  function walk(group: GroupEntity): boolean {
-    const selfMatch = matchSet.has(group.id)
-    const childMatch = group.children.some(walk)
-    if (selfMatch || childMatch) visible.add(group.id)
-    return selfMatch || childMatch
-  }
-  groups.forEach(walk)
-  return visible
 }
 
 function TreeNode({ group, selected, disabledSet, onToggle, visibleSet, t }: TreeNodeProps) {
