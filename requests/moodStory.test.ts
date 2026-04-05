@@ -18,9 +18,11 @@ const mockStory: MoodStoryEntity = {
     {
       title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
       text: { en: 'More text', uk: 'Більше тексту', pl: 'Więcej tekstu' },
-      action: 'Дихальні вправи',
+      action: { type: 'exercise', category: 'breathing', label: 'Спробуй дихальну вправу' },
     },
   ],
+  recommendedAffirmationId: '65aa50d9fc13ae44e8000002',
+  recommendedExerciseId: '65aa50d9fc13ae44e8000001',
 }
 
 beforeEach(() => {

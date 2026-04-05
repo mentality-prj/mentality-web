@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
-import { resolveActionRoute } from '@/helpers/moodStory.helpers'
+import { resolveActionRoute, resolveActionRouteFromString } from '@/helpers/moodStory.helpers'
 import { getLatestMoodStory } from '@/requests/moodStory'
 import { MoodStoryScreenEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -50,7 +50,7 @@ const mockScreens: MoodStoryScreenEntity[] = [
   {
     title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
     text: { en: 'Second screen text', uk: 'Текст другого екрану', pl: 'Tekst drugiego ekranu' },
-    action: 'Explore exercises',
+    action: { type: 'exercise', category: 'breathing', label: 'Спробуй дихальну вправу' },
   },
 ]
 
@@ -176,6 +176,30 @@ describe('MoodStoryCard', () => {
 })
 
 describe('resolveActionRoute', () => {
+  it('resolves exercise with category', () => {
+    expect(resolveActionRoute({ type: 'exercise', category: 'breathing', label: 'Breathe' })).toBe('/guide')
+  })
+
+  it('resolves exercise with meditation category', () => {
+    expect(resolveActionRoute({ type: 'exercise', category: 'meditation', label: 'Meditate' })).toBe(
+      '/guide/meditations'
+    )
+  })
+
+  it('resolves sleep action', () => {
+    expect(resolveActionRoute({ type: 'sleep', label: 'Better sleep' })).toBe('/guide')
+  })
+
+  it('resolves checkin action', () => {
+    expect(resolveActionRoute({ type: 'checkin', label: 'Check in' })).toBe('/mood-tracker')
+  })
+
+  it('resolves exercise without category', () => {
+    expect(resolveActionRoute({ type: 'exercise', label: 'Exercise' })).toBe('/guide')
+  })
+})
+
+describe('resolveActionRouteFromString (legacy)', () => {
   it.each<[string, string, string]>([
     // Ukrainian
     ['UK – breathing', 'Дихальні вправи', '/guide'],
@@ -199,10 +223,10 @@ describe('resolveActionRoute', () => {
     ['PL – mood', 'Nastrój dzisiaj', '/mood-tracker'],
     ['PL – sleep', 'Techniki snu i relaksu', '/guide'],
   ])('maps action correctly: %s', (_label, action, expected) => {
-    expect(resolveActionRoute(action)).toBe(expected)
+    expect(resolveActionRouteFromString(action)).toBe(expected)
   })
 
   it('returns null for an unknown action', () => {
-    expect(resolveActionRoute('__unknown_action_xyz__')).toBeNull()
+    expect(resolveActionRouteFromString('__unknown_action_xyz__')).toBeNull()
   })
 })

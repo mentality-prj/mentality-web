@@ -199,6 +199,24 @@ export async function publishAffirmationById(session: CustomSession | null, id: 
   return { data: res.data }
 }
 
+export async function getAffirmationById(
+  session: CustomSession | null,
+  id: string
+): Promise<{ data: AffirmationEntity } | { error: string }> {
+  const res = await performAuthRequest<AffirmationEntity>(session, `${APIUrl}/affirmations/${id}`, { method: 'GET' })
+
+  if ('error' in res) {
+    logger.error('Failed to get affirmation by id', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  if (!res.data) {
+    return { error: 'Affirmation not found' }
+  }
+
+  return { data: res.data }
+}
+
 export async function updateAffirmation(
   session: CustomSession | null,
   id: string,

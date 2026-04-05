@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
-.font-logo {
-  font-family: 'Pacifico' !important;
-}
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
 /* Flaticon UICONS (webfont) */
 @import '~@flaticon/flaticon-uicons/css/all/all';
+
+.font-logo {
+  font-family: 'Pacifico' !important;
+}
 
 @tailwind base;
 @tailwind components;

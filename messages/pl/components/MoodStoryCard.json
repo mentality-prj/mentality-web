@@ -17,6 +17,7 @@
     "nextAriaLabel": "Następny ekran"
   },
   "admin": {
-    "refreshCta": "Odśwież Mood Story"
+    "refreshCta": "Odśwież Mood Story",
+    "regenerateCta": "Regeneruj Story"
   }
 }

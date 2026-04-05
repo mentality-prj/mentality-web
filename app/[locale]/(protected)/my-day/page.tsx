@@ -27,11 +27,10 @@ const MyDay = async () => {
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
     const res = await getMoodRecords(session)
-    if ('error' in res) {
-      throw new Error(res.error)
+    if (!('error' in res)) {
+      const { moodNotes } = res.data
+      moodCounts = mapMoodRecordsToCounts(moodNotes ?? [])
     }
-    const { moodNotes } = res.data
-    moodCounts = mapMoodRecordsToCounts(moodNotes ?? [])
   }
 
   const goalsRes = await fetchPersonalGoals(session)

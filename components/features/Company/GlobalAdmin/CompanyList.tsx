@@ -1,5 +1,5 @@
 import { Building2 } from 'lucide-react'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 import { DashboardItem } from '@/components/admin/DashboardItem'
 import { Routes } from '@/constants/routes'
@@ -12,6 +12,7 @@ type Props = {
 
 export async function CompanyList({ companies }: Props) {
   const t = await getTranslations('pages.Company.globalAdmin.companyList')
+  const locale = await getLocale()
 
   if (companies.length === 0) {
     return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
@@ -25,7 +26,7 @@ export async function CompanyList({ companies }: Props) {
             href={Routes.adminCompanyDetail(company.id)}
             icon={<Building2 size={18} />}
             title={company.name}
-            subtitle={new Date(company.createdAt).toLocaleDateString()}
+            subtitle={new Date(company.createdAt).toLocaleDateString(locale)}
             badge={<Badge variant="secondary">{t('companyBadge')}</Badge>}
           />
         </li>

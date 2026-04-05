@@ -1,6 +1,21 @@
 import { Routes } from './routes'
 
-// Action strings come from the backend in the user's active language (UK/EN/PL).
+import type { MoodStoryActionType } from '@/types/api-responses'
+
+// Maps structured action.type (+ optional category) to a client route.
+export const ACTION_TYPE_ROUTES: Record<MoodStoryActionType, string> = {
+  exercise: Routes.GUIDE,
+  sleep: Routes.GUIDE,
+  checkin: Routes.MOODTRACKER,
+}
+
+export const EXERCISE_CATEGORY_ROUTES: Record<string, string> = {
+  breathing: Routes.GUIDE,
+  meditation: Routes.MEDITATIONS,
+  calming: Routes.GUIDE,
+}
+
+// Legacy: regex-based mapping for plain-string actions (backward compatibility).
 // If none of the patterns match, the CTA button is silently omitted.
 export const ACTION_ROUTES: [RegExp, string][] = [
   // Ukrainian

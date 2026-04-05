@@ -17,6 +17,7 @@
     "nextAriaLabel": "Next screen"
   },
   "admin": {
-    "refreshCta": "Refresh Mood Story"
+    "refreshCta": "Refresh Mood Story",
+    "regenerateCta": "Regenerate Story"
   }
 }
