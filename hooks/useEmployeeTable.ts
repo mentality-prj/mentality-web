@@ -44,14 +44,15 @@ export function useEmployeeTable() {
   }, [adminCompanyId])
 
   useEffect(() => {
-    if (status === 'authenticated') fetchEmployees()
-    else if (status === 'unauthenticated') {
+    if (status === 'unauthenticated') {
       setItems([])
       setTotal(0)
       setPage(1)
       setError(null)
       setLoading(false)
+      return
     }
+    if (status === 'authenticated') fetchEmployees()
   }, [fetchEmployees, status])
 
   async function handleRemove(id: string) {

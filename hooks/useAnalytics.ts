@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
@@ -28,6 +28,7 @@ export function useAnalytics() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const [dateError, setDateError] = useState<string | null>(null)
+  const requestTokenRef = useRef(0)
 
   useEffect(() => {
     setResolvedCompanyId(null)
@@ -54,6 +55,7 @@ export function useAnalytics() {
 
   const fetchAnalytics = useCallback(async () => {
     if (!validateDates()) return
+    const token = ++requestTokenRef.current
     setLoading(true)
     setError(null)
     const session = data as CustomSession
@@ -62,19 +64,25 @@ export function useAnalytics() {
     let companyId = adminCompanyId ?? resolvedCompanyId
     if (!companyId) {
       const myCompanyRes = await getMyCompany(session)
-      if ('error' in myCompanyRes) {
-        setError(myCompanyRes.error)
-        setLoading(false)
+      if (!('error' in myCompanyRes) && requestTokenRef.current === token) {
+        companyId = myCompanyRes.data.id
+        setResolvedCompanyId(companyId)
+      } else if ('error' in myCompanyRes) {
+        if (requestTokenRef.current === token) {
+          setError(myCompanyRes.error)
+          setLoading(false)
+        }
+        return
+      } else {
         return
       }
-      companyId = myCompanyRes.data.id
-      setResolvedCompanyId(companyId)
     }
 
     const res = adminCompanyId
       ? await getMoodAnalyticsAdmin(session, companyId, analyticsParams)
       : await getMoodAnalytics(session, companyId, analyticsParams)
 
+    if (requestTokenRef.current !== token) return
     if ('error' in res) {
       setError(res.error)
     } else {

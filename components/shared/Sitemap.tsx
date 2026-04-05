@@ -96,8 +96,10 @@ export default function Sitemap() {
 
   const b2bItems = [
     { key: 'company', href: Routes.COMPANY },
-    { key: 'company-superuser', href: Routes.COMPANY_ADMIN },
-    { key: 'manager', href: Routes.COMPANY_MANAGER },
+    ...(isAdmin || companyRole === COMPANY_ROLES.SUPERUSER
+      ? [{ key: 'company-superuser', href: Routes.COMPANY_ADMIN }]
+      : []),
+    ...(isAdmin || companyRole === COMPANY_ROLES.MANAGER ? [{ key: 'manager', href: Routes.COMPANY_MANAGER }] : []),
   ]
 
   const rows: {

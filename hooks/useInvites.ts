@@ -3,26 +3,33 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
-import { useAdminCompany } from '@/context/adminCompanyContext'
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
+import { useAdminCompany } from '@/context/adminCompanyContext'
 import {
-  getInvites,
-  resendInvite,
   cancelInvite,
-  getInvitesAdmin,
-  resendInviteAdmin,
   cancelInviteAdmin,
+  getInvites,
+  getInvitesAdmin,
+  resendInvite,
+  resendInviteAdmin,
 } from '@/requests/invites'
-import { InviteEntity, PaginatedInvites } from '@/types/company'
 import { CustomSession } from '@/types/auth'
+import { InviteEntity, PaginatedInvites } from '@/types/company'
 
-export function useInvites(page = 1) {
+export function useInvites() {
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
   const [items, setItems] = useState<InviteEntity[]>([])
   const [total, setTotal] = useState(0)
+  const [page, setPage] = useState(1)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setPage(1)
+    setItems([])
+    setTotal(0)
+  }, [adminCompanyId])
 
   const fetch = useCallback(async () => {
     setLoading(true)
@@ -44,13 +51,15 @@ export function useInvites(page = 1) {
   }, [data, page, adminCompanyId])
 
   useEffect(() => {
-    if (status === 'authenticated') fetch()
-    else if (status === 'unauthenticated') {
+    if (status === 'unauthenticated') {
       setItems([])
       setTotal(0)
+      setPage(1)
       setError(null)
       setLoading(false)
+      return
     }
+    if (status === 'authenticated') fetch()
   }, [fetch, status])
 
   const handleResend = useCallback(
@@ -81,5 +90,5 @@ export function useInvites(page = 1) {
     [data, adminCompanyId]
   )
 
-  return { items, total, loading, error, refetch: fetch, handleResend, handleCancel }
+  return { items, total, page, setPage, loading, error, refetch: fetch, handleResend, handleCancel }
 }
