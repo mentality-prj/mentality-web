@@ -34,10 +34,11 @@ export function useFavorite(itemType: ItemType, itemId?: string, initial = false
 
   useEffect(() => {
     // refresh when itemId or session becomes available
+    if (initial) return
     if (!itemId) return
     if (!session) return
     void refresh()
-  }, [itemId, session, refresh])
+  }, [itemId, session, refresh, initial])
 
   return { isFavorite, setIsFavorite, refresh, loading, favorite: favoriteEntry }
 }
