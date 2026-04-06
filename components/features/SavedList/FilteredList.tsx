@@ -3,7 +3,7 @@ import { ComponentType, ReactNode } from 'react'
 import AffirmationCard from '@/components/features/Affirmations/AffirmationCard'
 import ExerciseCard from '@/components/features/Exercises/ExerciseCard'
 import TipCard from '@/components/features/Tips/TipCard'
-import FavoriteButton from '@/components/shared/Buttons/FavoriteButton'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import CardsList from '@/components/shared/Cards/CardsList'
 import { useSavedFilters } from '@/context/savedFilterContext'
 import { AffirmationEntity, ExerciseEntity, FavoriteEntity, TipEntity } from '@/types/api-responses'
@@ -64,9 +64,7 @@ export const FilteredList = ({ items }: Props) => {
 
   const renderTools = (fav: FavoriteEntity) => {
     const typePlural = normalizePluralType(fav)
-    return (
-      <FavoriteButton itemType={typePlural} itemId={String(fav.itemId ?? fav.item?.id ?? fav.id)} isFavorite={true} />
-    )
+    return <FavoriteButtonWrapper itemType={typePlural} itemId={String(fav.itemId ?? fav.item?.id ?? fav.id)} />
   }
 
   return (

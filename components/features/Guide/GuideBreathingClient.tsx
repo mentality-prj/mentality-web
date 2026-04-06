@@ -2,8 +2,10 @@ import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import ExerciseCard from '@/components/features/Exercises/ExerciseCard'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { fetchExercisesItems } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
+import ITEM_TYPE_DEFS from '@/types/itemTypes'
 
 export default async function GuideBreathingClient() {
   const session = await auth()
@@ -20,9 +22,10 @@ export default async function GuideBreathingClient() {
   return (
     <ul className="grid grid-cols-1 gap-sm sm:grid-cols-2 lg:grid-cols-3">
       {breathing.map((m) => {
+        const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.exercises} itemId={String(m.id)} />
         return (
           <li key={String(m.id)} className="h-full">
-            <ExerciseCard item={m} />
+            <ExerciseCard item={m} tools={tools} />
           </li>
         )
       })}
