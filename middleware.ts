@@ -66,13 +66,15 @@ function buildCspHeader(): string {
     // A nonce-based approach would allow removing it, but Next.js does not yet
     // provide a stable nonce injection mechanism without a custom server setup.
     // 'unsafe-eval' is additionally required in development for webpack HMR/eval.
-    isProduction ? "script-src 'self' 'unsafe-inline'" : "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+    isProduction
+      ? "script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/"
+      : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/",
     // fonts.googleapis.com hosts the @font-face stylesheet imported in globals.css
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://images.pexels.com https://fakestoreapi.com https://via.placeholder.com",
     // In development, Next.js HMR uses a WebSocket connection that must be
     // explicitly allowed; the ws: scheme is separate from https:.
-    `connect-src 'self'${connectSrcExtra} https://oauth2.googleapis.com https://accounts.google.com${isProduction ? '' : ' ws:'}`,
+    `connect-src 'self'${connectSrcExtra} https://oauth2.googleapis.com https://accounts.google.com https://www.google.com/recaptcha/${isProduction ? '' : ' ws:'}`,
     // fonts.gstatic.com serves the actual font binary files
     "font-src 'self' https://fonts.gstatic.com",
     // style-src-attr must be set explicitly because Chrome 94+ treats it as a
@@ -81,7 +83,7 @@ function buildCspHeader(): string {
     // set via JavaScript). Without this directive the positioning styles are
     // blocked in Chromium browsers, causing dropdowns/popovers to not open.
     "style-src-attr 'unsafe-inline'",
-    "frame-src 'none'",
+    'frame-src https://www.google.com/recaptcha/',
     "frame-ancestors 'none'",
     "form-action 'self'",
     "base-uri 'self'",
