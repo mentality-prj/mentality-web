@@ -1,0 +1,55 @@
+{
+  "loading": "Ładowanie statystyk...",
+  "error": "Nie udało się załadować statystyk. Spróbuj ponownie później.",
+  "streak": {
+    "current": "Obecna seria",
+    "longest": "Najdłuższa seria",
+    "totalRecords": "Łącznie wpisów"
+  },
+  "metrics": {
+    "title": "Średnie wskaźniki",
+    "allTime": "Cały czas",
+    "last7d": "7 dni",
+    "last30d": "30 dni",
+    "mood": "Nastrój",
+    "stress": "Stres",
+    "energy": "Energia",
+    "focus": "Skupienie",
+    "noData": "Brak danych za ten okres"
+  },
+  "trend": {
+    "title": "Trend 30-dniowy",
+    "noData": "Za mało danych do wyświetlenia wykresu"
+  },
+  "topTags": {
+    "title": "Popularne tagi",
+    "noData": "Nie zapisano jeszcze żadnych tagów"
+  },
+  "weekday": {
+    "title": "Nastrój według dnia tygodnia",
+    "days": {
+      "1": "Pon",
+      "2": "Wt",
+      "3": "Śr",
+      "4": "Czw",
+      "5": "Pt",
+      "6": "Sob",
+      "7": "Ndz"
+    }
+  },
+  "psyTests": {
+    "title": "Testy psychologiczne",
+    "score": "Wynik",
+    "totalTaken": "{count, plural, one {# test wykonany} few {# testy wykonane} other {# testów wykonanych}}",
+    "noResults": "Brak wyników",
+    "k10": {
+      "title": "K-10 (Dystres)"
+    },
+    "phq9": {
+      "title": "PHQ-9 (Depresja)"
+    },
+    "gad7": {
+      "title": "GAD-7 (Lęk)"
+    }
+  }
+}

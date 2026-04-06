@@ -1,28 +1,25 @@
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
-import { ChartDynamics } from '@/components/features/MyProgress/ChartDynamics'
-import { Calendar } from '@/components/shared/Calendar'
-import { HeartHandsEmoji } from '@/ds/icons/emoji/heart-hands'
+import { auth } from '@/auth'
+import { UserStatistics } from '@/components/features/Statistics/UserStatistics'
+import { getMoodStatistics, getPsyTestsStatistics } from '@/requests/userStatistics'
 
-export default function MyProgressStatisticsPage() {
-  const t = useTranslations()
-  return (
-    <div className="flex flex-col gap-default">
-      <div className="grid grid-cols-2 gap-sm">
-        <Calendar
-          title={t('components.Calendar.title', { type: 'myProgress' })}
-          subtitle={
-            <p className="flex items-center gap-1 text-xs text-textcolor-secondary">
-              <HeartHandsEmoji />
-              {t('components.Calendar.subtitle', { type: 'myProgress' })}
-            </p>
-          }
-          activeLabel={t('components.Calendar.daysWithActivity', { type: 'myProgress' })}
-          inactiveLabel={t('components.Calendar.daysWithoutActivity', { type: 'myProgress' })}
-          selectedDays={[new Date()]}
-        />
+export default async function MyProgressStatisticsPage() {
+  const session = await auth()
+  const t = await getTranslations('components.UserStatistics')
+
+  const [moodRes, psyRes] = await Promise.all([getMoodStatistics(session), getPsyTestsStatistics(session)])
+
+  const mood = 'data' in moodRes ? moodRes.data : null
+  const psyTests = 'data' in psyRes ? psyRes.data : null
+
+  if (!mood) {
+    return (
+      <div className="flex items-center justify-center py-16">
+        <span className="text-textcolor-secondary">{t('error')}</span>
       </div>
-      <ChartDynamics />
-    </div>
-  )
+    )
+  }
+
+  return <UserStatistics mood={mood} psyTests={psyTests} />
 }
