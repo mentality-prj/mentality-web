@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { getLocale, getTranslations } from 'next-intl/server'
+import { getTranslations } from 'next-intl/server'
 
 import { MoodRecordEntity } from '@/types/api-responses'
 
@@ -34,7 +34,6 @@ const mockRecord = (overrides?: Partial<MoodRecordEntity>): MoodRecordEntity => 
 })
 
 beforeEach(() => {
-  ;(getLocale as jest.Mock).mockResolvedValue('en')
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string, params?: Record<string, unknown>) => {
     if (params) return `${key}:${JSON.stringify(params)}`
     return key

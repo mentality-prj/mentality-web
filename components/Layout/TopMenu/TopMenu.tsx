@@ -29,7 +29,7 @@ const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
             <Link
               key={item.key}
               href={item.href}
-              className={`flex items-center gap-1 transition-colors ${item.key !== 'my-day' && 'hidden desktop:flex'} ${textColor} ${isActive ? 'font-semibold' : ''}`}
+              className={`flex items-center gap-1 transition-colors ${item.key !== 'my-day' ? 'hidden desktop:flex' : ''} ${textColor} ${isActive ? 'font-semibold' : ''}`}
               aria-current={isActive ? 'page' : undefined}
             >
               {item.icon && iconMap[item.icon]}
