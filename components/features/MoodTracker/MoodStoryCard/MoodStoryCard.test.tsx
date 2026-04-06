@@ -3,7 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
-import { resolveActionRoute, resolveActionRouteFromString } from '@/helpers/moodStory.helpers'
+import { resolveActionRoute } from '@/helpers/moodStory.helpers'
 import { getLatestMoodStory } from '@/requests/moodStory'
 import { MoodStoryScreenEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -192,41 +192,5 @@ describe('resolveActionRoute', () => {
 
   it('resolves checkin action', () => {
     expect(resolveActionRoute({ type: 'checkin', label: 'Check in' })).toBe('/mood-tracker')
-  })
-
-  it('resolves exercise without category', () => {
-    expect(resolveActionRoute({ type: 'exercise', label: 'Exercise' })).toBe('/guide')
-  })
-})
-
-describe('resolveActionRouteFromString (legacy)', () => {
-  it.each<[string, string, string]>([
-    // Ukrainian
-    ['UK – breathing', 'Дихальні вправи', '/guide'],
-    ['UK – meditation', 'Медитація зараз', '/guide/meditations'],
-    ['UK – exercises', 'Виконай вправи', '/guide'],
-    ['UK – stress', 'Стрес і тривога', '/mood-tracker'],
-    ['UK – mood', 'Відстежуй свій настрій', '/mood-tracker'],
-    ['UK – sleep', 'Кращий сон щоночі', '/guide'],
-    // English
-    ['EN – breathing', 'Breathing exercise for calm', '/guide'],
-    ['EN – meditation', 'Meditation for better sleep', '/guide/meditations'],
-    ['EN – exercise', 'Try an exercise routine', '/guide'],
-    ['EN – stress', 'Managing stress levels', '/mood-tracker'],
-    ['EN – mood', 'Improve your mood today', '/mood-tracker'],
-    ['EN – sleep', 'Better sleep and rest', '/guide'],
-    // Polish
-    ['PL – breathing', 'Technika oddechowa', '/guide'],
-    ['PL – meditation', 'Medytacja przed snem', '/guide/meditations'],
-    ['PL – exercise', 'Ćwiczenia relaksacyjne', '/guide'],
-    ['PL – stress', 'Radzenie ze stresem', '/mood-tracker'],
-    ['PL – mood', 'Nastrój dzisiaj', '/mood-tracker'],
-    ['PL – sleep', 'Techniki snu i relaksu', '/guide'],
-  ])('maps action correctly: %s', (_label, action, expected) => {
-    expect(resolveActionRouteFromString(action)).toBe(expected)
-  })
-
-  it('returns null for an unknown action', () => {
-    expect(resolveActionRouteFromString('__unknown_action_xyz__')).toBeNull()
   })
 })

@@ -37,6 +37,7 @@ export function useMoodStory() {
   const pollStartRef = useRef<number | null>(null)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const fetchIdRef = useRef(0)
+  const fetchRecommendedIdRef = useRef(0)
   const pendingFetchRef = useRef(false)
 
   const clearTimer = useCallback(() => {
@@ -48,39 +49,43 @@ export function useMoodStory() {
 
   const fetchRecommended = useCallback(
     async (story: MoodStoryEntity) => {
-      if (!session) return
+      const id = ++fetchRecommendedIdRef.current
+
+      if (!session) {
+        setRecommended({})
+        setRecommendedLoading(false)
+        return
+      }
 
       const { recommendedAffirmationId, recommendedTipId, recommendedExerciseId } = story
-      if (!recommendedAffirmationId && !recommendedTipId && !recommendedExerciseId) return
-
+      if (!recommendedAffirmationId && !recommendedTipId && !recommendedExerciseId) {
+        setRecommended({})
+        setRecommendedLoading(false)
+        return
+      }
       setRecommendedLoading(true)
       const typedSession = session as CustomSession
 
-      const results = await Promise.allSettled([
-        recommendedAffirmationId ? getAffirmationById(typedSession, recommendedAffirmationId) : null,
-        recommendedTipId ? getTipById(typedSession, recommendedTipId) : null,
-        recommendedExerciseId ? getExerciseById(typedSession, recommendedExerciseId) : null,
-      ])
+      try {
+        const [affirmationResult, tipResult, exerciseResult] = await Promise.all([
+          recommendedAffirmationId ? getAffirmationById(typedSession, recommendedAffirmationId) : null,
+          recommendedTipId ? getTipById(typedSession, recommendedTipId) : null,
+          recommendedExerciseId ? getExerciseById(typedSession, recommendedExerciseId) : null,
+        ])
 
-      const items: RecommendedItems = {}
+        if (id !== fetchRecommendedIdRef.current) return
 
-      const affirmationResult = results[0]
-      if (affirmationResult.status === 'fulfilled' && affirmationResult.value && 'data' in affirmationResult.value) {
-        items.affirmation = affirmationResult.value.data
+        const items: RecommendedItems = {}
+        if (affirmationResult && 'data' in affirmationResult) items.affirmation = affirmationResult.data
+        if (tipResult && 'data' in tipResult) items.tip = tipResult.data
+        if (exerciseResult && 'data' in exerciseResult) items.exercise = exerciseResult.data
+
+        setRecommended(items)
+      } finally {
+        if (id === fetchRecommendedIdRef.current) {
+          setRecommendedLoading(false)
+        }
       }
-
-      const tipResult = results[1]
-      if (tipResult.status === 'fulfilled' && tipResult.value && 'data' in tipResult.value) {
-        items.tip = tipResult.value.data
-      }
-
-      const exerciseResult = results[2]
-      if (exerciseResult.status === 'fulfilled' && exerciseResult.value && 'data' in exerciseResult.value) {
-        items.exercise = exerciseResult.value.data
-      }
-
-      setRecommended(items)
-      setRecommendedLoading(false)
     },
     [session]
   )
@@ -140,7 +145,9 @@ export function useMoodStory() {
   const retry = useCallback(() => {
     clearTimer()
     pollStartRef.current = null
+    fetchRecommendedIdRef.current += 1
     setRecommended({})
+    setRecommendedLoading(false)
     fetchStory(false)
   }, [clearTimer, fetchStory])
 

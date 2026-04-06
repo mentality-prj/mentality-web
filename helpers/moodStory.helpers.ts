@@ -1,19 +1,30 @@
-import { ACTION_ROUTES, ACTION_TYPE_ROUTES, EXERCISE_CATEGORY_ROUTES } from '@/constants/moodStory'
-import { MoodStoryAction } from '@/types/api-responses'
+import { Routes } from '@/constants/routes'
+import { MoodStoryAction, MoodStoryActionType } from '@/types/api-responses'
 
-export function resolveActionRoute(action: MoodStoryAction): string | null {
-  if (action.type === 'exercise' && action.category) {
-    const categoryRoute = EXERCISE_CATEGORY_ROUTES[action.category]
-    if (categoryRoute) return categoryRoute
+function routeForActionType(type: MoodStoryActionType): string | null {
+  switch (type) {
+    case 'exercise':
+      return Routes.GUIDE
+    case 'sleep':
+      return Routes.GUIDE
+    case 'checkin':
+      return Routes.MOODTRACKER
+    default:
+      return null
   }
-
-  return ACTION_TYPE_ROUTES[action.type] ?? null
 }
 
-/** @deprecated Use resolveActionRoute with MoodStoryAction instead */
-export function resolveActionRouteFromString(action: string): string | null {
-  for (const [pattern, route] of ACTION_ROUTES) {
-    if (pattern.test(action)) return route
+export function resolveActionRoute(action: MoodStoryAction): string | null {
+  if (action.type === 'exercise') {
+    switch (action.category) {
+      case 'breathing':
+        return Routes.GUIDE
+      case 'meditation':
+        return Routes.MEDITATIONS
+      case 'calming':
+        return Routes.GUIDE
+    }
   }
-  return null
+
+  return routeForActionType(action.type)
 }

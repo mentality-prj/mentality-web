@@ -10,6 +10,7 @@ import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoal
 import { DailyStatistics } from '@/components/features/Statistics/DailyStatistics/DailyStatistics'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
+import { logger } from '@/lib/logger'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
@@ -27,7 +28,9 @@ const MyDay = async () => {
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
     const res = await getMoodRecords(session)
-    if (!('error' in res)) {
+    if ('error' in res) {
+      logger.warn('Failed to load mood records for summary on my-day page', { error: res.error })
+    } else {
       const { moodNotes } = res.data
       moodCounts = mapMoodRecordsToCounts(moodNotes ?? [])
     }

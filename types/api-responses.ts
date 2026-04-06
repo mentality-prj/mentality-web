@@ -182,11 +182,22 @@ export type MoodStoryLocalizedString = Record<SupportedLanguage, string>
 
 export type MoodStoryActionType = 'exercise' | 'sleep' | 'checkin'
 
-export type MoodStoryAction = {
-  type: MoodStoryActionType
-  category?: string
+export type MoodStoryExerciseAction = {
+  type: 'exercise'
+  category: ExerciseCategory
   label: string
 }
+export type MoodStorySleepAction = {
+  type: 'sleep'
+  category?: never
+  label: string
+}
+export type MoodStoryCheckinAction = {
+  type: 'checkin'
+  category?: never
+  label: string
+}
+export type MoodStoryAction = MoodStoryExerciseAction | MoodStorySleepAction | MoodStoryCheckinAction
 
 export type MoodStoryScreenEntity = {
   title: MoodStoryLocalizedString

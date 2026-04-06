@@ -18,6 +18,7 @@
   },
   "admin": {
     "refreshCta": "Refresh Mood Story",
-    "regenerateCta": "Regenerate Story"
+    "regenerateCta": "Regenerate Mood Story",
+    "regenerateError": "Failed to regenerate Mood Story"
   }
 }
