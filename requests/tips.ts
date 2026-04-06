@@ -123,3 +123,21 @@ export async function updateTip(
   logger.info('Tip updated', { id })
   return { data: res.data }
 }
+
+export async function getTipById(
+  session: CustomSession | null,
+  id: string
+): Promise<{ data: TipEntity } | { error: string }> {
+  const res = await performAuthRequest<TipEntity>(session, `${APIUrl}/tips/${id}`, { method: 'GET' })
+
+  if ('error' in res) {
+    logger.error('Failed to get tip by id', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  if (!res.data) {
+    return { error: 'Tip not found' }
+  }
+
+  return { data: res.data }
+}

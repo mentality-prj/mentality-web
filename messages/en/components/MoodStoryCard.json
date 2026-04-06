@@ -17,6 +17,8 @@
     "nextAriaLabel": "Next screen"
   },
   "admin": {
-    "refreshCta": "Refresh Mood Story"
+    "refreshCta": "Refresh Mood Story",
+    "regenerateCta": "Regenerate Mood Story",
+    "regenerateError": "Failed to regenerate Mood Story"
   }
 }

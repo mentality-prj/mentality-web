@@ -1,6 +1,6 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
 import { ENERGIES } from '@/constants/energy'
@@ -15,6 +15,7 @@ type Props = {
 }
 
 export function MoodRecordsList({ records }: Props) {
+  const locale = useLocale()
   const t = useTranslations('components.Mood')
   const commonGeneral = useTranslations('common.General')
   const ts = useTranslations('components.StressLevelScale')
@@ -29,7 +30,7 @@ export function MoodRecordsList({ records }: Props) {
         const moodInfo = MOODS[moodIndex - 1]
         const IconComponent = moodInfo.icon
         const label = t(moodInfo.label as string)
-        const date = r.createdAt ? new Date(r.createdAt).toLocaleString() : ''
+        const date = r.createdAt ? new Date(r.createdAt).toLocaleString(locale) : ''
 
         const stressInfo = STRESSES.find((s) => s.value === r.stressLevel) ?? STRESSES[0]
         const energyInfo = ENERGIES.find((e) => e.value === r.energyLevel) ?? ENERGIES[2]

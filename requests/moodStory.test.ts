@@ -1,6 +1,6 @@
 import { MOOD_STORY_ENDPOINTS } from '@/constants/endpoints'
-import { performAuthRequest } from '@/requests/genericFetch'
-import { getLatestMoodStory } from '@/requests/moodStory'
+import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { getLatestMoodStory, regenerateMoodStory } from '@/requests/moodStory'
 import { MoodStoryEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
@@ -18,9 +18,11 @@ const mockStory: MoodStoryEntity = {
     {
       title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
       text: { en: 'More text', uk: 'Більше тексту', pl: 'Więcej tekstu' },
-      action: 'Дихальні вправи',
+      action: { type: 'exercise', category: 'breathing', label: 'Спробуй дихальну вправу' },
     },
   ],
+  recommendedAffirmationId: '65aa50d9fc13ae44e8000002',
+  recommendedExerciseId: '65aa50d9fc13ae44e8000001',
 }
 
 beforeEach(() => {
@@ -84,5 +86,59 @@ describe('getLatestMoodStory', () => {
 
     expect(result).toEqual({ data: mockStory })
     expect(performAuthRequest).toHaveBeenCalledWith(null, expect.any(String), expect.any(Object))
+  })
+})
+
+const mockAdminSession: CustomSession = {
+  user: { email: 'admin@test.com', role: 'admin' as const },
+  OAuthToken: 'mock-admin-token',
+  expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
+}
+
+describe('regenerateMoodStory', () => {
+  it('returns data on success', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockStory })
+
+    const result = await regenerateMoodStory(mockAdminSession)
+
+    expect(result).toEqual({ data: mockStory })
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(MOOD_STORY_ENDPOINTS.REGENERATE),
+      expect.objectContaining({ method: 'POST' })
+    )
+  })
+
+  it('returns error when performAdminRequest fails', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Unauthorized: Admin role required' })
+
+    const result = await regenerateMoodStory(mockAdminSession)
+
+    expect(result).toEqual({ error: 'Unauthorized: Admin role required' })
+  })
+
+  it('returns error when server returns null data', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: null })
+
+    const result = await regenerateMoodStory(mockAdminSession)
+
+    expect(result).toEqual({ error: 'No mood story returned from server' })
+  })
+
+  it('returns error when called with null session', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Unauthorized: Admin role required' })
+
+    const result = await regenerateMoodStory(null)
+
+    expect(result).toEqual({ error: 'Unauthorized: Admin role required' })
+    expect(performAdminRequest).toHaveBeenCalledWith(null, expect.any(String), expect.any(Object))
+  })
+
+  it('returns error when called with non-admin session', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Unauthorized: Admin role required' })
+
+    const result = await regenerateMoodStory(mockSession)
+
+    expect(result).toEqual({ error: 'Unauthorized: Admin role required' })
   })
 })

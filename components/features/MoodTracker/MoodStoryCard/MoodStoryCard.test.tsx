@@ -50,7 +50,7 @@ const mockScreens: MoodStoryScreenEntity[] = [
   {
     title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
     text: { en: 'Second screen text', uk: 'Текст другого екрану', pl: 'Tekst drugiego ekranu' },
-    action: 'Explore exercises',
+    action: { type: 'exercise', category: 'breathing', label: 'Спробуй дихальну вправу' },
   },
 ]
 
@@ -176,33 +176,21 @@ describe('MoodStoryCard', () => {
 })
 
 describe('resolveActionRoute', () => {
-  it.each<[string, string, string]>([
-    // Ukrainian
-    ['UK – breathing', 'Дихальні вправи', '/guide'],
-    ['UK – meditation', 'Медитація зараз', '/guide/meditations'],
-    ['UK – exercises', 'Виконай вправи', '/guide'],
-    ['UK – stress', 'Стрес і тривога', '/mood-tracker'],
-    ['UK – mood', 'Відстежуй свій настрій', '/mood-tracker'],
-    ['UK – sleep', 'Кращий сон щоночі', '/guide'],
-    // English
-    ['EN – breathing', 'Breathing exercise for calm', '/guide'],
-    ['EN – meditation', 'Meditation for better sleep', '/guide/meditations'],
-    ['EN – exercise', 'Try an exercise routine', '/guide'],
-    ['EN – stress', 'Managing stress levels', '/mood-tracker'],
-    ['EN – mood', 'Improve your mood today', '/mood-tracker'],
-    ['EN – sleep', 'Better sleep and rest', '/guide'],
-    // Polish
-    ['PL – breathing', 'Technika oddechowa', '/guide'],
-    ['PL – meditation', 'Medytacja przed snem', '/guide/meditations'],
-    ['PL – exercise', 'Ćwiczenia relaksacyjne', '/guide'],
-    ['PL – stress', 'Radzenie ze stresem', '/mood-tracker'],
-    ['PL – mood', 'Nastrój dzisiaj', '/mood-tracker'],
-    ['PL – sleep', 'Techniki snu i relaksu', '/guide'],
-  ])('maps action correctly: %s', (_label, action, expected) => {
-    expect(resolveActionRoute(action)).toBe(expected)
+  it('resolves exercise with category', () => {
+    expect(resolveActionRoute({ type: 'exercise', category: 'breathing', label: 'Breathe' })).toBe('/guide')
   })
 
-  it('returns null for an unknown action', () => {
-    expect(resolveActionRoute('__unknown_action_xyz__')).toBeNull()
+  it('resolves exercise with meditation category', () => {
+    expect(resolveActionRoute({ type: 'exercise', category: 'meditation', label: 'Meditate' })).toBe(
+      '/guide/meditations'
+    )
+  })
+
+  it('resolves sleep action', () => {
+    expect(resolveActionRoute({ type: 'sleep', label: 'Better sleep' })).toBe('/guide')
+  })
+
+  it('resolves checkin action', () => {
+    expect(resolveActionRoute({ type: 'checkin', label: 'Check in' })).toBe('/mood-tracker')
   })
 })

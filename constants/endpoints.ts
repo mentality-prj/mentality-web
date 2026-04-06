@@ -1,5 +1,6 @@
 export const MOOD_STORY_ENDPOINTS = Object.freeze({
   LATEST: '/mood-story/latest',
+  REGENERATE: '/mood-story/regenerate',
 })
 
 export const MOOD_RECORD_ENDPOINTS = Object.freeze({

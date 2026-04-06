@@ -17,6 +17,8 @@
     "nextAriaLabel": "Наступний екран"
   },
   "admin": {
-    "refreshCta": "Оновити Mood Story"
+    "refreshCta": "Оновити Mood Story",
+    "regenerateCta": "Перегенерувати Mood Story",
+    "regenerateError": "Не вдалося перегенерувати Mood Story"
   }
 }

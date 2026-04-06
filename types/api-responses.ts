@@ -180,12 +180,34 @@ export type DiaryEntity = {
 // Mood Story
 export type MoodStoryLocalizedString = Record<SupportedLanguage, string>
 
+export type MoodStoryActionType = 'exercise' | 'sleep' | 'checkin'
+
+export type MoodStoryExerciseAction = {
+  type: 'exercise'
+  category: ExerciseCategory
+  label: string
+}
+export type MoodStorySleepAction = {
+  type: 'sleep'
+  category?: never
+  label: string
+}
+export type MoodStoryCheckinAction = {
+  type: 'checkin'
+  category?: never
+  label: string
+}
+export type MoodStoryAction = MoodStoryExerciseAction | MoodStorySleepAction | MoodStoryCheckinAction
+
 export type MoodStoryScreenEntity = {
   title: MoodStoryLocalizedString
   text: MoodStoryLocalizedString
-  action?: string
+  action?: MoodStoryAction
 }
 
 export type MoodStoryEntity = {
   screens: MoodStoryScreenEntity[]
+  recommendedAffirmationId?: string
+  recommendedTipId?: string
+  recommendedExerciseId?: string
 }
