@@ -1,6 +1,6 @@
 'use client'
 
-import { useLocale, useTranslations } from 'next-intl'
+import { useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
 import { ENERGIES } from '@/constants/energy'
