@@ -17,7 +17,7 @@ export default function CardsList<
   getKey,
   renderTools,
   className = '',
-  gridClassName = 'grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2 lg:grid-cols-2',
+  gridClassName = 'grid grid-cols-1 items-stretch gap-sm sm:grid-cols-2',
 }: CardsListProps<T>) {
   const keyFn = getKey || ((item: T) => String(item.id ?? item.key ?? Math.random()))
 
