@@ -206,9 +206,9 @@ body {
 
 @layer base {
   :root {
-    :disabled {
+    /* :disabled {
       opacity: 1 !important;
-    }
+    } */
 
     --reversed: var(--text-inverse);
 
@@ -350,7 +350,7 @@ body {
   }
 
   .padded {
-    @apply px-8 py-3;
+    @apply px-4 py-3 md:px-8;
   }
 
   /* Typography */
