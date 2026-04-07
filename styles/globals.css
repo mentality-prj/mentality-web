@@ -176,6 +176,9 @@ body {
   .shadow-dark {
     text-shadow: 0 -1px 0 hsla(220, 18%, 14%, 0.8);
   }
+  .text-shadow-none {
+    text-shadow: none;
+  }
 
   .scrollbar-styled {
     scrollbar-width: auto;

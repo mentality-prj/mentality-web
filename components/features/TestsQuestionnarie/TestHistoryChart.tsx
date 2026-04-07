@@ -13,12 +13,12 @@ interface HistoryEntry {
 
 function buildStubHistory(maxScore: number): HistoryEntry[] {
   const base = new Date()
-  const weekMs = 7 * 24 * 60 * 60 * 1000
+  const monthMs = 30 * 24 * 60 * 60 * 1000
   const start = Math.round(maxScore * 0.7)
   const end = Math.round(maxScore * 0.3)
   const step = Math.round((start - end) / 4)
   return [start, start - step, start - step * 2, start - step * 3, end].map((score, i) => ({
-    date: new Date(base.getTime() - (4 - i) * weekMs).toISOString(),
+    date: new Date(base.getTime() - (4 - i) * monthMs).toISOString(),
     score,
   }))
 }

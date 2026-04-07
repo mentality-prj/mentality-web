@@ -24,7 +24,7 @@ export function QuestionStep({
   const progress = ((step + 1) / total) * 100
 
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-sm">
       {/* Progress bar */}
       <div className="flex flex-col gap-1.5">
         <span className="text-xs text-textcolor-secondary">{stepLabel}</span>

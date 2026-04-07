@@ -1,5 +1,6 @@
-import { ArrowRight, CheckCircle2 } from 'lucide-react'
+import { ArrowRight, Check, CheckCheck } from 'lucide-react'
 
+import Card from '@/components/shared/Cards/Card'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/ui/button'
 
@@ -9,32 +10,45 @@ type NextTestBannerProps = {
   description: string
   hint: string
   cta: string
-  /** undefined means this is the last test — CTA button is hidden */
   nextHref?: string
+  /** When true, shows the CheckCheck icon (all tests completed). Defaults to false. */
+  isDone?: boolean
 }
 
-export function NextTestBanner({ label, title, description, hint, cta, nextHref }: NextTestBannerProps) {
-  const isDone = !nextHref
-
+export function NextTestBanner({
+  label,
+  title,
+  description,
+  hint,
+  cta,
+  nextHref,
+  isDone = false,
+}: NextTestBannerProps) {
   return (
-    <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-      <div className="flex items-start gap-3">
-        <CheckCircle2 size={20} className={isDone ? 'mt-0.5 shrink-0 text-success' : 'mt-0.5 shrink-0 text-primary'} />
-        <div className="flex flex-col gap-1">
-          <span className="text-xs font-medium uppercase tracking-wide text-textcolor-secondary">{label}</span>
-          <span className="font-semibold text-textcolor-primary">{title}</span>
-          <p className="text-sm text-textcolor-secondary">{description}</p>
-          {hint && <p className="text-textcolor-tertiary text-xs italic">{hint}</p>}
+    <Card type="info">
+      <div className="flex flex-row items-start gap-xs text-sm">
+        <div className="h-8 w-8">
+          {isDone ? (
+            <CheckCheck size={32} className="text-white opacity-50" />
+          ) : (
+            <Check size={32} className="text-white opacity-50" />
+          )}
+        </div>
+        <div className="mt-1 flex flex-col gap-sm">
+          <h5 className="remark">{label}</h5>
+          <h4>{title}</h4>
+          <p>{description}</p>
+          {hint && <p className="remark">{hint}</p>}
+          {nextHref && (
+            <Button asChild className="text-shadow-none">
+              <Link href={nextHref}>
+                {cta}
+                <ArrowRight size={16} className="ml-1.5" />
+              </Link>
+            </Button>
+          )}
         </div>
       </div>
-      {!isDone && (
-        <Button asChild variant="default" className="shrink-0">
-          <Link href={nextHref}>
-            {cta}
-            <ArrowRight size={16} className="ml-1.5" />
-          </Link>
-        </Button>
-      )}
-    </div>
+    </Card>
   )
 }

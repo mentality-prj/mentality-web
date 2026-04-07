@@ -15,7 +15,7 @@ export default function AdminDsPage() {
 
   return (
     <>
-      <div className="mb-8 grid gap-6 laptop:grid-cols-2">
+      <div className="mb-8 grid gap-sm laptop:grid-cols-2">
         <Card type="ghost">
           <ButtonShowcase />
         </Card>

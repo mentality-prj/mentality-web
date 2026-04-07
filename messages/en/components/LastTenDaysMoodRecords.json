@@ -1,4 +1,9 @@
 {
   "title": "Mood records created",
-  "content": "in the last 10 days"
+  "content": "over the last 10 days",
+  "status": {
+    "done": "Completed",
+    "missed": "Missed",
+    "today": "Today"
+  }
 }

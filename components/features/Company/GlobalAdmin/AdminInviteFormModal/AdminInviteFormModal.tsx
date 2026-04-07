@@ -42,7 +42,7 @@ export function AdminInviteFormModal({ companyId, onInvited }: Props) {
               title={<span id="invite-modal-title">{t('inviteTitle')}</span>}
               tools={<CloseIconButton onClick={handleClose} />}
             >
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-sm">
                 <AdminInviteEmployeeForm companyId={companyId} onInvited={handleInvited} />
                 <hr className="border-border" />
                 <AdminAssignManagerForm companyId={companyId} />

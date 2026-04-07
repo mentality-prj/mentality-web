@@ -67,6 +67,9 @@ export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecor
                 )}
               >
                 {isDone && <Check size={12} strokeWidth={3} />}
+                <span className="sr-only">
+                  {isDone ? t('status.done') : isMissed ? t('status.missed') : t('status.today')}
+                </span>
               </div>
             </div>
           )
