@@ -40,7 +40,7 @@
   "psyTests": {
     "title": "Testy psychologiczne",
     "score": "Wynik",
-    "totalTaken": "{count, plural, one {# test wykonany} few {# testy wykonane} other {# testów wykonanych}}",
+    "totalTaken": "{count, plural, one {# test wykonany} few {# testy wykonane} many {# testów wykonanych} other {# testów wykonanych}}",
     "noResults": "Brak wyników",
     "k10": {
       "title": "K-10 (Dystres)"

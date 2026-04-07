@@ -4,10 +4,11 @@ import { useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
 import { Area, AreaChart, CartesianGrid, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
-import { DEFAULT_VISIBLE_METRICS, METRIC_KEYS, TREND_CHART_CONFIG } from '@/constants/userStatistics'
+import { DEFAULT_VISIBLE_METRICS, METRIC_KEYS } from '@/constants/userStatistics'
+import { parseLocalDate } from '@/helpers/userStatistics.helpers'
 import { SupportedLanguage } from '@/types/languages'
 import { DailyPoint, MetricKey } from '@/types/userStatistics'
-import { ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ui/chart'
+import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ui/chart'
 import { Switch } from '@/ui/switch'
 
 type TrendChartProps = {
@@ -19,6 +20,13 @@ export function TrendChart({ data }: TrendChartProps) {
   const locale = useLocale() as SupportedLanguage
 
   const [visibleMetrics, setVisibleMetrics] = useState<Record<MetricKey, boolean>>(DEFAULT_VISIBLE_METRICS)
+
+  const trendChartConfig = {
+    mood: { label: t('metrics.mood'), color: '#905FFF' },
+    stress: { label: t('metrics.stress'), color: '#B91C1C' },
+    energy: { label: t('metrics.energy'), color: '#D97706' },
+    focus: { label: t('metrics.focus'), color: '#2563EB' },
+  } satisfies ChartConfig
 
   const toggleMetric = (key: MetricKey) => {
     setVisibleMetrics((prev) => ({ ...prev, [key as MetricKey]: !prev[key as MetricKey] }))
@@ -39,7 +47,7 @@ export function TrendChart({ data }: TrendChartProps) {
 
       <div className="relative">
         <div className="border-outline-tertiary absolute h-[92%] w-full rounded-sm border" />
-        <ChartContainer config={TREND_CHART_CONFIG}>
+        <ChartContainer config={trendChartConfig}>
           <ResponsiveContainer width="100%" height={400}>
             <AreaChart margin={{ bottom: 56, top: 40, right: 25, left: -20 }} data={data}>
               <CartesianGrid vertical={false} />
@@ -49,12 +57,24 @@ export function TrendChart({ data }: TrendChartProps) {
                 axisLine={false}
                 tickMargin={56}
                 minTickGap={32}
-                tickFormatter={(value) =>
-                  new Date(value).toLocaleDateString(locale, { day: 'numeric', month: 'short' })
+                tickFormatter={(value: string) =>
+                  parseLocalDate(value).toLocaleDateString(locale, { day: 'numeric', month: 'short' })
                 }
               />
               <YAxis domain={[1, 5]} ticks={[1, 2, 3, 4, 5]} tickLine={false} axisLine={false} />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    labelFormatter={(value) =>
+                      parseLocalDate(String(value)).toLocaleDateString(locale, {
+                        day: 'numeric',
+                        month: 'short',
+                      })
+                    }
+                  />
+                }
+              />
               <defs>
                 {METRIC_KEYS.map((key) => (
                   <linearGradient key={key} id={`fill-${key}`} x1="0" y1="0" x2="0" y2="1">
@@ -85,7 +105,11 @@ export function TrendChart({ data }: TrendChartProps) {
       <div className="flex flex-wrap justify-end gap-sm pt-6">
         {METRIC_KEYS.map((key) => (
           <div key={key} className="flex items-center gap-xs">
-            <Switch checked={visibleMetrics[key as MetricKey]} onCheckedChange={() => toggleMetric(key)} />
+            <Switch
+              checked={visibleMetrics[key as MetricKey]}
+              onCheckedChange={() => toggleMetric(key)}
+              aria-label={t(`metrics.${key}`)}
+            />
             <span className="text-sm">{t(`metrics.${key}`)}</span>
           </div>
         ))}

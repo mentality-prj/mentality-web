@@ -129,8 +129,5 @@
   "files.exclude": {
     "**/.DS_Store": true,
     "**/node_modules": false
-  },
-  "chat.tools.terminal.autoApprove": {
-    "npx jest": true
   }
 }

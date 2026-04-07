@@ -1,4 +1,3 @@
-import { ChartConfig } from '@/ui/chart'
 import { MetricKey, PsyTestKey } from '@/types/userStatistics'
 
 /** Ordered list of metric keys used for iteration in cards and chart toggles. */
@@ -14,14 +13,6 @@ export const METRIC_COLORS: Record<MetricKey, string> = {
   energy: 'bg-amber-100 text-amber-700',
   focus: 'bg-blue-100 text-blue-700',
 }
-
-/** Recharts config for the 30-day trend area chart (label + color per metric). */
-export const TREND_CHART_CONFIG = {
-  mood: { label: 'Mood', color: '#905FFF' },
-  stress: { label: 'Stress', color: '#B91C1C' },
-  energy: { label: 'Energy', color: '#D97706' },
-  focus: { label: 'Focus', color: '#2563EB' },
-} satisfies ChartConfig
 
 /** Color and max-score per psychological test for LineChart rendering. */
 export const PSY_TEST_CONFIG: Record<PsyTestKey, { color: string; maxScore: number }> = {

@@ -40,7 +40,7 @@
   "psyTests": {
     "title": "Психологічні тести",
     "score": "Бали",
-    "totalTaken": "{count, plural, one {# тест пройдено} few {# тести пройдено} other {# тестів пройдено}}",
+    "totalTaken": "{count, plural, one {# тест пройдено} few {# тести пройдено} many {# тестів пройдено} other {# тестів пройдено}}",
     "noResults": "Результатів поки немає",
     "k10": {
       "title": "K-10 (Дистрес)"

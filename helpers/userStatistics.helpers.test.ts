@@ -1,4 +1,4 @@
-import { buildWeekdayMap, getMoodHeatmapColor, getTagBarWidthPercent } from '@/helpers/userStatistics.helpers'
+import { buildWeekdayMap, getMaxTagCount, getMoodHeatmapColor, parseLocalDate } from '@/helpers/userStatistics.helpers'
 import { TopTag, WeekdayAverage } from '@/types/userStatistics'
 
 describe('getMoodHeatmapColor', () => {
@@ -32,25 +32,50 @@ describe('getMoodHeatmapColor', () => {
   })
 })
 
-describe('getTagBarWidthPercent', () => {
+describe('getMaxTagCount', () => {
   const tags: TopTag[] = [
     { tag: 'work', count: 10 },
     { tag: 'sleep', count: 5 },
     { tag: 'sport', count: 2 },
   ]
 
-  it('returns 100 for the most frequent tag', () => {
-    expect(getTagBarWidthPercent(tags[0], tags)).toBe(100)
+  it('returns the highest count', () => {
+    expect(getMaxTagCount(tags)).toBe(10)
   })
 
-  it('returns correct percentage for other tags', () => {
-    expect(getTagBarWidthPercent(tags[1], tags)).toBe(50)
-    expect(getTagBarWidthPercent(tags[2], tags)).toBe(20)
+  it('returns 0 for an empty array', () => {
+    expect(getMaxTagCount([])).toBe(0)
   })
 
   it('returns 0 when all counts are 0', () => {
     const zeroTags: TopTag[] = [{ tag: 'a', count: 0 }]
-    expect(getTagBarWidthPercent(zeroTags[0], zeroTags)).toBe(0)
+    expect(getMaxTagCount(zeroTags)).toBe(0)
+  })
+})
+
+describe('parseLocalDate', () => {
+  it('parses YYYY-MM-DD as a local date', () => {
+    const date = parseLocalDate('2025-03-15')
+    expect(date.getFullYear()).toBe(2025)
+    expect(date.getMonth()).toBe(2) // March = 2
+    expect(date.getDate()).toBe(15)
+  })
+
+  it('does not shift the day regardless of timezone', () => {
+    const date = parseLocalDate('2025-01-01')
+    expect(date.getDate()).toBe(1)
+  })
+
+  it('passes full ISO datetime strings through to native Date', () => {
+    const iso = '2026-03-09T12:00:00.000Z'
+    const date = parseLocalDate(iso)
+    expect(date.getTime()).toBe(new Date(iso).getTime())
+  })
+
+  it('falls back to native Date for unexpected formats', () => {
+    const input = 'March 15, 2025'
+    const date = parseLocalDate(input)
+    expect(date.getTime()).toBe(new Date(input).getTime())
   })
 })
 

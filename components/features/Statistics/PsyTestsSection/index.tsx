@@ -4,6 +4,7 @@ import { useLocale, useTranslations } from 'next-intl'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, XAxis, YAxis } from 'recharts'
 
 import { PSY_TEST_CONFIG } from '@/constants/userStatistics'
+import { parseLocalDate } from '@/helpers/userStatistics.helpers'
 import { SupportedLanguage } from '@/types/languages'
 import { PsyTestBlock, PsyTestKey } from '@/types/userStatistics'
 import { Badge } from '@/ui/badge'
@@ -40,7 +41,7 @@ function TestCard({ testKey, block }: { testKey: PsyTestKey; block: PsyTestBlock
           <div className="flex flex-col">
             <Badge variant="secondary">{block.latest.level}</Badge>
             <span className="mt-1 text-xs text-textcolor-secondary">
-              {new Date(block.latest.date).toLocaleDateString(locale, {
+              {parseLocalDate(block.latest.date).toLocaleDateString(locale, {
                 day: 'numeric',
                 month: 'long',
                 year: 'numeric',
@@ -63,12 +64,25 @@ function TestCard({ testKey, block }: { testKey: PsyTestKey; block: PsyTestBlock
                 axisLine={false}
                 tickMargin={8}
                 minTickGap={40}
-                tickFormatter={(value) =>
-                  new Date(value).toLocaleDateString(locale, { day: 'numeric', month: 'short' })
+                tickFormatter={(value: string) =>
+                  parseLocalDate(value).toLocaleDateString(locale, { day: 'numeric', month: 'short' })
                 }
               />
               <YAxis domain={[0, config.maxScore]} tickLine={false} axisLine={false} />
-              <ChartTooltip cursor={false} content={<ChartTooltipContent />} />
+              <ChartTooltip
+                cursor={false}
+                content={
+                  <ChartTooltipContent
+                    labelFormatter={(value) =>
+                      parseLocalDate(String(value)).toLocaleDateString(locale, {
+                        day: 'numeric',
+                        month: 'long',
+                        year: 'numeric',
+                      })
+                    }
+                  />
+                }
+              />
               <Line
                 type="monotone"
                 dataKey="score"
