@@ -1,0 +1,55 @@
+{
+  "loading": "Loading statistics...",
+  "error": "Failed to load statistics. Please try again later.",
+  "streak": {
+    "current": "Current streak",
+    "longest": "Longest streak",
+    "totalRecords": "Total check-ins"
+  },
+  "metrics": {
+    "title": "Average metrics",
+    "allTime": "All time",
+    "last7d": "7 days",
+    "last30d": "30 days",
+    "mood": "Mood",
+    "stress": "Stress",
+    "energy": "Energy",
+    "focus": "Focus",
+    "noData": "No data for this period"
+  },
+  "trend": {
+    "title": "30-day trend",
+    "noData": "Not enough data to display the chart"
+  },
+  "topTags": {
+    "title": "Top tags",
+    "noData": "No tags recorded yet"
+  },
+  "weekday": {
+    "title": "Mood by day of week",
+    "days": {
+      "1": "Mon",
+      "2": "Tue",
+      "3": "Wed",
+      "4": "Thu",
+      "5": "Fri",
+      "6": "Sat",
+      "7": "Sun"
+    }
+  },
+  "psyTests": {
+    "title": "Psychological tests",
+    "score": "Score",
+    "totalTaken": "{count, plural, one {# test taken} other {# tests taken}}",
+    "noResults": "No results yet",
+    "k10": {
+      "title": "K-10 (Distress)"
+    },
+    "phq9": {
+      "title": "PHQ-9 (Depression)"
+    },
+    "gad7": {
+      "title": "GAD-7 (Anxiety)"
+    }
+  }
+}

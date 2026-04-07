@@ -36,6 +36,7 @@ import TenDaysSummary from './TenDaysSummary.json'
 import TextareaWithLabel from './TextareaWithLabel.json'
 import TodayMoodNotes from './TodayMoodNotes.json'
 import TodayObservations from './TodayObservations.json'
+import UserStatistics from './UserStatistics.json'
 import VoiceSelector from './VoiceSelector.json'
 
 export const components = {
@@ -78,4 +79,5 @@ export const components = {
   VoiceSelector,
   ContactForm,
   TestQuestionnaire,
+  UserStatistics,
 }

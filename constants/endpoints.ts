@@ -9,3 +9,8 @@ export const MOOD_RECORD_ENDPOINTS = Object.freeze({
   byId: (id: string) => `/mood-record/${id}`,
   setActive: (id: string) => `/mood-record/${id}/active`,
 })
+
+export const USER_STATISTICS_ENDPOINTS = Object.freeze({
+  MOOD: '/user-statistics/mood',
+  PSYTESTS: '/user-statistics/psytests',
+})
