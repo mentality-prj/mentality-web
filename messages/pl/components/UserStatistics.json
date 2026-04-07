@@ -43,13 +43,13 @@
     "totalTaken": "{count, plural, one {# test wykonany} few {# testy wykonane} many {# testów wykonanych} other {# testów wykonanych}}",
     "noResults": "Brak wyników",
     "k10": {
-      "title": "K-10 (Dystres)"
+      "title": "Stres i dobre samopoczucie"
     },
     "phq9": {
-      "title": "PHQ-9 (Depresja)"
+      "title": "Mentalny check-up"
     },
     "gad7": {
-      "title": "GAD-7 (Lęk)"
+      "title": "Poziom lęku"
     }
   }
 }

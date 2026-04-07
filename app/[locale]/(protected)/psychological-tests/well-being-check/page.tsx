@@ -2,13 +2,19 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
+import { NextTestBanner } from '@/components/features/PsychologicalTests/NextTestBanner'
 import { TestHistoryChart } from '@/components/features/TestsQuestionnarie/TestHistoryChart'
 import { TestPageGenerator } from '@/components/features/TestsQuestionnarie/TestPageGenerator'
 import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
 import { K10_LEVEL_MAP, K10_TEST_CONFIG } from '@/config/k10.config'
+import { Routes } from '@/constants/routes'
 
 export default async function TestGeneratorPage() {
-  const [session, t] = await Promise.all([auth(), getTranslations('pages.K10')])
+  const [session, t, tNext] = await Promise.all([
+    auth(),
+    getTranslations('pages.K10'),
+    getTranslations('pages.PsychologicalTests'),
+  ])
   const userId = session?.user?.id ?? ''
   const isAdmin = session?.user?.role === 'admin'
 
@@ -42,6 +48,14 @@ export default async function TestGeneratorPage() {
           <p className="text-sm text-textcolor-secondary">{t('page.description')}</p>
           <TestPageGenerator test={config} userId={userId} isAdmin={isAdmin} />
           <TestDisclaimer text={t('page.disclaimer')} />
+          <NextTestBanner
+            nextHref={Routes.ANXIETY_CHECK}
+            label={tNext('nextTest.well-being-check.label')}
+            title={tNext('nextTest.well-being-check.title')}
+            description={tNext('nextTest.well-being-check.description')}
+            hint={tNext('nextTest.well-being-check.hint')}
+            cta={tNext('nextTest.well-being-check.cta')}
+          />
         </div>
 
         {config.apiEndpoint && config.maxScore && (

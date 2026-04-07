@@ -1,3 +1,4 @@
+import { Check } from 'lucide-react'
 import { getLocale, getTranslations } from 'next-intl/server'
 
 import Card from '@/components/shared/Cards/Card'
@@ -44,9 +45,11 @@ export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecor
       <div className="flex w-full flex-row gap-1">
         {dates.map((date) => {
           const iso = date.toISOString().slice(0, 10)
-          const count = map[iso as string]
+          const dayCount = map[iso as string]
           const label = weekdayFormatter.format(date)
           const isToday = iso === todayIso
+          const isDone = typeof dayCount === 'number' && dayCount > 0
+          const isMissed = !isDone && !isToday
           return (
             <div
               key={iso}
@@ -57,7 +60,14 @@ export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecor
             >
               <div className="p-1 pb-0 text-sm">{date.getDate()}</div>
               <div className="p-1 text-xs">{label}</div>
-              <div className="success mt-2 w-full p-1">{typeof count === 'number' ? count : '\u2013'}</div>
+              <div
+                className={cn(
+                  'mt-2 flex h-5 w-full items-center justify-center',
+                  isDone ? 'success' : isMissed ? 'error' : ''
+                )}
+              >
+                {isDone && <Check size={12} strokeWidth={3} />}
+              </div>
             </div>
           )
         })}

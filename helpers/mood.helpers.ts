@@ -25,14 +25,26 @@ export const buildMoodMarksData = (records: any[] = []) => {
 }
 
 export const buildDailySummaries = (records: any[] = []) => {
-  const map = records.reduce<Record<string, number>>((acc, r) => {
+  const countMap = records.reduce<Record<string, number>>((acc, r) => {
     const created = r.createdAt ? new Date(r.createdAt).toISOString().slice(0, 10) : 'unknown'
     acc[created as string] = (acc[created as string] ?? 0) + 1
     return acc
   }, {})
 
-  return Object.entries(map)
-    .map(([date, records]) => ({ date, records }))
+  const stressSum = records.reduce<Record<string, number>>((acc, r) => {
+    const created = r.createdAt ? new Date(r.createdAt).toISOString().slice(0, 10) : 'unknown'
+    if (typeof r.stressLevel === 'number') {
+      acc[created as string] = (acc[created as string] ?? 0) + r.stressLevel
+    }
+    return acc
+  }, {})
+
+  return Object.entries(countMap)
+    .map(([date, count]) => ({
+      date,
+      records: count,
+      stress: stressSum[date] !== undefined ? Math.round((stressSum[date] / count) * 10) / 10 : undefined,
+    }))
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 

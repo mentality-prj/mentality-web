@@ -11,7 +11,7 @@ export async function StressLevelChart({ summaries, locale }: Props) {
   const map: Record<string, number> = {}
   if (Array.isArray(summaries)) {
     for (const s of summaries) {
-      if (s?.date) map[s.date] = s.records ?? 0
+      if (s?.date && s.stress !== undefined) map[s.date] = s.stress
     }
   }
 
@@ -24,7 +24,7 @@ export async function StressLevelChart({ summaries, locale }: Props) {
 
   const data = dates.map((d) => {
     const iso = d.toISOString().slice(0, 10)
-    return { date: iso, stress: map[iso as string] ?? 0 }
+    return { date: iso, stress: map[iso as string] ?? null }
   })
 
   const width = 600
@@ -33,13 +33,16 @@ export async function StressLevelChart({ summaries, locale }: Props) {
   const innerW = width - padding.left - padding.right
   const innerH = height - padding.top - padding.bottom
 
-  const points = data.map((d, i) => {
-    const x = padding.left + (innerW * i) / Math.max(1, data.length - 1)
-    const v = Number(d.stress) || 1
-    const clamped = Math.max(1, Math.min(5, v))
-    const y = padding.top + ((5 - clamped) / 4) * innerH
-    return { ...d, x, y, value: clamped }
-  })
+  const points = data
+    .map((d, i) => {
+      if (d.stress === null) return null
+      const x = padding.left + (innerW * i) / Math.max(1, data.length - 1)
+      const v = Number(d.stress)
+      const clamped = Math.max(1, Math.min(5, v))
+      const y = padding.top + ((5 - clamped) / 4) * innerH
+      return { ...d, stress: d.stress as number, x, y, value: clamped }
+    })
+    .filter((p): p is NonNullable<typeof p> => p !== null)
 
   function catmullRomToBezier(ps: { x: number; y: number; value?: number }[]) {
     if (!ps || ps.length === 0) return ''

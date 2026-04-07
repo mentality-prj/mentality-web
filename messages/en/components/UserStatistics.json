@@ -43,13 +43,13 @@
     "totalTaken": "{count, plural, one {# test taken} other {# tests taken}}",
     "noResults": "No results yet",
     "k10": {
-      "title": "K-10 (Distress)"
+      "title": "Stress & Well-being"
     },
     "phq9": {
-      "title": "PHQ-9 (Depression)"
+      "title": "Mental Check-up"
     },
     "gad7": {
-      "title": "GAD-7 (Anxiety)"
+      "title": "Anxiety Level"
     }
   }
 }

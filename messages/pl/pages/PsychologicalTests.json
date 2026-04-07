@@ -11,5 +11,28 @@
   },
   "well-being-check": {
     "title": "Stres i dobre samopoczucie"
+  },
+  "nextTest": {
+    "well-being-check": {
+      "label": "Następny test",
+      "title": "Poziom lęku",
+      "description": "Bardziej szczegółowy wskaźnik: czy teraz odczuwasz lęk. Uzupełnia ogólny obraz stresu — razem dają pełniejszy sygnał.",
+      "hint": "Zalecane: wykonaj od razu, gdy twój stan jest jeszcze świeży.",
+      "cta": "Przejdź do testu"
+    },
+    "anxiety-check": {
+      "label": "Następny test",
+      "title": "Kontrola mentalna",
+      "description": "Głębszy test nastroju i obniżonego samopoczucia. Umieszczony na końcu, by cięższe pytania nie wpływały na poprzednie odpowiedzi.",
+      "hint": "Jeśli czujesz zmęczenie — zrób przerwę i wróć później.",
+      "cta": "Przejdź do testu"
+    },
+    "mental-check": {
+      "label": "Testy ukończone",
+      "title": "Pełny obraz uzyskany",
+      "description": "Ukończyłeś wszystkie trzy testy. Następne zalecane skanowanie — za 30 dni.",
+      "hint": "",
+      "cta": "Wróć do listy testów"
+    }
   }
 }

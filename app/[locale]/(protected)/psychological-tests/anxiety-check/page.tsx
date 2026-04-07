@@ -2,13 +2,19 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
+import { NextTestBanner } from '@/components/features/PsychologicalTests/NextTestBanner'
 import { TestHistoryChart } from '@/components/features/TestsQuestionnarie/TestHistoryChart'
 import { TestPageGenerator } from '@/components/features/TestsQuestionnarie/TestPageGenerator'
 import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
 import { GAD7_HIGH_SCORE_THRESHOLD, GAD7_LEVEL_MAP, GAD7_MAX_SCORE, GAD7_TEST_CONFIG } from '@/config/gad7.config'
+import { Routes } from '@/constants/routes'
 
 export default async function AnxietyCheckPage() {
-  const [session, t] = await Promise.all([auth(), getTranslations('pages.AnxietyCheck')])
+  const [session, t, tNext] = await Promise.all([
+    auth(),
+    getTranslations('pages.AnxietyCheck'),
+    getTranslations('pages.PsychologicalTests'),
+  ])
   const userId = session?.user?.id ?? ''
   const isAdmin = session?.user?.role === 'admin'
 
@@ -44,6 +50,14 @@ export default async function AnxietyCheckPage() {
           <p className="text-sm text-textcolor-secondary">{t('page.description')}</p>
           <TestPageGenerator test={config} userId={userId} isAdmin={isAdmin} />
           <TestDisclaimer text={t('page.disclaimer')} />
+          <NextTestBanner
+            nextHref={Routes.MENTAL_CHECK}
+            label={tNext('nextTest.anxiety-check.label')}
+            title={tNext('nextTest.anxiety-check.title')}
+            description={tNext('nextTest.anxiety-check.description')}
+            hint={tNext('nextTest.anxiety-check.hint')}
+            cta={tNext('nextTest.anxiety-check.cta')}
+          />
         </div>
 
         <div className="flex flex-col gap-6 laptop:w-[40%]">

@@ -11,5 +11,28 @@
   },
   "well-being-check": {
     "title": "Stress & Well-being"
+  },
+  "nextTest": {
+    "well-being-check": {
+      "label": "Next test",
+      "title": "Anxiety Level",
+      "description": "A more focused indicator: whether anxiety is present right now. Complements the stress overview — together they give a fuller signal.",
+      "hint": "Recommended: take it now while your state is fresh.",
+      "cta": "Go to test"
+    },
+    "anxiety-check": {
+      "label": "Next test",
+      "title": "Mental Check-up",
+      "description": "A deeper look at mood and low spirits. Placed last so that heavier questions don't bias your earlier answers.",
+      "hint": "If you feel tired — take a break and come back later.",
+      "cta": "Go to test"
+    },
+    "mental-check": {
+      "label": "All tests completed",
+      "title": "Full picture captured",
+      "description": "You have completed all three tests. Next recommended scan — in 30 days.",
+      "hint": "",
+      "cta": "Back to tests"
+    }
   }
 }
