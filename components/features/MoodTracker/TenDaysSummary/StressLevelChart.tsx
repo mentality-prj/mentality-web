@@ -39,13 +39,17 @@ export async function StressLevelChart({ summaries, locale }: Props) {
       const x = padding.left + (innerW * i) / Math.max(1, data.length - 1)
       const v = Number(d.stress)
       const clamped = Math.max(1, Math.min(5, v))
+      const level = Math.round(clamped)
       const y = padding.top + ((5 - clamped) / 4) * innerH
-      return { ...d, stress: d.stress as number, x, y, value: clamped }
+      return { ...d, stress: d.stress as number, x, y, value: level }
     })
     .filter((p): p is NonNullable<typeof p> => p !== null)
 
   function catmullRomToBezier(ps: { x: number; y: number; value?: number }[]) {
-    if (!ps || ps.length === 0) return ''
+    if (!ps || ps.length === 0) {
+      const baselineY = height - padding.bottom
+      return `M ${padding.left.toFixed(2)} ${baselineY.toFixed(2)}`
+    }
     if (ps.length === 1) return `M ${ps[0].x.toFixed(2)} ${ps[0].y.toFixed(2)}`
     let d = `M ${ps[0].x.toFixed(2)} ${ps[0].y.toFixed(2)}`
     for (let i = 0; i < ps.length - 1; i++) {

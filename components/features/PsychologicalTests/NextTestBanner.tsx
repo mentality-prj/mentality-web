@@ -9,7 +9,7 @@ type NextTestBannerProps = {
   description: string
   hint: string
   cta: string
-  /** undefined means this is the last test — link goes back to the tests list */
+  /** undefined means this is the last test — CTA button is hidden */
   nextHref?: string
 }
 
