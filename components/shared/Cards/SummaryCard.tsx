@@ -4,7 +4,7 @@ import { cn } from '@/lib/utils'
 
 interface SummaryCardProps {
   title?: string
-  children: ReactNode
+  children?: ReactNode
   icon?: ReactNode
   className?: string
   iconOnTop?: boolean

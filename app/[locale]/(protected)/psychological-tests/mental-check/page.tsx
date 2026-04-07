@@ -2,13 +2,20 @@ import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
+import { NextTestBanner } from '@/components/features/PsychologicalTests/NextTestBanner'
+import { HistoryChartLoader } from '@/components/features/TestsQuestionnarie/HistoryChartLoader'
 import { TestHistoryChart } from '@/components/features/TestsQuestionnarie/TestHistoryChart'
 import { TestPageGenerator } from '@/components/features/TestsQuestionnarie/TestPageGenerator'
 import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
 import { PHQ9_MAX_SCORE, PHQ9_SEVERITY_MAP, PHQ9_TEST_CONFIG } from '@/config/phq9.config'
+import { Routes } from '@/constants/routes'
 
 export default async function MentalCheckPage() {
-  const [session, t] = await Promise.all([auth(), getTranslations('pages.MentalCheck')])
+  const [session, t, tNext] = await Promise.all([
+    auth(),
+    getTranslations('pages.MentalCheck'),
+    getTranslations('pages.PsychologicalTests'),
+  ])
   const userId = session?.user?.id ?? ''
   const isAdmin = session?.user?.role === 'admin'
 
@@ -37,21 +44,24 @@ export default async function MentalCheckPage() {
 
   return (
     <div className="flex flex-col gap-md">
-      <div className="flex flex-col gap-6 laptop:flex-row laptop:items-start">
-        <div className="flex flex-col gap-6 laptop:w-[60%]">
+      <div className="flex flex-col gap-sm laptop:flex-row laptop:items-start">
+        <div className="flex flex-col gap-sm laptop:w-[60%]">
           <p className="text-sm text-textcolor-secondary">{t('page.description')}</p>
           <TestPageGenerator test={config} userId={userId} isAdmin={isAdmin} />
           <TestDisclaimer text={t('page.disclaimer')} />
+          <NextTestBanner
+            label={tNext('nextTest.mental-check.label')}
+            title={tNext('nextTest.mental-check.title')}
+            description={tNext('nextTest.mental-check.description')}
+            hint={tNext('nextTest.mental-check.hint')}
+            cta={tNext('nextTest.mental-check.cta')}
+            nextHref={Routes.PSYCHOLOGICALTESTS}
+            isDone
+          />
         </div>
 
-        <div className="flex flex-col gap-6 laptop:w-[40%]">
-          <Suspense
-            fallback={
-              <div className="border-outline-secondary flex h-48 items-center justify-center rounded-xl border bg-background-soft">
-                <span className="text-sm text-textcolor-secondary">{t('page.loadingHistory')}</span>
-              </div>
-            }
-          >
+        <div className="flex flex-col gap-sm laptop:w-[40%]">
+          <Suspense fallback={<HistoryChartLoader label={t('page.loadingHistory')} />}>
             <TestHistoryChart
               apiEndpoint="phq9"
               maxScore={PHQ9_MAX_SCORE}

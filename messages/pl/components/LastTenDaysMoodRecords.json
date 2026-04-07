@@ -1,4 +1,9 @@
 {
   "title": "Utworzone rekordy nastroju",
-  "content": "w ciągu ostatnich 10 dni"
+  "content": "w ciągu ostatnich 10 dni",
+  "status": {
+    "done": "Wykonano",
+    "missed": "Pominięto",
+    "today": "Dzisiaj"
+  }
 }

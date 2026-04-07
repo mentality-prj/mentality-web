@@ -53,7 +53,7 @@ export function TestResultCard({
       {/* Score card */}
       <div className="flex">
         <Card type={cardType} className={cardBorder}>
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-sm">
             <div className="flex flex-col items-start">
               <span className="text-5xl font-bold">{scoreDisplay}</span>
               <span className="mt-1 max-w-[7rem] text-xs font-medium leading-tight opacity-80">{scoreLabel}</span>

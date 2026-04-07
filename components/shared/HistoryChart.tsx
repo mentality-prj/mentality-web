@@ -5,6 +5,7 @@ import { useLocale } from 'next-intl'
 import { Area, AreaChart, CartesianGrid, XAxis, YAxis } from 'recharts'
 
 import { SummaryCard } from '@/components/shared/Cards/SummaryCard'
+import { formatDateLong, formatDateShort, parseDateMs } from '@/helpers/chart.helpers'
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from '@/ui/chart'
 
 export interface HistoryEntry {
@@ -55,7 +56,7 @@ export function HistoryChart({
   } satisfies ChartConfig
 
   const chartData = [...history]
-    .sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    .sort((a, b) => parseDateMs(a.date) - parseDateMs(b.date))
     .map((entry) => ({ date: entry.date, score: entry.score }))
 
   const defaultTicks = ticks ?? [
@@ -91,26 +92,14 @@ export function HistoryChart({
             angle={-45}
             textAnchor="end"
             minTickGap={16}
-            tickFormatter={(value) =>
-              new Date(value as string).toLocaleDateString(locale, { month: 'short', day: 'numeric' })
-            }
+            tickFormatter={(value) => formatDateShort(value as string, locale)}
           />
 
           <YAxis reversed domain={[0, maxScore]} ticks={defaultTicks} tickLine={false} axisLine={false} />
 
           <ChartTooltip
             cursor={{ strokeDasharray: '3 3' }}
-            content={
-              <ChartTooltipContent
-                labelFormatter={(value) =>
-                  new Date(value as string).toLocaleDateString(locale, {
-                    day: 'numeric',
-                    month: 'long',
-                    year: 'numeric',
-                  })
-                }
-              />
-            }
+            content={<ChartTooltipContent labelFormatter={(value) => formatDateLong(value as string, locale)} />}
           />
 
           <Area

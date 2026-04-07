@@ -106,8 +106,8 @@ export function PsyTestsSection({ k10, phq9, gad7 }: PsyTestsSectionProps) {
       <h3 className="mb-4 text-xl font-semibold text-textcolor-primary">{t('psyTests.title')}</h3>
       <div className="grid grid-cols-1 gap-sm lg:grid-cols-3">
         <TestCard testKey="k10" block={k10} />
-        <TestCard testKey="phq9" block={phq9} />
         <TestCard testKey="gad7" block={gad7} />
+        <TestCard testKey="phq9" block={phq9} />
       </div>
     </div>
   )

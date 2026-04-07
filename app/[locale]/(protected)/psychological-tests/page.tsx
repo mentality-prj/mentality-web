@@ -13,18 +13,18 @@ const tests = [
     questions: 10,
   },
   {
-    key: 'mental-check',
-    href: Routes.MENTAL_CHECK,
-    icon: BrainCircuit,
-    duration: 2,
-    questions: 9,
-  },
-  {
     key: 'anxiety-check',
     href: Routes.ANXIETY_CHECK,
     icon: Activity,
     duration: 2,
     questions: 7,
+  },
+  {
+    key: 'mental-check',
+    href: Routes.MENTAL_CHECK,
+    icon: BrainCircuit,
+    duration: 2,
+    questions: 9,
   },
 ] as const
 

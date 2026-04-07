@@ -56,7 +56,7 @@ export default function AdminPhq9Page() {
                 {t(`severity.${result.severity}` as Parameters<typeof t>[0])} — score: {result.score}
               </p>
               <Card type={cardType} className={cardBorder}>
-                <div className="flex items-center gap-6">
+                <div className="flex items-center gap-sm">
                   <div className="flex flex-col items-start">
                     <span className="text-5xl font-bold opacity-85">{mentalityIndex}%</span>
                     <span className="mt-1 max-w-[7rem] text-xs font-medium leading-tight opacity-80">

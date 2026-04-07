@@ -53,8 +53,8 @@ export default async function MeditationPage({ params }: { params: Promise<{ id:
         title={meditation.translations.title[`${locale}`]}
         subtitle={meditation.translations.annotation[`${locale}`]}
       />
-      <div className="flex flex-col gap-6">
-        <div className="flex w-full flex-col gap-6 lg:flex-row lg:gap-8">
+      <div className="flex flex-col gap-sm">
+        <div className="flex w-full flex-col gap-sm lg:flex-row lg:gap-8">
           <Card title={tpm('descriptionTitle')}>
             <StyledDescription text={meditation.translations.description[`${locale}`]} />
           </Card>
