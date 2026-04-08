@@ -15,6 +15,8 @@ type YourActivityProps = {
 export const YourActivity = async ({ records = [] }: YourActivityProps) => {
   const t = await getTranslations('components.DailyCard')
   const commonGeneral = await getTranslations('common.General')
+  const noMoodLabel = commonGeneral('noMood')
+
   const moodT = await getTranslations('components.Mood.labelsEmoji')
   const activityTitle = t('cards.activity')
   const totalRecords = records.length
@@ -25,7 +27,7 @@ export const YourActivity = async ({ records = [] }: YourActivityProps) => {
         <div className="space-y-2">
           {records.map((record) => {
             const moodKey = record.moodLevel ? levelToMoodKey(record.moodLevel) : undefined
-            const moodLabel = moodKey ? moodT(moodKey === 'great' ? 'veryGood' : moodKey) : 'N/A'
+            const moodLabel = moodKey ? moodT(moodKey === 'great' ? 'veryGood' : moodKey) : noMoodLabel
             const stressInfo = STRESSES.find((s) => s.value === record.stressLevel) ?? STRESSES[0]
             const energyInfo = ENERGIES.find((e) => e.value === record.energyLevel) ?? ENERGIES[2]
             const focusInfo = FOCUSES.find((f) => f.value === record.focusLevel) ?? FOCUSES[2]

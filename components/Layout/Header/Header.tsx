@@ -14,8 +14,10 @@ const Header = () => (
       </span>
     </div>
     <div className="flex items-center gap-sm md:gap-5">
-      <TopMenu menu={userTopMenu} />
-      <SearchBar />
+      <TopMenu menu={userTopMenu} collapseToMyDayOnTablet={true} />
+      <div className="flex min-w-0 flex-1 items-center md:max-w-xs lg:max-w-sm">
+        <SearchBar />
+      </div>
       <LangSwitch />
       <AvatarMenu />
     </div>

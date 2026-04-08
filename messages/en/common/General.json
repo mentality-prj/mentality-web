@@ -5,5 +5,6 @@
   "mood": "Mood",
   "stress": "Stress",
   "energy": "Energy",
-  "focus": "Focus"
+  "focus": "Focus",
+  "noMood": "N/A"
 }
