@@ -8,6 +8,7 @@ import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes
 import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoals/DeadlineCountdown'
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyStatistics } from '@/components/features/Statistics/DailyStatistics/DailyStatistics'
+import { YourActivity } from '@/components/features/Statistics/YourActivity/YourActivity'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
 import { logger } from '@/lib/logger'
@@ -40,8 +41,8 @@ const MyDay = async () => {
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
 
   return (
-    <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
-      <div className="flex flex-col gap-sm xl:col-span-2">
+    <article className="grid grid-cols-1 gap-default tablet:grid-cols-2 md:grid-cols-6 md:[grid-template-areas:'mood_mood_mood_mood_goals_goals'] xl:[grid-template-areas:'mood_mood_mood_mood_tip_tip'_'goals_goals_goals_goals_affirmation_affirmation']">
+      <div className="flex flex-col gap-sm tablet:col-span-2 md:[grid-area:mood]">
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} />
         ) : (
@@ -50,7 +51,7 @@ const MyDay = async () => {
         <TodayMoodNotes />
       </div>
 
-      <div className="flex flex-col gap-sm self-start xl:contents">
+      <div className="md:[grid-area:goals]">
         <PersonalGoalsList
           filter="pending"
           showCreate={false}
@@ -58,17 +59,23 @@ const MyDay = async () => {
           viewAllHref={Routes.MYPROGRESSGOALS}
           readonly
           initialGoals={initialGoals}
-          className="self-start"
         />
-
-        <section className="flex flex-col gap-sm self-start">
-          <DailyAffirmationClient />
-          <DailyTipClient />
-        </section>
       </div>
 
-      <div className="grid gap-default laptop:col-span-2 laptop:grid-cols-2 xl:col-span-4">
+      <div className="md:col-span-2 xl:[grid-area:affirmation]">
+        <DailyAffirmationClient />
+      </div>
+
+      <div className="tablet:col-span-2 md:col-span-4 xl:[grid-area:tip]">
+        <DailyTipClient />
+      </div>
+
+      <div className="tablet:col-span-2 md:col-span-3 xl:col-span-3">
         <DailyStatistics records={todayRecords} />
+      </div>
+
+      <div className="tablet:col-span-2 md:col-span-3 xl:col-span-3">
+        <YourActivity records={todayRecords} />
       </div>
 
       <DeadlineCountdown initialGoals={initialGoals} href={Routes.MYPROGRESSGOALS} />

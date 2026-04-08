@@ -5,5 +5,6 @@
   "mood": "Nastrój",
   "stress": "Stres",
   "energy": "Energia",
-  "focus": "Koncentracja"
+  "focus": "Koncentracja",
+  "noMood": "Brak nastroju"
 }
