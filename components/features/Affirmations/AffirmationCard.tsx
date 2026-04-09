@@ -23,7 +23,7 @@ export default function AffirmationCard({ item, tools, className = '', hideDate 
 
   return (
     <Card
-      className={`border bg-white ${className}`}
+      className={`h-full border bg-white ${className}`}
       sup={hideDate ? undefined : currentDate}
       icon={hideDate ? undefined : <Calendar size={12} />}
       aftertext={text}

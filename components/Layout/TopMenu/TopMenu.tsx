@@ -12,15 +12,7 @@ const iconMap: Record<string, ReactNode> = {
   layoutDashboard: <LayoutDashboard className="h-5 w-5" size={12} />,
 }
 
-const TopMenu = ({
-  menu,
-  type,
-  collapseToMyDayOnTablet = false,
-}: {
-  menu: TopMenuType
-  type?: AppViewType
-  collapseToMyDayOnTablet?: boolean
-}) => {
+const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
   const t = useTranslations('components.Navbar')
   const pathname = usePathname()
 
@@ -30,16 +22,14 @@ const TopMenu = ({
   return (
     <>
       {/* Desktop */}
-      <nav className="hidden items-center gap-sm font-normal leading-[120%] tracking-normal tablet:flex wide:gap-5">
+      <nav className="hidden items-center gap-sm font-normal leading-[120%] tracking-normal md:flex wide:gap-md">
         {menu.map((item) => {
           const isActive = pathname === item.href
           return (
             <Link
               key={item.key}
               href={item.href}
-              className={`flex items-center gap-1 whitespace-nowrap transition-colors ${
-                collapseToMyDayOnTablet && item.key !== 'my-day' ? 'hidden desktop:flex' : ''
-              } ${textColor} ${isActive ? 'font-semibold' : ''}`}
+              className={`flex items-center gap-1 transition-colors ${textColor} ${isActive ? 'font-semibold' : ''}`}
               aria-current={isActive ? 'page' : undefined}
             >
               {item.icon && iconMap[item.icon]}

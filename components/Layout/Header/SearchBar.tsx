@@ -1,6 +1,6 @@
 'use client'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { Search, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { searchItems } from '@/constants/searchItems'
@@ -13,7 +13,6 @@ const SearchBar = () => {
   const router = useRouter()
   const [query, setQuery] = useState('')
   const [isOpen, setIsOpen] = useState(false)
-  const [isExpanded, setIsExpanded] = useState(false)
   const [activeIndex, setActiveIndex] = useState(-1)
   const containerRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -27,25 +26,11 @@ const SearchBar = () => {
     })
   }, [query, tMenu])
 
-  useEffect(() => {
-    if (isExpanded) {
-      inputRef.current?.focus()
-    }
-  }, [isExpanded])
-
   const clearSearch = useCallback(() => {
     setQuery('')
     setIsOpen(false)
     setActiveIndex(-1)
   }, [])
-
-  const handleRightClick = () => {
-    if (query) {
-      clearSearch()
-    } else {
-      setIsExpanded(false)
-    }
-  }
 
   const navigateTo = useCallback(
     (href: string) => {
@@ -109,64 +94,59 @@ const SearchBar = () => {
   }, [])
 
   return (
-    <>
-      <button className={`md:hidden ${isExpanded ? 'hidden' : ''}`} onClick={() => setIsExpanded(true)}>
-        <Search size={20} />
-      </button>
-      <div ref={containerRef} className={`relative ${!isExpanded ? 'hidden md:block' : ''}`}>
-        <CustomInput
-          ref={inputRef}
-          id="search"
-          placeholder={t('placeholder')}
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          onFocus={() => query.trim() && setIsOpen(true)}
-          onKeyDown={handleKeyDown}
-          rightIcon={query ? <X size={16} /> : isExpanded ? <X size={16} /> : undefined}
-          onRightClick={handleRightClick}
-          role="combobox"
-          aria-expanded={isOpen}
-          aria-autocomplete="list"
-          aria-controls="search-results"
-          aria-activedescendant={isOpen && activeIndex >= 0 ? `search-option-${activeIndex}` : undefined}
-          className="placeholder-textcolor-tertiary h-8 border-none bg-background caret-textcolor-primary hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft"
-        />
-        {isOpen && (
-          <ul
-            id="search-results"
-            role="listbox"
-            className="absolute top-full z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-md border bg-white shadow-lg"
-          >
-            {filteredItems.length > 0 ? (
-              filteredItems.map((item, index) => (
-                <li key={item.key} id={`search-option-${index}`} role="option" aria-selected={index === activeIndex}>
-                  <Link
-                    href={item.href}
-                    onClick={() => clearSearch()}
-                    className={`block px-3 py-2 text-sm ${
-                      index === activeIndex
-                        ? 'bg-background-soft text-textcolor-primary'
-                        : 'text-textcolor-secondary hover:bg-background-soft'
-                    }`}
-                  >
-                    {tMenu(item.key)}
-                  </Link>
-                </li>
-              ))
-            ) : (
-              <li
-                role="option"
-                aria-selected={false}
-                aria-disabled={true}
-                className="text-textcolor-tertiary px-3 py-2 text-sm"
-              >
-                {t('noResults')}
+    <div ref={containerRef} className="relative">
+      <CustomInput
+        ref={inputRef}
+        id="search"
+        placeholder={t('placeholder')}
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        onFocus={() => query.trim() && setIsOpen(true)}
+        onKeyDown={handleKeyDown}
+        rightIcon={query ? <X size={16} /> : undefined}
+        onRightClick={clearSearch}
+        role="combobox"
+        aria-expanded={isOpen}
+        aria-autocomplete="list"
+        aria-controls="search-results"
+        aria-activedescendant={isOpen && activeIndex >= 0 ? `search-option-${activeIndex}` : undefined}
+        className="placeholder-textcolor-tertiary h-8 border-none bg-background caret-textcolor-primary hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft"
+      />
+      {isOpen && (
+        <ul
+          id="search-results"
+          role="listbox"
+          className="absolute top-full z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-md border bg-white shadow-lg"
+        >
+          {filteredItems.length > 0 ? (
+            filteredItems.map((item, index) => (
+              <li key={item.key} id={`search-option-${index}`} role="option" aria-selected={index === activeIndex}>
+                <Link
+                  href={item.href}
+                  onClick={() => clearSearch()}
+                  className={`block px-3 py-2 text-sm ${
+                    index === activeIndex
+                      ? 'bg-background-soft text-textcolor-primary'
+                      : 'text-textcolor-secondary hover:bg-background-soft'
+                  }`}
+                >
+                  {tMenu(item.key)}
+                </Link>
               </li>
-            )}
-          </ul>
-        )}
-      </div>
-    </>
+            ))
+          ) : (
+            <li
+              role="option"
+              aria-selected={false}
+              aria-disabled={true}
+              className="text-textcolor-tertiary px-3 py-2 text-sm"
+            >
+              {t('noResults')}
+            </li>
+          )}
+        </ul>
+      )}
+    </div>
   )
 }
 
