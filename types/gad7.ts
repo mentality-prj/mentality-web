@@ -1,3 +1,5 @@
+import { SupportedLanguage } from './languages'
+
 export type Gad7AnswerValue = 0 | 1 | 2 | 3
 
 export type Gad7Level = 'minimal' | 'mild' | 'moderate' | 'severe'
@@ -9,8 +11,9 @@ export interface Gad7SubmitPayload {
 export interface Gad7ApiResponse {
   score: number
   level: Gad7Level
-  label: string
-  recommendation: string
+  label: Record<SupportedLanguage, string>
+  recommendation: Record<SupportedLanguage, string>
+  aiSummary: Record<SupportedLanguage, string> | null
   submittedAt: string
 }
 
@@ -21,4 +24,5 @@ export type Gad7Session = {
 export interface Gad7HistoryEntry {
   date: string
   score: number
+  label: Record<SupportedLanguage, string>
 }

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 import { Toaster } from 'react-hot-toast'
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
@@ -18,7 +18,6 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   return {
     title: t('AppTitle', { default: 'Dzvin.co' }),
     manifest: '/favicons/site.webmanifest',
-    themeColor: '#ffffff',
     icons: {
       apple: '/favicons/apple-touch-icon.png',
       icon: [
@@ -31,6 +30,10 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       'msapplication-TileColor': '#ffffff',
     },
   }
+}
+
+export const viewport: Viewport = {
+  themeColor: '#ffffff',
 }
 
 export default async function LocaleLayout({

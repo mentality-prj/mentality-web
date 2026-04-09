@@ -12,6 +12,7 @@ export {
   GAD7_TEST_CONFIG,
 } from '@/config/gad7.config'
 
+import { routing } from '@/i18n/routing'
 import { Gad7HistoryEntry } from '@/types/gad7'
 
 // TODO: remove when backend history endpoint returns real data
@@ -23,7 +24,8 @@ function generateGad7StubHistory(): Gad7HistoryEntry[] {
   return GAD7_STUB_SCORES.map((score, index) => {
     const weeksAgo = GAD7_STUB_SCORES.length - 1 - index
     const date = new Date(baseDate.getTime() - weeksAgo * weekMs)
-    return { date: date.toISOString(), score }
+    const label = Object.fromEntries(routing.locales.map((l) => [l, ''])) as Gad7HistoryEntry['label']
+    return { date: date.toISOString(), score, label }
   })
 }
 export const GAD7_STUB_HISTORY: Gad7HistoryEntry[] = generateGad7StubHistory()

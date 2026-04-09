@@ -1,3 +1,5 @@
+import { SupportedLanguage } from './languages'
+
 export type K10AnswerValue = 1 | 2 | 3 | 4 | 5
 
 export type K10Level = 'green' | 'yellow' | 'orange' | 'red'
@@ -9,7 +11,8 @@ export interface K10SubmitPayload {
 export interface K10ApiResponse {
   score: number
   level: K10Level
-  message: string
+  message: Record<SupportedLanguage, string>
+  aiSummary: Record<SupportedLanguage, string> | null
   submittedAt: string
 }
 
