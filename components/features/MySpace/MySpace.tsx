@@ -1,5 +1,9 @@
 import { SavedList } from '@/components/features/SavedList/SavedList'
 
 export function MySpace() {
-  return <SavedList />
+  return (
+    <section className="grid gap-default">
+      <SavedList />
+    </section>
+  )
 }

@@ -16,6 +16,7 @@ export const YourActivity = async ({ records = [] }: YourActivityProps) => {
   const t = await getTranslations('components.DailyCard')
   const commonGeneral = await getTranslations('common.General')
   const noMoodLabel = commonGeneral('noMood')
+
   const moodT = await getTranslations('components.Mood.labelsEmoji')
   const activityTitle = t('cards.activity')
   const totalRecords = records.length
