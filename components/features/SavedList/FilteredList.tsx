@@ -12,7 +12,6 @@ import { SORT_ORDER } from '@/types/sort'
 
 type Props = {
   items: FavoriteEntity[]
-  gridClassName?: string
 }
 
 function normalizePluralType(f: FavoriteEntity): ItemType {
@@ -25,7 +24,7 @@ function normalizePluralType(f: FavoriteEntity): ItemType {
   return 'affirmations'
 }
 
-export const FilteredList = ({ items, gridClassName }: Props) => {
+export const FilteredList = ({ items }: Props) => {
   const { filters } = useSavedFilters()
   const SortOrder = filters.order
   const filter = filters.categories
@@ -73,7 +72,6 @@ export const FilteredList = ({ items, gridClassName }: Props) => {
       items={getSortedItems()}
       CardComponent={CardComponent}
       getKey={(i) => String(i.itemId ?? i.id)}
-      gridClassName={gridClassName}
       renderTools={renderTools}
     />
   )
