@@ -16,10 +16,11 @@ function assertCanManageEmployees(session: CustomSession | null): boolean {
 
 export async function getEmployees(
   session: CustomSession | null,
+  companyId: string,
   page = 1,
   limit = 20
 ): Promise<{ data: PaginatedEmployees } | { error: string }> {
-  const url = `${APIUrl}${EMPLOYEE_ENDPOINTS.paginated(page, limit)}`
+  const url = `${APIUrl}${EMPLOYEE_ENDPOINTS.paginated(companyId, page, limit)}`
   const res = await performAuthRequest<EmployeeEntity[]>(session, url)
 
   if ('error' in res) {
@@ -34,9 +35,10 @@ export async function getEmployees(
 
 export async function getEmployeesByRole(
   session: CustomSession | null,
+  companyId: string,
   role: CompanyRole
 ): Promise<{ data: EmployeeEntity[] } | { error: string }> {
-  const url = `${APIUrl}${EMPLOYEE_ENDPOINTS.byRole(role)}`
+  const url = `${APIUrl}${EMPLOYEE_ENDPOINTS.byRole(companyId, role)}`
   const res = await performAuthRequest<EmployeeEntity[]>(session, url)
 
   if ('error' in res) {
@@ -49,6 +51,7 @@ export async function getEmployeesByRole(
 
 export async function removeEmployee(
   session: CustomSession | null,
+  companyId: string,
   id: string
 ): Promise<{ data: EmployeeEntity } | { error: string }> {
   if (!assertCanManageEmployees(session)) {
@@ -56,7 +59,7 @@ export async function removeEmployee(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<EmployeeEntity>(session, `${APIUrl}${EMPLOYEE_ENDPOINTS.byId(id)}`, {
+  const res = await performAuthRequest<EmployeeEntity>(session, `${APIUrl}${EMPLOYEE_ENDPOINTS.byId(companyId, id)}`, {
     method: 'DELETE',
   })
 

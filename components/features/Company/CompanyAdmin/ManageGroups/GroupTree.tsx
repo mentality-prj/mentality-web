@@ -32,6 +32,7 @@ export function GroupTree() {
     handleCreateRoot,
     resetAdding,
     refetch,
+    companyId,
   } = useGroupTree()
 
   if (loading) return <p className="text-sm text-textcolor-secondary">{t('loading')}</p>
@@ -101,6 +102,7 @@ export function GroupTree() {
           <GroupTreeNode
             key={group.id}
             group={group}
+            companyId={companyId ?? undefined}
             allGroups={flat}
             onAdded={refetch}
             onUpdated={refetch}

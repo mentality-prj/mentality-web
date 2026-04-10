@@ -24,7 +24,7 @@ export function useAssignManager() {
   const t = useTranslations('pages.Company.companyAdmin.assignManager')
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items: groups } = useGroups()
+  const { items: groups, companyId } = useGroups()
 
   const [managers, setManagers] = useState<EmployeeEntity[]>([])
   const [scopes, setScopes] = useState<AccessScopeEntity[]>([])
@@ -50,7 +50,10 @@ export function useAssignManager() {
           getEmployeesByRoleAdmin(session, adminCompanyId, COMPANY_ROLES.MANAGER),
           getAccessScopesAdmin(session, adminCompanyId),
         ])
-      : await Promise.all([getEmployeesByRole(session, COMPANY_ROLES.MANAGER), getAccessScopes(session)])
+      : await Promise.all([
+          getEmployeesByRole(session, companyId!, COMPANY_ROLES.MANAGER),
+          getAccessScopes(session, companyId!),
+        ])
     if (!('error' in managersRes)) {
       setManagers(managersRes.data)
     }
@@ -88,7 +91,7 @@ export function useAssignManager() {
     const session = data as CustomSession
     const res = adminCompanyId
       ? await createAccessScopeAdmin(session, adminCompanyId, dto)
-      : await createAccessScope(session, dto)
+      : await createAccessScope(session, companyId!, dto)
     setLoading(false)
     if ('error' in res) {
       toast.error(res.error)
@@ -105,7 +108,7 @@ export function useAssignManager() {
     const session = data as CustomSession
     const res = adminCompanyId
       ? await deleteAccessScopeAdmin(session, adminCompanyId, id)
-      : await deleteAccessScope(session, id)
+      : await deleteAccessScope(session, companyId!, id)
     if ('error' in res) {
       toast.error(res.error)
       return

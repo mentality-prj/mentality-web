@@ -16,7 +16,7 @@ export function useGroupTree() {
   const t = useTranslations('pages.Company.companyAdmin.groups')
   const { data } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items, loading, error, refetch } = useGroups()
+  const { items, loading, error, refetch, companyId } = useGroups()
   const [newRootName, setNewRootName] = useState('')
   const [newRootType, setNewRootType] = useState<GroupType>('department')
   const [newRootParentId, setNewRootParentId] = useState<string | null>(null)
@@ -33,7 +33,9 @@ export function useGroupTree() {
     setCreating(true)
     const dto = { name: trimmed, type: newRootType, parentGroupId: newRootParentId }
     const session = data as CustomSession
-    const res = adminCompanyId ? await createGroupAdmin(session, adminCompanyId, dto) : await createGroup(session, dto)
+    const res = adminCompanyId
+      ? await createGroupAdmin(session, adminCompanyId, dto)
+      : await createGroup(session, companyId!, dto)
     setCreating(false)
     if ('error' in res) {
       toast.error(res.error)
@@ -68,5 +70,6 @@ export function useGroupTree() {
     handleCreateRoot,
     resetAdding,
     refetch,
+    companyId,
   }
 }

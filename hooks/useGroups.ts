@@ -15,6 +15,7 @@ export function useGroups(resolvedCompanyId?: string) {
   const [items, setItems] = useState<GroupEntity[]>([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [companyId, setCompanyId] = useState<string | null>(resolvedCompanyId ?? null)
 
   const fetch = useCallback(async () => {
     setLoading(true)
@@ -25,13 +26,14 @@ export function useGroups(resolvedCompanyId?: string) {
       if (adminCompanyId) {
         res = await getGroupsAdmin(session, adminCompanyId)
       } else {
-        let companyId = resolvedCompanyId
-        if (!companyId) {
+        let effectiveCompanyId = resolvedCompanyId
+        if (!effectiveCompanyId) {
           const myCompanyRes = await getMyCompany(session)
           if ('error' in myCompanyRes) throw new Error(myCompanyRes.error)
-          companyId = myCompanyRes.data.id
+          effectiveCompanyId = myCompanyRes.data.id
         }
-        res = await getGroups(session, companyId)
+        setCompanyId(effectiveCompanyId)
+        res = await getGroups(session, effectiveCompanyId)
       }
       if ('error' in res) throw new Error(res.error)
       setItems(res.data)
@@ -55,5 +57,14 @@ export function useGroups(resolvedCompanyId?: string) {
   const removeGroup = (id: string) => setItems((prev) => prev.filter((g) => g.id !== id))
   const updateGroup = (updated: GroupEntity) => setItems((prev) => prev.map((g) => (g.id === updated.id ? updated : g)))
 
-  return { items, loading, error, refetch: fetch, addGroup, removeGroup, updateGroup }
+  return {
+    items,
+    loading,
+    error,
+    refetch: fetch,
+    addGroup,
+    removeGroup,
+    updateGroup,
+    companyId: adminCompanyId ?? companyId,
+  }
 }
