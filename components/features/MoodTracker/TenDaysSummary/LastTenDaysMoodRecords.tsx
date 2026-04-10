@@ -6,9 +6,23 @@ import { cn } from '@/lib/utils'
 import { DaySummary } from '@/types/daySummary'
 
 interface LastTenDaysMoodRecordsProps {
+  /** Daily mood summaries for the last 10 days. Each entry contains a date (ISO YYYY-MM-DD) and a record count. */
   summaries?: DaySummary[]
 }
 
+/**
+ * Displays a 10-day mood tracking grid as a card.
+ *
+ * Each column represents one day (oldest → today). The bottom strip is colour-coded:
+ * - **success** — at least one mood record exists for that day.
+ * - **error**   — no record and the day is in the past (missed).
+ * - neutral     — today, not yet recorded.
+ *
+ * A visually hidden `<span className="sr-only">` inside each column announces the day's
+ * status to screen readers without affecting the visual layout.
+ *
+ * Server component — fetches locale and translations on the server.
+ */
 export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecordsProps) {
   const t = await getTranslations('components.LastTenDaysMoodRecords')
 
@@ -62,7 +76,7 @@ export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecor
               <div className="p-1 text-xs">{label}</div>
               <div
                 className={cn(
-                  'mt-2 flex h-5 w-full items-center justify-center',
+                  'mt-2 flex h-6 w-full items-center justify-center',
                   isDone ? 'success' : isMissed ? 'error' : ''
                 )}
               >

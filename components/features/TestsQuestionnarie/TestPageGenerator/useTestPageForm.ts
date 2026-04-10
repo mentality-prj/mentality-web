@@ -2,7 +2,9 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
+import { useLocale } from 'next-intl'
 
+import { routing } from '@/i18n/routing'
 import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
@@ -14,8 +16,8 @@ import { ChoiceType, TestConfig } from '../typesTestPage'
 
 const STORAGE_KEY_PREFIX = 'test_submission_'
 
-function getStorageKey(testId: string, userId: string): string {
-  return `${STORAGE_KEY_PREFIX}${testId}_${userId}`
+function getStorageKey(testId: string, userId: string, locale: string): string {
+  return `${STORAGE_KEY_PREFIX}${testId}_${userId}_${locale}`
 }
 
 interface StoredSubmission {
@@ -23,21 +25,21 @@ interface StoredSubmission {
   result: TestSubmissionResult
 }
 
-function loadStored(testId: string, userId: string): StoredSubmission | null {
+function loadStored(testId: string, userId: string, locale: string): StoredSubmission | null {
   try {
-    const raw = sessionStorage.getItem(getStorageKey(testId, userId))
+    const raw = sessionStorage.getItem(getStorageKey(testId, userId, locale))
     return raw ? (JSON.parse(raw) as StoredSubmission) : null
   } catch {
     return null
   }
 }
 
-function saveStored(testId: string, userId: string, data: StoredSubmission): void {
-  sessionStorage.setItem(getStorageKey(testId, userId), JSON.stringify(data))
+function saveStored(testId: string, userId: string, locale: string, data: StoredSubmission): void {
+  sessionStorage.setItem(getStorageKey(testId, userId, locale), JSON.stringify(data))
 }
 
-function clearStored(testId: string, userId: string): void {
-  sessionStorage.removeItem(getStorageKey(testId, userId))
+function clearStored(testId: string, userId: string, locale: string): void {
+  sessionStorage.removeItem(getStorageKey(testId, userId, locale))
 }
 
 // ─── Score computation ────────────────────────────────────────────────────────
@@ -75,14 +77,23 @@ function computeLabelFromMapping<T extends ChoiceType>(test: TestConfig<T>, scor
   return test.resultMapping.find(({ min, max }) => score >= min && score <= max)?.label ?? ''
 }
 
-function extractStringField(raw: Record<string, unknown>, key: string): string | undefined {
+function extractLocalizedField(raw: Record<string, unknown>, key: string, locale: string): string | undefined {
   const val = raw[key as string]
-  return typeof val === 'string' && val.length > 0 ? val : undefined
+  if (typeof val === 'string' && val.length > 0) return val
+  if (val !== null && typeof val === 'object') {
+    const map = val as Record<string, unknown>
+    const localized = map[locale as string]
+    if (typeof localized === 'string' && localized.length > 0) return localized
+    const fallback = map[routing.defaultLocale]
+    if (typeof fallback === 'string' && fallback.length > 0) return fallback
+  }
+  return undefined
 }
 
 function buildResultFromRaw<T extends ChoiceType>(
   test: TestConfig<T>,
-  raw: Record<string, unknown>
+  raw: Record<string, unknown>,
+  locale: string
 ): TestSubmissionResult {
   const score = typeof raw.score === 'number' ? raw.score : 0
   const submittedAt = typeof raw.submittedAt === 'string' ? raw.submittedAt : new Date().toISOString()
@@ -90,8 +101,8 @@ function buildResultFromRaw<T extends ChoiceType>(
     score,
     label: computeLabelFromMapping(test, score),
     submittedAt,
-    summaryText: test.summaryField ? extractStringField(raw, test.summaryField) : undefined,
-    alertText: test.alertField ? extractStringField(raw, test.alertField) : undefined,
+    summaryText: test.summaryField ? extractLocalizedField(raw, test.summaryField, locale) : undefined,
+    alertText: test.alertField ? extractLocalizedField(raw, test.alertField, locale) : undefined,
   }
 }
 
@@ -119,11 +130,13 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
   const [error, setError] = useState<string | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
   const { data: session } = useSession()
+  const locale = useLocale()
 
-  // Rehydrate from sessionStorage; fall back to fetching /latest from backend
+  // Rehydrate from sessionStorage; fall back to fetching /latest from backend.
+  // The storage key includes locale so switching languages always fetches a fresh result.
   useEffect(() => {
     if (!userId || !test.apiEndpoint) return
-    const stored = loadStored(test.id, userId)
+    const stored = loadStored(test.id, userId, locale)
     if (stored) {
       setResult(stored.result)
       return
@@ -133,9 +146,9 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
       method: 'GET',
     }).then((res) => {
       if ('error' in res || !res.data) return
-      const result = buildResultFromRaw(test, res.data)
+      const result = buildResultFromRaw(test, res.data, locale)
       setResult(result)
-      saveStored(test.id, userId, { submittedAt: result.submittedAt, result })
+      saveStored(test.id, userId, locale, { submittedAt: result.submittedAt, result })
     })
     /*
     DEPENDENCY ARRAY NOTE:
@@ -149,7 +162,7 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
     because the object reference changed. This pattern is more precise and avoids potential
     infinite fetch loops during hot reload or client-side re-renders.
     */
-  }, [test, session, userId])
+  }, [test, session, userId, locale])
 
   const submitAnswers = async (finalAnswers: TestAnswers) => {
     // ── Local-only mode: no backend ──────────────────────────────────────────
@@ -182,10 +195,10 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
         }
         throw new Error('error' in res ? (res as { error: string }).error : 'SUBMISSION_FAILED')
       }
-      const data = buildResultFromRaw(test, res.data)
+      const data = buildResultFromRaw(test, res.data, locale)
 
       setResult(data)
-      if (userId) saveStored(test.id, userId, { submittedAt: data.submittedAt, result: data })
+      if (userId) saveStored(test.id, userId, locale, { submittedAt: data.submittedAt, result: data })
       setTimeout(() => resultRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' }), 50)
     } catch (err) {
       setError(err instanceof Error ? err.message : 'UNEXPECTED_ERROR')
@@ -199,7 +212,9 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
     setAnswers({})
     setError(null)
     setStep(0)
-    if (userId && test.apiEndpoint) clearStored(test.id, userId)
+    if (userId && test.apiEndpoint) {
+      routing.locales.forEach((l) => clearStored(test.id, userId, l))
+    }
   }
 
   const cooldownMs = (test.cooldownDays ?? 1) * 24 * 60 * 60 * 1000
