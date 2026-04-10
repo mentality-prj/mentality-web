@@ -185,17 +185,18 @@ export type MoodStoryActionType = 'exercise' | 'sleep' | 'checkin'
 export type MoodStoryExerciseAction = {
   type: 'exercise'
   category: ExerciseCategory
-  label: string
+  label: MoodStoryLocalizedString
+  exerciseId: string
 }
 export type MoodStorySleepAction = {
   type: 'sleep'
   category?: never
-  label: string
+  label: MoodStoryLocalizedString
 }
 export type MoodStoryCheckinAction = {
   type: 'checkin'
   category?: never
-  label: string
+  label: MoodStoryLocalizedString
 }
 export type MoodStoryAction = MoodStoryExerciseAction | MoodStorySleepAction | MoodStoryCheckinAction
 
@@ -209,5 +210,6 @@ export type MoodStoryEntity = {
   screens: MoodStoryScreenEntity[]
   recommendedAffirmationId?: string
   recommendedTipId?: string
-  recommendedExerciseId?: string
 }
+
+export type MoodStoryResult = { data: MoodStoryEntity } | { error: string; status?: number }

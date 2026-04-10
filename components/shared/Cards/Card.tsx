@@ -26,6 +26,7 @@ interface CardProps {
   tags?: string[]
   tools?: ReactNode | ReactNode[]
   link?: string
+  linkText?: string
   onClick?: () => void
   onMouseEnter?: () => void
   onMouseLeave?: () => void
@@ -47,6 +48,7 @@ const Card = ({
   tags,
   tools,
   link,
+  linkText,
   onClick,
   onMouseEnter,
   onMouseLeave,
@@ -82,7 +84,7 @@ const Card = ({
             aria-label={typeof title === 'string' ? title : typeof text === 'string' ? text : undefined}
           />
         )}
-        {(sup || tools || date || time) && (
+        {(sup || tools || date || time || link || onClick) && (
           <div className={`sup mt-2 flex h-3 items-center justify-between ${textClass}`}>
             <div className="flex items-center gap-2">
               {icon && icon}
@@ -102,10 +104,11 @@ const Card = ({
             </div>
             <div className={`relative z-10 flex gap-1 ${isDark ? 'tools-dark' : ''}`} data-card-tools>
               {tools && (Array.isArray(tools) ? tools.map((tool, idx) => <span key={idx}>{tool}</span>) : tools)}
-              {tools && (link || onClick) && (
-                <div className="-mr-3 flex justify-center pt-1 align-middle opacity-65">
+              {(link || onClick) && (
+                <span className={cn('flex items-center gap-1 opacity-65', link && 'pointer-events-none')}>
+                  {linkText}
                   <SquareArrowOutUpRight size={16} />
-                </div>
+                </span>
               )}
             </div>
           </div>
@@ -113,9 +116,6 @@ const Card = ({
         {title && (
           <div className="flex items-start justify-between gap-2">
             <h3 className={`mb-0.5 text-xl ${textClass}`}>{title}</h3>
-            {(link || onClick) && !tools && (
-              <SquareArrowOutUpRight size={16} className="relative z-10 -mr-3 mt-2 shrink-0 opacity-65" />
-            )}
           </div>
         )}
         {subtitle && <h4 className={`text-sm ${textClass}`}>{subtitle}</h4>}

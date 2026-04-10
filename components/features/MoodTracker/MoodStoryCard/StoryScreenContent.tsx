@@ -26,7 +26,7 @@ export function StoryScreenContent({ screen }: StoryScreenContentProps) {
       <p className="text-sm leading-relaxed text-textcolor-secondary">{localizedText(screen.text, locale)}</p>
       {actionRoute !== null && screen.action && (
         <Button asChild variant="volume" size="medium" className="mt-2 w-full">
-          <Link href={actionRoute}>{screen.action.label}</Link>
+          <Link href={actionRoute}>{localizedText(screen.action.label, locale)}</Link>
         </Button>
       )}
     </div>

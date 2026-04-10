@@ -20,7 +20,7 @@ export const TodayMoodNotes = async () => {
 
   if (!todayRecord) {
     return (
-      <Card title={t('title')} link={`${Routes.MOODTRACKER}#mood-records-list`}>
+      <Card title={t('title')} link={`${Routes.MOODTRACKER}#mood-records-list`} linkText={t('linkText')}>
         <div className="h-full">{t('empty')}</div>
       </Card>
     )
@@ -41,6 +41,7 @@ export const TodayMoodNotes = async () => {
     <Card
       title={t('title')}
       link={`${Routes.MOODTRACKER}#mood-records-list`}
+      linkText={t('linkText')}
       time={time}
       subtitle={tm(moodInfo.label)}
       tags={todayRecord.tags}

@@ -18,11 +18,15 @@ const mockStory: MoodStoryEntity = {
     {
       title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
       text: { en: 'More text', uk: 'Більше тексту', pl: 'Więcej tekstu' },
-      action: { type: 'exercise', category: 'breathing', label: 'Спробуй дихальну вправу' },
+      action: {
+        type: 'exercise',
+        category: 'breathing',
+        exerciseId: '65aa50d9fc13ae44e8000001',
+        label: { en: 'Try breathing exercise', uk: 'Спробуй дихальну вправу', pl: 'Spróbuj ćwiczenia oddechowego' },
+      },
     },
   ],
   recommendedAffirmationId: '65aa50d9fc13ae44e8000002',
-  recommendedExerciseId: '65aa50d9fc13ae44e8000001',
 }
 
 beforeEach(() => {

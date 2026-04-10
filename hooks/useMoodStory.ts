@@ -4,10 +4,9 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { getAffirmationById } from '@/requests/affirmations'
-import { getExerciseById } from '@/requests/exercises'
 import { getLatestMoodStory } from '@/requests/moodStory'
 import { getTipById } from '@/requests/tips'
-import { AffirmationEntity, ExerciseEntity, MoodStoryEntity, TipEntity } from '@/types/api-responses'
+import { AffirmationEntity, MoodStoryEntity, TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 const POLL_INTERVAL_MS = 3_000
@@ -24,7 +23,6 @@ export type MoodStoryState =
 export type RecommendedItems = {
   affirmation?: AffirmationEntity
   tip?: TipEntity
-  exercise?: ExerciseEntity
 }
 
 type LatestMoodStoryResult = Awaited<ReturnType<typeof getLatestMoodStory>>
@@ -57,8 +55,8 @@ export function useMoodStory() {
         return
       }
 
-      const { recommendedAffirmationId, recommendedTipId, recommendedExerciseId } = story
-      if (!recommendedAffirmationId && !recommendedTipId && !recommendedExerciseId) {
+      const { recommendedAffirmationId, recommendedTipId } = story
+      if (!recommendedAffirmationId && !recommendedTipId) {
         setRecommended({})
         setRecommendedLoading(false)
         return
@@ -67,10 +65,9 @@ export function useMoodStory() {
       const typedSession = session as CustomSession
 
       try {
-        const [affirmationResult, tipResult, exerciseResult] = await Promise.all([
+        const [affirmationResult, tipResult] = await Promise.all([
           recommendedAffirmationId ? getAffirmationById(typedSession, recommendedAffirmationId) : null,
           recommendedTipId ? getTipById(typedSession, recommendedTipId) : null,
-          recommendedExerciseId ? getExerciseById(typedSession, recommendedExerciseId) : null,
         ])
 
         if (id !== fetchRecommendedIdRef.current) return
@@ -78,7 +75,6 @@ export function useMoodStory() {
         const items: RecommendedItems = {}
         if (affirmationResult && 'data' in affirmationResult) items.affirmation = affirmationResult.data
         if (tipResult && 'data' in tipResult) items.tip = tipResult.data
-        if (exerciseResult && 'data' in exerciseResult) items.exercise = exerciseResult.data
 
         setRecommended(items)
       } finally {

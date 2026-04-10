@@ -3,18 +3,29 @@ import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import Card from '@/components/shared/Cards/Card'
 import { getLatestMoodStory } from '@/requests/moodStory'
+import { MoodStoryResult } from '@/types/api-responses'
 
 import { MoodStoryAdminBar } from './MoodStoryAdminBar'
 import { MoodStoryNavigator } from './MoodStoryNavigator'
 import { StoryError } from './StoryError'
 import { StoryNotReady } from './StoryNotReady'
 
-export async function MoodStoryCard({ isAdmin }: { isAdmin?: boolean } = {}) {
-  const session = await auth()
+interface MoodStoryCardProps {
+  isAdmin?: boolean
+  initialStory?: MoodStoryResult
+}
+
+export async function MoodStoryCard({ isAdmin, initialStory }: MoodStoryCardProps = {}) {
   const t = await getTranslations('components.MoodStoryCard.card')
   const adminTools = isAdmin ? <MoodStoryAdminBar /> : undefined
 
-  const result = await getLatestMoodStory(session)
+  let result: MoodStoryResult
+  if (initialStory) {
+    result = initialStory
+  } else {
+    const session = await auth()
+    result = await getLatestMoodStory(session)
+  }
 
   if ('error' in result) {
     const isNotReady = result.status === 404
@@ -25,7 +36,7 @@ export async function MoodStoryCard({ isAdmin }: { isAdmin?: boolean } = {}) {
     )
   }
 
-  const screens = result.data.screens
+  const { screens } = result.data
   if (screens.length === 0) {
     return (
       <Card title={t('title')} tools={adminTools}>
