@@ -50,7 +50,12 @@ const mockScreens: MoodStoryScreenEntity[] = [
   {
     title: { en: 'Screen 2', uk: 'Екран 2', pl: 'Ekran 2' },
     text: { en: 'Second screen text', uk: 'Текст другого екрану', pl: 'Tekst drugiego ekranu' },
-    action: { type: 'exercise', category: 'breathing', label: 'Спробуй дихальну вправу' },
+    action: {
+      type: 'exercise',
+      category: 'breathing',
+      exerciseId: '65aa50d9fc13ae44e8000001',
+      label: { en: 'Try breathing', uk: 'Спробуй дихання', pl: 'Spróbuj oddychania' },
+    },
   },
 ]
 
@@ -176,21 +181,37 @@ describe('MoodStoryCard', () => {
 })
 
 describe('resolveActionRoute', () => {
-  it('resolves exercise with category', () => {
-    expect(resolveActionRoute({ type: 'exercise', category: 'breathing', label: 'Breathe' })).toBe('/guide')
+  it('resolves exercise with breathing category', () => {
+    expect(
+      resolveActionRoute({
+        type: 'exercise',
+        category: 'breathing',
+        exerciseId: 'ex-1',
+        label: { en: 'Breathe', uk: 'Дихай', pl: 'Oddychaj' },
+      })
+    ).toBe('/guide/breathing')
   })
 
-  it('resolves exercise with meditation category', () => {
-    expect(resolveActionRoute({ type: 'exercise', category: 'meditation', label: 'Meditate' })).toBe(
-      '/guide/meditations'
-    )
+  it('resolves exercise with meditation category to detail route', () => {
+    expect(
+      resolveActionRoute({
+        type: 'exercise',
+        category: 'meditation',
+        exerciseId: 'ex-2',
+        label: { en: 'Meditate', uk: 'Медитуй', pl: 'Medytuj' },
+      })
+    ).toBe('/guide/meditations/ex-2')
   })
 
   it('resolves sleep action', () => {
-    expect(resolveActionRoute({ type: 'sleep', label: 'Better sleep' })).toBe('/guide')
+    expect(
+      resolveActionRoute({ type: 'sleep', label: { en: 'Better sleep', uk: 'Кращий сон', pl: 'Lepszy sen' } })
+    ).toBe('/guide')
   })
 
   it('resolves checkin action', () => {
-    expect(resolveActionRoute({ type: 'checkin', label: 'Check in' })).toBe('/mood-tracker')
+    expect(resolveActionRoute({ type: 'checkin', label: { en: 'Check in', uk: 'Відмітка', pl: 'Zamelduj się' } })).toBe(
+      '/mood-tracker'
+    )
   })
 })

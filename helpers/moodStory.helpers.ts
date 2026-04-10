@@ -16,14 +16,9 @@ function routeForActionType(type: MoodStoryActionType): string | null {
 
 export function resolveActionRoute(action: MoodStoryAction): string | null {
   if (action.type === 'exercise') {
-    switch (action.category) {
-      case 'breathing':
-        return Routes.GUIDE
-      case 'meditation':
-        return Routes.MEDITATIONS
-      case 'calming':
-        return Routes.GUIDE
-    }
+    if (action.category === 'breathing') return `${Routes.GUIDE}/breathing`
+    if (action.category === 'calming') return `${Routes.GUIDE}/calming`
+    return Routes.meditationDetail(action.exerciseId)
   }
 
   return routeForActionType(action.type)

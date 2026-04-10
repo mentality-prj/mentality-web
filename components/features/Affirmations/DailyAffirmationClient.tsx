@@ -1,57 +1,31 @@
-import { cookies } from 'next/headers'
-
 import { auth } from '@/auth'
-import { getRandomAffirmation } from '@/requests/affirmations'
-import { AffirmationEntity } from '@/types/api-responses'
-import { COOKIE_KEY, getTodayDate, StoredAffirmation } from '@/utils/dailyAffirmation'
+import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { getAffirmationById, getRandomAffirmation } from '@/requests/affirmations'
+import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
-import { DailyAffirmationRandomClient } from './DailyAffirmationRandomClient'
+import AffirmationCard from './AffirmationCard'
 
-export const DailyAffirmationClient = async () => {
+interface Props {
+  recommendedId?: string
+}
+
+export const DailyAffirmationClient = async ({ recommendedId }: Props = {}) => {
   const session = await auth()
-  const cookieStore = cookies()
 
-  // Check if there's a saved affirmation for today
-  const storedCookie = cookieStore.get(COOKIE_KEY)
-  let storedAffirmation: AffirmationEntity | null = null
-  let isUsedToday = false
-
-  if (storedCookie) {
-    try {
-      const parsed: StoredAffirmation = JSON.parse(storedCookie.value)
-      if (parsed.date === getTodayDate()) {
-        storedAffirmation = parsed.affirmation
-        isUsedToday = true
-      }
-    } catch {
-      // Invalid cookie, ignore
-    }
-  }
-
-  // If no saved affirmation for today, load a new one
-  const initialAffirmation =
-    storedAffirmation ||
-    (async () => {
-      const res = await getRandomAffirmation(session)
-      return 'error' in res ? null : res.data
-    })()
-
-  const affirmation = await initialAffirmation
-  if (!affirmation) return null
-
-  const loadNewAffirmation = async (): Promise<AffirmationEntity | null> => {
-    'use server'
-    const session = await auth()
+  let affirmation = null
+  if (recommendedId) {
+    const res = await getAffirmationById(session, recommendedId)
+    if ('error' in res) return null
+    affirmation = res.data
+  } else {
     const res = await getRandomAffirmation(session)
     if ('error' in res) return null
-    return res.data
+    affirmation = res.data
   }
 
-  return (
-    <DailyAffirmationRandomClient
-      randomAffirmation={affirmation}
-      onLoadNewAffirmation={loadNewAffirmation}
-      initialShowState={isUsedToday}
-    />
-  )
+  if (!affirmation) return null
+
+  const tools = <FavoriteButtonWrapper itemType={ITEM_TYPE_DEFS.affirmations} itemId={affirmation.id} />
+
+  return <AffirmationCard item={affirmation} tools={tools} hideDate />
 }
