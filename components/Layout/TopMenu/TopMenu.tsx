@@ -24,9 +24,7 @@ const TopMenu = ({
   const t = useTranslations('components.Navbar')
   const pathname = usePathname()
 
-  const textColor = type === APP_VIEW_TYPE.LANDING ? 'text-textcolor-primary ' : 'text-remark '
-
-  const textColorHover = type === APP_VIEW_TYPE.LANDING ? 'hover:text-primary' : 'hover:text-title-light'
+  const textColor = type === APP_VIEW_TYPE.LANDING ? 'text-textcolor-primary' : 'text-remark'
 
   return (
     <>
@@ -40,11 +38,13 @@ const TopMenu = ({
               href={item.href}
               className={`flex items-center gap-1 whitespace-nowrap transition-colors hover:font-semibold ${
                 collapseToMyDayOnTablet && item.key !== 'my-day' ? 'hidden desktop:flex' : ''
-              } ${textColorHover} ${isActive ? 'font-semibold text-primary' : textColor}`}
+              } ${isActive ? 'font-semibold text-primary' : textColor}`}
               aria-current={isActive ? 'page' : undefined}
             >
               {item.icon && iconMap[item.icon]}
-              <span className={type === APP_VIEW_TYPE.LANDING ? 'menu-hover-landing' : 'menu-hover'}>
+              <span
+                className={`${!isActive ? (type === APP_VIEW_TYPE.LANDING ? 'menu-hover-landing' : 'menu-hover') : ''}`}
+              >
                 {t(item.key)}
               </span>
             </Link>
