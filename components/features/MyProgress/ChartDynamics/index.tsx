@@ -84,7 +84,7 @@ export function ChartDynamics() {
       <div className="mb-5 flex items-center justify-between">
         <div className="text-xl/[24px] font-semibold text-textcolor-primary">{t('title')}</div>
         <Tabs defaultValue="14d" onValueChange={setTimeRange}>
-          <TabsList className="gap-3">
+          <TabsList className="gap-xs">
             <TabsTrigger value="7d">{t('timeRange.week')}</TabsTrigger>
             <TabsTrigger value="14d">{t('timeRange.twoWeeks')}</TabsTrigger>
             <TabsTrigger value="30d">{t('timeRange.month')}</TabsTrigger>

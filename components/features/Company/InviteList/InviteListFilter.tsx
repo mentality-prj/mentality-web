@@ -2,17 +2,17 @@
 
 import { useTranslations } from 'next-intl'
 
-import { Filter } from '@/components/shared/Filter/Filter'
-import { FilterSection } from '@/components/shared/Filter/FilterSection'
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
 import { InviteList } from '@/components/features/Company/InviteList/InviteList'
+import { Filter } from '@/components/shared/Filter/Filter'
+import { FilterSection } from '@/components/shared/Filter/FilterSection'
 import { useGroups } from '@/hooks/useGroups'
 import { useInvitesFilter } from '@/hooks/useInvitesFilter'
 import { SORT_ORDER } from '@/types/sort'
 import { Input } from '@/ui/input'
 import { Label } from '@/ui/label'
 
-export function InviteListFilter() {
+export function InviteListFilter({ ns = 'pages.Company.manager.inviteFilter' }: { ns?: string }) {
   const { filters, setFilters, reset } = useInvitesFilter({
     order: SORT_ORDER.NEWEST,
     groups: [],
@@ -21,10 +21,10 @@ export function InviteListFilter() {
   })
 
   const { items: groupOptions } = useGroups()
-  const t = useTranslations('pages.Company.manager.inviteFilter')
+  const t = useTranslations(ns as Parameters<typeof useTranslations>[0])
 
   return (
-    <div className="flex flex-col gap-xl">
+    <div className="flex flex-col gap-md">
       <Filter
         variant="card"
         useFilters={() => ({ filters, setFilters, reset })}

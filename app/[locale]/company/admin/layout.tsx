@@ -36,4 +36,3 @@ export default async function CompanyAdminLayout({ children }: { children: React
     </AdminLayoutProvider>
   )
 }
-

@@ -23,7 +23,7 @@ export function EmployeeTable() {
   if (items.length === 0) return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-xs">
       <div className="overflow-x-auto rounded-md border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted text-textcolor-secondary">
@@ -90,4 +90,3 @@ export function EmployeeTable() {
     </div>
   )
 }
-

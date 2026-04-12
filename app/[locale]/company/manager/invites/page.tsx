@@ -26,12 +26,10 @@ export default async function ManagerInvitesPage({ params }: { params: Promise<{
   const subtitle = !('error' in result) ? result.data.name : undefined
 
   const content = (
-    <div className="flex flex-col gap-xl">
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-semibold">{t('invitesSection')}</h2>
+    <div className="flex flex-col gap-sm">
+      <div className="flex justify-end">
         <InviteManagerFormModal />
       </div>
-
       <InviteListFilter />
     </div>
   )
@@ -44,4 +42,3 @@ export default async function ManagerInvitesPage({ params }: { params: Promise<{
     </div>
   )
 }
-

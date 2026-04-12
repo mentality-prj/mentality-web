@@ -105,7 +105,7 @@ export const DeadlineCountdown = ({ initialGoals, href }: DeadlineCountdownProps
       role="timer"
       className="fixed bottom-6 right-6 z-50 flex items-center rounded-2xl bg-white px-4 py-3 shadow-lg transition-transform hover:scale-105"
     >
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-xs">
         <Timer size={18} className="shrink-0 text-primary" />
         <span className="max-w-[180px] truncate text-sm font-medium">{urgentGoal.text}</span>
         <span className="font-mono text-lg font-bold tabular-nums text-primary">{countdown}</span>

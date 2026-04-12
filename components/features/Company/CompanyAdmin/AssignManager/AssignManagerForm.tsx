@@ -59,7 +59,7 @@ export function AssignManagerForm() {
           {groupError && <p className="text-destructive text-xs">{groupError}</p>}
         </div>
 
-        <label className="flex cursor-pointer items-center gap-3">
+        <label className="flex cursor-pointer items-center gap-xs">
           <Checkbox
             checked={canViewAnalytics}
             onCheckedChange={(v) => setCanViewAnalytics(v === true)}

@@ -9,7 +9,7 @@ import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { COMPANY_PAGE_SIZE, INVITE_STATUS_CLASSES } from '@/constants/company'
 import { useInvites } from '@/hooks/useInvites'
 import { cn } from '@/lib/utils'
-import { SortOrder, SORT_ORDER } from '@/types/sort'
+import { SORT_ORDER, SortOrder } from '@/types/sort'
 import { Button } from '@/ui/button'
 
 type Props = {
@@ -61,7 +61,7 @@ export function InviteList({ groupFilter, dateFrom, dateTo, order }: Props = {})
   if (filteredItems.length === 0) return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-xs">
       <div className="overflow-x-auto rounded-md border border-border">
         <table className="w-full text-sm">
           <thead className="bg-muted text-textcolor-secondary">

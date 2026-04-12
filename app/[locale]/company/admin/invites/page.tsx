@@ -4,7 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { auth } from '@/auth'
 import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
 import { InviteEmployeeFormModal } from '@/components/features/Company/CompanyAdmin/InviteEmployee/InviteEmployeeFormModal'
-import { InviteList } from '@/components/features/Company/InviteList/InviteList'
+import { InviteListFilter } from '@/components/features/Company/InviteList/InviteListFilter'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getMyCompany } from '@/requests/companies'
@@ -26,11 +26,11 @@ export default async function CompanyAdminInvitesPage({ params }: { params: Prom
   const subtitle = !('error' in result) ? result.data.name : undefined
 
   const content = (
-    <div className="flex flex-col gap-md">
+    <div className="flex flex-col gap-sm">
       <div className="flex justify-end">
         <InviteEmployeeFormModal />
       </div>
-      <InviteList />
+      <InviteListFilter />
     </div>
   )
 

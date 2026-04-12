@@ -36,4 +36,3 @@ export default async function CompanyManagerLayout({ children }: { children: Rea
     </AdminLayoutProvider>
   )
 }
-

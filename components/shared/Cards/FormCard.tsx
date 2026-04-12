@@ -37,14 +37,14 @@ export default function FormCard({
 
       {onSubmit &&
         (onCancel && cancelLabel ? (
-          <div className="mt-6 grid grid-cols-2 gap-3">
+          <div className="mt-6 grid grid-cols-2 gap-xs">
             <div>
               <Button variant="secondary" className="w-full" onClick={onCancel}>
                 {cancelLabel}
               </Button>
             </div>
 
-            <div className="flex gap-3">
+            <div className="flex gap-xs">
               <Button variant="volume" className="flex-1" onClick={onSubmit} disabled={submitDisabled}>
                 {submitLabel}
               </Button>

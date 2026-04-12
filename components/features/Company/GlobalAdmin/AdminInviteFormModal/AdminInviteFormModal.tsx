@@ -7,7 +7,7 @@ import { AdminAssignManagerForm } from '@/components/features/Company/GlobalAdmi
 import { AdminInviteEmployeeForm } from '@/components/features/Company/GlobalAdmin/AdminInviteEmployeeForm/AdminInviteEmployeeForm'
 import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FormCard from '@/components/shared/Cards/FormCard'
-import FullScreenBackdrop from '@/components/shared/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import { ModalSheet } from '@/components/shared/FullScreenContainers/ModalSheet'
 import { Button } from '@/ui/button'
 
 type Props = {
@@ -30,26 +30,18 @@ export function AdminInviteFormModal({ companyId, onInvited }: Props) {
       <Button onClick={() => setOpen(true)}>{t('inviteTitle')}</Button>
 
       {open && (
-        <>
-          <FullScreenBackdrop onClick={handleClose} />
-          <div
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="invite-modal-title"
-            className="scrollbar-styled fixed inset-x-4 top-1/2 z-50 max-h-[90vh] -translate-y-1/2 overflow-y-auto md:inset-x-auto md:left-1/2 md:w-[520px] md:-translate-x-1/2"
+        <ModalSheet labelledBy="invite-modal-title" onClose={handleClose}>
+          <FormCard
+            title={<span id="invite-modal-title">{t('inviteTitle')}</span>}
+            tools={<CloseIconButton onClick={handleClose} />}
           >
-            <FormCard
-              title={<span id="invite-modal-title">{t('inviteTitle')}</span>}
-              tools={<CloseIconButton onClick={handleClose} />}
-            >
-              <div className="flex flex-col gap-sm">
-                <AdminInviteEmployeeForm companyId={companyId} onInvited={handleInvited} />
-                <hr className="border-border" />
-                <AdminAssignManagerForm companyId={companyId} />
-              </div>
-            </FormCard>
-          </div>
-        </>
+            <div className="flex flex-col gap-sm">
+              <AdminInviteEmployeeForm companyId={companyId} onInvited={handleInvited} />
+              <hr className="border-border" />
+              <AdminAssignManagerForm companyId={companyId} />
+            </div>
+          </FormCard>
+        </ModalSheet>
       )}
     </>
   )

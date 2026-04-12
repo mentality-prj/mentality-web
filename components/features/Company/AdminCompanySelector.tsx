@@ -15,11 +15,7 @@ export function AdminCompanySelector() {
   if (companies.length === 0) return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
 
   return (
-    <HighlightCard
-      label={t('label')}
-      description={t('description')}
-      labelHtmlFor="admin-company-select"
-    >
+    <HighlightCard label={t('label')} description={t('description')} labelHtmlFor="admin-company-select">
       <Select value={companyId ?? undefined} onValueChange={(value) => setCompanyId(value === '' ? null : value)}>
         <SelectTrigger id="admin-company-select" className="max-w-sm">
           <SelectValue placeholder={t('placeholder')} />
@@ -35,4 +31,3 @@ export function AdminCompanySelector() {
     </HighlightCard>
   )
 }
-

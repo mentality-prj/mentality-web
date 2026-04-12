@@ -16,7 +16,7 @@ export const StressLevel = async ({ summaries }: { summaries?: DaySummary[] }) =
       title={t('title')}
       icon={<CloudLightning className="opacity-50" color="white" size="128" />}
     >
-      <div className="flex w-full flex-col gap-3">
+      <div className="flex w-full flex-col gap-xs">
         <StressLevelChart summaries={summaries} locale={locale} />
       </div>
     </SummaryCard>

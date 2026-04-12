@@ -76,7 +76,7 @@ export function AdminGroupTree({ companyId, initialGroups }: Props) {
   }
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         {!adding && (
           <Button size="small" variant="secondary" onClick={() => setAdding(true)} className="gap-1">

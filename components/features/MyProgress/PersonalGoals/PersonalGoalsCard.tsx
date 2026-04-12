@@ -185,12 +185,12 @@ export const PersonalGoalsCard = ({
             </div>
           )}
           {isCompleted ? (
-            <div className="flex items-center justify-center gap-3 text-primary">
+            <div className="flex items-center justify-center gap-xs text-primary">
               <p>{t('GoalAchieved')}</p>
               <CircleCheckBig size={48} />
             </div>
           ) : isFailed ? (
-            <div className="flex items-center justify-center gap-3">
+            <div className="flex items-center justify-center gap-xs">
               <p>{t('GoalFailed')}</p>
               <HeartCrack size={48} />
             </div>
