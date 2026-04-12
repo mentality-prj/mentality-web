@@ -8,9 +8,16 @@ import { useTranslations } from 'next-intl'
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
 import { useAdminCompany } from '@/context/adminCompanyContext'
 import { getMyCompany } from '@/requests/companies'
-import { getEmployees, getEmployeesAdmin, removeEmployee, removeEmployeeAdmin } from '@/requests/employees'
+import {
+  getEmployees,
+  getEmployeesAdmin,
+  removeEmployee,
+  removeEmployeeAdmin,
+  updateEmployee,
+  updateEmployeeAdmin,
+} from '@/requests/employees'
 import { CustomSession } from '@/types/auth'
-import { EmployeeEntity } from '@/types/company'
+import { EmployeeEntity, UpdateEmployeeDto } from '@/types/company'
 
 export function useEmployeeTable() {
   const t = useTranslations('pages.Company.companyAdmin.employees')
@@ -84,7 +91,21 @@ export function useEmployeeTable() {
     setTotal((prev) => Math.max(0, prev - 1))
   }
 
+  async function handleEdit(id: string, dto: UpdateEmployeeDto) {
+    const session = data as CustomSession
+    const res = adminCompanyId
+      ? await updateEmployeeAdmin(session, adminCompanyId, id, dto)
+      : await updateEmployee(session, myCompanyIdRef.current!, id, dto)
+    if ('error' in res) {
+      toast.error(res.error)
+      return false
+    }
+    toast.success(t('updated'))
+    setItems((prev) => prev.map((e) => (e.id === id ? res.data : e)))
+    return true
+  }
+
   const totalPages = Math.max(1, Math.ceil(total / COMPANY_PAGE_SIZE))
 
-  return { items, total, page, setPage, loading, error, totalPages, handleRemove }
+  return { items, total, page, setPage, loading, error, totalPages, handleRemove, handleEdit }
 }

@@ -3,8 +3,8 @@ import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
-import { InviteList } from '@/components/features/Company/InviteList/InviteList'
-import { InviteEmployeeManagerForm } from '@/components/features/Company/Manager/InviteEmployeeManagerForm'
+import { InviteListFilter } from '@/components/features/Company/InviteList/InviteListFilter'
+import { InviteManagerFormModal } from '@/components/features/Company/Manager/InviteManagerFormModal'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getMyCompany } from '@/requests/companies'
@@ -26,26 +26,22 @@ export default async function ManagerInvitesPage({ params }: { params: Promise<{
   const subtitle = !('error' in result) ? result.data.name : undefined
 
   const content = (
-    <>
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{t('invite.title')}</h2>
-        <div className="max-w-md">
-          <InviteEmployeeManagerForm />
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-md">
+    <div className="flex flex-col gap-xl">
+      <div className="flex items-center justify-between">
         <h2 className="text-lg font-semibold">{t('invitesSection')}</h2>
-        <InviteList />
-      </section>
-    </>
+        <InviteManagerFormModal />
+      </div>
+
+      <InviteListFilter />
+    </div>
   )
 
   return (
     <div className="gap-xl flex flex-col">
-      <PageTitle title={t('invite.title')} subtitle={subtitle} />
+      <PageTitle title={t('title')} subtitle={subtitle} />
 
       {isSystemAdmin ? <AdminCompanyWrapper>{content}</AdminCompanyWrapper> : content}
     </div>
   )
 }
+

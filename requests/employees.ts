@@ -3,7 +3,7 @@ import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { mapEmployee, mapEmployees } from '@/mappers/company.mappers'
 import { CustomSession } from '@/types/auth'
-import { EmployeeEntity, PaginatedEmployees } from '@/types/company'
+import { EmployeeEntity, PaginatedEmployees, UpdateEmployeeDto } from '@/types/company'
 import { CAN_MANAGE_EMPLOYEES, CompanyRole } from '@/types/rbac'
 
 import { APIUrl } from './config'
@@ -77,7 +77,36 @@ export async function removeEmployee(
   logger.info('Employee removed', { id })
   return { data: mapped }
 }
+export async function updateEmployee(
+  session: CustomSession | null,
+  companyId: string,
+  id: string,
+  dto: UpdateEmployeeDto
+): Promise<{ data: EmployeeEntity } | { error: string }> {
+  if (!assertCanManageEmployees(session)) {
+    logger.warn('Unauthorized attempt to update employee', { userId: session?.user?.email })
+    return { error: 'Unauthorized: insufficient role' }
+  }
 
+  const res = await performAuthRequest<EmployeeEntity>(session, `${APIUrl}${EMPLOYEE_ENDPOINTS.byId(companyId, id)}`, {
+    method: 'PATCH',
+    body: dto as unknown as Record<string, unknown>,
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to update employee', { error: res.error, id })
+    return { error: res.error }
+  }
+
+  const mapped = mapEmployee(res.data)
+  if (!mapped) {
+    logger.error('Invalid employee data returned from API', { id })
+    return { error: 'Invalid employee data' }
+  }
+
+  logger.info('Employee updated', { id })
+  return { data: mapped }
+}
 // ─── Admin-scoped (per-company) variants ──────────────────────────────────────
 
 export async function getEmployeesAdmin(
@@ -128,5 +157,26 @@ export async function removeEmployeeAdmin(
   const mapped = mapEmployee(res.data)
   if (!mapped) return { error: 'Invalid employee data' }
   logger.info('Admin: employee removed', { id, companyId })
+  return { data: mapped }
+}
+
+export async function updateEmployeeAdmin(
+  session: CustomSession | null,
+  companyId: string,
+  id: string,
+  dto: UpdateEmployeeDto
+): Promise<{ data: EmployeeEntity } | { error: string }> {
+  const res = await performAdminRequest<EmployeeEntity>(
+    session,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeeById(companyId, id)}`,
+    { method: 'PATCH', body: dto as unknown as Record<string, unknown> }
+  )
+  if ('error' in res) {
+    logger.error('Admin: failed to update employee', { error: res.error, companyId, id })
+    return { error: res.error }
+  }
+  const mapped = mapEmployee(res.data)
+  if (!mapped) return { error: 'Invalid employee data' }
+  logger.info('Admin: employee updated', { id, companyId })
   return { data: mapped }
 }

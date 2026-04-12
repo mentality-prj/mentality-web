@@ -44,6 +44,7 @@ export function useAssignManager() {
   }, [adminCompanyId])
 
   const loadManagersAndScopes = useCallback(async () => {
+    if (!adminCompanyId && !companyId) return
     const session = data as CustomSession
     const [managersRes, scopesRes] = adminCompanyId
       ? await Promise.all([
@@ -60,7 +61,7 @@ export function useAssignManager() {
     if (!('error' in scopesRes)) {
       setScopes(scopesRes.data)
     }
-  }, [data, adminCompanyId])
+  }, [data, adminCompanyId, companyId])
 
   useEffect(() => {
     if (status === 'authenticated') loadManagersAndScopes()
@@ -86,6 +87,7 @@ export function useAssignManager() {
   async function handleAssign(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+    if (!adminCompanyId && !companyId) return
     setLoading(true)
     const dto = { userId: selectedUserId, groupIds: selectedGroupIds, canViewAnalytics }
     const session = data as CustomSession
@@ -105,6 +107,7 @@ export function useAssignManager() {
   }
 
   async function handleRevoke(id: string) {
+    if (!adminCompanyId && !companyId) return
     const session = data as CustomSession
     const res = adminCompanyId
       ? await deleteAccessScopeAdmin(session, adminCompanyId, id)
@@ -117,6 +120,8 @@ export function useAssignManager() {
     setScopes((prev) => prev.filter((s) => s.id !== id))
   }
 
+  const isReady = Boolean(adminCompanyId || companyId)
+
   return {
     groups,
     managers,
@@ -128,6 +133,7 @@ export function useAssignManager() {
     canViewAnalytics,
     setCanViewAnalytics,
     loading,
+    isReady,
     userError,
     groupError,
     handleAssign,

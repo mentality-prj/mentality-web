@@ -63,7 +63,11 @@ const MyDay = async () => {
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">
-        <DailyAffirmationClient recommendedId={recommendedAffirmationId} />
+        {recommendedAffirmationId && (
+          <div className="flex flex-col gap-sm self-start">
+            <DailyAffirmationClient recommendedId={recommendedAffirmationId} />
+          </div>
+        )}
 
         <PersonalGoalsList
           filter="pending"

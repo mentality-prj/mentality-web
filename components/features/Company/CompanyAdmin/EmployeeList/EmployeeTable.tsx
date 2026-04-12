@@ -1,16 +1,22 @@
 'use client'
 
+import { useState } from 'react'
 import { Pencil, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import { EditEmployeeModal } from '@/components/features/Company/CompanyAdmin/EmployeeList/EditEmployeeModal'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { useEmployeeTable } from '@/hooks/useEmployeeTable'
+import { useGroups } from '@/hooks/useGroups'
+import { EmployeeEntity } from '@/types/company'
 import { Button } from '@/ui/button'
 
 export function EmployeeTable() {
   const t = useTranslations('pages.Company.companyAdmin.employees')
   const tRoles = useTranslations('pages.Company.roles')
-  const { items, page, setPage, loading, error, totalPages, handleRemove } = useEmployeeTable()
+  const { items, page, setPage, loading, error, totalPages, handleRemove, handleEdit } = useEmployeeTable()
+  const { items: groups } = useGroups()
+  const [editingEmployee, setEditingEmployee] = useState<EmployeeEntity | null>(null)
 
   if (loading) return <p className="text-sm text-textcolor-secondary">{t('loading')}</p>
   if (error) return <p className="text-destructive text-sm">{error}</p>
@@ -47,8 +53,7 @@ export function EmployeeTable() {
                       variant="ghost"
                       className="h-7 w-7 p-0"
                       aria-label={t('ariaEdit')}
-                      disabled
-                      aria-disabled="true"
+                      onClick={() => setEditingEmployee(emp)}
                     >
                       <Pencil size={13} />
                     </Button>
@@ -70,6 +75,19 @@ export function EmployeeTable() {
       </div>
 
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
+
+      {editingEmployee && (
+        <EditEmployeeModal
+          employeeId={editingEmployee.id}
+          employeeName={editingEmployee.name || editingEmployee.email}
+          currentRole={editingEmployee.role}
+          currentGroupIds={editingEmployee.groupIds}
+          groups={groups}
+          onSave={handleEdit}
+          onClose={() => setEditingEmployee(null)}
+        />
+      )}
     </div>
   )
 }
+

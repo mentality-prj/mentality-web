@@ -4,6 +4,7 @@ import { useId, useMemo, useState } from 'react'
 import { ChevronDown, ChevronRight, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
+import Card from '@/components/shared/Cards/Card'
 import { CustomInput } from '@/ds/components/CustomInput'
 import { computeVisibleSet } from '@/helpers/company.helpers'
 import { cn } from '@/lib/utils'
@@ -129,7 +130,7 @@ export function GroupSelector({
   }
 
   return (
-    <div className="flex flex-col gap-2">
+    <Card className="flex flex-col gap-2">
       <CustomInput
         id={searchId}
         placeholder={t('searchPlaceholder')}
@@ -138,6 +139,7 @@ export function GroupSelector({
         aria-label={t('searchLabel')}
         rightIcon={query ? <X size={14} /> : undefined}
         onRightClick={() => setQuery('')}
+        className="bg-white"
       />
 
       <ul className="scrollbar-styled max-h-64 overflow-y-auto rounded-md border border-border p-1">
@@ -159,6 +161,6 @@ export function GroupSelector({
           {t(selected.length === 1 ? 'selected' : 'selectedPlural', { count: selected.length })}
         </p>
       )}
-    </div>
+    </Card>
   )
 }

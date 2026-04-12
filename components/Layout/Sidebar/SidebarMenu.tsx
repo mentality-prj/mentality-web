@@ -13,6 +13,7 @@ import {
   MailPlus,
   NotebookPenIcon,
   Puzzle,
+  Shield,
   Speech,
   Tag,
   Users,
@@ -38,6 +39,7 @@ const iconMapSidebar: Record<string, ReactNode> = {
   bookmark: <Bookmark className="h-5 w-5" size={12} />,
   speech: <Speech className="h-5 w-5" size={12} />,
   puzzle: <Puzzle className="h-5 w-5" size={12} />,
+  shield: <Shield className="h-5 w-5" size={12} />,
   users: <Users className="h-5 w-5" size={12} />,
 }
 
@@ -55,7 +57,7 @@ export default function SidebarMenu({
 
   return (
     <ul
-      className={`flex flex-col max-md:w-full ${type === 'admin' ? 'text-color-white' : 'text-remark mr-8 overflow-hidden rounded border border-border'}`}
+      className={`flex flex-col max-md:w-full ${type === 'admin' ? 'text-color-white' : 'text-remark overflow-hidden rounded border border-border'}`}
     >
       {menu.map((item: SidebarMenuItemType) => {
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
