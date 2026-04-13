@@ -10,7 +10,7 @@ const SidebarSettingsLink = async () => {
 
   return (
     <Link
-      href={`/${Routes.SETTINGS}`}
+      href={Routes.SETTINGS}
       className="text-remark hover:text-title-light -mr-8 box-border flex items-center justify-center gap-xs overflow-hidden rounded-xl border border-dashed border-border px-8 py-3 transition hover:mr-0 hover:w-full hover:rounded-r-none hover:border-background-alt hover:bg-background-alt hover:pr-16"
     >
       <Settings2 />

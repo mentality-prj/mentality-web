@@ -31,12 +31,14 @@ export function InviteList({ groupFilter, dateFrom, dateTo, order }: Props = {})
       result = result.filter((inv) => inv.groupIds.some((g) => groupFilter.includes(g)))
     }
     if (dateFrom) {
-      const from = new Date(dateFrom).getTime()
+      const [fy, fm, fd] = dateFrom.split('-').map(Number)
+      const from = new Date(fy, fm - 1, fd).getTime()
       result = result.filter((inv) => new Date(inv.createdAt).getTime() >= from)
     }
     if (dateTo) {
-      const to = new Date(dateTo).getTime() + 86_400_000 // inclusive
-      result = result.filter((inv) => new Date(inv.createdAt).getTime() <= to)
+      const [ty, tm, td] = dateTo.split('-').map(Number)
+      const to = new Date(ty, tm - 1, td + 1).getTime() // start of next day (inclusive)
+      result = result.filter((inv) => new Date(inv.createdAt).getTime() < to)
     }
 
     return order === SORT_ORDER.OLDEST

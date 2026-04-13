@@ -93,6 +93,7 @@
       "roleLabel": "Роль",
       "groupsLabel": "Групи",
       "saveButton": "Зберегти",
+      "cancelButton": "Скасувати",
       "saving": "Збереження…",
       "errorGroups": "Оберіть принаймні одну групу."
     },

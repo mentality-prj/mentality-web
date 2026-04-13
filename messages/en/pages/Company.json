@@ -93,6 +93,7 @@
       "roleLabel": "Role",
       "groupsLabel": "Groups",
       "saveButton": "Save",
+      "cancelButton": "Cancel",
       "saving": "Saving…",
       "errorGroups": "Select at least one group."
     },

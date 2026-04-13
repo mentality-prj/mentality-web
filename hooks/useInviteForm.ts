@@ -58,6 +58,7 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+    if (!adminCompanyId && !companyId) return
 
     setLoading(true)
     const dto = { email: email.trim(), role, groupIds }
@@ -80,6 +81,7 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
   }
 
   const noGroups = groups.length === 0
+  const isReady = Boolean(adminCompanyId || companyId)
 
   return {
     groups,
@@ -93,6 +95,7 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
     emailError,
     groupError,
     noGroups,
+    isReady,
     handleSubmit,
   }
 }

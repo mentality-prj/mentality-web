@@ -93,6 +93,7 @@
       "roleLabel": "Rola",
       "groupsLabel": "Grupy",
       "saveButton": "Zapisz",
+      "cancelButton": "Anuluj",
       "saving": "Zapisywanie…",
       "errorGroups": "Wybierz co najmniej jedną grupę."
     },

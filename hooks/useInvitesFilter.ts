@@ -1,6 +1,6 @@
 'use client'
 
-import { useCallback, useMemo } from 'react'
+import { useCallback, useMemo, useRef } from 'react'
 import { useSearchParams } from 'next/navigation'
 
 import { usePathname, useRouter } from '@/i18n/navigation'
@@ -17,16 +17,17 @@ export function useInvitesFilter(initial: InviteFilterState) {
   const searchParams = useSearchParams()
   const router = useRouter()
   const pathname = usePathname()
+  const initialRef = useRef(initial)
 
   const filters = useMemo((): InviteFilterState => {
-    const order = (searchParams.get('order') as SortOrder | null) ?? initial.order
+    const { order: initOrder, groups: initGroups, dateFrom: initDateFrom, dateTo: initDateTo } = initialRef.current
+    const order = (searchParams.get('order') as SortOrder | null) ?? initOrder
     const groupsParam = searchParams.get('groups')
-    const groups = groupsParam ? groupsParam.split(',') : initial.groups
-    const dateFrom = searchParams.get('dateFrom') ?? initial.dateFrom
-    const dateTo = searchParams.get('dateTo') ?? initial.dateTo
+    const groups = groupsParam ? groupsParam.split(',') : initGroups
+    const dateFrom = searchParams.get('dateFrom') ?? initDateFrom
+    const dateTo = searchParams.get('dateTo') ?? initDateTo
 
     return { order, groups, dateFrom, dateTo }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchParams])
 
   const setFilters = useCallback(

@@ -48,9 +48,11 @@ export function EditEmployeeModal({
     }
     setGroupError(null)
     setLoading(true)
-    await onSave(employeeId, { role, groupIds })
+    const saved = await onSave(employeeId, { role, groupIds })
     setLoading(false)
-    onClose()
+    if (saved) {
+      onClose()
+    }
   }
 
   return (
@@ -85,7 +87,7 @@ export function EditEmployeeModal({
 
           <div className="flex justify-end gap-2">
             <Button type="button" variant="secondary" onClick={onClose} disabled={loading}>
-              Cancel
+              {t('cancelButton')}
             </Button>
             <Button type="submit" disabled={loading}>
               {loading ? t('saving') : t('saveButton')}
