@@ -16,6 +16,7 @@ function assertCanInvite(session: CustomSession | null): boolean {
 
 export async function createInvite(
   session: CustomSession | null,
+  companyId: string,
   dto: CreateInviteDto
 ): Promise<{ data: InviteEntity } | { error: string }> {
   if (!assertCanInvite(session)) {
@@ -23,7 +24,7 @@ export async function createInvite(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.BASE}`, {
+  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.base(companyId)}`, {
     method: 'POST',
     body: dto as unknown as Record<string, unknown>,
   })
@@ -44,10 +45,11 @@ export async function createInvite(
 
 export async function getInvites(
   session: CustomSession | null,
+  companyId: string,
   page = 1,
   limit = 20
 ): Promise<{ data: PaginatedInvites } | { error: string }> {
-  const url = `${APIUrl}${INVITE_ENDPOINTS.BASE}?page=${page}&limit=${limit}`
+  const url = `${APIUrl}${INVITE_ENDPOINTS.base(companyId)}?page=${page}&limit=${limit}`
   const res = await performAuthRequest<InviteEntity[]>(session, url)
 
   if ('error' in res) {
@@ -62,6 +64,7 @@ export async function getInvites(
 
 export async function resendInvite(
   session: CustomSession | null,
+  companyId: string,
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
   if (!assertCanInvite(session)) {
@@ -69,7 +72,7 @@ export async function resendInvite(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.resend(id)}`, {
+  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.resend(companyId, id)}`, {
     method: 'POST',
   })
 
@@ -89,6 +92,7 @@ export async function resendInvite(
 
 export async function cancelInvite(
   session: CustomSession | null,
+  companyId: string,
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
   if (!assertCanInvite(session)) {
@@ -96,8 +100,8 @@ export async function cancelInvite(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.byId(id)}`, {
-    method: 'DELETE',
+  const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.cancel(companyId, id)}`, {
+    method: 'PATCH',
   })
 
   if ('error' in res) {

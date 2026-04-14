@@ -69,12 +69,12 @@ describe('createAccessScope', () => {
   it('returns data on success (SUPERUSER)', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockScope })
 
-    const result = await createAccessScope(mockSuperuserSession, mockDto)
+    const result = await createAccessScope(mockSuperuserSession, 'c-1', mockDto)
 
     expect(result).toEqual({ data: mockScope })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(ACCESS_SCOPE_ENDPOINTS.BASE),
+      expect.stringContaining(ACCESS_SCOPE_ENDPOINTS.base('c-1')),
       expect.objectContaining({ method: 'POST' })
     )
     expect(logger.info).toHaveBeenCalled()
@@ -83,14 +83,14 @@ describe('createAccessScope', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
-    const result = await createAccessScope(mockSuperuserSession, mockDto)
+    const result = await createAccessScope(mockSuperuserSession, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Conflict' })
     expect(logger.error).toHaveBeenCalled()
   })
 
   it('blocks MANAGER — returns unauthorized', async () => {
-    const result = await createAccessScope(mockManagerSession, mockDto)
+    const result = await createAccessScope(mockManagerSession, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -98,14 +98,14 @@ describe('createAccessScope', () => {
   })
 
   it('blocks EMPLOYEE — returns unauthorized', async () => {
-    const result = await createAccessScope(mockEmployeeSession, mockDto)
+    const result = await createAccessScope(mockEmployeeSession, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('blocks null session', async () => {
-    const result = await createAccessScope(null, mockDto)
+    const result = await createAccessScope(null, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -118,12 +118,12 @@ describe('deleteAccessScope', () => {
   it('returns empty object on success (204-like)', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: {} })
 
-    const result = await deleteAccessScope(mockSuperuserSession, 'scope-1')
+    const result = await deleteAccessScope(mockSuperuserSession, 'c-1', 'scope-1')
 
     expect(result).toEqual({})
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(ACCESS_SCOPE_ENDPOINTS.byId('scope-1')),
+      expect.stringContaining(ACCESS_SCOPE_ENDPOINTS.byId('c-1', 'scope-1')),
       expect.objectContaining({ method: 'DELETE' })
     )
     expect(logger.info).toHaveBeenCalled()
@@ -132,14 +132,14 @@ describe('deleteAccessScope', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await deleteAccessScope(mockSuperuserSession, 'scope-1')
+    const result = await deleteAccessScope(mockSuperuserSession, 'c-1', 'scope-1')
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
   })
 
   it('blocks MANAGER — returns unauthorized', async () => {
-    const result = await deleteAccessScope(mockManagerSession, 'scope-1')
+    const result = await deleteAccessScope(mockManagerSession, 'c-1', 'scope-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -147,7 +147,7 @@ describe('deleteAccessScope', () => {
   })
 
   it('blocks null session', async () => {
-    const result = await deleteAccessScope(null, 'scope-1')
+    const result = await deleteAccessScope(null, 'c-1', 'scope-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -160,7 +160,7 @@ describe('getAccessScopes', () => {
   it('returns scopes on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockScope] })
 
-    const result = await getAccessScopes(mockSuperuserSession)
+    const result = await getAccessScopes(mockSuperuserSession, 'c-1')
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -169,14 +169,14 @@ describe('getAccessScopes', () => {
     }
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(ACCESS_SCOPE_ENDPOINTS.BASE)
+      expect.stringContaining(ACCESS_SCOPE_ENDPOINTS.base('c-1'))
     )
   })
 
   it('returns empty array when API returns non-array', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: null })
 
-    const result = await getAccessScopes(mockSuperuserSession)
+    const result = await getAccessScopes(mockSuperuserSession, 'c-1')
 
     expect('data' in result).toBe(true)
     if ('data' in result) expect(result.data).toEqual([])
@@ -185,7 +185,7 @@ describe('getAccessScopes', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
 
-    const result = await getAccessScopes(mockSuperuserSession)
+    const result = await getAccessScopes(mockSuperuserSession, 'c-1')
 
     expect(result).toEqual({ error: 'Server error' })
     expect(logger.error).toHaveBeenCalled()

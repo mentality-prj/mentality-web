@@ -1,3 +1,5 @@
+'use client'
+
 import { useEffect } from 'react'
 
 import { logger } from '@/lib/logger'
@@ -8,6 +10,15 @@ type Props = {
 }
 
 export default function FullScreenBackdrop({ onClick, className = '' }: Props) {
+  // Lock body scroll while backdrop is mounted
+  useEffect(() => {
+    const prev = document.body.style.overflow
+    document.body.style.overflow = 'hidden'
+    return () => {
+      document.body.style.overflow = prev
+    }
+  }, [])
+
   // Backdrop: add keyboard support and ARIA role for accessibility.
   useEffect(() => {
     if (!onClick) return

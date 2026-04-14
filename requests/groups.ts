@@ -29,6 +29,7 @@ export async function getGroups(
 
 export async function createGroup(
   session: CustomSession | null,
+  companyId: string,
   dto: CreateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
   if (!assertCanManageGroups(session)) {
@@ -36,7 +37,7 @@ export async function createGroup(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<GroupEntity>(session, `${APIUrl}${GROUP_ENDPOINTS.BASE}`, {
+  const res = await performAuthRequest<GroupEntity>(session, `${APIUrl}${GROUP_ENDPOINTS.byCompany(companyId)}`, {
     method: 'POST',
     body: dto as unknown as Record<string, unknown>,
   })
@@ -57,6 +58,7 @@ export async function createGroup(
 
 export async function updateGroup(
   session: CustomSession | null,
+  companyId: string,
   id: string,
   dto: UpdateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
@@ -65,7 +67,7 @@ export async function updateGroup(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<GroupEntity>(session, `${APIUrl}${GROUP_ENDPOINTS.byId(id)}`, {
+  const res = await performAuthRequest<GroupEntity>(session, `${APIUrl}${GROUP_ENDPOINTS.byId(companyId, id)}`, {
     method: 'PATCH',
     body: dto as unknown as Record<string, unknown>,
   })
@@ -86,6 +88,7 @@ export async function updateGroup(
 
 export async function deleteGroup(
   session: CustomSession | null,
+  companyId: string,
   id: string
 ): Promise<{ data: GroupEntity } | { error: string }> {
   if (!assertCanManageGroups(session)) {
@@ -93,7 +96,7 @@ export async function deleteGroup(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<GroupEntity>(session, `${APIUrl}${GROUP_ENDPOINTS.byId(id)}`, {
+  const res = await performAuthRequest<GroupEntity>(session, `${APIUrl}${GROUP_ENDPOINTS.byId(companyId, id)}`, {
     method: 'DELETE',
   })
 

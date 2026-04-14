@@ -35,7 +35,7 @@ export const PersonalGoalsFilter = ({ filter, setFilter }: PersonalGoalsFilterPr
         </SelectContent>
       </Select>
       <Tabs value={filter} onValueChange={(value) => setFilter(value as Filter)}>
-        <TabsList className="hidden desktop:flex desktop:w-auto desktop:gap-3">
+        <TabsList className="hidden desktop:flex desktop:w-auto desktop:gap-xs">
           <TabsTrigger value="all">{t('All')}</TabsTrigger>
           <TabsTrigger value={Statuses.PENDING}>{t('Active')}</TabsTrigger>
           <TabsTrigger value={Statuses.COMPLETED}>{t('Completed')}</TabsTrigger>

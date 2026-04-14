@@ -32,13 +32,14 @@ export function GroupTree() {
     handleCreateRoot,
     resetAdding,
     refetch,
+    companyId,
   } = useGroupTree()
 
   if (loading) return <p className="text-sm text-textcolor-secondary">{t('loading')}</p>
   if (error) return <p className="text-destructive text-sm">{error}</p>
 
   return (
-    <div className="flex flex-col gap-3">
+    <div className="flex flex-col gap-xs">
       <div className="flex items-center justify-between">
         {!adding && (
           <Button size="small" variant="secondary" onClick={() => setAdding(true)} className="gap-1">
@@ -101,6 +102,7 @@ export function GroupTree() {
           <GroupTreeNode
             key={group.id}
             group={group}
+            companyId={companyId ?? undefined}
             allGroups={flat}
             onAdded={refetch}
             onUpdated={refetch}

@@ -1,3 +1,7 @@
+function companyUrl(companyId: string, path: string): string {
+  return `/companies/${companyId}${path}`
+}
+
 export const COMPANY_ENDPOINTS = Object.freeze({
   BASE: '/companies',
   MY: '/companies/my',
@@ -5,44 +9,49 @@ export const COMPANY_ENDPOINTS = Object.freeze({
 })
 
 export const GROUP_ENDPOINTS = Object.freeze({
-  BASE: '/groups',
-  byCompany: (companyId: string) => `/groups?companyId=${companyId}`,
-  byId: (id: string) => `/groups/${id}`,
+  byCompany: (companyId: string) => companyUrl(companyId, '/groups'),
+  byId: (companyId: string, id: string) => companyUrl(companyId, `/groups/${id}`),
+  members: (companyId: string, groupId: string) => companyUrl(companyId, `/groups/${groupId}/members`),
+  memberById: (companyId: string, groupId: string, userId: string) =>
+    companyUrl(companyId, `/groups/${groupId}/members/${userId}`),
 })
 
 export const INVITE_ENDPOINTS = Object.freeze({
-  BASE: '/invites',
-  byId: (id: string) => `/invites/${id}`,
-  resend: (id: string) => `/invites/${id}/resend`,
+  base: (companyId: string) => companyUrl(companyId, '/invites'),
+  byId: (companyId: string, id: string) => companyUrl(companyId, `/invites/${id}`),
+  accept: (companyId: string, id: string) => companyUrl(companyId, `/invites/${id}/accept`),
+  decline: (companyId: string, id: string) => companyUrl(companyId, `/invites/${id}/decline`),
+  cancel: (companyId: string, id: string) => companyUrl(companyId, `/invites/${id}/cancel`),
+  resend: (companyId: string, id: string) => companyUrl(companyId, `/invites/${id}/resend`),
 })
 
 export const ACCESS_SCOPE_ENDPOINTS = Object.freeze({
-  BASE: '/access-scopes',
-  byId: (id: string) => `/access-scopes/${id}`,
+  base: (companyId: string) => companyUrl(companyId, '/access-scopes'),
+  byId: (companyId: string, id: string) => companyUrl(companyId, `/access-scopes/${id}`),
 })
 
 export const EMPLOYEE_ENDPOINTS = Object.freeze({
-  BASE: '/employees',
-  byId: (id: string) => `/employees/${id}`,
-  byRole: (role: string) => `/employees?role=${role}`,
-  paginated: (page: number, limit: number) => `/employees?page=${page}&limit=${limit}`,
+  paginated: (companyId: string, page: number, limit: number) =>
+    companyUrl(companyId, `/employees?page=${page}&limit=${limit}`),
+  byId: (companyId: string, id: string) => companyUrl(companyId, `/employees/${id}`),
+  byRole: (companyId: string, role: string) => companyUrl(companyId, `/employees?role=${role}`),
 })
 
 // ─── Admin-scoped (per-company) endpoints ────────────────────────────────────
 
 export const COMPANY_ADMIN_ENDPOINTS = Object.freeze({
   employees: (companyId: string, page: number, limit: number) =>
-    `/companies/${companyId}/employees?page=${page}&limit=${limit}`,
-  employeeById: (companyId: string, empId: string) => `/companies/${companyId}/employees/${empId}`,
-  employeeRole: (companyId: string, empId: string) => `/companies/${companyId}/employees/${empId}/role`,
-  employeesByRole: (companyId: string, role: string) => `/companies/${companyId}/employees?role=${role}`,
-  groups: (companyId: string) => `/companies/${companyId}/groups`,
-  groupById: (companyId: string, id: string) => `/companies/${companyId}/groups/${id}`,
-  inviteBase: (companyId: string) => `/companies/${companyId}/invites`,
+    companyUrl(companyId, `/employees?page=${page}&limit=${limit}`),
+  employeeById: (companyId: string, empId: string) => companyUrl(companyId, `/employees/${empId}`),
+  employeeRole: (companyId: string, empId: string) => companyUrl(companyId, `/employees/${empId}/role`),
+  employeesByRole: (companyId: string, role: string) => companyUrl(companyId, `/employees?role=${role}`),
+  groups: (companyId: string) => companyUrl(companyId, '/groups'),
+  groupById: (companyId: string, id: string) => companyUrl(companyId, `/groups/${id}`),
+  inviteBase: (companyId: string) => companyUrl(companyId, '/invites'),
   invites: (companyId: string, page: number, limit: number) =>
-    `/companies/${companyId}/invites?page=${page}&limit=${limit}`,
-  inviteById: (companyId: string, id: string) => `/companies/${companyId}/invites/${id}`,
-  inviteResend: (companyId: string, id: string) => `/companies/${companyId}/invites/${id}/resend`,
-  accessScopes: (companyId: string) => `/companies/${companyId}/access-scopes`,
-  accessScopeById: (companyId: string, id: string) => `/companies/${companyId}/access-scopes/${id}`,
+    companyUrl(companyId, `/invites?page=${page}&limit=${limit}`),
+  inviteById: (companyId: string, id: string) => companyUrl(companyId, `/invites/${id}`),
+  inviteResend: (companyId: string, id: string) => companyUrl(companyId, `/invites/${id}/resend`),
+  accessScopes: (companyId: string) => companyUrl(companyId, '/access-scopes'),
+  accessScopeById: (companyId: string, id: string) => companyUrl(companyId, `/access-scopes/${id}`),
 })

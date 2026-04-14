@@ -1,6 +1,6 @@
 import { auth } from '@/auth'
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
-import { getAffirmationById, getRandomAffirmation } from '@/requests/affirmations'
+import { getAffirmationById } from '@/requests/affirmations'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
 import AffirmationCard from './AffirmationCard'
@@ -12,16 +12,11 @@ interface Props {
 export const DailyAffirmationClient = async ({ recommendedId }: Props = {}) => {
   const session = await auth()
 
-  let affirmation = null
-  if (recommendedId) {
-    const res = await getAffirmationById(session, recommendedId)
-    if ('error' in res) return null
-    affirmation = res.data
-  } else {
-    const res = await getRandomAffirmation(session)
-    if ('error' in res) return null
-    affirmation = res.data
-  }
+  if (!recommendedId) return null
+
+  const res = await getAffirmationById(session, recommendedId)
+  if ('error' in res) return null
+  const affirmation = res.data
 
   if (!affirmation) return null
 

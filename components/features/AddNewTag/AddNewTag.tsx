@@ -58,7 +58,7 @@ export default function AddNewTag({ onClose, onCreated }: Props) {
   return (
     <div className="m-6 max-w-md rounded bg-white p-6 shadow-lg">
       <h3 className="mb-4 text-lg font-semibold">{t('addNewTag.title')}</h3>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-3">
+      <form onSubmit={handleSubmit} className="flex flex-col gap-xs">
         <div>
           <Input id="tag-name" value={name} onChange={(e) => setName(e.target.value)} />
         </div>

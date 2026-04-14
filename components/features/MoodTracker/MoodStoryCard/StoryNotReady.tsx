@@ -44,7 +44,7 @@ export function StoryNotReady() {
   }, [session, router])
 
   return (
-    <div className="flex flex-col items-center gap-3 py-6 text-center">
+    <div className="flex flex-col items-center gap-xs py-6 text-center">
       <p className="text-base font-medium">{t('title')}</p>
       <p className="text-textcolor-tertiary text-sm">{t('description')}</p>
     </div>

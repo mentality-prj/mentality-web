@@ -138,9 +138,10 @@ export function GroupSelector({
         aria-label={t('searchLabel')}
         rightIcon={query ? <X size={14} /> : undefined}
         onRightClick={() => setQuery('')}
+        className="bg-white"
       />
 
-      <ul className="scrollbar-styled max-h-64 overflow-y-auto rounded-md border border-border p-1">
+      <ul className="scrollbar-styled max-h-52 overflow-y-auto rounded-md border border-border p-1">
         {groups.map((g) => (
           <TreeNode
             key={g.id}

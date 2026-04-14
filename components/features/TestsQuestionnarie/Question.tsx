@@ -35,7 +35,7 @@ export default function Question({ data, index, type, selectedValue, onChange, c
       )}
 
       {type === 'checkbox' && (
-        <div className="mb-2 flex items-start gap-3">
+        <div className="mb-2 flex items-start gap-xs">
           <Checkbox
             className="tablet:mt-[2px]"
             id={`checkbox-${data.id}`}

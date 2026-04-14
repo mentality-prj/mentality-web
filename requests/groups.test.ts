@@ -109,12 +109,12 @@ describe('createGroup', () => {
   it('returns data on success (SUPERUSER)', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
 
-    const result = await createGroup(mockSuperuserSession, { name: 'Engineering', type: 'department' })
+    const result = await createGroup(mockSuperuserSession, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ data: mockGroupRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(GROUP_ENDPOINTS.BASE),
+      expect.stringContaining(GROUP_ENDPOINTS.byCompany('c-1')),
       expect.objectContaining({ method: 'POST' })
     )
     expect(logger.info).toHaveBeenCalled()
@@ -123,7 +123,7 @@ describe('createGroup', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
-    const result = await createGroup(mockSuperuserSession, { name: 'Engineering', type: 'department' })
+    const result = await createGroup(mockSuperuserSession, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Conflict' })
     expect(logger.error).toHaveBeenCalled()
@@ -132,13 +132,13 @@ describe('createGroup', () => {
   it('returns error on invalid mapped data', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await createGroup(mockSuperuserSession, { name: 'Engineering', type: 'department' })
+    const result = await createGroup(mockSuperuserSession, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
 
   it('blocks MANAGER — returns unauthorized', async () => {
-    const result = await createGroup(mockManagerSession, { name: 'Engineering', type: 'department' })
+    const result = await createGroup(mockManagerSession, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -146,14 +146,14 @@ describe('createGroup', () => {
   })
 
   it('blocks EMPLOYEE — returns unauthorized', async () => {
-    const result = await createGroup(mockEmployeeSession, { name: 'Engineering', type: 'department' })
+    const result = await createGroup(mockEmployeeSession, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('blocks null session', async () => {
-    const result = await createGroup(null, { name: 'Engineering', type: 'department' })
+    const result = await createGroup(null, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -166,12 +166,12 @@ describe('updateGroup', () => {
   it('returns data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
 
-    const result = await updateGroup(mockSuperuserSession, 'g-1', { name: 'Backend' })
+    const result = await updateGroup(mockSuperuserSession, 'c-1', 'g-1', { name: 'Backend' })
 
     expect(result).toEqual({ data: mockGroupRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(GROUP_ENDPOINTS.byId('g-1')),
+      expect.stringContaining(GROUP_ENDPOINTS.byId('c-1', 'g-1')),
       expect.objectContaining({ method: 'PATCH' })
     )
   })
@@ -179,7 +179,7 @@ describe('updateGroup', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await updateGroup(mockSuperuserSession, 'g-1', { name: 'Backend' })
+    const result = await updateGroup(mockSuperuserSession, 'c-1', 'g-1', { name: 'Backend' })
 
     expect(result).toEqual({ error: 'Not found' })
   })
@@ -187,13 +187,13 @@ describe('updateGroup', () => {
   it('returns error on invalid mapped data', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await updateGroup(mockSuperuserSession, 'g-1', { name: 'Backend' })
+    const result = await updateGroup(mockSuperuserSession, 'c-1', 'g-1', { name: 'Backend' })
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
 
   it('blocks MANAGER — returns unauthorized', async () => {
-    const result = await updateGroup(mockManagerSession, 'g-1', { name: 'Backend' })
+    const result = await updateGroup(mockManagerSession, 'c-1', 'g-1', { name: 'Backend' })
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -206,12 +206,12 @@ describe('deleteGroup', () => {
   it('returns data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
 
-    const result = await deleteGroup(mockSuperuserSession, 'g-1')
+    const result = await deleteGroup(mockSuperuserSession, 'c-1', 'g-1')
 
     expect(result).toEqual({ data: mockGroupRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(GROUP_ENDPOINTS.byId('g-1')),
+      expect.stringContaining(GROUP_ENDPOINTS.byId('c-1', 'g-1')),
       expect.objectContaining({ method: 'DELETE' })
     )
   })
@@ -219,7 +219,7 @@ describe('deleteGroup', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
-    const result = await deleteGroup(mockSuperuserSession, 'g-1')
+    const result = await deleteGroup(mockSuperuserSession, 'c-1', 'g-1')
 
     expect(result).toEqual({ error: 'Conflict' })
   })
@@ -227,13 +227,13 @@ describe('deleteGroup', () => {
   it('returns error on invalid mapped data', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await deleteGroup(mockSuperuserSession, 'g-1')
+    const result = await deleteGroup(mockSuperuserSession, 'c-1', 'g-1')
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
 
   it('blocks EMPLOYEE — returns unauthorized', async () => {
-    const result = await deleteGroup(mockEmployeeSession, 'g-1')
+    const result = await deleteGroup(mockEmployeeSession, 'c-1', 'g-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -241,7 +241,7 @@ describe('deleteGroup', () => {
   })
 
   it('blocks null session', async () => {
-    const result = await deleteGroup(null, 'g-1')
+    const result = await deleteGroup(null, 'c-1', 'g-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()

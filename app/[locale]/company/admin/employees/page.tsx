@@ -3,10 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { auth } from '@/auth'
 import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
-import { AssignManagerForm } from '@/components/features/Company/CompanyAdmin/AssignManager/AssignManagerForm'
 import { EmployeeTable } from '@/components/features/Company/CompanyAdmin/EmployeeList/EmployeeTable'
-import { InviteEmployeeForm } from '@/components/features/Company/CompanyAdmin/InviteEmployee/InviteEmployeeForm'
-import { InviteList } from '@/components/features/Company/InviteList/InviteList'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getMyCompany } from '@/requests/companies'
@@ -27,38 +24,11 @@ export default async function CompanyAdminEmployeesPage({ params }: { params: Pr
   const result = isSystemAdmin ? { error: 'admin' } : await getMyCompany(session)
   const subtitle = !('error' in result) ? result.data.name : undefined
 
-  const content = (
-    <>
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{t('employees.title')}</h2>
-        <EmployeeTable />
-      </section>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{t('invite.title')}</h2>
-        <div className="max-w-md">
-          <InviteEmployeeForm />
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{t('assignManager.title')}</h2>
-        <div className="max-w-md">
-          <AssignManagerForm />
-        </div>
-      </section>
-
-      <section className="flex flex-col gap-md">
-        <h2 className="text-lg font-semibold">{t('invitesSection')}</h2>
-        <InviteList />
-      </section>
-    </>
-  )
+  const content = <EmployeeTable />
 
   return (
     <div className="gap-xl flex flex-col">
       <PageTitle title={t('employees.title')} subtitle={subtitle} />
-
       {isSystemAdmin ? <AdminCompanyWrapper>{content}</AdminCompanyWrapper> : content}
     </div>
   )

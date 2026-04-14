@@ -30,9 +30,9 @@ export function TestCheckboxForm({ test, answers, adminBar, onAnswerChange, onSu
       <SectionCard>
         <h2 className="mb-5">{test.title}</h2>
 
-        <div className="flex flex-col gap-3">
+        <div className="flex flex-col gap-xs">
           {test.questions.map((q) => (
-            <div key={q.id} className="flex items-start gap-3">
+            <div key={q.id} className="flex items-start gap-xs">
               <Checkbox
                 id={`cb-${q.id}`}
                 checked={!!answers[q.id]}

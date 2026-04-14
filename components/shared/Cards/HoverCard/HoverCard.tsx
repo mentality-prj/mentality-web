@@ -38,7 +38,7 @@ export const HoverCard = ({ href, icon, title, description, center }: HoverCardP
         onMouseEnter={() => setHovered(true)}
         onMouseLeave={() => setHovered(false)}
       >
-        <SummaryCard className={cn('flex gap-3', align)} icon={renderedIcon} title={wrapInAngleQuotes(title ?? '')}>
+        <SummaryCard className={cn('flex gap-xs', align)} icon={renderedIcon} title={wrapInAngleQuotes(title ?? '')}>
           {description}
         </SummaryCard>
       </Card>

@@ -251,7 +251,7 @@ export function AnalyticsView() {
           {/* Groups table */}
           {analytics.groups.length > 0 && (
             <div ref={groupsTableRef} className="flex flex-col gap-2">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-xs">
                 <h3 className="text-sm font-medium">{t('groupsTitle')}</h3>
                 {riskFilter && (
                   <span

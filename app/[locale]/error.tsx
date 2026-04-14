@@ -12,7 +12,7 @@ export default function Error({ error, reset }: { error: Error & { digest?: stri
   }, [error])
 
   return (
-    <main className="flex flex-col items-center justify-center gap-3">
+    <main className="flex flex-col items-center justify-center gap-xs">
       <h1>Something went wrong!</h1>
       <p>{error.message}</p>
       <Button onClick={() => reset()}>Try again</Button>

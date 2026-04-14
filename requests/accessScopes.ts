@@ -14,6 +14,7 @@ function assertCanAssign(session: CustomSession | null): boolean {
 
 export async function createAccessScope(
   session: CustomSession | null,
+  companyId: string,
   dto: CreateAccessScopeDto
 ): Promise<{ data: AccessScopeEntity } | { error: string }> {
   if (!assertCanAssign(session)) {
@@ -21,10 +22,14 @@ export async function createAccessScope(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<AccessScopeEntity>(session, `${APIUrl}${ACCESS_SCOPE_ENDPOINTS.BASE}`, {
-    method: 'POST',
-    body: dto as unknown as Record<string, unknown>,
-  })
+  const res = await performAuthRequest<AccessScopeEntity>(
+    session,
+    `${APIUrl}${ACCESS_SCOPE_ENDPOINTS.base(companyId)}`,
+    {
+      method: 'POST',
+      body: dto as unknown as Record<string, unknown>,
+    }
+  )
 
   if ('error' in res) {
     logger.error('Failed to create access scope', { error: res.error })
@@ -37,6 +42,7 @@ export async function createAccessScope(
 
 export async function deleteAccessScope(
   session: CustomSession | null,
+  companyId: string,
   id: string
 ): Promise<Record<string, never> | { error: string }> {
   if (!assertCanAssign(session)) {
@@ -44,9 +50,13 @@ export async function deleteAccessScope(
     return { error: 'Unauthorized: insufficient role' }
   }
 
-  const res = await performAuthRequest<AccessScopeEntity>(session, `${APIUrl}${ACCESS_SCOPE_ENDPOINTS.byId(id)}`, {
-    method: 'DELETE',
-  })
+  const res = await performAuthRequest<AccessScopeEntity>(
+    session,
+    `${APIUrl}${ACCESS_SCOPE_ENDPOINTS.byId(companyId, id)}`,
+    {
+      method: 'DELETE',
+    }
+  )
 
   if ('error' in res) {
     logger.error('Failed to delete access scope', { error: res.error, id })
@@ -58,9 +68,13 @@ export async function deleteAccessScope(
 }
 
 export async function getAccessScopes(
-  session: CustomSession | null
+  session: CustomSession | null,
+  companyId: string
 ): Promise<{ data: AccessScopeEntity[] } | { error: string }> {
-  const res = await performAuthRequest<AccessScopeEntity[]>(session, `${APIUrl}${ACCESS_SCOPE_ENDPOINTS.BASE}`)
+  const res = await performAuthRequest<AccessScopeEntity[]>(
+    session,
+    `${APIUrl}${ACCESS_SCOPE_ENDPOINTS.base(companyId)}`
+  )
 
   if ('error' in res) {
     logger.error('Failed to fetch access scopes', { error: res.error })

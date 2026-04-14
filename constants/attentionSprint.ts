@@ -51,7 +51,7 @@ export const CSS_CLASSES = {
   tabsList: 'mb-6 grid w-full grid-cols-2',
   difficultyContainer: 'mt-8',
   difficultyLabel: 'mb-4 text-lg font-medium',
-  difficultyButtonsContainer: 'mb-6 flex flex-wrap justify-center gap-3',
+  difficultyButtonsContainer: 'mb-6 flex flex-wrap justify-center gap-xs',
   difficultyButtonBase: 'rounded px-4 py-2 text-sm transition-colors',
   difficultyButtonActive: 'bg-primary text-white',
   difficultyButtonInactive: 'border border-gray-300 bg-white text-gray-700 hover:bg-gray-50',

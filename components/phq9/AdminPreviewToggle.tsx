@@ -14,7 +14,7 @@ interface AdminPreviewToggleProps {
 
 export function AdminPreviewToggle({ id, checked, onCheckedChange, label }: AdminPreviewToggleProps) {
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-xs">
       <SwitchRoot
         id={id}
         checked={checked}

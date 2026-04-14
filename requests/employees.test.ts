@@ -7,6 +7,8 @@ import {
   getEmployeesByRoleAdmin,
   removeEmployee,
   removeEmployeeAdmin,
+  updateEmployee,
+  updateEmployeeAdmin,
 } from '@/requests/employees'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
@@ -71,7 +73,7 @@ describe('getEmployees', () => {
   it('returns paginated data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeRaw] })
 
-    const result = await getEmployees(mockSuperuserSession, 1, 20)
+    const result = await getEmployees(mockSuperuserSession, 'c-1', 1, 20)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -83,18 +85,18 @@ describe('getEmployees', () => {
   it('builds URL with page and limit parameters', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    await getEmployees(mockSuperuserSession, 3, 10)
+    await getEmployees(mockSuperuserSession, 'c-1', 3, 10)
 
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(EMPLOYEE_ENDPOINTS.paginated(3, 10))
+      expect.stringContaining(EMPLOYEE_ENDPOINTS.paginated('c-1', 3, 10))
     )
   })
 
   it('returns empty items for empty array', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    const result = await getEmployees(mockSuperuserSession)
+    const result = await getEmployees(mockSuperuserSession, 'c-1')
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -106,7 +108,7 @@ describe('getEmployees', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await getEmployees(mockSuperuserSession)
+    const result = await getEmployees(mockSuperuserSession, 'c-1')
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
@@ -119,7 +121,7 @@ describe('getEmployeesByRole', () => {
   it('returns employees filtered by role', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeRaw] })
 
-    const result = await getEmployeesByRole(mockSuperuserSession, COMPANY_ROLES.EMPLOYEE)
+    const result = await getEmployeesByRole(mockSuperuserSession, 'c-1', COMPANY_ROLES.EMPLOYEE)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -127,14 +129,14 @@ describe('getEmployeesByRole', () => {
     }
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(EMPLOYEE_ENDPOINTS.byRole(COMPANY_ROLES.EMPLOYEE))
+      expect.stringContaining(EMPLOYEE_ENDPOINTS.byRole('c-1', COMPANY_ROLES.EMPLOYEE))
     )
   })
 
   it('returns empty array when API returns empty', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    const result = await getEmployeesByRole(mockManagerSession, COMPANY_ROLES.MANAGER)
+    const result = await getEmployeesByRole(mockManagerSession, 'c-1', COMPANY_ROLES.MANAGER)
 
     expect('data' in result).toBe(true)
     if ('data' in result) expect(result.data).toHaveLength(0)
@@ -143,7 +145,7 @@ describe('getEmployeesByRole', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
 
-    const result = await getEmployeesByRole(mockSuperuserSession, COMPANY_ROLES.EMPLOYEE)
+    const result = await getEmployeesByRole(mockSuperuserSession, 'c-1', COMPANY_ROLES.EMPLOYEE)
 
     expect(result).toEqual({ error: 'Server error' })
     expect(logger.error).toHaveBeenCalled()
@@ -156,12 +158,12 @@ describe('removeEmployee', () => {
   it('returns data on success (SUPERUSER)', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockEmployeeRaw })
 
-    const result = await removeEmployee(mockSuperuserSession, 'emp-1')
+    const result = await removeEmployee(mockSuperuserSession, 'c-1', 'emp-1')
 
     expect(result).toEqual({ data: mockEmployeeRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(EMPLOYEE_ENDPOINTS.byId('emp-1')),
+      expect.stringContaining(EMPLOYEE_ENDPOINTS.byId('c-1', 'emp-1')),
       expect.objectContaining({ method: 'DELETE' })
     )
   })
@@ -169,7 +171,7 @@ describe('removeEmployee', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await removeEmployee(mockSuperuserSession, 'emp-1')
+    const result = await removeEmployee(mockSuperuserSession, 'c-1', 'emp-1')
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
@@ -178,13 +180,13 @@ describe('removeEmployee', () => {
   it('returns error on invalid mapped data', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await removeEmployee(mockSuperuserSession, 'emp-1')
+    const result = await removeEmployee(mockSuperuserSession, 'c-1', 'emp-1')
 
     expect(result).toEqual({ error: 'Invalid employee data' })
   })
 
   it('blocks MANAGER — returns unauthorized', async () => {
-    const result = await removeEmployee(mockManagerSession, 'emp-1')
+    const result = await removeEmployee(mockManagerSession, 'c-1', 'emp-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -192,14 +194,14 @@ describe('removeEmployee', () => {
   })
 
   it('blocks EMPLOYEE — returns unauthorized', async () => {
-    const result = await removeEmployee(mockEmployeeSession, 'emp-1')
+    const result = await removeEmployee(mockEmployeeSession, 'c-1', 'emp-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('blocks null session', async () => {
-    const result = await removeEmployee(null, 'emp-1')
+    const result = await removeEmployee(null, 'c-1', 'emp-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -312,5 +314,114 @@ describe('removeEmployeeAdmin', () => {
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+// ─── updateEmployee ───────────────────────────────────────────────────────────
+
+describe('updateEmployee', () => {
+  it('returns updated employee on success (SUPERUSER)', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockEmployeeRaw })
+
+    const result = await updateEmployee(mockSuperuserSession, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.MANAGER,
+      groupIds: ['g-2'],
+    })
+
+    expect(result).toEqual({ data: mockEmployeeRaw })
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockSuperuserSession,
+      expect.stringContaining(EMPLOYEE_ENDPOINTS.byId('c-1', 'emp-1')),
+      expect.objectContaining({ method: 'PATCH' })
+    )
+  })
+
+  it('returns error when API call fails', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+
+    const result = await updateEmployee(mockSuperuserSession, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.EMPLOYEE,
+      groupIds: ['g-1'],
+    })
+
+    expect(result).toEqual({ error: 'Not found' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('returns error on invalid mapped data', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+
+    const result = await updateEmployee(mockSuperuserSession, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.EMPLOYEE,
+      groupIds: ['g-1'],
+    })
+
+    expect(result).toEqual({ error: 'Invalid employee data' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('blocks MANAGER — returns unauthorized', async () => {
+    const result = await updateEmployee(mockManagerSession, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.EMPLOYEE,
+      groupIds: ['g-1'],
+    })
+
+    expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
+    expect(performAuthRequest).not.toHaveBeenCalled()
+    expect(logger.warn).toHaveBeenCalled()
+  })
+
+  it('blocks null session', async () => {
+    const result = await updateEmployee(null, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.EMPLOYEE,
+      groupIds: ['g-1'],
+    })
+
+    expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+})
+
+// ─── updateEmployeeAdmin ──────────────────────────────────────────────────────
+
+describe('updateEmployeeAdmin', () => {
+  it('returns updated employee on success', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockEmployeeRaw })
+
+    const result = await updateEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.MANAGER,
+      groupIds: ['g-2'],
+    })
+
+    expect(result).toEqual({ data: mockEmployeeRaw })
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employeeById('c-1', 'emp-1')),
+      expect.objectContaining({ method: 'PATCH' })
+    )
+    expect(performAuthRequest).not.toHaveBeenCalled()
+  })
+
+  it('returns error when API call fails', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
+
+    const result = await updateEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.EMPLOYEE,
+      groupIds: ['g-1'],
+    })
+
+    expect(result).toEqual({ error: 'Server error' })
+    expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('returns error on invalid mapped data', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+
+    const result = await updateEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1', {
+      role: COMPANY_ROLES.EMPLOYEE,
+      groupIds: ['g-1'],
+    })
+
+    expect(result).toEqual({ error: 'Invalid employee data' })
   })
 })

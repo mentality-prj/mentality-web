@@ -37,6 +37,11 @@ export type EmployeeEntity = {
   joinedAt?: string
 }
 
+export type UpdateEmployeeDto = {
+  role?: CompanyRole
+  groupIds?: string[]
+}
+
 export type InviteStatus = 'pending' | 'accepted' | 'expired'
 
 export type InviteEntity = {

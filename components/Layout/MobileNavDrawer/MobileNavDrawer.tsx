@@ -5,15 +5,14 @@ import { ChevronDown, Menu as LucideMenu, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import Logo from '@/components/Layout/Header/Logo'
+import { TopMenuList } from '@/components/Layout/MobileNavDrawer/TopMenuList'
 import SidebarMenu from '@/components/Layout/Sidebar/SidebarMenu'
-import { userSidebarMenu, userTopMenu } from '@/constants/menu'
-import { Link, usePathname } from '@/i18n/navigation'
+import { userSidebarMenu } from '@/constants/menu'
 
 export default function MobileNavDrawer() {
   const [open, setOpen] = useState(false)
   const [topOpen, setTopOpen] = useState(false)
   const t = useTranslations('components.Navbar')
-  const pathname = usePathname()
 
   return (
     <>
@@ -50,10 +49,8 @@ export default function MobileNavDrawer() {
         </div>
 
         {/* Scrollable area: main nav + quick links */}
-        <div className="min-h-0 w-full flex-1 overflow-y-auto">
-          <div className="px-4 py-4">
-            <SidebarMenu menu={userSidebarMenu} onLinkClick={() => setOpen(false)} />
-          </div>
+        <div className="flex min-h-0 w-full flex-col gap-sm overflow-y-auto p-4">
+          <SidebarMenu menu={userSidebarMenu} onLinkClick={() => setOpen(false)} />
 
           {/* Top menu collapsed section */}
           <div className="m-4 rounded border border-border px-4 py-3">
@@ -66,26 +63,7 @@ export default function MobileNavDrawer() {
               <ChevronDown size={16} className={`transition-transform ${topOpen ? 'rotate-180' : ''}`} />
             </button>
 
-            {topOpen && (
-              <ul className="mt-2 flex flex-col gap-1 pb-4">
-                {userTopMenu.map((item) => {
-                  const isActive = pathname === item.href
-                  return (
-                    <li key={item.key}>
-                      <Link
-                        href={item.href}
-                        onClick={() => setOpen(false)}
-                        className={`block rounded px-2 py-2 text-sm transition-colors hover:bg-background-muted ${
-                          isActive ? 'font-semibold text-primary' : 'text-textcolor-secondary'
-                        }`}
-                      >
-                        {t(item.key)}
-                      </Link>
-                    </li>
-                  )
-                })}
-              </ul>
-            )}
+            {topOpen && <TopMenuList onLinkClick={() => setOpen(false)} />}
           </div>
         </div>
       </div>
