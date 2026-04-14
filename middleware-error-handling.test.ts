@@ -15,6 +15,13 @@ jest.mock('@/i18n/routing', () => ({
   },
 }))
 
+// Set env vars needed for server-side token refresh in middleware
+process.env.NEXT_PUBLIC_ZITADEL_ISSUER = 'https://test.zitadel.cloud'
+process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = 'test-client-id'
+process.env.ZITADEL_CLIENT_SECRET = 'test-client-secret'
+
+const originalFetch = globalThis.fetch
+
 function makeTokenCookie(overrides: Record<string, unknown> = {}): string {
   return JSON.stringify({
     accessToken: 'valid-access-token',
@@ -102,6 +109,18 @@ describe('Middleware Token-Based Auth', () => {
     })
 
     it('should not redirect when token expired but refresh token exists', async () => {
+      // Mock the Zitadel token endpoint for server-side refresh
+      globalThis.fetch = jest.fn().mockResolvedValueOnce({
+        ok: true,
+        json: () =>
+          Promise.resolve({
+            access_token: 'refreshed-access-token',
+            id_token: 'refreshed-id-token',
+            refresh_token: 'refreshed-refresh-token',
+            expires_in: 3600,
+          }),
+      })
+
       const request = createRequest(
         '/uk/my-day',
         makeTokenCookie({
@@ -115,6 +134,9 @@ describe('Middleware Token-Based Auth', () => {
       if (location) {
         expect(location).not.toContain('/auth')
       }
+
+      // Restore original fetch
+      globalThis.fetch = originalFetch
     })
   })
 

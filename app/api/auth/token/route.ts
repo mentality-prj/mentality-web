@@ -3,6 +3,17 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
+function isSameOrigin(request: NextRequest): boolean {
+  const origin = request.headers.get('origin')
+  const host = request.headers.get('host')
+  if (!origin || !host) return false
+  try {
+    return new URL(origin).host === host
+  } catch {
+    return false
+  }
+}
+
 /** GET — Retrieve tokens from httpOnly cookie */
 export async function GET(): Promise<NextResponse> {
   const cookieStore = cookies()
@@ -22,6 +33,10 @@ export async function GET(): Promise<NextResponse> {
 
 /** POST — Store tokens in httpOnly cookie */
 export async function POST(request: NextRequest): Promise<NextResponse> {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const tokens = await request.json()
 
   if (!tokens?.accessToken || !tokens?.idToken) {
@@ -41,7 +56,11 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 }
 
 /** DELETE — Clear token cookie */
-export async function DELETE(): Promise<NextResponse> {
+export async function DELETE(request: NextRequest): Promise<NextResponse> {
+  if (!isSameOrigin(request)) {
+    return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
+  }
+
   const response = NextResponse.json({ ok: true })
   response.cookies.set(AUTH_TOKEN_COOKIE, '', {
     httpOnly: true,

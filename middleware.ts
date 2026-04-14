@@ -3,10 +3,9 @@ import createMiddleware from 'next-intl/middleware'
 
 import { Routes } from '@/constants/routes'
 import { routing } from '@/i18n/routing'
-import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { AuthTokens } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
-import { Roles } from '@/types/security'
 
 const LOCALE_COOKIE = 'NEXT_LOCALE'
 const LOCALE_COOKIE_MAX_AGE = 30 * 24 * 60 * 60 // 30 days to align with session duration
@@ -103,6 +102,41 @@ function applySecurityHeaders(response: NextResponse): NextResponse {
   response.headers.set('Referrer-Policy', 'strict-origin-when-cross-origin')
   response.headers.set('Permissions-Policy', 'camera=(), microphone=(), geolocation=()')
   return response
+}
+
+async function refreshTokensServerSide(currentTokens: AuthTokens): Promise<AuthTokens | null> {
+  const issuer = process.env.NEXT_PUBLIC_ZITADEL_ISSUER
+  const clientId = process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID ?? process.env.ZITADEL_CLIENT_ID
+  const clientSecret = process.env.ZITADEL_CLIENT_SECRET
+  if (!issuer || !clientId || !clientSecret || !currentTokens.refreshToken) return null
+
+  try {
+    const params = new URLSearchParams({
+      grant_type: 'refresh_token',
+      client_id: clientId,
+      client_secret: clientSecret,
+      refresh_token: currentTokens.refreshToken,
+    })
+
+    const response = await fetch(`${issuer}/oauth/v2/token`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+      body: params,
+    })
+
+    if (!response.ok) return null
+
+    const data = await response.json()
+    return {
+      accessToken: data.access_token,
+      idToken: data.id_token,
+      refreshToken: data.refresh_token ?? currentTokens.refreshToken,
+      expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+      userRole: currentTokens.userRole,
+    }
+  } catch {
+    return null
+  }
 }
 
 export async function middleware(request: NextRequest) {
@@ -214,14 +248,36 @@ export async function middleware(request: NextRequest) {
   // Skip session error checks for server-error page to avoid redirect loops
   const isServerErrorPage = normalizedPath === Routes.SERVERERROR
 
-  // Check if token is expired — redirect to signin to re-authenticate
+  // Check if token is expired
   if (isAuthenticated && authTokens && !isServerErrorPage) {
     const isExpired = authTokens.expiresAt < Math.floor(Date.now() / 1000)
     if (isExpired && !authTokens.refreshToken) {
-      // Token expired and no refresh token — clear cookie and redirect to signin
+      // Token expired and no refresh token — clear cookie and redirect to auth
       const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
       response.cookies.delete(AUTH_TOKEN_COOKIE)
       return applySecurityHeaders(response)
+    }
+
+    if (isExpired && authTokens.refreshToken) {
+      // Token expired but refresh token exists — try server-side refresh
+      const refreshed = await refreshTokensServerSide(authTokens)
+      if (refreshed) {
+        authTokens = refreshed
+        // Update the cookie on the response so downstream server components
+        // see fresh tokens via getServerSession()
+        intlResponse.cookies.set(AUTH_TOKEN_COOKIE, JSON.stringify(refreshed), {
+          httpOnly: true,
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'lax',
+          path: '/',
+          maxAge: AUTH_COOKIE_MAX_AGE,
+        })
+      } else {
+        // Refresh failed — clear cookie and redirect to auth
+        const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
+        response.cookies.delete(AUTH_TOKEN_COOKIE)
+        return applySecurityHeaders(response)
+      }
     }
   }
 
@@ -235,10 +291,9 @@ export async function middleware(request: NextRequest) {
     return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url)))
   }
 
-  // Role-based access: non-admin users cannot access admin routes
-  if (authTokens?.userRole !== Roles.ADMIN && protectedRoutes.ADMIN) {
-    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.PROFILE}`, request.url)))
-  }
+  // Note: role-based access control (e.g. admin routes) is handled server-side
+  // in the respective layout.tsx files via getServerSession(), NOT in middleware,
+  // because the cookie-stored userRole is client-controlled and unverifiable here.
 
   applySecurityHeaders(intlResponse)
   return intlResponse
