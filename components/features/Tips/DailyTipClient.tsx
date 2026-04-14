@@ -1,9 +1,9 @@
 import { getLocale } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import Card from '@/components/shared/Cards/Card'
 import Quote from '@/components/shared/Quote'
+import { getServerSession } from '@/lib/get-server-session'
 import { getTipById } from '@/requests/tips'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 import { SupportedLanguage } from '@/types/languages'
@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const DailyTipClient = async ({ recommendedId }: Props = {}) => {
-  const session = await auth()
+  const session = await getServerSession()
   const locale = await getLocale()
 
   if (!recommendedId) return null

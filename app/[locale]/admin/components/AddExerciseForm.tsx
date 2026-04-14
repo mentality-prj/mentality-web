@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { DropdownInput } from '@/ds/components/DropdownInput'
 import { Tag } from '@/ds/components/Tag'
 import { addExercise, updateExercise } from '@/requests/exercises'
@@ -30,7 +30,7 @@ export default function AddExerciseForm({ tags = [], editing = null, onSaved }: 
   const tCommon = useTranslations('common')
   const locale = useLocale()
   const localeKey = locale as SupportedLanguage
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const session = data as CustomSession
 
   const [category, setCategory] = useState<ExerciseCategory | ''>('')

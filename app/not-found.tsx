@@ -16,14 +16,14 @@ import { Button } from '@/ui/button'
 const LOCALE_COOKIE = 'NEXT_LOCALE'
 
 function detectLocaleFromAcceptLanguage(acceptLanguage: string | null): SupportedLanguage {
-  if (!acceptLanguage) return 'en' as SupportedLanguage
+  if (!acceptLanguage) return routing.defaultLocale as SupportedLanguage
   for (const part of acceptLanguage.split(',')) {
     const lang = part.split(';')[0].trim().split('-')[0].toLowerCase()
     if (routing.locales.includes(lang as SupportedLanguage)) {
       return lang as SupportedLanguage
     }
   }
-  return 'en' as SupportedLanguage
+  return routing.defaultLocale as SupportedLanguage
 }
 
 export default async function NotFoundPage() {

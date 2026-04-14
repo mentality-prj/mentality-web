@@ -1,12 +1,12 @@
 import { NextRequest, NextResponse } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 
-import { auth } from '@/auth'
 import { Routes } from '@/constants/routes'
 import { routing } from '@/i18n/routing'
+import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { AuthTokens } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
-
-import { Roles } from './types/security'
+import { Roles } from '@/types/security'
 
 const LOCALE_COOKIE = 'NEXT_LOCALE'
 const LOCALE_COOKIE_MAX_AGE = 30 * 24 * 60 * 60 // 30 days to align with session duration
@@ -59,22 +59,24 @@ function buildCspHeader(): string {
       connectSrcExtra = ''
     }
   }
+  const zitadelIssuer = process.env.NEXT_PUBLIC_AUTH_ISSUER ?? process.env.NEXT_PUBLIC_ZITADEL_ISSUER ?? ''
+  let zitadelConnectSrc = ''
+  if (zitadelIssuer) {
+    try {
+      zitadelConnectSrc = ` ${new URL(zitadelIssuer).origin}`
+    } catch {
+      zitadelConnectSrc = ''
+    }
+  }
   const isProduction = process.env.NODE_ENV === 'production'
   return [
     "default-src 'self'",
-    // 'unsafe-inline' is required for Next.js hydration scripts and CSS-in-JS.
-    // A nonce-based approach would allow removing it, but Next.js does not yet
-    // provide a stable nonce injection mechanism without a custom server setup.
-    // 'unsafe-eval' is additionally required in development for webpack HMR/eval.
     isProduction
       ? "script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/"
       : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/",
-    // fonts.googleapis.com hosts the @font-face stylesheet imported in globals.css
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://images.pexels.com https://fakestoreapi.com https://via.placeholder.com",
-    // In development, Next.js HMR uses a WebSocket connection that must be
-    // explicitly allowed; the ws: scheme is separate from https:.
-    `connect-src 'self'${connectSrcExtra} https://oauth2.googleapis.com https://accounts.google.com https://www.google.com/recaptcha/${isProduction ? '' : ' ws:'}`,
+    `connect-src 'self'${connectSrcExtra}${zitadelConnectSrc} https://www.google.com/recaptcha/${isProduction ? '' : ' ws:'}`,
     // fonts.gstatic.com serves the actual font binary files
     "font-src 'self' https://fonts.gstatic.com",
     // style-src-attr must be set explicitly because Chrome 94+ treats it as a
@@ -124,6 +126,11 @@ export async function middleware(request: NextRequest) {
   const segments = pathname.split('/')
   const localeInUrl = segments[1] && routing.locales.includes(segments[1] as SupportedLanguage) ? segments[1] : null
 
+  // Skip locale handling for /callback — it's a non-locale route
+  if (pathname.startsWith('/callback')) {
+    return applySecurityHeaders(NextResponse.next())
+  }
+
   // Handle root path - redirect to preferred locale
   if (pathname === '/') {
     const preferredLocale = getPreferredLocale(request)
@@ -139,7 +146,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // If no locale in URL (but not root), redirect to preferred locale
-  if (!localeInUrl) {
+  // Skip /callback and /api routes — they don't use locale prefix
+  if (!localeInUrl && !pathname.startsWith('/callback') && !pathname.startsWith('/api')) {
     const preferredLocale = getPreferredLocale(request)
     const url = new URL(`/${preferredLocale}${pathname}`, request.url)
     const response = NextResponse.redirect(url)
@@ -165,10 +173,20 @@ export async function middleware(request: NextRequest) {
     })
   }
 
-  // Auth logic
-  const session = await auth()
+  // Auth logic — check for auth token cookie
+  const tokenCookie = request.cookies.get(AUTH_TOKEN_COOKIE)?.value
+  let authTokens: AuthTokens | null = null
+  if (tokenCookie) {
+    try {
+      authTokens = JSON.parse(tokenCookie) as AuthTokens
+    } catch {
+      authTokens = null
+    }
+  }
+  const isAuthenticated = !!authTokens?.accessToken
+
   const publicRoutes = [
-    Routes.SIGNIN,
+    Routes.AUTH,
     Routes.MAIN,
     Routes.ABOUT,
     Routes.FAQ,
@@ -196,40 +214,29 @@ export async function middleware(request: NextRequest) {
   // Skip session error checks for server-error page to avoid redirect loops
   const isServerErrorPage = normalizedPath === Routes.SERVERERROR
 
-  // Check for session errors FIRST - before any other auth logic
-  // Only act on session errors when there is a signed-in session. If there's
-  // no `session.user`, treat the request as unauthenticated and allow public pages.
-  if (session?.error && session.user && !isServerErrorPage) {
-    const errorType = typeof session.error === 'string' ? session.error : session.error.error
-    const isCriticalError =
-      errorType === 'RefreshTokenError' || errorType === 'BackendConnectionError' || errorType === 'InvalidToken'
-
-    // If there's a critical error, handle it appropriately
-    if (isCriticalError) {
-      // For BackendConnectionError, redirect to server-error page
-      if (errorType === 'BackendConnectionError') {
-        return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.SERVERERROR}`, request.url)))
-      }
-
-      // For other critical errors (InvalidToken, RefreshTokenError), redirect to signin
-      const response = NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
-      response.cookies.delete('authjs.session-token')
-      response.cookies.delete('__Secure-authjs.session-token')
+  // Check if token is expired — redirect to signin to re-authenticate
+  if (isAuthenticated && authTokens && !isServerErrorPage) {
+    const isExpired = authTokens.expiresAt < Math.floor(Date.now() / 1000)
+    if (isExpired && !authTokens.refreshToken) {
+      // Token expired and no refresh token — clear cookie and redirect to signin
+      const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
+      response.cookies.delete(AUTH_TOKEN_COOKIE)
       return applySecurityHeaders(response)
     }
   }
 
-  if (!session?.user && isProtectedPath) {
-    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url)))
+  if (!isAuthenticated && isProtectedPath) {
+    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url)))
   }
 
-  // If the user is already authenticated, don't show the signin page —
+  // If the user is already authenticated, don't show the auth page —
   // redirect them to their main My-day page instead.
-  if (session?.user && normalizedPath === Routes.SIGNIN) {
+  if (isAuthenticated && normalizedPath === Routes.AUTH) {
     return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url)))
   }
 
-  if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {
+  // Role-based access: non-admin users cannot access admin routes
+  if (authTokens?.userRole !== Roles.ADMIN && protectedRoutes.ADMIN) {
     return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.PROFILE}`, request.url)))
   }
 
@@ -238,5 +245,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|uk|pl)/:path*'],
+  matcher: ['/', '/(en|uk|pl)/:path*', '/callback'],
 }

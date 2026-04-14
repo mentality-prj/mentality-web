@@ -1,27 +1,29 @@
-import { getLocale, getTranslations } from 'next-intl/server'
+'use client'
 
-import { signIn } from '@/auth'
+import { useTranslations } from 'next-intl'
+
 import { ProviderKey, Providers } from '@/constants/providers'
-import { Routes } from '@/constants/routes'
+import { useAuth } from '@/context/AuthProvider'
 import { Button } from '@/ui/button'
 
 interface SignInButtonProps {
   provider: ProviderKey
 }
 
-export default async function SignInButton({ provider }: SignInButtonProps) {
+export default function SignInButton({ provider }: SignInButtonProps) {
   const providerName = Providers[`${provider}`]
-  const t = await getTranslations('common.Buttons')
+  const t = useTranslations('common.Buttons')
   const textBtn = String(`${t('signInWith')} ${providerName}`)
-  const locale = await getLocale()
-
-  async function handleLogin() {
-    'use server'
-    await signIn(provider, { redirectTo: `/${locale}/${Routes.MYDAY}` })
-  }
+  const { login } = useAuth()
 
   return (
-    <form className="pt-10 text-center" action={handleLogin}>
+    <form
+      className="pt-10 text-center"
+      onSubmit={(e) => {
+        e.preventDefault()
+        login()
+      }}
+    >
       <Button type="submit">{textBtn}</Button>
     </form>
   )

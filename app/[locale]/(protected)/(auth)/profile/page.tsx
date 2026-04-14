@@ -1,8 +1,8 @@
-import { auth } from '@/auth'
 import { Profile, UserProfile } from '@/components/features/Profile'
+import { getServerSession } from '@/lib/get-server-session'
 
 export default async function ProfilePage() {
-  const session = await auth()
+  const session = await getServerSession()
 
   const user = session?.user
 

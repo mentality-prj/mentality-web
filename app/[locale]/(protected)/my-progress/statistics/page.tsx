@@ -1,11 +1,11 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { UserStatistics } from '@/components/features/Statistics/UserStatistics'
+import { getServerSession } from '@/lib/get-server-session'
 import { getMoodStatistics, getPsyTestsStatistics } from '@/requests/userStatistics'
 
 export default async function MyProgressStatisticsPage() {
-  const session = await auth()
+  const session = await getServerSession()
   const t = await getTranslations('components.UserStatistics')
 
   const [moodRes, psyRes] = await Promise.all([getMoodStatistics(session), getPsyTestsStatistics(session)])

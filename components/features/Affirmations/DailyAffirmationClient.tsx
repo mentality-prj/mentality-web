@@ -1,5 +1,5 @@
-import { auth } from '@/auth'
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { getServerSession } from '@/lib/get-server-session'
 import { getAffirmationById } from '@/requests/affirmations'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
@@ -10,7 +10,7 @@ interface Props {
 }
 
 export const DailyAffirmationClient = async ({ recommendedId }: Props = {}) => {
-  const session = await auth()
+  const session = await getServerSession()
 
   if (!recommendedId) return null
 

@@ -1,12 +1,12 @@
 import { render, screen, waitFor } from '@testing-library/react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
+import { useAuth } from '@/context/AuthProvider'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { GoalEntity } from '@/types/api-responses'
 
-jest.mock('next-auth/react')
+jest.mock('@/context/AuthProvider', () => ({ useAuth: jest.fn() }))
 jest.mock('next-intl')
 jest.mock('@/requests/personalGoals', () => ({ fetchPersonalGoals: jest.fn() }))
 jest.mock('@/i18n/navigation', () => ({
@@ -42,7 +42,7 @@ const mockGoal = (overrides?: Partial<GoalEntity>): GoalEntity => ({
 
 beforeEach(() => {
   jest.clearAllMocks()
-  ;(useSession as jest.Mock).mockReturnValue({ data: mockSession })
+  ;(useAuth as jest.Mock).mockReturnValue({ session: mockSession, status: 'authenticated' })
   ;(useTranslations as jest.Mock).mockReturnValue((key: string) => key)
   ;(fetchPersonalGoals as jest.Mock).mockResolvedValue({ data: [] })
 })

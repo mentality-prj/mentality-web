@@ -1,17 +1,17 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { OtherMeditations } from '@/components/features/Meditations/OtherMeditations'
 import { StyledDescription } from '@/components/features/Meditations/StyledDescription'
 import Card from '@/components/shared/Cards/Card'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
+import { getServerSession } from '@/lib/get-server-session'
 import { getExerciseById } from '@/requests/exercises'
 import { SupportedLanguage } from '@/types/languages'
 
 export default async function MeditationPage({ params }: { params: Promise<{ id: string }> }) {
   const tpm = await getTranslations('pages.Meditation')
-  const session = await auth()
+  const session = await getServerSession()
   const locale = (await getLocale()) as SupportedLanguage
   const { id } = await params
 

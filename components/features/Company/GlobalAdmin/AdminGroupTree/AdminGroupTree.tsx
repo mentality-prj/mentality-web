@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Plus } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { GroupTreeNode } from '@/components/features/Company/CompanyAdmin/ManageGroups/GroupTreeNode'
+import { useAuth } from '@/context/AuthProvider'
 import { buildTree, flattenGroups } from '@/mappers/group.mappers'
 import { adminCreateGroup, adminGetGroups } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
@@ -23,7 +23,7 @@ type Props = {
 export function AdminGroupTree({ companyId, initialGroups }: Props) {
   const t = useTranslations('pages.Company.companyAdmin.groups')
   const tButtons = useTranslations('common.Buttons')
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const [items, setItems] = useState<GroupEntity[]>(() => initialGroups ?? [])
   const [loading, setLoading] = useState(initialGroups === undefined)
   const [error, setError] = useState<string | null>(null)

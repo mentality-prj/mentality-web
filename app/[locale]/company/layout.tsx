@@ -1,7 +1,7 @@
 import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 
-import { auth } from '@/auth'
+import { getServerSession } from '@/lib/get-server-session'
 import { COMPANY_ROLES } from '@/types/rbac'
 
 const ALLOWED_ROLES = Object.values(COMPANY_ROLES)
@@ -14,10 +14,10 @@ export default async function CompanyLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  const session = await auth()
+  const session = await getServerSession()
 
   if (!session?.user) {
-    redirect(`/${locale}/signin`)
+    redirect(`/${locale}/auth`)
   }
 
   const isSystemAdmin = session.user.role === 'admin'

@@ -1,12 +1,12 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import AddTag from '@/admin/AddTag'
+import { useAuth } from '@/context/AuthProvider'
 import { addTag, getTags } from '@/requests/tags'
 
 // Mock dependencies
-jest.mock('next-auth/react')
+jest.mock('@/context/AuthProvider', () => ({ useAuth: jest.fn() }))
 jest.mock('next-intl')
 jest.mock('@/requests/tags')
 jest.mock('@/utils/toast')
@@ -39,7 +39,7 @@ const mockTags = [
 describe('AddTag Component', () => {
   beforeEach(() => {
     jest.clearAllMocks()
-    ;(useSession as jest.Mock).mockReturnValue({ data: mockSession })
+    ;(useAuth as jest.Mock).mockReturnValue({ session: mockSession })
     ;(useLocale as jest.Mock).mockReturnValue('uk')
     ;(useTranslations as jest.Mock).mockReturnValue((key: string) => {
       const translations: Record<string, string> = {

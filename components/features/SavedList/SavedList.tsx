@@ -1,13 +1,13 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
 import { Filter } from '@/components/shared/Filter/Filter'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { PAGE_SIZE } from '@/constants/pagination'
+import { useAuth } from '@/context/AuthProvider'
 import { useSavedFilters } from '@/context/savedFilterContext'
 import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
@@ -24,7 +24,7 @@ export const SavedList = () => {
   const [limit] = useState(PAGE_SIZE)
   const [total, setTotal] = useState(0)
 
-  const { data: session } = useSession()
+  const { session } = useAuth()
 
   useEffect(() => {
     let mounted = true

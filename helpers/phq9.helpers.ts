@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useLocale } from 'next-intl'
 
 import { TestAnswers } from '@/components/features/TestsQuestionnarie/helper'
@@ -175,7 +175,7 @@ export function usePhq9Form(userId: string): UsePhq9FormReturn {
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
   const router = useRouter()
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const locale = useLocale()
 
   useEffect(() => {

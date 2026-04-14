@@ -7,7 +7,7 @@ import { CustomSession } from '@/types/auth'
 jest.mock('@/requests/genericFetch')
 
 const mockSession: CustomSession = {
-  user: { email: 'user@test.com', role: 'user' as const },
+  user: { id: 'user-1', name: 'Test User', email: 'user@test.com', role: 'user' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
@@ -94,7 +94,7 @@ describe('getLatestMoodStory', () => {
 })
 
 const mockAdminSession: CustomSession = {
-  user: { email: 'admin@test.com', role: 'admin' as const },
+  user: { id: 'admin-1', name: 'Admin User', email: 'admin@test.com', role: 'admin' as const },
   OAuthToken: 'mock-admin-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }

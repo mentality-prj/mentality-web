@@ -1,13 +1,14 @@
 'use client'
 import { LogOutIcon } from 'lucide-react'
-import { signOut } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
-import { Routes } from '@/constants/routes'
+import { useAuth } from '@/context/AuthProvider'
 
 export default function LogOutButton() {
+  const { logout } = useAuth()
+
   const handleSignOut = async () => {
-    await signOut({ redirectTo: Routes.MAIN })
+    await logout()
   }
   const t = useTranslations('components.Navigation')
 

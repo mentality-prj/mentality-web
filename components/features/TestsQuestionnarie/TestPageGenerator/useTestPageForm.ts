@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useLocale } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { routing } from '@/i18n/routing'
 import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
@@ -129,7 +129,7 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
   const [result, setResult] = useState<TestSubmissionResult | null>(null)
   const [error, setError] = useState<string | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const locale = useLocale()
 
   // Rehydrate from sessionStorage; fall back to fetching /latest from backend.

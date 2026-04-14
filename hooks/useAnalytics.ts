@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { ONE_YEAR_MS } from '@/constants/company'
@@ -15,7 +15,7 @@ import { AnalyticsResponse } from '@/types/company'
 
 export function useAnalytics() {
   const t = useTranslations('pages.Company.manager.analytics')
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const { companyId: adminCompanyId } = useAdminCompany()
   const [resolvedCompanyId, setResolvedCompanyId] = useState<string | null>(null)
   const { items: groups } = useGroups(resolvedCompanyId ?? undefined)

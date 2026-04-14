@@ -1,6 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { MoodLevelBars } from '@/components/features/MoodTracker/MoodLevelBars/MoodLevelBars'
 import Card from '@/components/shared/Cards/Card'
 import { ENERGIES } from '@/constants/energy'
@@ -8,10 +7,11 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { Routes } from '@/constants/routes'
 import { STRESSES } from '@/constants/stress'
+import { getServerSession } from '@/lib/get-server-session'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 
 export const TodayMoodNotes = async () => {
-  const session = await auth()
+  const session = await getServerSession()
   const locale = await getLocale()
   const t = await getTranslations('components.TodayMoodNotes')
   const tm = await getTranslations('components.Mood')

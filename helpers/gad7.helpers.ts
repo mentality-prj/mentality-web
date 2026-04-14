@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useLocale } from 'next-intl'
 
 import {
@@ -100,7 +100,7 @@ export function useGad7Form(userId: string): UseGad7FormReturn {
   const [error, setError] = useState<string | null>(null)
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(null)
   const resultRef = useRef<HTMLDivElement | null>(null)
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const locale = useLocale()
 
   // Rehydrate from sessionStorage / fetch latest on mount

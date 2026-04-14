@@ -1,10 +1,10 @@
 'use client'
 import { useMemo, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FullScreenBackdrop from '@/components/shared/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
+import { useAuth } from '@/context/AuthProvider'
 import { Tag } from '@/ds/components/Tag'
 import { cn } from '@/lib/utils'
 import type { GoalEntity } from '@/types/api-responses'
@@ -25,7 +25,7 @@ export const CreatePersonalGoals = ({ onCreated }: { onCreated?: (goal?: GoalEnt
   const [deadlineLocked, setDeadlineLocked] = useState(false)
   const [selectedCategory, setSelectedCategory] = useState<GoalCategory | null>(null)
   const [showAllPopup, setShowAllPopup] = useState(false)
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
 
   const goalTypeOptions = GOAL_TYPES.map((type) => ({

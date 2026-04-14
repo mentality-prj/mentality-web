@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import { getServerSession } from '@/lib/get-server-session'
 import { fetchUserTagsCached } from '@/lib/userTagsCache'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 import type { UserTag } from '@/types/tags'
@@ -6,7 +6,7 @@ import type { UserTag } from '@/types/tags'
 import NewMoodNoteSectionClient from './NewMoodNoteSectionClient'
 
 export async function NewMoodNoteSection() {
-  const session = await auth()
+  const session = await getServerSession()
   const [tagsRes, lastRecordRes] = await Promise.all([
     fetchUserTagsCached(session),
     getLastMoodRecords(session, { limit: 1 }),

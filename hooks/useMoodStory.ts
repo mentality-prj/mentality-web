@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { getAffirmationById } from '@/requests/affirmations'
 import { getLatestMoodStory } from '@/requests/moodStory'
@@ -28,7 +28,7 @@ export type RecommendedItems = {
 type LatestMoodStoryResult = Awaited<ReturnType<typeof getLatestMoodStory>>
 
 export function useMoodStory() {
-  const { data: session, status: sessionStatus } = useSession()
+  const { session, status: sessionStatus } = useAuth()
   const [state, setState] = useState<MoodStoryState>({ status: 'idle' })
   const [recommended, setRecommended] = useState<RecommendedItems>({})
   const [recommendedLoading, setRecommendedLoading] = useState(false)

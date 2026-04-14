@@ -1,6 +1,6 @@
-import { auth } from '@/auth'
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
+import { getServerSession } from '@/lib/get-server-session'
 import { getAffirmations, getUnpublishedAffirmations } from '@/requests/affirmations'
 import { ITEM_TYPE_DEFS } from '@/types/itemTypes'
 
@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default async function AffirmationsList({ fetchUnpublished = false, page = 1 }: Props) {
-  const session = await auth()
+  const session = await getServerSession()
 
   const res = fetchUnpublished
     ? await getUnpublishedAffirmations(session, page, ADMIN_PAGE_SIZE)

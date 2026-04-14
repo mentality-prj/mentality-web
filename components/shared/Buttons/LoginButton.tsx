@@ -1,13 +1,13 @@
 import { useTranslations } from 'next-intl'
 
-import { redirectToSignin } from '@/actions/redirectToSignin'
+import { redirectToAuth } from '@/actions/redirectToAuth'
 import { LoginIcon } from '@/ds/icons/login'
 
 export default function LoginButton() {
   const t = useTranslations('components.Navigation')
 
   return (
-    <form action={redirectToSignin}>
+    <form action={redirectToAuth}>
       <button
         className="flex gap-xs py-2 pr-4 group-data-[collapsible=icon]:px-1 group-data-[collapsible=icon]:py-0"
         type="submit"

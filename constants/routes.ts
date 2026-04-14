@@ -26,7 +26,7 @@ export const RoutesTitles = Object.freeze({
   WELL_BEING_CHECK: 'Psychological-Tests/well-being-check',
   PROFILE: 'Profile',
   SETTINGS: 'Settings',
-  SIGNIN: 'Signin',
+  AUTH: 'Auth',
   TIPS: 'Tips',
   ATTENTION_SPRINT: 'Mental-Games/Attention-Sprint',
   SERVERERROR: 'Server-Error',

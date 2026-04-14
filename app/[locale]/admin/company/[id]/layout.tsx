@@ -1,8 +1,8 @@
 import { Building2 } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { CompanyDetailInnerMenu } from '@/components/features/Company/GlobalAdmin/CompanyDetailInnerMenu/CompanyDetailInnerMenu'
+import { getServerSession } from '@/lib/get-server-session'
 import { getCompanyById } from '@/requests/companies'
 import { CustomSession } from '@/types/auth'
 
@@ -15,7 +15,7 @@ export default async function AdminCompanyDetailLayout({
 }) {
   const { id } = await params
   const t = await getTranslations('pages.Company.globalAdmin.companyDetail')
-  const session = await auth()
+  const session = await getServerSession()
   const result = await getCompanyById(session as CustomSession, id)
   const company = 'error' in result ? null : result.data
 

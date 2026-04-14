@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
 import { useAdminCompany } from '@/context/adminCompanyContext'
@@ -18,7 +18,7 @@ import { CustomSession } from '@/types/auth'
 import { InviteEntity, PaginatedInvites } from '@/types/company'
 
 export function useInvites() {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const { companyId: adminCompanyId } = useAdminCompany()
   const myCompanyIdRef = useRef<string | null>(null)
   const [items, setItems] = useState<InviteEntity[]>([])

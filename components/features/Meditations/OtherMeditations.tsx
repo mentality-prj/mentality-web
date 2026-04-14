@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { getServerSession } from '@/lib/get-server-session'
 import { fetchExercisesItems } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
 import ITEM_TYPE_DEFS from '@/types/itemTypes'
@@ -13,7 +13,7 @@ type Params = {
 }
 
 export const OtherMeditations = async ({ currentMeditationId }: Params) => {
-  const session = await auth()
+  const session = await getServerSession()
   const t = await getTranslations('pages.Meditation')
   const { items } = await fetchExercisesItems(session)
 

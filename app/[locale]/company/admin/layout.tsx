@@ -1,15 +1,15 @@
 import { ReactNode } from 'react'
 
-import { auth } from '@/auth'
 import { AdminCompanySelector } from '@/components/features/Company/AdminCompanySelector'
 import { AdminLayoutProvider } from '@/components/features/Company/AdminLayoutProvider'
 import { LandingFooter } from '@/components/features/Landing'
 import { CompanyHeader } from '@/components/Layout/Header/CompanyHeader'
 import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { companyAdminSidebarMenu } from '@/constants/menu'
+import { getServerSession } from '@/lib/get-server-session'
 
 export default async function CompanyAdminLayout({ children }: { children: ReactNode }) {
-  const session = await auth()
+  const session = await getServerSession()
   const isSystemAdmin = session?.user?.role === 'admin'
   const extra = isSystemAdmin ? <AdminCompanySelector /> : undefined
 

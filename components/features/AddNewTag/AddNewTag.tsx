@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { addUserTag } from '@/requests/userTags'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
@@ -17,7 +17,7 @@ type Props = {
 }
 
 export default function AddNewTag({ onClose, onCreated }: Props) {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('components.Tags')
   const [name, setName] = useState('')
   const [isSubmitting, setIsSubmitting] = useState(false)

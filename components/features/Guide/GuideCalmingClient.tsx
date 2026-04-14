@@ -1,12 +1,12 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import ExerciseCard from '@/components/features/Exercises/ExerciseCard'
+import { getServerSession } from '@/lib/get-server-session'
 import { fetchExercisesItems } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
 
 export default async function GuideCalmingClient() {
-  const session = await auth()
+  const session = await getServerSession()
 
   const { items, error } = await fetchExercisesItems(session)
   const tServer = await getTranslations('pages.ServerError')

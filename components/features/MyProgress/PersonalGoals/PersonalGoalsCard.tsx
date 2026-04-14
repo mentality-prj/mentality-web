@@ -1,11 +1,11 @@
 'use client'
 import { Dispatch, SetStateAction, useEffect, useState } from 'react'
 import { CircleCheckBig, CopyPlus, HeartCrack, RefreshCcw, Target, Timer, TrashIcon } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
 import FullScreenCard from '@/components/shared/Cards/FullScreenCard'
+import { useAuth } from '@/context/AuthProvider'
 import type { GoalEntity } from '@/types/api-responses'
 import { GoalCategory, GoalStatus, Statuses } from '@/types/goals'
 import { Button } from '@/ui/button'
@@ -56,7 +56,7 @@ export const PersonalGoalsCard = ({
   readonly = false,
   setPersonalGoals,
 }: PersonalGoalsCardProps) => {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const [dialogAction, setDialogAction] = useState<'reset' | 'delete' | null>(null)
   const t = useTranslations('components.PersonalGoals.PersonalGoalsCard')
   const tBtn = useTranslations('common.Buttons')

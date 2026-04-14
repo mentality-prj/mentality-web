@@ -2,16 +2,16 @@ import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 
 import { AdminHeader } from '@/admin/index'
-import { auth } from '@/auth'
 import { LandingFooter } from '@/components/features/Landing'
 import AdminMobileNavDrawer from '@/components/Layout/MobileNavDrawer/AdminMobileNavDrawer'
 import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
+import { getServerSession } from '@/lib/get-server-session'
 
 export default async function AdminLayout({ children }: { children: ReactNode }) {
-  const session = await auth()
+  const session = await getServerSession()
   if (!session || !session.user || session.user.role !== 'admin') {
-    redirect('/signin')
+    redirect('/auth')
   }
 
   return (

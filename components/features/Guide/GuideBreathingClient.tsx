@@ -1,14 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import ExerciseCard from '@/components/features/Exercises/ExerciseCard'
 import { FavoriteButtonWrapper } from '@/components/shared/Buttons/FavoriteButtonWrapper'
+import { getServerSession } from '@/lib/get-server-session'
 import { fetchExercisesItems } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
 import ITEM_TYPE_DEFS from '@/types/itemTypes'
 
 export default async function GuideBreathingClient() {
-  const session = await auth()
+  const session = await getServerSession()
 
   const { items, error } = await fetchExercisesItems(session)
   const tServer = await getTranslations('pages.ServerError')

@@ -2,13 +2,13 @@ import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
 import MoodTrackerPage from '@/app/[locale]/(protected)/mood-tracker/page'
-import { auth } from '@/auth'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
+import { getServerSession } from '@/lib/get-server-session'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-jest.mock('@/auth', () => ({ auth: jest.fn() }))
+jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn(), getMoodRecords: jest.fn() }))
 jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({
@@ -40,7 +40,7 @@ jest.mock('@/ds/components/PageTitle', () => ({
 }))
 
 const mockSession: CustomSession = {
-  user: { email: 'user@test.com', role: 'user' as const },
+  user: { id: 'user-1', name: 'Test User', email: 'user@test.com', role: 'user' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 86400000).toISOString(),
 }
@@ -52,7 +52,7 @@ const mockRecords: MoodRecordEntity[] = [
 
 beforeEach(() => {
   jest.clearAllMocks()
-  ;(auth as jest.Mock).mockResolvedValue(mockSession)
+  ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: mockRecords })
   ;(getMoodRecords as jest.Mock).mockResolvedValue({

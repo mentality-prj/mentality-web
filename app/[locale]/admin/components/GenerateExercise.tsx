@@ -1,8 +1,8 @@
 'use client'
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { DropdownInput } from '@/ds/components/DropdownInput'
 import { generateExercise } from '@/requests/exercises'
 import { ExerciseCategory } from '@/types/api-responses'
@@ -15,7 +15,7 @@ import { notifyError, notifySuccess } from '@/utils/toast'
 export default function GenerateExercise() {
   const t = useTranslations('components.Admin.AddExercise')
   const locale = useLocale() as SupportedLanguage
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const session = data as CustomSession
 
   const [prompt, setPrompt] = useState('')

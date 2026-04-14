@@ -1,11 +1,11 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
 import { tagproperties } from '@/constants/tags'
+import { useAuth } from '@/context/AuthProvider'
 import { Tag } from '@/ds/components/Tag'
 import { addTag, getTags } from '@/requests/tags'
 import { TagEntity } from '@/types/api-responses'
@@ -19,7 +19,7 @@ import { notifyError, notifySuccess } from '@/utils/toast'
 export default function AddTag() {
   const t = useTranslations('components.Admin.AddTag')
   const locale = useLocale() as SupportedLanguage
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const [tags, setTags] = useState<TagEntity[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isSubmitting, setIsSubmitting] = useState(false)

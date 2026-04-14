@@ -1,5 +1,5 @@
-import { auth } from '@/auth'
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
+import { getServerSession } from '@/lib/get-server-session'
 import { getExercises, getUnpublishedExercises } from '@/requests/exercises'
 import { ExerciseEntity } from '@/types/api-responses'
 
@@ -11,7 +11,7 @@ interface ExercisesListProps {
 }
 
 export default async function ExercisesList({ fetchUnpublished = false, page = 1 }: ExercisesListProps) {
-  const session = await auth()
+  const session = await getServerSession()
 
   const res = fetchUnpublished
     ? await getUnpublishedExercises(session, page, ADMIN_PAGE_SIZE)

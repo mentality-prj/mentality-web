@@ -29,31 +29,49 @@ jest.mock('@/lib/logger', () => ({
 }))
 
 const mockSuperuserSession: CustomSession = {
-  user: { email: 'admin@company.com', role: 'user' as const, companyRole: COMPANY_ROLES.SUPERUSER },
+  user: {
+    id: 'su-1',
+    name: 'Super User',
+    email: 'admin@company.com',
+    role: 'user' as const,
+    companyRole: COMPANY_ROLES.SUPERUSER,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
 
 const mockManagerSession: CustomSession = {
-  user: { email: 'manager@company.com', role: 'user' as const, companyRole: COMPANY_ROLES.MANAGER },
+  user: {
+    id: 'mgr-1',
+    name: 'Manager User',
+    email: 'manager@company.com',
+    role: 'user' as const,
+    companyRole: COMPANY_ROLES.MANAGER,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
 
 const mockEmployeeSession: CustomSession = {
-  user: { email: 'emp@company.com', role: 'user' as const, companyRole: COMPANY_ROLES.EMPLOYEE },
+  user: {
+    id: 'emp-1',
+    name: 'Employee User',
+    email: 'emp@company.com',
+    role: 'user' as const,
+    companyRole: COMPANY_ROLES.EMPLOYEE,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
 
 const noCompanyRoleSession: CustomSession = {
-  user: { email: 'plain@example.com', role: 'user' as const },
+  user: { id: 'user-1', name: 'Plain User', email: 'plain@example.com', role: 'user' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
 
 const mockAdminSession: CustomSession = {
-  user: { email: 'sysadmin@mentality.app', role: 'admin' as const },
+  user: { id: 'sysadmin-1', name: 'System Admin', email: 'sysadmin@mentality.app', role: 'admin' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }

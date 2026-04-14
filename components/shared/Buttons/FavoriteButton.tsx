@@ -1,7 +1,7 @@
 import { Heart } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { logger } from '@/lib/logger'
 import { toggleFavoriteWithSession } from '@/requests/favorites'
 import { CustomSession } from '@/types/auth'
@@ -17,7 +17,7 @@ interface Props {
 }
 
 export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange, className }: Props) => {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('components.FavoriteButton')
 
   const toggle = async () => {

@@ -1,13 +1,13 @@
 import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
+import { getServerSession } from '@/lib/get-server-session'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-jest.mock('@/auth', () => ({ auth: jest.fn() }))
+jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn() }))
 jest.mock('next-intl/server')
 
@@ -58,7 +58,7 @@ jest.mock('@/ds/components/TooltipIcon', () => ({
 }))
 
 const mockSession: CustomSession = {
-  user: { email: 'user@test.com', role: 'user' as const },
+  user: { id: 'user-1', name: 'Test User', email: 'user@test.com', role: 'user' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 86400000).toISOString(),
 }
@@ -75,7 +75,7 @@ const mockRecord: MoodRecordEntity = {
 
 beforeEach(() => {
   jest.clearAllMocks()
-  ;(auth as jest.Mock).mockResolvedValue(mockSession)
+  ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
 })
 

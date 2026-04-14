@@ -2,18 +2,18 @@ import { Plus, Shield, Users } from 'lucide-react'
 import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { LandingFooter } from '@/components/features/Landing'
 import { CompanyHeader } from '@/components/Layout/Header/CompanyHeader'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
+import { getServerSession } from '@/lib/get-server-session'
 import { COMPANY_ROLES } from '@/types/rbac'
 import { buttonVariants } from '@/ui/button'
 
 export default async function CompanyDashboardPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const session = await auth()
+  const session = await getServerSession()
   const role = session?.user?.companyRole
 
   if (session?.user?.role !== 'admin') {

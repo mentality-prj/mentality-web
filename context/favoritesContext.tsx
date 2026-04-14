@@ -1,7 +1,7 @@
 'use client'
 
 import { createContext, ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { getFavorites } from '@/requests/favorites'
 import { FavoriteEntity } from '@/types/api-responses'
@@ -24,7 +24,7 @@ function makeKey(itemType: string, itemId: string): string {
 }
 
 export function FavoritesProvider({ children }: { children: ReactNode }) {
-  const { data: session, status } = useSession()
+  const { session, status } = useAuth()
   const [store, setStore] = useState<FavoritesStore>(new Map())
   const [loading, setLoading] = useState(false)
   const sessionRef = useRef(session)

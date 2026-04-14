@@ -1,10 +1,10 @@
 'use server'
 
-import { auth } from '@/auth'
+import { getServerSession } from '@/lib/get-server-session'
 import { regenerateMoodStory } from '@/requests/moodStory'
 
 export async function regenerateMoodStoryAction(): Promise<{ success: boolean; error?: string }> {
-  const session = await auth()
+  const session = await getServerSession()
   const result = await regenerateMoodStory(session)
 
   if ('error' in result) {

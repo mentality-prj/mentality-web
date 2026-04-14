@@ -2,9 +2,9 @@
 
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { CustomInput } from '@/ds/components/CustomInput'
 import { useRouter } from '@/i18n/navigation'
 import { createCompany } from '@/requests/companies'
@@ -12,7 +12,7 @@ import { CustomSession } from '@/types/auth'
 import { Button } from '@/ui/button'
 
 export function CreateCompanyForm() {
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const router = useRouter()
   const t = useTranslations('pages.Company.globalAdmin.createCompany')
   const [name, setName] = useState('')

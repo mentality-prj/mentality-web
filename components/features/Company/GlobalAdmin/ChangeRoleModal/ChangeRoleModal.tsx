@@ -2,13 +2,13 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
 import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FormCard from '@/components/shared/Cards/FormCard'
 import FullScreenCard from '@/components/shared/Cards/FullScreenCard'
+import { useAuth } from '@/context/AuthProvider'
 import { adminAssignRole, adminGetGroups } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
 import { EmployeeEntity, GroupEntity } from '@/types/company'
@@ -28,7 +28,7 @@ type Props = {
 export function ChangeRoleModal({ employee, companyId, onClose, onSuccess }: Props) {
   const t = useTranslations('pages.Company.globalAdmin.companyDetail.changeRole')
   const tRoles = useTranslations('pages.Company.roles')
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const [role, setRole] = useState<CompanyRole>(employee.role)
   const [groupIds, setGroupIds] = useState<string[]>(employee.groupIds)
   const [groups, setGroups] = useState<GroupEntity[]>([])

@@ -4,13 +4,8 @@
 
 import { NextRequest } from 'next/server'
 
-import { auth } from '@/auth'
 import { Routes } from '@/constants/routes'
-
-// Mock the auth function
-jest.mock('@/auth', () => ({
-  auth: jest.fn(),
-}))
+import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
 // Mock next-intl routing
 jest.mock('@/i18n/routing', () => ({
@@ -20,11 +15,20 @@ jest.mock('@/i18n/routing', () => ({
   },
 }))
 
-describe('Middleware Error Handling', () => {
+function makeTokenCookie(overrides: Record<string, unknown> = {}): string {
+  return JSON.stringify({
+    accessToken: 'valid-access-token',
+    idToken: 'valid-id-token',
+    refreshToken: 'valid-refresh-token',
+    expiresAt: Math.floor(Date.now() / 1000) + 3600, // 1 hour from now
+    ...overrides,
+  })
+}
+
+describe('Middleware Token-Based Auth', () => {
   let middleware: (req: NextRequest) => Promise<Response>
 
   beforeAll(() => {
-    // Import middleware once with mocks in place
     middleware = require('@/middleware').middleware
   })
 
@@ -32,112 +36,103 @@ describe('Middleware Error Handling', () => {
     jest.clearAllMocks()
   })
 
-  const createRequest = (pathname: string) => {
-    return new NextRequest(new URL(`http://localhost:3000${pathname}`))
+  const createRequest = (pathname: string, cookieValue?: string) => {
+    const req = new NextRequest(new URL(`http://localhost:3000${pathname}`))
+    if (cookieValue) {
+      req.cookies.set(AUTH_TOKEN_COOKIE, cookieValue)
+    }
+    return req
   }
 
-  describe('BackendConnectionError', () => {
-    it('should redirect to server-error page on BackendConnectionError', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
-      })
-
+  describe('Unauthenticated access to protected routes', () => {
+    it('should redirect to auth when no token cookie exists', async () => {
       const request = createRequest('/uk/my-day')
       const response = await middleware(request)
 
-      expect(response).toBeDefined()
-      expect(response.headers.get('location')).toContain(Routes.SERVERERROR)
+      expect(response.headers.get('location')).toContain('/auth')
     })
 
-    it('should not redirect to server-error if already on server-error page (prevent loop)', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com' },
-        error: { error: 'BackendConnectionError' },
-      })
-
-      const request = createRequest(`/uk${Routes.SERVERERROR}`)
+    it('should redirect to auth when token cookie is invalid JSON', async () => {
+      const request = createRequest('/uk/my-day', 'not-valid-json')
       const response = await middleware(request)
 
-      // Should not redirect (no location header means no redirect)
-      expect(response.headers.get('location')).toBeNull()
+      expect(response.headers.get('location')).toContain('/auth')
+    })
+
+    it('should redirect to auth when token cookie has no accessToken', async () => {
+      const request = createRequest('/uk/my-day', JSON.stringify({ idToken: 'some-token' }))
+      const response = await middleware(request)
+
+      expect(response.headers.get('location')).toContain('/auth')
     })
   })
 
-  describe('RefreshTokenError and InvalidToken', () => {
-    it('should redirect to signin and clear cookies on RefreshTokenError', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        error: { error: 'RefreshTokenError', message: 'Refresh token expired' },
-      })
-
-      const request = createRequest('/uk/my-day')
+  describe('Authenticated access', () => {
+    it('should not redirect on protected route with valid token', async () => {
+      const request = createRequest('/uk/my-day', makeTokenCookie())
       const response = await middleware(request)
 
-      expect(response).toBeDefined()
-      expect(response.headers.get('location')).toContain(Routes.SIGNIN)
-
-      // Check that auth cookies are deleted
-      const cookies = (response as any).cookies.getAll()
-      const sessionCookie = cookies.find((c: { name: string }) => c.name === 'authjs.session-token')
-      const secureSessionCookie = cookies.find((c: { name: string }) => c.name === '__Secure-authjs.session-token')
-
-      // Cookies should be deleted (value is empty string or undefined)
-      expect(sessionCookie?.value || '').toBe('')
-      expect(secureSessionCookie?.value || '').toBe('')
-    })
-
-    it('should redirect to signin and clear cookies on InvalidToken', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        error: { error: 'InvalidToken', message: 'Token is invalid' },
-      })
-
-      const request = createRequest('/uk/my-day')
-      const response = await middleware(request)
-
-      expect(response).toBeDefined()
-      expect(response.headers.get('location')).toContain(Routes.SIGNIN)
-
-      // Check that auth cookies are deleted
-      const cookies = (response as any).cookies.getAll()
-      const sessionCookie = cookies.find((c: { name: string; value: string }) => c.name === 'authjs.session-token')
-      const secureSessionCookie = cookies.find(
-        (c: { name: string; value: string }) => c.name === '__Secure-authjs.session-token'
-      )
-
-      expect(sessionCookie?.value || '').toBe('')
-      expect(secureSessionCookie?.value || '').toBe('')
-    })
-  })
-
-  describe('Non-critical errors', () => {
-    it('should not redirect on non-critical errors', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        error: { error: 'SomeOtherError', message: 'Some error' },
-      })
-
-      const request = createRequest('/uk/my-day')
-      const response = await middleware(request)
-
-      // Should not redirect to error pages
       const location = response.headers.get('location')
       if (location) {
-        expect(location).not.toContain(Routes.SERVERERROR)
-        expect(location).not.toContain(Routes.SIGNIN)
+        expect(location).not.toContain('/auth')
+        expect(location).not.toContain('/server-error')
+      }
+    })
+
+    it('should redirect authenticated user away from auth to my-day', async () => {
+      const request = createRequest('/uk/auth', makeTokenCookie())
+      const response = await middleware(request)
+
+      expect(response.headers.get('location')).toContain('/my-day')
+    })
+  })
+
+  describe('Expired token handling', () => {
+    it('should redirect to auth when token expired and no refresh token', async () => {
+      const request = createRequest(
+        '/uk/my-day',
+        makeTokenCookie({
+          expiresAt: Math.floor(Date.now() / 1000) - 3600, // expired 1 hour ago
+          refreshToken: undefined,
+        })
+      )
+      const response = await middleware(request)
+
+      expect(response.headers.get('location')).toContain('/auth')
+    })
+
+    it('should not redirect when token expired but refresh token exists', async () => {
+      const request = createRequest(
+        '/uk/my-day',
+        makeTokenCookie({
+          expiresAt: Math.floor(Date.now() / 1000) - 3600, // expired
+          refreshToken: 'valid-refresh-token',
+        })
+      )
+      const response = await middleware(request)
+
+      const location = response.headers.get('location')
+      if (location) {
+        expect(location).not.toContain('/auth')
+      }
+    })
+  })
+
+  describe('Public routes', () => {
+    it('should allow unauthenticated access to public routes', async () => {
+      const request = createRequest('/uk/about')
+      const response = await middleware(request)
+
+      const location = response.headers.get('location')
+      if (location) {
+        expect(location).not.toContain('/auth')
       }
     })
   })
 
   describe('Security headers', () => {
     it('should set Content-Security-Policy on normal responses', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        OAuthToken: 'valid-token',
-      })
-
-      const request = createRequest('/uk/my-day')
+      const request = createRequest('/uk/my-day', makeTokenCookie())
       const response = await middleware(request)
 
       const csp = response.headers.get('Content-Security-Policy')
@@ -147,64 +142,31 @@ describe('Middleware Error Handling', () => {
       expect(csp).toContain("object-src 'none'")
     })
 
-    it('should set Content-Security-Policy on redirect responses', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
-      })
-
-      const request = createRequest('/uk/my-day')
+    it('should set X-Frame-Options and X-Content-Type-Options', async () => {
+      const request = createRequest('/uk/my-day', makeTokenCookie())
       const response = await middleware(request)
 
-      expect(response.headers.get('location')).toContain(Routes.SERVERERROR)
-      expect(response.headers.get('Content-Security-Policy')).toBeTruthy()
       expect(response.headers.get('X-Frame-Options')).toBe('DENY')
       expect(response.headers.get('X-Content-Type-Options')).toBe('nosniff')
     })
-  })
 
-  describe('No errors', () => {
-    it('should process normally when there are no session errors', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        OAuthToken: 'valid-token',
-      })
-
-      const request = createRequest('/uk/my-day')
+    it('should set security headers on redirect responses', async () => {
+      const request = createRequest('/uk/my-day') // no token → redirect
       const response = await middleware(request)
 
-      // Should not redirect to error pages
+      expect(response.headers.get('location')).toContain('/auth')
+      expect(response.headers.get('Content-Security-Policy')).toBeTruthy()
+      expect(response.headers.get('X-Frame-Options')).toBe('DENY')
+    })
+  })
+
+  describe('Callback route', () => {
+    it('should pass through /callback without locale redirect', async () => {
+      const request = createRequest('/callback?code=abc&state=xyz')
+      const response = await middleware(request)
+
       const location = response.headers.get('location')
-      if (location) {
-        expect(location).not.toContain(Routes.SERVERERROR)
-        expect(location).not.toContain(Routes.SIGNIN)
-      }
-    })
-  })
-
-  describe('Error type variations', () => {
-    it('should handle error as string', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com', role: 'user' },
-        error: { error: 'BackendConnectionError', message: 'Backend connection failed' },
-      })
-
-      const request = createRequest('/uk/my-day')
-      const response = await middleware(request)
-
-      expect(response.headers.get('location')).toContain(Routes.SERVERERROR)
-    })
-
-    it('should handle error as object with error property', async () => {
-      ;(auth as jest.Mock).mockResolvedValue({
-        user: { id: '1', email: 'test@example.com' },
-        error: { error: 'RefreshTokenError' },
-      })
-
-      const request = createRequest('/uk/my-day')
-      const response = await middleware(request)
-
-      expect(response.headers.get('location')).toContain(Routes.SIGNIN)
+      expect(location).toBeNull()
     })
   })
 })

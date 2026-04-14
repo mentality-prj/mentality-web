@@ -1,14 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
 import { PageTitle } from '@/ds/components/PageTitle'
+import { getServerSession } from '@/lib/get-server-session'
 import { getUserDiaries } from '@/requests/diary'
 
 export default async function DiaryPage() {
   const t = await getTranslations()
-  const session = await auth()
+  const session = await getServerSession()
   const response = await getUserDiaries(session)
 
   return (

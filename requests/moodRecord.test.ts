@@ -17,7 +17,7 @@ jest.mock('@/lib/logger', () => ({
 }))
 
 const mockSession: CustomSession = {
-  user: { email: 'user@test.com', role: 'user' as const },
+  user: { id: 'user-1', name: 'Test User', email: 'user@test.com', role: 'user' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
