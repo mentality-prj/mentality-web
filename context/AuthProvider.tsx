@@ -89,6 +89,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setTokens(refreshed)
       } else {
         setError({ error: 'RefreshTokenError', message: 'Token refresh failed' })
+        await authService.clearTokens()
+        setTokens(null)
         setUser(null)
         setStatus('unauthenticated')
       }

@@ -3,13 +3,13 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
+import { routing } from '@/i18n/routing'
 import { authService } from '@/lib/auth'
 import { logger } from '@/lib/logger'
 import { SupportedLanguage, supportedLanguages } from '@/types/languages'
 import { Button } from '@/ui/button'
 
 const LOCALE_COOKIE = 'NEXT_LOCALE'
-const DEFAULT_LOCALE: SupportedLanguage = 'uk'
 
 function getPreferredLocale(): SupportedLanguage {
   // 1. Check saved cookie
@@ -26,7 +26,7 @@ function getPreferredLocale(): SupportedLanguage {
   }
 
   // 3. Fallback
-  return DEFAULT_LOCALE
+  return routing.defaultLocale as SupportedLanguage
 }
 
 export default function CallbackPage() {

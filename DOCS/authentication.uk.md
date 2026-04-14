@@ -84,7 +84,7 @@ import { getServerSession } from '@/lib/get-server-session'
 
 export default async function Page() {
   const session = await getServerSession()
-  if (!session) redirect('/signin')
+  if (!session) redirect('/auth')
 
   return <div>Привіт, {session.user?.name}</div>
 }
@@ -123,9 +123,9 @@ fetch('/api/something', {
 
 `middleware.ts` забезпечує:
 
-1. **Захист маршрутів** — неавтентифіковані користувачі на захищених маршрутах → редірект на `/signin`
-2. **Перевірка терміну токена** — протермінований токен без refresh → редірект на `/signin`
-3. **Редірект з логіну** — автентифіковані користувачі на `/signin` → редірект на `/my-day`
+1. **Захист маршрутів** — неавтентифіковані користувачі на захищених маршрутах → редірект на `/auth`
+2. **Перевірка терміну токена** — протермінований токен без refresh → редірект на `/auth`
+3. **Редірект з логіну** — автентифіковані користувачі на `/auth` → редірект на `/my-day`
 4. **Гард адміна** — не-адмін на `/admin/*` → редірект на `/profile`
 5. **CSP-заголовки** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options
 6. **Локалізація** — кукі NEXT_LOCALE, фолбек Accept-Language

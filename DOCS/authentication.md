@@ -84,7 +84,7 @@ import { getServerSession } from '@/lib/get-server-session'
 
 export default async function Page() {
   const session = await getServerSession()
-  if (!session) redirect('/signin')
+  if (!session) redirect('/auth')
 
   return <div>Hello, {session.user?.name}</div>
 }
@@ -123,9 +123,9 @@ The `AuthProvider` sets a timer to automatically refresh the token 60 seconds be
 
 `middleware.ts` handles:
 
-1. **Route protection** — unauthenticated users on protected routes → redirect to `/signin`
-2. **Token expiry check** — expired token without refresh token → redirect to `/signin`
-3. **Signin redirect** — authenticated users on `/signin` → redirect to `/my-day`
+1. **Route protection** — unauthenticated users on protected routes → redirect to `/auth`
+2. **Token expiry check** — expired token without refresh token → redirect to `/auth`
+3. **Auth redirect** — authenticated users on `/auth` → redirect to `/my-day`
 4. **Admin guard** — non-admin users on `/admin/*` → redirect to `/profile`
 5. **CSP headers** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options
 6. **Locale handling** — NEXT_LOCALE cookie, Accept-Language fallback

@@ -22,7 +22,6 @@ export const FavoriteButton = ({ itemType, itemId, isFavorite, onChange, classNa
 
   const toggle = async () => {
     try {
-      // Use session-based helper; get session via `useSession()` from next-auth
       if (!session) {
         logger.error('No session provided; cannot toggle favorite')
         return
