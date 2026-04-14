@@ -85,12 +85,12 @@ describe('createInvite', () => {
   it('returns data on success (SUPERUSER)', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockInviteRaw })
 
-    const result = await createInvite(mockSuperuserSession, mockDto)
+    const result = await createInvite(mockSuperuserSession, 'c-1', mockDto)
 
     expect(result).toEqual({ data: mockInviteRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(INVITE_ENDPOINTS.BASE),
+      expect.stringContaining(INVITE_ENDPOINTS.base('c-1')),
       expect.objectContaining({ method: 'POST', body: mockDto })
     )
   })
@@ -98,7 +98,7 @@ describe('createInvite', () => {
   it('returns data on success (MANAGER)', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockInviteRaw })
 
-    const result = await createInvite(mockManagerSession, mockDto)
+    const result = await createInvite(mockManagerSession, 'c-1', mockDto)
 
     expect(result).toEqual({ data: mockInviteRaw })
   })
@@ -106,7 +106,7 @@ describe('createInvite', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Network error' })
 
-    const result = await createInvite(mockSuperuserSession, mockDto)
+    const result = await createInvite(mockSuperuserSession, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Network error' })
     expect(logger.error).toHaveBeenCalled()
@@ -115,13 +115,13 @@ describe('createInvite', () => {
   it('returns error on invalid mapped data', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await createInvite(mockSuperuserSession, mockDto)
+    const result = await createInvite(mockSuperuserSession, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Invalid invite data' })
   })
 
   it('blocks EMPLOYEE role — returns unauthorized', async () => {
-    const result = await createInvite(mockEmployeeSession, mockDto)
+    const result = await createInvite(mockEmployeeSession, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -129,14 +129,14 @@ describe('createInvite', () => {
   })
 
   it('blocks session without companyRole', async () => {
-    const result = await createInvite(noCompanyRoleSession, mockDto)
+    const result = await createInvite(noCompanyRoleSession, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('blocks null session', async () => {
-    const result = await createInvite(null, mockDto)
+    const result = await createInvite(null, 'c-1', mockDto)
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -149,7 +149,7 @@ describe('getInvites', () => {
   it('returns paginated data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockInviteRaw] })
 
-    const result = await getInvites(mockSuperuserSession, 1, 20)
+    const result = await getInvites(mockSuperuserSession, 'c-1', 1, 20)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -161,7 +161,7 @@ describe('getInvites', () => {
   it('returns empty items when API returns empty array', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    const result = await getInvites(mockSuperuserSession)
+    const result = await getInvites(mockSuperuserSession, 'c-1')
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -173,7 +173,7 @@ describe('getInvites', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await getInvites(mockSuperuserSession)
+    const result = await getInvites(mockSuperuserSession, 'c-1')
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
@@ -182,7 +182,7 @@ describe('getInvites', () => {
   it('builds URL with page and limit parameters', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    await getInvites(mockSuperuserSession, 3, 10)
+    await getInvites(mockSuperuserSession, 'c-1', 3, 10)
 
     expect(performAuthRequest).toHaveBeenCalledWith(mockSuperuserSession, expect.stringContaining('page=3'))
     expect(performAuthRequest).toHaveBeenCalledWith(mockSuperuserSession, expect.stringContaining('limit=10'))
@@ -195,12 +195,12 @@ describe('resendInvite', () => {
   it('returns data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockInviteRaw })
 
-    const result = await resendInvite(mockSuperuserSession, 'inv-1')
+    const result = await resendInvite(mockSuperuserSession, 'c-1', 'inv-1')
 
     expect(result).toEqual({ data: mockInviteRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(INVITE_ENDPOINTS.resend('inv-1')),
+      expect.stringContaining(INVITE_ENDPOINTS.resend('c-1', 'inv-1')),
       expect.objectContaining({ method: 'POST' })
     )
   })
@@ -208,13 +208,13 @@ describe('resendInvite', () => {
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await resendInvite(mockSuperuserSession, 'inv-1')
+    const result = await resendInvite(mockSuperuserSession, 'c-1', 'inv-1')
 
     expect(result).toEqual({ error: 'Not found' })
   })
 
   it('blocks EMPLOYEE — returns unauthorized', async () => {
-    const result = await resendInvite(mockEmployeeSession, 'inv-1')
+    const result = await resendInvite(mockEmployeeSession, 'c-1', 'inv-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
@@ -227,26 +227,26 @@ describe('cancelInvite', () => {
   it('returns data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockInviteRaw })
 
-    const result = await cancelInvite(mockSuperuserSession, 'inv-1')
+    const result = await cancelInvite(mockSuperuserSession, 'c-1', 'inv-1')
 
     expect(result).toEqual({ data: mockInviteRaw })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
-      expect.stringContaining(INVITE_ENDPOINTS.byId('inv-1')),
-      expect.objectContaining({ method: 'DELETE' })
+      expect.stringContaining(INVITE_ENDPOINTS.cancel('c-1', 'inv-1')),
+      expect.objectContaining({ method: 'PATCH' })
     )
   })
 
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
-    const result = await cancelInvite(mockSuperuserSession, 'inv-1')
+    const result = await cancelInvite(mockSuperuserSession, 'c-1', 'inv-1')
 
     expect(result).toEqual({ error: 'Conflict' })
   })
 
   it('blocks null session', async () => {
-    const result = await cancelInvite(null, 'inv-1')
+    const result = await cancelInvite(null, 'c-1', 'inv-1')
 
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()

@@ -30,7 +30,7 @@ export function MetricCards({ allTime, last7d, last30d }: MetricCardsProps) {
       <div className="mb-5 flex items-center justify-between">
         <h3 className="text-xl font-semibold text-textcolor-primary">{t('metrics.title')}</h3>
         <Tabs defaultValue="allTime" onValueChange={(v) => setPeriod(v as TimePeriod)}>
-          <TabsList className="gap-3">
+          <TabsList className="gap-xs">
             <TabsTrigger value="allTime">{t('metrics.allTime')}</TabsTrigger>
             <TabsTrigger value="last7d">{t('metrics.last7d')}</TabsTrigger>
             <TabsTrigger value="last30d">{t('metrics.last30d')}</TabsTrigger>

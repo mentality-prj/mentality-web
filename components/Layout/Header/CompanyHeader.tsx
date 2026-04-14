@@ -5,10 +5,10 @@ import { SidebarMenuItemType, userTopMenu } from '@/constants/menu'
 
 import TopMenu from '../TopMenu/TopMenu'
 
-export const CompanyHeader = ({ menu }: { menu?: SidebarMenuItemType[] }) => (
+export const CompanyHeader = ({ menu, extra }: { menu?: SidebarMenuItemType[]; extra?: React.ReactNode }) => (
   <header className="text-remark shadow-light flex w-full items-center justify-between gap-sm md:px-1">
     <div className="flex items-center gap-sm">
-      <CompanyMobileNavDrawer menu={menu} />
+      <CompanyMobileNavDrawer menu={menu} extra={extra} />
       <span className="hidden md:block">
         <LocalDate />
       </span>

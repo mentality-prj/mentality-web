@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
 import { useAssignManager } from '@/hooks/useAssignManager'
 import { Button } from '@/ui/button'
+import { Checkbox } from '@/ui/checkbox'
 import { Label } from '@/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/ui/select'
 
@@ -21,6 +22,7 @@ export function AssignManagerForm() {
     canViewAnalytics,
     setCanViewAnalytics,
     loading,
+    isReady,
     userError,
     groupError,
     handleAssign,
@@ -32,7 +34,11 @@ export function AssignManagerForm() {
       <form onSubmit={handleAssign} className="flex flex-col gap-4">
         <div className="flex flex-col gap-1.5">
           <Label htmlFor="assign-user">{t('managerLabel')}</Label>
-          <Select value={selectedUserId} onValueChange={setSelectedUserId} disabled={loading || managers.length === 0}>
+          <Select
+            value={selectedUserId}
+            onValueChange={setSelectedUserId}
+            disabled={!isReady || loading || managers.length === 0}
+          >
             <SelectTrigger id="assign-user">
               <SelectValue placeholder={managers.length === 0 ? t('managerEmpty') : t('managerPlaceholder')} />
             </SelectTrigger>
@@ -53,17 +59,16 @@ export function AssignManagerForm() {
           {groupError && <p className="text-destructive text-xs">{groupError}</p>}
         </div>
 
-        <label className="flex cursor-pointer items-center gap-2 text-sm">
-          <input
-            type="checkbox"
+        <label className="flex cursor-pointer items-center gap-xs">
+          <Checkbox
             checked={canViewAnalytics}
-            onChange={(e) => setCanViewAnalytics(e.target.checked)}
-            className="accent-primary"
+            onCheckedChange={(v) => setCanViewAnalytics(v === true)}
+            disabled={!isReady || loading}
           />
-          {t('analyticsToggle')}
+          <span className="text-sm font-normal">{t('analyticsToggle')}</span>
         </label>
 
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={!isReady || loading}>
           {loading ? t('submitting') : t('submitButton')}
         </Button>
       </form>

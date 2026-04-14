@@ -15,7 +15,7 @@ interface TestAdminBarProps {
 export function TestAdminBar({ testId, showFormPreview, onToggle, onReset }: TestAdminBarProps) {
   const t = useTranslations('components.TestQuestionnaire')
   return (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-xs">
       <AdminPreviewToggle
         id={`${testId}-admin-preview`}
         checked={showFormPreview}

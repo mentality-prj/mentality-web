@@ -19,11 +19,7 @@ export const TodayMoodNotes = async () => {
   const todayRecord = 'error' in todayRecordMood ? null : (todayRecordMood?.data?.[0] ?? null)
 
   if (!todayRecord) {
-    return (
-      <Card title={t('title')} link={`${Routes.MOODTRACKER}#mood-records-list`} linkText={t('linkText')}>
-        <div className="h-full">{t('empty')}</div>
-      </Card>
-    )
+    return null
   }
 
   const moodLevel = todayRecord.moodLevel ?? 3

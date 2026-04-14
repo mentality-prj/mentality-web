@@ -24,7 +24,7 @@ export function useAssignManager() {
   const t = useTranslations('pages.Company.companyAdmin.assignManager')
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items: groups } = useGroups()
+  const { items: groups, companyId } = useGroups()
 
   const [managers, setManagers] = useState<EmployeeEntity[]>([])
   const [scopes, setScopes] = useState<AccessScopeEntity[]>([])
@@ -44,20 +44,24 @@ export function useAssignManager() {
   }, [adminCompanyId])
 
   const loadManagersAndScopes = useCallback(async () => {
+    if (!adminCompanyId && !companyId) return
     const session = data as CustomSession
     const [managersRes, scopesRes] = adminCompanyId
       ? await Promise.all([
           getEmployeesByRoleAdmin(session, adminCompanyId, COMPANY_ROLES.MANAGER),
           getAccessScopesAdmin(session, adminCompanyId),
         ])
-      : await Promise.all([getEmployeesByRole(session, COMPANY_ROLES.MANAGER), getAccessScopes(session)])
+      : await Promise.all([
+          getEmployeesByRole(session, companyId!, COMPANY_ROLES.MANAGER),
+          getAccessScopes(session, companyId!),
+        ])
     if (!('error' in managersRes)) {
       setManagers(managersRes.data)
     }
     if (!('error' in scopesRes)) {
       setScopes(scopesRes.data)
     }
-  }, [data, adminCompanyId])
+  }, [data, adminCompanyId, companyId])
 
   useEffect(() => {
     if (status === 'authenticated') loadManagersAndScopes()
@@ -83,12 +87,13 @@ export function useAssignManager() {
   async function handleAssign(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+    if (!adminCompanyId && !companyId) return
     setLoading(true)
     const dto = { userId: selectedUserId, groupIds: selectedGroupIds, canViewAnalytics }
     const session = data as CustomSession
     const res = adminCompanyId
       ? await createAccessScopeAdmin(session, adminCompanyId, dto)
-      : await createAccessScope(session, dto)
+      : await createAccessScope(session, companyId!, dto)
     setLoading(false)
     if ('error' in res) {
       toast.error(res.error)
@@ -102,10 +107,11 @@ export function useAssignManager() {
   }
 
   async function handleRevoke(id: string) {
+    if (!adminCompanyId && !companyId) return
     const session = data as CustomSession
     const res = adminCompanyId
       ? await deleteAccessScopeAdmin(session, adminCompanyId, id)
-      : await deleteAccessScope(session, id)
+      : await deleteAccessScope(session, companyId!, id)
     if ('error' in res) {
       toast.error(res.error)
       return
@@ -113,6 +119,8 @@ export function useAssignManager() {
     toast.success(t('revoked'))
     setScopes((prev) => prev.filter((s) => s.id !== id))
   }
+
+  const isReady = Boolean(adminCompanyId || companyId)
 
   return {
     groups,
@@ -125,6 +133,7 @@ export function useAssignManager() {
     canViewAnalytics,
     setCanViewAnalytics,
     loading,
+    isReady,
     userError,
     groupError,
     handleAssign,

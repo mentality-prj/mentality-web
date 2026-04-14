@@ -67,7 +67,7 @@ export default function VerticalCard({
           {tag && <span className="text-xs font-semibold uppercase tracking-[0.2em] text-[#6B7280]/70">{tag}</span>}
           {title && <h3 className="text-title text-2xl leading-[130%] text-[#6B7280] md:text-3xl">{title}</h3>}
           <p className="text-base leading-relaxed text-[#6B7280]">{description}</p>
-          {children && <div className="flex flex-col gap-3 text-[#6B7280]">{children}</div>}
+          {children && <div className="flex flex-col gap-xs text-[#6B7280]">{children}</div>}
           {showCta && (
             <Link
               href={href ?? '#'}
@@ -111,7 +111,7 @@ export default function VerticalCard({
           {title && <h3 className="text-title text-xl leading-[130%]">{title}</h3>}
         </div>
         <p className="text-base leading-relaxed text-textcolor-secondary">{description}</p>
-        {children && <div className="flex flex-col gap-3 text-textcolor-secondary">{children}</div>}
+        {children && <div className="flex flex-col gap-xs text-textcolor-secondary">{children}</div>}
         {showCta && (
           <Link
             href={href ?? '#'}

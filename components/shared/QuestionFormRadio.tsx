@@ -106,7 +106,7 @@ export function QuestionFormRadio({
           : error
 
   const adminBar = isAdmin && (
-    <div className="flex items-center gap-3">
+    <div className="flex items-center gap-xs">
       <AdminPreviewToggle
         id={`${config.id}-admin-form-preview`}
         checked={showFormPreview}
@@ -183,9 +183,9 @@ export function QuestionFormRadio({
         />
 
         {isSubmitStep && (
-          <div className="mt-6 flex flex-col gap-3 border-t border-border pt-5">
+          <div className="mt-6 flex flex-col gap-xs border-t border-border pt-5">
             <p className="text-sm text-textcolor-secondary">{t('form.readyToSubmit')}</p>
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-xs">
               <Button variant="secondary" type="button" onClick={onGoBack} className="flex items-center gap-2">
                 <ArrowLeft size={16} />
                 {t('form.back')}

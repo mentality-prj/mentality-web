@@ -1,10 +1,11 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { useSession } from 'next-auth/react'
 
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
 import { useAdminCompany } from '@/context/adminCompanyContext'
+import { getMyCompany } from '@/requests/companies'
 import {
   cancelInvite,
   cancelInviteAdmin,
@@ -19,6 +20,7 @@ import { InviteEntity, PaginatedInvites } from '@/types/company'
 export function useInvites() {
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
+  const myCompanyIdRef = useRef<string | null>(null)
   const [items, setItems] = useState<InviteEntity[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
@@ -36,9 +38,17 @@ export function useInvites() {
     setError(null)
     try {
       const session = data as CustomSession
-      const res = adminCompanyId
-        ? await getInvitesAdmin(session, adminCompanyId, page, COMPANY_PAGE_SIZE)
-        : await getInvites(session, page, COMPANY_PAGE_SIZE)
+      let res: { data: PaginatedInvites } | { error: string }
+      if (adminCompanyId) {
+        res = await getInvitesAdmin(session, adminCompanyId, page, COMPANY_PAGE_SIZE)
+      } else {
+        if (!myCompanyIdRef.current) {
+          const myCompanyRes = await getMyCompany(session)
+          if ('error' in myCompanyRes) throw new Error(myCompanyRes.error)
+          myCompanyIdRef.current = myCompanyRes.data.id
+        }
+        res = await getInvites(session, myCompanyIdRef.current, page, COMPANY_PAGE_SIZE)
+      }
       if ('error' in res) throw new Error(res.error)
       const paginated = res.data as PaginatedInvites
       setItems(paginated.items)
@@ -67,7 +77,7 @@ export function useInvites() {
       const session = data as CustomSession
       const res = adminCompanyId
         ? await resendInviteAdmin(session, adminCompanyId, id)
-        : await resendInvite(session, id)
+        : await resendInvite(session, myCompanyIdRef.current!, id)
       if ('error' in res) return { error: res.error }
       const updatedInvite = res.data as InviteEntity
       setItems((prev) => prev.map((invite) => (invite.id === updatedInvite.id ? updatedInvite : invite)))
@@ -81,7 +91,7 @@ export function useInvites() {
       const session = data as CustomSession
       const res = adminCompanyId
         ? await cancelInviteAdmin(session, adminCompanyId, id)
-        : await cancelInvite(session, id)
+        : await cancelInvite(session, myCompanyIdRef.current!, id)
       if ('error' in res) return { error: res.error }
       setItems((prev) => prev.filter((i) => i.id !== id))
       setTotal((t) => Math.max(0, t - 1))

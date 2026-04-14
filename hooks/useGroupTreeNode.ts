@@ -27,7 +27,8 @@ export function useGroupTreeNode(
   const t = useTranslations('pages.Company.companyAdmin.groups')
   const { data } = useSession()
   const { companyId: contextCompanyId } = useAdminCompany()
-  const effectiveCompanyId = companyId ?? contextCompanyId
+  const effectiveCompanyId = (companyId ?? contextCompanyId)!
+  const isAdmin = !!contextCompanyId
   const [open, setOpen] = useState(true)
   const [editing, setEditing] = useState(false)
   const [addingChild, setAddingChild] = useState(false)
@@ -49,13 +50,17 @@ export function useGroupTreeNode(
     }
     setLoading(true)
     const session = data as CustomSession
-    const res = effectiveCompanyId
+    const res = isAdmin
       ? await updateGroupAdmin(session, effectiveCompanyId, group.id, {
           name: trimmed,
           type: editType,
           parentGroupId: editParentId,
         })
-      : await updateGroup(session, group.id, { name: trimmed, type: editType, parentGroupId: editParentId })
+      : await updateGroup(session, effectiveCompanyId, group.id, {
+          name: trimmed,
+          type: editType,
+          parentGroupId: editParentId,
+        })
     setLoading(false)
     if ('error' in res) {
       toast.error(res.error)
@@ -70,9 +75,9 @@ export function useGroupTreeNode(
     if (!confirm(t('deleteConfirm', { name: group.name }))) return
     setLoading(true)
     const session = data as CustomSession
-    const res = effectiveCompanyId
+    const res = isAdmin
       ? await deleteGroupAdmin(session, effectiveCompanyId, group.id)
-      : await deleteGroup(session, group.id)
+      : await deleteGroup(session, effectiveCompanyId, group.id)
     setLoading(false)
     if ('error' in res) {
       toast.error(res.error)
@@ -88,9 +93,9 @@ export function useGroupTreeNode(
     setLoading(true)
     const dto = { name: trimmed, type: newChildType, parentGroupId: group.id }
     const session = data as CustomSession
-    const res = effectiveCompanyId
+    const res = isAdmin
       ? await createGroupAdmin(session, effectiveCompanyId, dto)
-      : await createGroup(session, dto)
+      : await createGroup(session, effectiveCompanyId, dto)
     setLoading(false)
     if ('error' in res) {
       toast.error(res.error)

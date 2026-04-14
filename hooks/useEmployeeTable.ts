@@ -1,20 +1,29 @@
 'use client'
 
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
 import { useAdminCompany } from '@/context/adminCompanyContext'
-import { getEmployees, getEmployeesAdmin, removeEmployee, removeEmployeeAdmin } from '@/requests/employees'
+import { getMyCompany } from '@/requests/companies'
+import {
+  getEmployees,
+  getEmployeesAdmin,
+  removeEmployee,
+  removeEmployeeAdmin,
+  updateEmployee,
+  updateEmployeeAdmin,
+} from '@/requests/employees'
 import { CustomSession } from '@/types/auth'
-import { EmployeeEntity } from '@/types/company'
+import { EmployeeEntity, UpdateEmployeeDto } from '@/types/company'
 
 export function useEmployeeTable() {
   const t = useTranslations('pages.Company.companyAdmin.employees')
   const { data, status } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
+  const myCompanyIdRef = useRef<string | null>(null)
   const [items, setItems] = useState<EmployeeEntity[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)
@@ -25,9 +34,21 @@ export function useEmployeeTable() {
     setLoading(true)
     setError(null)
     const session = data as CustomSession
-    const res = adminCompanyId
-      ? await getEmployeesAdmin(session, adminCompanyId, page, COMPANY_PAGE_SIZE)
-      : await getEmployees(session, page, COMPANY_PAGE_SIZE)
+    let res: { data: { items: EmployeeEntity[]; total: number } } | { error: string }
+    if (adminCompanyId) {
+      res = await getEmployeesAdmin(session, adminCompanyId, page, COMPANY_PAGE_SIZE)
+    } else {
+      if (!myCompanyIdRef.current) {
+        const myCompanyRes = await getMyCompany(session)
+        if ('error' in myCompanyRes) {
+          setError(myCompanyRes.error)
+          setLoading(false)
+          return
+        }
+        myCompanyIdRef.current = myCompanyRes.data.id
+      }
+      res = await getEmployees(session, myCompanyIdRef.current, page, COMPANY_PAGE_SIZE)
+    }
     if ('error' in res) {
       setError(res.error)
     } else {
@@ -60,7 +81,7 @@ export function useEmployeeTable() {
     const session = data as CustomSession
     const res = adminCompanyId
       ? await removeEmployeeAdmin(session, adminCompanyId, id)
-      : await removeEmployee(session, id)
+      : await removeEmployee(session, myCompanyIdRef.current!, id)
     if ('error' in res) {
       toast.error(res.error)
       return
@@ -70,7 +91,21 @@ export function useEmployeeTable() {
     setTotal((prev) => Math.max(0, prev - 1))
   }
 
+  async function handleEdit(id: string, dto: UpdateEmployeeDto) {
+    const session = data as CustomSession
+    const res = adminCompanyId
+      ? await updateEmployeeAdmin(session, adminCompanyId, id, dto)
+      : await updateEmployee(session, myCompanyIdRef.current!, id, dto)
+    if ('error' in res) {
+      toast.error(res.error)
+      return false
+    }
+    toast.success(t('updated'))
+    setItems((prev) => prev.map((e) => (e.id === id ? res.data : e)))
+    return true
+  }
+
   const totalPages = Math.max(1, Math.ceil(total / COMPANY_PAGE_SIZE))
 
-  return { items, total, page, setPage, loading, error, totalPages, handleRemove }
+  return { items, total, page, setPage, loading, error, totalPages, handleRemove, handleEdit }
 }

@@ -44,22 +44,22 @@ export default function CookieConsent() {
   return (
     <div className="fixed inset-x-0 bottom-0 z-50 w-full border p-4 shadow-lg backdrop-blur-sm md:p-6">
       <div className="container-max-width mx-auto flex justify-center">
-        <div className="flex flex-col gap-3 md:flex-row md:items-start md:justify-between">
+        <div className="flex flex-col gap-xs md:flex-row md:items-start md:justify-between">
           <div>
             <h3 className="text-lg font-semibold">{t('title')}</h3>
             <p className="mt-1 text-sm" style={{ color: 'hsl(var(--text-secondary))' }}>
               {t('description')}
             </p>
             <ul className="mt-2 space-y-1 text-sm" style={{ color: 'hsl(var(--text-secondary))' }}>
-              <li className="flex gap-3">
+              <li className="flex gap-xs">
                 <strong className="min-w-[8rem]">{t('cookies.analytics.name')}:</strong>
                 <span className="flex-1">{t('cookies.analytics.description')}</span>
               </li>
-              <li className="flex gap-3">
+              <li className="flex gap-xs">
                 <strong className="min-w-[8rem]">{t('cookies.authentication.name')}:</strong>
                 <span className="flex-1">{t('cookies.authentication.description')}</span>
               </li>
-              <li className="flex gap-3">
+              <li className="flex gap-xs">
                 <strong className="min-w-[8rem]">{t('cookies.preferences.name')}:</strong>
                 <span className="flex-1">{t('cookies.preferences.description')}</span>
               </li>

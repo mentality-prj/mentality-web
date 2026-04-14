@@ -28,7 +28,7 @@ export default function ServerErrorPage() {
             <div>
               <div className="flex flex-col items-start gap-default">
                 <p className="text-muted-foreground max-w-md text-lg">{t('description')}</p>
-                <div className="flex flex-col items-start gap-3 text-left">
+                <div className="flex flex-col items-start gap-xs text-left">
                   <h3>{t('suggestions')}</h3>
                   <ul className="text-muted-foreground list-decimal space-y-2 text-left text-sm">
                     <li className="ml-4">{t('suggestion1')}</li>

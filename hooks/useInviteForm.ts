@@ -24,7 +24,7 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
   const t = useTranslations('pages.Company.companyAdmin.invite')
   const { data } = useSession()
   const { companyId: adminCompanyId } = useAdminCompany()
-  const { items: groups } = useGroups()
+  const { items: groups, companyId } = useGroups()
   const [email, setEmail] = useState('')
   const [role, setRole] = useState<InviteRole>(fixedRole ?? COMPANY_ROLES.EMPLOYEE)
   const [groupIds, setGroupIds] = useState<string[]>([])
@@ -58,13 +58,14 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+    if (!adminCompanyId && !companyId) return
 
     setLoading(true)
     const dto = { email: email.trim(), role, groupIds }
     const session = data as CustomSession
     const res = adminCompanyId
       ? await createInviteAdmin(session, adminCompanyId, dto)
-      : await createInvite(session, dto)
+      : await createInvite(session, companyId!, dto)
     setLoading(false)
 
     if ('error' in res) {
@@ -80,6 +81,7 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
   }
 
   const noGroups = groups.length === 0
+  const isReady = Boolean(adminCompanyId || companyId)
 
   return {
     groups,
@@ -93,6 +95,7 @@ export function useInviteForm(options: UseInviteFormOptions = {}) {
     emailError,
     groupError,
     noGroups,
+    isReady,
     handleSubmit,
   }
 }

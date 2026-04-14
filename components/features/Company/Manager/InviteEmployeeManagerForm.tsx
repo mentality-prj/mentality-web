@@ -16,11 +16,22 @@ type Props = {
 export function InviteEmployeeManagerForm({ onInvited }: Props) {
   const t = useTranslations('pages.Company.companyAdmin.invite')
   const tManager = useTranslations('pages.Company.manager.invite')
-  const { groups, email, setEmail, groupIds, setGroupIds, loading, emailError, groupError, noGroups, handleSubmit } =
-    useInviteForm({
-      fixedRole: COMPANY_ROLES.EMPLOYEE,
-      onInvited,
-    })
+  const {
+    groups,
+    email,
+    setEmail,
+    groupIds,
+    setGroupIds,
+    loading,
+    emailError,
+    groupError,
+    noGroups,
+    isReady,
+    handleSubmit,
+  } = useInviteForm({
+    fixedRole: COMPANY_ROLES.EMPLOYEE,
+    onInvited,
+  })
 
   return (
     <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -32,7 +43,7 @@ export function InviteEmployeeManagerForm({ onInvited }: Props) {
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         errorMsg={emailError ?? undefined}
-        disabled={loading || noGroups}
+        disabled={loading || noGroups || !isReady}
         required
       />
 
@@ -48,7 +59,7 @@ export function InviteEmployeeManagerForm({ onInvited }: Props) {
         )}
       </div>
 
-      <Button type="submit" disabled={loading || noGroups}>
+      <Button type="submit" disabled={loading || noGroups || !isReady}>
         {loading ? t('submitting') : t('submitButton')}
       </Button>
     </form>

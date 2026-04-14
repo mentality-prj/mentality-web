@@ -75,7 +75,7 @@ export function TestResultCard({
       {alertContent}
 
       {/* CTA buttons */}
-      <div className="flex flex-col gap-3 pt-2 sm:flex-row">
+      <div className="flex flex-col gap-xs pt-2 sm:flex-row">
         {/* TODO: Show program after Result */}
         {programHref && (
           <Link

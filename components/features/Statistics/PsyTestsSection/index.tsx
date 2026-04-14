@@ -36,7 +36,7 @@ function TestCard({ testKey, block }: { testKey: PsyTestKey; block: PsyTestBlock
       </div>
 
       {block.latest ? (
-        <div className="mb-4 flex items-center gap-3">
+        <div className="mb-4 flex items-center gap-xs">
           <span className="text-3xl font-bold text-textcolor-primary">{block.latest.score}</span>
           <div className="flex flex-col">
             <Badge variant="secondary">{block.latest.level}</Badge>

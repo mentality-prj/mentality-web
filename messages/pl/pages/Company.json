@@ -86,8 +86,16 @@
       "loading": "Ładowanie pracowników…",
       "removeConfirm": "Usunąć tego pracownika z firmy?",
       "removed": "Pracownik usunięty.",
+      "updated": "Dane pracownika zaktualizowane.",
       "ariaEdit": "Edytuj pracownika",
-      "ariaRemove": "Usuń pracownika"
+      "ariaRemove": "Usuń pracownika",
+      "editTitle": "Edytuj pracownika",
+      "roleLabel": "Rola",
+      "groupsLabel": "Grupy",
+      "saveButton": "Zapisz",
+      "cancelButton": "Anuluj",
+      "saving": "Zapisywanie…",
+      "errorGroups": "Wybierz co najmniej jedną grupę."
     },
     "invite": {
       "title": "Zaproś pracownika",
@@ -127,6 +135,12 @@
     "invite": {
       "title": "Zaproś pracownika",
       "noGroups": "Nie masz dostępnych grup. Skontaktuj się z administratorem."
+    },
+    "inviteFilter": {
+      "by_date": "Według daty",
+      "by_groups": "Według grupy",
+      "dateFrom": "Od",
+      "dateTo": "Do"
     },
     "analytics": {
       "title": "Analityka",

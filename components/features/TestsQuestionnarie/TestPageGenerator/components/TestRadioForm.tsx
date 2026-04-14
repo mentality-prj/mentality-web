@@ -49,7 +49,7 @@ export function TestRadioForm({ test, step, answers, adminBar, onAnswer, onBack,
 
         {/* Last step action buttons: Back (to review/edit previous answers) and Submit (see results) */}
         {isLastStep && currentAnswer !== undefined && (
-          <div className="mt-6 flex items-center gap-3 border-t border-border pt-5">
+          <div className="mt-6 flex items-center gap-xs border-t border-border pt-5">
             {/* Back button on last step allows navigation to previous questions */}
             <Button variant="secondary" onClick={onBack} className="flex items-center gap-2">
               <ArrowLeft size={16} />

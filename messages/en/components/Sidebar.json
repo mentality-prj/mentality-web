@@ -11,7 +11,8 @@
   "psychological-tests": "Psychological tests",
   "mental-games": "Mental games",
   "company-employees": "Employees",
-  "company-groups": "Groups",
   "company-invites": "Invitations",
+  "company-access-scopes": "Access Management",
+  "company-groups": "Groups",
   "company-analytics": "Analytics"
 }

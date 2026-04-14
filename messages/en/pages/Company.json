@@ -86,8 +86,16 @@
       "loading": "Loading employees…",
       "removeConfirm": "Remove this employee from the company?",
       "removed": "Employee removed.",
+      "updated": "Employee updated.",
       "ariaEdit": "Edit employee",
-      "ariaRemove": "Remove employee"
+      "ariaRemove": "Remove employee",
+      "editTitle": "Edit Employee",
+      "roleLabel": "Role",
+      "groupsLabel": "Groups",
+      "saveButton": "Save",
+      "cancelButton": "Cancel",
+      "saving": "Saving…",
+      "errorGroups": "Select at least one group."
     },
     "invite": {
       "title": "Invite Employee",
@@ -127,6 +135,12 @@
     "invite": {
       "title": "Invite Employee",
       "noGroups": "You have no accessible groups. Contact your admin."
+    },
+    "inviteFilter": {
+      "by_date": "By Date",
+      "by_groups": "By Group",
+      "dateFrom": "From",
+      "dateTo": "To"
     },
     "analytics": {
       "title": "Analytics",

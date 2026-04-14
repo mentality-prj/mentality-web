@@ -50,6 +50,8 @@ export const adminSidebarMenu: SidebarMenuItemType[] = [
 
 export const companyAdminSidebarMenu: SidebarMenuItemType[] = [
   { key: 'company-employees', href: Routes.COMPANY_ADMIN_EMPLOYEES, icon: 'users' },
+  { key: 'company-invites', href: Routes.COMPANY_ADMIN_INVITES, icon: 'mailPlus' },
+  { key: 'company-access-scopes', href: Routes.COMPANY_ADMIN_ACCESS_SCOPES, icon: 'shield' },
   { key: 'company-groups', href: Routes.COMPANY_ADMIN_GROUPS, icon: 'folderTree' },
 ]
 

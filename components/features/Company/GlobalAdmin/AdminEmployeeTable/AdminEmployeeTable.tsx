@@ -82,7 +82,7 @@ export function AdminEmployeeTable({ companyId }: Props) {
 
   return (
     <>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-xs">
         <div className="overflow-x-auto rounded-md border border-border">
           <table className="w-full text-sm">
             <thead className="bg-muted text-textcolor-secondary">

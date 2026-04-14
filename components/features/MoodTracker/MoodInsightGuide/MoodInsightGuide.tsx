@@ -114,7 +114,7 @@ export function MoodInsightGuide() {
               </div>
 
               {/* Navigation */}
-              <div className="flex gap-3">
+              <div className="flex gap-xs">
                 {step > 0 && (
                   <Button variant="secondary" className="flex-1" onClick={handlePrev}>
                     {t('prev')}

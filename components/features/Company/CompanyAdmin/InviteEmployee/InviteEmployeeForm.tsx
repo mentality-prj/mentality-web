@@ -28,6 +28,7 @@ export function InviteEmployeeForm({ onInvited }: Props) {
     loading,
     emailError,
     groupError,
+    isReady,
     handleSubmit,
   } = useInviteForm({ onInvited })
 
@@ -67,7 +68,7 @@ export function InviteEmployeeForm({ onInvited }: Props) {
         {groupError && <p className="text-destructive text-xs">{groupError}</p>}
       </div>
 
-      <Button type="submit" disabled={loading}>
+      <Button type="submit" disabled={loading || !isReady}>
         {loading ? t('submitting') : t('submitButton')}
       </Button>
     </form>

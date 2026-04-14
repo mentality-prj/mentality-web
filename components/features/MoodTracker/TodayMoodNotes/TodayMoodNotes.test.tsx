@@ -80,24 +80,24 @@ beforeEach(() => {
 })
 
 describe('TodayMoodNotes', () => {
-  it('shows empty message when there are no records', async () => {
+  it('renders nothing when there are no records', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [] })
 
-    render(await TodayMoodNotes())
+    const { container } = render(await TodayMoodNotes())
 
-    expect(screen.getByText('empty')).toBeInTheDocument()
+    expect(container).toBeEmptyDOMElement()
   })
 
-  it('shows empty message when API returns an error', async () => {
+  it('renders nothing when API returns an error', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
       error: 'Unauthorized',
       message: 'Session expired',
       status: 401,
     })
 
-    render(await TodayMoodNotes())
+    const { container } = render(await TodayMoodNotes())
 
-    expect(screen.getByText('empty')).toBeInTheDocument()
+    expect(container).toBeEmptyDOMElement()
   })
 
   it('renders stress, energy and focus labels for each record', async () => {
@@ -121,8 +121,8 @@ describe('TodayMoodNotes', () => {
     expect(screen.getByText('focus')).toBeInTheDocument()
   })
 
-  it('always renders the "more" link to mood-tracker', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [] })
+  it('renders the "more" link to mood-tracker when a record exists', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     render(await TodayMoodNotes())
 
