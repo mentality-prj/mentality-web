@@ -31,13 +31,13 @@ export default function LangSwitch({ type }: { type?: AppViewType }) {
   let textColor: string
   switch (type) {
     case APP_VIEW_TYPE.LANDING:
-      textColor = 'text-textcolor-primary group-hover:text-primary'
+      textColor = 'text-textcolor-primary group-hover:font-semibold'
       break
     case APP_VIEW_TYPE.ADMIN:
       textColor = 'text-admin-text'
       break
     default:
-      textColor = 'text-remark group-hover:text-title-light'
+      textColor = 'text-remark group-hover:font-semibold'
       break
   }
 

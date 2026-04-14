@@ -16,8 +16,7 @@ const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
   const t = useTranslations('components.Navbar')
   const pathname = usePathname()
 
-  const textColor =
-    type === APP_VIEW_TYPE.LANDING ? 'text-textcolor-primary hover:text-primary' : 'text-remark hover:text-title-light'
+  const textColor = type === APP_VIEW_TYPE.LANDING ? 'text-textcolor-primary' : 'text-remark'
 
   return (
     <>
@@ -29,11 +28,13 @@ const TopMenu = ({ menu, type }: { menu: TopMenuType; type?: AppViewType }) => {
             <Link
               key={item.key}
               href={item.href}
-              className={`flex items-center gap-1 transition-colors ${textColor} ${isActive ? 'font-semibold' : ''}`}
+              className={`flex items-center gap-1 whitespace-nowrap transition-colors hover:font-semibold ${isActive ? 'font-semibold text-primary' : textColor}`}
               aria-current={isActive ? 'page' : undefined}
             >
               {item.icon && iconMap[item.icon]}
-              <span className={type === APP_VIEW_TYPE.LANDING ? 'menu-hover-landing' : 'menu-hover'}>
+              <span
+                className={`${!isActive ? (type === APP_VIEW_TYPE.LANDING ? 'menu-hover-landing' : 'menu-hover') : ''}`}
+              >
                 {t(item.key)}
               </span>
             </Link>

@@ -449,7 +449,7 @@ body {
     transition: opacity 0.2s;
   }
   .menu-hover-landing::after {
-    background-color: hsl(var(--primary));
+    background-color: hsl(var(--text-primary));
   }
   .menu-hover-landing:hover::after,
   .menu-hover:hover::after {
