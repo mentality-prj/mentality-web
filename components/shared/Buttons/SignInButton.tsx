@@ -12,7 +12,7 @@ interface SignInButtonProps {
 export default async function SignInButton({ provider }: SignInButtonProps) {
   const providerName = Providers[`${provider}`]
   const t = await getTranslations('common.Buttons')
-  const textBtn = String(`${t('signInWith')} ${providerName}`)
+  const textBtn = String(`${t('continueWith')} ${providerName}`)
   const locale = await getLocale()
 
   async function handleLogin() {
@@ -22,7 +22,9 @@ export default async function SignInButton({ provider }: SignInButtonProps) {
 
   return (
     <form className="pt-10 text-center" action={handleLogin}>
-      <Button type="submit">{textBtn}</Button>
+      <Button variant="volume" type="submit">
+        {textBtn}
+      </Button>
     </form>
   )
 }
