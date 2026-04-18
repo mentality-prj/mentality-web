@@ -1,15 +1,11 @@
 'use client'
 import { useEffect } from 'react'
-import { usePathname } from 'next/navigation'
 
 import { useAuth } from '@/context/AuthProvider'
 import { logger } from '@/lib/logger'
 
 export function SessionWrapper({ children }: { children: React.ReactNode }) {
   const { session, logout } = useAuth()
-  const pathname = usePathname()
-
-  const locale = pathname?.split('/')[1] || 'en'
 
   useEffect(() => {
     if (session?.error) {
@@ -25,7 +21,7 @@ export function SessionWrapper({ children }: { children: React.ReactNode }) {
         logger.info('[SESSION] Non-critical session error detected', { error: session.error })
       }
     }
-  }, [session, locale, logout])
+  }, [session, logout])
 
   return <>{children}</>
 }

@@ -10,6 +10,10 @@ import { AuthTokens, CustomSession, CustomUser, UserAI } from '@/types/auth'
  *
  * Reads the auth token cookie and validates with the backend.
  * Use in Server Components and Route Handlers.
+ *
+ * Note: Token refresh is handled by middleware (which covers all locale routes).
+ * If used in API Route Handlers (not covered by middleware matcher), callers
+ * should handle the null return by triggering a client-side refresh.
  */
 export async function getServerSession(): Promise<CustomSession | null> {
   const cookieStore = cookies()

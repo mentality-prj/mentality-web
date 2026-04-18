@@ -124,12 +124,13 @@ fetch('/api/something', {
 `middleware.ts` забезпечує:
 
 1. **Захист маршрутів** — неавтентифіковані користувачі на захищених маршрутах → редірект на `/auth`
-2. **Перевірка терміну токена** — протермінований токен без refresh → редірект на `/auth`
+2. **Перевірка терміну токена** — протермінований токен → серверний рефреш через Zitadel; якщо немає refresh токена → редірект на `/auth`
 3. **Редірект з логіну** — автентифіковані користувачі на `/auth` → редірект на `/my-day`
-4. **Гард адміна** — не-адмін на `/admin/*` → редірект на `/profile`
-5. **CSP-заголовки** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options
-6. **Локалізація** — кукі NEXT_LOCALE, фолбек Accept-Language
-7. **Обмеження розміру запиту** — 413 для POST/PUT/PATCH > 1MB
+4. **CSP-заголовки** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options
+5. **Локалізація** — кукі NEXT_LOCALE, фолбек Accept-Language
+6. **Обмеження розміру запиту** — 413 для POST/PUT/PATCH > 1MB
+
+> **Примітка:** Контроль доступу за ролями (напр. адмін-маршрути) виконується серверно в `layout.tsx`, а не в middleware.
 
 ## Змінні оточення
 
@@ -162,6 +163,8 @@ interface CustomUser {
   email: string
   image?: string // = avatarUrl з бекенду
   role?: UserRole
+  companyId?: string
+  companyRole?: CompanyRole
   isAIAuthorized?: boolean
 }
 
@@ -170,6 +173,8 @@ interface CustomSession {
   user?: CustomUser
   OAuthToken?: string // accessToken
   provider?: string // 'zitadel'
+  error?: SessionError
+  expires?: string
 }
 ```
 

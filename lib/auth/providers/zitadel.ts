@@ -7,7 +7,8 @@ import { AuthTokens, CustomSession, CustomUser, UserAI } from '@/types/auth'
 // ─── PKCE helpers ───────────────────────────────────────────────────────────
 
 function generateRandomString(length: number): string {
-  const array = new Uint8Array(length)
+  const byteCount = Math.ceil(length / 2)
+  const array = new Uint8Array(byteCount)
   crypto.getRandomValues(array)
   return Array.from(array, (b) => b.toString(16).padStart(2, '0'))
     .join('')
@@ -27,11 +28,14 @@ async function generateCodeChallenge(verifier: string): Promise<string> {
 // ─── Token storage via httpOnly cookie API routes ───────────────────────────
 
 async function storeTokens(tokens: AuthTokens): Promise<void> {
-  await fetch('/api/auth/token', {
+  const response = await fetch('/api/auth/token', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(tokens),
   })
+  if (!response.ok) {
+    throw new Error(`Failed to store tokens: ${response.status}`)
+  }
 }
 
 async function fetchStoredTokens(): Promise<AuthTokens | null> {
@@ -115,6 +119,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
     window.location.href = `${zitadelConfig.issuer}/oauth/v2/authorize?${params.toString()}`
   }
 
+  /** @throws {Error} On state mismatch (CSRF) or missing PKCE verifier */
   async handleCallback(code: string, state: string): Promise<{ user: CustomUser; tokens: AuthTokens } | null> {
     const savedState = sessionStorage.getItem('oauth_state')
     const codeVerifier = sessionStorage.getItem('pkce_verifier')
@@ -157,7 +162,6 @@ export class ZitadelAuthProvider implements IAuthProvider {
       const tokens: AuthTokens = {
         accessToken: data.access_token,
         idToken: data.id_token,
-        refreshToken: data.refresh_token,
         expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
       }
 
@@ -167,6 +171,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
         throw new Error('Backend validation failed — the backend server may be down or does not recognize the token.')
       }
 
+      // Update the cookie with userRole (exchange route already stored the base tokens)
       tokens.userRole = backendUser.role
       await storeTokens(tokens)
 
@@ -181,7 +186,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
 
   async refreshTokens(): Promise<AuthTokens | null> {
     const currentTokens = await fetchStoredTokens()
-    if (!currentTokens?.refreshToken) {
+    if (!currentTokens?.refreshToken && !currentTokens?.hasRefreshToken) {
       logger.warn('[AUTH:ZITADEL] No refresh token available')
       return null
     }
@@ -192,7 +197,6 @@ export class ZitadelAuthProvider implements IAuthProvider {
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           grantType: 'refresh_token',
-          refreshToken: currentTokens.refreshToken,
         }),
       })
 
@@ -203,16 +207,15 @@ export class ZitadelAuthProvider implements IAuthProvider {
 
       const data = await response.json()
 
-      const tokens: AuthTokens = {
+      // The exchange route updates the cookie server-side (preserving refresh token).
+      // Return only the client-safe fields.
+      return {
         accessToken: data.access_token,
         idToken: data.id_token,
-        refreshToken: data.refresh_token ?? currentTokens.refreshToken,
         expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
         userRole: currentTokens.userRole,
+        hasRefreshToken: currentTokens.hasRefreshToken ?? false,
       }
-
-      await storeTokens(tokens)
-      return tokens
     } catch (error) {
       logger.error('[AUTH:ZITADEL] Token refresh error', {
         error: error instanceof Error ? error.message : String(error),

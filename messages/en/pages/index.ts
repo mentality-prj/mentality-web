@@ -1,7 +1,9 @@
 import Admin from './Admin.json'
 import AffirmationsPage from './AffirmationsPage.json'
-import Company from './Company.json'
 import AnxietyCheck from './AnxietyCheck.json'
+import Auth from './Auth.json'
+import Callback from './Callback.json'
+import Company from './Company.json'
 import CookiesPolicy from './CookiesPolicy.json'
 import Diary from './Diary.json'
 import Guide from './Guide.json'
@@ -21,6 +23,8 @@ import TermsOfService from './TermsOfService.json'
 export const pages = {
   Admin,
   AffirmationsPage,
+  Auth,
+  Callback,
   Company,
   AnxietyCheck,
   CookiesPolicy,

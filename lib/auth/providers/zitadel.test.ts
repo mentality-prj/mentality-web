@@ -47,7 +47,7 @@ function makeStoredTokens(overrides: Record<string, unknown> = {}) {
   return {
     accessToken: 'stored-access-token',
     idToken: 'stored-id-token',
-    refreshToken: 'stored-refresh-token',
+    hasRefreshToken: true,
     expiresAt: Math.floor(Date.now() / 1000) + 3600,
     userRole: 'user',
     ...overrides,
@@ -173,7 +173,7 @@ describe('ZitadelAuthProvider', () => {
     it('should return null when no refresh token in stored tokens', async () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
-        json: () => Promise.resolve(makeStoredTokens({ refreshToken: undefined })),
+        json: () => Promise.resolve(makeStoredTokens({ hasRefreshToken: false })),
       })
 
       const result = await provider.refreshTokens()
@@ -199,30 +199,30 @@ describe('ZitadelAuthProvider', () => {
         ok: true,
         json: () => Promise.resolve(makeStoredTokens({ userRole: 'admin' })),
       })
-      // exchange succeeds
+      // exchange succeeds (cookie updated server-side)
       mockFetch.mockResolvedValueOnce(makeTokensResponse())
-      // storeTokens
-      mockFetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
 
       const result = await provider.refreshTokens()
       expect(result).not.toBeNull()
       expect(result!.accessToken).toBe('new-access-token')
       expect(result!.userRole).toBe('admin')
+      expect(result!.hasRefreshToken).toBe(true)
+      // refreshToken is not exposed to client
+      expect(result!.refreshToken).toBeUndefined()
     })
 
-    it('should keep existing refresh token if not returned', async () => {
+    it('should set hasRefreshToken based on server response', async () => {
       // fetchStoredTokens
       mockFetch.mockResolvedValueOnce({
         ok: true,
         json: () => Promise.resolve(makeStoredTokens()),
       })
-      // exchange returns no refresh_token
+      // exchange returns no refresh_token (cookie preserves existing one server-side)
       mockFetch.mockResolvedValueOnce(makeTokensResponse({ refresh_token: undefined }))
-      // storeTokens
-      mockFetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
 
       const result = await provider.refreshTokens()
-      expect(result!.refreshToken).toBe('stored-refresh-token')
+      // hasRefreshToken comes from currentTokens.hasRefreshToken
+      expect(result!.hasRefreshToken).toBe(true)
     })
   })
 
@@ -266,10 +266,8 @@ describe('ZitadelAuthProvider', () => {
         ok: true,
         json: () => Promise.resolve(expiredTokens),
       })
-      // exchange
+      // exchange (cookie updated server-side)
       mockFetch.mockResolvedValueOnce(makeTokensResponse())
-      // storeTokens
-      mockFetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
       // validateWithBackend — should use NEW access token
       mockFetch.mockResolvedValueOnce({
         ok: true,
@@ -280,7 +278,7 @@ describe('ZitadelAuthProvider', () => {
       expect(result).not.toBeNull()
 
       // Verify validateWithBackend was called with the refreshed token
-      const validateCall = mockFetch.mock.calls[4]
+      const validateCall = mockFetch.mock.calls[3]
       expect(validateCall[0]).toContain('/auth/validate-token')
       expect(validateCall[1].headers.Authorization).toBe('Bearer new-access-token')
     })

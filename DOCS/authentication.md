@@ -124,12 +124,13 @@ The `AuthProvider` sets a timer to automatically refresh the token 60 seconds be
 `middleware.ts` handles:
 
 1. **Route protection** — unauthenticated users on protected routes → redirect to `/auth`
-2. **Token expiry check** — expired token without refresh token → redirect to `/auth`
+2. **Token expiry check** — expired token → server-side refresh via Zitadel; if no refresh token → redirect to `/auth`
 3. **Auth redirect** — authenticated users on `/auth` → redirect to `/my-day`
-4. **Admin guard** — non-admin users on `/admin/*` → redirect to `/profile`
-5. **CSP headers** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options
-6. **Locale handling** — NEXT_LOCALE cookie, Accept-Language fallback
-7. **Request size limit** — 413 for POST/PUT/PATCH > 1MB
+4. **CSP headers** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options
+5. **Locale handling** — NEXT_LOCALE cookie, Accept-Language fallback
+6. **Request size limit** — 413 for POST/PUT/PATCH > 1MB
+
+> **Note:** Role-based access control (e.g. admin routes) is enforced server-side in `layout.tsx`, not by middleware.
 
 ## Environment Variables
 
@@ -162,6 +163,8 @@ interface CustomUser {
   email: string
   image?: string // = avatarUrl from backend
   role?: UserRole
+  companyId?: string
+  companyRole?: CompanyRole
   isAIAuthorized?: boolean
 }
 
@@ -170,6 +173,8 @@ interface CustomSession {
   user?: CustomUser
   OAuthToken?: string // accessToken
   provider?: string // 'zitadel'
+  error?: SessionError
+  expires?: string
 }
 ```
 

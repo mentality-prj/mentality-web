@@ -11,7 +11,7 @@ export async function apiRequestWithAuth<T>(
 ): Promise<ApiWrapperResult<T>> {
   const result = await apiRequest<T>(session, url, options)
   const shouldAutoSignOut = opts?.autoSignOutOn401 ?? true
-  if (shouldAutoSignOut && result.error?.status === 401) {
+  if (shouldAutoSignOut && result.error?.status === 401 && typeof window !== 'undefined') {
     await authService.logout()
   }
   return result

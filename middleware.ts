@@ -3,7 +3,7 @@ import createMiddleware from 'next-intl/middleware'
 
 import { Routes } from '@/constants/routes'
 import { routing } from '@/i18n/routing'
-import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { AuthTokens } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
 
@@ -104,35 +104,39 @@ function applySecurityHeaders(response: NextResponse): NextResponse {
   return response
 }
 
-async function refreshTokensServerSide(currentTokens: AuthTokens): Promise<AuthTokens | null> {
-  const issuer = process.env.NEXT_PUBLIC_ZITADEL_ISSUER
-  const clientId = process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID ?? process.env.ZITADEL_CLIENT_ID
-  const clientSecret = process.env.ZITADEL_CLIENT_SECRET
-  if (!issuer || !clientId || !clientSecret || !currentTokens.refreshToken) return null
+async function refreshTokensServerSide(
+  currentTokens: AuthTokens,
+  requestUrl: string,
+  cookieHeader: string
+): Promise<{ tokens: AuthTokens; setCookieHeader: string | null } | null> {
+  if (!currentTokens.refreshToken) return null
 
   try {
-    const params = new URLSearchParams({
-      grant_type: 'refresh_token',
-      client_id: clientId,
-      client_secret: clientSecret,
-      refresh_token: currentTokens.refreshToken,
-    })
-
-    const response = await fetch(`${issuer}/oauth/v2/token`, {
+    // Call the internal exchange route which holds the client secret server-side.
+    // Forward the cookie header so the route can read the refresh token from it.
+    const baseUrl = new URL(requestUrl).origin
+    const response = await fetch(`${baseUrl}/api/auth/exchange`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params,
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookieHeader,
+      },
+      body: JSON.stringify({ grantType: 'refresh_token' }),
     })
 
     if (!response.ok) return null
 
     const data = await response.json()
+    // Forward the Set-Cookie header from exchange route so refresh token rotation is preserved
+    const setCookieHeader = response.headers.get('set-cookie')
     return {
-      accessToken: data.access_token,
-      idToken: data.id_token,
-      refreshToken: data.refresh_token ?? currentTokens.refreshToken,
-      expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
-      userRole: currentTokens.userRole,
+      tokens: {
+        accessToken: data.access_token,
+        idToken: data.id_token ?? currentTokens.idToken,
+        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+        userRole: currentTokens.userRole,
+      },
+      setCookieHeader,
     }
   } catch {
     return null
@@ -212,12 +216,16 @@ export async function middleware(request: NextRequest) {
   let authTokens: AuthTokens | null = null
   if (tokenCookie) {
     try {
-      authTokens = JSON.parse(tokenCookie) as AuthTokens
+      const parsed = JSON.parse(tokenCookie) as AuthTokens
+      // Validate required fields to prevent treating corrupt cookies as authenticated
+      if (parsed?.accessToken && parsed?.idToken && typeof parsed.expiresAt === 'number') {
+        authTokens = parsed
+      }
     } catch {
       authTokens = null
     }
   }
-  const isAuthenticated = !!authTokens?.accessToken
+  const isAuthenticated = !!authTokens
 
   const publicRoutes = [
     Routes.AUTH,
@@ -260,18 +268,17 @@ export async function middleware(request: NextRequest) {
 
     if (isExpired && authTokens.refreshToken) {
       // Token expired but refresh token exists — try server-side refresh
-      const refreshed = await refreshTokensServerSide(authTokens)
-      if (refreshed) {
-        authTokens = refreshed
-        // Update the cookie on the response so downstream server components
-        // see fresh tokens via getServerSession()
-        intlResponse.cookies.set(AUTH_TOKEN_COOKIE, JSON.stringify(refreshed), {
-          httpOnly: true,
-          secure: process.env.NODE_ENV === 'production',
-          sameSite: 'lax',
-          path: '/',
-          maxAge: AUTH_COOKIE_MAX_AGE,
-        })
+      const cookieHeader = request.headers.get('cookie') ?? ''
+      const refreshResult = await refreshTokensServerSide(authTokens, request.url, cookieHeader)
+      if (refreshResult) {
+        // Redirect to the same URL so the refreshed cookie is visible to
+        // Server Components / Route Handlers on the next request.
+        const redirectResponse = NextResponse.redirect(request.url)
+        // Forward the Set-Cookie from exchange route (contains refreshToken)
+        if (refreshResult.setCookieHeader) {
+          redirectResponse.headers.set('set-cookie', refreshResult.setCookieHeader)
+        }
+        return applySecurityHeaders(redirectResponse)
       } else {
         // Refresh failed — clear cookie and redirect to auth
         const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))

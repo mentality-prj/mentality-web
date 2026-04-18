@@ -8,10 +8,17 @@ import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
 import { getServerSession } from '@/lib/get-server-session'
 
-export default async function AdminLayout({ children }: { children: ReactNode }) {
+export default async function AdminLayout({
+  children,
+  params,
+}: {
+  children: ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const session = await getServerSession()
   if (!session || !session.user || session.user.role !== 'admin') {
-    redirect('/auth')
+    redirect(`/${locale}/auth`)
   }
 
   return (

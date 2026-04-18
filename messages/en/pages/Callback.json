@@ -1,0 +1,8 @@
+{
+  "loading": "Loading...",
+  "completingSignIn": "Completing sign in...",
+  "authError": "Authentication Error",
+  "missingParams": "Missing code or state parameter",
+  "unknownError": "Authentication failed — unknown error",
+  "backToSignIn": "Back to Sign In"
+}

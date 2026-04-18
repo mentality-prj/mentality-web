@@ -1,3 +1,5 @@
+const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? ''
+
 /**
  * Zitadel OIDC configuration
  * All values are read from environment variables at build/runtime.
@@ -10,10 +12,10 @@ export const zitadelConfig = {
   clientId: process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID!,
 
   /** Redirect URI after login */
-  redirectUri: `${process.env.NEXT_PUBLIC_BASE_URL}/callback`,
+  redirectUri: `${BASE_URL}/callback`,
 
   /** Post-logout redirect URI */
-  postLogoutRedirectUri: process.env.NEXT_PUBLIC_BASE_URL!,
+  postLogoutRedirectUri: BASE_URL || '/',
 
   /** OIDC scopes */
   scopes: ['openid', 'profile', 'email', 'offline_access'],

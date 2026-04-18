@@ -14,7 +14,7 @@ function isSameOrigin(request: NextRequest): boolean {
   }
 }
 
-/** GET — Retrieve tokens from httpOnly cookie */
+/** GET — Retrieve tokens from httpOnly cookie (refreshToken is never exposed to JS) */
 export async function GET(): Promise<NextResponse> {
   const cookieStore = cookies()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)
@@ -25,7 +25,8 @@ export async function GET(): Promise<NextResponse> {
 
   try {
     const tokens = JSON.parse(tokenCookie.value)
-    return NextResponse.json(tokens)
+    const { refreshToken, ...safeTokens } = tokens
+    return NextResponse.json({ ...safeTokens, hasRefreshToken: !!refreshToken })
   } catch {
     return NextResponse.json(null, { status: 401 })
   }
@@ -37,14 +38,42 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
     return NextResponse.json({ error: 'Forbidden' }, { status: 403 })
   }
 
-  const tokens = await request.json()
+  let tokens: Record<string, unknown>
+  try {
+    tokens = await request.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid JSON' }, { status: 400 })
+  }
 
-  if (!tokens?.accessToken || !tokens?.idToken) {
+  if (!tokens?.accessToken || !tokens?.idToken || typeof tokens.expiresAt !== 'number') {
     return NextResponse.json({ error: 'Invalid tokens' }, { status: 400 })
   }
 
+  // Preserve refreshToken from existing cookie when the incoming payload omits it
+  // (e.g. handleCallback adds userRole after exchange route already stored the full tokens)
+  let mergedTokens = tokens
+  if (!tokens.refreshToken) {
+    const cookieStore = cookies()
+    const existing = cookieStore.get(AUTH_TOKEN_COOKIE)
+    if (existing?.value) {
+      try {
+        const stored = JSON.parse(existing.value)
+        if (stored?.refreshToken) {
+          mergedTokens = { ...tokens, refreshToken: stored.refreshToken }
+        }
+      } catch {
+        // ignore parse errors
+      }
+    }
+  }
+
+  const serialized = JSON.stringify(mergedTokens)
+  if (serialized.length > 3900) {
+    return NextResponse.json({ error: 'Token payload too large for cookie storage' }, { status: 413 })
+  }
+
   const response = NextResponse.json({ ok: true })
-  response.cookies.set(AUTH_TOKEN_COOKIE, JSON.stringify(tokens), {
+  response.cookies.set(AUTH_TOKEN_COOKIE, JSON.stringify(mergedTokens), {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',

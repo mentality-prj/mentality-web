@@ -1,12 +1,13 @@
 import { ReactNode } from 'react'
+import { cookies } from 'next/headers'
 
 import { fontSans } from '@/config/fonts'
-
-import '@/styles/globals.css'
+import { routing } from '@/i18n/routing'
 
 export default function CallbackLayout({ children }: { children: ReactNode }) {
+  const lang = cookies().get('NEXT_LOCALE')?.value ?? routing.defaultLocale
   return (
-    <html lang="en" className={`${fontSans.variable} antialiased`}>
+    <html lang={lang} className={`${fontSans.variable} antialiased`}>
       <body className="flex min-h-screen flex-col bg-white text-textcolor-primary">
         <header className="w-full py-4">
           <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">

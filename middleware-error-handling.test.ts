@@ -4,7 +4,6 @@
 
 import { NextRequest } from 'next/server'
 
-import { Routes } from '@/constants/routes'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
 // Mock next-intl routing
@@ -15,12 +14,13 @@ jest.mock('@/i18n/routing', () => ({
   },
 }))
 
-// Set env vars needed for server-side token refresh in middleware
-process.env.NEXT_PUBLIC_ZITADEL_ISSUER = 'https://test.zitadel.cloud'
-process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = 'test-client-id'
-process.env.ZITADEL_CLIENT_SECRET = 'test-client-secret'
-
 const originalFetch = globalThis.fetch
+
+const savedEnv = {
+  NEXT_PUBLIC_ZITADEL_ISSUER: process.env.NEXT_PUBLIC_ZITADEL_ISSUER,
+  NEXT_PUBLIC_ZITADEL_CLIENT_ID: process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID,
+  ZITADEL_CLIENT_SECRET: process.env.ZITADEL_CLIENT_SECRET,
+}
 
 function makeTokenCookie(overrides: Record<string, unknown> = {}): string {
   return JSON.stringify({
@@ -36,11 +36,21 @@ describe('Middleware Token-Based Auth', () => {
   let middleware: (req: NextRequest) => Promise<Response>
 
   beforeAll(() => {
+    process.env.NEXT_PUBLIC_ZITADEL_ISSUER = 'https://test.zitadel.cloud'
+    process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = 'test-client-id'
+    process.env.ZITADEL_CLIENT_SECRET = 'test-client-secret'
     middleware = require('@/middleware').middleware
+  })
+
+  afterAll(() => {
+    process.env.NEXT_PUBLIC_ZITADEL_ISSUER = savedEnv.NEXT_PUBLIC_ZITADEL_ISSUER
+    process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = savedEnv.NEXT_PUBLIC_ZITADEL_CLIENT_ID
+    process.env.ZITADEL_CLIENT_SECRET = savedEnv.ZITADEL_CLIENT_SECRET
   })
 
   beforeEach(() => {
     jest.clearAllMocks()
+    globalThis.fetch = originalFetch
   })
 
   const createRequest = (pathname: string, cookieValue?: string) => {
@@ -108,15 +118,18 @@ describe('Middleware Token-Based Auth', () => {
       expect(response.headers.get('location')).toContain('/auth')
     })
 
-    it('should not redirect when token expired but refresh token exists', async () => {
-      // Mock the Zitadel token endpoint for server-side refresh
+    it('should redirect to same URL with refreshed cookie when token expired but refresh token exists', async () => {
+      // Mock the internal /api/auth/exchange route called by middleware for server-side refresh
+      // Note: the real route strips refresh_token from JSON response (stored in httpOnly cookie only)
+      // and sets the cookie via Set-Cookie header
+      const mockCookie = `${AUTH_TOKEN_COOKIE}=${encodeURIComponent(JSON.stringify({ accessToken: 'refreshed-access-token', idToken: 'refreshed-id-token', refreshToken: 'new-refresh', expiresAt: Math.floor(Date.now() / 1000) + 3600 }))}; Path=/; HttpOnly; SameSite=Lax`
       globalThis.fetch = jest.fn().mockResolvedValueOnce({
         ok: true,
+        headers: new Headers({ 'set-cookie': mockCookie }),
         json: () =>
           Promise.resolve({
             access_token: 'refreshed-access-token',
             id_token: 'refreshed-id-token',
-            refresh_token: 'refreshed-refresh-token',
             expires_in: 3600,
           }),
       })
@@ -130,13 +143,11 @@ describe('Middleware Token-Based Auth', () => {
       )
       const response = await middleware(request)
 
+      // After successful refresh, middleware redirects to the same URL
+      // so server components see the updated cookie
       const location = response.headers.get('location')
-      if (location) {
-        expect(location).not.toContain('/auth')
-      }
-
-      // Restore original fetch
-      globalThis.fetch = originalFetch
+      expect(location).not.toContain('/auth')
+      expect(location).toContain('/uk/my-day')
     })
   })
 

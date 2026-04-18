@@ -24,6 +24,7 @@ export interface CustomUser {
   email: string
   image?: string
   role?: UserRole
+  companyId?: string
   companyRole?: CompanyRole
   isAIAuthorized?: boolean
 }
@@ -42,6 +43,8 @@ export interface AuthTokens {
   refreshToken?: string
   expiresAt: number
   userRole?: UserRole
+  /** Returned by GET /api/auth/token — refresh token is kept server-side only */
+  hasRefreshToken?: boolean
 }
 
 export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated'
