@@ -1,7 +1,4 @@
-import { Account, Session, User } from 'next-auth'
-import { JWT } from 'next-auth/jwt'
-
-import { ProviderKey } from '@/constants/providers'
+import { CompanyRole } from '@/types/rbac'
 
 export type UserRole = 'admin' | 'user'
 
@@ -11,44 +8,8 @@ export type UserAI = {
   name: string
   avatarUrl: string
   role: UserRole
-  providers: {
-    type: ProviderKey
-    id: string
-    _id: string
-  }[]
+  zitadelSub?: string
   createdAt: Date
-}
-
-export type ExtendedToken = GoogleToken | JWT
-export type ExtendedSession = GoogleSession | Session
-
-export interface GoogleToken extends JWT {
-  accessToken: string
-  refreshToken: string
-  expiresIn: number
-  idToken: string
-  provider: 'google'
-  tokenType: 'bearer'
-  type: 'oauth'
-  backendUserId?: string // Backend user ID from NestJS
-  backendUserData?: UserAI // Full backend user data
-  backendUserError?: string // Error message if backend validation fails
-}
-
-export interface GoogleSession extends Session {
-  accessToken: string
-  idToken: string
-  provider: 'google'
-}
-
-export interface JWTParams {
-  account: Account | null
-  token: JWT
-}
-
-export interface CustomUser extends User {
-  role?: UserRole
-  isAIAuthorized?: boolean
 }
 
 export interface SessionError {
@@ -57,14 +18,40 @@ export interface SessionError {
   status?: number
 }
 
-export interface CustomSession extends Session {
+export interface CustomUser {
+  id: string
+  name: string
+  email: string
+  image?: string
+  role?: UserRole
+  companyId?: string
+  companyRole?: CompanyRole
+  isAIAuthorized?: boolean
+}
+
+export interface CustomSession {
   user?: CustomUser
   OAuthToken?: string
   provider?: string
   error?: SessionError
+  expires?: string
 }
 
-export interface SessionParams {
-  session: CustomSession
-  token: ExtendedToken
+export interface AuthTokens {
+  accessToken: string
+  idToken: string
+  refreshToken?: string
+  expiresAt: number
+  userRole?: UserRole
+  /** Returned by GET /api/auth/token — refresh token is kept server-side only */
+  hasRefreshToken?: boolean
+}
+
+export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated'
+
+export interface AuthState {
+  user: CustomUser | null
+  tokens: AuthTokens | null
+  status: AuthStatus
+  error: SessionError | null
 }

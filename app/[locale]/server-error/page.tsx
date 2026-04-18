@@ -52,7 +52,7 @@ export default function ServerErrorPage() {
 
             <div className="col-span-2 flex justify-center">
               <Button asChild>
-                <Link href={Routes.SIGNIN}>{t('backToSignin')}</Link>
+                <Link href={Routes.AUTH}>{t('backToSignin')}</Link>
               </Button>
             </div>
           </div>

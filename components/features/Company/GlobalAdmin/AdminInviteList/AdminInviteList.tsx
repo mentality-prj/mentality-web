@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { RefreshCw, X } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
+import { useAuth } from '@/context/AuthProvider'
 import { cn } from '@/lib/utils'
 import { adminCancelInvite, adminGetInvites, adminResendInvite } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
@@ -28,7 +28,7 @@ type Props = {
 export function AdminInviteList({ companyId }: Props) {
   const t = useTranslations('pages.Company.invites')
   const tRoles = useTranslations('pages.Company.roles')
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const [items, setItems] = useState<InviteEntity[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)

@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import DeleteTipButton from '@/app/[locale]/admin/components/DeleteTipButton'
@@ -8,6 +7,7 @@ import EditTipButton from '@/app/[locale]/admin/components/EditTipButton'
 import { useEditTranslations } from '@/app/[locale]/admin/components/hooks/useEditTranslations'
 import PublishTipButton from '@/app/[locale]/admin/components/PublishTipButton'
 import TipsList from '@/components/features/Tips/TipsListClient'
+import { useAuth } from '@/context/AuthProvider'
 import { addTip, updateTip } from '@/requests/tips'
 import { TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -41,7 +41,7 @@ export default function AddTip() {
     clearTranslations,
   } = useEditTranslations<TipEntity>(locale)
 
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const session = data as CustomSession
 
   const generateTip = async () => {

@@ -2,10 +2,10 @@
 
 import { useState } from 'react'
 import { ArchiveIcon, Calendar } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
+import { useAuth } from '@/context/AuthProvider'
 import { TooltipIcon } from '@/ds/components/TooltipIcon'
 import { formatDate } from '@/helpers/data'
 import { useRouter } from '@/i18n/navigation'
@@ -24,7 +24,7 @@ type Props = {
 
 export function UserNotesCard({ id, content, createdAt, availableTags, tags }: Props) {
   const [isArchiving, setIsArchiving] = useState(false)
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('components.Diary.UserNoteCard')
   const router = useRouter()
   const date = createdAt ? formatDate(createdAt) : ''

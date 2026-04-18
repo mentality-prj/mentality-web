@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
+import { useAuth } from '@/context/AuthProvider'
 import {
   adminCreateAccessScope,
   adminDeleteAccessScope,
@@ -26,7 +26,7 @@ type Props = {
 }
 
 export function AdminAssignManagerForm({ companyId }: Props) {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const t = useTranslations('pages.Company.companyAdmin.assignManager')
 
   const [managers, setManagers] = useState<EmployeeEntity[]>([])

@@ -1,14 +1,14 @@
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { createPersonalGoal } from '@/requests/personalGoals'
 import type { GoalEntity } from '@/types/api-responses'
 import type { GoalCategory } from '@/types/goals'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 export const useCreatePersonalGoal = () => {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('components.PersonalGoals.CreatePersonalGoals')
   const [loading, setLoading] = useState(false)
 

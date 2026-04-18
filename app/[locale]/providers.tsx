@@ -1,9 +1,9 @@
 'use client'
 import { ReactNode } from 'react'
-import { SessionProvider } from 'next-auth/react'
 import { ThemeProvider as NextThemesProvider, ThemeProviderProps } from 'next-themes'
 
 import { SessionWrapper } from '@/components/shared/SessionWrapper'
+import { AuthProvider } from '@/context/AuthProvider'
 import { ContextProvider } from '@/context/ContextProvider'
 
 export interface ProvidersProps {
@@ -13,12 +13,12 @@ export interface ProvidersProps {
 
 export function Providers({ children, themeProps }: ProvidersProps) {
   return (
-    <SessionProvider>
+    <AuthProvider>
       <SessionWrapper>
         <NextThemesProvider defaultTheme="system" attribute="class" {...themeProps}>
           <ContextProvider>{children}</ContextProvider>
         </NextThemesProvider>
       </SessionWrapper>
-    </SessionProvider>
+    </AuthProvider>
   )
 }

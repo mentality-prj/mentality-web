@@ -1,0 +1,8 @@
+{
+  "loading": "Ładowanie...",
+  "completingSignIn": "Kończenie logowania...",
+  "authError": "Błąd uwierzytelniania",
+  "missingParams": "Brak parametru code lub state",
+  "unknownError": "Uwierzytelnianie nie powiodło się — nieznany błąd",
+  "backToSignIn": "Powrót do logowania"
+}

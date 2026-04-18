@@ -1,13 +1,13 @@
-import { auth } from '@/auth'
 import { AvatarMenu, LangSwitch, Logo } from '@/components/Layout/Header'
 import LandingMobileMenu from '@/components/Layout/MobileNavDrawer/LandingMobileMenu'
 import TopMenu from '@/components/Layout/TopMenu/TopMenu'
 import { LoginButton } from '@/components/shared/LoginButton'
 import { APP_VIEW_TYPE } from '@/constants/general'
 import { landingMenu } from '@/constants/menu'
+import { getServerSession } from '@/lib/get-server-session'
 
 export async function LandingHeader() {
-  const session = await auth()
+  const session = await getServerSession()
   const user = session?.user
 
   return (

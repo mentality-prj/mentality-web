@@ -1,17 +1,17 @@
 import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
 import { AssignManagerForm } from '@/components/features/Company/CompanyAdmin/AssignManager/AssignManagerForm'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
+import { getServerSession } from '@/lib/get-server-session'
 import { getMyCompany } from '@/requests/companies'
 import { COMPANY_ROLES } from '@/types/rbac'
 
 export default async function CompanyAdminAccessScopesPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const session = await auth()
+  const session = await getServerSession()
 
   const isSystemAdmin = session?.user?.role === 'admin'
 

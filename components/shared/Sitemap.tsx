@@ -24,7 +24,6 @@ import {
   Waves,
   Wind,
 } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import {
@@ -38,6 +37,7 @@ import {
   userSidebarMenu,
 } from '@/constants/menu'
 import { Routes } from '@/constants/routes'
+import { useAuth } from '@/context/AuthProvider'
 import { Link } from '@/i18n/navigation'
 import { CustomSession } from '@/types/auth'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -71,7 +71,7 @@ export const iconMapSitemap: Record<string, ReactNode> = {
 }
 
 export default function Sitemap() {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const session = data as CustomSession | null
   const isAuthenticated = !!session?.user
   const isAdmin = session?.user?.role === Roles.ADMIN
@@ -189,7 +189,7 @@ export default function Sitemap() {
 }
 
 export function SitemapAdmin() {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const session = data as CustomSession | null
   const isAdmin = session?.user?.role === Roles.ADMIN
 

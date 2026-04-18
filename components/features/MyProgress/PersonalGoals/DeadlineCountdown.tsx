@@ -1,10 +1,10 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
 import { Timer } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
+import { useAuth } from '@/context/AuthProvider'
 import { Link } from '@/i18n/navigation'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { GoalEntity } from '@/types/api-responses'
@@ -45,7 +45,7 @@ interface DeadlineCountdownProps {
 }
 
 export const DeadlineCountdown = ({ initialGoals, href }: DeadlineCountdownProps) => {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('common.Buttons')
   const goalsRef = useRef<GoalEntity[]>(initialGoals ?? [])
   const [urgentGoal, setUrgentGoal] = useState<GoalEntity | null>(() =>

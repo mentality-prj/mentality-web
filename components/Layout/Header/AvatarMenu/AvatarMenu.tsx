@@ -1,9 +1,9 @@
 'use client'
 import { MailIcon, UserIcon } from 'lucide-react'
 import { useRouter } from 'next/navigation'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { SUPPORTED_LANGUAGES } from '@/types/languages'
 import { Avatar, AvatarFallback, AvatarImage } from '@/ui/avatar'
 import { Button } from '@/ui/button'
@@ -22,7 +22,7 @@ const AvatarMenu = () => {
   const t = useTranslations('components.AvatarMenu')
   const router = useRouter()
   const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : SUPPORTED_LANGUAGES.UKRAINIAN
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const user = data?.user
   const { name, email, image, role } = user || {}
 

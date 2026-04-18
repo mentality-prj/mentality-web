@@ -1,5 +1,5 @@
 export const Providers = {
-  google: 'Google',
+  zitadel: 'Mentality',
 }
 
 export type ProviderKey = keyof typeof Providers

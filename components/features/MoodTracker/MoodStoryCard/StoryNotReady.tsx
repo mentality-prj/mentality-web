@@ -1,9 +1,9 @@
 'use client'
 
 import { useEffect, useRef } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { useRouter } from '@/i18n/navigation'
 import { getLatestMoodStory } from '@/requests/moodStory'
 import { CustomSession } from '@/types/auth'
@@ -15,7 +15,7 @@ export function StoryNotReady() {
   const t = useTranslations('components.MoodStoryCard.notReady')
   const router = useRouter()
   const retriesRef = useRef(0)
-  const { data: session } = useSession()
+  const { session } = useAuth()
 
   useEffect(() => {
     if (!session) return

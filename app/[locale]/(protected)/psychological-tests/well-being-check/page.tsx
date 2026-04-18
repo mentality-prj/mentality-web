@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { NextTestBanner } from '@/components/features/PsychologicalTests/NextTestBanner'
 import { HistoryChartLoader } from '@/components/features/TestsQuestionnarie/HistoryChartLoader'
 import { TestHistoryChart } from '@/components/features/TestsQuestionnarie/TestHistoryChart'
@@ -9,10 +8,11 @@ import { TestPageGenerator } from '@/components/features/TestsQuestionnarie/Test
 import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
 import { K10_LEVEL_MAP, K10_TEST_CONFIG } from '@/config/k10.config'
 import { Routes } from '@/constants/routes'
+import { getServerSession } from '@/lib/get-server-session'
 
 export default async function TestGeneratorPage() {
   const [session, t, tNext] = await Promise.all([
-    auth(),
+    getServerSession(),
     getTranslations('pages.K10'),
     getTranslations('pages.PsychologicalTests'),
   ])

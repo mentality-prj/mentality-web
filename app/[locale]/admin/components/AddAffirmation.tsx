@@ -1,10 +1,10 @@
 'use client'
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { useEditTranslations } from '@/app/[locale]/admin/components/hooks/useEditTranslations'
 import AffirmationsList from '@/components/features/Affirmations/AffirmationsListClient'
+import { useAuth } from '@/context/AuthProvider'
 import { addAffirmation, updateAffirmation } from '@/requests/affirmations'
 import { AffirmationEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -42,7 +42,7 @@ export default function AddAffirmation() {
     clearTranslations,
   } = useEditTranslations<AffirmationEntity>(locale)
 
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const session = data as CustomSession
 
   const generateAffirmation = async () => {

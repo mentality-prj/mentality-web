@@ -1,11 +1,11 @@
 import { NextResponse } from 'next/server'
 
-import { auth } from '@/auth'
+import { getServerSession } from '@/lib/get-server-session'
 import { clearUserTagsCacheFor } from '@/lib/userTagsCache'
 
 export async function POST() {
   try {
-    const session = await auth()
+    const session = await getServerSession()
     const email = session?.user?.email
 
     if (!email) {

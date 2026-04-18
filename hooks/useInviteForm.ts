@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
@@ -22,7 +22,7 @@ type UseInviteFormOptions = {
 export function useInviteForm(options: UseInviteFormOptions = {}) {
   const { fixedRole, onInvited } = options
   const t = useTranslations('pages.Company.companyAdmin.invite')
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const { companyId: adminCompanyId } = useAdminCompany()
   const { items: groups, companyId } = useGroups()
   const [email, setEmail] = useState('')

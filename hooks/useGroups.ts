@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
 import { getMyCompany } from '@/requests/companies'
@@ -10,7 +10,7 @@ import { GroupEntity } from '@/types/company'
 import { CustomSession } from '@/types/auth'
 
 export function useGroups(resolvedCompanyId?: string) {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const { companyId: adminCompanyId } = useAdminCompany()
   const [items, setItems] = useState<GroupEntity[]>([])
   const [loading, setLoading] = useState(true)

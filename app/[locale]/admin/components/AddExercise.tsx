@@ -1,11 +1,11 @@
 'use client'
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import DeleteExerciseButton from '@/app/[locale]/admin/components/DeleteExerciseButton'
 import PublishExerciseButton from '@/app/[locale]/admin/components/PublishExerciseButton'
 import ExercisesList from '@/components/features/Exercises/ExercisesListClient'
+import { useAuth } from '@/context/AuthProvider'
 import { getTags } from '@/requests/tags'
 import { ExerciseEntity } from '@/types/api-responses'
 import { AdminTag } from '@/types/tags'
@@ -18,7 +18,7 @@ import GenerateExercise from './GenerateExercise'
 
 export default function AddExercise() {
   const t = useTranslations('components.Admin.AddExercise')
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const [editingExercise, setEditingExercise] = useState<ExerciseEntity | null>(null)
   const [activeTab, setActiveTab] = useState<'unpublished' | 'corrected'>('unpublished')
   const [tags, setTags] = useState<AdminTag[]>([])

@@ -1,6 +1,6 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import { getCorrectedExercises, getExercises, getUnpublishedExercises } from '@/requests/exercises'
@@ -13,7 +13,7 @@ export default function useExercises(
   reloadTrigger?: number,
   fetchCorrected = false
 ) {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const [items, setItems] = useState<ExerciseEntity[]>([])
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)

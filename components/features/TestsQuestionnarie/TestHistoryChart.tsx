@@ -1,7 +1,7 @@
 import { Activity } from 'lucide-react'
 
-import { auth } from '@/auth'
 import { HistoryChart } from '@/components/shared/HistoryChart'
+import { getServerSession } from '@/lib/get-server-session'
 import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
@@ -32,7 +32,7 @@ interface Props {
 }
 
 export async function TestHistoryChart({ apiEndpoint, maxScore, chartLabel, title, stubTitle }: Props) {
-  const session = await auth()
+  const session = await getServerSession()
 
   let history: HistoryEntry[] = []
   let isStub = false

@@ -1,8 +1,8 @@
 'use client'
 import { useEffect, useMemo, useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { Link } from '@/i18n/navigation'
 import { logger } from '@/lib/logger'
 import { cn } from '@/lib/utils'
@@ -43,7 +43,7 @@ export const PersonalGoalsList = ({
   initialGoals?: GoalEntity[]
   className?: string
 }) => {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const [personalGoals, setPersonalGoals] = useState<GoalEntity[]>(initialGoals ?? [])
   const [isLoading, setIsLoading] = useState(!initialGoals)
   const [error, setError] = useState(false)

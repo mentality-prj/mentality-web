@@ -1,6 +1,6 @@
 'use client'
 import { useCallback, useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { ADMIN_PAGE_SIZE } from '@/constants/pagination'
 import { getTips, getUnpublishedTips } from '@/requests/tips'
@@ -8,7 +8,7 @@ import { PaginatedTips, TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 export default function useTips(fetchUnpublished = false, page = 1, reloadTrigger?: number) {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const [items, setItems] = useState<TipEntity[]>([])
   const [total, setTotal] = useState(0)
   const [loading, setLoading] = useState(true)

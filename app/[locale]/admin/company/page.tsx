@@ -1,14 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { CompanyList } from '@/components/features/Company/GlobalAdmin/CompanyList'
 import { CreateCompanyForm } from '@/components/features/Company/GlobalAdmin/CreateCompanyForm'
 import { PageTitle } from '@/ds/components/PageTitle'
+import { getServerSession } from '@/lib/get-server-session'
 import { getCompanies } from '@/requests/companies'
 import { CustomSession } from '@/types/auth'
 
 export default async function AdminCompanyPage() {
-  const session = await auth()
+  const session = await getServerSession()
   const t = await getTranslations('pages.Company.globalAdmin')
 
   const result = await getCompanies(session as CustomSession)

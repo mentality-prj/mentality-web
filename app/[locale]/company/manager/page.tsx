@@ -1,12 +1,12 @@
 import { redirect } from 'next/navigation'
 
-import { auth } from '@/auth'
 import { Routes } from '@/constants/routes'
+import { getServerSession } from '@/lib/get-server-session'
 import { COMPANY_ROLES } from '@/types/rbac'
 
 export default async function ManagerPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
-  const session = await auth()
+  const session = await getServerSession()
 
   const isSystemAdmin = session?.user?.role === 'admin'
 

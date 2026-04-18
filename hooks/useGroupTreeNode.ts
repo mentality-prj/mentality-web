@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
@@ -25,7 +25,7 @@ export function useGroupTreeNode(
   companyId?: string
 ) {
   const t = useTranslations('pages.Company.companyAdmin.groups')
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const { companyId: contextCompanyId } = useAdminCompany()
   const effectiveCompanyId = (companyId ?? contextCompanyId)!
   const isAdmin = !!contextCompanyId

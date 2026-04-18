@@ -1,7 +1,6 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { NextTestBanner } from '@/components/features/PsychologicalTests/NextTestBanner'
 import { HistoryChartLoader } from '@/components/features/TestsQuestionnarie/HistoryChartLoader'
 import { TestHistoryChart } from '@/components/features/TestsQuestionnarie/TestHistoryChart'
@@ -9,10 +8,11 @@ import { TestPageGenerator } from '@/components/features/TestsQuestionnarie/Test
 import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
 import { GAD7_HIGH_SCORE_THRESHOLD, GAD7_LEVEL_MAP, GAD7_MAX_SCORE, GAD7_TEST_CONFIG } from '@/config/gad7.config'
 import { Routes } from '@/constants/routes'
+import { getServerSession } from '@/lib/get-server-session'
 
 export default async function AnxietyCheckPage() {
   const [session, t, tNext] = await Promise.all([
-    auth(),
+    getServerSession(),
     getTranslations('pages.AnxietyCheck'),
     getTranslations('pages.PsychologicalTests'),
   ])

@@ -1,15 +1,15 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable security/detect-object-injection */
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { useSession } from 'next-auth/react'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { AttentionSprint } from '@/components/features/AttentionSprint'
+import { useAuth } from '@/context/AuthProvider'
 import { saveAttentionSprintResult } from '@/requests/attentionSprint'
 
 // mock translations and use fake timers
 jest.mock('next-intl')
-jest.mock('next-auth/react')
+jest.mock('@/context/AuthProvider', () => ({ useAuth: jest.fn() }))
 jest.mock('@/requests/attentionSprint')
 
 beforeEach(() => {
@@ -17,8 +17,9 @@ beforeEach(() => {
   jest.clearAllMocks()
 
   // Mock session
-  ;(useSession as jest.Mock).mockReturnValue({
-    data: { user: { id: 'test-user' } },
+  ;(useAuth as jest.Mock).mockReturnValue({
+    session: { user: { id: 'test-user' } },
+    status: 'authenticated',
   })
 
   // Mock locale

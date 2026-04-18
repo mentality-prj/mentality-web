@@ -63,7 +63,7 @@ export function HowItWorksSection() {
           <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
           <div className="mt-8">
             <Button asChild variant="volume" size="large">
-              <Link href={Routes.SIGNIN}>{t(stepsSectionConfig.ctaKey)}</Link>
+              <Link href={Routes.AUTH}>{t(stepsSectionConfig.ctaKey)}</Link>
             </Button>
           </div>
         </div>

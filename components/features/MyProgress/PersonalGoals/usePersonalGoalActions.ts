@@ -1,6 +1,6 @@
 import { Dispatch, SetStateAction } from 'react'
-import { useSession } from 'next-auth/react'
 
+import { useAuth } from '@/context/AuthProvider'
 import { createPersonalGoal, deletePersonalGoal, resetPersonalGoal, updatePersonalGoal } from '@/requests/personalGoals'
 import { GoalEntity } from '@/types/api-responses'
 import type { GoalCategory } from '@/types/goals'
@@ -8,7 +8,7 @@ import type { GoalCategory } from '@/types/goals'
 type SetGoals = Dispatch<SetStateAction<GoalEntity[]>>
 
 export const usePersonalGoalActions = (setPersonalGoals: SetGoals) => {
-  const { data: session } = useSession()
+  const { session } = useAuth()
 
   const mark = async (id: string, check: number) => {
     try {

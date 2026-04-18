@@ -2,7 +2,7 @@
 
 import { useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
@@ -14,7 +14,7 @@ import { GroupType } from '@/types/company'
 
 export function useGroupTree() {
   const t = useTranslations('pages.Company.companyAdmin.groups')
-  const { data } = useSession()
+  const { session: data } = useAuth()
   const { companyId: adminCompanyId } = useAdminCompany()
   const { items, loading, error, refetch, companyId } = useGroups()
   const [newRootName, setNewRootName] = useState('')

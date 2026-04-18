@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import { isSubmittedToday } from '@/helpers/mood.helpers'
 import useTags from '@/hooks/useTags'
 import { logger } from '@/lib/logger'
@@ -21,7 +21,7 @@ type Params = {
 }
 
 export function useAddNewMood({ availableTags = [], onSave, onClose, initialLastSubmittedAt }: Params) {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('components.Mood')
 
   const safeT = (k: string, fallback: string) => {

@@ -53,7 +53,7 @@ export function HeroSection() {
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
             <div>
               <Button asChild variant="volume" size="large">
-                <Link href={Routes.SIGNIN}>{t('Hero.cta')}</Link>
+                <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
               </Button>
             </div>
           </div>

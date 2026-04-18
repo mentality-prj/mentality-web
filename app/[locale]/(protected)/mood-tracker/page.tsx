@@ -1,11 +1,11 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { MoodRecords } from '@/components/features/MoodTracker/MoodRecords/MoodRecords'
 import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
 import { TenDaysSummary } from '@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
+import { getServerSession } from '@/lib/get-server-session'
 import { parseMoodQuery } from '@/lib/moodQueryParser'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 
@@ -16,7 +16,7 @@ export default async function MoodTracker({
 }) {
   const t = await getTranslations('pages.MoodTracker')
 
-  const session = await auth()
+  const session = await getServerSession()
   const query = parseMoodQuery(searchParams)
   const result = await getMoodRecords(session, query)
   const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])

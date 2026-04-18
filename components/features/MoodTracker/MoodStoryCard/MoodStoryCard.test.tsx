@@ -1,14 +1,14 @@
 import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { resolveActionRoute } from '@/helpers/moodStory.helpers'
+import { getServerSession } from '@/lib/get-server-session'
 import { getLatestMoodStory } from '@/requests/moodStory'
 import { MoodStoryScreenEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-jest.mock('@/auth', () => ({ auth: jest.fn() }))
+jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
 jest.mock('@/requests/moodStory', () => ({ getLatestMoodStory: jest.fn() }))
 jest.mock('next-intl/server')
 
@@ -37,7 +37,7 @@ jest.mock('@/components/features/MoodTracker/MoodStoryCard/StoryError', () => ({
 }))
 
 const mockSession: CustomSession = {
-  user: { email: 'user@test.com', role: 'user' as const },
+  user: { id: 'user-1', name: 'Test User', email: 'user@test.com', role: 'user' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 86400000).toISOString(),
 }
@@ -61,7 +61,7 @@ const mockScreens: MoodStoryScreenEntity[] = [
 
 beforeEach(() => {
   jest.clearAllMocks()
-  ;(auth as jest.Mock).mockResolvedValue(mockSession)
+  ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
 })
 
@@ -171,7 +171,7 @@ describe('MoodStoryCard', () => {
   })
 
   it('calls getLatestMoodStory with null when there is no session', async () => {
-    ;(auth as jest.Mock).mockResolvedValue(null)
+    ;(getServerSession as jest.Mock).mockResolvedValue(null)
     ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
 
     render(await MoodStoryCard())

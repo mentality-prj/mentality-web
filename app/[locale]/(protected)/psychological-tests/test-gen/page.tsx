@@ -1,15 +1,15 @@
 import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { HistoryChartLoader } from '@/components/features/TestsQuestionnarie/HistoryChartLoader'
 import { TestHistoryChart } from '@/components/features/TestsQuestionnarie/TestHistoryChart'
 import { TestPageGenerator } from '@/components/features/TestsQuestionnarie/TestPageGenerator'
 import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
 import { K10_LEVEL_MAP, K10_TEST_CONFIG } from '@/config/k10.config'
+import { getServerSession } from '@/lib/get-server-session'
 
 export default async function TestGeneratorPage() {
-  const [session, t] = await Promise.all([auth(), getTranslations('pages.K10')])
+  const [session, t] = await Promise.all([getServerSession(), getTranslations('pages.K10')])
   const userId = session?.user?.id ?? ''
   const isAdmin = session?.user?.role === 'admin'
 

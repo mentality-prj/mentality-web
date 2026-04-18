@@ -3,10 +3,10 @@
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { Pencil, Trash2 } from 'lucide-react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
+import { useAuth } from '@/context/AuthProvider'
 import { adminGetEmployees, adminRemoveEmployee } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
 import { EmployeeEntity } from '@/types/company'
@@ -23,7 +23,7 @@ type Props = {
 export function AdminEmployeeTable({ companyId }: Props) {
   const t = useTranslations('pages.Company.companyAdmin.employees')
   const tRoles = useTranslations('pages.Company.roles')
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const [items, setItems] = useState<EmployeeEntity[]>([])
   const [total, setTotal] = useState(0)
   const [page, setPage] = useState(1)

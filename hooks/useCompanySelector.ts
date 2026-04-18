@@ -1,7 +1,7 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
 import { getCompanies } from '@/requests/companies'
@@ -11,7 +11,7 @@ import { CompanyEntity } from '@/types/company'
 const STORAGE_KEY = 'adminSelectedCompanyId'
 
 export function useCompanySelector() {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const { companyId, setCompanyId } = useAdminCompany()
   const [companies, setCompanies] = useState<CompanyEntity[]>([])
   const [loading, setLoading] = useState(true)

@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
-import { auth } from '@/auth'
+import { getServerSession } from '@/lib/get-server-session'
 import { fetchUserTagsCached } from '@/lib/userTagsCache'
 import type { UserTag } from '@/types/tags'
 
@@ -13,7 +13,7 @@ interface MoodSummaryCardProps {
 }
 
 export const MoodSummaryCard = async ({ title = '', subtitle, counts = [] }: MoodSummaryCardProps) => {
-  const session = await auth()
+  const session = await getServerSession()
   const res = await fetchUserTagsCached(session)
 
   let tags: UserTag[] = []

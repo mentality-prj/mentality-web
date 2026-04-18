@@ -8,7 +8,7 @@ export function LoginButton({ title }: { title?: string }) {
   const t = useTranslations('components.Navbar')
   return (
     <Button asChild variant="volume" size="large">
-      <Link href={Routes.SIGNIN}>{title ? t(title) : t('login')}</Link>
+      <Link href={Routes.AUTH}>{title ? t(title) : t('login')}</Link>
     </Button>
   )
 }

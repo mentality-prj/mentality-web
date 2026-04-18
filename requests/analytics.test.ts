@@ -16,13 +16,19 @@ jest.mock('@/lib/logger', () => ({
 }))
 
 const mockManagerSession: CustomSession = {
-  user: { email: 'mgr@company.com', role: 'user' as const, companyRole: COMPANY_ROLES.MANAGER },
+  user: {
+    id: 'mgr-1',
+    name: 'Manager User',
+    email: 'mgr@company.com',
+    role: 'user' as const,
+    companyRole: COMPANY_ROLES.MANAGER,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
 
 const mockAdminSession: CustomSession = {
-  user: { email: 'admin@app.com', role: 'admin' as const },
+  user: { id: 'admin-1', name: 'Admin User', email: 'admin@app.com', role: 'admin' as const },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }

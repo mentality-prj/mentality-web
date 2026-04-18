@@ -1,6 +1,6 @@
 'use client'
 
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 
 import { CustomSession } from '@/types/auth'
 import { CompanyRole } from '@/types/rbac'
@@ -12,7 +12,7 @@ export type UseRbacResult = {
 }
 
 export function useRbac(): UseRbacResult {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const session = data as CustomSession | null
   const role = session?.user?.companyRole
 

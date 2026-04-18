@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
@@ -22,7 +22,7 @@ import { COMPANY_ROLES } from '@/types/rbac'
 
 export function useAssignManager() {
   const t = useTranslations('pages.Company.companyAdmin.assignManager')
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const { companyId: adminCompanyId } = useAdminCompany()
   const { items: groups, companyId } = useGroups()
 

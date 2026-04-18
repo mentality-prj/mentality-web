@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '../../../../auth'
+import { getServerSession } from '@/lib/get-server-session'
+
 import { fetchUserTagsCached } from '../../../../lib/userTagsCache'
 
 import { UserNotesContainer } from './UserNotesContainer'
@@ -17,7 +18,7 @@ type Props = {
 
 export default async function UserNotes({ notes }: Props) {
   const availableNotes = notes.filter((note) => !note.isActive) // Show only inactive notes (not archived)
-  const session = await auth()
+  const session = await getServerSession()
   const res = await fetchUserTagsCached(session)
 
   let tags = []

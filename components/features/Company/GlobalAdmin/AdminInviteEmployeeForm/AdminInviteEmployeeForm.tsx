@@ -2,10 +2,10 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
+import { useAuth } from '@/context/AuthProvider'
 import { adminCreateInvite, adminGetGroups } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
 import { GroupEntity } from '@/types/company'
@@ -25,7 +25,7 @@ type Props = {
 }
 
 export function AdminInviteEmployeeForm({ companyId, onInvited }: Props) {
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const t = useTranslations('pages.Company.companyAdmin.invite')
   const tRoles = useTranslations('pages.Company.roles')
   const [groups, setGroups] = useState<GroupEntity[]>([])

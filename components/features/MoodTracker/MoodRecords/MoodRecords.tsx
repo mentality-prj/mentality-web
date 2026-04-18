@@ -1,4 +1,4 @@
-import { auth } from '@/auth'
+import { getServerSession } from '@/lib/get-server-session'
 import { fetchUserTagsCached } from '@/lib/userTagsCache'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
@@ -10,7 +10,7 @@ type Props = {
 }
 
 export async function MoodRecords({ records, totalCount }: Props) {
-  const session = await auth()
+  const session = await getServerSession()
   const res = await fetchUserTagsCached(session)
 
   let tags = []

@@ -1,6 +1,5 @@
 import { getTranslations } from 'next-intl/server'
 
-import { auth } from '@/auth'
 import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
@@ -9,6 +8,7 @@ import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoal
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
+import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
@@ -18,7 +18,7 @@ import { MoodStoryResult } from '@/types/api-responses'
 import { Roles } from '@/types/security'
 
 const MyDay = async () => {
-  const session = await auth()
+  const session = await getServerSession()
   const t = await getTranslations('components.DailyCard')
   const isAdmin = session?.user?.role === Roles.ADMIN
 

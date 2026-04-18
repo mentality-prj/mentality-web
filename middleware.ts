@@ -1,12 +1,11 @@
 import { NextRequest, NextResponse } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 
-import { auth } from '@/auth'
 import { Routes } from '@/constants/routes'
 import { routing } from '@/i18n/routing'
+import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { AuthTokens } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
-
-import { Roles } from './types/security'
 
 const LOCALE_COOKIE = 'NEXT_LOCALE'
 const LOCALE_COOKIE_MAX_AGE = 30 * 24 * 60 * 60 // 30 days to align with session duration
@@ -59,22 +58,24 @@ function buildCspHeader(): string {
       connectSrcExtra = ''
     }
   }
+  const zitadelIssuer = process.env.NEXT_PUBLIC_AUTH_ISSUER ?? process.env.NEXT_PUBLIC_ZITADEL_ISSUER ?? ''
+  let zitadelConnectSrc = ''
+  if (zitadelIssuer) {
+    try {
+      zitadelConnectSrc = ` ${new URL(zitadelIssuer).origin}`
+    } catch {
+      zitadelConnectSrc = ''
+    }
+  }
   const isProduction = process.env.NODE_ENV === 'production'
   return [
     "default-src 'self'",
-    // 'unsafe-inline' is required for Next.js hydration scripts and CSS-in-JS.
-    // A nonce-based approach would allow removing it, but Next.js does not yet
-    // provide a stable nonce injection mechanism without a custom server setup.
-    // 'unsafe-eval' is additionally required in development for webpack HMR/eval.
     isProduction
       ? "script-src 'self' 'unsafe-inline' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/"
       : "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com/recaptcha/ https://www.gstatic.com/recaptcha/",
-    // fonts.googleapis.com hosts the @font-face stylesheet imported in globals.css
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
     "img-src 'self' data: blob: https://lh3.googleusercontent.com https://res.cloudinary.com https://images.pexels.com https://fakestoreapi.com https://via.placeholder.com",
-    // In development, Next.js HMR uses a WebSocket connection that must be
-    // explicitly allowed; the ws: scheme is separate from https:.
-    `connect-src 'self'${connectSrcExtra} https://oauth2.googleapis.com https://accounts.google.com https://www.google.com/recaptcha/${isProduction ? '' : ' ws:'}`,
+    `connect-src 'self'${connectSrcExtra}${zitadelConnectSrc} https://www.google.com/recaptcha/${isProduction ? '' : ' ws:'}`,
     // fonts.gstatic.com serves the actual font binary files
     "font-src 'self' https://fonts.gstatic.com",
     // style-src-attr must be set explicitly because Chrome 94+ treats it as a
@@ -103,6 +104,45 @@ function applySecurityHeaders(response: NextResponse): NextResponse {
   return response
 }
 
+async function refreshTokensServerSide(
+  currentTokens: AuthTokens,
+  requestUrl: string,
+  cookieHeader: string
+): Promise<{ tokens: AuthTokens; setCookieHeader: string | null } | null> {
+  if (!currentTokens.refreshToken) return null
+
+  try {
+    // Call the internal exchange route which holds the client secret server-side.
+    // Forward the cookie header so the route can read the refresh token from it.
+    const baseUrl = new URL(requestUrl).origin
+    const response = await fetch(`${baseUrl}/api/auth/exchange`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Cookie: cookieHeader,
+      },
+      body: JSON.stringify({ grantType: 'refresh_token' }),
+    })
+
+    if (!response.ok) return null
+
+    const data = await response.json()
+    // Forward the Set-Cookie header from exchange route so refresh token rotation is preserved
+    const setCookieHeader = response.headers.get('set-cookie')
+    return {
+      tokens: {
+        accessToken: data.access_token,
+        idToken: data.id_token ?? currentTokens.idToken,
+        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+        userRole: currentTokens.userRole,
+      },
+      setCookieHeader,
+    }
+  } catch {
+    return null
+  }
+}
+
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
   // Protect mutating endpoints from excessively large request bodies by
@@ -124,6 +164,11 @@ export async function middleware(request: NextRequest) {
   const segments = pathname.split('/')
   const localeInUrl = segments[1] && routing.locales.includes(segments[1] as SupportedLanguage) ? segments[1] : null
 
+  // Skip locale handling for /callback — it's a non-locale route
+  if (pathname.startsWith('/callback')) {
+    return applySecurityHeaders(NextResponse.next())
+  }
+
   // Handle root path - redirect to preferred locale
   if (pathname === '/') {
     const preferredLocale = getPreferredLocale(request)
@@ -139,7 +184,8 @@ export async function middleware(request: NextRequest) {
   }
 
   // If no locale in URL (but not root), redirect to preferred locale
-  if (!localeInUrl) {
+  // Skip /callback and /api routes — they don't use locale prefix
+  if (!localeInUrl && !pathname.startsWith('/callback') && !pathname.startsWith('/api')) {
     const preferredLocale = getPreferredLocale(request)
     const url = new URL(`/${preferredLocale}${pathname}`, request.url)
     const response = NextResponse.redirect(url)
@@ -165,10 +211,24 @@ export async function middleware(request: NextRequest) {
     })
   }
 
-  // Auth logic
-  const session = await auth()
+  // Auth logic — check for auth token cookie
+  const tokenCookie = request.cookies.get(AUTH_TOKEN_COOKIE)?.value
+  let authTokens: AuthTokens | null = null
+  if (tokenCookie) {
+    try {
+      const parsed = JSON.parse(tokenCookie) as AuthTokens
+      // Validate required fields to prevent treating corrupt cookies as authenticated
+      if (parsed?.accessToken && parsed?.idToken && typeof parsed.expiresAt === 'number') {
+        authTokens = parsed
+      }
+    } catch {
+      authTokens = null
+    }
+  }
+  const isAuthenticated = !!authTokens
+
   const publicRoutes = [
-    Routes.SIGNIN,
+    Routes.AUTH,
     Routes.MAIN,
     Routes.ABOUT,
     Routes.FAQ,
@@ -196,47 +256,56 @@ export async function middleware(request: NextRequest) {
   // Skip session error checks for server-error page to avoid redirect loops
   const isServerErrorPage = normalizedPath === Routes.SERVERERROR
 
-  // Check for session errors FIRST - before any other auth logic
-  // Only act on session errors when there is a signed-in session. If there's
-  // no `session.user`, treat the request as unauthenticated and allow public pages.
-  if (session?.error && session.user && !isServerErrorPage) {
-    const errorType = typeof session.error === 'string' ? session.error : session.error.error
-    const isCriticalError =
-      errorType === 'RefreshTokenError' || errorType === 'BackendConnectionError' || errorType === 'InvalidToken'
-
-    // If there's a critical error, handle it appropriately
-    if (isCriticalError) {
-      // For BackendConnectionError, redirect to server-error page
-      if (errorType === 'BackendConnectionError') {
-        return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.SERVERERROR}`, request.url)))
-      }
-
-      // For other critical errors (InvalidToken, RefreshTokenError), redirect to signin
-      const response = NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url))
-      response.cookies.delete('authjs.session-token')
-      response.cookies.delete('__Secure-authjs.session-token')
+  // Check if token is expired
+  if (isAuthenticated && authTokens && !isServerErrorPage) {
+    const isExpired = authTokens.expiresAt < Math.floor(Date.now() / 1000)
+    if (isExpired && !authTokens.refreshToken) {
+      // Token expired and no refresh token — clear cookie and redirect to auth
+      const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
+      response.cookies.delete(AUTH_TOKEN_COOKIE)
       return applySecurityHeaders(response)
+    }
+
+    if (isExpired && authTokens.refreshToken) {
+      // Token expired but refresh token exists — try server-side refresh
+      const cookieHeader = request.headers.get('cookie') ?? ''
+      const refreshResult = await refreshTokensServerSide(authTokens, request.url, cookieHeader)
+      if (refreshResult) {
+        // Redirect to the same URL so the refreshed cookie is visible to
+        // Server Components / Route Handlers on the next request.
+        const redirectResponse = NextResponse.redirect(request.url)
+        // Forward the Set-Cookie from exchange route (contains refreshToken)
+        if (refreshResult.setCookieHeader) {
+          redirectResponse.headers.set('set-cookie', refreshResult.setCookieHeader)
+        }
+        return applySecurityHeaders(redirectResponse)
+      } else {
+        // Refresh failed — clear cookie and redirect to auth
+        const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
+        response.cookies.delete(AUTH_TOKEN_COOKIE)
+        return applySecurityHeaders(response)
+      }
     }
   }
 
-  if (!session?.user && isProtectedPath) {
-    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.SIGNIN}`, request.url)))
+  if (!isAuthenticated && isProtectedPath) {
+    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url)))
   }
 
-  // If the user is already authenticated, don't show the signin page —
+  // If the user is already authenticated, don't show the auth page —
   // redirect them to their main My-day page instead.
-  if (session?.user && normalizedPath === Routes.SIGNIN) {
+  if (isAuthenticated && normalizedPath === Routes.AUTH) {
     return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url)))
   }
 
-  if (session?.user?.role !== Roles.ADMIN && protectedRoutes.ADMIN) {
-    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.PROFILE}`, request.url)))
-  }
+  // Note: role-based access control (e.g. admin routes) is handled server-side
+  // in the respective layout.tsx files via getServerSession(), NOT in middleware,
+  // because the cookie-stored userRole is client-controlled and unverifiable here.
 
   applySecurityHeaders(intlResponse)
   return intlResponse
 }
 
 export const config = {
-  matcher: ['/', '/(en|uk|pl)/:path*'],
+  matcher: ['/', '/(en|uk|pl)/:path*', '/callback'],
 }

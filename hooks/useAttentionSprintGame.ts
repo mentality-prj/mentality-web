@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useLocale } from 'next-intl'
 
 import { TIMER_INTERVAL_MS } from '@/constants/attentionSprint'
@@ -23,7 +23,7 @@ export function useAttentionSprintGame(
   propTarget?: string,
   propSymbols?: string[]
 ) {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const locale = useLocale()
   const lastGridTimeRef = useRef<number | null>(null)
   const timerIdRef = useRef<NodeJS.Timeout | null>(null)

@@ -2,7 +2,7 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useSession } from 'next-auth/react'
+import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
@@ -21,7 +21,7 @@ import { EmployeeEntity, UpdateEmployeeDto } from '@/types/company'
 
 export function useEmployeeTable() {
   const t = useTranslations('pages.Company.companyAdmin.employees')
-  const { data, status } = useSession()
+  const { session: data, status } = useAuth()
   const { companyId: adminCompanyId } = useAdminCompany()
   const myCompanyIdRef = useRef<string | null>(null)
   const [items, setItems] = useState<EmployeeEntity[]>([])

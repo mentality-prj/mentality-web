@@ -1,7 +1,7 @@
 import { useState } from 'react'
-import { useSession } from 'next-auth/react'
 import { useTranslations } from 'next-intl'
 
+import { useAuth } from '@/context/AuthProvider'
 import useTags from '@/hooks/useTags'
 import { createDiary } from '@/requests/diary'
 import type { CreateDiaryDto } from '@/types/api-responses'
@@ -16,7 +16,7 @@ type Params = {
 }
 
 export function useAddNewNote({ availableTags = [], onSave, onClose }: Params) {
-  const { data: session } = useSession()
+  const { session } = useAuth()
   const t = useTranslations('components.Diary.AddNewNote')
 
   const [note, setNote] = useState('')

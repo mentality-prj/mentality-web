@@ -1,5 +1,4 @@
-import { signOut } from 'next-auth/react'
-
+import { authService } from '@/lib/auth'
 import type { CustomSession } from '@/types/auth'
 
 import { apiRequest, ApiRequestOptions, ApiWrapperResult } from './api-wrapper'
@@ -12,8 +11,8 @@ export async function apiRequestWithAuth<T>(
 ): Promise<ApiWrapperResult<T>> {
   const result = await apiRequest<T>(session, url, options)
   const shouldAutoSignOut = opts?.autoSignOutOn401 ?? true
-  if (shouldAutoSignOut && result.error?.status === 401) {
-    signOut()
+  if (shouldAutoSignOut && result.error?.status === 401 && typeof window !== 'undefined') {
+    await authService.logout()
   }
   return result
 }
