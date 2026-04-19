@@ -55,7 +55,7 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           hover: 'hsl(var(--primary-hover))',
-          active: 'hsl(var(--primary-active))',
+          pressed: 'hsl(var(--primary-pressed))',
           foreground: 'hsl(var(--primary-foreground))',
         },
 
