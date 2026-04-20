@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { logger } from '@/lib/logger'
+import { Button } from '@/ui/button'
 
 const COOKIE_NAME = 'cookie_consent'
 
@@ -67,16 +68,7 @@ export default function CookieConsent() {
           </div>
 
           <div className="flex-shrink-0 self-end md:self-center">
-            <button
-              onClick={accept}
-              className="inline-flex items-center rounded-full px-4 py-2 shadow-sm"
-              style={{
-                backgroundColor: 'hsl(var(--primary))',
-                color: 'hsl(var(--primary-foreground))',
-              }}
-            >
-              {t('accept')}
-            </button>
+            <Button onClick={accept}>{t('accept')}</Button>
           </div>
         </div>
       </div>
