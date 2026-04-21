@@ -57,7 +57,7 @@ export default function SidebarMenu({
 
   return (
     <ul
-      className={`flex flex-col max-md:w-full ${type === 'admin' ? 'text-color-white' : 'text-remark overflow-hidden rounded border border-border'}`}
+      className={`sticky top-3 flex flex-col max-md:w-full ${type === 'admin' ? 'text-color-white' : 'text-remark overflow-hidden rounded border border-border'}`}
     >
       {menu.map((item: SidebarMenuItemType) => {
         const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
