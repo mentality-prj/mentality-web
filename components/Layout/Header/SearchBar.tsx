@@ -99,13 +99,13 @@ const SearchBar = () => {
   }, [])
 
   return (
-    <div ref={containerRef} className="relative flex items-center">
+    <div ref={containerRef} className="flex items-center">
       <button className={cn('sm:hidden', isMobileOpen && 'hidden')} onClick={() => setIsMobileOpen(true)}>
         <Search size={18} />
       </button>
       <div
         className={cn(
-          isMobileOpen ? 'fixed left-1/2 top-12 z-50 flex w-max -translate-x-1/2' : 'hidden sm:block',
+          isMobileOpen ? 'absolute left-1/2 top-12 z-50 flex w-max -translate-x-1/2' : 'hidden sm:block',
           'max-w-40 tablet:static tablet:left-auto tablet:z-auto tablet:w-auto tablet:translate-x-0'
         )}
       >
