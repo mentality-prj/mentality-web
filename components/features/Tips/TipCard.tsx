@@ -3,6 +3,7 @@ import { ReactNode, useState } from 'react'
 import { Calendar } from 'lucide-react'
 import { useLocale } from 'next-intl'
 
+import { PlayButton } from '@/components/shared/Buttons/PlayButton'
 import Card from '@/components/shared/Cards/Card'
 import FullScreenCard from '@/components/shared/Cards/FullScreenCard'
 import { formatDate } from '@/helpers/data'
@@ -20,7 +21,15 @@ export default function TipCard({ item, tools, className = '' }: TipCardProps) {
   const [open, setOpen] = useState(false)
 
   const text = item.translations?.[locale as SupportedLanguage] || ''
+  const hasSpeakableText = text.trim().length > 0
   const createdAt = formatDate(item.createdAt)
+
+  const combinedTools = (
+    <>
+      {hasSpeakableText && <PlayButton text={text} language={locale} />}
+      {tools}
+    </>
+  )
 
   return (
     <>
@@ -29,7 +38,7 @@ export default function TipCard({ item, tools, className = '' }: TipCardProps) {
         sup={createdAt}
         icon={<Calendar size={12} />}
         text={text}
-        tools={tools}
+        tools={combinedTools}
         onClick={() => setOpen(true)}
       />
 

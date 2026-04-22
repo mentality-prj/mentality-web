@@ -14,6 +14,7 @@ import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
 import { Button } from '@/ui/button'
 import { Label } from '@/ui/label'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ui/tabs'
 import { Textarea } from '@/ui/textarea'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
@@ -143,17 +144,33 @@ export default function AddTip() {
       )}
       <div className="w-full">
         <h3 className="mb-4 text-xl font-semibold">{t('allTipsTitle')}</h3>
-        <TipsList
-          fetchUnpublished
-          reloadTrigger={reloadKey}
-          renderTools={(tip: TipEntity, remove: (id: string) => void) => (
-            <>
-              <PublishTipButton id={String(tip.id)} session={session} onPublished={() => remove(String(tip.id))} />
-              <DeleteTipButton id={String(tip.id)} session={session} onDeleted={() => remove(String(tip.id))} />
-              <EditTipButton onEdit={() => startEditing(tip)} />
-            </>
-          )}
-        />
+        <Tabs defaultValue="unpublished">
+          <TabsList variant="grey">
+            <TabsTrigger value="unpublished">{t('tabs.unpublished')}</TabsTrigger>
+            <TabsTrigger value="published">{t('tabs.published')}</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="unpublished">
+            <TipsList
+              fetchUnpublished
+              reloadTrigger={reloadKey}
+              renderTools={(tip: TipEntity, remove: (id: string) => void) => (
+                <>
+                  <PublishTipButton id={String(tip.id)} session={session} onPublished={() => remove(String(tip.id))} />
+                  <DeleteTipButton id={String(tip.id)} session={session} onDeleted={() => remove(String(tip.id))} />
+                  <EditTipButton onEdit={() => startEditing(tip)} />
+                </>
+              )}
+            />
+          </TabsContent>
+
+          <TabsContent value="published">
+            <TipsList
+              reloadTrigger={reloadKey}
+              renderTools={(tip: TipEntity) => <EditTipButton onEdit={() => startEditing(tip)} />}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )

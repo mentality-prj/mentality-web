@@ -60,7 +60,11 @@
     "loading": "Завантаження...",
     "empty": "Поради відсутні",
     "submitting": "Генерація...",
-    "loginRequired": "Будь ласка, увійдіть щоб продовжити"
+    "loginRequired": "Будь ласка, увійдіть щоб продовжити",
+    "tabs": {
+      "unpublished": "Неопубліковані",
+      "published": "Опубліковані"
+    }
   },
   "GenerateAffirmation": {
     "generateButton": "Згенерувати афірмацію",
@@ -75,7 +79,11 @@
     "deleted": "Видалено",
     "allAffirmationsTitle": "Всі афірмації",
     "empty": "Афірмації не знайдено",
-    "editLabel": "Відредагувати афірмацію"
+    "editLabel": "Відредагувати афірмацію",
+    "tabs": {
+      "unpublished": "Неопубліковані",
+      "published": "Опубліковані"
+    }
   },
   "AddExercise": {
     "generateButton": "Згенерувати вправу",
@@ -133,7 +141,8 @@
     },
     "tabs": {
       "unpublished": "Неопубліковані",
-      "corrected": "Виправлені"
+      "corrected": "Виправлені",
+      "published": "Опубліковані"
     }
   },
   "ButtonShowcase": {
