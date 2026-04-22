@@ -115,7 +115,7 @@ export interface UseTestPageFormReturn {
   result: TestSubmissionResult | null
   isCooldown: boolean
   error: string | null
-  resultRef: React.RefObject<HTMLDivElement | null>
+  resultRef: React.RefObject<HTMLDivElement>
   handleReset: () => void
   submitAnswers: (finalAnswers: TestAnswers) => Promise<void>
 }
@@ -128,7 +128,7 @@ export function useTestPageForm<T extends ChoiceType>(test: TestConfig<T>, userI
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [result, setResult] = useState<TestSubmissionResult | null>(null)
   const [error, setError] = useState<string | null>(null)
-  const resultRef = useRef<HTMLDivElement | null>(null)
+  const resultRef = useRef<HTMLDivElement>(null)
   const { session } = useAuth()
   const locale = useLocale()
 

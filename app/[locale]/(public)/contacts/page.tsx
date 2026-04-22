@@ -1,5 +1,5 @@
 'use client'
-import { SubmitEventHandler, useState } from 'react'
+import { type FormEvent, useState } from 'react'
 import Script from 'next/script'
 import { useTranslations } from 'next-intl'
 
@@ -25,7 +25,7 @@ const ContactPage = () => {
   const [honeypot, setHoneypot] = useState('')
   const [loading, setLoading] = useState(false)
 
-  const handleSubmit: SubmitEventHandler<HTMLFormElement> = async (e) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     setLoading(true)
 

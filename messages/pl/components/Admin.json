@@ -60,7 +60,11 @@
     "loading": "Ładowanie...",
     "empty": "Brak porad",
     "submitting": "Generowanie...",
-    "loginRequired": "Proszę zaloguj się, aby kontynuować"
+    "loginRequired": "Proszę zaloguj się, aby kontynuować",
+    "tabs": {
+      "unpublished": "Nieopublikowane",
+      "published": "Opublikowane"
+    }
   },
   "GenerateAffirmation": {
     "generateButton": "Wygeneruj afirmację",
@@ -75,7 +79,11 @@
     "deleted": "Usunięto",
     "allAffirmationsTitle": "Wszystkie afirmacje",
     "empty": "Brak afirmacji",
-    "editLabel": "Edytuj afirmację"
+    "editLabel": "Edytuj afirmację",
+    "tabs": {
+      "unpublished": "Nieopublikowane",
+      "published": "Opublikowane"
+    }
   },
   "AddExercise": {
     "generateButton": "Generuj ćwiczenie",
@@ -133,7 +141,8 @@
     },
     "tabs": {
       "unpublished": "Nieopublikowane",
-      "corrected": "Poprawione"
+      "corrected": "Poprawione",
+      "published": "Opublikowane"
     }
   },
   "ButtonShowcase": {

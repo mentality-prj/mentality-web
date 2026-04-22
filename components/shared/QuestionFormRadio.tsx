@@ -34,7 +34,7 @@ export interface QuestionFormRadioProps {
 
   /** When true, renders the result slot instead of the question step */
   showResult: boolean
-  resultRef?: React.RefObject<HTMLDivElement | null>
+  resultRef?: React.RefObject<HTMLDivElement>
 
   /** Test-specific result card (e.g. Phq9Result or Gad7Result) */
   resultSlot: ReactNode

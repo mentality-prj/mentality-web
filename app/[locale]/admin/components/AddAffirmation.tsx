@@ -11,6 +11,7 @@ import { CustomSession } from '@/types/auth'
 import { SupportedLanguage } from '@/types/languages'
 import { Button } from '@/ui/button'
 import { Label } from '@/ui/label'
+import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/ui/tabs'
 import { Textarea } from '@/ui/textarea'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
@@ -145,25 +146,43 @@ export default function AddAffirmation() {
 
       <div className="w-full">
         <h3 className="mb-4 text-xl font-semibold">{t('allAffirmationsTitle')}</h3>
-        <AffirmationsList
-          fetchUnpublished
-          reloadTrigger={reloadKey}
-          renderTools={(affirmation: AffirmationEntity, remove: (id: string) => void) => (
-            <>
-              <PublishAffirmationButton
-                id={String(affirmation.id)}
-                session={session}
-                onPublished={() => remove(String(affirmation.id))}
-              />
-              <DeleteAffirmationButton
-                id={String(affirmation.id)}
-                session={session}
-                onDeleted={() => remove(String(affirmation.id))}
-              />
-              <EditAffirmationButton onEdit={() => startEditing(affirmation)} />
-            </>
-          )}
-        />
+        <Tabs defaultValue="unpublished">
+          <TabsList variant="grey">
+            <TabsTrigger value="unpublished">{t('tabs.unpublished')}</TabsTrigger>
+            <TabsTrigger value="published">{t('tabs.published')}</TabsTrigger>
+          </TabsList>
+
+          <TabsContent value="unpublished">
+            <AffirmationsList
+              fetchUnpublished
+              reloadTrigger={reloadKey}
+              renderTools={(affirmation: AffirmationEntity, remove: (id: string) => void) => (
+                <>
+                  <PublishAffirmationButton
+                    id={String(affirmation.id)}
+                    session={session}
+                    onPublished={() => remove(String(affirmation.id))}
+                  />
+                  <DeleteAffirmationButton
+                    id={String(affirmation.id)}
+                    session={session}
+                    onDeleted={() => remove(String(affirmation.id))}
+                  />
+                  <EditAffirmationButton onEdit={() => startEditing(affirmation)} />
+                </>
+              )}
+            />
+          </TabsContent>
+
+          <TabsContent value="published">
+            <AffirmationsList
+              reloadTrigger={reloadKey}
+              renderTools={(affirmation: AffirmationEntity) => (
+                <EditAffirmationButton onEdit={() => startEditing(affirmation)} />
+              )}
+            />
+          </TabsContent>
+        </Tabs>
       </div>
     </div>
   )

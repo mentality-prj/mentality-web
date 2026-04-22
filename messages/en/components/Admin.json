@@ -56,11 +56,15 @@
     "allTipsSuccess": "Loaded {count} tips",
     "createLabel": "Create a tip",
     "editLabel": "Update a tip",
-    "allTipsTitle": "All unpablished tips",
+    "allTipsTitle": "All tips",
     "loading": "Loading...",
     "empty": "No tips found",
     "submitting": "Generating...",
-    "loginRequired": "Please log in to continue"
+    "loginRequired": "Please log in to continue",
+    "tabs": {
+      "unpublished": "Unpublished",
+      "published": "Published"
+    }
   },
   "GenerateAffirmation": {
     "generateButton": "Generate affirmation",
@@ -75,7 +79,11 @@
     "deleted": "Deleted",
     "allAffirmationsTitle": "All affirmations",
     "empty": "No affirmations found",
-    "editLabel": "Update an affirmation"
+    "editLabel": "Update an affirmation",
+    "tabs": {
+      "unpublished": "Unpublished",
+      "published": "Published"
+    }
   },
   "AddExercise": {
     "generateButton": "Generate exercise",
@@ -133,7 +141,8 @@
     },
     "tabs": {
       "unpublished": "Unpublished",
-      "corrected": "Corrected"
+      "corrected": "Corrected",
+      "published": "Published"
     }
   },
   "ButtonShowcase": {
