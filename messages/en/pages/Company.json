@@ -164,6 +164,15 @@
       "riskLow": "Low",
       "riskMedium": "Medium",
       "riskHigh": "High",
+      "maskedNotice": "Part of analytics is hidden by the privacy layer.",
+      "maskedValue": "Hidden",
+      "riskDistributionMasked": "Risk distribution is hidden.",
+      "trendMasked": "Trend is hidden.",
+      "maskReasons": {
+        "small_cohort": "Too few participants to display metrics",
+        "composition_changed": "Team composition changed significantly",
+        "low_activity": "Not enough activity for this period"
+      },
       "trendTitle": "Trend",
       "groupsTitle": "Groups",
       "groupName": "Group",

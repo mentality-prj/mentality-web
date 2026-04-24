@@ -1,8 +1,13 @@
 import { logger } from '@/lib/logger'
-import { getMoodAnalytics, getMoodAnalyticsAdmin } from '@/requests/analytics'
+import {
+  getAnalyticsPreferences,
+  getMoodAnalytics,
+  getMoodAnalyticsAdmin,
+  updateAnalyticsPreferences,
+} from '@/requests/analytics'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
-import { AnalyticsResponse, RiskDistribution } from '@/types/company'
+import { AnalyticsPreferences, AnalyticsResponse, RiskDistribution } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
 
 jest.mock('@/requests/genericFetch')
@@ -35,10 +40,19 @@ const mockAdminSession: CustomSession = {
 
 const mockRiskDistribution: RiskDistribution = { low: 57, medium: 27, high: 5 }
 
+const mockAnalyticsPreferences: AnalyticsPreferences = {
+  sprintAnchorDay: 3,
+  nextAllowedUpdateAt: '2026-04-28T00:00:00.000Z',
+}
+
 const mockAnalytics: AnalyticsResponse = {
   companyId: 'co-1',
   from: '2025-04-03T00:00:00.000Z',
   to: '2026-04-03T00:00:00.000Z',
+  privacy: {
+    isMasked: false,
+    maskReasons: [],
+  },
   totalEmployees: 89,
   activeEmployees: 82,
   totalCheckins: 13648,
@@ -53,6 +67,68 @@ const mockAnalytics: AnalyticsResponse = {
 
 beforeEach(() => {
   jest.clearAllMocks()
+})
+
+// ─── Analytics preferences ───────────────────────────────────────────────────
+
+describe('getAnalyticsPreferences', () => {
+  it('calls the auth/me analytics preferences endpoint', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockAnalyticsPreferences })
+
+    await getAnalyticsPreferences(mockManagerSession)
+
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockManagerSession,
+      expect.stringContaining('/auth/me/analytics-preferences'),
+      { method: 'GET' }
+    )
+  })
+
+  it('returns preferences data on success', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockAnalyticsPreferences })
+
+    const result = await getAnalyticsPreferences(mockManagerSession)
+
+    expect(result).toEqual({ data: mockAnalyticsPreferences })
+  })
+
+  it('propagates error status and logs when fetching preferences fails', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      error: 'Failed to fetch analytics preferences',
+      status: 500,
+    })
+
+    const result = await getAnalyticsPreferences(mockManagerSession)
+
+    expect(result).toEqual({ error: 'Failed to fetch analytics preferences', status: 500 })
+    expect(logger.error).toHaveBeenCalled()
+  })
+})
+
+describe('updateAnalyticsPreferences', () => {
+  it('sends PATCH with sprintAnchorDay', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockAnalyticsPreferences })
+
+    await updateAnalyticsPreferences(mockManagerSession, { sprintAnchorDay: 3 })
+
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockManagerSession,
+      expect.stringContaining('/auth/me/analytics-preferences'),
+      {
+        method: 'PATCH',
+        body: { sprintAnchorDay: 3 },
+      }
+    )
+  })
+
+  it('propagates 400 status and message for cooldown errors', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: '2026-04-28T00:00:00.000Z', status: 400 })
+
+    const result = await updateAnalyticsPreferences(mockManagerSession, { sprintAnchorDay: 5 })
+
+    expect(result).toEqual({ error: '2026-04-28T00:00:00.000Z', status: 400 })
+    expect(logger.error).toHaveBeenCalled()
+  })
 })
 
 // ─── getMoodAnalytics ─────────────────────────────────────────────────────────

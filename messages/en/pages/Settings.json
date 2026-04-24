@@ -1,0 +1,27 @@
+{
+  "title": "Settings",
+  "subtitle": "Manage analytics report preferences.",
+  "report": {
+    "title": "Report Settings",
+    "description": "Choose the weekday used for the analytics sprint.",
+    "dayLabel": "Weekday",
+    "placeholder": "Select a day",
+    "loading": "Loading settings…",
+    "nextAllowed": "Next change is available: {date}",
+    "nextAllowedNow": "You can change the day now.",
+    "saveBlocked": "You can save again after {date}.",
+    "save": "Save",
+    "saving": "Saving…",
+    "saved": "Report settings saved.",
+    "cooldownError": "You can change the settings after {date}.",
+    "weekday": {
+      "1": "Monday",
+      "2": "Tuesday",
+      "3": "Wednesday",
+      "4": "Thursday",
+      "5": "Friday",
+      "6": "Saturday",
+      "7": "Sunday"
+    }
+  }
+}

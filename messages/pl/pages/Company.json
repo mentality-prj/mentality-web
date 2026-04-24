@@ -164,6 +164,15 @@
       "riskLow": "Niski",
       "riskMedium": "Średni",
       "riskHigh": "Wysoki",
+      "maskedNotice": "Część analityki jest ukryta przez warstwę prywatności.",
+      "maskedValue": "Ukryte",
+      "riskDistributionMasked": "Rozkład ryzyka jest ukryty.",
+      "trendMasked": "Trend jest ukryty.",
+      "maskReasons": {
+        "small_cohort": "Zbyt mało uczestników, aby wyświetlić metryki",
+        "composition_changed": "Skład zespołu istotnie się zmienił",
+        "low_activity": "Za mało aktywności w tym okresie"
+      },
       "trendTitle": "Trend",
       "groupsTitle": "Grupy",
       "groupName": "Grupa",

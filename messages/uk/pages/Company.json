@@ -164,6 +164,15 @@
       "riskLow": "Низький",
       "riskMedium": "Середній",
       "riskHigh": "Високий",
+      "maskedNotice": "Частина аналітики прихована через рівень конфіденційності.",
+      "maskedValue": "Приховано",
+      "riskDistributionMasked": "Розподіл ризиків прихований.",
+      "trendMasked": "Тренд прихований.",
+      "maskReasons": {
+        "small_cohort": "Замало учасників для відображення",
+        "composition_changed": "Склад команди суттєво змінився",
+        "low_activity": "Недостатньо активності за період"
+      },
       "trendTitle": "Тренд",
       "groupsTitle": "Групи",
       "groupName": "Група",

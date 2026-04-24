@@ -107,6 +107,22 @@ export type RiskDistribution = {
   high: number
 }
 
+export type AnalyticsMaskReason = 'small_cohort' | 'composition_changed' | 'low_activity'
+
+export type AnalyticsPrivacy = {
+  isMasked: boolean
+  maskReasons: AnalyticsMaskReason[]
+}
+
+export type AnalyticsPreferences = {
+  sprintAnchorDay: number
+  nextAllowedUpdateAt: string | null
+}
+
+export type UpdateAnalyticsPreferencesDto = {
+  sprintAnchorDay: number
+}
+
 export type AnalyticsGroupResult = {
   groupId: string
   groupName: string
@@ -130,10 +146,22 @@ export type AnalyticsTrendPoint = {
   checkins: number
 }
 
+export type AnalyticsTrendChartPoint = {
+  period: string
+  periodLabel: string
+  avgMood: number | null
+  avgStress: number | null
+  avgEnergy: number | null
+  avgFocus: number | null
+  checkins: number | null
+  isGap: boolean
+}
+
 export type AnalyticsResponse = {
   companyId: string
   from: string
   to: string
+  privacy: AnalyticsPrivacy
   totalEmployees: number
   activeEmployees: number
   totalCheckins: number

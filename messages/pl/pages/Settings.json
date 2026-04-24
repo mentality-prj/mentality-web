@@ -1,0 +1,27 @@
+{
+  "title": "Ustawienia",
+  "subtitle": "Zarządzaj ustawieniami raportu analitycznego.",
+  "report": {
+    "title": "Ustawienia raportu",
+    "description": "Wybierz dzień tygodnia używany dla sprintu analitycznego.",
+    "dayLabel": "Dzień tygodnia",
+    "placeholder": "Wybierz dzień",
+    "loading": "Ładowanie ustawień…",
+    "nextAllowed": "Następna zmiana będzie dostępna: {date}",
+    "nextAllowedNow": "Możesz zmienić dzień teraz.",
+    "saveBlocked": "Możesz zapisać ponownie po {date}.",
+    "save": "Zapisz",
+    "saving": "Zapisywanie…",
+    "saved": "Ustawienia raportu zapisano.",
+    "cooldownError": "Możesz zmienić ustawienia po {date}.",
+    "weekday": {
+      "1": "Poniedziałek",
+      "2": "Wtorek",
+      "3": "Środa",
+      "4": "Czwartek",
+      "5": "Piątek",
+      "6": "Sobota",
+      "7": "Niedziela"
+    }
+  }
+}
