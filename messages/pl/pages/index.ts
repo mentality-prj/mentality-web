@@ -18,6 +18,7 @@ import MySpace from './MySpace.json'
 import PrivacyPolicy from './PrivacyPolicy.json'
 import PsychologicalTests from './PsychologicalTests.json'
 import ServerError from './ServerError.json'
+import Settings from './Settings.json'
 import TermsOfService from './TermsOfService.json'
 
 export const pages = {
@@ -40,6 +41,7 @@ export const pages = {
   PrivacyPolicy,
   PsychologicalTests,
   MentalGames,
+  Settings,
   ServerError,
   TermsOfService,
 }

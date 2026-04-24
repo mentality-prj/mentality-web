@@ -1,7 +1,8 @@
 import { ONE_YEAR_MS } from '@/constants/company'
-import { GroupEntity } from '@/types/company'
+import { AnalyticsTrendChartPoint, AnalyticsTrendPoint, GroupEntity } from '@/types/company'
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
+const DAY_MS = 24 * 60 * 60 * 1000
 
 export function isValidEmail(email: string): boolean {
   return EMAIL_REGEX.test(email.trim())
@@ -20,6 +21,97 @@ export function todayStr(): string {
 
 export function oneYearAgoStr(): string {
   return new Date(Date.now() - ONE_YEAR_MS).toISOString().slice(0, 10)
+}
+
+function parseAnalyticsPeriod(period: string): { start: Date; end: Date } | null {
+  const [from, to] = period.split('/')
+  if (!from || !to) return null
+
+  const start = new Date(`${from}T00:00:00.000Z`)
+  const end = new Date(`${to}T00:00:00.000Z`)
+
+  if (Number.isNaN(start.getTime()) || Number.isNaN(end.getTime()) || end.getTime() < start.getTime()) {
+    return null
+  }
+
+  return { start, end }
+}
+
+function formatAnalyticsPeriodPart(date: Date): string {
+  const day = String(date.getUTCDate()).padStart(2, '0')
+  const month = String(date.getUTCMonth() + 1).padStart(2, '0')
+  return `${day}.${month}`
+}
+
+function formatAnalyticsPeriodPartWithYear(date: Date): string {
+  return `${formatAnalyticsPeriodPart(date)}.${date.getUTCFullYear()}`
+}
+
+function formatAnalyticsPeriodToken(date: Date): string {
+  return date.toISOString().slice(0, 10)
+}
+
+function createTrendChartPoint(point: AnalyticsTrendPoint): AnalyticsTrendChartPoint {
+  return {
+    ...point,
+    periodLabel: formatAnalyticsPeriodLabel(point.period),
+    isGap: false,
+  }
+}
+
+function createGapChartPoint(startMs: number, endMs: number): AnalyticsTrendChartPoint {
+  const start = new Date(startMs)
+  const end = new Date(endMs)
+  const period = `${formatAnalyticsPeriodToken(start)}/${formatAnalyticsPeriodToken(end)}`
+
+  return {
+    period,
+    periodLabel: formatAnalyticsPeriodLabel(period),
+    avgMood: null,
+    avgStress: null,
+    avgEnergy: null,
+    avgFocus: null,
+    checkins: null,
+    isGap: true,
+  }
+}
+
+export function formatAnalyticsPeriodLabel(period: string): string {
+  const range = parseAnalyticsPeriod(period)
+  if (!range) return period
+
+  return `${formatAnalyticsPeriodPartWithYear(range.start)} – ${formatAnalyticsPeriodPartWithYear(range.end)}`
+}
+
+export function buildAnalyticsTrendChartData(trend: AnalyticsTrendPoint[]): AnalyticsTrendChartPoint[] {
+  if (trend.length === 0) return []
+
+  const chartData: AnalyticsTrendChartPoint[] = []
+
+  trend.forEach((point, index) => {
+    chartData.push(createTrendChartPoint(point))
+
+    const currentRange = parseAnalyticsPeriod(point.period)
+    const nextPoint = trend[index + 1]
+    const nextRange = nextPoint ? parseAnalyticsPeriod(nextPoint.period) : null
+
+    if (!currentRange || !nextRange) return
+
+    const periodLengthDays = Math.max(
+      1,
+      Math.round((currentRange.end.getTime() - currentRange.start.getTime()) / DAY_MS) + 1
+    )
+    const lastGapDayMs = nextRange.start.getTime() - DAY_MS
+    let gapStartMs = currentRange.end.getTime() + DAY_MS
+
+    while (gapStartMs <= lastGapDayMs) {
+      const gapEndMs = Math.min(gapStartMs + (periodLengthDays - 1) * DAY_MS, lastGapDayMs)
+      chartData.push(createGapChartPoint(gapStartMs, gapEndMs))
+      gapStartMs = gapEndMs + DAY_MS
+    }
+  })
+
+  return chartData
 }
 
 /**

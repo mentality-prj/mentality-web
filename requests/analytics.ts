@@ -1,6 +1,6 @@
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
-import { AnalyticsResponse } from '@/types/company'
+import { AnalyticsPreferences, AnalyticsResponse, UpdateAnalyticsPreferencesDto } from '@/types/company'
 
 import { APIUrl } from './config'
 import { performAdminRequest, performAuthRequest } from './genericFetch'
@@ -10,6 +10,8 @@ export type MoodAnalyticsParams = {
   to: string
   groupIds?: string[]
 }
+
+const ANALYTICS_PREFERENCES_URL = `${APIUrl}/auth/me/analytics-preferences`
 
 export async function getMoodAnalytics(
   session: CustomSession | null,
@@ -28,6 +30,36 @@ export async function getMoodAnalytics(
   }
 
   return { data: res.data as AnalyticsResponse }
+}
+
+export async function getAnalyticsPreferences(
+  session: CustomSession | null
+): Promise<{ data: AnalyticsPreferences } | { error: string; status?: number }> {
+  const res = await performAuthRequest<AnalyticsPreferences>(session, ANALYTICS_PREFERENCES_URL, { method: 'GET' })
+
+  if ('error' in res) {
+    logger.error('Failed to fetch analytics preferences', { error: res.error })
+    return { error: res.error, status: res.status }
+  }
+
+  return { data: res.data as AnalyticsPreferences }
+}
+
+export async function updateAnalyticsPreferences(
+  session: CustomSession | null,
+  dto: UpdateAnalyticsPreferencesDto
+): Promise<{ data: AnalyticsPreferences } | { error: string; status?: number }> {
+  const res = await performAuthRequest<AnalyticsPreferences>(session, ANALYTICS_PREFERENCES_URL, {
+    method: 'PATCH',
+    body: dto,
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to update analytics preferences', { error: res.error, sprintAnchorDay: dto.sprintAnchorDay })
+    return { error: res.error, status: res.status }
+  }
+
+  return { data: res.data as AnalyticsPreferences }
 }
 
 export async function getMoodAnalyticsAdmin(

@@ -1,14 +1,14 @@
 'use client'
 
-import { useMemo, useRef, useState } from 'react'
+import { ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { ChevronDown, ChevronRight, FilterX, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
 
 import { GroupSelector } from '@/components/features/Company/GroupSelector'
-import { todayStr } from '@/helpers/company.helpers'
+import { buildAnalyticsTrendChartData, todayStr } from '@/helpers/company.helpers'
 import { useAnalytics } from '@/hooks/useAnalytics'
-import { AnalyticsGroupResult, GroupEntity } from '@/types/company'
+import { AnalyticsGroupResult, AnalyticsMaskReason, GroupEntity } from '@/types/company'
 import { Button } from '@/ui/button'
 import { Input } from '@/ui/input'
 import { Label } from '@/ui/label'
@@ -19,10 +19,16 @@ export function AnalyticsView() {
     useAnalytics()
 
   const hasData = analytics && analytics.totalCheckins > 0
+  const isMasked = analytics?.privacy?.isMasked ?? false
+  const maskReasons = analytics?.privacy?.maskReasons ?? []
 
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(new Set())
   const [riskFilter, setRiskFilter] = useState<'low' | 'medium' | 'high' | null>(null)
   const groupsTableRef = useRef<HTMLDivElement>(null)
+
+  useEffect(() => {
+    if (isMasked) setRiskFilter(null)
+  }, [isMasked])
 
   const toggleRiskFilter = (level: 'low' | 'medium' | 'high') => {
     setRiskFilter((prev) => (prev === level ? null : level))
@@ -136,6 +142,16 @@ export function AnalyticsView() {
     return [...visibleGroups].filter((g) => pick(g) > 0).sort((a, b) => pick(b) - pick(a))
   }, [riskFilter, visibleGroups, analytics])
 
+  const trendChartData = useMemo(() => {
+    if (!analytics) return []
+    return buildAnalyticsTrendChartData(analytics.trend)
+  }, [analytics])
+
+  const periodLabelMap = useMemo(
+    () => new Map(trendChartData.map((entry) => [entry.period, entry.periodLabel])),
+    [trendChartData]
+  )
+
   return (
     <div className="flex flex-col gap-sm">
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
@@ -188,62 +204,104 @@ export function AnalyticsView() {
 
       {hasData && derivedStats && (
         <>
+          {isMasked && <MaskedAnalyticsPlaceholder reasons={maskReasons} message={t('maskedNotice')} />}
+
           {/* Summary cards */}
           <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
             <SummaryCard label={t('totalEmployees')} value={derivedStats.totalEmployees} />
             <SummaryCard label={t('activeEmployees')} value={derivedStats.activeEmployees} />
             <SummaryCard label={t('totalCheckins')} value={derivedStats.totalCheckins} />
-            <SummaryCard label={t('avgMood')} value={derivedStats.avgMood} />
-            <SummaryCard label={t('avgStress')} value={derivedStats.avgStress} />
-            <SummaryCard label={t('avgEnergy')} value={derivedStats.avgEnergy} />
-            <SummaryCard label={t('avgFocus')} value={derivedStats.avgFocus} />
+            <SummaryCard label={t('avgMood')} value={isMasked ? t('maskedValue') : derivedStats.avgMood} />
+            <SummaryCard label={t('avgStress')} value={isMasked ? t('maskedValue') : derivedStats.avgStress} />
+            <SummaryCard label={t('avgEnergy')} value={isMasked ? t('maskedValue') : derivedStats.avgEnergy} />
+            <SummaryCard label={t('avgFocus')} value={isMasked ? t('maskedValue') : derivedStats.avgFocus} />
           </div>
 
           {/* Risk distribution */}
           <div className="flex flex-col gap-2">
             <h3 className="text-sm font-medium">{t('riskDistribution')}</h3>
-            <div className="flex gap-4">
-              <RiskBadge
-                label={t('riskLow')}
-                count={derivedStats.riskDistribution.low}
-                active={riskFilter === 'low'}
-                onClick={() => toggleRiskFilter('low')}
-                colorClass="bg-green-100 text-green-800 ring-green-400"
-              />
-              <RiskBadge
-                label={t('riskMedium')}
-                count={derivedStats.riskDistribution.medium}
-                active={riskFilter === 'medium'}
-                onClick={() => toggleRiskFilter('medium')}
-                colorClass="bg-yellow-100 text-yellow-800 ring-yellow-400"
-              />
-              <RiskBadge
-                label={t('riskHigh')}
-                count={derivedStats.riskDistribution.high}
-                active={riskFilter === 'high'}
-                onClick={() => toggleRiskFilter('high')}
-                colorClass="bg-red-100 text-red-800 ring-red-400"
-              />
-            </div>
+            {isMasked ? (
+              <MaskedAnalyticsPlaceholder reasons={maskReasons} message={t('riskDistributionMasked')} compact />
+            ) : (
+              <div className="flex gap-4">
+                <RiskBadge
+                  label={t('riskLow')}
+                  count={derivedStats.riskDistribution.low}
+                  active={riskFilter === 'low'}
+                  onClick={() => toggleRiskFilter('low')}
+                  colorClass="bg-green-100 text-green-800 ring-green-400"
+                />
+                <RiskBadge
+                  label={t('riskMedium')}
+                  count={derivedStats.riskDistribution.medium}
+                  active={riskFilter === 'medium'}
+                  onClick={() => toggleRiskFilter('medium')}
+                  colorClass="bg-yellow-100 text-yellow-800 ring-yellow-400"
+                />
+                <RiskBadge
+                  label={t('riskHigh')}
+                  count={derivedStats.riskDistribution.high}
+                  active={riskFilter === 'high'}
+                  onClick={() => toggleRiskFilter('high')}
+                  colorClass="bg-red-100 text-red-800 ring-red-400"
+                />
+              </div>
+            )}
           </div>
 
           {/* Trend chart */}
-          {analytics.trend.length > 0 && (
+          {(analytics.trend.length > 0 || isMasked) && (
             <div className="flex flex-col gap-2">
               <h3 className="text-sm font-medium">{t('trendTitle')}</h3>
               <div className="rounded-md border border-border p-4">
-                <ResponsiveContainer width="100%" height={280}>
-                  <LineChart data={analytics.trend} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
-                    <XAxis dataKey="period" tick={{ fontSize: 12 }} />
-                    <YAxis domain={[0, 5]} tick={{ fontSize: 12 }} />
-                    <Tooltip />
-                    <Line type="monotone" dataKey="avgMood" stroke="hsl(var(--primary))" name={t('avgMood')} />
-                    <Line type="monotone" dataKey="avgStress" stroke="hsl(var(--destructive))" name={t('avgStress')} />
-                    <Line type="monotone" dataKey="avgEnergy" stroke="hsl(var(--chart-3))" name={t('avgEnergy')} />
-                    <Line type="monotone" dataKey="avgFocus" stroke="hsl(var(--chart-4))" name={t('avgFocus')} />
-                  </LineChart>
-                </ResponsiveContainer>
+                {isMasked ? (
+                  <MaskedAnalyticsPlaceholder reasons={maskReasons} message={t('trendMasked')} compact />
+                ) : (
+                  <ResponsiveContainer width="100%" height={280}>
+                    <LineChart data={trendChartData} margin={{ top: 8, right: 16, left: 0, bottom: 8 }}>
+                      <CartesianGrid strokeDasharray="3 3" stroke="hsl(var(--border))" />
+                      <XAxis
+                        dataKey="period"
+                        tick={{ fontSize: 12 }}
+                        tickFormatter={(value: string) => periodLabelMap.get(value) ?? value}
+                      />
+                      <YAxis domain={[0, 5]} tick={{ fontSize: 12 }} />
+                      <Tooltip labelFormatter={(value: string) => periodLabelMap.get(value) ?? String(value)} />
+                      <Line
+                        type="monotone"
+                        dataKey="avgMood"
+                        stroke="hsl(var(--primary))"
+                        name={t('avgMood')}
+                        connectNulls={false}
+                        dot={false}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="avgStress"
+                        stroke="hsl(var(--destructive))"
+                        name={t('avgStress')}
+                        connectNulls={false}
+                        dot={false}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="avgEnergy"
+                        stroke="hsl(var(--chart-3))"
+                        name={t('avgEnergy')}
+                        connectNulls={false}
+                        dot={false}
+                      />
+                      <Line
+                        type="monotone"
+                        dataKey="avgFocus"
+                        stroke="hsl(var(--chart-4))"
+                        name={t('avgFocus')}
+                        connectNulls={false}
+                        dot={false}
+                      />
+                    </LineChart>
+                  </ResponsiveContainer>
+                )}
               </div>
             </div>
           )}
@@ -253,7 +311,7 @@ export function AnalyticsView() {
             <div ref={groupsTableRef} className="flex flex-col gap-2">
               <div className="flex items-center gap-xs">
                 <h3 className="text-sm font-medium">{t('groupsTitle')}</h3>
-                {riskFilter && (
+                {!isMasked && riskFilter && (
                   <span
                     className={`flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium ${
                       riskFilter === 'high'
@@ -289,7 +347,7 @@ export function AnalyticsView() {
                     </tr>
                   </thead>
                   <tbody>
-                    {riskFilteredGroups
+                    {!isMasked && riskFilteredGroups
                       ? riskFilteredGroups.map((g) => (
                           <tr key={g.groupId} className="border-t border-border">
                             <td className="px-3 py-2">{g.groupName}</td>
@@ -308,6 +366,7 @@ export function AnalyticsView() {
                             childrenMap={childrenMap}
                             expandedGroups={expandedGroups}
                             toggleExpand={toggleExpand}
+                            isMasked={isMasked}
                             depth={0}
                           />
                         ))}
@@ -322,7 +381,7 @@ export function AnalyticsView() {
   )
 }
 
-function SummaryCard({ label, value }: { label: string; value: number }) {
+function SummaryCard({ label, value }: { label: string; value: ReactNode }) {
   return (
     <div className="rounded-md border border-border p-3">
       <p className="text-textcolor-tertiary text-xs">{label}</p>
@@ -362,12 +421,14 @@ function GroupRow({
   childrenMap,
   expandedGroups,
   toggleExpand,
+  isMasked,
   depth,
 }: {
   group: AnalyticsGroupResult
   childrenMap: Map<string, AnalyticsGroupResult[]>
   expandedGroups: Set<string>
   toggleExpand: (id: string) => void
+  isMasked: boolean
   depth: number
 }) {
   const t = useTranslations('pages.Company.manager.analytics')
@@ -398,10 +459,10 @@ function GroupRow({
         </td>
         <td className="px-3 py-2 text-right">{group.totalEmployees}</td>
         <td className="px-3 py-2 text-right">{group.totalCheckins}</td>
-        <td className="px-3 py-2 text-right">{group.avgMood}</td>
-        <td className="px-3 py-2 text-right">{group.avgStress}</td>
-        <td className="px-3 py-2 text-right">{group.avgEnergy}</td>
-        <td className="px-3 py-2 text-right">{group.avgFocus}</td>
+        <td className="px-3 py-2 text-right">{isMasked ? t('maskedValue') : group.avgMood}</td>
+        <td className="px-3 py-2 text-right">{isMasked ? t('maskedValue') : group.avgStress}</td>
+        <td className="px-3 py-2 text-right">{isMasked ? t('maskedValue') : group.avgEnergy}</td>
+        <td className="px-3 py-2 text-right">{isMasked ? t('maskedValue') : group.avgFocus}</td>
       </tr>
       {isExpanded &&
         children.map((child) => (
@@ -411,9 +472,39 @@ function GroupRow({
             childrenMap={childrenMap}
             expandedGroups={expandedGroups}
             toggleExpand={toggleExpand}
+            isMasked={isMasked}
             depth={depth + 1}
           />
         ))}
     </>
+  )
+}
+
+function MaskedAnalyticsPlaceholder({
+  reasons,
+  message,
+  compact = false,
+}: {
+  reasons: AnalyticsMaskReason[]
+  message: string
+  compact?: boolean
+}) {
+  const t = useTranslations('pages.Company.manager.analytics')
+
+  return (
+    <div
+      className={`rounded-md border border-dashed border-amber-300 bg-amber-50 text-amber-950 ${
+        compact ? 'p-3' : 'p-4'
+      }`}
+    >
+      <p className="text-sm font-medium">{message}</p>
+      {reasons.length > 0 && (
+        <ul className="mt-2 list-disc pl-5 text-sm">
+          {reasons.map((reason) => (
+            <li key={reason}>{t(`maskReasons.${reason}` as const)}</li>
+          ))}
+        </ul>
+      )}
+    </div>
   )
 }
