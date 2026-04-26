@@ -20,6 +20,15 @@ import {
 
 import { APIUrl } from './config'
 import { performAdminRequest } from './genericFetch'
+import { extractInviteArray, extractInviteTotal } from './inviteResponse.helpers'
+
+function toBackendInvitePayload(dto: CreateInviteDto): Record<string, unknown> {
+  return {
+    inviteeEmail: dto.email,
+    role: dto.role,
+    groupId: dto.groupIds[0],
+  }
+}
 
 // ─── Employees ────────────────────────────────────────────────────────────────
 
@@ -190,15 +199,16 @@ export async function adminGetInvites(
   limit = 20
 ): Promise<{ data: PaginatedInvites } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.invites(companyId, page, limit)}`
-  const res = await performAdminRequest<InviteEntity[]>(session, url)
+  const res = await performAdminRequest<unknown>(session, url)
 
   if ('error' in res) {
     logger.error('Failed to fetch company invites', { error: res.error, companyId })
     return { error: res.error }
   }
 
-  const items = mapInvites(res.data)
-  const total = extractPaginationTotal(res.headers, items.length)
+  const normalized = extractInviteArray(res.data)
+  const items = mapInvites(normalized)
+  const total = extractInviteTotal(res.data, res.headers, items.length)
   return { data: { items, total } }
 }
 
@@ -207,10 +217,15 @@ export async function adminCreateInvite(
   companyId: string,
   dto: CreateInviteDto
 ): Promise<{ data: InviteEntity } | { error: string }> {
+  if (!dto.groupIds.length) {
+    logger.error('Failed to create company invite: no group selected', { companyId })
+    return { error: 'Group is required' }
+  }
+
   const res = await performAdminRequest<InviteEntity>(
     session,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteBase(companyId)}`,
-    { method: 'POST', body: dto as unknown as Record<string, unknown> }
+    { method: 'POST', body: toBackendInvitePayload(dto) }
   )
 
   if ('error' in res) {

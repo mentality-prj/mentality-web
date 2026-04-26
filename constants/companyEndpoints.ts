@@ -55,3 +55,12 @@ export const COMPANY_ADMIN_ENDPOINTS = Object.freeze({
   accessScopes: (companyId: string) => companyUrl(companyId, '/access-scopes'),
   accessScopeById: (companyId: string, id: string) => companyUrl(companyId, `/access-scopes/${id}`),
 })
+
+export const DECISION_SUPPORT_ENDPOINTS = Object.freeze({
+  report: (companyId: string) => companyUrl(companyId, '/decision-support/report'),
+  riskEvents: (companyId: string) => companyUrl(companyId, '/decision-support/risk-events'),
+  riskEventAddress: (companyId: string, eventId: string) =>
+    companyUrl(companyId, `/decision-support/risk-events/${eventId}/address`),
+  riskEventEvidence: (companyId: string, eventId: string) =>
+    companyUrl(companyId, `/decision-support/risk-events/${eventId}/evidence`),
+})

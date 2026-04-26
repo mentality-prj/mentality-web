@@ -1,13 +1,14 @@
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { getTranslations } from 'next-intl/server'
 
 import { LandingFooter, LandingHeader } from '@/components/features/Landing'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/ui/button'
 
-export default function ServerErrorPage() {
-  const t = useTranslations('pages.ServerError')
+export default async function ServerErrorPage({ params }: { params: Promise<{ locale: string }> }) {
+  await params
+  const t = await getTranslations('pages.ServerError')
 
   return (
     <main className="flex min-h-screen w-full flex-col justify-between bg-white">

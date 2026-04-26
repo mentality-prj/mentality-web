@@ -93,6 +93,12 @@ const mockDto: CreateInviteDto = {
   groupIds: ['g-1'],
 }
 
+const expectedBackendInvitePayload = {
+  inviteeEmail: 'employee@company.com',
+  role: COMPANY_ROLES.EMPLOYEE,
+  groupId: 'g-1',
+}
+
 beforeEach(() => {
   jest.clearAllMocks()
 })
@@ -109,7 +115,7 @@ describe('createInvite', () => {
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSuperuserSession,
       expect.stringContaining(INVITE_ENDPOINTS.base('c-1')),
-      expect.objectContaining({ method: 'POST', body: mockDto })
+      expect.objectContaining({ method: 'POST', body: expectedBackendInvitePayload })
     )
   })
 
@@ -159,6 +165,16 @@ describe('createInvite', () => {
     expect(result).toEqual({ error: 'Unauthorized: insufficient role' })
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
+
+  it('returns error when no groups are selected and skips request', async () => {
+    const dtoWithoutGroups: CreateInviteDto = { ...mockDto, groupIds: [] }
+
+    const result = await createInvite(mockSuperuserSession, 'c-1', dtoWithoutGroups)
+
+    expect(result).toEqual({ error: 'Group is required' })
+    expect(performAuthRequest).not.toHaveBeenCalled()
+    expect(logger.warn).toHaveBeenCalledWith('Create invite aborted: no groupIds provided')
+  })
 })
 
 // ─── getInvites ───────────────────────────────────────────────────────────────
@@ -204,6 +220,47 @@ describe('getInvites', () => {
 
     expect(performAuthRequest).toHaveBeenCalledWith(mockSuperuserSession, expect.stringContaining('page=3'))
     expect(performAuthRequest).toHaveBeenCalledWith(mockSuperuserSession, expect.stringContaining('limit=10'))
+  })
+
+  it('handles wrapped array in items/data/invites', async () => {
+    const payloads = [{ items: [mockInviteRaw] }, { data: [mockInviteRaw] }, { invites: [mockInviteRaw] }]
+    for (const data of payloads) {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data })
+      const result = await getInvites(mockSuperuserSession, 'c-1')
+      expect('data' in result).toBe(true)
+      if ('data' in result) {
+        expect(result.data.items).toHaveLength(1)
+        expect(result.data.items[0].id).toBe('inv-1')
+      }
+    }
+  })
+
+  it('extracts total from pagination.total in payload', async () => {
+    const data = { items: [mockInviteRaw], pagination: { total: 42 } }
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data })
+    const result = await getInvites(mockSuperuserSession, 'c-1')
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data.total).toBe(42)
+    }
+  })
+
+  it('extracts total from headers if present', async () => {
+    const data = { items: [mockInviteRaw] }
+    const headers = { 'x-total-count': '99' }
+    // Patch extractPaginationTotal to return header value
+    const extractPaginationTotal = require('@/lib/http').extractPaginationTotal
+    extractPaginationTotal.mockImplementation(
+      (_headers: any, fallback: any) => Number(headers['x-total-count']) || fallback
+    )
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data, headers })
+    const result = await getInvites(mockSuperuserSession, 'c-1')
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data.total).toBe(99)
+    }
+    // Restore default
+    extractPaginationTotal.mockImplementation((_headers: any, fallback: any) => fallback)
   })
 })
 
@@ -323,7 +380,7 @@ describe('createInviteAdmin', () => {
     expect(performAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteBase('c-1')),
-      expect.objectContaining({ method: 'POST', body: mockDto })
+      expect.objectContaining({ method: 'POST', body: expectedBackendInvitePayload })
     )
     expect(performAuthRequest).not.toHaveBeenCalled()
   })

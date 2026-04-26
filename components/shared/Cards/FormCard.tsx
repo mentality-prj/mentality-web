@@ -8,6 +8,7 @@ interface FormCardProps {
   tools?: ReactNode
   children?: ReactNode
   className?: string
+  childrenClassName?: string
   onSubmit?: () => void
   onCancel?: () => void
   submitDisabled?: boolean
@@ -20,6 +21,7 @@ export default function FormCard({
   tools,
   children,
   className = '',
+  childrenClassName,
   onSubmit,
   onCancel,
   submitDisabled = false,
@@ -33,7 +35,7 @@ export default function FormCard({
         <div>{tools}</div>
       </div>
 
-      <div className="mt-4">{children}</div>
+      <div className={`mt-4${childrenClassName ? ` ${childrenClassName}` : ''}`}>{children}</div>
 
       {onSubmit &&
         (onCancel && cancelLabel ? (

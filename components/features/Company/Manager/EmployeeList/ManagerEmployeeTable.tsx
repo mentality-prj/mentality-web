@@ -1,22 +1,14 @@
 'use client'
 
-import { useState } from 'react'
-import { Pencil, Trash2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import { EditEmployeeModal } from '@/components/features/Company/CompanyAdmin/EmployeeList/EditEmployeeModal'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { useEmployeeTable } from '@/hooks/useEmployeeTable'
-import { useGroups } from '@/hooks/useGroups'
-import { EmployeeEntity } from '@/types/company'
-import { Button } from '@/ui/button'
 
-export function EmployeeTable() {
+export function ManagerEmployeeTable() {
   const t = useTranslations('pages.Company.companyAdmin.employees')
   const tRoles = useTranslations('pages.Company.roles')
-  const { items, page, setPage, loading, error, totalPages, handleRemove, handleEdit } = useEmployeeTable()
-  const { items: groups } = useGroups()
-  const [editingEmployee, setEditingEmployee] = useState<EmployeeEntity | null>(null)
+  const { items, page, setPage, loading, error, totalPages } = useEmployeeTable()
 
   if (loading) return <p className="text-sm text-textcolor-secondary">{t('loading')}</p>
   if (error) return <p className="text-destructive text-sm">{error}</p>
@@ -34,7 +26,6 @@ export function EmployeeTable() {
               <th className="px-4 py-2 text-left font-medium">{t('columns.grade')}</th>
               <th className="px-4 py-2 text-left font-medium">{t('columns.salary')}</th>
               <th className="px-4 py-2 text-left font-medium">{t('columns.groups')}</th>
-              <th className="px-4 py-2 text-left font-medium">{t('columns.actions')}</th>
             </tr>
           </thead>
           <tbody>
@@ -60,28 +51,6 @@ export function EmployeeTable() {
                   {emp.avgAnnualSalaryEur != null ? `€${emp.avgAnnualSalaryEur.toLocaleString()}` : '—'}
                 </td>
                 <td className="px-4 py-2">{emp.groupsCount}</td>
-                <td className="px-4 py-2">
-                  <div className="flex items-center gap-1">
-                    <Button
-                      size="small"
-                      variant="ghost"
-                      className="h-7 w-7 p-0"
-                      aria-label={t('ariaEdit')}
-                      onClick={() => setEditingEmployee(emp)}
-                    >
-                      <Pencil size={13} />
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="ghost"
-                      className="text-destructive hover:text-destructive h-7 w-7 p-0"
-                      aria-label={t('ariaRemove')}
-                      onClick={() => handleRemove(emp.id)}
-                    >
-                      <Trash2 size={13} />
-                    </Button>
-                  </div>
-                </td>
               </tr>
             ))}
           </tbody>
@@ -89,20 +58,6 @@ export function EmployeeTable() {
       </div>
 
       <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />
-
-      {editingEmployee && (
-        <EditEmployeeModal
-          employeeId={editingEmployee.id}
-          employeeName={editingEmployee.name || editingEmployee.email}
-          currentRole={editingEmployee.role}
-          currentGroupIds={editingEmployee.groupIds}
-          currentGradeId={editingEmployee.gradeId ?? ''}
-          currentSalaryEur={editingEmployee.avgAnnualSalaryEur ?? null}
-          groups={groups}
-          onSave={handleEdit}
-          onClose={() => setEditingEmployee(null)}
-        />
-      )}
     </div>
   )
 }

@@ -80,7 +80,9 @@
         "email": "Email",
         "role": "Rola",
         "groups": "Grupy",
-        "actions": "Akcje"
+        "actions": "Akcje",
+        "grade": "Stopień",
+        "salary": "Śr. wynagrodzenie/rok"
       },
       "empty": "Nie znaleziono pracowników.",
       "loading": "Ładowanie pracowników…",
@@ -92,10 +94,13 @@
       "editTitle": "Edytuj pracownika",
       "roleLabel": "Rola",
       "groupsLabel": "Grupy",
+      "gradePlaceholder": "Wpisz ID stopnia",
+      "salaryPlaceholder": "Wpisz roczne wynagrodzenie w EUR",
       "saveButton": "Zapisz",
       "cancelButton": "Anuluj",
       "saving": "Zapisywanie…",
-      "errorGroups": "Wybierz co najmniej jedną grupę."
+      "errorGroups": "Wybierz co najmniej jedną grupę.",
+      "errorSalary": "Wprowadź poprawne wynagrodzenie (liczba >= 0)."
     },
     "invite": {
       "title": "Zaproś pracownika",
@@ -131,6 +136,7 @@
   },
   "manager": {
     "title": "Panel Menedżera",
+    "employeesSection": "Pracownicy",
     "invitesSection": "Zaproszenia",
     "invite": {
       "title": "Zaproś pracownika",
@@ -161,6 +167,7 @@
       "avgEnergy": "Śr. energia",
       "avgFocus": "Śr. skupienie",
       "riskDistribution": "Rozkład ryzyka",
+      "riskDistributionHint": "Liczby w kategoriach ryzyka oznaczają liczbę pracowników, a nie liczbę grup.",
       "riskLow": "Niski",
       "riskMedium": "Średni",
       "riskHigh": "Wysoki",
@@ -171,7 +178,8 @@
       "maskReasons": {
         "small_cohort": "Zbyt mało uczestników, aby wyświetlić metryki",
         "composition_changed": "Skład zespołu istotnie się zmienił",
-        "low_activity": "Za mało aktywności w tym okresie"
+        "low_activity": "Za mało aktywności w tym okresie",
+        "insufficient_checkins": "Za mało check-inów w tym okresie"
       },
       "trendTitle": "Trend",
       "groupsTitle": "Grupy",
@@ -179,6 +187,99 @@
       "clearRiskFilter": "Wyczyść filtr ryzyka",
       "collapseSubgroups": "Zwiń podgrupy",
       "expandSubgroups": "Rozwiń podgrupy"
+    },
+    "decisionSupport": {
+      "title": "Decision Support",
+      "refresh": "Odśwież",
+      "loading": "Ładowanie decision support…",
+      "error": {
+        "reportUnavailable": "Nie udało się załadować raportu decision support. Spróbuj ponownie później."
+      },
+      "guard": {
+        "title": "Ograniczenia interpretacji",
+        "note": "Ta analityka pokazuje asocjacje i sygnały ryzyka, ale nie dowodzi związku przyczynowo-skutkowego.",
+        "reasons": {
+          "causal_attribution_blocked": "System blokuje wnioski przyczynowo-skutkowe dla tego wycinka analityki.",
+          "company_privacy_masked": "Część danych jest ukryta przez politykę prywatności firmy.",
+          "group_level_masking": "Część danych grupowych jest maskowana z powodu progów prywatności.",
+          "scoped_manager_view": "Widoczność jest ograniczona do dozwolonego zakresu grup menedżera."
+        }
+      },
+      "executiveSummary": {
+        "title": "Executive summary",
+        "status": "Ogólny poziom ryzyka",
+        "headline": "Najważniejszy wniosek",
+        "confidence": "Wiarygodność analizy"
+      },
+      "actions": {
+        "title": "Recommended actions",
+        "empty": "Dla wybranego okresu nie wygenerowano automatycznych działań.",
+        "viewRiskEvents": "Zobacz risk events",
+        "priority": "Priorytet",
+        "severity": "Istotność",
+        "confidence": "Pewność",
+        "target": "Cel",
+        "targetId": "Nazwa celu",
+        "expectedStressReduction": "Oczekiwana redukcja stresu",
+        "expectedRetentionImpact": "Oczekiwany wpływ na retencję",
+        "createAction": "Utwórz działanie",
+        "createActionHint": "Przycisk Utwórz działanie jest gotowy do integracji z wewnętrznym przepływem task/issue.",
+        "markAddressed": "Oznacz jako opracowane",
+        "markAddressedSuccess": "Zdarzenie ryzyka oznaczono jako opracowane"
+      },
+      "financial": {
+        "title": "Wpływ finansowy",
+        "group": "Grupa",
+        "totalEstimatedRiskEur": "Łączne oszacowane ryzyko (EUR)",
+        "estimatedAttritionCostEur": "Szacowany koszt rotacji (EUR)",
+        "estimatedProductivityLossEur": "Szacowana utrata produktywności (EUR)",
+        "notEnoughData": "Za mało danych do oszacowania",
+        "noTeamBreakdown": "Brak rozbicia na zespoły dla tego okresu"
+      },
+      "lifecycle": {
+        "title": "Risk lifecycle",
+        "emptyStatus": "Brak zdarzeń w tym statusie",
+        "eventTitle": "Zdarzenie",
+        "severity": "Istotność",
+        "priority": "Priorytet",
+        "occurrenceCount": "Liczba wystąpień",
+        "lastSeenAt": "Ostatnio wykryte",
+        "estimatedImpactEur": "Szacowany wpływ (EUR)",
+        "showEvidence": "Pokaż dowody",
+        "hideEvidence": "Ukryj dowody",
+        "status": {
+          "active": "Aktywne",
+          "escalating": "Eskalujące",
+          "resolved": "Rozwiązane",
+          "suppressed": "Wyciszone"
+        }
+      },
+      "values": {
+        "status": {
+          "stable": "Stabilny",
+          "normal": "Normalny",
+          "elevated": "Podwyższony",
+          "high": "Wysoki",
+          "critical": "Krytyczny"
+        },
+        "level": {
+          "low": "Niski",
+          "medium": "Średni",
+          "high": "Wysoki",
+          "critical": "Krytyczny"
+        },
+        "target": {
+          "company": "Firma",
+          "team": "Zespół",
+          "group": "Grupa",
+          "employee": "Pracownik"
+        },
+        "confidence": {
+          "low": "Niska",
+          "medium": "Średnia",
+          "high": "Wysoka"
+        }
+      }
     }
   },
   "invites": {
@@ -193,6 +294,8 @@
     "status": {
       "pending": "Oczekujące",
       "accepted": "Przyjęte",
+      "declined": "Odrzucone",
+      "cancelled": "Anulowane",
       "expired": "Wygasłe"
     },
     "resent": "Zaproszenie wysłane ponownie.",
@@ -200,6 +303,7 @@
     "ariaResend": "Wyślij ponownie zaproszenie",
     "ariaCancel": "Anuluj zaproszenie",
     "empty": "Brak zaproszeń.",
+    "managerOnlyCreatedHint": "Brak zaproszeń utworzonych przez Ciebie. Menedżer widzi tylko zaproszenia, które sam utworzył.",
     "loading": "Ładowanie zaproszeń…"
   },
   "roles": {

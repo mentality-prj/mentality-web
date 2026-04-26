@@ -2,13 +2,13 @@
 
 import { useCallback, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { RefreshCw, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { useAuth } from '@/context/AuthProvider'
 import { cn } from '@/lib/utils'
-import { adminCancelInvite, adminGetInvites, adminResendInvite } from '@/requests/companyAdmin'
+import { adminCancelInvite, adminGetInvites } from '@/requests/companyAdmin'
 import { CustomSession } from '@/types/auth'
 import { InviteEntity, InviteStatus } from '@/types/company'
 import { Button } from '@/ui/button'
@@ -16,6 +16,8 @@ import { Button } from '@/ui/button'
 const STATUS_CLASSES: Record<InviteStatus, string> = {
   pending: 'bg-yellow-100 text-yellow-800',
   accepted: 'bg-green-100 text-green-800',
+  declined: 'bg-red-100 text-red-800',
+  cancelled: 'bg-slate-100 text-slate-600',
   expired: 'bg-gray-100 text-gray-500',
 }
 
@@ -56,16 +58,6 @@ export function AdminInviteList({ companyId }: Props) {
       setLoading(false)
     }
   }, [fetchInvites, status])
-
-  async function onResend(id: string) {
-    const res = await adminResendInvite(data as CustomSession, companyId, id)
-    if ('error' in res) {
-      toast.error(res.error)
-      return
-    }
-    toast.success(t('resent'))
-    setItems((prev) => prev.map((inv) => (inv.id === id ? res.data : inv)))
-  }
 
   async function onCancel(id: string) {
     const res = await adminCancelInvite(data as CustomSession, companyId, id)
@@ -113,17 +105,6 @@ export function AdminInviteList({ companyId }: Props) {
                 </td>
                 <td className="px-4 py-2">
                   <div className="flex items-center gap-1">
-                    {(inv.status === 'pending' || inv.status === 'expired') && (
-                      <Button
-                        size="small"
-                        variant="ghost"
-                        className="h-7 w-7 p-0"
-                        aria-label={t('ariaResend')}
-                        onClick={() => onResend(inv.id)}
-                      >
-                        <RefreshCw size={13} />
-                      </Button>
-                    )}
                     {inv.status === 'pending' && (
                       <Button
                         size="small"

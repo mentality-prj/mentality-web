@@ -1,0 +1,25 @@
+{
+  "title": "Dowody asocjacji",
+  "ariaLoading": "Ładowanie danych dowodowych",
+  "ariaConfidence": "Poziom pewności",
+  "ariaUplift": "Wartość wzrostu",
+  "errorFallback": "Niewystarczające dane dla tego zdarzenia. Dowody będą gromadzone z czasem.",
+  "granularity": {
+    "full": "Wysoka pewność",
+    "reduced": "Umiarkowana pewność",
+    "baselineOnly": "Niska pewność",
+    "insufficientData": "Niewystarczające dane"
+  },
+  "stats": {
+    "similarCases": "Podobne przypadki",
+    "effectiveN": "Efektywna próba (N)",
+    "improvedRate": "Wskaźnik poprawy",
+    "dataCoverage": "Pokrycie danych"
+  },
+  "uplift": {
+    "label": "Wzrost",
+    "withAction": "Z działaniem",
+    "withoutAction": "Bez działania"
+  },
+  "requestError": "Nie udało się załadować danych dowodowych. Spróbuj ponownie później."
+}

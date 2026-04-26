@@ -1,8 +1,6 @@
-import { ArrowRight, Check, CheckCheck } from 'lucide-react'
+import { Check, CheckCheck } from 'lucide-react'
 
-import Card from '@/components/shared/Cards/Card'
-import { Link } from '@/i18n/navigation'
-import { Button } from '@/ui/button'
+import { InfoBanner } from '@/ds/components/InfoBanner'
 
 type NextTestBannerProps = {
   label: string
@@ -25,30 +23,21 @@ export function NextTestBanner({
   isDone = false,
 }: NextTestBannerProps) {
   return (
-    <Card type="info">
-      <div className="flex flex-row items-start gap-xs text-sm">
-        <div className="h-8 w-8">
-          {isDone ? (
-            <CheckCheck size={32} className="text-white opacity-50" />
-          ) : (
-            <Check size={32} className="text-white opacity-50" />
-          )}
-        </div>
-        <div className="mt-1 flex flex-col gap-sm">
-          <h5 className="remark">{label}</h5>
-          <h4>{title}</h4>
-          <p>{description}</p>
-          {hint && <p className="remark">{hint}</p>}
-          {nextHref && (
-            <Button asChild className="text-shadow-none">
-              <Link href={nextHref}>
-                {cta}
-                <ArrowRight size={16} className="ml-1.5" />
-              </Link>
-            </Button>
-          )}
-        </div>
-      </div>
-    </Card>
+    <InfoBanner
+      icon={
+        isDone ? (
+          <CheckCheck size={32} className="text-white opacity-50" />
+        ) : (
+          <Check size={32} className="text-white opacity-50" />
+        )
+      }
+      type="info"
+      label={label}
+      title={title}
+      description={<p>{description}</p>}
+      hint={hint}
+      cta={cta}
+      href={nextHref}
+    />
   )
 }

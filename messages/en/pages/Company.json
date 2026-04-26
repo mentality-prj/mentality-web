@@ -80,7 +80,9 @@
         "email": "Email",
         "role": "Role",
         "groups": "Groups",
-        "actions": "Actions"
+        "actions": "Actions",
+        "grade": "Grade",
+        "salary": "Avg. Salary/yr"
       },
       "empty": "No employees found.",
       "loading": "Loading employees…",
@@ -92,10 +94,13 @@
       "editTitle": "Edit Employee",
       "roleLabel": "Role",
       "groupsLabel": "Groups",
+      "gradePlaceholder": "Enter grade ID",
+      "salaryPlaceholder": "Enter annual salary in EUR",
       "saveButton": "Save",
       "cancelButton": "Cancel",
       "saving": "Saving…",
-      "errorGroups": "Select at least one group."
+      "errorGroups": "Select at least one group.",
+      "errorSalary": "Enter a valid salary (number >= 0)."
     },
     "invite": {
       "title": "Invite Employee",
@@ -131,6 +136,7 @@
   },
   "manager": {
     "title": "Manager Dashboard",
+    "employeesSection": "Employees",
     "invitesSection": "Invites",
     "invite": {
       "title": "Invite Employee",
@@ -161,6 +167,7 @@
       "avgEnergy": "Avg Energy",
       "avgFocus": "Avg Focus",
       "riskDistribution": "Risk Distribution",
+      "riskDistributionHint": "Counts in risk categories represent employees, not groups.",
       "riskLow": "Low",
       "riskMedium": "Medium",
       "riskHigh": "High",
@@ -171,7 +178,8 @@
       "maskReasons": {
         "small_cohort": "Too few participants to display metrics",
         "composition_changed": "Team composition changed significantly",
-        "low_activity": "Not enough activity for this period"
+        "low_activity": "Not enough activity for this period",
+        "insufficient_checkins": "Not enough check-ins for this period"
       },
       "trendTitle": "Trend",
       "groupsTitle": "Groups",
@@ -179,6 +187,99 @@
       "clearRiskFilter": "Clear risk filter",
       "collapseSubgroups": "Collapse subgroups",
       "expandSubgroups": "Expand subgroups"
+    },
+    "decisionSupport": {
+      "title": "Decision Support",
+      "refresh": "Refresh",
+      "loading": "Loading decision support…",
+      "error": {
+        "reportUnavailable": "Unable to load the decision support report. Please try again later."
+      },
+      "guard": {
+        "title": "Interpretation guard",
+        "note": "This analytics view shows associations and risk signals, but does not prove causal relationships.",
+        "reasons": {
+          "causal_attribution_blocked": "The system blocks causal conclusions for this analytics slice.",
+          "company_privacy_masked": "Part of the data is hidden by company privacy policy.",
+          "group_level_masking": "Some group-level data is masked due to privacy thresholds.",
+          "scoped_manager_view": "Visibility is limited to the manager's allowed group scope."
+        }
+      },
+      "executiveSummary": {
+        "title": "Executive summary",
+        "status": "Overall risk level",
+        "headline": "Key finding",
+        "confidence": "Analysis reliability"
+      },
+      "actions": {
+        "title": "Recommended actions",
+        "empty": "No automatic actions were generated for the selected period.",
+        "viewRiskEvents": "View risk events",
+        "priority": "Priority",
+        "severity": "Severity",
+        "confidence": "Confidence",
+        "target": "Target",
+        "targetId": "Target name",
+        "expectedStressReduction": "Expected stress reduction",
+        "expectedRetentionImpact": "Expected retention impact",
+        "createAction": "Create action",
+        "createActionHint": "The Create action button is ready for integration with your internal task/issue flow.",
+        "markAddressed": "Mark as addressed",
+        "markAddressedSuccess": "Risk event marked as addressed"
+      },
+      "financial": {
+        "title": "Financial impact",
+        "group": "Group",
+        "totalEstimatedRiskEur": "Total estimated risk (EUR)",
+        "estimatedAttritionCostEur": "Estimated attrition cost (EUR)",
+        "estimatedProductivityLossEur": "Estimated productivity loss (EUR)",
+        "notEnoughData": "Not enough data for estimation",
+        "noTeamBreakdown": "No team-level breakdown for this period"
+      },
+      "lifecycle": {
+        "title": "Risk lifecycle",
+        "emptyStatus": "No events in this status",
+        "eventTitle": "Event",
+        "severity": "Severity",
+        "priority": "Priority",
+        "occurrenceCount": "Occurrence count",
+        "lastSeenAt": "Last seen",
+        "estimatedImpactEur": "Estimated impact (EUR)",
+        "showEvidence": "Show evidence",
+        "hideEvidence": "Hide evidence",
+        "status": {
+          "active": "Active",
+          "escalating": "Escalating",
+          "resolved": "Resolved",
+          "suppressed": "Suppressed"
+        }
+      },
+      "values": {
+        "status": {
+          "stable": "Stable",
+          "normal": "Normal",
+          "elevated": "Elevated",
+          "high": "High",
+          "critical": "Critical"
+        },
+        "level": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High",
+          "critical": "Critical"
+        },
+        "target": {
+          "company": "Company",
+          "team": "Team",
+          "group": "Group",
+          "employee": "Employee"
+        },
+        "confidence": {
+          "low": "Low",
+          "medium": "Medium",
+          "high": "High"
+        }
+      }
     }
   },
   "invites": {
@@ -193,6 +294,8 @@
     "status": {
       "pending": "Pending",
       "accepted": "Accepted",
+      "declined": "Declined",
+      "cancelled": "Cancelled",
       "expired": "Expired"
     },
     "resent": "Invite resent.",
@@ -200,6 +303,7 @@
     "ariaResend": "Resend invite",
     "ariaCancel": "Cancel invite",
     "empty": "No invites yet.",
+    "managerOnlyCreatedHint": "No invites created by you yet. Managers can only see invites they have created.",
     "loading": "Loading invites…"
   },
   "roles": {

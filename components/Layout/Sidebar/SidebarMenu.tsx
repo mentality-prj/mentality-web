@@ -6,6 +6,7 @@ import {
   BookOpenCheckIcon,
   Brain,
   ChartNoAxesCombined,
+  ClipboardList,
   FileQuestionMark,
   Flower,
   FolderTree,
@@ -39,6 +40,7 @@ const iconMapSidebar: Record<string, ReactNode> = {
   bookmark: <Bookmark className="h-5 w-5" size={12} />,
   speech: <Speech className="h-5 w-5" size={12} />,
   puzzle: <Puzzle className="h-5 w-5" size={12} />,
+  clipboardList: <ClipboardList className="h-5 w-5" size={12} />,
   shield: <Shield className="h-5 w-5" size={12} />,
   users: <Users className="h-5 w-5" size={12} />,
 }

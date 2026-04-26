@@ -3,9 +3,11 @@ import { Calendar } from 'lucide-react'
 
 import { ButtonShowcase } from '@/admin/ButtonShowcase'
 import { TypographyShowcase } from '@/admin/TypographyShowcase'
+import { NextTestBanner } from '@/components/features/PsychologicalTests/NextTestBanner'
 import { DeleteIcon, EditIcon } from '@/components/shared/Cards'
 import Card from '@/components/shared/Cards/Card'
 import CardStack from '@/components/shared/Cards/CardStack'
+import { TestDisclaimer } from '@/components/shared/TestDisclaimer'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
@@ -118,6 +120,45 @@ export default function AdminDsPage() {
           tools={[editIcon, deleteIcon]}
         />
       </CardStack>
+
+      <div className="mt-8 flex flex-col gap-4">
+        <h2 className="text-lg font-semibold">NextTestBanner</h2>
+        <NextTestBanner
+          label="Наступний тест"
+          title="Рівень тривожності"
+          description="Більш вузький показник: чи є тривога прямо зараз. Доповнює загальну картину стресу — разом дають повніший сигнал."
+          hint="Рекомендовано пройти одразу, поки ваш стан свіжий."
+          cta="Перейти до тесту"
+          nextHref={Routes.ANXIETY_CHECK}
+        />
+        <NextTestBanner
+          label="Всі тести пройдено"
+          title="Чудова робота!"
+          description="Ви пройшли всі доступні тести. Повертайтесь за тиждень, щоб відстежити зміни."
+          hint=""
+          cta=""
+          isDone
+        />
+      </div>
+
+      <div className="mt-8 flex flex-col gap-4">
+        <h2 className="text-lg font-semibold">TestDisclaimer</h2>
+        <TestDisclaimer text="Цей інструмент призначений для саморефлексії і не є медичним діагнозом." />
+        <TestDisclaimer
+          text={
+            <>
+              <p className="font-medium">Обмеження інтерпретації</p>
+              <p className="mt-1">
+                Аналітика показує асоціації та ризик-сигнали, але не доводить причинно-наслідковий зв&apos;язок.
+              </p>
+              <ul className="mt-1 list-disc pl-5">
+                <li>Система блокує причинно-наслідкові висновки для цього зрізу аналітики.</li>
+                <li>Частина даних прихована політикою конфіденційності компанії.</li>
+              </ul>
+            </>
+          }
+        />
+      </div>
     </>
   )
 }

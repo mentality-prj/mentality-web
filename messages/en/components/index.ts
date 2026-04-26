@@ -38,6 +38,7 @@ import TextareaWithLabel from './TextareaWithLabel.json'
 import TodayMoodNotes from './TodayMoodNotes.json'
 import TodayObservations from './TodayObservations.json'
 import UserStatistics from './UserStatistics.json'
+import RiskEventEvidenceSection from './RiskEventEvidenceSection.json'
 
 export const components = {
   Achievements,
@@ -80,4 +81,5 @@ export const components = {
   ContactForm,
   TestQuestionnaire,
   UserStatistics,
+  RiskEventEvidenceSection,
 }

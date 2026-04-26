@@ -18,7 +18,9 @@ export function AnalyticsView() {
   const { groups, groupIds, setGroupIds, from, setFrom, to, setTo, analytics, loading, error, dateError } =
     useAnalytics()
 
-  const hasData = analytics && analytics.totalCheckins > 0
+  const hasData = Boolean(
+    analytics && (analytics.groups.length > 0 || analytics.totalEmployees > 0 || analytics.totalCheckins > 0)
+  )
   const isMasked = analytics?.privacy?.isMasked ?? false
   const maskReasons = analytics?.privacy?.maskReasons ?? []
 
@@ -88,7 +90,7 @@ export function AnalyticsView() {
         avgStress: analytics.avgStress,
         avgEnergy: analytics.avgEnergy,
         avgFocus: analytics.avgFocus,
-        riskDistribution: analytics.riskDistribution,
+        riskDistribution: analytics.riskDistribution ?? { low: 0, medium: 0, high: 0 },
       }
     }
     const totalEmployees = visibleGroups.reduce((s, g) => s + g.totalEmployees, 0)
@@ -108,7 +110,8 @@ export function AnalyticsView() {
         }
       }
       return totalCheckins > 0
-        ? Math.round((visibleGroups.reduce((s, g) => s + pick(g) * g.totalCheckins, 0) / totalCheckins) * 10) / 10
+        ? Math.round((visibleGroups.reduce((s, g) => s + (pick(g) ?? 0) * g.totalCheckins, 0) / totalCheckins) * 10) /
+            10
         : 0
     }
     return {
@@ -120,26 +123,47 @@ export function AnalyticsView() {
       avgEnergy: wavg('avgEnergy'),
       avgFocus: wavg('avgFocus'),
       riskDistribution: {
-        low: visibleGroups.reduce((s, g) => s + g.riskDistribution.low, 0),
-        medium: visibleGroups.reduce((s, g) => s + g.riskDistribution.medium, 0),
-        high: visibleGroups.reduce((s, g) => s + g.riskDistribution.high, 0),
+        low: visibleGroups.reduce((s, g) => s + (g.riskDistribution?.low ?? 0), 0),
+        medium: visibleGroups.reduce((s, g) => s + (g.riskDistribution?.medium ?? 0), 0),
+        high: visibleGroups.reduce((s, g) => s + (g.riskDistribution?.high ?? 0), 0),
       },
     }
   }, [analytics, groupIds, visibleGroups])
 
+  const formatMetric = (value: number | null | undefined): ReactNode => {
+    if (value == null) return '—'
+    return value
+  }
+
+  const getRiskValue = (group: AnalyticsGroupResult, level: 'low' | 'medium' | 'high') => {
+    switch (level) {
+      case 'low':
+        return group.riskDistribution?.low ?? 0
+      case 'medium':
+        return group.riskDistribution?.medium ?? 0
+      case 'high':
+        return group.riskDistribution?.high ?? 0
+    }
+  }
+
+  const getDominantRiskLevel = (group: AnalyticsGroupResult): 'low' | 'medium' | 'high' | null => {
+    const low = group.riskDistribution?.low ?? 0
+    const medium = group.riskDistribution?.medium ?? 0
+    const high = group.riskDistribution?.high ?? 0
+    const max = Math.max(low, medium, high)
+
+    if (max <= 0) return null
+    // Resolve ties deterministically by severity: high -> medium -> low.
+    if (high === max) return 'high'
+    if (medium === max) return 'medium'
+    return 'low'
+  }
+
   const riskFilteredGroups = useMemo(() => {
     if (!riskFilter || !analytics) return null
-    const pick = (g: AnalyticsGroupResult) => {
-      switch (riskFilter) {
-        case 'low':
-          return g.riskDistribution.low
-        case 'medium':
-          return g.riskDistribution.medium
-        case 'high':
-          return g.riskDistribution.high
-      }
-    }
-    return [...visibleGroups].filter((g) => pick(g) > 0).sort((a, b) => pick(b) - pick(a))
+    return [...visibleGroups]
+      .filter((g) => getDominantRiskLevel(g) === riskFilter)
+      .sort((a, b) => getRiskValue(b, riskFilter) - getRiskValue(a, riskFilter))
   }, [riskFilter, visibleGroups, analytics])
 
   const trendChartData = useMemo(() => {
@@ -211,10 +235,22 @@ export function AnalyticsView() {
             <SummaryCard label={t('totalEmployees')} value={derivedStats.totalEmployees} />
             <SummaryCard label={t('activeEmployees')} value={derivedStats.activeEmployees} />
             <SummaryCard label={t('totalCheckins')} value={derivedStats.totalCheckins} />
-            <SummaryCard label={t('avgMood')} value={isMasked ? t('maskedValue') : derivedStats.avgMood} />
-            <SummaryCard label={t('avgStress')} value={isMasked ? t('maskedValue') : derivedStats.avgStress} />
-            <SummaryCard label={t('avgEnergy')} value={isMasked ? t('maskedValue') : derivedStats.avgEnergy} />
-            <SummaryCard label={t('avgFocus')} value={isMasked ? t('maskedValue') : derivedStats.avgFocus} />
+            <SummaryCard
+              label={t('avgMood')}
+              value={isMasked ? t('maskedValue') : formatMetric(derivedStats.avgMood)}
+            />
+            <SummaryCard
+              label={t('avgStress')}
+              value={isMasked ? t('maskedValue') : formatMetric(derivedStats.avgStress)}
+            />
+            <SummaryCard
+              label={t('avgEnergy')}
+              value={isMasked ? t('maskedValue') : formatMetric(derivedStats.avgEnergy)}
+            />
+            <SummaryCard
+              label={t('avgFocus')}
+              value={isMasked ? t('maskedValue') : formatMetric(derivedStats.avgFocus)}
+            />
           </div>
 
           {/* Risk distribution */}
@@ -223,34 +259,37 @@ export function AnalyticsView() {
             {isMasked ? (
               <MaskedAnalyticsPlaceholder reasons={maskReasons} message={t('riskDistributionMasked')} compact />
             ) : (
-              <div className="flex gap-4">
-                <RiskBadge
-                  label={t('riskLow')}
-                  count={derivedStats.riskDistribution.low}
-                  active={riskFilter === 'low'}
-                  onClick={() => toggleRiskFilter('low')}
-                  colorClass="bg-green-100 text-green-800 ring-green-400"
-                />
-                <RiskBadge
-                  label={t('riskMedium')}
-                  count={derivedStats.riskDistribution.medium}
-                  active={riskFilter === 'medium'}
-                  onClick={() => toggleRiskFilter('medium')}
-                  colorClass="bg-yellow-100 text-yellow-800 ring-yellow-400"
-                />
-                <RiskBadge
-                  label={t('riskHigh')}
-                  count={derivedStats.riskDistribution.high}
-                  active={riskFilter === 'high'}
-                  onClick={() => toggleRiskFilter('high')}
-                  colorClass="bg-red-100 text-red-800 ring-red-400"
-                />
+              <div className="flex flex-col gap-2">
+                <div className="flex gap-4">
+                  <RiskBadge
+                    label={t('riskLow')}
+                    count={derivedStats.riskDistribution.low}
+                    active={riskFilter === 'low'}
+                    onClick={() => toggleRiskFilter('low')}
+                    colorClass="bg-green-100 text-green-800 ring-green-400"
+                  />
+                  <RiskBadge
+                    label={t('riskMedium')}
+                    count={derivedStats.riskDistribution.medium}
+                    active={riskFilter === 'medium'}
+                    onClick={() => toggleRiskFilter('medium')}
+                    colorClass="bg-yellow-100 text-yellow-800 ring-yellow-400"
+                  />
+                  <RiskBadge
+                    label={t('riskHigh')}
+                    count={derivedStats.riskDistribution.high}
+                    active={riskFilter === 'high'}
+                    onClick={() => toggleRiskFilter('high')}
+                    colorClass="bg-red-100 text-red-800 ring-red-400"
+                  />
+                </div>
+                <p className="text-xs text-textcolor-secondary">{t('riskDistributionHint')}</p>
               </div>
             )}
           </div>
 
           {/* Trend chart */}
-          {(analytics.trend.length > 0 || isMasked) && (
+          {((analytics?.trend?.length ?? 0) > 0 || isMasked) && (
             <div className="flex flex-col gap-2">
               <h3 className="text-sm font-medium">{t('trendTitle')}</h3>
               <div className="rounded-md border border-border p-4">
@@ -307,7 +346,7 @@ export function AnalyticsView() {
           )}
 
           {/* Groups table */}
-          {analytics.groups.length > 0 && (
+          {(analytics?.groups?.length ?? 0) > 0 && (
             <div ref={groupsTableRef} className="flex flex-col gap-2">
               <div className="flex items-center gap-xs">
                 <h3 className="text-sm font-medium">{t('groupsTitle')}</h3>

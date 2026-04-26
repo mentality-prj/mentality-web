@@ -395,12 +395,58 @@ describe('adminGetInvites', () => {
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
   })
+
+  it('handles wrapped array in items/data/invites', async () => {
+    const payloads = [{ items: [mockInvite] }, { data: [mockInvite] }, { invites: [mockInvite] }]
+    for (const data of payloads) {
+      ;(performAdminRequest as jest.Mock).mockResolvedValue({ data })
+      const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
+      expect('data' in result).toBe(true)
+      if ('data' in result) {
+        expect(result.data.items).toHaveLength(1)
+        expect(result.data.items[0].id).toBe(INVITE_ID)
+      }
+    }
+  })
+
+  it('extracts total from pagination.total in payload', async () => {
+    const data = { items: [mockInvite], pagination: { total: 42 } }
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data })
+    const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data.total).toBe(42)
+    }
+  })
+
+  it('extracts total from headers if present', async () => {
+    const data = { items: [mockInvite] }
+    const headers = { 'x-total-count': '99' }
+    // Patch extractPaginationTotal to return header value
+    const extractPaginationTotal = require('@/lib/http').extractPaginationTotal
+    extractPaginationTotal.mockImplementation(
+      (_headers: any, fallback: any) => Number(headers['x-total-count']) || fallback
+    )
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data, headers })
+    const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data.total).toBe(99)
+    }
+    // Restore default
+    extractPaginationTotal.mockImplementation((_headers: any, fallback: any) => fallback)
+  })
 })
 
 // ─── adminCreateInvite ────────────────────────────────────────────────────────
 
 describe('adminCreateInvite', () => {
   const dto: CreateInviteDto = { email: 'new@company.com', role: COMPANY_ROLES.EMPLOYEE, groupIds: [GROUP_ID] }
+  const expectedBackendInvitePayload = {
+    inviteeEmail: 'new@company.com',
+    role: COMPANY_ROLES.EMPLOYEE,
+    groupId: GROUP_ID,
+  }
 
   it('returns created invite on success', async () => {
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockInvite })
@@ -411,7 +457,7 @@ describe('adminCreateInvite', () => {
     expect(performAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteBase(COMPANY_ID)),
-      expect.objectContaining({ method: 'POST', body: dto })
+      expect.objectContaining({ method: 'POST', body: expectedBackendInvitePayload })
     )
     expect(logger.info).toHaveBeenCalled()
   })
@@ -431,6 +477,18 @@ describe('adminCreateInvite', () => {
     const result = await adminCreateInvite(mockAdminSession, COMPANY_ID, dto)
 
     expect(result).toEqual({ error: 'Invalid invite data' })
+  })
+
+  it('returns error when no groups are selected and skips request', async () => {
+    const dtoWithoutGroups: CreateInviteDto = { ...dto, groupIds: [] }
+
+    const result = await adminCreateInvite(mockAdminSession, COMPANY_ID, dtoWithoutGroups)
+
+    expect(result).toEqual({ error: 'Group is required' })
+    expect(performAdminRequest).not.toHaveBeenCalled()
+    expect(logger.error).toHaveBeenCalledWith('Failed to create company invite: no group selected', {
+      companyId: COMPANY_ID,
+    })
   })
 })
 
