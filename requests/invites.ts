@@ -1,5 +1,4 @@
 import { COMPANY_ADMIN_ENDPOINTS, INVITE_ENDPOINTS } from '@/constants/companyEndpoints'
-import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { mapInvite, mapInvites } from '@/mappers/company.mappers'
 import { CustomSession } from '@/types/auth'
@@ -8,6 +7,15 @@ import { CAN_INVITE_EMPLOYEES } from '@/types/rbac'
 
 import { APIUrl } from './config'
 import { performAdminRequest, performAuthRequest } from './genericFetch'
+import { extractInviteArray, extractInviteTotal } from './inviteResponse.helpers'
+
+function toBackendInvitePayload(dto: CreateInviteDto): Record<string, unknown> {
+  return {
+    inviteeEmail: dto.email,
+    role: dto.role,
+    groupId: dto.groupIds[0],
+  }
+}
 
 function assertCanInvite(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole
@@ -24,9 +32,14 @@ export async function createInvite(
     return { error: 'Unauthorized: insufficient role' }
   }
 
+  if (!dto.groupIds.length) {
+    logger.warn('Create invite aborted: no groupIds provided')
+    return { error: 'Group is required' }
+  }
+
   const res = await performAuthRequest<InviteEntity>(session, `${APIUrl}${INVITE_ENDPOINTS.base(companyId)}`, {
     method: 'POST',
-    body: dto as unknown as Record<string, unknown>,
+    body: toBackendInvitePayload(dto),
   })
 
   if ('error' in res) {
@@ -50,15 +63,16 @@ export async function getInvites(
   limit = 20
 ): Promise<{ data: PaginatedInvites } | { error: string }> {
   const url = `${APIUrl}${INVITE_ENDPOINTS.base(companyId)}?page=${page}&limit=${limit}`
-  const res = await performAuthRequest<InviteEntity[]>(session, url)
+  const res = await performAuthRequest<unknown>(session, url)
 
   if ('error' in res) {
     logger.error('Failed to fetch invites', { error: res.error })
     return { error: res.error }
   }
 
-  const items = mapInvites(res.data)
-  const total = extractPaginationTotal(res.headers, items.length)
+  const normalized = extractInviteArray(res.data)
+  const items = mapInvites(normalized)
+  const total = extractInviteTotal(res.data, res.headers, items.length)
   return { data: { items, total } }
 }
 
@@ -127,13 +141,14 @@ export async function getInvitesAdmin(
   limit = 20
 ): Promise<{ data: PaginatedInvites } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.invites(companyId, page, limit)}`
-  const res = await performAdminRequest<InviteEntity[]>(session, url)
+  const res = await performAdminRequest<unknown>(session, url)
   if ('error' in res) {
     logger.error('Admin: failed to fetch invites', { error: res.error, companyId })
     return { error: res.error }
   }
-  const items = mapInvites(res.data)
-  const total = extractPaginationTotal(res.headers, items.length)
+  const normalized = extractInviteArray(res.data)
+  const items = mapInvites(normalized)
+  const total = extractInviteTotal(res.data, res.headers, items.length)
   return { data: { items, total } }
 }
 
@@ -142,10 +157,15 @@ export async function createInviteAdmin(
   companyId: string,
   dto: CreateInviteDto
 ): Promise<{ data: InviteEntity } | { error: string }> {
+  if (!dto.groupIds.length) {
+    logger.warn('Admin create invite aborted: no groupIds provided')
+    return { error: 'Group is required' }
+  }
+
   const res = await performAdminRequest<InviteEntity>(
     session,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteBase(companyId)}`,
-    { method: 'POST', body: dto as unknown as Record<string, unknown> }
+    { method: 'POST', body: toBackendInvitePayload(dto) }
   )
   if ('error' in res) {
     logger.error('Admin: failed to create invite', { error: res.error, companyId })

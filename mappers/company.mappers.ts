@@ -42,6 +42,9 @@ export function mapEmployee(input: unknown): EmployeeEntity | null {
     companyId: safeString(obj.companyId),
     createdAt: safeString(obj.createdAt ?? obj.joinedAt ?? ''),
     joinedAt: obj.joinedAt != null ? safeString(obj.joinedAt) : undefined,
+    gradeId: obj.gradeId != null ? safeString(obj.gradeId) : undefined,
+    gradeName: obj.gradeName != null ? safeString(obj.gradeName) : undefined,
+    avgAnnualSalaryEur: typeof obj.avgAnnualSalaryEur === 'number' ? obj.avgAnnualSalaryEur : undefined,
   }
 }
 
@@ -64,7 +67,7 @@ export function mapInvite(input: unknown): InviteEntity | null {
   if (!id) return null
 
   const statusRaw = safeString(obj.status).toLowerCase()
-  const validStatuses: InviteStatus[] = ['pending', 'accepted', 'expired']
+  const validStatuses: InviteStatus[] = ['pending', 'accepted', 'declined', 'cancelled', 'expired']
   const status: InviteStatus = validStatuses.includes(statusRaw as InviteStatus)
     ? (statusRaw as InviteStatus)
     : 'pending'
@@ -74,15 +77,19 @@ export function mapInvite(input: unknown): InviteEntity | null {
     return null
   }
 
+  const groupIds = safeStringArray(obj.groupIds)
+  const singleGroupId = safeString(obj.groupId)
+
   return {
     id,
     email: safeString(obj.email ?? obj.inviteeEmail),
     role: role as Extract<CompanyRole, 'employee' | 'manager'>,
-    groupIds: safeStringArray(obj.groupIds),
+    groupIds: groupIds.length ? groupIds : singleGroupId ? [singleGroupId] : [],
+    groupName: obj.groupName != null ? safeString(obj.groupName) : undefined,
     companyId: safeString(obj.companyId),
     status,
     createdAt: safeString(obj.createdAt),
-    expiresAt: safeString(obj.expiresAt),
+    expiresAt: obj.expiresAt != null ? safeString(obj.expiresAt) : undefined,
   }
 }
 

@@ -56,8 +56,10 @@ export const companyAdminSidebarMenu: SidebarMenuItemType[] = [
 ]
 
 export const companyManagerSidebarMenu: SidebarMenuItemType[] = [
-  { key: 'company-invites', href: Routes.COMPANY_MANAGER_INVITES, icon: 'mailPlus' },
+  { key: 'company-employees', href: Routes.COMPANY_MANAGER_EMPLOYEES, icon: 'users' },
   { key: 'company-analytics', href: Routes.COMPANY_MANAGER_ANALYTICS, icon: 'chartNoAxesCombined' },
+  { key: 'company-decision-support', href: Routes.COMPANY_MANAGER_DECISION_SUPPORT, icon: 'clipboardList' },
+  { key: 'company-invites', href: Routes.COMPANY_MANAGER_INVITES, icon: 'mailPlus' },
 ]
 
 export const userSidebarMenu: SidebarMenuItemType[] = [

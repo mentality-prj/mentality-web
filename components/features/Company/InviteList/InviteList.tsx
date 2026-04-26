@@ -2,13 +2,15 @@
 
 import { useMemo } from 'react'
 import toast from 'react-hot-toast'
-import { RefreshCw, X } from 'lucide-react'
+import { X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Pagination } from '@/components/shared/Pagination/Pagination'
 import { COMPANY_PAGE_SIZE, INVITE_STATUS_CLASSES } from '@/constants/company'
+import { useAuth } from '@/context/AuthProvider'
 import { useInvites } from '@/hooks/useInvites'
 import { cn } from '@/lib/utils'
+import { COMPANY_ROLES } from '@/types/rbac'
 import { SORT_ORDER, SortOrder } from '@/types/sort'
 import { Button } from '@/ui/button'
 
@@ -22,7 +24,8 @@ type Props = {
 export function InviteList({ groupFilter, dateFrom, dateTo, order }: Props = {}) {
   const t = useTranslations('pages.Company.invites')
   const tRoles = useTranslations('pages.Company.roles')
-  const { items, total, page, setPage, loading, error, handleResend, handleCancel } = useInvites()
+  const { session } = useAuth()
+  const { items, total, page, setPage, loading, error, handleCancel } = useInvites()
 
   const filteredItems = useMemo(() => {
     let result = items
@@ -46,12 +49,6 @@ export function InviteList({ groupFilter, dateFrom, dateTo, order }: Props = {})
       : [...result].sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())
   }, [items, groupFilter, dateFrom, dateTo, order])
 
-  async function onResend(id: string) {
-    const res = await handleResend(id)
-    if (res && 'error' in res) toast.error(res.error || '')
-    else toast.success(t('resent'))
-  }
-
   async function onCancel(id: string) {
     const res = await handleCancel(id)
     if (res && 'error' in res) toast.error(res.error || '')
@@ -60,7 +57,10 @@ export function InviteList({ groupFilter, dateFrom, dateTo, order }: Props = {})
 
   if (loading) return <p className="text-sm text-textcolor-secondary">{t('loading')}</p>
   if (error) return <p className="text-destructive text-sm">{error}</p>
-  if (filteredItems.length === 0) return <p className="text-sm text-textcolor-secondary">{t('empty')}</p>
+  if (filteredItems.length === 0) {
+    const isManager = session?.user?.companyRole === COMPANY_ROLES.MANAGER
+    return <p className="text-sm text-textcolor-secondary">{isManager ? t('managerOnlyCreatedHint') : t('empty')}</p>
+  }
 
   return (
     <div className="flex flex-col gap-xs">
@@ -90,17 +90,6 @@ export function InviteList({ groupFilter, dateFrom, dateTo, order }: Props = {})
                 </td>
                 <td className="px-4 py-2">
                   <div className="flex items-center gap-1">
-                    {(inv.status === 'pending' || inv.status === 'expired') && (
-                      <Button
-                        size="small"
-                        variant="ghost"
-                        className="h-7 w-7 p-0"
-                        aria-label={t('ariaResend')}
-                        onClick={() => onResend(inv.id)}
-                      >
-                        <RefreshCw size={13} />
-                      </Button>
-                    )}
                     {inv.status === 'pending' && (
                       <Button
                         size="small"

@@ -35,24 +35,30 @@ export type EmployeeEntity = {
   companyId: string
   createdAt: string
   joinedAt?: string
+  gradeId?: string
+  gradeName?: string
+  avgAnnualSalaryEur?: number
 }
 
 export type UpdateEmployeeDto = {
   role?: CompanyRole
   groupIds?: string[]
+  gradeId?: string | null
+  avgAnnualSalaryEur?: number | null
 }
 
-export type InviteStatus = 'pending' | 'accepted' | 'expired'
+export type InviteStatus = 'pending' | 'accepted' | 'declined' | 'cancelled' | 'expired'
 
 export type InviteEntity = {
   id: string
   email: string
   role: Extract<CompanyRole, 'employee' | 'manager'>
   groupIds: string[]
+  groupName?: string
   companyId: string
   status: InviteStatus
   createdAt: string
-  expiresAt: string
+  expiresAt?: string
 }
 
 export type AccessScopeEntity = {
@@ -107,7 +113,7 @@ export type RiskDistribution = {
   high: number
 }
 
-export type AnalyticsMaskReason = 'small_cohort' | 'composition_changed' | 'low_activity'
+export type AnalyticsMaskReason = 'small_cohort' | 'composition_changed' | 'low_activity' | 'insufficient_checkins'
 
 export type AnalyticsPrivacy = {
   isMasked: boolean
@@ -130,11 +136,11 @@ export type AnalyticsGroupResult = {
   totalEmployees: number
   activeEmployees: number
   totalCheckins: number
-  avgMood: number
-  avgStress: number
-  avgEnergy: number
-  avgFocus: number
-  riskDistribution: RiskDistribution
+  avgMood: number | null
+  avgStress: number | null
+  avgEnergy: number | null
+  avgFocus: number | null
+  riskDistribution: RiskDistribution | null
 }
 
 export type AnalyticsTrendPoint = {
@@ -165,11 +171,11 @@ export type AnalyticsResponse = {
   totalEmployees: number
   activeEmployees: number
   totalCheckins: number
-  avgMood: number
-  avgStress: number
-  avgEnergy: number
-  avgFocus: number
-  riskDistribution: RiskDistribution
+  avgMood: number | null
+  avgStress: number | null
+  avgEnergy: number | null
+  avgFocus: number | null
+  riskDistribution: RiskDistribution | null
   groups: AnalyticsGroupResult[]
   trend: AnalyticsTrendPoint[]
 }

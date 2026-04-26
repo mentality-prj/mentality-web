@@ -1,0 +1,25 @@
+{
+  "title": "Association Evidence",
+  "ariaLoading": "Loading evidence data",
+  "ariaConfidence": "Confidence level",
+  "ariaUplift": "Uplift value",
+  "errorFallback": "Insufficient data for this event. Evidence will accumulate over time.",
+  "granularity": {
+    "full": "High confidence",
+    "reduced": "Moderate confidence",
+    "baselineOnly": "Low confidence",
+    "insufficientData": "Insufficient data"
+  },
+  "stats": {
+    "similarCases": "Similar cases",
+    "effectiveN": "Effective sample (N)",
+    "improvedRate": "Improvement rate",
+    "dataCoverage": "Data coverage"
+  },
+  "uplift": {
+    "label": "Uplift",
+    "withAction": "With action",
+    "withoutAction": "Without action"
+  },
+  "requestError": "Something went wrong loading evidence data. Please try again later."
+}
