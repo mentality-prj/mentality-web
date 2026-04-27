@@ -38,7 +38,7 @@ export default async function CompanyDashboardPage({ params }: { params: Promise
       </div>
       <div className="container-max-width relative z-10 flex w-full">
         <main className="old-paper min-h-screen w-full flex-1 flex-col items-start justify-between">
-          <div className="padded flex w-full flex-col gap-md">
+          <div className="padded flex w-full flex-col gap-sm tablet:gap-6 sm:gap-md">
             <CompanyHeader />
             <PageTitle title={t('title')} />
 
