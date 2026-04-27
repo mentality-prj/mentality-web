@@ -1,13 +1,20 @@
 'use client'
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { X } from 'lucide-react'
+import { Search, X } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { searchItems } from '@/constants/searchItems'
 import { CustomInput } from '@/ds/components/CustomInput'
 import { Link, useRouter } from '@/i18n/navigation'
+import { cn } from '@/lib/utils'
 
-const SearchBar = () => {
+const SearchBar = ({
+  isMobileOpen,
+  setIsMobileOpen,
+}: {
+  isMobileOpen: boolean
+  setIsMobileOpen: (open: boolean) => void
+}) => {
   const t = useTranslations('components.Header.SearchBar')
   const tMenu = useTranslations('common.menu')
   const router = useRouter()
@@ -37,8 +44,9 @@ const SearchBar = () => {
       clearSearch()
       inputRef.current?.blur()
       router.push(href)
+      setIsMobileOpen(false)
     },
-    [clearSearch, router]
+    [clearSearch, router, setIsMobileOpen]
   )
 
   const handleKeyDown = useCallback(
@@ -87,65 +95,83 @@ const SearchBar = () => {
     const handleClickOutside = (e: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
         setIsOpen(false)
+        setIsMobileOpen(false)
       }
     }
     document.addEventListener('mousedown', handleClickOutside)
     return () => document.removeEventListener('mousedown', handleClickOutside)
-  }, [])
+  }, [setIsMobileOpen])
 
   return (
-    <div ref={containerRef} className="relative">
-      <CustomInput
-        ref={inputRef}
-        id="search"
-        placeholder={t('placeholder')}
-        value={query}
-        onChange={(e) => setQuery(e.target.value)}
-        onFocus={() => query.trim() && setIsOpen(true)}
-        onKeyDown={handleKeyDown}
-        rightIcon={query ? <X size={16} /> : undefined}
-        onRightClick={clearSearch}
-        role="combobox"
-        aria-expanded={isOpen}
-        aria-autocomplete="list"
-        aria-controls="search-results"
-        aria-activedescendant={isOpen && activeIndex >= 0 ? `search-option-${activeIndex}` : undefined}
-        className="placeholder-textcolor-tertiary h-8 border-none bg-background caret-textcolor-primary hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft"
-      />
-      {isOpen && (
-        <ul
-          id="search-results"
-          role="listbox"
-          className="absolute top-full z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-md border bg-white shadow-lg"
-        >
-          {filteredItems.length > 0 ? (
-            filteredItems.map((item, index) => (
-              <li key={item.key} id={`search-option-${index}`} role="option" aria-selected={index === activeIndex}>
-                <Link
-                  href={item.href}
-                  onClick={() => clearSearch()}
-                  className={`block px-3 py-2 text-sm ${
-                    index === activeIndex
-                      ? 'bg-background-soft text-textcolor-primary'
-                      : 'text-textcolor-secondary hover:bg-background-soft'
-                  }`}
-                >
-                  {tMenu(item.key)}
-                </Link>
+    <div ref={containerRef} className="flex items-center tablet:relative">
+      <button
+        type="button"
+        aria-label={t('placeholder')}
+        className={cn('sm:hidden', isMobileOpen && 'hidden')}
+        onClick={() => setIsMobileOpen(true)}
+      >
+        <Search size={18} />
+      </button>
+
+      <div
+        className={cn(isMobileOpen ? 'absolute left-4 right-4 top-14 z-50 flex' : 'hidden sm:block', 'tablet:static')}
+      >
+        <CustomInput
+          ref={inputRef}
+          id="search"
+          placeholder={t('placeholder')}
+          value={query}
+          onChange={(e) => setQuery(e.target.value)}
+          onFocus={() => query.trim() && setIsOpen(true)}
+          onKeyDown={handleKeyDown}
+          rightIcon={query ? <X size={16} /> : undefined}
+          onRightClick={clearSearch}
+          role="combobox"
+          aria-expanded={isOpen}
+          aria-autocomplete="list"
+          aria-controls="search-results"
+          aria-activedescendant={isOpen && activeIndex >= 0 ? `search-option-${activeIndex}` : undefined}
+          className="placeholder-textcolor-tertiary h-8 border-none bg-background caret-textcolor-primary hover:bg-background-soft focus:placeholder-transparent focus-visible:bg-background-soft"
+          containerClassName="w-full"
+        />
+        {isOpen && (
+          <ul
+            id="search-results"
+            role="listbox"
+            className="absolute top-full z-50 mt-1 max-h-64 w-full overflow-y-auto rounded-md border bg-white shadow-lg"
+          >
+            {filteredItems.length > 0 ? (
+              filteredItems.map((item, index) => (
+                <li key={item.key} id={`search-option-${index}`} role="option" aria-selected={index === activeIndex}>
+                  <Link
+                    href={item.href}
+                    onClick={() => {
+                      clearSearch()
+                      setIsMobileOpen(false)
+                    }}
+                    className={`block px-3 py-2 text-sm ${
+                      index === activeIndex
+                        ? 'bg-background-soft text-textcolor-primary'
+                        : 'text-textcolor-secondary hover:bg-background-soft'
+                    }`}
+                  >
+                    {tMenu(item.key)}
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li
+                role="option"
+                aria-selected={false}
+                aria-disabled={true}
+                className="text-textcolor-tertiary px-3 py-2 text-sm"
+              >
+                {t('noResults')}
               </li>
-            ))
-          ) : (
-            <li
-              role="option"
-              aria-selected={false}
-              aria-disabled={true}
-              className="text-textcolor-tertiary px-3 py-2 text-sm"
-            >
-              {t('noResults')}
-            </li>
-          )}
-        </ul>
-      )}
+            )}
+          </ul>
+        )}
+      </div>
     </div>
   )
 }

@@ -21,7 +21,7 @@ export default async function CompanyAdminLayout({ children }: { children: React
           <div className="h-full w-1/2 bg-background-alt" />
         </div>
         <div className="container-max-width relative z-10 flex w-full">
-          <div className="hidden bg-white md:flex">
+          <div className="hidden bg-white lg:flex">
             <Sidebar menu={companyAdminSidebarMenu} extra={extra} />
           </div>
           <main className="old-paper min-h-screen w-full flex-1 flex-col items-start justify-between">
