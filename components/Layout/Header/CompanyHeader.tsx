@@ -21,12 +21,12 @@ export const CompanyHeader = ({ menu, extra }: { menu?: SidebarMenuItemType[]; e
     >
       <div className="flex items-center gap-sm">
         <CompanyMobileNavDrawer menu={menu} extra={extra} />
-        <span className="hidden md:block">
+        <span className="hidden xl:block">
           <LocalDate />
         </span>
       </div>
-      <div className="flex items-center gap-sm md:gap-md">
-        <TopMenu menu={userTopMenu} />
+      <div className="flex items-center gap-2 md:gap-md">
+        <TopMenu menu={userTopMenu} collapseToMyDayOnTablet={true} />
         <SearchBar isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
         <LangSwitch />
         <AvatarMenu />
