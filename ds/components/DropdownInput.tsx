@@ -37,7 +37,7 @@ export const DropdownInput = ({
           <SelectGroup>
             {items.map((item) => (
               <SelectItem
-                className="hover:bg-secondary-hover hover:text-textcolor-purple rounded-none bg-white px-4 py-3 hover:cursor-pointer [&_svg]:hidden"
+                className="hover:text-textcolor-purple rounded-none bg-white px-4 py-3 hover:cursor-pointer hover:bg-secondary-hover [&_svg]:hidden"
                 key={item.value}
                 value={item.value}
               >

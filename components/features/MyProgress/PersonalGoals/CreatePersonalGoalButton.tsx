@@ -15,7 +15,7 @@ export const CreatePersonalGoalButton = ({ text, onClick }: CreatePersonalGoalBu
       <div className="text-primary group-hover:text-primary-hover">
         <AddIcon />
       </div>
-      <span className="bg-secondary-hover group-hover:bg-secondary-pressed whitespace-nowrap rounded-sm px-3 py-2 font-semibold text-primary group-hover:text-primary-hover">
+      <span className="whitespace-nowrap rounded-sm bg-secondary-hover px-3 py-2 font-semibold text-primary group-hover:bg-secondary-pressed group-hover:text-primary-hover">
         {text}
       </span>
     </Card>
