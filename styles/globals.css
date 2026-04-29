@@ -323,6 +323,11 @@ body {
     --primary-pressed: 268 73% 43%; /* Custom, darker than violet-800 (#4c1d95) */
     --primary-foreground: 0 0% 100%; /* white */
 
+    --secondary: 246 100% 98%; /* #f6f5ff */
+    --secondary-hover: 250 100% 96%; /* #f0edff */
+    --secondary-focus: 249 100% 95%; /* #e9e5ff */
+    --secondary-pressed: 249 100% 90%; /* #d4ccff */
+
     --accent: 262 83% 57%; /* violet-500 (#8b5cf6) */
     --accent-soft: 262 80% 75%; /* violet-300 (#c4b5fd), more violet, 10% darker */
     --accent-foreground: var(--special-foreground); /* white */
