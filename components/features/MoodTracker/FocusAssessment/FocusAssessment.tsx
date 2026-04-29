@@ -12,7 +12,7 @@ export function FocusAssessment({ value, onChange }: FocusAssessmentProps) {
   const tm = useTranslations('components.Mood')
 
   return (
-    <div className="flex w-40 flex-col">
+    <div className="flex w-40 flex-col justify-between">
       <h6 className="pl-4">{tm('chooseFocus')}</h6>
       <div className="p-4">
         <FocusLevelScale value={value} onChange={onChange} />
