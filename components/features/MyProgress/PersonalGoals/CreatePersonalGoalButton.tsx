@@ -11,6 +11,7 @@ export const CreatePersonalGoalButton = ({ text, onClick }: CreatePersonalGoalBu
     <Card
       onClick={onClick}
       className="ring-outline-secondary group flex h-full min-h-40 flex-col items-center justify-center gap-sm rounded-md p-6 ring-1 ring-inset hover:cursor-pointer hover:ring-2 hover:ring-primary-hover"
+      hideTools={true}
     >
       <div className="text-primary group-hover:text-primary-hover">
         <AddIcon />
