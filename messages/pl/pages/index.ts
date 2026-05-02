@@ -1,3 +1,4 @@
+import About from './About.json'
 import Admin from './Admin.json'
 import AffirmationsPage from './AffirmationsPage.json'
 import AnxietyCheck from './AnxietyCheck.json'
@@ -22,6 +23,7 @@ import Settings from './Settings.json'
 import TermsOfService from './TermsOfService.json'
 
 export const pages = {
+  About,
   Admin,
   AffirmationsPage,
   Auth,

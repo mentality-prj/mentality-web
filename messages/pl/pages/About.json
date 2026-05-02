@@ -1,0 +1,54 @@
+{
+  "title": "O Dzvin.co",
+  "intro": "Dzvin.co to oparty na dowodach system prognozowania stanu psychicznego. Nie tylko zbieramy i interpretujemy dane — prognozujemy, weryfikujemy i udowadniamy nasze wnioski.",
+  "Evolution": {
+    "title": "Od analityki do prognozowania",
+    "description": "Większość narzędzi zdrowia psychicznego zatrzymuje się na poziomie pytania «co się stało i co teraz nie działa». Dzvin.co idzie dalej.",
+    "steps": {
+      "happened": "Co się stało",
+      "means": "Co to oznacza",
+      "next": "Co będzie dalej",
+      "action": "Co zmieni się przy działaniu",
+      "evidence": "Czy to rzeczywiście zadziałało"
+    }
+  },
+  "ForWhom": {
+    "title": "Dla kogo",
+    "business": {
+      "title": "Dla biznesu",
+      "description": "Decyzje poparte prognozami i dowodami. Nie tylko metryki — konkretne wnioski z przewidywanym wynikiem i mierzalnym efektem."
+    },
+    "user": {
+      "title": "Dla użytkownika",
+      "description": "Zrozumienie przyszłego stanu i proste działania. Wiesz nie tylko gdzie jesteś teraz, ale dokąd zmierzasz — i co konkretnie możesz zmienić."
+    },
+    "research": {
+      "title": "Dla badaczy i funduszy",
+      "description": "Model behawioralny na poziomie populacji z weryfikowalną dokładnością. Dane wynikowe gromadzą się i potwierdzają lub obalają każdą prognozę."
+    }
+  },
+  "Architecture": {
+    "title": "Architektura platformy",
+    "core": {
+      "title": "Rdzeń prognozowania",
+      "description": "Jednolity rdzeń predykcji (silnik B2B) — fundament całej platformy, przetwarzający dane behawioralne i budujący prognozy stanu."
+    },
+    "b2c": {
+      "title": "Warstwa B2C",
+      "description": "Cienka warstwa nad rdzeniem predykcji: trajektoria stanu, symulacja scenariuszy i dowody kohortowe dla użytkownika końcowego."
+    },
+    "loop": {
+      "title": "Pętla Prognoza → Wynik",
+      "description": "Warstwa badawczo-rozwojowa mierząca dokładność prognoz i automatycznie ulepszająca model na podstawie rzeczywistych wyników."
+    }
+  },
+  "Value": {
+    "title": "Kluczowa wartość",
+    "description": "Dzvin.co to nie tylko oprogramowanie. To platforma z rdzeniem badawczo-rozwojowym, która:",
+    "points": {
+      "cohort": "Wykorzystuje logikę prognozowania opartą na kohortach",
+      "explainable": "Dostarcza wyjaśnialne prognozy — rozumiesz, dlaczego system daje konkretną rekomendację",
+      "outcome": "Mierzy własną skuteczność poprzez dane wynikowe"
+    }
+  }
+}

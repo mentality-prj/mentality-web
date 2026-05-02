@@ -1,4 +1,4 @@
-import Image from 'next/image'
+import { FlaskConical, Lightbulb, Radar } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { SectionCard } from '@/ds/components/SectionCard'
@@ -7,37 +7,13 @@ import { Statuses } from '@/types/status.types'
 export function FeatureCardsSection() {
   const t = useTranslations('pages.Landing')
   const interactivityDecoration = (
-    <Image
-      aria-hidden
-      src="/services/icons/molecular.svg"
-      alt=""
-      width={176}
-      height={176}
-      className="absolute bottom-[-20px] left-[-30px] h-44 w-44 opacity-30"
-      priority={false}
-    />
+    <Radar aria-hidden className="absolute bottom-[-14px] left-[-16px] h-32 w-32 text-white/35" strokeWidth={1.6} />
   )
   const supportDecoration = (
-    <Image
-      aria-hidden
-      src="/services/icons/support.svg"
-      alt=""
-      width={176}
-      height={176}
-      className="absolute bottom-[-40px] right-2 h-44 w-44 opacity-30"
-      priority={false}
-    />
+    <FlaskConical aria-hidden className="absolute bottom-[-18px] right-2 h-32 w-32 text-white/35" strokeWidth={1.6} />
   )
   const aiDecoration = (
-    <Image
-      aria-hidden
-      src="/services/icons/care.svg"
-      alt=""
-      width={176}
-      height={176}
-      className="absolute right-[-30px] top-[-30px] h-44 w-44 opacity-30"
-      priority={false}
-    />
+    <Lightbulb aria-hidden className="absolute right-[-12px] top-[-12px] h-32 w-32 text-white/35" strokeWidth={1.6} />
   )
 
   return (

@@ -58,9 +58,9 @@ export function HeroSection() {
             </div>
           </div>
           <div className="flex justify-end">
-            <div className="h-[197.83px] w-[375px] rounded-[14px] bg-white p-8 shadow-sm">
+            <div className="w-[375px] rounded-[14px] bg-white p-8 shadow-sm">
               <div className="flex items-center justify-between gap-sm">
-                <h3 className="text-title line-clamp-2 w-[60%] pr-2 text-base leading-[120%]">
+                <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
                   {t('Hero.testimonial.title')}
                 </h3>
                 <button

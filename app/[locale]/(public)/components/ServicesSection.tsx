@@ -24,22 +24,22 @@ const serviceCards: ServiceCardConfig[] = [
   },
 
   {
-    titleKey: 'Services.cards.coaching.title',
-    descriptionKey: 'Services.cards.coaching.text',
+    titleKey: 'Services.cards.cohortEvidence.title',
+    descriptionKey: 'Services.cards.cohortEvidence.text',
     imageSrc: '/services/communion.jpg',
-    imageAltKey: 'Services.cards.coaching.title',
+    imageAltKey: 'Services.cards.cohortEvidence.title',
   },
   {
-    titleKey: 'Services.cards.meditations.title',
-    descriptionKey: 'Services.cards.meditations.text',
+    titleKey: 'Services.cards.scenarioSimulation.title',
+    descriptionKey: 'Services.cards.scenarioSimulation.text',
     imageSrc: '/services/breathing.jpg',
-    imageAltKey: 'Services.cards.meditations.title',
+    imageAltKey: 'Services.cards.scenarioSimulation.title',
   },
   {
-    titleKey: 'Services.cards.monitoring.title',
-    descriptionKey: 'Services.cards.monitoring.text',
+    titleKey: 'Services.cards.predictionEngine.title',
+    descriptionKey: 'Services.cards.predictionEngine.text',
     imageSrc: '/services/monitoring.jpg',
-    imageAltKey: 'Services.cards.monitoring.title',
+    imageAltKey: 'Services.cards.predictionEngine.title',
   },
 ]
 
@@ -49,7 +49,7 @@ export function ServicesSection() {
   return (
     <CardContainer className="mb-12">
       <div className="mb-10 px-8">
-        <h1 className="landing-h1">{t('Services.title')}</h1>
+        <h1 className="landing-h1 whitespace-pre-line">{t('Services.title')}</h1>
       </div>
       <div className="grid grid-cols-1 gap-default md:grid-cols-2 lg:grid-cols-4">
         {serviceCards.map((card) => {
