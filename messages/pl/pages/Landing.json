@@ -59,7 +59,7 @@
     "subtitle": "Tysiące osób o podobnych profilach behawioralnych już przez to przechodziło. Dzvin.co pokazuje, jakie działania rzeczywiście pomogły — i z jakim prawdopodobieństwem pomogą Tobie."
   },
   "Footer": {
-    "copyright": "Wszelkie prawa zastrzeżone.",
+    "copyright": "© {year} {company}. Wszelkie prawa zastrzeżone.",
     "backToTop": "Wróć na górę",
     "privacy": "Polityka prywatności",
     "terms": "Regulamin",

@@ -59,7 +59,7 @@
     "subtitle": "Thousands of people with similar behavioral profiles have been through this. Dzvin.co shows which actions actually helped — and how likely they are to help you."
   },
   "Footer": {
-    "copyright": "All rights reserved.",
+    "copyright": "© {year} {company}. All rights reserved.",
     "backToTop": "Back to top",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",

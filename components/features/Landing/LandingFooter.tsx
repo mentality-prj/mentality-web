@@ -26,7 +26,7 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
               cookiesLabel={t('Footer.cookies')}
             />
             <div className="shadow-light text-center text-sm">
-              © {new Date().getFullYear()} Dzvin.co. {t('Footer.copyright')}
+              {t('Footer.copyright', { year: new Date().getFullYear(), company: 'Dzvin.co' })}
             </div>
           </div>
           <Link

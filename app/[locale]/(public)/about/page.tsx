@@ -20,11 +20,13 @@ const architectureConfig = [
 
 export default function AboutPage() {
   const t = useTranslations('pages.About')
+  const evolutionStepKeys = ['happened', 'means', 'next', 'action', 'evidence'] as const
+  const valuePointKeys = ['cohort', 'explainable', 'outcome'] as const
 
   return (
-    <div className="flex flex-col gap-12 px-4 py-12 tablet:px-6 md:px-8 lg:px-10">
+    <div className="flex flex-col gap-12 py-12">
       {/* Hero */}
-      <div className="container-max-width mx-auto w-full">
+      <div className="container-max-width mx-auto w-full px-4 tablet:px-6 md:px-8 lg:px-10">
         <PageTitle title={t('title')} />
         <p className="mt-1 max-w-3xl text-sm leading-relaxed text-textcolor-secondary">{t('intro')}</p>
       </div>
@@ -38,16 +40,14 @@ export default function AboutPage() {
           </p>
           <List
             className="mt-6"
-            items={(['happened', 'means', 'next', 'action', 'evidence'] as const).map((key) =>
-              t(`Evolution.steps.${key}`)
-            )}
-            keyExtractor={(item) => item?.toString() ?? ''}
+            items={evolutionStepKeys.map((key) => t(`Evolution.steps.${key}`))}
+            keyExtractor={(_, index) => evolutionStepKeys[index] ?? `evolution-${index}`}
           />
         </div>
       </CardContainer>
 
       {/* For whom */}
-      <div className="container-max-width mx-auto w-full">
+      <div className="container-max-width mx-auto w-full px-4 tablet:px-6 md:px-8 lg:px-10">
         <h2 className="landing-h2 mb-6">{t('ForWhom.title')}</h2>
         <div className="grid grid-cols-1 gap-default md:grid-cols-3">
           {forWhomConfig.map(({ key, type }) => (
@@ -62,7 +62,7 @@ export default function AboutPage() {
       </div>
 
       {/* Architecture */}
-      <div className="container-max-width mx-auto w-full">
+      <div className="container-max-width mx-auto w-full px-4 tablet:px-6 md:px-8 lg:px-10">
         <h2 className="landing-h2 mb-6">{t('Architecture.title')}</h2>
         <div className="grid grid-cols-1 gap-default md:grid-cols-3">
           {architectureConfig.map(({ key, type }) => (
@@ -77,14 +77,14 @@ export default function AboutPage() {
       </div>
 
       {/* Value */}
-      <div className="container-max-width mx-auto w-full">
+      <div className="container-max-width mx-auto w-full px-4 tablet:px-6 md:px-8 lg:px-10">
         <div className="rounded-[40px] bg-background-muted p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t('Value.title')}</h2>
           <p className="mt-1 text-sm text-textcolor-secondary">{t('Value.description')}</p>
           <ul className="mt-6 list-disc space-y-2 pl-6 text-sm leading-relaxed text-textcolor-primary">
-            {(['cohort', 'explainable', 'outcome'] as const).map((key) => {
+            {valuePointKeys.map((key) => {
               const point = t(`Value.points.${key}`)
-              return <li key={point}>{point}</li>
+              return <li key={key}>{point}</li>
             })}
           </ul>
         </div>

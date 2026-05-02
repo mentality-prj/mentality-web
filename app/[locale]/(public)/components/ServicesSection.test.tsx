@@ -38,7 +38,7 @@ describe('ServicesSection', () => {
 
     const heading = screen.getByRole('heading', {
       name: /From data to predictions\s+and verified decisions/,
-      level: 1,
+      level: 2,
     })
 
     expect(heading).toHaveClass('whitespace-pre-line')
