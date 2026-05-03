@@ -1,10 +1,10 @@
 {
   "Hero": {
-    "title": "Care for your peace of mind 24/7",
-    "subtitle": "We are here to support you when you need it most. No matter what you are going through—stress, sadness, or finding yourself—you are not alone.",
+    "title": "Predicting mental state. With evidence.",
+    "subtitle": "Dzvin.co is more than analytics. We predict your future mental state, simulate scenarios, and measure our own effectiveness through real outcomes.",
     "cta": "Try for free",
     "testimonial": {
-      "title": "Helped more than 725 people",
+      "title": "For personal support\nand teams",
       "cta": "Learn more",
       "metric": "725+",
       "primary": "Testimonials"
@@ -12,53 +12,54 @@
   },
   "Features": {
     "interactivity": {
-      "title": "Interactivity",
-      "subtitle": "Convenient interaction formats: chatbots, video consultations, courses, and exercises."
+      "title": "State Prediction",
+      "subtitle": "The system analyzes your behavioral patterns and builds a trajectory of your future state — not just what's happening now, but what comes next."
     },
     "support": {
-      "title": "24/7 Support",
-      "subtitle": "The service is always available, regardless of time and place."
+      "title": "Evidence-Backed",
+      "subtitle": "Every recommendation is supported by cohort data — we show what actually worked for people with similar patterns."
     },
     "ai": {
-      "title": "AI Assistant",
-      "subtitle": "Artificial intelligence helps you find answers, exercises, and strategies to improve your mood."
+      "title": "Explainable AI",
+      "subtitle": "You know exactly why the system gives a specific recommendation and see clear actions to change your mental state."
     }
   },
   "Services": {
-    "title": "Additional services\nfor your support",
+    "title": "From data to predictions\nand verified decisions",
     "cards": {
       "intro": {
-        "text": "We understand how important it is to maintain emotional balance, especially in challenging times."
+        "text": "We've moved beyond analytics. Dzvin.co is a prediction and evidence platform that forecasts, validates, and proves its conclusions."
       },
-      "monitoring": {
-        "title": "Emotional state monitoring",
-        "text": "Mood analysis and recommendations to support emotional balance."
+      "predictionEngine": {
+        "title": "Prediction Engine",
+        "text": "A unified prediction core analyzes your data, builds a state trajectory, and models what changes under different actions."
       },
-      "meditations": {
-        "title": "Meditations and breathing exercises",
-        "text": "Automatically generated meditation sessions and exercises to reduce stress and improve concentration."
+      "scenarioSimulation": {
+        "title": "Scenario Simulation",
+        "text": "See the impact of different decisions on your mental state before you make them."
       },
-      "coaching": {
-        "title": "Therapeutic chats and coaching",
-        "text": "Interactive chatbot or specialist consultations, support, and relaxation techniques with AI."
+      "cohortEvidence": {
+        "title": "Cohort-Based Evidence",
+        "text": "Comparison with cohorts of people with similar patterns provides context and confirms the effectiveness of recommendations."
       }
     }
   },
   "HowItWorks": {
-    "title": "How the service works",
+    "title": "How it works",
+    "subtitle": "For individuals and teams",
     "steps": {
-      "register": "Register — create an account in a few clicks.",
-      "choose": "Choose support — consultations, meditations, or interactive exercises.",
-      "receive": "Receive help — personalized solutions for your well-being."
+      "register": "Get started — fill in a short questionnaire. Takes a few minutes, and your profile is ready.",
+      "choose": "Learn about your state — the system shows what's happening now and what might change.",
+      "receive": "See what works — after each step we check the result and refine the next prediction."
     },
     "cta": "Start now"
   },
   "ReduceStress": {
-    "title": "Relieve stress and anxiety",
-    "subtitle": "Psychological counseling supports inner balance and helps you feel better every day."
+    "title": "You are not alone in your pattern",
+    "subtitle": "Thousands of people with similar behavioral profiles have been through this. Dzvin.co shows which actions actually helped — and how likely they are to help you."
   },
   "Footer": {
-    "copyright": "© 2025 Dzvin.co. All rights reserved.",
+    "copyright": "© {year} {company}. All rights reserved.",
     "backToTop": "Back to top",
     "privacy": "Privacy Policy",
     "terms": "Terms of Service",

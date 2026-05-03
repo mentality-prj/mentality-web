@@ -1,0 +1,54 @@
+{
+  "title": "About Dzvin.co",
+  "intro": "Dzvin.co is an evidence-based mental state prediction system. We don't just collect and interpret data — we forecast, validate, and prove our conclusions.",
+  "Evolution": {
+    "title": "From analytics to prediction",
+    "description": "Most mental health tools stop at the level of insights: what happened and what is wrong right now. Dzvin.co goes further.",
+    "steps": {
+      "happened": "What happened",
+      "means": "What it means",
+      "next": "What comes next",
+      "action": "What changes with action",
+      "evidence": "Did it actually work"
+    }
+  },
+  "ForWhom": {
+    "title": "Who it's for",
+    "business": {
+      "title": "For businesses",
+      "description": "Decisions backed by predictions and evidence. Not just metrics — actionable insights with a predicted outcome and measurable effect."
+    },
+    "user": {
+      "title": "For users",
+      "description": "Understanding your future state and clear actions. You know not just where you are now, but where you're heading — and exactly what can be changed."
+    },
+    "research": {
+      "title": "For researchers and foundations",
+      "description": "A population-level behavioral model with verifiable accuracy. Outcome data accumulates and confirms or refutes each prediction."
+    }
+  },
+  "Architecture": {
+    "title": "Platform architecture",
+    "core": {
+      "title": "Prediction Core",
+      "description": "A unified prediction core (B2B engine) — the foundation of the entire platform, processing behavioral data and building state predictions."
+    },
+    "b2c": {
+      "title": "B2C Layer",
+      "description": "A thin layer over the prediction core: state trajectory, scenario simulation, and cohort-based evidence for the end user."
+    },
+    "loop": {
+      "title": "Prediction → Outcome Loop",
+      "description": "An R&D layer that measures prediction accuracy and automatically improves the model based on real outcomes."
+    }
+  },
+  "Value": {
+    "title": "Core value",
+    "description": "Dzvin.co is not just a SaaS. It's a platform with an R&D core that:",
+    "points": {
+      "cohort": "Uses cohort-driven prediction logic",
+      "explainable": "Provides explainable predictions — you understand why the system makes a specific recommendation",
+      "outcome": "Measures its own effectiveness through outcome data"
+    }
+  }
+}

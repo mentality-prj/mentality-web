@@ -1,10 +1,10 @@
 {
   "Hero": {
-    "title": "Troska o twój spokój 24/7",
-    "subtitle": "Jesteśmy tutaj, aby wspierać cię wtedy, gdy najbardziej tego potrzebujesz. Niezależnie od tego, przez co przechodzisz — stres, smutek czy szukanie siebie — nie jesteś sam.",
+    "title": "Przewidujemy stan psychiczny. Z dowodami.",
+    "subtitle": "Dzvin.co to coś więcej niż analityka. Przewidujemy Twój przyszły stan psychiczny, symulujemy scenariusze i mierzymy własną skuteczność poprzez rzeczywiste wyniki.",
     "cta": "Wypróbuj za darmo",
     "testimonial": {
-      "title": "Pomogliśmy ponad 725 osobom",
+      "title": "Dla wsparcia osobistego\ni zespołów",
       "cta": "Dowiedz się więcej",
       "metric": "725+",
       "primary": "Referencje"
@@ -12,53 +12,54 @@
   },
   "Features": {
     "interactivity": {
-      "title": "Interaktywność",
-      "subtitle": "Wygodne formy interakcji: chatboty, konsultacje wideo, kursy i ćwiczenia."
+      "title": "Prognoza stanu",
+      "subtitle": "System analizuje Twoje wzorce behawioralne i buduje trajektorię przyszłego stanu — nie tylko co teraz, ale co będzie dalej."
     },
     "support": {
-      "title": "Wsparcie 24/7",
-      "subtitle": "Usługa jest zawsze dostępna, niezależnie od czasu i miejsca."
+      "title": "Oparte na dowodach",
+      "subtitle": "Każda rekomendacja jest poparta danymi kohortowymi — pokazujemy, co rzeczywiście działało dla osób o podobnych wzorcach."
     },
     "ai": {
-      "title": "Asystent AI",
-      "subtitle": "Sztuczna inteligencja pomaga znaleźć odpowiedzi, ćwiczenia i strategie poprawy nastroju."
+      "title": "Wyjaśnialne AI",
+      "subtitle": "Wiesz dokładnie, dlaczego system daje konkretną rekomendację i widzisz proste działania, aby zmienić swój stan."
     }
   },
   "Services": {
-    "title": "Dodatkowe usługi\ndla Twojego wsparcia",
+    "title": "Od danych do prognoz\ni zweryfikowanych decyzji",
     "cards": {
       "intro": {
-        "text": "Rozumiemy, jak ważne jest zachowanie równowagi emocjonalnej, zwłaszcza w trudnych czasach."
+        "text": "Wyszliśmy poza analitykę. Dzvin.co to platforma prognozowania i dowodów, która prognozuje, weryfikuje i udowadnia swoje wnioski."
       },
-      "monitoring": {
-        "title": "Monitorowanie stanu emocjonalnego",
-        "text": "Analiza nastroju i rekomendacje wspierające równowagę emocjonalną."
+      "predictionEngine": {
+        "title": "Silnik prognozowania",
+        "text": "Jednolity rdzeń predykcji analizuje Twoje dane, buduje trajektorię stanu i modeluje, co zmieni się przy różnych działaniach."
       },
-      "meditations": {
-        "title": "Medytacje i ćwiczenia oddechowe",
-        "text": "Automatycznie generowane sesje medytacyjne i ćwiczenia zmniejszające stres oraz poprawiające koncentrację."
+      "scenarioSimulation": {
+        "title": "Symulacja scenariuszy",
+        "text": "Zobacz wpływ różnych decyzji na Twój stan psychiczny zanim je podejmiesz."
       },
-      "coaching": {
-        "title": "Czaty terapeutyczne i coaching",
-        "text": "Interaktywny chatbot lub konsultacje specjalistów, wsparcie i techniki relaksacji z SI."
+      "cohortEvidence": {
+        "title": "Dowody kohortowe",
+        "text": "Porównanie z kohortami osób o podobnych wzorcach dostarcza kontekstu i potwierdza skuteczność rekomendacji."
       }
     }
   },
   "HowItWorks": {
-    "title": "Jak działa usługa",
+    "title": "Jak to działa",
+    "subtitle": "Dla osób i dla zespołów",
     "steps": {
-      "register": "Zarejestruj się — utwórz konto w kilka kliknięć.",
-      "choose": "Wybierz wsparcie — konsultacje, medytacje lub interaktywne ćwiczenia.",
-      "receive": "Otrzymuj pomoc — spersonalizowane rozwiązania dla twojego dobrego samopoczucia."
+      "register": "Zacznij — wypełnij krótki kwestionariusz. Kilka minut i Twój profil jest gotowy.",
+      "choose": "Dowiedz się o swoim stanie — system pokaże, co się teraz dzieje i co może się zmienić.",
+      "receive": "Zobacz, co działa — po każdym kroku sprawdzamy wynik i doprecyzowujemy następną prognozę."
     },
     "cta": "Rozpocznij teraz"
   },
   "ReduceStress": {
-    "title": "Uwolnienie od stresu i niepokoju",
-    "subtitle": "Konsultacje psychologiczne wspierają wewnętrzną równowagę i pomagają czuć się lepiej każdego dnia."
+    "title": "Nie jesteś sam ze swoim wzorcem",
+    "subtitle": "Tysiące osób o podobnych profilach behawioralnych już przez to przechodziło. Dzvin.co pokazuje, jakie działania rzeczywiście pomogły — i z jakim prawdopodobieństwem pomogą Tobie."
   },
   "Footer": {
-    "copyright": "© 2025 Dzvin.co. Wszelkie prawa zastrzeżone.",
+    "copyright": "© {year} {company}. Wszelkie prawa zastrzeżone.",
     "backToTop": "Wróć na górę",
     "privacy": "Polityka prywatności",
     "terms": "Regulamin",
