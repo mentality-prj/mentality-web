@@ -192,8 +192,57 @@
       "title": "Decision Support",
       "refresh": "Odśwież",
       "loading": "Ładowanie decision support…",
+      "retry": "Spróbuj ponownie",
+      "filters": {
+        "all": "Wszystkie",
+        "severity": "Istotność",
+        "status": "Status",
+        "confidence": "Pewność"
+      },
+      "empty": {
+        "title": "Nie znaleziono ryzyk",
+        "description": "Obecnie nie ma aktywnych ryzyk. Zespół jest w stabilnym stanie."
+      },
+      "riskCard": {
+        "severity": "Istotność",
+        "confidence": "Pewność",
+        "financialRange": "Zakres finansowy",
+        "status": "Status",
+        "takeAction": "Wykonaj działanie",
+        "viewDetails": "Pokaż szczegóły"
+      },
+      "actionMenu": {
+        "title": "Szybkie działania",
+        "success": "Działanie zastosowano pomyślnie",
+        "options": {
+          "oneOnOneMeeting": "Spotkanie 1:1",
+          "reduceWorkload": "Zmniejsz obciążenie",
+          "teamSync": "Synchronizacja zespołu"
+        }
+      },
+      "details": {
+        "title": "Szczegóły ryzyka",
+        "close": "Zamknij",
+        "status": "Status",
+        "effectSize": "Wielkość efektu",
+        "history": "Historia",
+        "performedActions": "Wykonane działania",
+        "outcome": "Wynik",
+        "noHistory": "Brak historii",
+        "noActions": "Brak działań",
+        "noOutcome": "Brak wyniku"
+      },
+      "resolve": {
+        "title": "Zamknij ryzyko",
+        "noteHint": "Opcjonalna notatka",
+        "noteLabel": "Notatka do rozwiązania",
+        "notePlaceholder": "Powód lub krótkie podsumowanie...",
+        "submit": "Oznacz jako rozwiązane",
+        "success": "Ryzyko zostało zamknięte"
+      },
       "error": {
-        "reportUnavailable": "Nie udało się załadować raportu decision support. Spróbuj ponownie później."
+        "reportUnavailable": "Nie udało się załadować raportu decision support. Spróbuj ponownie później.",
+        "decisionSupportUnavailable": "Nie udało się załadować danych decision support. Spróbuj ponownie później."
       },
       "guard": {
         "title": "Ograniczenia interpretacji",
@@ -278,6 +327,37 @@
           "low": "Niska",
           "medium": "Średnia",
           "high": "Wysoka"
+        },
+        "riskStatus": {
+          "active": "Aktywne",
+          "resolved": "Rozwiązane",
+          "worsened": "Pogorszone",
+          "escalating": "Eskalujące",
+          "suppressed": "Wyciszone"
+        },
+        "na": "Brak danych"
+      },
+      "policyEngine": {
+        "title": "Silnik wsparcia decyzji",
+        "refresh": "Odśwież",
+        "metrics": {
+          "total": "Łącznie zdarzeń ryzyka",
+          "active": "Aktywne",
+          "escalating": "Eskalujące",
+          "resolved": "Rozwiązane",
+          "suppressed": "Wyciszone",
+          "avgConfidence": "Śr. pewność"
+        },
+        "audit": {
+          "title": "Dziennik audytu",
+          "loading": "Ładowanie dziennika…",
+          "empty": "Brak wpisów w dzienniku.",
+          "columns": {
+            "performedAt": "Czas",
+            "action": "Akcja",
+            "performedBy": "Kto",
+            "companyId": "ID firmy"
+          }
         }
       }
     }

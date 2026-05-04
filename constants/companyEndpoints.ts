@@ -56,11 +56,22 @@ export const COMPANY_ADMIN_ENDPOINTS = Object.freeze({
   accessScopeById: (companyId: string, id: string) => companyUrl(companyId, `/access-scopes/${id}`),
 })
 
+// ─── Global admin endpoints (not company-scoped) ─────────────────────────────
+
+export const DECISION_SUPPORT_ADMIN_ENDPOINTS = Object.freeze({
+  policyMetrics: () => '/admin/decision-support/policy/metrics',
+  policyAudit: () => '/admin/decision-support/policy/audit',
+})
+
 export const DECISION_SUPPORT_ENDPOINTS = Object.freeze({
   report: (companyId: string) => companyUrl(companyId, '/decision-support/report'),
   riskEvents: (companyId: string) => companyUrl(companyId, '/decision-support/risk-events'),
-  riskEventAddress: (companyId: string, eventId: string) =>
-    companyUrl(companyId, `/decision-support/risk-events/${eventId}/address`),
+  riskEventOutcome: (companyId: string, eventId: string) =>
+    companyUrl(companyId, `/decision-support/risk-events/${eventId}/outcome`),
+  riskEventAction: (companyId: string, eventId: string) =>
+    companyUrl(companyId, `/decision-support/risk-events/${eventId}/action`),
+  riskEventResolve: (companyId: string, eventId: string) =>
+    companyUrl(companyId, `/decision-support/risk-events/${eventId}/resolve`),
   riskEventEvidence: (companyId: string, eventId: string) =>
     companyUrl(companyId, `/decision-support/risk-events/${eventId}/evidence`),
 })

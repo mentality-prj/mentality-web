@@ -1,5 +1,6 @@
 import { useTranslations } from 'next-intl'
 
+import { toDecisionSupportLocale } from '@/helpers/decisionSupport.helpers'
 import { DecisionSupportAction } from '@/types/decisionSupport'
 import { Statuses, StatusType } from '@/types/status.types'
 
@@ -20,23 +21,11 @@ export function formatGuardReason(code: string, t: ReturnType<typeof useTranslat
 
 export function formatEur(value: number | null, t: ReturnType<typeof useTranslations>, locale: string): string {
   if (value == null) return t('financial.notEnoughData' as never)
-  return new Intl.NumberFormat(getDecisionSupportLocale(locale), {
+  return new Intl.NumberFormat(toDecisionSupportLocale(locale), {
     style: 'currency',
     currency: 'EUR',
     maximumFractionDigits: 0,
   }).format(value)
-}
-
-function getDecisionSupportLocale(locale: string): string {
-  switch (locale) {
-    case 'en':
-      return 'en-US'
-    case 'pl':
-      return 'pl-PL'
-    case 'uk':
-    default:
-      return 'uk-UA'
-  }
 }
 
 export function eventIdForAction(action: DecisionSupportAction): string | null {
@@ -90,6 +79,10 @@ export function formatDecisionSupportError(
 
   const normalized = error.toLowerCase()
   if (normalized.includes('internal server error') || normalized.includes('servererror')) {
+    const translator = t as ReturnType<typeof useTranslations> & { has?: (key: string) => boolean }
+    if (typeof translator.has === 'function' && translator.has('error.decisionSupportUnavailable')) {
+      return t('error.decisionSupportUnavailable' as never)
+    }
     return t('error.reportUnavailable' as never)
   }
 

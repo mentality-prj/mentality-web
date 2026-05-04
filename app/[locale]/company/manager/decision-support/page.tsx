@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
 import { DecisionSupportAdminFetcher } from '@/components/features/Company/Manager/DecisionSupport/DecisionSupportAdminFetcher'
+import { PolicyEnginePanel } from '@/components/features/Company/Manager/DecisionSupport/PolicyEnginePanel'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getServerSession } from '@/lib/get-server-session'
@@ -30,6 +31,7 @@ export default async function ManagerDecisionSupportPage({ params }: { params: P
     content = (
       <AdminCompanyWrapper>
         <DecisionSupportAdminFetcher />
+        <PolicyEnginePanel />
       </AdminCompanyWrapper>
     )
   } else {

@@ -14,7 +14,7 @@ const translations: Record<string, string> = {
 }
 
 jest.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => translations[key] ?? key,
+  useTranslations: () => (key: string) => translations[key as keyof typeof translations] ?? key,
 }))
 
 jest.mock('@/components/shared/Cards/CardContainer', () => ({
