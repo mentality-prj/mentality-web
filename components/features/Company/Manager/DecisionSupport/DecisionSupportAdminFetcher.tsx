@@ -5,17 +5,30 @@ import { useDecisionSupport } from '@/hooks/useDecisionSupport'
 import { DecisionSupportPanel } from './DecisionSupportPanel'
 
 export function DecisionSupportAdminFetcher() {
-  const { companyId, report, riskEvents, loading, error, processingEventIds, markAddressed } = useDecisionSupport()
-
-  if (loading) return null
+  const {
+    riskEvents,
+    loading,
+    error,
+    processingEventIds,
+    loadingOutcomeEventIds,
+    outcomeByEventId,
+    fetchRiskEventOutcome,
+    applyAction,
+    resolveRisk,
+    refresh,
+  } = useDecisionSupport()
 
   return (
     <DecisionSupportPanel
-      report={report}
       riskEvents={riskEvents}
-      companyId={companyId}
+      loading={loading}
       processingEventIds={processingEventIds}
-      markAddressed={markAddressed}
+      loadingOutcomeEventIds={loadingOutcomeEventIds}
+      outcomeByEventId={outcomeByEventId}
+      fetchRiskEventOutcome={fetchRiskEventOutcome}
+      applyAction={applyAction}
+      resolveRisk={resolveRisk}
+      refresh={refresh}
       error={error}
     />
   )

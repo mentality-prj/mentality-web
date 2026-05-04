@@ -39,7 +39,7 @@ export type CohortGranularityLevel = GranularityLevel
 
 export type DecisionSupportPriority = 'low' | 'medium' | 'high' | 'critical'
 export type DecisionSupportSeverity = 'low' | 'medium' | 'high' | 'critical'
-export type DecisionSupportRiskEventStatus = 'active' | 'escalating' | 'resolved' | 'suppressed'
+export type DecisionSupportRiskEventStatus = 'active' | 'escalating' | 'resolved' | 'suppressed' | 'worsened'
 
 export type DecisionSupportExecutiveSummary = {
   overallStatus: string | null
@@ -117,11 +117,84 @@ export type DecisionSupportRiskEvent = {
   status: DecisionSupportRiskEventStatus
   severity: DecisionSupportSeverity | null
   priority: DecisionSupportPriority | null
+  confidence?: number | string | null
+  /** @deprecated Legacy API alias. Prefer `explanationShort` in app code; normalize in mapper. */
+  explanation?: string | null
+  /** Canonical normalized explanation field for UI consumers. */
+  explanationShort?: string | null
+  /** @deprecated Legacy API alias. Prefer `explanationShort` in app code; normalize in mapper. */
+  shortExplanation?: string | null
   occurrenceCount: number | null
   lastSeenAt: string | null
   estimatedImpactEur: number | null
+  financialImpactRange?: string | null
+  financialImpactMinEur?: number | null
+  financialImpactMaxEur?: number | null
+  effectSize?: number | string | null
+  history?: Array<RiskEventHistoryItem | string>
+  actions?: Array<RiskEventPerformedAction | string>
+  outcome?: string | null
 }
 
-export type AddressRiskEventDto = {
-  addressed: boolean
+export type RiskEventActionType = 'one_on_one_meeting' | 'reduce_workload' | 'team_sync'
+
+export type RiskEventActionDto = {
+  actionType: RiskEventActionType
+  note?: string
+}
+
+export type ResolveRiskEventDto = {
+  note?: string
+}
+
+export type RiskEventHistoryItem = {
+  at?: string | null
+  description?: string | null
+  status?: string | null
+  note?: string | null
+}
+
+export type RiskEventPerformedAction = {
+  id?: string | null
+  type?: string | null
+  label?: string | null
+  performedAt?: string | null
+  note?: string | null
+}
+
+export type RiskEventOutcome = {
+  status?: DecisionSupportRiskEventStatus | (string & {}) | null
+  effectSize?: number | string | null
+  history?: Array<RiskEventHistoryItem | string>
+  actions?: Array<RiskEventPerformedAction | string>
+  outcome?: string | null
+}
+
+export type RiskEventViewModel = {
+  id: string
+  severity: DecisionSupportSeverity | null
+  confidence: number | string | null
+  explanationShort: string
+  financialRange: string | null
+  status: DecisionSupportRiskEventStatus | (string & {}) | null
+}
+
+export type PolicyMetrics = {
+  totalRiskEvents?: number | null
+  resolvedCount?: number | null
+  activeCount?: number | null
+  escalatingCount?: number | null
+  suppressedCount?: number | null
+  averageConfidence?: number | null
+  lastComputedAt?: string | null
+}
+
+export type PolicyAuditEntry = {
+  id?: string | null
+  companyId?: string | null
+  eventId?: string | null
+  action?: string | null
+  performedBy?: string | null
+  performedAt?: string | null
+  details?: Record<string, unknown> | null
 }

@@ -41,7 +41,7 @@ export default function AboutPage() {
           <List
             className="mt-6"
             items={evolutionStepKeys.map((key) => t(`Evolution.steps.${key}`))}
-            keyExtractor={(_, index) => evolutionStepKeys[index] ?? `evolution-${index}`}
+            keyExtractor={(_, index) => evolutionStepKeys[index as number] ?? `evolution-${index}`}
           />
         </div>
       </CardContainer>

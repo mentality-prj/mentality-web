@@ -192,8 +192,57 @@
       "title": "Decision Support",
       "refresh": "Refresh",
       "loading": "Loading decision support…",
+      "retry": "Retry",
+      "filters": {
+        "all": "All",
+        "severity": "Severity",
+        "status": "Status",
+        "confidence": "Confidence"
+      },
+      "empty": {
+        "title": "No risks found",
+        "description": "There are no active risks right now. Your team is in a stable state."
+      },
+      "riskCard": {
+        "severity": "Severity",
+        "confidence": "Confidence",
+        "financialRange": "Financial range",
+        "status": "Status",
+        "takeAction": "Take action",
+        "viewDetails": "View details"
+      },
+      "actionMenu": {
+        "title": "Quick actions",
+        "success": "Action applied successfully",
+        "options": {
+          "oneOnOneMeeting": "1:1 meeting",
+          "reduceWorkload": "Reduce workload",
+          "teamSync": "Team sync"
+        }
+      },
+      "details": {
+        "title": "Risk details",
+        "close": "Close",
+        "status": "Status",
+        "effectSize": "Effect size",
+        "history": "History",
+        "performedActions": "Performed actions",
+        "outcome": "Outcome",
+        "noHistory": "No history yet",
+        "noActions": "No actions yet",
+        "noOutcome": "No outcome yet"
+      },
+      "resolve": {
+        "title": "Resolve risk",
+        "noteHint": "Optional note",
+        "noteLabel": "Resolution note",
+        "notePlaceholder": "Reason or short summary...",
+        "submit": "Mark as resolved",
+        "success": "Risk resolved successfully"
+      },
       "error": {
-        "reportUnavailable": "Unable to load the decision support report. Please try again later."
+        "reportUnavailable": "Unable to load the decision support report. Please try again later.",
+        "decisionSupportUnavailable": "Unable to load decision support data. Please try again later."
       },
       "guard": {
         "title": "Interpretation guard",
@@ -278,6 +327,37 @@
           "low": "Low",
           "medium": "Medium",
           "high": "High"
+        },
+        "riskStatus": {
+          "active": "Active",
+          "resolved": "Resolved",
+          "worsened": "Worsened",
+          "escalating": "Escalating",
+          "suppressed": "Suppressed"
+        },
+        "na": "N/A"
+      },
+      "policyEngine": {
+        "title": "Decision Support Engine",
+        "refresh": "Refresh",
+        "metrics": {
+          "total": "Total Risk Events",
+          "active": "Active",
+          "escalating": "Escalating",
+          "resolved": "Resolved",
+          "suppressed": "Suppressed",
+          "avgConfidence": "Avg. Confidence"
+        },
+        "audit": {
+          "title": "Audit Log",
+          "loading": "Loading audit log…",
+          "empty": "No audit entries found.",
+          "columns": {
+            "performedAt": "Time",
+            "action": "Action",
+            "performedBy": "By",
+            "companyId": "Company ID"
+          }
         }
       }
     }
