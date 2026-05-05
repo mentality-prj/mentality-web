@@ -88,6 +88,12 @@
   "git.enableStatusBarSync": true,
   "git.detectSubmodules": false,
   "git.scanRepositories": [],
+  // Jest / Testing integration
+  "jest.rootPath": ".",
+  "jest.jestCommandLine": "yarn test",
+  "jest.runMode": "on-demand",
+  "testing.automaticallyOpenTestResults": "neverOpen",
+  "jest.outputConfig": "neutral",
   // Emmet optimization for React
   "emmet.includeLanguages": {
     "javascript": "javascriptreact",

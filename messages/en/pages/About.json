@@ -1,9 +1,36 @@
 {
   "title": "About Dzvin.co",
-  "intro": "Dzvin.co is an evidence-based mental state prediction system. We don't just collect and interpret data — we forecast, validate, and prove our conclusions.",
+  "intro": "It is an evidence-based mental state prediction system. We don't just collect and interpret data — we forecast, validate, and prove our conclusions.",
+  "introExtended": "The platform works with daily state signals — stress, mood, energy, and focus — to estimate trajectories, assess risks, and show what can actually change the predicted outcome. On top of that, it combines personal guidance for the individual, aggregated signals for teams, and a feedback loop that verifies the accuracy of its own conclusions.",
   "Evolution": {
     "title": "From analytics to prediction",
     "description": "Most mental health tools stop at the level of insights: what happened and what is wrong right now. Dzvin.co goes further.",
+    "stepDescriptions": {
+      "happened": "The system captures behavioral signals, rhythm changes, and state dynamics without collapsing everything into a single score.",
+      "means": "Each signal is interpreted in context: the person, the cohort, or the organizational environment around it.",
+      "next": "The model estimates the state trajectory and shows the most likely next development if no action is taken.",
+      "action": "The platform compares intervention scenarios and shows which action is most likely to change the predicted outcome.",
+      "evidence": "After intervention, the outcome is validated against real data to confirm or refute the prediction."
+    },
+    "context": {
+      "eyebrow": "Dzvin.co logic",
+      "title": "Not a list of steps, but a closed decision loop",
+      "description": "Each step in this loop depends on the previous one: from signal to interpretation, from prediction to action, and from action to a verified outcome.",
+      "items": {
+        "signal": {
+          "title": "Signal",
+          "description": "Behavioral, state, and context data are combined into one causal slice."
+        },
+        "prediction": {
+          "title": "Prediction",
+          "description": "The model does not just describe the situation, it estimates the most likely next scenario."
+        },
+        "validation": {
+          "title": "Validation",
+          "description": "After action, the platform measures the actual outcome and updates confidence in its conclusions."
+        }
+      }
+    },
     "steps": {
       "happened": "What happened",
       "means": "What it means",
@@ -15,20 +42,32 @@
   "ForWhom": {
     "title": "Who it's for",
     "business": {
+      "impactPercent": "72%",
+      "impactLabel": "team retention",
       "title": "For businesses",
       "description": "Decisions backed by predictions and evidence. Not just metrics — actionable insights with a predicted outcome and measurable effect."
     },
     "user": {
+      "impactPercent": "78%",
+      "impactLabel": "state stabilization",
       "title": "For users",
       "description": "Understanding your future state and clear actions. You know not just where you are now, but where you're heading — and exactly what can be changed."
     },
     "research": {
-      "title": "For researchers and foundations",
+      "impactPercent": "84%",
+      "impactLabel": "validation pace",
+      "title": "For researchers and research institutes",
       "description": "A population-level behavioral model with verifiable accuracy. Outcome data accumulates and confirms or refutes each prediction."
     }
   },
   "Architecture": {
     "title": "Platform architecture",
+    "overviewTitle": "Three layers working as one system",
+    "overviewDescription": "The platform is structured as a stack of three connected layers: the prediction core, the user-facing layer, and the outcome validation loop. Together they carry data from behavioral signals to verified prediction accuracy.",
+    "overviewDescriptionLead": "The platform is structured as a stack of three connected layers: the prediction core, the user-facing layer, and the outcome validation loop.",
+    "overviewDescriptionFollowup": "Together they carry data from behavioral signals to verified prediction accuracy.",
+    "interactionHint": "Choose a layer from the chips or click the card on the right to expand its role in more detail.",
+    "nextAction": "Next layer",
     "core": {
       "title": "Prediction Core",
       "description": "A unified prediction core (B2B engine) — the foundation of the entire platform, processing behavioral data and building state predictions."
@@ -44,7 +83,7 @@
   },
   "Value": {
     "title": "Core value",
-    "description": "Dzvin.co is not just a SaaS. It's a platform with an R&D core that:",
+    "description": "It is not just a service. It's a platform with an R&D core that:",
     "points": {
       "cohort": "Uses cohort-driven prediction logic",
       "explainable": "Provides explainable predictions — you understand why the system makes a specific recommendation",

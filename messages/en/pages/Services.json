@@ -1,0 +1,136 @@
+{
+  "hero": {
+    "eyebrow": "Dzvin.co services",
+    "title": "One platform for personal support, corporate analytics and research validation",
+    "subtitle": "The current product already combines self-check flows, company management, aggregated analytics and a prediction-to-outcome loop. This page maps those modules into three service formats.",
+    "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
+    "audiences": {
+      "b2c": {
+        "title": "Personal",
+        "subtitle": "Self-checks, daily exercises and a personal trajectory."
+      },
+      "b2b": {
+        "title": "Corporate",
+        "subtitle": "Company structure, team analytics and decision support for managers."
+      },
+      "rd": {
+        "title": "Research",
+        "subtitle": "Cohorts, validation loops and reporting for foundations and programs."
+      }
+    }
+  },
+  "blueprint": {
+    "eyebrow": "Service architecture",
+    "title": "The services page explains a different operating model than the landing page",
+    "subtitle": "The landing page introduces the platform, while services breaks it into distinct service tracks. That is why this page uses separate narratives and new visual cards instead of repeating the landing illustrations.",
+    "cards": {
+      "personalFlow": {
+        "title": "Personal support track",
+        "description": "For individuals, the service combines daily observations, exercises and tailored recommendations into one coherent action path.",
+        "focus": "Focus: continuous personal support, short feedback loops and visible progress."
+      },
+      "corporateFlow": {
+        "title": "Corporate operations track",
+        "description": "For companies, the service combines roles, groups, team analytics and risk signals into one manageable operating model.",
+        "focus": "Focus: aggregated team visibility, scoped access and timely management action."
+      },
+      "researchFlow": {
+        "title": "Research validation track",
+        "description": "For foundations and programs, the service connects cohorts, outcome measurement and evidence accumulation to validate hypotheses.",
+        "focus": "Focus: impact validation, repeatable observations and accountable program reporting."
+      }
+    }
+  },
+  "sections": {
+    "b2c": {
+      "tag": "Personal",
+      "title": "For individuals",
+      "description": "The personal layer combines mood tracking, questionnaires, diary notes, exercises and progress history into one continuous mental well-being journey.",
+      "capabilities": {
+        "tracking": {
+          "title": "Track state",
+          "description": "The mood tracker, notes and evidence-based questionnaires create one timeline instead of scattered check-ins."
+        },
+        "support": {
+          "title": "Act immediately",
+          "description": "Breathing, meditations, calming exercises, affirmations and tips turn insight into the next practical step."
+        },
+        "consistency": {
+          "title": "Stay engaged",
+          "description": "Saved content, progress pages and mental games help users return to routines that actually improve their state."
+        }
+      },
+      "outcomesTitle": "What people get",
+      "outcomes": {
+        "one": "A clear view of how state changes over days and weeks.",
+        "two": "Actionable practices connected to real product modules, not abstract advice.",
+        "three": "A measurable feedback loop between self-checks, interventions and progress."
+      },
+      "chart": {
+        "label": "Self-check score",
+        "title": "Personal trajectory",
+        "stubTitle": "Illustrative personal trajectory"
+      }
+    },
+    "b2b": {
+      "tag": "Corporate",
+      "title": "For companies",
+      "description": "The corporate layer adds company roles, group hierarchies, invites, access scopes, mood analytics and decision support for managers.",
+      "capabilities": {
+        "governance": {
+          "title": "Structure the organization",
+          "description": "Companies, groups and manager scopes can be configured so each role sees only the teams and metrics it is responsible for."
+        },
+        "analytics": {
+          "title": "Monitor teams",
+          "description": "The dashboard aggregates mood, stress, energy and focus across groups, time ranges and filters without manual consolidation."
+        },
+        "decisionSupport": {
+          "title": "Act on risk",
+          "description": "Decision support surfaces risk events, evidence and financial impact so leaders can respond before issues escalate."
+        }
+      },
+      "outcomesTitle": "What companies get",
+      "outcomes": {
+        "one": "A shared view of employee well-being without exposing raw personal timelines.",
+        "two": "Team-level trends for mood, stress, energy and focus in one analytics layer.",
+        "three": "Operational decisions backed by analytics, access scopes and evidence."
+      },
+      "chart": {
+        "label": "Average stress score",
+        "title": "Team risk trajectory",
+        "stubTitle": "Illustrative team risk trajectory"
+      }
+    },
+    "rd": {
+      "tag": "Research",
+      "title": "For research programs and foundations",
+      "description": "The research layer uses questionnaires, cohorts, evidence accumulation and outcome tracking to validate interventions at program level.",
+      "capabilities": {
+        "cohorts": {
+          "title": "Build comparable cohorts",
+          "description": "Standardized self-checks and behavioral signals make it possible to compare participants with similar patterns."
+        },
+        "validation": {
+          "title": "Validate predictions",
+          "description": "The prediction-to-outcome loop shows where forecasts were correct, where drift appeared and what improved after intervention."
+        },
+        "reporting": {
+          "title": "Report impact",
+          "description": "Aggregated evidence and trend views support foundations and research programs that need transparent progress stories instead of one-off snapshots."
+        }
+      },
+      "outcomesTitle": "What funds and researchers get",
+      "outcomes": {
+        "one": "A population-level view built from the same modules people use every day.",
+        "two": "An accumulating evidence base that confirms or refutes each program hypothesis.",
+        "three": "A path from intervention delivery to accountable outcome reporting."
+      },
+      "chart": {
+        "label": "Forecast error",
+        "title": "Validation cycle",
+        "stubTitle": "Illustrative validation cycle"
+      }
+    }
+  }
+}

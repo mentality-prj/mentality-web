@@ -1,0 +1,136 @@
+{
+  "hero": {
+    "eyebrow": "Usługi Dzvin.co",
+    "title": "Jedna platforma dla wsparcia osobistego, analityki korporacyjnej i walidacji badawczej",
+    "subtitle": "Obecny produkt łączy już scenariusze samooceny, zarządzanie firmą, analitykę zagregowaną oraz pętlę prognoza → wynik. Ta strona zbiera te moduły w trzy formaty usług.",
+    "note": "Wszystkie wykresy poniżej są ilustracyjne: pokazują, jak istniejące moduły platformy mogą wizualizować dane, a nie rzeczywiste dane klientów.",
+    "audiences": {
+      "b2c": {
+        "title": "Osobisty",
+        "subtitle": "Samoocena, codzienne praktyki i osobista trajektoria stanu."
+      },
+      "b2b": {
+        "title": "Korporacyjny",
+        "subtitle": "Struktura firmy, analityka zespołów i wsparcie decyzyjne dla menedżerów."
+      },
+      "rd": {
+        "title": "Badawczy",
+        "subtitle": "Kohorty, cykle walidacyjne i raportowanie dla fundacji oraz programów."
+      }
+    }
+  },
+  "blueprint": {
+    "eyebrow": "Architektura usługi",
+    "title": "Strona usług pokazuje inny model działania niż landing",
+    "subtitle": "Landing przedstawia platformę w skrócie, a services rozkłada ją na osobne ścieżki usługowe. Dlatego ta strona używa oddzielnych opisów i nowych kart wizualnych zamiast powtarzać ilustracje z landingu.",
+    "cards": {
+      "personalFlow": {
+        "title": "Osobista ścieżka wsparcia",
+        "description": "Dla osoby korzystającej z platformy usługa łączy codzienne obserwacje, ćwiczenia i dopasowane rekomendacje w jeden spójny ciąg działań.",
+        "focus": "Priorytet: ciągłe wsparcie osobiste, krótkie pętle informacji zwrotnej i widoczny postęp."
+      },
+      "corporateFlow": {
+        "title": "Korporacyjna ścieżka operacyjna",
+        "description": "Dla firm usługa łączy role, grupy, analitykę zespołów i sygnały ryzyka w jeden zarządzalny model operacyjny.",
+        "focus": "Priorytet: zagregowany obraz zespołów, kontrola dostępu i terminowe działania menedżerskie."
+      },
+      "researchFlow": {
+        "title": "Badawcza ścieżka walidacji",
+        "description": "Dla fundacji i programów usługa łączy kohorty, pomiar wyników i narastające dowody potrzebne do sprawdzania hipotez.",
+        "focus": "Priorytet: walidacja wpływu, powtarzalne obserwacje i rozliczalne raportowanie programowe."
+      }
+    }
+  },
+  "sections": {
+    "b2c": {
+      "tag": "Osobisty",
+      "title": "Dla ludzi",
+      "description": "Warstwa osobista łączy śledzenie nastroju, kwestionariusze, notatki, ćwiczenia i historię postępu w jedną ciągłą trajektorię dobrostanu psychicznego.",
+      "capabilities": {
+        "tracking": {
+          "title": "Śledzenie stanu",
+          "description": "Rejestr nastroju, notatki i oparte na dowodach kwestionariusze tworzą jedną oś czasu zamiast rozproszonych pojedynczych ocen."
+        },
+        "support": {
+          "title": "Działanie od razu",
+          "description": "Oddech, medytacje, ćwiczenia wyciszające, afirmacje i porady zamieniają wgląd w kolejny praktyczny krok."
+        },
+        "consistency": {
+          "title": "Stała praca",
+          "description": "Zapisane treści, strony postępu i gry mentalne pomagają wracać do rutyn, które realnie poprawiają stan."
+        }
+      },
+      "outcomesTitle": "Co otrzymuje użytkownik",
+      "outcomes": {
+        "one": "Jasny obraz tego, jak stan zmienia się w dniach i tygodniach.",
+        "two": "Praktyki powiązane z realnymi modułami produktu, a nie abstrakcyjnymi poradami.",
+        "three": "Mierzalna pętla informacji zwrotnej między samooceną, interwencjami i postępem."
+      },
+      "chart": {
+        "label": "Wynik samooceny",
+        "title": "Osobista trajektoria",
+        "stubTitle": "Ilustracyjna osobista trajektoria"
+      }
+    },
+    "b2b": {
+      "tag": "Korporacyjny",
+      "title": "Dla firm",
+      "description": "Warstwa korporacyjna dodaje role firmowe, hierarchie grup, zaproszenia, zakresy dostępu, analitykę nastroju oraz wsparcie decyzyjne dla menedżerów.",
+      "capabilities": {
+        "governance": {
+          "title": "Struktura organizacji",
+          "description": "Firmy, grupy i zakresy dostępu menedżerów można ustawić tak, aby każda rola widziała tylko swoje zespoły i potrzebne metryki."
+        },
+        "analytics": {
+          "title": "Analityka zespołów",
+          "description": "Panel agreguje nastrój, stres, energię i koncentrację według grup, okresów i filtrów bez ręcznego łączenia danych."
+        },
+        "decisionSupport": {
+          "title": "Reakcja na ryzyko",
+          "description": "Wsparcie decyzyjne pokazuje zdarzenia ryzyka, dowody i wpływ finansowy, aby lider mógł działać, zanim problem eskaluje."
+        }
+      },
+      "outcomesTitle": "Co otrzymuje firma",
+      "outcomes": {
+        "one": "Wspólny obraz dobrostanu zespołu bez ujawniania surowych osobistych osi czasu.",
+        "two": "Trendy zespołowe dla nastroju, stresu, energii i koncentracji w jednej warstwie analitycznej.",
+        "three": "Decyzje operacyjne wsparte analityką, zakresami dostępu i dowodami."
+      },
+      "chart": {
+        "label": "Średni wynik stresu",
+        "title": "Trajektoria ryzyka zespołu",
+        "stubTitle": "Ilustracyjna trajektoria ryzyka zespołu"
+      }
+    },
+    "rd": {
+      "tag": "Badawczy",
+      "title": "Dla programów badawczych i fundacji",
+      "description": "Warstwa badawcza wykorzystuje kwestionariusze, kohorty, akumulację dowodów i śledzenie wyników, aby walidować interwencje na poziomie programu.",
+      "capabilities": {
+        "cohorts": {
+          "title": "Porównywalne kohorty",
+          "description": "Ustandaryzowana samoocena oraz sygnały behawioralne umożliwiają porównanie uczestników o podobnych wzorcach."
+        },
+        "validation": {
+          "title": "Walidacja prognoz",
+          "description": "Pętla prognoza → wynik pokazuje, gdzie prognoza była trafna, gdzie pojawił się dryf i co poprawiło się po interwencji."
+        },
+        "reporting": {
+          "title": "Raportowanie wpływu",
+          "description": "Agregowane dowody i trendy wspierają fundacje oraz programy badawcze, które potrzebują przejrzystej historii postępu zamiast jednorazowego obrazu."
+        }
+      },
+      "outcomesTitle": "Co otrzymują fundacje i badacze",
+      "outcomes": {
+        "one": "Widok na poziomie populacji zbudowany z tych samych modułów, z których ludzie korzystają na co dzień.",
+        "two": "Narastającą bazę dowodową, która potwierdza lub obala każdą hipotezę programu.",
+        "three": "Ścieżkę od dostarczenia interwencji do rozliczalnego raportowania wyników."
+      },
+      "chart": {
+        "label": "Błąd prognozy",
+        "title": "Cykl walidacji",
+        "stubTitle": "Ilustracyjny cykl walidacji"
+      }
+    }
+  }
+}
