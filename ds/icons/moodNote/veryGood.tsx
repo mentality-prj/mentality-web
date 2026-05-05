@@ -83,11 +83,11 @@ export const VeryGood = () => (
         y2="171.406"
         gradientUnits="userSpaceOnUse"
       >
-        <stop stop-color="#B4A5FD" />
-        <stop offset="0.1535" stop-color="#BD94FD" />
-        <stop offset="0.5085" stop-color="#D172FD" />
-        <stop offset="0.8034" stop-color="#DD5EFD" />
-        <stop offset="1" stop-color="#E257FD" />
+        <stop stopColor="#B4A5FD" />
+        <stop offset="0.1535" stopColor="#BD94FD" />
+        <stop offset="0.5085" stopColor="#D172FD" />
+        <stop offset="0.8034" stopColor="#DD5EFD" />
+        <stop offset="1" stopColor="#E257FD" />
       </linearGradient>
     </defs>
   </svg>
