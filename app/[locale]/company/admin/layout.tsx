@@ -4,6 +4,7 @@ import { AdminCompanySelector } from '@/components/features/Company/AdminCompany
 import { AdminLayoutProvider } from '@/components/features/Company/AdminLayoutProvider'
 import { LandingFooter } from '@/components/features/Landing'
 import { CompanyHeader } from '@/components/Layout/Header/CompanyHeader'
+import { mainVariants } from '@/components/Layout/mainVariants'
 import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { companyAdminSidebarMenu } from '@/constants/menu'
 import { getServerSession } from '@/lib/get-server-session'
@@ -24,7 +25,7 @@ export default async function CompanyAdminLayout({ children }: { children: React
           <div className="hidden bg-white lg:flex">
             <Sidebar menu={companyAdminSidebarMenu} extra={extra} />
           </div>
-          <main className="old-paper min-h-screen w-full flex-1 flex-col items-start justify-between">
+          <main className={mainVariants()}>
             <div className="padded flex w-full flex-col gap-md">
               <CompanyHeader menu={companyAdminSidebarMenu} extra={extra} />
               {children}

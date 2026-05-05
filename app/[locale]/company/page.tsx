@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { LandingFooter } from '@/components/features/Landing'
 import { CompanyHeader } from '@/components/Layout/Header/CompanyHeader'
+import { mainVariants } from '@/components/Layout/mainVariants'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
@@ -37,8 +38,7 @@ export default async function CompanyDashboardPage({ params }: { params: Promise
         <div className="h-full w-1/2 bg-background-alt" />
       </div>
       <div className="container-max-width relative z-10 flex w-full">
-        {/* TODO: temporary rounded is none because don't have sidebar in this page */}
-        <main className="old-paper min-h-screen w-full flex-1 flex-col items-start justify-between rounded-none">
+        <main className={mainVariants({ layout: 'noSidebar' })}>
           <div className="padded flex w-full flex-col gap-sm tablet:gap-6 sm:gap-md">
             <CompanyHeader />
             <PageTitle title={t('title')} />
