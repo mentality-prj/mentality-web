@@ -1,0 +1,232 @@
+'use client'
+
+import { useState } from 'react'
+import type { LucideIcon } from 'lucide-react'
+import { ArrowRight, BrainCircuit, Layers3, Route } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
+import { MosaicGrid, MosaicGridItem } from '@/components/shared/Content/MosaicGrid'
+import { cn } from '@/lib/utils'
+
+type ArchitectureLayerKey = 'core' | 'b2c' | 'loop'
+type LayerRole = 'active' | 'right' | 'left'
+
+type ArchitectureLayerConfig = {
+  key: ArchitectureLayerKey
+  icon: LucideIcon
+  badgeClassName: string
+  chipActiveClassName: string
+  panelClassName: string
+  shadowClassName: string
+  iconAccentClassName: string
+  arrowClassName: string
+}
+
+function getIconRoleClass(role: LayerRole) {
+  switch (role) {
+    case 'active':
+      return 'rotate-0'
+    case 'right':
+      return '-rotate-[8deg]'
+    case 'left':
+      return 'rotate-[8deg]'
+  }
+}
+
+function getLayerRoleClass(role: LayerRole) {
+  switch (role) {
+    case 'active':
+      return 'z-30 translate-x-0 translate-y-0 rotate-0 scale-100 opacity-100 shadow-[0_28px_80px_rgba(15,23,42,0.14)]'
+    case 'right':
+      return 'z-20 translate-x-[18%] translate-y-8 rotate-[8deg] scale-[0.9] opacity-100 shadow-[0_18px_48px_rgba(15,23,42,0.08)] md:translate-x-[20%] md:translate-y-10'
+    case 'left':
+      return 'z-10 -translate-x-[18%] translate-y-10 -rotate-[8deg] scale-[0.9] opacity-100 shadow-[0_18px_48px_rgba(15,23,42,0.08)] md:-translate-x-[14%] md:translate-y-12'
+  }
+}
+
+const layerConfigs: readonly ArchitectureLayerConfig[] = [
+  {
+    key: 'core',
+    icon: BrainCircuit,
+    badgeClassName: 'bg-[#eef5cc] text-[#6a7d1f] ring-[#d7e6a8]',
+    chipActiveClassName: 'border-[#b8cb72]/45 bg-[#f4f8df] text-[#5f711b]',
+    panelClassName: 'bg-[linear-gradient(145deg,rgba(215,230,168,0.96),rgba(204,223,148,0.9))]',
+    shadowClassName: 'bg-[#d7e6a8]/55',
+    iconAccentClassName:
+      'pointer-events-none absolute -bottom-20 -left-16 z-0 h-80 w-80 text-[#d9e7ae] md:-bottom-24 md:-left-20 md:h-[25rem] md:w-[25rem]',
+    arrowClassName: 'text-[#d9e7ae]',
+  },
+  {
+    key: 'b2c',
+    icon: Route,
+    badgeClassName: 'bg-[#deefff] text-[#38719d] ring-[#bddcf8]',
+    chipActiveClassName: 'border-[#92bee8]/45 bg-[#eef6fe] text-[#2f668f]',
+    panelClassName: 'bg-[linear-gradient(145deg,rgba(167,203,238,0.96),rgba(148,191,232,0.9))]',
+    shadowClassName: 'bg-[#a7cbee]/55',
+    iconAccentClassName:
+      'pointer-events-none absolute -bottom-20 -left-16 z-0 h-80 w-80 text-[#c7ddf4] md:-bottom-24 md:-left-20 md:h-[25rem] md:w-[25rem]',
+    arrowClassName: 'text-[#c7ddf4]',
+  },
+  {
+    key: 'loop',
+    icon: Layers3,
+    badgeClassName: 'bg-[#e2faea] text-[#2f7a56] ring-[#bdeecf]',
+    chipActiveClassName: 'border-[#9fe1b7]/45 bg-[#edfdf2] text-[#2a6f4d]',
+    panelClassName: 'bg-[linear-gradient(145deg,rgba(184,241,203,0.96),rgba(167,233,187,0.9))]',
+    shadowClassName: 'bg-[#b8f1cb]/55',
+    iconAccentClassName:
+      'pointer-events-none absolute -bottom-20 -left-16 z-0 h-80 w-80 text-[#cff3d9] md:-bottom-24 md:-left-20 md:h-[25rem] md:w-[25rem]',
+    arrowClassName: 'text-[#cff3d9]',
+  },
+] as const
+
+function getNextIndex(index: number) {
+  return (index + 1) % layerConfigs.length
+}
+
+function getLayerRole(index: number, activeIndex: number): LayerRole {
+  const offset = (index - activeIndex + layerConfigs.length) % layerConfigs.length
+
+  if (offset === 0) {
+    return 'active'
+  }
+
+  if (offset === 1) {
+    return 'right'
+  }
+
+  return 'left'
+}
+
+export function ArchitectureLayersShowcase() {
+  const t = useTranslations('pages.About')
+  const [activeIndex, setActiveIndex] = useState(0)
+
+  const activeLayer = layerConfigs.find((_, index) => index === activeIndex) ?? layerConfigs[0]
+
+  const handleCardClick = (index: number) => {
+    setActiveIndex((currentIndex) => (currentIndex === index ? getNextIndex(currentIndex) : index))
+  }
+
+  return (
+    <MosaicGrid>
+      <MosaicGridItem xlSpan={4}>
+        <div className="flex h-full flex-col rounded-[28px] bg-background-muted p-6 md:p-8">
+          <div className="space-y-5">
+            <h3 className="text-title text-3xl font-semibold leading-tight md:text-4xl">
+              {t('Architecture.overviewTitle')}
+            </h3>
+            <p className="text-sm leading-relaxed text-textcolor-secondary md:text-base">
+              {t('Architecture.overviewDescriptionLead')}
+            </p>
+            <p className="text-sm leading-relaxed text-textcolor-secondary md:text-base">
+              {t('Architecture.overviewDescriptionFollowup')}
+            </p>
+          </div>
+
+          <div className="mt-6 flex flex-wrap gap-2">
+            {layerConfigs.map((layer, index) => {
+              const isActive = index === activeIndex
+
+              return (
+                <button
+                  key={layer.key}
+                  type="button"
+                  onClick={() => setActiveIndex(index)}
+                  aria-pressed={isActive}
+                  className={cn(
+                    'rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300',
+                    isActive
+                      ? cn(layer.chipActiveClassName, 'shadow-[0_12px_24px_rgba(15,23,42,0.08)]')
+                      : 'hover:border-black/8 border-transparent bg-white/65 text-textcolor-secondary hover:bg-white'
+                  )}
+                >
+                  {t(`Architecture.${layer.key}.title`)}
+                </button>
+              )
+            })}
+          </div>
+        </div>
+      </MosaicGridItem>
+
+      <MosaicGridItem xlSpan={8}>
+        <div className="relative h-full min-h-[400px] overflow-hidden rounded-[32px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.95),rgba(248,250,252,0.86)_45%,rgba(241,245,249,0.92)_100%)] p-3 [perspective:1800px] md:min-h-[520px] md:p-6">
+          <div
+            className={cn(
+              'absolute inset-[12%] rounded-[36px] blur-3xl transition-colors duration-500',
+              activeLayer.shadowClassName
+            )}
+          />
+
+          {layerConfigs.map((layer, index) => {
+            const LayerIcon = layer.icon
+            const isActive = index === activeIndex
+            const role = getLayerRole(index, activeIndex)
+
+            return (
+              <button
+                key={layer.key}
+                type="button"
+                onClick={() => handleCardClick(index)}
+                aria-pressed={isActive}
+                aria-label={
+                  isActive
+                    ? `${t(`Architecture.${layer.key}.title`)}, ${t('Architecture.nextAction')}`
+                    : t(`Architecture.${layer.key}.title`)
+                }
+                className={cn(
+                  'group absolute inset-x-3 inset-y-4 flex origin-center transform-gpu flex-col overflow-hidden rounded-[30px] border border-white/85 p-5 text-left transition-[transform,box-shadow,opacity,filter] duration-500 ease-out md:inset-x-10 md:inset-y-8 md:p-8',
+                  layer.panelClassName,
+                  getLayerRoleClass(role),
+                  isActive
+                    ? 'cursor-pointer hover:-translate-y-0.5'
+                    : 'cursor-pointer saturate-[0.88] hover:saturate-100'
+                )}
+              >
+                <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.22),transparent_45%,rgba(15,23,42,0.04))]" />
+                <LayerIcon className={cn(layer.iconAccentClassName, getIconRoleClass(role))} />
+
+                <div className="relative z-10 flex items-start justify-end gap-3">
+                  <span className="text-2xl font-semibold leading-none tracking-[0.08em] text-white drop-shadow-[0_2px_10px_rgba(15,23,42,0.16)] md:text-3xl">
+                    {String(index + 1).padStart(2, '0')}
+                  </span>
+                </div>
+
+                <div className="relative z-10 mt-6 space-y-3">
+                  <h3
+                    className={cn(
+                      'max-w-[24rem] font-semibold leading-tight text-textcolor-primary transition-all duration-300',
+                      isActive ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'
+                    )}
+                  >
+                    {t(`Architecture.${layer.key}.title`)}
+                  </h3>
+
+                  <p
+                    aria-hidden={!isActive}
+                    className={cn(
+                      'max-w-[32rem] overflow-hidden text-sm leading-relaxed text-textcolor-secondary transition-[max-height,opacity,margin] duration-300 md:text-base',
+                      isActive ? 'mt-4 max-h-32 opacity-100' : 'mt-0 max-h-0 opacity-0'
+                    )}
+                  >
+                    {t(`Architecture.${layer.key}.description`)}
+                  </p>
+                </div>
+
+                <div className="relative z-10 mt-auto flex items-end justify-end gap-4 pt-6">
+                  <ArrowRight
+                    className={cn(
+                      'h-[3.75rem] w-[3.75rem] flex-none transition-[transform,color] duration-300 hover:text-white group-hover:text-white',
+                      layer.arrowClassName,
+                      isActive ? 'translate-x-0' : 'translate-x-1'
+                    )}
+                  />
+                </div>
+              </button>
+            )
+          })}
+        </div>
+      </MosaicGridItem>
+    </MosaicGrid>
+  )
+}

@@ -1,9 +1,36 @@
 {
   "title": "O Dzvin.co",
-  "intro": "Dzvin.co to oparty na dowodach system prognozowania stanu psychicznego. Nie tylko zbieramy i interpretujemy dane — prognozujemy, weryfikujemy i udowadniamy nasze wnioski.",
+  "intro": "To oparty na dowodach system prognozowania stanu psychicznego. Nie tylko zbieramy i interpretujemy dane — prognozujemy, weryfikujemy i udowadniamy nasze wnioski.",
+  "introExtended": "Platforma pracuje na codziennych sygnałach stanu — stresie, nastroju, energii i koncentracji — aby oceniać trajektorię zmian, wykrywać ryzyka i pokazywać, co realnie może zmienić przewidywany wynik. Na tej podstawie łączy osobiste wskazówki dla użytkownika, zagregowane sygnały dla zespołów oraz pętlę weryfikacji trafności własnych wniosków.",
   "Evolution": {
     "title": "Od analityki do prognozowania",
     "description": "Większość narzędzi zdrowia psychicznego zatrzymuje się na poziomie pytania «co się stało i co teraz nie działa». Dzvin.co idzie dalej.",
+    "stepDescriptions": {
+      "happened": "System wychwytuje sygnały behawioralne, zmiany rytmu i dynamikę stanu bez sprowadzania wszystkiego do jednego wyniku.",
+      "means": "Każdy sygnał otrzymuje interpretację w kontekście osoby, kohorty lub środowiska organizacyjnego.",
+      "next": "Model ocenia trajektorię stanu i pokazuje najbardziej prawdopodobny dalszy rozwój bez interwencji.",
+      "action": "Platforma porównuje scenariusze działania i pokazuje, które z nich mogą zmienić przewidywany wynik.",
+      "evidence": "Po interwencji wynik jest weryfikowany na podstawie rzeczywistych danych, aby potwierdzić lub obalić prognozę."
+    },
+    "context": {
+      "eyebrow": "Logika Dzvin.co",
+      "title": "To nie lista etapów, lecz zamknięta pętla decyzji",
+      "description": "Każdy krok w tym obiegu wynika z poprzedniego: od sygnału do interpretacji, od prognozy do działania i od działania do zweryfikowanego wyniku.",
+      "items": {
+        "signal": {
+          "title": "Sygnał",
+          "description": "Dane o zachowaniu, stanie i kontekście są łączone w jeden przekrój przyczynowy."
+        },
+        "prediction": {
+          "title": "Prognoza",
+          "description": "Model nie tylko opisuje sytuację, ale wylicza najbardziej prawdopodobny kolejny scenariusz."
+        },
+        "validation": {
+          "title": "Walidacja",
+          "description": "Po działaniu platforma mierzy rzeczywisty wynik i aktualizuje trafność swoich wniosków."
+        }
+      }
+    },
     "steps": {
       "happened": "Co się stało",
       "means": "Co to oznacza",
@@ -15,20 +42,32 @@
   "ForWhom": {
     "title": "Dla kogo",
     "business": {
+      "impactPercent": "72%",
+      "impactLabel": "utrzymanie zespołu",
       "title": "Dla biznesu",
       "description": "Decyzje poparte prognozami i dowodami. Nie tylko metryki — konkretne wnioski z przewidywanym wynikiem i mierzalnym efektem."
     },
     "user": {
+      "impactPercent": "78%",
+      "impactLabel": "stabilizacja stanu",
       "title": "Dla użytkownika",
       "description": "Zrozumienie przyszłego stanu i proste działania. Wiesz nie tylko gdzie jesteś teraz, ale dokąd zmierzasz — i co konkretnie możesz zmienić."
     },
     "research": {
-      "title": "Dla badaczy i funduszy",
+      "impactPercent": "84%",
+      "impactLabel": "tempo walidacji",
+      "title": "Dla naukowców i instytutów badawczych",
       "description": "Model behawioralny na poziomie populacji z weryfikowalną dokładnością. Dane wynikowe gromadzą się i potwierdzają lub obalają każdą prognozę."
     }
   },
   "Architecture": {
     "title": "Architektura platformy",
+    "overviewTitle": "Trzy warstwy działają jak jeden układ",
+    "overviewDescription": "Platforma jest zbudowana jako stos trzech połączonych warstw: rdzenia prognozowania, warstwy użytkownika oraz pętli weryfikacji wyników. Razem prowadzą dane od sygnałów behawioralnych do potwierdzonej trafności prognozy.",
+    "overviewDescriptionLead": "Platforma jest zbudowana jako stos trzech połączonych warstw: rdzenia prognozowania, warstwy użytkownika oraz pętli weryfikacji wyników.",
+    "overviewDescriptionFollowup": "Razem prowadzą dane od sygnałów behawioralnych do potwierdzonej trafności prognozy.",
+    "interactionHint": "Wybierz warstwę z tagów albo kliknij kartę po prawej, aby rozwinąć jej rolę bardziej szczegółowo.",
+    "nextAction": "Następna warstwa",
     "core": {
       "title": "Rdzeń prognozowania",
       "description": "Jednolity rdzeń predykcji (silnik B2B) — fundament całej platformy, przetwarzający dane behawioralne i budujący prognozy stanu."
@@ -44,7 +83,7 @@
   },
   "Value": {
     "title": "Kluczowa wartość",
-    "description": "Dzvin.co to nie tylko oprogramowanie. To platforma z rdzeniem badawczo-rozwojowym, która:",
+    "description": "To nie tylko oprogramowanie. To platforma z rdzeniem badawczo-rozwojowym, która:",
     "points": {
       "cohort": "Wykorzystuje logikę prognozowania opartą na kohortach",
       "explainable": "Dostarcza wyjaśnialne prognozy — rozumiesz, dlaczego system daje konkretną rekomendację",
