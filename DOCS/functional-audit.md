@@ -1,4 +1,4 @@
-# Functional Audit — Mentality Web
+# Functional Audit — Dzvin.co Web
 
 Generated: 2026-01-17
 

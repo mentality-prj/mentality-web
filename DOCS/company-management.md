@@ -6,7 +6,7 @@ Generated: 2026-01-17
 
 ## Overview
 
-The Company Management feature adds multi-tenant B2B support to Mentality Web.
+The Company Management feature adds multi-tenant B2B support to Dzvin.co Web.
 It introduces three **company roles** layered on top of the existing system `admin`/`user` roles, a group hierarchy, employee invites, access scopes for managers, and an analytics dashboard.
 
 The system `admin` role (`session.user.role`) is used for platform-level actions (creating companies). Company-level roles (`session.user.companyRole`) govern everything inside a company.

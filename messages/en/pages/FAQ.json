@@ -1,0 +1,179 @@
+{
+  "title": "Frequently Asked Questions",
+  "intro": "Here you'll find answers for three audiences: people using the app for themselves, companies implementing the platform for teams, and specialists evaluating the system's psychometric and analytical approaches.",
+  "sectionQuestionsCount": "This section contains {count} questions",
+  "expandSection": "Click to view the list of questions",
+  "collapseSection": "Click to hide the list of questions",
+  "sections": [
+    {
+      "id": "b2c",
+      "label": "Consumer (B2C)",
+      "title": "Straightforward answers for everyday use",
+      "description": "This section explains how the personal space works: daily self-checks, tests, tips, exercises, and data protection.",
+      "items": [
+        {
+          "question": "What can I do in the app?",
+          "answer": [
+            "You can track your stress, mood, energy, and focus every day, keep personal notes, set goals, save useful materials, complete short psychological questionnaires, and receive curated tips and exercises based on your current state."
+          ]
+        },
+        {
+          "question": "How does the daily check-in work?",
+          "answer": [
+            "The main daily check-in consists of four ratings on a 1 to 5 scale: stress, mood, energy, and focus. If you have little time, you can use the shorter mood-only option or record a separate stress spike."
+          ]
+        },
+        {
+          "question": "What do I get after completing a check-in?",
+          "answer": [
+            "After saving a check-in, the system can provide a short explanation of your current state, suggest a calming exercise, offer a useful tip, or generate a personalized daily story. A summary is also formed on a regular basis to help you notice changes and recurring patterns."
+          ]
+        },
+        {
+          "question": "Is this a medical diagnosis?",
+          "answer": [
+            "No. Dzvin.co helps you track your well-being, structure your observations, and better understand your condition, but it does not replace a doctor, psychotherapist, or clinical assessment.",
+            "The psychological questionnaires in the app are useful for self-observation and early orientation, but they are not a final medical conclusion."
+          ]
+        },
+        {
+          "question": "How well is my data protected?",
+          "answer": [
+            "The system uses signed access token verification, technical security headers, input validation, and restrictions on allowed domains. This reduces the risk of unauthorized access and incorrect data processing."
+          ]
+        },
+        {
+          "question": "What rights to my personal data are provided by GDPR?",
+          "answer": [
+            "If GDPR applies to your case, you have the right to request access to your personal data, correction of inaccurate data, deletion of data, restriction of processing, objection to processing, and data portability.",
+            "Data processing must also rely on a defined legal basis, and a request to delete your account and related personal data can be submitted separately."
+          ]
+        },
+        {
+          "question": "What should I do if I can't sign in or found a bug?",
+          "answer": [
+            {
+              "text": "If you have trouble signing in, use account recovery on the sign-in page. If you notice a technical issue or have a suggestion for improvement, visit the ",
+              "linkText": "contacts page",
+              "href": "/contacts",
+              "linkSuffix": " and, if possible, include reproduction steps and a screenshot."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "label": "Business (B2B)",
+      "title": "Answers for companies, managers, and people operations teams",
+      "description": "This section collects questions about the platform's corporate value, access levels, risk analytics, and support for managerial decisions.",
+      "items": [
+        {
+          "question": "What management problem does the platform solve?",
+          "answer": [
+            "The platform turns regular psychological self-checks from employees into understandable indicators for team management. The company gets early risk signals, sees changes across units, and can intervene before a problem affects productivity, retention, or team stability."
+          ]
+        },
+        {
+          "question": "What metrics are available to the company?",
+          "answer": [
+            "The DecisionReport includes average stress, mood, energy, and focus values, burnout index, team risk ranking, a list of prioritized risk events, changes relative to the previous period, estimated impact on productivity and retention, and an AI-generated executive summary."
+          ]
+        },
+        {
+          "question": "Can the company see employees' personal entries?",
+          "answer": [
+            "The corporate layer of the platform focuses on aggregated team indicators, risk signals, and management-facing insights. The exact scope of access is determined by roles and access policies within your organization."
+          ]
+        },
+        {
+          "question": "How does the platform help a company comply with GDPR?",
+          "answer": [
+            "For a company, this means access to personal data must be limited by roles and business necessity, while processing should have a defined legal basis, retention periods, and a clear procedure for responding to data subject requests.",
+            "The platform supports access separation and visibility policies, but the organization itself must also configure internal rules for handling personal data in line with its legal obligations."
+          ]
+        },
+        {
+          "question": "How often is corporate analytics updated?",
+          "answer": [
+            "A daily scan identifies new risks and updates current signals, while the full management report is generated every Monday and covers the entire previous week. The fixed schedule keeps analytics ready for regular management reviews."
+          ]
+        },
+        {
+          "question": "How does the system help not only observe, but act?",
+          "answer": [
+            "DecisionSupportService does more than visualize data. It creates prioritized risk events, moves them through active → escalating → resolved (or suppressed) states, shows change tracking relative to the previous periodKey, estimates impact on productivity and retention, and adds an AI summary to support managerial action."
+          ]
+        },
+        {
+          "question": "How are company structure and access organized?",
+          "answer": [
+            "The system supports the hierarchy \"company → groups → participants\", company invites, roles, AccessScopes, and SalaryGrades. This makes it possible to configure data visibility and access rights according to organizational structure and user responsibility."
+          ]
+        },
+        {
+          "question": "How is forecast reliability controlled for business decisions?",
+          "answer": [
+            "Reliability is controlled through A/B testing of model variants, drift detection, an ML trust score in the 0-1 range, HR policy overrides, and auto-mitigation when model quality degrades across consecutive cycles.",
+            "A full audit trail is also kept for policy changes, so company admins can review not only the current trust level but also the history of interventions affecting model behavior."
+          ]
+        },
+        {
+          "question": "Is the product suitable for international teams?",
+          "answer": [
+            "Yes. TranslationsService supports uk / en / pl for Weekly Insights, MoodStory, and other AI-generated content, so explanations and analytics can be delivered to distributed teams in multiple languages."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rd",
+      "label": "Research (R&D)",
+      "title": "Answers for researchers, analysts, and scientists",
+      "description": "This section describes the psychometric foundation, risk evaluation features, forecasting mechanisms, and internal model quality procedures.",
+      "items": [
+        {
+          "question": "Which psychometric instruments and daily state signals are used in the system?",
+          "answer": [
+            "The platform uses three standardized questionnaires: GAD-7 for anxiety assessment, PHQ-9 for depressive symptom assessment, and K10 for measuring psychological distress.",
+            "In addition, it collects a daily state check-in with self-ratings of stress, mood, energy, and focus on a 1 to 5 scale.",
+            "Together, the psychometric tests and repeated daily self-reports create the historical basis for risk modeling and state trajectory analysis."
+          ]
+        },
+        {
+          "question": "What primary observations form the analytical foundation?",
+          "answer": [
+            "The core data source is a time series of daily self-assessments across four dimensions: stress, mood, energy, and focus. For periodic insights, at least a two-week window is analyzed, and for some risk estimates the system uses up to 100 records from the last 30 days together with psychometric results when available."
+          ]
+        },
+        {
+          "question": "How is individual risk level assessed?",
+          "answer": [
+            "The individual risk module computes features based on average values, variability, monotony, trend, the length of continuous check-in streaks, and symptom severity from questionnaires. A rule-oriented mechanism then assigns the user to one of three levels: low, moderate, or high."
+          ]
+        },
+        {
+          "question": "What exactly does state trajectory forecasting mean?",
+          "answer": [
+            "A dedicated module classifies state dynamics as worsening, stabilizing, or improving. It also estimates confidence level, active risk time window, probability of continuing the current pattern, and scenario changes under conditions such as improved sleep or reduced stress."
+          ]
+        },
+        {
+          "question": "How is cohort benchmarking formed in the system?",
+          "answer": [
+            "For the research layer, the key artifact is cohort metrics.",
+            "Prediction results are stored in PredictionSnapshot and then aggregated into CohortMetric, where benchmark values are formed for cohorts with similar team size and industry.",
+            "This makes it possible to compare trajectories and anomalies against anonymized peer groups within the cohort analysis layer."
+          ]
+        },
+        {
+          "question": "What model quality control and reproducibility mechanisms are built into the system?",
+          "answer": [
+            "The system includes comparative testing of model variants, monitoring of distribution shifts, an ML trust score for prediction reliability, and auto-mitigation when quality degrades.",
+            "For reproducibility, key outputs are stored in stable snapshot structures such as PredictionSnapshot, and periodic computations are tied to period keys, which simplifies recalculation, auditing, and cohort comparison."
+          ]
+        }
+      ]
+    }
+  ]
+}

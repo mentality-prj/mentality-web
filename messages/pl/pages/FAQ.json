@@ -1,0 +1,179 @@
+{
+  "title": "Najczęściej zadawane pytania",
+  "intro": "Tutaj zebrano odpowiedzi dla trzech odbiorców: osób korzystających z aplikacji dla siebie, firm wdrażających platformę dla zespołów oraz specjalistów oceniających podejścia psychometryczne i analityczne systemu.",
+  "sectionQuestionsCount": "W tej sekcji: {count} pytań",
+  "expandSection": "Kliknij, aby zobaczyć listę pytań",
+  "collapseSection": "Kliknij, aby ukryć listę pytań",
+  "sections": [
+    {
+      "id": "b2c",
+      "label": "Użytkownik (B2C)",
+      "title": "Proste odpowiedzi do codziennego korzystania",
+      "description": "Ta sekcja wyjaśnia, jak działa przestrzeń osobista: codzienne samooceny, testy, wskazówki, ćwiczenia i ochrona danych.",
+      "items": [
+        {
+          "question": "Co mogę robić w aplikacji?",
+          "answer": [
+            "Możesz codziennie zaznaczać poziom stresu, nastroju, energii i koncentracji, prowadzić osobiste notatki, wyznaczać cele, zapisywać przydatne materiały, wypełniać krótkie kwestionariusze psychologiczne oraz otrzymywać wskazówki i ćwiczenia dopasowane do aktualnego stanu."
+          ]
+        },
+        {
+          "question": "Jak wygląda codzienny check-in?",
+          "answer": [
+            "Główny check-in składa się z czterech ocen w skali od 1 do 5: stres, nastrój, energia i koncentracja. Jeśli masz mało czasu, możesz skorzystać z krótszej wersji tylko dla nastroju albo osobno zaznaczyć nagły wzrost stresu."
+          ]
+        },
+        {
+          "question": "Co otrzymuję po wypełnieniu check-inu?",
+          "answer": [
+            "Po zapisaniu check-inu system może krótko wyjaśnić Twój stan, zaproponować ćwiczenie uspokajające, przydatną wskazówkę albo spersonalizowaną codzienną opowieść. Regularnie tworzony jest także podsumowujący obraz zmian i powtarzających się wzorców."
+          ]
+        },
+        {
+          "question": "Czy to jest diagnoza medyczna?",
+          "answer": [
+            "Nie. Dzvin.co pomaga śledzić samopoczucie, porządkować obserwacje i lepiej rozumieć własny stan, ale nie zastępuje lekarza, psychoterapeuty ani oceny klinicznej.",
+            "Kwestionariusze psychologiczne w aplikacji są przydatne do samoobserwacji i wstępnej orientacji, ale nie stanowią ostatecznego wniosku medycznego."
+          ]
+        },
+        {
+          "question": "Jak dobrze chronione są moje dane?",
+          "answer": [
+            "System wykorzystuje weryfikację podpisanych tokenów dostępu, techniczne nagłówki bezpieczeństwa, walidację danych wejściowych oraz ograniczenia dozwolonych domen. Zmniejsza to ryzyko nieautoryzowanego dostępu i nieprawidłowego przetwarzania danych."
+          ]
+        },
+        {
+          "question": "Jakie prawa do moich danych osobowych przewiduje GDPR?",
+          "answer": [
+            "Jeśli w Twoim przypadku obowiązuje GDPR, masz prawo zażądać dostępu do swoich danych osobowych, sprostowania nieprawidłowych danych, usunięcia danych, ograniczenia przetwarzania, sprzeciwu wobec przetwarzania oraz przenoszenia danych.",
+            "Przetwarzanie danych powinno również opierać się na określonej podstawie prawnej, a wniosek o usunięcie konta i powiązanych danych osobowych można złożyć osobno."
+          ]
+        },
+        {
+          "question": "Co zrobić, jeśli nie mogę się zalogować albo znalazłem błąd?",
+          "answer": [
+            {
+              "text": "Jeśli masz problem z logowaniem, skorzystaj z odzyskiwania dostępu na stronie logowania. Jeśli zauważysz błąd techniczny albo masz propozycję ulepszenia, odwiedź ",
+              "linkText": "stronę kontaktową",
+              "href": "/contacts",
+              "linkSuffix": " i, jeśli to możliwe, dodaj opis kroków oraz zrzut ekranu."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "b2b",
+      "label": "Biznes (B2B)",
+      "title": "Odpowiedzi dla firm, menedżerów i zespołów people operations",
+      "description": "Ta sekcja zbiera pytania o wartość platformy dla firm, poziomy dostępu, analitykę ryzyka oraz wsparcie decyzji zarządczych.",
+      "items": [
+        {
+          "question": "Jaki problem zarządczy rozwiązuje platforma?",
+          "answer": [
+            "Platforma przekształca regularne psychologiczne samooceny pracowników w czytelne wskaźniki do zarządzania zespołami. Firma otrzymuje wczesne sygnały ryzyka, widzi zmiany w poszczególnych jednostkach i może reagować, zanim problem wpłynie na produktywność, retencję lub stabilność zespołu."
+          ]
+        },
+        {
+          "question": "Jakie wskaźniki są dostępne dla firmy?",
+          "answer": [
+            "W raporcie DecisionReport dostępne są średnie wartości stresu, nastroju, energii i koncentracji, burnout index, ranking ryzyka zespołów, lista priorytetyzowanych risk events, zmiany względem poprzedniego okresu, szacowany wpływ na produktywność i retencję oraz AI-generated executive summary."
+          ]
+        },
+        {
+          "question": "Czy firma widzi osobiste wpisy pracowników?",
+          "answer": [
+            "Warstwa korporacyjna platformy koncentruje się na zagregowanych wskaźnikach zespołów, sygnałach ryzyka i wnioskach zarządczych. Dokładny zakres dostępu jest określany przez role i polityki dostępu w organizacji."
+          ]
+        },
+        {
+          "question": "Jak platforma pomaga firmie spełniać wymagania GDPR?",
+          "answer": [
+            "Dla firmy oznacza to, że dostęp do danych osobowych powinien być ograniczony rolami i uzasadnioną potrzebą służbową, a przetwarzanie musi mieć określoną podstawę prawną, okresy przechowywania oraz jasną procedurę obsługi żądań osób, których dane dotyczą.",
+            "Platforma wspiera rozdzielenie dostępu i polityki widoczności, ale sama organizacja musi również skonfigurować wewnętrzne zasady pracy z danymi osobowymi zgodnie ze swoimi obowiązkami prawnymi."
+          ]
+        },
+        {
+          "question": "Jak często aktualizowana jest analityka korporacyjna?",
+          "answer": [
+            "Codzienny skan wykrywa nowe ryzyka i aktualizuje bieżące sygnały, natomiast pełny raport zarządczy jest generowany co poniedziałek i obejmuje cały poprzedni tydzień. Stały harmonogram zapewnia aktualność analityki przed regularnymi spotkaniami zarządczymi."
+          ]
+        },
+        {
+          "question": "Jak system pomaga nie tylko obserwować, ale też działać?",
+          "answer": [
+            "DecisionSupportService robi więcej niż wizualizacja danych. Tworzy priorytetyzowane risk events, prowadzi je przez stany active → escalating → resolved (lub suppressed), pokazuje change tracking względem poprzedniego periodKey, szacuje wpływ na produktywność i retencję oraz dodaje AI-podsumowanie wspierające decyzję zarządczą."
+          ]
+        },
+        {
+          "question": "Jak zorganizowana jest struktura firmy i dostępów?",
+          "answer": [
+            "System wspiera hierarchię \"firma → grupy → uczestnicy\", zaproszenia do firmy, role, AccessScopes oraz SalaryGrades. Pozwala to skonfigurować widoczność danych i prawa dostępu zgodnie ze strukturą organizacyjną oraz odpowiedzialnością użytkowników."
+          ]
+        },
+        {
+          "question": "Jak kontrolowana jest wiarygodność prognoz dla decyzji biznesowych?",
+          "answer": [
+            "Wiarygodność jest kontrolowana przez testy A/B wariantów modeli, drift detection, ML trust score w zakresie 0-1, policy overrides dla HR oraz auto-mitigation, gdy jakość modelu pogarsza się przez kolejne cykle.",
+            "Dodatkowo prowadzony jest pełny audit trail zmian polityk, więc administratorzy firmy widzą nie tylko bieżący poziom zaufania, ale też historię interwencji wpływających na zachowanie modelu."
+          ]
+        },
+        {
+          "question": "Czy produkt nadaje się dla międzynarodowych zespołów?",
+          "answer": [
+            "Tak. TranslationsService wspiera uk / en / pl dla Weekly Insights, MoodStory oraz innego AI-generowanego contentu, dzięki czemu wyjaśnienia i materiały analityczne mogą być dostarczane rozproszonym zespołom w wielu językach."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rd",
+      "label": "Badania (R&D)",
+      "title": "Odpowiedzi dla badaczy, analityków i naukowców",
+      "description": "Ta sekcja opisuje podstawę psychometryczną, cechy oceny ryzyka, mechanizmy prognozowania oraz wewnętrzne procedury jakości modeli.",
+      "items": [
+        {
+          "question": "Jakie narzędzia psychometryczne i codzienne sygnały stanu wykorzystuje system?",
+          "answer": [
+            "Platforma korzysta z trzech standaryzowanych kwestionariuszy: GAD-7 do oceny lęku, PHQ-9 do oceny objawów depresyjnych oraz K10 do pomiaru dystresu psychologicznego.",
+            "Dodatkowo system zbiera codzienny check-in stanu z samooceną stresu, nastroju, energii i koncentracji w skali od 1 do 5.",
+            "Połączenie testów psychometrycznych i powtarzalnych codziennych samoopisów tworzy historyczną podstawę do modelowania ryzyka i analizy trajektorii stanu."
+          ]
+        },
+        {
+          "question": "Jakie obserwacje pierwotne tworzą podstawę analityczną?",
+          "answer": [
+            "Podstawowym źródłem danych jest szereg czasowy codziennych samoocen w czterech wymiarach: stres, nastrój, energia i koncentracja. Dla wniosków okresowych analizowane jest co najmniej dwutygodniowe okno, a dla części ocen ryzyka system wykorzystuje do 100 zapisów z ostatnich 30 dni wraz z wynikami narzędzi psychometrycznych, jeśli są dostępne."
+          ]
+        },
+        {
+          "question": "Jak oceniany jest indywidualny poziom ryzyka?",
+          "answer": [
+            "Moduł ryzyka indywidualnego oblicza cechy na podstawie średnich wartości, zmienności, monotoniczności, trendu, długości ciągłych serii check-inów oraz nasilenia objawów w kwestionariuszach. Następnie mechanizm oparty na regułach przypisuje użytkownika do jednego z trzech poziomów: niski, umiarkowany lub wysoki."
+          ]
+        },
+        {
+          "question": "Co dokładnie oznacza prognoza trajektorii stanu?",
+          "answer": [
+            "Dedykowany moduł klasyfikuje dynamikę stanu jako pogarszającą się, stabilizującą lub poprawiającą. Dodatkowo ocenia poziom pewności, okno aktywnego ryzyka, prawdopodobieństwo kontynuacji bieżącego wzorca oraz zmiany scenariuszowe przy lepszym śnie lub mniejszym stresie."
+          ]
+        },
+        {
+          "question": "Jak w systemie tworzony jest benchmarking kohortowy?",
+          "answer": [
+            "Dla warstwy badawczej kluczowym artefaktem są metryki kohortowe.",
+            "Wyniki Prediction są zapisywane w PredictionSnapshot, a następnie agregowane do CohortMetric, gdzie tworzone są wartości referencyjne dla kohort o podobnej wielkości zespołu i branży.",
+            "Dzięki temu można porównywać trajektorie i anomalie względem zanonimizowanych grup odniesienia w ramach analizy kohortowej."
+          ]
+        },
+        {
+          "question": "Jakie mechanizmy kontroli jakości modeli i odtwarzalności są wbudowane w system?",
+          "answer": [
+            "System obejmuje porównawcze testowanie wariantów modeli, monitorowanie zmian rozkładów, ML trust score do oceny wiarygodności prognoz oraz auto-mitigation przy pogorszeniu jakości.",
+            "Dla odtwarzalności kluczowe wyniki są zapisywane w stabilnych strukturach snapshot, takich jak PredictionSnapshot, a obliczenia okresowe są powiązane z kluczami okresu, co ułatwia ponowne przeliczenie, audyt i porównania kohortowe."
+          ]
+        }
+      ]
+    }
+  ]
+}
