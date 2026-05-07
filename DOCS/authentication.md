@@ -2,7 +2,7 @@
 
 ## Overview
 
-Mentality uses **Zitadel** as the OIDC identity provider with the **Authorization Code + PKCE** flow. The frontend never handles `client_secret` — token exchange happens through a server-side API route.
+Dzvin.co uses **Zitadel** as the OIDC identity provider with the **Authorization Code + PKCE** flow. The frontend never handles `client_secret` — token exchange happens through a server-side API route.
 
 The auth layer is built as a **provider-agnostic abstraction**. All application code interacts with a unified API (`authService` / `useAuth` / `getServerSession`), so switching to a different identity provider (Auth0, Keycloak, etc.) requires changes in only one file.
 

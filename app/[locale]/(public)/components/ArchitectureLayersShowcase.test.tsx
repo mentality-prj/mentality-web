@@ -2,6 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import { ArchitectureLayersShowcase } from '@/app/[locale]/(public)/components/ArchitectureLayersShowcase'
 
+import { SupportedLanguage } from '../../../../types/languages'
+
 const translations: Record<string, string> = {
   'Architecture.overviewTitle': 'Three layers work as one loop',
   'Architecture.overviewDescriptionLead': 'Lead description.',
@@ -17,7 +19,7 @@ const translations: Record<string, string> = {
 }
 
 jest.mock('next-intl', () => ({
-  useTranslations: () => (key: string) => translations[key] ?? key,
+  useTranslations: () => (key: string) => translations[key as SupportedLanguage] ?? key,
 }))
 
 describe('ArchitectureLayersShowcase', () => {
