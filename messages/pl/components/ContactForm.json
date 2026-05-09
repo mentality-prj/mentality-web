@@ -6,5 +6,8 @@
   "send": "Wyślij wiadomość",
   "sending": "Wysyłanie...",
   "success": "Wiadomość wysłana!",
-  "error": "Nie udało się wysłać wiadomości"
+  "error": "Nie udało się wysłać wiadomości",
+  "errorValidateForm": "Proszę wypełnić formularz",
+  "errorValidateField": "To pole jest wymagane.",
+  "errorValidateFieldEmail": "Nieprawidłowy adres e-mail"
 }
