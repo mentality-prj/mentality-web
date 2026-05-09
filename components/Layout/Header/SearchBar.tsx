@@ -112,7 +112,11 @@ const SearchBar = ({
       >
         <Search size={18} />
       </button>
-
+      {/*
+        Mobile (<tablet): search opens as absolute overlay below header
+        Tablet (tablet-sm): search opens inline inside header
+        Desktop (sm+): search is always visible
+      */}
       <div
         className={cn(isMobileOpen ? 'absolute left-4 right-4 top-14 z-50 flex' : 'hidden sm:block', 'tablet:static')}
       >
