@@ -1,93 +1,93 @@
 {
   "title": "O Dzvin.co",
-  "intro": "To oparty na dowodach system prognozowania stanu psychicznego. Nie tylko zbieramy i interpretujemy dane — prognozujemy, weryfikujemy i udowadniamy nasze wnioski.",
-  "introExtended": "Platforma pracuje na codziennych sygnałach stanu — stresie, nastroju, energii i koncentracji — aby oceniać trajektorię zmian, wykrywać ryzyka i pokazywać, co realnie może zmienić przewidywany wynik. Na tej podstawie łączy osobiste wskazówki dla użytkownika, zagregowane sygnały dla zespołów oraz pętlę weryfikacji trafności własnych wniosków.",
+  "intro": "Dzvin.co to oparta na dowodach platforma analizy stanu psychicznego, która łączy narzędzia psychometryczne, sygnały behawioralne i modele predykcyjne, aby wcześnie wykrywać ryzyka i wspierać podejmowanie decyzji.",
+  "introExtended": "Platforma pracuje na codziennych sygnałach stanu — stresie, nastroju, energii i koncentracji — oraz wynikach testów psychometrycznych, aby śledzić dynamikę zmian, identyfikować czynniki wpływu oraz budować zarówno osobiste, jak i zespołowe scenariusze działania. Na tej podstawie dostarcza rekomendacje dla użytkowników, sygnały analityczne dla zespołów i pętlę walidacji, która sprawdza jakość modeli na rzeczywistych wynikach.",
   "Evolution": {
-    "title": "Od analityki do prognozowania",
-    "description": "Większość narzędzi zdrowia psychicznego zatrzymuje się na poziomie pytania «co się stało i co teraz nie działa». Dzvin.co idzie dalej.",
+    "title": "Od obserwacji do prognozy",
+    "description": "Większość rozwiązań w obszarze zdrowia psychicznego opisuje jedynie bieżący stan. Dzvin.co przechodzi od obserwacji do prognozy, a od prognozy do weryfikowalnej decyzji.",
     "stepDescriptions": {
       "happened": "System wychwytuje sygnały behawioralne, zmiany rytmu i dynamikę stanu bez sprowadzania wszystkiego do jednego wyniku.",
-      "means": "Każdy sygnał otrzymuje interpretację w kontekście osoby, kohorty lub środowiska organizacyjnego.",
-      "next": "Model ocenia trajektorię stanu i pokazuje najbardziej prawdopodobny dalszy rozwój bez interwencji.",
-      "action": "Platforma porównuje scenariusze działania i pokazuje, które z nich mogą zmienić przewidywany wynik.",
-      "evidence": "Po interwencji wynik jest weryfikowany na podstawie rzeczywistych danych, aby potwierdzić lub obalić prognozę."
+      "means": "Każdy sygnał jest interpretowany w kontekście użytkownika, wzorców kohortowych i środowiska organizacyjnego.",
+      "next": "Model ocenia trajektorie zmian stanu i wskazuje scenariusze, które są najbardziej prawdopodobne.",
+      "action": "Platforma porównuje scenariusze działań i pomaga zrozumieć, które interwencje mogą zmienić oczekiwany wynik.",
+      "evidence": "Rzeczywiste wyniki wracają do systemu, aby weryfikować wnioski i zwiększać wiarygodność modeli."
     },
     "context": {
-      "eyebrow": "Logika Dzvin.co",
-      "title": "To nie lista etapów, lecz zamknięta pętla decyzji",
-      "description": "Każdy krok w tym obiegu wynika z poprzedniego: od sygnału do interpretacji, od prognozy do działania i od działania do zweryfikowanego wyniku.",
+      "eyebrow": "Logika platformy",
+      "title": "Zamknięta pętla analizy, prognozy i weryfikacji",
+      "description": "Każdy etap opiera się na poprzednim: sygnał otrzymuje kontekst, prognoza przechodzi w działanie, a działanie w zweryfikowany wynik.",
       "items": {
         "signal": {
-          "title": "Sygnał",
-          "description": "Dane o zachowaniu, stanie i kontekście są łączone w jeden przekrój przyczynowy."
+          "title": "Sygnały",
+          "description": "Dane behawioralne, psychometryczne i kontekstowe są traktowane jako jeden system powiązanych czynników."
         },
         "prediction": {
-          "title": "Prognoza",
-          "description": "Model nie tylko opisuje sytuację, ale wylicza najbardziej prawdopodobny kolejny scenariusz."
+          "title": "Prognozowanie",
+          "description": "Model ocenia dynamikę zmian i wskazuje scenariusze najbardziej prawdopodobne zarówno bez interwencji, jak i po niej."
         },
         "validation": {
           "title": "Walidacja",
-          "description": "Po działaniu platforma mierzy rzeczywisty wynik i aktualizuje trafność swoich wniosków."
+          "description": "Rzeczywiste wyniki wracają do systemu, aby weryfikować wnioski i zwiększać wiarygodność modeli."
         }
       }
     },
     "steps": {
-      "happened": "Co się stało",
+      "happened": "Co się zmienia",
       "means": "Co to oznacza",
       "next": "Co będzie dalej",
-      "action": "Co zmieni się przy działaniu",
-      "evidence": "Czy to rzeczywiście zadziałało"
+      "action": "Co może zmienić wynik",
+      "evidence": "Co potwierdzają dane"
     }
   },
   "ForWhom": {
     "title": "Dla kogo",
     "business": {
-      "impactPercent": "72%",
-      "impactLabel": "utrzymanie zespołu",
+      "highlightValue": "B2B",
+      "highlightLabel": "warstwa organizacyjna",
       "title": "Dla biznesu",
-      "description": "Decyzje poparte prognozami i dowodami. Nie tylko metryki — konkretne wnioski z przewidywanym wynikiem i mierzalnym efektem."
+      "description": "Daje liderom i HR wczesne sygnały ryzyka, dynamikę zespołu i mocniejszą podstawę do decyzji dotyczących dobrostanu, produktywności i retencji."
     },
     "user": {
-      "impactPercent": "78%",
-      "impactLabel": "stabilizacja stanu",
+      "highlightValue": "B2C",
+      "highlightLabel": "warstwa osobista",
       "title": "Dla użytkownika",
-      "description": "Zrozumienie przyszłego stanu i proste działania. Wiesz nie tylko gdzie jesteś teraz, ale dokąd zmierzasz — i co konkretnie możesz zmienić."
+      "description": "Pomaga dostrzegać własne wzorce, lepiej rozumieć zmiany stanu i otrzymywać rekomendacje osadzone w realnym kontekście życia."
     },
     "research": {
-      "impactPercent": "84%",
-      "impactLabel": "tempo walidacji",
+      "highlightValue": "R&D",
+      "highlightLabel": "warstwa walidacji",
       "title": "Dla naukowców i instytutów badawczych",
-      "description": "Model behawioralny na poziomie populacji z weryfikowalną dokładnością. Dane wynikowe gromadzą się i potwierdzają lub obalają każdą prognozę."
+      "description": "Tworzy środowisko do pracy z anonimizowanymi danymi behawioralnymi, testowania hipotez i oceny jakości modeli na poziomie populacji."
     }
   },
   "Architecture": {
     "title": "Architektura platformy",
-    "overviewTitle": "Trzy warstwy działają jak jeden układ",
-    "overviewDescription": "Platforma jest zbudowana jako stos trzech połączonych warstw: rdzenia prognozowania, warstwy użytkownika oraz pętli weryfikacji wyników. Razem prowadzą dane od sygnałów behawioralnych do potwierdzonej trafności prognozy.",
-    "overviewDescriptionLead": "Platforma jest zbudowana jako stos trzech połączonych warstw: rdzenia prognozowania, warstwy użytkownika oraz pętli weryfikacji wyników.",
-    "overviewDescriptionFollowup": "Razem prowadzą dane od sygnałów behawioralnych do potwierdzonej trafności prognozy.",
+    "overviewTitle": "Trzy warstwy jednego systemu",
+    "overviewDescription": "Platforma jest zbudowana jako rdzeń analityczny, warstwa użytkownika i warstwa walidacji, które razem działają jako jeden system wspierania decyzji.",
+    "overviewDescriptionLead": "Rdzeń analityczny, warstwa użytkownika i warstwa walidacji działają jako jeden system wspierania decyzji.",
+    "overviewDescriptionFollowup": "Razem łączą personalizację dla użytkownika, sygnały dla zespołów i naukową weryfikację jakości modeli.",
     "interactionHint": "Wybierz warstwę z tagów albo kliknij kartę po prawej, aby rozwinąć jej rolę bardziej szczegółowo.",
     "nextAction": "Następna warstwa",
     "core": {
-      "title": "Rdzeń prognozowania",
-      "description": "Jednolity rdzeń predykcji (silnik B2B) — fundament całej platformy, przetwarzający dane behawioralne i budujący prognozy stanu."
+      "title": "Rdzeń analityczno-predykcyjny",
+      "description": "Łączy sygnały behawioralne, wyniki psychometryczne i logikę predykcyjną, aby oceniać dynamikę stanu oraz wzorce ryzyka."
     },
     "b2c": {
-      "title": "Warstwa B2C",
-      "description": "Cienka warstwa nad rdzeniem predykcji: trajektoria stanu, symulacja scenariuszy i dowody kohortowe dla użytkownika końcowego."
+      "title": "Warstwa dla użytkowników",
+      "description": "Zamienia złożoną analitykę w zrozumiałe check-iny, osobiste insighty, rekomendacje i scenariusze działania."
     },
     "loop": {
-      "title": "Pętla Prognoza → Wynik",
-      "description": "Warstwa badawczo-rozwojowa mierząca dokładność prognoz i automatycznie ulepszająca model na podstawie rzeczywistych wyników."
+      "title": "System weryfikacji wyników",
+      "description": "Zwraca rzeczywiste wyniki do systemu, testuje jakość prognoz i buduje zaufanie do modelu."
     }
   },
   "Value": {
     "title": "Kluczowa wartość",
-    "description": "To nie tylko oprogramowanie. To platforma z rdzeniem badawczo-rozwojowym, która:",
+    "description": "Wartość platformy nie polega wyłącznie na obserwowaniu stanu, lecz na zamianie sygnałów w wyjaśnialne i weryfikowalne decyzje.",
     "points": {
-      "cohort": "Wykorzystuje logikę prognozowania opartą na kohortach",
-      "explainable": "Dostarcza wyjaśnialne prognozy — rozumiesz, dlaczego system daje konkretną rekomendację",
-      "outcome": "Mierzy własną skuteczność poprzez dane wynikowe"
+      "cohort": "Pracuje nie tylko na pojedynczych sygnałach, lecz także na wzorcach kohortowych i behawioralnych.",
+      "explainable": "Dostarcza rekomendacje z wyjaśnieniem czynników i kontekstu, a nie jako czarna skrzynka.",
+      "outcome": "Sprawdza, co działa w praktyce, i doprecyzowuje modele na podstawie nowych wyników."
     }
   }
 }

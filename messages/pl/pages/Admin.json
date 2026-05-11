@@ -21,10 +21,6 @@
       "title": "Kontrola modeli tłumaczeń",
       "description": "Ręczne techniczne sprawdzenie translator host, Helsinki, Facebook i compare"
     },
-    "translateService": {
-      "title": "Serwis tłumaczeń",
-      "description": "Porównaj wyniki tłumaczeń między dwoma modelami AI"
-    },
     "speechDemo": {
       "title": "Demo mowy",
       "description": "Strona techniczna do sprawdzania scenariuszy demo mowy"
@@ -74,23 +70,5 @@
     "host": "Host",
     "data": "Data",
     "unexpectedError": "Wystąpił nieoczekiwany błąd"
-  },
-  "translate-service": {
-    "title": "Serwis tłumaczeń",
-    "description": "Porównaj wyniki tłumaczeń między dwoma modelami AI",
-    "sourceText": "Tekst źródłowy",
-    "sourceTextPlaceholder": "Wprowadź tekst do tłumaczenia…",
-    "sourceLanguage": "Język źródłowy",
-    "targetLanguage": "Język docelowy",
-    "modelA": "Model A",
-    "modelB": "Model B",
-    "swapLanguages": "Zamień języki",
-    "swapModels": "Zamień modele",
-    "translate": "Tłumacz",
-    "translating": "Tłumaczenie…",
-    "translationFailed": "Nie udało się wykonać tłumaczenia.",
-    "identicalTranslations": "Tłumaczenia są identyczne",
-    "resultsHeading": "Wyniki tłumaczeń",
-    "diffHeading": "Porównanie odpowiedzi"
   }
 }

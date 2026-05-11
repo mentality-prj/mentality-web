@@ -1,7 +1,7 @@
 {
   "hero": {
     "eyebrow": "Usługi Dzvin.co",
-    "title": "Jedna platforma dla wsparcia osobistego, analityki korporacyjnej i walidacji badawczej",
+    "title": "Wsparcie osobiste, analityka korporacyjna i walidacja w jednym systemie",
     "subtitle": "Obecny produkt łączy już scenariusze samooceny, zarządzanie firmą, analitykę zagregowaną oraz pętlę prognoza → wynik. Ta strona zbiera te moduły w trzy formaty usług.",
     "note": "Wszystkie wykresy poniżej są ilustracyjne: pokazują, jak istniejące moduły platformy mogą wizualizować dane, a nie rzeczywiste dane klientów.",
     "audiences": {
@@ -21,8 +21,8 @@
   },
   "blueprint": {
     "eyebrow": "Architektura usługi",
-    "title": "Strona usług pokazuje inny model działania niż landing",
-    "subtitle": "Landing przedstawia platformę w skrócie, a services rozkłada ją na osobne ścieżki usługowe. Dlatego ta strona używa oddzielnych opisów i nowych kart wizualnych zamiast powtarzać ilustracje z landingu.",
+    "title": "Trzy ścieżki usługowe jednej platformy",
+    "subtitle": "Platforma działa jako usługa osobista dla użytkownika, usługa analityczna dla firmy oraz usługa walidacyjna dla programów i badań. Poniżej pokazano, jak zmienia się jej rola w każdym z tych scenariuszy.",
     "cards": {
       "personalFlow": {
         "title": "Osobista ścieżka wsparcia",

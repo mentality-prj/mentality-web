@@ -14,7 +14,6 @@ const companyLinks = [
 
 const toolLinks = [
   { href: `${Routes.ADMIN}/translation-model-checks`, icon: Languages, key: 'translationModelChecks' },
-  { href: `${Routes.ADMIN}/translate-service`, icon: Languages, key: 'translateService' },
   { href: `${Routes.ADMIN}/speech-demo`, icon: Speech, key: 'speechDemo' },
 ] as const
 

@@ -8,7 +8,7 @@ const translations: Record<string, string> = {
   'hero.subtitle': 'Subtitle',
   'hero.note': 'Illustrative data note',
   'blueprint.eyebrow': 'Service architecture',
-  'blueprint.title': 'The services page explains a different operating model than the landing page',
+  'blueprint.title': 'Three service tracks of one platform',
   'blueprint.subtitle': 'Blueprint subtitle',
   'blueprint.cards.personalFlow.title': 'Personal support track',
   'blueprint.cards.personalFlow.description': 'Personal flow description',
@@ -98,10 +98,11 @@ describe('ServicesAudienceShowcase', () => {
         level: 1,
       })
     ).toBeInTheDocument()
-    expect(screen.getByText('Illustrative data note')).toBeInTheDocument()
+    expect(screen.getByText('Subtitle')).toBeInTheDocument()
+    expect(screen.getByText('B2C subtitle')).toBeInTheDocument()
     expect(
       screen.getByRole('heading', {
-        name: 'The services page explains a different operating model than the landing page',
+        name: 'Three service tracks of one platform',
         level: 2,
       })
     ).toBeInTheDocument()
