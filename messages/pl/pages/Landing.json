@@ -1,68 +1,68 @@
 {
   "Hero": {
-    "title": "Przewidujemy stan psychiczny. Z dowodami.",
-    "subtitle": "Dzvin.co to coś więcej niż analityka. Przewidujemy Twój przyszły stan psychiczny, symulujemy scenariusze i mierzymy własną skuteczność poprzez rzeczywiste wyniki.",
+    "title": "Lepsze zrozumienie stanu psychicznego, oparte na danych.",
+    "subtitle": "Dzvin.co pomaga śledzić zmiany stanu psychicznego, analizować wzorce behawioralne i oceniać, które działania mogą pozytywnie wpływać na samopoczucie.",
     "cta": "Wypróbuj za darmo",
     "testimonial": {
       "title": "Dla wsparcia osobistego\ni zespołów",
       "cta": "Dowiedz się więcej",
       "metric": "725+",
-      "primary": "Referencje"
+      "primary": "Opinie"
     }
   },
   "Features": {
     "interactivity": {
-      "title": "Prognoza stanu",
-      "subtitle": "System analizuje Twoje wzorce behawioralne i buduje trajektorię przyszłego stanu — nie tylko co teraz, ale co będzie dalej."
+      "title": "Analiza zmian stanu",
+      "subtitle": "System analizuje wzorce behawioralne i pomaga dostrzegać trendy oraz czynniki, które mogą wpływać na samopoczucie."
     },
     "support": {
-      "title": "Oparte na dowodach",
-      "subtitle": "Każda rekomendacja jest poparta danymi kohortowymi — pokazujemy, co rzeczywiście działało dla osób o podobnych wzorcach."
+      "title": "Rekomendacje oparte na danych",
+      "subtitle": "Rekomendacje są tworzone z uwzględnieniem zanonimizowanych wzorców i wyników osób o podobnych scenariuszach."
     },
     "ai": {
-      "title": "Wyjaśnialne AI",
-      "subtitle": "Wiesz dokładnie, dlaczego system daje konkretną rekomendację i widzisz proste działania, aby zmienić swój stan."
+      "title": "Zrozumiałe wyjaśnienia",
+      "subtitle": "Widzisz, dlaczego system proponuje określone rekomendacje i jakie kroki mogą wspierać Twoje samopoczucie."
     }
   },
   "Services": {
-    "title": "Od danych do prognoz\ni zweryfikowanych decyzji",
+    "title": "Od danych do zrozumiałych\ni praktycznych wniosków",
     "cards": {
       "intro": {
-        "text": "Wyszliśmy poza analitykę. Dzvin.co to platforma prognozowania i dowodów, która prognozuje, weryfikuje i udowadnia swoje wnioski."
+        "text": "Dzvin.co łączy analizę wzorców behawioralnych, ocenę zmian stanu i rekomendacje oparte na danych."
       },
       "predictionEngine": {
-        "title": "Silnik prognozowania",
-        "text": "Jednolity rdzeń predykcji analizuje Twoje dane, buduje trajektorię stanu i modeluje, co zmieni się przy różnych działaniach."
+        "title": "Analiza wzorców",
+        "text": "System analizuje zmiany stanu i pomaga określać czynniki, które mogą wpływać na samopoczucie."
       },
       "scenarioSimulation": {
-        "title": "Symulacja scenariuszy",
-        "text": "Zobacz wpływ różnych decyzji na Twój stan psychiczny zanim je podejmiesz."
+        "title": "Ocena możliwych zmian",
+        "text": "Porównuj różne podejścia i obserwuj, jak zmiany nawyków lub obciążenia mogą być powiązane ze zmianami stanu."
       },
       "cohortEvidence": {
-        "title": "Dowody kohortowe",
-        "text": "Porównanie z kohortami osób o podobnych wzorcach dostarcza kontekstu i potwierdza skuteczność rekomendacji."
+        "title": "Kontekst dzięki danym",
+        "text": "Zanonimizowane porównanie z podobnymi wzorcami pomaga lepiej rozumieć własne doświadczenie i dynamikę stanu."
       }
     }
   },
   "HowItWorks": {
     "title": "Jak to działa",
-    "subtitle": "Dla osób i dla zespołów",
+    "subtitle": "Do użytku osobistego i dla zespołów",
     "steps": {
-      "register": "Zacznij — wypełnij krótki kwestionariusz. Kilka minut i Twój profil jest gotowy.",
-      "choose": "Dowiedz się o swoim stanie — system pokaże, co się teraz dzieje i co może się zmienić.",
-      "receive": "Zobacz, co działa — po każdym kroku sprawdzamy wynik i doprecyzowujemy następną prognozę."
+      "register": "Zacznij od krótkiego kwestionariusza — pomoże on zbudować profil bazowy i zrozumieć Twój obecny stan.",
+      "choose": "Otrzymaj analitykę i rekomendacje — system pokaże trendy, powiązane czynniki oraz możliwe kierunki wsparcia.",
+      "receive": "Śledź zmiany w czasie — po każdej interakcji system doprecyzowuje ocenę stanu i dostosowuje rekomendacje."
     },
     "cta": "Rozpocznij teraz"
   },
   "ReduceStress": {
-    "title": "Nie jesteś sam ze swoim wzorcem",
-    "subtitle": "Tysiące osób o podobnych profilach behawioralnych już przez to przechodziło. Dzvin.co pokazuje, jakie działania rzeczywiście pomogły — i z jakim prawdopodobieństwem pomogą Tobie."
+    "title": "Wsparcie, gdy jest potrzebne",
+    "subtitle": "Dzvin.co pomaga lepiej zrozumieć swój stan, zauważać zmiany i znajdować praktyczne kroki wspierające samopoczucie."
   },
   "Footer": {
     "copyright": "© {year} {company}. Wszelkie prawa zastrzeżone.",
     "backToTop": "Wróć na górę",
     "privacy": "Polityka prywatności",
-    "terms": "Regulamin",
-    "cookies": "Polityka plików cookie"
+    "terms": "Warunki korzystania",
+    "cookies": "Polityka cookies"
   }
 }

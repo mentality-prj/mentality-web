@@ -8,7 +8,7 @@ export type MoodKey = 'veryBad' | 'bad' | 'neutral' | 'good' | 'great'
 export type MoodInfo = {
   key: MoodKey
   label: string
-  icon: ElementType<{ color?: string; fillColor?: string }>
+  icon: ElementType<{ color?: string; fillColor?: string; size?: number }>
   statusClass: StatusType
 }
 

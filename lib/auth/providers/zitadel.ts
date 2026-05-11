@@ -1,8 +1,14 @@
 import { zitadelConfig } from '@/config/zitadel'
 import { IAuthProvider } from '@/lib/auth/auth-provider'
 import { logger } from '@/lib/logger'
-import { APIUrl } from '@/requests/config'
-import { AuthTokens, CustomSession, CustomUser, UserAI } from '@/types/auth'
+import {
+  deleteStoredAuthTokens,
+  exchangeAuthTokens,
+  fetchStoredAuthTokens,
+  storeAuthTokens,
+  validateAccessToken,
+} from '@/requests/auth'
+import type { AuthTokens, CustomSession, CustomUser, UserAI } from '@/types/auth'
 
 // ─── PKCE helpers ───────────────────────────────────────────────────────────
 
@@ -23,58 +29,6 @@ async function generateCodeChallenge(verifier: string): Promise<string> {
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '')
-}
-
-// ─── Token storage via httpOnly cookie API routes ───────────────────────────
-
-async function storeTokens(tokens: AuthTokens): Promise<void> {
-  const response = await fetch('/api/auth/token', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(tokens),
-  })
-  if (!response.ok) {
-    throw new Error(`Failed to store tokens: ${response.status}`)
-  }
-}
-
-async function fetchStoredTokens(): Promise<AuthTokens | null> {
-  try {
-    const response = await fetch('/api/auth/token', { method: 'GET' })
-    if (!response.ok) return null
-    return response.json()
-  } catch {
-    return null
-  }
-}
-
-async function deleteTokens(): Promise<void> {
-  await fetch('/api/auth/token', { method: 'DELETE' })
-}
-
-// ─── Backend validation ─────────────────────────────────────────────────────
-
-async function validateWithBackend(accessToken: string): Promise<UserAI | null> {
-  try {
-    const response = await fetch(`${APIUrl}/auth/validate-token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${accessToken}`,
-      },
-    })
-    if (!response.ok) {
-      logger.error('[AUTH:ZITADEL] Backend validation failed', { status: response.status })
-      return null
-    }
-    const data: UserAI = await response.json()
-    return data?._id ? data : null
-  } catch (error) {
-    logger.error('[AUTH:ZITADEL] Backend connection error', {
-      error: error instanceof Error ? error.message : String(error),
-    })
-    return null
-  }
 }
 
 function buildUser(backendUser: UserAI): CustomUser {
@@ -141,23 +95,17 @@ export class ZitadelAuthProvider implements IAuthProvider {
     sessionStorage.removeItem('pkce_verifier')
 
     try {
-      const tokenResponse = await fetch('/api/auth/exchange', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          grantType: 'authorization_code',
-          code,
-          codeVerifier,
-        }),
+      const exchangeResult = await exchangeAuthTokens({
+        grantType: 'authorization_code',
+        code,
+        codeVerifier,
       })
 
-      if (!tokenResponse.ok) {
-        const errorData = await tokenResponse.json().catch(() => ({}))
-        logger.error('[AUTH:ZITADEL] Token exchange failed', { status: tokenResponse.status, error: errorData })
-        throw new Error(`Token exchange failed (${tokenResponse.status}): ${JSON.stringify(errorData)}`)
+      if ('error' in exchangeResult) {
+        throw new Error(`Token exchange failed (${exchangeResult.status ?? 'unknown'}): ${exchangeResult.error}`)
       }
 
-      const data = await tokenResponse.json()
+      const data = exchangeResult.data
 
       const tokens: AuthTokens = {
         accessToken: data.access_token,
@@ -165,15 +113,22 @@ export class ZitadelAuthProvider implements IAuthProvider {
         expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
       }
 
-      const backendUser = await validateWithBackend(tokens.accessToken)
-      if (!backendUser) {
+      const validationResult = await validateAccessToken(tokens.accessToken)
+
+      if ('error' in validationResult) {
         logger.error('[AUTH:ZITADEL] Backend validation failed after token exchange')
         throw new Error('Backend validation failed — the backend server may be down or does not recognize the token.')
       }
 
+      const backendUser = validationResult.data
+
       // Update the cookie with userRole (exchange route already stored the base tokens)
       tokens.userRole = backendUser.role
-      await storeTokens(tokens)
+      const storeResult = await storeAuthTokens(tokens)
+
+      if ('error' in storeResult) {
+        throw new Error(`Failed to store tokens (${storeResult.status ?? 'unknown'}): ${storeResult.error}`)
+      }
 
       const user = buildUser(backendUser)
 
@@ -185,27 +140,22 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async refreshTokens(): Promise<AuthTokens | null> {
-    const currentTokens = await fetchStoredTokens()
+    const currentTokens = await fetchStoredAuthTokens()
     if (!currentTokens?.refreshToken && !currentTokens?.hasRefreshToken) {
       logger.warn('[AUTH:ZITADEL] No refresh token available')
       return null
     }
 
     try {
-      const response = await fetch('/api/auth/exchange', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          grantType: 'refresh_token',
-        }),
+      const exchangeResult = await exchangeAuthTokens({
+        grantType: 'refresh_token',
       })
 
-      if (!response.ok) {
-        logger.error('[AUTH:ZITADEL] Token refresh failed', { status: response.status })
+      if ('error' in exchangeResult) {
         return null
       }
 
-      const data = await response.json()
+      const data = exchangeResult.data
 
       // The exchange route updates the cookie server-side (preserving refresh token).
       // Return only the client-safe fields.
@@ -225,8 +175,8 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async logout(): Promise<void> {
-    const tokens = await fetchStoredTokens()
-    await deleteTokens()
+    const tokens = await fetchStoredAuthTokens()
+    await deleteStoredAuthTokens()
 
     const params = new URLSearchParams({
       client_id: zitadelConfig.clientId,
@@ -241,7 +191,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async getUser(): Promise<CustomUser | null> {
-    let tokens = await fetchStoredTokens()
+    let tokens = await fetchStoredAuthTokens()
     if (!tokens) return null
 
     if (tokens.expiresAt < Math.floor(Date.now() / 1000)) {
@@ -250,14 +200,14 @@ export class ZitadelAuthProvider implements IAuthProvider {
       tokens = refreshed
     }
 
-    const backendUser = await validateWithBackend(tokens.accessToken)
-    if (!backendUser) return null
+    const validationResult = await validateAccessToken(tokens.accessToken)
+    if ('error' in validationResult) return null
 
-    return buildUser(backendUser)
+    return buildUser(validationResult.data)
   }
 
   async getToken(): Promise<string | null> {
-    const tokens = await fetchStoredTokens()
+    const tokens = await fetchStoredAuthTokens()
     if (!tokens) return null
 
     if (tokens.expiresAt < Math.floor(Date.now() / 1000) + 30) {
@@ -269,7 +219,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async getSession(): Promise<CustomSession | null> {
-    const tokens = await fetchStoredTokens()
+    const tokens = await fetchStoredAuthTokens()
     if (!tokens) return null
 
     const user = await this.getUser()
@@ -283,10 +233,10 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async getStoredTokens(): Promise<AuthTokens | null> {
-    return fetchStoredTokens()
+    return fetchStoredAuthTokens()
   }
 
   async clearTokens(): Promise<void> {
-    return deleteTokens()
+    return deleteStoredAuthTokens()
   }
 }

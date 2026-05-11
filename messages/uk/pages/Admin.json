@@ -15,11 +15,82 @@
     "companyManager": {
       "title": "Менеджер",
       "description": "Аналітика та управління командою"
+    },
+    "toolsSection": "Інструменти",
+    "translationModelChecks": {
+      "title": "Перевірка моделей перекладу",
+      "description": "Ручна технічна перевірка translator host, Helsinki, Facebook і compare"
+    },
+    "translateService": {
+      "title": "Сервіс перекладу",
+      "description": "Порівняння результатів перекладу між двома AI-моделями"
+    },
+    "speechDemo": {
+      "title": "Демонстрація мовлення",
+      "description": "Технічна сторінка для перевірки demo-сценаріїв мовлення"
     }
   },
   "ds": { "title": "Дизайн-система" },
   "goals": { "title": "Цілі" },
   "achievements": { "title": "Досягнення" },
   "speech-demo": { "title": "Демонстрація мовлення" },
-  "phq9": { "title": "PHQ-9" }
+  "phq9": { "title": "PHQ-9" },
+  "translation-model-checks": {
+    "title": "Перевірка моделей перекладу",
+    "description": "Технічний екран для перевірки translator host, Helsinki, Facebook і compare-роуту.",
+    "serviceStatus": "Статус сервісу",
+    "serviceStatusDescription": "Перевірка доступності translator host через hello-ендпоінт.",
+    "checkHost": "Перевірити host",
+    "checkingHost": "Перевіряємо host…",
+    "helloSuccess": "Hello endpoint відповів успішно.",
+    "translationTest": "Тест перекладу",
+    "translationTestDescription": "Запускайте Helsinki, Facebook або compare для мовних пар uk-pl і pl-uk.",
+    "text": "Текст",
+    "textPlaceholder": "Введіть текст для перекладу…",
+    "characters": "Символи",
+    "sourceLanguage": "Мова джерела",
+    "targetLanguage": "Мова перекладу",
+    "swapLanguages": "Поміняти мови місцями",
+    "runHelsinki": "Запустити Helsinki",
+    "runFacebook": "Запустити Facebook",
+    "compare": "Порівняти",
+    "runningHelsinki": "Запускаємо Helsinki…",
+    "runningFacebook": "Запускаємо Facebook…",
+    "runningCompare": "Порівнюємо…",
+    "facebookPairWarning": "Facebook і compare доступні лише для пар uk → pl та pl → uk.",
+    "results": "Результати",
+    "noResults": "Результати з’являться тут після запуску перевірки.",
+    "compareEndpoint": "Compare endpoint",
+    "helsinki": "Helsinki",
+    "facebook": "Facebook",
+    "model": "Модель",
+    "sourceLang": "Мова джерела",
+    "targetLang": "Мова перекладу",
+    "endpoint": "Endpoint",
+    "translation": "Переклад",
+    "emptyTranslation": "Сервіс не повернув текст перекладу.",
+    "status": "Статус",
+    "statusOk": "Доступний",
+    "host": "Host",
+    "data": "Data",
+    "unexpectedError": "Сталася неочікувана помилка"
+  },
+  "translate-service": {
+    "title": "Сервіс перекладу",
+    "description": "Порівняйте результати перекладу між двома AI-моделями",
+    "sourceText": "Вихідний текст",
+    "sourceTextPlaceholder": "Введіть текст для перекладу…",
+    "sourceLanguage": "Мова джерела",
+    "targetLanguage": "Цільова мова",
+    "modelA": "Модель A",
+    "modelB": "Модель B",
+    "swapLanguages": "Поміняти мови місцями",
+    "swapModels": "Поміняти моделі місцями",
+    "translate": "Перекласти",
+    "translating": "Перекладаємо…",
+    "translationFailed": "Не вдалося виконати переклад.",
+    "identicalTranslations": "Переклади ідентичні",
+    "resultsHeading": "Результати перекладу",
+    "diffHeading": "Порівняння відповідей"
+  }
 }

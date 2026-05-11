@@ -120,7 +120,7 @@ export const mentalGamesInnerMenuItems: MentalGamesInnerMenuItem[] = [
   { key: 'attentionSprint', href: Routes.ATTENTION_SPRINT, icon: 'brainCircuit' },
 ]
 
-export type AdminInnerMenuItemKey = 'dashboard' | 'ds' | 'goals' | 'achievements' | 'speech-demo' | 'phq9'
+export type AdminInnerMenuItemKey = 'dashboard' | 'ds' | 'goals' | 'achievements' | 'phq9'
 export type AdminInnerMenuItem = {
   key: AdminInnerMenuItemKey
   href: string
@@ -132,6 +132,5 @@ export const adminInnerMenuItems: AdminInnerMenuItem[] = [
   { key: 'ds', href: `${Routes.ADMIN}/ds`, icon: 'brain' },
   { key: 'goals', href: `${Routes.ADMIN}/goals`, icon: 'goal' },
   { key: 'achievements', href: `${Routes.ADMIN}/achievements`, icon: 'trophy' },
-  { key: 'speech-demo', href: `${Routes.ADMIN}/speech-demo`, icon: 'speech' },
   { key: 'phq9', href: `${Routes.ADMIN}/phq9`, icon: 'brainCircuit' },
 ]

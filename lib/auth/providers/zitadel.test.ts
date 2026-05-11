@@ -2,6 +2,14 @@
  * @jest-environment jsdom
  */
 
+import {
+  deleteStoredAuthTokens,
+  exchangeAuthTokens,
+  fetchStoredAuthTokens,
+  storeAuthTokens,
+  validateAccessToken,
+} from '@/requests/auth'
+
 import { ZitadelAuthProvider } from './zitadel'
 
 // ─── Mocks ──────────────────────────────────────────────────────────────────
@@ -20,26 +28,29 @@ jest.mock('@/lib/logger', () => ({
   logger: { error: jest.fn(), warn: jest.fn(), info: jest.fn() },
 }))
 
-jest.mock('@/requests/config', () => ({
-  APIUrl: 'http://localhost:3200/api',
+jest.mock('@/requests/auth', () => ({
+  deleteStoredAuthTokens: jest.fn(),
+  exchangeAuthTokens: jest.fn(),
+  fetchStoredAuthTokens: jest.fn(),
+  storeAuthTokens: jest.fn(),
+  validateAccessToken: jest.fn(),
 }))
-
-const mockFetch = jest.fn()
-global.fetch = mockFetch
 
 // ─── Helpers ────────────────────────────────────────────────────────────────
 
-function makeTokensResponse(overrides: Record<string, unknown> = {}) {
+function makeExchangeData(overrides: Record<string, unknown> = {}) {
   return {
-    ok: true,
-    json: () =>
-      Promise.resolve({
-        access_token: 'new-access-token',
-        id_token: 'new-id-token',
-        refresh_token: 'new-refresh-token',
-        expires_in: 3600,
-        ...overrides,
-      }),
+    access_token: 'new-access-token',
+    id_token: 'new-id-token',
+    refresh_token: 'new-refresh-token',
+    expires_in: 3600,
+    ...overrides,
+  }
+}
+
+function makeExchangeResult(overrides: Record<string, unknown> = {}) {
+  return {
+    data: makeExchangeData(overrides),
   }
 }
 
@@ -74,6 +85,11 @@ describe('ZitadelAuthProvider', () => {
     provider = new ZitadelAuthProvider()
     jest.clearAllMocks()
     sessionStorage.clear()
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(null)
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValue(makeExchangeResult())
+    ;(validateAccessToken as jest.Mock).mockResolvedValue({ data: makeBackendUser() })
+    ;(storeAuthTokens as jest.Mock).mockResolvedValue({ data: { ok: true } })
+    ;(deleteStoredAuthTokens as jest.Mock).mockResolvedValue(undefined)
   })
 
   describe('handleCallback', () => {
@@ -99,12 +115,7 @@ describe('ZitadelAuthProvider', () => {
     it('should return null when token exchange fails', async () => {
       sessionStorage.setItem('oauth_state', 'test-state')
       sessionStorage.setItem('pkce_verifier', 'test-verifier')
-
-      mockFetch.mockResolvedValueOnce({
-        ok: false,
-        status: 400,
-        json: () => Promise.resolve({ error: 'invalid_grant' }),
-      })
+      ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ error: 'invalid_grant', status: 400 })
 
       const result = await provider.handleCallback('code', 'test-state')
       expect(result).toBeNull()
@@ -113,11 +124,7 @@ describe('ZitadelAuthProvider', () => {
     it('should return null when backend validation fails', async () => {
       sessionStorage.setItem('oauth_state', 'test-state')
       sessionStorage.setItem('pkce_verifier', 'test-verifier')
-
-      // Token exchange succeeds
-      mockFetch.mockResolvedValueOnce(makeTokensResponse())
-      // Backend validation fails
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 401 })
+      ;(validateAccessToken as jest.Mock).mockResolvedValue({ error: 'Unauthorized' })
 
       const result = await provider.handleCallback('code', 'test-state')
       expect(result).toBeNull()
@@ -126,16 +133,6 @@ describe('ZitadelAuthProvider', () => {
     it('should return user and tokens on success', async () => {
       sessionStorage.setItem('oauth_state', 'test-state')
       sessionStorage.setItem('pkce_verifier', 'test-verifier')
-
-      // Token exchange
-      mockFetch.mockResolvedValueOnce(makeTokensResponse())
-      // Backend validation
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeBackendUser()),
-      })
-      // storeTokens (POST /api/auth/token)
-      mockFetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
 
       const result = await provider.handleCallback('code', 'test-state')
       expect(result).not.toBeNull()
@@ -148,13 +145,6 @@ describe('ZitadelAuthProvider', () => {
       sessionStorage.setItem('oauth_state', 'test-state')
       sessionStorage.setItem('pkce_verifier', 'test-verifier')
 
-      mockFetch.mockResolvedValueOnce(makeTokensResponse())
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeBackendUser()),
-      })
-      mockFetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
-
       await provider.handleCallback('code', 'test-state')
 
       expect(sessionStorage.getItem('oauth_state')).toBeNull()
@@ -164,43 +154,29 @@ describe('ZitadelAuthProvider', () => {
 
   describe('refreshTokens', () => {
     it('should return null when no stored tokens', async () => {
-      mockFetch.mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(null), status: 401 })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(null)
 
       const result = await provider.refreshTokens()
       expect(result).toBeNull()
     })
 
     it('should return null when no refresh token in stored tokens', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeStoredTokens({ hasRefreshToken: false })),
-      })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(makeStoredTokens({ hasRefreshToken: false }))
 
       const result = await provider.refreshTokens()
       expect(result).toBeNull()
     })
 
     it('should return null when exchange fails', async () => {
-      // fetchStoredTokens
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeStoredTokens()),
-      })
-      // exchange fails
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 401 })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(makeStoredTokens())
+      ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
 
       const result = await provider.refreshTokens()
       expect(result).toBeNull()
     })
 
     it('should return refreshed tokens and preserve userRole', async () => {
-      // fetchStoredTokens
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeStoredTokens({ userRole: 'admin' })),
-      })
-      // exchange succeeds (cookie updated server-side)
-      mockFetch.mockResolvedValueOnce(makeTokensResponse())
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(makeStoredTokens({ userRole: 'admin' }))
 
       const result = await provider.refreshTokens()
       expect(result).not.toBeNull()
@@ -212,13 +188,8 @@ describe('ZitadelAuthProvider', () => {
     })
 
     it('should set hasRefreshToken based on server response', async () => {
-      // fetchStoredTokens
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeStoredTokens()),
-      })
-      // exchange returns no refresh_token (cookie preserves existing one server-side)
-      mockFetch.mockResolvedValueOnce(makeTokensResponse({ refresh_token: undefined }))
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(makeStoredTokens())
+      ;(exchangeAuthTokens as jest.Mock).mockResolvedValue(makeExchangeResult({ refresh_token: undefined }))
 
       const result = await provider.refreshTokens()
       // hasRefreshToken comes from currentTokens.hasRefreshToken
@@ -228,23 +199,14 @@ describe('ZitadelAuthProvider', () => {
 
   describe('getUser', () => {
     it('should return null when no tokens stored', async () => {
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 401 })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(null)
 
       const result = await provider.getUser()
       expect(result).toBeNull()
     })
 
     it('should return user with valid tokens', async () => {
-      // fetchStoredTokens
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeStoredTokens()),
-      })
-      // validateWithBackend
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeBackendUser()),
-      })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(makeStoredTokens())
 
       const result = await provider.getUser()
       expect(result).not.toBeNull()
@@ -256,47 +218,25 @@ describe('ZitadelAuthProvider', () => {
         expiresAt: Math.floor(Date.now() / 1000) - 3600,
       })
 
-      // fetchStoredTokens (getUser)
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(expiredTokens),
-      })
-      // fetchStoredTokens (refreshTokens)
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(expiredTokens),
-      })
-      // exchange (cookie updated server-side)
-      mockFetch.mockResolvedValueOnce(makeTokensResponse())
-      // validateWithBackend — should use NEW access token
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeBackendUser()),
-      })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValueOnce(expiredTokens).mockResolvedValueOnce(expiredTokens)
 
       const result = await provider.getUser()
       expect(result).not.toBeNull()
 
-      // Verify validateWithBackend was called with the refreshed token
-      const validateCall = mockFetch.mock.calls[3]
-      expect(validateCall[0]).toContain('/auth/validate-token')
-      expect(validateCall[1].headers.Authorization).toBe('Bearer new-access-token')
+      expect(validateAccessToken).toHaveBeenCalledWith('new-access-token')
     })
   })
 
   describe('getToken', () => {
     it('should return access token when valid', async () => {
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        json: () => Promise.resolve(makeStoredTokens()),
-      })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(makeStoredTokens())
 
       const token = await provider.getToken()
       expect(token).toBe('stored-access-token')
     })
 
     it('should return null when no tokens', async () => {
-      mockFetch.mockResolvedValueOnce({ ok: false, status: 401 })
+      ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(null)
 
       const token = await provider.getToken()
       expect(token).toBeNull()

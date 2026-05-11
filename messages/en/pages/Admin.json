@@ -15,11 +15,82 @@
     "companyManager": {
       "title": "Manager",
       "description": "View analytics and manage your team"
+    },
+    "toolsSection": "Tools",
+    "translationModelChecks": {
+      "title": "Translation Model Checks",
+      "description": "Manual technical checks for translator host, Helsinki, Facebook, and compare"
+    },
+    "translateService": {
+      "title": "Translation Service",
+      "description": "Compare translation results between two AI models"
+    },
+    "speechDemo": {
+      "title": "Speech demo",
+      "description": "Technical page for checking speech demo scenarios"
     }
   },
   "ds": { "title": "Design System" },
   "goals": { "title": "Goals" },
   "achievements": { "title": "Achievements" },
   "speech-demo": { "title": "Speech demo" },
-  "phq9": { "title": "PHQ-9" }
+  "phq9": { "title": "PHQ-9" },
+  "translation-model-checks": {
+    "title": "Translation Model Checks",
+    "description": "Technical screen for checking translator host, Helsinki, Facebook, and the compare route.",
+    "serviceStatus": "Service status",
+    "serviceStatusDescription": "Check translator host availability through the hello endpoint.",
+    "checkHost": "Check host",
+    "checkingHost": "Checking host…",
+    "helloSuccess": "Hello endpoint responded successfully.",
+    "translationTest": "Translation test",
+    "translationTestDescription": "Run Helsinki, Facebook, or compare for uk-pl and pl-uk language pairs.",
+    "text": "Text",
+    "textPlaceholder": "Enter text to translate…",
+    "characters": "Characters",
+    "sourceLanguage": "Source language",
+    "targetLanguage": "Target language",
+    "swapLanguages": "Swap languages",
+    "runHelsinki": "Run Helsinki",
+    "runFacebook": "Run Facebook",
+    "compare": "Compare",
+    "runningHelsinki": "Running Helsinki…",
+    "runningFacebook": "Running Facebook…",
+    "runningCompare": "Comparing…",
+    "facebookPairWarning": "Facebook and compare are available only for uk → pl and pl → uk pairs.",
+    "results": "Results",
+    "noResults": "Results will appear here after you run a check.",
+    "compareEndpoint": "Compare endpoint",
+    "helsinki": "Helsinki",
+    "facebook": "Facebook",
+    "model": "Model",
+    "sourceLang": "Source language",
+    "targetLang": "Target language",
+    "endpoint": "Endpoint",
+    "translation": "Translation",
+    "emptyTranslation": "The service did not return translated text.",
+    "status": "Status",
+    "statusOk": "Available",
+    "host": "Host",
+    "data": "Data",
+    "unexpectedError": "An unexpected error occurred"
+  },
+  "translate-service": {
+    "title": "Translation Service",
+    "description": "Compare translation results between two AI models",
+    "sourceText": "Source text",
+    "sourceTextPlaceholder": "Enter text to translate…",
+    "sourceLanguage": "Source language",
+    "targetLanguage": "Target language",
+    "modelA": "Model A",
+    "modelB": "Model B",
+    "swapLanguages": "Swap languages",
+    "swapModels": "Swap models",
+    "translate": "Translate",
+    "translating": "Translating…",
+    "translationFailed": "Translation failed.",
+    "identicalTranslations": "Translations are identical",
+    "resultsHeading": "Translation results",
+    "diffHeading": "Response comparison"
+  }
 }

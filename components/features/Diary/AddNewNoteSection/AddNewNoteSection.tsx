@@ -1,19 +1,14 @@
 import { getServerSession } from '@/lib/get-server-session'
-import { fetchUserTagsCached } from '@/lib/userTagsCache'
+import { fetchNormalizedUserTags } from '@/lib/userTagsNormalizer'
 import type { UserTag } from '@/types/tags'
 
 import { AddNewNoteSectionClient } from './AddNewNoteSectionClient'
 
 export default async function AddNewNoteSection() {
   const session = await getServerSession()
-  const res = await fetchUserTagsCached(session)
+  const res = await fetchNormalizedUserTags(session)
 
-  let tags: UserTag[] = []
-  if (!('error' in res) && Array.isArray(res.data)) {
-    tags = (res.data as Array<Partial<UserTag>>)
-      .filter((t) => !!t?.key)
-      .map((t) => ({ key: t!.key as string, name: (t!.name as string) ?? '' }))
-  }
+  const tags: UserTag[] = !('error' in res) && Array.isArray(res.data) ? res.data : []
 
   return <AddNewNoteSectionClient availableTags={tags} />
 }

@@ -15,11 +15,82 @@
     "companyManager": {
       "title": "Manager",
       "description": "Analityka i zarządzanie zespołem"
+    },
+    "toolsSection": "Narzędzia",
+    "translationModelChecks": {
+      "title": "Kontrola modeli tłumaczeń",
+      "description": "Ręczne techniczne sprawdzenie translator host, Helsinki, Facebook i compare"
+    },
+    "translateService": {
+      "title": "Serwis tłumaczeń",
+      "description": "Porównaj wyniki tłumaczeń między dwoma modelami AI"
+    },
+    "speechDemo": {
+      "title": "Demo mowy",
+      "description": "Strona techniczna do sprawdzania scenariuszy demo mowy"
     }
   },
   "ds": { "title": "System projektowania" },
   "goals": { "title": "Cele" },
   "achievements": { "title": "Osiągnięcia" },
   "speech-demo": { "title": "Demo mowy" },
-  "phq9": { "title": "PHQ-9" }
+  "phq9": { "title": "PHQ-9" },
+  "translation-model-checks": {
+    "title": "Kontrola modeli tłumaczeń",
+    "description": "Ekran techniczny do sprawdzania translator host, Helsinki, Facebook oraz endpointu compare.",
+    "serviceStatus": "Status usługi",
+    "serviceStatusDescription": "Sprawdzenie dostępności translator host przez endpoint hello.",
+    "checkHost": "Sprawdź host",
+    "checkingHost": "Sprawdzanie hosta…",
+    "helloSuccess": "Endpoint hello odpowiedział poprawnie.",
+    "translationTest": "Test tłumaczenia",
+    "translationTestDescription": "Uruchamiaj Helsinki, Facebook lub compare dla par językowych uk-pl i pl-uk.",
+    "text": "Tekst",
+    "textPlaceholder": "Wpisz tekst do tłumaczenia…",
+    "characters": "Znaki",
+    "sourceLanguage": "Język źródłowy",
+    "targetLanguage": "Język docelowy",
+    "swapLanguages": "Zamień języki",
+    "runHelsinki": "Uruchom Helsinki",
+    "runFacebook": "Uruchom Facebook",
+    "compare": "Porównaj",
+    "runningHelsinki": "Uruchamianie Helsinki…",
+    "runningFacebook": "Uruchamianie Facebook…",
+    "runningCompare": "Porównywanie…",
+    "facebookPairWarning": "Facebook i compare są dostępne tylko dla par uk → pl oraz pl → uk.",
+    "results": "Wyniki",
+    "noResults": "Wyniki pojawią się tutaj po uruchomieniu sprawdzenia.",
+    "compareEndpoint": "Endpoint compare",
+    "helsinki": "Helsinki",
+    "facebook": "Facebook",
+    "model": "Model",
+    "sourceLang": "Język źródłowy",
+    "targetLang": "Język docelowy",
+    "endpoint": "Endpoint",
+    "translation": "Tłumaczenie",
+    "emptyTranslation": "Usługa nie zwróciła przetłumaczonego tekstu.",
+    "status": "Status",
+    "statusOk": "Dostępny",
+    "host": "Host",
+    "data": "Data",
+    "unexpectedError": "Wystąpił nieoczekiwany błąd"
+  },
+  "translate-service": {
+    "title": "Serwis tłumaczeń",
+    "description": "Porównaj wyniki tłumaczeń między dwoma modelami AI",
+    "sourceText": "Tekst źródłowy",
+    "sourceTextPlaceholder": "Wprowadź tekst do tłumaczenia…",
+    "sourceLanguage": "Język źródłowy",
+    "targetLanguage": "Język docelowy",
+    "modelA": "Model A",
+    "modelB": "Model B",
+    "swapLanguages": "Zamień języki",
+    "swapModels": "Zamień modele",
+    "translate": "Tłumacz",
+    "translating": "Tłumaczenie…",
+    "translationFailed": "Nie udało się wykonać tłumaczenia.",
+    "identicalTranslations": "Tłumaczenia są identyczne",
+    "resultsHeading": "Wyniki tłumaczeń",
+    "diffHeading": "Porównanie odpowiedzi"
+  }
 }
