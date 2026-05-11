@@ -44,5 +44,6 @@ export function mapMoodRecordsToCounts(records: MoodRecordEntity[] = []): { mood
     return acc
   }, {})
 
-  return Object.entries(moodMap).map(([mood, count]) => ({ mood, count }))
+  // Return in fixed order: veryBad → bad → neutral → good → great
+  return MOOD_KEYS.map((key) => ({ mood: key, count: moodMap[key] ?? 0 }))
 }

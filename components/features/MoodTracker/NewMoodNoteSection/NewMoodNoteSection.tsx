@@ -1,5 +1,5 @@
 import { getServerSession } from '@/lib/get-server-session'
-import { fetchUserTagsCached } from '@/lib/userTagsCache'
+import { fetchNormalizedUserTags } from '@/lib/userTagsNormalizer'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 import type { UserTag } from '@/types/tags'
 
@@ -8,16 +8,11 @@ import NewMoodNoteSectionClient from './NewMoodNoteSectionClient'
 export async function NewMoodNoteSection() {
   const session = await getServerSession()
   const [tagsRes, lastRecordRes] = await Promise.all([
-    fetchUserTagsCached(session),
+    fetchNormalizedUserTags(session),
     getLastMoodRecords(session, { limit: 1 }),
   ])
 
-  let tags: UserTag[] = []
-  if (!('error' in tagsRes) && Array.isArray(tagsRes.data)) {
-    tags = (tagsRes.data as Array<Partial<UserTag>>)
-      .filter((t) => !!t?.key)
-      .map((t) => ({ key: t!.key as string, name: (t!.name as string) ?? '' }))
-  }
+  const tags: UserTag[] = !('error' in tagsRes) && Array.isArray(tagsRes.data) ? tagsRes.data : []
 
   const lastRecord = !('error' in lastRecordRes) ? (lastRecordRes.data?.[0] ?? null) : null
   const initialLastSubmittedAt = lastRecord?.createdAt ?? null

@@ -1,5 +1,5 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import { useLayoutEffect, useRef } from 'react'
 import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -14,22 +14,22 @@ export function HeroSection() {
   const avatars = ['/avatars/avatar1.png', '/avatars/avatar2.png', '/avatars/avatar3.png']
   const heroRef = useRef<HTMLElement | null>(null)
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const heroEl = heroRef.current
-    const logoEl = document.querySelector<HTMLElement>('[data-landing-logo]')
+    const logoEl = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
     if (!heroEl || !logoEl) return
-    const DECORATIVE_INSET_RATIO = 0.27
+    const DECORATIVE_INSET_RATIO = 0.28
 
-    // Adjusted gradient anchor to shift 20px to the right and 10px upward
     const updateGradientAnchor = () => {
       const heroRect = heroEl.getBoundingClientRect()
       const logoRect = logoEl.getBoundingClientRect()
       const pseudoLeft = heroRect.left - heroRect.width * DECORATIVE_INSET_RATIO
-      const anchorX = logoRect.left + logoRect.width / 2 - pseudoLeft + 20 // Shifted 20px to the right
+      const anchorX = logoRect.left + logoRect.width / 2 - pseudoLeft
       heroEl.style.setProperty('--hero-gradient-x', `${anchorX}px`)
       const pseudoTop = heroRect.top - heroRect.height * DECORATIVE_INSET_RATIO
-      const anchorY = Math.max(logoRect.bottom - pseudoTop, heroRect.height * 0.18) - 10 // Shifted 10px upward
+      const anchorY = Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)
       heroEl.style.setProperty('--hero-gradient-y', `${anchorY}px`)
+      heroEl.dataset.heroRingsReady = 'true'
     }
 
     updateGradientAnchor()
@@ -45,7 +45,7 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section ref={heroRef} className="hero-zen mb-10 w-full py-16">
+    <section ref={heroRef} data-hero-rings-ready="false" className="hero-zen mb-10 w-full py-16">
       <div className="container-max-width mx-auto px-8">
         <div className="grid grid-cols-1 items-center gap-md md:grid-cols-2">
           <div className="flex max-w-[720px] flex-col gap-default">

@@ -34,12 +34,18 @@ function makeTokenCookie(overrides: Record<string, unknown> = {}): string {
 
 describe('Middleware Token-Based Auth', () => {
   let middleware: (req: NextRequest) => Promise<Response>
+  let config: { matcher: string[] }
 
   beforeAll(() => {
     process.env.NEXT_PUBLIC_ZITADEL_ISSUER = 'https://test.zitadel.cloud'
     process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = 'test-client-id'
     process.env.ZITADEL_CLIENT_SECRET = 'test-client-secret'
-    middleware = require('@/middleware').middleware
+    const middlewareModule = require('@/middleware') as {
+      middleware: (req: NextRequest) => Promise<Response>
+      config: { matcher: string[] }
+    }
+    middleware = middlewareModule.middleware
+    config = middlewareModule.config
   })
 
   afterAll(() => {
@@ -53,8 +59,12 @@ describe('Middleware Token-Based Auth', () => {
     globalThis.fetch = originalFetch
   })
 
-  const createRequest = (pathname: string, cookieValue?: string) => {
-    const req = new NextRequest(new URL(`http://localhost:3000${pathname}`))
+  const createRequest = (
+    pathname: string,
+    cookieValue?: string,
+    init?: ConstructorParameters<typeof NextRequest>[1]
+  ) => {
+    const req = new NextRequest(new URL(`http://localhost:3000${pathname}`), init)
     if (cookieValue) {
       req.cookies.set(AUTH_TOKEN_COOKIE, cookieValue)
     }
@@ -78,6 +88,20 @@ describe('Middleware Token-Based Auth', () => {
 
     it('should redirect to auth when token cookie has no accessToken', async () => {
       const request = createRequest('/uk/my-day', JSON.stringify({ idToken: 'some-token' }))
+      const response = await middleware(request)
+
+      expect(response.headers.get('location')).toContain('/auth')
+    })
+
+    it('should redirect to auth when token cookie contains only whitespace tokens', async () => {
+      const request = createRequest(
+        '/uk/my-day',
+        JSON.stringify({
+          accessToken: '   ',
+          idToken: '   ',
+          expiresAt: Math.floor(Date.now() / 1000) + 3600,
+        })
+      )
       const response = await middleware(request)
 
       expect(response.headers.get('location')).toContain('/auth')
@@ -152,6 +176,13 @@ describe('Middleware Token-Based Auth', () => {
   })
 
   describe('Public routes', () => {
+    it('should redirect non-locale pages to the preferred locale', async () => {
+      const request = createRequest('/about')
+      const response = await middleware(request)
+
+      expect(response.headers.get('location')).toContain('/uk/about')
+    })
+
     it('should allow unauthenticated access to public routes', async () => {
       const request = createRequest('/uk/about')
       const response = await middleware(request)
@@ -200,6 +231,35 @@ describe('Middleware Token-Based Auth', () => {
 
       const location = response.headers.get('location')
       expect(location).toBeNull()
+    })
+  })
+
+  describe('API routes', () => {
+    it('should reject oversized API requests before they reach the handler', async () => {
+      const request = createRequest('/api/test', undefined, {
+        method: 'POST',
+        headers: new Headers({
+          'content-length': '1000001',
+        }),
+      })
+      const response = await middleware(request)
+
+      expect(response.status).toBe(413)
+      expect(await response.text()).toBe('Payload Too Large')
+    })
+
+    it('should pass through API routes without locale redirects', async () => {
+      const request = createRequest('/api/test')
+      const response = await middleware(request)
+
+      expect(response.headers.get('location')).toBeNull()
+      expect(response.headers.get('Content-Security-Policy')).toBeTruthy()
+    })
+  })
+
+  describe('Middleware matcher', () => {
+    it('should cover app pages and API routes', () => {
+      expect(config.matcher).toEqual(['/api/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'])
     })
   })
 })

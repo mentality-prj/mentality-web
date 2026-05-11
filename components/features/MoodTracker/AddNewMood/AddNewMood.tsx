@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { PlusIcon } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
@@ -6,7 +7,7 @@ import AddNewTag from '@/components/features/AddNewTag/AddNewTag'
 import CloseIconButton from '@/components/shared/Buttons/CloseIconButton'
 import FormCard from '@/components/shared/Cards/FormCard'
 import FullScreenBackdrop from '@/components/shared/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
-import { MOODS } from '@/constants/moods'
+import { type MoodKey, MOODS } from '@/constants/moods'
 import { Tag } from '@/ds/components/Tag'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
@@ -31,6 +32,14 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
   const tt = useTranslations('components.Tags')
   const mn = useTranslations('components.Mood')
 
+  const hoverFiltersByMood: Record<MoodKey, string> = {
+    veryBad: 'brightness(1.12) saturate(1.45) contrast(1.08)',
+    bad: 'brightness(1.08) saturate(2.2) contrast(1.14)',
+    neutral: 'brightness(1.08) saturate(1.18) contrast(1.04)',
+    good: 'brightness(1.06) saturate(1.16) contrast(1.05)',
+    great: 'brightness(1.1) saturate(1.3) contrast(1.06)',
+  }
+
   const {
     selectedMood,
     setSelectedMood,
@@ -54,6 +63,8 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
     onTagCreated,
     formKey,
   } = useAddNewMood({ availableTags, onSave, onClose, initialLastSubmittedAt })
+
+  const [hoveredMoodKey, setHoveredMoodKey] = useState<MoodKey | null>(null)
 
   const tools = (
     <div className="flex items-center gap-2">
@@ -96,20 +107,39 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
           <div className="grid grid-cols-5 px-4 max-lg:px-0" style={{ gridAutoColumns: 'max-content' }}>
             {MOODS.map((mood) => {
               const isSelected = selectedMood === mood.key
+              const isHighlighted = isSelected || hoveredMoodKey === mood.key
+              const highlightFilter = isSelected
+                ? `${hoverFiltersByMood[mood.key]} drop-shadow(0 0 1px ${mood.glowColor}) drop-shadow(0 0 6px ${mood.glowColor}) drop-shadow(0 0 12px ${mood.glowColor})`
+                : hoveredMoodKey === mood.key
+                  ? `${hoverFiltersByMood[mood.key]} drop-shadow(0 0 10px ${mood.glowColor})`
+                  : undefined
 
               return (
                 <div key={mood.key} className="flex flex-col items-center justify-between py-5 text-center">
-                  <Button
-                    size="iconXL"
-                    variant="iconButton"
-                    className={`${isSelected ? 'rounded-full ring-4 ring-sky-400/30' : ''}`}
-                    onClick={() => setSelectedMood(mood.key)}
-                    aria-pressed={isSelected}
-                    aria-label={tm(mood?.key as string)}
-                    title={tm(mood?.key as string)}
-                  >
-                    <mood.icon />
-                  </Button>
+                  <div className="relative flex items-center justify-center">
+                    <button
+                      type="button"
+                      className="inline-flex h-12 w-12 cursor-pointer items-center justify-center bg-transparent p-0 transition-[filter] focus-visible:rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-sky-400/50"
+                      style={{
+                        filter: isHighlighted ? highlightFilter : undefined,
+                      }}
+                      onMouseEnter={() => setHoveredMoodKey(mood.key)}
+                      onMouseLeave={() => setHoveredMoodKey(null)}
+                      onClick={() => setSelectedMood(mood.key)}
+                      aria-pressed={isSelected}
+                      aria-label={tm(mood?.key as string)}
+                      title={tm(mood?.key as string)}
+                    >
+                      <mood.icon />
+                    </button>
+                    <div
+                      className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-[1px] rounded-full bg-black/65 blur-[3px]"
+                      style={{
+                        width: ['veryBad', 'bad', 'neutral'].includes(mood.key) ? '80%' : '60%',
+                        height: '2px',
+                      }}
+                    />
+                  </div>
                   <span className="text-textcolor-tertiary mt-2 text-xs font-normal max-md:hidden">
                     {mn(mood.label)}
                   </span>

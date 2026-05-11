@@ -15,7 +15,7 @@ export async function LandingHeader() {
       <div className="container-max-width mx-auto flex items-center justify-between px-4 tablet:px-6 md:px-8 lg:px-10">
         <div className="flex items-center gap-sm">
           <LandingMobileMenu />
-          <Logo />
+          <Logo isHeroAnchor />
         </div>
         <div className="hidden md:block">
           <TopMenu menu={landingMenu} type={APP_VIEW_TYPE.LANDING} />

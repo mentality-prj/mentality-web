@@ -58,10 +58,18 @@ body {
 .hero-zen {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(180deg, #f8f6ff 0%, #f3f0fb 28%, #ebe5f7 62%, #93c5fd 100%);
-  --hero-gradient-x: 20%;
-  --hero-gradient-y: 20%;
-  /* JS overrides --hero-gradient-x/--hero-gradient-y to keep glow under the header logo */
+  background:
+    radial-gradient(
+      120% 92% at 50% -10%,
+      hsla(0, 0%, 100%, 0.96) 0%,
+      hsla(194, 80%, 95%, 0.86) 30%,
+      hsla(192, 62%, 84%, 0.38) 58%,
+      hsla(194, 48%, 70%, 0) 78%
+    ),
+    linear-gradient(180deg, #f3fcff 0%, #e2f7fb 28%, #c6edf3 58%, #6fb8c8 100%);
+  --hero-gradient-x: 30%;
+  --hero-gradient-y: 14%;
+  /* JS refines these fallback coordinates to keep the rings centered under the header logo. */
 }
 
 .hero-zen::before,
@@ -71,91 +79,169 @@ body {
   inset: -28%;
   pointer-events: none;
   z-index: 0;
+  opacity: 0;
+  transform: translate3d(0, 12px, 0) scale(1.018);
+  transition:
+    opacity 520ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 1200ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 900ms ease-out;
+}
+
+.hero-zen[data-hero-rings-ready='false']::before,
+.hero-zen[data-hero-rings-ready='false']::after {
+  will-change: opacity, transform, filter;
+}
+
+.hero-zen[data-hero-rings-ready='true']::before {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(10px) saturate(0.96);
+}
+
+.hero-zen[data-hero-rings-ready='true']::after {
+  opacity: 1;
+  transform: translate3d(0, 0, 0) scale(1);
+  filter: blur(0.35px) saturate(1.02) contrast(1.06);
 }
 
 .hero-zen::before {
-  /* central soft peak with multiple subtle color bands to transition into rings */
+  /* calm water around the source: a shallow depression and faint luminous wash */
   background:
     radial-gradient(
-      18% 18% at var(--hero-gradient-x) var(--hero-gradient-y),
-      hsla(260, 95%, 99%, 0.98) 0%,
-      hsla(260, 92%, 97%, 0.92) 4%,
-      hsla(260, 90%, 96%, 0.78) 10%,
-      hsla(260, 86%, 95%, 0.54) 18%,
-      hsla(260, 82%, 94%, 0.3) 28%,
-      hsla(260, 76%, 92%, 0.14) 40%,
-      hsla(260, 72%, 90%, 0.06) 56%,
-      hsla(260, 70%, 88%, 0) 74%
+      12% 10% at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(200, 30%, 58%, 0.2) 0%,
+      hsla(198, 28%, 52%, 0.16) 22%,
+      hsla(197, 24%, 46%, 0.1) 42%,
+      hsla(197, 20%, 42%, 0.04) 60%,
+      hsla(197, 18%, 40%, 0) 76%
     ),
-    /* a soft multi-stop linear wash for color richness */
+    radial-gradient(
+      22% 18% at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(0, 0%, 100%, 0.42) 0%,
+      hsla(192, 74%, 92%, 0.3) 12%,
+      hsla(192, 58%, 82%, 0.18) 24%,
+      hsla(194, 42%, 70%, 0.08) 40%,
+      hsla(196, 34%, 60%, 0) 62%
+    ),
     linear-gradient(
-        300deg,
-        hsla(250, 33%, 91%, 0.92) 0%,
-        hsla(255, 33%, 88%, 0.6) 28%,
-        hsla(255, 33%, 86%, 0.36) 56%,
-        hsla(255, 33%, 83%, 0.18) 82%,
-        hsla(255, 33%, 81%, 0.06) 100%
-      );
-  /* mild blur so the multi-stops blend smoothly into outer rings */
-  filter: blur(8px);
+      180deg,
+      hsla(193, 56%, 92%, 0.26) 0%,
+      hsla(192, 50%, 84%, 0.18) 38%,
+      hsla(194, 40%, 72%, 0.1) 64%,
+      hsla(197, 32%, 58%, 0.04) 100%
+    );
+  filter: blur(18px) saturate(0.92);
 }
 
 .hero-zen::after {
-  /* multi-tone rings: four light stops and four darker troughs per wave-band
-     This creates richer, layered ripples (light1/light2/light3/light4 then dark1..dark4) */
+  /* Natural water ripples: thin bright crests, soft troughs and wider spacing outward. */
   background:
-    /* broad halo to blend with page */
     radial-gradient(
       60% 60% at var(--hero-gradient-x) var(--hero-gradient-y),
-      hsla(260, 80%, 96%, 0.2) 0%,
-      hsla(260, 80%, 96%, 0.06) 36%,
-      hsla(260, 80%, 96%, 0) 64%
+      hsla(190, 68%, 76%, 0.18) 0%,
+      hsla(193, 58%, 58%, 0.12) 24%,
+      hsla(197, 36%, 40%, 0.05) 50%,
+      hsla(202, 26%, 30%, 0) 74%
     ),
-    /* inner multi-light bands (four light tones) */
-    repeating-radial-gradient(
-        circle at var(--hero-gradient-x) var(--hero-gradient-y),
-        hsla(260, 95%, 99%, 0.4) 0px,
-        hsla(260, 95%, 99%, 0.4) 16px,
-        hsla(260, 92%, 97%, 0.3) 16px,
-        hsla(260, 92%, 97%, 0.3) 34px,
-        hsla(260, 90%, 96%, 0.22) 34px,
-        hsla(260, 90%, 96%, 0.22) 54px,
-        hsla(260, 86%, 94%, 0.14) 54px,
-        hsla(260, 86%, 94%, 0.14) 84px
-      ),
-    /* darker troughs (four darker tones stretched wider) */
-    repeating-radial-gradient(
-        circle at var(--hero-gradient-x) var(--hero-gradient-y),
-        hsla(260, 50%, 80%, 0.14) 84px,
-        hsla(260, 50%, 80%, 0.14) 136px,
-        hsla(260, 44%, 76%, 0.11) 136px,
-        hsla(260, 44%, 76%, 0.11) 200px,
-        hsla(260, 38%, 70%, 0.08) 200px,
-        hsla(260, 38%, 70%, 0.08) 280px,
-        hsla(260, 32%, 62%, 0.05) 280px,
-        hsla(260, 32%, 62%, 0.05) 380px
-      ),
-    /* medium faint rings for longer reach */
-    repeating-radial-gradient(
-        circle at var(--hero-gradient-x) var(--hero-gradient-y),
-        hsla(260, 80%, 96%, 0.1) 160px,
-        hsla(260, 80%, 96%, 0.1) 320px,
-        hsla(260, 80%, 96%, 0.02) 320px,
-        hsla(260, 80%, 96%, 0.02) 600px
-      );
-  opacity: 0.96;
+    radial-gradient(
+      10% 8% at var(--hero-gradient-x) var(--hero-gradient-y),
+      hsla(198, 34%, 50%, 0.2) 0%,
+      hsla(198, 30%, 44%, 0.14) 28%,
+      hsla(198, 24%, 40%, 0.08) 46%,
+      hsla(198, 22%, 38%, 0) 64%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 2.4%,
+      hsla(0, 0%, 100%, 0.44) 2.9%,
+      hsla(189, 78%, 72%, 0.3) 3.3%,
+      hsla(196, 40%, 42%, 0.12) 4%,
+      transparent 5.4%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 5.8%,
+      hsla(0, 0%, 100%, 0.4) 6.4%,
+      hsla(190, 72%, 68%, 0.28) 7%,
+      hsla(196, 38%, 40%, 0.11) 8%,
+      transparent 9.8%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 9.8%,
+      hsla(0, 0%, 100%, 0.36) 10.6%,
+      hsla(191, 68%, 64%, 0.24) 11.5%,
+      hsla(197, 36%, 38%, 0.1) 12.7%,
+      transparent 15%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 14.9%,
+      hsla(0, 0%, 100%, 0.32) 16%,
+      hsla(191, 62%, 61%, 0.22) 17.2%,
+      hsla(197, 34%, 37%, 0.09) 18.6%,
+      transparent 21.4%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 21.2%,
+      hsla(0, 0%, 100%, 0.28) 22.7%,
+      hsla(192, 56%, 58%, 0.2) 24.2%,
+      hsla(198, 32%, 35%, 0.08) 25.9%,
+      transparent 29.4%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 29.2%,
+      hsla(0, 0%, 100%, 0.24) 31.3%,
+      hsla(193, 50%, 55%, 0.17) 33.1%,
+      hsla(199, 30%, 34%, 0.07) 35.2%,
+      transparent 39.5%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 39.2%,
+      hsla(0, 0%, 100%, 0.2) 42%,
+      hsla(194, 46%, 52%, 0.14) 44.4%,
+      hsla(200, 28%, 33%, 0.06) 47.1%,
+      transparent 52.6%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 52.3%,
+      hsla(0, 0%, 100%, 0.16) 55.8%,
+      hsla(195, 40%, 50%, 0.11) 58.8%,
+      hsla(201, 26%, 32%, 0.05) 62%,
+      transparent 68.4%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 68.2%,
+      hsla(0, 0%, 100%, 0.12) 72.4%,
+      hsla(196, 34%, 48%, 0.08) 76%,
+      hsla(202, 24%, 31%, 0.04) 79.8%,
+      transparent 87%
+    ),
+    radial-gradient(
+      circle at var(--hero-gradient-x) var(--hero-gradient-y),
+      transparent 0 86.8%,
+      hsla(0, 0%, 100%, 0.08) 91.5%,
+      hsla(197, 28%, 46%, 0.05) 95.2%,
+      transparent 100%
+    );
   mix-blend-mode: normal;
-  /* relaxed mask so rings remain readable outwards */
   mask: radial-gradient(
     90% 90% at var(--hero-gradient-x) var(--hero-gradient-y),
-    rgba(0, 0, 0, 0.96) 1%,
-    rgba(0, 0, 0, 0.6) 48%,
+    rgba(0, 0, 0, 0.98) 0%,
+    rgba(0, 0, 0, 0.96) 54%,
+    rgba(0, 0, 0, 0.28) 84%,
     rgba(0, 0, 0, 0) 100%
   );
   -webkit-mask: radial-gradient(
     90% 90% at var(--hero-gradient-x) var(--hero-gradient-y),
-    rgba(0, 0, 0, 0.96) 1%,
-    rgba(0, 0, 0, 0.6) 48%,
+    rgba(0, 0, 0, 0.98) 0%,
+    rgba(0, 0, 0, 0.96) 54%,
+    rgba(0, 0, 0, 0.28) 84%,
     rgba(0, 0, 0, 0) 100%
   );
 }

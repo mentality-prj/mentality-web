@@ -4,11 +4,14 @@ import createMiddleware from 'next-intl/middleware'
 import { Routes } from '@/constants/routes'
 import { routing } from '@/i18n/routing'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
-import { AuthTokens } from '@/types/auth'
-import { SupportedLanguage } from '@/types/languages'
+import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
+import { APIUrl } from '@/requests/config'
+import type { AuthTokens } from '@/types/auth'
+import type { SupportedLanguage } from '@/types/languages'
 
 const LOCALE_COOKIE = 'NEXT_LOCALE'
 const LOCALE_COOKIE_MAX_AGE = 30 * 24 * 60 * 60 // 30 days to align with session duration
+const DEFAULT_MAX_REQUEST_BODY_SIZE = 1_000_000
 
 function getPreferredLocale(request: NextRequest): SupportedLanguage {
   // 1. Check cookie for saved locale
@@ -41,13 +44,18 @@ const intlMiddleware = createMiddleware(routing)
 
 // Maximum allowed request body size in bytes for mutating requests.
 // Can be overridden with env var MAX_REQUEST_BODY_SIZE (in bytes).
-const MAX_REQUEST_BODY_SIZE = Number(process.env.MAX_REQUEST_BODY_SIZE ?? 1_000_000) // 1 MB default
+const parsedMaxRequestBodySize = Number(process.env.MAX_REQUEST_BODY_SIZE ?? DEFAULT_MAX_REQUEST_BODY_SIZE)
+const MAX_REQUEST_BODY_SIZE =
+  Number.isFinite(parsedMaxRequestBodySize) && parsedMaxRequestBodySize > 0
+    ? Math.floor(parsedMaxRequestBodySize)
+    : DEFAULT_MAX_REQUEST_BODY_SIZE
 
 function buildCspHeader(): string {
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL ?? ''
-  // Use only the origin (scheme + host + port) so that all API sub-paths are
-  // allowed. A full URL like https://api.example.com/api would only match the
-  // exact path and block /api/moods, /api/user-tags, etc.
+  const apiUrl = APIUrl.trim()
+  // Use only the origin (scheme + host + port) from the shared backend base URL.
+  // If we put a full URL with a path here, CSP would match only that exact path
+  // and could block other upstream backend endpoints on the same host.
+  // Internal Next.js routes are already covered by 'self'.
   let connectSrcExtra = ''
   if (apiUrl) {
     try {
@@ -58,7 +66,7 @@ function buildCspHeader(): string {
       connectSrcExtra = ''
     }
   }
-  const zitadelIssuer = process.env.NEXT_PUBLIC_AUTH_ISSUER ?? process.env.NEXT_PUBLIC_ZITADEL_ISSUER ?? ''
+  const zitadelIssuer = (process.env.NEXT_PUBLIC_AUTH_ISSUER ?? process.env.NEXT_PUBLIC_ZITADEL_ISSUER ?? '').trim()
   let zitadelConnectSrc = ''
   if (zitadelIssuer) {
     try {
@@ -145,11 +153,13 @@ async function refreshTokensServerSide(
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const isApiRoute = pathname === '/api' || pathname.startsWith('/api/')
+  const isCallbackRoute = pathname === '/callback'
   // Protect mutating endpoints from excessively large request bodies by
   // checking Content-Length header early in middleware and returning 413.
   try {
     const method = (request.method || 'GET').toUpperCase()
-    if (['POST', 'PUT', 'PATCH'].includes(method)) {
+    if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(method)) {
       const contentLength = request.headers.get('content-length')
       if (contentLength) {
         const len = parseInt(contentLength, 10)
@@ -158,14 +168,14 @@ export async function middleware(request: NextRequest) {
         }
       }
     }
-  } catch (err) {
+  } catch {
     // If anything goes wrong reading headers, continue and handle later.
   }
   const segments = pathname.split('/')
   const localeInUrl = segments[1] && routing.locales.includes(segments[1] as SupportedLanguage) ? segments[1] : null
 
   // Skip locale handling for /callback — it's a non-locale route
-  if (pathname.startsWith('/callback')) {
+  if (isCallbackRoute) {
     return applySecurityHeaders(NextResponse.next())
   }
 
@@ -185,7 +195,7 @@ export async function middleware(request: NextRequest) {
 
   // If no locale in URL (but not root), redirect to preferred locale
   // Skip /callback and /api routes — they don't use locale prefix
-  if (!localeInUrl && !pathname.startsWith('/callback') && !pathname.startsWith('/api')) {
+  if (!localeInUrl && !isCallbackRoute && !isApiRoute) {
     const preferredLocale = getPreferredLocale(request)
     const url = new URL(`/${preferredLocale}${pathname}`, request.url)
     const response = NextResponse.redirect(url)
@@ -196,6 +206,10 @@ export async function middleware(request: NextRequest) {
       sameSite: 'lax',
     })
     return applySecurityHeaders(response)
+  }
+
+  if (isApiRoute) {
+    return applySecurityHeaders(NextResponse.next())
   }
 
   // Run next-intl middleware
@@ -213,18 +227,7 @@ export async function middleware(request: NextRequest) {
 
   // Auth logic — check for auth token cookie
   const tokenCookie = request.cookies.get(AUTH_TOKEN_COOKIE)?.value
-  let authTokens: AuthTokens | null = null
-  if (tokenCookie) {
-    try {
-      const parsed = JSON.parse(tokenCookie) as AuthTokens
-      // Validate required fields to prevent treating corrupt cookies as authenticated
-      if (parsed?.accessToken && parsed?.idToken && typeof parsed.expiresAt === 'number') {
-        authTokens = parsed
-      }
-    } catch {
-      authTokens = null
-    }
-  }
+  const authTokens: AuthTokens | null = parseStoredAuthTokensCookie(tokenCookie)
   const isAuthenticated = !!authTokens
 
   const publicRoutes = [
@@ -307,5 +310,5 @@ export async function middleware(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ['/', '/(en|uk|pl)/:path*', '/callback'],
+  matcher: ['/api/:path*', '/((?!api|_next|_vercel|.*\\..*).*)'],
 }

@@ -1,10 +1,14 @@
 import { fontSans } from '@/config/fonts'
 import { Link } from '@/i18n/navigation'
 
-const Logo = () => {
+type LogoProps = {
+  isHeroAnchor?: boolean
+}
+
+const Logo = ({ isHeroAnchor = false }: LogoProps) => {
   return (
     <Link href="/" aria-label="Go to homepage">
-      <div data-landing-logo className="logo">
+      <div data-landing-logo={isHeroAnchor ? 'true' : undefined} className="logo">
         <span className="logo-highlight text-primary" style={{ textShadow: '-2px 2px 0 hsl(20 98% 85%)' }}>
           Dzvin.co
         </span>

@@ -27,11 +27,13 @@ type Props = {
 }
 
 export function InfoBanner({ icon, type = 'info', label, title, description, hint, cta, href }: Props) {
+  const isCompact = !label && !description && !hint && !cta && !href
+
   return (
     <Card type={type}>
-      <div className="flex flex-row items-start gap-xs text-sm">
+      <div className={`flex flex-row gap-xs text-sm ${isCompact ? 'items-center' : 'items-start'}`}>
         {icon && <div className="h-8 w-8 shrink-0">{icon}</div>}
-        <div className="mt-1 flex flex-col gap-sm">
+        <div className={`${isCompact ? '' : 'mt-1'} flex flex-col gap-sm`}>
           {label && <h5 className="remark">{label}</h5>}
           {title && <h4>{title}</h4>}
           {description}

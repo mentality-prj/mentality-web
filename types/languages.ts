@@ -11,8 +11,12 @@ export type SupportedLanguage = (typeof supportedLanguages)[number]
 export const LocaleNativeLabels: Record<'uk' | 'en' | 'pl', string> = Object.freeze({
   uk: 'Українська',
   en: 'English',
-  pl: 'Polska',
+  pl: 'Polski',
 })
+
+export function getLocaleNativeLabel(language: SupportedLanguage): string {
+  return LocaleNativeLabels[language]
+}
 
 export const LocaleTriggerShortLabels: Record<'uk' | 'en' | 'pl', string> = Object.freeze({
   uk: 'Укр',
