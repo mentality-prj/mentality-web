@@ -21,10 +21,6 @@
       "title": "Перевірка моделей перекладу",
       "description": "Ручна технічна перевірка translator host, Helsinki, Facebook і compare"
     },
-    "translateService": {
-      "title": "Сервіс перекладу",
-      "description": "Порівняння результатів перекладу між двома AI-моделями"
-    },
     "speechDemo": {
       "title": "Демонстрація мовлення",
       "description": "Технічна сторінка для перевірки demo-сценаріїв мовлення"
@@ -74,23 +70,5 @@
     "host": "Host",
     "data": "Data",
     "unexpectedError": "Сталася неочікувана помилка"
-  },
-  "translate-service": {
-    "title": "Сервіс перекладу",
-    "description": "Порівняйте результати перекладу між двома AI-моделями",
-    "sourceText": "Вихідний текст",
-    "sourceTextPlaceholder": "Введіть текст для перекладу…",
-    "sourceLanguage": "Мова джерела",
-    "targetLanguage": "Цільова мова",
-    "modelA": "Модель A",
-    "modelB": "Модель B",
-    "swapLanguages": "Поміняти мови місцями",
-    "swapModels": "Поміняти моделі місцями",
-    "translate": "Перекласти",
-    "translating": "Перекладаємо…",
-    "translationFailed": "Не вдалося виконати переклад.",
-    "identicalTranslations": "Переклади ідентичні",
-    "resultsHeading": "Результати перекладу",
-    "diffHeading": "Порівняння відповідей"
   }
 }

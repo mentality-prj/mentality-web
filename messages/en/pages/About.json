@@ -1,93 +1,93 @@
 {
   "title": "About Dzvin.co",
-  "intro": "It is an evidence-based mental state prediction system. We don't just collect and interpret data — we forecast, validate, and prove our conclusions.",
-  "introExtended": "The platform works with daily state signals — stress, mood, energy, and focus — to estimate trajectories, assess risks, and show what can actually change the predicted outcome. On top of that, it combines personal guidance for the individual, aggregated signals for teams, and a feedback loop that verifies the accuracy of its own conclusions.",
+  "intro": "Dzvin.co is an evidence-based mental health analytics platform that combines psychometric instruments, behavioral signals, and predictive models for early risk detection and better decision support.",
+  "introExtended": "The platform works with daily state signals — stress, mood, energy, and focus — as well as psychometric test results to track change over time, identify influencing factors, and build both personal and team-level action scenarios. On this basis, it delivers user recommendations, analytical signals for teams, and a validation loop that checks model quality against real outcomes.",
   "Evolution": {
-    "title": "From analytics to prediction",
-    "description": "Most mental health tools stop at the level of insights: what happened and what is wrong right now. Dzvin.co goes further.",
+    "title": "From observation to prediction",
+    "description": "Most mental health solutions describe only the current state. Dzvin.co moves from observation to prediction, and from prediction to verifiable action.",
     "stepDescriptions": {
       "happened": "The system captures behavioral signals, rhythm changes, and state dynamics without collapsing everything into a single score.",
-      "means": "Each signal is interpreted in context: the person, the cohort, or the organizational environment around it.",
-      "next": "The model estimates the state trajectory and shows the most likely next development if no action is taken.",
-      "action": "The platform compares intervention scenarios and shows which action is most likely to change the predicted outcome.",
-      "evidence": "After intervention, the outcome is validated against real data to confirm or refute the prediction."
+      "means": "Each signal is interpreted in the context of the individual, cohort patterns, and organizational environment.",
+      "next": "The model estimates state trajectories and identifies the scenarios most likely to unfold next.",
+      "action": "The platform compares intervention scenarios and shows which actions can change the expected outcome.",
+      "evidence": "Observed outcomes feed back into the system to test conclusions and improve model reliability."
     },
     "context": {
-      "eyebrow": "Dzvin.co logic",
-      "title": "Not a list of steps, but a closed decision loop",
-      "description": "Each step in this loop depends on the previous one: from signal to interpretation, from prediction to action, and from action to a verified outcome.",
+      "eyebrow": "Platform logic",
+      "title": "A closed loop of analysis, prediction, and verification",
+      "description": "Each stage builds on the previous one: signals gain context, predictions become action, and action becomes validated outcome.",
       "items": {
         "signal": {
-          "title": "Signal",
-          "description": "Behavioral, state, and context data are combined into one causal slice."
+          "title": "Signals",
+          "description": "Behavioral, psychometric, and contextual data are treated as one system of interconnected factors."
         },
         "prediction": {
           "title": "Prediction",
-          "description": "The model does not just describe the situation, it estimates the most likely next scenario."
+          "description": "The model estimates change dynamics and highlights the scenarios most likely to unfold with or without intervention."
         },
         "validation": {
           "title": "Validation",
-          "description": "After action, the platform measures the actual outcome and updates confidence in its conclusions."
+          "description": "Actual outcomes are fed back into the system to test conclusions and increase model reliability."
         }
       }
     },
     "steps": {
-      "happened": "What happened",
+      "happened": "What changes",
       "means": "What it means",
       "next": "What comes next",
-      "action": "What changes with action",
-      "evidence": "Did it actually work"
+      "action": "What can change the outcome",
+      "evidence": "What the data confirms"
     }
   },
   "ForWhom": {
     "title": "Who it's for",
     "business": {
-      "impactPercent": "72%",
-      "impactLabel": "team retention",
+      "highlightValue": "B2B",
+      "highlightLabel": "organizational layer",
       "title": "For businesses",
-      "description": "Decisions backed by predictions and evidence. Not just metrics — actionable insights with a predicted outcome and measurable effect."
+      "description": "Gives leaders and HR early risk signals, team-level dynamics, and a stronger basis for decisions about wellbeing, productivity, and retention."
     },
     "user": {
-      "impactPercent": "78%",
-      "impactLabel": "state stabilization",
+      "highlightValue": "B2C",
+      "highlightLabel": "personal layer",
       "title": "For users",
-      "description": "Understanding your future state and clear actions. You know not just where you are now, but where you're heading — and exactly what can be changed."
+      "description": "Helps people notice personal patterns, better understand state changes, and receive recommendations grounded in everyday context."
     },
     "research": {
-      "impactPercent": "84%",
-      "impactLabel": "validation pace",
-      "title": "For researchers and research institutes",
-      "description": "A population-level behavioral model with verifiable accuracy. Outcome data accumulates and confirms or refutes each prediction."
+      "highlightValue": "R&D",
+      "highlightLabel": "validation layer",
+      "title": "For researchers and research institutions",
+      "description": "Provides an environment for working with anonymized behavioral data, testing hypotheses, and evaluating model quality at the population level."
     }
   },
   "Architecture": {
     "title": "Platform architecture",
-    "overviewTitle": "Three layers working as one system",
-    "overviewDescription": "The platform is structured as a stack of three connected layers: the prediction core, the user-facing layer, and the outcome validation loop. Together they carry data from behavioral signals to verified prediction accuracy.",
-    "overviewDescriptionLead": "The platform is structured as a stack of three connected layers: the prediction core, the user-facing layer, and the outcome validation loop.",
-    "overviewDescriptionFollowup": "Together they carry data from behavioral signals to verified prediction accuracy.",
+    "overviewTitle": "Three layers, one decision system",
+    "overviewDescription": "The platform is built as an analytical core, a user layer, and a validation layer that operate together as one decision system.",
+    "overviewDescriptionLead": "The analytical core, user layer, and validation layer operate as one decision-support system.",
+    "overviewDescriptionFollowup": "Together they connect user personalization, team-level signals, and scientific verification of model quality.",
     "interactionHint": "Choose a layer from the chips or click the card on the right to expand its role in more detail.",
     "nextAction": "Next layer",
     "core": {
-      "title": "Prediction Core",
-      "description": "A unified prediction core (B2B engine) — the foundation of the entire platform, processing behavioral data and building state predictions."
+      "title": "Analytical and Prediction Core",
+      "description": "Combines behavioral signals, psychometric results, and predictive logic to estimate state dynamics and risk patterns."
     },
     "b2c": {
-      "title": "B2C Layer",
-      "description": "A thin layer over the prediction core: state trajectory, scenario simulation, and cohort-based evidence for the end user."
+      "title": "User Layer",
+      "description": "Turns complex analytics into understandable state check-ins, personal insights, recommendations, and action scenarios."
     },
     "loop": {
-      "title": "Prediction → Outcome Loop",
-      "description": "An R&D layer that measures prediction accuracy and automatically improves the model based on real outcomes."
+      "title": "Outcome Validation System",
+      "description": "Feeds actual outcomes back into the system, tests prediction quality, and builds trust in the model."
     }
   },
   "Value": {
     "title": "Core value",
-    "description": "It is not just a service. It's a platform with an R&D core that:",
+    "description": "The platform’s value is not only in observing mental state, but in turning signals into explainable and verifiable decisions.",
     "points": {
-      "cohort": "Uses cohort-driven prediction logic",
-      "explainable": "Provides explainable predictions — you understand why the system makes a specific recommendation",
-      "outcome": "Measures its own effectiveness through outcome data"
+      "cohort": "Works not only with isolated signals, but with cohort and behavioral patterns.",
+      "explainable": "Provides recommendations with factor-level context rather than as a black box.",
+      "outcome": "Checks what worked in practice and refines models using new outcomes."
     }
   }
 }

@@ -21,10 +21,6 @@
       "title": "Translation Model Checks",
       "description": "Manual technical checks for translator host, Helsinki, Facebook, and compare"
     },
-    "translateService": {
-      "title": "Translation Service",
-      "description": "Compare translation results between two AI models"
-    },
     "speechDemo": {
       "title": "Speech demo",
       "description": "Technical page for checking speech demo scenarios"
@@ -74,23 +70,5 @@
     "host": "Host",
     "data": "Data",
     "unexpectedError": "An unexpected error occurred"
-  },
-  "translate-service": {
-    "title": "Translation Service",
-    "description": "Compare translation results between two AI models",
-    "sourceText": "Source text",
-    "sourceTextPlaceholder": "Enter text to translate…",
-    "sourceLanguage": "Source language",
-    "targetLanguage": "Target language",
-    "modelA": "Model A",
-    "modelB": "Model B",
-    "swapLanguages": "Swap languages",
-    "swapModels": "Swap models",
-    "translate": "Translate",
-    "translating": "Translating…",
-    "translationFailed": "Translation failed.",
-    "identicalTranslations": "Translations are identical",
-    "resultsHeading": "Translation results",
-    "diffHeading": "Response comparison"
   }
 }

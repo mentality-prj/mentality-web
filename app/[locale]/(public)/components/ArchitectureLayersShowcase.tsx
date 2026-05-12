@@ -113,9 +113,8 @@ export function ArchitectureLayersShowcase() {
       <MosaicGridItem xlSpan={4}>
         <div className="flex h-full flex-col rounded-[28px] bg-background-muted p-6 md:p-8">
           <div className="space-y-5">
-            <h3 className="text-title text-3xl font-semibold leading-tight md:text-4xl">
-              {t('Architecture.overviewTitle')}
-            </h3>
+            <p className="landing-section-eyebrow">{t('Architecture.title')}</p>
+            <h2 className="landing-section-title">{t('Architecture.overviewTitle')}</h2>
             <p className="text-sm leading-relaxed text-textcolor-secondary md:text-base">
               {t('Architecture.overviewDescriptionLead')}
             </p>
@@ -138,7 +137,7 @@ export function ArchitectureLayersShowcase() {
                     'rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300',
                     isActive
                       ? cn(layer.chipActiveClassName, 'shadow-[0_12px_24px_rgba(15,23,42,0.08)]')
-                      : 'hover:border-black/8 border-transparent bg-white/65 text-textcolor-secondary hover:bg-white'
+                      : 'border-transparent bg-white/65 text-textcolor-secondary hover:border-black/[0.08] hover:bg-white'
                   )}
                 >
                   {t(`Architecture.${layer.key}.title`)}
@@ -187,7 +186,7 @@ export function ArchitectureLayersShowcase() {
                 <LayerIcon className={cn(layer.iconAccentClassName, getIconRoleClass(role))} />
 
                 <div className="relative z-10 flex items-start justify-end gap-3">
-                  <span className="text-2xl font-semibold leading-none tracking-[0.08em] text-white drop-shadow-[0_2px_10px_rgba(15,23,42,0.16)] md:text-3xl">
+                  <span className="text-3xl font-semibold leading-none tracking-[0.08em] text-white drop-shadow-[0_2px_10px_rgba(15,23,42,0.16)] md:text-4xl">
                     {String(index + 1).padStart(2, '0')}
                   </span>
                 </div>
@@ -195,8 +194,8 @@ export function ArchitectureLayersShowcase() {
                 <div className="relative z-10 mt-6 space-y-3">
                   <h3
                     className={cn(
-                      'max-w-[24rem] font-semibold leading-tight text-textcolor-primary transition-all duration-300',
-                      isActive ? 'text-3xl md:text-4xl' : 'text-xl md:text-2xl'
+                      'landing-showcase-title',
+                      isActive ? 'landing-showcase-title-active' : 'landing-showcase-title-inactive'
                     )}
                   >
                     {t(`Architecture.${layer.key}.title`)}
@@ -205,8 +204,8 @@ export function ArchitectureLayersShowcase() {
                   <p
                     aria-hidden={!isActive}
                     className={cn(
-                      'max-w-[32rem] overflow-hidden text-sm leading-relaxed text-textcolor-secondary transition-[max-height,opacity,margin] duration-300 md:text-base',
-                      isActive ? 'mt-4 max-h-32 opacity-100' : 'mt-0 max-h-0 opacity-0'
+                      'max-w-[34rem] overflow-hidden text-base leading-relaxed text-textcolor-secondary transition-[max-height,opacity,margin] duration-300 md:text-lg',
+                      isActive ? 'mt-4 max-h-40 opacity-100 md:max-h-48' : 'mt-0 max-h-0 opacity-0'
                     )}
                   >
                     {t(`Architecture.${layer.key}.description`)}

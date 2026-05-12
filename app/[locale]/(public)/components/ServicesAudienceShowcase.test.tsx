@@ -3,22 +3,19 @@ import { render, screen } from '@testing-library/react'
 import { ServicesAudienceShowcase } from '@/app/[locale]/(public)/components/ServicesAudienceShowcase'
 
 const translations: Record<string, string> = {
-  'hero.eyebrow': 'Dzvin.co services',
-  'hero.title': 'One platform for personal support, corporate analytics and research validation',
-  'hero.subtitle': 'Subtitle',
-  'hero.note': 'Illustrative data note',
-  'blueprint.eyebrow': 'Service architecture',
-  'blueprint.title': 'The services page explains a different operating model than the landing page',
+  'hero.title': 'Hero title',
+  'hero.subtitle': 'Hero subtitle',
+  'blueprint.title': 'Blueprint title',
   'blueprint.subtitle': 'Blueprint subtitle',
-  'blueprint.cards.personalFlow.title': 'Personal support track',
-  'blueprint.cards.personalFlow.description': 'Personal flow description',
-  'blueprint.cards.personalFlow.focus': 'Personal focus',
-  'blueprint.cards.corporateFlow.title': 'Corporate operations track',
-  'blueprint.cards.corporateFlow.description': 'Corporate flow description',
-  'blueprint.cards.corporateFlow.focus': 'Corporate focus',
-  'blueprint.cards.researchFlow.title': 'Research validation track',
-  'blueprint.cards.researchFlow.description': 'Research flow description',
-  'blueprint.cards.researchFlow.focus': 'Research focus',
+  'blueprint.cards.personalFlow.title': 'Blueprint card one',
+  'blueprint.cards.personalFlow.description': 'Blueprint card one description',
+  'blueprint.cards.personalFlow.focus': 'Blueprint card one focus',
+  'blueprint.cards.corporateFlow.title': 'Blueprint card two',
+  'blueprint.cards.corporateFlow.description': 'Blueprint card two description',
+  'blueprint.cards.corporateFlow.focus': 'Blueprint card two focus',
+  'blueprint.cards.researchFlow.title': 'Blueprint card three',
+  'blueprint.cards.researchFlow.description': 'Blueprint card three description',
+  'blueprint.cards.researchFlow.focus': 'Blueprint card three focus',
   'hero.audiences.b2c.title': 'Personal',
   'hero.audiences.b2c.subtitle': 'B2C subtitle',
   'hero.audiences.b2b.title': 'Corporate',
@@ -94,18 +91,19 @@ describe('ServicesAudienceShowcase', () => {
 
     expect(
       screen.getByRole('heading', {
-        name: 'One platform for personal support, corporate analytics and research validation',
+        name: 'Hero title',
         level: 1,
       })
     ).toBeInTheDocument()
-    expect(screen.getByText('Illustrative data note')).toBeInTheDocument()
+    expect(screen.getByText('Hero subtitle')).toBeInTheDocument()
+    expect(screen.getByText('B2C subtitle')).toBeInTheDocument()
     expect(
       screen.getByRole('heading', {
-        name: 'The services page explains a different operating model than the landing page',
+        name: 'Blueprint title',
         level: 2,
       })
     ).toBeInTheDocument()
-    expect(screen.getByText('Corporate operations track')).toBeInTheDocument()
+    expect(screen.getByText('Blueprint card two')).toBeInTheDocument()
   })
 
   it('renders all audience sections and three illustrative charts', () => {

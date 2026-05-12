@@ -8,9 +8,17 @@ interface SummaryCardProps {
   icon?: ReactNode
   className?: string
   iconOnTop?: boolean
+  titleClassName?: string
 }
 
-export const SummaryCard = ({ title, children, icon, className, iconOnTop = false }: SummaryCardProps) => {
+export const SummaryCard = ({
+  title,
+  children,
+  icon,
+  className,
+  iconOnTop = false,
+  titleClassName,
+}: SummaryCardProps) => {
   return (
     <div className={cn('relative flex w-full flex-col gap-xs', className)}>
       {icon && (
@@ -18,7 +26,7 @@ export const SummaryCard = ({ title, children, icon, className, iconOnTop = fals
           {icon}
         </div>
       )}
-      {title && <h4>{title}</h4>}
+      {title && <h4 className={titleClassName}>{title}</h4>}
       <div className="z-10">{children}</div>
     </div>
   )

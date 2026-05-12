@@ -3,13 +3,13 @@ import {
   Activity,
   BarChart3,
   BrainCircuit,
-  Building2,
+  BriefcaseBusiness,
   CheckCircle2,
   Compass,
   FileText,
   FlaskConical,
   Gauge,
-  HeartPulse,
+  Heart,
   Layers3,
   Route,
   ShieldCheck,
@@ -22,10 +22,8 @@ import {
   StaticHistoryChartCard,
   type StaticHistoryEntry,
 } from '@/app/[locale]/(public)/components/StaticHistoryChartCard'
-import { SummaryCard } from '@/components/shared/Cards/SummaryCard'
 import { IconFeatureList, type IconFeatureListItem } from '@/components/shared/Content/IconFeatureList'
 import { MosaicGrid, MosaicGridItem } from '@/components/shared/Content/MosaicGrid'
-import { SectionCard } from '@/ds/components/SectionCard'
 import { cn } from '@/lib/utils'
 
 type AudienceKey = 'b2c' | 'b2b' | 'rd'
@@ -45,10 +43,10 @@ type BlueprintCardKey = 'personalFlow' | 'corporateFlow' | 'researchFlow'
 type AudienceConfig = {
   key: AudienceKey
   badgeClassName: string
-  surfaceClassName: string
-  mutedSurfaceClassName: string
+  sectionClassName: string
+  introCardClassName: string
+  surfaceCardClassName: string
   iconWrapperClassName: string
-  summaryClassName: string
   icon: LucideIcon
   chartIcon: LucideIcon
   chartColor: string
@@ -60,9 +58,14 @@ type AudienceConfig = {
 type BlueprintCardConfig = {
   key: BlueprintCardKey
   icon: LucideIcon
-  type: 'info' | 'note' | 'success'
-  mdSpan: 3 | 6
-  xlSpan: 3 | 4 | 5
+  iconClassName?: string
+}
+
+const blueprintIconTintClassName = 'text-slate-100'
+const layerIcons: Record<AudienceKey, LucideIcon> = {
+  b2c: Heart,
+  b2b: BriefcaseBusiness,
+  rd: FlaskConical,
 }
 
 const outcomeKeys: readonly OutcomeKey[] = ['one', 'two', 'three']
@@ -88,38 +91,34 @@ const outcomeIcons: Record<OutcomeKey, LucideIcon> = {
 const blueprintCards: readonly BlueprintCardConfig[] = [
   {
     key: 'personalFlow',
-    icon: ShieldCheck,
-    type: 'note',
-    mdSpan: 3,
-    xlSpan: 3,
+    icon: layerIcons.b2c,
+    iconClassName: blueprintIconTintClassName,
   },
   {
     key: 'corporateFlow',
-    icon: Users,
-    type: 'info',
-    mdSpan: 3,
-    xlSpan: 4,
+    icon: layerIcons.b2b,
+    iconClassName: blueprintIconTintClassName,
   },
   {
     key: 'researchFlow',
-    icon: Sparkles,
-    type: 'success',
-    mdSpan: 6,
-    xlSpan: 5,
+    icon: layerIcons.rd,
+    iconClassName: blueprintIconTintClassName,
   },
 ]
+
+const heroAudienceIcons = layerIcons
 
 const audienceConfigs: readonly AudienceConfig[] = [
   {
     key: 'b2c',
     badgeClassName: 'bg-emerald-100 text-emerald-700',
-    surfaceClassName: 'bg-emerald-50/80',
-    mutedSurfaceClassName: 'bg-emerald-50/65',
+    sectionClassName: 'bg-[linear-gradient(180deg,rgba(209,250,229,0.98),rgba(240,253,244,0.94))]',
+    introCardClassName: 'bg-[linear-gradient(145deg,rgba(255,255,255,0.86),rgba(209,250,229,0.82))]',
+    surfaceCardClassName: 'bg-white/76',
     iconWrapperClassName: 'bg-white text-emerald-700 ring-1 ring-emerald-200',
-    summaryClassName: 'border-emerald-100 bg-emerald-50/70',
-    icon: HeartPulse,
+    icon: layerIcons.b2c,
     chartIcon: Activity,
-    chartColor: '#0f766e',
+    chartColor: '#059669',
     maxScore: 24,
     history: [
       { date: '2026-01-01', score: 18 },
@@ -133,14 +132,14 @@ const audienceConfigs: readonly AudienceConfig[] = [
   },
   {
     key: 'b2b',
-    badgeClassName: 'bg-sky-100 text-sky-700',
-    surfaceClassName: 'bg-sky-50/80',
-    mutedSurfaceClassName: 'bg-sky-50/65',
-    iconWrapperClassName: 'bg-white text-sky-700 ring-1 ring-sky-200',
-    summaryClassName: 'border-sky-100 bg-sky-50/70',
-    icon: Building2,
+    badgeClassName: 'bg-sky-200 text-sky-900',
+    sectionClassName: 'bg-[linear-gradient(180deg,rgba(186,230,253,0.98),rgba(239,246,255,0.94))]',
+    introCardClassName: 'bg-[linear-gradient(145deg,rgba(255,255,255,0.84),rgba(186,230,253,0.88))]',
+    surfaceCardClassName: 'bg-sky-50/84',
+    iconWrapperClassName: 'bg-white/92 text-sky-800 ring-1 ring-sky-300',
+    icon: layerIcons.b2b,
     chartIcon: BarChart3,
-    chartColor: '#0369a1',
+    chartColor: '#0284c7',
     maxScore: 20,
     history: [
       { date: '2026-01-01', score: 14 },
@@ -154,14 +153,14 @@ const audienceConfigs: readonly AudienceConfig[] = [
   },
   {
     key: 'rd',
-    badgeClassName: 'bg-amber-100 text-amber-800',
-    surfaceClassName: 'bg-amber-50/80',
-    mutedSurfaceClassName: 'bg-amber-50/65',
-    iconWrapperClassName: 'bg-white text-amber-800 ring-1 ring-amber-200',
-    summaryClassName: 'border-amber-100 bg-amber-50/70',
-    icon: FlaskConical,
+    badgeClassName: 'bg-violet-200 text-violet-900',
+    sectionClassName: 'bg-[linear-gradient(180deg,rgba(221,214,254,0.98),rgba(245,243,255,0.94))]',
+    introCardClassName: 'bg-[linear-gradient(145deg,rgba(255,255,255,0.84),rgba(221,214,254,0.9))]',
+    surfaceCardClassName: 'bg-violet-50/84',
+    iconWrapperClassName: 'bg-white/92 text-violet-800 ring-1 ring-violet-300',
+    icon: layerIcons.rd,
     chartIcon: BrainCircuit,
-    chartColor: '#a16207',
+    chartColor: '#6d28d9',
     maxScore: 20,
     history: [
       { date: '2026-01-01', score: 17 },
@@ -201,68 +200,90 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
   })
 
   return (
-    <section>
-      <MosaicGrid>
-        <MosaicGridItem xlSpan={7}>
-          <div className={cn('h-full rounded-[28px] p-6 md:p-8', config.surfaceClassName)}>
-            <span
-              className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] ${config.badgeClassName}`}
-            >
-              <AudienceIcon className="h-4 w-4" />
-              {t(`${sectionKey}.tag`)}
-            </span>
+    <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+      <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+        <MosaicGrid className="xl:gap-10">
+          <MosaicGridItem xlSpan={7}>
+            <div className="h-full md:pr-10">
+              <div
+                className={cn(
+                  'rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px] md:p-8',
+                  config.introCardClassName
+                )}
+              >
+                <span
+                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-[0.1em] ${config.badgeClassName}`}
+                >
+                  <AudienceIcon className="h-4 w-4" />
+                  {t(`${sectionKey}.tag`)}
+                </span>
 
-            <div className="mt-6 space-y-4">
-              <h2 className="text-title text-3xl font-semibold leading-tight md:text-4xl">
-                {t(`${sectionKey}.title`)}
-              </h2>
+                <div className="mt-6 space-y-4">
+                  <h2 className="landing-section-title">{t(`${sectionKey}.title`)}</h2>
 
-              <p className="max-w-3xl text-base leading-relaxed text-textcolor-secondary">
-                {t(`${sectionKey}.description`)}
-              </p>
+                  <p className="max-w-3xl text-base leading-relaxed text-textcolor-secondary">
+                    {t(`${sectionKey}.description`)}
+                  </p>
+                </div>
+              </div>
             </div>
-          </div>
-        </MosaicGridItem>
+          </MosaicGridItem>
 
-        <MosaicGridItem xlSpan={5}>
-          <SectionCard className={cn('h-full rounded-[28px] p-6 md:p-7', config.mutedSurfaceClassName)}>
-            <IconFeatureList
-              items={capabilityItems}
-              className="h-full"
-              iconWrapperClassName={config.iconWrapperClassName}
-            />
-          </SectionCard>
-        </MosaicGridItem>
+          <MosaicGridItem xlSpan={5}>
+            <div
+              className={cn(
+                'h-full rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px] md:p-7 xl:pl-4',
+                config.surfaceCardClassName
+              )}
+            >
+              <IconFeatureList
+                items={capabilityItems}
+                className="h-full"
+                iconWrapperClassName={config.iconWrapperClassName}
+                dividerClassName="border-black/[0.06]"
+              />
+            </div>
+          </MosaicGridItem>
 
-        <MosaicGridItem mdSpan={3} xlSpan={4}>
-          <div className={cn('rounded-[28px] p-6', config.mutedSurfaceClassName)}>
-            <StaticHistoryChartCard
-              history={config.history}
-              chartLabel={t(`${sectionKey}.chart.label`)}
-              chartColor={config.chartColor}
-              title={t(`${sectionKey}.chart.title`)}
-              stubTitle={t(`${sectionKey}.chart.stubTitle`)}
-              icon={<ChartIcon className="h-9 w-9 text-black/15" />}
-              maxScore={config.maxScore}
-            />
-          </div>
-        </MosaicGridItem>
+          <MosaicGridItem mdSpan={3} xlSpan={4}>
+            <div
+              className={cn(
+                'rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px]',
+                config.surfaceCardClassName
+              )}
+            >
+              <StaticHistoryChartCard
+                history={config.history}
+                chartLabel={t(`${sectionKey}.chart.label`)}
+                chartColor={config.chartColor}
+                title={t(`${sectionKey}.chart.title`)}
+                stubTitle={t(`${sectionKey}.chart.stubTitle`)}
+                icon={<ChartIcon className="h-9 w-9 text-black/15" />}
+                maxScore={config.maxScore}
+              />
+            </div>
+          </MosaicGridItem>
 
-        <MosaicGridItem mdSpan={3} xlSpan={8}>
-          <SectionCard
-            title={t(`${sectionKey}.outcomesTitle`)}
-            className={cn('h-full rounded-[28px] p-6 md:p-7', config.mutedSurfaceClassName)}
-            titleClassName="text-xl leading-snug"
-          >
-            <IconFeatureList
-              items={outcomeItems}
-              compact
-              iconWrapperClassName={config.iconWrapperClassName}
-              titleClassName="text-sm font-medium leading-relaxed"
-            />
-          </SectionCard>
-        </MosaicGridItem>
-      </MosaicGrid>
+          <MosaicGridItem mdSpan={3} xlSpan={8}>
+            <div
+              className={cn(
+                'h-full rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px] md:p-7 xl:pl-6',
+                config.surfaceCardClassName
+              )}
+            >
+              <h3 className="landing-panel-title">{t(`${sectionKey}.outcomesTitle`)}</h3>
+              <IconFeatureList
+                items={outcomeItems}
+                compact
+                className="mt-4"
+                iconWrapperClassName={config.iconWrapperClassName}
+                titleClassName="text-sm font-medium leading-relaxed"
+                dividerClassName="border-black/[0.06]"
+              />
+            </div>
+          </MosaicGridItem>
+        </MosaicGrid>
+      </div>
     </section>
   )
 }
@@ -272,111 +293,105 @@ export function ServicesAudienceShowcase() {
 
   return (
     <div className="bg-[radial-gradient(circle_at_top_left,rgba(236,253,245,0.9),transparent_30%),radial-gradient(circle_at_top_right,rgba(224,242,254,0.9),transparent_35%),linear-gradient(180deg,#f8fafc_0%,#f6f8ef_100%)]">
-      <section className="mb-12 w-full">
+      <section className="w-full">
         <div className="container-max-width mx-auto px-4 pb-10 pt-12 tablet:px-6 md:px-8 md:pb-12 md:pt-16 lg:px-10">
-          <MosaicGrid>
-            <MosaicGridItem xlSpan={7}>
-              <div className="h-full rounded-[28px] bg-[linear-gradient(145deg,rgba(255,255,255,0.86),rgba(255,255,255,0.58))] p-6 md:p-8">
-                <p className="text-textcolor-tertiary text-xs font-semibold uppercase tracking-[0.22em]">
-                  {t('hero.eyebrow')}
-                </p>
-                <h1 className="text-title mt-4 max-w-4xl text-4xl font-semibold leading-[1.05] md:text-6xl">
-                  {t('hero.title')}
-                </h1>
-                <p className="mt-5 max-w-3xl text-base leading-relaxed text-textcolor-secondary md:text-lg">
-                  {t('hero.subtitle')}
-                </p>
-              </div>
-            </MosaicGridItem>
+          <div className="grid items-start gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] xl:gap-20">
+            <div className="max-w-4xl">
+              <h1 className="landing-display-title max-w-3xl">{t('hero.title')}</h1>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-textcolor-secondary md:text-lg">
+                {t('hero.subtitle')}
+              </p>
+            </div>
 
-            <MosaicGridItem xlSpan={5}>
-              <div className="grid h-full gap-4 md:grid-cols-2 xl:grid-cols-1">
+            <div className="rounded-[30px] bg-[linear-gradient(145deg,rgba(255,255,255,0.82),rgba(255,255,255,0.6))] p-4 xl:pt-4">
+              <div className="flex h-full flex-col divide-y divide-black/[0.06]">
                 {audienceConfigs.map((config, index) => {
-                  const AudienceIcon = config.icon
+                  const AudienceIcon = heroAudienceIcons[config.key]
 
                   return (
                     <div
                       key={config.key}
                       className={cn(
-                        'rounded-[28px] border p-5 shadow-sm',
-                        config.summaryClassName,
-                        index === 2 && 'md:col-span-2 xl:col-span-1'
+                        'flex items-start gap-4 px-2 py-5',
+                        index === 0 && 'pt-3',
+                        index === audienceConfigs.length - 1 && 'pb-3'
                       )}
                     >
-                      <SummaryCard
-                        title={t(`hero.audiences.${config.key}.title`)}
-                        icon={<AudienceIcon className="h-10 w-10 text-black/10" />}
-                        iconOnTop
+                      <span
+                        aria-hidden="true"
+                        className={cn(
+                          'flex h-11 w-11 flex-none items-center justify-center rounded-2xl',
+                          config.iconWrapperClassName
+                        )}
                       >
-                        <p className="max-w-[16rem] text-sm leading-relaxed text-textcolor-secondary">
+                        <AudienceIcon className="h-5 w-5" />
+                      </span>
+
+                      <div className="min-w-0">
+                        <h2 className="landing-summary-title">{t(`hero.audiences.${config.key}.title`)}</h2>
+                        <p className="mt-2 max-w-[18rem] text-sm leading-relaxed text-textcolor-secondary">
                           {t(`hero.audiences.${config.key}.subtitle`)}
                         </p>
-                      </SummaryCard>
+                      </div>
                     </div>
                   )
                 })}
               </div>
-            </MosaicGridItem>
-
-            <MosaicGridItem xlSpan={12}>
-              <div className="rounded-[24px] bg-background-muted px-5 py-4 text-sm leading-relaxed text-textcolor-secondary">
-                {t('hero.note')}
-              </div>
-            </MosaicGridItem>
-          </MosaicGrid>
+            </div>
+          </div>
         </div>
       </section>
 
-      <section className="mb-12 w-full">
+      <section className="w-full bg-white py-14 md:py-16">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
-          <MosaicGrid>
-            <MosaicGridItem xlSpan={5}>
-              <div className="h-full rounded-[28px] bg-background-muted p-6 md:p-8">
-                <p className="text-textcolor-tertiary text-xs font-semibold uppercase tracking-[0.22em]">
-                  {t('blueprint.eyebrow')}
-                </p>
-                <h2 className="text-title mt-4 text-3xl font-semibold leading-tight md:text-4xl">
+          <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
+            <article className="relative flex min-h-[360px] flex-col justify-between overflow-hidden px-3 py-6 md:px-4 xl:px-2">
+              <div className="relative z-10">
+                <h2 className="text-title text-[2rem] font-semibold leading-[1.08] md:text-[2.45rem]">
                   {t('blueprint.title')}
                 </h2>
-                <p className="mt-4 text-base leading-relaxed text-textcolor-secondary">{t('blueprint.subtitle')}</p>
+                <p className="mt-6 text-base leading-relaxed text-textcolor-secondary">{t('blueprint.subtitle')}</p>
               </div>
-            </MosaicGridItem>
+            </article>
 
-            <MosaicGridItem xlSpan={7}>
-              <MosaicGrid>
-                {blueprintCards.map((card) => {
-                  const CardIcon = card.icon
+            {blueprintCards.map((card) => {
+              const BlueprintIcon = card.icon
 
-                  return (
-                    <MosaicGridItem key={card.key} mdSpan={card.mdSpan} xlSpan={card.xlSpan}>
-                      <SectionCard
-                        type={card.type}
-                        title={t(`blueprint.cards.${card.key}.title`)}
-                        subtitle={t(`blueprint.cards.${card.key}.description`)}
-                        titleClassName="text-xl leading-snug"
-                        className="h-full rounded-[28px] p-6"
-                        subtitlePrefix={<CardIcon aria-hidden className="text-black/55" />}
-                      >
-                        <div className="mt-5 rounded-[20px] bg-white/70 px-4 py-3 text-sm leading-relaxed text-textcolor-secondary">
-                          {t(`blueprint.cards.${card.key}.focus`)}
-                        </div>
-                      </SectionCard>
-                    </MosaicGridItem>
-                  )
-                })}
-              </MosaicGrid>
-            </MosaicGridItem>
-          </MosaicGrid>
+              return (
+                <article
+                  key={card.key}
+                  className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[28px] bg-white p-6 text-textcolor-primary md:p-7"
+                >
+                  <BlueprintIcon
+                    aria-hidden
+                    strokeWidth={1.2}
+                    className={cn(
+                      'pointer-events-none absolute right-5 top-5 h-24 w-24 md:right-6 md:top-6 md:h-28 md:w-28',
+                      card.iconClassName
+                    )}
+                  />
+
+                  <div className="relative z-10 flex flex-1 flex-col gap-sm pt-1">
+                    <h3 className="landing-panel-title">{t(`blueprint.cards.${card.key}.title`)}</h3>
+                    <p className="text-base leading-relaxed text-textcolor-secondary">
+                      {t(`blueprint.cards.${card.key}.description`)}
+                    </p>
+                    <p className="text-base leading-relaxed text-textcolor-secondary">
+                      {t(`blueprint.cards.${card.key}.focus`)}
+                    </p>
+                  </div>
+                </article>
+              )
+            })}
+          </div>
         </div>
       </section>
 
-      <section className="mb-16 w-full">
-        <div className="container-max-width mx-auto space-y-12 px-4 pb-16 tablet:px-6 md:px-8 lg:px-10">
-          {audienceConfigs.map((config) => (
-            <AudienceSection key={config.key} config={config} />
-          ))}
-        </div>
-      </section>
+      <div>
+        {audienceConfigs.map((config) => (
+          <AudienceSection key={config.key} config={config} />
+        ))}
+      </div>
     </div>
   )
 }

@@ -1,5 +1,14 @@
 import type { LucideIcon } from 'lucide-react'
-import { ArrowRight, CheckCircle2, Compass, Lightbulb, Search, SlidersHorizontal, Users } from 'lucide-react'
+import {
+  ArrowRight,
+  BadgeInfo,
+  CheckCircle2,
+  Lightbulb,
+  Search,
+  SlidersHorizontal,
+  Users2,
+  Workflow,
+} from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { ArchitectureLayersShowcase } from '@/app/[locale]/(public)/components/ArchitectureLayersShowcase'
@@ -37,14 +46,15 @@ const evolutionIcons: Record<'happened' | 'means' | 'next' | 'action' | 'evidenc
 }
 
 const valueIcons: Record<'cohort' | 'explainable' | 'outcome', LucideIcon> = {
-  cohort: Users,
-  explainable: Compass,
-  outcome: CheckCircle2,
+  cohort: Users2,
+  explainable: BadgeInfo,
+  outcome: Workflow,
 }
 
 export default function AboutPage() {
   const t = useTranslations('pages.About')
   const evolutionStepKeys = ['happened', 'means', 'next', 'action', 'evidence'] as const
+  const evolutionContextKeys = ['signal', 'prediction', 'validation'] as const
   const valuePointKeys = ['cohort', 'explainable', 'outcome'] as const
   const evolutionItems: IconFeatureListItem[] = evolutionStepKeys.map((key) => {
     const StepIcon = evolutionIcons[key as keyof typeof evolutionIcons]
@@ -56,12 +66,24 @@ export default function AboutPage() {
       description: t(`Evolution.stepDescriptions.${key}`),
     }
   })
+  const evolutionContextItems: IconFeatureListItem[] = evolutionContextKeys.map((key, index) => {
+    return {
+      key,
+      icon: (
+        <span className="text-[1.85rem] font-semibold leading-none tracking-[-0.04em]">
+          {String(index + 1).padStart(2, '0')}
+        </span>
+      ),
+      title: t(`Evolution.context.items.${key}.title`),
+      description: t(`Evolution.context.items.${key}.description`),
+    }
+  })
   const valueItems: IconFeatureListItem[] = valuePointKeys.map((key) => {
     const ValueIcon = valueIcons[key as keyof typeof valueIcons]
 
     return {
       key,
-      icon: <ValueIcon className="h-5 w-5" />,
+      icon: <ValueIcon className="h-7 w-7 stroke-[1.8]" />,
       title: t(`Value.points.${key}`),
     }
   })
@@ -73,7 +95,7 @@ export default function AboutPage() {
           <MosaicGrid>
             <MosaicGridItem xlSpan={7}>
               <div className="h-full rounded-[32px] bg-white p-8 shadow-sm md:p-10">
-                <PageTitle title={t('title')} className="max-w-4xl" />
+                <PageTitle title={t('title')} className="max-w-4xl" titleClassName="landing-page-title" />
                 <p className="mt-3 max-w-3xl text-base leading-relaxed text-textcolor-secondary md:text-lg">
                   {t('intro')}
                 </p>
@@ -84,17 +106,32 @@ export default function AboutPage() {
             </MosaicGridItem>
 
             <MosaicGridItem xlSpan={5}>
-              <div className="h-full rounded-[32px] bg-background-muted p-6 shadow-sm md:p-8">
-                <h2 className="landing-h2">{t('Value.title')}</h2>
+              <div className="h-full p-6 md:p-8">
+                <h2 className="landing-section-title">{t('Value.title')}</h2>
                 <p className="mt-2 text-sm leading-relaxed text-textcolor-secondary md:text-base">
                   {t('Value.description')}
                 </p>
-                <IconFeatureList
-                  items={valueItems}
-                  className="mt-5"
-                  iconWrapperClassName="bg-white text-primary ring-1 ring-primary/10"
-                  titleClassName="text-sm font-medium leading-relaxed md:text-base"
-                />
+
+                <ul className="mt-6 flex flex-col">
+                  {valueItems.map((item, index) => {
+                    const hasDivider = index < valueItems.length - 1
+
+                    return (
+                      <li
+                        key={item.key}
+                        className={cn('flex items-center gap-4 py-4', hasDivider && 'border-b border-black/[0.08]')}
+                      >
+                        <span aria-hidden="true" className="flex-none text-[#2f668f]">
+                          {item.icon}
+                        </span>
+
+                        <p className="text-[0.98rem] font-medium leading-relaxed text-textcolor-primary md:text-base">
+                          {item.title}
+                        </p>
+                      </li>
+                    )
+                  })}
+                </ul>
               </div>
             </MosaicGridItem>
           </MosaicGrid>
@@ -103,45 +140,39 @@ export default function AboutPage() {
 
       <section className="mb-12 w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+          <div className="mb-6 max-w-4xl md:mb-8">
+            <h2 className="landing-section-title">{t('Evolution.title')}</h2>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-textcolor-secondary md:text-base">
+              {t('Evolution.description')}
+            </p>
+          </div>
+
           <MosaicGrid className="xl:gap-8">
             <MosaicGridItem xlSpan={5}>
-              <div className="h-full rounded-[28px] bg-background-muted p-6 md:p-8">
-                <h2 className="landing-h2">{t('Evolution.title')}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-textcolor-secondary md:text-base">
-                  {t('Evolution.description')}
+              <div className="flex h-full flex-col rounded-[28px] bg-background-muted p-6 md:p-8">
+                <p className="landing-section-eyebrow">{t('Evolution.context.eyebrow')}</p>
+                <h3 className="landing-card-title mt-2 max-w-[26rem]">{t('Evolution.context.title')}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-textcolor-secondary md:text-base">
+                  {t('Evolution.context.description')}
                 </p>
-                <div className="mt-6 rounded-[24px] bg-[linear-gradient(145deg,rgba(255,255,255,0.92),rgba(219,234,254,0.78))] p-5 md:p-6">
-                  <p className="text-textcolor-tertiary text-xs font-semibold uppercase tracking-[0.18em]">
-                    {t('Evolution.context.eyebrow')}
-                  </p>
-                  <p className="mt-3 text-lg font-semibold leading-snug text-textcolor-primary md:text-xl">
-                    {t('Evolution.context.title')}
-                  </p>
-                  <p className="mt-3 text-sm leading-relaxed text-textcolor-secondary md:text-base">
-                    {t('Evolution.context.description')}
-                  </p>
-                  <div className="mt-5 space-y-4">
-                    {(['signal', 'prediction', 'validation'] as const).map((itemKey) => (
-                      <div
-                        key={itemKey}
-                        className="border-black/8 border-t pt-4 text-sm leading-relaxed text-textcolor-secondary"
-                      >
-                        <p className="font-semibold text-textcolor-primary">
-                          {t(`Evolution.context.items.${itemKey}.title`)}
-                        </p>
-                        <p className="mt-1">{t(`Evolution.context.items.${itemKey}.description`)}</p>
-                      </div>
-                    ))}
-                  </div>
-                </div>
+
+                <IconFeatureList
+                  items={evolutionContextItems}
+                  className="mt-5"
+                  itemClassName="gap-5"
+                  iconWrapperClassName="h-auto w-12 items-start justify-start rounded-none bg-transparent text-textcolor-primary/30"
+                  titleClassName="text-sm font-medium leading-relaxed md:text-base"
+                  descriptionClassName="text-sm leading-relaxed md:text-base"
+                />
               </div>
             </MosaicGridItem>
 
             <MosaicGridItem xlSpan={7}>
-              <div className="rounded-[28px] xl:max-w-[50rem] xl:pl-2">
+              <div className="h-full p-6 md:p-8">
                 <IconFeatureList
                   items={evolutionItems}
-                  iconWrapperClassName="bg-note text-textcolor-primary"
+                  className="h-full"
+                  iconWrapperClassName="bg-note text-textcolor-primary ring-1 ring-black/5"
                   titleClassName="text-base md:text-lg"
                   descriptionClassName="max-w-[36rem] text-sm leading-relaxed md:text-base"
                   itemClassName="gap-5"
@@ -152,28 +183,30 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="mb-12 w-full">
+      <section aria-labelledby="for-whom-title" className="mb-12 w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
-          <h2 className="landing-h2 mb-6">{t('ForWhom.title')}</h2>
+          <h2 id="for-whom-title" className="sr-only">
+            {t('ForWhom.title')}
+          </h2>
+
           <div className="grid gap-4 xl:grid-cols-3">
             {forWhomConfig.map(({ key, className, percentageClassName }) => (
               <ImpactMetricCard
                 key={key}
-                percentage={t(`ForWhom.${key}.impactPercent`)}
-                percentageLabel={t(`ForWhom.${key}.impactLabel`)}
+                highlightValue={t(`ForWhom.${key}.highlightValue`)}
+                highlightLabel={t(`ForWhom.${key}.highlightLabel`)}
                 title={t(`ForWhom.${key}.title`)}
                 description={t(`ForWhom.${key}.description`)}
                 className={cn('min-h-[18rem]', className)}
-                percentageClassName={percentageClassName}
+                highlightClassName={percentageClassName}
               />
             ))}
           </div>
         </div>
       </section>
 
-      <section className="mb-16 w-full">
+      <section aria-label={t('Architecture.title')} className="mb-16 w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
-          <h2 className="landing-h2 mb-6">{t('Architecture.title')}</h2>
           <ArchitectureLayersShowcase />
         </div>
       </section>

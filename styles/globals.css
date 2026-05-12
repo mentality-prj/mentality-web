@@ -368,6 +368,7 @@ body {
     /* Misc */
     --radius: 16px;
     --title-color: 217 19% 27%;
+    --title-color-soft: 217 19% 38%;
     --title-color-light: 217 19% 47%;
   }
 }
@@ -448,6 +449,52 @@ body {
   }
   .landing-h3 {
     @apply text-title shadow-light text-xl;
+  }
+  .landing-kicker {
+    @apply text-xs font-semibold tracking-[0.14em];
+    color: hsl(var(--text-tertiary));
+  }
+  .landing-display-title {
+    @apply shadow-light text-3xl font-semibold leading-[1.08] md:text-5xl;
+    color: hsl(var(--title-color-soft));
+  }
+  .landing-page-title {
+    @apply shadow-light text-4xl font-semibold leading-[130%] md:text-5xl;
+    color: hsl(var(--title-color-soft));
+  }
+  .landing-page-subtitle {
+    @apply text-xl leading-relaxed md:text-2xl;
+    color: hsl(var(--title-color-light));
+  }
+  .landing-section-eyebrow {
+    @apply text-sm font-medium leading-relaxed md:text-base;
+    color: hsl(var(--text-tertiary));
+  }
+  .landing-section-title {
+    @apply shadow-light text-3xl font-semibold leading-tight md:text-4xl;
+    color: hsl(var(--title-color-soft));
+  }
+  .landing-card-title {
+    @apply text-2xl font-semibold leading-snug;
+    color: hsl(var(--title-color-soft));
+  }
+  .landing-panel-title {
+    @apply text-xl font-semibold leading-snug md:text-2xl;
+    color: hsl(var(--title-color-soft));
+  }
+  .landing-summary-title {
+    @apply text-lg font-semibold leading-snug md:text-xl;
+    color: hsl(var(--title-color-soft));
+  }
+  .landing-showcase-title {
+    @apply max-w-[24rem] font-semibold leading-tight transition-all duration-300;
+    color: hsl(var(--title-color-soft));
+  }
+  .landing-showcase-title-active {
+    @apply text-3xl md:text-4xl;
+  }
+  .landing-showcase-title-inactive {
+    @apply text-xl md:text-2xl;
   }
 
   /* Headings - use consistent typography tokens; layout (flex/gap) kept in wrappers */

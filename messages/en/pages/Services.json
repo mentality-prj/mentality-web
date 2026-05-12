@@ -1,7 +1,7 @@
 {
   "hero": {
     "eyebrow": "Dzvin.co services",
-    "title": "One platform for personal support, corporate analytics and research validation",
+    "title": "Personal support, corporate analytics and validation in one system",
     "subtitle": "The current product already combines self-check flows, company management, aggregated analytics and a prediction-to-outcome loop. This page maps those modules into three service formats.",
     "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
     "audiences": {
@@ -21,8 +21,8 @@
   },
   "blueprint": {
     "eyebrow": "Service architecture",
-    "title": "The services page explains a different operating model than the landing page",
-    "subtitle": "The landing page introduces the platform, while services breaks it into distinct service tracks. That is why this page uses separate narratives and new visual cards instead of repeating the landing illustrations.",
+    "title": "Three service tracks of one platform",
+    "subtitle": "The platform works as a personal service for users, an analytics service for companies, and a validation service for programs and research. Below is how its role changes across these three scenarios.",
     "cards": {
       "personalFlow": {
         "title": "Personal support track",

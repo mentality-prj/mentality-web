@@ -4,13 +4,15 @@ interface PageTitleProps {
   title: string
   subtitle?: string
   className?: string
+  titleClassName?: string
+  subtitleClassName?: string
 }
 
-export const PageTitle = ({ title, subtitle, className }: PageTitleProps) => {
+export const PageTitle = ({ title, subtitle, className, titleClassName, subtitleClassName }: PageTitleProps) => {
   return (
     <div className={cn('flex flex-col gap-xs', className)}>
-      <h1>{title}</h1>
-      {subtitle && <h3>{subtitle}</h3>}
+      <h1 className={titleClassName}>{title}</h1>
+      {subtitle && <h3 className={subtitleClassName}>{subtitle}</h3>}
     </div>
   )
 }
