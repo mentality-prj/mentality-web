@@ -119,7 +119,7 @@ export default function AboutPage() {
                     return (
                       <li
                         key={item.key}
-                        className={cn('flex items-center gap-4 py-4', hasDivider && 'border-black/8 border-b')}
+                        className={cn('flex items-center gap-4 py-4', hasDivider && 'border-b border-black/[0.08]')}
                       >
                         <span aria-hidden="true" className="flex-none text-[#2f668f]">
                           {item.icon}
@@ -183,8 +183,12 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-label={t('ForWhom.title')} className="mb-12 w-full">
+      <section aria-labelledby="for-whom-title" className="mb-12 w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+          <h2 id="for-whom-title" className="sr-only">
+            {t('ForWhom.title')}
+          </h2>
+
           <div className="grid gap-4 xl:grid-cols-3">
             {forWhomConfig.map(({ key, className, percentageClassName }) => (
               <ImpactMetricCard

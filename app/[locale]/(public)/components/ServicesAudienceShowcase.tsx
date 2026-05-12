@@ -200,7 +200,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
   })
 
   return (
-    <section className={cn('md:py-18 w-full py-14', config.sectionClassName)}>
+    <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
       <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
         <MosaicGrid className="xl:gap-10">
           <MosaicGridItem xlSpan={7}>
@@ -240,7 +240,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
                 items={capabilityItems}
                 className="h-full"
                 iconWrapperClassName={config.iconWrapperClassName}
-                dividerClassName="border-black/6"
+                dividerClassName="border-black/[0.06]"
               />
             </div>
           </MosaicGridItem>
@@ -278,7 +278,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
                 className="mt-4"
                 iconWrapperClassName={config.iconWrapperClassName}
                 titleClassName="text-sm font-medium leading-relaxed"
-                dividerClassName="border-black/6"
+                dividerClassName="border-black/[0.06]"
               />
             </div>
           </MosaicGridItem>
@@ -304,7 +304,7 @@ export function ServicesAudienceShowcase() {
             </div>
 
             <div className="rounded-[30px] bg-[linear-gradient(145deg,rgba(255,255,255,0.82),rgba(255,255,255,0.6))] p-4 xl:pt-4">
-              <div className="divide-black/6 flex h-full flex-col divide-y">
+              <div className="flex h-full flex-col divide-y divide-black/[0.06]">
                 {audienceConfigs.map((config, index) => {
                   const AudienceIcon = heroAudienceIcons[config.key]
 

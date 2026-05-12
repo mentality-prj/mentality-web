@@ -137,7 +137,7 @@ export function ArchitectureLayersShowcase() {
                     'rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300',
                     isActive
                       ? cn(layer.chipActiveClassName, 'shadow-[0_12px_24px_rgba(15,23,42,0.08)]')
-                      : 'hover:border-black/8 border-transparent bg-white/65 text-textcolor-secondary hover:bg-white'
+                      : 'border-transparent bg-white/65 text-textcolor-secondary hover:border-black/[0.08] hover:bg-white'
                   )}
                 >
                   {t(`Architecture.${layer.key}.title`)}
