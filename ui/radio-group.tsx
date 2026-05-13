@@ -22,13 +22,13 @@ const RadioGroupItem = React.forwardRef<
     <RadioGroupPrimitive.Item
       ref={ref}
       className={cn(
-        'border-iconcolor-primary hover:bg-secondary-hover focus-visible:bg-secondary-focus focus-visible:ring-secondary-focus active:bg-secondary-pressed disabled:border-disable focus-visible:data-[state=checked]:border-primary-focus focus-visible:data-[state=checked]:bg-secondary-focus disabled:data-[state=checked]:border-disable group m-[3px] aspect-square h-5 w-5 rounded-full border-[1.5px] bg-transparent text-transparent outline-none hover:border-primary focus-visible:border-primary focus-visible:ring-4 active:border-primary disabled:cursor-not-allowed data-[state=checked]:border-primary data-[state=checked]:bg-transparent hover:data-[state=checked]:border-primary-hover active:data-[state=checked]:border-primary-pressed',
+        'border-iconcolor-primary disabled:border-disable disabled:data-[state=checked]:border-disable group m-[3px] aspect-square h-5 w-5 rounded-full border-[1.5px] bg-transparent text-transparent outline-none hover:border-primary hover:bg-secondary-hover focus-visible:border-primary focus-visible:bg-secondary-focus focus-visible:ring-4 focus-visible:ring-secondary-focus active:border-primary active:bg-secondary-pressed disabled:cursor-not-allowed data-[state=checked]:border-primary data-[state=checked]:bg-transparent hover:data-[state=checked]:border-primary-hover focus-visible:data-[state=checked]:border-primary-focus focus-visible:data-[state=checked]:bg-secondary-focus active:data-[state=checked]:border-primary-pressed',
         className
       )}
       {...props}
     >
       <RadioGroupPrimitive.Indicator className="flex items-center justify-center">
-        <Circle className="group-focus-visible:fill-primary-focus group-disabled:fill-disable h-3 w-3 fill-primary group-hover:fill-primary-hover group-active:fill-primary-pressed" />
+        <Circle className="group-disabled:fill-disable h-3 w-3 fill-primary group-hover:fill-primary-hover group-focus-visible:fill-primary-focus group-active:fill-primary-pressed" />
       </RadioGroupPrimitive.Indicator>
     </RadioGroupPrimitive.Item>
   )

@@ -24,7 +24,7 @@ const Switch = React.forwardRef<
         )}
       />
     </SwitchPrimitives.Root>
-    <div className="peer-active:peer-data-[state=checked]:bg-secondary-pressed absolute left-[-4px] top-[-4px] z-0 h-8 w-8 rounded-full transition-transform peer-data-[state=checked]:translate-x-5 peer-hover:peer-data-[state=checked]:bg-[#F0EDFF] peer-hover:peer-data-[state=unchecked]:bg-[#F2F1F3] peer-active:peer-data-[state=unchecked]:bg-[#E4E3E8]"></div>
+    <div className="absolute left-[-4px] top-[-4px] z-0 h-8 w-8 rounded-full transition-transform peer-data-[state=checked]:translate-x-5 peer-hover:peer-data-[state=checked]:bg-[#F0EDFF] peer-hover:peer-data-[state=unchecked]:bg-[#F2F1F3] peer-active:peer-data-[state=checked]:bg-secondary-pressed peer-active:peer-data-[state=unchecked]:bg-[#E4E3E8]"></div>
   </div>
 ))
 Switch.displayName = SwitchPrimitives.Root.displayName

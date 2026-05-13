@@ -55,14 +55,16 @@ const config: Config = {
         primary: {
           DEFAULT: 'hsl(var(--primary))',
           hover: 'hsl(var(--primary-hover))',
+          focus: 'hsl(var(--primary-focus))',
           pressed: 'hsl(var(--primary-pressed))',
           foreground: 'hsl(var(--primary-foreground))',
         },
 
         secondary: {
           DEFAULT: 'hsl(var(--secondary))',
-          soft: 'hsl(var(--secondary-soft))',
-          foreground: 'hsl(var(--secondary-foreground))',
+          hover: 'hsl(var(--secondary-hover))',
+          focus: 'hsl(var(--secondary-focus))',
+          pressed: 'hsl(var(--secondary-pressed))',
         },
 
         tertiary: {

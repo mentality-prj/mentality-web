@@ -65,7 +65,7 @@ export default function LangSwitch({ type }: { type?: AppViewType }) {
         {supportedLanguages.map((locale) => (
           <DropdownMenuItem
             key={locale}
-            className={`hover:bg-secondary-hover flex w-full items-center gap-xs px-3 py-2 outline-none ring-0 hover:text-textcolor-primary focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${
+            className={`flex w-full items-center gap-xs px-3 py-2 outline-none ring-0 hover:bg-secondary-hover hover:text-textcolor-primary focus:outline-none focus-visible:outline-none focus-visible:ring-0 ${
               (activeLocale as SupportedLanguage) === locale ? 'text-primary' : ''
             }`}
             onSelect={() => replaceLocale(locale)}
