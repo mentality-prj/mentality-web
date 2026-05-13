@@ -6,5 +6,8 @@
   "send": "Send Message",
   "sending": "Sending...",
   "success": "Message sent!",
-  "error": "Failed to send message"
+  "error": "Failed to send message",
+  "errorValidateForm": "Please fill out the form",
+  "errorValidateField": "This field is required.",
+  "errorValidateFieldEmail": "Invalid email address"
 }
