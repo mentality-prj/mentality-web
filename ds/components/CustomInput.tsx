@@ -10,6 +10,7 @@ type CustomInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
   label?: string
   errorMsg?: string
   helperText?: string
+  containerClassName?: string
   leftIcon?: React.ReactNode
   rightIcon?: React.ReactNode
   onLeftClick?: () => void
@@ -18,11 +19,23 @@ type CustomInputProps = React.InputHTMLAttributes<HTMLInputElement> & {
 
 export const CustomInput = React.forwardRef<HTMLInputElement, CustomInputProps>(
   (
-    { className, label, errorMsg, helperText, id, leftIcon, rightIcon, onLeftClick, onRightClick, ...inputProps },
+    {
+      className,
+      label,
+      errorMsg,
+      helperText,
+      containerClassName,
+      id,
+      leftIcon,
+      rightIcon,
+      onLeftClick,
+      onRightClick,
+      ...inputProps
+    },
     ref
   ) => {
     return (
-      <div className="flex flex-col gap-1">
+      <div className={cn('flex flex-col gap-1', containerClassName)}>
         {label && <Label htmlFor={id}>{label}</Label>}
         <div className="relative">
           {leftIcon &&

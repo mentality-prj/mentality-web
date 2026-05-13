@@ -2,8 +2,10 @@ import { ReactNode } from 'react'
 
 import { LandingFooter } from '@/components/features/Landing'
 import { Header } from '@/components/Layout/Header'
+import { mainVariants } from '@/components/Layout/mainVariants'
 import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { userSidebarMenu } from '@/constants/menu'
+import { cn } from '@/lib/utils'
 
 export default function ProtectedLayout({ children }: { children: ReactNode }) {
   return (
@@ -13,11 +15,11 @@ export default function ProtectedLayout({ children }: { children: ReactNode }) {
         <div className="h-full w-1/2 bg-background-alt" />
       </div>
       <div className="container-max-width relative z-10 flex w-full">
-        <div className="hidden bg-white md:flex">
+        <div className="hidden bg-white lg:flex">
           <Sidebar menu={userSidebarMenu} />
         </div>
-        <main className="old-paper min-h-screen w-full flex-1 flex-col items-start justify-between">
-          <div className="padded flex w-full flex-col gap-md">
+        <main className={cn(mainVariants())}>
+          <div className="padded flex w-full flex-col gap-sm tablet:gap-6 sm:gap-md">
             <Header />
             {children}
           </div>

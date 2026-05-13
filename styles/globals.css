@@ -433,7 +433,7 @@ body {
   }
 
   .old-paper {
-    @apply flex bg-background-alt md:rounded-[32px];
+    @apply flex bg-background-alt lg:rounded-[32px];
   }
 
   .padded {

@@ -1,27 +1,39 @@
+'use client'
+
+import { useState } from 'react'
+
 import { AvatarMenu, LocalDate, SearchBar } from '@/components/Layout/Header'
 import LangSwitch from '@/components/Layout/Header/LangSwitch'
 import MobileNavDrawer from '@/components/Layout/MobileNavDrawer/MobileNavDrawer'
 import { userTopMenu } from '@/constants/menu'
+import { cn } from '@/lib/utils'
 
 import TopMenu from '../TopMenu/TopMenu'
 
-const Header = () => (
-  <header className="text-remark shadow-light flex w-full items-center justify-between gap-sm md:px-1">
-    <div className="flex items-center gap-sm">
-      <MobileNavDrawer />
-      <span className="hidden md:block">
-        <LocalDate />
-      </span>
-    </div>
-    <div className="flex items-center gap-sm md:gap-md">
-      <TopMenu menu={userTopMenu} />
-      <span className="hidden w-40 laptop:block">
-        <SearchBar />
-      </span>
-      <LangSwitch />
-      <AvatarMenu />
-    </div>
-  </header>
-)
+const Header = () => {
+  const [isMobileOpen, setIsMobileOpen] = useState(false)
+
+  return (
+    <header
+      className={cn(
+        'text-remark shadow-light flex w-full items-center justify-between gap-2 tablet:mb-0 md:px-1',
+        isMobileOpen ? 'mb-6' : ''
+      )}
+    >
+      <div className="flex items-center gap-sm">
+        <MobileNavDrawer />
+        <span className="hidden xl:block">
+          <LocalDate />
+        </span>
+      </div>
+      <div className="flex items-center gap-2 md:gap-md">
+        <TopMenu collapseToMyDayOnTablet={true} menu={userTopMenu} />
+        <SearchBar isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
+        <LangSwitch />
+        <AvatarMenu />
+      </div>
+    </header>
+  )
+}
 
 export default Header
