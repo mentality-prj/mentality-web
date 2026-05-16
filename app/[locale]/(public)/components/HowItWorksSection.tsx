@@ -39,7 +39,7 @@ export function HowItWorksSection() {
           }`}
         >
           <span
-            className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
               isActive
                 ? 'bg-[#2563eb] text-white shadow-[0_10px_20px_rgba(37,99,235,0.35)]'
                 : 'border border-[var(--outline-tertiary)] bg-white text-textcolor-secondary'
@@ -57,13 +57,13 @@ export function HowItWorksSection() {
   })
 
   return (
-    <section className="mb-14 w-full">
-      <div className="container-max-width mx-auto grid grid-cols-1 gap-10 px-4 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
+    <section className="mb-7 w-full tablet:mb-14">
+      <div className="container-max-width mx-auto grid grid-cols-1 gap-5 px-4 tablet:gap-10 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
         <div className="rounded-[40px] bg-background-muted p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>
           <p className="mt-1 text-sm text-textcolor-secondary">{t(stepsSectionConfig.subtitleKey)}</p>
           <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
-          <div className="mt-8">
+          <div className="mt-4 flex justify-center tablet:mt-8 tablet:block">
             <Button asChild variant="volume" size="large">
               <Link href={Routes.AUTH}>{t(stepsSectionConfig.ctaKey)}</Link>
             </Button>
