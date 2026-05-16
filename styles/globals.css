@@ -384,7 +384,7 @@ body {
 
 @layer components {
   .logo {
-    @apply font-logo flex min-h-10 items-center text-4xl font-normal tracking-wide;
+    @apply font-logo flex min-h-10 items-center text-3xl font-normal tracking-wide sm:text-4xl;
     /* subtle white highlight on the right, 45deg */
     background-image: linear-gradient(
       45deg,
@@ -447,7 +447,7 @@ body {
 
   /* Typography */
   .landing-h1 {
-    @apply text-title shadow-light text-5xl leading-[130%];
+    @apply text-title shadow-light text-4xl sm:text-5xl sm:leading-[130%];
   }
   .landing-h2 {
     @apply text-title shadow-light text-3xl leading-[130%];
