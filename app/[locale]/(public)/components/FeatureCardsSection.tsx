@@ -17,7 +17,7 @@ export function FeatureCardsSection() {
   )
 
   return (
-    <section className="mb-12 w-full">
+    <section className="mb-6 w-full tablet:mb-12">
       <div className="container-max-width mx-auto grid grid-cols-1 gap-default px-4 tablet:px-6 md:grid-cols-3 md:px-8 lg:px-10">
         <SectionCard
           type={Statuses.note}
