@@ -1,8 +1,8 @@
 {
   "hero": {
     "eyebrow": "Dzvin.co services",
-    "title": "Personal support, corporate analytics and validation in one system",
-    "subtitle": "The current product already combines self-check flows, company management, aggregated analytics and a prediction-to-outcome loop. This page maps those modules into three service formats.",
+    "title": "Personal support, corporate analytics and scientific forecasting in one system",
+    "subtitle": "Dzvin.co helps identify stress, burnout and behavioral risk before they escalate into critical outcomes. The platform combines personal state tracking, team stability analytics, and research-grade forecasting models built on behavioral dynamics and uncertainty.",
     "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
     "audiences": {
       "b2c": {
@@ -15,7 +15,7 @@
       },
       "rd": {
         "title": "Research",
-        "subtitle": "Cohorts, validation loops and reporting for foundations and programs."
+        "subtitle": "Cohorts, validation loops and reporting for research institutes, universities and programs."
       }
     }
   },
@@ -36,7 +36,7 @@
       },
       "researchFlow": {
         "title": "Research validation track",
-        "description": "For foundations and programs, the service connects cohorts, outcome measurement and evidence accumulation to validate hypotheses.",
+        "description": "For research programs, institutes and universities, the service connects cohorts, outcome measurement and evidence accumulation to validate hypotheses.",
         "focus": "Focus: impact validation, repeatable observations and accountable program reporting."
       }
     }
@@ -45,26 +45,70 @@
     "b2c": {
       "tag": "Personal",
       "title": "For individuals",
-      "description": "The personal layer combines mood tracking, questionnaires, diary notes, exercises and progress history into one continuous mental well-being journey.",
-      "capabilities": {
-        "tracking": {
-          "title": "Track state",
-          "description": "The mood tracker, notes and evidence-based questionnaires create one timeline instead of scattered check-ins."
-        },
-        "support": {
-          "title": "Act immediately",
-          "description": "Breathing, meditations, calming exercises, affirmations and tips turn insight into the next practical step."
-        },
-        "consistency": {
-          "title": "Stay engaged",
-          "description": "Saved content, progress pages and mental games help users return to routines that actually improve their state."
+      "description": "The personal service gathers state signals, offers simple practices and helps reveal what actually supports mental well-being in everyday use.",
+      "serviceSummaryItems": {
+        "tracking": "Brings state signals into one sequence.",
+        "support": "Suggests a relevant practice right after self-check.",
+        "consistency": "Keeps change history easy to revisit."
+      },
+      "resultSummaryItems": {
+        "one": "State becomes easier to understand over time.",
+        "two": "The next step is clear right after assessment.",
+        "three": "Support turns into a path that is easy to continue every day."
+      },
+      "journeyTitle": "How the service works",
+      "before": {
+        "title": "What it was before",
+        "items": {
+          "one": {
+            "title": "Separate signals without a shared picture",
+            "description": "Mood, short notes and self-checks existed separately, so it was difficult to see change as one continuous process."
+          },
+          "two": {
+            "title": "Practices were not linked to the moment",
+            "description": "Helpful exercises or advice could exist on their own, but they did not appear at the exact moment they were most relevant."
+          },
+          "three": {
+            "title": "Results did not accumulate in one story",
+            "description": "Even when something helped, it did not turn into a support path people could quickly return to."
+          }
         }
       },
-      "outcomesTitle": "What people get",
+      "capabilities": {
+        "tracking": {
+          "title": "State is captured in one place",
+          "description": "Mood, short notes and questionnaires are gathered into one sequence that shows frequency of change, recurring triggers and movement across days."
+        },
+        "support": {
+          "title": "A practice appears right after assessment",
+          "description": "After a self-check, the service immediately opens breathing, meditation, an exercise or short guidance connected to the current state."
+        },
+        "consistency": {
+          "title": "Effective routines are easy to repeat",
+          "description": "Saved exercises, materials and state history stay available so people can repeat what has already produced a visible result."
+        }
+      },
+      "outcomesTitle": "What improved",
+      "after": {
+        "items": {
+          "one": {
+            "title": "State becomes clearer over time",
+            "description": "Instead of isolated episodes, there is a fuller picture of how well-being changes across days and weeks."
+          },
+          "two": {
+            "title": "The next step becomes concrete",
+            "description": "After assessment, there is not just abstract advice but a specific action that can be taken immediately."
+          },
+          "three": {
+            "title": "Support becomes cumulative",
+            "description": "Helpful practices and visible progress stop getting lost and start forming a path that is easier to continue."
+          }
+        }
+      },
       "outcomes": {
-        "one": "A clear view of how state changes over days and weeks.",
-        "two": "Actionable practices connected to real product modules, not abstract advice.",
-        "three": "A measurable feedback loop between self-checks, interventions and progress."
+        "one": "A better sense of your state and less confusion about what is happening to you.",
+        "two": "Simple daily steps that help you feel more grounded and calm.",
+        "three": "A clearer view of what works for you personally and how your state changes over time."
       },
       "chart": {
         "label": "Self-check score",
@@ -75,26 +119,41 @@
     "b2b": {
       "tag": "Corporate",
       "title": "For companies",
-      "description": "The corporate layer adds company roles, group hierarchies, invites, access scopes, mood analytics and decision support for managers.",
+      "description": "The B2B layer turns team state signals into an early-response operating system: leaders and HR get an aggregated risk view, see where teams are losing energy, and can act before the issue becomes burnout, attrition or a visible performance drag.",
+      "managerTitle": "What a manager sees and controls",
       "capabilities": {
         "governance": {
-          "title": "Structure the organization",
-          "description": "Companies, groups and manager scopes can be configured so each role sees only the teams and metrics it is responsible for."
+          "title": "Org structure, roles and accountability zones",
+          "description": "The platform brings teams, roles, groups and access scopes into one managed layer so managers can see the right slice of the organization without permission chaos, manual reporting merges or endless clarification loops."
         },
         "analytics": {
-          "title": "Monitor teams",
-          "description": "The dashboard aggregates mood, stress, energy and focus across groups, time ranges and filters without manual consolidation."
+          "title": "State dynamics across teams and groups",
+          "description": "Instead of stitching together fragmented signals, managers get one analytical surface for stress, energy, focus and mood trends, making it easier to spot which teams need attention right now."
         },
         "decisionSupport": {
-          "title": "Act on risk",
-          "description": "Decision support surfaces risk events, evidence and financial impact so leaders can respond before issues escalate."
+          "title": "Action priorities and support control",
+          "description": "The system highlights critical risk zones, helps identify where intervention will have the biggest payoff, and moves management action from intuition-led to evidence-led."
         }
       },
-      "outcomesTitle": "What companies get",
+      "outcomesTitle": "What this gives the business",
+      "businessImpact": {
+        "one": {
+          "title": "One management surface for team well-being",
+          "description": "Leadership gets a transparent aggregated view of team state without exposing private stories, which makes well-being manageable as an operating discipline rather than a reactive afterthought."
+        },
+        "two": {
+          "title": "Faster decisions with measurable operational payoff",
+          "description": "When risk becomes visible earlier, companies can prioritize support faster, direct manager attention with more precision, and reduce losses from burnout, attrition and performance decline."
+        },
+        "three": {
+          "title": "A stronger case for HR and executive buy-in",
+          "description": "Data dynamics move the conversation from ‘well-being matters’ to ‘here is where the business is already losing capacity and where support creates measurable return’, making leadership alignment easier to secure."
+        }
+      },
       "outcomes": {
-        "one": "A shared view of employee well-being without exposing raw personal timelines.",
-        "two": "Team-level trends for mood, stress, energy and focus in one analytics layer.",
-        "three": "Operational decisions backed by analytics, access scopes and evidence."
+        "one": "One management view of team well-being without exposing personal histories.",
+        "two": "Faster decisions about support, manager priorities and focus teams.",
+        "three": "Arguments for HR and leadership backed by data dynamics, not just intuition."
       },
       "chart": {
         "label": "Average stress score",
@@ -104,23 +163,94 @@
     },
     "rd": {
       "tag": "Research",
-      "title": "For research programs and foundations",
-      "description": "The research layer uses questionnaires, cohorts, evidence accumulation and outcome tracking to validate interventions at program level.",
+      "title": "For researchers, institutes and universities",
+      "description": "The R&D layer turns the platform into a research environment: standardized self-checks, behavioral signals, cohort analysis, prediction validation and outcome tracking in one system.",
+      "technicalTitle": "The technical research layer",
       "capabilities": {
         "cohorts": {
           "title": "Build comparable cohorts",
-          "description": "Standardized self-checks and behavioral signals make it possible to compare participants with similar patterns."
+          "description": "Unified collection instruments make it possible to build cohorts, compare subgroups and repeat an observation design across collection waves."
         },
         "validation": {
           "title": "Validate predictions",
-          "description": "The prediction-to-outcome loop shows where forecasts were correct, where drift appeared and what improved after intervention."
+          "description": "The prediction-to-outcome loop shows model accuracy, drift and change after intervention at the cohort or program level."
         },
         "reporting": {
           "title": "Report impact",
-          "description": "Aggregated evidence and trend views support foundations and research programs that need transparent progress stories instead of one-off snapshots."
+          "description": "Data can be turned into material for reports, ethics packages, grant applications and communication with organizations that finance research."
         }
       },
-      "outcomesTitle": "What funds and researchers get",
+      "panels": {
+        "delivery": {
+          "title": "What we actually do",
+          "items": {
+            "one": {
+              "title": "Collect standardized observations",
+              "description": "We work with the same scales, behavioral signals and controlled data collection flows so results remain comparable."
+            },
+            "two": {
+              "title": "Build cohorts and analytical cuts",
+              "description": "Participants can be segmented by state patterns, risk, intervention response and observation windows."
+            },
+            "three": {
+              "title": "Validate predictions against outcomes",
+              "description": "We show where the model was accurate, where drift appeared and what effect was actually observed after intervention."
+            }
+          }
+        },
+        "science": {
+          "title": "Scientific value",
+          "items": {
+            "one": {
+              "title": "Repeatable measurement logic",
+              "description": "The same measurement logic works in the everyday product and in the research layer, so data does not break across environments."
+            },
+            "two": {
+              "title": "Visible drift and accuracy",
+              "description": "Teams can monitor how prediction quality changes over time and whether a model stays valid on new samples."
+            },
+            "three": {
+              "title": "Evidence for papers and grants",
+              "description": "Cohort comparisons, intervention dynamics and program outcomes accumulate into material that can support a publication or grant proposal."
+            }
+          }
+        },
+        "support": {
+          "title": "How we help researchers",
+          "items": {
+            "one": {
+              "title": "Reduce time to a working study design",
+              "description": "Teams do not start from zero: the digital loop for data collection, cohort analysis and outcome capture is already in place."
+            },
+            "two": {
+              "title": "Provide structure for reports and papers",
+              "description": "Researchers get more than raw signals and can work with a structure that supports analysis, conclusions and accountable reporting."
+            },
+            "three": {
+              "title": "Strengthen grant reasoning",
+              "description": "We help explain what is measured, how effect is validated and why the approach is practically valuable for a research team or grant provider."
+            }
+          }
+        }
+      },
+      "outcomesTitle": "What researchers and institutions get",
+      "details": {
+        "title": "What enters the evidence cycle",
+        "items": {
+          "one": {
+            "title": "Standardized inputs",
+            "description": "Cohorts are built from the same self-checks, behavioral signals and questionnaires the platform already uses day to day."
+          },
+          "two": {
+            "title": "Hypotheses checked against outcomes",
+            "description": "The prediction-to-outcome loop shows model accuracy, drift and intervention effect instead of leaving the program at an intermediate signal."
+          },
+          "three": {
+            "title": "An accountable evidence package",
+            "description": "Aggregated trends, cohort comparisons and program results accumulate into an evidence base institutes, universities and research teams can actually use."
+          }
+        }
+      },
       "outcomes": {
         "one": "A population-level view built from the same modules people use every day.",
         "two": "An accumulating evidence base that confirms or refutes each program hypothesis.",

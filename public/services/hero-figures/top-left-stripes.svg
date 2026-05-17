@@ -1,0 +1,9 @@
+<svg width="136" height="92" viewBox="0 0 136 92" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="skyStripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="none" />
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#8BE8FF" stroke-opacity="0.96" stroke-width="3" />
+    </pattern>
+  </defs>
+  <path d="M0 0H136V18C123 49 96 78 58 92H0V0Z" fill="url(#skyStripes)" />
+</svg>

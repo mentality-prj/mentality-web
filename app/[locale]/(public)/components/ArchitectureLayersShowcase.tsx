@@ -14,7 +14,6 @@ type LayerRole = 'active' | 'right' | 'left'
 type ArchitectureLayerConfig = {
   key: ArchitectureLayerKey
   icon: LucideIcon
-  badgeClassName: string
   chipActiveClassName: string
   panelClassName: string
   shadowClassName: string
@@ -48,7 +47,6 @@ const layerConfigs: readonly ArchitectureLayerConfig[] = [
   {
     key: 'core',
     icon: BrainCircuit,
-    badgeClassName: 'bg-[#eef5cc] text-[#6a7d1f] ring-[#d7e6a8]',
     chipActiveClassName: 'border-[#b8cb72]/45 bg-[#f4f8df] text-[#5f711b]',
     panelClassName: 'bg-[linear-gradient(145deg,rgba(215,230,168,0.96),rgba(204,223,148,0.9))]',
     shadowClassName: 'bg-[#d7e6a8]/55',
@@ -59,7 +57,6 @@ const layerConfigs: readonly ArchitectureLayerConfig[] = [
   {
     key: 'b2c',
     icon: Route,
-    badgeClassName: 'bg-[#deefff] text-[#38719d] ring-[#bddcf8]',
     chipActiveClassName: 'border-[#92bee8]/45 bg-[#eef6fe] text-[#2f668f]',
     panelClassName: 'bg-[linear-gradient(145deg,rgba(167,203,238,0.96),rgba(148,191,232,0.9))]',
     shadowClassName: 'bg-[#a7cbee]/55',
@@ -70,7 +67,6 @@ const layerConfigs: readonly ArchitectureLayerConfig[] = [
   {
     key: 'loop',
     icon: Layers3,
-    badgeClassName: 'bg-[#e2faea] text-[#2f7a56] ring-[#bdeecf]',
     chipActiveClassName: 'border-[#9fe1b7]/45 bg-[#edfdf2] text-[#2a6f4d]',
     panelClassName: 'bg-[linear-gradient(145deg,rgba(184,241,203,0.96),rgba(167,233,187,0.9))]',
     shadowClassName: 'bg-[#b8f1cb]/55',
@@ -102,16 +98,16 @@ export function ArchitectureLayersShowcase() {
   const t = useTranslations('pages.About')
   const [activeIndex, setActiveIndex] = useState(0)
 
-  const activeLayer = layerConfigs.find((_, index) => index === activeIndex) ?? layerConfigs[0]
+  const activeLayer = layerConfigs[activeIndex as number] ?? layerConfigs[0]
 
   const handleCardClick = (index: number) => {
     setActiveIndex((currentIndex) => (currentIndex === index ? getNextIndex(currentIndex) : index))
   }
 
   return (
-    <MosaicGrid>
+    <MosaicGrid className="gap-y-4 xl:gap-x-8">
       <MosaicGridItem xlSpan={4}>
-        <div className="flex h-full flex-col rounded-[28px] bg-background-muted p-6 md:p-8">
+        <div className="landing-outline-panel flex h-full flex-col rounded-[28px] p-6 md:p-8">
           <div className="space-y-5">
             <p className="landing-section-eyebrow">{t('Architecture.title')}</p>
             <h2 className="landing-section-title">{t('Architecture.overviewTitle')}</h2>

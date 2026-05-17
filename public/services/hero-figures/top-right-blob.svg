@@ -1,0 +1,10 @@
+<svg width="256" height="160" viewBox="0 0 256 160" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="topRightBlob" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(202 10) rotate(143) scale(190 136)">
+      <stop stop-color="#FF00D6" />
+      <stop offset="0.42" stop-color="#8460FF" />
+      <stop offset="1" stop-color="#2EE5FF" />
+    </radialGradient>
+  </defs>
+  <path d="M0 0H256V88C236 79 214 79 191 87C164 95 141 93 119 77C94 58 81 31 78 0H0Z" fill="url(#topRightBlob)" />
+</svg>

@@ -1,6 +1,5 @@
 import type { LucideIcon } from 'lucide-react'
 import {
-  Activity,
   BarChart3,
   BrainCircuit,
   BriefcaseBusiness,
@@ -16,14 +15,15 @@ import {
   Sparkles,
   Users,
 } from 'lucide-react'
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
-import {
-  StaticHistoryChartCard,
-  type StaticHistoryEntry,
-} from '@/app/[locale]/(public)/components/StaticHistoryChartCard'
+import { ServicesHeroBackgroundFigures } from '@/app/[locale]/(public)/components/ServicesHeroBackgroundFigures'
 import { IconFeatureList, type IconFeatureListItem } from '@/components/shared/Content/IconFeatureList'
+import { IconStatementList, type IconStatementListItem } from '@/components/shared/Content/IconStatementList'
 import { MosaicGrid, MosaicGridItem } from '@/components/shared/Content/MosaicGrid'
+import { NumberedFeatureList, type NumberedFeatureListItem } from '@/components/shared/Content/NumberedFeatureList'
+import { GlassPanel } from '@/ds/components/GlassPanel'
 import { cn } from '@/lib/utils'
 
 type AudienceKey = 'b2c' | 'b2b' | 'rd'
@@ -38,20 +38,13 @@ type CapabilityKey =
   | 'validation'
   | 'reporting'
 type OutcomeKey = 'one' | 'two' | 'three'
+type DetailItemKey = 'one' | 'two' | 'three'
+type RdPanelKey = 'delivery' | 'science' | 'support'
 type BlueprintCardKey = 'personalFlow' | 'corporateFlow' | 'researchFlow'
 
 type AudienceConfig = {
   key: AudienceKey
-  badgeClassName: string
   sectionClassName: string
-  introCardClassName: string
-  surfaceCardClassName: string
-  iconWrapperClassName: string
-  icon: LucideIcon
-  chartIcon: LucideIcon
-  chartColor: string
-  maxScore: number
-  history: StaticHistoryEntry[]
   capabilityKeys: readonly CapabilityKey[]
 }
 
@@ -61,7 +54,7 @@ type BlueprintCardConfig = {
   iconClassName?: string
 }
 
-const blueprintIconTintClassName = 'text-slate-100'
+const blueprintIconTintClassName = 'text-white/95'
 const layerIcons: Record<AudienceKey, LucideIcon> = {
   b2c: Heart,
   b2b: BriefcaseBusiness,
@@ -69,6 +62,8 @@ const layerIcons: Record<AudienceKey, LucideIcon> = {
 }
 
 const outcomeKeys: readonly OutcomeKey[] = ['one', 'two', 'three']
+const detailItemKeys: readonly DetailItemKey[] = ['one', 'two', 'three']
+const rdPanelKeys: readonly RdPanelKey[] = ['delivery', 'science', 'support']
 
 const capabilityIcons: Record<CapabilityKey, LucideIcon> = {
   tracking: Compass,
@@ -80,6 +75,12 @@ const capabilityIcons: Record<CapabilityKey, LucideIcon> = {
   cohorts: Users,
   validation: BrainCircuit,
   reporting: FileText,
+}
+
+const b2cResultSummaryIcons: Record<OutcomeKey, LucideIcon> = {
+  one: BarChart3,
+  two: CheckCircle2,
+  three: ShieldCheck,
 }
 
 const outcomeIcons: Record<OutcomeKey, LucideIcon> = {
@@ -106,70 +107,20 @@ const blueprintCards: readonly BlueprintCardConfig[] = [
   },
 ]
 
-const heroAudienceIcons = layerIcons
-
 const audienceConfigs: readonly AudienceConfig[] = [
   {
     key: 'b2c',
-    badgeClassName: 'bg-emerald-100 text-emerald-700',
     sectionClassName: 'bg-[linear-gradient(180deg,rgba(209,250,229,0.98),rgba(240,253,244,0.94))]',
-    introCardClassName: 'bg-[linear-gradient(145deg,rgba(255,255,255,0.86),rgba(209,250,229,0.82))]',
-    surfaceCardClassName: 'bg-white/76',
-    iconWrapperClassName: 'bg-white text-emerald-700 ring-1 ring-emerald-200',
-    icon: layerIcons.b2c,
-    chartIcon: Activity,
-    chartColor: '#059669',
-    maxScore: 24,
-    history: [
-      { date: '2026-01-01', score: 18 },
-      { date: '2026-01-15', score: 16 },
-      { date: '2026-02-01', score: 13 },
-      { date: '2026-02-15', score: 11 },
-      { date: '2026-03-01', score: 9 },
-      { date: '2026-03-15', score: 7 },
-    ],
     capabilityKeys: ['tracking', 'support', 'consistency'],
   },
   {
     key: 'b2b',
-    badgeClassName: 'bg-sky-200 text-sky-900',
     sectionClassName: 'bg-[linear-gradient(180deg,rgba(186,230,253,0.98),rgba(239,246,255,0.94))]',
-    introCardClassName: 'bg-[linear-gradient(145deg,rgba(255,255,255,0.84),rgba(186,230,253,0.88))]',
-    surfaceCardClassName: 'bg-sky-50/84',
-    iconWrapperClassName: 'bg-white/92 text-sky-800 ring-1 ring-sky-300',
-    icon: layerIcons.b2b,
-    chartIcon: BarChart3,
-    chartColor: '#0284c7',
-    maxScore: 20,
-    history: [
-      { date: '2026-01-01', score: 14 },
-      { date: '2026-02-01', score: 13 },
-      { date: '2026-03-01', score: 11 },
-      { date: '2026-04-01', score: 10 },
-      { date: '2026-05-01', score: 8 },
-      { date: '2026-06-01', score: 6 },
-    ],
     capabilityKeys: ['governance', 'analytics', 'decisionSupport'],
   },
   {
     key: 'rd',
-    badgeClassName: 'bg-violet-200 text-violet-900',
     sectionClassName: 'bg-[linear-gradient(180deg,rgba(221,214,254,0.98),rgba(245,243,255,0.94))]',
-    introCardClassName: 'bg-[linear-gradient(145deg,rgba(255,255,255,0.84),rgba(221,214,254,0.9))]',
-    surfaceCardClassName: 'bg-violet-50/84',
-    iconWrapperClassName: 'bg-white/92 text-violet-800 ring-1 ring-violet-300',
-    icon: layerIcons.rd,
-    chartIcon: BrainCircuit,
-    chartColor: '#6d28d9',
-    maxScore: 20,
-    history: [
-      { date: '2026-01-01', score: 17 },
-      { date: '2026-02-01', score: 14 },
-      { date: '2026-03-01', score: 12 },
-      { date: '2026-04-01', score: 9 },
-      { date: '2026-05-01', score: 7 },
-      { date: '2026-06-01', score: 5 },
-    ],
     capabilityKeys: ['cohorts', 'validation', 'reporting'],
   },
 ]
@@ -177,8 +128,6 @@ const audienceConfigs: readonly AudienceConfig[] = [
 function AudienceSection({ config }: { config: AudienceConfig }) {
   const t = useTranslations('pages.Services')
   const sectionKey = `sections.${config.key}`
-  const AudienceIcon = config.icon
-  const ChartIcon = config.chartIcon
   const capabilityItems: IconFeatureListItem[] = config.capabilityKeys.map((capabilityKey) => {
     const CapabilityIcon = capabilityIcons[capabilityKey as keyof typeof capabilityIcons]
 
@@ -189,100 +138,244 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
       description: t(`${sectionKey}.capabilities.${capabilityKey}.description`),
     }
   })
-  const outcomeItems: IconFeatureListItem[] = outcomeKeys.map((outcomeKey) => {
-    const OutcomeIcon = outcomeIcons[outcomeKey as keyof typeof outcomeIcons]
+  const b2cServiceSummaryItems: IconStatementListItem[] =
+    config.key === 'b2c'
+      ? config.capabilityKeys.map((capabilityKey) => {
+          const CapabilityIcon = capabilityIcons[capabilityKey as keyof typeof capabilityIcons]
 
-    return {
-      key: outcomeKey,
-      icon: <OutcomeIcon className="h-5 w-5" />,
-      title: t(`${sectionKey}.outcomes.${outcomeKey}`),
-    }
-  })
+          return {
+            key: capabilityKey,
+            icon: <CapabilityIcon className="h-7 w-7 stroke-[1.8]" />,
+            text: t(`${sectionKey}.serviceSummaryItems.${capabilityKey}`),
+          }
+        })
+      : []
+  const b2cResultSummaryItems: IconStatementListItem[] =
+    config.key === 'b2c'
+      ? outcomeKeys.map((outcomeKey) => {
+          const OutcomeIcon = b2cResultSummaryIcons[outcomeKey as keyof typeof b2cResultSummaryIcons]
+
+          return {
+            key: outcomeKey,
+            icon: <OutcomeIcon className="h-7 w-7 stroke-[1.8]" />,
+            text: t(`${sectionKey}.resultSummaryItems.${outcomeKey}`),
+          }
+        })
+      : []
+  const b2bBusinessImpactItems: IconFeatureListItem[] =
+    config.key === 'b2b'
+      ? outcomeKeys.map((outcomeKey) => {
+          const OutcomeIcon = outcomeIcons[outcomeKey as keyof typeof outcomeIcons]
+
+          return {
+            key: outcomeKey,
+            icon: <OutcomeIcon className="h-5 w-5" />,
+            title: t(`${sectionKey}.businessImpact.${outcomeKey}.title`),
+            description: t(`${sectionKey}.businessImpact.${outcomeKey}.description`),
+          }
+        })
+      : []
+
+  if (config.key === 'b2c') {
+    return (
+      <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+        <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+          <div className="max-w-[70rem] xl:max-w-[70%]">
+            <div className="space-y-4">
+              <h2 className="landing-section-title">{t(`${sectionKey}.title`)}</h2>
+
+              <p className="text-base leading-relaxed text-textcolor-secondary md:text-lg">
+                {t(`${sectionKey}.description`)}
+              </p>
+            </div>
+          </div>
+
+          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.06fr)_minmax(0,0.88fr)] xl:items-center">
+            <div className="px-1 py-1 md:px-2">
+              <IconStatementList
+                items={b2cServiceSummaryItems}
+                iconClassName="text-emerald-700/85"
+                textClassName="text-base md:text-[1.1rem]"
+              />
+            </div>
+
+            <div className="bg-white/72 overflow-hidden rounded-[30px] shadow-[0_24px_50px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.05]">
+              <div className="mx-auto w-full max-w-[40rem]">
+                <Image
+                  src="/services/b2c.png"
+                  alt=""
+                  aria-hidden="true"
+                  width={1024}
+                  height={559}
+                  sizes="(min-width: 1280px) 40rem, (min-width: 1024px) 32rem, 100vw"
+                  className="h-auto w-full"
+                />
+              </div>
+            </div>
+
+            <div className="px-1 py-1 md:px-2">
+              <IconStatementList
+                items={b2cResultSummaryItems}
+                iconClassName="text-emerald-700/85"
+                textClassName="text-base md:text-[1.1rem]"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  if (config.key === 'b2b') {
+    return (
+      <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+        <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+          <div className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.68fr)] xl:items-start xl:gap-8">
+            <div className="px-1 py-2 md:px-2 md:py-3 xl:order-2">
+              <div className="max-w-[30rem] space-y-4 md:pt-2">
+                <h2 className="landing-section-title">{t(`${sectionKey}.title`)}</h2>
+
+                <p className="text-base leading-relaxed text-textcolor-secondary md:text-lg">
+                  {t(`${sectionKey}.description`)}
+                </p>
+              </div>
+            </div>
+
+            <div className="grid gap-6 xl:order-1">
+              <div className="h-full px-1 py-2 md:px-2 md:py-3">
+                <GlassPanel
+                  className="h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_24px_60px_rgba(14,116,144,0.12)]"
+                  backgroundClassName="bg-[linear-gradient(135deg,rgba(255,255,255,0.22),rgba(255,255,255,0.06)_36%,rgba(255,255,255,0.02)_100%)]"
+                  glowClassName="right-[-10%] top-[14%] h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(125,211,252,0.2),rgba(255,255,255,0)_70%)] blur-2xl"
+                >
+                  <p className="landing-kicker text-sky-900/80">{t(`${sectionKey}.managerTitle`)}</p>
+                  <IconFeatureList
+                    items={capabilityItems}
+                    className="mt-4 h-full"
+                    iconWrapperClassName="bg-white/[0.12] text-sky-900 ring-1 ring-white/55 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-xl"
+                    titleClassName="text-base font-semibold leading-snug md:text-[1.05rem]"
+                    descriptionClassName="text-sm leading-relaxed text-textcolor-secondary md:text-base"
+                    dividerClassName="border-white/14"
+                  />
+                </GlassPanel>
+              </div>
+
+              <div className="h-full px-1 py-2 md:px-2 md:py-3">
+                <GlassPanel
+                  className="h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_24px_60px_rgba(14,116,144,0.12)]"
+                  backgroundClassName="bg-[linear-gradient(135deg,rgba(255,255,255,0.22),rgba(255,255,255,0.06)_36%,rgba(255,255,255,0.02)_100%)]"
+                  glowClassName="right-[-8%] top-[12%] h-36 w-36 rounded-full bg-[radial-gradient(circle,rgba(59,130,246,0.16),rgba(255,255,255,0)_72%)] blur-2xl"
+                >
+                  <p className="landing-kicker text-sky-900/80">{t(`${sectionKey}.outcomesTitle`)}</p>
+                  <IconFeatureList
+                    items={b2bBusinessImpactItems}
+                    className="mt-4 h-full"
+                    iconWrapperClassName="bg-white/[0.12] text-sky-900 ring-1 ring-white/55 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-xl"
+                    titleClassName="text-base font-semibold leading-snug md:text-[1.05rem]"
+                    descriptionClassName="text-sm leading-relaxed text-textcolor-secondary md:text-base"
+                    dividerClassName="border-white/14"
+                  />
+                </GlassPanel>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    )
+  }
+
+  const rdPanels = rdPanelKeys.map((panelKey) => ({
+    key: panelKey,
+    title: t(`${sectionKey}.panels.${panelKey}.title`),
+    items: detailItemKeys.map(
+      (detailKey): NumberedFeatureListItem => ({
+        key: detailKey,
+        title: t(`${sectionKey}.panels.${panelKey}.items.${detailKey}.title`),
+        description: t(`${sectionKey}.panels.${panelKey}.items.${detailKey}.description`),
+      })
+    ),
+  }))
 
   return (
     <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
       <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
-        <MosaicGrid className="xl:gap-10">
-          <MosaicGridItem xlSpan={7}>
-            <div className="h-full md:pr-10">
-              <div
-                className={cn(
-                  'rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px] md:p-8',
-                  config.introCardClassName
-                )}
-              >
-                <span
-                  className={`inline-flex items-center gap-2 rounded-full px-3 py-1 text-xs font-semibold tracking-[0.1em] ${config.badgeClassName}`}
-                >
-                  <AudienceIcon className="h-4 w-4" />
-                  {t(`${sectionKey}.tag`)}
-                </span>
+        <div className="relative isolate">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[52%] top-1 z-0 hidden h-44 w-44 xl:block"
+          >
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.97)_14%,rgba(196,181,253,0.84)_36%,rgba(139,92,246,0.82)_62%,rgba(76,29,149,0.97)_100%)] shadow-[0_18px_40px_rgba(109,40,217,0.22)]" />
+            <div className="absolute left-[14%] top-[10%] h-[22%] w-[30%] rounded-full bg-white/80 blur-[3px]" />
+            <div className="absolute left-[18%] top-[23%] h-[10%] w-[18%] rounded-full bg-white/40 blur-[5px]" />
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_72%_76%,rgba(49,46,129,0.32),transparent_48%)] opacity-70 mix-blend-multiply" />
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute left-[63%] top-[15.75rem] z-0 hidden h-28 w-28 xl:block"
+          >
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.95)_14%,rgba(196,181,253,0.8)_36%,rgba(139,92,246,0.78)_62%,rgba(76,29,149,0.96)_100%)] shadow-[0_16px_30px_rgba(109,40,217,0.2)]" />
+            <div className="bg-white/78 absolute left-[16%] top-[11%] h-[22%] w-[30%] rounded-full blur-[2px]" />
+            <div className="bg-white/38 absolute left-[19%] top-[25%] h-[9%] w-[18%] rounded-full blur-[4px]" />
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_72%_76%,rgba(49,46,129,0.28),transparent_48%)] opacity-70 mix-blend-multiply" />
+          </div>
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute -right-3 top-[4.75rem] z-0 hidden h-20 w-20 xl:block"
+          >
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.94)_14%,rgba(196,181,253,0.78)_36%,rgba(139,92,246,0.76)_62%,rgba(76,29,149,0.95)_100%)] shadow-[0_14px_24px_rgba(109,40,217,0.18)]" />
+            <div className="bg-white/76 absolute left-[16%] top-[11%] h-[20%] w-[28%] rounded-full blur-[2px]" />
+            <div className="bg-white/36 absolute left-[20%] top-[25%] h-[8%] w-[18%] rounded-full blur-[4px]" />
+            <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_72%_76%,rgba(49,46,129,0.24),transparent_48%)] opacity-70 mix-blend-multiply" />
+          </div>
 
-                <div className="mt-6 space-y-4">
-                  <h2 className="landing-section-title">{t(`${sectionKey}.title`)}</h2>
+          <MosaicGrid className="relative z-10 xl:gap-10">
+            <MosaicGridItem xlSpan={7} align="start" className="!h-auto [&>*]:!h-auto">
+              <div className="md:pr-10 md:pt-2">
+                <div className="max-w-[48rem] p-1 md:px-2 md:py-3">
+                  <div className="space-y-4">
+                    <h2 className="landing-section-title">{t(`${sectionKey}.title`)}</h2>
 
-                  <p className="max-w-3xl text-base leading-relaxed text-textcolor-secondary">
-                    {t(`${sectionKey}.description`)}
-                  </p>
+                    <p className="max-w-3xl text-base leading-relaxed text-textcolor-secondary">
+                      {t(`${sectionKey}.description`)}
+                    </p>
+                  </div>
                 </div>
               </div>
-            </div>
-          </MosaicGridItem>
+            </MosaicGridItem>
 
-          <MosaicGridItem xlSpan={5}>
-            <div
-              className={cn(
-                'h-full rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px] md:p-7 xl:pl-4',
-                config.surfaceCardClassName
-              )}
-            >
-              <IconFeatureList
-                items={capabilityItems}
-                className="h-full"
-                iconWrapperClassName={config.iconWrapperClassName}
-                dividerClassName="border-black/[0.06]"
-              />
-            </div>
-          </MosaicGridItem>
+            <MosaicGridItem xlSpan={5} align="start" className="!h-auto [&>*]:!h-auto">
+              <div className="px-1 py-2 md:px-2 xl:pl-4">
+                <GlassPanel
+                  className="h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_24px_60px_rgba(76,29,149,0.12)]"
+                  backgroundClassName="bg-[linear-gradient(135deg,rgba(255,255,255,0.22),rgba(255,255,255,0.06)_36%,rgba(255,255,255,0.02)_100%)]"
+                >
+                  <p className="landing-kicker pl-[3.75rem]">{t(`${sectionKey}.technicalTitle`)}</p>
 
-          <MosaicGridItem mdSpan={3} xlSpan={4}>
-            <div
-              className={cn(
-                'rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px]',
-                config.surfaceCardClassName
-              )}
-            >
-              <StaticHistoryChartCard
-                history={config.history}
-                chartLabel={t(`${sectionKey}.chart.label`)}
-                chartColor={config.chartColor}
-                title={t(`${sectionKey}.chart.title`)}
-                stubTitle={t(`${sectionKey}.chart.stubTitle`)}
-                icon={<ChartIcon className="h-9 w-9 text-black/15" />}
-                maxScore={config.maxScore}
-              />
-            </div>
-          </MosaicGridItem>
+                  <IconFeatureList
+                    items={capabilityItems}
+                    className="mt-4"
+                    iconWrapperClassName="bg-white/[0.07] text-violet-800 ring-1 ring-white/55 shadow-[inset_0_1px_0_rgba(255,255,255,0.45)] backdrop-blur-xl"
+                    dividerClassName="border-white/12"
+                  />
+                </GlassPanel>
+              </div>
+            </MosaicGridItem>
 
-          <MosaicGridItem mdSpan={3} xlSpan={8}>
-            <div
-              className={cn(
-                'h-full rounded-[30px] p-6 shadow-sm ring-1 ring-black/5 backdrop-blur-[2px] md:p-7 xl:pl-6',
-                config.surfaceCardClassName
-              )}
-            >
-              <h3 className="landing-panel-title">{t(`${sectionKey}.outcomesTitle`)}</h3>
-              <IconFeatureList
-                items={outcomeItems}
-                compact
-                className="mt-4"
-                iconWrapperClassName={config.iconWrapperClassName}
-                titleClassName="text-sm font-medium leading-relaxed"
-                dividerClassName="border-black/[0.06]"
-              />
-            </div>
-          </MosaicGridItem>
-        </MosaicGrid>
+            <MosaicGridItem mdSpan={6} xlSpan={12}>
+              <div className="px-1 py-2 md:px-2 md:py-3">
+                <div className="grid gap-8 xl:grid-cols-3 xl:gap-8">
+                  {rdPanels.map((panel) => (
+                    <div key={panel.key}>
+                      <h3 className="landing-panel-title">{panel.title}</h3>
+
+                      <NumberedFeatureList items={panel.items} className="mt-4" />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </MosaicGridItem>
+          </MosaicGrid>
+        </div>
       </div>
     </section>
   )
@@ -292,57 +385,69 @@ export function ServicesAudienceShowcase() {
   const t = useTranslations('pages.Services')
 
   return (
-    <div className="bg-[radial-gradient(circle_at_top_left,rgba(236,253,245,0.9),transparent_30%),radial-gradient(circle_at_top_right,rgba(224,242,254,0.9),transparent_35%),linear-gradient(180deg,#f8fafc_0%,#f6f8ef_100%)]">
-      <section className="w-full">
-        <div className="container-max-width mx-auto px-4 pb-10 pt-12 tablet:px-6 md:px-8 md:pb-12 md:pt-16 lg:px-10">
-          <div className="grid items-start gap-10 xl:grid-cols-[minmax(0,1.15fr)_minmax(20rem,0.85fr)] xl:gap-20">
-            <div className="max-w-4xl">
-              <h1 className="landing-display-title max-w-3xl">{t('hero.title')}</h1>
-              <p className="mt-6 max-w-3xl text-base leading-relaxed text-textcolor-secondary md:text-lg">
-                {t('hero.subtitle')}
-              </p>
+    <div className="bg-white">
+      <section className="relative w-full overflow-hidden bg-primary">
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_22%),radial-gradient(circle_at_86%_12%,rgba(255,255,255,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0)_42%)]"
+        />
+        <ServicesHeroBackgroundFigures />
+
+        <div className="container-max-width relative z-10 mx-auto px-4 pb-14 pt-12 tablet:px-6 md:px-8 md:pb-16 md:pt-16 lg:px-10">
+          <div className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.95fr)] xl:gap-16">
+            <div className="relative z-10 max-w-4xl">
+              <h1 className="landing-display-title max-w-3xl text-[2rem] font-medium leading-[1.04] text-white md:text-[2.75rem]">
+                {t('hero.title')}
+              </h1>
+              <p className="mt-6 max-w-3xl text-base leading-relaxed text-white md:text-lg">{t('hero.subtitle')}</p>
             </div>
 
-            <div className="rounded-[30px] bg-[linear-gradient(145deg,rgba(255,255,255,0.82),rgba(255,255,255,0.6))] p-4 xl:pt-4">
-              <div className="flex h-full flex-col divide-y divide-black/[0.06]">
-                {audienceConfigs.map((config, index) => {
-                  const AudienceIcon = heroAudienceIcons[config.key]
+            <div className="relative isolate min-h-[23rem]">
+              <div
+                aria-hidden="true"
+                className="border-white/28 pointer-events-none absolute -right-6 top-[56%] z-0 hidden h-20 w-10 -translate-y-1/2 rounded-r-full border border-l-0 border-dashed lg:block"
+              />
 
-                  return (
-                    <div
-                      key={config.key}
-                      className={cn(
-                        'flex items-start gap-4 px-2 py-5',
-                        index === 0 && 'pt-3',
-                        index === audienceConfigs.length - 1 && 'pb-3'
-                      )}
-                    >
-                      <span
-                        aria-hidden="true"
-                        className={cn(
-                          'flex h-11 w-11 flex-none items-center justify-center rounded-2xl',
-                          config.iconWrapperClassName
-                        )}
-                      >
-                        <AudienceIcon className="h-5 w-5" />
-                      </span>
+              <div className="relative z-10 w-full">
+                <GlassPanel
+                  className="border-white/50 bg-white/[0.09] px-6 py-6 shadow-[inset_0_1px_0_rgba(255,255,255,0.5),0_26px_54px_rgba(2,18,78,0.28)] backdrop-blur-[22px] backdrop-saturate-[1.65] sm:px-7 sm:py-7"
+                  backgroundClassName="bg-[linear-gradient(135deg,rgba(255,255,255,0.2),rgba(255,255,255,0.06)_38%,rgba(255,255,255,0.02)_100%)]"
+                  glowClassName="left-[18%] top-[16%] h-[58%] w-[64%] rounded-full bg-[radial-gradient(circle_at_25%_22%,rgba(255,216,135,0.96),rgba(255,160,112,0.9)_18%,rgba(255,73,164,0.84)_36%,rgba(179,88,255,0.72)_63%,rgba(34,211,238,0.16)_100%)] opacity-90 blur-[24px]"
+                  textClassName="flex min-h-[18rem] flex-col justify-center"
+                >
+                  <div className="space-y-4">
+                    {audienceConfigs.map((config) => {
+                      const AudienceIcon = layerIcons[config.key]
 
-                      <div className="min-w-0">
-                        <h2 className="landing-summary-title">{t(`hero.audiences.${config.key}.title`)}</h2>
-                        <p className="mt-2 max-w-[18rem] text-sm leading-relaxed text-textcolor-secondary">
-                          {t(`hero.audiences.${config.key}.subtitle`)}
-                        </p>
-                      </div>
-                    </div>
-                  )
-                })}
+                      return (
+                        <div key={config.key} className="flex items-start gap-4">
+                          <span
+                            aria-hidden="true"
+                            className="border-white/38 flex h-10 w-10 flex-none items-center justify-center rounded-[14px] border bg-white/[0.05] text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.18)]"
+                          >
+                            <AudienceIcon className="h-[18px] w-[18px]" />
+                          </span>
+
+                          <div className="min-w-0 flex-1">
+                            <h2 className="landing-summary-title text-white">
+                              {t(`hero.audiences.${config.key}.title`)}
+                            </h2>
+                            <p className="text-white/74 mt-2 text-sm leading-relaxed">
+                              {t(`hero.audiences.${config.key}.subtitle`)}
+                            </p>
+                          </div>
+                        </div>
+                      )
+                    })}
+                  </div>
+                </GlassPanel>
               </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="w-full bg-white py-14 md:py-16">
+      <section className="w-full bg-[linear-gradient(180deg,rgba(255,237,213,0.98),rgba(255,247,237,0.94))] py-14 md:py-16">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
             <article className="relative flex min-h-[360px] flex-col justify-between overflow-hidden px-3 py-6 md:px-4 xl:px-2">
@@ -360,7 +465,7 @@ export function ServicesAudienceShowcase() {
               return (
                 <article
                   key={card.key}
-                  className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[28px] bg-white p-6 text-textcolor-primary md:p-7"
+                  className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[28px] border border-white/60 bg-white/[0.34] p-6 text-textcolor-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.58),0_20px_48px_rgba(249,115,22,0.08)] backdrop-blur-[18px] md:p-7"
                 >
                   <BlueprintIcon
                     aria-hidden
