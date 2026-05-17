@@ -26,12 +26,12 @@ export function NumberedFeatureList({
   dividerClassName,
 }: NumberedFeatureListProps) {
   return (
-    <div className={cn('flex flex-col', className)}>
+    <ol className={cn('flex list-none flex-col pl-0', className)}>
       {items.map((item, index) => {
         const hasDivider = index < items.length - 1
 
         return (
-          <div key={item.key} className={cn('grid grid-cols-[4rem_minmax(0,1fr)] gap-5', itemClassName)}>
+          <li key={item.key} className={cn('grid list-none grid-cols-[4rem_minmax(0,1fr)] gap-5', itemClassName)}>
             <div className="py-4">
               <span
                 aria-hidden="true"
@@ -64,9 +64,9 @@ export function NumberedFeatureList({
                 </p>
               )}
             </div>
-          </div>
+          </li>
         )
       })}
-    </div>
+    </ol>
   )
 }

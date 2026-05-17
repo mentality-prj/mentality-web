@@ -86,12 +86,12 @@ export default function AboutPage() {
   })
 
   return (
-    <div className="bg-[radial-gradient(circle_at_top_left,rgba(219,234,254,0.8),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(254,243,199,0.75),transparent_28%),linear-gradient(180deg,#f8fafc_0%,#ffffff_100%)] py-12 md:py-16">
-      <section className="mb-12 w-full">
+    <div className="flex flex-col gap-6 bg-[radial-gradient(circle_at_top_left,rgba(219,234,254,0.8),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(254,243,199,0.75),transparent_28%),linear-gradient(180deg,#f8fafc_0%,#ffffff_100%)] py-12 md:gap-12 md:py-16">
+      <section className="w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <MosaicGrid>
             <MosaicGridItem xlSpan={7}>
-              <div className="h-full rounded-[32px] bg-white p-8 shadow-sm md:p-10">
+              <div className="h-full px-2 py-4 md:px-0 md:py-6">
                 <PageTitle title={t('title')} className="max-w-4xl" titleClassName="landing-page-title" />
                 <p className="mt-3 max-w-3xl text-base leading-relaxed text-textcolor-secondary md:text-lg">
                   {t('intro')}
@@ -103,20 +103,32 @@ export default function AboutPage() {
             </MosaicGridItem>
 
             <MosaicGridItem xlSpan={5}>
-              <div className="h-full p-6 md:p-8">
-                <h2 className="landing-section-title">{t('Value.title')}</h2>
-                <p className="mt-2 text-sm leading-relaxed text-textcolor-secondary md:text-base">
-                  {t('Value.description')}
-                </p>
+              <div className="landing-glass-panel h-full rounded-[32px] p-6 md:p-8">
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(191,219,254,0.55),rgba(255,255,255,0)_38%),radial-gradient(circle_at_85%_18%,rgba(192,132,252,0.26),rgba(255,255,255,0)_34%),radial-gradient(circle_at_18%_88%,rgba(110,231,183,0.24),rgba(255,255,255,0)_30%),linear-gradient(145deg,rgba(239,246,255,0.9),rgba(236,253,245,0.8)_52%,rgba(233,213,255,0.72))]"
+                />
 
-                <IconStatementList items={valueItems} className="mt-6" />
+                <div className="relative z-10">
+                  <h2 className="landing-section-title">{t('Value.title')}</h2>
+                  <p className="mt-2 text-sm leading-relaxed text-textcolor-secondary md:text-base">
+                    {t('Value.description')}
+                  </p>
+
+                  <IconStatementList
+                    items={valueItems}
+                    className="mt-6"
+                    dividerClassName="border-black/[0.09]"
+                    iconClassName="text-[#2f668f]"
+                  />
+                </div>
               </div>
             </MosaicGridItem>
           </MosaicGrid>
         </div>
       </section>
 
-      <section className="mb-12 w-full">
+      <section className="w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="mb-6 max-w-4xl md:mb-8">
             <h2 className="landing-section-title">{t('Evolution.title')}</h2>
@@ -127,7 +139,7 @@ export default function AboutPage() {
 
           <MosaicGrid className="xl:gap-8">
             <MosaicGridItem xlSpan={5}>
-              <div className="flex h-full flex-col rounded-[28px] bg-background-muted p-6 md:p-8">
+              <div className="landing-outline-panel flex h-full flex-col rounded-[28px] p-6 md:p-8">
                 <p className="landing-section-eyebrow">{t('Evolution.context.eyebrow')}</p>
                 <h3 className="landing-card-title mt-2 max-w-[26rem]">{t('Evolution.context.title')}</h3>
                 <p className="mt-3 text-sm leading-relaxed text-textcolor-secondary md:text-base">
@@ -144,7 +156,7 @@ export default function AboutPage() {
             </MosaicGridItem>
 
             <MosaicGridItem xlSpan={7}>
-              <div className="h-full p-6 md:p-8">
+              <div className="landing-glass-panel h-full rounded-[28px] p-6 md:p-8">
                 <IconFeatureList
                   items={evolutionItems}
                   className="h-full"
@@ -159,13 +171,13 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-labelledby="for-whom-title" className="mb-12 w-full">
+      <section aria-labelledby="for-whom-title" className="w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <h2 id="for-whom-title" className="sr-only">
             {t('ForWhom.title')}
           </h2>
 
-          <div className="grid gap-4 xl:grid-cols-3">
+          <div className="grid gap-y-4 xl:grid-cols-3 xl:gap-x-8">
             {forWhomConfig.map(({ key, className, percentageClassName }) => (
               <ImpactMetricCard
                 key={key}
@@ -181,7 +193,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section aria-label={t('Architecture.title')} className="mb-16 w-full">
+      <section aria-label={t('Architecture.title')} className="w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <ArchitectureLayersShowcase />
         </div>

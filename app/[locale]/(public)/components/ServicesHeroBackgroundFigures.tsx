@@ -9,7 +9,7 @@ const heroFigures = [
     key: 'top-left-stripes',
     imagePath: '/services/hero-figures/top-left-stripes.svg',
     className:
-      'absolute left-14 top-0 h-14 w-20 bg-contain bg-no-repeat sm:left-16 sm:top-1 sm:h-20 sm:w-28 md:left-20 md:top-2 md:h-24 md:w-36',
+      'absolute left-[58px] -top-[6px] h-14 w-20 bg-contain bg-no-repeat sm:left-[66px] sm:-top-[2px] sm:h-20 sm:w-28 md:left-[82px] md:top-[2px] md:h-24 md:w-36',
   },
   {
     key: 'top-right-blob',
