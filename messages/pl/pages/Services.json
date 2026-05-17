@@ -1,8 +1,8 @@
 {
   "hero": {
     "eyebrow": "Usługi Dzvin.co",
-    "title": "Wsparcie osobiste, analityka korporacyjna i walidacja w jednym systemie",
-    "subtitle": "Obecny produkt łączy już scenariusze samooceny, zarządzanie firmą, analitykę zagregowaną oraz pętlę prognoza → wynik. Ta strona zbiera te moduły w trzy formaty usług.",
+    "title": "Wsparcie osobiste, analityka korporacyjna i prognozowanie naukowe w jednym systemie",
+    "subtitle": "Dzvin.co pomaga wykrywać stres, wypalenie i ryzyka behawioralne, zanim przełożą się na krytyczne konsekwencje. Platforma łączy osobiste monitorowanie stanu, analitykę stabilności zespołów oraz badawcze modele prognostyczne oparte na dynamice zachowań i niepewności.",
     "note": "Wszystkie wykresy poniżej są ilustracyjne: pokazują, jak istniejące moduły platformy mogą wizualizować dane, a nie rzeczywiste dane klientów.",
     "audiences": {
       "b2c": {
@@ -15,7 +15,7 @@
       },
       "rd": {
         "title": "Badawczy",
-        "subtitle": "Kohorty, cykle walidacyjne i raportowanie dla fundacji oraz programów."
+        "subtitle": "Kohorty, cykle walidacyjne i raportowanie dla instytutów badawczych, uczelni i programów."
       }
     }
   },
@@ -36,7 +36,7 @@
       },
       "researchFlow": {
         "title": "Badawcza ścieżka walidacji",
-        "description": "Dla fundacji i programów usługa łączy kohorty, pomiar wyników i narastające dowody potrzebne do sprawdzania hipotez.",
+        "description": "Dla programów badawczych, instytutów i uczelni usługa łączy kohorty, pomiar wyników i narastające dowody potrzebne do sprawdzania hipotez.",
         "focus": "Priorytet: walidacja wpływu, powtarzalne obserwacje i rozliczalne raportowanie programowe."
       }
     }
@@ -45,26 +45,70 @@
     "b2c": {
       "tag": "Osobisty",
       "title": "Dla ludzi",
-      "description": "Warstwa osobista łączy śledzenie nastroju, kwestionariusze, notatki, ćwiczenia i historię postępu w jedną ciągłą trajektorię dobrostanu psychicznego.",
-      "capabilities": {
-        "tracking": {
-          "title": "Śledzenie stanu",
-          "description": "Rejestr nastroju, notatki i oparte na dowodach kwestionariusze tworzą jedną oś czasu zamiast rozproszonych pojedynczych ocen."
-        },
-        "support": {
-          "title": "Działanie od razu",
-          "description": "Oddech, medytacje, ćwiczenia wyciszające, afirmacje i porady zamieniają wgląd w kolejny praktyczny krok."
-        },
-        "consistency": {
-          "title": "Stała praca",
-          "description": "Zapisane treści, strony postępu i gry mentalne pomagają wracać do rutyn, które realnie poprawiają stan."
+      "description": "Usługa osobista zbiera sygnały stanu, podpowiada proste praktyki i pomaga zobaczyć, co naprawdę wspiera dobrostan psychiczny w codziennym rytmie.",
+      "serviceSummaryItems": {
+        "tracking": "Zbiera sygnały stanu w jedną sekwencję.",
+        "support": "Od razu podpowiada właściwą praktykę po samoocenie.",
+        "consistency": "Zachowuje historię zmian, aby łatwo wracać do skutecznych schematów."
+      },
+      "resultSummaryItems": {
+        "one": "Stan staje się bardziej czytelny w czasie.",
+        "two": "Kolejny krok jest widoczny od razu po ocenie.",
+        "three": "Wsparcie układa się w ścieżkę, którą łatwo kontynuować każdego dnia."
+      },
+      "journeyTitle": "Jak działa usługa",
+      "before": {
+        "title": "Co było wcześniej",
+        "items": {
+          "one": {
+            "title": "Oddzielne sygnały bez wspólnego obrazu",
+            "description": "Nastrój, krótkie notatki i samooceny funkcjonowały osobno, więc trudno było zobaczyć zmianę jako jeden ciągły proces."
+          },
+          "two": {
+            "title": "Praktyki nie były powiązane z momentem",
+            "description": "Pomocne ćwiczenia i wskazówki mogły istnieć osobno, ale nie pojawiały się dokładnie wtedy, gdy były najbardziej potrzebne."
+          },
+          "three": {
+            "title": "Efekt nie odkładał się w jednej historii",
+            "description": "Nawet jeśli coś pomagało, nie tworzyło to ścieżki wsparcia, do której można było łatwo wrócić."
+          }
         }
       },
-      "outcomesTitle": "Co otrzymuje użytkownik",
+      "capabilities": {
+        "tracking": {
+          "title": "Stan jest zbierany w jednym miejscu",
+          "description": "Nastrój, krótkie notatki i ankiety są zbierane w jedną sekwencję, która pokazuje częstotliwość zmian, powtarzalne bodźce i dynamikę kolejnych dni."
+        },
+        "support": {
+          "title": "Praktyka pojawia się od razu po ocenie",
+          "description": "Po samoocenie usługa od razu otwiera oddech, medytację, ćwiczenie albo krótką wskazówkę powiązaną z aktualnym stanem."
+        },
+        "consistency": {
+          "title": "Skuteczne schematy łatwo powtórzyć",
+          "description": "Zapisane ćwiczenia, materiały i historia zmian pozostają dostępne, dzięki czemu łatwo powtórzyć to, co już wcześniej przyniosło widoczny efekt."
+        }
+      },
+      "outcomesTitle": "Co się poprawiło",
+      "after": {
+        "items": {
+          "one": {
+            "title": "Stan staje się czytelny w czasie",
+            "description": "Zamiast pojedynczych epizodów pojawia się pełniejszy obraz tego, jak samopoczucie zmienia się w dniach i tygodniach."
+          },
+          "two": {
+            "title": "Kolejny krok staje się konkretny",
+            "description": "Po ocenie pojawia się nie abstrakcyjna rada, lecz zrozumiałe działanie, które można wykonać od razu."
+          },
+          "three": {
+            "title": "Wsparcie staje się narastające",
+            "description": "Pomocne praktyki i widoczny postęp przestają się gubić i zaczynają budować ścieżkę, którą łatwiej kontynuować."
+          }
+        }
+      },
       "outcomes": {
-        "one": "Jasny obraz tego, jak stan zmienia się w dniach i tygodniach.",
-        "two": "Praktyki powiązane z realnymi modułami produktu, a nie abstrakcyjnymi poradami.",
-        "three": "Mierzalna pętla informacji zwrotnej między samooceną, interwencjami i postępem."
+        "one": "Lepsze rozumienie swojego stanu i mniej chaosu w tym, co się z tobą dzieje.",
+        "two": "Proste codzienne kroki, które pomagają poczuć więcej spokoju i oparcia.",
+        "three": "Jaśniejszy obraz tego, co działa właśnie dla ciebie i jak zmienia się samopoczucie z czasem."
       },
       "chart": {
         "label": "Wynik samooceny",
@@ -75,26 +119,41 @@
     "b2b": {
       "tag": "Korporacyjny",
       "title": "Dla firm",
-      "description": "Warstwa korporacyjna dodaje role firmowe, hierarchie grup, zaproszenia, zakresy dostępu, analitykę nastroju oraz wsparcie decyzyjne dla menedżerów.",
+      "description": "Warstwa B2B zamienia sygnały stanu zespołu w system wczesnej reakcji dla zarządzania: liderzy i HR dostają zagregowany obraz ryzyk, widzą, gdzie zespoły tracą energię, i mogą działać zanim problem przełoży się na wypalenie, rotację albo spadek wyników.",
+      "managerTitle": "Co widzi i kontroluje menedżer",
       "capabilities": {
         "governance": {
-          "title": "Struktura organizacji",
-          "description": "Firmy, grupy i zakresy dostępu menedżerów można ustawić tak, aby każda rola widziała tylko swoje zespoły i potrzebne metryki."
+          "title": "Struktura organizacji, role i odpowiedzialności",
+          "description": "Platforma porządkuje zespoły, role, grupy i poziomy dostępu w jednej warstwie zarządczej, dzięki czemu menedżer widzi właściwy wycinek organizacji bez chaosu uprawnień, ręcznego scalania danych i niekończących się uzgodnień."
         },
         "analytics": {
-          "title": "Analityka zespołów",
-          "description": "Panel agreguje nastrój, stres, energię i koncentrację według grup, okresów i filtrów bez ręcznego łączenia danych."
+          "title": "Dynamika stanu zespołów i grup",
+          "description": "Zamiast składać rozproszone sygnały z wielu źródeł, menedżer dostaje jedną powierzchnię analityczną z trendami stresu, energii, koncentracji i nastroju, co pozwala szybciej wychwycić zespoły wymagające uwagi."
         },
         "decisionSupport": {
-          "title": "Reakcja na ryzyko",
-          "description": "Wsparcie decyzyjne pokazuje zdarzenia ryzyka, dowody i wpływ finansowy, aby lider mógł działać, zanim problem eskaluje."
+          "title": "Priorytety działań i kontroli wsparcia",
+          "description": "System wskazuje krytyczne obszary ryzyka, pomaga ustalić, gdzie interwencja da największy efekt, i przenosi decyzje menedżerskie z poziomu intuicji na poziom danych."
         }
       },
-      "outcomesTitle": "Co otrzymuje firma",
+      "outcomesTitle": "Co to daje biznesowi",
+      "businessImpact": {
+        "one": {
+          "title": "Jedno pole zarządcze dla dobrostanu zespołu",
+          "description": "Liderzy otrzymują przejrzysty, zagregowany obraz stanu zespołu bez dostępu do prywatnych historii, dzięki czemu dobrostan staje się elementem zarządzania operacyjnego, a nie reakcją po fakcie."
+        },
+        "two": {
+          "title": "Szybsze decyzje z realnym efektem operacyjnym",
+          "description": "Kiedy ryzyko jest widoczne wcześniej, firma szybciej priorytetyzuje wsparcie, precyzyjniej kieruje uwagę menedżerów i ogranicza straty wynikające z wypalenia, rotacji oraz spadku produktywności."
+        },
+        "three": {
+          "title": "Mocniejszy argument dla HR i kierownictwa",
+          "description": "Dynamika danych przenosi rozmowę z poziomu „dobrostan jest ważny” na poziom „tu biznes już traci zasoby i tu wsparcie daje mierzalny zwrot”, co ułatwia zdobycie poparcia po stronie leadership."
+        }
+      },
       "outcomes": {
-        "one": "Wspólny obraz dobrostanu zespołu bez ujawniania surowych osobistych osi czasu.",
-        "two": "Trendy zespołowe dla nastroju, stresu, energii i koncentracji w jednej warstwie analitycznej.",
-        "three": "Decyzje operacyjne wsparte analityką, zakresami dostępu i dowodami."
+        "one": "Jedno pole zarządcze dla dobrostanu zespołu bez ujawniania prywatnych historii.",
+        "two": "Szybsze decyzje o wsparciu, priorytetach menedżerskich i zespołach wymagających uwagi.",
+        "three": "Argumenty dla HR i liderów oparte na dynamice danych, a nie wyłącznie na intuicji."
       },
       "chart": {
         "label": "Średni wynik stresu",
@@ -104,23 +163,94 @@
     },
     "rd": {
       "tag": "Badawczy",
-      "title": "Dla programów badawczych i fundacji",
-      "description": "Warstwa badawcza wykorzystuje kwestionariusze, kohorty, akumulację dowodów i śledzenie wyników, aby walidować interwencje na poziomie programu.",
+      "title": "Dla badaczy, instytutów i uczelni",
+      "description": "Warstwa R&D zamienia platformę w środowisko badawcze: standaryzowane samooceny, sygnały behawioralne, analiza kohort, walidacja prognoz i śledzenie wyników w jednym systemie.",
+      "technicalTitle": "Techniczny kontur badawczy",
       "capabilities": {
         "cohorts": {
           "title": "Porównywalne kohorty",
-          "description": "Ustandaryzowana samoocena oraz sygnały behawioralne umożliwiają porównanie uczestników o podobnych wzorcach."
+          "description": "Ujednolicone narzędzia zbierania danych pozwalają budować kohorty, porównywać podgrupy i powtarzać projekt obserwacji między falami zbiórki."
         },
         "validation": {
           "title": "Walidacja prognoz",
-          "description": "Pętla prognoza → wynik pokazuje, gdzie prognoza była trafna, gdzie pojawił się dryf i co poprawiło się po interwencji."
+          "description": "Pętla prognoza → wynik pokazuje trafność modelu, dryf oraz zmianę po interwencji na poziomie kohorty lub programu."
         },
         "reporting": {
           "title": "Raportowanie wpływu",
-          "description": "Agregowane dowody i trendy wspierają fundacje oraz programy badawcze, które potrzebują przejrzystej historii postępu zamiast jednorazowego obrazu."
+          "description": "Dane można przełożyć na materiał do raportów, pakietów etycznych, wniosków grantowych i komunikacji z organizacjami finansującymi badania."
         }
       },
-      "outcomesTitle": "Co otrzymują fundacje i badacze",
+      "panels": {
+        "delivery": {
+          "title": "Co dokładnie robimy",
+          "items": {
+            "one": {
+              "title": "Zbieramy standaryzowane obserwacje",
+              "description": "Pracujemy na tych samych skalach, sygnałach behawioralnych i kontrolowanych przepływach zbierania danych, aby wyniki pozostawały porównywalne."
+            },
+            "two": {
+              "title": "Budujemy kohorty i przekroje analityczne",
+              "description": "Segmentujemy uczestników według wzorców stanu, ryzyka, odpowiedzi na interwencję i okien obserwacji."
+            },
+            "three": {
+              "title": "Walidujemy prognozy wobec wyników",
+              "description": "Pokazujemy, gdzie model był trafny, gdzie pojawił się dryf i jaki efekt rzeczywiście wystąpił po interwencji."
+            }
+          }
+        },
+        "science": {
+          "title": "Wartość naukowa",
+          "items": {
+            "one": {
+              "title": "Powtarzalna logika pomiaru",
+              "description": "Ta sama logika pomiaru działa w codziennym produkcie i w warstwie badawczej, więc dane nie rozpadają się między środowiskami."
+            },
+            "two": {
+              "title": "Widoczny dryf i trafność",
+              "description": "Zespół może śledzić, jak zmienia się jakość prognozy w czasie i czy model zachowuje ważność na nowych próbach."
+            },
+            "three": {
+              "title": "Dowody do publikacji i grantów",
+              "description": "Porównania kohort, dynamika interwencji i wyniki programu kumulują się w materiał, który może wesprzeć publikację lub wniosek grantowy."
+            }
+          }
+        },
+        "support": {
+          "title": "Jak pomagamy badaczom",
+          "items": {
+            "one": {
+              "title": "Skracamy czas do działającego projektu",
+              "description": "Zespół nie zaczyna od zera: cyfrowa pętla zbierania danych, analizy kohort i rejestracji wyniku już istnieje."
+            },
+            "two": {
+              "title": "Dajemy strukturę dla raportów i artykułów",
+              "description": "Badacze dostają więcej niż surowe sygnały i mogą pracować na strukturze wspierającej analizę, wnioski oraz rozliczalne raportowanie."
+            },
+            "three": {
+              "title": "Wzmacniamy argumentację grantową",
+              "description": "Pomagamy wyjaśnić, co jest mierzone, jak walidowany jest efekt i dlaczego podejście ma praktyczną wartość dla zespołu badawczego lub grantodawcy."
+            }
+          }
+        }
+      },
+      "outcomesTitle": "Co otrzymują badacze i instytucje",
+      "details": {
+        "title": "Co wchodzi w cykl dowodowy",
+        "items": {
+          "one": {
+            "title": "Standaryzowane sygnały wejściowe",
+            "description": "Kohorty powstają z tych samych samoocen, sygnałów behawioralnych i kwestionariuszy, których platforma używa na co dzień."
+          },
+          "two": {
+            "title": "Hipoteza sprawdzana wynikiem",
+            "description": "Pętla prognoza → wynik pokazuje trafność modelu, dryf i realny efekt interwencji zamiast pozostawiania programu na poziomie pośredniego sygnału."
+          },
+          "three": {
+            "title": "Rozliczalny pakiet dowodów",
+            "description": "Trendy zagregowane, porównania kohort i wyniki programu składają się na bazę dowodową, z której instytuty, uczelnie i zespoły badawcze mogą realnie korzystać."
+          }
+        }
+      },
       "outcomes": {
         "one": "Widok na poziomie populacji zbudowany z tych samych modułów, z których ludzie korzystają na co dzień.",
         "two": "Narastającą bazę dowodową, która potwierdza lub obala każdą hipotezę programu.",

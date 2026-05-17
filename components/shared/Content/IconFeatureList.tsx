@@ -35,29 +35,30 @@ export function IconFeatureList({
     <ul className={cn('flex flex-col', className)}>
       {items.map((item, index) => {
         const hasDivider = index < items.length - 1
+        const verticalPaddingClassName = compact ? 'py-3' : 'py-4'
 
         return (
-          <li
-            key={item.key}
-            className={cn(
-              'flex items-start gap-4',
-              compact ? 'py-3' : 'py-4',
-              hasDivider && cn('border-black/8 border-b', dividerClassName),
-              itemClassName
-            )}
-          >
-            <span
-              aria-hidden="true"
+          <li key={item.key} className={cn('grid grid-cols-[2.75rem_minmax(0,1fr)] gap-4', itemClassName)}>
+            <div className={cn('flex items-start', verticalPaddingClassName)}>
+              <span
+                aria-hidden="true"
+                className={cn(
+                  'flex h-11 w-11 flex-none items-center justify-center rounded-full bg-background-muted text-textcolor-primary',
+                  iconWrapperClassName,
+                  item.iconClassName
+                )}
+              >
+                {item.icon}
+              </span>
+            </div>
+
+            <div
               className={cn(
-                'flex h-11 w-11 flex-none items-center justify-center rounded-full bg-background-muted text-textcolor-primary',
-                iconWrapperClassName,
-                item.iconClassName
+                'min-w-0 space-y-1',
+                verticalPaddingClassName,
+                hasDivider && cn('border-black/8 border-b', dividerClassName)
               )}
             >
-              {item.icon}
-            </span>
-
-            <div className="min-w-0 space-y-1">
               <p className={cn('text-base font-semibold leading-snug text-textcolor-primary', titleClassName)}>
                 {item.title}
               </p>

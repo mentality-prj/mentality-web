@@ -1,0 +1,10 @@
+<svg width="88" height="88" viewBox="0 0 88 88" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <radialGradient id="orbGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(28 18) rotate(46) scale(62)">
+      <stop stop-color="#2EE5FF" />
+      <stop offset="0.58" stop-color="#7F5BFF" />
+      <stop offset="1" stop-color="#FF00D6" />
+    </radialGradient>
+  </defs>
+  <circle cx="44" cy="44" r="28" fill="url(#orbGlow)" />
+</svg>

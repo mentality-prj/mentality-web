@@ -1,0 +1,15 @@
+<svg width="228" height="172" viewBox="0 0 228 172" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <pattern id="cyanStripes" patternUnits="userSpaceOnUse" width="8" height="8" patternTransform="rotate(45)">
+      <rect width="8" height="8" fill="none" />
+      <line x1="0" y1="0" x2="0" y2="8" stroke="#36E7FF" stroke-opacity="0.82" stroke-width="3" />
+    </pattern>
+    <radialGradient id="cyanGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(174 126) rotate(140) scale(118 106)">
+      <stop stop-color="#2EE5FF" stop-opacity="0.96" />
+      <stop offset="0.56" stop-color="#6D60FF" stop-opacity="0.74" />
+      <stop offset="1" stop-color="#FF00D6" stop-opacity="0.2" />
+    </radialGradient>
+  </defs>
+  <path d="M44 12C74 1 103 6 130 27C155 46 169 74 171 114C134 118 104 109 79 88C57 70 46 43 44 12Z" fill="url(#cyanGlow)" />
+  <path d="M38 8C69 -4 100 2 128 23C153 42 169 69 172 111C142 118 114 112 88 95C59 76 43 48 38 8Z" fill="url(#cyanStripes)" />
+</svg>

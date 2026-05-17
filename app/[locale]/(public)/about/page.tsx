@@ -13,8 +13,10 @@ import { useTranslations } from 'next-intl'
 
 import { ArchitectureLayersShowcase } from '@/app/[locale]/(public)/components/ArchitectureLayersShowcase'
 import { IconFeatureList, type IconFeatureListItem } from '@/components/shared/Content/IconFeatureList'
+import { IconStatementList, type IconStatementListItem } from '@/components/shared/Content/IconStatementList'
 import { ImpactMetricCard } from '@/components/shared/Content/ImpactMetricCard'
 import { MosaicGrid, MosaicGridItem } from '@/components/shared/Content/MosaicGrid'
+import { NumberedFeatureList, type NumberedFeatureListItem } from '@/components/shared/Content/NumberedFeatureList'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { cn } from '@/lib/utils'
 
@@ -66,25 +68,20 @@ export default function AboutPage() {
       description: t(`Evolution.stepDescriptions.${key}`),
     }
   })
-  const evolutionContextItems: IconFeatureListItem[] = evolutionContextKeys.map((key, index) => {
+  const evolutionContextItems: NumberedFeatureListItem[] = evolutionContextKeys.map((key) => {
     return {
       key,
-      icon: (
-        <span className="text-[1.85rem] font-semibold leading-none tracking-[-0.04em]">
-          {String(index + 1).padStart(2, '0')}
-        </span>
-      ),
       title: t(`Evolution.context.items.${key}.title`),
       description: t(`Evolution.context.items.${key}.description`),
     }
   })
-  const valueItems: IconFeatureListItem[] = valuePointKeys.map((key) => {
+  const valueItems: IconStatementListItem[] = valuePointKeys.map((key) => {
     const ValueIcon = valueIcons[key as keyof typeof valueIcons]
 
     return {
       key,
       icon: <ValueIcon className="h-7 w-7 stroke-[1.8]" />,
-      title: t(`Value.points.${key}`),
+      text: t(`Value.points.${key}`),
     }
   })
 
@@ -112,26 +109,7 @@ export default function AboutPage() {
                   {t('Value.description')}
                 </p>
 
-                <ul className="mt-6 flex flex-col">
-                  {valueItems.map((item, index) => {
-                    const hasDivider = index < valueItems.length - 1
-
-                    return (
-                      <li
-                        key={item.key}
-                        className={cn('flex items-center gap-4 py-4', hasDivider && 'border-b border-black/[0.08]')}
-                      >
-                        <span aria-hidden="true" className="flex-none text-[#2f668f]">
-                          {item.icon}
-                        </span>
-
-                        <p className="text-[0.98rem] font-medium leading-relaxed text-textcolor-primary md:text-base">
-                          {item.title}
-                        </p>
-                      </li>
-                    )
-                  })}
-                </ul>
+                <IconStatementList items={valueItems} className="mt-6" />
               </div>
             </MosaicGridItem>
           </MosaicGrid>
@@ -156,11 +134,9 @@ export default function AboutPage() {
                   {t('Evolution.context.description')}
                 </p>
 
-                <IconFeatureList
+                <NumberedFeatureList
                   items={evolutionContextItems}
                   className="mt-5"
-                  itemClassName="gap-5"
-                  iconWrapperClassName="h-auto w-12 items-start justify-start rounded-none bg-transparent text-textcolor-primary/30"
                   titleClassName="text-sm font-medium leading-relaxed md:text-base"
                   descriptionClassName="text-sm leading-relaxed md:text-base"
                 />
