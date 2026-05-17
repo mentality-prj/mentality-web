@@ -24,6 +24,7 @@ export function FeatureCardsSection() {
           title={t('Features.interactivity.title')}
           subtitle={t('Features.interactivity.subtitle')}
           titleClassName="text-title shadow-light text-textcolor-primary"
+          textWrapperClassName="max-md:mb-0"
           decoration={interactivityDecoration}
         />
         <SectionCard
@@ -31,6 +32,7 @@ export function FeatureCardsSection() {
           title={t('Features.support.title')}
           subtitle={t('Features.support.subtitle')}
           titleClassName="text-title shadow-light text-textcolor-primary"
+          textWrapperClassName="max-md:mb-0"
           decoration={supportDecoration}
         />
         <SectionCard
@@ -38,6 +40,7 @@ export function FeatureCardsSection() {
           title={t('Features.ai.title')}
           subtitle={t('Features.ai.subtitle')}
           titleClassName="text-title shadow-light text-textcolor-primary"
+          textWrapperClassName="max-md:mb-0"
           decoration={aiDecoration}
         />
       </div>

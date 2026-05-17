@@ -44,7 +44,7 @@ export default function VerticalCard({
     const backgroundSrc = backgroundImageSrc ?? imageSrc
 
     return (
-      <article className={cn('relative flex min-h-[180px] flex-col justify-start md:min-h-[360px]', className)}>
+      <article className={cn('relative flex flex-col justify-start', className)}>
         {backgroundSrc && (
           <div className="absolute inset-0 overflow-hidden rounded-[28px]">
             <Image

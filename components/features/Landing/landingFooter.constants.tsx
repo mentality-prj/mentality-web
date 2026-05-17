@@ -20,7 +20,7 @@ const LANDING_FOOTER_GRADIENT_STYLE: CSSProperties = {
 }
 
 export function getLandingFooterLayout(type: LandingFooterType = 'default') {
-  const paddingY = type === 'small' ? 'py-7' : 'py-10'
+  const paddingY = type === 'small' ? 'py-7' : 'py-5 md:py-10'
   const marginTop = 'mt-0'
   const background = type === 'small' ? {} : LANDING_FOOTER_GRADIENT_STYLE
 

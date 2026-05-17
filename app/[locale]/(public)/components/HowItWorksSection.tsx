@@ -34,23 +34,26 @@ export function HowItWorksSection() {
     return (
       <li key={stepKey}>
         <div
-          className={`flex items-start gap-sm rounded-[24px] p-5 ${
+          className={`flex flex-col gap-sm rounded-[24px] p-5 md:gap-0 ${
             isActive ? 'bg-white/70 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-sm' : ''
           }`}
         >
-          <span
-            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
-              isActive
-                ? 'bg-[#2563eb] text-white shadow-[0_10px_20px_rgba(37,99,235,0.35)]'
-                : 'border border-[var(--outline-tertiary)] bg-white text-textcolor-secondary'
-            }`}
-          >
-            {index + 1}
-          </span>
-          <div className="space-y-1">
+          <div className="flex items-center gap-sm">
+            <span
+              className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
+                isActive
+                  ? 'bg-[#2563eb] text-white shadow-[0_10px_20px_rgba(37,99,235,0.35)]'
+                  : 'border border-[var(--outline-tertiary)] bg-white text-textcolor-secondary'
+              }`}
+            >
+              {index + 1}
+            </span>
+
             <h4 className="text-title text-lg leading-[130%]">{stepTitle ?? rawText}</h4>
-            {stepDescription && <p className="text-sm leading-relaxed text-textcolor-secondary">{stepDescription}</p>}
           </div>
+          {stepDescription && (
+            <p className="text-sm leading-relaxed text-textcolor-secondary md:ml-[52px] md:mt-1">{stepDescription}</p>
+          )}
         </div>
       </li>
     )
@@ -62,7 +65,7 @@ export function HowItWorksSection() {
         <div className="rounded-[40px] bg-background-muted p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>
           <p className="mt-1 text-sm text-textcolor-secondary">{t(stepsSectionConfig.subtitleKey)}</p>
-          <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
+          <ol className="mt-6 flex flex-col gap-5 md:gap-default">{howItWorksSteps}</ol>
           <div className="mt-4 flex justify-center tablet:mt-8 tablet:block">
             <Button asChild variant="volume" size="large">
               <Link href={Routes.AUTH}>{t(stepsSectionConfig.ctaKey)}</Link>
