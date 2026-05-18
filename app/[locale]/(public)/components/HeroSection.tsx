@@ -56,7 +56,7 @@ export function HeroSection() {
             <h1 className="landing-h1">{t('Hero.title')}</h1>
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
           </div>
-          <div className="row-span-2 flex justify-center tablet:justify-end">
+          <div className="flex justify-center tablet:justify-end md:row-span-2">
             <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
               <div className="flex items-center justify-between gap-sm">
                 <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
