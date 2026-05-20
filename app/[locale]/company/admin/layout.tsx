@@ -13,6 +13,7 @@ export default async function CompanyAdminLayout({ children }: { children: React
   const session = await getServerSession()
   const isSystemAdmin = session?.user?.role === 'admin'
   const extra = isSystemAdmin ? <AdminCompanySelector /> : undefined
+  const menu = companyAdminSidebarMenu
 
   return (
     <AdminLayoutProvider>
@@ -22,12 +23,12 @@ export default async function CompanyAdminLayout({ children }: { children: React
           <div className="h-full w-1/2 bg-background-alt" />
         </div>
         <div className="container-max-width relative z-10 flex w-full">
-          <div className="hidden bg-white lg:flex">
-            <Sidebar menu={companyAdminSidebarMenu} extra={extra} />
+          <div className="hidden bg-white/80 backdrop-blur lg:flex">
+            <Sidebar menu={menu} extra={extra} />
           </div>
           <main className={mainVariants()}>
             <div className="padded flex w-full flex-col gap-md">
-              <CompanyHeader menu={companyAdminSidebarMenu} extra={extra} />
+              <CompanyHeader menu={menu} extra={extra} />
               {children}
             </div>
             <LandingFooter type="small" className="bg-none" />

@@ -50,35 +50,26 @@ export async function toggleFavoriteWithToken(
   isFavorite: boolean
 ): Promise<ToggleResult> {
   const url = `${apiBaseUrl || APIUrl}/${plural[itemType as ItemType]}/${itemId}/favorite`
-
-  try {
-    const res = await fetch(url, {
-      method: 'PATCH',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${authToken}`,
-      },
-      body: JSON.stringify({ isFavorite }),
-    })
-
-    if (!res.ok) {
-      let errMsg = `HTTP ${res.status}`
-      try {
-        const body = await res.json()
-        errMsg = body?.message || errMsg
-      } catch (_e) {
-        /* ignore */
-      }
-      logger.error('Failed to toggle favorite (token)', { url, status: res.status, itemType, itemId })
-      return { error: errMsg }
-    }
-
-    const data = await res.json()
-    return { data }
-  } catch (err) {
-    logger.error('Network error toggling favorite', { url, err })
-    return { error: err instanceof Error ? err.message : String(err) }
+  const compatibilitySession: CustomSession = {
+    OAuthToken: authToken,
+    user: {
+      id: 'legacy-favorites-token-user',
+      name: 'Legacy Favorites Token User',
+      email: 'legacy-favorites-token-user@compat.invalid',
+    },
   }
+
+  const res = await performAuthRequest<{ isFavorite: boolean }>(compatibilitySession, url, {
+    method: 'PATCH',
+    body: { isFavorite },
+  })
+
+  if ('error' in res) {
+    logger.error('Failed to toggle favorite (token)', { error: res.error, url, itemType, itemId })
+    return { error: res.error }
+  }
+
+  return { data: res.data }
 }
 
 /**

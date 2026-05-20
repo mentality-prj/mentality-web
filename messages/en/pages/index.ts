@@ -19,6 +19,7 @@ import MyProgress from './MyProgress.json'
 import MySpace from './MySpace.json'
 import PrivacyPolicy from './PrivacyPolicy.json'
 import PsychologicalTests from './PsychologicalTests.json'
+import Research from './Research.json'
 import Services from './Services.json'
 import ServerError from './ServerError.json'
 import Settings from './Settings.json'
@@ -45,6 +46,7 @@ export const pages = {
   MySpace,
   PrivacyPolicy,
   PsychologicalTests,
+  Research,
   MentalGames,
   Services,
   Settings,

@@ -45,6 +45,13 @@ yarn cypress run
 yarn cypress open
 ```
 
+### Feature Docs
+
+- [Company management guide](DOCS/company-management.md)
+- [Company management guide (UA)](DOCS/company-management.uk.md)
+- [Research workspace and reporting guide](DOCS/research-workspace.md)
+- [Research workspace and reporting guide (UA)](DOCS/research-workspace.uk.md)
+
 ### Font Optimization
 
 This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.

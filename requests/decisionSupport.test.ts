@@ -1,7 +1,7 @@
-import { DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
+import { B2B_DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
-import { getRiskEventEvidence } from '@/requests/decisionSupport'
-import { performAuthRequest } from '@/requests/genericFetch'
+import { applyDecisionSupportRiskEventAction, getPolicyMetrics, getRiskEventEvidence } from '@/requests/decisionSupport'
+import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { RiskEventEvidence } from '@/types/decisionSupport'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -66,7 +66,7 @@ describe('getRiskEventEvidence', () => {
 
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSession,
-      expect.stringContaining(DECISION_SUPPORT_ENDPOINTS.riskEventEvidence(COMPANY_ID, EVENT_ID))
+      expect.stringContaining(B2B_DECISION_SUPPORT_ENDPOINTS.riskEventEvidence(COMPANY_ID, EVENT_ID))
     )
   })
 
@@ -114,5 +114,37 @@ describe('getRiskEventEvidence', () => {
 
     expect(result).toEqual({ error: 'Unauthorized' })
     expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('uses the address endpoint when applying a risk event action', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: EVENT_ID } })
+
+    await applyDecisionSupportRiskEventAction(mockSession, COMPANY_ID, EVENT_ID, {
+      actionType: 'team_sync',
+      note: 'Coordinate next intervention',
+    })
+
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      expect.stringContaining(B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(COMPANY_ID, EVENT_ID)),
+      expect.objectContaining({
+        method: 'PATCH',
+        body: expect.objectContaining({
+          resolutionType: 'action_taken',
+          resolutionOutcome: expect.stringContaining('team_sync'),
+        }),
+      })
+    )
+  })
+
+  it('uses the admin diagnostics policy metrics endpoint', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { totalRiskEvents: 3 } })
+
+    await getPolicyMetrics(mockSession)
+
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockSession,
+      'http://localhost:3200/api/admin-diagnostics/v1/ml/policy-metrics'
+    )
   })
 })

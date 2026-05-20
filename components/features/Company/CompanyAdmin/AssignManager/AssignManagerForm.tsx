@@ -29,6 +29,10 @@ export function AssignManagerForm() {
     handleRevoke,
   } = useAssignManager()
 
+  function getScopeGroupLabel(groupId: string): string {
+    return groups.find((group) => group.id === groupId)?.name || groupId
+  }
+
   return (
     <div className="flex flex-col gap-sm">
       <form onSubmit={handleAssign} className="flex flex-col gap-4">
@@ -68,7 +72,7 @@ export function AssignManagerForm() {
           <span className="text-sm font-normal">{t('analyticsToggle')}</span>
         </label>
 
-        <Button type="submit" disabled={!isReady || loading}>
+        <Button type="submit" disabled={!isReady || loading || !canViewAnalytics}>
           {loading ? t('submitting') : t('submitButton')}
         </Button>
       </form>
@@ -85,9 +89,7 @@ export function AssignManagerForm() {
                   className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm"
                 >
                   <span>{manager?.name || manager?.email || scope.userId}</span>
-                  <span className="text-xs text-textcolor-secondary">
-                    {t('scopeGroups', { count: scope.groupIds.length })}
-                  </span>
+                  <span className="text-xs text-textcolor-secondary">{getScopeGroupLabel(scope.groupId)}</span>
                   <Button
                     size="small"
                     variant="ghost"

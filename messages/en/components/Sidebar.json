@@ -4,6 +4,7 @@
   "my-space": "My space",
   "diary": "Diary",
   "my-progress": "My progress",
+  "research": "Research",
   "affirmations": "Affirmations",
   "tags": "Tags",
   "tips": "Tips",
@@ -15,5 +16,7 @@
   "company-access-scopes": "Access Management",
   "company-groups": "Groups",
   "company-analytics": "Analytics",
-  "company-decision-support": "Report"
+  "company-decision-support": "Report",
+  "research-projects": "Projects",
+  "research-create-project": "Create project"
 }

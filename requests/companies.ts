@@ -1,4 +1,4 @@
-import { COMPANY_ENDPOINTS } from '@/constants/companyEndpoints'
+import { B2B_COMPANY_MEMBERSHIP_ENDPOINTS, GLOBAL_ADMIN_COMPANY_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import { CompanyEntity, CreateCompanyDto } from '@/types/company'
@@ -10,7 +10,7 @@ export async function createCompany(
   session: CustomSession | null,
   dto: CreateCompanyDto
 ): Promise<{ data: CompanyEntity } | { error: string }> {
-  const res = await performAdminRequest<CompanyEntity>(session, `${APIUrl}${COMPANY_ENDPOINTS.BASE}`, {
+  const res = await performAdminRequest<CompanyEntity>(session, `${APIUrl}${GLOBAL_ADMIN_COMPANY_ENDPOINTS.base}`, {
     method: 'POST',
     body: dto as unknown as Record<string, unknown>,
   })
@@ -27,7 +27,7 @@ export async function createCompany(
 export async function getCompanies(
   session: CustomSession | null
 ): Promise<{ data: CompanyEntity[] } | { error: string }> {
-  const res = await performAdminRequest<CompanyEntity[]>(session, `${APIUrl}${COMPANY_ENDPOINTS.BASE}`)
+  const res = await performAdminRequest<CompanyEntity[]>(session, `${APIUrl}${GLOBAL_ADMIN_COMPANY_ENDPOINTS.base}`)
 
   if ('error' in res) {
     logger.error('Failed to fetch companies', { error: res.error })
@@ -40,7 +40,7 @@ export async function getCompanies(
 export async function getMyCompany(
   session: CustomSession | null
 ): Promise<{ data: CompanyEntity } | { error: string }> {
-  const res = await performAuthRequest<CompanyEntity>(session, `${APIUrl}${COMPANY_ENDPOINTS.MY}`)
+  const res = await performAuthRequest<CompanyEntity>(session, `${APIUrl}${B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my}`)
 
   if ('error' in res) {
     logger.error('Failed to fetch my company', { error: res.error })
@@ -54,7 +54,7 @@ export async function getCompanyById(
   session: CustomSession | null,
   id: string
 ): Promise<{ data: CompanyEntity } | { error: string }> {
-  const res = await performAdminRequest<CompanyEntity>(session, `${APIUrl}${COMPANY_ENDPOINTS.byId(id)}`)
+  const res = await performAdminRequest<CompanyEntity>(session, `${APIUrl}${GLOBAL_ADMIN_COMPANY_ENDPOINTS.byId(id)}`)
 
   if ('error' in res) {
     logger.error('Failed to fetch company by id', { error: res.error, id })

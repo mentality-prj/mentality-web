@@ -1,10 +1,10 @@
 import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
-import { extractErrorMessage } from '@/utils/apiError'
 import { logger } from '@/lib/logger'
 import { TagEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { Roles } from '@/types/security'
 import { AdminTag, UserTag } from '@/types/tags'
+import { extractErrorMessage } from '@/utils/apiError'
 
 import { APIUrl } from './config'
 import { performAdminRequest } from './genericFetch'

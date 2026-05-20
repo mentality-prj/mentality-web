@@ -3,7 +3,16 @@
     "title": "Company Dashboard",
     "adminPanel": "Admin Panel",
     "managerPanel": "Manager Panel",
-    "createCompany": "Add Company"
+    "subtitle": "A dedicated space for managing company structure, employees, and access.",
+    "description": "This page gathers the main entry points for company workspaces. Use the admin panel for structure, access, and invitations, and the manager panel for analytics, reporting, and team operations.",
+    "adminDescription": "Manage employees, groups, roles, invitations, and access scopes inside the company.",
+    "managerDescription": "Handle day-to-day team operations, analytics views, and reporting workflows for managers.",
+    "serviceAdminEyebrow": "Service admin dashboard",
+    "serviceAdminTitle": "Company creation has moved to the service admin workspace",
+    "serviceAdminDescription": "New companies can only be created from the service admin dashboard to keep onboarding, access control, and service-level checks centralized.",
+    "serviceAdminNoteTitle": "What changed",
+    "serviceAdminNoteDescription": "The company creation button has been removed from this workspace. This area now focuses on navigation and operations for companies that already exist.",
+    "serviceAdminLink": "Open service admin dashboard"
   },
   "globalAdmin": {
     "title": "Global Admin",

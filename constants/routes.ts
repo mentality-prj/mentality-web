@@ -3,6 +3,11 @@ import { RoutesType } from '@/types/routes'
 
 export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
+  ADMIN_R_AND_D: 'Admin/R-And-D',
+  ADMIN_R_AND_D_DIAGNOSTICS: 'Admin/R-And-D/Diagnostics',
+  RESEARCH: 'Research',
+  RESEARCH_PROJECTS: 'Research/Projects',
+  RESEARCH_PROJECTS_CREATE: 'Research/Projects/Create',
   ABOUT: 'About',
   SERVICES: 'Services',
   FAQ: 'Faq',
@@ -55,10 +60,28 @@ export const Routes = Object.freeze({
   adminCompanyGroups: (id: string) => `/admin/company/${id}/groups`,
   adminCompanyEmployees: (id: string) => `/admin/company/${id}/employees`,
   adminCompanyInvites: (id: string) => `/admin/company/${id}/invites`,
+  researchProject: (projectId: string) => `/research/projects/${projectId}`,
+  researchProjectDashboard: (projectId: string) => `/research/projects/${projectId}/dashboard`,
+  researchProjectDiagnostics: (projectId: string) => `/research/projects/${projectId}/diagnostics`,
+  researchProjectCohort: (projectId: string) => `/research/projects/${projectId}/cohort`,
+  researchProjectGrants: (projectId: string) => `/research/projects/${projectId}/grants`,
+  researchProjectDatasets: (projectId: string) => `/research/projects/${projectId}/datasets`,
+  researchProjectExports: (projectId: string) => `/research/projects/${projectId}/exports`,
+  researchProjectAudit: (projectId: string) => `/research/projects/${projectId}/audit`,
+  researchProjectMembers: (projectId: string) => `/research/projects/${projectId}/members`,
 }) as RoutesType & {
   readonly meditationDetail: (id: string) => string
   readonly adminCompanyDetail: (id: string) => string
   readonly adminCompanyGroups: (id: string) => string
   readonly adminCompanyEmployees: (id: string) => string
   readonly adminCompanyInvites: (id: string) => string
+  readonly researchProject: (projectId: string) => string
+  readonly researchProjectDashboard: (projectId: string) => string
+  readonly researchProjectDiagnostics: (projectId: string) => string
+  readonly researchProjectCohort: (projectId: string) => string
+  readonly researchProjectGrants: (projectId: string) => string
+  readonly researchProjectDatasets: (projectId: string) => string
+  readonly researchProjectExports: (projectId: string) => string
+  readonly researchProjectAudit: (projectId: string) => string
+  readonly researchProjectMembers: (projectId: string) => string
 }

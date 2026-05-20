@@ -3,6 +3,7 @@ import { redirect } from 'next/navigation'
 
 import { AdminHeader } from '@/admin/index'
 import { LandingFooter } from '@/components/features/Landing'
+import { Logo } from '@/components/Layout/Header'
 import AdminMobileNavDrawer from '@/components/Layout/MobileNavDrawer/AdminMobileNavDrawer'
 import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
@@ -33,7 +34,8 @@ export default async function AdminLayout({
             <div className="hidden md:block">
               <AdminHeader />
             </div>
-            <div className="md:hidden">
+            <div className="flex items-center justify-between gap-4 py-4 md:hidden">
+              <Logo />
               <AdminMobileNavDrawer />
             </div>
             {children}

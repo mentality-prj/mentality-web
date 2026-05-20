@@ -5,12 +5,12 @@ import { useState } from 'react'
 import { AvatarMenu, LocalDate, SearchBar } from '@/components/Layout/Header'
 import LangSwitch from '@/components/Layout/Header/LangSwitch'
 import MobileNavDrawer from '@/components/Layout/MobileNavDrawer/MobileNavDrawer'
-import { userTopMenu } from '@/constants/menu'
+import { SidebarMenuItemType, userTopMenu } from '@/constants/menu'
 import { cn } from '@/lib/utils'
 
 import TopMenu from '../TopMenu/TopMenu'
 
-const Header = () => {
+const Header = ({ sidebarMenu }: { sidebarMenu?: SidebarMenuItemType[] }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
 
   return (
@@ -21,7 +21,7 @@ const Header = () => {
       )}
     >
       <div className="flex items-center gap-sm">
-        <MobileNavDrawer />
+        <MobileNavDrawer menu={sidebarMenu} />
         <span className="hidden xl:block">
           <LocalDate />
         </span>

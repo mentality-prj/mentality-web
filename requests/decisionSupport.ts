@@ -1,25 +1,37 @@
-import { DECISION_SUPPORT_ADMIN_ENDPOINTS, DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
+import { B2B_DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import {
   DecisionSupportReport,
   DecisionSupportRiskEvent,
-  PolicyAuditEntry,
   PolicyMetrics,
   ResolveRiskEventDto,
   RiskEventActionDto,
-  RiskEventOutcome,
   RiskAssociationEvidenceEntity,
 } from '@/types/decisionSupport'
 
 import { APIUrl } from './config'
 import { performAdminRequest, performAuthRequest } from './genericFetch'
 
+function buildAddressRiskEventDto(
+  session: CustomSession | null,
+  dto: RiskEventActionDto | ResolveRiskEventDto,
+  resolutionType: 'action_taken' | 'wont_fix' | 'false_positive' | 'auto_resolved'
+) {
+  const note = 'actionType' in dto ? [dto.actionType, dto.note].filter(Boolean).join(': ') : dto.note
+
+  return {
+    resolutionType,
+    resolutionOutcome: note || undefined,
+    resolvedBy: session?.user?.id,
+  }
+}
+
 export async function getDecisionSupportReport(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: DecisionSupportReport } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.report(companyId)}`
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.report(companyId)}`
   const res = await performAuthRequest<DecisionSupportReport>(session, url)
 
   if ('error' in res) {
@@ -34,7 +46,7 @@ export async function getDecisionSupportReportAdmin(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: DecisionSupportReport } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.report(companyId)}`
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.report(companyId)}`
   const res = await performAdminRequest<DecisionSupportReport>(session, url)
 
   if ('error' in res) {
@@ -49,7 +61,7 @@ export async function getDecisionSupportRiskEvents(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: DecisionSupportRiskEvent[] } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEvents(companyId)}`
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEvents(companyId)}`
   const res = await performAuthRequest<DecisionSupportRiskEvent[]>(session, url)
 
   if ('error' in res) {
@@ -64,7 +76,7 @@ export async function getDecisionSupportRiskEventsAdmin(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: DecisionSupportRiskEvent[] } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEvents(companyId)}`
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEvents(companyId)}`
   const res = await performAdminRequest<DecisionSupportRiskEvent[]>(session, url)
 
   if ('error' in res) {
@@ -75,58 +87,16 @@ export async function getDecisionSupportRiskEventsAdmin(
   return { data: Array.isArray(res.data) ? res.data : [] }
 }
 
-export async function getDecisionSupportRiskEventOutcome(
-  session: CustomSession | null,
-  companyId: string,
-  eventId: string
-): Promise<{ data: RiskEventOutcome | null } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEventOutcome(companyId, eventId)}`
-  const res = await performAuthRequest<RiskEventOutcome>(session, url)
-
-  if ('error' in res) {
-    const status = (res as { error: string; status?: number }).status
-    if (status === 404) {
-      return { data: null }
-    }
-
-    logger.error('Failed to fetch decision support risk event outcome', { error: res.error, companyId, eventId })
-    return { error: res.error }
-  }
-
-  return { data: (res.data as RiskEventOutcome | null | undefined) ?? null }
-}
-
-export async function getDecisionSupportRiskEventOutcomeAdmin(
-  session: CustomSession | null,
-  companyId: string,
-  eventId: string
-): Promise<{ data: RiskEventOutcome | null } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEventOutcome(companyId, eventId)}`
-  const res = await performAdminRequest<RiskEventOutcome>(session, url)
-
-  if ('error' in res) {
-    const status = (res as { error: string; status?: number }).status
-    if (status === 404) {
-      return { data: null }
-    }
-
-    logger.error('Admin: failed to fetch decision support risk event outcome', { error: res.error, companyId, eventId })
-    return { error: res.error }
-  }
-
-  return { data: (res.data as RiskEventOutcome | null | undefined) ?? null }
-}
-
 export async function applyDecisionSupportRiskEventAction(
   session: CustomSession | null,
   companyId: string,
   eventId: string,
   dto: RiskEventActionDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEventAction(companyId, eventId)}`
-  const res = await performAuthRequest<{ success?: boolean }>(session, url, {
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
+  const res = await performAuthRequest<DecisionSupportRiskEvent>(session, url, {
     method: 'PATCH',
-    body: dto as unknown as Record<string, unknown>,
+    body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
 
   if ('error' in res) {
@@ -148,10 +118,10 @@ export async function applyDecisionSupportRiskEventActionAdmin(
   eventId: string,
   dto: RiskEventActionDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEventAction(companyId, eventId)}`
-  const res = await performAdminRequest<{ success?: boolean }>(session, url, {
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
+  const res = await performAdminRequest<DecisionSupportRiskEvent>(session, url, {
     method: 'PATCH',
-    body: dto as unknown as Record<string, unknown>,
+    body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
 
   if ('error' in res) {
@@ -173,10 +143,10 @@ export async function resolveDecisionSupportRiskEvent(
   eventId: string,
   dto: ResolveRiskEventDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEventResolve(companyId, eventId)}`
-  const res = await performAuthRequest<{ success?: boolean }>(session, url, {
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
+  const res = await performAuthRequest<DecisionSupportRiskEvent>(session, url, {
     method: 'PATCH',
-    body: dto as unknown as Record<string, unknown>,
+    body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
 
   if ('error' in res) {
@@ -193,10 +163,10 @@ export async function resolveDecisionSupportRiskEventAdmin(
   eventId: string,
   dto: ResolveRiskEventDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEventResolve(companyId, eventId)}`
-  const res = await performAdminRequest<{ success?: boolean }>(session, url, {
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
+  const res = await performAdminRequest<DecisionSupportRiskEvent>(session, url, {
     method: 'PATCH',
-    body: dto as unknown as Record<string, unknown>,
+    body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
 
   if ('error' in res) {
@@ -212,7 +182,7 @@ export async function getRiskEventEvidence(
   companyId: string,
   eventId: string
 ): Promise<{ data: RiskAssociationEvidenceEntity } | { data: null } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ENDPOINTS.riskEventEvidence(companyId, eventId)}`
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventEvidence(companyId, eventId)}`
   const res = await performAuthRequest<RiskAssociationEvidenceEntity>(session, url)
 
   if ('error' in res) {
@@ -234,7 +204,7 @@ export async function getRiskEventEvidence(
 export async function getPolicyMetrics(
   session: CustomSession | null
 ): Promise<{ data: PolicyMetrics } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ADMIN_ENDPOINTS.policyMetrics()}`
+  const url = `${APIUrl}/admin-diagnostics/v1/ml/policy-metrics`
   const res = await performAdminRequest<PolicyMetrics>(session, url)
 
   if ('error' in res) {
@@ -248,18 +218,4 @@ export async function getPolicyMetrics(
   }
 
   return { data: res.data }
-}
-
-export async function getPolicyAudit(
-  session: CustomSession | null
-): Promise<{ data: PolicyAuditEntry[] } | { error: string }> {
-  const url = `${APIUrl}${DECISION_SUPPORT_ADMIN_ENDPOINTS.policyAudit()}`
-  const res = await performAdminRequest<PolicyAuditEntry[]>(session, url)
-
-  if ('error' in res) {
-    logger.error('Admin: failed to fetch policy audit', { error: res.error })
-    return { error: res.error }
-  }
-
-  return { data: Array.isArray(res.data) ? res.data : [] }
 }

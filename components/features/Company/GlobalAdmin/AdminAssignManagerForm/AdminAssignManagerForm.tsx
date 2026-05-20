@@ -90,22 +90,35 @@ export function AdminAssignManagerForm({ companyId }: Props) {
     return valid
   }
 
+  function getScopeGroupLabel(groupId: string): string {
+    return groups.find((group) => group.id === groupId)?.name || groupId
+  }
+
   async function handleAssign(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+    if (!canViewAnalytics) return
+
     setLoading(true)
-    const res = await adminCreateAccessScope(data as CustomSession, companyId, {
-      userId: selectedUserId,
-      groupIds: selectedGroupIds,
-      canViewAnalytics,
-    })
+    const results = await Promise.all(
+      selectedGroupIds.map((groupId) =>
+        adminCreateAccessScope(data as CustomSession, companyId, {
+          userId: selectedUserId,
+          groupId,
+          permission: 'VIEW_ANALYTICS',
+        })
+      )
+    )
     setLoading(false)
-    if ('error' in res) {
-      toast.error(res.error)
+    const firstError = results.find((result) => 'error' in result)
+    if (firstError && 'error' in firstError) {
+      toast.error(firstError.error)
       return
     }
+
+    const createdScopes = results.filter((result): result is { data: AccessScopeEntity } => 'data' in result)
     toast.success(t('success'))
-    setScopes((prev) => [...prev, res.data])
+    setScopes((prev) => [...prev, ...createdScopes.map((result) => result.data)])
     setSelectedUserId('')
     setSelectedGroupIds([])
     setCanViewAnalytics(false)
@@ -156,7 +169,7 @@ export function AdminAssignManagerForm({ companyId }: Props) {
           <span className="text-sm font-normal">{t('analyticsToggle')}</span>
         </label>
 
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={loading || !canViewAnalytics}>
           {loading ? t('submitting') : t('submitButton')}
         </Button>
       </form>
@@ -173,9 +186,7 @@ export function AdminAssignManagerForm({ companyId }: Props) {
                   className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm"
                 >
                   <span>{manager ? manager.name || manager.email : scope.userId}</span>
-                  <span className="text-xs text-textcolor-secondary">
-                    {t('scopeGroups', { count: scope.groupIds.length })}
-                  </span>
+                  <span className="text-xs text-textcolor-secondary">{getScopeGroupLabel(scope.groupId)}</span>
                   <Button
                     size="small"
                     variant="ghost"

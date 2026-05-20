@@ -305,7 +305,43 @@ export async function adminGetAccessScopes(
     return { error: res.error }
   }
 
-  return { data: Array.isArray(res.data) ? (res.data as AccessScopeEntity[]) : [] }
+  const normalized: AccessScopeEntity[] = Array.isArray(res.data)
+    ? res.data.flatMap((item) => {
+        if (typeof item !== 'object' || item === null || Array.isArray(item)) {
+          return []
+        }
+
+        const source = item as Record<string, unknown>
+        const id = typeof source.id === 'string' ? source.id : typeof source._id === 'string' ? source._id : ''
+        const userId = typeof source.userId === 'string' ? source.userId : ''
+        const groupId =
+          typeof source.groupId === 'string'
+            ? source.groupId
+            : Array.isArray(source.groupIds) && typeof source.groupIds[0] === 'string'
+              ? source.groupIds[0]
+              : ''
+
+        if (!id || !userId || !groupId) {
+          return []
+        }
+
+        return [
+          {
+            id,
+            userId,
+            groupId,
+            permission:
+              typeof source.permission === 'string'
+                ? (source.permission as AccessScopeEntity['permission'])
+                : 'VIEW_ANALYTICS',
+            companyId,
+            createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
+          },
+        ]
+      })
+    : []
+
+  return { data: normalized }
 }
 
 export async function adminCreateAccessScope(
@@ -325,7 +361,37 @@ export async function adminCreateAccessScope(
   }
 
   logger.info('Company access scope created', { companyId, userId: dto.userId })
-  return { data: res.data as AccessScopeEntity }
+  if (typeof res.data !== 'object' || res.data === null || Array.isArray(res.data)) {
+    return { error: 'Invalid access scope response' }
+  }
+
+  const source = res.data as Record<string, unknown>
+  const id = typeof source.id === 'string' ? source.id : typeof source._id === 'string' ? source._id : ''
+  const userId = typeof source.userId === 'string' ? source.userId : ''
+  const groupId =
+    typeof source.groupId === 'string'
+      ? source.groupId
+      : Array.isArray(source.groupIds) && typeof source.groupIds[0] === 'string'
+        ? source.groupIds[0]
+        : ''
+
+  if (!id || !userId || !groupId) {
+    return { error: 'Invalid access scope response' }
+  }
+
+  return {
+    data: {
+      id,
+      userId,
+      groupId,
+      permission:
+        typeof source.permission === 'string'
+          ? (source.permission as AccessScopeEntity['permission'])
+          : 'VIEW_ANALYTICS',
+      companyId,
+      createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
+    },
+  }
 }
 
 export async function adminDeleteAccessScope(

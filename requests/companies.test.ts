@@ -1,4 +1,4 @@
-import { COMPANY_ENDPOINTS } from '@/constants/companyEndpoints'
+import { B2B_COMPANY_MEMBERSHIP_ENDPOINTS, GLOBAL_ADMIN_COMPANY_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
 import { createCompany, getCompanies, getCompanyById, getMyCompany } from '@/requests/companies'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
@@ -49,7 +49,7 @@ describe('createCompany', () => {
     expect(result).toEqual({ data: mockCompany })
     expect(performAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
-      expect.stringContaining(COMPANY_ENDPOINTS.BASE),
+      expect.stringContaining(GLOBAL_ADMIN_COMPANY_ENDPOINTS.base),
       expect.objectContaining({ method: 'POST', body: { name: 'Acme Corp' } })
     )
     expect(logger.info).toHaveBeenCalled()
@@ -86,7 +86,10 @@ describe('getCompanies', () => {
       expect(result.data).toHaveLength(1)
       expect(result.data[0].id).toBe('co-1')
     }
-    expect(performAdminRequest).toHaveBeenCalledWith(mockAdminSession, expect.stringContaining(COMPANY_ENDPOINTS.BASE))
+    expect(performAdminRequest).toHaveBeenCalledWith(
+      mockAdminSession,
+      expect.stringContaining(GLOBAL_ADMIN_COMPANY_ENDPOINTS.base)
+    )
   })
 
   it('returns empty array when API returns non-array', async () => {
@@ -125,7 +128,10 @@ describe('getMyCompany', () => {
     const result = await getMyCompany(mockUserSession)
 
     expect(result).toEqual({ data: mockCompany })
-    expect(performAuthRequest).toHaveBeenCalledWith(mockUserSession, expect.stringContaining(COMPANY_ENDPOINTS.MY))
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockUserSession,
+      expect.stringContaining(B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my)
+    )
   })
 
   it('returns error when API call fails', async () => {
@@ -157,7 +163,7 @@ describe('getCompanyById', () => {
     expect(result).toEqual({ data: mockCompany })
     expect(performAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
-      expect.stringContaining(COMPANY_ENDPOINTS.byId('co-1'))
+      expect.stringContaining(GLOBAL_ADMIN_COMPANY_ENDPOINTS.byId('co-1'))
     )
   })
 

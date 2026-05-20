@@ -10,7 +10,7 @@ import {
 } from '@/requests/accessScopes'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
-import { AccessScopeEntity } from '@/types/company'
+import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
 
 jest.mock('@/requests/genericFetch')
@@ -69,13 +69,17 @@ const mockAdminSession: CustomSession = {
 const mockScope: AccessScopeEntity = {
   id: 'scope-1',
   userId: 'user-1',
-  groupIds: ['g-1'],
-  canViewAnalytics: true,
+  groupId: 'g-1',
+  permission: 'VIEW_ANALYTICS',
   companyId: 'c-1',
   createdAt: '2026-01-01T00:00:00.000Z',
 }
 
-const mockDto = { userId: 'user-1', groupIds: ['g-1'], canViewAnalytics: true }
+const mockDto: CreateAccessScopeDto = {
+  userId: 'user-1',
+  groupId: 'g-1',
+  permission: 'VIEW_ANALYTICS',
+}
 
 beforeEach(() => {
   jest.clearAllMocks()

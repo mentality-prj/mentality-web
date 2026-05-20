@@ -102,8 +102,8 @@ const mockInvite: InviteEntity = {
 const mockScope: AccessScopeEntity = {
   id: SCOPE_ID,
   userId: EMP_ID,
-  groupIds: [GROUP_ID],
-  canViewAnalytics: false,
+  groupId: GROUP_ID,
+  permission: 'VIEW_ANALYTICS',
   companyId: COMPANY_ID,
   createdAt: '2026-01-01T00:00:00.000Z',
 }
@@ -580,7 +580,7 @@ describe('adminGetAccessScopes', () => {
 // ─── adminCreateAccessScope ───────────────────────────────────────────────────
 
 describe('adminCreateAccessScope', () => {
-  const dto: CreateAccessScopeDto = { userId: EMP_ID, groupIds: [GROUP_ID], canViewAnalytics: false }
+  const dto: CreateAccessScopeDto = { userId: EMP_ID, groupId: GROUP_ID, permission: 'VIEW_ANALYTICS' }
 
   it('returns created scope on success', async () => {
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockScope })
