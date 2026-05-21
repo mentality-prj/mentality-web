@@ -21,7 +21,7 @@ export default function AdminMobileNavDrawer() {
         type="button"
         aria-label={t('openNavigation')}
         onClick={() => setOpen(true)}
-        className="mr-4 mt-4 flex items-center justify-center text-textcolor-secondary md:hidden"
+        className="flex items-center justify-center rounded-full p-2 text-textcolor-secondary transition-colors hover:bg-black/5 md:hidden"
       >
         <PanelRight size={22} />
       </button>

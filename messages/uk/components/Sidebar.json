@@ -4,6 +4,7 @@
   "my-space": "Мій простір",
   "diary": "Щоденник",
   "my-progress": "Мій прогрес",
+  "research": "Research",
   "affirmations": "Афірмації",
   "tags": "Теги",
   "tips": "Поради",
@@ -15,5 +16,7 @@
   "company-access-scopes": "Управління доступом",
   "company-groups": "Групи",
   "company-analytics": "Аналітика",
-  "company-decision-support": "Звіт"
+  "company-decision-support": "Звіт",
+  "research-projects": "Проєкти",
+  "research-create-project": "Створити проєкт"
 }

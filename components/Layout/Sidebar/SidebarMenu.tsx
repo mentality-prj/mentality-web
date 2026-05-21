@@ -5,6 +5,7 @@ import {
   Bookmark,
   BookOpenCheckIcon,
   Brain,
+  BrainCircuit,
   ChartNoAxesCombined,
   ClipboardList,
   FileQuestionMark,
@@ -29,6 +30,7 @@ const iconMapSidebar: Record<string, ReactNode> = {
   activity: <ActivityIcon className="h-5 w-5" size={12} />,
   bookOpenCheck: <BookOpenCheckIcon className="h-5 w-5" size={12} />,
   brain: <Brain className="h-5 w-5" size={12} />,
+  brainCircuit: <BrainCircuit className="h-5 w-5" size={12} />,
   chartNoAxesCombined: <ChartNoAxesCombined className="h-5 w-5" size={12} />,
   folderTree: <FolderTree className="h-5 w-5" size={12} />,
   lightbulb: <Lightbulb className="h-5 w-5" size={12} />,
@@ -56,13 +58,26 @@ export default function SidebarMenu({
 }) {
   const t = useTranslations('components.Sidebar')
   const pathname = usePathname()
+  const activeHref = menu.reduce<string | null>((bestMatch, item) => {
+    const doesMatch = pathname === item.href || pathname.startsWith(item.href + '/')
+
+    if (!doesMatch) {
+      return bestMatch
+    }
+
+    if (!bestMatch || item.href.length > bestMatch.length) {
+      return item.href
+    }
+
+    return bestMatch
+  }, null)
 
   return (
     <ul
       className={`sticky top-3 flex flex-col max-md:w-full ${type === 'admin' ? 'text-color-white' : 'text-remark overflow-hidden rounded border border-border'}`}
     >
       {menu.map((item: SidebarMenuItemType) => {
-        const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
+        const isActive = item.href === activeHref
         return (
           <li key={item.key}>
             <Link href={item.href} className={getMenuItemClass(isActive, type)} onClick={onLinkClick}>

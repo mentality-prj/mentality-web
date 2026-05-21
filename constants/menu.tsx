@@ -62,6 +62,19 @@ export const companyManagerSidebarMenu: SidebarMenuItemType[] = [
   { key: 'company-invites', href: Routes.COMPANY_MANAGER_INVITES, icon: 'mailPlus' },
 ]
 
+const researchSidebarMenuItems: SidebarMenuItemType[] = [
+  { key: 'research-projects', href: Routes.RESEARCH_PROJECTS, icon: 'folderTree' },
+  { key: 'research-create-project', href: Routes.RESEARCH_PROJECTS_CREATE, icon: 'notebookPen' },
+]
+
+export function getResearchSidebarMenu(options?: { includeCreate?: boolean }): SidebarMenuItemType[] {
+  const includeCreate = options?.includeCreate ?? false
+
+  return includeCreate
+    ? researchSidebarMenuItems
+    : researchSidebarMenuItems.filter((item) => item.key !== 'research-create-project')
+}
+
 export const userSidebarMenu: SidebarMenuItemType[] = [
   // { key: 'affirmations', href: Routes.AFFIRMATIONS, icon: 'flower' }, TODO: temporarily hide #348
   { key: 'my-space', href: Routes.MYSPACE, icon: 'bookmark' },
@@ -76,6 +89,10 @@ export const userSidebarMenu: SidebarMenuItemType[] = [
   { key: 'psychological-tests', href: Routes.PSYCHOLOGICALTESTS, icon: 'test' },
   { key: 'mental-games', href: Routes.MENTAL_GAMES, icon: 'puzzle' },
 ]
+
+export function getUserSidebarMenu(): SidebarMenuItemType[] {
+  return userSidebarMenu
+}
 
 export const guideMenu = [
   { key: 'tips', href: `${Routes.GUIDE}/tips`, icon: 'lightbulb' },
