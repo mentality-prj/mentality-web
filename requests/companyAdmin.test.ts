@@ -1,4 +1,5 @@
 import { COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
+import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import {
   adminAssignRole,
@@ -423,9 +424,8 @@ describe('adminGetInvites', () => {
     const data = { items: [mockInvite] }
     const headers = { 'x-total-count': '99' }
     // Patch extractPaginationTotal to return header value
-    const extractPaginationTotal = require('@/lib/http').extractPaginationTotal
-    extractPaginationTotal.mockImplementation(
-      (_headers: any, fallback: any) => Number(headers['x-total-count']) || fallback
+    jest.mocked(extractPaginationTotal).mockImplementation(
+      (_headers, fallback) => Number(headers['x-total-count']) || fallback
     )
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data, headers })
     const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
@@ -434,7 +434,7 @@ describe('adminGetInvites', () => {
       expect(result.data.total).toBe(99)
     }
     // Restore default
-    extractPaginationTotal.mockImplementation((_headers: any, fallback: any) => fallback)
+    jest.mocked(extractPaginationTotal).mockImplementation((_headers, fallback) => fallback)
   })
 })
 
