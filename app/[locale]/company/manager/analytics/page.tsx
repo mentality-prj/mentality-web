@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
 import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
-import { AnalyticsView } from '@/components/features/Company/Manager/AnalyticsView'
+import { TeamDynamicsView } from '@/components/features/Company/Manager/TeamDynamicsView'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getServerSession } from '@/lib/get-server-session'
@@ -26,7 +26,7 @@ export default async function ManagerAnalyticsPage({ params }: { params: Promise
 
   const content = (
     <section className="flex flex-col gap-md">
-      <AnalyticsView />
+      <TeamDynamicsView />
     </section>
   )
 

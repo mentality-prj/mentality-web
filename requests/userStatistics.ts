@@ -1,4 +1,4 @@
-import { USER_STATISTICS_ENDPOINTS } from '@/constants/endpoints'
+import { B2C_USER_STATISTICS_ENDPOINTS } from '@/constants/endpoints'
 import { CustomSession } from '@/types/auth'
 import { MoodStatistics, PsyTestsStatistics } from '@/types/userStatistics'
 
@@ -9,7 +9,7 @@ import { performAuthRequest } from './genericFetch'
 export async function getMoodStatistics(
   session: CustomSession | null
 ): Promise<{ data: MoodStatistics } | { error: string; status?: number }> {
-  const res = await performAuthRequest<MoodStatistics>(session, `${APIUrl}${USER_STATISTICS_ENDPOINTS.MOOD}`, {
+  const res = await performAuthRequest<MoodStatistics>(session, `${APIUrl}${B2C_USER_STATISTICS_ENDPOINTS.MOOD}`, {
     method: 'GET',
   })
   if ('error' in res) {
@@ -25,9 +25,13 @@ export async function getMoodStatistics(
 export async function getPsyTestsStatistics(
   session: CustomSession | null
 ): Promise<{ data: PsyTestsStatistics } | { error: string; status?: number }> {
-  const res = await performAuthRequest<PsyTestsStatistics>(session, `${APIUrl}${USER_STATISTICS_ENDPOINTS.PSYTESTS}`, {
-    method: 'GET',
-  })
+  const res = await performAuthRequest<PsyTestsStatistics>(
+    session,
+    `${APIUrl}${B2C_USER_STATISTICS_ENDPOINTS.PSYTESTS}`,
+    {
+      method: 'GET',
+    }
+  )
   if ('error' in res) {
     return res.status !== undefined ? { error: res.error, status: res.status } : { error: res.error }
   }

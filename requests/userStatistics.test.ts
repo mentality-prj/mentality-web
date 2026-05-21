@@ -1,4 +1,4 @@
-import { USER_STATISTICS_ENDPOINTS } from '@/constants/endpoints'
+import { B2C_USER_STATISTICS_ENDPOINTS } from '@/constants/endpoints'
 import { performAuthRequest } from '@/requests/genericFetch'
 import { getMoodStatistics, getPsyTestsStatistics } from '@/requests/userStatistics'
 import { CustomSession } from '@/types/auth'
@@ -55,7 +55,7 @@ describe('getMoodStatistics', () => {
     expect(result).toEqual({ data: mockMoodStats })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSession,
-      expect.stringContaining(USER_STATISTICS_ENDPOINTS.MOOD),
+      expect.stringContaining(B2C_USER_STATISTICS_ENDPOINTS.MOOD),
       expect.objectContaining({ method: 'GET' })
     )
   })
@@ -104,7 +104,7 @@ describe('getPsyTestsStatistics', () => {
     expect(result).toEqual({ data: mockPsyTestsStats })
     expect(performAuthRequest).toHaveBeenCalledWith(
       mockSession,
-      expect.stringContaining(USER_STATISTICS_ENDPOINTS.PSYTESTS),
+      expect.stringContaining(B2C_USER_STATISTICS_ENDPOINTS.PSYTESTS),
       expect.objectContaining({ method: 'GET' })
     )
   })
