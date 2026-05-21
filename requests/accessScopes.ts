@@ -12,6 +12,51 @@ function assertCanAssign(session: CustomSession | null): boolean {
   return !!role && CAN_ASSIGN_MANAGERS.includes(role)
 }
 
+function normalizeAccessScope(value: unknown, companyId?: string): AccessScopeEntity | null {
+  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
+    return null
+  }
+
+  const source = value as Record<string, unknown>
+  const id = typeof source.id === 'string' ? source.id : typeof source._id === 'string' ? source._id : ''
+  const userId = typeof source.userId === 'string' ? source.userId : ''
+  const groupId =
+    typeof source.groupId === 'string'
+      ? source.groupId
+      : Array.isArray(source.groupIds) && typeof source.groupIds[0] === 'string'
+        ? source.groupIds[0]
+        : ''
+
+  if (!id || !userId || !groupId) {
+    return null
+  }
+
+  const permission =
+    typeof source.permission === 'string'
+      ? (source.permission as AccessScopeEntity['permission'])
+      : source.canViewAnalytics === true
+        ? 'VIEW_ANALYTICS'
+        : 'VIEW_ANALYTICS'
+
+  return {
+    id,
+    userId,
+    groupId,
+    permission,
+    companyId:
+      typeof source.companyId === 'string' ? source.companyId : typeof companyId === 'string' ? companyId : undefined,
+    createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
+  }
+}
+
+function normalizeAccessScopes(value: unknown, companyId?: string): AccessScopeEntity[] {
+  return Array.isArray(value)
+    ? value
+        .map((item) => normalizeAccessScope(item, companyId))
+        .filter((item): item is AccessScopeEntity => item !== null)
+    : []
+}
+
 export async function createAccessScope(
   session: CustomSession | null,
   companyId: string,
@@ -37,7 +82,12 @@ export async function createAccessScope(
   }
 
   logger.info('Access scope created', { userId: dto.userId })
-  return { data: res.data as AccessScopeEntity }
+  const normalized = normalizeAccessScope(res.data, companyId)
+  if (!normalized) {
+    return { error: 'Invalid access scope response' }
+  }
+
+  return { data: normalized }
 }
 
 export async function deleteAccessScope(
@@ -81,7 +131,7 @@ export async function getAccessScopes(
     return { error: res.error }
   }
 
-  return { data: Array.isArray(res.data) ? res.data : [] }
+  return { data: normalizeAccessScopes(res.data, companyId) }
 }
 
 // ─── Admin-scoped (per-company) variants ──────────────────────────────────────
@@ -98,7 +148,7 @@ export async function getAccessScopesAdmin(
     logger.error('Admin: failed to fetch access scopes', { error: res.error, companyId })
     return { error: res.error }
   }
-  return { data: Array.isArray(res.data) ? res.data : [] }
+  return { data: normalizeAccessScopes(res.data, companyId) }
 }
 
 export async function createAccessScopeAdmin(
@@ -116,7 +166,12 @@ export async function createAccessScopeAdmin(
     return { error: res.error }
   }
   logger.info('Admin: access scope created', { userId: dto.userId, companyId })
-  return { data: res.data as AccessScopeEntity }
+  const normalized = normalizeAccessScope(res.data, companyId)
+  if (!normalized) {
+    return { error: 'Invalid access scope response' }
+  }
+
+  return { data: normalized }
 }
 
 export async function deleteAccessScopeAdmin(

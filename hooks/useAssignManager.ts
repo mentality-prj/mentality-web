@@ -88,19 +88,29 @@ export function useAssignManager() {
     e.preventDefault()
     if (!validate()) return
     if (!adminCompanyId && !companyId) return
+    if (!canViewAnalytics) return
+
     setLoading(true)
-    const dto = { userId: selectedUserId, groupIds: selectedGroupIds, canViewAnalytics }
     const session = data as CustomSession
-    const res = adminCompanyId
-      ? await createAccessScopeAdmin(session, adminCompanyId, dto)
-      : await createAccessScope(session, companyId!, dto)
+    const results = await Promise.all(
+      selectedGroupIds.map((groupId) => {
+        const dto = { userId: selectedUserId, groupId, permission: 'VIEW_ANALYTICS' as const }
+
+        return adminCompanyId
+          ? createAccessScopeAdmin(session, adminCompanyId, dto)
+          : createAccessScope(session, companyId!, dto)
+      })
+    )
     setLoading(false)
-    if ('error' in res) {
-      toast.error(res.error)
+    const firstError = results.find((result) => 'error' in result)
+    if (firstError && 'error' in firstError) {
+      toast.error(firstError.error)
       return
     }
+
+    const createdScopes = results.filter((result): result is { data: AccessScopeEntity } => 'data' in result)
     toast.success(t('success'))
-    setScopes((prev) => [...prev, res.data])
+    setScopes((prev) => [...prev, ...createdScopes.map((result) => result.data)])
     setSelectedUserId('')
     setSelectedGroupIds([])
     setCanViewAnalytics(false)

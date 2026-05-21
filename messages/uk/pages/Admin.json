@@ -4,6 +4,7 @@
   "dashboard": {
     "title": "Дашборд",
     "companySection": "Компанії",
+    "researchSection": "Дослідження",
     "companies": {
       "title": "Компанії",
       "description": "Створення та управління компаніями на платформі"
@@ -17,6 +18,14 @@
       "description": "Аналітика та управління командою"
     },
     "toolsSection": "Інструменти",
+    "researchWorkspace": {
+      "title": "Research Workspace",
+      "description": "Окремий project-scoped продукт для research campaigns, grants і governed diagnostics"
+    },
+    "diagnostics": {
+      "title": "R&D діагностика",
+      "description": "Окремий R&D простір для інспекції ML-сигналів і policy diagnostics у вибраній компанії"
+    },
     "translationModelChecks": {
       "title": "Перевірка моделей перекладу",
       "description": "Ручна технічна перевірка translator host, Helsinki, Facebook і compare"
@@ -26,6 +35,11 @@
       "description": "Технічна сторінка для перевірки demo-сценаріїв мовлення"
     }
   },
+  "r-and-d": {
+    "title": "R&D",
+    "subtitle": "Внутрішні інструменти для інспекції ML-сигналів і policy diagnostics"
+  },
+  "diagnostics": { "title": "R&D діагностика" },
   "ds": { "title": "Дизайн-система" },
   "goals": { "title": "Цілі" },
   "achievements": { "title": "Досягнення" },

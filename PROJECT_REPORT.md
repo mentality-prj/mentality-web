@@ -1,7 +1,7 @@
-# Dzvin.co Backend — Технічний звіт
+# Dzvin.co Platform — Технічний звіт
 
 > **Проєкт:** Dzvin.co
-> **Стек:** NestJS 11 · TypeScript · MongoDB (Mongoose) · OpenAI GPT-4.1 · Zitadel · Cloudinary
+> **Стек:** Next.js (App Router) · React 18 · NestJS 11 · TypeScript · MongoDB (Mongoose) · OpenAI GPT-4.1 · Zitadel · Cloudinary
 > **Дата звіту:** Травень 2026
 
 ---
@@ -20,39 +20,50 @@
 | **B2B** | HR / Менеджер / Компанія | Корпоративна аналітика, ризик-сигнали, керування командою |
 | **R&D** | Система / Дослідники     | ML-інфраструктура, довіра до моделей, self-evaluation     |
 
+У поточній web-поставці ці шари розведені в окремі delivery surfaces, а не зведені до одного універсального dashboard:
+
+- **B2C** — особистий простір користувача, контент і персональна статистика
+- **B2B** — manager decision support, company/admin diagnostics і policy visibility
+- **R&D** — окремий **Research Workspace** під `/research`, який працює через `research/v1` і не змішується з admin/projection screens
+
 ---
 
 ## 2. Технічний стек
 
-| Шар             | Технологія                            |
-| --------------- | ------------------------------------- |
-| Фреймворк       | NestJS 11 (Node.js)                   |
-| Мова            | TypeScript 5                          |
-| База даних      | MongoDB + Mongoose 8                  |
-| Автентифікація  | Zitadel (OIDC / JWT)                  |
-| AI              | OpenAI GPT-4.1, GPT-4.1-mini, o4-mini |
-| Медіа           | Cloudinary                            |
-| Планувальник    | @nestjs/schedule (cron)               |
-| Events          | @nestjs/event-emitter                 |
-| Документація    | Swagger / OpenAPI 3                   |
-| Безпека         | Helmet, CORS whitelist, reCAPTCHA     |
-| Package manager | pnpm                                  |
+| Шар             | Технологія                              |
+| --------------- | --------------------------------------- |
+| Web client      | Next.js App Router, React 18, next-intl |
+| UI              | Tailwind CSS + shared design primitives |
+| Фреймворк       | NestJS 11 (Node.js)                     |
+| Мова            | TypeScript 5                            |
+| База даних      | MongoDB + Mongoose 8                    |
+| Автентифікація  | Zitadel (OIDC / JWT)                    |
+| AI              | OpenAI GPT-4.1, GPT-4.1-mini, o4-mini   |
+| Медіа           | Cloudinary                              |
+| Планувальник    | @nestjs/schedule (cron)                 |
+| Events          | @nestjs/event-emitter                   |
+| Документація    | Swagger / OpenAPI 3                     |
+| Безпека         | Helmet, CORS whitelist, reCAPTCHA       |
+| Package manager | pnpm                                    |
 
 ---
 
 ## 3. Архітектура
 
 ```
-┌─────────────────────────────────────────────────────────────┐
-│                         REST API                            │
-│              (Zitadel JWT → ValidationPipe)                 │
-├──────────────┬───────────────┬──────────────────────────────┤
-│  B2C шар     │  B2B шар      │  R&D шар                     │
-│  (особистий) │  (корпоратив) │  (ML / оцінка якості)        │
-├──────────────┴───────────────┴──────────────────────────────┤
-│                    MongoDB Collections (40+)                 │
-│                    Mongoose, compound indexes                │
-└─────────────────────────────────────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│                     Web App (Next.js App Router)                    │
+│  B2C surfaces | Manager/Admin reporting | Dedicated Research UI     │
+├──────────────────────────────────────────────────────────────────────┤
+│                               REST API                              │
+│        (Zitadel JWT → ValidationPipe → domain namespaces)           │
+├──────────────┬───────────────┬──────────────────────────────────────┤
+│  B2C шар     │  B2B шар      │  R&D шар                             │
+│  (особистий) │  (корпоратив) │  (ML / оцінка якості / research)     │
+├──────────────┴───────────────┴──────────────────────────────────────┤
+│                     MongoDB Collections (40+)                       │
+│                     Mongoose, compound indexes                      │
+└──────────────────────────────────────────────────────────────────────┘
 ```
 
 ---
@@ -244,21 +255,54 @@ Cron: **щопонеділка 08:00 UTC**
 
 ---
 
-### 5.5 Admin Policy API
+### 5.5 Public Admin Reporting API
+
+Поточний публічний набір admin/reporting endpoints у frontend обмежений п'ятьма route-ами:
 
 ```
-GET  companies/:id/decision-support/admin/policy/pipeline-metrics
-GET  companies/:id/decision-support/admin/policy/metrics
-GET  companies/:id/decision-support/admin/policy/audit
-POST companies/:id/decision-support/admin/policy/override
+GET  /api/operational/v1/reports/overview
+GET  /api/operational/v1/risk-events/feed
+GET  /api/operational/v1/ml/inspection
+GET  /api/admin-diagnostics/v1/ml/inspection
+GET  /api/admin-diagnostics/v1/ml/policy-metrics
 ```
 
-| Endpoint           | Що повертає                                                              |
-| ------------------ | ------------------------------------------------------------------------ |
-| `pipeline-metrics` | Агреговані показники виконання policy pipeline (success/failure/latency) |
-| `metrics`          | Runtime policy метрики: trust breakdown, A/B stats, cohort multipliers   |
-| `audit`            | Журнал policy override (`from/to/status/limit`, max 500)                 |
-| `override` (POST)  | Тимчасова зміна поведінки ML/policy з обов'язковим `reason`              |
+| Legacy admin flow                                                     | Поточний публічний endpoint                       |
+| --------------------------------------------------------------------- | ------------------------------------------------- |
+| Старий admin overview                                                 | `GET /api/operational/v1/reports/overview`        |
+| Старий admin risk events feed                                         | `GET /api/operational/v1/risk-events/feed`        |
+| Старий admin ML inspection для основного UX                           | `GET /api/operational/v1/ml/inspection`           |
+| Старий admin raw diagnostics inspection                               | `GET /api/admin-diagnostics/v1/ml/inspection`     |
+| `GET /api/companies/:companyId/decision-support/admin/policy/metrics` | `GET /api/admin-diagnostics/v1/ml/policy-metrics` |
+
+Legacy admin policy endpoints нижче лишилися в сервісному шарі/старій документації, але зараз не мають публічного replacement route в controller/OpenAPI і не повинні використовуватися фронтендом:
+
+| Legacy endpoint                                                    | Статус                                |
+| ------------------------------------------------------------------ | ------------------------------------- |
+| `GET companies/:id/decision-support/admin/policy/pipeline-metrics` | Публічного route зараз немає          |
+| `GET companies/:id/decision-support/admin/policy/audit`            | Service є, але публічного route немає |
+| `POST companies/:id/decision-support/admin/policy/override`        | Service є, але публічного route немає |
+
+---
+
+### 5.6 Frontend reporting surfaces
+
+Корпоративна аналітика у web-клієнті більше не живе в одному legacy dashboard. Поточна поставка розкладає B2B/reporting сценарії на окремі поверхні, які використовують спільний data layer, але обслуговують різні ролі й контексти.
+
+| Route                               | Аудиторія     | Призначення                                                         |
+| ----------------------------------- | ------------- | ------------------------------------------------------------------- |
+| `/company/manager/decision-support` | Manager       | Операційний decision support, risk events, короткі управлінські дії |
+| `/company/admin/diagnostics`        | Company admin | Діагностика policy/ML runtime, audit і trust-related signals        |
+| `/admin/r-and-d`                    | Admin / R&D   | Зведений вхід у R&D reporting і ML-related surfaces                 |
+| `/admin/r-and-d/diagnostics`        | Admin / R&D   | Поглиблена діагностика та інспекція signal quality                  |
+| `/my-progress/statistics`           | Співробітник  | Personal risk dashboard і пояснення власної динаміки                |
+
+Ці поверхні спираються на спільні frontend-примітиви та типи:
+
+- `requests/reportingClient.ts` — request layer для reporting endpoints
+- `helpers/reportingMappers.ts` і `helpers/reportingVisibility.ts` — нормалізація та policy-based visibility
+- `types/reporting.ts` — єдина доменна модель reporting view models
+- `components/shared/reporting/ReportingPrimitives.tsx` — перевикористовувані UI-блоки для confidence, insights і explanation cards
 
 ---
 
@@ -333,6 +377,34 @@ ML-модуль обчислює `riskScore` (0–1) як зважену сум�
 
 ---
 
+### 6.5 Research Workspace (`research/v1`)
+
+Окремо від manager/admin reporting surfaces у web-клієнті з'явився ізольований **Research Workspace** для користувачів з capability `scientist` або `research_admin`; роль платформи `admin` також має повний доступ.
+
+Його ціль — дати дослідницьким сценаріям власний простір і власний request namespace, замість того щоб змішувати governance, grants і ML inspection з корпоративними dashboards.
+
+| Route                                       | Призначення                         |
+| ------------------------------------------- | ----------------------------------- |
+| `/research/projects`                        | Список доступних research-проєктів  |
+| `/research/projects/create`                 | Створення нового research-проєкту   |
+| `/research/projects/:projectId/dashboard`   | Overview, metadata, state           |
+| `/research/projects/:projectId/members`     | Керування учасниками                |
+| `/research/projects/:projectId/cohort`      | Налаштування cohort                 |
+| `/research/projects/:projectId/grants`      | Grant management                    |
+| `/research/projects/:projectId/diagnostics` | ML inspection                       |
+| `/research/projects/:projectId/datasets`    | Історичний dataset                  |
+| `/research/projects/:projectId/exports`     | Export requests і governed download |
+| `/research/projects/:projectId/audit`       | Audit trail                         |
+
+Ключові принципи реалізації:
+
+- access gate визначається через `getResearchWorkspaceAccess()` і capability-based response backend-а
+- увесь frontend request layer винесено в `requests/researchProjects.ts`
+- інтеграція працює через `research/v1`, а не через legacy B2B endpoints
+- UI перевикористовує наявні shared primitives (`StaticCard`, `InnerMenu`, `Button`, `Input`, `Select`, `Badge`) замість окремої дизайн-системи
+
+---
+
 ## 7. Інфраструктура та безпека
 
 ### Безпека
@@ -356,12 +428,17 @@ TranslationsService підтримує **uk / en / pl** для Weekly Insights, 
 ## 8. Зведений граф модулів
 
 ```
+Web App
+  ├── B2C surfaces: Mood / Content / Statistics
+  ├── Reporting surfaces: Manager Decision Support / Admin Diagnostics / Personal Risk
+  └── Research Workspace (/research → research/v1)
+        │
 Auth ──────────────────────────────► Users
-                                       │
-                              ┌────────┼────────┐
-                         Companies  Groups  Employees
-                              │         │
-                         AccessScopes  Invites / SalaryGrades
+                  │
+            ┌────────┼────────┐
+          Companies  Groups  Employees
+            │         │
+          AccessScopes  Invites / SalaryGrades
 
 MoodRecord ──► MoodFeed ──► AdaptiveNudges (cron hourly)
     │   └────► MoodStory ──► AI (GPT-4.1-mini)
@@ -370,13 +447,14 @@ MoodRecord ──► MoodFeed ──► AdaptiveNudges (cron hourly)
     │   └────► UserStatistics
     │
     └──────────────────────────────────────────────────────────┐
-                                                              │
-                       Prediction (trajectory + scenarios)    │
-                               │                              │
-                      DecisionSupport ─────────────────────── ┘
-                         ├── ML Service (logistic-regression / random-forest / heuristic)
-                         ├── Evidence Service (CohortMetric materialization)
-                         └── Online Evaluation (A/B · drift · trust · policy · audit)
+                          │
+           Prediction (trajectory + scenarios)    │
+             │                              │
+          DecisionSupport ─────────────────────── ┘
+          ├── ML Service (logistic-regression / random-forest / heuristic)
+          ├── Evidence Service (CohortMetric materialization)
+          ├── Online Evaluation (A/B · drift · trust · policy · audit)
+          └── Research namespace (`research/v1`)
 
 Content: Exercises · Affirmations · Tips · Games · Learning · Tags
 Personal: Diary · Goals · Favorites · Statistics · Contact
@@ -394,6 +472,7 @@ Personal: Diary · Goals · Favorites · Statistics · Contact
 | Cron-задач                  | 9 (5 DS + WeeklyInsights + MoodFeed×2 + MongoKeepAlive) |
 | AI-задач (типів)            | 7                                                       |
 | Мов інтерфейсу              | 3 (uk / en / pl)                                        |
+| Окремих web surfaces        | 5 (research + 4 reporting surfaces)                     |
 | ML-компонентів у risk score | 3 (prediction + anomaly + z-score)                      |
 | ML моделей                  | 3 (heuristic / logistic-regression / random-forest)     |
 | Policy стратегій            | 11 (від override_rules_only до blend_ml_rules)          |
@@ -410,8 +489,8 @@ Personal: Diary · Goals · Favorites · Statistics · Contact
 ### Слайд 2 — Три шари функціональності
 
 > - **B2C:** щоденний чек-ін (шкала 1–5) → AI-порада → тижнева аналітика → прогноз траєкторії
-> - **B2B:** автоматичне виявлення ризиків команд → risk events із severity і доказовою базою → AI-саммарі
-> - **R&D:** ML скоринг (3 компоненти, 3 моделі) → A/B → drift → trust score → auto-mitigation
+> - **B2B:** manager decision support + admin diagnostics → risk events із severity, evidence і policy visibility
+> - **R&D:** ML скоринг (3 компоненти, 3 моделі) → A/B → drift → trust score → auto-mitigation + окремий Research Workspace на `research/v1`
 
 ### Слайд 3 — User journey
 
@@ -419,11 +498,12 @@ Personal: Diary · Goals · Favorites · Statistics · Contact
 > 2. AI одразу дає пораду / вправу / афірмацію
 > 3. Щотижнева аналітика — де ти зараз і куди рухаєшся
 > 4. Прогноз: worsening / stable / improving
-> 5. HR-дашборд — де ризик, чому і що робити
+> 5. Менеджер / admin бачить окремі reporting surfaces: decision support, diagnostics, personal risk views
+> 6. Scientist / research admin працює в окремому Research Workspace з cohort, grants, exports, ML inspection і audit
 
-### Слайд 4 — Decision Support одним реченням
+### Слайд 4 — Reporting + Research одним реченням
 
-> Система щодня аналізує стан усіх команд, будує ML risk score з трьох компонентів, генерує risk events з доказовою базою та AI-саммарі — і завжди знає, наскільки можна довіряти власним передбаченням.
+> Система щодня аналізує стан усіх команд, будує ML risk score з трьох компонентів, генерує risk events з доказовою базою та AI-саммарі, віддає ці сигнали в окремі manager/admin reporting surfaces і паралельно надає дослідникам ізольований Research Workspace на `research/v1`.
 
 ### Слайд 5 — AI в системі
 

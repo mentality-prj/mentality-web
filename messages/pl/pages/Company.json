@@ -3,7 +3,16 @@
     "title": "Panel zarządzania firmą",
     "adminPanel": "Panel administratora",
     "managerPanel": "Panel menedżera",
-    "createCompany": "Dodaj firmę"
+    "subtitle": "Oddzielna przestrzeń do zarządzania strukturą firmy, pracownikami i dostępami.",
+    "description": "Ta strona zbiera główne wejścia do workspace'ów firmy. Użyj panelu administratora do struktury, dostępów i zaproszeń, a panelu menedżera do analityki, raportów i pracy z zespołami.",
+    "adminDescription": "Zarządzanie pracownikami, grupami, rolami, zaproszeniami i zakresami dostępu wewnątrz firmy.",
+    "managerDescription": "Codzienna praca z zespołami, widoki analityczne i workflow raportowy dla menedżerów.",
+    "serviceAdminEyebrow": "Dashboard administratora usługi",
+    "serviceAdminTitle": "Tworzenie firm zostało przeniesione do przestrzeni administratora usługi",
+    "serviceAdminDescription": "Nowe firmy można tworzyć wyłącznie z dashboardu administratora usługi, aby onboarding, kontrola dostępu i kontrole serwisowe były scentralizowane.",
+    "serviceAdminNoteTitle": "Co się zmieniło",
+    "serviceAdminNoteDescription": "Przycisk tworzenia firmy został usunięty z tej przestrzeni. To miejsce służy teraz tylko do nawigacji i operacyjnej pracy z już istniejącymi firmami.",
+    "serviceAdminLink": "Otwórz dashboard administratora usługi"
   },
   "globalAdmin": {
     "title": "Administrator Globalny",
