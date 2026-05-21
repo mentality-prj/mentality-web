@@ -1,5 +1,4 @@
 import { render, screen } from '@testing-library/react'
-import { headers } from 'next/headers'
 
 import ProtectedLayout from '@/app/[locale]/(protected)/layout'
 import { getUserSidebarMenu } from '@/constants/menu'
@@ -9,7 +8,6 @@ import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/auth/server', () => ({ requireServerSession: jest.fn() }))
 jest.mock('@/constants/menu', () => ({ getUserSidebarMenu: jest.fn() }))
-jest.mock('next/headers', () => ({ headers: jest.fn() }))
 
 jest.mock('@/components/features/Landing', () => ({
   LandingFooter: () => <div data-testid="landing-footer" />,
@@ -28,6 +26,11 @@ jest.mock('@/components/Layout/Sidebar/Sidebar', () => ({
   default: () => <div data-testid="sidebar" />,
 }))
 
+jest.mock('@/components/Layout/ProtectedLayoutSegmentGate', () => ({
+  __esModule: true,
+  default: ({ defaultContent }: { defaultContent: React.ReactNode }) => <>{defaultContent}</>,
+}))
+
 jest.mock('@/lib/utils', () => ({
   cn: (...values: Array<string | false | null | undefined>) => values.filter(Boolean).join(' '),
 }))
@@ -42,7 +45,6 @@ beforeEach(() => {
   jest.clearAllMocks()
   ;(requireServerSession as jest.Mock).mockResolvedValue(mockSession)
   ;(getUserSidebarMenu as jest.Mock).mockReturnValue([{ href: Routes.MYDAY, title: 'My day' }])
-  ;(headers as jest.Mock).mockReturnValue(new Headers({ 'x-pathname': '/en/my-day' }))
 })
 
 describe('Protected layout', () => {
@@ -72,21 +74,5 @@ describe('Protected layout', () => {
     expect(getUserSidebarMenu).toHaveBeenCalledWith()
     expect(screen.getByText('Protected content')).toBeInTheDocument()
     expect(screen.getByTestId('sidebar')).toBeInTheDocument()
-  })
-
-  it('renders detached content for research routes without loading shared menu', async () => {
-    ;(headers as jest.Mock).mockReturnValue(new Headers({ 'x-pathname': '/en/research/projects' }))
-
-    render(
-      await ProtectedLayout({
-        children: <div>Research content</div>,
-        params: Promise.resolve({ locale: 'en' }),
-      })
-    )
-
-    expect(requireServerSession).toHaveBeenCalledWith(`/en${Routes.AUTH}`)
-    expect(getUserSidebarMenu).not.toHaveBeenCalled()
-    expect(screen.getByText('Research content')).toBeInTheDocument()
-    expect(screen.queryByTestId('sidebar')).not.toBeInTheDocument()
   })
 })

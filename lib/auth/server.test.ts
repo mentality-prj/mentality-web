@@ -153,7 +153,6 @@ describe('server auth session helpers', () => {
 
     // A subsequent call in the same request scope should hit resolved cache.
     await getServerSession()
-
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })
 
@@ -197,7 +196,6 @@ describe('server auth session helpers', () => {
     })
     expect(mockedRedirect).not.toHaveBeenCalled()
   })
-
   it('returns null when validation fetch fails in production environment', async () => {
     setTokenCookie()
     fetchMock.mockRejectedValue(new Error('fetch failed'))
