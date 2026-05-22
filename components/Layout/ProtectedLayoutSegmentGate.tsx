@@ -5,7 +5,7 @@ import { ReactNode } from 'react'
 import { usePathname } from '@/i18n/navigation'
 
 function matchesDetachedPrefix(pathname: string, detachedPrefix: string): boolean {
-  return pathname.includes(`${detachedPrefix}/`) || pathname.endsWith(detachedPrefix)
+  return pathname === detachedPrefix || pathname.startsWith(`${detachedPrefix}/`)
 }
 
 export default function ProtectedLayoutSegmentGate({
