@@ -250,7 +250,6 @@ export async function getServerSession(): Promise<CustomSession | null> {
       }
     }
   }
-
   const dedupeKey = tokens.accessToken
 
   const existingRequest = inFlightSessionRequests.get(dedupeKey)
