@@ -42,8 +42,8 @@ describe('researchHistoryDatasetExport', () => {
 
     expect(file.fileName).toBe('research-history-dataset-project-1.xml')
     expect(file.content).toContain('<historyDataset>')
-    expect(file.content).toContain('<Participant>Participant 1</Participant>')
-    expect(file.content).toContain('<Cohort>Core Team</Cohort>')
+    expect(file.content).toContain('<cell header="Participant">Participant 1</cell>')
+    expect(file.content).toContain('<cell header="Cohort">Core Team</cell>')
   })
 
   it('creates excel-compatible workbook content', () => {

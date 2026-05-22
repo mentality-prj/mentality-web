@@ -45,15 +45,7 @@ function escapeXmlValue(value: string): string {
 }
 
 function getDatasetFieldValue(item: ResearchHistoryDataset['items'][number], column: string): string | null {
-  const matchedField = Object.entries(item.fields).find(([fieldName]) => fieldName === column)
-
-  if (!matchedField) {
-    return null
-  }
-
-  const [, fieldValue] = matchedField
-
-  return fieldValue
+  return item.fields[column] ?? null
 }
 
 function buildExportTable(
@@ -98,8 +90,7 @@ function buildXmlContent(table: ResearchHistoryDatasetExportTable): string {
       (row) =>
         `  <row>${row
           .map(
-            (value, index) =>
-              `<${escapeXmlValue(table.headers[index])}>${escapeXmlValue(value)}</${escapeXmlValue(table.headers[index])}>`
+            (value, index) => `<cell header="${escapeXmlValue(table.headers[index])}">${escapeXmlValue(value)}</cell>`
           )
           .join('')}</row>`
     )

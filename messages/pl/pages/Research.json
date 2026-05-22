@@ -83,7 +83,7 @@
     "allowedContracts": "Dozwolone kontrakty",
     "allowedFields": "Dozwolone pola",
     "allowedTargets": "Dozwolone targety",
-    "exportAllowed": "exportAllowed",
+    "exportAllowed": "Eksport dozwolony",
     "target": "Cel",
     "targetId": "Cel",
     "modelVersion": "Wersja modelu",
@@ -105,6 +105,7 @@
   "options": {
     "approvalStatus": {
       "draft": "Szkic",
+      "pending": "Oczekujące",
       "pending_review": "Oczekuje review",
       "approved": "Zatwierdzony",
       "rejected": "Odrzucony"
@@ -112,12 +113,17 @@
     "exportPolicy": {
       "blocked": "Zablokowane",
       "review_required": "Wymaga review",
-      "allowed": "Dozwolone"
+      "allowed": "Dozwolone",
+      "inline_ready": "Gotowe do inline",
+      "disabled": "Wyłączone"
     },
     "pseudonymizationMode": {
       "required": "Wymagana",
       "optional": "Opcjonalna",
-      "none": "Brak"
+      "none": "Brak",
+      "pseudonymous": "Pseudonimizowana",
+      "aggregated": "Zagregowana",
+      "raw_granted": "Surowe (przyznane)"
     },
     "userSelectionMode": {
       "all": "Wszyscy",

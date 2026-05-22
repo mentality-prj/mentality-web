@@ -105,6 +105,7 @@
   "options": {
     "approvalStatus": {
       "draft": "Чернетка",
+      "pending": "Очікує",
       "pending_review": "Очікує перевірки",
       "approved": "Погоджено",
       "rejected": "Відхилено"
@@ -112,12 +113,17 @@
     "exportPolicy": {
       "blocked": "Заблоковано",
       "review_required": "Потрібна перевірка",
-      "allowed": "Дозволено"
+      "allowed": "Дозволено",
+      "inline_ready": "Готово до inline",
+      "disabled": "Вимкнено"
     },
     "pseudonymizationMode": {
       "required": "Обов'язкова",
       "optional": "Опційна",
-      "none": "Без псевдонімізації"
+      "none": "Без псевдонімізації",
+      "pseudonymous": "Псевдонімізована",
+      "aggregated": "Агрегована",
+      "raw_granted": "Сирі (надано дозвіл)"
     },
     "userSelectionMode": {
       "all": "Усі",

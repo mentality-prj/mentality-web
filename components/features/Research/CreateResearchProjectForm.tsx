@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState, useTransition } from 'react'
+import { useEffect, useMemo, useState, useTransition } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
@@ -49,7 +49,10 @@ export function CreateResearchProjectForm({ access, principalInvestigatorOptions
   const [success, setSuccess] = useState('')
   const [isPending, startTransition] = useTransition()
   const notAvailable = t('common.notAvailable')
-  const companyScientistOptions = principalInvestigatorOptions.filter((option) => option.companyId === form.companyId)
+  const companyScientistOptions = useMemo(
+    () => principalInvestigatorOptions.filter((option) => option.companyId === form.companyId),
+    [principalInvestigatorOptions, form.companyId]
+  )
 
   useEffect(() => {
     if (companyScientistOptions.length === 0) {

@@ -19,7 +19,19 @@ function enrichProjectMembers(
   fallbackMembers: ResearchProjectMember[],
   memberDirectory: Map<string, MemberDirectoryEntry>
 ): ResearchProjectMember[] {
-  if (members.length === 0 || fallbackMembers.length === 0) {
+  if (members.length === 0) {
+    return fallbackMembers.map((member) => {
+      const directoryEntry = memberDirectory.get(member.userId)
+
+      return {
+        ...member,
+        name: member.name && member.name !== member.userId ? member.name : (directoryEntry?.name ?? member.name),
+        email: member.email || directoryEntry?.email || '',
+      }
+    })
+  }
+
+  if (fallbackMembers.length === 0) {
     return members.map((member) => {
       const directoryEntry = memberDirectory.get(member.userId)
 
