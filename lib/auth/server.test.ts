@@ -188,4 +188,21 @@ describe('server auth session helpers', () => {
     })
     expect(mockedRedirect).not.toHaveBeenCalled()
   })
+
+  it('returns null when validation fetch fails in production environment', async () => {
+    setTokenCookie()
+    fetchMock.mockRejectedValue(new Error('fetch failed'))
+
+    const originalEnv = process.env.NODE_ENV
+    ;(process.env as Record<string, string>).NODE_ENV = 'production'
+
+    try {
+      const { getServerSession } = await import('./server')
+      const session = await getServerSession()
+
+      expect(session).toBeNull()
+    } finally {
+      ;(process.env as Record<string, string>).NODE_ENV = originalEnv
+    }
+  })
 })
