@@ -172,19 +172,24 @@ export async function getServerSession(): Promise<CustomSession | null> {
 
   if (!tokenCookie) return null
 
-  const existingRequest = inFlightSessionRequests.get(tokenCookie)
+  const tokens = parseStoredAuthTokensCookie(tokenCookie)
+  if (!tokens?.accessToken) return null
+
+  const dedupeKey = tokens.accessToken
+
+  const existingRequest = inFlightSessionRequests.get(dedupeKey)
   if (existingRequest) {
     return existingRequest
   }
 
   const requestPromise = resolveServerSession(tokenCookie)
-  inFlightSessionRequests.set(tokenCookie, requestPromise)
+  inFlightSessionRequests.set(dedupeKey, requestPromise)
 
   try {
     return await requestPromise
   } finally {
-    if (inFlightSessionRequests.get(tokenCookie) === requestPromise) {
-      inFlightSessionRequests.delete(tokenCookie)
+    if (inFlightSessionRequests.get(dedupeKey) === requestPromise) {
+      inFlightSessionRequests.delete(dedupeKey)
     }
   }
 }
