@@ -44,7 +44,7 @@ export default function VerticalCard({
     const backgroundSrc = backgroundImageSrc ?? imageSrc
 
     return (
-      <article className={cn('relative flex flex-col justify-start', className)}>
+      <article className={cn('relative flex flex-col justify-start max-sm:mb-5', className)}>
         {backgroundSrc && (
           <div className="absolute inset-0 overflow-hidden rounded-[28px]">
             <Image
@@ -103,7 +103,7 @@ export default function VerticalCard({
         )
       )}
 
-      <div className="flex flex-1 flex-col gap-sm px-6 pb-6 pt-5">
+      <div className="flex flex-1 flex-col gap-xs px-6 pb-6 pt-5 sm:gap-sm">
         <div className="flex flex-col gap-1.5">
           {tag && (
             <span className="text-textcolor-tertiary text-xs font-semibold uppercase tracking-[0.2em]">{tag}</span>
