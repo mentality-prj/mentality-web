@@ -1,15 +1,15 @@
 export type ResearchWorkspaceCapability = 'scientist' | 'research_admin'
-export type ResearchProjectStatus = 'draft' | 'active' | 'paused' | 'completed' | 'archived' | string
-export type ResearchApprovalStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | string
-export type ResearchExportPolicy = 'blocked' | 'review_required' | 'allowed' | string
-export type ResearchPseudonymizationMode = 'required' | 'optional' | 'none' | string
-export type ResearchUserSelectionMode = 'all' | 'groups_only' | 'explicit_users' | string
+export type ResearchProjectStatus = 'draft' | 'active' | 'paused' | 'completed' | 'archived' | (string & {})
+export type ResearchApprovalStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | (string & {})
+export type ResearchExportPolicy = 'blocked' | 'review_required' | 'allowed' | (string & {})
+export type ResearchPseudonymizationMode = 'required' | 'optional' | 'none' | (string & {})
+export type ResearchUserSelectionMode = 'all' | 'groups_only' | 'explicit_users' | (string & {})
 export type ResearchConsentMode =
   | 'company_boundary_only'
   | 'explicit_research_consent'
   | 'external_irb_approved'
-  | string
-export type ResearchWorkspaceRole = 'owner' | 'research_admin' | 'scientist' | 'analyst' | 'reviewer' | string
+  | (string & {})
+export type ResearchWorkspaceRole = 'owner' | 'research_admin' | 'scientist' | 'analyst' | 'reviewer' | (string & {})
 export type ResearchGrant = string
 export type ResearchDatasetStatus = string
 export type ResearchDatasetAccessMode = string
@@ -22,9 +22,9 @@ export type ResearchExportStatus =
   | 'ready'
   | 'completed'
   | 'rejected'
-  | string
+  | (string & {})
 export type ResearchAuditSeverity = string
-export type ResearchExportFormat = 'json' | 'csv' | string
+export type ResearchExportFormat = 'json' | 'csv' | (string & {})
 
 export type ResearchWorkspaceCompanyOption = {
   id: string
@@ -68,7 +68,7 @@ export type ResearchProjectMember = {
 export type ResearchProjectGroup = {
   id: string
   name: string
-  type: 'team' | 'project-group' | 'unit' | string
+  type: 'team' | 'project-group' | 'unit' | (string & {})
 }
 
 export type ResearchProjectCohort = {

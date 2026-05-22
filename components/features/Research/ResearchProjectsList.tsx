@@ -42,7 +42,7 @@ function formatProjectDate(value: string, locale: string): string | null {
     return null
   }
 
-  return parsedDate.toLocaleDateString(locale)
+  return parsedDate.toLocaleDateString(locale, { timeZone: 'UTC' })
 }
 
 function buildProjectSubtitle(

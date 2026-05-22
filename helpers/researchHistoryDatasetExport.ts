@@ -26,13 +26,8 @@ type ResearchHistoryDatasetExportTable = {
 }
 
 function escapeCsvValue(value: string): string {
-  const normalizedValue = value.replace(/"/g, '""')
-
-  if (/[",\n]/.test(normalizedValue)) {
-    return `"${normalizedValue}"`
-  }
-
-  return normalizedValue
+  // Always wrap in quotes to prevent CSV formula injection and handle special characters
+  return `"${value.replace(/"/g, '""')}"`
 }
 
 function escapeXmlValue(value: string): string {
