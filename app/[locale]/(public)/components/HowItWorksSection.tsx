@@ -34,8 +34,8 @@ export function HowItWorksSection() {
     return (
       <li key={stepKey}>
         <div
-          className={`flex items-center gap-sm rounded-[24px] p-5 max-md:flex-wrap md:items-start ${
-            isActive ? 'bg-white/70 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-sm' : ''
+          className={`flex items-center gap-sm rounded-[24px] px-5 max-md:flex-wrap md:items-start lg:py-5 ${
+            isActive ? 'bg-white/70 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-sm' : ''
           }`}
         >
           <span
@@ -64,8 +64,8 @@ export function HowItWorksSection() {
         <div className="rounded-[40px] bg-background-muted p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>
           <p className="mt-1 text-sm text-textcolor-secondary">{t(stepsSectionConfig.subtitleKey)}</p>
-          <ol className="mt-6 flex flex-col gap-5 md:gap-default">{howItWorksSteps}</ol>
-          <div className="mt-4 flex justify-center tablet:mt-8 tablet:block">
+          <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
+          <div className="mt-6 flex justify-center tablet:block lg:mt-8">
             <Button asChild variant="volume" size="large">
               <Link href={Routes.AUTH}>{t(stepsSectionConfig.ctaKey)}</Link>
             </Button>
