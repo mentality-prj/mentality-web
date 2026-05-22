@@ -424,9 +424,9 @@ describe('adminGetInvites', () => {
     const data = { items: [mockInvite] }
     const headers = { 'x-total-count': '99' }
     // Patch extractPaginationTotal to return header value
-    jest.mocked(extractPaginationTotal).mockImplementation(
-      (_headers, fallback) => Number(headers['x-total-count']) || fallback
-    )
+    jest
+      .mocked(extractPaginationTotal)
+      .mockImplementation((_headers, fallback) => Number(headers['x-total-count']) || fallback)
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data, headers })
     const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
     expect('data' in result).toBe(true)
