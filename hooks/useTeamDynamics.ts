@@ -73,6 +73,11 @@ export function useTeamDynamics(): UseTeamDynamicsResult {
     const fromDate = new Date(from)
     const toDate = new Date(to)
 
+    if (Number.isNaN(fromDate.getTime()) || Number.isNaN(toDate.getTime())) {
+      setDateError(copy.common.invalidDateRange)
+      return false
+    }
+
     if (toDate <= fromDate) {
       setDateError(copy.common.invalidDateOrder)
       return false
