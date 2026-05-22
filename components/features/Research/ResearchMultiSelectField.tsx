@@ -58,8 +58,13 @@ export function ResearchMultiSelectField({
             <Badge key={value} variant="secondary" className="gap-2">
               {value}
               {!disabled ? (
-                <button type="button" onClick={() => toggleValue(value)} className="text-xs">
-                  x
+                <button
+                  type="button"
+                  onClick={() => toggleValue(value)}
+                  className="text-xs"
+                  aria-label={`Remove ${value}`}
+                >
+                  ×
                 </button>
               ) : null}
             </Badge>
