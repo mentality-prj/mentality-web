@@ -52,11 +52,11 @@ export function HeroSection() {
     >
       <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8">
         <div className="grid grid-cols-1 items-center gap-default md:grid-cols-2 md:gap-x-md">
-          <div className="flex max-w-[720px] flex-col gap-default">
-            <h1 className="landing-h1">{t('Hero.title')}</h1>
+          <div className="flex max-w-[720px] flex-col gap-default md:max-lg:contents">
+            <h1 className="landing-h1 md:max-lg:col-span-2">{t('Hero.title')}</h1>
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
           </div>
-          <div className="flex justify-center tablet:justify-end md:row-span-2">
+          <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
             <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
               <div className="flex items-center justify-between gap-sm">
                 <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
@@ -79,7 +79,7 @@ export function HeroSection() {
               </div>
             </div>
           </div>
-          <div className="mx-auto flex tablet:mx-0">
+          <div className="mx-auto flex justify-start tablet:mx-0">
             <Button asChild variant="volume" size="large">
               <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
             </Button>
