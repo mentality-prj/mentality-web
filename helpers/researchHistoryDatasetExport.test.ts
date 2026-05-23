@@ -37,6 +37,27 @@ describe('researchHistoryDatasetExport', () => {
     )
   })
 
+  it('neutralizes CSV formula injection prefixes', () => {
+    const formulaDataset = {
+      total: 1,
+      columns: ['value'],
+      items: [
+        {
+          id: 'r1',
+          subjectId: 's1',
+          cohort: 'g1',
+          dateRange: '',
+          diagnostics: '',
+          fields: { value: '=SUM(1,1)' },
+          raw: {},
+        },
+      ],
+    }
+    const file = createResearchHistoryDatasetExportFile(formulaDataset, 'csv', options)
+
+    expect(file.content).toContain('"\'=SUM(1,1)"')
+  })
+
   it('creates xml content for the current table shape', () => {
     const file = createResearchHistoryDatasetExportFile(dataset, 'xml', options)
 
