@@ -50,7 +50,11 @@ function enrichProjectMembers(
     const directoryEntry = memberDirectory.get(member.userId)
 
     if (!fallbackMember) {
-      return member
+      return {
+        ...member,
+        name: member.name && member.name !== member.userId ? member.name : (directoryEntry?.name ?? member.name),
+        email: member.email || directoryEntry?.email || '',
+      }
     }
 
     return {
