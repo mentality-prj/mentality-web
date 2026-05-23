@@ -25,6 +25,10 @@ type Props = {
   canViewHistoryDataset: boolean
 }
 
+function getDatasetFieldValue(item: ResearchHistoryDataset['items'][number], column: string): string | null {
+  return item.fields[column] ?? null
+}
+
 export function ResearchProjectHistoryDatasetPanel({
   projectId,
   initialDataset,
@@ -182,8 +186,6 @@ export function ResearchProjectHistoryDatasetPanel({
             </thead>
             <tbody>
               {dataset.items.map((item, index) => {
-                const itemFieldsByColumn = new Map(Object.entries(item.fields))
-
                 return (
                   <tr key={item.id} className="border-b border-border align-top">
                     <td className="px-3 py-3 text-textcolor-primary">{`${t('labels.subjectId')} ${index + 1}`}</td>
@@ -194,7 +196,7 @@ export function ResearchProjectHistoryDatasetPanel({
                     <td className="px-3 py-3 text-textcolor-primary">{item.diagnostics || notAvailable}</td>
                     {dataset.columns.map((column) => (
                       <td key={`${item.id}-${column}`} className="px-3 py-3 text-textcolor-primary">
-                        {itemFieldsByColumn.get(column) || notAvailable}
+                        {getDatasetFieldValue(item, column) || notAvailable}
                       </td>
                     ))}
                   </tr>
