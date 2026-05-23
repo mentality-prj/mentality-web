@@ -4,8 +4,8 @@ import { getTranslations } from 'next-intl/server'
 import { ResearchProjectInnerMenu } from '@/components/features/Research/ResearchProjectInnerMenu'
 import { ResearchStateCard } from '@/components/features/Research/ResearchStateCard'
 import { StaticCard } from '@/components/shared/Cards/StaticCard'
+import { getResearchScientistName, getResearchScientistOptions } from '@/helpers/researchScientists'
 import { getServerSession } from '@/lib/auth/server'
-import { getEmployees, getEmployeesAdmin } from '@/requests/employees'
 import { getResearchProjectById } from '@/requests/researchProjects'
 import { CustomSession } from '@/types/auth'
 
@@ -27,35 +27,8 @@ async function getPrincipalInvestigatorName(
     return null
   }
 
-  const limit = 100
-  let page = 1
-  let total = Number.POSITIVE_INFINITY
-
-  while ((page - 1) * limit < total) {
-    const employeesResult =
-      session.user?.role === 'admin'
-        ? await getEmployeesAdmin(session, companyId, page, limit)
-        : await getEmployees(session, companyId, page, limit)
-
-    if ('error' in employeesResult) {
-      return null
-    }
-
-    total = employeesResult.data.total
-
-    const employee = employeesResult.data.items.find((item) => item.id === principalInvestigatorId)
-    if (employee?.name) {
-      return employee.name
-    }
-
-    if (employeesResult.data.items.length === 0) {
-      break
-    }
-
-    page += 1
-  }
-
-  return null
+  const scientists = await getResearchScientistOptions(session, companyId, [principalInvestigatorId])
+  return getResearchScientistName(scientists, principalInvestigatorId) ?? null
 }
 
 export default async function ResearchProjectLayout({

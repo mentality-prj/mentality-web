@@ -66,6 +66,13 @@ export function ResearchProjectMLInspectionPanel({
     }
   }
 
+  function handleTargetChange(value: string) {
+    setTarget(value)
+    if (value !== 'group' && value !== 'subject') {
+      setTargetId('')
+    }
+  }
+
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault()
     setError('')
@@ -79,7 +86,7 @@ export function ResearchProjectMLInspectionPanel({
 
       const result = await getResearchProjectMLInspection(session, projectId, {
         target,
-        targetId: targetId || undefined,
+        targetId: needsTargetSelection ? targetId || undefined : undefined,
         modelVersion: modelVersion || undefined,
       })
 
@@ -109,7 +116,7 @@ export function ResearchProjectMLInspectionPanel({
         <form onSubmit={handleSubmit} className="mt-4 grid gap-4 md:grid-cols-[220px_1fr_1fr_auto] md:items-end">
           <div className="space-y-2">
             <Label>{t('labels.target')}</Label>
-            <Select value={target} onValueChange={setTarget} disabled={isPending}>
+            <Select value={target} onValueChange={handleTargetChange} disabled={isPending}>
               <SelectTrigger>
                 <SelectValue />
               </SelectTrigger>
