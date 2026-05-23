@@ -43,8 +43,8 @@ type UseTeamDynamicsResult = {
 export function useTeamDynamics(): UseTeamDynamicsResult {
   const locale = useLocale()
   const copy = getReportingCopy(locale)
-  const { session, status, isSystemAdmin, resolveCompanyId } = useCompanyScope()
-  const { items: groups, loading: groupsLoading, error: groupsError } = useGroups()
+  const { session, status, isSystemAdmin } = useCompanyScope()
+  const { items: groups, loading: groupsLoading, error: groupsError, companyId } = useGroups()
   const [teamId, setTeamId] = useState('')
   const [from, setFrom] = useState(daysAgoStr(90))
   const [to, setTo] = useState(todayStr())
@@ -108,7 +108,6 @@ export function useTeamDynamics(): UseTeamDynamicsResult {
       return
     }
 
-    const companyId = await resolveCompanyId()
     if (!companyId) {
       if (requestTokenRef.current === token) {
         setTeamDynamics(null)
@@ -140,7 +139,7 @@ export function useTeamDynamics(): UseTeamDynamicsResult {
 
     setTeamDynamics(result.data)
     setLoading(false)
-  }, [from, isSystemAdmin, locale, resolveCompanyId, selectedTeam, session, status, to, validateDates])
+  }, [companyId, from, isSystemAdmin, locale, selectedTeam, session, status, to, validateDates])
 
   useEffect(() => {
     if (status === 'authenticated') {
