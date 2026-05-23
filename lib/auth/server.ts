@@ -104,6 +104,11 @@ function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
   }
 }
 
+// Module-level Map deduplicates concurrent in-flight calls to /auth/validate-token.
+// React.cache() would be the idiomatic solution for per-render memoization, but
+// React 18 does not export cache() outside a Next.js server-render context.
+// This Map handles the overlapping-requests case; the Map entry is cleared once
+// the promise settles to avoid stale memory.
 const inFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
 
 async function resolveServerSession(tokenCookie: string): Promise<CustomSession | null> {
@@ -161,10 +166,6 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
  *
  * Reads the auth token cookie and validates with the backend.
  * Use in Server Components and Route Handlers.
- *
- * Note: Token refresh is handled by middleware (which covers all locale routes).
- * If used in API Route Handlers (not covered by middleware matcher), callers
- * should handle the null return by triggering a client-side refresh.
  */
 export async function getServerSession(): Promise<CustomSession | null> {
   const cookieStore = cookies()
