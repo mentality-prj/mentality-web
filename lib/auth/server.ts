@@ -69,9 +69,11 @@ function decodeJwtClaims(token: string): JwtClaims | null {
 }
 
 function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
-  // In production, never derive an authenticated session from unverified JWT claims.
-  // Token signature is not verified here, so returning a session would be an auth bypass.
-  if (process.env.NODE_ENV === 'production') {
+  // Never derive a session from unverified JWT claims unless explicitly opted in.
+  // Gating only on NODE_ENV would allow this path in staging/preview environments
+  // that run non-production builds with real user traffic.
+  // Require an explicit opt-in flag so it cannot be enabled accidentally.
+  if (process.env.NODE_ENV === 'production' || process.env.ALLOW_UNVERIFIED_JWT_SESSION_FALLBACK !== 'true') {
     return null
   }
 

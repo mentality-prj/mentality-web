@@ -86,6 +86,7 @@ describe('server auth session helpers', () => {
   })
 
   it('falls back to token-derived session when validation fetch fails', async () => {
+    process.env.ALLOW_UNVERIFIED_JWT_SESSION_FALLBACK = 'true'
     const tokens = setTokenCookie()
     fetchMock.mockRejectedValue(new Error('fetch failed'))
 
@@ -104,6 +105,7 @@ describe('server auth session helpers', () => {
       error: 'fetch failed',
     })
     expect(mockedLogger.warn).toHaveBeenCalledWith('[SERVER_SESSION] Falling back to token-derived session')
+    delete process.env.ALLOW_UNVERIFIED_JWT_SESSION_FALLBACK
   })
 
   it('returns null when backend rejects the token', async () => {
