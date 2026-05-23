@@ -27,7 +27,8 @@ type ResearchHistoryDatasetExportTable = {
 
 function escapeCsvValue(value: string): string {
   // Neutralize CSV formula injection: prefix cells that start with formula characters
-  const sanitized = /^[=+\-@]/.test(value) ? `'${value}` : value
+  // Also handle leading whitespace before formula characters (e.g. " =SUM(1,1)")
+  const sanitized = /^\s*[=+\-@]/.test(value) ? `'${value}` : value
 
   return `"${sanitized.replace(/"/g, '""')}"`
 }

@@ -48,7 +48,7 @@ export function ResearchProjectHistoryDatasetPanel({
   const [dataset, setDataset] = useState(initialDataset)
   const [from, setFrom] = useState('')
   const [to, setTo] = useState('')
-  const [limit, setLimit] = useState(String(initialDataset.total ?? 50))
+  const [limit, setLimit] = useState('50')
   const [error, setError] = useState('')
   const [isPending, startTransition] = useTransition()
   const notAvailable = t('common.notAvailable')

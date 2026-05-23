@@ -56,6 +56,14 @@ describe('researchHistoryDatasetExport', () => {
     const file = createResearchHistoryDatasetExportFile(formulaDataset, 'csv', options)
 
     expect(file.content).toContain('"\'=SUM(1,1)"')
+
+    // Also neutralizes formula characters preceded by whitespace
+    const wsDataset = {
+      ...formulaDataset,
+      items: [{ ...formulaDataset.items[0], fields: { value: ' =SUM(1,1)' } }],
+    }
+    const wsFile = createResearchHistoryDatasetExportFile(wsDataset, 'csv', options)
+    expect(wsFile.content).toContain('"\' =SUM(1,1)"')
   })
 
   it('creates xml content for the current table shape', () => {
