@@ -10,6 +10,23 @@ describe('reportingVisibility', () => {
 
   it('keeps experimental blocks hidden by default', () => {
     expect(canAccessVisibilityRule('experimental-hidden', { viewerRole: 'admin', mode: 'diagnostics' })).toBe(false)
+    expect(
+      canAccessVisibilityRule('experimental-hidden', {
+        viewerRole: 'admin',
+        mode: 'diagnostics',
+        experimentalFlags: [],
+      })
+    ).toBe(false)
+  })
+
+  it('reveals experimental blocks when caller has experimental flags', () => {
+    expect(
+      canAccessVisibilityRule('experimental-hidden', {
+        viewerRole: 'admin',
+        mode: 'diagnostics',
+        experimentalFlags: ['some-feature'],
+      })
+    ).toBe(true)
   })
 
   it('returns aggregate-only renderable fields when aggregate context is enabled', () => {

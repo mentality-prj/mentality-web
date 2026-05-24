@@ -14,6 +14,13 @@ const CONFIDENCE_CLASSES: Record<ConfidenceBadgeVM['level'], string> = {
   unknown: 'bg-slate-100 text-slate-700',
 }
 
+const TONE_BORDER_CLASSES: Record<InsightCardVM['tone'], string> = {
+  neutral: 'border border-slate-200',
+  positive: 'border border-emerald-200',
+  caution: 'border border-amber-300',
+  critical: 'border border-rose-300',
+}
+
 type CardShellProps = {
   title: string
   subtitle?: string | null
@@ -23,9 +30,10 @@ type CardShellProps = {
   className?: string
 }
 
-function CardShell({ title, subtitle, footer, children, className }: CardShellProps) {
+function CardShell({ title, subtitle, footer, children, tone, className }: CardShellProps) {
+  const toneClass = tone ? TONE_BORDER_CLASSES[tone] : undefined
   return (
-    <StaticCard className={className}>
+    <StaticCard className={[toneClass, className].filter(Boolean).join(' ') || undefined}>
       <div className="flex flex-col gap-1">
         <h3 className="text-sm font-semibold tracking-wide text-textcolor-secondary">{title}</h3>
         {subtitle ? <p className="text-xs text-textcolor-secondary">{subtitle}</p> : null}

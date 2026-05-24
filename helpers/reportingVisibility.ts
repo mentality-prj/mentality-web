@@ -11,7 +11,7 @@ export function canAccessVisibilityRule(rule: VisibilityRule, context: Visibilit
     case 'aggregate-only':
       return Boolean(context.aggregateOnly)
     case 'experimental-hidden':
-      return false
+      return Boolean(context.experimentalFlags?.length)
     default:
       return false
   }
