@@ -33,18 +33,20 @@ export default async function ResearchProjectsCreatePage() {
     )
   }
 
-  const principalInvestigatorOptions = (
-    await Promise.all(
-      access.companies.map(async (company) => {
-        const scientists = await getResearchScientistOptions(session as CustomSession, company.id)
+  const principalInvestigatorOptions = access.canCreateProjects
+    ? (
+        await Promise.all(
+          access.companies.map(async (company) => {
+            const scientists = await getResearchScientistOptions(session, company.id)
 
-        return scientists.map((scientist) => ({
-          ...scientist,
-          companyId: company.id,
-        }))
-      })
-    )
-  ).flat()
+            return scientists.map((scientist) => ({
+              ...scientist,
+              companyId: company.id,
+            }))
+          })
+        )
+      ).flat()
+    : []
 
   return (
     <div className="flex flex-col gap-md">

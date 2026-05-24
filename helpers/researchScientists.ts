@@ -25,10 +25,14 @@ export function getResearchScientistName(
 }
 
 export async function getResearchScientistOptions(
-  session: CustomSession,
+  session: CustomSession | null,
   companyId: string,
   userIds?: string[]
 ): Promise<ResearchScientistOption[]> {
+  if (!session) {
+    return []
+  }
+
   if (!companyId) {
     return []
   }
