@@ -88,7 +88,7 @@ export function ResearchProjectCohortPanel({ projectId, initialCohort, available
       }
 
       setGroupIds(result.data?.groupIds ?? nextGroupIds)
-      setResolvedGroupIds(result.data?.resolvedGroupIds ?? resolvedGroupIds)
+      setResolvedGroupIds(result.data?.resolvedGroupIds ?? [])
       setSuccess(t('panels.cohort.updateSuccess'))
     })
   }

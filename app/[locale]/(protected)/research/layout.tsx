@@ -51,7 +51,8 @@ export default async function ResearchLayout({ children }: { children: ReactNode
         <main className={mainVariants()} style={{ background: researchBackground }}>
           <div className="padded flex w-full flex-col gap-md">
             <CompanyHeader menu={menu} />
-            <PageTitle title={t('header.title')} subtitle={t('header.subtitle')} />
+            <PageTitle title={t('header.title')} />
+            <p className="text-sm text-textcolor-secondary">{t('header.subtitle')}</p>
             {content}
           </div>
           <LandingFooter type="small" className="bg-none" />

@@ -603,8 +603,8 @@ function normalizeHistoryItem(value: unknown, index: number): ResearchHistoryDat
 
   const from = getNullableString(source, ['from'])
   const to = getNullableString(source, ['to'])
-  const dateRange = getString(source, ['dateRange'], [from, to].filter(Boolean).join(' - ') || 'N/A')
-  const diagnostics = stringifyValue(getValue(source, ['diagnostics'])) || 'N/A'
+  const dateRange = getString(source, ['dateRange'], [from, to].filter(Boolean).join(' - ') || '')
+  const diagnostics = stringifyValue(getValue(source, ['diagnostics'])) || ''
 
   const fields = Object.entries(source).reduce<Record<string, string>>((accumulator, [key, item]) => {
     if (['id', '_id', 'subjectId', 'cohort', 'from', 'to', 'dateRange', 'diagnostics'].includes(key)) {

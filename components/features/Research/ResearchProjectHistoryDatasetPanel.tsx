@@ -191,8 +191,8 @@ export function ResearchProjectHistoryDatasetPanel({
                   <td className="px-3 py-3 text-textcolor-primary">
                     {groupNamesById.get(item.cohort) || item.cohort || notAvailable}
                   </td>
-                  <td className="px-3 py-3 text-textcolor-primary">{item.dateRange}</td>
-                  <td className="px-3 py-3 text-textcolor-primary">{item.diagnostics}</td>
+                  <td className="px-3 py-3 text-textcolor-primary">{item.dateRange || notAvailable}</td>
+                  <td className="px-3 py-3 text-textcolor-primary">{item.diagnostics || notAvailable}</td>
                   {dataset.columns.map((column) => (
                     <td key={`${item.id}-${column}`} className="px-3 py-3 text-textcolor-primary">
                       {getDatasetFieldValue(item, column) || notAvailable}
