@@ -47,7 +47,11 @@ export default async function ResearchProjectAuditPage({ params }: { params: Pro
   const userActorIds = Array.from(new Set(events.map((event) => event.actorUserId).filter(Boolean))).filter(
     (id) => !NON_USER_ACTOR_IDS.has(id) && (UUID_PATTERN.test(id) || OBJECT_ID_PATTERN.test(id))
   )
-  const actorOptions = await getResearchScientistOptions(session, projectResult.data.companyId, userActorIds)
+  const actorOptions = await getResearchScientistOptions(
+    session as CustomSession,
+    projectResult.data.companyId,
+    userActorIds
+  )
   const actorNamesById = Object.fromEntries(actorOptions.map((actor) => [actor.id, actor.name]))
 
   return <ResearchProjectAuditPanel events={events} actorNamesById={actorNamesById} />
