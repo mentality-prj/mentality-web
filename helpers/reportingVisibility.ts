@@ -18,7 +18,7 @@ export function canAccessVisibilityRule(rule: VisibilityRule, context: Visibilit
 }
 
 export function isRenderableField(policy: PresentationFieldPolicy, context: VisibilityContext): boolean {
-  return policy.kind !== 'hidden' && canAccessVisibilityRule(policy.visibility, context)
+  return canAccessVisibilityRule(policy.visibility, context)
 }
 
 export function getRenderableFields(
