@@ -185,23 +185,21 @@ export function ResearchProjectHistoryDatasetPanel({
               </tr>
             </thead>
             <tbody>
-              {dataset.items.map((item, index) => {
-                return (
-                  <tr key={item.id} className="border-b border-border align-top">
-                    <td className="px-3 py-3 text-textcolor-primary">{`${t('labels.subjectId')} ${index + 1}`}</td>
-                    <td className="px-3 py-3 text-textcolor-primary">
-                      {groupNamesById.get(item.cohort) || item.cohort || notAvailable}
+              {dataset.items.map((item, index) => (
+                <tr key={item.id} className="border-b border-border align-top">
+                  <td className="px-3 py-3 text-textcolor-primary">{`${t('labels.subjectId')} ${index + 1}`}</td>
+                  <td className="px-3 py-3 text-textcolor-primary">
+                    {groupNamesById.get(item.cohort) || item.cohort || notAvailable}
+                  </td>
+                  <td className="px-3 py-3 text-textcolor-primary">{item.dateRange || notAvailable}</td>
+                  <td className="px-3 py-3 text-textcolor-primary">{item.diagnostics || notAvailable}</td>
+                  {dataset.columns.map((column) => (
+                    <td key={`${item.id}-${column}`} className="px-3 py-3 text-textcolor-primary">
+                      {getDatasetFieldValue(item, column) || notAvailable}
                     </td>
-                    <td className="px-3 py-3 text-textcolor-primary">{item.dateRange || notAvailable}</td>
-                    <td className="px-3 py-3 text-textcolor-primary">{item.diagnostics || notAvailable}</td>
-                    {dataset.columns.map((column) => (
-                      <td key={`${item.id}-${column}`} className="px-3 py-3 text-textcolor-primary">
-                        {getDatasetFieldValue(item, column) || notAvailable}
-                      </td>
-                    ))}
-                  </tr>
-                )
-              })}
+                  ))}
+                </tr>
+              ))}
             </tbody>
           </table>
         </StaticCard>
