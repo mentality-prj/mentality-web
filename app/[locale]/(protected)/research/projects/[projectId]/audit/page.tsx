@@ -48,7 +48,7 @@ export default async function ResearchProjectAuditPage({ params }: { params: Pro
     (id) => !NON_USER_ACTOR_IDS.has(id) && (UUID_PATTERN.test(id) || OBJECT_ID_PATTERN.test(id))
   )
   const actorOptions = await getResearchScientistOptions(
-    session as CustomSession,
+    session,
     projectResult.data.companyId,
     userActorIds
   )
