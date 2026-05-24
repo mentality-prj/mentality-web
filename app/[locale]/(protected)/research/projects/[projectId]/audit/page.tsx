@@ -39,10 +39,17 @@ export default async function ResearchProjectAuditPage({ params }: { params: Pro
   }
 
   const events = 'data' in auditResult ? auditResult.data : []
+  // Filter to UUID-shaped IDs only — system/backend actors (e.g. "system") are not
+  // employees and would cause getResearchScientistOptions to page through the entire
+  // directory without finding a match.
+  const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
+  const userActorIds = Array.from(new Set(events.map((event) => event.actorUserId).filter(Boolean))).filter((id) =>
+    UUID_PATTERN.test(id)
+  )
   const actorOptions = await getResearchScientistOptions(
     session as CustomSession,
     projectResult.data.companyId,
-    Array.from(new Set(events.map((event) => event.actorUserId).filter(Boolean)))
+    userActorIds
   )
   const actorNamesById = Object.fromEntries(actorOptions.map((actor) => [actor.id, actor.name]))
 
