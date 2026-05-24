@@ -28,7 +28,7 @@ export default async function ResearchProjectDashboardPage({ params }: { params:
   }
 
   const principalInvestigatorOptions = await getResearchScientistOptions(
-    session as CustomSession,
+    session,
     result.data.companyId
   )
 

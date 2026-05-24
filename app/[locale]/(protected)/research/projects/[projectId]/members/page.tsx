@@ -98,12 +98,11 @@ export default async function ResearchProjectMembersPage({ params }: { params: P
   }
 
   const members = 'data' in membersResult ? membersResult.data : []
-  const availableMembers = await getResearchScientistOptions(session as CustomSession, projectResult.data.companyId)
+  const availableMembers = await getResearchScientistOptions(session, projectResult.data.companyId)
   const memberDirectory = new Map<string, MemberDirectoryEntry>(
     availableMembers.map((member) => [member.id, { name: member.name, email: member.email }])
   )
-  const initialMembers =
-    'data' in membersResult ? enrichProjectMembers(members, projectResult.data.members, memberDirectory) : []
+  const initialMembers = enrichProjectMembers(members, projectResult.data.members, memberDirectory)
 
   return (
     <ResearchProjectMembersPanel

@@ -10,7 +10,7 @@ import { getResearchProjectById } from '@/requests/researchProjects'
 import { CustomSession } from '@/types/auth'
 
 async function getPrincipalInvestigatorName(
-  session: CustomSession,
+  session: CustomSession | null,
   companyId: string,
   principalInvestigatorId: string,
   members: Array<{ userId: string; name: string }> = []
@@ -88,7 +88,7 @@ export default async function ResearchProjectLayout({
 
   const project = result.data
   const principalInvestigatorName = await getPrincipalInvestigatorName(
-    session as CustomSession,
+    session,
     project.companyId,
     project.principalInvestigatorId,
     project.members
