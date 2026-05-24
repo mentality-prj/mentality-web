@@ -204,7 +204,11 @@ describe('server auth session helpers', () => {
 
       expect(session).toBeNull()
     } finally {
-      ;(process.env as Record<string, string>).NODE_ENV = originalEnv
+      if (originalEnv === undefined) {
+        delete (process.env as Record<string, string>).NODE_ENV
+      } else {
+        ;(process.env as Record<string, string>).NODE_ENV = originalEnv
+      }
     }
   })
 })

@@ -77,6 +77,10 @@ function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
     return null
   }
 
+  if (tokens.expiresAt * 1000 < Date.now()) {
+    return null
+  }
+
   const idClaims = decodeJwtClaims(tokens.idToken)
   const accessClaims = decodeJwtClaims(tokens.accessToken)
 
