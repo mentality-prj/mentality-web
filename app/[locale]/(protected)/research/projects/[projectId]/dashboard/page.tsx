@@ -27,10 +27,7 @@ export default async function ResearchProjectDashboardPage({ params }: { params:
     notFound()
   }
 
-  const principalInvestigatorOptions = await getResearchScientistOptions(
-    session,
-    result.data.companyId
-  )
+  const principalInvestigatorOptions = await getResearchScientistOptions(session, result.data.companyId)
 
   return <ResearchProjectOverview project={result.data} principalInvestigatorOptions={principalInvestigatorOptions} />
 }
