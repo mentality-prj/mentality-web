@@ -117,16 +117,35 @@ function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
 // the promise settles to avoid stale memory.
 const inFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
 const requestScopedInFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
-const requestScopedResolvedSessions = new Map<string, CustomSession | null>()
+const requestScopedResolvedSessions = new Map<
+  string,
+  {
+    session: CustomSession | null
+    expiresAt: number
+  }
+>()
+const REQUEST_SCOPED_CACHE_TTL_MS = 30_000
+const REQUEST_SCOPED_CACHE_MAX_ENTRIES = 256
 
 function buildRequestScopedCacheKey(requestId: string, accessToken: string): string {
   return `${requestId}:${accessToken}`
 }
 
-function scheduleRequestScopedCacheCleanup(cacheKey: string): void {
-  setTimeout(() => {
-    requestScopedResolvedSessions.delete(cacheKey)
-  }, 30_000)
+function cleanupRequestScopedResolvedSessions(now: number): void {
+  for (const [key, entry] of requestScopedResolvedSessions.entries()) {
+    if (entry.expiresAt <= now) {
+      requestScopedResolvedSessions.delete(key)
+    }
+  }
+
+  while (requestScopedResolvedSessions.size > REQUEST_SCOPED_CACHE_MAX_ENTRIES) {
+    const firstKey = requestScopedResolvedSessions.keys().next().value as string | undefined
+    if (!firstKey) {
+      break
+    }
+
+    requestScopedResolvedSessions.delete(firstKey)
+  }
 }
 
 async function resolveServerSession(tokenCookie: string): Promise<CustomSession | null> {
@@ -198,9 +217,12 @@ export async function getServerSession(): Promise<CustomSession | null> {
   const requestId = headerStore.get('x-request-id')
   if (requestId) {
     const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken)
+    const now = Date.now()
+    cleanupRequestScopedResolvedSessions(now)
 
-    if (requestScopedResolvedSessions.has(requestScopedCacheKey)) {
-      return requestScopedResolvedSessions.get(requestScopedCacheKey) ?? null
+    const cachedSessionEntry = requestScopedResolvedSessions.get(requestScopedCacheKey)
+    if (cachedSessionEntry && cachedSessionEntry.expiresAt > now) {
+      return cachedSessionEntry.session
     }
 
     const existingRequestScopedInFlight = requestScopedInFlightSessionRequests.get(requestScopedCacheKey)
@@ -213,8 +235,11 @@ export async function getServerSession(): Promise<CustomSession | null> {
 
     try {
       const session = await requestScopedPromise
-      requestScopedResolvedSessions.set(requestScopedCacheKey, session)
-      scheduleRequestScopedCacheCleanup(requestScopedCacheKey)
+      requestScopedResolvedSessions.set(requestScopedCacheKey, {
+        session,
+        expiresAt: Date.now() + REQUEST_SCOPED_CACHE_TTL_MS,
+      })
+      cleanupRequestScopedResolvedSessions(Date.now())
       return session
     } finally {
       if (requestScopedInFlightSessionRequests.get(requestScopedCacheKey) === requestScopedPromise) {
