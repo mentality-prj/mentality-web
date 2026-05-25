@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
@@ -116,6 +116,18 @@ function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
 // This Map handles the overlapping-requests case; the Map entry is cleared once
 // the promise settles to avoid stale memory.
 const inFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
+const requestScopedInFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
+const requestScopedResolvedSessions = new Map<string, CustomSession | null>()
+
+function buildRequestScopedCacheKey(requestId: string, accessToken: string): string {
+  return `${requestId}:${accessToken}`
+}
+
+function scheduleRequestScopedCacheCleanup(cacheKey: string): void {
+  setTimeout(() => {
+    requestScopedResolvedSessions.delete(cacheKey)
+  }, 30_000)
+}
 
 async function resolveServerSession(tokenCookie: string): Promise<CustomSession | null> {
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
@@ -175,12 +187,41 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
  */
 export async function getServerSession(): Promise<CustomSession | null> {
   const cookieStore = cookies()
+  const headerStore = headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
 
   if (!tokenCookie) return null
 
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
+
+  const requestId = headerStore.get('x-request-id')
+  if (requestId) {
+    const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken)
+
+    if (requestScopedResolvedSessions.has(requestScopedCacheKey)) {
+      return requestScopedResolvedSessions.get(requestScopedCacheKey) ?? null
+    }
+
+    const existingRequestScopedInFlight = requestScopedInFlightSessionRequests.get(requestScopedCacheKey)
+    if (existingRequestScopedInFlight) {
+      return existingRequestScopedInFlight
+    }
+
+    const requestScopedPromise = resolveServerSession(tokenCookie)
+    requestScopedInFlightSessionRequests.set(requestScopedCacheKey, requestScopedPromise)
+
+    try {
+      const session = await requestScopedPromise
+      requestScopedResolvedSessions.set(requestScopedCacheKey, session)
+      scheduleRequestScopedCacheCleanup(requestScopedCacheKey)
+      return session
+    } finally {
+      if (requestScopedInFlightSessionRequests.get(requestScopedCacheKey) === requestScopedPromise) {
+        requestScopedInFlightSessionRequests.delete(requestScopedCacheKey)
+      }
+    }
+  }
 
   const dedupeKey = tokens.accessToken
 

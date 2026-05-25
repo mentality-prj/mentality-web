@@ -1,4 +1,5 @@
 const mockedCookies = jest.fn()
+const mockedHeaders = jest.fn()
 const mockedRedirect = jest.fn()
 const mockedLogger = {
   error: jest.fn(),
@@ -9,6 +10,7 @@ const mockedLogger = {
 
 jest.mock('next/headers', () => ({
   cookies: mockedCookies,
+  headers: mockedHeaders,
 }))
 
 jest.mock('next/navigation', () => ({
@@ -53,6 +55,7 @@ describe('server auth session helpers', () => {
     mockedRedirect.mockImplementation((path: string) => {
       throw new Error(`NEXT_REDIRECT:${path}`)
     })
+    mockedHeaders.mockReturnValue(new Headers())
     global.fetch = fetchMock as unknown as typeof fetch
   })
 
