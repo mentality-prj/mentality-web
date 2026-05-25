@@ -1,11 +1,11 @@
 import { render, screen } from '@testing-library/react'
+import { headers } from 'next/headers'
 
 import ProtectedLayout from '@/app/[locale]/(protected)/layout'
 import { getUserSidebarMenu } from '@/constants/menu'
 import { Routes } from '@/constants/routes'
 import { requireServerSession } from '@/lib/auth/server'
 import { CustomSession } from '@/types/auth'
-import { headers } from 'next/headers'
 
 jest.mock('@/lib/auth/server', () => ({ requireServerSession: jest.fn() }))
 jest.mock('@/constants/menu', () => ({ getUserSidebarMenu: jest.fn() }))
