@@ -98,12 +98,12 @@ export function ResearchMultiSelectField({
 
             return (
               <div key={option} className="flex items-center gap-3 rounded-2xl border border-border px-4 py-3">
-              <Checkbox
-                id={optionId}
-                checked={values.includes(option)}
-                onCheckedChange={() => toggleValue(option)}
-                disabled={disabled}
-              />
+                <Checkbox
+                  id={optionId}
+                  checked={values.includes(option)}
+                  onCheckedChange={() => toggleValue(option)}
+                  disabled={disabled}
+                />
                 <Label htmlFor={optionId} className="cursor-pointer text-sm text-textcolor-primary">
                   {option}
                 </Label>
