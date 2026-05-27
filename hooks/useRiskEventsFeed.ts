@@ -36,12 +36,7 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
   const [loadingDetailIds, setLoadingDetailIds] = useState<Set<string>>(new Set())
   const [detailsByEventId, setDetailsByEventId] = useState<Record<string, RiskEventDetailVM | null>>({})
   const requestTokenRef = useRef(0)
-  const activeEventIdsRef = useRef<Set<string>>(new Set())
   const useAdminMode = isSystemAdmin && !preferManagerScope
-
-  useEffect(() => {
-    activeEventIdsRef.current = new Set(riskEvents.map((event) => event.id))
-  }, [riskEvents])
 
   const riskEventMap = useMemo(() => new Map(riskEvents.map((event) => [event.id, event])), [riskEvents])
 

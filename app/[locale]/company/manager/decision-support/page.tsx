@@ -29,7 +29,7 @@ export default async function ManagerDecisionSupportPage({ params }: { params: P
   if (isSystemAdmin) {
     content = (
       <AdminCompanyWrapper>
-        <DecisionSupportWorkspace viewerRole="manager" />
+        <DecisionSupportWorkspace viewerRole="admin" />
       </AdminCompanyWrapper>
     )
   } else {

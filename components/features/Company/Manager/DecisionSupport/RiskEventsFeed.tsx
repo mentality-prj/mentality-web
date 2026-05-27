@@ -403,7 +403,7 @@ export function RiskEventsFeed({
                         ))}
                       </dl>
                     ) : (
-                      <p className="mt-3 text-sm text-textcolor-secondary">{copy.riskFeed.debugOnly}</p>
+                      <p className="mt-3 text-sm text-textcolor-secondary">{copy.common.unavailableDiagnostics}</p>
                     )}
                   </div>
                 </TabsContent>
