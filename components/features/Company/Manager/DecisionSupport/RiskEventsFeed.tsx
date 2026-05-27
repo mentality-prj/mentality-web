@@ -1,6 +1,6 @@
 'use client'
 
-import { useMemo, useState } from 'react'
+import { useId, useMemo, useState } from 'react'
 import { useLocale } from 'next-intl'
 
 import { ConfidenceIndicator, ExplainabilityBlock } from '@/components/shared/reporting/ReportingPrimitives'
@@ -374,6 +374,7 @@ export function RiskEventsFeed({
                       value={resolveNote}
                       onChange={(event) => setResolveNote(event.target.value)}
                       placeholder={copy.riskFeed.resolvePlaceholder}
+                      aria-label={copy.riskFeed.resolvePlaceholder}
                     />
                     <div className="mt-3">
                       <Button
@@ -425,11 +426,15 @@ type FilterSelectProps = {
 }
 
 function FilterSelect({ label, value, onChange, placeholder, options }: FilterSelectProps) {
+  const triggerId = useId()
+
   return (
     <div className="space-y-2">
-      <Label className="text-sm font-medium text-textcolor-secondary">{label}</Label>
+      <Label htmlFor={triggerId} className="text-sm font-medium text-textcolor-secondary">
+        {label}
+      </Label>
       <Select value={value} onValueChange={onChange}>
-        <SelectTrigger className="min-w-[180px] bg-background">
+        <SelectTrigger id={triggerId} className="min-w-[180px] bg-background">
           <SelectValue placeholder={placeholder} />
         </SelectTrigger>
         <SelectContent>
