@@ -7,9 +7,9 @@ import { useTranslations } from 'next-intl'
 import Logo from '@/components/Layout/Header/Logo'
 import { TopMenuList } from '@/components/Layout/MobileNavDrawer/TopMenuList'
 import SidebarMenu from '@/components/Layout/Sidebar/SidebarMenu'
-import { userSidebarMenu } from '@/constants/menu'
+import { SidebarMenuItemType, userSidebarMenu } from '@/constants/menu'
 
-export default function MobileNavDrawer() {
+export default function MobileNavDrawer({ menu = userSidebarMenu }: { menu?: SidebarMenuItemType[] }) {
   const [open, setOpen] = useState(false)
   const [topOpen, setTopOpen] = useState(false)
   const t = useTranslations('components.Navbar')
@@ -50,7 +50,7 @@ export default function MobileNavDrawer() {
 
         {/* Scrollable area: main nav + quick links */}
         <div className="flex min-h-0 w-full flex-col gap-sm overflow-y-auto p-4">
-          <SidebarMenu menu={userSidebarMenu} onLinkClick={() => setOpen(false)} />
+          <SidebarMenu menu={menu} onLinkClick={() => setOpen(false)} />
 
           {/* Top menu collapsed section */}
           <div className="m-4 rounded border border-border px-4 py-3">

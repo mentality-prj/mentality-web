@@ -1,0 +1,272 @@
+{
+  "header": {
+    "title": "Дослідницький простір",
+    "subtitle": "Окремий простір для дослідницьких проєктів, грантів, налаштування когорти та контрольованої діагностики"
+  },
+  "workspace": {
+    "unavailableTitle": "Не вдалося відкрити дослідницький простір",
+    "accessDeniedTitle": "Немає доступу",
+    "accessDeniedDescription": "Цей дослідницький простір доступний користувачам, для поточної ідентичності яких призначено capability scientist або research_admin. Роль admin також має повний доступ."
+  },
+  "menu": {
+    "projects": "Проєкти",
+    "create": "Створити проєкт"
+  },
+  "projects": {
+    "title": "Дослідницькі проєкти",
+    "subtitle": "Усі проєкти, де поточний користувач є учасником або власником.",
+    "empty": "У вашій області доступу немає дослідницьких проєктів.",
+    "unavailableTitle": "Не вдалося завантажити дослідницькі проєкти"
+  },
+  "create": {
+    "title": "Створити дослідницький проєкт",
+    "subtitle": "Окремий процес для метаданих, грантів і доступу науковців.",
+    "principalInvestigatorPlaceholder": "Виберіть головного дослідника",
+    "accessDenied": "Створювати нові дослідницькі проєкти можуть користувачі з capability research_admin, а також роль admin.",
+    "steps": {
+      "basics": "Базові дані",
+      "grants": "Гранти",
+      "members": "Учасники",
+      "review": "Перевірка"
+    }
+  },
+  "project": {
+    "menu": {
+      "overview": "Огляд",
+      "members": "Учасники",
+      "cohort": "Когорта",
+      "grants": "Гранти",
+      "mlInspection": "Перевірка моделі",
+      "historyDataset": "Історичний набір даних",
+      "exports": "Експорти",
+      "audit": "Аудит"
+    },
+    "badges": {
+      "status": "Статус",
+      "approval": "Погодження",
+      "export": "Політика експорту",
+      "pseudonymization": "Псевдонімізація",
+      "principalInvestigator": "Головний дослідник"
+    },
+    "noDescription": "Опис відсутній."
+  },
+  "common": {
+    "notAvailable": "Н/Д",
+    "sessionMissing": "Сеанс не знайдено.",
+    "add": "Додати",
+    "cancel": "Скасувати",
+    "remove": "Видалити",
+    "creating": "Створення...",
+    "saving": "Збереження...",
+    "loading": "Завантаження...",
+    "submitting": "Надсилання...",
+    "applyFilters": "Застосувати фільтри"
+  },
+  "labels": {
+    "projectName": "Назва проєкту",
+    "description": "Опис",
+    "status": "Статус",
+    "approvalStatus": "Статус погодження",
+    "exportPolicy": "Політика експорту",
+    "pseudonymizationMode": "Режим псевдонімізації",
+    "principalInvestigator": "Головний дослідник",
+    "company": "Компанія",
+    "userId": "Користувач",
+    "role": "Роль",
+    "availableGroups": "Доступні групи",
+    "groupIds": "Групи",
+    "userSelectionMode": "Режим відбору користувачів",
+    "from": "Від",
+    "to": "До",
+    "resolvedGroupIds": "Розгорнуті групи",
+    "grantTitle": "Назва гранту",
+    "allowedContracts": "Дозволені контракти",
+    "allowedFields": "Дозволені поля",
+    "allowedTargets": "Дозволені цілі",
+    "exportAllowed": "Експорт дозволено",
+    "target": "Ціль",
+    "targetId": "Ціль",
+    "modelVersion": "Версія моделі",
+    "contract": "Контракт",
+    "format": "Формат",
+    "requestedFields": "Запитані поля",
+    "reason": "Причина",
+    "eventType": "Тип події",
+    "actorUserId": "Виконавець",
+    "route": "Маршрут",
+    "createdAt": "Створено",
+    "details": "Деталі",
+    "limit": "Ліміт",
+    "subjectId": "Учасник",
+    "cohort": "Когорта",
+    "dateRange": "Період",
+    "diagnostics": "Діагностика"
+  },
+  "options": {
+    "approvalStatus": {
+      "draft": "Чернетка",
+      "pending": "Очікує",
+      "pending_review": "Очікує перевірки",
+      "approved": "Погоджено",
+      "rejected": "Відхилено"
+    },
+    "exportPolicy": {
+      "blocked": "Заблоковано",
+      "review_required": "Потрібна перевірка",
+      "allowed": "Дозволено",
+      "inline_ready": "Готово до inline",
+      "disabled": "Вимкнено"
+    },
+    "pseudonymizationMode": {
+      "required": "Обов'язкова",
+      "optional": "Опційна",
+      "none": "Без псевдонімізації",
+      "pseudonymous": "Псевдонімізована",
+      "aggregated": "Агрегована",
+      "raw_granted": "Сирі (надано дозвіл)"
+    },
+    "userSelectionMode": {
+      "all": "Усі",
+      "groups_only": "Лише групи",
+      "explicit_users": "Явно вибрані користувачі"
+    },
+    "mlTarget": {
+      "cohort": "Когорта",
+      "group": "Група",
+      "subject": "Суб'єкт",
+      "project": "Проєкт"
+    }
+  },
+  "panels": {
+    "multiSelect": {
+      "placeholder": "Додати значення"
+    },
+    "create": {
+      "success": "Проєкт успішно створено."
+    },
+    "overview": {
+      "metadataTitle": "Метадані проєкту",
+      "governanceTitle": "Метадані керування",
+      "editButton": "Редагувати метадані",
+      "updateSuccess": "Метадані проєкту оновлено.",
+      "saveButton": "Зберегти метадані"
+    },
+    "members": {
+      "title": "Учасники проєкту",
+      "emptyTitle": "Учасників ще немає",
+      "emptyDescription": "Додайте першого учасника, щоб розпочати спільну роботу.",
+      "addTitle": "Додати учасника",
+      "noPermission": "У вас немає прав змінювати склад учасників проєкту.",
+      "addButton": "Додати учасника"
+    },
+    "cohort": {
+      "title": "Налаштування когорти",
+      "groupIdsPlaceholder": "Введіть ідентифікатори груп через кому",
+      "updateSuccess": "Когорту оновлено.",
+      "saveButton": "Зберегти когорту",
+      "previewTitle": "Попередній перегляд когорти",
+      "noGroupsSelected": "Групи не вибрано.",
+      "noResolvedGroups": "Немає знайдених груп."
+    },
+    "grants": {
+      "currentTitle": "Поточні гранти",
+      "empty": "Гранти ще не налаштовані.",
+      "createTitle": "Створити грант",
+      "allowedFieldsPlaceholder": "Додати поле",
+      "allowedContractsPlaceholder": "Додати контракт",
+      "allowedTargetsPlaceholder": "Додати ціль",
+      "exportAllowedBadge": "Експорт дозволено",
+      "noExportBadge": "Без експорту",
+      "exportAllowedDescription": "Дозволити цьому гранту запитувати експорти.",
+      "createButton": "Створити грант"
+    },
+    "mlInspection": {
+      "title": "Перевірка моделі",
+      "accessDeniedDescription": "У вас немає прав переглядати метадані моделі цього проєкту.",
+      "emptyTitle": "Немає даних інспекції",
+      "emptyDescription": "Сервер не повернув даних інспекції для вибраної цілі та моделі.",
+      "inspectButton": "Перевірити"
+    },
+    "historyDataset": {
+      "title": "Історичний набір даних",
+      "exportTitle": "Експорт набору даних",
+      "exportCsvButton": "Завантажити CSV",
+      "exportXmlButton": "Завантажити XML",
+      "exportExcelButton": "Завантажити Excel",
+      "accessDeniedDescription": "У вас немає прав переглядати історичний набір даних цього проєкту.",
+      "emptyTitle": "Набір даних порожній",
+      "emptyDescription": "За вибраними фільтрами не знайдено жодного запису."
+    },
+    "exports": {
+      "disabledTitle": "Експорти вимкнені",
+      "disabledDescription": "У вас немає прав запитувати експорти для цього проєкту.",
+      "requestTitle": "Запит на експорт",
+      "requestedFieldsPlaceholder": "Додати поле для експорту",
+      "latestResponseTitle": "Остання відповідь на експорт",
+      "latestResponseEmpty": "Надішліть запит на експорт, щоб побачити відповідь сервера.",
+      "pendingReviewTitle": "Очікує перевірки",
+      "pendingReviewDescription": "Запит на експорт очікує перевірки. Вбудоване завантаження поки недоступне.",
+      "requestButton": "Подати запит",
+      "downloadButton": "Завантажити"
+    },
+    "audit": {
+      "emptyTitle": "Подій аудиту немає",
+      "emptyDescription": "Для цього проєкту не повернуто жодної події аудиту.",
+      "eventTypes": {
+        "history_dataset_viewed": "Перегляд історичного набору даних",
+        "export_review_requested": "Запит на перевірку експорту",
+        "ml_inspection_viewed": "Перегляд інспекції моделі",
+        "data_grant_created": "Створення гранту доступу",
+        "export_requested": "Запит на експорт"
+      },
+      "targets": {
+        "team": "Команда"
+      },
+      "metadata": {
+        "resultCount": "Кількість записів"
+      },
+      "details": {
+        "empty": "Додаткових деталей немає.",
+        "historyDatasetViewed": "Переглянуто {resultCount} записів з лімітом {limit}.",
+        "historyDatasetCountOnly": "Переглянуто {resultCount} записів.",
+        "limitOnly": "Ліміт вибірки: {limit}.",
+        "exportRequested": "Запитано експорт у форматі {format}.",
+        "requestedFields": "Поля: {fields}.",
+        "policyStatus": "Політика експорту: {policyStatus}.",
+        "mlInspectionViewed": "Переглянуто інспекцію моделі для цілі: {target}.",
+        "modelVersion": "Версія моделі: {modelVersion}.",
+        "dataGrantCreated": "Створено новий грант доступу до даних.",
+        "grantTitle": "Назва гранту: {title}.",
+        "metadataLine": "{label}: {value}"
+      }
+    }
+  },
+  "errors": {
+    "companyBoundaryNotDefined": "Для дослідницького середовища не визначено межу компанії."
+  },
+  "roles": {
+    "owner": "Власник",
+    "research_admin": "Адміністратор досліджень",
+    "scientist": "Науковець",
+    "analyst": "Аналітик",
+    "reviewer": "Рецензент"
+  },
+  "statuses": {
+    "project": {
+      "draft": "Чернетка",
+      "active": "Активний",
+      "paused": "Призупинений",
+      "completed": "Завершений",
+      "archived": "Архівований"
+    },
+    "export": {
+      "not_requested": "Не запитувався",
+      "pending_review": "Очікує перевірки",
+      "pending_approval": "Очікує погодження",
+      "running": "Виконується",
+      "ready": "Готовий",
+      "completed": "Завершений",
+      "rejected": "Відхилений"
+    }
+  }
+}

@@ -1,33 +1,155 @@
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
+import { redirect } from 'next/navigation'
 
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
-import { AuthTokens, CustomSession, CustomUser, UserAI } from '@/types/auth'
+import { CustomSession, CustomUser, UserAI } from '@/types/auth'
 
-/**
- * Server-side session helper — provider-agnostic.
- *
- * Reads the auth token cookie and validates with the backend.
- * Use in Server Components and Route Handlers.
- *
- * Note: Token refresh is handled by middleware (which covers all locale routes).
- * If used in API Route Handlers (not covered by middleware matcher), callers
- * should handle the null return by triggering a client-side refresh.
- */
-export async function getServerSession(): Promise<CustomSession | null> {
-  const cookieStore = cookies()
-  const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
+export type AuthenticatedSession = CustomSession & {
+  user: NonNullable<CustomSession['user']>
+}
 
-  if (!tokenCookie) return null
+type JwtClaims = Record<string, unknown>
 
-  let tokens: AuthTokens
+function getStringClaim(claims: JwtClaims | null, keys: string[]): string | null {
+  if (!claims) {
+    return null
+  }
+
+  for (const key of keys) {
+    const value = claims[key as string]
+    if (typeof value === 'string' && value.trim()) {
+      return value.trim()
+    }
+  }
+
+  return null
+}
+
+function decodeBase64Url(value: string): string | null {
+  const normalized = value.replace(/-/g, '+').replace(/_/g, '/')
+  const padded = normalized.padEnd(Math.ceil(normalized.length / 4) * 4, '=')
+
   try {
-    tokens = JSON.parse(tokenCookie) as AuthTokens
+    if (typeof Buffer !== 'undefined') {
+      return Buffer.from(padded, 'base64').toString('utf8')
+    }
+
+    if (typeof atob === 'function') {
+      const binary = atob(padded)
+      const bytes = Uint8Array.from(binary, (char) => char.charCodeAt(0))
+      return new TextDecoder().decode(bytes)
+    }
   } catch {
     return null
   }
 
+  return null
+}
+
+function decodeJwtClaims(token: string): JwtClaims | null {
+  const [, payload] = token.split('.')
+  if (!payload) {
+    return null
+  }
+
+  const decodedPayload = decodeBase64Url(payload)
+  if (!decodedPayload) {
+    return null
+  }
+
+  try {
+    const parsed = JSON.parse(decodedPayload)
+    return parsed && typeof parsed === 'object' ? (parsed as JwtClaims) : null
+  } catch {
+    return null
+  }
+}
+
+function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
+  // Never derive a session from unverified JWT claims unless explicitly opted in.
+  // Gating only on NODE_ENV would allow this path in staging/preview environments
+  // that run non-production builds with real user traffic.
+  // Require an explicit opt-in flag so it cannot be enabled accidentally.
+  if (process.env.NODE_ENV === 'production' || process.env.ALLOW_UNVERIFIED_JWT_SESSION_FALLBACK !== 'true') {
+    return null
+  }
+
+  if (tokens.expiresAt * 1000 < Date.now()) {
+    return null
+  }
+
+  const idClaims = decodeJwtClaims(tokens.idToken)
+  const accessClaims = decodeJwtClaims(tokens.accessToken)
+
+  const id = getStringClaim(idClaims, ['sub']) ?? getStringClaim(accessClaims, ['sub'])
+  if (!id) {
+    return null
+  }
+
+  const email = getStringClaim(idClaims, ['email']) ?? getStringClaim(accessClaims, ['email']) ?? ''
+  const image = getStringClaim(idClaims, ['picture', 'avatarUrl']) ?? getStringClaim(accessClaims, ['picture'])
+  const name =
+    (getStringClaim(idClaims, ['name', 'preferred_username']) ??
+      getStringClaim(accessClaims, ['name', 'preferred_username']) ??
+      email) ||
+    'Authenticated user'
+
+  const user: CustomUser = {
+    id,
+    name,
+    email,
+    ...(image ? { image } : {}),
+  }
+
+  return {
+    user,
+    OAuthToken: tokens.accessToken,
+  }
+}
+
+// Module-level Map deduplicates concurrent in-flight calls to /auth/validate-token.
+// React.cache() would be the idiomatic solution for per-render memoization, but
+// React 18 does not export cache() outside a Next.js server-render context.
+// This Map handles the overlapping-requests case; the Map entry is cleared once
+// the promise settles to avoid stale memory.
+const inFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
+const requestScopedInFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
+const requestScopedResolvedSessions = new Map<
+  string,
+  {
+    session: CustomSession | null
+    expiresAt: number
+  }
+>()
+const REQUEST_SCOPED_CACHE_TTL_MS = 30_000
+const REQUEST_SCOPED_CACHE_MAX_ENTRIES = 256
+
+function buildRequestScopedCacheKey(requestId: string, accessToken: string): string {
+  return `${requestId}:${accessToken}`
+}
+
+function cleanupRequestScopedResolvedSessions(now: number): void {
+  for (const [key, entry] of requestScopedResolvedSessions.entries()) {
+    if (entry.expiresAt <= now) {
+      requestScopedResolvedSessions.delete(key)
+    }
+  }
+
+  while (requestScopedResolvedSessions.size > REQUEST_SCOPED_CACHE_MAX_ENTRIES) {
+    const firstKey = requestScopedResolvedSessions.keys().next().value as string | undefined
+    if (!firstKey) {
+      break
+    }
+
+    requestScopedResolvedSessions.delete(firstKey)
+  }
+}
+
+async function resolveServerSession(tokenCookie: string): Promise<CustomSession | null> {
+  const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
 
   try {
@@ -65,6 +187,92 @@ export async function getServerSession(): Promise<CustomSession | null> {
     logger.error('[SERVER_SESSION] Error fetching session', {
       error: error instanceof Error ? error.message : String(error),
     })
+
+    const fallbackSession = buildFallbackSession(tokens)
+    if (fallbackSession) {
+      logger.warn('[SERVER_SESSION] Falling back to token-derived session')
+      return fallbackSession
+    }
+
     return null
   }
+}
+
+/**
+ * Server-side session helper — provider-agnostic.
+ *
+ * Reads the auth token cookie and validates with the backend.
+ * Use in Server Components and Route Handlers.
+ */
+export async function getServerSession(): Promise<CustomSession | null> {
+  const cookieStore = cookies()
+  const headerStore = headers()
+  const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
+
+  if (!tokenCookie) return null
+
+  const tokens = parseStoredAuthTokensCookie(tokenCookie)
+  if (!tokens?.accessToken) return null
+
+  const requestId = headerStore.get('x-request-id')
+  if (requestId) {
+    const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken)
+    const now = Date.now()
+    cleanupRequestScopedResolvedSessions(now)
+
+    const cachedSessionEntry = requestScopedResolvedSessions.get(requestScopedCacheKey)
+    if (cachedSessionEntry && cachedSessionEntry.expiresAt > now) {
+      return cachedSessionEntry.session
+    }
+
+    const existingRequestScopedInFlight = requestScopedInFlightSessionRequests.get(requestScopedCacheKey)
+    if (existingRequestScopedInFlight) {
+      return existingRequestScopedInFlight
+    }
+
+    const requestScopedPromise = resolveServerSession(tokenCookie)
+    requestScopedInFlightSessionRequests.set(requestScopedCacheKey, requestScopedPromise)
+
+    try {
+      const session = await requestScopedPromise
+      requestScopedResolvedSessions.set(requestScopedCacheKey, {
+        session,
+        expiresAt: Date.now() + REQUEST_SCOPED_CACHE_TTL_MS,
+      })
+      cleanupRequestScopedResolvedSessions(Date.now())
+      return session
+    } finally {
+      if (requestScopedInFlightSessionRequests.get(requestScopedCacheKey) === requestScopedPromise) {
+        requestScopedInFlightSessionRequests.delete(requestScopedCacheKey)
+      }
+    }
+  }
+
+  const dedupeKey = tokens.accessToken
+
+  const existingRequest = inFlightSessionRequests.get(dedupeKey)
+  if (existingRequest) {
+    return existingRequest
+  }
+
+  const requestPromise = resolveServerSession(tokenCookie)
+  inFlightSessionRequests.set(dedupeKey, requestPromise)
+
+  try {
+    return await requestPromise
+  } finally {
+    if (inFlightSessionRequests.get(dedupeKey) === requestPromise) {
+      inFlightSessionRequests.delete(dedupeKey)
+    }
+  }
+}
+
+export async function requireServerSession(redirectTo: string): Promise<AuthenticatedSession> {
+  const session = await getServerSession()
+
+  if (!session?.user) {
+    redirect(redirectTo)
+  }
+
+  return session as AuthenticatedSession
 }

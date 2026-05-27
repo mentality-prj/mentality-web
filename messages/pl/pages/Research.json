@@ -1,0 +1,272 @@
+{
+  "header": {
+    "title": "Przestrzeń badawcza",
+    "subtitle": "Oddzielny workspace dla research projects, grants, konfiguracji cohort i governed diagnostics"
+  },
+  "workspace": {
+    "unavailableTitle": "Nie udało się otworzyć przestrzeni badawczej",
+    "accessDeniedTitle": "Brak dostępu",
+    "accessDeniedDescription": "Ten research workspace jest dostępny dla użytkowników, których bieżąca tożsamość ma capability scientist lub research_admin. Rola admin także ma pełny dostęp."
+  },
+  "menu": {
+    "projects": "Projekty",
+    "create": "Utwórz projekt"
+  },
+  "projects": {
+    "title": "Projekty research",
+    "subtitle": "Wszystkie projekty, w których bieżący użytkownik jest członkiem lub właścicielem.",
+    "empty": "Brak dostępnych projektów research w twoim scope.",
+    "unavailableTitle": "Nie udało się załadować projektów research"
+  },
+  "create": {
+    "title": "Utwórz projekt research",
+    "subtitle": "Oddzielny workflow dla metadata, grants i dostępu naukowców.",
+    "principalInvestigatorPlaceholder": "Wybierz głównego badacza",
+    "accessDenied": "Nowe projekty research mogą tworzyć użytkownicy z capability research_admin oraz rola admin.",
+    "steps": {
+      "basics": "Podstawy",
+      "grants": "Granty",
+      "members": "Członkowie",
+      "review": "Przegląd"
+    }
+  },
+  "project": {
+    "menu": {
+      "overview": "Przegląd",
+      "members": "Członkowie",
+      "cohort": "Kohorta",
+      "grants": "Granty",
+      "mlInspection": "Inspekcja ML",
+      "historyDataset": "Dataset historyczny",
+      "exports": "Eksporty",
+      "audit": "Audyt"
+    },
+    "badges": {
+      "status": "Status",
+      "approval": "Akceptacja",
+      "export": "Polityka eksportu",
+      "pseudonymization": "Pseudonimizacja",
+      "principalInvestigator": "Główny badacz"
+    },
+    "noDescription": "Brak opisu."
+  },
+  "common": {
+    "notAvailable": "N/D",
+    "sessionMissing": "Brak sesji.",
+    "add": "Dodaj",
+    "cancel": "Anuluj",
+    "remove": "Usuń",
+    "creating": "Tworzenie...",
+    "saving": "Zapisywanie...",
+    "loading": "Ładowanie...",
+    "submitting": "Wysyłanie...",
+    "applyFilters": "Zastosuj filtry"
+  },
+  "labels": {
+    "projectName": "Nazwa projektu",
+    "description": "Opis",
+    "status": "Status",
+    "approvalStatus": "Status akceptacji",
+    "exportPolicy": "Polityka eksportu",
+    "pseudonymizationMode": "Tryb pseudonimizacji",
+    "principalInvestigator": "Główny badacz",
+    "company": "Firma",
+    "userId": "Użytkownik",
+    "role": "Rola",
+    "availableGroups": "Dostępne grupy",
+    "groupIds": "Grupy",
+    "userSelectionMode": "Tryb wyboru użytkowników",
+    "from": "Od",
+    "to": "Do",
+    "resolvedGroupIds": "Rozwinięte grupy",
+    "grantTitle": "Tytuł grantu",
+    "allowedContracts": "Dozwolone kontrakty",
+    "allowedFields": "Dozwolone pola",
+    "allowedTargets": "Dozwolone targety",
+    "exportAllowed": "Eksport dozwolony",
+    "target": "Cel",
+    "targetId": "Cel",
+    "modelVersion": "Wersja modelu",
+    "contract": "Kontrakt",
+    "format": "Format",
+    "requestedFields": "Żądane pola",
+    "reason": "Powód",
+    "eventType": "Typ zdarzenia",
+    "actorUserId": "Wykonawca",
+    "route": "Ścieżka",
+    "createdAt": "Utworzono",
+    "details": "Szczegóły",
+    "limit": "Limit",
+    "subjectId": "Uczestnik",
+    "cohort": "Kohorta",
+    "dateRange": "Zakres dat",
+    "diagnostics": "Diagnostyka"
+  },
+  "options": {
+    "approvalStatus": {
+      "draft": "Szkic",
+      "pending": "Oczekujące",
+      "pending_review": "Oczekuje review",
+      "approved": "Zatwierdzony",
+      "rejected": "Odrzucony"
+    },
+    "exportPolicy": {
+      "blocked": "Zablokowane",
+      "review_required": "Wymaga review",
+      "allowed": "Dozwolone",
+      "inline_ready": "Gotowe do inline",
+      "disabled": "Wyłączone"
+    },
+    "pseudonymizationMode": {
+      "required": "Wymagana",
+      "optional": "Opcjonalna",
+      "none": "Brak",
+      "pseudonymous": "Pseudonimizowana",
+      "aggregated": "Zagregowana",
+      "raw_granted": "Surowe (przyznane)"
+    },
+    "userSelectionMode": {
+      "all": "Wszyscy",
+      "groups_only": "Tylko grupy",
+      "explicit_users": "Jawnie wybrani użytkownicy"
+    },
+    "mlTarget": {
+      "cohort": "Kohorta",
+      "group": "Grupa",
+      "subject": "Podmiot",
+      "project": "Projekt"
+    }
+  },
+  "panels": {
+    "multiSelect": {
+      "placeholder": "Dodaj wartość"
+    },
+    "create": {
+      "success": "Projekt został utworzony pomyślnie."
+    },
+    "overview": {
+      "metadataTitle": "Metadane projektu",
+      "governanceTitle": "Metadane governance",
+      "editButton": "Edytuj metadane",
+      "updateSuccess": "Metadane projektu zostały zaktualizowane.",
+      "saveButton": "Zapisz metadane"
+    },
+    "members": {
+      "title": "Członkowie projektu",
+      "emptyTitle": "Brak członków",
+      "emptyDescription": "Dodaj pierwszego uczestnika projektu, aby rozpocząć współpracę.",
+      "addTitle": "Dodaj członka",
+      "noPermission": "Nie masz uprawnień do zmiany składu projektu.",
+      "addButton": "Dodaj członka"
+    },
+    "cohort": {
+      "title": "Konfiguracja kohorty",
+      "groupIdsPlaceholder": "group-a, group-b",
+      "updateSuccess": "Kohorta została zaktualizowana.",
+      "saveButton": "Zapisz kohortę",
+      "previewTitle": "Podgląd kohorty",
+      "noGroupsSelected": "Nie wybrano grup.",
+      "noResolvedGroups": "Brak rozwiązanych grup."
+    },
+    "grants": {
+      "currentTitle": "Aktualne granty",
+      "empty": "Granty nie są jeszcze skonfigurowane.",
+      "createTitle": "Utwórz grant",
+      "allowedFieldsPlaceholder": "Dodaj pole",
+      "allowedContractsPlaceholder": "Dodaj kontrakt",
+      "allowedTargetsPlaceholder": "Dodaj target",
+      "exportAllowedBadge": "Eksport dozwolony",
+      "noExportBadge": "Bez eksportu",
+      "exportAllowedDescription": "Pozwól temu grantowi żądać eksportów.",
+      "createButton": "Utwórz grant"
+    },
+    "mlInspection": {
+      "title": "Inspekcja ML",
+      "accessDeniedDescription": "Nie masz uprawnień do podglądu metadanych ML dla tego projektu.",
+      "emptyTitle": "Brak danych inspekcji",
+      "emptyDescription": "Backend nie zwrócił danych inspekcji dla wybranego celu i modelu.",
+      "inspectButton": "Sprawdź"
+    },
+    "historyDataset": {
+      "title": "Dataset historyczny",
+      "exportTitle": "Eksport datasetu",
+      "exportCsvButton": "Pobierz CSV",
+      "exportXmlButton": "Pobierz XML",
+      "exportExcelButton": "Pobierz Excel",
+      "accessDeniedDescription": "Nie masz uprawnień do podglądu datasetu historycznego dla tego projektu.",
+      "emptyTitle": "Dataset jest pusty",
+      "emptyDescription": "Żadne rekordy nie pasują do wybranego zakresu dat i limitu."
+    },
+    "exports": {
+      "disabledTitle": "Eksporty są wyłączone",
+      "disabledDescription": "Nie masz uprawnień do żądania eksportów dla tego projektu.",
+      "requestTitle": "Żądanie eksportu",
+      "requestedFieldsPlaceholder": "Dodaj pole do eksportu",
+      "latestResponseTitle": "Ostatnia odpowiedź eksportu",
+      "latestResponseEmpty": "Wyślij żądanie eksportu, aby zobaczyć metadane odpowiedzi.",
+      "pendingReviewTitle": "Oczekuje review",
+      "pendingReviewDescription": "Żądanie eksportu czeka na review. Inline download nie jest jeszcze dostępny.",
+      "requestButton": "Zażądaj eksportu",
+      "downloadButton": "Pobierz"
+    },
+    "audit": {
+      "emptyTitle": "Brak zdarzeń audytu",
+      "emptyDescription": "Dla tego projektu nie zwrócono żadnych zdarzeń audit.",
+      "eventTypes": {
+        "history_dataset_viewed": "Podgląd datasetu historycznego",
+        "export_review_requested": "Żądanie review eksportu",
+        "ml_inspection_viewed": "Podgląd inspekcji ML",
+        "data_grant_created": "Utworzenie grantu dostępu",
+        "export_requested": "Żądanie eksportu"
+      },
+      "targets": {
+        "team": "Zespół"
+      },
+      "metadata": {
+        "resultCount": "Liczba rekordów"
+      },
+      "details": {
+        "empty": "Brak dodatkowych szczegółów.",
+        "historyDatasetViewed": "Wyświetlono {resultCount} rekordów z limitem {limit}.",
+        "historyDatasetCountOnly": "Wyświetlono {resultCount} rekordów.",
+        "limitOnly": "Limit próbki: {limit}.",
+        "exportRequested": "Zażądano eksportu w formacie {format}.",
+        "requestedFields": "Pola: {fields}.",
+        "policyStatus": "Polityka eksportu: {policyStatus}.",
+        "mlInspectionViewed": "Wyświetlono inspekcję dla celu: {target}.",
+        "modelVersion": "Wersja modelu: {modelVersion}.",
+        "dataGrantCreated": "Utworzono nowy grant dostępu do danych.",
+        "grantTitle": "Tytuł grantu: {title}.",
+        "metadataLine": "{label}: {value}"
+      }
+    }
+  },
+  "errors": {
+    "companyBoundaryNotDefined": "Nie zdefiniowano granicy firmy dla warstwy badawczej."
+  },
+  "roles": {
+    "owner": "Właściciel",
+    "research_admin": "Research admin",
+    "scientist": "Naukowiec",
+    "analyst": "Analityk",
+    "reviewer": "Recenzent"
+  },
+  "statuses": {
+    "project": {
+      "draft": "Szkic",
+      "active": "Aktywny",
+      "paused": "Wstrzymany",
+      "completed": "Zakończony",
+      "archived": "Zarchiwizowany"
+    },
+    "export": {
+      "not_requested": "Nie żądano",
+      "pending_review": "Oczekuje review",
+      "pending_approval": "Oczekuje akceptacji",
+      "running": "W trakcie",
+      "ready": "Gotowe",
+      "completed": "Zakończone",
+      "rejected": "Odrzucone"
+    }
+  }
+}
