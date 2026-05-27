@@ -1,4 +1,5 @@
 const mockedCookies = jest.fn()
+const mockedHeaders = jest.fn()
 const mockedRedirect = jest.fn()
 const mockedLogger = {
   error: jest.fn(),
@@ -9,6 +10,7 @@ const mockedLogger = {
 
 jest.mock('next/headers', () => ({
   cookies: mockedCookies,
+  headers: mockedHeaders,
 }))
 
 jest.mock('next/navigation', () => ({
@@ -53,6 +55,7 @@ describe('server auth session helpers', () => {
     mockedRedirect.mockImplementation((path: string) => {
       throw new Error(`NEXT_REDIRECT:${path}`)
     })
+    mockedHeaders.mockReturnValue(new Headers())
     global.fetch = fetchMock as unknown as typeof fetch
   })
 
@@ -120,6 +123,7 @@ describe('server auth session helpers', () => {
 
   it('deduplicates validation within the same request scope', async () => {
     setTokenCookie()
+    mockedHeaders.mockReturnValue(new Headers({ 'x-request-id': 'request-1' }))
     let resolveResponse: ((value: unknown) => void) | undefined
     fetchMock.mockImplementation(
       () =>
@@ -146,6 +150,9 @@ describe('server auth session helpers', () => {
     })
 
     await Promise.all([firstSessionPromise, secondSessionPromise])
+
+    // A subsequent call in the same request scope should hit resolved cache.
+    await getServerSession()
 
     expect(fetchMock).toHaveBeenCalledTimes(1)
   })

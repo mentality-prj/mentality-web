@@ -39,18 +39,15 @@ export default async function ResearchProjectAuditPage({ params }: { params: Pro
   }
 
   const events = 'data' in auditResult ? auditResult.data : []
-  // Filter to UUID-shaped IDs only — system/backend actors (e.g. "system") are not
-  // employees and would cause getResearchScientistOptions to page through the entire
-  // directory without finding a match.
+  // Exclude known synthetic actors, but keep supported user ID shapes so name
+  // resolution works for both UUID and MongoDB ObjectId identifiers.
   const UUID_PATTERN = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i
-  const userActorIds = Array.from(new Set(events.map((event) => event.actorUserId).filter(Boolean))).filter((id) =>
-    UUID_PATTERN.test(id)
+  const OBJECT_ID_PATTERN = /^[0-9a-f]{24}$/i
+  const NON_USER_ACTOR_IDS = new Set(['system'])
+  const userActorIds = Array.from(new Set(events.map((event) => event.actorUserId).filter(Boolean))).filter(
+    (id) => !NON_USER_ACTOR_IDS.has(id) && (UUID_PATTERN.test(id) || OBJECT_ID_PATTERN.test(id))
   )
-  const actorOptions = await getResearchScientistOptions(
-    session,
-    projectResult.data.companyId,
-    userActorIds
-  )
+  const actorOptions = await getResearchScientistOptions(session, projectResult.data.companyId, userActorIds)
   const actorNamesById = Object.fromEntries(actorOptions.map((actor) => [actor.id, actor.name]))
 
   return <ResearchProjectAuditPanel events={events} actorNamesById={actorNamesById} />

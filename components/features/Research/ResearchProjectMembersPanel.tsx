@@ -23,7 +23,7 @@ type Props = {
   canManageMembers: boolean
 }
 
-const ROLE_OPTIONS: ResearchWorkspaceRole[] = ['owner', 'scientist', 'analyst', 'reviewer']
+const ROLE_OPTIONS: ResearchWorkspaceRole[] = ['owner', 'research_admin', 'scientist', 'analyst', 'reviewer']
 
 function getRoleLabel(t: ReturnType<typeof useTranslations<'pages.Research'>>, role: ResearchWorkspaceRole): string {
   switch (role) {

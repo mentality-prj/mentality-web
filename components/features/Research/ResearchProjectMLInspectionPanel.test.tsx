@@ -107,6 +107,8 @@ describe('ResearchProjectMLInspectionPanel', () => {
     )
 
     expect(screen.getAllByText('Core Team').length).toBeGreaterThan(0)
+    expect(screen.getAllByText('Group').length).toBeGreaterThan(0)
+    expect(screen.queryByText('group')).not.toBeInTheDocument()
     expect(screen.queryByText('group-1')).not.toBeInTheDocument()
   })
 })

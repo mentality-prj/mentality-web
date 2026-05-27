@@ -51,6 +51,21 @@ export function ResearchProjectMLInspectionPanel({
   const subjectLabelsById = new Map(subjectOptions.map((subject) => [subject.id, subject.label]))
   const needsTargetSelection = target === 'group' || target === 'subject'
 
+  function getInspectionTargetTypeLabel(inspection: ResearchMLInspection): string {
+    switch (inspection.target) {
+      case 'cohort':
+        return t('options.mlTarget.cohort')
+      case 'group':
+        return t('options.mlTarget.group')
+      case 'subject':
+        return t('options.mlTarget.subject')
+      case 'project':
+        return t('options.mlTarget.project')
+      default:
+        return notAvailable
+    }
+  }
+
   function getInspectionTargetLabel(inspection: ResearchMLInspection): string {
     switch (inspection.target) {
       case 'project':
@@ -181,7 +196,7 @@ export function ResearchProjectMLInspectionPanel({
           <div className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
             <div>
               <p className="text-xs uppercase tracking-wide text-textcolor-secondary">{t('labels.target')}</p>
-              <p className="mt-1 text-sm text-textcolor-primary">{inspection.target || notAvailable}</p>
+              <p className="mt-1 text-sm text-textcolor-primary">{getInspectionTargetTypeLabel(inspection)}</p>
             </div>
             <div>
               <p className="text-xs uppercase tracking-wide text-textcolor-secondary">{t('labels.targetId')}</p>

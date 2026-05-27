@@ -97,6 +97,10 @@ function formatMetadataValue(key: string, value: string, t: TranslationFunction,
     return listValues.join(', ')
   }
 
+  if (listValues.length === 1) {
+    return listValues[0]
+  }
+
   return value
 }
 

@@ -6,12 +6,11 @@ import { getLocalizedResearchErrorMessage } from '@/helpers/researchErrorMessage
 import { getResearchScientistOptions } from '@/helpers/researchScientists'
 import { getServerSession } from '@/lib/auth/server'
 import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
-import { CustomSession } from '@/types/auth'
 
 export default async function ResearchProjectsCreatePage() {
   const session = await getServerSession()
   const t = await getTranslations('pages.Research')
-  const result = await getResearchWorkspaceAccess(session as CustomSession)
+  const result = await getResearchWorkspaceAccess(session)
 
   if ('error' in result) {
     return (

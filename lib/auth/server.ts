@@ -1,4 +1,4 @@
-import { cookies } from 'next/headers'
+import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
@@ -116,6 +116,37 @@ function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
 // This Map handles the overlapping-requests case; the Map entry is cleared once
 // the promise settles to avoid stale memory.
 const inFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
+const requestScopedInFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
+const requestScopedResolvedSessions = new Map<
+  string,
+  {
+    session: CustomSession | null
+    expiresAt: number
+  }
+>()
+const REQUEST_SCOPED_CACHE_TTL_MS = 30_000
+const REQUEST_SCOPED_CACHE_MAX_ENTRIES = 256
+
+function buildRequestScopedCacheKey(requestId: string, accessToken: string): string {
+  return `${requestId}:${accessToken}`
+}
+
+function cleanupRequestScopedResolvedSessions(now: number): void {
+  for (const [key, entry] of requestScopedResolvedSessions.entries()) {
+    if (entry.expiresAt <= now) {
+      requestScopedResolvedSessions.delete(key)
+    }
+  }
+
+  while (requestScopedResolvedSessions.size > REQUEST_SCOPED_CACHE_MAX_ENTRIES) {
+    const firstKey = requestScopedResolvedSessions.keys().next().value as string | undefined
+    if (!firstKey) {
+      break
+    }
+
+    requestScopedResolvedSessions.delete(firstKey)
+  }
+}
 
 async function resolveServerSession(tokenCookie: string): Promise<CustomSession | null> {
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
@@ -175,12 +206,47 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
  */
 export async function getServerSession(): Promise<CustomSession | null> {
   const cookieStore = cookies()
+  const headerStore = headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
 
   if (!tokenCookie) return null
 
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
+
+  const requestId = headerStore.get('x-request-id')
+  if (requestId) {
+    const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken)
+    const now = Date.now()
+    cleanupRequestScopedResolvedSessions(now)
+
+    const cachedSessionEntry = requestScopedResolvedSessions.get(requestScopedCacheKey)
+    if (cachedSessionEntry && cachedSessionEntry.expiresAt > now) {
+      return cachedSessionEntry.session
+    }
+
+    const existingRequestScopedInFlight = requestScopedInFlightSessionRequests.get(requestScopedCacheKey)
+    if (existingRequestScopedInFlight) {
+      return existingRequestScopedInFlight
+    }
+
+    const requestScopedPromise = resolveServerSession(tokenCookie)
+    requestScopedInFlightSessionRequests.set(requestScopedCacheKey, requestScopedPromise)
+
+    try {
+      const session = await requestScopedPromise
+      requestScopedResolvedSessions.set(requestScopedCacheKey, {
+        session,
+        expiresAt: Date.now() + REQUEST_SCOPED_CACHE_TTL_MS,
+      })
+      cleanupRequestScopedResolvedSessions(Date.now())
+      return session
+    } finally {
+      if (requestScopedInFlightSessionRequests.get(requestScopedCacheKey) === requestScopedPromise) {
+        requestScopedInFlightSessionRequests.delete(requestScopedCacheKey)
+      }
+    }
+  }
 
   const dedupeKey = tokens.accessToken
 

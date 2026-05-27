@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useId, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { Badge } from '@/ui/badge'
@@ -27,6 +27,7 @@ export function ResearchMultiSelectField({
   placeholder,
 }: Props) {
   const t = useTranslations('pages.Research')
+  const fieldId = useId()
   const [draftValue, setDraftValue] = useState('')
   const mergedOptions = Array.from(new Set([...options, ...values])).filter(Boolean)
   const placeholderText = placeholder || t('panels.multiSelect.placeholder')
@@ -76,6 +77,12 @@ export function ResearchMultiSelectField({
         <Input
           value={draftValue}
           onChange={(event) => setDraftValue(event.target.value)}
+          onKeyDown={(event) => {
+            if (event.key === 'Enter') {
+              event.preventDefault()
+              addDraftValue()
+            }
+          }}
           placeholder={placeholderText}
           disabled={disabled}
         />
@@ -86,16 +93,23 @@ export function ResearchMultiSelectField({
 
       {mergedOptions.length > 0 ? (
         <div className="grid gap-2 md:grid-cols-2">
-          {mergedOptions.map((option) => (
-            <label key={option} className="flex items-center gap-3 rounded-2xl border border-border px-4 py-3">
-              <Checkbox
-                checked={values.includes(option)}
-                onCheckedChange={() => toggleValue(option)}
-                disabled={disabled}
-              />
-              <span className="text-sm text-textcolor-primary">{option}</span>
-            </label>
-          ))}
+          {mergedOptions.map((option, index) => {
+            const optionId = `${fieldId}-option-${index}`
+
+            return (
+              <div key={option} className="flex items-center gap-3 rounded-2xl border border-border px-4 py-3">
+                <Checkbox
+                  id={optionId}
+                  checked={values.includes(option)}
+                  onCheckedChange={() => toggleValue(option)}
+                  disabled={disabled}
+                />
+                <Label htmlFor={optionId} className="cursor-pointer text-sm text-textcolor-primary">
+                  {option}
+                </Label>
+              </div>
+            )
+          })}
         </div>
       ) : null}
     </div>

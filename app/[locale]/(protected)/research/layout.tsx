@@ -11,14 +11,14 @@ import { PageTitle } from '@/ds/components/PageTitle'
 import { getLocalizedResearchErrorMessage } from '@/helpers/researchErrorMessage'
 import { getServerSession } from '@/lib/auth/server'
 import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
-import { CustomSession } from '@/types/auth'
 
 export default async function ResearchLayout({ children }: { children: ReactNode }) {
   const t = await getTranslations('pages.Research')
   const session = await getServerSession()
-  const result = await getResearchWorkspaceAccess(session as CustomSession)
+  const result = await getResearchWorkspaceAccess(session)
   const hasAccess = 'data' in result && result.data.hasAccess
-  const menu = getResearchSidebarMenu({ includeCreate: hasAccess ? result.data.canCreateProjects : false })
+  const includeCreate = 'data' in result ? result.data.canCreateProjects : false
+  const menu = getResearchSidebarMenu({ includeCreate })
 
   const content =
     'error' in result ? (

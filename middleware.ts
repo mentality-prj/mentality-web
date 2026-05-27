@@ -112,6 +112,30 @@ function applySecurityHeaders(response: NextResponse): NextResponse {
   return response
 }
 
+function mergeOverrideHeaders(existing: string | null, additions: string[]): string {
+  const values = new Set(
+    (existing ?? '')
+      .split(',')
+      .map((value) => value.trim())
+      .filter(Boolean)
+  )
+
+  additions.forEach((value) => values.add(value))
+
+  return Array.from(values).join(',')
+}
+
+function applyRequestContextHeaders(response: NextResponse, pathname: string, requestId: string): NextResponse {
+  response.headers.set(
+    'x-middleware-override-headers',
+    mergeOverrideHeaders(response.headers.get('x-middleware-override-headers'), ['x-pathname', 'x-request-id'])
+  )
+  response.headers.set('x-middleware-request-x-pathname', pathname)
+  response.headers.set('x-middleware-request-x-request-id', requestId)
+
+  return response
+}
+
 async function refreshTokensServerSide(
   currentTokens: AuthTokens,
   requestUrl: string,
@@ -153,6 +177,7 @@ async function refreshTokensServerSide(
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
+  const requestId = crypto.randomUUID()
   const isApiRoute = pathname === '/api' || pathname.startsWith('/api/')
   const isCallbackRoute = pathname === '/callback'
   // Protect mutating endpoints from excessively large request bodies by
@@ -305,6 +330,7 @@ export async function middleware(request: NextRequest) {
   // in the respective layout.tsx files via getServerSession(), NOT in middleware,
   // because the cookie-stored userRole is client-controlled and unverifiable here.
 
+  applyRequestContextHeaders(intlResponse, pathname, requestId)
   applySecurityHeaders(intlResponse)
   return intlResponse
 }
