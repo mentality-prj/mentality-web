@@ -183,7 +183,7 @@ export default function AboutPage() {
                 highlightLabel={t(`ForWhom.${key}.highlightLabel`)}
                 title={t(`ForWhom.${key}.title`)}
                 description={t(`ForWhom.${key}.description`)}
-                className={cn('min-h-[18rem]', className)}
+                className={cn('md:min-h-[18rem]', className)}
                 highlightClassName={percentageClassName}
               />
             ))}

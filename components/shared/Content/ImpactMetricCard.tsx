@@ -42,7 +42,7 @@ export function ImpactMetricCard({
           </div>
         </div>
 
-        <p className="mt-6 text-base leading-relaxed text-textcolor-secondary">{description}</p>
+        <p className="mt-2 text-base leading-relaxed text-textcolor-secondary md:mt-6">{description}</p>
       </div>
     </div>
   )
