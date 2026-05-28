@@ -145,7 +145,7 @@ export function ArchitectureLayersShowcase() {
       </MosaicGridItem>
 
       <MosaicGridItem xlSpan={8}>
-        <div className="relative h-full min-h-[400px] overflow-hidden rounded-[32px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.95),rgba(248,250,252,0.86)_45%,rgba(241,245,249,0.92)_100%)] p-3 [perspective:1800px] md:min-h-[520px] md:p-6">
+        <div className="relative h-full min-h-[360px] overflow-hidden rounded-[32px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.95),rgba(248,250,252,0.86)_45%,rgba(241,245,249,0.92)_100%)] p-3 [perspective:1800px] tablet:min-h-[400px] md:min-h-[520px] md:p-6">
           <div
             className={cn(
               'absolute inset-[12%] rounded-[36px] blur-3xl transition-colors duration-500',
@@ -187,7 +187,7 @@ export function ArchitectureLayersShowcase() {
                   </span>
                 </div>
 
-                <div className="relative z-10 mt-6 space-y-3">
+                <div className="relative z-10 space-y-3 sm:mt-6">
                   <h3
                     className={cn(
                       'landing-showcase-title',
@@ -208,12 +208,14 @@ export function ArchitectureLayersShowcase() {
                   </p>
                 </div>
 
-                <div className="relative z-10 mt-auto flex items-end justify-end gap-4 pt-6">
+                <div className="relative z-10 mt-auto flex items-end justify-end gap-4 sm:pt-6">
                   <ArrowRight
                     className={cn(
-                      'h-[3.75rem] w-[3.75rem] flex-none transition-[transform,color] duration-300 hover:text-white group-hover:text-white',
+                      'h-[3rem] w-[3rem] flex-none transition-[transform,color] duration-300 hover:text-white group-hover:text-white tablet:h-[3.75rem] tablet:w-[3.75rem]',
                       layer.arrowClassName,
-                      isActive ? 'translate-x-0' : 'translate-x-1'
+                      isActive
+                        ? 'translate-x-0 max-md:rounded-full max-md:bg-white max-md:shadow-[inset_4px_4px_8px_rgba(0,0,0,0.08),inset_-4px_-4px_8px_rgba(255,255,255,0.9)]'
+                        : 'translate-x-1'
                     )}
                   />
                 </div>
