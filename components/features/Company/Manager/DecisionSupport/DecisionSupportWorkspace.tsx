@@ -36,6 +36,8 @@ export function DecisionSupportWorkspace({ viewerRole }: Props) {
         detailsByEventId={riskFeed.detailsByEventId}
         onRetry={riskFeed.refresh}
         onOpenDetails={riskFeed.fetchDetails}
+        onApplyAction={riskFeed.applyAction}
+        onResolve={riskFeed.resolveRisk}
       />
     </div>
   )
