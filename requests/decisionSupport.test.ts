@@ -1,6 +1,11 @@
 import { B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS, B2B_DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
-import { applyDecisionSupportRiskEventAction, getPolicyMetrics, getRiskEventEvidence } from '@/requests/decisionSupport'
+import {
+  applyDecisionSupportRiskEventAction,
+  getPolicyMetrics,
+  getRiskEventEvidence,
+  resolveDecisionSupportRiskEvent,
+} from '@/requests/decisionSupport'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { RiskEventEvidence } from '@/types/decisionSupport'
@@ -132,6 +137,25 @@ describe('getRiskEventEvidence', () => {
         body: expect.objectContaining({
           resolutionType: 'action_taken',
           resolutionOutcome: expect.stringContaining('team_sync'),
+        }),
+      })
+    )
+  })
+
+  it('uses a non-action resolution type when resolving a risk event', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { success: true } })
+
+    await resolveDecisionSupportRiskEvent(mockSession, COMPANY_ID, EVENT_ID, {
+      note: 'Closing after manual review',
+    })
+
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      expect.stringContaining(B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(COMPANY_ID, EVENT_ID)),
+      expect.objectContaining({
+        method: 'PATCH',
+        body: expect.objectContaining({
+          resolutionType: 'wont_fix',
         }),
       })
     )

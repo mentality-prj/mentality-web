@@ -150,7 +150,7 @@ export async function resolveDecisionSupportRiskEvent(
   const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
   const res = await performAuthRequest<DecisionSupportRiskEventMutationResponse>(session, url, {
     method: 'PATCH',
-    body: buildAddressRiskEventDto(session, dto, 'action_taken'),
+    body: buildAddressRiskEventDto(session, dto, 'wont_fix'),
   })
 
   if ('error' in res) {
@@ -170,7 +170,7 @@ export async function resolveDecisionSupportRiskEventAdmin(
   const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
   const res = await performAdminRequest<DecisionSupportRiskEventMutationResponse>(session, url, {
     method: 'PATCH',
-    body: buildAddressRiskEventDto(session, dto, 'action_taken'),
+    body: buildAddressRiskEventDto(session, dto, 'wont_fix'),
   })
 
   if ('error' in res) {

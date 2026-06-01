@@ -348,10 +348,15 @@ export function RiskEventsFeed({
                 </div>
 
                 <div className="grid gap-4 lg:grid-cols-2">
-                  <InfoListCard title={copy.riskFeed.history} items={selectedDetails?.history ?? []} />
+                  <InfoListCard
+                    title={copy.riskFeed.history}
+                    items={selectedDetails?.history ?? []}
+                    emptyLabel={copy.common.noData}
+                  />
                   <InfoListCard
                     title={copy.riskFeed.performedActions}
                     items={selectedDetails?.performedActions ?? []}
+                    emptyLabel={copy.common.noData}
                   />
                 </div>
 
@@ -449,7 +454,15 @@ function FilterSelect({ label, value, onChange, placeholder, options }: FilterSe
   )
 }
 
-function InfoListCard({ title, items }: { title: string; items: string[] }) {
+function InfoListCard({
+  title,
+  items,
+  emptyLabel,
+}: {
+  title: string
+  items: string[]
+  emptyLabel: string
+}) {
   return (
     <div className="rounded-2xl border border-border bg-background p-4">
       <h3 className="text-sm font-semibold tracking-wide text-textcolor-secondary">{title}</h3>
@@ -462,7 +475,7 @@ function InfoListCard({ title, items }: { title: string; items: string[] }) {
           ))}
         </ul>
       ) : (
-        <p className="mt-3 text-sm text-textcolor-secondary">—</p>
+        <p className="mt-3 text-sm text-textcolor-secondary">{emptyLabel}</p>
       )}
     </div>
   )
