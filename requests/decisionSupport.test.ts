@@ -1,4 +1,4 @@
-import { B2B_DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
+import { B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS, B2B_DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
 import { applyDecisionSupportRiskEventAction, getPolicyMetrics, getRiskEventEvidence } from '@/requests/decisionSupport'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
@@ -144,7 +144,7 @@ describe('getRiskEventEvidence', () => {
 
     expect(performAdminRequest).toHaveBeenCalledWith(
       mockSession,
-      'http://localhost:3200/api/admin-diagnostics/v1/ml/policy-metrics'
+      expect.stringContaining(B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS.policyMetrics())
     )
   })
 })

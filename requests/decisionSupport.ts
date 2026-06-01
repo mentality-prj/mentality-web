@@ -13,6 +13,10 @@ import {
 import { APIUrl } from './config'
 import { performAdminRequest, performAuthRequest } from './genericFetch'
 
+type DecisionSupportRiskEventMutationResponse = {
+  success?: boolean
+}
+
 function buildAddressRiskEventDto(
   session: CustomSession | null,
   dto: RiskEventActionDto | ResolveRiskEventDto,
@@ -94,7 +98,7 @@ export async function applyDecisionSupportRiskEventAction(
   dto: RiskEventActionDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
   const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
-  const res = await performAuthRequest<DecisionSupportRiskEvent>(session, url, {
+  const res = await performAuthRequest<DecisionSupportRiskEventMutationResponse>(session, url, {
     method: 'PATCH',
     body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
@@ -109,7 +113,7 @@ export async function applyDecisionSupportRiskEventAction(
     return { error: res.error }
   }
 
-  return { data: { success: Boolean((res.data as { success?: boolean } | undefined)?.success ?? true) } }
+  return { data: { success: Boolean(res.data?.success ?? true) } }
 }
 
 export async function applyDecisionSupportRiskEventActionAdmin(
@@ -119,7 +123,7 @@ export async function applyDecisionSupportRiskEventActionAdmin(
   dto: RiskEventActionDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
   const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
-  const res = await performAdminRequest<DecisionSupportRiskEvent>(session, url, {
+  const res = await performAdminRequest<DecisionSupportRiskEventMutationResponse>(session, url, {
     method: 'PATCH',
     body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
@@ -134,7 +138,7 @@ export async function applyDecisionSupportRiskEventActionAdmin(
     return { error: res.error }
   }
 
-  return { data: { success: Boolean((res.data as { success?: boolean } | undefined)?.success ?? true) } }
+  return { data: { success: Boolean(res.data?.success ?? true) } }
 }
 
 export async function resolveDecisionSupportRiskEvent(
@@ -144,7 +148,7 @@ export async function resolveDecisionSupportRiskEvent(
   dto: ResolveRiskEventDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
   const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
-  const res = await performAuthRequest<DecisionSupportRiskEvent>(session, url, {
+  const res = await performAuthRequest<DecisionSupportRiskEventMutationResponse>(session, url, {
     method: 'PATCH',
     body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
@@ -154,7 +158,7 @@ export async function resolveDecisionSupportRiskEvent(
     return { error: res.error }
   }
 
-  return { data: { success: Boolean((res.data as { success?: boolean } | undefined)?.success ?? true) } }
+  return { data: { success: Boolean(res.data?.success ?? true) } }
 }
 
 export async function resolveDecisionSupportRiskEventAdmin(
@@ -164,7 +168,7 @@ export async function resolveDecisionSupportRiskEventAdmin(
   dto: ResolveRiskEventDto
 ): Promise<{ data: { success: boolean } } | { error: string }> {
   const url = `${APIUrl}${B2B_DECISION_SUPPORT_ENDPOINTS.riskEventAddress(companyId, eventId)}`
-  const res = await performAdminRequest<DecisionSupportRiskEvent>(session, url, {
+  const res = await performAdminRequest<DecisionSupportRiskEventMutationResponse>(session, url, {
     method: 'PATCH',
     body: buildAddressRiskEventDto(session, dto, 'action_taken'),
   })
@@ -174,7 +178,7 @@ export async function resolveDecisionSupportRiskEventAdmin(
     return { error: res.error }
   }
 
-  return { data: { success: Boolean((res.data as { success?: boolean } | undefined)?.success ?? true) } }
+  return { data: { success: Boolean(res.data?.success ?? true) } }
 }
 
 export async function getRiskEventEvidence(
