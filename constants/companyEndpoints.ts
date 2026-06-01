@@ -76,7 +76,9 @@ export const B2B_DECISION_SUPPORT_ENDPOINTS = Object.freeze({
 // B2B decision-support diagnostics admin layer
 
 export const B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS = Object.freeze({
-  policyMetrics: () => '/admin-diagnostics/v1/ml/policy-metrics',
+  policyMetrics: (companyId: string) =>
+    `/admin-diagnostics/v1/ml/policy-metrics?companyId=${encodeURIComponent(companyId)}`,
+  policyMetricsGlobal: () => '/admin-diagnostics/v1/ml/policy-metrics',
 })
 
 // Backward-compatible aliases for existing request modules.

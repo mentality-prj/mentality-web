@@ -23,6 +23,12 @@ import {
 } from '@/types/reporting'
 
 import { APIUrl } from './config'
+import {
+  applyDecisionSupportRiskEventAction,
+  applyDecisionSupportRiskEventActionAdmin,
+  resolveDecisionSupportRiskEvent,
+  resolveDecisionSupportRiskEventAdmin,
+} from './decisionSupport'
 import { performAdminRequest, performAuthRequest } from './genericFetch'
 
 type Result<T> = Promise<{ data: T } | { error: string }>
@@ -1116,19 +1122,23 @@ export async function getRiskEventDetailVM(
 }
 
 export async function applyRiskEventAction(
-  _scope: DecisionSupportScope,
-  _eventId: string,
-  _dto: { actionType: RiskEventActionKind; note?: string }
+  scope: DecisionSupportScope,
+  eventId: string,
+  dto: { actionType: RiskEventActionKind; note?: string }
 ): Result<{ success: boolean }> {
-  return { error: 'Risk event write actions are not available in the current projection API.' }
+  return scope.admin
+    ? applyDecisionSupportRiskEventActionAdmin(scope.session, scope.companyId, eventId, dto)
+    : applyDecisionSupportRiskEventAction(scope.session, scope.companyId, eventId, dto)
 }
 
 export async function resolveRiskEvent(
-  _scope: DecisionSupportScope,
-  _eventId: string,
-  _dto: { note?: string }
+  scope: DecisionSupportScope,
+  eventId: string,
+  dto: { note?: string }
 ): Result<{ success: boolean }> {
-  return { error: 'Risk event write actions are not available in the current projection API.' }
+  return scope.admin
+    ? resolveDecisionSupportRiskEventAdmin(scope.session, scope.companyId, eventId, dto)
+    : resolveDecisionSupportRiskEvent(scope.session, scope.companyId, eventId, dto)
 }
 
 export async function getTeamDynamicsVM(

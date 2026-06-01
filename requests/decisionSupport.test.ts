@@ -140,11 +140,11 @@ describe('getRiskEventEvidence', () => {
   it('uses the admin diagnostics policy metrics endpoint', async () => {
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { totalRiskEvents: 3 } })
 
-    await getPolicyMetrics(mockSession)
+    await getPolicyMetrics(mockSession, COMPANY_ID)
 
     expect(performAdminRequest).toHaveBeenCalledWith(
       mockSession,
-      expect.stringContaining(B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS.policyMetrics())
+      expect.stringContaining(B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS.policyMetrics(COMPANY_ID))
     )
   })
 })

@@ -206,13 +206,14 @@ export async function getRiskEventEvidence(
 }
 
 export async function getPolicyMetrics(
-  session: CustomSession | null
+  session: CustomSession | null,
+  companyId: string
 ): Promise<{ data: PolicyMetrics } | { error: string }> {
-  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS.policyMetrics()}`
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS.policyMetrics(companyId)}`
   const res = await performAdminRequest<PolicyMetrics>(session, url)
 
   if ('error' in res) {
-    logger.error('Admin: failed to fetch policy metrics', { error: res.error })
+    logger.error('Admin: failed to fetch policy metrics', { error: res.error, companyId })
     return { error: res.error }
   }
 
