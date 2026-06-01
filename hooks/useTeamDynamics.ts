@@ -4,18 +4,15 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { useLocale } from 'next-intl'
 
 import { ONE_YEAR_MS } from '@/constants/company'
+import { todayStr } from '@/helpers/company.helpers'
 import { getReportingCopy } from '@/helpers/reportingCopy'
 import { flattenGroups } from '@/mappers/group.mappers'
 import { getTeamDynamicsVM } from '@/requests/reportingClient'
 import { GroupEntity } from '@/types/company'
 import { TeamDynamicsVM } from '@/types/reporting'
 
-import { useGroups } from './useGroups'
 import { useCompanyScope } from './useCompanyScope'
-
-function todayStr(): string {
-  return new Date().toISOString().slice(0, 10)
-}
+import { useGroups } from './useGroups'
 
 function daysAgoStr(days: number): string {
   const value = new Date()
