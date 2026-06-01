@@ -28,7 +28,7 @@ type UseRiskEventsFeedResult = {
 
 export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeedResult {
   const locale = useLocale()
-  const { session, status, isSystemAdmin, resolveCompanyId } = useCompanyScope()
+  const { session, status, isSystemAdmin, resolveCompanyId, companyScopeError } = useCompanyScope()
   const [riskEvents, setRiskEvents] = useState<RiskEventVM[]>([])
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -62,6 +62,9 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
     const companyId = await resolveCompanyId()
     if (!companyId) {
       if (requestTokenRef.current === token) {
+        if (companyScopeError) {
+          setError(companyScopeError)
+        }
         setRiskEvents([])
         setLoading(false)
       }
@@ -80,7 +83,7 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
 
     setRiskEvents(result.data)
     setLoading(false)
-  }, [locale, resolveCompanyId, session, status, useAdminMode])
+  }, [companyScopeError, locale, resolveCompanyId, session, status, useAdminMode])
 
   const fetchDetails = useCallback(
     async (eventId: string): Promise<RiskEventDetailVM | null> => {

@@ -17,7 +17,7 @@ type UseReportOverviewResult = {
 
 export function useReportOverview(preferManagerScope = false): UseReportOverviewResult {
   const locale = useLocale()
-  const { session, status, isSystemAdmin, resolveCompanyId } = useCompanyScope()
+  const { session, status, isSystemAdmin, resolveCompanyId, companyScopeError } = useCompanyScope()
   const [overview, setOverview] = useState<ReportOverviewVM | null>(null)
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
@@ -34,6 +34,9 @@ export function useReportOverview(preferManagerScope = false): UseReportOverview
     const companyId = await resolveCompanyId()
     if (!companyId) {
       if (requestTokenRef.current === token) {
+        if (companyScopeError) {
+          setError(companyScopeError)
+        }
         setOverview(null)
         setLoading(false)
       }
@@ -52,7 +55,7 @@ export function useReportOverview(preferManagerScope = false): UseReportOverview
 
     setOverview(result.data)
     setLoading(false)
-  }, [locale, resolveCompanyId, session, status, useAdminMode])
+  }, [companyScopeError, locale, resolveCompanyId, session, status, useAdminMode])
 
   useEffect(() => {
     if (status === 'authenticated') {

@@ -73,6 +73,12 @@ export const B2B_DECISION_SUPPORT_ENDPOINTS = Object.freeze({
     companyUrl(companyId, `/decision-support/risk-events/${eventId}/evidence`),
 })
 
+// B2B decision-support diagnostics admin layer
+
+export const B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS = Object.freeze({
+  policyMetrics: () => '/admin-diagnostics/v1/ml/policy-metrics',
+})
+
 // Backward-compatible aliases for existing request modules.
 export const COMPANY_ENDPOINTS = Object.freeze({
   BASE: GLOBAL_ADMIN_COMPANY_ENDPOINTS.base,
@@ -86,3 +92,4 @@ export const ACCESS_SCOPE_ENDPOINTS = B2B_ACCESS_SCOPE_ENDPOINTS
 export const EMPLOYEE_ENDPOINTS = B2B_EMPLOYEE_ENDPOINTS
 export const COMPANY_ADMIN_ENDPOINTS = B2B_COMPANY_ADMIN_ENDPOINTS
 export const DECISION_SUPPORT_ENDPOINTS = B2B_DECISION_SUPPORT_ENDPOINTS
+export const DECISION_SUPPORT_ADMIN_ENDPOINTS = B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS

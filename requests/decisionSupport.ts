@@ -1,4 +1,4 @@
-import { B2B_DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
+import { B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS, B2B_DECISION_SUPPORT_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import {
@@ -6,8 +6,8 @@ import {
   DecisionSupportRiskEvent,
   PolicyMetrics,
   ResolveRiskEventDto,
-  RiskEventActionDto,
   RiskAssociationEvidenceEntity,
+  RiskEventActionDto,
 } from '@/types/decisionSupport'
 
 import { APIUrl } from './config'
@@ -204,7 +204,7 @@ export async function getRiskEventEvidence(
 export async function getPolicyMetrics(
   session: CustomSession | null
 ): Promise<{ data: PolicyMetrics } | { error: string }> {
-  const url = `${APIUrl}/admin-diagnostics/v1/ml/policy-metrics`
+  const url = `${APIUrl}${B2B_DECISION_SUPPORT_ADMIN_ENDPOINTS.policyMetrics()}`
   const res = await performAdminRequest<PolicyMetrics>(session, url)
 
   if ('error' in res) {
