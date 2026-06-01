@@ -34,12 +34,12 @@ export function HowItWorksSection() {
     return (
       <li key={stepKey}>
         <div
-          className={`flex items-start gap-sm rounded-[24px] p-5 ${
-            isActive ? 'bg-white/70 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-sm' : ''
+          className={`flex items-center gap-sm rounded-[24px] px-5 max-md:flex-wrap md:items-start lg:py-5 ${
+            isActive ? 'bg-white/70 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-sm' : ''
           }`}
         >
           <span
-            className={`flex h-9 w-9 items-center justify-center rounded-full text-sm font-semibold ${
+            className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
               isActive
                 ? 'bg-[#2563eb] text-white shadow-[0_10px_20px_rgba(37,99,235,0.35)]'
                 : 'border border-[var(--outline-tertiary)] bg-white text-textcolor-secondary'
@@ -47,9 +47,11 @@ export function HowItWorksSection() {
           >
             {index + 1}
           </span>
-          <div className="space-y-1">
-            <h4 className="text-title text-lg leading-[130%]">{stepTitle ?? rawText}</h4>
-            {stepDescription && <p className="text-sm leading-relaxed text-textcolor-secondary">{stepDescription}</p>}
+          <div className="max-md:contents md:space-y-1">
+            <h4 className="text-title text-lg leading-[130%] max-md:flex-1">{stepTitle ?? rawText}</h4>
+            {stepDescription && (
+              <p className="text-sm leading-relaxed text-textcolor-secondary max-md:basis-full">{stepDescription}</p>
+            )}
           </div>
         </div>
       </li>
@@ -57,13 +59,13 @@ export function HowItWorksSection() {
   })
 
   return (
-    <section className="mb-14 w-full">
-      <div className="container-max-width mx-auto grid grid-cols-1 gap-10 px-4 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
+    <section className="mb-7 w-full tablet:mb-14">
+      <div className="container-max-width mx-auto grid grid-cols-1 gap-5 px-4 tablet:gap-10 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
         <div className="rounded-[40px] bg-background-muted p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>
           <p className="mt-1 text-sm text-textcolor-secondary">{t(stepsSectionConfig.subtitleKey)}</p>
           <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
-          <div className="mt-8">
+          <div className="mt-6 flex justify-center tablet:block lg:mt-8">
             <Button asChild variant="volume" size="large">
               <Link href={Routes.AUTH}>{t(stepsSectionConfig.ctaKey)}</Link>
             </Button>

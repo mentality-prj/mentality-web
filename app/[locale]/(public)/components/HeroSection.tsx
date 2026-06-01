@@ -45,20 +45,19 @@ export function HeroSection() {
   }, [])
 
   return (
-    <section ref={heroRef} data-hero-rings-ready="false" className="hero-zen mb-10 w-full py-16">
-      <div className="container-max-width mx-auto px-8">
-        <div className="grid grid-cols-1 items-center gap-md md:grid-cols-2">
-          <div className="flex max-w-[720px] flex-col gap-default">
-            <h1 className="landing-h1">{t('Hero.title')}</h1>
+    <section
+      ref={heroRef}
+      data-hero-rings-ready="false"
+      className="hero-zen mb-8 w-full py-8 tablet:mb-10 tablet:py-10 sm:py-12 md:py-16"
+    >
+      <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8">
+        <div className="grid grid-cols-1 items-center gap-default md:grid-cols-2 md:gap-x-md">
+          <div className="flex max-w-[720px] flex-col gap-default md:max-lg:contents">
+            <h1 className="landing-h1 md:max-lg:col-span-2">{t('Hero.title')}</h1>
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
-            <div>
-              <Button asChild variant="volume" size="large">
-                <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
-              </Button>
-            </div>
           </div>
-          <div className="flex justify-end">
-            <div className="w-[375px] rounded-[14px] bg-white p-8 shadow-sm">
+          <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
+            <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
               <div className="flex items-center justify-between gap-sm">
                 <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
                   {t('Hero.testimonial.title')}
@@ -79,6 +78,11 @@ export function HeroSection() {
                 </span>
               </div>
             </div>
+          </div>
+          <div className="mx-auto flex justify-start tablet:mx-0">
+            <Button asChild variant="volume" size="large">
+              <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
+            </Button>
           </div>
         </div>
       </div>

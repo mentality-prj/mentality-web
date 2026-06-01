@@ -9,6 +9,7 @@ type SectionCardProps = {
   children?: React.ReactNode
   className?: string
   titleClassName?: string
+  textWrapperClassName?: string
   decoration?: React.ReactNode
   type?: StatusType
 }
@@ -35,6 +36,7 @@ export const SectionCard = ({
   children,
   className,
   titleClassName,
+  textWrapperClassName,
   decoration,
   type = Statuses.default,
 }: SectionCardProps) => {
@@ -44,7 +46,7 @@ export const SectionCard = ({
     <div className={cn(typeBg, 'relative overflow-hidden rounded p-6', className)}>
       {decoration && <div className="pointer-events-none absolute inset-0">{decoration}</div>}
       {(title || subtitle) && (
-        <div className="relative z-10 mb-6 flex flex-col gap-xs">
+        <div className={cn('relative z-10 mb-6 flex flex-col gap-xs', textWrapperClassName)}>
           {title && <h3 className={cn('landing-h3', titleClassName)}>{title}</h3>}
           {(subtitle || subtitlePrefix) && (
             <div className="flex flex-row gap-xs text-base font-normal text-textcolor-secondary">

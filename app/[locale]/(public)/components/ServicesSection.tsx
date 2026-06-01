@@ -47,11 +47,11 @@ export function ServicesSection() {
   const t = useTranslations('pages.Landing')
 
   return (
-    <CardContainer className="mb-12">
-      <div className="mb-10 px-8">
+    <CardContainer className="mb-6 tablet:mb-12">
+      <div className="mb-5 tablet:px-6 md:mb-10 md:px-8">
         <h2 className="landing-h1 whitespace-pre-line">{t('Services.title')}</h2>
       </div>
-      <div className="grid grid-cols-1 gap-default md:grid-cols-2 lg:grid-cols-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 sm:gap-default lg:grid-cols-4">
         {serviceCards.map((card) => {
           const title = card.titleKey ? t(card.titleKey as LandingKeys) : undefined
           const description = t(card.descriptionKey as LandingKeys)
