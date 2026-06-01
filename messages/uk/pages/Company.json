@@ -150,6 +150,7 @@
     },
     "analytics": {
       "title": "Аналітика",
+      "teamDynamicsTitle": "Динаміка команди",
       "fromLabel": "Від",
       "toLabel": "До",
       "filterByGroup": "Фільтр за групою",

@@ -36,11 +36,18 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
   const [loadingDetailIds, setLoadingDetailIds] = useState<Set<string>>(new Set())
   const [detailsByEventId, setDetailsByEventId] = useState<Record<string, RiskEventDetailVM | null>>({})
   const requestTokenRef = useRef(0)
+  const processingEventIdsRef = useRef<Set<string>>(new Set())
   const useAdminMode = isSystemAdmin && !preferManagerScope
 
   const riskEventMap = useMemo(() => new Map(riskEvents.map((event) => [event.id, event])), [riskEvents])
 
   const setProcessing = useCallback((eventId: string, processing: boolean) => {
+    if (processing) {
+      processingEventIdsRef.current.add(eventId)
+    } else {
+      processingEventIdsRef.current.delete(eventId)
+    }
+
     setProcessingEventIds((previous) => {
       const next = new Set(previous)
       if (processing) {
@@ -122,7 +129,7 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
   const applyAction = useCallback(
     async (eventId: string, dto: { actionType: RiskEventActionKind; note?: string }): Promise<boolean> => {
       const companyId = await resolveCompanyId()
-      if (!companyId || processingEventIds.has(eventId)) {
+      if (!companyId || processingEventIdsRef.current.has(eventId)) {
         return false
       }
 
@@ -138,13 +145,13 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
       await refresh()
       return Boolean(result.data.success)
     },
-    [processingEventIds, refresh, resolveCompanyId, session, setProcessing, useAdminMode]
+    [refresh, resolveCompanyId, session, setProcessing, useAdminMode]
   )
 
   const resolveRisk = useCallback(
     async (eventId: string, dto: { note?: string }): Promise<boolean> => {
       const companyId = await resolveCompanyId()
-      if (!companyId || processingEventIds.has(eventId)) {
+      if (!companyId || processingEventIdsRef.current.has(eventId)) {
         return false
       }
 
@@ -160,7 +167,7 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
       await refresh()
       return Boolean(result.data.success)
     },
-    [processingEventIds, refresh, resolveCompanyId, session, setProcessing, useAdminMode]
+    [refresh, resolveCompanyId, session, setProcessing, useAdminMode]
   )
 
   useEffect(() => {
@@ -172,6 +179,7 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
       setLoading(false)
       setError(null)
       setProcessingEventIds(new Set())
+      processingEventIdsRef.current = new Set()
       setLoadingDetailIds(new Set())
       setDetailsByEventId({})
     }

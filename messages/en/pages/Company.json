@@ -150,6 +150,7 @@
     },
     "analytics": {
       "title": "Analytics",
+      "teamDynamicsTitle": "Team Dynamics",
       "fromLabel": "From",
       "toLabel": "To",
       "filterByGroup": "Filter by Group",

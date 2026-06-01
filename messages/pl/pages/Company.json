@@ -150,6 +150,7 @@
     },
     "analytics": {
       "title": "Analityka",
+      "teamDynamicsTitle": "Dynamika zespołu",
       "fromLabel": "Od",
       "toLabel": "Do",
       "filterByGroup": "Filtruj według grupy",

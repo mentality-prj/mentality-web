@@ -32,7 +32,7 @@ export default async function ManagerAnalyticsPage({ params }: { params: Promise
 
   return (
     <div className="gap-xl flex flex-col">
-      <PageTitle title={t('analytics.title')} subtitle={subtitle} />
+      <PageTitle title={t('analytics.teamDynamicsTitle')} subtitle={subtitle} />
 
       {isSystemAdmin ? <AdminCompanyWrapper>{content}</AdminCompanyWrapper> : content}
     </div>
