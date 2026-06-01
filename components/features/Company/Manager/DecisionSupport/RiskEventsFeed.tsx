@@ -454,15 +454,7 @@ function FilterSelect({ label, value, onChange, placeholder, options }: FilterSe
   )
 }
 
-function InfoListCard({
-  title,
-  items,
-  emptyLabel,
-}: {
-  title: string
-  items: string[]
-  emptyLabel: string
-}) {
+function InfoListCard({ title, items, emptyLabel }: { title: string; items: string[]; emptyLabel: string }) {
   return (
     <div className="rounded-2xl border border-border bg-background p-4">
       <h3 className="text-sm font-semibold tracking-wide text-textcolor-secondary">{title}</h3>
