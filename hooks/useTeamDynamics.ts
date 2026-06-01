@@ -15,9 +15,7 @@ import { useCompanyScope } from './useCompanyScope'
 import { useGroups } from './useGroups'
 
 function daysAgoStr(days: number): string {
-  const value = new Date()
-  value.setDate(value.getDate() - days)
-  return value.toISOString().slice(0, 10)
+  return new Date(Date.now() - days * 24 * 60 * 60 * 1000).toISOString().slice(0, 10)
 }
 
 type UseTeamDynamicsResult = {

@@ -94,7 +94,12 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
 
   const fetchDetails = useCallback(
     async (eventId: string): Promise<RiskEventDetailVM | null> => {
+      const token = requestTokenRef.current
       const companyId = await resolveCompanyId()
+      if (requestTokenRef.current !== token) {
+        return null
+      }
+
       const baseEvent = riskEventMap.get(eventId)
 
       if (!companyId || !baseEvent) {
@@ -114,6 +119,10 @@ export function useRiskEventsFeed(preferManagerScope = false): UseRiskEventsFeed
         next.delete(eventId)
         return next
       })
+
+      if (requestTokenRef.current !== token) {
+        return null
+      }
 
       if ('error' in result) {
         setError(result.error)
