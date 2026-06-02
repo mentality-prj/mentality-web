@@ -117,10 +117,10 @@ describe('useMLInspection', () => {
     render(<MLInspectionProbe />)
 
     await waitFor(() => {
-      expect(getAdminDiagnosticsInspectionVM).toHaveBeenCalledWith({ user: { role: 'admin' } }, 'company-1', 'uk')
+      expect(screen.getByTestId('target-id')).toHaveTextContent('company-1')
     })
 
-    expect(screen.getByTestId('target-id')).toHaveTextContent('company-1')
+    expect(getAdminDiagnosticsInspectionVM).toHaveBeenCalledWith({ user: { role: 'admin' } }, 'company-1', 'uk')
     expect(screen.getByTestId('error')).toBeEmptyDOMElement()
   })
 
