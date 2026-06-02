@@ -121,6 +121,9 @@ describe('getRiskEventEvidence', () => {
     expect(logger.error).toHaveBeenCalled()
   })
 
+})
+
+describe('applyDecisionSupportRiskEventAction', () => {
   it('uses the address endpoint when applying a risk event action', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: EVENT_ID } })
 
@@ -142,6 +145,9 @@ describe('getRiskEventEvidence', () => {
     )
   })
 
+})
+
+describe('resolveDecisionSupportRiskEvent', () => {
   it('uses a non-action resolution type when resolving a risk event', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { success: true } })
 
@@ -161,6 +167,9 @@ describe('getRiskEventEvidence', () => {
     )
   })
 
+})
+
+describe('getPolicyMetrics', () => {
   it('uses the admin diagnostics policy metrics endpoint', async () => {
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { totalRiskEvents: 3 } })
 
