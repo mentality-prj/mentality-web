@@ -92,27 +92,32 @@ export function useAssignManager() {
 
     setLoading(true)
     const session = data as CustomSession
-    const results = await Promise.all(
-      selectedGroupIds.map((groupId) => {
+    const outcomes = await Promise.all(
+      selectedGroupIds.map(async (groupId) => {
         const dto = { userId: selectedUserId, groupId, permission: 'VIEW_ANALYTICS' as const }
+        const result = adminCompanyId
+          ? await createAccessScopeAdmin(session, adminCompanyId, dto)
+          : await createAccessScope(session, companyId!, dto)
 
-        return adminCompanyId
-          ? createAccessScopeAdmin(session, adminCompanyId, dto)
-          : createAccessScope(session, companyId!, dto)
+        return { groupId, result }
       })
     )
     setLoading(false)
-    const errors = results.filter((result): result is { error: string } => 'error' in result)
-    const createdScopes = results.filter((result): result is { data: AccessScopeEntity } => 'data' in result)
-    const remainingGroupIds = selectedGroupIds.filter((_, index) => 'error' in results[index])
+    const errors = outcomes.filter(
+      (item): item is { groupId: string; result: { error: string } } => 'error' in item.result
+    )
+    const createdScopes = outcomes.filter(
+      (item): item is { groupId: string; result: { data: AccessScopeEntity } } => 'data' in item.result
+    )
+    const remainingGroupIds = errors.map((item) => item.groupId)
 
     if (createdScopes.length > 0) {
       toast.success(t('success'))
-      setScopes((prev) => [...prev, ...createdScopes.map((result) => result.data)])
+      setScopes((prev) => [...prev, ...createdScopes.map((item) => item.result.data)])
     }
 
     if (errors.length > 0) {
-      toast.error(errors[0].error)
+      toast.error(errors[0].result.error)
     }
 
     if (errors.length === 0) {

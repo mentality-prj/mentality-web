@@ -21,6 +21,21 @@ const TONE_BORDER_CLASSES: Record<InsightCardVM['tone'], string> = {
   critical: 'border border-rose-300',
 }
 
+function getToneBorderClass(tone?: InsightCardVM['tone']): string | undefined {
+  switch (tone) {
+    case 'neutral':
+      return TONE_BORDER_CLASSES.neutral
+    case 'positive':
+      return TONE_BORDER_CLASSES.positive
+    case 'caution':
+      return TONE_BORDER_CLASSES.caution
+    case 'critical':
+      return TONE_BORDER_CLASSES.critical
+    default:
+      return undefined
+  }
+}
+
 type CardShellProps = {
   title: string
   subtitle?: string | null
@@ -31,7 +46,7 @@ type CardShellProps = {
 }
 
 function CardShell({ title, subtitle, footer, children, tone, className }: CardShellProps) {
-  const toneClass = tone ? TONE_BORDER_CLASSES[tone] : undefined
+  const toneClass = getToneBorderClass(tone)
   return (
     <StaticCard className={[toneClass, className].filter(Boolean).join(' ') || undefined}>
       <div className="flex flex-col gap-1">

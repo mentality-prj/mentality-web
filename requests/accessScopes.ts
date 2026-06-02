@@ -1,4 +1,5 @@
 import { ACCESS_SCOPE_ENDPOINTS, COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
+import { normalizeAccessScope, normalizeAccessScopes } from '@/helpers/accessScopes'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
@@ -10,51 +11,6 @@ import { performAdminRequest, performAuthRequest } from './genericFetch'
 function assertCanAssign(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole
   return !!role && CAN_ASSIGN_MANAGERS.includes(role)
-}
-
-function normalizeAccessScope(value: unknown, companyId?: string): AccessScopeEntity | null {
-  if (typeof value !== 'object' || value === null || Array.isArray(value)) {
-    return null
-  }
-
-  const source = value as Record<string, unknown>
-  const id = typeof source.id === 'string' ? source.id : typeof source._id === 'string' ? source._id : ''
-  const userId = typeof source.userId === 'string' ? source.userId : ''
-  const groupId =
-    typeof source.groupId === 'string'
-      ? source.groupId
-      : Array.isArray(source.groupIds) && typeof source.groupIds[0] === 'string'
-        ? source.groupIds[0]
-        : ''
-
-  if (!id || !userId || !groupId) {
-    return null
-  }
-
-  const hasViewAnalytics = source.permission === 'VIEW_ANALYTICS' || source.canViewAnalytics === true
-  if (!hasViewAnalytics) {
-    return null
-  }
-
-  const permission: AccessScopeEntity['permission'] = 'VIEW_ANALYTICS'
-
-  return {
-    id,
-    userId,
-    groupId,
-    permission,
-    companyId:
-      typeof source.companyId === 'string' ? source.companyId : typeof companyId === 'string' ? companyId : undefined,
-    createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
-  }
-}
-
-function normalizeAccessScopes(value: unknown, companyId?: string): AccessScopeEntity[] {
-  return Array.isArray(value)
-    ? value
-        .map((item) => normalizeAccessScope(item, companyId))
-        .filter((item): item is AccessScopeEntity => item !== null)
-    : []
 }
 
 export async function createAccessScope(

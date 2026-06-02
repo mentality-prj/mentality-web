@@ -44,13 +44,11 @@ jest.mock('@/ui/tabs', () => ({
 
 function createInspectionState(overrides: Partial<ReturnType<typeof useMLInspection>> = {}) {
   return {
-    teamId: '',
     targetId: 'global-admin',
     inspection: null,
     loading: false,
     error: null,
     refresh: jest.fn(),
-    setTeamId: jest.fn(),
     ...overrides,
   }
 }

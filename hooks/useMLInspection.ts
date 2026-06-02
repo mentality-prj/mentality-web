@@ -10,10 +10,7 @@ import { MLInspectionVM } from '@/types/reporting'
 import { Roles } from '@/types/security'
 
 type UseMLInspectionResult = {
-  targetType: 'company' | 'team'
   targetId: string
-  teamId: string
-  setTeamId: (value: string) => void
   inspection: MLInspectionVM | null
   loading: boolean
   error: string | null
@@ -28,7 +25,6 @@ export function useMLInspection(): UseMLInspectionResult {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
   const requestTokenRef = useRef(0)
-  const setTeamId = useCallback(() => {}, [])
 
   const refresh = useCallback(async () => {
     if (status !== 'authenticated') return
@@ -78,10 +74,7 @@ export function useMLInspection(): UseMLInspectionResult {
   }, [refresh, status])
 
   return {
-    targetType: 'company',
     targetId: companyId ?? '',
-    teamId: '',
-    setTeamId,
     inspection,
     loading,
     error,

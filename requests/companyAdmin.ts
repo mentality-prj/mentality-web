@@ -1,4 +1,5 @@
 import { COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
+import { normalizeAccessScope, normalizeAccessScopes } from '@/helpers/accessScopes'
 import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { mapEmployee, mapEmployees, mapInvite, mapInvites } from '@/mappers/company.mappers'
@@ -305,43 +306,7 @@ export async function adminGetAccessScopes(
     return { error: res.error }
   }
 
-  const normalized: AccessScopeEntity[] = Array.isArray(res.data)
-    ? res.data.flatMap((item) => {
-        if (typeof item !== 'object' || item === null || Array.isArray(item)) {
-          return []
-        }
-
-        const source = item as Record<string, unknown>
-        const id = typeof source.id === 'string' ? source.id : typeof source._id === 'string' ? source._id : ''
-        const userId = typeof source.userId === 'string' ? source.userId : ''
-        const groupId =
-          typeof source.groupId === 'string'
-            ? source.groupId
-            : Array.isArray(source.groupIds) && typeof source.groupIds[0] === 'string'
-              ? source.groupIds[0]
-              : ''
-
-        if (!id || !userId || !groupId) {
-          return []
-        }
-
-        const hasViewAnalytics = source.permission === 'VIEW_ANALYTICS' || source.canViewAnalytics === true
-        if (!hasViewAnalytics) {
-          return []
-        }
-
-        return [
-          {
-            id,
-            userId,
-            groupId,
-            permission: 'VIEW_ANALYTICS',
-            companyId,
-            createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
-          },
-        ]
-      })
-    : []
+  const normalized = normalizeAccessScopes(res.data, companyId)
 
   return { data: normalized }
 }
@@ -363,38 +328,13 @@ export async function adminCreateAccessScope(
   }
 
   logger.info('Company access scope created', { companyId, userId: dto.userId })
-  if (typeof res.data !== 'object' || res.data === null || Array.isArray(res.data)) {
-    return { error: 'Invalid access scope response' }
-  }
-
-  const source = res.data as Record<string, unknown>
-  const id = typeof source.id === 'string' ? source.id : typeof source._id === 'string' ? source._id : ''
-  const userId = typeof source.userId === 'string' ? source.userId : ''
-  const groupId =
-    typeof source.groupId === 'string'
-      ? source.groupId
-      : Array.isArray(source.groupIds) && typeof source.groupIds[0] === 'string'
-        ? source.groupIds[0]
-        : ''
-
-  if (!id || !userId || !groupId) {
-    return { error: 'Invalid access scope response' }
-  }
-
-  const hasViewAnalytics = source.permission === 'VIEW_ANALYTICS' || source.canViewAnalytics === true
-  if (!hasViewAnalytics) {
+  const normalized = normalizeAccessScope(res.data, companyId)
+  if (!normalized) {
     return { error: 'Invalid access scope response' }
   }
 
   return {
-    data: {
-      id,
-      userId,
-      groupId,
-      permission: 'VIEW_ANALYTICS',
-      companyId,
-      createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
-    },
+    data: normalized,
   }
 }
 

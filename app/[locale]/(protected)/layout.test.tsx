@@ -1,4 +1,5 @@
 import { render, screen } from '@testing-library/react'
+import { headers } from 'next/headers'
 
 import ProtectedLayout from '@/app/[locale]/(protected)/layout'
 import { getUserSidebarMenu } from '@/constants/menu'
@@ -46,7 +47,7 @@ beforeEach(() => {
   jest.clearAllMocks()
   ;(requireServerSession as jest.Mock).mockResolvedValue(mockSession)
   ;(getUserSidebarMenu as jest.Mock).mockReturnValue([{ href: Routes.MYDAY, title: 'My day' }])
-  ;(require('next/headers').headers as jest.Mock).mockReturnValue(new Headers({ 'x-pathname': '/en/my-day' }))
+  ;(headers as jest.Mock).mockReturnValue(new Headers({ 'x-pathname': '/en/my-day' }))
 })
 
 describe('Protected layout', () => {

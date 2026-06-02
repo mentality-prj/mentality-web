@@ -26,7 +26,7 @@ type Props = {
 }
 
 function getDatasetFieldValue(item: ResearchHistoryDataset['items'][number], column: string): string | null {
-  return item.fields[column] ?? null
+  return Object.entries(item.fields).find(([field]) => field === column)?.[1] ?? null
 }
 
 export function ResearchProjectHistoryDatasetPanel({
