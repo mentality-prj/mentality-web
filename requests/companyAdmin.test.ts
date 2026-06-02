@@ -594,6 +594,27 @@ describe('adminGetAccessScopes', () => {
       expect(result.data).toEqual([])
     }
   })
+
+  it('expands legacy groupIds to separate normalized scopes', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: [
+        {
+          id: 'scope-legacy',
+          userId: EMP_ID,
+          groupIds: ['g-1', 'g-2'],
+          permission: 'VIEW_ANALYTICS',
+        },
+      ],
+    })
+
+    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toHaveLength(2)
+      expect(result.data.map((scope) => scope.groupId)).toEqual(['g-1', 'g-2'])
+    }
+  })
 })
 
 // ─── adminCreateAccessScope ───────────────────────────────────────────────────

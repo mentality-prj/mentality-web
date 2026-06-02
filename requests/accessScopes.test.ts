@@ -231,6 +231,27 @@ describe('getAccessScopes', () => {
       expect(result.data).toEqual([])
     }
   })
+
+  it('expands legacy groupIds to separate normalized scopes', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      data: [
+        {
+          id: 'scope-legacy',
+          userId: 'user-1',
+          groupIds: ['g-1', 'g-2'],
+          permission: 'VIEW_ANALYTICS',
+        },
+      ],
+    })
+
+    const result = await getAccessScopes(mockSuperuserSession, 'c-1')
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toHaveLength(2)
+      expect(result.data.map((scope) => scope.groupId)).toEqual(['g-1', 'g-2'])
+    }
+  })
 })
 
 // ─── Admin-scoped variants ────────────────────────────────────────────────────

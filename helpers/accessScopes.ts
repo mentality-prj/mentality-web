@@ -38,9 +38,22 @@ export function normalizeAccessScope(value: unknown, companyId?: string): Access
 }
 
 export function normalizeAccessScopes(value: unknown, companyId?: string): AccessScopeEntity[] {
-  return Array.isArray(value)
-    ? value
-        .map((item) => normalizeAccessScope(item, companyId))
-        .filter((item): item is AccessScopeEntity => item !== null)
-    : []
+  if (!Array.isArray(value)) {
+    return []
+  }
+
+  return value.flatMap((item) => {
+    if (isAccessScopeRecord(item) && typeof item.groupId !== 'string' && Array.isArray(item.groupIds)) {
+      const legacyGroupIds = item.groupIds.filter((groupId): groupId is string => typeof groupId === 'string')
+
+      if (legacyGroupIds.length > 0) {
+        return legacyGroupIds
+          .map((groupId) => normalizeAccessScope({ ...item, groupId }, companyId))
+          .filter((scope): scope is AccessScopeEntity => scope !== null)
+      }
+    }
+
+    const normalized = normalizeAccessScope(item, companyId)
+    return normalized ? [normalized] : []
+  })
 }
