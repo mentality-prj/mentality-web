@@ -112,18 +112,25 @@ export function AdminAssignManagerForm({ companyId }: Props) {
     setLoading(false)
     const errors = results.filter((result): result is { error: string } => 'error' in result)
     const createdScopes = results.filter((result): result is { data: AccessScopeEntity } => 'data' in result)
+    const remainingGroupIds = selectedGroupIds.filter((_, index) => 'error' in results[index])
 
     if (createdScopes.length > 0) {
       toast.success(t('success'))
       setScopes((prev) => [...prev, ...createdScopes.map((result) => result.data)])
-      setSelectedUserId('')
-      setSelectedGroupIds([])
-      setCanViewAnalytics(false)
     }
 
     if (errors.length > 0) {
       toast.error(errors[0].error)
     }
+
+    if (errors.length === 0) {
+      setSelectedUserId('')
+      setSelectedGroupIds([])
+      setCanViewAnalytics(false)
+      return
+    }
+
+    setSelectedGroupIds(remainingGroupIds)
   }
 
   async function handleRevoke(id: string) {

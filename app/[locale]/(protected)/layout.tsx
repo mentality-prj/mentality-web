@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { headers } from 'next/headers'
 
 import { LandingFooter } from '@/components/features/Landing'
 import { Header } from '@/components/Layout/Header'
@@ -10,6 +11,10 @@ import { Routes } from '@/constants/routes'
 import { requireServerSession } from '@/lib/auth/server'
 import { cn } from '@/lib/utils'
 
+function matchesDetachedPrefix(pathname: string, detachedPrefix: string): boolean {
+  return pathname === detachedPrefix || pathname.startsWith(`${detachedPrefix}/`)
+}
+
 export default async function ProtectedLayout({
   children,
   params,
@@ -19,6 +24,14 @@ export default async function ProtectedLayout({
 }) {
   const { locale } = await params
   await requireServerSession(`/${locale}${Routes.AUTH}`)
+
+  const pathname = headers().get('x-pathname') || ''
+  const localizedResearchPrefix = `/${locale}${Routes.RESEARCH}`
+
+  if (matchesDetachedPrefix(pathname, localizedResearchPrefix)) {
+    return children
+  }
+
   const sidebarMenu = getUserSidebarMenu()
 
   const defaultContent = (
