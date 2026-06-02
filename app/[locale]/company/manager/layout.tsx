@@ -22,7 +22,7 @@ export default async function CompanyManagerLayout({ children }: { children: Rea
           <div className="h-full w-1/2 bg-background-alt" />
         </div>
         <div className="container-max-width relative z-10 flex w-full">
-          <div className="hidden bg-white lg:flex">
+          <div className="hidden bg-white/80 backdrop-blur lg:flex">
             <Sidebar menu={companyManagerSidebarMenu} extra={extra} />
           </div>
           <main className={mainVariants()}>

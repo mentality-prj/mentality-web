@@ -1,25 +1,22 @@
-import { getTranslations } from 'next-intl/server'
-
-import { UserStatistics } from '@/components/features/Statistics/UserStatistics'
+import { PersonalRiskDashboard } from '@/components/features/Statistics/PersonalRiskDashboard'
+import { getReportingCopy } from '@/helpers/reportingCopy'
 import { getServerSession } from '@/lib/get-server-session'
-import { getMoodStatistics, getPsyTestsStatistics } from '@/requests/userStatistics'
+import { getPersonalRiskDashboardVM } from '@/requests/reportingClient'
 
-export default async function MyProgressStatisticsPage() {
+export default async function MyProgressStatisticsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
   const session = await getServerSession()
-  const t = await getTranslations('components.UserStatistics')
+  const copy = getReportingCopy(locale)
 
-  const [moodRes, psyRes] = await Promise.all([getMoodStatistics(session), getPsyTestsStatistics(session)])
+  const dashboard = await getPersonalRiskDashboardVM(session, locale)
 
-  const mood = 'data' in moodRes ? moodRes.data : null
-  const psyTests = 'data' in psyRes ? psyRes.data : null
-
-  if (!mood) {
+  if ('error' in dashboard) {
     return (
       <div className="flex items-center justify-center py-16">
-        <span className="text-textcolor-secondary">{t('error')}</span>
+        <span className="text-textcolor-secondary">{copy.common.loadFailed}</span>
       </div>
     )
   }
 
-  return <UserStatistics mood={mood} psyTests={psyTests} />
+  return <PersonalRiskDashboard overview={dashboard.data.overview} timelines={dashboard.data.timelines} />
 }

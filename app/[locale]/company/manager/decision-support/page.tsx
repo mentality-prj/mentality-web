@@ -2,8 +2,7 @@ import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
 import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
-import { DecisionSupportAdminFetcher } from '@/components/features/Company/Manager/DecisionSupport/DecisionSupportAdminFetcher'
-import { PolicyEnginePanel } from '@/components/features/Company/Manager/DecisionSupport/PolicyEnginePanel'
+import { DecisionSupportWorkspace } from '@/components/features/Company/Manager/DecisionSupport/DecisionSupportWorkspace'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getServerSession } from '@/lib/get-server-session'
@@ -30,12 +29,11 @@ export default async function ManagerDecisionSupportPage({ params }: { params: P
   if (isSystemAdmin) {
     content = (
       <AdminCompanyWrapper>
-        <DecisionSupportAdminFetcher />
-        <PolicyEnginePanel />
+        <DecisionSupportWorkspace viewerRole="admin" />
       </AdminCompanyWrapper>
     )
   } else {
-    content = <DecisionSupportAdminFetcher />
+    content = <DecisionSupportWorkspace viewerRole="manager" />
   }
 
   return (
