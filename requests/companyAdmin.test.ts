@@ -577,14 +577,14 @@ describe('adminGetAccessScopes', () => {
   })
 
   it('filters out scopes without explicit VIEW_ANALYTICS permission', async () => {
+    const legacyScopePayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: undefined,
+      canViewAnalytics: false,
+    }
+
     ;(performAdminRequest as jest.Mock).mockResolvedValue({
-      data: [
-        {
-          ...mockScope,
-          permission: undefined,
-          canViewAnalytics: false,
-        },
-      ],
+      data: [legacyScopePayload],
     })
 
     const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
@@ -646,12 +646,14 @@ describe('adminCreateAccessScope', () => {
   })
 
   it('returns invalid response when permission is unsupported and legacy flag is false', async () => {
+    const unsupportedPermissionPayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: 'OTHER_PERMISSION',
+      canViewAnalytics: false,
+    }
+
     ;(performAdminRequest as jest.Mock).mockResolvedValue({
-      data: {
-        ...mockScope,
-        permission: 'OTHER_PERMISSION',
-        canViewAnalytics: false,
-      },
+      data: unsupportedPermissionPayload,
     })
 
     const result = await adminCreateAccessScope(mockAdminSession, COMPANY_ID, dto)

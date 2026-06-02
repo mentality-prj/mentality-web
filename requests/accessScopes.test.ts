@@ -214,14 +214,14 @@ describe('getAccessScopes', () => {
   })
 
   it('drops legacy scope when analytics permission is explicitly disabled', async () => {
+    const legacyScopePayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: undefined,
+      canViewAnalytics: false,
+    }
+
     ;(performAuthRequest as jest.Mock).mockResolvedValue({
-      data: [
-        {
-          ...mockScope,
-          permission: undefined,
-          canViewAnalytics: false,
-        },
-      ],
+      data: [legacyScopePayload],
     })
 
     const result = await getAccessScopes(mockSuperuserSession, 'c-1')
@@ -318,12 +318,14 @@ describe('createAccessScopeAdmin', () => {
   })
 
   it('returns invalid response when permission is unsupported and legacy flag is false', async () => {
+    const unsupportedPermissionPayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: 'SOME_OTHER_PERMISSION',
+      canViewAnalytics: false,
+    }
+
     ;(performAdminRequest as jest.Mock).mockResolvedValue({
-      data: {
-        ...mockScope,
-        permission: 'SOME_OTHER_PERMISSION',
-        canViewAnalytics: false,
-      },
+      data: unsupportedPermissionPayload,
     })
 
     const result = await createAccessScopeAdmin(mockAdminSession, 'c-1', mockDto)
