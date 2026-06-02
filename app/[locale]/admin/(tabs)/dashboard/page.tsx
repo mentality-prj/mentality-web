@@ -1,6 +1,6 @@
 'use client'
 
-import { Building2, Languages, ShieldCheck, Speech, Users } from 'lucide-react'
+import { BrainCircuit, Building2, FlaskConical, Languages, ShieldCheck, Speech, Users } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { DashboardItem } from '@/components/admin/DashboardItem'
@@ -10,6 +10,11 @@ const companyLinks = [
   { href: Routes.COMPANY_GLOBAL_ADMIN, icon: Building2, key: 'companies' },
   { href: Routes.COMPANY_ADMIN, icon: ShieldCheck, key: 'companyAdmin' },
   { href: Routes.COMPANY_MANAGER, icon: Users, key: 'companyManager' },
+] as const
+
+const researchLinks = [
+  { href: Routes.RESEARCH, icon: FlaskConical, key: 'researchWorkspace' },
+  { href: Routes.ADMIN_R_AND_D_DIAGNOSTICS, icon: BrainCircuit, key: 'diagnostics' },
 ] as const
 
 const toolLinks = [
@@ -27,6 +32,22 @@ export default function AdminDashboardPage() {
 
         <div className="panel">
           {companyLinks.map(({ href, icon: Icon, key }) => (
+            <DashboardItem
+              key={href}
+              href={href}
+              icon={<Icon size={18} />}
+              title={t(`${key}.title`)}
+              subtitle={t(`${key}.description`)}
+            />
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2>{t('researchSection')}</h2>
+
+        <div className="panel">
+          {researchLinks.map(({ href, icon: Icon, key }) => (
             <DashboardItem
               key={href}
               href={href}

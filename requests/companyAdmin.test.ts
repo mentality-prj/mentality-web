@@ -1,4 +1,5 @@
 import { COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
+import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import {
   adminAssignRole,
@@ -102,8 +103,8 @@ const mockInvite: InviteEntity = {
 const mockScope: AccessScopeEntity = {
   id: SCOPE_ID,
   userId: EMP_ID,
-  groupIds: [GROUP_ID],
-  canViewAnalytics: false,
+  groupId: GROUP_ID,
+  permission: 'VIEW_ANALYTICS',
   companyId: COMPANY_ID,
   createdAt: '2026-01-01T00:00:00.000Z',
 }
@@ -423,10 +424,9 @@ describe('adminGetInvites', () => {
     const data = { items: [mockInvite] }
     const headers = { 'x-total-count': '99' }
     // Patch extractPaginationTotal to return header value
-    const extractPaginationTotal = require('@/lib/http').extractPaginationTotal
-    extractPaginationTotal.mockImplementation(
-      (_headers: any, fallback: any) => Number(headers['x-total-count']) || fallback
-    )
+    jest
+      .mocked(extractPaginationTotal)
+      .mockImplementation((_headers, fallback) => Number(headers['x-total-count']) || fallback)
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data, headers })
     const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
     expect('data' in result).toBe(true)
@@ -434,7 +434,7 @@ describe('adminGetInvites', () => {
       expect(result.data.total).toBe(99)
     }
     // Restore default
-    extractPaginationTotal.mockImplementation((_headers: any, fallback: any) => fallback)
+    jest.mocked(extractPaginationTotal).mockImplementation((_headers, fallback) => fallback)
   })
 })
 
@@ -575,12 +575,52 @@ describe('adminGetAccessScopes', () => {
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
   })
+
+  it('filters out scopes without explicit VIEW_ANALYTICS permission', async () => {
+    const legacyScopePayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: undefined,
+      canViewAnalytics: false,
+    }
+
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: [legacyScopePayload],
+    })
+
+    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toEqual([])
+    }
+  })
+
+  it('expands legacy groupIds to separate normalized scopes', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: [
+        {
+          id: 'scope-legacy',
+          userId: EMP_ID,
+          groupIds: ['g-1', 'g-2'],
+          permission: 'VIEW_ANALYTICS',
+        },
+      ],
+    })
+
+    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toHaveLength(2)
+      expect(result.data.map((scope) => scope.groupId)).toEqual(['g-1', 'g-2'])
+    }
+  })
 })
 
 // ─── adminCreateAccessScope ───────────────────────────────────────────────────
 
 describe('adminCreateAccessScope', () => {
-  const dto: CreateAccessScopeDto = { userId: EMP_ID, groupIds: [GROUP_ID], canViewAnalytics: false }
+  const dto: CreateAccessScopeDto = { userId: EMP_ID, groupId: GROUP_ID, permission: 'VIEW_ANALYTICS' }
 
   it('returns created scope on success', async () => {
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockScope })
@@ -603,6 +643,22 @@ describe('adminCreateAccessScope', () => {
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('returns invalid response when permission is unsupported and legacy flag is false', async () => {
+    const unsupportedPermissionPayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: 'OTHER_PERMISSION',
+      canViewAnalytics: false,
+    }
+
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: unsupportedPermissionPayload,
+    })
+
+    const result = await adminCreateAccessScope(mockAdminSession, COMPANY_ID, dto)
+
+    expect(result).toEqual({ error: 'Invalid access scope response' })
   })
 })
 

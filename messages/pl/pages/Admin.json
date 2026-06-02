@@ -4,6 +4,7 @@
   "dashboard": {
     "title": "Pulpit",
     "companySection": "Firmy",
+    "researchSection": "Badania",
     "companies": {
       "title": "Firmy",
       "description": "Tworzenie firm i zarządzanie nimi na platformie"
@@ -17,6 +18,14 @@
       "description": "Analityka i zarządzanie zespołem"
     },
     "toolsSection": "Narzędzia",
+    "researchWorkspace": {
+      "title": "Research Workspace",
+      "description": "Oddzielny produkt project-scoped dla research campaigns, grantów i governed diagnostics"
+    },
+    "diagnostics": {
+      "title": "Diagnostyka R&D",
+      "description": "Oddzielna przestrzeń R&D do inspekcji sygnałów ML i diagnostyki policy w wybranej firmie"
+    },
     "translationModelChecks": {
       "title": "Kontrola modeli tłumaczeń",
       "description": "Ręczne techniczne sprawdzenie translator host, Helsinki, Facebook i compare"
@@ -26,6 +35,11 @@
       "description": "Strona techniczna do sprawdzania scenariuszy demo mowy"
     }
   },
+  "r-and-d": {
+    "title": "R&D",
+    "subtitle": "Wewnętrzne narzędzia do inspekcji sygnałów ML i diagnostyki policy"
+  },
+  "diagnostics": { "title": "Diagnostyka R&D" },
   "ds": { "title": "System projektowania" },
   "goals": { "title": "Cele" },
   "achievements": { "title": "Osiągnięcia" },

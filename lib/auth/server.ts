@@ -80,7 +80,6 @@ function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
   if (tokens.expiresAt * 1000 < Date.now()) {
     return null
   }
-
   const idClaims = decodeJwtClaims(tokens.idToken)
   const accessClaims = decodeJwtClaims(tokens.accessToken)
 
@@ -247,7 +246,6 @@ export async function getServerSession(): Promise<CustomSession | null> {
       }
     }
   }
-
   const dedupeKey = tokens.accessToken
 
   const existingRequest = inFlightSessionRequests.get(dedupeKey)

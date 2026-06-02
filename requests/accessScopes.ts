@@ -1,4 +1,5 @@
 import { ACCESS_SCOPE_ENDPOINTS, COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
+import { normalizeAccessScope, normalizeAccessScopes } from '@/helpers/accessScopes'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
@@ -37,7 +38,12 @@ export async function createAccessScope(
   }
 
   logger.info('Access scope created', { userId: dto.userId })
-  return { data: res.data as AccessScopeEntity }
+  const normalized = normalizeAccessScope(res.data, companyId)
+  if (!normalized) {
+    return { error: 'Invalid access scope response' }
+  }
+
+  return { data: normalized }
 }
 
 export async function deleteAccessScope(
@@ -81,7 +87,7 @@ export async function getAccessScopes(
     return { error: res.error }
   }
 
-  return { data: Array.isArray(res.data) ? res.data : [] }
+  return { data: normalizeAccessScopes(res.data, companyId) }
 }
 
 // ─── Admin-scoped (per-company) variants ──────────────────────────────────────
@@ -98,7 +104,7 @@ export async function getAccessScopesAdmin(
     logger.error('Admin: failed to fetch access scopes', { error: res.error, companyId })
     return { error: res.error }
   }
-  return { data: Array.isArray(res.data) ? res.data : [] }
+  return { data: normalizeAccessScopes(res.data, companyId) }
 }
 
 export async function createAccessScopeAdmin(
@@ -116,7 +122,12 @@ export async function createAccessScopeAdmin(
     return { error: res.error }
   }
   logger.info('Admin: access scope created', { userId: dto.userId, companyId })
-  return { data: res.data as AccessScopeEntity }
+  const normalized = normalizeAccessScope(res.data, companyId)
+  if (!normalized) {
+    return { error: 'Invalid access scope response' }
+  }
+
+  return { data: normalized }
 }
 
 export async function deleteAccessScopeAdmin(

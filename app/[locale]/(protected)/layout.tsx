@@ -4,6 +4,7 @@ import { headers } from 'next/headers'
 import { LandingFooter } from '@/components/features/Landing'
 import { Header } from '@/components/Layout/Header'
 import { mainVariants } from '@/components/Layout/mainVariants'
+import ProtectedLayoutSegmentGate from '@/components/Layout/ProtectedLayoutSegmentGate'
 import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { getUserSidebarMenu } from '@/constants/menu'
 import { Routes } from '@/constants/routes'
@@ -23,6 +24,7 @@ export default async function ProtectedLayout({
 }) {
   const { locale } = await params
   await requireServerSession(`/${locale}${Routes.AUTH}`)
+
   const pathname = headers().get('x-pathname') || ''
   const localizedResearchPrefix = `/${locale}${Routes.RESEARCH}`
 
@@ -32,7 +34,7 @@ export default async function ProtectedLayout({
 
   const sidebarMenu = getUserSidebarMenu()
 
-  return (
+  const defaultContent = (
     <div className="relative flex w-full flex-1 justify-center">
       <div className="pointer-events-none absolute inset-0 z-0 flex h-full w-full">
         <div className="h-full w-1/2 bg-background" />
@@ -51,5 +53,13 @@ export default async function ProtectedLayout({
         </main>
       </div>
     </div>
+  )
+
+  return (
+    <ProtectedLayoutSegmentGate
+      detachedPrefix={Routes.RESEARCH}
+      detachedContent={children}
+      defaultContent={defaultContent}
+    />
   )
 }

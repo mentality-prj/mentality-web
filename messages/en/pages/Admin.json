@@ -4,6 +4,7 @@
   "dashboard": {
     "title": "Dashboard",
     "companySection": "Companies",
+    "researchSection": "Research",
     "companies": {
       "title": "Companies",
       "description": "Create and manage companies on the platform"
@@ -17,6 +18,14 @@
       "description": "View analytics and manage your team"
     },
     "toolsSection": "Tools",
+    "researchWorkspace": {
+      "title": "Research Workspace",
+      "description": "A separate project-scoped product for research campaigns, grants, and governed diagnostics"
+    },
+    "diagnostics": {
+      "title": "R&D diagnostics",
+      "description": "A dedicated R&D workspace for inspecting ML signals and policy diagnostics within the selected company"
+    },
     "translationModelChecks": {
       "title": "Translation Model Checks",
       "description": "Manual technical checks for translator host, Helsinki, Facebook, and compare"
@@ -26,6 +35,11 @@
       "description": "Technical page for checking speech demo scenarios"
     }
   },
+  "r-and-d": {
+    "title": "R&D",
+    "subtitle": "Internal tools for inspecting ML signals and policy diagnostics"
+  },
+  "diagnostics": { "title": "R&D diagnostics" },
   "ds": { "title": "Design System" },
   "goals": { "title": "Goals" },
   "achievements": { "title": "Achievements" },

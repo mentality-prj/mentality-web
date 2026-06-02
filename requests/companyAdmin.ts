@@ -1,4 +1,5 @@
 import { COMPANY_ADMIN_ENDPOINTS } from '@/constants/companyEndpoints'
+import { normalizeAccessScope, normalizeAccessScopes } from '@/helpers/accessScopes'
 import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { mapEmployee, mapEmployees, mapInvite, mapInvites } from '@/mappers/company.mappers'
@@ -305,7 +306,9 @@ export async function adminGetAccessScopes(
     return { error: res.error }
   }
 
-  return { data: Array.isArray(res.data) ? (res.data as AccessScopeEntity[]) : [] }
+  const normalized = normalizeAccessScopes(res.data, companyId)
+
+  return { data: normalized }
 }
 
 export async function adminCreateAccessScope(
@@ -325,7 +328,14 @@ export async function adminCreateAccessScope(
   }
 
   logger.info('Company access scope created', { companyId, userId: dto.userId })
-  return { data: res.data as AccessScopeEntity }
+  const normalized = normalizeAccessScope(res.data, companyId)
+  if (!normalized) {
+    return { error: 'Invalid access scope response' }
+  }
+
+  return {
+    data: normalized,
+  }
 }
 
 export async function adminDeleteAccessScope(

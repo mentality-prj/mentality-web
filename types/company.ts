@@ -9,6 +9,8 @@ export type CompanyEntity = {
   updatedAt: string
 }
 
+export type AccessScopePermission = 'VIEW_ANALYTICS'
+
 export type GroupType = 'team' | 'department' | 'project'
 
 export type GroupEntity = {
@@ -64,9 +66,9 @@ export type InviteEntity = {
 export type AccessScopeEntity = {
   id: string
   userId: string
-  groupIds: string[]
-  canViewAnalytics: boolean
-  companyId: string
+  groupId: string
+  permission: AccessScopePermission
+  companyId?: string
   createdAt: string
 }
 
@@ -96,8 +98,8 @@ export type CreateInviteDto = {
 
 export type CreateAccessScopeDto = {
   userId: string
-  groupIds: string[]
-  canViewAnalytics: boolean
+  groupId: string
+  permission: AccessScopePermission
 }
 
 export type AssignRoleDto = {

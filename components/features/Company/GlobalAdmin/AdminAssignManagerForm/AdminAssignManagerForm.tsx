@@ -90,25 +90,74 @@ export function AdminAssignManagerForm({ companyId }: Props) {
     return valid
   }
 
+  function getScopeGroupLabel(groupId: string): string {
+    return groups.find((group) => group.id === groupId)?.name || groupId
+  }
+
+  const groupedScopes = Array.from(
+    scopes
+      .reduce<Map<string, { id: string; userId: string; groupIds: string[] }>>((acc, scope) => {
+        const existing = acc.get(scope.id)
+        if (existing) {
+          if (!existing.groupIds.includes(scope.groupId)) {
+            existing.groupIds.push(scope.groupId)
+          }
+          return acc
+        }
+
+        acc.set(scope.id, {
+          id: scope.id,
+          userId: scope.userId,
+          groupIds: [scope.groupId],
+        })
+        return acc
+      }, new Map())
+      .values()
+  )
+
   async function handleAssign(e: React.FormEvent) {
     e.preventDefault()
     if (!validate()) return
+    if (!canViewAnalytics) return
+
     setLoading(true)
-    const res = await adminCreateAccessScope(data as CustomSession, companyId, {
-      userId: selectedUserId,
-      groupIds: selectedGroupIds,
-      canViewAnalytics,
-    })
+    const outcomes = await Promise.all(
+      selectedGroupIds.map(async (groupId) => {
+        const result = await adminCreateAccessScope(data as CustomSession, companyId, {
+          userId: selectedUserId,
+          groupId,
+          permission: 'VIEW_ANALYTICS',
+        })
+
+        return { groupId, result }
+      })
+    )
     setLoading(false)
-    if ('error' in res) {
-      toast.error(res.error)
+    const errors = outcomes.filter(
+      (item): item is { groupId: string; result: { error: string } } => 'error' in item.result
+    )
+    const createdScopes = outcomes.filter(
+      (item): item is { groupId: string; result: { data: AccessScopeEntity } } => 'data' in item.result
+    )
+    const remainingGroupIds = errors.map((item) => item.groupId)
+
+    if (createdScopes.length > 0) {
+      toast.success(t('success'))
+      setScopes((prev) => [...prev, ...createdScopes.map((item) => item.result.data)])
+    }
+
+    if (errors.length > 0) {
+      toast.error(errors[0].result.error)
+    }
+
+    if (errors.length === 0) {
+      setSelectedUserId('')
+      setSelectedGroupIds([])
+      setCanViewAnalytics(false)
       return
     }
-    toast.success(t('success'))
-    setScopes((prev) => [...prev, res.data])
-    setSelectedUserId('')
-    setSelectedGroupIds([])
-    setCanViewAnalytics(false)
+
+    setSelectedGroupIds(remainingGroupIds)
   }
 
   async function handleRevoke(id: string) {
@@ -156,7 +205,7 @@ export function AdminAssignManagerForm({ companyId }: Props) {
           <span className="text-sm font-normal">{t('analyticsToggle')}</span>
         </label>
 
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={loading || !canViewAnalytics}>
           {loading ? t('submitting') : t('submitButton')}
         </Button>
       </form>
@@ -165,17 +214,16 @@ export function AdminAssignManagerForm({ companyId }: Props) {
         <div className="flex flex-col gap-2">
           <p className="text-sm font-medium">{t('currentScopes')}</p>
           <ul className="flex flex-col gap-1.5">
-            {scopes.map((scope) => {
+            {groupedScopes.map((scope) => {
               const manager = managers.find((m) => m.id === scope.userId)
+              const groupLabels = scope.groupIds.map((groupId) => getScopeGroupLabel(groupId)).join(', ')
               return (
                 <li
                   key={scope.id}
                   className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm"
                 >
                   <span>{manager ? manager.name || manager.email : scope.userId}</span>
-                  <span className="text-xs text-textcolor-secondary">
-                    {t('scopeGroups', { count: scope.groupIds.length })}
-                  </span>
+                  <span className="text-xs text-textcolor-secondary">{groupLabels}</span>
                   <Button
                     size="small"
                     variant="ghost"

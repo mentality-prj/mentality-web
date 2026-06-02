@@ -29,6 +29,31 @@ export function AssignManagerForm() {
     handleRevoke,
   } = useAssignManager()
 
+  function getScopeGroupLabel(groupId: string): string {
+    return groups.find((group) => group.id === groupId)?.name || groupId
+  }
+
+  const groupedScopes = Array.from(
+    scopes
+      .reduce<Map<string, { id: string; userId: string; groupIds: string[] }>>((acc, scope) => {
+        const existing = acc.get(scope.id)
+        if (existing) {
+          if (!existing.groupIds.includes(scope.groupId)) {
+            existing.groupIds.push(scope.groupId)
+          }
+          return acc
+        }
+
+        acc.set(scope.id, {
+          id: scope.id,
+          userId: scope.userId,
+          groupIds: [scope.groupId],
+        })
+        return acc
+      }, new Map())
+      .values()
+  )
+
   return (
     <div className="flex flex-col gap-sm">
       <form onSubmit={handleAssign} className="flex flex-col gap-4">
@@ -68,7 +93,7 @@ export function AssignManagerForm() {
           <span className="text-sm font-normal">{t('analyticsToggle')}</span>
         </label>
 
-        <Button type="submit" disabled={!isReady || loading}>
+        <Button type="submit" disabled={!isReady || loading || !canViewAnalytics}>
           {loading ? t('submitting') : t('submitButton')}
         </Button>
       </form>
@@ -77,17 +102,16 @@ export function AssignManagerForm() {
         <div className="flex flex-col gap-2">
           <h4 className="text-sm font-semibold">{t('currentScopes')}</h4>
           <ul className="flex flex-col gap-1">
-            {scopes.map((scope) => {
+            {groupedScopes.map((scope) => {
               const manager = managers.find((m) => m.id === scope.userId)
+              const groupLabels = scope.groupIds.map((groupId) => getScopeGroupLabel(groupId)).join(', ')
               return (
                 <li
                   key={scope.id}
                   className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm"
                 >
                   <span>{manager?.name || manager?.email || scope.userId}</span>
-                  <span className="text-xs text-textcolor-secondary">
-                    {t('scopeGroups', { count: scope.groupIds.length })}
-                  </span>
+                  <span className="text-xs text-textcolor-secondary">{groupLabels}</span>
                   <Button
                     size="small"
                     variant="ghost"

@@ -10,7 +10,7 @@ import {
 } from '@/requests/accessScopes'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
-import { AccessScopeEntity } from '@/types/company'
+import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
 
 jest.mock('@/requests/genericFetch')
@@ -69,13 +69,17 @@ const mockAdminSession: CustomSession = {
 const mockScope: AccessScopeEntity = {
   id: 'scope-1',
   userId: 'user-1',
-  groupIds: ['g-1'],
-  canViewAnalytics: true,
+  groupId: 'g-1',
+  permission: 'VIEW_ANALYTICS',
   companyId: 'c-1',
   createdAt: '2026-01-01T00:00:00.000Z',
 }
 
-const mockDto = { userId: 'user-1', groupIds: ['g-1'], canViewAnalytics: true }
+const mockDto: CreateAccessScopeDto = {
+  userId: 'user-1',
+  groupId: 'g-1',
+  permission: 'VIEW_ANALYTICS',
+}
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -208,6 +212,46 @@ describe('getAccessScopes', () => {
     expect(result).toEqual({ error: 'Server error' })
     expect(logger.error).toHaveBeenCalled()
   })
+
+  it('drops legacy scope when analytics permission is explicitly disabled', async () => {
+    const legacyScopePayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: undefined,
+      canViewAnalytics: false,
+    }
+
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      data: [legacyScopePayload],
+    })
+
+    const result = await getAccessScopes(mockSuperuserSession, 'c-1')
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toEqual([])
+    }
+  })
+
+  it('expands legacy groupIds to separate normalized scopes', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      data: [
+        {
+          id: 'scope-legacy',
+          userId: 'user-1',
+          groupIds: ['g-1', 'g-2'],
+          permission: 'VIEW_ANALYTICS',
+        },
+      ],
+    })
+
+    const result = await getAccessScopes(mockSuperuserSession, 'c-1')
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toHaveLength(2)
+      expect(result.data.map((scope) => scope.groupId)).toEqual(['g-1', 'g-2'])
+    }
+  })
 })
 
 // ─── Admin-scoped variants ────────────────────────────────────────────────────
@@ -271,6 +315,22 @@ describe('createAccessScopeAdmin', () => {
 
     expect(result).toEqual({ error: 'Conflict' })
     expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('returns invalid response when permission is unsupported and legacy flag is false', async () => {
+    const unsupportedPermissionPayload: Record<string, unknown> = {
+      ...(mockScope as unknown as Record<string, unknown>),
+      permission: 'SOME_OTHER_PERMISSION',
+      canViewAnalytics: false,
+    }
+
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: unsupportedPermissionPayload,
+    })
+
+    const result = await createAccessScopeAdmin(mockAdminSession, 'c-1', mockDto)
+
+    expect(result).toEqual({ error: 'Invalid access scope response' })
   })
 })
 

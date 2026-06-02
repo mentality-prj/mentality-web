@@ -88,22 +88,46 @@ export function useAssignManager() {
     e.preventDefault()
     if (!validate()) return
     if (!adminCompanyId && !companyId) return
+    if (!canViewAnalytics) return
+
     setLoading(true)
-    const dto = { userId: selectedUserId, groupIds: selectedGroupIds, canViewAnalytics }
     const session = data as CustomSession
-    const res = adminCompanyId
-      ? await createAccessScopeAdmin(session, adminCompanyId, dto)
-      : await createAccessScope(session, companyId!, dto)
+    const outcomes = await Promise.all(
+      selectedGroupIds.map(async (groupId) => {
+        const dto = { userId: selectedUserId, groupId, permission: 'VIEW_ANALYTICS' as const }
+        const result = adminCompanyId
+          ? await createAccessScopeAdmin(session, adminCompanyId, dto)
+          : await createAccessScope(session, companyId!, dto)
+
+        return { groupId, result }
+      })
+    )
     setLoading(false)
-    if ('error' in res) {
-      toast.error(res.error)
+    const errors = outcomes.filter(
+      (item): item is { groupId: string; result: { error: string } } => 'error' in item.result
+    )
+    const createdScopes = outcomes.filter(
+      (item): item is { groupId: string; result: { data: AccessScopeEntity } } => 'data' in item.result
+    )
+    const remainingGroupIds = errors.map((item) => item.groupId)
+
+    if (createdScopes.length > 0) {
+      toast.success(t('success'))
+      setScopes((prev) => [...prev, ...createdScopes.map((item) => item.result.data)])
+    }
+
+    if (errors.length > 0) {
+      toast.error(errors[0].result.error)
+    }
+
+    if (errors.length === 0) {
+      setSelectedUserId('')
+      setSelectedGroupIds([])
+      setCanViewAnalytics(false)
       return
     }
-    toast.success(t('success'))
-    setScopes((prev) => [...prev, res.data])
-    setSelectedUserId('')
-    setSelectedGroupIds([])
-    setCanViewAnalytics(false)
+
+    setSelectedGroupIds(remainingGroupIds)
   }
 
   async function handleRevoke(id: string) {
