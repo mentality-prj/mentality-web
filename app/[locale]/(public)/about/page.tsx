@@ -86,7 +86,7 @@ export default function AboutPage() {
   })
 
   return (
-    <div className="flex flex-col gap-6 bg-[radial-gradient(circle_at_top_left,rgba(219,234,254,0.8),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(254,243,199,0.75),transparent_28%),linear-gradient(180deg,#f8fafc_0%,#ffffff_100%)] py-12 md:gap-12 md:py-16">
+    <div className="flex flex-col gap-8 bg-[radial-gradient(circle_at_top_left,rgba(219,234,254,0.8),transparent_32%),radial-gradient(circle_at_bottom_right,rgba(254,243,199,0.75),transparent_28%),linear-gradient(180deg,#f8fafc_0%,#ffffff_100%)] py-8 tablet:py-10 sm:py-12 md:gap-12 md:py-16">
       <section className="w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <MosaicGrid>
@@ -117,7 +117,7 @@ export default function AboutPage() {
 
                   <IconStatementList
                     items={valueItems}
-                    className="mt-6"
+                    className="mt-4 md:mt-6"
                     dividerClassName="border-black/[0.09]"
                     iconClassName="text-[#2f668f]"
                   />
@@ -127,7 +127,6 @@ export default function AboutPage() {
           </MosaicGrid>
         </div>
       </section>
-
       <section className="w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="mb-6 max-w-4xl md:mb-8">
@@ -137,7 +136,7 @@ export default function AboutPage() {
             </p>
           </div>
 
-          <MosaicGrid className="xl:gap-8">
+          <MosaicGrid className="gap-5 xl:gap-8">
             <MosaicGridItem xlSpan={5}>
               <div className="landing-outline-panel flex h-full flex-col rounded-[28px] p-6 md:p-8">
                 <p className="landing-section-eyebrow">{t('Evolution.context.eyebrow')}</p>
@@ -148,7 +147,7 @@ export default function AboutPage() {
 
                 <NumberedFeatureList
                   items={evolutionContextItems}
-                  className="mt-5"
+                  className="mt-1 md:mt-5"
                   titleClassName="text-sm font-medium leading-relaxed md:text-base"
                   descriptionClassName="text-sm leading-relaxed md:text-base"
                 />
@@ -156,7 +155,7 @@ export default function AboutPage() {
             </MosaicGridItem>
 
             <MosaicGridItem xlSpan={7}>
-              <div className="landing-glass-panel h-full rounded-[28px] p-6 md:p-8">
+              <div className="landing-glass-panel h-full rounded-[28px] px-6 py-2 md:p-8">
                 <IconFeatureList
                   items={evolutionItems}
                   className="h-full"
@@ -170,7 +169,6 @@ export default function AboutPage() {
           </MosaicGrid>
         </div>
       </section>
-
       <section aria-labelledby="for-whom-title" className="w-full">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <h2 id="for-whom-title" className="sr-only">
@@ -185,7 +183,7 @@ export default function AboutPage() {
                 highlightLabel={t(`ForWhom.${key}.highlightLabel`)}
                 title={t(`ForWhom.${key}.title`)}
                 description={t(`ForWhom.${key}.description`)}
-                className={cn('min-h-[18rem]', className)}
+                className={cn('md:min-h-[18rem]', className)}
                 highlightClassName={percentageClassName}
               />
             ))}
