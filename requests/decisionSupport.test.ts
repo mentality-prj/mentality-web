@@ -120,7 +120,6 @@ describe('getRiskEventEvidence', () => {
     expect(result).toEqual({ error: 'Unauthorized' })
     expect(logger.error).toHaveBeenCalled()
   })
-
 })
 
 describe('applyDecisionSupportRiskEventAction', () => {
@@ -144,7 +143,6 @@ describe('applyDecisionSupportRiskEventAction', () => {
       })
     )
   })
-
 })
 
 describe('resolveDecisionSupportRiskEvent', () => {
@@ -166,7 +164,6 @@ describe('resolveDecisionSupportRiskEvent', () => {
       })
     )
   })
-
 })
 
 describe('getPolicyMetrics', () => {
