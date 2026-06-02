@@ -31,12 +31,12 @@ function normalizeAccessScope(value: unknown, companyId?: string): AccessScopeEn
     return null
   }
 
-  const permission =
-    typeof source.permission === 'string'
-      ? (source.permission as AccessScopeEntity['permission'])
-      : source.canViewAnalytics === true
-        ? 'VIEW_ANALYTICS'
-        : 'VIEW_ANALYTICS'
+  const hasViewAnalytics = source.permission === 'VIEW_ANALYTICS' || source.canViewAnalytics === true
+  if (!hasViewAnalytics) {
+    return null
+  }
+
+  const permission: AccessScopeEntity['permission'] = 'VIEW_ANALYTICS'
 
   return {
     id,

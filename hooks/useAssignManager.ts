@@ -102,18 +102,24 @@ export function useAssignManager() {
       })
     )
     setLoading(false)
-    const firstError = results.find((result) => 'error' in result)
-    if (firstError && 'error' in firstError) {
-      toast.error(firstError.error)
-      return
+    const errors = results.filter((result): result is { error: string } => 'error' in result)
+    const createdScopes = results.filter((result): result is { data: AccessScopeEntity } => 'data' in result)
+
+    if (createdScopes.length > 0) {
+      toast.success(t('success'))
+      setScopes((prev) => [...prev, ...createdScopes.map((result) => result.data)])
+      setSelectedUserId('')
+      setSelectedGroupIds([])
+      setCanViewAnalytics(false)
     }
 
-    const createdScopes = results.filter((result): result is { data: AccessScopeEntity } => 'data' in result)
-    toast.success(t('success'))
-    setScopes((prev) => [...prev, ...createdScopes.map((result) => result.data)])
-    setSelectedUserId('')
-    setSelectedGroupIds([])
-    setCanViewAnalytics(false)
+    if (errors.length > 0) {
+      toast.error(errors[0].error)
+    }
+
+    if (createdScopes.length === 0) {
+      return
+    }
   }
 
   async function handleRevoke(id: string) {

@@ -212,6 +212,25 @@ describe('getAccessScopes', () => {
     expect(result).toEqual({ error: 'Server error' })
     expect(logger.error).toHaveBeenCalled()
   })
+
+  it('drops legacy scope when analytics permission is explicitly disabled', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      data: [
+        {
+          ...mockScope,
+          permission: undefined,
+          canViewAnalytics: false,
+        },
+      ],
+    })
+
+    const result = await getAccessScopes(mockSuperuserSession, 'c-1')
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toEqual([])
+    }
+  })
 })
 
 // ─── Admin-scoped variants ────────────────────────────────────────────────────
@@ -275,6 +294,20 @@ describe('createAccessScopeAdmin', () => {
 
     expect(result).toEqual({ error: 'Conflict' })
     expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('returns invalid response when permission is unsupported and legacy flag is false', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: {
+        ...mockScope,
+        permission: 'SOME_OTHER_PERMISSION',
+        canViewAnalytics: false,
+      },
+    })
+
+    const result = await createAccessScopeAdmin(mockAdminSession, 'c-1', mockDto)
+
+    expect(result).toEqual({ error: 'Invalid access scope response' })
   })
 })
 

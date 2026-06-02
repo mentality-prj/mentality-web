@@ -575,6 +575,25 @@ describe('adminGetAccessScopes', () => {
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
   })
+
+  it('filters out scopes without explicit VIEW_ANALYTICS permission', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: [
+        {
+          ...mockScope,
+          permission: undefined,
+          canViewAnalytics: false,
+        },
+      ],
+    })
+
+    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+
+    expect('data' in result).toBe(true)
+    if ('data' in result) {
+      expect(result.data).toEqual([])
+    }
+  })
 })
 
 // ─── adminCreateAccessScope ───────────────────────────────────────────────────
@@ -603,6 +622,20 @@ describe('adminCreateAccessScope', () => {
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
+  })
+
+  it('returns invalid response when permission is unsupported and legacy flag is false', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+      data: {
+        ...mockScope,
+        permission: 'OTHER_PERMISSION',
+        canViewAnalytics: false,
+      },
+    })
+
+    const result = await adminCreateAccessScope(mockAdminSession, COMPANY_ID, dto)
+
+    expect(result).toEqual({ error: 'Invalid access scope response' })
   })
 })
 

@@ -325,15 +325,17 @@ export async function adminGetAccessScopes(
           return []
         }
 
+        const hasViewAnalytics = source.permission === 'VIEW_ANALYTICS' || source.canViewAnalytics === true
+        if (!hasViewAnalytics) {
+          return []
+        }
+
         return [
           {
             id,
             userId,
             groupId,
-            permission:
-              typeof source.permission === 'string'
-                ? (source.permission as AccessScopeEntity['permission'])
-                : 'VIEW_ANALYTICS',
+            permission: 'VIEW_ANALYTICS',
             companyId,
             createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
           },
@@ -379,15 +381,17 @@ export async function adminCreateAccessScope(
     return { error: 'Invalid access scope response' }
   }
 
+  const hasViewAnalytics = source.permission === 'VIEW_ANALYTICS' || source.canViewAnalytics === true
+  if (!hasViewAnalytics) {
+    return { error: 'Invalid access scope response' }
+  }
+
   return {
     data: {
       id,
       userId,
       groupId,
-      permission:
-        typeof source.permission === 'string'
-          ? (source.permission as AccessScopeEntity['permission'])
-          : 'VIEW_ANALYTICS',
+      permission: 'VIEW_ANALYTICS',
       companyId,
       createdAt: typeof source.createdAt === 'string' ? source.createdAt : '',
     },
