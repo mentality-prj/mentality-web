@@ -85,7 +85,7 @@ export function AssignManagerForm() {
               const manager = managers.find((m) => m.id === scope.userId)
               return (
                 <li
-                  key={scope.id}
+                  key={`${scope.id}:${scope.groupId}`}
                   className="flex items-center justify-between rounded-md border border-border px-3 py-2 text-sm"
                 >
                   <span>{manager?.name || manager?.email || scope.userId}</span>
