@@ -35,11 +35,11 @@ function getIconRoleClass(role: LayerRole) {
 function getLayerRoleClass(role: LayerRole) {
   switch (role) {
     case 'active':
-      return 'z-30 translate-x-0 translate-y-0 rotate-0 scale-100 opacity-100 shadow-[0_28px_80px_rgba(15,23,42,0.14)]'
+      return 'z-30 translate-x-0 translate-y-0 rotate-0 scale-100 opacity-100 lg:shadow-[0_28px_80px_rgba(15,23,42,0.14)]'
     case 'right':
-      return 'z-20 translate-x-[18%] translate-y-8 rotate-[8deg] scale-[0.9] opacity-100 shadow-[0_18px_48px_rgba(15,23,42,0.08)] md:translate-x-[20%] md:translate-y-10'
+      return 'z-20 translate-x-[18%] translate-y-8 rotate-[8deg] lg:scale-[0.9] opacity-100 lg:shadow-[0_18px_48px_rgba(15,23,42,0.08)] md:translate-x-[20%] md:translate-y-10'
     case 'left':
-      return 'z-10 -translate-x-[18%] translate-y-10 -rotate-[8deg] scale-[0.9] opacity-100 shadow-[0_18px_48px_rgba(15,23,42,0.08)] md:-translate-x-[14%] md:translate-y-12'
+      return 'z-10 -translate-x-[18%] translate-y-10 -rotate-[8deg] lg:scale-[0.9] opacity-100 lg:shadow-[0_18px_48px_rgba(15,23,42,0.08)] md:-translate-x-[14%] md:translate-y-12'
   }
 }
 
@@ -130,7 +130,7 @@ export function ArchitectureLayersShowcase() {
                   onClick={() => setActiveIndex(index)}
                   aria-pressed={isActive}
                   className={cn(
-                    'rounded-full border px-4 py-2 text-sm font-semibold transition-all duration-300',
+                    'rounded-full border px-4 py-2 text-sm font-semibold transition-colors duration-300',
                     isActive
                       ? cn(layer.chipActiveClassName, 'shadow-[0_12px_24px_rgba(15,23,42,0.08)]')
                       : 'border-transparent bg-white/65 text-textcolor-secondary hover:border-black/[0.08] hover:bg-white'
@@ -148,7 +148,7 @@ export function ArchitectureLayersShowcase() {
         <div className="relative h-full min-h-[360px] overflow-hidden rounded-[32px] bg-[radial-gradient(circle_at_top,rgba(255,255,255,0.95),rgba(248,250,252,0.86)_45%,rgba(241,245,249,0.92)_100%)] p-3 [perspective:1800px] md:min-h-[520px] md:p-6">
           <div
             className={cn(
-              'absolute inset-[12%] rounded-[36px] blur-3xl transition-colors duration-500',
+              'absolute inset-[12%] hidden rounded-[36px] transition-colors duration-500 lg:block lg:blur-3xl',
               activeLayer.shadowClassName
             )}
           />
@@ -170,12 +170,12 @@ export function ArchitectureLayersShowcase() {
                     : t(`Architecture.${layer.key}.title`)
                 }
                 className={cn(
-                  'group absolute inset-x-4 inset-y-5 flex origin-center transform-gpu flex-col overflow-hidden rounded-[30px] border border-white/85 p-5 text-left transition-[transform,box-shadow,opacity,filter] duration-200 ease-out md:inset-x-10 md:inset-y-8 md:p-8',
+                  'group absolute inset-x-4 inset-y-5 flex origin-center transform-gpu flex-col overflow-hidden rounded-[30px] border border-white/85 p-5 text-left transition-[transform,opacity] duration-500 ease-out md:inset-x-10 md:inset-y-8 md:p-8 lg:transition-[transform,box-shadow,opacity,filter]',
                   layer.panelClassName,
                   getLayerRoleClass(role),
                   isActive
-                    ? 'cursor-pointer hover:-translate-y-0.5 hover:scale-105'
-                    : 'cursor-pointer saturate-[0.88] hover:saturate-100'
+                    ? 'cursor-pointer lg:hover:-translate-y-0.5 lg:hover:scale-105'
+                    : 'cursor-pointer lg:saturate-[0.88] lg:hover:saturate-100'
                 )}
               >
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.22),transparent_45%,rgba(15,23,42,0.04))]" />
@@ -200,9 +200,10 @@ export function ArchitectureLayersShowcase() {
                   <p
                     aria-hidden={!isActive}
                     className={cn(
-                      'max-w-[34rem] overflow-hidden text-base leading-relaxed text-textcolor-secondary transition-[max-height,opacity,margin] duration-200 md:text-lg',
-                      isActive ? 'mt-4 max-h-40 opacity-100 md:max-h-48' : 'mt-0 max-h-0 opacity-0'
+                      'max-w-[34rem] overflow-hidden text-base leading-relaxed text-textcolor-secondary transition-[opacity,transform] duration-300 md:text-lg',
+                      isActive ? 'mt-4 scale-y-100 opacity-100' : 'pointer-events-none mt-0 scale-y-95 opacity-0'
                     )}
+                    style={{ transformOrigin: 'top' }}
                   >
                     {t(`Architecture.${layer.key}.description`)}
                   </p>
@@ -213,7 +214,7 @@ export function ArchitectureLayersShowcase() {
                     className={cn(
                       'h-[3rem] w-[3rem] flex-none transition-[transform] duration-300 tablet:h-[3.75rem] tablet:w-[3.75rem]',
                       layer.arrowClassName,
-                      isActive ? 'translate-x-0 hover:scale-125 group-hover:scale-125' : 'translate-x-1'
+                      isActive ? 'translate-x-0 lg:hover:scale-125 lg:group-hover:scale-125' : 'translate-x-1'
                     )}
                   />
                 </div>
