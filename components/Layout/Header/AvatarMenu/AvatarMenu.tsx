@@ -1,10 +1,9 @@
 'use client'
 import { MailIcon, UserIcon } from 'lucide-react'
-import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
-import { SUPPORTED_LANGUAGES } from '@/types/languages'
+import { Link } from '@/i18n/navigation'
 import { Avatar, AvatarFallback, AvatarImage } from '@/ui/avatar'
 import { Button } from '@/ui/button'
 import {
@@ -16,17 +15,23 @@ import {
   DropdownMenuTrigger,
 } from '@/ui/dropdown-menu'
 
-import { getMenuItems } from './avatarMenu.config'
+import { type AvatarMenuItem, getMenuItems } from './avatarMenu.config'
+
+function isLinkMenuItem(item: AvatarMenuItem): item is Extract<AvatarMenuItem, { href: string }> {
+  return item.show && 'href' in item
+}
+
+function isLogoutMenuItem(item: AvatarMenuItem): item is Extract<AvatarMenuItem, { key: 'logout' }> {
+  return item.show && item.key === 'logout'
+}
 
 const AvatarMenu = () => {
   const t = useTranslations('components.AvatarMenu')
-  const router = useRouter()
-  const locale = typeof window !== 'undefined' ? window.location.pathname.split('/')[1] : SUPPORTED_LANGUAGES.UKRAINIAN
   const { session: data } = useAuth()
   const user = data?.user
-  const { name, email, image, role } = user || {}
+  const { name, email, image, role, companyRole } = user || {}
 
-  const menuItems = getMenuItems(locale, role || 'user', t, router)
+  const menuItems = getMenuItems(role || 'user', companyRole, t)
 
   const initials = (name ?? '')
     .split(' ')
@@ -59,21 +64,17 @@ const AvatarMenu = () => {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
-        {menuItems
-          .filter((item) => item.show && item.key !== 'logout')
-          .map((item) => (
-            <DropdownMenuItem key={item.key} onClick={item.onClick} className={item.className}>
-              {item.label}
-            </DropdownMenuItem>
-          ))}
+        {menuItems.filter(isLinkMenuItem).map((item) => (
+          <DropdownMenuItem key={item.key} asChild className={item.className}>
+            <Link href={item.href}>{item.label}</Link>
+          </DropdownMenuItem>
+        ))}
         <hr className="separator" />
-        {menuItems
-          .filter((item) => item.show && item.key === 'logout')
-          .map((item) => (
-            <DropdownMenuItem key={item.key} asChild>
-              {item.element}
-            </DropdownMenuItem>
-          ))}
+        {menuItems.filter(isLogoutMenuItem).map((item) => (
+          <DropdownMenuItem key={item.key} asChild>
+            {item.element}
+          </DropdownMenuItem>
+        ))}
       </DropdownMenuContent>
     </DropdownMenu>
   )

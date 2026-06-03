@@ -17,6 +17,7 @@ import MentalGames from './MentalGames.json'
 import MoodTracker from './MoodTracker.json'
 import MyProgress from './MyProgress.json'
 import MySpace from './MySpace.json'
+import Profile from './Profile.json'
 import PrivacyPolicy from './PrivacyPolicy.json'
 import PsychologicalTests from './PsychologicalTests.json'
 import Research from './Research.json'
@@ -44,6 +45,7 @@ export const pages = {
   MoodTracker,
   MyProgress,
   MySpace,
+  Profile,
   PrivacyPolicy,
   PsychologicalTests,
   Research,

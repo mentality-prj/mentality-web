@@ -21,7 +21,6 @@ export const searchItems: SearchItem[] = [
   { key: 'tips', href: Routes.TIPS },
   { key: 'meditations', href: Routes.MEDITATIONS },
   { key: 'affirmations', href: Routes.AFFIRMATIONS },
-  { key: 'settings', href: Routes.SETTINGS },
   { key: 'privacy', href: Routes.PRIVACY },
   { key: 'terms', href: Routes.TERMS },
   { key: 'cookies', href: Routes.COOKIES },

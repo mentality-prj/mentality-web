@@ -1,0 +1,20 @@
+{
+  "title": "Profil",
+  "subtitle": "Dane konta i ustawienia w jednym miejscu",
+  "identityNote": "To są dane używane przez system do identyfikacji konta.",
+  "details": {
+    "title": "Szczegóły profilu",
+    "subtitle": "To są dane na poziomie konta potrzebne do dostępu i zarządzania uprawnieniami.",
+    "id": "ID użytkownika",
+    "role": "Rola",
+    "companyRole": "Rola w firmie",
+    "aiAccess": "Dostęp do AI",
+    "enabled": "Połączono",
+    "disabled": "Nie połączono"
+  },
+  "settings": {
+    "eyebrow": "Ustawienia",
+    "title": "Ustawienia dostępu i raportów",
+    "subtitle": "Administrator widzi wszystkie dostępne ustawienia serwisu, a zwykły użytkownik nie widzi tej sekcji."
+  }
+}
