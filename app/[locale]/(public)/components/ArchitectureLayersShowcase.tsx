@@ -188,12 +188,7 @@ export function ArchitectureLayersShowcase() {
                 </div>
 
                 <div className="relative z-10 space-y-3 lg:mt-6">
-                  <h3
-                    className={cn(
-                      'landing-showcase-title',
-                      isActive ? 'landing-showcase-title-active' : 'landing-showcase-title-inactive'
-                    )}
-                  >
+                  <h3 className={cn('landing-showcase-title landing-showcase-title-active')}>
                     {t(`Architecture.${layer.key}.title`)}
                   </h3>
 
