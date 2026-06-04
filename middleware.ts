@@ -273,6 +273,12 @@ export async function middleware(request: NextRequest) {
 
   const normalizedPath = pathname.replace(/^\/(en|uk|pl)(?=\/|$)/, '') || '/'
 
+  const { pathname } = request.nextUrl
+  const segments = pathname.split('/')
+  const locale = segments[1] || 'en'
+
+  const normalizedPath = pathname.replace(/^\/(en|uk|pl)(?=\/|$)/, '') || '/'
+
   const protectedRoutes = Object.fromEntries(
     Object.entries(Routes)
       .filter((entry): entry is [string, string] => typeof entry[1] === 'string' && !publicRoutes.includes(entry[1]))

@@ -12,6 +12,8 @@ export interface ProvidersProps {
 }
 
 export function Providers({ children, themeProps }: ProvidersProps) {
+  const [sort, setSort] = useState('newest')
+  const [filter, setFilter] = useState('')
   return (
     <AuthProvider>
       <SessionWrapper>
