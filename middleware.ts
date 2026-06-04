@@ -270,13 +270,6 @@ export async function middleware(request: NextRequest) {
 
   // Use locale from URL or default if not set
   const locale = localeInUrl || routing.defaultLocale
-
-  const normalizedPath = pathname.replace(/^\/(en|uk|pl)(?=\/|$)/, '') || '/'
-
-  const { pathname } = request.nextUrl
-  const segments = pathname.split('/')
-  const locale = segments[1] || 'en'
-
   const normalizedPath = pathname.replace(/^\/(en|uk|pl)(?=\/|$)/, '') || '/'
 
   const protectedRoutes = Object.fromEntries(
