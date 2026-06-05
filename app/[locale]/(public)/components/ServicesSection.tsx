@@ -47,7 +47,7 @@ export function ServicesSection() {
   const t = useTranslations('pages.Landing')
 
   return (
-    <CardContainer className="mb-6 tablet:mb-12">
+    <CardContainer className="mb-6 tablet:mb-12 md:py-12">
       <div className="mb-5 tablet:px-6 md:mb-10 md:px-8">
         <h2 className="landing-h1 whitespace-pre-line">{t('Services.title')}</h2>
       </div>
