@@ -170,12 +170,12 @@ export function ArchitectureLayersShowcase() {
                     : t(`Architecture.${layer.key}.title`)
                 }
                 className={cn(
-                  'group absolute inset-x-4 inset-y-5 flex origin-center transform-gpu flex-col overflow-hidden rounded-[30px] border border-white/85 p-5 text-left transition-[transform,opacity] duration-500 ease-out md:inset-x-10 md:inset-y-8 md:p-8 lg:transition-[transform,box-shadow,opacity,filter]',
+                  'group absolute inset-x-4 inset-y-5 flex origin-center transform-gpu flex-col overflow-hidden rounded-[30px] border border-white/85 p-5 text-left transition-[transform,opacity] duration-500 ease-out md:inset-x-10 md:inset-y-8 md:p-8',
                   layer.panelClassName,
                   getLayerRoleClass(role),
                   isActive
-                    ? 'cursor-pointer lg:hover:-translate-y-0.5 lg:hover:scale-105'
-                    : 'cursor-pointer lg:saturate-[0.88] lg:hover:saturate-100'
+                    ? 'cursor-pointer [@media(hover:hover)_and_(pointer:fine)]:hover:-translate-y-0.5 [@media(hover:hover)_and_(pointer:fine)]:hover:scale-105'
+                    : 'cursor-pointer [@media(hover:hover)_and_(pointer:fine)]:saturate-[0.88] [@media(hover:hover)_and_(pointer:fine)]:hover:saturate-100'
                 )}
               >
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.22),transparent_45%,rgba(15,23,42,0.04))]" />
@@ -209,7 +209,9 @@ export function ArchitectureLayersShowcase() {
                     className={cn(
                       'h-[3rem] w-[3rem] flex-none transition-[transform] duration-300 tablet:h-[3.75rem] tablet:w-[3.75rem]',
                       layer.arrowClassName,
-                      isActive ? 'translate-x-0 lg:hover:scale-125 lg:group-hover:scale-125' : 'translate-x-1'
+                      isActive
+                        ? 'translate-x-0 [@media(hover:hover)_and_(pointer:fine)]:hover:scale-125 [@media(hover:hover)_and_(pointer:fine)]:group-hover:scale-125'
+                        : 'translate-x-1'
                     )}
                   />
                 </div>
