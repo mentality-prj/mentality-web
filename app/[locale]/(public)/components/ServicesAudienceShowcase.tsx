@@ -178,7 +178,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
 
   if (config.key === 'b2c') {
     return (
-      <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+      <section className={cn('w-full py-8 tablet:py-10 sm:py-12 md:py-16', config.sectionClassName)}>
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="max-w-[70rem] xl:max-w-[70%]">
             <div className="space-y-4">
@@ -190,7 +190,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.06fr)_minmax(0,0.88fr)] xl:items-center">
+          <div className="mt-5 grid gap-6 tablet:mt-6 sm:mt-8 md:mt-10 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.06fr)_minmax(0,0.88fr)] xl:items-center">
             <div className="px-1 py-1 md:px-2">
               <IconStatementList
                 items={b2cServiceSummaryItems}
@@ -228,7 +228,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
 
   if (config.key === 'b2b') {
     return (
-      <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+      <section className={cn('w-full py-8 tablet:py-10 sm:py-12 md:py-16', config.sectionClassName)}>
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.68fr)] xl:items-start xl:gap-8">
             <div className="px-1 py-2 md:px-2 md:py-3 xl:order-2">
@@ -297,7 +297,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
   }))
 
   return (
-    <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+    <section className={cn('w-full py-8 tablet:py-10 sm:py-12 md:py-16', config.sectionClassName)}>
       <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
         <div className="relative isolate">
           <div
@@ -393,8 +393,8 @@ export function ServicesAudienceShowcase() {
         />
         <ServicesHeroBackgroundFigures />
 
-        <div className="container-max-width relative z-10 mx-auto px-4 pb-14 pt-12 tablet:px-6 md:px-8 md:pb-16 md:pt-16 lg:px-10">
-          <div className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.95fr)] xl:gap-16">
+        <div className="container-max-width relative z-10 mx-auto px-4 py-8 tablet:px-6 tablet:py-10 sm:py-12 md:px-8 md:py-16 lg:px-10">
+          <div className="grid items-center gap-6 tablet:gap-8 sm:gap-10 md:gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.95fr)] xl:gap-16">
             <div className="relative z-10 max-w-4xl">
               <h1 className="landing-display-title max-w-3xl text-[2rem] font-medium leading-[1.04] text-white md:text-[2.75rem]">
                 {t('hero.title')}
@@ -447,10 +447,10 @@ export function ServicesAudienceShowcase() {
         </div>
       </section>
 
-      <section className="w-full bg-[linear-gradient(180deg,rgba(255,237,213,0.98),rgba(255,247,237,0.94))] py-14 md:py-16">
+      <section className="w-full bg-[linear-gradient(180deg,rgba(255,237,213,0.98),rgba(255,247,237,0.94))] py-8 tablet:py-10 sm:py-12 md:py-16">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-            <article className="relative flex min-h-[360px] flex-col justify-between overflow-hidden px-3 py-6 md:px-4 xl:px-2">
+            <article className="relative flex flex-col justify-between overflow-hidden px-3 md:min-h-[360px] md:px-4 md:py-6 xl:px-2">
               <div className="relative z-10">
                 <h2 className="text-title text-[2rem] font-semibold leading-[1.08] md:text-[2.45rem]">
                   {t('blueprint.title')}
@@ -465,7 +465,7 @@ export function ServicesAudienceShowcase() {
               return (
                 <article
                   key={card.key}
-                  className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[28px] border border-white/60 bg-white/[0.34] p-6 text-textcolor-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.58),0_20px_48px_rgba(249,115,22,0.08)] backdrop-blur-[18px] md:p-7"
+                  className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/60 bg-white/[0.34] p-6 text-textcolor-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.58),0_20px_48px_rgba(249,115,22,0.08)] backdrop-blur-[18px] md:min-h-[20rem] md:p-7"
                 >
                   <BlueprintIcon
                     aria-hidden
