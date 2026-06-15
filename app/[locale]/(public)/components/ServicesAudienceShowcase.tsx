@@ -300,7 +300,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
         <div className="relative isolate">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-[48%] top-1 z-0 hidden h-44 w-44 wide:block"
+            className="pointer-events-none absolute left-[18%] top-[14%] z-0 h-44 w-44 wide:left-[48%] wide:top-1"
           >
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.97)_14%,rgba(196,181,253,0.84)_36%,rgba(139,92,246,0.82)_62%,rgba(76,29,149,0.97)_100%)] shadow-[0_18px_40px_rgba(109,40,217,0.22)]" />
             <div className="absolute left-[14%] top-[10%] h-[22%] w-[30%] rounded-full bg-white/80 blur-[3px]" />
@@ -309,7 +309,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
           </div>
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-[63%] top-[15.75rem] z-0 hidden h-28 w-28 wide:block"
+            className="pointer-events-none absolute left-2 top-[23%] z-0 h-28 w-28 wide:left-[63%] wide:top-[15.75rem]"
           >
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.95)_14%,rgba(196,181,253,0.8)_36%,rgba(139,92,246,0.78)_62%,rgba(76,29,149,0.96)_100%)] shadow-[0_16px_30px_rgba(109,40,217,0.2)]" />
             <div className="bg-white/78 absolute left-[16%] top-[11%] h-[22%] w-[30%] rounded-full blur-[2px]" />
@@ -318,7 +318,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
           </div>
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-3 top-[4.75rem] z-0 hidden h-20 w-20 wide:block"
+            className="pointer-events-none absolute right-2 top-[21%] z-0 h-20 w-20 wide:-right-3 wide:top-[4.75rem]"
           >
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.94)_14%,rgba(196,181,253,0.78)_36%,rgba(139,92,246,0.76)_62%,rgba(76,29,149,0.95)_100%)] shadow-[0_14px_24px_rgba(109,40,217,0.18)]" />
             <div className="bg-white/76 absolute left-[16%] top-[11%] h-[20%] w-[28%] rounded-full blur-[2px]" />
@@ -384,7 +384,7 @@ export function ServicesAudienceShowcase() {
 
   return (
     <div className="bg-white">
-      <section className="relative w-full overflow-hidden bg-primary">
+      <section className="relative w-full overflow-hidden bg-primary/75">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_22%),radial-gradient(circle_at_86%_12%,rgba(255,255,255,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0)_42%)]"
