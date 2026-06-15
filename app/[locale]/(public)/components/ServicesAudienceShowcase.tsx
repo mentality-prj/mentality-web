@@ -239,7 +239,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
               </div>
             </div>
 
-            <div className="grid gap-6 xl:grid-cols-2">
+            <div className="grid gap-6 wide:grid-cols-2">
               <div className="h-full px-1 py-2 md:px-2 md:py-3">
                 <GlassPanel
                   className="h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_24px_60px_rgba(14,116,144,0.12)]"
@@ -300,7 +300,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
         <div className="relative isolate">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-[44%] top-1 z-0 hidden h-44 w-44 wide:block"
+            className="pointer-events-none absolute left-[48%] top-1 z-0 hidden h-44 w-44 wide:block"
           >
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.97)_14%,rgba(196,181,253,0.84)_36%,rgba(139,92,246,0.82)_62%,rgba(76,29,149,0.97)_100%)] shadow-[0_18px_40px_rgba(109,40,217,0.22)]" />
             <div className="absolute left-[14%] top-[10%] h-[22%] w-[30%] rounded-full bg-white/80 blur-[3px]" />
