@@ -199,7 +199,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
               />
             </div>
 
-            <div className="bg-white/72 mx-auto inline-block w-full max-w-[40rem] overflow-hidden rounded-[30px] shadow-[0_24px_50px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.05]">
+            <div className="bg-white/72 mx-auto w-full max-w-[40rem] overflow-hidden rounded-[30px] shadow-[0_24px_50px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.05]">
               <Image
                 src="/services/b2c.png"
                 alt=""
