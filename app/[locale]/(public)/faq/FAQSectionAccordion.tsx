@@ -10,7 +10,7 @@ import type { FAQSection } from './types'
 type FAQSectionAccordionProps = {
   section: FAQSection
   isOpen: boolean
-  openQuestionIndex: number | null
+  openQuestionIndexes: number[]
   onSectionToggle: () => void
   onQuestionToggle: (questionIndex: number) => void
   sectionQuestionsCountText: string
@@ -21,7 +21,7 @@ type FAQSectionAccordionProps = {
 export function FAQSectionAccordion({
   section,
   isOpen,
-  openQuestionIndex,
+  openQuestionIndexes,
   onSectionToggle,
   onQuestionToggle,
   sectionQuestionsCountText,
@@ -82,7 +82,7 @@ export function FAQSectionAccordion({
                   item={item}
                   index={index}
                   sectionId={section.id}
-                  isOpen={openQuestionIndex === index}
+                  isOpen={openQuestionIndexes.includes(index)}
                   onToggle={onQuestionToggle}
                 />
               </li>

@@ -14,36 +14,28 @@ export function FAQShowcase() {
   const faqMessages = (useMessages() as unknown as FAQPageMessages).pages.FAQ
   const faqSections = faqMessages.sections
 
-  const [openSectionId, setOpenSectionId] = useState<FAQSectionId | null>(null)
+  const [openSectionIds, setOpenSectionIds] = useState<FAQSectionId[]>([])
   const [openQuestionIndexes, setOpenQuestionIndexes] = useState<OpenQuestionIndexes>({
-    b2c: null,
-    b2b: null,
-    rd: null,
+    b2c: [],
+    b2b: [],
+    rd: [],
   })
 
   const handleSectionToggle = (sectionId: FAQSectionId) => {
-    setOpenSectionId((currentSectionId) => (currentSectionId === sectionId ? null : sectionId))
+    setOpenSectionIds((currentIds) =>
+      currentIds.includes(sectionId) ? currentIds.filter((id) => id !== sectionId) : [...currentIds, sectionId]
+    )
   }
 
   const handleQuestionToggle = (sectionId: FAQSectionId, questionIndex: number) => {
     setOpenQuestionIndexes((currentState) => {
-      if (sectionId === 'b2c') {
-        return {
-          ...currentState,
-          b2c: currentState.b2c === questionIndex ? null : questionIndex,
-        }
-      }
-
-      if (sectionId === 'b2b') {
-        return {
-          ...currentState,
-          b2b: currentState.b2b === questionIndex ? null : questionIndex,
-        }
-      }
+      const currentIndexes = currentState[`${sectionId}`]
 
       return {
         ...currentState,
-        rd: currentState.rd === questionIndex ? null : questionIndex,
+        [sectionId]: currentIndexes.includes(questionIndex)
+          ? currentIndexes.filter((index) => index !== questionIndex)
+          : [...currentIndexes, questionIndex],
       }
     })
   }
@@ -72,8 +64,8 @@ export function FAQShowcase() {
               <li key={section.id}>
                 <FAQSectionAccordion
                   section={section}
-                  isOpen={openSectionId === section.id}
-                  openQuestionIndex={openQuestionIndexes[section.id]}
+                  isOpen={openSectionIds.includes(section.id)}
+                  openQuestionIndexes={openQuestionIndexes[section.id]}
                   sectionQuestionsCountText={t('sectionQuestionsCount', { count: section.items.length })}
                   expandSectionText={t('expandSection')}
                   collapseSectionText={t('collapseSection')}
