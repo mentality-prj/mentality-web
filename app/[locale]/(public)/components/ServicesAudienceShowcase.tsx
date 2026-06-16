@@ -178,7 +178,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
 
   if (config.key === 'b2c') {
     return (
-      <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+      <section className={cn('w-full py-8 tablet:py-10 sm:py-12 md:py-16', config.sectionClassName)}>
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="max-w-[70rem] xl:max-w-[70%]">
             <div className="space-y-4">
@@ -190,7 +190,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
             </div>
           </div>
 
-          <div className="mt-10 grid gap-6 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.06fr)_minmax(0,0.88fr)] xl:items-center">
+          <div className="mt-2 grid gap-6 xl:mt-5 xl:grid-cols-[minmax(0,0.88fr)_minmax(0,1.06fr)_minmax(0,0.88fr)] xl:items-center">
             <div className="px-1 py-1 md:px-2">
               <IconStatementList
                 items={b2cServiceSummaryItems}
@@ -199,18 +199,16 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
               />
             </div>
 
-            <div className="bg-white/72 overflow-hidden rounded-[30px] shadow-[0_24px_50px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.05]">
-              <div className="mx-auto w-full max-w-[40rem]">
-                <Image
-                  src="/services/b2c.png"
-                  alt=""
-                  aria-hidden="true"
-                  width={1024}
-                  height={559}
-                  sizes="(min-width: 1280px) 40rem, (min-width: 1024px) 32rem, 100vw"
-                  className="h-auto w-full"
-                />
-              </div>
+            <div className="bg-white/72 mx-auto w-full max-w-[40rem] overflow-hidden rounded-[30px] shadow-[0_24px_50px_rgba(15,23,42,0.08)] ring-1 ring-black/[0.05]">
+              <Image
+                src="/services/b2c.png"
+                alt=""
+                aria-hidden="true"
+                width={1024}
+                height={559}
+                sizes="(min-width: 1280px) 40rem, (min-width: 1024px) 32rem, 100vw"
+                className="h-auto w-full"
+              />
             </div>
 
             <div className="px-1 py-1 md:px-2">
@@ -228,20 +226,20 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
 
   if (config.key === 'b2b') {
     return (
-      <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+      <section className={cn('w-full py-8 tablet:py-10 sm:py-12 md:py-16', config.sectionClassName)}>
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
-          <div className="grid gap-6 xl:grid-cols-[minmax(0,1.08fr)_minmax(0,0.68fr)] xl:items-start xl:gap-8">
-            <div className="px-1 py-2 md:px-2 md:py-3 xl:order-2">
-              <div className="max-w-[30rem] space-y-4 md:pt-2">
+          <div className="grid gap-6 xl:gap-8">
+            <div className="px-1 py-2 md:px-2 md:py-3">
+              <div className="w-full space-y-4 md:pt-2">
                 <h2 className="landing-section-title">{t(`${sectionKey}.title`)}</h2>
 
-                <p className="text-base leading-relaxed text-textcolor-secondary md:text-lg">
+                <p className="text-base leading-relaxed text-textcolor-secondary tablet:w-[95%] md:text-lg">
                   {t(`${sectionKey}.description`)}
                 </p>
               </div>
             </div>
 
-            <div className="grid gap-6 xl:order-1">
+            <div className="grid gap-6 wide:grid-cols-2">
               <div className="h-full px-1 py-2 md:px-2 md:py-3">
                 <GlassPanel
                   className="h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_24px_60px_rgba(14,116,144,0.12)]"
@@ -297,12 +295,12 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
   }))
 
   return (
-    <section className={cn('w-full py-14 md:py-[4.5rem]', config.sectionClassName)}>
+    <section className={cn('w-full py-8 tablet:py-10 sm:py-12 md:py-16', config.sectionClassName)}>
       <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
         <div className="relative isolate">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-[52%] top-1 z-0 hidden h-44 w-44 xl:block"
+            className="pointer-events-none absolute left-[18%] top-[14%] z-0 h-44 w-44 wide:left-[48%] wide:top-1"
           >
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.97)_14%,rgba(196,181,253,0.84)_36%,rgba(139,92,246,0.82)_62%,rgba(76,29,149,0.97)_100%)] shadow-[0_18px_40px_rgba(109,40,217,0.22)]" />
             <div className="absolute left-[14%] top-[10%] h-[22%] w-[30%] rounded-full bg-white/80 blur-[3px]" />
@@ -311,7 +309,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
           </div>
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute left-[63%] top-[15.75rem] z-0 hidden h-28 w-28 xl:block"
+            className="pointer-events-none absolute left-2 top-[23%] z-0 h-28 w-28 wide:left-[63%] wide:top-[15.75rem]"
           >
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.95)_14%,rgba(196,181,253,0.8)_36%,rgba(139,92,246,0.78)_62%,rgba(76,29,149,0.96)_100%)] shadow-[0_16px_30px_rgba(109,40,217,0.2)]" />
             <div className="bg-white/78 absolute left-[16%] top-[11%] h-[22%] w-[30%] rounded-full blur-[2px]" />
@@ -320,7 +318,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
           </div>
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute -right-3 top-[4.75rem] z-0 hidden h-20 w-20 xl:block"
+            className="pointer-events-none absolute right-2 top-[21%] z-0 h-20 w-20 wide:-right-3 wide:top-[4.75rem]"
           >
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_32%_28%,rgba(255,255,255,0.99),rgba(243,232,255,0.94)_14%,rgba(196,181,253,0.78)_36%,rgba(139,92,246,0.76)_62%,rgba(76,29,149,0.95)_100%)] shadow-[0_14px_24px_rgba(109,40,217,0.18)]" />
             <div className="bg-white/76 absolute left-[16%] top-[11%] h-[20%] w-[28%] rounded-full blur-[2px]" />
@@ -328,8 +326,8 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
             <div className="absolute inset-0 rounded-full bg-[radial-gradient(circle_at_72%_76%,rgba(49,46,129,0.24),transparent_48%)] opacity-70 mix-blend-multiply" />
           </div>
 
-          <MosaicGrid className="relative z-10 xl:gap-10">
-            <MosaicGridItem xlSpan={7} align="start" className="!h-auto [&>*]:!h-auto">
+          <MosaicGrid className="relative z-10 wide:grid-cols-6 xl:gap-10">
+            <MosaicGridItem xlSpan={6} align="start" className="!h-auto wide:col-span-3 [&>*]:!h-auto">
               <div className="md:pr-10 md:pt-2">
                 <div className="max-w-[48rem] p-1 md:px-2 md:py-3">
                   <div className="space-y-4">
@@ -343,7 +341,7 @@ function AudienceSection({ config }: { config: AudienceConfig }) {
               </div>
             </MosaicGridItem>
 
-            <MosaicGridItem xlSpan={5} align="start" className="!h-auto [&>*]:!h-auto">
+            <MosaicGridItem xlSpan={6} align="start" className="!h-auto wide:col-span-3 [&>*]:!h-auto">
               <div className="px-1 py-2 md:px-2 xl:pl-4">
                 <GlassPanel
                   className="h-full shadow-[inset_0_1px_0_rgba(255,255,255,0.42),0_24px_60px_rgba(76,29,149,0.12)]"
@@ -386,15 +384,15 @@ export function ServicesAudienceShowcase() {
 
   return (
     <div className="bg-white">
-      <section className="relative w-full overflow-hidden bg-primary">
+      <section className="relative w-full overflow-hidden bg-primary/75">
         <div
           aria-hidden="true"
           className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.22),transparent_22%),radial-gradient(circle_at_86%_12%,rgba(255,255,255,0.1),transparent_28%),linear-gradient(180deg,rgba(255,255,255,0.04),rgba(255,255,255,0)_42%)]"
         />
         <ServicesHeroBackgroundFigures />
 
-        <div className="container-max-width relative z-10 mx-auto px-4 pb-14 pt-12 tablet:px-6 md:px-8 md:pb-16 md:pt-16 lg:px-10">
-          <div className="grid items-center gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.95fr)] xl:gap-16">
+        <div className="container-max-width relative z-10 mx-auto px-4 py-8 tablet:px-6 tablet:py-10 sm:py-12 md:px-8 md:py-16 lg:px-10">
+          <div className="grid items-center gap-6 tablet:gap-8 sm:gap-10 md:gap-12 xl:grid-cols-[minmax(0,1fr)_minmax(22rem,0.95fr)] xl:gap-16">
             <div className="relative z-10 max-w-4xl">
               <h1 className="landing-display-title max-w-3xl text-[2rem] font-medium leading-[1.04] text-white md:text-[2.75rem]">
                 {t('hero.title')}
@@ -402,7 +400,7 @@ export function ServicesAudienceShowcase() {
               <p className="mt-6 max-w-3xl text-base leading-relaxed text-white md:text-lg">{t('hero.subtitle')}</p>
             </div>
 
-            <div className="relative isolate min-h-[23rem]">
+            <div className="relative isolate min-h-[23rem] max-xl:max-w-3xl">
               <div
                 aria-hidden="true"
                 className="border-white/28 pointer-events-none absolute -right-6 top-[56%] z-0 hidden h-20 w-10 -translate-y-1/2 rounded-r-full border border-l-0 border-dashed lg:block"
@@ -447,10 +445,10 @@ export function ServicesAudienceShowcase() {
         </div>
       </section>
 
-      <section className="w-full bg-[linear-gradient(180deg,rgba(255,237,213,0.98),rgba(255,247,237,0.94))] py-14 md:py-16">
+      <section className="w-full bg-[linear-gradient(180deg,rgba(255,237,213,0.98),rgba(255,247,237,0.94))] py-8 tablet:py-10 sm:py-12 md:py-16">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 xl:grid-cols-4">
-            <article className="relative flex min-h-[360px] flex-col justify-between overflow-hidden px-3 py-6 md:px-4 xl:px-2">
+            <article className="relative flex flex-col justify-between overflow-hidden px-3 md:px-4 md:py-6 xl:min-h-[360px] xl:px-2">
               <div className="relative z-10">
                 <h2 className="text-title text-[2rem] font-semibold leading-[1.08] md:text-[2.45rem]">
                   {t('blueprint.title')}
@@ -465,7 +463,7 @@ export function ServicesAudienceShowcase() {
               return (
                 <article
                   key={card.key}
-                  className="relative flex h-full min-h-[20rem] flex-col overflow-hidden rounded-[28px] border border-white/60 bg-white/[0.34] p-6 text-textcolor-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.58),0_20px_48px_rgba(249,115,22,0.08)] backdrop-blur-[18px] md:p-7"
+                  className="relative flex h-full flex-col overflow-hidden rounded-[28px] border border-white/60 bg-white/[0.34] p-6 text-textcolor-primary shadow-[inset_0_1px_0_rgba(255,255,255,0.58),0_20px_48px_rgba(249,115,22,0.08)] backdrop-blur-[18px] md:p-7 xl:min-h-[20rem]"
                 >
                   <BlueprintIcon
                     aria-hidden
