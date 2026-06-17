@@ -22,9 +22,20 @@ export function FAQShowcase() {
   })
 
   const handleSectionToggle = (sectionId: FAQSectionId) => {
-    setOpenSectionIds((currentIds) =>
-      currentIds.includes(sectionId) ? currentIds.filter((id) => id !== sectionId) : [...currentIds, sectionId]
-    )
+    setOpenSectionIds((currentIds) => {
+      const isCurrentlyOpen = currentIds.includes(sectionId)
+
+      if (isCurrentlyOpen) {
+        setOpenQuestionIndexes((currentState) => ({
+          ...currentState,
+          [sectionId]: [],
+        }))
+
+        return currentIds.filter((id) => id !== sectionId)
+      }
+
+      return [...currentIds, sectionId]
+    })
   }
 
   const handleQuestionToggle = (sectionId: FAQSectionId, questionIndex: number) => {
@@ -41,8 +52,8 @@ export function FAQShowcase() {
   }
 
   return (
-    <div className="bg-[radial-gradient(circle_at_top_left,rgba(236,253,245,0.9),transparent_30%),radial-gradient(circle_at_top_right,rgba(224,242,254,0.9),transparent_35%),linear-gradient(180deg,#f8fafc_0%,#f6f8ef_100%)] py-12 md:py-16">
-      <section className="mb-12 w-full">
+    <div className="bg-[radial-gradient(circle_at_top_left,rgba(236,253,245,0.9),transparent_30%),radial-gradient(circle_at_top_right,rgba(224,242,254,0.9),transparent_35%),linear-gradient(180deg,#f8fafc_0%,#f6f8ef_100%)] py-8 tablet:py-10 sm:py-12 md:gap-12 md:py-16">
+      <section className="mb-6 w-full md:mb-12">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <MosaicGrid>
             <MosaicGridItem xlSpan={12}>
@@ -58,7 +69,7 @@ export function FAQShowcase() {
       </section>
 
       <section className="w-full">
-        <div className="container-max-width mx-auto px-4 pb-16 tablet:px-6 md:px-8 lg:px-10">
+        <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <ul className="space-y-6">
             {faqSections.map((section) => (
               <li key={section.id}>
