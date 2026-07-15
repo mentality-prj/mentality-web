@@ -9,6 +9,7 @@ import FormCard from '@/components/shared/Cards/FormCard'
 import FullScreenBackdrop from '@/components/shared/FullScreenContainers/FullScreenBackdrop/FullScreenBackdrop'
 import { type MoodKey, MOODS } from '@/constants/moods'
 import { Tag } from '@/ds/components/Tag'
+import { useBreakpoint } from '@/hooks/useBreakpoint'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
 
@@ -63,7 +64,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
     onTagCreated,
     formKey,
   } = useAddNewMood({ availableTags, onSave, onClose, initialLastSubmittedAt })
-
+  const isSm = useBreakpoint('sm')
   const [hoveredMoodKey, setHoveredMoodKey] = useState<MoodKey | null>(null)
 
   const tools = (
@@ -148,10 +149,25 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
             })}
           </div>
 
-          <div className="flex gap-sm max-md:flex-col">
-            <StressAssessment key={`stress-${formKey}`} value={stressLevel} onChange={(v) => setStressLevel(v)} />
-            <EnergyAssessment key={`energy-${formKey}`} value={energyLevel} onChange={(v) => setEnergyLevel(v)} />
-            <FocusAssessment key={`focus-${formKey}`} value={focusLevel} onChange={(v) => setFocusLevel(v)} />
+          <div className="flex gap-sm max-sm:flex-col">
+            <StressAssessment
+              orientation={isSm ? 'vertical' : 'horizontal'}
+              key={`stress-${formKey}`}
+              value={stressLevel}
+              onChange={(v) => setStressLevel(v)}
+            />
+            <EnergyAssessment
+              orientation={isSm ? 'vertical' : 'horizontal'}
+              key={`energy-${formKey}`}
+              value={energyLevel}
+              onChange={(v) => setEnergyLevel(v)}
+            />
+            <FocusAssessment
+              orientation={isSm ? 'vertical' : 'horizontal'}
+              key={`focus-${formKey}`}
+              value={focusLevel}
+              onChange={(v) => setFocusLevel(v)}
+            />
           </div>
 
           {selectedTags.length > 0 && (

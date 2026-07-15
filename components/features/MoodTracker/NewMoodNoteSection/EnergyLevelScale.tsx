@@ -6,7 +6,15 @@ import { useTranslations } from 'next-intl'
 import { ENERGIES } from '@/constants/energy'
 import { Slider } from '@/ds/components/Slider'
 
-export function EnergyLevelScale({ value, onChange }: { value?: number; onChange?: (value: number) => void }) {
+export function EnergyLevelScale({
+  value,
+  onChange,
+  orientation,
+}: {
+  value?: number
+  onChange?: (value: number) => void
+  orientation?: 'horizontal' | 'vertical'
+}) {
   const t = useTranslations('components.EnergyLevelScale')
 
   const marks = ENERGIES.map(({ value, label }) => ({
@@ -49,8 +57,8 @@ export function EnergyLevelScale({ value, onChange }: { value?: number; onChange
       max={5}
       step={1}
       marks={marks}
-      orientation="vertical"
-      className="h-40"
+      orientation={orientation}
+      className="sm:h-40"
       onChange={handleChange}
       fillColor={fillColor}
       thumbIcon={getBatteryIcon()}
