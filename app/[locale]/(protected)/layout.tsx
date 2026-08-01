@@ -10,6 +10,7 @@ import { getUserSidebarMenu } from '@/constants/menu'
 import { Routes } from '@/constants/routes'
 import { requireServerSession } from '@/lib/auth/server'
 import { cn } from '@/lib/utils'
+import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
 
 function matchesDetachedPrefix(pathname: string, detachedPrefix: string): boolean {
   return pathname === detachedPrefix || pathname.startsWith(`${detachedPrefix}/`)
@@ -23,7 +24,7 @@ export default async function ProtectedLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
-  await requireServerSession(`/${locale}${Routes.AUTH}`)
+  const session = await requireServerSession(`/${locale}${Routes.AUTH}`)
 
   const pathname = headers().get('x-pathname') || ''
   const localizedResearchPrefix = `/${locale}${Routes.RESEARCH}`
@@ -32,7 +33,9 @@ export default async function ProtectedLayout({
     return children
   }
 
-  const sidebarMenu = getUserSidebarMenu()
+  const researchAccess = await getResearchWorkspaceAccess(session)
+  const includeResearch = 'data' in researchAccess && researchAccess.data.hasAccess
+  const sidebarMenu = getUserSidebarMenu({ includeResearch })
 
   const defaultContent = (
     <div className="relative flex w-full flex-1 justify-center">

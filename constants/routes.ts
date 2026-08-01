@@ -3,6 +3,7 @@ import { RoutesType } from '@/types/routes'
 
 export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
+  ADMIN_DIP: 'Admin/DIP',
   ADMIN_R_AND_D: 'Admin/R-And-D',
   ADMIN_R_AND_D_DIAGNOSTICS: 'Admin/R-And-D/Diagnostics',
   RESEARCH: 'Research',

@@ -1,0 +1,111 @@
+{
+  "title": "DIP — Dzvin Intelligence Platform",
+  "subtitle": "Data science pipeline: features, models, decisions, experiments",
+  "versionBadge": "v0.7",
+
+  "nav": {
+    "research": "Research",
+    "data": "Data",
+    "models": "Models",
+    "decisions": "Decisions",
+    "system": "System"
+  },
+
+  "notConfigured": {
+    "label": "DIP is not configured",
+    "hint": "Simplest setup: add DIP_URL and DIP_ADMIN_API_KEY to your .env.local file. DIP_API_KEY is optional if you want a dedicated org-scoped key."
+  },
+
+  "common": {
+    "version": "Version",
+    "timestamp": "Timestamp",
+    "status": "Status",
+    "notAvailable": "N/A"
+  },
+
+  "research": {
+    "experiments": "Experiments",
+    "experimentsSubtitle": "ML experiments with metrics and provenance",
+    "experimentsEmpty": "Experiments coming in DIP v0.8",
+    "experimentsEmptyHint": "The Model Registry and experiment tracking will be available in the next release.",
+    "workflows": "Decision Workflows",
+    "rules": "Rules"
+  },
+
+  "data": {
+    "datasets": "Datasets",
+    "datasetsSubtitle": "Versioned datasets with quality metrics",
+    "datasetsEmpty": "Dataset management coming in DIP v0.8",
+    "datasetsEmptyHint": "Dataset versioning, schema validation and quality reports will ship with the ML Plugin.",
+    "features": "Feature Definitions",
+    "featuresCount": "features registered",
+    "featuresEmpty": "No features registered in DIP yet.",
+    "featureName": "Name",
+    "featureType": "Type",
+    "featureSource": "Source",
+    "featureTransformation": "Transformation"
+  },
+
+  "models": {
+    "title": "Model Registry",
+    "subtitle": "Versioned models with metrics and lineage",
+    "registryEmpty": "Model Registry coming in DIP v0.8",
+    "registryEmptyHint": "SklearnModelPlugin with LogisticRegression / RandomForest and full prediction → explanation → audit pipeline.",
+    "preview": "Preview — v0.8 model card shape"
+  },
+
+  "decisions": {
+    "recent": "Recent Decisions",
+    "count": "records",
+    "empty": "No decision records found in DIP audit log.",
+    "entity": "Entity",
+    "workflow": "Workflow",
+    "decision": "Decision",
+    "rule": "Rule matched",
+    "matchedRules": "Matched rules",
+    "featuresUsed": "Features used",
+    "engine": "Engine",
+    "detailTitle": "Decision detail"
+  },
+
+  "system": {
+    "connection": "Connection",
+    "connected": "Connected to DIP",
+    "disconnected": "DIP not connected",
+    "orgKeyConnected": "Research access is configured",
+    "orgKeyMissing": "Research access is missing",
+    "adminKeyConnected": "Platform admin key is configured",
+    "adminKeyMissing": "Platform admin key is missing",
+    "adminBannerLabel": "Platform admin access is not configured",
+    "adminBannerHint": "Use DIP_ADMIN_API_KEY to unlock organization management and system administration.",
+    "organizations": "Organizations",
+    "organizationsEmpty": "No organizations found.",
+    "organizationName": "Organization name",
+    "organizationPlaceholder": "e.g. Mentality Research Lab",
+    "createOrganization": "Create organization",
+    "members": "Scientists",
+    "membersEmpty": "No scientists added yet.",
+    "memberName": "Scientist name",
+    "memberEmail": "Scientist email",
+    "addMember": "Add scientist",
+    "updateRole": "Update role",
+    "assignedUnit": "Assigned unit",
+    "units": "Organization units",
+    "unitsEmpty": "No units created yet.",
+    "unitName": "Unit name",
+    "addUnit": "Add unit",
+    "parentUnit": "Parent unit",
+    "noUnit": "No unit",
+    "keys": "API keys",
+    "apiKeys": "Organization API keys",
+    "keysEmpty": "No API keys created yet.",
+    "keyName": "Key name",
+    "createKey": "Create key",
+    "revokeKey": "Revoke key",
+    "selectOrganization": "Select an organization to manage scientists, roles, units, and API keys.",
+    "platform": "Platform",
+    "platformVersion": "Current version",
+    "nextVersion": "Coming next",
+    "revoked": "revoked"
+  }
+}
