@@ -13,7 +13,7 @@
 
   "notConfigured": {
     "label": "DIP не налаштовано",
-    "hint": "Додайте змінні середовища у ваш .env файл:"
+    "hint": "Найпростіше налаштування: додайте DIP_URL і DIP_ADMIN_API_KEY у ваш .env.local. DIP_API_KEY є лише опційним, якщо хочете окремий org-scoped ключ."
   },
 
   "common": {
@@ -72,12 +72,12 @@
     "connection": "Підключення",
     "connected": "Підключено до DIP",
     "disconnected": "DIP не підключено",
-    "orgKeyConnected": "Org-scoped ключ для research налаштовано",
-    "orgKeyMissing": "Org-scoped ключ для research відсутній",
+    "orgKeyConnected": "Доступ до research налаштовано",
+    "orgKeyMissing": "Доступ до research відсутній",
     "adminKeyConnected": "Platform admin ключ налаштовано",
     "adminKeyMissing": "Platform admin ключ відсутній",
     "adminBannerLabel": "Platform admin доступ не налаштовано",
-    "adminBannerHint": "Екран System потребує окремий platform-admin ключ.",
+    "adminBannerHint": "Використайте DIP_ADMIN_API_KEY, щоб відкрити керування організаціями і системне адміністрування.",
     "organizations": "Організації",
     "organizationsEmpty": "Організації не знайдено.",
     "organizationName": "Назва організації",

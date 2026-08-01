@@ -13,7 +13,7 @@
 
   "notConfigured": {
     "label": "DIP nie jest skonfigurowany",
-    "hint": "Dodaj zmienne środowiskowe do pliku .env:"
+    "hint": "Najprostsza konfiguracja: dodaj DIP_URL i DIP_ADMIN_API_KEY do pliku .env.local. DIP_API_KEY jest opcjonalny, jeśli chcesz osobny klucz org-scoped."
   },
 
   "common": {
@@ -72,12 +72,12 @@
     "connection": "Połączenie",
     "connected": "Połączono z DIP",
     "disconnected": "DIP nie jest połączony",
-    "orgKeyConnected": "Skonfigurowano org-scoped key dla research",
-    "orgKeyMissing": "Brakuje org-scoped key dla research",
+    "orgKeyConnected": "Dostęp do research jest skonfigurowany",
+    "orgKeyMissing": "Brakuje dostępu do research",
     "adminKeyConnected": "Skonfigurowano platform-admin key",
     "adminKeyMissing": "Brakuje platform-admin key",
     "adminBannerLabel": "Dostęp platform-admin nie jest skonfigurowany",
-    "adminBannerHint": "Ekran System wymaga osobnego klucza platform-admin.",
+    "adminBannerHint": "Użyj DIP_ADMIN_API_KEY, aby odblokować zarządzanie organizacjami i administrację systemową.",
     "organizations": "Organizacje",
     "organizationsEmpty": "Nie znaleziono organizacji.",
     "organizationName": "Nazwa organizacji",

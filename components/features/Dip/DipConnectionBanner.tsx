@@ -15,7 +15,11 @@ export function DipConnectionBanner({
 }: Props) {
   if (connection.configured) return null
 
-  const lines = credentialsHintLines ?? ['DIP_URL=http://localhost:8000', 'DIP_API_KEY=<org-scoped-key>']
+  const lines = credentialsHintLines ?? [
+    'DIP_URL=http://localhost:8000',
+    'DIP_ADMIN_API_KEY=dev-api-key',
+    '# optional: DIP_API_KEY=<org-scoped-key>',
+  ]
 
   return (
     <div className="mb-6 rounded-2xl border border-amber-200 bg-amber-50 px-5 py-4">

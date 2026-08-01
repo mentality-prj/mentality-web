@@ -1,4 +1,10 @@
-import { getDipAdminConnectionStatus, getDipDecisions, getDipFeatures } from '@/requests/dipClient'
+import {
+  getDipAdminConnectionStatus,
+  getDipDecisions,
+  getDipFeatures,
+  getDipOrgConnectionStatus,
+  getDipWorkflows,
+} from '@/requests/dipClient'
 
 describe('dipClient', () => {
   const originalFetch = global.fetch
@@ -80,6 +86,68 @@ describe('dipClient', () => {
 
     expect(getDipAdminConnectionStatus()).toEqual({
       configured: false,
+      url: 'http://localhost:8000',
+    })
+  })
+
+  it('uses admin fallback routes when scoped org key is missing', async () => {
+    process.env = {
+      ...process.env,
+      DIP_URL: 'http://localhost:8000/',
+      DIP_API_KEY: '',
+      DIP_ADMIN_API_KEY: 'admin-key',
+    }
+
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve([]),
+    })
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve([]),
+    })
+    mockFetch.mockResolvedValueOnce({
+      ok: true,
+      json: () => Promise.resolve([]),
+    })
+
+    await getDipFeatures('org-1')
+    await getDipWorkflows('org-1')
+    await getDipDecisions(25, 'org-1')
+
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      1,
+      'http://localhost:8000/api/v1/organizations/org-1/features',
+      expect.objectContaining({
+        headers: { 'X-Api-Key': 'admin-key', 'Content-Type': 'application/json' },
+      })
+    )
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      2,
+      'http://localhost:8000/api/v1/organizations/org-1/workflows',
+      expect.objectContaining({
+        headers: { 'X-Api-Key': 'admin-key', 'Content-Type': 'application/json' },
+      })
+    )
+    expect(mockFetch).toHaveBeenNthCalledWith(
+      3,
+      'http://localhost:8000/api/v1/organizations/org-1/audit?limit=25',
+      expect.objectContaining({
+        headers: { 'X-Api-Key': 'admin-key', 'Content-Type': 'application/json' },
+      })
+    )
+  })
+
+  it('treats admin key as sufficient for org-connected research views', () => {
+    process.env = {
+      ...process.env,
+      DIP_URL: 'http://localhost:8000',
+      DIP_API_KEY: '',
+      DIP_ADMIN_API_KEY: 'admin-key',
+    }
+
+    expect(getDipOrgConnectionStatus()).toEqual({
+      configured: true,
       url: 'http://localhost:8000',
     })
   })

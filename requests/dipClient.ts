@@ -16,8 +16,9 @@ import type {
 type ResultValue<T> = { data: T } | { error: string }
 
 const getDipUrl = () => (process.env.DIP_URL ?? '').trim().replace(/\/+$/, '')
-const getDipOrgKey = () => (process.env.DIP_API_KEY ?? '').trim()
+const getDipScopedKey = () => (process.env.DIP_API_KEY ?? '').trim()
 const getDipAdminKey = () => (process.env.DIP_ADMIN_API_KEY ?? '').trim()
+const getDipReadKey = () => getDipScopedKey() || getDipAdminKey()
 
 async function dipFetchWithKey<T>(path: string, key: string): Promise<T | null> {
   const url = getDipUrl()
@@ -70,7 +71,7 @@ async function dipMutationWithKey<T>(
 
 export function getDipOrgConnectionStatus(): DipConnectionStatus {
   const url = getDipUrl()
-  return { configured: Boolean(url && getDipOrgKey()), url: url || null }
+  return { configured: Boolean(url && getDipReadKey()), url: url || null }
 }
 
 export function getDipAdminConnectionStatus(): DipConnectionStatus {
@@ -78,7 +79,8 @@ export function getDipAdminConnectionStatus(): DipConnectionStatus {
   return { configured: Boolean(url && getDipAdminKey()), url: url || null }
 }
 
-export async function getDipFeatures(): Promise<DipFeature[]> {
+export async function getDipFeatures(organizationId?: string | null): Promise<DipFeature[]> {
+  const scopedKey = getDipScopedKey()
   const data = await dipFetchWithKey<
     Array<{
       id: string
@@ -90,7 +92,14 @@ export async function getDipFeatures(): Promise<DipFeature[]> {
       organization_id: string | null
       created_at: string
     }>
-  >('/api/v1/features', getDipOrgKey())
+  >(
+    scopedKey
+      ? '/api/v1/features'
+      : organizationId
+        ? `/api/v1/organizations/${organizationId}/features`
+        : '/api/v1/features',
+    scopedKey || getDipAdminKey()
+  )
 
   return (data ?? []).map((f) => ({
     id: f.id,
@@ -104,7 +113,8 @@ export async function getDipFeatures(): Promise<DipFeature[]> {
   }))
 }
 
-export async function getDipDecisions(limit = 50): Promise<DipDecisionRecord[]> {
+export async function getDipDecisions(limit = 50, organizationId?: string | null): Promise<DipDecisionRecord[]> {
+  const scopedKey = getDipScopedKey()
   const data = await dipFetchWithKey<
     Array<{
       decision_id: string
@@ -120,7 +130,14 @@ export async function getDipDecisions(limit = 50): Promise<DipDecisionRecord[]> 
       features_used: Record<string, unknown>
       rules_executed: Array<{ rule: string; matched: boolean; conditions_evaluated: number }>
     }>
-  >(`/api/v1/audit?limit=${limit}`, getDipOrgKey())
+  >(
+    scopedKey
+      ? `/api/v1/audit?limit=${limit}`
+      : organizationId
+        ? `/api/v1/organizations/${organizationId}/audit?limit=${limit}`
+        : `/api/v1/audit?limit=${limit}`,
+    scopedKey || getDipAdminKey()
+  )
 
   return (data ?? []).map((d) => ({
     decisionId: d.decision_id,
@@ -142,7 +159,8 @@ export async function getDipDecisions(limit = 50): Promise<DipDecisionRecord[]> 
   }))
 }
 
-export async function getDipWorkflows(): Promise<DipWorkflow[]> {
+export async function getDipWorkflows(organizationId?: string | null): Promise<DipWorkflow[]> {
+  const scopedKey = getDipScopedKey()
   const data = await dipFetchWithKey<
     Array<{
       id: string
@@ -153,7 +171,14 @@ export async function getDipWorkflows(): Promise<DipWorkflow[]> {
       created_at: string
       rules: unknown[]
     }>
-  >('/api/v1/workflows', getDipOrgKey())
+  >(
+    scopedKey
+      ? '/api/v1/workflows'
+      : organizationId
+        ? `/api/v1/organizations/${organizationId}/workflows`
+        : '/api/v1/workflows',
+    scopedKey || getDipAdminKey()
+  )
 
   return (data ?? []).map((w) => ({
     id: w.id,

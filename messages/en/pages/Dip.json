@@ -13,7 +13,7 @@
 
   "notConfigured": {
     "label": "DIP is not configured",
-    "hint": "Set the following environment variables in your .env file:"
+    "hint": "Simplest setup: add DIP_URL and DIP_ADMIN_API_KEY to your .env.local file. DIP_API_KEY is optional if you want a dedicated org-scoped key."
   },
 
   "common": {
@@ -72,12 +72,12 @@
     "connection": "Connection",
     "connected": "Connected to DIP",
     "disconnected": "DIP not connected",
-    "orgKeyConnected": "Org-scoped research key is configured",
-    "orgKeyMissing": "Org-scoped research key is missing",
+    "orgKeyConnected": "Research access is configured",
+    "orgKeyMissing": "Research access is missing",
     "adminKeyConnected": "Platform admin key is configured",
     "adminKeyMissing": "Platform admin key is missing",
     "adminBannerLabel": "Platform admin access is not configured",
-    "adminBannerHint": "The System screen needs a separate platform-admin key.",
+    "adminBannerHint": "Use DIP_ADMIN_API_KEY to unlock organization management and system administration.",
     "organizations": "Organizations",
     "organizationsEmpty": "No organizations found.",
     "organizationName": "Organization name",

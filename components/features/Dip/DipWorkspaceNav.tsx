@@ -1,7 +1,7 @@
 'use client'
 
 import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import { usePathname, useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 type Props = { locale: string }
@@ -9,6 +9,8 @@ type Props = { locale: string }
 export function DipWorkspaceNav({ locale }: Props) {
   const t = useTranslations('pages.Dip')
   const pathname = usePathname()
+  const searchParams = useSearchParams()
+  const org = searchParams.get('org')
 
   const sections = [
     { key: 'research', label: t('nav.research') },
@@ -23,7 +25,7 @@ export function DipWorkspaceNav({ locale }: Props) {
       <div className="mx-auto max-w-screen-xl px-6">
         <div className="flex gap-0 overflow-x-auto">
           {sections.map(({ key, label }) => {
-            const href = `/${locale}/admin/dip/${key}`
+            const href = `/${locale}/admin/dip/${key}${org ? `?org=${encodeURIComponent(org)}` : ''}`
             const isActive = pathname.includes(`/admin/dip/${key}`)
             return (
               <Link
