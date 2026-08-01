@@ -7,6 +7,7 @@ import Callback from './Callback.json'
 import Company from './Company.json'
 import CookiesPolicy from './CookiesPolicy.json'
 import Diary from './Diary.json'
+import Dip from './Dip.json'
 import FAQ from './FAQ.json'
 import Guide from './Guide.json'
 import K10 from './K10.json'
@@ -35,6 +36,7 @@ export const pages = {
   AnxietyCheck,
   CookiesPolicy,
   Diary,
+  Dip,
   FAQ,
   Guide,
   K10,

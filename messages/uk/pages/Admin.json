@@ -22,9 +22,9 @@
       "title": "Research Workspace",
       "description": "Окремий project-scoped продукт для research campaigns, grants і governed diagnostics"
     },
-    "diagnostics": {
-      "title": "R&D діагностика",
-      "description": "Окремий R&D простір для інспекції ML-сигналів і policy diagnostics у вибраній компанії"
+    "dipWorkspace": {
+      "title": "DIP Workspace",
+      "description": "Data → Features → Research → Models → Decisions → System для нового DIP-шару"
     },
     "translationModelChecks": {
       "title": "Перевірка моделей перекладу",
