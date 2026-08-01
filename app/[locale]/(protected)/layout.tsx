@@ -9,8 +9,8 @@ import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { getUserSidebarMenu } from '@/constants/menu'
 import { Routes } from '@/constants/routes'
 import { requireServerSession } from '@/lib/auth/server'
-import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
 import { cn } from '@/lib/utils'
+import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
 
 function matchesDetachedPrefix(pathname: string, detachedPrefix: string): boolean {
   return pathname === detachedPrefix || pathname.startsWith(`${detachedPrefix}/`)
