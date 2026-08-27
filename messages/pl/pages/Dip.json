@@ -1,0 +1,111 @@
+{
+  "title": "DIP — Dzvin Intelligence Platform",
+  "subtitle": "Pipeline data science: cechy, modele, decyzje, eksperymenty",
+  "versionBadge": "v0.7",
+
+  "nav": {
+    "research": "Badania",
+    "data": "Dane",
+    "models": "Modele",
+    "decisions": "Decyzje",
+    "system": "System"
+  },
+
+  "notConfigured": {
+    "label": "DIP nie jest skonfigurowany",
+    "hint": "Najprostsza konfiguracja: dodaj DIP_URL i DIP_ADMIN_API_KEY do pliku .env.local. DIP_API_KEY jest opcjonalny, jeśli chcesz osobny klucz org-scoped."
+  },
+
+  "common": {
+    "version": "Wersja",
+    "timestamp": "Czas",
+    "status": "Status",
+    "notAvailable": "N/D"
+  },
+
+  "research": {
+    "experiments": "Eksperymenty",
+    "experimentsSubtitle": "Eksperymenty ML z metrykami i proweniencją",
+    "experimentsEmpty": "Eksperymenty dostępne w DIP v0.8",
+    "experimentsEmptyHint": "Rejestr modeli i śledzenie eksperymentów będą dostępne w następnym wydaniu.",
+    "workflows": "Decision Workflows",
+    "rules": "Reguły"
+  },
+
+  "data": {
+    "datasets": "Zestawy danych",
+    "datasetsSubtitle": "Wersjonowane zestawy danych z metrykami jakości",
+    "datasetsEmpty": "Zarządzanie zestawami danych dostępne w DIP v0.8",
+    "datasetsEmptyHint": "Wersjonowanie, walidacja schematów i raporty jakości dołączą razem z ML Plugin.",
+    "features": "Feature Definitions",
+    "featuresCount": "cech zarejestrowanych",
+    "featuresEmpty": "Brak zarejestrowanych cech w DIP.",
+    "featureName": "Nazwa",
+    "featureType": "Typ",
+    "featureSource": "Źródło",
+    "featureTransformation": "Transformacja"
+  },
+
+  "models": {
+    "title": "Model Registry",
+    "subtitle": "Wersjonowane modele z metrykami i lineage",
+    "registryEmpty": "Model Registry dostępny w DIP v0.8",
+    "registryEmptyHint": "SklearnModelPlugin z LogisticRegression / RandomForest i pełny pipeline prediction → explanation → audit.",
+    "preview": "Podgląd — kształt karty modelu v0.8"
+  },
+
+  "decisions": {
+    "recent": "Ostatnie decyzje",
+    "count": "rekordów",
+    "empty": "Brak decyzji w dzienniku audytu DIP.",
+    "entity": "Podmiot",
+    "workflow": "Workflow",
+    "decision": "Decyzja",
+    "rule": "Dopasowana reguła",
+    "matchedRules": "Dopasowane reguły",
+    "featuresUsed": "Użyte cechy",
+    "engine": "Silnik",
+    "detailTitle": "Szczegóły decyzji"
+  },
+
+  "system": {
+    "connection": "Połączenie",
+    "connected": "Połączono z DIP",
+    "disconnected": "DIP nie jest połączony",
+    "orgKeyConnected": "Dostęp do research jest skonfigurowany",
+    "orgKeyMissing": "Brakuje dostępu do research",
+    "adminKeyConnected": "Skonfigurowano platform-admin key",
+    "adminKeyMissing": "Brakuje platform-admin key",
+    "adminBannerLabel": "Dostęp platform-admin nie jest skonfigurowany",
+    "adminBannerHint": "Użyj DIP_ADMIN_API_KEY, aby odblokować zarządzanie organizacjami i administrację systemową.",
+    "organizations": "Organizacje",
+    "organizationsEmpty": "Nie znaleziono organizacji.",
+    "organizationName": "Nazwa organizacji",
+    "organizationPlaceholder": "np. Mentality Research Lab",
+    "createOrganization": "Utwórz organizację",
+    "members": "Naukowcy",
+    "membersEmpty": "Nie dodano jeszcze naukowców.",
+    "memberName": "Imię i nazwisko naukowca",
+    "memberEmail": "Email naukowca",
+    "addMember": "Dodaj naukowca",
+    "updateRole": "Zaktualizuj rolę",
+    "assignedUnit": "Przypisana jednostka",
+    "units": "Jednostki organizacji",
+    "unitsEmpty": "Nie utworzono jeszcze jednostek.",
+    "unitName": "Nazwa jednostki",
+    "addUnit": "Dodaj jednostkę",
+    "parentUnit": "Jednostka nadrzędna",
+    "noUnit": "Brak jednostki",
+    "keys": "Klucze API",
+    "apiKeys": "Klucze API organizacji",
+    "keysEmpty": "Nie utworzono jeszcze kluczy API.",
+    "keyName": "Nazwa klucza",
+    "createKey": "Utwórz klucz",
+    "revokeKey": "Unieważnij klucz",
+    "selectOrganization": "Wybierz organizację, aby zarządzać naukowcami, rolami, jednostkami i kluczami API.",
+    "platform": "Platforma",
+    "platformVersion": "Bieżąca wersja",
+    "nextVersion": "Nadchodzi",
+    "revoked": "unieważniono"
+  }
+}

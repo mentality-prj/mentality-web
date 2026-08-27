@@ -1,6 +1,6 @@
 import { redirect } from 'next/navigation'
 
-export default async function AdminResearchDiagnosticsPage({ params }: { params: Promise<{ locale: string }> }) {
+export default async function DipAdminRootPage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params
   redirect(`/${locale}/admin/dip/research`)
 }
