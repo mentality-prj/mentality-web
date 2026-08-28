@@ -7,11 +7,11 @@ interface UserProfileProps {
 }
 export default function UserProfile({ name, email, image }: UserProfileProps) {
   return (
-    <div className="flex gap-xs">
+    <div className="flex w-full gap-xs">
       {image && <Image alt={name} height={40} className="rounded-[8px]" src={image} width={40} />}
-      <div className="flex flex-col">
+      <div className="flex min-w-0 flex-1 flex-col">
         <p className="text-md">{name}</p>
-        <p className="text-small text-default-500">{email}</p>
+        <p className="text-small text-default-500 break-words">{email}</p>
       </div>
     </div>
   )

@@ -10,6 +10,7 @@ const config = {
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['/node_modules/', '<rootDir>/cypress/'],
   moduleNameMapper: {
+    '^@/admin/(.*)$': '<rootDir>/app/[locale]/admin/components/$1',
     '^@/(.*)$': '<rootDir>/$1',
   },
   transformIgnorePatterns: ['/node_modules/'],

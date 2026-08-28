@@ -55,6 +55,7 @@ export const RoutesTitles = Object.freeze({
 
 export const Routes = Object.freeze({
   ...transformToRoutes(RoutesTitles),
+  SETTINGS: '/profile#settings',
   MAIN: '/',
   meditationDetail: (id: string) => `/guide/meditations/${id}`,
   adminCompanyDetail: (id: string) => `/admin/company/${id}`,

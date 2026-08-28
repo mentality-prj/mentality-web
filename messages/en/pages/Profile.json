@@ -1,0 +1,20 @@
+{
+  "title": "Profile",
+  "subtitle": "Your account details and settings in one place",
+  "identityNote": "These are the details used by the system to identify your account.",
+  "details": {
+    "title": "Profile details",
+    "subtitle": "These are account-level details needed for access and permission management.",
+    "id": "User ID",
+    "role": "Role",
+    "companyRole": "Company role",
+    "aiAccess": "AI access",
+    "enabled": "Connected",
+    "disabled": "Not connected"
+  },
+  "settings": {
+    "eyebrow": "Settings",
+    "title": "Access and report settings",
+    "subtitle": "Administrators can see all available site settings, while regular users do not see this section."
+  }
+}
