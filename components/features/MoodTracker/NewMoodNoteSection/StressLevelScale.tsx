@@ -6,7 +6,15 @@ import { useTranslations } from 'next-intl'
 import { STRESSES } from '@/constants/stress'
 import { Slider } from '@/ds/components/Slider'
 
-export function StressLevelScale({ value, onChange }: { value?: number; onChange?: (value: number) => void }) {
+export function StressLevelScale({
+  value,
+  onChange,
+  orientation,
+}: {
+  value?: number
+  onChange?: (value: number) => void
+  orientation?: 'horizontal' | 'vertical'
+}) {
   const t = useTranslations('components.StressLevelScale')
 
   const marks = STRESSES.map(({ value, label }) => ({
@@ -48,9 +56,9 @@ export function StressLevelScale({ value, onChange }: { value?: number; onChange
       min={1}
       max={5}
       step={1}
+      className="sm:h-40"
       marks={marks}
-      orientation="vertical"
-      className="h-40"
+      orientation={orientation}
       onChange={handleChange}
       fillColor={fillColor}
       thumbIcon={getStressIcon()}
