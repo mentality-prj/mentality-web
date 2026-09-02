@@ -10,7 +10,7 @@ import type { FAQSection } from './types'
 type FAQSectionAccordionProps = {
   section: FAQSection
   isOpen: boolean
-  openQuestionIndex: number | null
+  openQuestionIndexes: number[]
   onSectionToggle: () => void
   onQuestionToggle: (questionIndex: number) => void
   sectionQuestionsCountText: string
@@ -21,7 +21,7 @@ type FAQSectionAccordionProps = {
 export function FAQSectionAccordion({
   section,
   isOpen,
-  openQuestionIndex,
+  openQuestionIndexes,
   onSectionToggle,
   onQuestionToggle,
   sectionQuestionsCountText,
@@ -65,31 +65,38 @@ export function FAQSectionAccordion({
         />
       </button>
 
-      {isOpen ? (
-        <div
-          id={panelId}
-          role="region"
-          aria-labelledby={titleId}
-          className={cn(
-            'border-outline-tertiary border-t px-4 pb-4 pt-4 md:px-6 md:pb-6',
-            appearance.mutedSurfaceClassName
-          )}
-        >
-          <ol className="space-y-3">
-            {section.items.map((item, index) => (
-              <li key={item.question}>
-                <FAQQuestionAccordion
-                  item={item}
-                  index={index}
-                  sectionId={section.id}
-                  isOpen={openQuestionIndex === index}
-                  onToggle={onQuestionToggle}
-                />
-              </li>
-            ))}
-          </ol>
+      <div
+        className={cn(
+          'grid transition-[grid-template-rows] duration-500 ease-in-out',
+          isOpen ? 'grid-rows-[1fr] opacity-100' : 'grid-rows-[0fr] opacity-0'
+        )}
+      >
+        <div className="overflow-hidden">
+          <div
+            id={panelId}
+            role="region"
+            aria-labelledby={titleId}
+            className={cn(
+              'border-outline-tertiary border-t px-4 pb-4 pt-4 md:px-6 md:pb-6',
+              appearance.mutedSurfaceClassName
+            )}
+          >
+            <ol className="space-y-3">
+              {section.items.map((item, index) => (
+                <li key={item.question}>
+                  <FAQQuestionAccordion
+                    item={item}
+                    index={index}
+                    sectionId={section.id}
+                    isOpen={openQuestionIndexes.includes(index)}
+                    onToggle={onQuestionToggle}
+                  />
+                </li>
+              ))}
+            </ol>
+          </div>
         </div>
-      ) : null}
+      </div>
     </StaticCard>
   )
 }
