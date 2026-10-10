@@ -190,7 +190,6 @@ export class ZitadelAuthProvider implements IAuthProvider {
     }
   }
 
-
   async logout(): Promise<void> {
     const tokens = await fetchStoredAuthTokens()
     await deleteStoredAuthTokens()
