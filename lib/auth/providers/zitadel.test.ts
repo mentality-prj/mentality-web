@@ -197,6 +197,22 @@ describe('ZitadelAuthProvider', () => {
     })
   })
 
+  it('deduplicates concurrent refresh token exchanges within a tab', async () => {
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(makeStoredTokens())
+
+    const first = provider.refreshTokens()
+    const second = provider.refreshTokens()
+    const [firstResult, secondResult] = await Promise.all([first, second])
+
+    expect(firstResult?.accessToken).toBe('new-access-token')
+    expect(secondResult?.accessToken).toBe('new-access-token')
+    expect(fetchStoredAuthTokens).toHaveBeenCalledTimes(1)
+    expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
+
+    await provider.refreshTokens()
+    expect(exchangeAuthTokens).toHaveBeenCalledTimes(2)
+  })
+
   describe('getUser', () => {
     it('should return null when no tokens stored', async () => {
       ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(null)
