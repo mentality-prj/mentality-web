@@ -1,5 +1,6 @@
 /** @jest-environment @edge-runtime/jest-environment */
 import { getServerSession } from '@/lib/auth/server'
+
 import { GET } from './route'
 
 jest.mock('@/lib/auth/server', () => ({ getServerSession: jest.fn() }))

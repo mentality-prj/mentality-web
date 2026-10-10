@@ -1,16 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { getServerSession } from '@/lib/auth/server'
-import { APIUrl } from '@/requests/config'
 import { getValidatedBackendPath } from '@/lib/backend/path'
+import { APIUrl } from '@/requests/config'
 
 export const dynamic = 'force-dynamic'
 
 const REQUEST_TIMEOUT_MS = 15_000
 const MAX_BODY_BYTES = 1_000_000
-const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const
-
-type HttpMethod = (typeof METHODS)[number]
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 type RouteContext = { params: { path: string[] } }
 
 function respond(body: unknown, status: number): NextResponse {

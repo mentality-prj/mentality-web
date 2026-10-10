@@ -2,8 +2,9 @@
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
 
-import { DELETE, GET, POST } from './route'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+
+import { DELETE, GET, POST } from './route'
 
 jest.mock('next/headers', () => ({ cookies: jest.fn() }))
 const mockedCookies = cookies as jest.MockedFunction<typeof cookies>
