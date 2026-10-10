@@ -82,7 +82,7 @@ export async function apiRequest<T = unknown>(
       try {
         const backend = new URL((await import('@/requests/config')).APIUrl)
         const target = new URL(url, backend)
-        const basePath = backend.pathname.replace(/\\/+$/, '')
+        const basePath = backend.pathname.replace(/\/+$/, '')
         if (target.origin !== backend.origin || !target.pathname.startsWith(`${basePath}/`)) {
           throw new Error('Backend URL is not in the configured API namespace')
         }
