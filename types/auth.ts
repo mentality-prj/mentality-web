@@ -58,7 +58,7 @@ export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated'
 
 export interface AuthState {
   user: CustomUser | null
-  tokens: AuthTokens | null
+  tokens: BrowserAuthSession | null
   status: AuthStatus
   error: SessionError | null
 }

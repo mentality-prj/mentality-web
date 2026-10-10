@@ -116,23 +116,10 @@ export async function apiRequest<T = unknown>(
       headers.set('Content-Type', 'application/json')
     }
 
-    // CSRF Protection Note:
-    // OAuth Bearer tokens in Authorization headers are NOT vulnerable to CSRF attacks because:
-    // 1. Browsers don't automatically include Authorization headers in cross-origin requests
-    // 2. Unlike cookies, tokens must be explicitly added by JavaScript
-    // 3. The backend validates the OAuth token for each request
-    // 4. NextAuth.js session cookies use SameSite=Lax for additional protection
-    //
-    // Traditional CSRF protection (tokens, double-submit cookies) is designed for
-    // cookie-based authentication where browsers automatically send credentials.
-    // With Bearer token authentication, CSRF attacks are not possible.
-    //
-    // XSS Protection Note:
-    // Although Bearer token authentication mitigates CSRF, it does NOT protect against XSS attacks.
-    // If an attacker can inject JavaScript into your application, they may be able to steal tokens
-    // from client-side storage or session and make authenticated requests on behalf of the user.
-    // To protect against XSS, always sanitize user input, encode output, and implement a strong
-    // Content Security Policy (CSP).
+    // Browsers authenticate to the same-origin BFF with HttpOnly cookies.
+    // Mutating BFF requests require an Origin matching this application's origin.
+    // Server-side calls still use the backend-validated bearer token.
+    // Never trust client-provided Authorization headers for BFF authority.
 
     // Prepare fetch options
     const fetchOptions: RequestInit = {
