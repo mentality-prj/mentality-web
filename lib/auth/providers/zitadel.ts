@@ -2,6 +2,7 @@ import { zitadelConfig } from '@/config/zitadel'
 import { IAuthProvider } from '@/lib/auth/auth-provider'
 import { logger } from '@/lib/logger'
 import {
+  deleteStoredAuthTokens,
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,

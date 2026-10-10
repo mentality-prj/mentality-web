@@ -1,6 +1,7 @@
 /** @jest-environment @edge-runtime/jest-environment */
 import { NextRequest } from 'next/server'
 import { POST } from './route'
+import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
 const env = { ...process.env }
 
@@ -29,7 +30,7 @@ describe('server-owned Zitadel logout', () => {
       accessToken: 'server-access', idToken: 'private-id-token', refreshToken: 'private-refresh',
       expiresAt: Math.floor(Date.now() / 1000) + 1000,
     }))
-    const result = await POST(request('https://dzvin.example', `auth_tokens=${value}`))
+    const result = await POST(request('https://dzvin.example', `${AUTH_TOKEN_COOKIE}=${value}`))
     expect(result.status).toBe(303)
     const destination = new URL(result.headers.get('location') as string)
     expect(destination.origin).toBe('https://zitadel.example')
