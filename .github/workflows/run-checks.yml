@@ -69,6 +69,8 @@ jobs:
         run: yarn types
       - name: ESLint
         run: yarn lint
+      - name: Emit formatting snapshots (temporary)
+        run: node scripts/emit-prettier-snapshots.mjs
       - name: Prettier
         run: yarn prettier
       - name: Unit tests
