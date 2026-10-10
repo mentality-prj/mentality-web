@@ -1,5 +1,6 @@
 /** @jest-environment @edge-runtime/jest-environment */
 import { NextRequest } from 'next/server'
+
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
 import { POST } from './route'
