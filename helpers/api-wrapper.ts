@@ -63,32 +63,37 @@ export async function apiRequest<T = unknown>(
     }
   }
 
-  // Get token from session and standardize on JWT (prefer idToken, then accessToken, then OAuthToken)
-  const possible = session as Partial<{ accessToken: string; idToken: string; OAuthToken: string }>
-  const token = possible.idToken ?? possible.accessToken ?? session.OAuthToken
-
-  if (!token) {
-    logger.warn('API request attempted without OAuth token', { url, method, userId: session.user?.email })
+  // Browser calls are proxied through a same-origin, server-authenticated BFF.
+  // SSR and Server Components still call NestJS directly using their server session.
+  const isBrowser = typeof window !== 'undefined'
+  const token = session.OAuthToken
+  if (!isBrowser && !token) {
     return {
-      error: {
-        name: 'Unauthorized',
-        message: 'Authentication token is missing',
-        status: 401,
-      },
+      error: { name: 'Unauthorized', message: 'Authentication token is missing', status: 401 },
     }
   }
 
   try {
-    // Prepare headers
-    const headers = new Headers({
-      Authorization: `Bearer ${token}`,
-    })
-    logger.debug('API auth header set', {
-      url,
-      method,
-      authHeaderPresent: headers.has('Authorization'),
-    })
-
+    // The browser must never attach credentials to an arbitrary external URL.
+    // The BFF reads the HttpOnly session and performs authorization server-side.
+    const headers = new Headers()
+    let requestUrl = url
+    if (isBrowser) {
+      try {
+        const backend = new URL((await import('@/requests/config')).APIUrl)
+        const target = new URL(url, backend)
+        const basePath = backend.pathname.replace(/\\/+$/, '')
+        if (target.origin !== backend.origin || !target.pathname.startsWith(`${basePath}/`)) {
+          throw new Error('Backend URL is not in the configured API namespace')
+        }
+        const route = target.pathname.slice(basePath.length)
+        requestUrl = `/api/backend${route}${target.search}`
+      } catch {
+        return { error: { name: 'InvalidBackendUrl', message: 'Invalid backend API destination' } }
+      }
+    } else {
+      headers.set('Authorization', `Bearer ${token}`)
+    }
     // Merge custom headers
     if (customHeaders) {
       Object.entries(customHeaders).forEach(([key, value]) => {
@@ -143,7 +148,7 @@ export async function apiRequest<T = unknown>(
     }
 
     // Make the request
-    const response = await fetch(url, fetchOptions)
+    const response = await fetch(requestUrl, fetchOptions)
 
     // Handle non-OK responses
     if (!response.ok) {
