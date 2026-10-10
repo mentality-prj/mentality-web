@@ -88,7 +88,6 @@ export default function Sitemap() {
   }
 
   const legalItems = [
-    { key: 'settings', href: Routes.SETTINGS },
     { key: 'privacy', href: Routes.PRIVACY },
     { key: 'terms', href: Routes.TERMS },
     { key: 'cookies', href: Routes.COOKIES },

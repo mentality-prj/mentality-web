@@ -118,7 +118,7 @@ export function AnalyticsReportSettings() {
   }
 
   return (
-    <section className="flex max-w-2xl flex-col gap-4 rounded-2xl border border-border bg-background p-6 shadow-sm">
+    <section className="flex w-full flex-col gap-4 rounded-2xl border border-border bg-background p-6 shadow-sm">
       <div className="flex flex-col gap-1">
         <h2 className="text-xl font-semibold text-textcolor-primary">{t('title')}</h2>
         <p className="text-sm text-textcolor-secondary">{t('description')}</p>

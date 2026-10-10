@@ -90,8 +90,12 @@ export const userSidebarMenu: SidebarMenuItemType[] = [
   { key: 'mental-games', href: Routes.MENTAL_GAMES, icon: 'puzzle' },
 ]
 
-export function getUserSidebarMenu(): SidebarMenuItemType[] {
-  return userSidebarMenu
+export function getUserSidebarMenu(options?: { includeResearch?: boolean }): SidebarMenuItemType[] {
+  const includeResearch = options?.includeResearch ?? false
+
+  return includeResearch
+    ? [{ key: 'research-projects', href: Routes.RESEARCH_PROJECTS, icon: 'folderTree' }, ...userSidebarMenu]
+    : userSidebarMenu
 }
 
 export const guideMenu = [
