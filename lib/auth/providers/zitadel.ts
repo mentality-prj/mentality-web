@@ -139,7 +139,23 @@ export class ZitadelAuthProvider implements IAuthProvider {
     }
   }
 
+  // Prevent duplicate token rotations from concurrent consumers in the same tab.
+  // Cross-tab and middleware races need a server-owned session boundary (see DOCS/architecture-p0.md).
+  private refreshInFlight: Promise<AuthTokens | null> | null = null
+
   async refreshTokens(): Promise<AuthTokens | null> {
+    if (this.refreshInFlight) return this.refreshInFlight
+
+    const refresh = this.refreshTokensOnce()
+    this.refreshInFlight = refresh
+    try {
+      return await refresh
+    } finally {
+      if (this.refreshInFlight === refresh) this.refreshInFlight = null
+    }
+  }
+
+  private async refreshTokensOnce(): Promise<AuthTokens | null> {
     const currentTokens = await fetchStoredAuthTokens()
     if (!currentTokens?.refreshToken && !currentTokens?.hasRefreshToken) {
       logger.warn('[AUTH:ZITADEL] No refresh token available')

@@ -10,42 +10,68 @@ jobs:
   check-file-changes:
     runs-on: ubuntu-latest
     permissions:
+      contents: read
       pull-requests: read
     outputs:
-      folder: ${{ steps.filter.outputs.folder }}
+      changed: ${{ steps.filter.outputs.app }}
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
       - uses: dorny/paths-filter@v3
         id: filter
         with:
           filters: |
-            folder:
+            app:
               - 'app/**'
               - 'components/**'
+              - 'context/**'
+              - 'hooks/**'
+              - 'requests/**'
+              - 'helpers/**'
+              - 'lib/**'
+              - 'types/**'
+              - 'constants/**'
+              - 'mappers/**'
+              - 'i18n/**'
+              - 'messages/**'
+              - 'ds/**'
+              - 'ui/**'
+              - 'config/**'
               - 'public/**'
               - 'styles/**'
               - 'utils/**'
+              - 'actions/**'
+              - 'scripts/**'
+              - 'package.json'
+              - 'yarn.lock'
+              - 'tsconfig.json'
+              - 'next.config.*'
+              - 'jest.config.*'
+              - 'jest.setup.*'
+              - '.eslintrc.json'
+              - '.prettierrc'
+              - '.github/workflows/run-checks.yml'
 
   linters:
     needs: check-file-changes
-    if: needs.check-file-changes.outputs.folder != ''
+    if: needs.check-file-changes.outputs.changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Install packages
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: yarn
+      - name: Install dependencies
         env:
-          HUSKY: 0
+          HUSKY: '0'
         run: yarn install --frozen-lockfile
-
-      - name: Lint
+      - name: TypeScript
+        run: yarn types
+      - name: ESLint
         run: yarn lint
-
-      - name: Prettier Check
+      - name: Prettier
         run: yarn prettier
-
-      - name: TS Check
-        run: yarn tsc
-
-      - name: Run Tests
-        run: yarn test
+      - name: Unit tests
+        run: yarn test --runInBand --watch=false
+      - name: Smoke harness tests
+        run: node --test scripts/e2e-smoke.test.mjs
