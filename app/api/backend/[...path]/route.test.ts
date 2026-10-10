@@ -1,7 +1,8 @@
 /** @jest-environment @edge-runtime/jest-environment */
 import { NextRequest } from 'next/server'
 
-import { GET, POST, getValidatedBackendPath } from './route'
+import { GET, POST } from './route'
+import { getValidatedBackendPath } from '@/lib/backend/path'
 import { getServerSession } from '@/lib/auth/server'
 
 jest.mock('@/lib/auth/server', () => ({ getServerSession: jest.fn() }))

@@ -2,12 +2,12 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { getServerSession } from '@/lib/auth/server'
 import { APIUrl } from '@/requests/config'
+import { getValidatedBackendPath } from '@/lib/backend/path'
 
 export const dynamic = 'force-dynamic'
 
 const REQUEST_TIMEOUT_MS = 15_000
 const MAX_BODY_BYTES = 1_000_000
-const SEGMENT_PATTERN = /^[A-Za-z0-9._~-]+$/
 const METHODS = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const
 
 type HttpMethod = (typeof METHODS)[number]
@@ -19,13 +19,6 @@ function respond(body: unknown, status: number): NextResponse {
   return response
 }
 
-export function getValidatedBackendPath(segments: string[], search: string): string | null {
-  if (!Array.isArray(segments) || segments.length === 0 || segments.length > 32) return null
-  if (segments.some((segment) => !SEGMENT_PATTERN.test(segment) || segment === '.' || segment === '..')) return null
-  // Identity-provider endpoints must never be available through this data proxy.
-  if (segments[0] === 'auth') return null
-  return `${segments.join('/')}${search}`
-}
 
 function isAllowedMutation(request: NextRequest): boolean {
   const origin = request.headers.get('origin')
