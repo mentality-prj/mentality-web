@@ -140,36 +140,17 @@ async function refreshTokensServerSide(
   currentTokens: AuthTokens,
   requestUrl: string,
   cookieHeader: string
-): Promise<{ tokens: AuthTokens; setCookieHeader: string | null } | null> {
+): Promise<{ setCookieHeader: string | null } | null> {
   if (!currentTokens.refreshToken) return null
-
   try {
-    // Call the internal exchange route which holds the client secret server-side.
-    // Forward the cookie header so the route can read the refresh token from it.
     const baseUrl = new URL(requestUrl).origin
     const response = await fetch(`${baseUrl}/api/auth/exchange`, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Cookie: cookieHeader,
-      },
+      headers: { 'Content-Type': 'application/json', Cookie: cookieHeader },
       body: JSON.stringify({ grantType: 'refresh_token' }),
     })
-
     if (!response.ok) return null
-
-    const data = await response.json()
-    // Forward the Set-Cookie header from exchange route so refresh token rotation is preserved
-    const setCookieHeader = response.headers.get('set-cookie')
-    return {
-      tokens: {
-        accessToken: data.access_token,
-        idToken: data.id_token ?? currentTokens.idToken,
-        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
-        userRole: currentTokens.userRole,
-      },
-      setCookieHeader,
-    }
+    return { setCookieHeader: response.headers.get('set-cookie') }
   } catch {
     return null
   }

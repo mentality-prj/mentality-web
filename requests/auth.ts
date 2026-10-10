@@ -1,6 +1,6 @@
 import { logger } from '@/lib/logger'
 import type { UserEntity, ValidateUserDto } from '@/types/api-responses'
-import type { AuthTokens, CustomSession, UserAI } from '@/types/auth'
+import type { BrowserAuthSession, CustomSession, CustomUser, UserAI } from '@/types/auth'
 
 import { APIUrl } from './config'
 import { performAuthRequest } from './genericFetch'
@@ -17,12 +17,7 @@ type AuthExchangeRequest =
       grantType: 'refresh_token'
     }
 
-type AuthExchangeResponse = {
-  access_token: string
-  id_token: string
-  refresh_token?: string
-  expires_in: number
-}
+type AuthExchangeResponse = BrowserAuthSession
 
 function getAuthApiBaseUrl() {
   return APIUrl.trim().replace(/\/+$/, '')
@@ -139,30 +134,15 @@ export async function exchangeAuthTokens(
   return { data: result.data }
 }
 
-export async function storeAuthTokens(
-  tokens: AuthTokens
-): Promise<{ data: { ok: boolean } } | { error: string; status?: number }> {
-  const result = await rawJsonRequest<{ ok: boolean }>('/api/auth/token', {
-    method: 'POST',
-    body: tokens,
-  })
-
-  if ('error' in result) {
-    logger.error('Auth token store failed', { error: result.error, status: result.status })
-    return result
-  }
-
-  return { data: result.data }
+export async function fetchStoredAuthTokens(): Promise<BrowserAuthSession | null> {
+  const result = await rawJsonRequest<BrowserAuthSession | null>('/api/auth/token', { method: 'GET' })
+  return 'error' in result ? null : result.data
 }
 
-export async function fetchStoredAuthTokens(): Promise<AuthTokens | null> {
-  const result = await rawJsonRequest<AuthTokens | null>('/api/auth/token', { method: 'GET' })
-
-  if ('error' in result) {
-    return null
-  }
-
-  return result.data
+/** Only verified user attributes reach browser state; never JWTs. */
+export async function fetchAuthenticatedUser(): Promise<CustomUser | null> {
+  const result = await rawJsonRequest<CustomUser>('/api/auth/session', { method: 'GET' })
+  return 'error' in result ? null : result.data
 }
 
 export async function deleteStoredAuthTokens(): Promise<void> {

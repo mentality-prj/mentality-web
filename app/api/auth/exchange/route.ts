@@ -198,9 +198,9 @@ export async function POST(request: NextRequest) {
       }
 
       const safeData = {
-        access_token: data.access_token,
-        id_token: idToken,
-        expires_in: data.expires_in,
+        expiresAt: updatedTokens.expiresAt,
+        hasRefreshToken: Boolean(updatedTokens.refreshToken),
+        userRole: updatedTokens.userRole,
       }
       return setAuthCookie(jsonNoStore(safeData), serialized)
     }
@@ -224,9 +224,8 @@ export async function POST(request: NextRequest) {
     }
 
     const safeData = {
-      access_token: data.access_token,
-      id_token: data.id_token,
-      expires_in: data.expires_in,
+      expiresAt: cookieTokens.expiresAt,
+      hasRefreshToken: Boolean(cookieTokens.refreshToken),
     }
     return setAuthCookie(jsonNoStore(safeData), serialized)
   } catch (error) {
