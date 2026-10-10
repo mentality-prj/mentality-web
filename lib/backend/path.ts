@@ -7,4 +7,3 @@ export function getValidatedBackendPath(segments: string[], search: string): str
   if (segments[0] === 'auth') return null
   return `${segments.join('/')}${search}`
 }
-

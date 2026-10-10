@@ -78,7 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Silent refresh: refresh token before it expires
   useEffect(() => {
-    if (!tokens?.expiresAt || !(tokens?.hasRefreshToken)) return
+    if (!tokens?.expiresAt || !tokens?.hasRefreshToken) return
 
     const expiresInMs = (tokens.expiresAt - Math.floor(Date.now() / 1000) - 60) * 1000
     if (expiresInMs <= 0) return

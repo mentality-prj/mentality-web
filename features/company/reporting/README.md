@@ -1,6 +1,7 @@
 # Company reporting domain
 
 Canonical source now lives under `features/company/reporting`:
+
 - `api/reportingClient.ts`: NestJS reporting projections and DTO normalization.
 - `model/reportingMappers.ts`: domain projection → presentation view model.
 - `model/reportingCopy.ts`: reporting vocabulary and locale decisions.

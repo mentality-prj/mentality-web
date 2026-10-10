@@ -9,8 +9,12 @@ jest.mock('@/lib/logger', () => ({
 }))
 
 const originalFetch = global.fetch
-afterAll(() => { global.fetch = originalFetch })
-beforeEach(() => { jest.clearAllMocks() })
+afterAll(() => {
+  global.fetch = originalFetch
+})
+beforeEach(() => {
+  jest.clearAllMocks()
+})
 
 const session = { user: { id: 'user-1', name: 'User', email: 'u@example.test' } }
 

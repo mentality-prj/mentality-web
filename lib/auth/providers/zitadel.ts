@@ -12,7 +12,9 @@ import type { BrowserAuthSession, CustomSession, CustomUser } from '@/types/auth
 function generateRandomString(length: number): string {
   const bytes = new Uint8Array(Math.ceil(length / 2))
   crypto.getRandomValues(bytes)
-  return Array.from(bytes, (value) => value.toString(16).padStart(2, '0')).join('').slice(0, length)
+  return Array.from(bytes, (value) => value.toString(16).padStart(2, '0'))
+    .join('')
+    .slice(0, length)
 }
 
 async function generateCodeChallenge(verifier: string): Promise<string> {
@@ -113,7 +115,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
     return fetchAuthenticatedUser()
   }
 
-  /** @deprecated Bearer tokens must never be exposed to browser code. */
+  /** @deprecated *** must never be exposed to browser code. */
   async getToken(): Promise<string | null> {
     return null
   }

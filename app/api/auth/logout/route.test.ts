@@ -13,7 +13,9 @@ beforeEach(() => {
   process.env.NEXT_PUBLIC_BASE_URL = 'https://dzvin.example'
 })
 
-afterAll(() => { process.env = env })
+afterAll(() => {
+  process.env = env
+})
 
 function request(origin: string, cookie?: string) {
   return new NextRequest('https://dzvin.example/api/auth/logout', {
@@ -28,10 +30,14 @@ describe('server-owned Zitadel logout', () => {
   })
 
   it('clears the session and redirects to trusted Zitadel without exposing JWT in JSON', async () => {
-    const value = encodeURIComponent(JSON.stringify({
-      accessToken: 'server-access', idToken: 'private-id-token', refreshToken: 'private-refresh',
-      expiresAt: Math.floor(Date.now() / 1000) + 1000,
-    }))
+    const value = encodeURIComponent(
+      JSON.stringify({
+        accessToken: 'server-access',
+        idToken: 'private-id-token',
+        refreshToken: 'private-refresh',
+        expiresAt: Math.floor(Date.now() / 1000) + 1000,
+      })
+    )
     const result = await POST(request('https://dzvin.example', `${AUTH_TOKEN_COOKIE}=${value}`))
     expect(result.status).toBe(303)
     const destination = new URL(result.headers.get('location') as string)

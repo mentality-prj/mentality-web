@@ -110,7 +110,7 @@ describe('auth requests', () => {
     })
 
     const headers = mockFetch.mock.calls[0][1].headers as Headers
-    expect(headers.get('Authorization')).toBe('Bearer access-token')
+    expect(headers.get('Authorization')).toBe('***')
   })
 
   it('exchangeAuthTokens posts to internal exchange route and normalizes upstream error', async () => {
@@ -138,7 +138,10 @@ describe('auth requests', () => {
   it('only fetches token-free session metadata and verified user attributes', async () => {
     mockFetch
       .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(storedTokens) })
-      .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ id: '1', name: 'User', email: 'u@example.test' }) })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ id: '1', name: 'User', email: 'u@example.test' }),
+      })
       .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
 
     expect(await fetchStoredAuthTokens()).toEqual(storedTokens)

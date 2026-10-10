@@ -23,13 +23,15 @@ describe('token-opaque browser session endpoint', () => {
   beforeEach(() => jest.clearAllMocks())
 
   it('returns metadata but never reads out JWTs from the HttpOnly cookie', async () => {
-    mockCookie(JSON.stringify({
-      accessToken: 'hidden-access-token',
-      idToken: 'hidden-id-token',
-      refreshToken: 'hidden-refresh-token',
-      expiresAt: Math.floor(Date.now() / 1000) + 3600,
-      userRole: 'user',
-    }))
+    mockCookie(
+      JSON.stringify({
+        accessToken: 'hidden-access-token',
+        idToken: 'hidden-id-token',
+        refreshToken: 'hidden-refresh-token',
+        expiresAt: Math.floor(Date.now() / 1000) + 3600,
+        userRole: 'user',
+      })
+    )
     const response = await GET()
     expect(response.status).toBe(200)
     const data = await response.json()

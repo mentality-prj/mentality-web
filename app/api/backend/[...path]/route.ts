@@ -17,7 +17,6 @@ function respond(body: unknown, status: number): NextResponse {
   return response
 }
 
-
 function isAllowedMutation(request: NextRequest): boolean {
   const origin = request.headers.get('origin')
   if (!origin) return false
@@ -28,7 +27,11 @@ function isAllowedMutation(request: NextRequest): boolean {
   }
 }
 
-async function proxyBackendRequest(request: NextRequest, context: RouteContext, method: HttpMethod): Promise<NextResponse> {
+async function proxyBackendRequest(
+  request: NextRequest,
+  context: RouteContext,
+  method: HttpMethod
+): Promise<NextResponse> {
   const path = getValidatedBackendPath(context.params.path, request.nextUrl.search)
   if (!path) return respond({ error: 'Invalid backend resource' }, 400)
   if (method !== 'GET' && !isAllowedMutation(request)) return respond({ error: 'Forbidden' }, 403)
@@ -47,7 +50,7 @@ async function proxyBackendRequest(request: NextRequest, context: RouteContext, 
   const baseUrl = APIUrl.trim().replace(/\/+$/, '')
   const upstreamUrl = `${baseUrl}/${path}`
   try {
-    const headers = new Headers({ Authorization: `Bearer ${session.OAuthToken}` })
+    const headers = new Headers({ Authorization: `*** })
     const contentType = request.headers.get('content-type')
     if (contentType && method !== 'GET') headers.set('Content-Type', contentType)
     const upstream = await fetch(upstreamUrl, {

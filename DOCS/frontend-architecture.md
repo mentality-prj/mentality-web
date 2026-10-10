@@ -4,7 +4,7 @@ Current architecture: Next.js App Router, React 18, NestJS backend, Zitadel OIDC
 
 ## New BFF transport boundary
 
-Authenticated *browser* data calls using `apiRequest` go to `/api/backend/*`. The BFF validates the HttpOnly cookie with NestJS and sends the bearer token to NestJS server-to-server. Server Component calls continue directly to NestJS. The BFF never forwards upstream redirects or response cookies and rejects cross-origin mutations.
+Authenticated _browser_ data calls using `apiRequest` go to `/api/backend/*`. The BFF validates the HttpOnly cookie with NestJS and sends the bearer token to NestJS server-to-server. Server Component calls continue directly to NestJS. The BFF never forwards upstream redirects or response cookies and rejects cross-origin mutations.
 
 **Important:** this is the first phase of closing #436, not the end. The legacy browser token API and Zitadel client session still expose access tokens. Authentication callback, session response, logout and refresh flows must be migrated together before disabling the legacy token response.
 
