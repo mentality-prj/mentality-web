@@ -2,7 +2,6 @@ import { zitadelConfig } from '@/config/zitadel'
 import { IAuthProvider } from '@/lib/auth/auth-provider'
 import { logger } from '@/lib/logger'
 import {
-  deleteStoredAuthTokens,
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
@@ -99,13 +98,14 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async logout(): Promise<void> {
-    await deleteStoredAuthTokens()
-    // No id_token_hint in browser JavaScript; cookie is invalidated before redirect.
-    const params = new URLSearchParams({
-      client_id: zitadelConfig.clientId,
-      post_logout_redirect_uri: zitadelConfig.postLogoutRedirectUri,
-    })
-    window.location.href = `${zitadelConfig.issuer}/oidc/v1/end_session?${params.toString()}`
+    // Submit a same-origin POST navigation: the server destroys the cookie and
+    // redirects to Zitadel with the ID-token hint without returning JWTs to JS.
+    const form = document.createElement('form')
+    form.method = 'POST'
+    form.action = '/api/auth/logout'
+    form.hidden = true
+    document.body.appendChild(form)
+    form.submit()
   }
 
   async getUser(): Promise<CustomUser | null> {
