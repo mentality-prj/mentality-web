@@ -5,11 +5,13 @@ import ProtectedLayout from '@/app/[locale]/(protected)/layout'
 import { getUserSidebarMenu } from '@/constants/menu'
 import { Routes } from '@/constants/routes'
 import { requireServerSession } from '@/lib/auth/server'
+import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/auth/server', () => ({ requireServerSession: jest.fn() }))
 jest.mock('@/constants/menu', () => ({ getUserSidebarMenu: jest.fn() }))
 jest.mock('next/headers', () => ({ headers: jest.fn() }))
+jest.mock('@/requests/researchProjects', () => ({ getResearchWorkspaceAccess: jest.fn() }))
 
 jest.mock('@/components/features/Landing', () => ({
   LandingFooter: () => <div data-testid="landing-footer" />,
@@ -47,6 +49,15 @@ beforeEach(() => {
   jest.clearAllMocks()
   ;(requireServerSession as jest.Mock).mockResolvedValue(mockSession)
   ;(getUserSidebarMenu as jest.Mock).mockReturnValue([{ href: Routes.MYDAY, title: 'My day' }])
+  ;(getResearchWorkspaceAccess as jest.Mock).mockResolvedValue({
+    data: {
+      hasAccess: false,
+      canCreateProjects: false,
+      capabilities: [],
+      companies: [],
+      scientists: [],
+    },
+  })
   ;(headers as jest.Mock).mockReturnValue(new Headers({ 'x-pathname': '/en/my-day' }))
 })
 
@@ -65,6 +76,27 @@ describe('Protected layout', () => {
     expect(getUserSidebarMenu).not.toHaveBeenCalled()
   })
 
+  it('includes Research in the sidebar when workspace access exists', async () => {
+    ;(getResearchWorkspaceAccess as jest.Mock).mockResolvedValue({
+      data: {
+        hasAccess: true,
+        canCreateProjects: false,
+        capabilities: [],
+        companies: [],
+        scientists: [],
+      },
+    })
+
+    render(
+      await ProtectedLayout({
+        children: <div>Protected content</div>,
+        params: Promise.resolve({ locale: 'en' }),
+      })
+    )
+
+    expect(getUserSidebarMenu).toHaveBeenCalledWith({ includeResearch: true })
+  })
+
   it('loads the shared sidebar menu and renders children when the session is present', async () => {
     render(
       await ProtectedLayout({
@@ -74,7 +106,7 @@ describe('Protected layout', () => {
     )
 
     expect(requireServerSession).toHaveBeenCalledWith(`/en${Routes.AUTH}`)
-    expect(getUserSidebarMenu).toHaveBeenCalledWith()
+    expect(getUserSidebarMenu).toHaveBeenCalledWith({ includeResearch: false })
     expect(screen.getByText('Protected content')).toBeInTheDocument()
     expect(screen.getByTestId('sidebar')).toBeInTheDocument()
   })

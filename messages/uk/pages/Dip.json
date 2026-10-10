@@ -1,0 +1,111 @@
+{
+  "title": "DIP — Dzvin Intelligence Platform",
+  "subtitle": "Data science pipeline: фічі, моделі, рішення, експерименти",
+  "versionBadge": "v0.7",
+
+  "nav": {
+    "research": "Research",
+    "data": "Дані",
+    "models": "Моделі",
+    "decisions": "Рішення",
+    "system": "Система"
+  },
+
+  "notConfigured": {
+    "label": "DIP не налаштовано",
+    "hint": "Найпростіше налаштування: додайте DIP_URL і DIP_ADMIN_API_KEY у ваш .env.local. DIP_API_KEY є лише опційним, якщо хочете окремий org-scoped ключ."
+  },
+
+  "common": {
+    "version": "Версія",
+    "timestamp": "Час",
+    "status": "Статус",
+    "notAvailable": "Н/Д"
+  },
+
+  "research": {
+    "experiments": "Експерименти",
+    "experimentsSubtitle": "ML-експерименти з метриками і provenance",
+    "experimentsEmpty": "Експерименти з'являться у DIP v0.8",
+    "experimentsEmptyHint": "Model Registry і experiment tracking будуть доступні у наступному релізі.",
+    "workflows": "Decision Workflows",
+    "rules": "Правила"
+  },
+
+  "data": {
+    "datasets": "Датасети",
+    "datasetsSubtitle": "Версіоновані датасети з метриками якості",
+    "datasetsEmpty": "Управління датасетами з'явиться у DIP v0.8",
+    "datasetsEmptyHint": "Версіонування, валідація схем і звіти якості приходять разом з ML Plugin.",
+    "features": "Feature Definitions",
+    "featuresCount": "фіч зареєстровано",
+    "featuresEmpty": "Фічі ще не зареєстровані у DIP.",
+    "featureName": "Назва",
+    "featureType": "Тип",
+    "featureSource": "Джерело",
+    "featureTransformation": "Трансформація"
+  },
+
+  "models": {
+    "title": "Model Registry",
+    "subtitle": "Версіоновані моделі з метриками і lineage",
+    "registryEmpty": "Model Registry з'явиться у DIP v0.8",
+    "registryEmptyHint": "SklearnModelPlugin з LogisticRegression / RandomForest і повний pipeline prediction → explanation → audit.",
+    "preview": "Попередній перегляд — форма картки моделі v0.8"
+  },
+
+  "decisions": {
+    "recent": "Останні рішення",
+    "count": "записів",
+    "empty": "Рішень у DIP audit log поки немає.",
+    "entity": "Сутність",
+    "workflow": "Workflow",
+    "decision": "Рішення",
+    "rule": "Спрацьоване правило",
+    "matchedRules": "Спрацьовані правила",
+    "featuresUsed": "Використані фічі",
+    "engine": "Рушій",
+    "detailTitle": "Деталі рішення"
+  },
+
+  "system": {
+    "connection": "Підключення",
+    "connected": "Підключено до DIP",
+    "disconnected": "DIP не підключено",
+    "orgKeyConnected": "Доступ до research налаштовано",
+    "orgKeyMissing": "Доступ до research відсутній",
+    "adminKeyConnected": "Platform admin ключ налаштовано",
+    "adminKeyMissing": "Platform admin ключ відсутній",
+    "adminBannerLabel": "Platform admin доступ не налаштовано",
+    "adminBannerHint": "Використайте DIP_ADMIN_API_KEY, щоб відкрити керування організаціями і системне адміністрування.",
+    "organizations": "Організації",
+    "organizationsEmpty": "Організації не знайдено.",
+    "organizationName": "Назва організації",
+    "organizationPlaceholder": "наприклад, Mentality Research Lab",
+    "createOrganization": "Створити організацію",
+    "members": "Науковці",
+    "membersEmpty": "Науковців ще не додано.",
+    "memberName": "Ім'я науковця",
+    "memberEmail": "Email науковця",
+    "addMember": "Додати науковця",
+    "updateRole": "Оновити роль",
+    "assignedUnit": "Призначений підрозділ",
+    "units": "Підрозділи організації",
+    "unitsEmpty": "Підрозділи ще не створені.",
+    "unitName": "Назва підрозділу",
+    "addUnit": "Додати підрозділ",
+    "parentUnit": "Батьківський підрозділ",
+    "noUnit": "Без підрозділу",
+    "keys": "API ключі",
+    "apiKeys": "API ключі організації",
+    "keysEmpty": "API ключів ще не створено.",
+    "keyName": "Назва ключа",
+    "createKey": "Створити ключ",
+    "revokeKey": "Відкликати ключ",
+    "selectOrganization": "Оберіть організацію, щоб керувати науковцями, ролями, підрозділами та API ключами.",
+    "platform": "Платформа",
+    "platformVersion": "Поточна версія",
+    "nextVersion": "Наступна",
+    "revoked": "відкликано"
+  }
+}

@@ -22,9 +22,9 @@
       "title": "Research Workspace",
       "description": "Oddzielny produkt project-scoped dla research campaigns, grantów i governed diagnostics"
     },
-    "diagnostics": {
-      "title": "Diagnostyka R&D",
-      "description": "Oddzielna przestrzeń R&D do inspekcji sygnałów ML i diagnostyki policy w wybranej firmie"
+    "dipWorkspace": {
+      "title": "DIP Workspace",
+      "description": "Data → Features → Research → Models → Decisions → System dla nowej warstwy DIP"
     },
     "translationModelChecks": {
       "title": "Kontrola modeli tłumaczeń",

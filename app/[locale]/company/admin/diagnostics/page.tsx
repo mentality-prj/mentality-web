@@ -11,5 +11,5 @@ export default async function CompanyAdminDiagnosticsPage({ params }: { params: 
     redirect(`/${locale}${Routes.COMPANY}`)
   }
 
-  redirect(`/${locale}${Routes.ADMIN_R_AND_D_DIAGNOSTICS}`)
+  redirect(`/${locale}${Routes.ADMIN_DIP}/research`)
 }

@@ -14,43 +14,46 @@ export function FAQShowcase() {
   const faqMessages = (useMessages() as unknown as FAQPageMessages).pages.FAQ
   const faqSections = faqMessages.sections
 
-  const [openSectionId, setOpenSectionId] = useState<FAQSectionId | null>(null)
+  const [openSectionIds, setOpenSectionIds] = useState<FAQSectionId[]>([])
   const [openQuestionIndexes, setOpenQuestionIndexes] = useState<OpenQuestionIndexes>({
-    b2c: null,
-    b2b: null,
-    rd: null,
+    b2c: [],
+    b2b: [],
+    rd: [],
   })
 
   const handleSectionToggle = (sectionId: FAQSectionId) => {
-    setOpenSectionId((currentSectionId) => (currentSectionId === sectionId ? null : sectionId))
+    setOpenSectionIds((currentIds) => {
+      const isCurrentlyOpen = currentIds.includes(sectionId)
+
+      if (isCurrentlyOpen) {
+        setOpenQuestionIndexes((currentState) => ({
+          ...currentState,
+          [sectionId]: [],
+        }))
+
+        return currentIds.filter((id) => id !== sectionId)
+      }
+
+      return [...currentIds, sectionId]
+    })
   }
 
   const handleQuestionToggle = (sectionId: FAQSectionId, questionIndex: number) => {
     setOpenQuestionIndexes((currentState) => {
-      if (sectionId === 'b2c') {
-        return {
-          ...currentState,
-          b2c: currentState.b2c === questionIndex ? null : questionIndex,
-        }
-      }
-
-      if (sectionId === 'b2b') {
-        return {
-          ...currentState,
-          b2b: currentState.b2b === questionIndex ? null : questionIndex,
-        }
-      }
+      const currentIndexes = currentState[`${sectionId}`]
 
       return {
         ...currentState,
-        rd: currentState.rd === questionIndex ? null : questionIndex,
+        [sectionId]: currentIndexes.includes(questionIndex)
+          ? currentIndexes.filter((index) => index !== questionIndex)
+          : [...currentIndexes, questionIndex],
       }
     })
   }
 
   return (
-    <div className="bg-[radial-gradient(circle_at_top_left,rgba(236,253,245,0.9),transparent_30%),radial-gradient(circle_at_top_right,rgba(224,242,254,0.9),transparent_35%),linear-gradient(180deg,#f8fafc_0%,#f6f8ef_100%)] py-12 md:py-16">
-      <section className="mb-12 w-full">
+    <div className="bg-[radial-gradient(circle_at_top_left,rgba(236,253,245,0.9),transparent_30%),radial-gradient(circle_at_top_right,rgba(224,242,254,0.9),transparent_35%),linear-gradient(180deg,#f8fafc_0%,#f6f8ef_100%)] py-8 tablet:py-10 sm:py-12 md:gap-12 md:py-16">
+      <section className="mb-6 w-full md:mb-12">
         <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <MosaicGrid>
             <MosaicGridItem xlSpan={12}>
@@ -66,14 +69,14 @@ export function FAQShowcase() {
       </section>
 
       <section className="w-full">
-        <div className="container-max-width mx-auto px-4 pb-16 tablet:px-6 md:px-8 lg:px-10">
+        <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
           <ul className="space-y-6">
             {faqSections.map((section) => (
               <li key={section.id}>
                 <FAQSectionAccordion
                   section={section}
-                  isOpen={openSectionId === section.id}
-                  openQuestionIndex={openQuestionIndexes[section.id]}
+                  isOpen={openSectionIds.includes(section.id)}
+                  openQuestionIndexes={openQuestionIndexes[section.id]}
                   sectionQuestionsCountText={t('sectionQuestionsCount', { count: section.items.length })}
                   expandSectionText={t('expandSection')}
                   collapseSectionText={t('collapseSection')}
