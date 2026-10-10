@@ -51,7 +51,7 @@ jobs:
               - '.prettierrc'
               - '.github/workflows/run-checks.yml'
 
-  checks:
+  linters:
     needs: check-file-changes
     if: needs.check-file-changes.outputs.changed == 'true'
     runs-on: ubuntu-latest
