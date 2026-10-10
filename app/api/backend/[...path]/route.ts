@@ -50,7 +50,7 @@ async function proxyBackendRequest(
   const baseUrl = APIUrl.trim().replace(/\/+$/, '')
   const upstreamUrl = `${baseUrl}/${path}`
   try {
-    const headers = new Headers({ Authorization: `*** })
+    const headers = new Headers({ Authorization: `Bearer ${session.OAuthToken}` })
     const contentType = request.headers.get('content-type')
     if (contentType && method !== 'GET') headers.set('Content-Type', contentType)
     const upstream = await fetch(upstreamUrl, {

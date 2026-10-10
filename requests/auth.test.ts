@@ -110,7 +110,7 @@ describe('auth requests', () => {
     })
 
     const headers = mockFetch.mock.calls[0][1].headers as Headers
-    expect(headers.get('Authorization')).toBe('***')
+    expect(headers.get('Authorization')).toBe('Bearer access-token')
   })
 
   it('exchangeAuthTokens posts to internal exchange route and normalizes upstream error', async () => {

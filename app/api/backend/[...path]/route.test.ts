@@ -72,6 +72,6 @@ describe('same-origin backend BFF', () => {
       expect.objectContaining({ headers: expect.any(Headers), redirect: 'manual', cache: 'no-store' })
     )
     const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
-    expect(headers.get('Authorization')).toBe('***')
+    expect(headers.get('Authorization')).toBe('Bearer server-token')
   })
 })

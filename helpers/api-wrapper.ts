@@ -93,7 +93,8 @@ export async function apiRequest<T = unknown>(
         return { error: { name: 'InvalidBackendUrl', message: 'Invalid backend API destination' } }
       }
     } else {
-      headers.set('Authorization', `***    }
+      headers.set('Authorization', `Bearer ${token}`)
+    }
     // Merge custom headers
     if (customHeaders) {
       Object.entries(customHeaders).forEach(([key, value]) => {

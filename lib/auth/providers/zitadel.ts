@@ -115,7 +115,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
     return fetchAuthenticatedUser()
   }
 
-  /** @deprecated *** must never be exposed to browser code. */
+  /** @deprecated Bearer tokens must never be exposed to browser code. */
   async getToken(): Promise<string | null> {
     return null
   }
