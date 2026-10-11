@@ -2,8 +2,8 @@ import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { APIUrl } from '@/requests/config'
 import type { CustomSession } from '@/types/auth'
 import type {
-  TranslationModelCheckResult,
   TranslationModelCheckModel,
+  TranslationModelCheckResult,
   TranslationModelChecksCompareResponse,
   TranslationModelChecksHelloResponse,
   TranslationModelChecksRequestBody,

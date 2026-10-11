@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable security/detect-object-injection */
 import { render, screen } from '@testing-library/react'
 import { useTranslations } from 'next-intl'

@@ -23,6 +23,8 @@ jobs:
             app:
               - 'app/**'
               - 'components/**'
+              - 'features/**'
+              - 'DOCS/**'
               - 'context/**'
               - 'hooks/**'
               - 'requests/**'
@@ -41,6 +43,8 @@ jobs:
               - 'utils/**'
               - 'actions/**'
               - 'scripts/**'
+              - 'proxy.ts'
+              - 'eslint.config.mjs'
               - 'package.json'
               - 'yarn.lock'
               - 'tsconfig.json'
@@ -59,12 +63,14 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: yarn
       - name: Install dependencies
         env:
           HUSKY: '0'
         run: yarn install --frozen-lockfile
+      - name: Generate Next route types
+        run: yarn next typegen
       - name: TypeScript
         run: yarn types
       - name: ESLint
@@ -75,3 +81,5 @@ jobs:
         run: yarn test --runInBand --watch=false
       - name: Smoke harness tests
         run: node --test scripts/e2e-smoke.test.mjs
+      - name: Next production build
+        run: yarn build

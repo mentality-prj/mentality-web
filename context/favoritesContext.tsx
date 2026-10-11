@@ -1,8 +1,8 @@
 'use client'
 
 import { createContext, ReactNode, useCallback, useContext, useEffect, useRef, useState } from 'react'
-import { useAuth } from '@/context/AuthProvider'
 
+import { useAuth } from '@/context/AuthProvider'
 import { getFavorites } from '@/requests/favorites'
 import { FavoriteEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'

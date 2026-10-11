@@ -27,7 +27,7 @@ export async function GET(_request: Request, context: { params: Promise<{ locale
 
   const { locale } = await context.params
   const safeLocale = normalizeLocale(locale)
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   const key = cookieStore.get(DIP_NEW_KEY_FLASH_COOKIE)?.value
 
   const response = key ? jsonNoStore({ key }) : new NextResponse(null, { status: 204 })

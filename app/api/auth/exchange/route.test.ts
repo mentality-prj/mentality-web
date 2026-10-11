@@ -116,9 +116,9 @@ describe('/api/auth/exchange route', () => {
     expect(response.status).toBe(200)
     expect(response.headers.get('cache-control')).toBe('no-store')
     expect(await response.json()).toEqual({
-      access_token: 'refreshed-access-token',
-      id_token: 'stored-id-token',
-      expires_in: 1800,
+      expiresAt: expect.any(Number),
+      hasRefreshToken: true,
+      userRole: 'admin',
     })
     const storedCookie = response.cookies.get(AUTH_TOKEN_COOKIE)?.value
 

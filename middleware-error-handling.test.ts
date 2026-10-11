@@ -40,11 +40,11 @@ describe('Middleware Token-Based Auth', () => {
     process.env.NEXT_PUBLIC_ZITADEL_ISSUER = 'https://test.zitadel.cloud'
     process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = 'test-client-id'
     process.env.ZITADEL_CLIENT_SECRET = 'test-client-secret'
-    const middlewareModule = require('@/middleware') as {
-      middleware: (req: NextRequest) => Promise<Response>
+    const middlewareModule = require('@/proxy') as {
+      proxy: (req: NextRequest) => Promise<Response>
       config: { matcher: string[] }
     }
-    middleware = middlewareModule.middleware
+    middleware = middlewareModule.proxy
     config = middlewareModule.config
   })
 

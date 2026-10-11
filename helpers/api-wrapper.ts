@@ -63,32 +63,38 @@ export async function apiRequest<T = unknown>(
     }
   }
 
-  // Get token from session and standardize on JWT (prefer idToken, then accessToken, then OAuthToken)
-  const possible = session as Partial<{ accessToken: string; idToken: string; OAuthToken: string }>
-  const token = possible.idToken ?? possible.accessToken ?? session.OAuthToken
-
-  if (!token) {
-    logger.warn('API request attempted without OAuth token', { url, method, userId: session.user?.email })
+  // Browser calls are proxied through a same-origin, server-authenticated BFF.
+  // SSR and Server Components still call NestJS directly using their server session.
+  const isBrowser = typeof window !== 'undefined'
+  const token = session.OAuthToken
+  if (!isBrowser && !token) {
     return {
-      error: {
-        name: 'Unauthorized',
-        message: 'Authentication token is missing',
-        status: 401,
-      },
+      error: { name: 'Unauthorized', message: 'Authentication token is missing', status: 401 },
     }
   }
 
   try {
-    // Prepare headers
-    const headers = new Headers({
-      Authorization: `Bearer ${token}`,
-    })
-    logger.debug('API auth header set', {
-      url,
-      method,
-      authHeaderPresent: headers.has('Authorization'),
-    })
-
+    // The browser must never attach credentials to an arbitrary external URL.
+    // The BFF reads the HttpOnly session and performs authorization server-side.
+    const headers = new Headers()
+    let requestUrl = url
+    if (isBrowser) {
+      try {
+        const backend = new URL((await import('@/requests/config')).APIUrl)
+        const target = new URL(url, backend)
+        const basePath = backend.pathname.replace(/\/+$/, '')
+        const normalizedPath = target.pathname.replace(/\/{2,}/g, '/')
+        if (target.origin !== backend.origin || !normalizedPath.startsWith(`${basePath}/`)) {
+          throw new Error('Backend URL is not in the configured API namespace')
+        }
+        const route = normalizedPath.slice(basePath.length)
+        requestUrl = `/api/backend${route}${target.search}`
+      } catch {
+        return { error: { name: 'InvalidBackendUrl', message: 'Invalid backend API destination' } }
+      }
+    } else {
+      headers.set('Authorization', `Bearer ${token}`)
+    }
     // Merge custom headers
     if (customHeaders) {
       Object.entries(customHeaders).forEach(([key, value]) => {
@@ -110,23 +116,10 @@ export async function apiRequest<T = unknown>(
       headers.set('Content-Type', 'application/json')
     }
 
-    // CSRF Protection Note:
-    // OAuth Bearer tokens in Authorization headers are NOT vulnerable to CSRF attacks because:
-    // 1. Browsers don't automatically include Authorization headers in cross-origin requests
-    // 2. Unlike cookies, tokens must be explicitly added by JavaScript
-    // 3. The backend validates the OAuth token for each request
-    // 4. NextAuth.js session cookies use SameSite=Lax for additional protection
-    //
-    // Traditional CSRF protection (tokens, double-submit cookies) is designed for
-    // cookie-based authentication where browsers automatically send credentials.
-    // With Bearer token authentication, CSRF attacks are not possible.
-    //
-    // XSS Protection Note:
-    // Although Bearer token authentication mitigates CSRF, it does NOT protect against XSS attacks.
-    // If an attacker can inject JavaScript into your application, they may be able to steal tokens
-    // from client-side storage or session and make authenticated requests on behalf of the user.
-    // To protect against XSS, always sanitize user input, encode output, and implement a strong
-    // Content Security Policy (CSP).
+    // Browsers authenticate to the same-origin BFF with HttpOnly cookies.
+    // Mutating BFF requests require an Origin matching this application's origin.
+    // Server-side calls still use the backend-validated bearer token.
+    // Never trust client-provided Authorization headers for BFF authority.
 
     // Prepare fetch options
     const fetchOptions: RequestInit = {
@@ -143,7 +136,7 @@ export async function apiRequest<T = unknown>(
     }
 
     // Make the request
-    const response = await fetch(url, fetchOptions)
+    const response = await fetch(requestUrl, fetchOptions)
 
     // Handle non-OK responses
     if (!response.ok) {

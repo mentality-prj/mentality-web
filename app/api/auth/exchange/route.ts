@@ -139,7 +139,7 @@ export async function POST(request: NextRequest) {
       params.set('redirect_uri', REDIRECT_URI)
     } else if (grantType === 'refresh_token') {
       // Read refresh token from httpOnly cookie (never sent from client JS)
-      const cookieStore = cookies()
+      const cookieStore = await cookies()
       const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)
       storedTokens = parseStoredAuthTokensCookie(tokenCookie?.value)
       const refreshToken = storedTokens?.refreshToken
@@ -198,9 +198,9 @@ export async function POST(request: NextRequest) {
       }
 
       const safeData = {
-        access_token: data.access_token,
-        id_token: idToken,
-        expires_in: data.expires_in,
+        expiresAt: updatedTokens.expiresAt,
+        hasRefreshToken: Boolean(updatedTokens.refreshToken),
+        userRole: updatedTokens.userRole,
       }
       return setAuthCookie(jsonNoStore(safeData), serialized)
     }
@@ -224,9 +224,8 @@ export async function POST(request: NextRequest) {
     }
 
     const safeData = {
-      access_token: data.access_token,
-      id_token: data.id_token,
-      expires_in: data.expires_in,
+      expiresAt: cookieTokens.expiresAt,
+      hasRefreshToken: Boolean(cookieTokens.refreshToken),
     }
     return setAuthCookie(jsonNoStore(safeData), serialized)
   } catch (error) {

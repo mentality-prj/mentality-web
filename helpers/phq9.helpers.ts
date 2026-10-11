@@ -2,11 +2,11 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/context/AuthProvider'
 import { useLocale } from 'next-intl'
 
 import { TestAnswers } from '@/components/features/TestsQuestionnarie/helper'
 import { PHQ9_CRISIS_QUESTION_INDEX, PHQ9_SEVERITY_MAP, PHQ9_TEST_CONFIG } from '@/constants/phq9'
+import { useAuth } from '@/context/AuthProvider'
 import { getPhq9Latest, submitPhq9 } from '@/requests/phq9'
 import { CustomSession } from '@/types/auth'
 import { Phq9AnswerValue, Phq9ApiResponse, Phq9HistoryEntry, Phq9Severity } from '@/types/phq9'

@@ -111,7 +111,7 @@ function buildFallbackSession(tokens: StoredAuthTokens): CustomSession | null {
 
 // Module-level Map deduplicates concurrent in-flight calls to /auth/validate-token.
 // React.cache() would be the idiomatic solution for per-render memoization, but
-// React 18 does not export cache() outside a Next.js server-render context.
+// A cross-request in-flight cache is used here; cache scope is keyed by request identifiers.
 // This Map handles the overlapping-requests case; the Map entry is cleared once
 // the promise settles to avoid stale memory.
 const inFlightSessionRequests = new Map<string, Promise<CustomSession | null>>()
@@ -151,6 +151,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
 
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 5_000)
   try {
     const response = await fetch(`${APIUrl}/auth/validate-token`, {
       method: 'POST',
@@ -159,6 +161,7 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
         Authorization: `Bearer ${tokens.accessToken}`,
       },
       cache: 'no-store',
+      signal: controller.signal,
     })
 
     if (!response.ok) {
@@ -194,6 +197,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
     }
 
     return null
+  } finally {
+    clearTimeout(timeoutId)
   }
 }
 
@@ -204,8 +209,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
  * Use in Server Components and Route Handlers.
  */
 export async function getServerSession(): Promise<CustomSession | null> {
-  const cookieStore = cookies()
-  const headerStore = headers()
+  const cookieStore = await cookies()
+  const headerStore = await headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
 
   if (!tokenCookie) return null

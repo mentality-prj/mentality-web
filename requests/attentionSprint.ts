@@ -1,5 +1,5 @@
-import { CustomSession } from '@/types/auth'
 import { AttentionSprintResultPayload } from '@/types/attentionSprint'
+import { CustomSession } from '@/types/auth'
 
 import { APIUrl } from './config'
 import { performAuthRequest } from './genericFetch'

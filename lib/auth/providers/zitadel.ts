@@ -4,48 +4,30 @@ import { logger } from '@/lib/logger'
 import {
   deleteStoredAuthTokens,
   exchangeAuthTokens,
+  fetchAuthenticatedUser,
   fetchStoredAuthTokens,
-  storeAuthTokens,
-  validateAccessToken,
 } from '@/requests/auth'
-import type { AuthTokens, CustomSession, CustomUser, UserAI } from '@/types/auth'
-
-// ─── PKCE helpers ───────────────────────────────────────────────────────────
+import type { BrowserAuthSession, CustomSession, CustomUser } from '@/types/auth'
 
 function generateRandomString(length: number): string {
-  const byteCount = Math.ceil(length / 2)
-  const array = new Uint8Array(byteCount)
-  crypto.getRandomValues(array)
-  return Array.from(array, (b) => b.toString(16).padStart(2, '0'))
+  const bytes = new Uint8Array(Math.ceil(length / 2))
+  crypto.getRandomValues(bytes)
+  return Array.from(bytes, (value) => value.toString(16).padStart(2, '0'))
     .join('')
     .slice(0, length)
 }
 
 async function generateCodeChallenge(verifier: string): Promise<string> {
-  const encoder = new TextEncoder()
-  const data = encoder.encode(verifier)
-  const digest = await crypto.subtle.digest('SHA-256', data)
+  const digest = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(verifier))
   return btoa(String.fromCharCode(...new Uint8Array(digest)))
     .replace(/\+/g, '-')
     .replace(/\//g, '_')
     .replace(/=+$/, '')
 }
 
-function buildUser(backendUser: UserAI): CustomUser {
-  return {
-    id: backendUser._id,
-    name: backendUser.name,
-    email: backendUser.email,
-    image: backendUser.avatarUrl,
-    role: backendUser.role,
-    isAIAuthorized: true,
-  }
-}
-
-// ─── Zitadel OIDC Provider ─────────────────────────────────────────────────
-
 export class ZitadelAuthProvider implements IAuthProvider {
   readonly name = 'zitadel'
+  private refreshInFlight: Promise<BrowserAuthSession | null> | null = null
 
   getIssuerUrl(): string {
     return zitadelConfig.issuer
@@ -69,190 +51,85 @@ export class ZitadelAuthProvider implements IAuthProvider {
       state,
       prompt: 'select_account',
     })
-
     window.location.href = `${zitadelConfig.issuer}/oauth/v2/authorize?${params.toString()}`
   }
 
-  /** @throws {Error} On state mismatch (CSRF) or missing PKCE verifier */
-  async handleCallback(code: string, state: string): Promise<{ user: CustomUser; tokens: AuthTokens } | null> {
+  async handleCallback(code: string, state: string): Promise<{ user: CustomUser; tokens: BrowserAuthSession } | null> {
     const savedState = sessionStorage.getItem('oauth_state')
     const codeVerifier = sessionStorage.getItem('pkce_verifier')
-
     if (!savedState || savedState !== state) {
-      logger.error('[AUTH:ZITADEL] State mismatch — possible CSRF', {
-        savedState: !!savedState,
-        stateMatch: savedState === state,
-      })
       throw new Error('State mismatch — possible CSRF attack. Try signing in again.')
     }
-
-    if (!codeVerifier) {
-      logger.error('[AUTH:ZITADEL] Missing PKCE verifier')
-      throw new Error('Missing PKCE verifier. Try signing in again.')
-    }
+    if (!codeVerifier) throw new Error('Missing PKCE verifier. Try signing in again.')
 
     sessionStorage.removeItem('oauth_state')
     sessionStorage.removeItem('pkce_verifier')
-
     try {
-      const exchangeResult = await exchangeAuthTokens({
-        grantType: 'authorization_code',
-        code,
-        codeVerifier,
-      })
+      // The exchange endpoint sets the HttpOnly cookie and returns metadata, not tokens.
+      const result = await exchangeAuthTokens({ grantType: 'authorization_code', code, codeVerifier })
+      if ('error' in result) throw new Error(`Token exchange failed: ${result.error}`)
 
-      if ('error' in exchangeResult) {
-        throw new Error(`Token exchange failed (${exchangeResult.status ?? 'unknown'}): ${exchangeResult.error}`)
+      const user = await this.getUser()
+      if (!user) {
+        await deleteStoredAuthTokens()
+        throw new Error('Unable to validate the session')
       }
-
-      const data = exchangeResult.data
-
-      const tokens: AuthTokens = {
-        accessToken: data.access_token,
-        idToken: data.id_token,
-        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
-      }
-
-      const validationResult = await validateAccessToken(tokens.accessToken)
-
-      if ('error' in validationResult) {
-        logger.error('[AUTH:ZITADEL] Backend validation failed after token exchange')
-        throw new Error('Backend validation failed — the backend server may be down or does not recognize the token.')
-      }
-
-      const backendUser = validationResult.data
-
-      // Update the cookie with userRole (exchange route already stored the base tokens)
-      tokens.userRole = backendUser.role
-      const storeResult = await storeAuthTokens(tokens)
-
-      if ('error' in storeResult) {
-        throw new Error(`Failed to store tokens (${storeResult.status ?? 'unknown'}): ${storeResult.error}`)
-      }
-
-      const user = buildUser(backendUser)
-
-      return { user, tokens }
+      return { user, tokens: result.data }
     } catch (error) {
       logger.error('[AUTH:ZITADEL] Callback error', { error: error instanceof Error ? error.message : String(error) })
       return null
     }
   }
 
-  // Prevent duplicate token rotations from concurrent consumers in the same tab.
-  // Cross-tab and middleware races need a server-owned session boundary (see DOCS/architecture-p0.md).
-  private refreshInFlight: Promise<AuthTokens | null> | null = null
-
-  async refreshTokens(): Promise<AuthTokens | null> {
+  async refreshTokens(): Promise<BrowserAuthSession | null> {
     if (this.refreshInFlight) return this.refreshInFlight
-
-    const refresh = this.refreshTokensOnce()
-    this.refreshInFlight = refresh
+    const task = this.refreshOnce()
+    this.refreshInFlight = task
     try {
-      return await refresh
+      return await task
     } finally {
-      if (this.refreshInFlight === refresh) this.refreshInFlight = null
+      if (this.refreshInFlight === task) this.refreshInFlight = null
     }
   }
 
-  private async refreshTokensOnce(): Promise<AuthTokens | null> {
-    const currentTokens = await fetchStoredAuthTokens()
-    if (!currentTokens?.refreshToken && !currentTokens?.hasRefreshToken) {
-      logger.warn('[AUTH:ZITADEL] No refresh token available')
-      return null
-    }
-
-    try {
-      const exchangeResult = await exchangeAuthTokens({
-        grantType: 'refresh_token',
-      })
-
-      if ('error' in exchangeResult) {
-        return null
-      }
-
-      const data = exchangeResult.data
-
-      // The exchange route updates the cookie server-side (preserving refresh token).
-      // Return only the client-safe fields.
-      return {
-        accessToken: data.access_token,
-        idToken: data.id_token,
-        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
-        userRole: currentTokens.userRole,
-        hasRefreshToken: currentTokens.hasRefreshToken ?? false,
-      }
-    } catch (error) {
-      logger.error('[AUTH:ZITADEL] Token refresh error', {
-        error: error instanceof Error ? error.message : String(error),
-      })
-      return null
-    }
+  private async refreshOnce(): Promise<BrowserAuthSession | null> {
+    const state = await fetchStoredAuthTokens()
+    if (!state?.hasRefreshToken) return null
+    const result = await exchangeAuthTokens({ grantType: 'refresh_token' })
+    if ('error' in result) return null
+    return result.data
   }
 
   async logout(): Promise<void> {
-    const tokens = await fetchStoredAuthTokens()
-    await deleteStoredAuthTokens()
-
-    const params = new URLSearchParams({
-      client_id: zitadelConfig.clientId,
-      post_logout_redirect_uri: zitadelConfig.postLogoutRedirectUri,
-    })
-
-    if (tokens?.idToken) {
-      params.set('id_token_hint', tokens.idToken)
-    }
-
-    window.location.href = `${zitadelConfig.issuer}/oidc/v1/end_session?${params.toString()}`
+    // Submit a same-origin POST navigation: the server destroys the cookie and
+    // redirects to Zitadel with the ID-token hint without returning JWTs to JS.
+    const form = document.createElement('form')
+    form.method = 'POST'
+    form.action = '/api/auth/logout'
+    form.hidden = true
+    document.body.appendChild(form)
+    form.submit()
   }
 
   async getUser(): Promise<CustomUser | null> {
-    let tokens = await fetchStoredAuthTokens()
-    if (!tokens) return null
-
-    if (tokens.expiresAt < Math.floor(Date.now() / 1000)) {
-      const refreshed = await this.refreshTokens()
-      if (!refreshed) return null
-      tokens = refreshed
-    }
-
-    const validationResult = await validateAccessToken(tokens.accessToken)
-    if ('error' in validationResult) return null
-
-    return buildUser(validationResult.data)
+    return fetchAuthenticatedUser()
   }
 
+  /** @deprecated Bearer tokens must never be exposed to browser code. */
   async getToken(): Promise<string | null> {
-    const tokens = await fetchStoredAuthTokens()
-    if (!tokens) return null
-
-    if (tokens.expiresAt < Math.floor(Date.now() / 1000) + 30) {
-      const refreshed = await this.refreshTokens()
-      return refreshed?.accessToken ?? null
-    }
-
-    return tokens.accessToken
+    return null
   }
 
   async getSession(): Promise<CustomSession | null> {
-    const tokens = await fetchStoredAuthTokens()
-    if (!tokens) return null
-
     const user = await this.getUser()
-    if (!user) return null
-
-    return {
-      user,
-      OAuthToken: tokens.accessToken,
-      provider: this.name,
-    }
+    return user ? { user, provider: this.name } : null
   }
 
-  async getStoredTokens(): Promise<AuthTokens | null> {
+  async getStoredTokens(): Promise<BrowserAuthSession | null> {
     return fetchStoredAuthTokens()
   }
 
   async clearTokens(): Promise<void> {
-    return deleteStoredAuthTokens()
+    await deleteStoredAuthTokens()
   }
 }

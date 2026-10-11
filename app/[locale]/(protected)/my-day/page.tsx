@@ -22,7 +22,9 @@ const MyDay = async () => {
   const t = await getTranslations('components.DailyCard')
   const isAdmin = session?.user?.role === Roles.ADMIN
 
-  const todayRes = await getLastMoodRecords(session, { days: 1 })
+  const todayPromise = getLastMoodRecords(session, { days: 1 })
+  const goalsPromise = fetchPersonalGoals(session)
+  const todayRes = await todayPromise
   const submittedToday = !('error' in todayRes) && (todayRes.data ?? []).length > 0
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
@@ -36,7 +38,7 @@ const MyDay = async () => {
     }
   }
 
-  const goalsRes = await fetchPersonalGoals(session)
+  const goalsRes = await goalsPromise
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
 
   let storyResult: MoodStoryResult | undefined

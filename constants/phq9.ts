@@ -1,17 +1,17 @@
+import { Phq9HistoryEntry } from '@/types/phq9'
+
 // Re-export all test configuration from the canonical config file.
 // Add new PHQ-9 test settings in config/phq9.config.ts.
 export {
-  PHQ9_QUESTIONS,
-  PHQ9_OPTIONS,
-  PHQ9_SEVERITY_MAP,
-  PHQ9_SEVERITY_LABELS,
-  PHQ9_RESUBMIT_COOLDOWN_MS,
   PHQ9_CRISIS_QUESTION_INDEX,
   PHQ9_MAX_SCORE,
+  PHQ9_OPTIONS,
+  PHQ9_QUESTIONS,
+  PHQ9_RESUBMIT_COOLDOWN_MS,
+  PHQ9_SEVERITY_LABELS,
+  PHQ9_SEVERITY_MAP,
   PHQ9_TEST_CONFIG,
 } from '@/config/phq9.config'
-
-import { Phq9HistoryEntry } from '@/types/phq9'
 
 // TODO: remove when backend history endpoint returns real data
 const PHQ9_STUB_SCORES = [20, 18, 16, 14, 12, 10, 9, 8, 7, 6, 5, 3] as const

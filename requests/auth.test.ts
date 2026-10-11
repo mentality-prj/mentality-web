@@ -2,14 +2,14 @@ import { logger } from '@/lib/logger'
 import {
   deleteStoredAuthTokens,
   exchangeAuthTokens,
+  fetchAuthenticatedUser,
   fetchStoredAuthTokens,
   getCurrentUser,
-  storeAuthTokens,
   validateAccessToken,
   validateToken,
 } from '@/requests/auth'
 import { performAuthRequest } from '@/requests/genericFetch'
-import type { AuthTokens, CustomSession } from '@/types/auth'
+import type { BrowserAuthSession, CustomSession } from '@/types/auth'
 
 jest.mock('@/requests/genericFetch', () => ({
   performAuthRequest: jest.fn(),
@@ -45,9 +45,7 @@ const mockSession: CustomSession = {
   expires: new Date(Date.now() + 1000 * 60 * 60).toISOString(),
 }
 
-const storedTokens: AuthTokens = {
-  accessToken: 'stored-access-token',
-  idToken: 'stored-id-token',
+const storedTokens: BrowserAuthSession = {
   expiresAt: Math.floor(Date.now() / 1000) + 3600,
   hasRefreshToken: true,
 }
@@ -137,33 +135,22 @@ describe('auth requests', () => {
     })
   })
 
-  it('stores, fetches and deletes auth tokens through internal auth routes', async () => {
+  it('only fetches token-free session metadata and verified user attributes', async () => {
     mockFetch
-      .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
       .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve(storedTokens) })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({ id: '1', name: 'User', email: 'u@example.test' }),
+      })
       .mockResolvedValueOnce({ ok: true, json: () => Promise.resolve({ ok: true }) })
 
-    const storeResult = await storeAuthTokens(storedTokens)
-    const fetchResult = await fetchStoredAuthTokens()
+    expect(await fetchStoredAuthTokens()).toEqual(storedTokens)
+    expect(await fetchAuthenticatedUser()).toEqual({ id: '1', name: 'User', email: 'u@example.test' })
     await deleteStoredAuthTokens()
 
-    expect(storeResult).toEqual({ data: { ok: true } })
-    expect(fetchResult).toEqual(storedTokens)
-    expect(mockFetch).toHaveBeenNthCalledWith(1, '/api/auth/token', {
-      method: 'POST',
-      headers: expect.any(Headers),
-      body: JSON.stringify(storedTokens),
-    })
-    expect(mockFetch).toHaveBeenNthCalledWith(2, '/api/auth/token', {
-      method: 'GET',
-      headers: expect.any(Headers),
-      body: undefined,
-    })
-    expect(mockFetch).toHaveBeenNthCalledWith(3, '/api/auth/token', {
-      method: 'DELETE',
-      headers: expect.any(Headers),
-      body: undefined,
-    })
+    expect(mockFetch).toHaveBeenNthCalledWith(1, '/api/auth/token', expect.objectContaining({ method: 'GET' }))
+    expect(mockFetch).toHaveBeenNthCalledWith(2, '/api/auth/session', expect.objectContaining({ method: 'GET' }))
+    expect(mockFetch).toHaveBeenNthCalledWith(3, '/api/auth/token', expect.objectContaining({ method: 'DELETE' }))
   })
 
   it('delegates getCurrentUser to performAuthRequest', async () => {

@@ -1,8 +1,8 @@
 import { act, render, screen, waitFor } from '@testing-library/react'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
-import { useMLInspection } from '@/hooks/useMLInspection'
 import { useAuth } from '@/context/AuthProvider'
+import { useMLInspection } from '@/hooks/useMLInspection'
 import { getAdminDiagnosticsInspectionVM } from '@/requests/reportingClient'
 
 jest.mock('next-intl', () => ({ useLocale: () => 'uk' }))
