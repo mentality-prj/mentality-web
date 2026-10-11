@@ -27,8 +27,8 @@ function detectLocaleFromAcceptLanguage(acceptLanguage: string | null): Supporte
 }
 
 export default async function NotFoundPage() {
-  const cookieStore = cookies()
-  const headersList = headers()
+  const cookieStore = await cookies()
+  const headersList = await headers()
 
   const cookieLocale = cookieStore.get(LOCALE_COOKIE)?.value
   const locale =

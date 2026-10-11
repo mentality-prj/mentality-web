@@ -139,7 +139,7 @@ export async function POST(request: NextRequest) {
       params.set('redirect_uri', REDIRECT_URI)
     } else if (grantType === 'refresh_token') {
       // Read refresh token from httpOnly cookie (never sent from client JS)
-      const cookieStore = cookies()
+      const cookieStore = await cookies()
       const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)
       storedTokens = parseStoredAuthTokensCookie(tokenCookie?.value)
       const refreshToken = storedTokens?.refreshToken

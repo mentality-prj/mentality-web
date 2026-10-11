@@ -11,7 +11,7 @@ function noStore(body: unknown, status = 200): NextResponse {
 }
 
 export async function GET(): Promise<NextResponse> {
-  const token = cookies().get(AUTH_TOKEN_COOKIE)?.value
+  const token = await cookies().get(AUTH_TOKEN_COOKIE)?.value
   if (!token) return noStore(null, 401)
   const parsed = parseStoredAuthTokensCookie(token)
   if (!parsed) {

@@ -204,8 +204,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
  * Use in Server Components and Route Handlers.
  */
 export async function getServerSession(): Promise<CustomSession | null> {
-  const cookieStore = cookies()
-  const headerStore = headers()
+  const cookieStore = await cookies()
+  const headerStore = await headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
 
   if (!tokenCookie) return null
