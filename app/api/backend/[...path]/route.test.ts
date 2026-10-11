@@ -183,5 +183,4 @@ describe('same-origin backend BFF', () => {
     )
     expect(blockedCrossOrigin.status).toBe(403)
   })
-
 })

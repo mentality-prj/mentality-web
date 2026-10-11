@@ -20,9 +20,7 @@ export async function GET(request: NextRequest): Promise<NextResponse> {
 
   const store = await cookies()
   const key = store.get(DIP_NEW_KEY_FLASH_COOKIE)?.value
-  const response = key
-    ? NextResponse.json({ key })
-    : new NextResponse(null, { status: 204 })
+  const response = key ? NextResponse.json({ key }) : new NextResponse(null, { status: 204 })
   response.headers.set('Cache-Control', 'no-store')
   response.cookies.set(DIP_NEW_KEY_FLASH_COOKIE, '', {
     httpOnly: true,

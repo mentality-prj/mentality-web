@@ -13,7 +13,14 @@ export async function apiTransport(url: string, init: RequestInit = {}): Promise
       throw new Error('Browser API requests must use same-origin /api/ routes')
     }
     const headers = new Headers(init.headers)
-    for (const name of ['authorization', 'proxy-authorization', 'cookie', 'x-api-key', 'x-dip-admin-api-key', 'x-qdip-admin-api-key']) {
+    for (const name of [
+      'authorization',
+      'proxy-authorization',
+      'cookie',
+      'x-api-key',
+      'x-dip-admin-api-key',
+      'x-qdip-admin-api-key',
+    ]) {
       if (headers.has(name)) throw new Error('Browser API requests cannot provide credentials')
     }
   }

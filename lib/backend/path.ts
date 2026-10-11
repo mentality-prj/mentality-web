@@ -12,7 +12,8 @@ export function getValidatedBackendPath(segments: string[], search: string, meth
   if (segments.some((segment) => !SEGMENT_PATTERN.test(segment) || segment === '.' || segment === '..')) return null
 
   const first = segments[0].toLowerCase()
-  if (first === 'contact') return segments.length === 1 && segments[0] === 'contact' && method === 'POST' ? 'contact' : null
+  if (first === 'contact')
+    return segments.length === 1 && segments[0] === 'contact' && method === 'POST' ? 'contact' : null
   if (first === 'auth') {
     const me = segments[0] === 'auth' && segments.length === 2 && segments[1] === 'me'
     const preferences =
