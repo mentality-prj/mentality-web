@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { apiTransport } from '@/lib/api/transport'
 import { getServerSession } from '@/lib/auth/server'
 import { getValidatedBackendPath } from '@/lib/backend/path'
+import { apiTransport } from '@/lib/api/transport'
 import { APIUrl } from '@/requests/config'
 
 export const dynamic = 'force-dynamic'

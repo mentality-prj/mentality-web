@@ -1,8 +1,7 @@
-import { apiTransport } from '@/lib/api/transport'
-
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
+import { apiTransport } from '@/lib/api/transport'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 import { logger } from '@/lib/logger'

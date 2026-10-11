@@ -155,13 +155,12 @@ export async function createOrganizationKeyAction(formData: FormData): Promise<n
     redirect(buildRedirectPath(locale, orgId, 'error', result.error))
   }
 
-  const safeLocale = normalizeLocale(locale)
   const cookieStore = await cookies()
   cookieStore.set(DIP_NEW_KEY_FLASH_COOKIE, result.data.key, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',
     sameSite: 'lax',
-    path: `/${safeLocale}/admin/dip/system`,
+    path: '/api/internal/key-flash',
     maxAge: DIP_NEW_KEY_FLASH_MAX_AGE_SECONDS,
   })
 

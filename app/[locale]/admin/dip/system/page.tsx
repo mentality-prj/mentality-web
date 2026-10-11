@@ -35,7 +35,7 @@ export default async function DipSystemPage({
 
   return (
     <>
-      <ApiKeyFlashBanner locale={locale} />
+      <ApiKeyFlashBanner />
       <SystemView
         locale={locale}
         organizations={organizations}

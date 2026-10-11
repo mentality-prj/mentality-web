@@ -2,11 +2,9 @@
 
 import { useEffect, useState } from 'react'
 
-type Props = {
-  locale: string
-}
+import { apiTransport } from '@/lib/api/transport'
 
-export function ApiKeyFlashBanner({ locale }: Props) {
+export function ApiKeyFlashBanner() {
   const [key, setKey] = useState<string | null>(null)
 
   useEffect(() => {
@@ -14,7 +12,7 @@ export function ApiKeyFlashBanner({ locale }: Props) {
 
     async function loadKey(): Promise<void> {
       try {
-        const response = await fetch(`/${locale}/admin/dip/system/key-flash`, {
+        const response = await apiTransport('/api/internal/key-flash', {
           method: 'GET',
           cache: 'no-store',
         })
@@ -41,7 +39,7 @@ export function ApiKeyFlashBanner({ locale }: Props) {
     return () => {
       cancelled = true
     }
-  }, [locale])
+  }, [])
 
   if (!key) {
     return null

@@ -34,6 +34,7 @@ export default defineConfig([
       'import/first': 'error',
       'import/newline-after-import': 'error',
       'import/no-duplicates': 'error',
+      'no-restricted-globals': ['error', { name: 'fetch', message: 'Use apiTransport for HTTP API calls.' }],
       'react/jsx-no-target-blank': ['error', { enforceDynamicLinks: 'always' }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'off',
@@ -52,6 +53,7 @@ export default defineConfig([
       'no-unsafe-optional-chaining': 'error',
     },
   },
+  { files: ['lib/api/transport.ts'], rules: { 'no-restricted-globals': 'off' } },
   prettier,
   globalIgnores(['.next/**', '.next-docs/**', 'node_modules/**', 'coverage/**', '.github/**']),
 ])
