@@ -40,4 +40,37 @@ describe('browser requests to NestJS', () => {
     expect(result.error?.name).toBe('InvalidBackendUrl')
     expect(global.fetch).not.toHaveBeenCalled()
   })
+
+  it('never forwards caller-supplied bearer tokens or privileged API keys from the browser', async () => {
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      headers: new Headers({ 'content-type': 'application/json' }),
+      json: async () => ({ ok: true }),
+    }) as unknown as typeof fetch
+
+    const result = await apiRequest(
+      { ...session, OAuthToken: 'legacy-browser-token' },
+      'https://backend.example/api/mood-record',
+      {
+        method: 'GET',
+        headers: new Headers({
+          Authorization: 'Bearer attacker-controlled-token',
+          'x-api-key': 'sensitive-key',
+          'x-dip-admin-api-key': 'sensitive-admin-key',
+          'x-qdip-admin-api-key': 'sensitive-qdip-key',
+          'X-Request-Id': 'safe-request-id',
+        }),
+      }
+    )
+
+    expect(result.data).toEqual({ ok: true })
+    const [url, options] = (global.fetch as jest.Mock).mock.calls[0]
+    const headers = options.headers as Headers
+    expect(url).toBe('/api/backend/mood-record')
+    expect(headers.get('authorization')).toBeNull()
+    expect(headers.get('x-api-key')).toBeNull()
+    expect(headers.get('x-dip-admin-api-key')).toBeNull()
+    expect(headers.get('x-qdip-admin-api-key')).toBeNull()
+    expect(headers.get('x-request-id')).toBe('safe-request-id')
+  })
 })
