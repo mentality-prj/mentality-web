@@ -75,7 +75,7 @@ jobs:
         run: yarn install --frozen-lockfile
       - name: Prettier only on reviewed changes
         run: |
-          yarn prettier --write "app/api/backend/[...path]/route.ts" "app/api/backend/[...path]/route.test.ts" constants/gad7.ts constants/phq9.ts lib/backend/path.ts
+          ./node_modules/.bin/prettier --write "app/api/backend/[...path]/route.ts" "app/api/backend/[...path]/route.test.ts" constants/gad7.ts constants/phq9.ts lib/backend/path.ts
       - name: Commit consistent formatting
         env:
           HUSKY: '0'
