@@ -79,6 +79,8 @@ jobs:
         run: yarn prettier
       - name: Unit tests
         run: yarn test --runInBand --watch=false
+      - name: Unified API transport policy
+        run: node --test scripts/api-boundary.test.mjs
       - name: Smoke harness tests
         run: node --test scripts/e2e-smoke.test.mjs
       - name: Next production build

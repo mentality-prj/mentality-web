@@ -41,8 +41,13 @@ async function proxyBackendRequest(
   if (!path) return respond({ error: 'Invalid backend resource' }, 400)
   if (method !== 'GET' && !isAllowedMutation(request)) return respond({ error: 'Forbidden' }, 403)
 
-  const session = await getServerSession()
-  if (!session?.user || !session.OAuthToken) return respond({ error: 'Unauthorized' }, 401)
+  // NestJS marks POST /contact as @Public and verifies reCAPTCHA itself.
+  // No authenticated session or bearer is ever forwarded on this exact route.
+  const isPublicContact = method === 'POST' && path === 'contact'
+  const session = isPublicContact ? null : await getServerSession()
+  if (!isPublicContact && (!session?.user || !session.OAuthToken)) {
+    return respond({ error: 'Unauthorized' }, 401)
+  }
 
   let requestBody: ArrayBuffer | undefined
   if (method !== 'GET') {
@@ -79,7 +84,10 @@ async function proxyBackendRequest(
   const baseUrl = APIUrl.trim().replace(/\/+$/, '')
   const upstreamUrl = `${baseUrl}/${path}`
   try {
-    const headers = new Headers({ Authorization: `Bearer ${session.OAuthToken}` })
+    const headers = new Headers()
+    if (!isPublicContact && session?.OAuthToken) {
+      headers.set('Authorization', `Bearer ${session.OAuthToken}`)
+    }
     const contentType = request.headers.get('content-type')
     if (contentType && method !== 'GET') headers.set('Content-Type', contentType)
     const upstream = await fetch(upstreamUrl, {

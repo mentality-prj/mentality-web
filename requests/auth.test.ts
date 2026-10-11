@@ -5,8 +5,6 @@ import {
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
   getCurrentUser,
-  validateAccessToken,
-  validateToken,
 } from '@/requests/auth'
 import { performAuthRequest } from '@/requests/genericFetch'
 import type { BrowserAuthSession, CustomSession } from '@/types/auth'
@@ -57,60 +55,6 @@ describe('auth requests', () => {
 
   afterAll(() => {
     global.fetch = originalFetch
-  })
-
-  it('validateToken posts dto to backend auth endpoint', async () => {
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: () => Promise.resolve({ id: '1', email: 'user@test.com' }),
-    })
-
-    const result = await validateToken({
-      token: 'jwt-token',
-      email: 'user@test.com',
-      provider: 'zitadel',
-    })
-
-    expect(result).toEqual({
-      data: { id: '1', email: 'user@test.com' },
-    })
-    expect(mockFetch).toHaveBeenCalledWith('http://localhost:3200/api/auth/validate-token', {
-      method: 'POST',
-      headers: expect.any(Headers),
-      body: JSON.stringify({
-        token: 'jwt-token',
-        email: 'user@test.com',
-        provider: 'zitadel',
-      }),
-    })
-  })
-
-  it('validateAccessToken sends bearer token and returns normalized user payload', async () => {
-    mockFetch.mockResolvedValueOnce({
-      ok: true,
-      json: () =>
-        Promise.resolve({
-          _id: 'user-123',
-          email: 'user@test.com',
-          name: 'Test User',
-          avatarUrl: 'https://example.com/avatar.png',
-          role: 'user',
-        }),
-    })
-
-    const result = await validateAccessToken('access-token')
-
-    expect(result).toEqual({
-      data: expect.objectContaining({ _id: 'user-123', email: 'user@test.com' }),
-    })
-    expect(mockFetch).toHaveBeenCalledWith('http://localhost:3200/api/auth/validate-token', {
-      method: 'POST',
-      headers: expect.any(Headers),
-      body: undefined,
-    })
-
-    const headers = mockFetch.mock.calls[0][1].headers as Headers
-    expect(headers.get('Authorization')).toBe('Bearer access-token')
   })
 
   it('exchangeAuthTokens posts to internal exchange route and normalizes upstream error', async () => {

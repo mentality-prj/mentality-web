@@ -48,6 +48,65 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath(['auth', 'me', 'analytics-preferences'], '', 'POST')).toBeNull()
   })
 
+  it('permits only anonymous POST /contact through the unified BFF, without a bearer', async () => {
+    global.fetch = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), {
+        status: 201,
+        headers: { 'content-type': 'application/json' },
+      })
+    ) as unknown as typeof fetch
+
+    expect(getValidatedBackendPath(['contact'], '', 'POST')).toBe('contact')
+    expect(getValidatedBackendPath(['contact'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'anything'], '', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact'], '?admin=1', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['Contact'], '', 'POST')).toBeNull()
+
+    const res = await POST(
+      req('/api/backend/contact', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ name: 'Test', email: 'test@example.com', message: 'Hello!', token: 'recaptcha' }),
+      }),
+      ctx(['contact'])
+    )
+    expect(res.status).toBe(201)
+    expect(res.headers.get('cache-control')).toBe('no-store')
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://backend.example/api/contact',
+      expect.objectContaining({ method: 'POST', redirect: 'manual', cache: 'no-store' })
+    )
+    const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
+    expect(headers.get('authorization')).toBeNull()
+    expect(headers.get('cookie')).toBeNull()
+  })
+
+  it('blocks cross-origin and oversized anonymous contact submissions before proxying', async () => {
+    global.fetch = jest.fn() as unknown as typeof fetch
+    const crossOrigin = await POST(
+      req('/api/backend/contact', {
+        method: 'POST',
+        headers: { origin: 'https://attacker.invalid', 'content-type': 'application/json' },
+        body: '{}',
+      }),
+      ctx(['contact'])
+    )
+    expect(crossOrigin.status).toBe(403)
+
+    const tooLarge = await POST(
+      req('/api/backend/contact', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: 'x'.repeat(1_000_100),
+      }),
+      ctx(['contact'])
+    )
+    expect(tooLarge.status).toBe(413)
+    expect(global.fetch).not.toHaveBeenCalled()
+    expect(sessionMock).not.toHaveBeenCalled()
+  })
+
   it('rejects requests without an authenticated backend session', async () => {
     const res = await GET(req('/api/backend/mood-record'), ctx(['mood-record']))
     expect(res.status).toBe(401)

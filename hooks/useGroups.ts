@@ -17,7 +17,7 @@ export function useGroups(resolvedCompanyId?: string) {
   const [error, setError] = useState<string | null>(null)
   const [companyId, setCompanyId] = useState<string | null>(resolvedCompanyId ?? null)
 
-  const fetch = useCallback(async () => {
+  const loadGroups = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
@@ -45,13 +45,13 @@ export function useGroups(resolvedCompanyId?: string) {
   }, [data, adminCompanyId, resolvedCompanyId])
 
   useEffect(() => {
-    if (status === 'authenticated') fetch()
+    if (status === 'authenticated') loadGroups()
     else if (status === 'unauthenticated') {
       setItems([])
       setError(null)
       setLoading(false)
     }
-  }, [fetch, status])
+  }, [loadGroups, status])
 
   const addGroup = (group: GroupEntity) => setItems((prev) => [...prev, group])
   const removeGroup = (id: string) => setItems((prev) => prev.filter((g) => g.id !== id))
@@ -61,7 +61,7 @@ export function useGroups(resolvedCompanyId?: string) {
     items,
     loading,
     error,
-    refetch: fetch,
+    refetch: loadGroups,
     addGroup,
     removeGroup,
     updateGroup,
