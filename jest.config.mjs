@@ -14,9 +14,7 @@ const config = {
     '^@/(.*)$': '<rootDir>/$1',
   },
   // next-intl v4 and use-intl publish ESM; Jest must transpile these packages.
-  transformIgnorePatterns: [
-    '/node_modules/(?!(next-intl|use-intl|intl-messageformat|@formatjs)/)',
-  ],
+  transformIgnorePatterns: ['/node_modules/(?!(next-intl|use-intl|intl-messageformat|@formatjs)/)'],
 }
 
 export default createJestConfig(config)
