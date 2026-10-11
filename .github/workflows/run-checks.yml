@@ -51,8 +51,44 @@ jobs:
               - '.prettierrc'
               - '.github/workflows/run-checks.yml'
 
+  migration-style-sync:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'refactor/frontend-p0-p2-architecture'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install dependencies
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Apply canonical ESLint and Prettier autofixes
+        run: |
+          yarn fix || true
+          yarn format
+      - name: Commit style-only changes
+        env:
+          HUSKY: '0'
+        run: |
+          if git diff --quiet; then
+            echo 'No formatting changes remain.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git commit -m 'style(next16): apply ESLint and Prettier autofixes'
+          git push origin HEAD:refs/heads/refactor/frontend-p0-p2-architecture
+
   linters:
-    needs: check-file-changes
+    needs: [check-file-changes, migration-style-sync]
     if: needs.check-file-changes.outputs.changed == 'true'
     runs-on: ubuntu-latest
     steps:
