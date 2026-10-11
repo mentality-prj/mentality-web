@@ -1,6 +1,16 @@
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 
+/** Public NestJS endpoints use the same same-origin BFF, never a browser-to-NestJS URL. */
+export async function publicApiRequest<T extends object>(path: '/contact', payload: T): Promise<Response> {
+  return fetch(`/api/backend${path}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+    cache: 'no-store',
+  })
+}
+
 export type ApiRequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   body?: Record<string, unknown> | FormData
