@@ -5,7 +5,7 @@ import { fontSans } from '@/config/fonts'
 import { routing } from '@/i18n/routing'
 
 export default async function CallbackLayout({ children }: { children: ReactNode }) {
-  const lang = await cookies().get('NEXT_LOCALE')?.value ?? routing.defaultLocale
+  const lang = (await cookies()).get('NEXT_LOCALE')?.value ?? routing.defaultLocale
   return (
     <html lang={lang} className={`${fontSans.variable} antialiased`}>
       <body className="flex min-h-screen flex-col bg-white text-textcolor-primary">

@@ -33,7 +33,7 @@ function makeTokenCookie(overrides: Record<string, unknown> = {}): string {
 }
 
 describe('Middleware Token-Based Auth', () => {
-  let proxy: (req: NextRequest) => Promise<Response>
+  let middleware: (req: NextRequest) => Promise<Response>
   let config: { matcher: string[] }
 
   beforeAll(() => {
@@ -41,7 +41,7 @@ describe('Middleware Token-Based Auth', () => {
     process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = 'test-client-id'
     process.env.ZITADEL_CLIENT_SECRET = 'test-client-secret'
     const middlewareModule = require('@/proxy') as {
-      middleware: (req: NextRequest) => Promise<Response>
+      proxy: (req: NextRequest) => Promise<Response>
       config: { matcher: string[] }
     }
     middleware = middlewareModule.proxy
