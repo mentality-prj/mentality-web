@@ -60,7 +60,7 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath(['contact'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'anything'], '', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['contact'], '?admin=1', 'POST')).toBeNull()
-    expect(getValidatedBackendPath(['Contact'], '', 'POST')).toBe('Contact')
+    expect(getValidatedBackendPath(['Contact'], '', 'POST')).toBeNull()
 
     const res = await POST(
       req('/api/backend/contact', {

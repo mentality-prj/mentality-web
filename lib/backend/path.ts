@@ -13,8 +13,8 @@ export function getValidatedBackendPath(segments: string[], search: string, meth
 
   // Anonymous contact submissions must still use the same NestJS gateway.
   // The NestJS endpoint is public but validates reCAPTCHA server-side.
-  if (segments[0] === 'contact') {
-    return segments.length === 1 && method === 'POST' && !search ? 'contact' : null
+  if (segments[0].toLowerCase() === 'contact') {
+    return segments.length === 1 && segments[0] === 'contact' && method === 'POST' && !search ? 'contact' : null
   }
 
   const first = segments[0].toLowerCase()
