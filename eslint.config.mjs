@@ -53,7 +53,7 @@ export default defineConfig([
       'no-unsafe-optional-chaining': 'error',
     },
   },
-  { files: ['lib/api/transport.ts'], rules: { 'no-restricted-globals': 'off' } },
+  { files: ['lib/api/transport.ts', 'scripts/**/*.{js,mjs}'], rules: { 'no-restricted-globals': 'off' } },
   prettier,
   globalIgnores(['.next/**', '.next-docs/**', 'node_modules/**', 'coverage/**', '.github/**']),
 ])

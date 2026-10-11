@@ -1,9 +1,9 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { apiTransport } from '@/lib/api/transport'
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
-import { apiTransport } from '@/lib/api/transport'
 
 type TokenEndpointResponse = {
   access_token: string
