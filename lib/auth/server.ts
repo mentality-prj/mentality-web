@@ -151,6 +151,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
 
+  const controller = new AbortController()
+  const timeoutId = setTimeout(() => controller.abort(), 5_000)
   try {
     const response = await fetch(`${APIUrl}/auth/validate-token`, {
       method: 'POST',
@@ -159,7 +161,7 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
         Authorization: `Bearer ${tokens.accessToken}`,
       },
       cache: 'no-store',
-      signal: AbortSignal.timeout(5_000),
+      signal: controller.signal,
     })
 
     if (!response.ok) {
@@ -195,6 +197,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
     }
 
     return null
+  } finally {
+    clearTimeout(timeoutId)
   }
 }
 
