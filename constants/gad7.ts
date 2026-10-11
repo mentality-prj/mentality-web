@@ -1,3 +1,6 @@
+import { routing } from '@/i18n/routing'
+import { Gad7HistoryEntry } from '@/types/gad7'
+
 // Re-export all test configuration from the canonical config file.
 // Add new GAD-7 test settings in config/gad7.config.ts.
 export {
@@ -12,8 +15,6 @@ export {
   GAD7_TOTAL_QUESTIONS,
 } from '@/config/gad7.config'
 
-import { routing } from '@/i18n/routing'
-import { Gad7HistoryEntry } from '@/types/gad7'
 
 // TODO: remove when backend history endpoint returns real data
 const GAD7_STUB_SCORES = [18, 16, 14, 12, 10, 8, 6, 5, 4, 3] as const

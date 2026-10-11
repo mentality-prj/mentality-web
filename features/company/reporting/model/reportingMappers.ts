@@ -1,5 +1,5 @@
-import { normalizeDecisionSupportConfidence, toDecisionSupportLocale } from '@/helpers/decisionSupport.helpers'
 import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
+import { normalizeDecisionSupportConfidence, toDecisionSupportLocale } from '@/helpers/decisionSupport.helpers'
 import { AnalyticsResponse, AnalyticsTrendPoint } from '@/types/company'
 import {
   DecisionSupportAction,
