@@ -33,7 +33,7 @@ export function useInvites() {
     setTotal(0)
   }, [adminCompanyId])
 
-  const fetch = useCallback(async () => {
+  const loadInvites = useCallback(async () => {
     setLoading(true)
     setError(null)
     try {
@@ -69,8 +69,8 @@ export function useInvites() {
       setLoading(false)
       return
     }
-    if (status === 'authenticated') fetch()
-  }, [fetch, status])
+    if (status === 'authenticated') loadInvites()
+  }, [loadInvites, status])
 
   const handleResend = useCallback(
     async (id: string) => {
@@ -100,5 +100,5 @@ export function useInvites() {
     [data, adminCompanyId]
   )
 
-  return { items, total, page, setPage, loading, error, refetch: fetch, handleResend, handleCancel }
+  return { items, total, page, setPage, loading, error, refetch: loadInvites, handleResend, handleCancel }
 }

@@ -53,11 +53,8 @@ test('one client API: no ad-hoc global fetch outside reviewed transports', () =>
     if (permittedTransports.has(rel)) continue
     const text = readFileSync(path, 'utf8')
     const source = ts.createSourceFile(rel, text, ts.ScriptTarget.Latest, true)
-    // Hooks with their own local variable named fetch do not call the global
-    // HTTP transport; this is not an API escape.
-    const localFetch = (rel === 'hooks/useGroups.ts' || rel === 'hooks/useInvites.ts') && /\bconst fetch\s*=/.test(text)
     const visit = (node) => {
-      if (ts.isCallExpression(node) && isDirectFetch(node) && !localFetch) {
+      if (ts.isCallExpression(node) && isDirectFetch(node)) {
         const { line } = source.getLineAndCharacterOfPosition(node.getStart(source))
         violations.push(rel + ':' + (line + 1))
       }
