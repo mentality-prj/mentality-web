@@ -1,5 +1,5 @@
 /** @jest-environment jsdom */
-import { apiRequest } from './api-wrapper'
+import { apiRequest, publicApiRequest } from './api-wrapper'
 
 jest.mock('@/requests/config', () => ({
   APIUrl: 'https://backend.example/api///',
@@ -19,6 +19,23 @@ beforeEach(() => {
 const session = { user: { id: 'user-1', name: 'User', email: 'u@example.test' } }
 
 describe('browser requests to NestJS', () => {
+  it('sends public contact JSON to same-origin BFF only', async () => {
+    global.fetch = jest.fn().mockResolvedValue({ status: 201, ok: true }) as unknown as typeof fetch
+    const payload = { name: 'Test', email: 't@example.com', message: 'Hello', token: 'captcha' }
+    const response = await publicApiRequest('/contact', payload)
+    expect(response.status).toBe(201)
+    expect(global.fetch).toHaveBeenCalledWith(
+      '/api/backend/contact',
+      expect.objectContaining({
+        method: 'POST',
+        body: JSON.stringify(payload),
+        cache: 'no-store',
+      })
+    )
+    const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers
+    expect(headers).not.toHaveProperty('Authorization')
+  })
+
   it('uses the BFF and never exposes the token in a browser Authorization header', async () => {
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
