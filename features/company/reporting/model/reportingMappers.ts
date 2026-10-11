@@ -429,7 +429,7 @@ function buildInspectionCard(
   title: string,
   text: string,
   tone: InsightCardVM['tone'],
-  locale?: string
+  _locale?: string
 ): InsightCardVM {
   return {
     id,
@@ -569,7 +569,7 @@ function calculateTrendDirection(first: number | null, last: number | null): Tre
   return 'stable'
 }
 
-function buildTrendPoints(trend: AnalyticsTrendPoint[], locale?: string): TrendPointVM[] {
+function buildTrendPoints(trend: AnalyticsTrendPoint[], _locale?: string): TrendPointVM[] {
   const values = trend.map((point) =>
     calculateRiskIndex(point.avgMood, point.avgStress, point.avgEnergy, point.avgFocus)
   )

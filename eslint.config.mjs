@@ -41,6 +41,7 @@ export default defineConfig([
       'react-hooks/immutability': 'off',
       'react-hooks/purity': 'off',
       'react-hooks/refs': 'off',
+      'react-hooks/static-components': 'off',
       '@next/next/no-html-link-for-pages': 'warn',
       '@next/next/no-location-assign-relative-destination': 'warn',
       'security/detect-object-injection': 'warn',

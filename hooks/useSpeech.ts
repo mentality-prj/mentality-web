@@ -222,7 +222,7 @@ export function useSpeech(options?: UseSpeechOptions) {
     if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
       try {
         window.speechSynthesis.pause()
-      } catch (e) {
+      } catch {
         // ignore
       }
       pausedDuringDelayRef.current = false
@@ -253,7 +253,7 @@ export function useSpeech(options?: UseSpeechOptions) {
         pausedByUserRef.current = false
         pausedDuringDelayRef.current = false
         return
-      } catch (e) {
+      } catch {
         // ignore and fallback
       }
     }
