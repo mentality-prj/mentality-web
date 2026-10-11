@@ -12,12 +12,12 @@ import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 export default async function MoodTracker({
   searchParams,
 }: {
-  searchParams: Record<string, string | string[] | undefined>
+  searchParams: Promise<Record<string, string | string[] | undefined>>
 }) {
   const t = await getTranslations('pages.MoodTracker')
 
   const session = await getServerSession()
-  const query = parseMoodQuery(searchParams)
+  const query = parseMoodQuery(await searchParams)
   const [result, res] = await Promise.all([getMoodRecords(session, query), getLastMoodRecords(session, { days: 10 })])
   const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
   const total = 'error' in result ? 0 : result.data.total

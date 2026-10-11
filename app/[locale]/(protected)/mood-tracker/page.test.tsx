@@ -62,32 +62,32 @@ beforeEach(() => {
 
 describe('MoodTracker page', () => {
   it('calls getLastMoodRecords with days: 10', async () => {
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10 })
   })
 
   it('renders page title and subtitle', async () => {
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByRole('heading', { name: 'title' })).toBeInTheDocument()
     expect(screen.getByText('subtitle')).toBeInTheDocument()
   })
 
   it('renders NewMoodNoteSection', async () => {
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByTestId('new-mood-note-section')).toBeInTheDocument()
   })
 
   it('renders TenDaysSummary', async () => {
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByTestId('ten-days-summary')).toBeInTheDocument()
   })
 
   it('passes records from API to MoodRecords', async () => {
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByTestId('mood-records')).toHaveTextContent('2 records')
   })
@@ -102,13 +102,13 @@ describe('MoodTracker page', () => {
       data: { moodNotes: [], total: 0 },
     })
 
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByTestId('mood-records')).toHaveTextContent('0 records')
   })
 
   it('calls buildMoodMarksData and buildDailySummaries with records', async () => {
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(buildMoodMarksData).toHaveBeenCalledWith(mockRecords)
     expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords)
@@ -117,7 +117,7 @@ describe('MoodTracker page', () => {
   it('passes empty array to helpers when API returns an error', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'error' })
 
-    render(await MoodTrackerPage({ searchParams: {} }))
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(buildMoodMarksData).toHaveBeenCalledWith([])
     expect(buildDailySummaries).toHaveBeenCalledWith([])
