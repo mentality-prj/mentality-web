@@ -24,7 +24,8 @@ function req(path: string, init?: ConstructorParameters<typeof NextRequest>[1]) 
   return new NextRequest(`https://dzvin.example${path}`, init)
 }
 
-const ctx = (path: string[]) => ({ params: { path } })
+// Next.js 16 Route Handlers receive asynchronous dynamic params.
+const ctx = (path: string[]) => ({ params: Promise.resolve({ path }) })
 
 describe('same-origin backend BFF', () => {
   it('rejects path traversal and identity-provider routes', () => {

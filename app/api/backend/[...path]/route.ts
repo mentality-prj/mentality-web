@@ -9,7 +9,7 @@ export const dynamic = 'force-dynamic'
 const REQUEST_TIMEOUT_MS = 15_000
 const MAX_BODY_BYTES = 1_000_000
 type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
-type RouteContext = { params: { path: string[] } }
+type RouteContext = { params: Promise<{ path: string[] }> }
 
 function respond(body: unknown, status: number): NextResponse {
   const response = NextResponse.json(body, { status })
@@ -32,7 +32,8 @@ async function proxyBackendRequest(
   context: RouteContext,
   method: HttpMethod
 ): Promise<NextResponse> {
-  const path = getValidatedBackendPath(context.params.path, request.nextUrl.search)
+  const { path: pathSegments } = await context.params
+  const path = getValidatedBackendPath(pathSegments, request.nextUrl.search)
   if (!path) return respond({ error: 'Invalid backend resource' }, 400)
   if (method !== 'GET' && !isAllowedMutation(request)) return respond({ error: 'Forbidden' }, 403)
 
