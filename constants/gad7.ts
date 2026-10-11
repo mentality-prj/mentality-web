@@ -1,15 +1,15 @@
 // Re-export all test configuration from the canonical config file.
 // Add new GAD-7 test settings in config/gad7.config.ts.
 export {
-  GAD7_QUESTIONS,
-  GAD7_OPTIONS,
-  GAD7_LEVEL_MAP,
-  GAD7_LEVEL_LABELS,
-  GAD7_TOTAL_QUESTIONS,
   GAD7_HIGH_SCORE_THRESHOLD,
-  GAD7_RESUBMIT_COOLDOWN_MS,
+  GAD7_LEVEL_LABELS,
+  GAD7_LEVEL_MAP,
   GAD7_MAX_SCORE,
+  GAD7_OPTIONS,
+  GAD7_QUESTIONS,
+  GAD7_RESUBMIT_COOLDOWN_MS,
   GAD7_TEST_CONFIG,
+  GAD7_TOTAL_QUESTIONS,
 } from '@/config/gad7.config'
 
 import { routing } from '@/i18n/routing'

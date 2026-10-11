@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-
 import { ArrowRight } from 'lucide-react'
 
 import Card from '@/components/shared/Cards/Card'

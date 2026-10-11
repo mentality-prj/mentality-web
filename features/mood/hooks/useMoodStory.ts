@@ -1,8 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useAuth } from '@/context/AuthProvider'
 
+import { useAuth } from '@/context/AuthProvider'
 import { getAffirmationById } from '@/requests/affirmations'
 import { getLatestMoodStory } from '@/requests/moodStory'
 import { getTipById } from '@/requests/tips'

@@ -1,13 +1,13 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { useAuth } from '@/context/AuthProvider'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
+import { useAuth } from '@/context/AuthProvider'
 import { getMyCompany } from '@/requests/companies'
 import { getGroups, getGroupsAdmin } from '@/requests/groups'
-import { GroupEntity } from '@/types/company'
 import { CustomSession } from '@/types/auth'
+import { GroupEntity } from '@/types/company'
 
 export function useGroups(resolvedCompanyId?: string) {
   const { session: data, status } = useAuth()

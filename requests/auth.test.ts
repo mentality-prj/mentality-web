@@ -2,8 +2,8 @@ import { logger } from '@/lib/logger'
 import {
   deleteStoredAuthTokens,
   exchangeAuthTokens,
-  fetchStoredAuthTokens,
   fetchAuthenticatedUser,
+  fetchStoredAuthTokens,
   getCurrentUser,
   validateAccessToken,
   validateToken,

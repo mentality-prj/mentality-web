@@ -1,6 +1,14 @@
 import { getReportingCopy } from '@/helpers/reportingCopy'
 import { createConfidenceBadgeVM, mapMlInspectionToVM } from '@/helpers/reportingMappers'
 import { logger } from '@/lib/logger'
+import { APIUrl } from '@/requests/config'
+import {
+  applyDecisionSupportRiskEventAction,
+  applyDecisionSupportRiskEventActionAdmin,
+  resolveDecisionSupportRiskEvent,
+  resolveDecisionSupportRiskEventAdmin,
+} from '@/requests/decisionSupport'
+import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { PolicyMetrics } from '@/types/decisionSupport'
 import {
@@ -21,15 +29,6 @@ import {
   TrendDirection,
   VisibilityRule,
 } from '@/types/reporting'
-
-import { APIUrl } from '@/requests/config'
-import {
-  applyDecisionSupportRiskEventAction,
-  applyDecisionSupportRiskEventActionAdmin,
-  resolveDecisionSupportRiskEvent,
-  resolveDecisionSupportRiskEventAdmin,
-} from '@/requests/decisionSupport'
-import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 
 type Result<T> = Promise<{ data: T } | { error: string }>
 

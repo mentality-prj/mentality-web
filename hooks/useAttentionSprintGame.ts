@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react'
-import { useAuth } from '@/context/AuthProvider'
 import { useLocale } from 'next-intl'
 
 import { TIMER_INTERVAL_MS } from '@/constants/attentionSprint'
+import { useAuth } from '@/context/AuthProvider'
 import {
   calculateRemainingTime,
   calculateStandardDeviation,

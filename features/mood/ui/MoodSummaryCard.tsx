@@ -1,10 +1,9 @@
 import { ReactNode } from 'react'
 
+import MoodSummaryCardClient from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCardClient'
 import { getServerSession } from '@/lib/get-server-session'
 import { fetchNormalizedUserTags } from '@/lib/userTagsNormalizer'
 import type { UserTag } from '@/types/tags'
-
-import MoodSummaryCardClient from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCardClient'
 
 interface MoodSummaryCardProps {
   title?: ReactNode

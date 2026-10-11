@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable security/detect-object-injection */
 import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 import { useLocale, useTranslations } from 'next-intl'

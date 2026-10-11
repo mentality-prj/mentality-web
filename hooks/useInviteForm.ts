@@ -2,10 +2,10 @@
 
 import { useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
+import { useAuth } from '@/context/AuthProvider'
 import { classifyInviteError, isValidEmail } from '@/helpers/company.helpers'
 import { useGroups } from '@/hooks/useGroups'
 import { createInvite, createInviteAdmin } from '@/requests/invites'

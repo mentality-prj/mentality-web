@@ -1,11 +1,10 @@
 import { MOOD_RECORD_ENDPOINTS } from '@/constants/endpoints'
 import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
-import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
-import { CustomSession } from '@/types/auth'
-
 import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
+import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
+import { CustomSession } from '@/types/auth'
 
 export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto) {
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {

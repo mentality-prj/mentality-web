@@ -1,10 +1,10 @@
 'use client'
 
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { useAuth } from '@/context/AuthProvider'
 
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
 import { useAdminCompany } from '@/context/adminCompanyContext'
+import { useAuth } from '@/context/AuthProvider'
 import { getMyCompany } from '@/requests/companies'
 import {
   cancelInvite,

@@ -156,7 +156,6 @@ export function useSpeech(options?: UseSpeechOptions) {
       // Small diagnostic log to help debug voice selection (no user text logged)
       if (process.env.NODE_ENV !== 'production') {
         try {
-          // eslint-disable-next-line no-console
           console.debug('[useSpeech] speak start', {
             locale,
             voiceForLocale: findVoiceForLocale(voices, locale)?.name,

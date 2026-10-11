@@ -1,5 +1,5 @@
-import { ExerciseCategory, ExerciseEntity } from '@/types/api-responses'
 import { logger } from '@/lib/logger'
+import { ExerciseCategory, ExerciseEntity } from '@/types/api-responses'
 import { SupportedLanguage, supportedLanguages } from '@/types/languages'
 
 function isValidCategory(cat: unknown): cat is ExerciseCategory {

@@ -3,10 +3,9 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { useLocale } from 'next-intl'
 
+import { useCompanyScope } from '@/hooks/useCompanyScope'
 import { getReportOverviewVM } from '@/requests/reportingClient'
 import { ReportOverviewVM } from '@/types/reporting'
-
-import { useCompanyScope } from '@/hooks/useCompanyScope'
 
 type UseReportOverviewResult = {
   overview: ReportOverviewVM | null
