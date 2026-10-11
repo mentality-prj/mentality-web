@@ -69,8 +69,6 @@ jobs:
         run: yarn next typegen
       - name: TypeScript
         run: yarn types
-      - name: Next production build
-        run: yarn build
       - name: ESLint
         run: yarn lint
       - name: Prettier
@@ -79,3 +77,5 @@ jobs:
         run: yarn test --runInBand --watch=false
       - name: Smoke harness tests
         run: node --test scripts/e2e-smoke.test.mjs
+      - name: Next production build
+        run: yarn build
