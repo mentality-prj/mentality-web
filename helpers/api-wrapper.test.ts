@@ -40,6 +40,7 @@ describe('browser requests to NestJS', () => {
     expect(result.error?.name).toBe('InvalidBackendUrl')
     expect(global.fetch).not.toHaveBeenCalled()
   })
+
   it('never forwards caller-supplied bearer tokens or privileged API keys from the browser', async () => {
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
@@ -72,5 +73,4 @@ describe('browser requests to NestJS', () => {
     expect(headers.get('x-qdip-admin-api-key')).toBeNull()
     expect(headers.get('x-request-id')).toBe('safe-request-id')
   })
-
 })
