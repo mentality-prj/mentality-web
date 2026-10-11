@@ -156,7 +156,7 @@ async function refreshTokensServerSide(
   }
 }
 
-export async function middleware(request: NextRequest) {
+export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = crypto.randomUUID()
   const isApiRoute = pathname === '/api' || pathname.startsWith('/api/')
