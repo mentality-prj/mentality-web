@@ -74,6 +74,7 @@ describe('server auth session helpers', () => {
 
     const { getServerSession } = await import('./server')
     const session = await getServerSession()
+    expect(fetchMock.mock.calls[0][1].signal).toBeDefined()
 
     expect(session).toEqual({
       OAuthToken: tokens.accessToken,

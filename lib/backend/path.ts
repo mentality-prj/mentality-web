@@ -17,8 +17,9 @@ export function getValidatedBackendPath(
 
   const first = segments[0].toLowerCase()
   if (first === 'auth') {
-    const me = segments.length === 2 && segments[1] === 'me'
-    const preferences = segments.length === 3 && segments[1] === 'me' && segments[2] === 'analytics-preferences'
+    const me = segments[0] === 'auth' && segments.length === 2 && segments[1] === 'me'
+    const preferences =
+      segments[0] === 'auth' && segments.length === 3 && segments[1] === 'me' && segments[2] === 'analytics-preferences'
     if (!(me && method === 'GET') && !(preferences && (method === 'GET' || method === 'PATCH'))) {
       return null
     }

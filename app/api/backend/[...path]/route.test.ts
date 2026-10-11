@@ -34,6 +34,7 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath(['mood-record', 'last'], '?days=3')).toBe('mood-record/last?days=3')
     expect(getValidatedBackendPath(['auth', 'validate-token'], '')).toBeNull()
     expect(getValidatedBackendPath(['Auth', 'token'], '')).toBeNull()
+    expect(getValidatedBackendPath(['Auth', 'me'], '')).toBeNull()
     expect(getValidatedBackendPath(['%61uth', 'token'], '')).toBeNull()
     expect(getValidatedBackendPath(['auth', '%76alidate-token'], '')).toBeNull()
     expect(getValidatedBackendPath(['auth', 'me'], '')).toBe('auth/me')
