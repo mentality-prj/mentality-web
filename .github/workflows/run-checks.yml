@@ -23,6 +23,8 @@ jobs:
             app:
               - 'app/**'
               - 'components/**'
+              - 'features/**'
+              - 'DOCS/**'
               - 'context/**'
               - 'hooks/**'
               - 'requests/**'
@@ -41,6 +43,8 @@ jobs:
               - 'utils/**'
               - 'actions/**'
               - 'scripts/**'
+              - 'proxy.ts'
+              - 'eslint.config.mjs'
               - 'package.json'
               - 'yarn.lock'
               - 'tsconfig.json'
