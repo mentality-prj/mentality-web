@@ -94,9 +94,11 @@ describe('same-origin backend BFF', () => {
       user: { id: '1', name: 'User', email: 'u@example.test' },
       OAuthToken: 'server-token',
     })
-    global.fetch = jest.fn().mockResolvedValue(
-      new Response('{"id":"1"}', { status: 200, headers: { 'content-type': 'application/json' } })
-    ) as unknown as typeof fetch
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue(
+        new Response('{"id":"1"}', { status: 200, headers: { 'content-type': 'application/json' } })
+      ) as unknown as typeof fetch
 
     const currentUser = await GET(req('/api/backend/auth/me'), ctx(['auth', 'me']))
     expect(currentUser.status).toBe(200)
@@ -153,5 +155,4 @@ describe('same-origin backend BFF', () => {
     const response = await GET(req('/api/backend/mood-record'), ctx(['mood-record']))
     expect(await response.json()).toEqual({ error: 'Unauthorized', message: 'Unauthorized' })
   })
-
 })

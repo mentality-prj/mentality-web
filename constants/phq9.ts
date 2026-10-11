@@ -13,7 +13,6 @@ export {
   PHQ9_TEST_CONFIG,
 } from '@/config/phq9.config'
 
-
 // TODO: remove when backend history endpoint returns real data
 const PHQ9_STUB_SCORES = [20, 18, 16, 14, 12, 10, 9, 8, 7, 6, 5, 3] as const
 function generatePhq9StubHistory(): Phq9HistoryEntry[] {

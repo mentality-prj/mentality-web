@@ -47,7 +47,8 @@ async function proxyBackendRequest(
   let requestBody: ArrayBuffer | undefined
   if (method !== 'GET') {
     const contentLength = Number(request.headers.get('content-length'))
-    if (contentLength > MAX_BODY_BYTES) return respond({ error: 'Payload too large', message: 'Payload too large' }, 413)
+    if (contentLength > MAX_BODY_BYTES)
+      return respond({ error: 'Payload too large', message: 'Payload too large' }, 413)
 
     // Never materialize an unbounded body before checking its size.
     if (request.body) {

@@ -7,11 +7,7 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
  * remain server-only. Reject encoded segments rather than trusting the router's
  * decoding behavior (which varies between Next.js versions).
  */
-export function getValidatedBackendPath(
-  segments: string[],
-  search: string,
-  method: HttpMethod = 'GET'
-): string | null {
+export function getValidatedBackendPath(segments: string[], search: string, method: HttpMethod = 'GET'): string | null {
   if (!Array.isArray(segments) || segments.length === 0 || segments.length > 32) return null
   if (segments.some((segment) => !SEGMENT_PATTERN.test(segment) || segment === '.' || segment === '..')) return null
 

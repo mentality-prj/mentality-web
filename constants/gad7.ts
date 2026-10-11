@@ -15,7 +15,6 @@ export {
   GAD7_TOTAL_QUESTIONS,
 } from '@/config/gad7.config'
 
-
 // TODO: remove when backend history endpoint returns real data
 const GAD7_STUB_SCORES = [18, 16, 14, 12, 10, 8, 6, 5, 4, 3] as const
 function generateGad7StubHistory(): Gad7HistoryEntry[] {
