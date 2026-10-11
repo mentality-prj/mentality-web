@@ -9,16 +9,16 @@ Zitadel is the **only identity provider**, not an additional application data AP
 
 ## Trust boundaries and explicit exceptions
 
-| Caller | API transport | Credential owner |
-|---|---|---|
-| React / feature requests | `/api/backend/*` → NestJS | Next.js HttpOnly session |
-| Public contact form | `/api/backend/contact` → NestJS | Anonymous; reCAPTCHA in NestJS |
-| Zitadel login/logout/refresh | `/api/auth/*` + OIDC redirect | Next.js only |
-| SSR server components | Backend-validated server-side NestJS client | Next.js server |
-| QDIP admin in SSR/actions | Direct QDIP server-only client (`requests/dipClient.ts`) | Next.js server `DIP_API_KEY` / `DIP_ADMIN_API_KEY` |
-| Temporary new QDIP key display | Admin-only locale-scoped one-shot key-flash route | HttpOnly flash cookie and admin RBAC |
+| Caller                         | API transport                                            | Credential owner                                   |
+| ------------------------------ | -------------------------------------------------------- | -------------------------------------------------- |
+| React / feature requests       | `/api/backend/*` → NestJS                                | Next.js HttpOnly session                           |
+| Public contact form            | `/api/backend/contact` → NestJS                          | Anonymous; reCAPTCHA in NestJS                     |
+| Zitadel login/logout/refresh   | `/api/auth/*` + OIDC redirect                            | Next.js only                                       |
+| SSR server components          | Backend-validated server-side NestJS client              | Next.js server                                     |
+| QDIP admin in SSR/actions      | Direct QDIP server-only client (`requests/dipClient.ts`) | Next.js server `DIP_API_KEY` / `DIP_ADMIN_API_KEY` |
+| Temporary new QDIP key display | Admin-only locale-scoped one-shot key-flash route        | HttpOnly flash cookie and admin RBAC               |
 
-The two QDIP exceptions **must not become a browser-exposed generic API**. Moving them behind NestJS as the sole backend host requires a distinct authenticated NestJS integration for all QDIP admin capabilities, RBAC and tenant-scoped authorization. It is *not* safe to forward a privileged admin key through the generic user BFF.
+The two QDIP exceptions **must not become a browser-exposed generic API**. Moving them behind NestJS as the sole backend host requires a distinct authenticated NestJS integration for all QDIP admin capabilities, RBAC and tenant-scoped authorization. It is _not_ safe to forward a privileged admin key through the generic user BFF.
 
 ## Enforcement
 

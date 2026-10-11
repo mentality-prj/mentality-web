@@ -1,8 +1,7 @@
 import assert from 'node:assert/strict'
-import { existsSync, readFileSync, readdirSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, relative, resolve } from 'node:path'
 import { test } from 'node:test'
-
 import ts from 'typescript'
 
 // A public browser must make application data requests through the single
@@ -63,7 +62,11 @@ test('one client API: no ad-hoc global fetch outside reviewed transports', () =>
     visit(source)
   }
 
-  assert.deepEqual(violations, [], 'Use apiRequest/publicApiRequest or a reviewed server-only adapter; direct fetch found:')
+  assert.deepEqual(
+    violations,
+    [],
+    'Use apiRequest/publicApiRequest or a reviewed server-only adapter; direct fetch found:'
+  )
 })
 
 test('QDIP administrator client remains server-only', () => {
