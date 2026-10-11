@@ -17,8 +17,18 @@ export type ApiWrapperResult<T> = {
   }
 }
 
+const FORBIDDEN_CALLER_CREDENTIAL_HEADERS = new Set([
+  'authorization',
+  'proxy-authorization',
+  'cookie',
+  'set-cookie',
+  'x-api-key',
+  'x-dip-admin-api-key',
+  'x-qdip-admin-api-key',
+])
+
 /**
- * Wrapper for API requests that automatically adds user token to headers
+ * Wrapper for API requests that uses the server session for authorization
  * @param session - User session from useSession()
  * @param url - API endpoint URL
  * @param options - Fetch options (method, body, headers)
@@ -66,7 +76,7 @@ export async function apiRequest<T = unknown>(
   // Browser calls are proxied through a same-origin, server-authenticated BFF.
   // SSR and Server Components still call NestJS directly using their server session.
   const isBrowser = typeof window !== 'undefined'
-  const token = session.OAuthToken
+  const token = isBrowser ? undefined : session.OAuthToken
   if (!isBrowser && !token) {
     return {
       error: { name: 'Unauthorized', message: 'Authentication token is missing', status: 401 },
@@ -92,23 +102,21 @@ export async function apiRequest<T = unknown>(
       } catch {
         return { error: { name: 'InvalidBackendUrl', message: 'Invalid backend API destination' } }
       }
-    } else {
-      headers.set('Authorization', `Bearer ${token}`)
     }
-    // Merge custom headers
-    if (customHeaders) {
-      Object.entries(customHeaders).forEach(([key, value]) => {
-        if (typeof value === 'string') {
-          headers.set(key, value)
-        } else {
-          logger.warn('Custom header value is not a string and will be ignored', {
-            header: key,
-            value,
-            url,
-            method,
-          })
-        }
-      })
+    // A caller cannot supply another bearer, cookie or privileged API key.
+    // Headers normalizes names case-insensitively and handles every HeadersInit shape.
+    const callerHeaders = new Headers(customHeaders)
+    callerHeaders.forEach((value, name) => {
+      if (FORBIDDEN_CALLER_CREDENTIAL_HEADERS.has(name.toLowerCase())) {
+        logger.warn('Ignoring caller-supplied credential header', { header: name, method })
+        return
+      }
+      headers.set(name, value)
+    })
+    // Server rendering alone may forward its already-validated session token.
+    // Do this after caller headers so user input can never override it.
+    if (!isBrowser) {
+      headers.set('Authorization', `Bearer ${token}`)
     }
 
     // Add Content-Type for JSON body
