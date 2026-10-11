@@ -1,3 +1,4 @@
+import { apiTransport } from '@/lib/api/transport'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 
@@ -144,7 +145,7 @@ export async function apiRequest<T = unknown>(
     }
 
     // Make the request
-    const response = await fetch(requestUrl, fetchOptions)
+    const response = await apiTransport(requestUrl, fetchOptions)
 
     // Handle non-OK responses
     if (!response.ok) {

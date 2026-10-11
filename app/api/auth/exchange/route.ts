@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { apiTransport } from '@/lib/api/transport'
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 
@@ -152,7 +153,7 @@ export async function POST(request: NextRequest) {
       return jsonNoStore({ error: 'Invalid grantType' }, { status: 400 })
     }
 
-    const tokenResponse = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
+    const tokenResponse = await apiTransport(`${ZITADEL_ISSUER}/oauth/v2/token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: params,

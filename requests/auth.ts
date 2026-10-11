@@ -1,6 +1,7 @@
+import { apiTransport } from '@/lib/api/transport'
 import { logger } from '@/lib/logger'
-import type { UserEntity, ValidateUserDto } from '@/types/api-responses'
-import type { BrowserAuthSession, CustomSession, CustomUser, UserAI } from '@/types/auth'
+import type { UserEntity } from '@/types/api-responses'
+import type { BrowserAuthSession, CustomSession, CustomUser } from '@/types/auth'
 
 import { APIUrl } from './config'
 import { performAuthRequest } from './genericFetch'
@@ -54,7 +55,7 @@ async function rawJsonRequest<T = unknown>(
       headers.set('Content-Type', 'application/json')
     }
 
-    const resp = await fetch(url, {
+    const resp = await apiTransport(url, {
       method: options.method,
       headers,
       body: options.body === undefined ? undefined : JSON.stringify(options.body ?? {}),
@@ -78,44 +79,11 @@ async function rawJsonRequest<T = unknown>(
   }
 }
 
-export async function validateToken(dto: ValidateUserDto) {
-  const url = `${getAuthApiBaseUrl()}/auth/validate-token`
-  const result = await rawJsonRequest<UserEntity>(url, { method: 'POST', body: dto })
-
-  if ('error' in result) {
-    logger.error('Auth validate-token failed', { error: result.error, status: result.status })
-    return { error: result.error }
-  }
-
-  return { data: result.data }
-}
-
 export async function getCurrentUser(session: CustomSession | null) {
   const url = `${getAuthApiBaseUrl()}/auth/me`
   const res = await performAuthRequest<UserEntity>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }
   return { data: res.data }
-}
-
-export async function validateAccessToken(accessToken: string): Promise<{ data: UserAI } | { error: string }> {
-  const result = await rawJsonRequest<UserAI>(`${getAuthApiBaseUrl()}/auth/validate-token`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${accessToken}`,
-    },
-  })
-
-  if ('error' in result) {
-    logger.error('Auth access-token validation failed', { error: result.error, status: result.status })
-    return { error: result.error }
-  }
-
-  if (!result.data?._id) {
-    logger.error('Auth access-token validation returned invalid payload')
-    return { error: 'Invalid user payload' }
-  }
-
-  return { data: result.data }
 }
 
 export async function exchangeAuthTokens(

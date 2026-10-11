@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import createMiddleware from 'next-intl/middleware'
 
+import { apiTransport } from '@/lib/api/transport'
 import { Routes } from '@/constants/routes'
 import { routing } from '@/i18n/routing'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
@@ -144,7 +145,7 @@ async function refreshTokensServerSide(
   if (!currentTokens.refreshToken) return null
   try {
     const baseUrl = new URL(requestUrl).origin
-    const response = await fetch(`${baseUrl}/api/auth/exchange`, {
+    const response = await apiTransport(`${baseUrl}/api/auth/exchange`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Cookie: cookieHeader },
       body: JSON.stringify({ grantType: 'refresh_token' }),

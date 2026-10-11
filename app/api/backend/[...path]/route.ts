@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+import { apiTransport } from '@/lib/api/transport'
 import { getServerSession } from '@/lib/auth/server'
 import { getValidatedBackendPath } from '@/lib/backend/path'
 import { APIUrl } from '@/requests/config'
@@ -41,8 +42,11 @@ async function proxyBackendRequest(
   if (!path) return respond({ error: 'Invalid backend resource' }, 400)
   if (method !== 'GET' && !isAllowedMutation(request)) return respond({ error: 'Forbidden' }, 403)
 
-  const session = await getServerSession()
-  if (!session?.user || !session.OAuthToken) return respond({ error: 'Unauthorized' }, 401)
+  // The contact form is public but protected by CAPTCHA at NestJS and the
+  // same-origin POST guard. All other application endpoints require a session.
+  const publicContact = path === 'contact' && method === 'POST'
+  const session = publicContact ? null : await getServerSession()
+  if (!publicContact && (!session?.user || !session.OAuthToken)) return respond({ error: 'Unauthorized' }, 401)
 
   let requestBody: ArrayBuffer | undefined
   if (method !== 'GET') {
@@ -79,10 +83,11 @@ async function proxyBackendRequest(
   const baseUrl = APIUrl.trim().replace(/\/+$/, '')
   const upstreamUrl = `${baseUrl}/${path}`
   try {
-    const headers = new Headers({ Authorization: `Bearer ${session.OAuthToken}` })
+    const headers = new Headers()
+    if (session?.OAuthToken) headers.set('Authorization', `Bearer ${session.OAuthToken}`)
     const contentType = request.headers.get('content-type')
     if (contentType && method !== 'GET') headers.set('Content-Type', contentType)
-    const upstream = await fetch(upstreamUrl, {
+    const upstream = await apiTransport(upstreamUrl, {
       method,
       headers,
       body: requestBody,

@@ -155,4 +155,33 @@ describe('same-origin backend BFF', () => {
     const response = await GET(req('/api/backend/mood-record'), ctx(['mood-record']))
     expect(await response.json()).toEqual({ error: 'Unauthorized', message: 'Unauthorized' })
   })
+  it('proxies unauthenticated contact POST via the same BFF without attaching bearer', async () => {
+    global.fetch = jest.fn().mockResolvedValue(new Response(null, { status: 201 })) as unknown as typeof fetch
+    const contact = await POST(
+      req('/api/backend/contact', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ name: 'Test', email: 'test@example.test', message: 'Hi', token: 'captcha' }),
+      }),
+      ctx(['contact'])
+    )
+    expect(contact.status).toBe(201)
+    expect(sessionMock).not.toHaveBeenCalled()
+    const [url, options] = (global.fetch as jest.Mock).mock.calls[0]
+    expect(url).toBe('https://backend.example/api/contact')
+    expect((options.headers as Headers).get('authorization')).toBeNull()
+
+    const blockedGet = await GET(req('/api/backend/contact'), ctx(['contact']))
+    expect(blockedGet.status).toBe(400)
+    const blockedCrossOrigin = await POST(
+      req('/api/backend/contact', {
+        method: 'POST',
+        headers: { origin: 'https://attacker.invalid' },
+        body: '{}',
+      }),
+      ctx(['contact'])
+    )
+    expect(blockedCrossOrigin.status).toBe(403)
+  })
+
 })

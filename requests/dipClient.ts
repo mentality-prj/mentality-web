@@ -1,3 +1,5 @@
+import { apiTransport } from '@/lib/api/transport'
+
 import type {
   DipApiKey,
   DipApiKeyCreated,
@@ -25,7 +27,7 @@ async function dipFetchWithKey<T>(path: string, key: string): Promise<T | null> 
   if (!url || !key) return null
 
   try {
-    const res = await fetch(`${url}${path}`, {
+    const res = await apiTransport(`${url}${path}`, {
       headers: { 'X-Api-Key': key, 'Content-Type': 'application/json' },
       cache: 'no-store',
     })
@@ -47,7 +49,7 @@ async function dipMutationWithKey<T>(
   }
 
   try {
-    const res = await fetch(`${url}${path}`, {
+    const res = await apiTransport(`${url}${path}`, {
       method: init.method,
       headers: { 'X-Api-Key': key, 'Content-Type': 'application/json' },
       body: JSON.stringify(init.body),

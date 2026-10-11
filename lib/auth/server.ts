@@ -1,3 +1,5 @@
+import { apiTransport } from '@/lib/api/transport'
+
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
@@ -154,7 +156,7 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 5_000)
   try {
-    const response = await fetch(`${APIUrl}/auth/validate-token`, {
+    const response = await apiTransport(`${APIUrl}/auth/validate-token`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

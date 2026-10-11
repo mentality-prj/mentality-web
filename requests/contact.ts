@@ -1,4 +1,4 @@
-import { APIUrl } from './config'
+import { apiTransport } from '@/lib/api/transport'
 
 export interface ContactFormPayload {
   name: string
@@ -8,7 +8,7 @@ export interface ContactFormPayload {
 }
 
 export async function sendContactForm(payload: ContactFormPayload) {
-  const res = await fetch(`${APIUrl}/contact`, {
+  const res = await apiTransport('/api/backend/contact', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
