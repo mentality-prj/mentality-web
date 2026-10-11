@@ -13,7 +13,10 @@ const config = {
     '^@/admin/(.*)$': '<rootDir>/app/[locale]/admin/components/$1',
     '^@/(.*)$': '<rootDir>/$1',
   },
-  transformIgnorePatterns: ['/node_modules/'],
+  // next-intl v4 and use-intl publish ESM; Jest must transpile these packages.
+  transformIgnorePatterns: [
+    '/node_modules/(?!(next-intl|use-intl|intl-messageformat|@formatjs)/)',
+  ],
 }
 
 export default createJestConfig(config)

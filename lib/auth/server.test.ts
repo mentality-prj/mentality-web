@@ -136,6 +136,9 @@ describe('server auth session helpers', () => {
     const firstSessionPromise = getServerSession()
     const secondSessionPromise = getServerSession()
 
+    // Await the asynchronous Next.js 16 cookies()/headers() boundary
+    // before asserting that the backend request was deduplicated.
+    await new Promise((resolve) => setTimeout(resolve, 0))
     expect(fetchMock).toHaveBeenCalledTimes(1)
 
     resolveResponse?.({
