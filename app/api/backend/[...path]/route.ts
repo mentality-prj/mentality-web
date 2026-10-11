@@ -12,7 +12,11 @@ type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
 type RouteContext = { params: Promise<{ path: string[] }> }
 
 function respond(body: unknown, status: number): NextResponse {
-  const response = NextResponse.json(body, { status })
+  const payload =
+    body && typeof body === 'object' && 'error' in body && !('message' in body)
+      ? { ...body, message: (body as { error: string }).error }
+      : body
+  const response = NextResponse.json(payload, { status })
   response.headers.set('Cache-Control', 'no-store')
   return response
 }
@@ -33,7 +37,7 @@ async function proxyBackendRequest(
   method: HttpMethod
 ): Promise<NextResponse> {
   const { path: pathSegments } = await context.params
-  const path = getValidatedBackendPath(pathSegments, request.nextUrl.search)
+  const path = getValidatedBackendPath(pathSegments, request.nextUrl.search, method)
   if (!path) return respond({ error: 'Invalid backend resource' }, 400)
   if (method !== 'GET' && !isAllowedMutation(request)) return respond({ error: 'Forbidden' }, 403)
 
@@ -42,10 +46,33 @@ async function proxyBackendRequest(
 
   let requestBody: ArrayBuffer | undefined
   if (method !== 'GET') {
-    const len = Number(request.headers.get('content-length'))
-    if (Number.isFinite(len) && len > MAX_BODY_BYTES) return respond({ error: 'Payload too large' }, 413)
-    requestBody = await request.arrayBuffer()
-    if (requestBody.byteLength > MAX_BODY_BYTES) return respond({ error: 'Payload too large' }, 413)
+    const contentLength = Number(request.headers.get('content-length'))
+    if (contentLength > MAX_BODY_BYTES) return respond({ error: 'Payload too large', message: 'Payload too large' }, 413)
+
+    // Never materialize an unbounded body before checking its size.
+    if (request.body) {
+      const reader = request.body.getReader()
+      const buffer = new Uint8Array(MAX_BODY_BYTES)
+      let size = 0
+      try {
+        while (true) {
+          const { value, done } = await reader.read()
+          if (done) break
+          if (value.byteLength > MAX_BODY_BYTES - size) {
+            await reader.cancel().catch(() => undefined)
+            return respond({ error: 'Payload too large', message: 'Payload too large' }, 413)
+          }
+          buffer.set(value, size)
+          size += value.byteLength
+        }
+        requestBody = buffer.buffer.slice(0, size)
+      } catch {
+        await reader.cancel().catch(() => undefined)
+        return respond({ error: 'Invalid request body', message: 'Invalid request body' }, 400)
+      } finally {
+        reader.releaseLock()
+      }
+    }
   }
 
   const baseUrl = APIUrl.trim().replace(/\/+$/, '')

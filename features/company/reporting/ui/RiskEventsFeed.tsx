@@ -5,7 +5,7 @@ import { useLocale } from 'next-intl'
 
 import { ConfidenceIndicator, ExplainabilityBlock } from '@/components/shared/reporting/ReportingPrimitives'
 import { REPORTING_PRESENTATION_POLICY } from '@/constants/reportingPresentation'
-import { getReportingCopy } from '@/helpers/reportingCopy'
+import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
 import { getRenderableFields } from '@/helpers/reportingVisibility'
 import { RiskEventActionKind, RiskEventDetailVM, RiskEventVM, ViewerRole } from '@/types/reporting'
 import { Button } from '@/ui/button'

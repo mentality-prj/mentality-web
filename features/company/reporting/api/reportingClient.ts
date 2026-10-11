@@ -1,5 +1,5 @@
-import { getReportingCopy } from '@/helpers/reportingCopy'
-import { createConfidenceBadgeVM, mapMlInspectionToVM } from '@/helpers/reportingMappers'
+import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
+import { createConfidenceBadgeVM, mapMlInspectionToVM } from '@/features/company/reporting/model/reportingMappers'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import {

@@ -1,9 +1,28 @@
 const SEGMENT_PATTERN = /^[A-Za-z0-9._~-]+$/
 
-export function getValidatedBackendPath(segments: string[], search: string): string | null {
+type HttpMethod = 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
+
+/**
+ * Only the end-user /auth/me data API is exposed. All IdP/token endpoints
+ * remain server-only. Reject encoded segments rather than trusting the router's
+ * decoding behavior (which varies between Next.js versions).
+ */
+export function getValidatedBackendPath(
+  segments: string[],
+  search: string,
+  method: HttpMethod = 'GET'
+): string | null {
   if (!Array.isArray(segments) || segments.length === 0 || segments.length > 32) return null
   if (segments.some((segment) => !SEGMENT_PATTERN.test(segment) || segment === '.' || segment === '..')) return null
-  // Identity-provider endpoints must never be available through this data proxy.
-  if (segments[0] === 'auth') return null
+
+  const first = segments[0].toLowerCase()
+  if (first === 'auth') {
+    const me = segments.length === 2 && segments[1] === 'me'
+    const preferences = segments.length === 3 && segments[1] === 'me' && segments[2] === 'analytics-preferences'
+    if (!(me && method === 'GET') && !(preferences && (method === 'GET' || method === 'PATCH'))) {
+      return null
+    }
+  }
+
   return `${segments.join('/')}${search}`
 }

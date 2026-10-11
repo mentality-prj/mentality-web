@@ -8,6 +8,7 @@ import simpleImportSort from 'eslint-plugin-simple-import-sort'
 export default defineConfig([
   ...nextVitals,
   ...nextTypescript,
+  security.configs.recommended,
   {
     files: ['**/*.{js,jsx,ts,tsx,mjs}'],
     plugins: {
@@ -30,6 +31,10 @@ export default defineConfig([
         },
       ],
       'simple-import-sort/exports': 'error',
+      'import/first': 'error',
+      'import/newline-after-import': 'error',
+      'import/no-duplicates': 'error',
+      'react/jsx-no-target-blank': ['error', { enforceDynamicLinks: 'always' }],
       '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_', varsIgnorePattern: '^_' }],
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-require-imports': 'off',
