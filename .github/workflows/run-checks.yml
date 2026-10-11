@@ -51,22 +51,58 @@ jobs:
               - '.prettierrc'
               - '.github/workflows/run-checks.yml'
 
+  migration-lockfile-sync:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'refactor/frontend-p0-p2-architecture'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Resolve updated dependency lock
+        env:
+          HUSKY: '0'
+        run: |
+          corepack enable
+          yarn install --ignore-scripts --non-interactive
+      - name: Commit generated lockfile
+        run: |
+          if git diff --quiet -- yarn.lock; then
+            echo 'Dependency lockfile is already synchronized.'
+            exit 0
+          fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add yarn.lock
+          git commit -m 'chore(deps): regenerate yarn lockfile for Next 16'
+          git push origin HEAD:refs/heads/refactor/frontend-p0-p2-architecture
+
   linters:
-    needs: check-file-changes
+    needs: [check-file-changes, migration-lockfile-sync]
     if: needs.check-file-changes.outputs.changed == 'true'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: yarn
       - name: Install dependencies
         env:
           HUSKY: '0'
         run: yarn install --frozen-lockfile
+      - name: Generate Next route types
+        run: yarn next typegen
       - name: TypeScript
         run: yarn types
+      - name: Next production build
+        run: yarn build
       - name: ESLint
         run: yarn lint
       - name: Prettier
