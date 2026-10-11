@@ -55,8 +55,41 @@ jobs:
               - '.prettierrc'
               - '.github/workflows/run-checks.yml'
 
+  unified-api-autofix:
+    if: github.event.pull_request.head.repo.full_name == github.repository && github.head_ref == 'refactor/unified-app-api'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ github.head_ref }}
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install dependencies
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Format only unified API patch
+        run: |
+          ./node_modules/.bin/eslint --fix scripts/api-boundary.test.mjs
+          ./node_modules/.bin/prettier --write scripts/api-boundary.test.mjs DOCS/unified-api.md             "app/api/backend/[...path]/route.ts" "app/api/backend/[...path]/route.test.ts"             lib/backend/path.ts requests/contact.ts requests/auth.ts requests/auth.test.ts             helpers/api-wrapper.ts helpers/api-wrapper.test.ts             hooks/useGroups.ts hooks/useInvites.ts             components/features/MyProgress/PersonalGoals/DeadlineCountdown.tsx
+      - name: Commit canonical formatting
+        env:
+          HUSKY: '0'
+        run: |
+          if git diff --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          git commit -m 'style(api): canonical lint and Prettier formatting'
+          git push origin HEAD:refs/heads/refactor/unified-app-api
+
   linters:
-    needs: check-file-changes
+    needs: [check-file-changes, unified-api-autofix]
     if: needs.check-file-changes.outputs.changed == 'true'
     runs-on: ubuntu-latest
     steps:
