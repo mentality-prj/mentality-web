@@ -13,7 +13,7 @@ export default async function CompanyDashboardPage({ params }: { params: Promise
     redirect(`/${locale}${Routes.ADMIN}`)
   }
 
-  const companyRole = session?.user?.companyRole
+  const companyRole = session?.user?.companyId ? session.user.companyRole : undefined
   if (companyRole === COMPANY_ROLES.SUPERUSER) {
     redirect(`/${locale}${Routes.COMPANY_ADMIN}`)
   }

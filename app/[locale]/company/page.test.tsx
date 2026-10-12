@@ -17,9 +17,7 @@ beforeEach(() => jest.clearAllMocks())
 async function expectOnlyRedirect(user: object | null, locale: string, destination: string) {
   ;(getServerSession as jest.Mock).mockResolvedValue(user ? { user } : null)
   const target = `/${locale}${destination}`
-  await expect(CompanyDashboardPage({ params: Promise.resolve({ locale }) })).rejects.toThrow(
-    `NEXT_REDIRECT:${target}`
-  )
+  await expect(CompanyDashboardPage({ params: Promise.resolve({ locale }) })).rejects.toThrow(`NEXT_REDIRECT:${target}`)
   expect(redirect).toHaveBeenCalledTimes(1)
   expect(redirect).toHaveBeenCalledWith(target)
 }

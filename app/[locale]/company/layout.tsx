@@ -27,7 +27,7 @@ export default async function CompanyLayout({
   }
 
   const companyRole = session.user.companyRole
-  if (!companyRole || !ALLOWED_ROLES.includes(companyRole)) {
+  if (!session.user.companyId || !companyRole || !ALLOWED_ROLES.includes(companyRole)) {
     redirect(`/${locale}`)
   }
 

@@ -8,7 +8,10 @@ export default async function CompanyAdminPage({ params }: { params: Promise<{ l
   const { locale } = await params
   const session = await getServerSession()
 
-  if (session?.user?.companyRole !== COMPANY_ROLES.SUPERUSER) {
+  if (session?.user?.role === 'admin') {
+    redirect(`/${locale}${Routes.ADMIN}`)
+  }
+  if (!session?.user?.companyId || session.user.companyRole !== COMPANY_ROLES.SUPERUSER) {
     redirect(`/${locale}${Routes.COMPANY}`)
   }
 

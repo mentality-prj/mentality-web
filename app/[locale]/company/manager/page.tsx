@@ -8,7 +8,10 @@ export default async function ManagerPage({ params }: { params: Promise<{ locale
   const { locale } = await params
   const session = await getServerSession()
 
-  if (session?.user?.companyRole !== COMPANY_ROLES.MANAGER) {
+  if (session?.user?.role === 'admin') {
+    redirect(`/${locale}${Routes.ADMIN}`)
+  }
+  if (!session?.user?.companyId || session.user.companyRole !== COMPANY_ROLES.MANAGER) {
     redirect(`/${locale}${Routes.COMPANY}`)
   }
 
