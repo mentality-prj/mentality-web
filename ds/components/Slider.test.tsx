@@ -31,15 +31,7 @@ describe('mood slider responsive orientation', () => {
   it('retains vertical scale semantics and disabled protection', () => {
     const onChange = jest.fn()
     render(
-      <Slider
-        aria-label="Stress level"
-        min={1}
-        max={5}
-        value={2}
-        orientation="vertical"
-        disabled
-        onChange={onChange}
-      />
+      <Slider aria-label="Stress level" min={1} max={5} value={2} orientation="vertical" disabled onChange={onChange} />
     )
     const slider = screen.getByRole('slider', { name: 'Stress level' })
     expect(slider).toHaveAttribute('aria-orientation', 'vertical')
