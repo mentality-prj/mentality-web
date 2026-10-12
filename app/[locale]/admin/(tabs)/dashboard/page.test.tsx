@@ -58,7 +58,9 @@ describe('Admin dashboard page', () => {
     expect(researchSection).not.toBeNull()
     expect(toolsSection).not.toBeNull()
 
-    expect(within(companySection as HTMLElement).getByText('Створення та управління компаніями на платформі')).toBeInTheDocument()
+    expect(
+      within(companySection as HTMLElement).getByText('Створення та управління компаніями на платформі')
+    ).toBeInTheDocument()
     expect(within(companySection as HTMLElement).queryByText('Суперюзер')).not.toBeInTheDocument()
     expect(within(companySection as HTMLElement).queryByText('Менеджер')).not.toBeInTheDocument()
     expect(within(researchSection as HTMLElement).getByText('Research Workspace')).toBeInTheDocument()
