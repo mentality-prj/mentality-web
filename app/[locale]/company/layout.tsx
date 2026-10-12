@@ -20,9 +20,8 @@ export default async function CompanyLayout({
     redirect(`/${locale}/auth`)
   }
 
-  const isSystemAdmin = session.user.role === 'admin'
   const companyRole = session.user.companyRole
-  if (!isSystemAdmin && (!companyRole || !ALLOWED_ROLES.includes(companyRole))) {
+  if (!companyRole || !ALLOWED_ROLES.includes(companyRole)) {
     redirect(`/${locale}`)
   }
 
