@@ -44,7 +44,8 @@ export class ZitadelAuthProvider implements IAuthProvider {
     const params = new URLSearchParams({
       response_type: 'code',
       client_id: zitadelConfig.clientId,
-      redirect_uri: zitadelConfig.redirectUri,
+      // Browser and server must use the same exact origin, including preview deployments.
+      redirect_uri: new URL('/callback', window.location.origin).toString(),
       scope: zitadelConfig.scopes.join(' '),
       code_challenge: codeChallenge,
       code_challenge_method: 'S256',
