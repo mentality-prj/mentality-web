@@ -156,7 +156,7 @@ export async function createOrganizationKeyAction(formData: FormData): Promise<n
   }
 
   const safeLocale = normalizeLocale(locale)
-  const cookieStore = cookies()
+  const cookieStore = await cookies()
   cookieStore.set(DIP_NEW_KEY_FLASH_COOKIE, result.data.key, {
     httpOnly: true,
     secure: process.env.NODE_ENV === 'production',

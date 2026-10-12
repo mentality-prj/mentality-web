@@ -4,7 +4,7 @@ import { createContext, ReactNode, useCallback, useContext, useEffect, useMemo, 
 
 import { authService } from '@/lib/auth'
 import { logger } from '@/lib/logger'
-import { AuthStatus, AuthTokens, CustomSession, CustomUser, SessionError } from '@/types/auth'
+import { AuthStatus, BrowserAuthSession, CustomSession, CustomUser, SessionError } from '@/types/auth'
 
 interface AuthContextValue {
   user: CustomUser | null
@@ -20,7 +20,7 @@ const AuthContext = createContext<AuthContextValue | null>(null)
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<CustomUser | null>(null)
-  const [tokens, setTokens] = useState<AuthTokens | null>(null)
+  const [tokens, setTokens] = useState<BrowserAuthSession | null>(null)
   const [status, setStatus] = useState<AuthStatus>('loading')
   const [error, setError] = useState<SessionError | null>(null)
 
@@ -78,7 +78,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   // Silent refresh: refresh token before it expires
   useEffect(() => {
-    if (!tokens?.expiresAt || !(tokens?.refreshToken || tokens?.hasRefreshToken)) return
+    if (!tokens?.expiresAt || !tokens?.hasRefreshToken) return
 
     const expiresInMs = (tokens.expiresAt - Math.floor(Date.now() / 1000) - 60) * 1000
     if (expiresInMs <= 0) return
@@ -97,7 +97,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }, expiresInMs)
 
     return () => clearTimeout(timer)
-  }, [tokens?.expiresAt, tokens?.refreshToken, tokens?.hasRefreshToken])
+  }, [tokens?.expiresAt, tokens?.hasRefreshToken])
 
   const login = useCallback(async () => {
     await authService.login()
@@ -112,18 +112,18 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [])
 
   const getToken = useCallback(async () => {
-    return authService.getToken()
+    // Legacy API retained for existing hook consumers, but JWTs stay server-side.
+    return null
   }, [])
 
   const session = useMemo<CustomSession | null>(() => {
     if (!user) return null
     return {
       user,
-      OAuthToken: tokens?.accessToken,
       provider: authService.name,
       error: error ?? undefined,
     }
-  }, [user, tokens?.accessToken, error])
+  }, [user, error])
 
   const value = useMemo<AuthContextValue>(
     () => ({

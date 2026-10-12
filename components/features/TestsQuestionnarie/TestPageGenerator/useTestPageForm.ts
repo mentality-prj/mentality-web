@@ -115,7 +115,7 @@ export interface UseTestPageFormReturn {
   result: TestSubmissionResult | null
   isCooldown: boolean
   error: string | null
-  resultRef: React.RefObject<HTMLDivElement>
+  resultRef: React.RefObject<HTMLDivElement | null>
   handleReset: () => void
   submitAnswers: (finalAnswers: TestAnswers) => Promise<void>
 }

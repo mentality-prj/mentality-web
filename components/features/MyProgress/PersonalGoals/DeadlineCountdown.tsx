@@ -56,14 +56,14 @@ export const DeadlineCountdown = ({ initialGoals, href }: DeadlineCountdownProps
   // Fetch goals if not pre-loaded
   useEffect(() => {
     if (initialGoals) return
-    const fetch = async () => {
+    const loadGoals = async () => {
       const res = await fetchPersonalGoals(session)
       if ('error' in res) return
       const fetched = res.data ?? []
       goalsRef.current = fetched
       setUrgentGoal(findUrgentGoal(fetched))
     }
-    void fetch()
+    void loadGoals()
   }, [session, initialGoals])
 
   // Recheck urgent goal every minute from loaded goals

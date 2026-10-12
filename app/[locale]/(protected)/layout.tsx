@@ -26,7 +26,7 @@ export default async function ProtectedLayout({
   const { locale } = await params
   const session = await requireServerSession(`/${locale}${Routes.AUTH}`)
 
-  const pathname = headers().get('x-pathname') || ''
+  const pathname = (await headers()).get('x-pathname') || ''
   const localizedResearchPrefix = `/${locale}${Routes.RESEARCH}`
 
   if (matchesDetachedPrefix(pathname, localizedResearchPrefix)) {

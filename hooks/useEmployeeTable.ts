@@ -2,11 +2,11 @@
 
 import { useCallback, useEffect, useRef, useState } from 'react'
 import toast from 'react-hot-toast'
-import { useAuth } from '@/context/AuthProvider'
 import { useTranslations } from 'next-intl'
 
 import { COMPANY_PAGE_SIZE } from '@/constants/company'
 import { useAdminCompany } from '@/context/adminCompanyContext'
+import { useAuth } from '@/context/AuthProvider'
 import { getMyCompany } from '@/requests/companies'
 import {
   getEmployees,

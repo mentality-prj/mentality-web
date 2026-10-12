@@ -1,6 +1,6 @@
 import { logger } from '@/lib/logger'
-import { addUserTag, getUserTags } from '@/requests/userTags'
 import { performAuthRequest } from '@/requests/genericFetch'
+import { addUserTag, getUserTags } from '@/requests/userTags'
 import type { CustomSession } from '@/types/auth'
 
 jest.mock('@/requests/genericFetch', () => ({
