@@ -15,14 +15,13 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const issuer = (process.env.NEXT_PUBLIC_ZITADEL_ISSUER ?? '').trim()
   const clientId = (process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID ?? '').trim()
-  const baseUrl = (process.env.NEXT_PUBLIC_BASE_URL ?? '').trim()
 
   let issuerUrl: URL
   let redirectUrl: URL
   try {
     issuerUrl = new URL(issuer)
-    redirectUrl = new URL(baseUrl)
-    if (issuerUrl.protocol !== 'https:' || redirectUrl.origin !== request.nextUrl.origin || !clientId) {
+    redirectUrl = new URL(request.nextUrl.origin)
+    if (issuerUrl.protocol !== 'https:' || !clientId) {
       return reject(500)
     }
   } catch {

@@ -88,7 +88,7 @@ export async function POST(request: NextRequest) {
   const ZITADEL_ISSUER = process.env.NEXT_PUBLIC_ZITADEL_ISSUER
   const CLIENT_ID = process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID ?? process.env.ZITADEL_CLIENT_ID
   const CLIENT_SECRET = process.env.ZITADEL_CLIENT_SECRET
-  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}/callback`
+  const REDIRECT_URI = new URL('/callback', request.nextUrl.origin).toString()
 
   if (!ZITADEL_ISSUER || !CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI.startsWith('http')) {
     return jsonNoStore({ error: 'Server misconfiguration: missing Zitadel environment variables' }, { status: 500 })

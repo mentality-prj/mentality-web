@@ -29,6 +29,14 @@ describe('server-owned Zitadel logout', () => {
     expect((await POST(request('https://attacker.invalid'))).status).toBe(403)
   })
 
+  it('logs out through the current preview origin rather than a hardcoded deployment', async () => {
+    process.env.NEXT_PUBLIC_BASE_URL = 'https://www.dzvin.co'
+    const response = await POST(request('https://dzvin.example'))
+    expect(response.status).toBe(303)
+    const destination = new URL(response.headers.get('location') as string)
+    expect(destination.searchParams.get('post_logout_redirect_uri')).toBe('https://dzvin.example')
+  })
+
   it('clears the session and redirects to trusted Zitadel without exposing JWT in JSON', async () => {
     const value = encodeURIComponent(
       JSON.stringify({
