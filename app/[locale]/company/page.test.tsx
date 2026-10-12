@@ -60,11 +60,7 @@ describe('Company dashboard role routing', () => {
   })
 
   it('does not elevate ordinary company employees', async () => {
-    await expectOnlyRedirect(
-      { role: 'user', companyId: 'company-1', companyRole: COMPANY_ROLES.EMPLOYEE },
-      'en',
-      ''
-    )
+    await expectOnlyRedirect({ role: 'user', companyId: 'company-1', companyRole: COMPANY_ROLES.EMPLOYEE }, 'en', '')
   })
 
   it('does not elevate authenticated users without a company membership', async () => {

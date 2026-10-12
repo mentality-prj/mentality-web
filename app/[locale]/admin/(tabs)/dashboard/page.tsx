@@ -6,9 +6,7 @@ import { useTranslations } from 'next-intl'
 import { DashboardItem } from '@/components/admin/DashboardItem'
 import { Routes } from '@/constants/routes'
 
-const companyLinks = [
-  { href: Routes.COMPANY_GLOBAL_ADMIN, icon: Building2, key: 'companies' },
-] as const
+const companyLinks = [{ href: Routes.COMPANY_GLOBAL_ADMIN, icon: Building2, key: 'companies' }] as const
 
 const researchLinks = [
   { href: Routes.RESEARCH, icon: FlaskConical, key: 'researchWorkspace' },
