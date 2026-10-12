@@ -1,5 +1,6 @@
-import { DiagnosticsWorkspace } from '@/components/features/Admin/Research/DiagnosticsWorkspace'
+import { redirect } from 'next/navigation'
 
-export default function AdminResearchDiagnosticsPage() {
-  return <DiagnosticsWorkspace />
+export default async function AdminResearchDiagnosticsPage({ params }: { params: Promise<{ locale: string }> }) {
+  const { locale } = await params
+  redirect(`/${locale}/admin/dip/research`)
 }

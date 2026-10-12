@@ -14,7 +14,7 @@ const companyLinks = [
 
 const researchLinks = [
   { href: Routes.RESEARCH, icon: FlaskConical, key: 'researchWorkspace' },
-  { href: Routes.ADMIN_R_AND_D_DIAGNOSTICS, icon: BrainCircuit, key: 'diagnostics' },
+  { href: Routes.ADMIN_DIP, icon: BrainCircuit, key: 'dipWorkspace' },
 ] as const
 
 const toolLinks = [

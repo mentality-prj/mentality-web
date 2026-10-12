@@ -1,4 +1,4 @@
-import { AuthTokens, CustomSession, CustomUser } from '@/types/auth'
+import { BrowserAuthSession, CustomSession, CustomUser } from '@/types/auth'
 
 /**
  * AuthProvider interface — implement this to add a new auth provider.
@@ -16,10 +16,10 @@ export interface IAuthProvider {
   login(): Promise<void>
 
   /** Handle the OAuth callback — exchange code for tokens, validate with backend */
-  handleCallback(code: string, state: string): Promise<{ user: CustomUser; tokens: AuthTokens } | null>
+  handleCallback(code: string, state: string): Promise<{ user: CustomUser; tokens: BrowserAuthSession } | null>
 
   /** Refresh the access token */
-  refreshTokens(): Promise<AuthTokens | null>
+  refreshTokens(): Promise<BrowserAuthSession | null>
 
   /** Logout — clear tokens and redirect to provider's logout endpoint */
   logout(): Promise<void>
@@ -27,7 +27,7 @@ export interface IAuthProvider {
   /** Get user info from stored tokens + backend validation */
   getUser(): Promise<CustomUser | null>
 
-  /** Get a valid access token (auto-refreshing if needed) */
+  /** @deprecated Browser tokens are intentionally unavailable. Use BFF data requests. */
   getToken(): Promise<string | null>
 
   /** Build a CustomSession from stored auth state */
@@ -35,7 +35,7 @@ export interface IAuthProvider {
 
   // ─── Token storage (delegated to cookie API routes) ───────────────
   /** Read stored tokens from httpOnly cookie */
-  getStoredTokens(): Promise<AuthTokens | null>
+  getStoredTokens(): Promise<BrowserAuthSession | null>
 
   /** Clear stored tokens */
   clearTokens(): Promise<void>

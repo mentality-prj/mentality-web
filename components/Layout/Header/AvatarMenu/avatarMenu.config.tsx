@@ -1,37 +1,55 @@
+import type { ReactNode } from 'react'
+
 import LogOutButton from '@/components/shared/Buttons/LogOutButton'
 import { Routes } from '@/constants/routes'
+import { COMPANY_ROLES } from '@/types/rbac'
+
+type LinkMenuItem = {
+  key: 'profile' | 'settings' | 'admin'
+  label: string
+  href: string
+  className: string
+  show: boolean
+}
+
+type LogoutMenuItem = {
+  key: 'logout'
+  label: null
+  show: boolean
+  element: ReactNode
+}
+
+export type AvatarMenuItem = LinkMenuItem | LogoutMenuItem
 
 export const getMenuItems = (
-  locale: string,
   role: string,
-  t: (key: string) => string,
-  router: ReturnType<typeof import('next/navigation').useRouter>
-) => [
+  companyRole: string | undefined,
+  t: (key: string) => string
+): AvatarMenuItem[] => [
   {
     key: 'profile',
     label: t('profile'),
-    onClick: () => router.push(`/${locale}${Routes.PROFILE}`),
+    href: Routes.PROFILE,
     className: 'dropdown-menu-item',
     show: true,
   },
   {
     key: 'settings',
     label: t('settings'),
-    onClick: () => router.push(`/${locale}${Routes.SETTINGS}`),
+    href: Routes.SETTINGS,
     className: 'dropdown-menu-item',
-    show: true,
+    show: role === 'admin' || companyRole === COMPANY_ROLES.MANAGER,
   },
   {
     key: 'admin',
     label: t('admin'),
-    onClick: () => router.push(`/${locale}${Routes.ADMIN}`),
+    href: Routes.ADMIN,
     className: 'dropdown-menu-item',
     show: role === 'admin',
   },
   {
     key: 'logout',
     label: null,
-    asChild: true,
     element: <LogOutButton />,
     show: true,
   },

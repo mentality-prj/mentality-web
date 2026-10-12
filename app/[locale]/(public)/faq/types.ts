@@ -27,7 +27,7 @@ export type FAQPageMessages = {
   }
 }
 
-export type OpenQuestionIndexes = Record<FAQSectionId, number | null>
+export type OpenQuestionIndexes = Record<FAQSectionId, number[]>
 
 export type FAQSectionAppearance = {
   icon: LucideIcon
