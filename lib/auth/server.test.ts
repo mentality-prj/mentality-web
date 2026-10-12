@@ -69,6 +69,8 @@ describe('server auth session helpers', () => {
         email: 'backend@example.com',
         avatarUrl: 'https://example.com/avatar.png',
         role: 'user',
+        companyId: 'company-1',
+        companyRole: 'manager',
       }),
     })
 
@@ -84,6 +86,8 @@ describe('server auth session helpers', () => {
         email: 'backend@example.com',
         image: 'https://example.com/avatar.png',
         role: 'user',
+        companyId: 'company-1',
+        companyRole: 'manager',
         isAIAuthorized: true,
       },
     })
