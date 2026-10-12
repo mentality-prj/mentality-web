@@ -17,17 +17,15 @@ export default async function CompanyDashboardPage({ params }: { params: Promise
   const session = await getServerSession()
   const role = session?.user?.companyRole
 
-  if (session?.user?.role !== 'admin') {
-    if (role === COMPANY_ROLES.SUPERUSER) {
-      redirect(`/${locale}${Routes.COMPANY_ADMIN}`)
-    }
-
-    if (role === COMPANY_ROLES.MANAGER) {
-      redirect(`/${locale}${Routes.COMPANY_MANAGER}`)
-    }
-
-    redirect(`/${locale}`)
+  if (role === COMPANY_ROLES.SUPERUSER) {
+    redirect(`/${locale}${Routes.COMPANY_ADMIN}`)
   }
+
+  if (role === COMPANY_ROLES.MANAGER) {
+    redirect(`/${locale}${Routes.COMPANY_MANAGER}`)
+  }
+
+  redirect(`/${locale}`)
 
   const t = await getTranslations('pages.Company.dashboard')
 
