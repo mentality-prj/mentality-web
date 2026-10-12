@@ -25,7 +25,7 @@ function getTypeBg(type: StatusType) {
     case Statuses.success:
       return 'bg-success'
     default:
-      return 'bg-default'
+      return 'bg-background'
   }
 }
 

@@ -18,8 +18,8 @@ export async function TenDaysSummary({
   records?: MoodRecordEntity[]
 }) {
   return (
-    <SectionCard className="max-w-fit pt-0">
-      <div className="flex flex-col items-center justify-center gap-md">
+    <SectionCard className="p-4 md:p-6">
+      <div className="flex flex-col items-center justify-center gap-sm">
         <BestDay summaries={lastRecordsSummary} records={records} />
         <LastTenDaysMoodRecords summaries={lastRecordsSummary} />
         <MoodMarks data={moodMarksData} />
