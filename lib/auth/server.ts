@@ -178,6 +178,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
       email: backendUser.email,
       image: backendUser.avatarUrl,
       role: backendUser.role,
+      companyId: backendUser.companyId,
+      companyRole: backendUser.companyRole,
       isAIAuthorized: true,
     }
 
