@@ -40,6 +40,7 @@ export default async function SelectCompanyPage({ params }: { params: Promise<{ 
   if (!session?.user || !session.OAuthToken) redirect('/' + locale + '/auth')
   if (session.user.role === 'admin') redirect('/' + locale + Routes.ADMIN)
 
+  const activeCompanyId = session.user.companyId
   let companies: CompanyOption[] = []
   let unavailable = false
   try {
@@ -77,7 +78,7 @@ export default async function SelectCompanyPage({ params }: { params: Promise<{ 
             className="flex w-full items-center justify-between rounded-lg border p-4 text-left hover:bg-background-alt"
           >
             <span className="font-semibold">{company.name}</span>
-            {company.id === session.user.companyId ? <span className="text-sm">{copy.current}</span> : null}
+            {company.id === activeCompanyId ? <span className="text-sm">{copy.current}</span> : null}
           </button>
         </form>
       ))}
