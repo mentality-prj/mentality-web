@@ -2,6 +2,7 @@
 import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
 
+import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
 import { DELETE, GET, POST } from './route'
@@ -42,7 +43,17 @@ describe('token-opaque browser session endpoint', () => {
 
   it('returns 401 when no session exists', async () => {
     mockCookie()
-    expect((await GET()).status).toBe(401)
+    const result = await GET()
+    expect(result.status).toBe(401)
+    expect(result.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
+  })
+
+  it('clears the previous company selection for an invalid token cookie', async () => {
+    mockCookie('invalid-json')
+    const response = await GET()
+    expect(response.status).toBe(401)
+    expect(response.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBe('')
   })
 
   it('rejects arbitrary client attempts to write JWT cookies', async () => {
@@ -56,5 +67,6 @@ describe('token-opaque browser session endpoint', () => {
     const response = await DELETE(req('https://dzvin.example'))
     expect(response.status).toBe(200)
     expect(response.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBe('')
+    expect(response.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
   })
 })

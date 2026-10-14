@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 
@@ -227,7 +228,10 @@ export async function POST(request: NextRequest) {
       expiresAt: cookieTokens.expiresAt,
       hasRefreshToken: Boolean(cookieTokens.refreshToken),
     }
-    return setAuthCookie(jsonNoStore(safeData), serialized)
+    const response = setAuthCookie(jsonNoStore(safeData), serialized)
+    // A new login must not inherit the previous account's selected tenant.
+    response.cookies.delete(ACTIVE_COMPANY_COOKIE)
+    return response
   } catch (error) {
     return jsonNoStore(
       { error: 'Internal error', message: error instanceof Error ? error.message : String(error) },
