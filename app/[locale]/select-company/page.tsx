@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 
 import { Routes } from '@/constants/routes'
-import { getServerSession } from '@/lib/auth/server'
 import { isValidCompanyId } from '@/lib/auth/companyContext'
+import { getServerSession } from '@/lib/auth/server'
 import { APIUrl } from '@/requests/config'
 import type { SupportedLanguage } from '@/types/languages'
 

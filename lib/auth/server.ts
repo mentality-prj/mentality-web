@@ -1,8 +1,8 @@
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
-import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { ACTIVE_COMPANY_COOKIE, isValidCompanyId } from '@/lib/auth/companyContext'
+import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'

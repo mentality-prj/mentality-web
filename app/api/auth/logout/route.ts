@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
+import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
 
 function reject(status: number): NextResponse {
