@@ -93,6 +93,35 @@ describe('server auth session helpers', () => {
     })
   })
 
+  it('uses an HttpOnly selected company hint in backend verification and separates cache keys', async () => {
+    const tokens = setTokenCookie()
+    const firstCompanyId = 'aaaaaaaaaaaaaaaaaaaaaaaa'
+    const secondCompanyId = 'bbbbbbbbbbbbbbbbbbbbbbbb'
+    let selectedCompanyId = firstCompanyId
+    mockedCookies.mockReturnValue({
+      get: (name: string) => ({
+        value: name === 'dzvin-active-company' ? selectedCompanyId : JSON.stringify(tokens),
+      }),
+    })
+    mockedHeaders.mockReturnValue(new Headers({ 'x-request-id': 'same-request' }))
+    fetchMock.mockResolvedValue({
+      ok: true,
+      json: async () => ({
+        _id: 'backend-user', name: 'User', email: 'u@example.test',
+        companyId: selectedCompanyId, companyRole: 'manager',
+      }),
+    })
+
+    const { getServerSession } = await import('./server')
+    await getServerSession()
+    expect(fetchMock.mock.calls[0][1].headers['x-company-id']).toBe(firstCompanyId)
+
+    selectedCompanyId = secondCompanyId
+    await getServerSession()
+    expect(fetchMock.mock.calls[1][1].headers['x-company-id']).toBe(secondCompanyId)
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+  })
+
   it('falls back to token-derived session when validation fetch fails', async () => {
     process.env.ALLOW_UNVERIFIED_JWT_SESSION_FALLBACK = 'true'
     const tokens = setTokenCookie()

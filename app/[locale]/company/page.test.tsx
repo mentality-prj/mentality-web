@@ -64,10 +64,10 @@ describe('Company dashboard role routing', () => {
   })
 
   it('does not elevate authenticated users without a company membership', async () => {
-    await expectOnlyRedirect({ role: 'user' }, 'uk', '')
+    await expectOnlyRedirect({ role: 'user' }, 'uk', '/select-company')
   })
 
   it('redirects anonymous visitors without starting company routing', async () => {
-    await expectOnlyRedirect(null, 'pl', '')
+    await expectOnlyRedirect(null, 'pl', '/auth')
   })
 })

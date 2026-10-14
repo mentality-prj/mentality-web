@@ -51,7 +51,7 @@ describe('company layout access boundary', () => {
   })
 
   it('denies users without a company membership', async () => {
-    await expectLayoutRedirect({ role: 'user' }, '')
+    await expectLayoutRedirect({ role: 'user' }, '/select-company')
   })
 
   it('allows company managers with their verified company role', async () => {
