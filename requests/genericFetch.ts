@@ -66,7 +66,6 @@ export async function performAdminRequest<T = unknown>(
   return performAuthRequest<T>(session, url, options)
 }
 
-
 /**
  * Company administration is distinct from platform administration.
  * The company and the superuser role must both come from the backend-verified session;

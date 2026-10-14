@@ -42,7 +42,10 @@ describe('performCompanyAdminRequest', () => {
     ['other company', { ...verifiedSession, user: { ...verifiedSession.user, companyId: 'other-tenant' } }],
     ['manager', { ...verifiedSession, user: { ...verifiedSession.user, companyRole: COMPANY_ROLES.MANAGER } }],
     ['employee', { ...verifiedSession, user: { ...verifiedSession.user, companyRole: COMPANY_ROLES.EMPLOYEE } }],
-    ['platform admin with company role', { ...verifiedSession, user: { ...verifiedSession.user, role: 'admin' as const } }],
+    [
+      'platform admin with company role',
+      { ...verifiedSession, user: { ...verifiedSession.user, role: 'admin' as const } },
+    ],
   ])('denies %s before the API transport', async (_label, session) => {
     await expect(performCompanyAdminRequest(session as CustomSession | null, companyId, url)).resolves.toEqual({
       error: 'Unauthorized: company administrator role required',

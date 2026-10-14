@@ -141,7 +141,7 @@ export async function getInvitesAdmin(
   limit = 20
 ): Promise<{ data: PaginatedInvites } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.invites(companyId, page, limit)}`
-  const res = await performCompanyAdminRequest<unknown>(session, companyId,  url)
+  const res = await performCompanyAdminRequest<unknown>(session, companyId, url)
   if ('error' in res) {
     logger.error('Admin: failed to fetch invites', { error: res.error, companyId })
     return { error: res.error }
@@ -163,7 +163,8 @@ export async function createInviteAdmin(
   }
 
   const res = await performCompanyAdminRequest<InviteEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteBase(companyId)}`,
     { method: 'POST', body: toBackendInvitePayload(dto) }
   )
@@ -183,7 +184,8 @@ export async function resendInviteAdmin(
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
   const res = await performCompanyAdminRequest<InviteEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteResend(companyId, id)}`,
     { method: 'POST' }
   )
@@ -203,7 +205,8 @@ export async function cancelInviteAdmin(
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
   const res = await performCompanyAdminRequest<InviteEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteById(companyId, id)}`,
     { method: 'DELETE' }
   )

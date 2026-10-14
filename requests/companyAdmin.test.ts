@@ -229,7 +229,9 @@ describe('adminAssignRole', () => {
   const dto: AssignRoleDto = { companyRole: COMPANY_ROLES.MANAGER, groupIds: [GROUP_ID] }
 
   it('returns updated employee on success', async () => {
-    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { ...mockEmployee, role: COMPANY_ROLES.MANAGER } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({
+      data: { ...mockEmployee, role: COMPANY_ROLES.MANAGER },
+    })
 
     const result = await adminAssignRole(mockCompanyAdminSession, COMPANY_ID, EMP_ID, dto)
 
@@ -456,7 +458,11 @@ describe('adminGetInvites', () => {
 // ─── adminCreateInvite ────────────────────────────────────────────────────────
 
 describe('adminCreateInvite', () => {
-  const dto: CreateInviteDto = { email: 'new@company.com', role: COMPANY_ROLES.EMPLOYEE, groupIds: [GROUP_ID] }
+  const dto: CreateInviteDto = {
+    email: 'new@company.com',
+    role: COMPANY_ROLES.EMPLOYEE,
+    groupIds: [GROUP_ID],
+  }
   const expectedBackendInvitePayload = {
     inviteeEmail: 'new@company.com',
     role: COMPANY_ROLES.EMPLOYEE,

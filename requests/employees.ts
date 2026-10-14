@@ -116,7 +116,7 @@ export async function getEmployeesAdmin(
   limit = 20
 ): Promise<{ data: PaginatedEmployees } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employees(companyId, page, limit)}`
-  const res = await performCompanyAdminRequest<EmployeeEntity[]>(session, companyId,  url)
+  const res = await performCompanyAdminRequest<EmployeeEntity[]>(session, companyId, url)
   if ('error' in res) {
     logger.error('Admin: failed to fetch employees', { error: res.error, companyId })
     return { error: res.error }
@@ -132,7 +132,7 @@ export async function getEmployeesByRoleAdmin(
   role: CompanyRole
 ): Promise<{ data: EmployeeEntity[] } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeesByRole(companyId, role)}`
-  const res = await performCompanyAdminRequest<EmployeeEntity[]>(session, companyId,  url)
+  const res = await performCompanyAdminRequest<EmployeeEntity[]>(session, companyId, url)
   if ('error' in res) {
     logger.error('Admin: failed to fetch employees by role', { error: res.error, companyId, role })
     return { error: res.error }
@@ -146,7 +146,8 @@ export async function removeEmployeeAdmin(
   id: string
 ): Promise<{ data: EmployeeEntity } | { error: string }> {
   const res = await performCompanyAdminRequest<EmployeeEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeeById(companyId, id)}`,
     { method: 'DELETE' }
   )
@@ -167,7 +168,8 @@ export async function updateEmployeeAdmin(
   dto: UpdateEmployeeDto
 ): Promise<{ data: EmployeeEntity } | { error: string }> {
   const res = await performCompanyAdminRequest<EmployeeEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeeById(companyId, id)}`,
     { method: 'PATCH', body: dto as unknown as Record<string, unknown> }
   )

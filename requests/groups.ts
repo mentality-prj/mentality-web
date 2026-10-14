@@ -120,7 +120,11 @@ export async function getGroupsAdmin(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: GroupEntity[] } | { error: string }> {
-  const res = await performCompanyAdminRequest<GroupEntity[]>(session, companyId,  `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`)
+  const res = await performCompanyAdminRequest<GroupEntity[]>(
+    session,
+    companyId,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`
+  )
   if ('error' in res) {
     logger.error('Admin: failed to fetch groups', { error: res.error, companyId })
     return { error: res.error }
@@ -133,10 +137,15 @@ export async function createGroupAdmin(
   companyId: string,
   dto: CreateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
-  const res = await performCompanyAdminRequest<GroupEntity>(session, companyId,  `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`, {
-    method: 'POST',
-    body: dto as unknown as Record<string, unknown>,
-  })
+  const res = await performCompanyAdminRequest<GroupEntity>(
+    session,
+    companyId,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`,
+    {
+      method: 'POST',
+      body: dto as unknown as Record<string, unknown>,
+    }
+  )
   if ('error' in res) {
     logger.error('Admin: failed to create group', { error: res.error, companyId })
     return { error: res.error }
@@ -154,7 +163,8 @@ export async function updateGroupAdmin(
   dto: UpdateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
   const res = await performCompanyAdminRequest<GroupEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groupById(companyId, id)}`,
     { method: 'PATCH', body: dto as unknown as Record<string, unknown> }
   )
@@ -174,7 +184,8 @@ export async function deleteGroupAdmin(
   id: string
 ): Promise<{ data: GroupEntity } | { error: string }> {
   const res = await performCompanyAdminRequest<GroupEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groupById(companyId, id)}`,
     { method: 'DELETE' }
   )

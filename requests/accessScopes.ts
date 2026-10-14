@@ -97,7 +97,8 @@ export async function getAccessScopesAdmin(
   companyId: string
 ): Promise<{ data: AccessScopeEntity[] } | { error: string }> {
   const res = await performCompanyAdminRequest<AccessScopeEntity[]>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`
   )
   if ('error' in res) {
@@ -113,7 +114,8 @@ export async function createAccessScopeAdmin(
   dto: CreateAccessScopeDto
 ): Promise<{ data: AccessScopeEntity } | { error: string }> {
   const res = await performCompanyAdminRequest<AccessScopeEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`,
     { method: 'POST', body: dto as unknown as Record<string, unknown> }
   )
@@ -136,7 +138,8 @@ export async function deleteAccessScopeAdmin(
   id: string
 ): Promise<Record<string, never> | { error: string }> {
   const res = await performCompanyAdminRequest<AccessScopeEntity>(
-    session, companyId, 
+    session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopeById(companyId, id)}`,
     { method: 'DELETE' }
   )

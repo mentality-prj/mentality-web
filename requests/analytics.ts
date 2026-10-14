@@ -71,7 +71,7 @@ export async function getMoodAnalyticsAdmin(
   if (params.groupIds?.length) searchParams.set('groupIds', params.groupIds.join(','))
 
   const url = `${APIUrl}/companies/${companyId}/analytics/mood?${searchParams}`
-  const res = await performCompanyAdminRequest<AnalyticsResponse>(session, companyId,  url)
+  const res = await performCompanyAdminRequest<AnalyticsResponse>(session, companyId, url)
 
   if ('error' in res) {
     logger.error('Admin: failed to fetch mood analytics', { error: res.error, companyId })
