@@ -132,17 +132,16 @@ describe('server auth session helpers', () => {
         value: name === 'dzvin-active-company' ? 'aaaaaaaaaaaaaaaaaaaaaaaa' : JSON.stringify(tokens),
       }),
     })
-    fetchMock
-      .mockResolvedValueOnce({ ok: false, status: 403 })
-      .mockResolvedValueOnce({
-        ok: true,
-        json: async () => ({
-          _id: 'backend-user',
-          name: 'User',
-          email: 'u@example.test',
-          role: 'user',
-        }),
-      })
+    fetchMock.mockResolvedValueOnce({ ok: false, status: 403 })
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({
+        _id: 'backend-user',
+        name: 'User',
+        email: 'u@example.test',
+        role: 'user',
+      }),
+    })
 
     const { getServerSession } = await import('./server')
     const session = await getServerSession()
