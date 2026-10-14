@@ -10,7 +10,7 @@ import {
   updateEmployee,
   updateEmployeeAdmin,
 } from '@/requests/employees'
-import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { performCompanyAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { EmployeeEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -65,7 +65,14 @@ const mockEmployeeSession: CustomSession = {
 }
 
 const mockAdminSession: CustomSession = {
-  user: { id: 'sysadmin-1', name: 'System Admin', email: 'sysadmin@mentality.app', role: 'admin' as const },
+  user: {
+    id: 'company-superuser-1',
+    name: 'Company Administrator',
+    email: 'owner@company.test',
+    role: 'user' as const,
+    companyId: 'c-1',
+    companyRole: COMPANY_ROLES.SUPERUSER,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
@@ -229,8 +236,8 @@ describe('removeEmployee', () => {
 // ─── Admin-scoped variants ────────────────────────────────────────────────────
 
 describe('getEmployeesAdmin', () => {
-  it('calls performAdminRequest with company-scoped employees URL', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeRaw] })
+  it('calls performCompanyAdminRequest with company-scoped employees URL', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeRaw] })
 
     const result = await getEmployeesAdmin(mockAdminSession, 'c-1', 2, 10)
 
@@ -239,15 +246,16 @@ describe('getEmployeesAdmin', () => {
       expect(result.data.items).toHaveLength(1)
       expect(result.data.items[0].id).toBe('emp-1')
     }
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employees('c-1', 2, 10))
     )
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('returns empty items for empty array', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
 
     const result = await getEmployeesAdmin(mockAdminSession, 'c-1')
 
@@ -258,8 +266,8 @@ describe('getEmployeesAdmin', () => {
     }
   })
 
-  it('propagates error from performAdminRequest', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+  it('propagates error from performCompanyAdminRequest', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
     const result = await getEmployeesAdmin(mockAdminSession, 'c-1')
 
@@ -269,22 +277,23 @@ describe('getEmployeesAdmin', () => {
 })
 
 describe('getEmployeesByRoleAdmin', () => {
-  it('calls performAdminRequest with company-scoped byRole URL', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeRaw] })
+  it('calls performCompanyAdminRequest with company-scoped byRole URL', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeRaw] })
 
     const result = await getEmployeesByRoleAdmin(mockAdminSession, 'c-1', COMPANY_ROLES.EMPLOYEE)
 
     expect('data' in result).toBe(true)
     if ('data' in result) expect(result.data).toHaveLength(1)
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employeesByRole('c-1', COMPANY_ROLES.EMPLOYEE))
     )
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('returns empty array when API returns empty', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
 
     const result = await getEmployeesByRoleAdmin(mockAdminSession, 'c-1', COMPANY_ROLES.MANAGER)
 
@@ -292,8 +301,8 @@ describe('getEmployeesByRoleAdmin', () => {
     if ('data' in result) expect(result.data).toHaveLength(0)
   })
 
-  it('propagates error from performAdminRequest', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
+  it('propagates error from performCompanyAdminRequest', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
 
     const result = await getEmployeesByRoleAdmin(mockAdminSession, 'c-1', COMPANY_ROLES.EMPLOYEE)
 
@@ -303,14 +312,15 @@ describe('getEmployeesByRoleAdmin', () => {
 })
 
 describe('removeEmployeeAdmin', () => {
-  it('calls performAdminRequest with DELETE and company-scoped employee URL', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockEmployeeRaw })
+  it('calls performCompanyAdminRequest with DELETE and company-scoped employee URL', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockEmployeeRaw })
 
     const result = await removeEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1')
 
     expect(result).toEqual({ data: mockEmployeeRaw })
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employeeById('c-1', 'emp-1')),
       expect.objectContaining({ method: 'DELETE' })
     )
@@ -318,15 +328,15 @@ describe('removeEmployeeAdmin', () => {
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
     const result = await removeEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1')
 
     expect(result).toEqual({ error: 'Invalid employee data' })
   })
 
-  it('propagates error from performAdminRequest', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+  it('propagates error from performCompanyAdminRequest', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
     const result = await removeEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1')
 
@@ -404,7 +414,7 @@ describe('updateEmployee', () => {
 
 describe('updateEmployeeAdmin', () => {
   it('returns updated employee on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockEmployeeRaw })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockEmployeeRaw })
 
     const result = await updateEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1', {
       role: COMPANY_ROLES.MANAGER,
@@ -412,8 +422,9 @@ describe('updateEmployeeAdmin', () => {
     })
 
     expect(result).toEqual({ data: mockEmployeeRaw })
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employeeById('c-1', 'emp-1')),
       expect.objectContaining({ method: 'PATCH' })
     )
@@ -421,7 +432,7 @@ describe('updateEmployeeAdmin', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
 
     const result = await updateEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1', {
       role: COMPANY_ROLES.EMPLOYEE,
@@ -433,7 +444,7 @@ describe('updateEmployeeAdmin', () => {
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
     const result = await updateEmployeeAdmin(mockAdminSession, 'c-1', 'emp-1', {
       role: COMPANY_ROLES.EMPLOYEE,

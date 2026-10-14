@@ -6,7 +6,7 @@ import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
 import { CAN_ASSIGN_MANAGERS } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performAdminRequest, performAuthRequest } from './genericFetch'
+import { performCompanyAdminRequest, performAuthRequest } from './genericFetch'
 
 function assertCanAssign(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole
@@ -96,8 +96,8 @@ export async function getAccessScopesAdmin(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: AccessScopeEntity[] } | { error: string }> {
-  const res = await performAdminRequest<AccessScopeEntity[]>(
-    session,
+  const res = await performCompanyAdminRequest<AccessScopeEntity[]>(
+    session, companyId, 
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`
   )
   if ('error' in res) {
@@ -112,8 +112,8 @@ export async function createAccessScopeAdmin(
   companyId: string,
   dto: CreateAccessScopeDto
 ): Promise<{ data: AccessScopeEntity } | { error: string }> {
-  const res = await performAdminRequest<AccessScopeEntity>(
-    session,
+  const res = await performCompanyAdminRequest<AccessScopeEntity>(
+    session, companyId, 
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`,
     { method: 'POST', body: dto as unknown as Record<string, unknown> }
   )
@@ -135,8 +135,8 @@ export async function deleteAccessScopeAdmin(
   companyId: string,
   id: string
 ): Promise<Record<string, never> | { error: string }> {
-  const res = await performAdminRequest<AccessScopeEntity>(
-    session,
+  const res = await performCompanyAdminRequest<AccessScopeEntity>(
+    session, companyId, 
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopeById(companyId, id)}`,
     { method: 'DELETE' }
   )

@@ -6,7 +6,7 @@ import { CreateGroupDto, GroupEntity, UpdateGroupDto } from '@/types/company'
 import { CAN_MANAGE_GROUPS } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performAdminRequest, performAuthRequest } from './genericFetch'
+import { performCompanyAdminRequest, performAuthRequest } from './genericFetch'
 
 function assertCanManageGroups(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole
@@ -120,7 +120,7 @@ export async function getGroupsAdmin(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: GroupEntity[] } | { error: string }> {
-  const res = await performAdminRequest<GroupEntity[]>(session, `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`)
+  const res = await performCompanyAdminRequest<GroupEntity[]>(session, companyId,  `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`)
   if ('error' in res) {
     logger.error('Admin: failed to fetch groups', { error: res.error, companyId })
     return { error: res.error }
@@ -133,7 +133,7 @@ export async function createGroupAdmin(
   companyId: string,
   dto: CreateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
-  const res = await performAdminRequest<GroupEntity>(session, `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`, {
+  const res = await performCompanyAdminRequest<GroupEntity>(session, companyId,  `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`, {
     method: 'POST',
     body: dto as unknown as Record<string, unknown>,
   })
@@ -153,8 +153,8 @@ export async function updateGroupAdmin(
   id: string,
   dto: UpdateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
-  const res = await performAdminRequest<GroupEntity>(
-    session,
+  const res = await performCompanyAdminRequest<GroupEntity>(
+    session, companyId, 
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groupById(companyId, id)}`,
     { method: 'PATCH', body: dto as unknown as Record<string, unknown> }
   )
@@ -173,8 +173,8 @@ export async function deleteGroupAdmin(
   companyId: string,
   id: string
 ): Promise<{ data: GroupEntity } | { error: string }> {
-  const res = await performAdminRequest<GroupEntity>(
-    session,
+  const res = await performCompanyAdminRequest<GroupEntity>(
+    session, companyId, 
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groupById(companyId, id)}`,
     { method: 'DELETE' }
   )
