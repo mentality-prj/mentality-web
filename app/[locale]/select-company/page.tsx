@@ -2,8 +2,8 @@ import { redirect } from 'next/navigation'
 
 import { Routes } from '@/constants/routes'
 import { isValidCompanyId } from '@/lib/auth/companyContext'
+import { requestUserCompanies } from '@/lib/auth/companyBackend.server'
 import { getServerSession } from '@/lib/auth/server'
-import { APIUrl } from '@/requests/config'
 import type { SupportedLanguage } from '@/types/languages'
 
 type CompanyOption = { id: string; name: string }
@@ -44,11 +44,7 @@ export default async function SelectCompanyPage({ params }: { params: Promise<{ 
   let companies: CompanyOption[] = []
   let unavailable = false
   try {
-    const response = await fetch(APIUrl + '/companies/mine', {
-      headers: { Authorization: 'Bearer ' + session.OAuthToken },
-      cache: 'no-store',
-      signal: AbortSignal.timeout(5000),
-    })
+    const response = await requestUserCompanies(session.OAuthToken)
     if (!response.ok) throw new Error('Company list unavailable')
     const payload: unknown = await response.json()
     if (!Array.isArray(payload)) throw new Error('Invalid company list')

@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { ACTIVE_COMPANY_COOKIE, isValidCompanyId } from '@/lib/auth/companyContext'
+import { requestCompanyRole } from '@/lib/auth/companyBackend.server'
 import { getServerSession } from '@/lib/auth/server'
-import { APIUrl } from '@/requests/config'
 
 const supportedLocales = ['uk', 'en', 'pl']
 
@@ -41,16 +41,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   let checked: { _id?: string; companyId?: string; companyRole?: string; role?: string }
   try {
-    const response = await fetch(APIUrl + '/auth/validate-token', {
-      method: 'POST',
-      headers: {
-        Authorization: 'Bearer ' + session.OAuthToken,
-        'x-company-id': companyId,
-        'Content-Type': 'application/json',
-      },
-      cache: 'no-store',
-      signal: AbortSignal.timeout(5000),
-    })
+    const response = await requestCompanyRole(session.OAuthToken, companyId)
     if (!response.ok) return reject([401, 403].includes(response.status) ? response.status : 503)
     checked = await response.json()
   } catch {
