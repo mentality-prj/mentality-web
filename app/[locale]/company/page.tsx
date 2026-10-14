@@ -22,5 +22,9 @@ export default async function CompanyDashboardPage({ params }: { params: Promise
     redirect(`/${locale}${Routes.COMPANY_MANAGER}`)
   }
 
+  if (!session?.user?.companyId || !session.user.companyRole) {
+    redirect(`/${locale}/select-company`)
+  }
+
   redirect(`/${locale}`)
 }
