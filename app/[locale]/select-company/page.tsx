@@ -1,8 +1,8 @@
 import { redirect } from 'next/navigation'
 
 import { Routes } from '@/constants/routes'
-import { isValidCompanyId } from '@/lib/auth/companyContext'
 import { requestUserCompanies } from '@/lib/auth/companyBackend.server'
+import { isValidCompanyId } from '@/lib/auth/companyContext'
 import { getServerSession } from '@/lib/auth/server'
 import type { SupportedLanguage } from '@/types/languages'
 

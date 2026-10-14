@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { ACTIVE_COMPANY_COOKIE, isValidCompanyId } from '@/lib/auth/companyContext'
 import { requestCompanyRole } from '@/lib/auth/companyBackend.server'
+import { ACTIVE_COMPANY_COOKIE, isValidCompanyId } from '@/lib/auth/companyContext'
 import { getServerSession } from '@/lib/auth/server'
 
 const supportedLocales = ['uk', 'en', 'pl']
