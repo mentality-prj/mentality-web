@@ -36,13 +36,11 @@ describe('company selection page', () => {
         companyRole: 'manager',
       },
     })
-    global.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: async () => [
-        company('aaaaaaaaaaaaaaaaaaaaaaaa', 'Company A'),
-        company('bbbbbbbbbbbbbbbbbbbbbbbb', 'Company B'),
-      ],
-    }) as unknown as typeof fetch
+    const memberships = [
+      company('aaaaaaaaaaaaaaaaaaaaaaaa', 'Company A'),
+      company('bbbbbbbbbbbbbbbbbbbbbbbb', 'Company B'),
+    ]
+    global.fetch = jest.fn().mockResolvedValue({ ok: true, json: async () => memberships }) as unknown as typeof fetch
   })
 
   it('shows multiple memberships with only one marked as selected', async () => {

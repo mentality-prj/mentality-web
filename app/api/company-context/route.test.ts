@@ -28,15 +28,13 @@ describe('company context selection', () => {
       user: { id: 'user-1', name: 'User', email: 'u@test.example', role: 'user' },
       OAuthToken: 'private-bearer',
     })
-    global.fetch = jest.fn().mockResolvedValue({
-      ok: true,
-      json: async () => ({
-        _id: 'user-1',
-        role: 'user',
-        companyId,
-        companyRole: 'manager',
-      }),
-    }) as unknown as typeof fetch
+    const verified = {
+      _id: 'user-1',
+      role: 'user',
+      companyId,
+      companyRole: 'manager',
+    }
+    global.fetch = jest.fn().mockResolvedValue({ ok: true, json: async () => verified }) as unknown as typeof fetch
   })
 
   it('sets a HttpOnly cookie only for a backend-verified company role', async () => {
@@ -66,7 +64,8 @@ describe('company context selection', () => {
 
   it('rejects a mismatch between requested and verified company identities', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValue({
-      ok: true, json: async () => ({
+      ok: true,
+      json: async () => ({
         _id: 'user-1',
         role: 'user',
         companyId: 'bbbbbbbbbbbbbbbbbbbbbbbb',
