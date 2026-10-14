@@ -21,7 +21,7 @@ async function render(locale = 'en') {
   return renderToStaticMarkup(node)
 }
 
-function respondWithCompanies(options: typeof firstCompany[]) {
+function respondWithCompanies(options: Array<{ id: string; name: string }>) {
   ;(global.fetch as jest.Mock).mockResolvedValueOnce({
     ok: true,
     json: async () => options,
