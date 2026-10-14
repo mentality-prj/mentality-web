@@ -1,6 +1,7 @@
 import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
+import { COMPANY_ROLES } from '@/types/rbac'
 import { Roles } from '@/types/security'
 
 type Result<T> = { data?: T; headers?: Headers } | { error: string; status?: number }
@@ -60,6 +61,36 @@ export async function performAdminRequest<T = unknown>(
   if (!session?.user || session.user.role !== Roles.ADMIN) {
     logger.warn('Unauthorized admin attempt', { userId: session?.user?.email, role: session?.user?.role, url })
     return { error: 'Unauthorized: Admin role required' }
+  }
+
+  return performAuthRequest<T>(session, url, options)
+}
+
+
+/**
+ * Company administration is distinct from platform administration.
+ * The company and the superuser role must both come from the backend-verified session;
+ * callers may not authorize a different tenant by supplying an arbitrary companyId.
+ * The NestJS guards still verify every request against live memberships.
+ */
+export async function performCompanyAdminRequest<T = unknown>(
+  session: CustomSession | null,
+  companyId: string,
+  url: string,
+  options?: { method?: string; body?: Record<string, unknown> | FormData }
+): Promise<Result<T>> {
+  if (
+    !session?.user ||
+    session.user.role === Roles.ADMIN ||
+    !companyId ||
+    session.user.companyId !== companyId ||
+    session.user.companyRole !== COMPANY_ROLES.SUPERUSER
+  ) {
+    logger.warn('Unauthorized company administration attempt', {
+      userId: session?.user?.id,
+      companyId,
+    })
+    return { error: 'Unauthorized: company administrator role required' }
   }
 
   return performAuthRequest<T>(session, url, options)
