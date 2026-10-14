@@ -1,3 +1,4 @@
+/** @jest-environment node */
 import { renderToStaticMarkup } from 'react-dom/server'
 import { redirect } from 'next/navigation'
 
