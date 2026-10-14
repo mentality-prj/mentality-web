@@ -1,8 +1,8 @@
 'use client'
 
-import { useLocale } from 'next-intl'
-import Link from 'next/link'
 import { useState } from 'react'
+import Link from 'next/link'
+import { useLocale } from 'next-intl'
 
 import { AvatarMenu, LocalDate, SearchBar } from '@/components/Layout/Header'
 import LangSwitch from '@/components/Layout/Header/LangSwitch'
