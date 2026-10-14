@@ -10,7 +10,7 @@ import {
   updateEmployee,
   updateEmployeeAdmin,
 } from '@/requests/employees'
-import { performCompanyAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { EmployeeEntity } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'

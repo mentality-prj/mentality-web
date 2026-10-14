@@ -5,7 +5,7 @@ import {
   getMoodAnalyticsAdmin,
   updateAnalyticsPreferences,
 } from '@/requests/analytics'
-import { performCompanyAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { AnalyticsPreferences, AnalyticsResponse, RiskDistribution } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'

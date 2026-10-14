@@ -8,7 +8,7 @@ import {
   getAccessScopes,
   getAccessScopesAdmin,
 } from '@/requests/accessScopes'
-import { performCompanyAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'

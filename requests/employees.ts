@@ -7,7 +7,7 @@ import { EmployeeEntity, PaginatedEmployees, UpdateEmployeeDto } from '@/types/c
 import { CAN_MANAGE_EMPLOYEES, CompanyRole } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performCompanyAdminRequest, performAuthRequest } from './genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from './genericFetch'
 
 function assertCanManageEmployees(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole

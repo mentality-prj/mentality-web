@@ -3,7 +3,7 @@ import { CustomSession } from '@/types/auth'
 import { AnalyticsPreferences, AnalyticsResponse, UpdateAnalyticsPreferencesDto } from '@/types/company'
 
 import { APIUrl } from './config'
-import { performCompanyAdminRequest, performAuthRequest } from './genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from './genericFetch'
 
 export type MoodAnalyticsParams = {
   from: string

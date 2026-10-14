@@ -6,7 +6,7 @@ import { CreateInviteDto, InviteEntity, PaginatedInvites } from '@/types/company
 import { CAN_INVITE_EMPLOYEES } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performCompanyAdminRequest, performAuthRequest } from './genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from './genericFetch'
 import { extractInviteArray, extractInviteTotal } from './inviteResponse.helpers'
 
 function toBackendInvitePayload(dto: CreateInviteDto): Record<string, unknown> {

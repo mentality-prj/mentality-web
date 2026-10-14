@@ -6,7 +6,7 @@ import { AccessScopeEntity, CreateAccessScopeDto } from '@/types/company'
 import { CAN_ASSIGN_MANAGERS } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performCompanyAdminRequest, performAuthRequest } from './genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from './genericFetch'
 
 function assertCanAssign(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole

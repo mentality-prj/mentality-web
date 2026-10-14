@@ -6,7 +6,7 @@ import { CreateGroupDto, GroupEntity, UpdateGroupDto } from '@/types/company'
 import { CAN_MANAGE_GROUPS } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performCompanyAdminRequest, performAuthRequest } from './genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from './genericFetch'
 
 function assertCanManageGroups(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole

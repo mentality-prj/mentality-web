@@ -1,6 +1,6 @@
 import { COMPANY_ADMIN_ENDPOINTS, INVITE_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
-import { performCompanyAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from '@/requests/genericFetch'
 import {
   cancelInvite,
   cancelInviteAdmin,
