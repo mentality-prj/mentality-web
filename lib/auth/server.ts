@@ -158,16 +158,24 @@ async function resolveServerSession(
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 5_000)
   try {
-    const response = await fetch(`${APIUrl}/auth/validate-token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokens.accessToken}`,
-        ...(selectedCompanyId ? { 'x-company-id': selectedCompanyId } : {}),
-      },
-      cache: 'no-store',
-      signal: controller.signal,
-    })
+    const validate = (companyId: string | null) =>
+      fetch(`${APIUrl}/auth/validate-token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tokens.accessToken}`,
+          ...(companyId ? { 'x-company-id': companyId } : {}),
+        },
+        cache: 'no-store',
+        signal: controller.signal,
+      })
+
+    let response = await validate(selectedCompanyId)
+    // A stale company selection must not strand a still-authenticated user.
+    // Only context-specific denials fall back; invalid tokens remain denied.
+    if (selectedCompanyId && [403, 404, 409].includes(response.status)) {
+      response = await validate(null)
+    }
 
     if (!response.ok) {
       logger.warn('[SERVER_SESSION] Backend validation failed', { status: response.status })

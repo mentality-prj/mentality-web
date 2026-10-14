@@ -125,6 +125,33 @@ describe('server auth session helpers', () => {
     expect(fetchMock).toHaveBeenCalledTimes(2)
   })
 
+  it('preserves the base login when an expired company context is rejected', async () => {
+    const tokens = setTokenCookie()
+    mockedCookies.mockReturnValue({
+      get: (name: string) => ({
+        value: name === 'dzvin-active-company' ? 'aaaaaaaaaaaaaaaaaaaaaaaa' : JSON.stringify(tokens),
+      }),
+    })
+    fetchMock
+      .mockResolvedValueOnce({ ok: false, status: 403 })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: async () => ({
+          _id: 'backend-user',
+          name: 'User',
+          email: 'u@example.test',
+          role: 'user',
+        }),
+      })
+
+    const { getServerSession } = await import('./server')
+    const session = await getServerSession()
+    expect(session?.user?.id).toBe('backend-user')
+    expect(session?.user?.companyId).toBeUndefined()
+    expect(fetchMock).toHaveBeenCalledTimes(2)
+    expect(fetchMock.mock.calls[1][1].headers['x-company-id']).toBeUndefined()
+  })
+
   it('falls back to token-derived session when validation fetch fails', async () => {
     process.env.ALLOW_UNVERIFIED_JWT_SESSION_FALLBACK = 'true'
     const tokens = setTokenCookie()

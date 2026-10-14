@@ -51,7 +51,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
       cache: 'no-store',
       signal: AbortSignal.timeout(5000),
     })
-    if (!response.ok) return reject(response.status === 401 ? 401 : 503)
+    if (!response.ok) return reject([401, 403].includes(response.status) ? response.status : 503)
     checked = await response.json()
   } catch {
     return reject(503)
