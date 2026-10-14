@@ -40,7 +40,10 @@ export async function getCompanies(
 export async function getMyCompany(
   session: CustomSession | null
 ): Promise<{ data: CompanyEntity } | { error: string }> {
-  const res = await performAuthRequest<CompanyEntity>(session, `${APIUrl}${B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my}`)
+  const selectedCompanyId = session?.user?.companyId
+  const url = `${APIUrl}${B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my}` +
+    (selectedCompanyId ? `?companyId=${encodeURIComponent(selectedCompanyId)}` : '')
+  const res = await performAuthRequest<CompanyEntity>(session, url)
 
   if ('error' in res) {
     logger.error('Failed to fetch my company', { error: res.error })

@@ -2,6 +2,7 @@ import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { ACTIVE_COMPANY_COOKIE, isValidCompanyId } from '@/lib/auth/companyContext'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
@@ -126,8 +127,8 @@ const requestScopedResolvedSessions = new Map<
 const REQUEST_SCOPED_CACHE_TTL_MS = 30_000
 const REQUEST_SCOPED_CACHE_MAX_ENTRIES = 256
 
-function buildRequestScopedCacheKey(requestId: string, accessToken: string): string {
-  return `${requestId}:${accessToken}`
+function buildRequestScopedCacheKey(requestId: string, accessToken: string, companyId: string | null): string {
+  return `${requestId}:${accessToken}:${companyId ?? ''}`
 }
 
 function cleanupRequestScopedResolvedSessions(now: number): void {
@@ -147,7 +148,7 @@ function cleanupRequestScopedResolvedSessions(now: number): void {
   }
 }
 
-async function resolveServerSession(tokenCookie: string): Promise<CustomSession | null> {
+async function resolveServerSession(tokenCookie: string, selectedCompanyId: string | null): Promise<CustomSession | null> {
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
 
@@ -159,6 +160,7 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
       headers: {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${tokens.accessToken}`,
+        ...(selectedCompanyId ? { 'x-company-id': selectedCompanyId } : {}),
       },
       cache: 'no-store',
       signal: controller.signal,
@@ -214,6 +216,8 @@ export async function getServerSession(): Promise<CustomSession | null> {
   const cookieStore = await cookies()
   const headerStore = await headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
+  const requestedCompanyId = cookieStore.get(ACTIVE_COMPANY_COOKIE)?.value
+  const selectedCompanyId = isValidCompanyId(requestedCompanyId) ? requestedCompanyId : null
 
   if (!tokenCookie) return null
 
@@ -222,7 +226,7 @@ export async function getServerSession(): Promise<CustomSession | null> {
 
   const requestId = headerStore.get('x-request-id')
   if (requestId) {
-    const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken)
+    const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken, selectedCompanyId)
     const now = Date.now()
     cleanupRequestScopedResolvedSessions(now)
 
@@ -236,7 +240,7 @@ export async function getServerSession(): Promise<CustomSession | null> {
       return existingRequestScopedInFlight
     }
 
-    const requestScopedPromise = resolveServerSession(tokenCookie)
+    const requestScopedPromise = resolveServerSession(tokenCookie, selectedCompanyId)
     requestScopedInFlightSessionRequests.set(requestScopedCacheKey, requestScopedPromise)
 
     try {
@@ -253,14 +257,14 @@ export async function getServerSession(): Promise<CustomSession | null> {
       }
     }
   }
-  const dedupeKey = tokens.accessToken
+  const dedupeKey = `${tokens.accessToken}:${selectedCompanyId ?? ''}`
 
   const existingRequest = inFlightSessionRequests.get(dedupeKey)
   if (existingRequest) {
     return existingRequest
   }
 
-  const requestPromise = resolveServerSession(tokenCookie)
+  const requestPromise = resolveServerSession(tokenCookie, selectedCompanyId)
   inFlightSessionRequests.set(dedupeKey, requestPromise)
 
   try {
