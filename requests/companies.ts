@@ -41,8 +41,9 @@ export async function getMyCompany(
   session: CustomSession | null
 ): Promise<{ data: CompanyEntity } | { error: string }> {
   const selectedCompanyId = session?.user?.companyId
-  const url = `${APIUrl}${B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my}` +
-    (selectedCompanyId ? `?companyId=${encodeURIComponent(selectedCompanyId)}` : '')
+  const url = selectedCompanyId
+    ? `${APIUrl}${B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my}?companyId=${encodeURIComponent(selectedCompanyId)}`
+    : `${APIUrl}${B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my}`
   const res = await performAuthRequest<CompanyEntity>(session, url)
 
   if ('error' in res) {

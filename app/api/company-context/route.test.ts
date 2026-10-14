@@ -31,7 +31,10 @@ describe('company context selection', () => {
     global.fetch = jest.fn().mockResolvedValue({
       ok: true,
       json: async () => ({
-        _id: 'user-1', role: 'user', companyId, companyRole: 'manager',
+        _id: 'user-1',
+        role: 'user',
+        companyId,
+        companyRole: 'manager',
       }),
     }) as unknown as typeof fetch
   })
@@ -42,7 +45,7 @@ describe('company context selection', () => {
     expect(response.headers.get('location')).toBe('https://dzvin.test/uk/company')
     expect(response.headers.get('cache-control')).toBe('no-store')
     expect(response.cookies.get('dzvin-active-company')?.value).toBe(companyId)
-    expect(response.headers.get('set-cookie')).toContain('httponly')
+    expect(response.headers.get('set-cookie')?.toLowerCase()).toContain('httponly')
     expect(global.fetch).toHaveBeenCalledWith(
       expect.stringContaining('/auth/validate-token'),
       expect.objectContaining({
@@ -53,7 +56,8 @@ describe('company context selection', () => {
 
   it('does not select a company for an unverified or revoked membership', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValue({
-      ok: true, json: async () => ({ _id: 'user-1', role: 'user' }),
+      ok: true,
+      json: async () => ({ _id: 'user-1', role: 'user' }),
     })
     const response = await POST(request())
     expect(response.status).toBe(403)
@@ -63,7 +67,10 @@ describe('company context selection', () => {
   it('rejects a mismatch between requested and verified company identities', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValue({
       ok: true, json: async () => ({
-        _id: 'user-1', role: 'user', companyId: 'bbbbbbbbbbbbbbbbbbbbbbbb', companyRole: 'superuser',
+        _id: 'user-1',
+        role: 'user',
+        companyId: 'bbbbbbbbbbbbbbbbbbbbbbbb',
+        companyRole: 'superuser',
       }),
     })
     expect((await POST(request())).status).toBe(403)

@@ -148,7 +148,10 @@ function cleanupRequestScopedResolvedSessions(now: number): void {
   }
 }
 
-async function resolveServerSession(tokenCookie: string, selectedCompanyId: string | null): Promise<CustomSession | null> {
+async function resolveServerSession(
+  tokenCookie: string,
+  selectedCompanyId: string | null
+): Promise<CustomSession | null> {
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
 

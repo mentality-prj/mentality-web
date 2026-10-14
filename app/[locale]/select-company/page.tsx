@@ -54,8 +54,10 @@ export default async function SelectCompanyPage({ params }: { params: Promise<{ 
     if (!Array.isArray(payload)) throw new Error('Invalid company list')
     companies = payload.filter(
       (item): item is CompanyOption =>
-        typeof item === 'object' && item !== null &&
-        typeof item.id === 'string' && isValidCompanyId(item.id) &&
+        typeof item === 'object' &&
+        item !== null &&
+        typeof item.id === 'string' &&
+        isValidCompanyId(item.id) &&
         typeof item.name === 'string'
     )
   } catch {
@@ -68,20 +70,21 @@ export default async function SelectCompanyPage({ params }: { params: Promise<{ 
       <p>{copy.description}</p>
       {unavailable ? <p role="alert">{copy.error}</p> : null}
       {!unavailable && companies.length === 0 ? <p>{copy.empty}</p> : null}
-      {!unavailable && companies.map((company) => (
-        <form key={company.id} action="/api/company-context" method="post">
-          <input type="hidden" name="locale" value={locale} />
-          <button
-            type="submit"
-            name="companyId"
-            value={company.id}
-            className="flex w-full items-center justify-between rounded-lg border p-4 text-left hover:bg-background-alt"
-          >
-            <span className="font-semibold">{company.name}</span>
-            {company.id === activeCompanyId ? <span className="text-sm">{copy.current}</span> : null}
-          </button>
-        </form>
-      ))}
+      {!unavailable &&
+        companies.map((company) => (
+          <form key={company.id} action="/api/company-context" method="post">
+            <input type="hidden" name="locale" value={locale} />
+            <button
+              type="submit"
+              name="companyId"
+              value={company.id}
+              className="flex w-full items-center justify-between rounded-lg border p-4 text-left hover:bg-background-alt"
+            >
+              <span className="font-semibold">{company.name}</span>
+              {company.id === activeCompanyId ? <span className="text-sm">{copy.current}</span> : null}
+            </button>
+          </form>
+        ))}
     </main>
   )
 }

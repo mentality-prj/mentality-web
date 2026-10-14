@@ -26,8 +26,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const companyId = data.get('companyId')
   const locale = data.get('locale')
-  if (typeof companyId !== 'string' || !isValidCompanyId(companyId) ||
-      typeof locale !== 'string' || !supportedLocales.includes(locale)) return reject(400)
+  if (
+    typeof companyId !== 'string' ||
+    !isValidCompanyId(companyId) ||
+    typeof locale !== 'string' ||
+    !supportedLocales.includes(locale)
+  ) {
+    return reject(400)
+  }
 
   const session = await getServerSession()
   if (!session?.user?.id || !session.OAuthToken) return reject(401)
@@ -52,10 +58,14 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
   }
 
   // Treat the selection as an untrusted hint until the backend returns its own role.
-  if (String(checked._id ?? '') !== session.user.id ||
-      checked.companyId !== companyId ||
-      !['superuser', 'manager', 'employee'].includes(checked.companyRole ?? '') ||
-      checked.role === 'admin') return reject(403)
+  if (
+    String(checked._id ?? '') !== session.user.id ||
+    checked.companyId !== companyId ||
+    !['superuser', 'manager', 'employee'].includes(checked.companyRole ?? '') ||
+    checked.role === 'admin'
+  ) {
+    return reject(403)
+  }
 
   const result = NextResponse.redirect(new URL('/' + locale + '/company', request.nextUrl.origin), { status: 303 })
   result.cookies.set(ACTIVE_COMPANY_COOKIE, companyId, {

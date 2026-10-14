@@ -28,12 +28,17 @@ describe('company selection page', () => {
     getSession.mockResolvedValue({
       OAuthToken: 'server-only-token',
       user: {
-        id: 'user-1', name: 'User', email: 'user@example.test',
-        role: 'user', companyId: 'aaaaaaaaaaaaaaaaaaaaaaaa', companyRole: 'manager',
+        id: 'user-1',
+        name: 'User',
+        email: 'user@example.test',
+        role: 'user',
+        companyId: 'aaaaaaaaaaaaaaaaaaaaaaaa',
+        companyRole: 'manager',
       },
     })
     global.fetch = jest.fn().mockResolvedValue({
-      ok: true, json: async () => [
+      ok: true,
+      json: async () => [
         company('aaaaaaaaaaaaaaaaaaaaaaaa', 'Company A'),
         company('bbbbbbbbbbbbbbbbbbbbbbbb', 'Company B'),
       ],
@@ -58,7 +63,8 @@ describe('company selection page', () => {
 
   it('supports one company, no companies and lost membership', async () => {
     ;(global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true, json: async () => [company('aaaaaaaaaaaaaaaaaaaaaaaa', 'Company A')],
+      ok: true,
+      json: async () => [company('aaaaaaaaaaaaaaaaaaaaaaaa', 'Company A')],
     })
     expect((await render()).match(/name="companyId"/g)).toHaveLength(1)
 
@@ -66,7 +72,8 @@ describe('company selection page', () => {
     expect(await render()).toContain('No companies are available')
 
     ;(global.fetch as jest.Mock).mockResolvedValueOnce({
-      ok: true, json: async () => [company('bbbbbbbbbbbbbbbbbbbbbbbb', 'Company B')],
+      ok: true,
+      json: async () => [company('bbbbbbbbbbbbbbbbbbbbbbbb', 'Company B')],
     })
     const html = await render()
     expect(html).toContain('Company B')

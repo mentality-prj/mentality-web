@@ -107,8 +107,11 @@ describe('server auth session helpers', () => {
     fetchMock.mockResolvedValue({
       ok: true,
       json: async () => ({
-        _id: 'backend-user', name: 'User', email: 'u@example.test',
-        companyId: selectedCompanyId, companyRole: 'manager',
+        _id: 'backend-user',
+        name: 'User',
+        email: 'u@example.test',
+        companyId: selectedCompanyId,
+        companyRole: 'manager',
       }),
     })
 
