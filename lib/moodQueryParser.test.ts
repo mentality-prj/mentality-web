@@ -61,6 +61,11 @@ describe('mood history query filters', () => {
     expect(query.weekdays).toEqual([6, 7])
   })
 
+  it('preserves the selected server-side history order', () => {
+    expect(parseMoodQuery({ order: 'oldest' }).order).toBe('oldest')
+    expect(parseMoodQuery({ order: 'not-an-order' }).order).toBe('newest')
+  })
+
   it('accepts only positive integer pages', () => {
     expect(getSafePage('11', 30)).toBe(11)
     expect(getSafePage('2.5', 30)).toBe(1)
