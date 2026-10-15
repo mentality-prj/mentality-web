@@ -20,14 +20,14 @@ export const MoodMarks = async ({ data }: { data?: MoodMarksData } = {}) => {
   return (
     <Card type="ghost" className="w-full">
       <SummaryCard icon={<AudioLines className="opacity-50" color="white" size="128" />} title={t('title')}>
-        <div className="grid grid-flow-col auto-rows-min grid-rows-3 content-start items-start gap-x-8 gap-y-2">
+        <div className="grid auto-cols-fr grid-flow-col auto-rows-min grid-rows-3 content-start items-start gap-x-4 gap-y-2">
           {moods.map((mood) => {
             const info = MOODS_MAP[mood as keyof typeof MOODS_MAP]
             const label = info ? tMood(info.label) : mood
             const status = info?.statusClass || 'tag'
             return (
               <div key={mood} className="flex w-full justify-between">
-                <Tag className="truncate" type={status} text={label} />
+                <Tag className="inline-block min-w-0 flex-1 truncate" type={status} text={label} />
                 <span className="ml-2">{(moodMarksData[`${mood}`] ?? 0) < 1 ? 0 : moodMarksData[`${mood}`]}</span>
               </div>
             )

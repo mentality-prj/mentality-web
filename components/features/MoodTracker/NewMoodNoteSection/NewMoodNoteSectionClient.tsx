@@ -20,9 +20,7 @@ export const NewMoodNoteSectionClient = ({ availableTags = [], initialLastSubmit
 
   return (
     <div className="w-full wide:w-auto">
-      <div className="m-6 wide:m-0">
-        <AddNewMood availableTags={availableTags} onSave={handleSave} initialLastSubmittedAt={initialLastSubmittedAt} />
-      </div>
+      <AddNewMood availableTags={availableTags} onSave={handleSave} initialLastSubmittedAt={initialLastSubmittedAt} />
     </div>
   )
 }

@@ -198,9 +198,7 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
     disabled ? 'opacity-40' : 'focus-visible:ring-ring hover:shadow-md focus-visible:ring-2'
   )
 
-  const markBaseClasses = 'text-muted-foreground pointer-events-none absolute flex items-center text-xs w-40'
-
-  const markPositionClasses = orientation === 'horizontal' ? 'top-full mt-1 -translate-x-1/2' : 'left-6'
+  const markBaseClasses = 'text-muted-foreground pointer-events-none w-max absolute flex items-center  text-xs sm:w-40'
 
   const markTickBaseClasses = 'block bg-border'
 
@@ -234,14 +232,35 @@ export const Slider = React.forwardRef<HTMLDivElement, SliderProps>(function Sli
           {thumbIcon}
         </div>
 
-        {markItems.map((mark) => {
+        {markItems.map((mark, index) => {
           const markPercent = ((mark.value - min) / range) * 100
           const positionStyle =
             orientation === 'horizontal' ? { left: `${markPercent}%` } : { bottom: `${markPercent}%` }
 
+          const isFirst = index === 0
+          const isLast = index === markItems.length - 1
+          const isEven = index % 2 !== 0
+          const markPositionClasses =
+            orientation === 'horizontal'
+              ? cn(
+                  isEven ? 'top-full mt-1' : '-top-6',
+                  isFirst ? 'translate-x-0' : isLast ? '-translate-x-full' : '-translate-x-1/2'
+                )
+              : 'left-6'
+
+          const isActive = mark.value === currentValue
+
           return (
-            <div key={`mark-${mark.value}`} className={cn(markBaseClasses, markPositionClasses)} style={positionStyle}>
-              <span className={cn(markTickBaseClasses, markTickPositionClasses)} />
+            <div
+              key={`mark-${mark.value}`}
+              className={cn(
+                markBaseClasses,
+                markPositionClasses,
+                isActive && 'max-sm:text-foreground max-sm:font-bold'
+              )}
+              style={positionStyle}
+            >
+              <span className={cn('max-tablet:hidden', markTickBaseClasses, markTickPositionClasses)} />
               {mark.label ?? mark.value}
             </div>
           )
