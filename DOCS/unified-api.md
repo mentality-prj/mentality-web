@@ -15,10 +15,10 @@ Zitadel is the **only identity provider**, not an additional application data AP
 | Public contact form            | `/api/backend/contact` → NestJS                          | Anonymous; reCAPTCHA in NestJS                     |
 | Zitadel login/logout/refresh   | `/api/auth/*` + OIDC redirect                            | Next.js only                                       |
 | SSR server components          | Backend-validated server-side NestJS client              | Next.js server                                     |
-| QDIP admin in SSR/actions      | Direct QDIP server-only client (`requests/dipClient.ts`) | Next.js server `DIP_API_KEY` / `DIP_ADMIN_API_KEY` |
+| QDIP admin in SSR/actions      | Server-only `dipClient.ts` → guarded NestJS `/api/dip-admin/*` | NestJS QDIP platform key; Next.js only holds authenticated user session |
 | Temporary new QDIP key display | Admin-only locale-scoped one-shot key-flash route        | HttpOnly flash cookie and admin RBAC               |
 
-The two QDIP exceptions **must not become a browser-exposed generic API**. Moving them behind NestJS as the sole backend host requires a distinct authenticated NestJS integration for all QDIP admin capabilities, RBAC and tenant-scoped authorization. It is _not_ safe to forward a privileged admin key through the generic user BFF.
+QDIP administration uses an explicit NestJS endpoint allowlist and verified Zitadel subject authorization, plus backend Mongo admin role. No QDIP credentials or upstream URL are held by Next.js. The one-time API-key display remains a narrowly scoped, admin-only server response; it is not a generic public API. `QDIP_ADMIN_MUTATIONS_ENABLED=false` remains mandatory until independent security/integration qualification.
 
 ## Enforcement
 
@@ -28,4 +28,4 @@ The two QDIP exceptions **must not become a browser-exposed generic API**. Movin
 
 ## Outstanding
 
-Real Zitadel/NestJS browser E2E (#439) is required before production promotion. External QDIP management calls currently remain **server-to-server** until the NestJS integration and its authorization coverage exist. Browser requests must never use `DIP_URL` or receive `DIP_ADMIN_API_KEY`.
+Real Zitadel/NestJS browser E2E (#439), a disposable QDIP organization mutation/reconciliation fixture, and tests for forbidden/wrong-subject access are required before QDIP administration can be enabled in production. The frontend reports connectivity only after the guarded NestJS organization request succeeds, not merely when its backend URL is syntactically valid.
