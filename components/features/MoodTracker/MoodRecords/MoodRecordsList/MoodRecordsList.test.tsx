@@ -97,11 +97,19 @@ describe('MoodRecordsList', () => {
   })
 
   it('displays both date and time and exposes the original timestamp', () => {
-    render(<MoodRecordsList records={[mockRecord()]} />)
+    // MoodRecordsList switches to the browser timezone after hydration.
+    // Force UTC so this test behaves identically in Warsaw, Kyiv and CI.
+    const timezoneSpy = jest.spyOn(Intl.DateTimeFormat.prototype, 'resolvedOptions')
+    timezoneSpy.mockReturnValue({ timeZone: 'UTC' } as Intl.ResolvedDateTimeFormatOptions)
+    try {
+      render(<MoodRecordsList records={[mockRecord()]} />)
 
-    const timestamp = screen.getByText(/10:00/)
-    expect(timestamp.closest('time')).toHaveAttribute('dateTime', '2026-03-14T10:00:00.000Z')
-    expect(timestamp).toHaveTextContent(/2026/)
+      const timestamp = screen.getByText(/10:00/)
+      expect(timestamp.closest('time')).toHaveAttribute('dateTime', '2026-03-14T10:00:00.000Z')
+      expect(timestamp).toHaveTextContent(/2026/)
+    } finally {
+      timezoneSpy.mockRestore()
+    }
   })
 
   it('does not crash on invalid timestamps', () => {
