@@ -253,8 +253,8 @@ export async function proxy(request: NextRequest) {
   if (isAuthenticated && authTokens && !isServerErrorPage && !isSessionRecoveryRoute) {
     const isExpired = authTokens.expiresAt < Math.floor(Date.now() / 1000)
     if (isExpired && normalizedPath === Routes.AUTH) {
-      // Failed recovery must never bounce between /auth and /refresh-session.
-      intlResponse.cookies.delete(AUTH_TOKEN_COOKIE)
+      // A different tab may already have rotated its cookie; do not write a
+      // stale Set-Cookie deletion from this public request.
       return applySecurityHeaders(intlResponse)
     }
     if (isExpired && !isProtectedPath) {
