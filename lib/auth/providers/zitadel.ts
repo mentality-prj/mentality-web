@@ -106,7 +106,7 @@ export class ZitadelAuthProvider implements IAuthProvider {
       if (!current?.hasRefreshToken) return null
 
       const secondsRemaining = current.expiresAt - Math.floor(Date.now() / 1000)
-      if (current.expiresAt > observed.expiresAt || secondsRemaining > 60) {
+      if (secondsRemaining > 0 && (current.expiresAt > observed.expiresAt || secondsRemaining > 60)) {
         return current
       }
 
