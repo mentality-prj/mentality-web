@@ -56,6 +56,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
               // A temporary backend outage does not prove the new cookie is
               // invalid. Keep local state until the next reconciliation.
               if (generation === sessionGeneration.current) {
+                // Expired local metadata must not keep the old authenticated
+                // timer active: it would immediately retry invalidation in a
+                // loop instead of honoring the cooldown.
+                if (!verifiedTokens.current || verifiedTokens.current.expiresAt <= Math.floor(Date.now() / 1000)) {
+                  setTokens(null)
+                  setUser(null)
+                  setStatus('loading')
+                }
                 setRetryNotBefore(Date.now() + 15_000)
               }
               return

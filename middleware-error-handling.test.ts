@@ -149,6 +149,18 @@ describe('Middleware Token-Based Auth', () => {
       const response = await middleware(request)
 
       expect(response.headers.get('location')).toContain('/auth')
+      expect(response.headers.get('set-cookie')).toBeNull()
+    })
+
+    it('should recover an expired session on the company selection page', async () => {
+      const request = createRequest(
+        '/uk/select-company?next=%2Fuk%2Fmy-day',
+        makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 5 })
+      )
+      const response = await middleware(request)
+      const destination = new URL(response.headers.get('location') ?? 'http://localhost:3000')
+      expect(destination.pathname).toBe('/uk/refresh-session')
+      expect(destination.searchParams.get('returnTo')).toBe('/uk/select-company?next=%2Fuk%2Fmy-day')
     })
 
     it('should redirect expired protected requests to browser-coordinated recovery, never exchange from proxy', async () => {

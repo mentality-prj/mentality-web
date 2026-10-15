@@ -239,7 +239,9 @@ export async function proxy(request: NextRequest) {
       .map(([key, path]) => [key, normalizedPath === path || normalizedPath.startsWith(path + '/')])
   )
 
-  const isProtectedPath = Object.values(protectedRoutes).some(Boolean)
+  // Company selection requires an authenticated backend session even though
+  // it is not represented in the Routes enum.
+  const isProtectedPath = Object.values(protectedRoutes).some(Boolean) || normalizedPath === '/select-company'
 
   // Skip session error checks for server-error page to avoid redirect loops
   const isServerErrorPage = normalizedPath === Routes.SERVERERROR
@@ -262,10 +264,9 @@ export async function proxy(request: NextRequest) {
       return applySecurityHeaders(intlResponse)
     }
     if (isExpired && !authTokens.refreshToken) {
-      // Token expired and no refresh token — clear cookie and redirect to auth
-      const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
-      response.cookies.delete(AUTH_TOKEN_COOKIE)
-      return applySecurityHeaders(response)
+      // Do not send stale Set-Cookie deletion: another tab may have logged in
+      // after this request arrived. Explicit session cleanup is conditional.
+      return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url)))
     }
 
     if (isExpired && authTokens.refreshToken) {
