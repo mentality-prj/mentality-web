@@ -212,7 +212,7 @@ export async function proxy(request: NextRequest) {
 
   // Auth logic — check for auth token cookie
   const tokenCookie = request.cookies.get(AUTH_TOKEN_COOKIE)?.value
-  const authTokens: AuthTokens | null = parseStoredAuthTokensCookie(tokenCookie)
+  const authTokens = parseStoredAuthTokensCookie(tokenCookie)
   const isAuthenticated = !!authTokens
 
   const publicRoutes = [
