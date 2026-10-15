@@ -1,10 +1,11 @@
 import { PAGE_SIZE } from '@/constants/pagination'
 import { FilterValue } from '@/context/moodRecordsFilterContext'
 import { WeekValueType } from '@/mappers/weekdays.mapper'
-import { SortOrder } from '@/types/sort'
-import { getSafePage } from '@/utils/getSafePage'
 
 import { MapFiltersToApi, mapFiltersToApi } from './mapFiltersToApi'
+
+// Keep consistent with GetMoodRecordsQueryDto.page's bounded server contract.
+const MAX_MOOD_PAGE = 10_000
 
 type QueryValue = string | string[] | undefined
 
@@ -26,7 +27,8 @@ export function parseMoodQuery(params: MoodQueryParams) {
     return Array.isArray(value) ? value[0] : value
   }
 
-  const page = getSafePage(getFirst(params.page), PAGE_SIZE)
+  const rawPage = Number(getFirst(params.page))
+  const page = Number.isSafeInteger(rawPage) && rawPage >= 1 ? Math.min(rawPage, MAX_MOOD_PAGE) : 1
   const limit = PAGE_SIZE
 
   const normalizeArray = (value?: string[] | string): string[] =>
@@ -35,7 +37,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
   const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
   const filters: MapFiltersToApi = {
-    order: (getFirst(params.order) as SortOrder) ?? 'newest',
+    order: getFirst(params.order) === 'oldest' ? 'oldest' : 'newest',
     tags: Array.from(new Set(normalizeArray(params.tags))),
     moodLevel: getFirst(params.moodLevel) as FilterValue<'moodLevel'>,
     stressLevel: getFirst(params.stressLevel) as FilterValue<'stressLevel'>,
@@ -51,7 +53,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
   return {
     page,
     limit,
-    // TODO: order parameter
+    order: filters.order,
     moodMin: mapped.moodLevel,
     moodMax: mapped.moodLevel,
 
