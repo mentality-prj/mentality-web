@@ -14,7 +14,9 @@ export type WellbeingSummaryData = {
  * Stress is inverted so a lower stress response improves the indicator.
  * Incomplete/out-of-range records are omitted rather than filling defaults.
  */
-export function calculateWellbeingSummary(records: MoodRecordEntity[]): WellbeingSummaryData | null {
+export function calculateWellbeingSummary(
+  records: MoodRecordEntity[]
+): WellbeingSummaryData | null {
   const values: Array<Record<WellbeingDimension, number>> = []
 
   for (const record of records) {
@@ -57,9 +59,7 @@ export function calculateWellbeingSummary(records: MoodRecordEntity[]): Wellbein
     dimensions[key] = Math.round(dimensions[key] / values.length)
   }
 
-  const score = Math.round(
-    (dimensions.mood + dimensions.stressBalance + dimensions.energy + dimensions.focus) / 4
-  )
+  const score = Math.round((dimensions.mood + dimensions.stressBalance + dimensions.energy + dimensions.focus) / 4)
 
   return { score, recordCount: values.length, dimensions }
 }
