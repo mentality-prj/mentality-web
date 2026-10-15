@@ -37,6 +37,7 @@ function createRequest(pathname: string, body: unknown, headers?: Record<string,
     method: 'POST',
     headers: new Headers({
       'content-type': 'application/json',
+      origin: 'http://localhost:3000',
       ...headers,
     }),
     body: JSON.stringify(body),
@@ -188,6 +189,60 @@ describe('/api/auth/exchange route', () => {
     } finally {
       process.env.NEXT_PUBLIC_BASE_URL = previousBase
     }
+  })
+
+  it('rejects missing Origin, including a browser-like request, without an IdP call', async () => {
+    const response = await POST(
+      new NextRequest('http://localhost:3000/api/auth/exchange', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'sec-fetch-site': 'same-origin' },
+        body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
+      })
+    )
+    expect(response.status).toBe(403)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('rejects a forged cross-site fetch context even with a matching Origin', async () => {
+    const response = await POST(
+      createRequest('/api/auth/exchange', { grantType: 'refresh_token' }, { 'sec-fetch-site': 'cross-site' })
+    )
+    expect(response.status).toBe(403)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('does not reflect secrets in identity provider failures', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValue({
+      ok: false,
+      status: 400,
+      text: () => Promise.resolve(JSON.stringify({ error: 'invalid_grant', client_secret: 'do-not-leak' })),
+    })
+    const response = await POST(
+      createRequest('/api/auth/exchange', { grantType: 'authorization_code', code: 'bad', codeVerifier: 'verifier' })
+    )
+    expect(response.status).toBe(400)
+    expect(await response.json()).toEqual({ error: 'Identity provider request failed' })
+  })
+
+  it('does not reflect internal exception details', async () => {
+    ;(global.fetch as jest.Mock).mockRejectedValue(new Error('sensitive-upstream-internal-url'))
+    const response = await POST(
+      createRequest('/api/auth/exchange', { grantType: 'authorization_code', code: 'bad', codeVerifier: 'verifier' })
+    )
+    expect(response.status).toBe(502)
+    expect(JSON.stringify(await response.json())).not.toContain('sensitive-upstream')
+  })
+
+  it('rejects an oversized request body before contacting Zitadel', async () => {
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'x'.repeat(9_000),
+        codeVerifier: 'verifier',
+      })
+    )
+    expect(response.status).toBe(413)
+    expect(global.fetch).not.toHaveBeenCalled()
   })
 
   it('rejects cross-origin browser requests before contacting Zitadel', async () => {
