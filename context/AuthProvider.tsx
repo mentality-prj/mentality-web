@@ -27,26 +27,47 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [retryNotBefore, setRetryNotBefore] = useState(0)
   const sessionGeneration = useRef(0)
 
-  const invalidateSession = useCallback(async () => {
-    sessionGeneration.current += 1
-    setUser(null)
-    setTokens(null)
-    setStatus('unauthenticated')
+  const invalidateSession = useCallback(async (observed: BrowserAuthSession | null) => {
+    const generation = ++sessionGeneration.current
     try {
-      await authService.clearTokens()
+      if (observed) {
+        // Keep the Web Lock held through conditional cookie deletion. A failed
+        // request must not erase a newer rotation performed by another tab.
+        const removed = await authService.clearTokensIfUnchanged(observed)
+        if (!removed) {
+          const latest = await authService.getStoredTokens()
+          const verified = latest ? await authService.getUser() : null
+          if (generation !== sessionGeneration.current) return
+          if (latest && verified) {
+            setTokens(latest)
+            setUser(verified)
+            setError(null)
+            setStatus('authenticated')
+            setRetryNotBefore(0)
+            return
+          }
+        }
+      }
     } catch (err) {
       logger.warn('[AUTH_PROVIDER] Could not clear expired session', {
         error: err instanceof Error ? err.message : String(err),
       })
     }
+    if (generation !== sessionGeneration.current) return
+    setUser(null)
+    setTokens(null)
+    setStatus('unauthenticated')
   }, [])
 
   // Always validate the company role after a successful refresh, and do not
   // silently keep a rejected backend session authenticated.
   const refreshAndRevalidate = useCallback(async () => {
     const generation = sessionGeneration.current
+    let observed = await authService.getStoredTokens()
+    if (generation !== sessionGeneration.current) return
     try {
       const refreshed = await authService.refreshTokens()
+      if (refreshed) observed = refreshed
       if (!refreshed) throw new Error('Token refresh failed')
 
       const verifiedUser = await authService.getUser()
@@ -80,7 +101,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         error: err instanceof Error ? err.message : String(err),
       })
       setError({ error: 'RefreshTokenError', message: 'Session revalidation failed' })
-      await invalidateSession()
+      await invalidateSession(observed)
     }
   }, [invalidateSession])
 
@@ -101,7 +122,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (!active()) return
         const now = Math.floor(Date.now() / 1000)
         if (storedTokens.expiresAt <= now && !storedTokens.hasRefreshToken) {
-          if (active()) await invalidateSession()
+          if (active()) await invalidateSession(storedTokens)
           return
         }
 
@@ -113,7 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (refreshed) {
             sessionTokens = refreshed
           } else if (storedTokens.expiresAt <= Math.floor(Date.now() / 1000)) {
-            if (active()) await invalidateSession()
+            if (active()) await invalidateSession(storedTokens)
             return
           } else if (active()) {
             setRetryNotBefore(Date.now() + 15_000)
@@ -127,7 +148,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setUser(currentUser)
             setStatus('authenticated')
           } else {
-            await invalidateSession()
+            await invalidateSession(sessionTokens)
           }
         }
       } catch (err) {
@@ -155,10 +176,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const now = Date.now()
     const expiresAtMs = tokens.expiresAt * 1000
     const refreshAtMs = tokens.hasRefreshToken ? expiresAtMs - 60_000 : expiresAtMs
-    const delay = Math.max(0, refreshAtMs - now, retryNotBefore - now)
+    const delay = Math.max(0, Math.min(Math.max(refreshAtMs, retryNotBefore), expiresAtMs) - now)
     const timer = setTimeout(() => {
-      if (!tokens.hasRefreshToken) {
-        void invalidateSession()
+      if (!tokens.hasRefreshToken || (Date.now() >= expiresAtMs && Date.now() < retryNotBefore)) {
+        void invalidateSession(tokens)
       } else {
         void refreshAndRevalidate()
       }
@@ -179,7 +200,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const latest = await authService.getStoredTokens()
       if (cancelled || generation !== sessionGeneration.current) return
       if (!latest) {
-        await invalidateSession()
+        await invalidateSession(null)
         return
       }
 
@@ -189,7 +210,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (latest.hasRefreshToken && Date.now() >= retryNotBefore) {
           await refreshAndRevalidate()
         } else {
-          await invalidateSession()
+          await invalidateSession(latest)
         }
         return
       }
@@ -203,7 +224,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const verifiedUser = await authService.getUser()
       if (cancelled || generation !== sessionGeneration.current) return
       if (!verifiedUser) {
-        await invalidateSession()
+        await invalidateSession(latest)
         return
       }
       setTokens(latest)
@@ -229,7 +250,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       let latest = await authService.getStoredTokens()
       if (generation !== sessionGeneration.current) return false
       if (!latest) {
-        await invalidateSession()
+        await invalidateSession(null)
         return false
       }
 
@@ -240,7 +261,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         if (generation !== sessionGeneration.current) return false
         if (!refreshed) {
           if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-            await invalidateSession()
+            await invalidateSession(latest)
           } else {
             setRetryNotBefore(Date.now() + 15_000)
           }
@@ -250,13 +271,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-        await invalidateSession()
+        await invalidateSession(latest)
         return false
       }
       const verified = await authService.getUser()
       if (generation !== sessionGeneration.current) return false
       if (!verified) {
-        await invalidateSession()
+        await invalidateSession(latest)
         return false
       }
       setTokens(latest)
@@ -273,7 +294,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const latest = await authService.getStoredTokens()
       if (generation !== sessionGeneration.current) return false
       if (!latest || latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-        await invalidateSession()
+        await invalidateSession(latest)
       } else {
         setRetryNotBefore(Date.now() + 15_000)
       }
