@@ -35,10 +35,7 @@ function isSameOriginRequest(request: NextRequest): boolean {
   }
 }
 
-async function readLimitedText(
-  source: NextRequest | Response,
-  maxBytes: number
-): Promise<string> {
+async function readLimitedText(source: NextRequest | Response, maxBytes: number): Promise<string> {
   const reader = source.body?.getReader()
   if (!reader) {
     const text = await source.text()
@@ -133,7 +130,7 @@ export async function POST(request: NextRequest) {
     return jsonNoStore({ error: 'Server misconfiguration: missing Zitadel environment variables' }, { status: 500 })
   }
 
-  // CSRF: reject cross-origin browser requests (server-to-server calls like middleware won't send Origin)
+  // CSRF: reject requests without trusted same-origin provenance (including internal refresh).
   if (!isSameOriginRequest(request)) {
     return jsonNoStore({ error: 'Forbidden' }, { status: 403 })
   }
@@ -211,10 +208,8 @@ export async function POST(request: NextRequest) {
 
     if (!tokenResponse.ok) {
       // Never reflect identity-provider JSON (including diagnostic secrets).
-      return jsonNoStore(
-        { error: 'Identity provider request failed' },
-        { status: tokenResponse.status >= 500 || tokenResponse.status >= 300 && tokenResponse.status < 400 ? 502 : 400 }
-      )
+      const status = tokenResponse.status >= 300 && tokenResponse.status < 500 ? 400 : 502
+      return jsonNoStore({ error: 'Identity provider request failed' }, { status })
     }
 
     const data = normalizeTokenEndpointResponse(payload)
