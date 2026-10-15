@@ -21,15 +21,20 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
     const result = { ...initial }
 
     const parseList = (value: string) => {
-      const items = value.split(',').map((item) => item.trim()).filter(Boolean)
-      return Array.from(new Set(items))
+      const values = value.split(',')
+      const trimmed = values.map((item) => item.trim())
+      return Array.from(new Set(trimmed.filter(Boolean)))
     }
 
-    const parseWeekdays = (value: string): WeekValueType[] =>
-      parseList(value).filter((day): day is WeekValueType => weekOptions.includes(day as WeekValueType))
+    const parseWeekdays = (value: string): WeekValueType[] => {
+      const days = parseList(value)
+      return days.filter((day): day is WeekValueType => weekOptions.includes(day as WeekValueType))
+    }
 
-    const parseLevelList = <T extends string>(value: string, allowed: readonly T[]): T[] =>
-      parseList(value).filter((item): item is T => allowed.includes(item as T))
+    const parseLevelList = <T extends string>(value: string, allowed: readonly T[]): T[] => {
+      const values = parseList(value)
+      return values.filter((item): item is T => allowed.includes(item as T))
+    }
 
     function applyParser<K extends keyof UseMoodRecordsFilter>(k: K, param: string, result: UseMoodRecordsFilter) {
       const parser = parsers[`${k}`]

@@ -44,9 +44,11 @@ export const Filter = <TFilters extends { order: SortOrder }>({
 }: FilterProps<TFilters>) => {
   const { filters, setFilters, reset } = useFilters()
   const { order: sort, ...otherFilters } = filters
-  const hasActiveFilters =
-    sort !== SORT_ORDER.NEWEST ||
-    Object.values(otherFilters).some((value) => (Array.isArray(value) ? value.length > 0 : value != null && value !== ''))
+  const hasSelections = Object.values(otherFilters).some((value) => {
+    if (Array.isArray(value)) return value.length > 0
+    return value != null && value !== ''
+  })
+  const hasActiveFilters = sort !== SORT_ORDER.NEWEST || hasSelections
 
   const t = useTranslations('components.Filter')
 
@@ -59,11 +61,7 @@ export const Filter = <TFilters extends { order: SortOrder }>({
         .map((k) => {
           const value = otherFilters[k as keyof typeof otherFilters] as string | string[]
           const options = filterOptions[`${k}`]
-          const onChange = (v: string | string[]) =>
-            setFilters((prev) => ({
-              ...prev,
-              [k]: v,
-            }))
+          const onChange = (v: string | string[]) => setFilters((prev) => ({ ...prev, [k]: v }))
 
           return (
             <FilterSection key={k} title={t(`by_${k}`)}>
