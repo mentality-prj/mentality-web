@@ -1,20 +1,16 @@
 'use client'
 
-import { BrainCircuit, Building2, FlaskConical, Languages, ShieldCheck, Speech, Users } from 'lucide-react'
+import { BrainCircuit, Building2, FlaskConical, Languages, Speech } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { DashboardItem } from '@/components/admin/DashboardItem'
 import { Routes } from '@/constants/routes'
 
-const companyLinks = [
-  { href: Routes.COMPANY_GLOBAL_ADMIN, icon: Building2, key: 'companies' },
-  { href: Routes.COMPANY_ADMIN, icon: ShieldCheck, key: 'companyAdmin' },
-  { href: Routes.COMPANY_MANAGER, icon: Users, key: 'companyManager' },
-] as const
+const companyLinks = [{ href: Routes.COMPANY_GLOBAL_ADMIN, icon: Building2, key: 'companies' }] as const
 
 const researchLinks = [
   { href: Routes.RESEARCH, icon: FlaskConical, key: 'researchWorkspace' },
-  { href: Routes.ADMIN_R_AND_D_DIAGNOSTICS, icon: BrainCircuit, key: 'diagnostics' },
+  { href: Routes.ADMIN_DIP, icon: BrainCircuit, key: 'dipWorkspace' },
 ] as const
 
 const toolLinks = [

@@ -34,7 +34,7 @@ export function HowItWorksSection() {
     return (
       <li key={stepKey}>
         <div
-          className={`flex items-center gap-sm rounded-[24px] px-5 max-md:flex-wrap md:items-start lg:py-5 ${
+          className={`flex items-center gap-sm rounded-[24px] px-5 max-md:flex-wrap md:items-start ${
             isActive ? 'bg-white/70 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-sm' : ''
           }`}
         >

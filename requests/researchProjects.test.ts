@@ -848,6 +848,36 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('grants readonly workspace access when backend exposes a public demo project without research capabilities', async () => {
+    mockedPerformAuthRequest.mockResolvedValue({
+      data: {
+        capabilities: [],
+        canCreateProject: false,
+        items: [
+          {
+            ...createProjectPayload(),
+            isPublicDemo: true,
+            name: 'Demo Project — Mental Health Risk Prediction',
+          },
+        ],
+      },
+    })
+
+    const result = await getResearchWorkspaceAccess(mockSession)
+
+    expect(result).toEqual(
+      expect.objectContaining({
+        data: {
+          hasAccess: true,
+          canCreateProjects: false,
+          capabilities: [],
+          companies: [{ id: 'company-1', name: 'Acme Research' }],
+          scientists: [],
+        },
+      })
+    )
+  })
+
   it('preserves company boundary 403 as an error instead of masking it as denied access', async () => {
     mockedPerformAuthRequest.mockResolvedValue({
       error: 'Company boundary для research layer не визначено',

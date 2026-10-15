@@ -6,6 +6,7 @@ import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
 
 import { POST } from '@/app/api/auth/exchange/route'
+import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
 jest.mock('next/headers', () => ({
@@ -116,9 +117,9 @@ describe('/api/auth/exchange route', () => {
     expect(response.status).toBe(200)
     expect(response.headers.get('cache-control')).toBe('no-store')
     expect(await response.json()).toEqual({
-      access_token: 'refreshed-access-token',
-      id_token: 'stored-id-token',
-      expires_in: 1800,
+      expiresAt: expect.any(Number),
+      hasRefreshToken: true,
+      userRole: 'admin',
     })
     const storedCookie = response.cookies.get(AUTH_TOKEN_COOKIE)?.value
 
@@ -150,6 +151,43 @@ describe('/api/auth/exchange route', () => {
     expect(response.headers.get('cache-control')).toBe('no-store')
     expect(await response.json()).toEqual({ error: 'Invalid JSON' })
     expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('uses the actual preview origin for the Zitadel authorization-code callback', async () => {
+    const previousBase = process.env.NEXT_PUBLIC_BASE_URL
+    process.env.NEXT_PUBLIC_BASE_URL = 'https://www.dzvin.co'
+    try {
+      cookiesMock.mockReturnValue(createCookieStore() as never)
+      ;(global.fetch as jest.Mock).mockResolvedValue({
+        ok: true,
+        text: () =>
+          Promise.resolve(
+            JSON.stringify({
+              access_token: 'server-only-access',
+              id_token: 'server-only-id',
+              refresh_token: 'server-only-refresh',
+              expires_in: 3600,
+            })
+          ),
+      })
+
+      const response = await POST(
+        createRequest(
+          '/api/auth/exchange',
+          { grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' },
+          { origin: 'http://localhost:3000' }
+        )
+      )
+
+      expect(response.status).toBe(200)
+      expect(response.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
+      const requestOptions = (global.fetch as jest.Mock).mock.calls[0][1] as RequestInit
+      const parameters = requestOptions.body as URLSearchParams
+      expect(parameters.get('redirect_uri')).toBe('http://localhost:3000/callback')
+      expect(JSON.stringify(await response.json())).not.toMatch(/access_token|id_token|refresh_token/)
+    } finally {
+      process.env.NEXT_PUBLIC_BASE_URL = previousBase
+    }
   })
 
   it('rejects cross-origin browser requests before contacting Zitadel', async () => {

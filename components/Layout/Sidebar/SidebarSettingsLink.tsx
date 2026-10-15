@@ -3,10 +3,17 @@ import { getLocale, getTranslations } from 'next-intl/server'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
+import { getServerSession } from '@/lib/get-server-session'
+import { COMPANY_ROLES } from '@/types/rbac'
 
 const SidebarSettingsLink = async () => {
   const locale = await getLocale()
   const t = await getTranslations({ locale, namespace: 'components.AvatarMenu' })
+  const session = await getServerSession()
+
+  if (session?.user?.role !== 'admin' && session?.user?.companyRole !== COMPANY_ROLES.MANAGER) {
+    return null
+  }
 
   return (
     <Link

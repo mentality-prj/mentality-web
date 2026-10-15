@@ -1,4 +1,18 @@
 {
   "title": "Mood tracker",
-  "subtitle": "Track your mood and stress level changes"
+  "subtitle": "Track your mood and stress level changes",
+  "wellbeing": {
+    "title": "Wellbeing overview",
+    "subtitle": "Your self-reported mood, stress, energy and focus over the last 10 days",
+    "scoreAccessible": "Wellbeing indicator: {score} out of 100",
+    "entries": "Based on {count, plural, one {# mood entry} other {# mood entries}}",
+    "empty": "No complete mood entries for the last 10 days. Record how you feel to see your overview.",
+    "disclaimer": "A personal trend indicator based on your check-ins, not a medical assessment. Lower stress contributes positively.",
+    "dimensions": {
+      "mood": "Mood",
+      "stressBalance": "Low stress",
+      "energy": "Energy",
+      "focus": "Focus"
+    }
+  }
 }

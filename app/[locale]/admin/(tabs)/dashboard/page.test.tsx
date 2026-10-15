@@ -15,22 +15,14 @@ jest.mock('next-intl', () => ({
         return 'Компанії'
       case 'companies.description':
         return 'Створення та управління компаніями на платформі'
-      case 'companyAdmin.title':
-        return 'Суперюзер'
-      case 'companyAdmin.description':
-        return 'Управління групами, співробітниками та запрошеннями'
-      case 'companyManager.title':
-        return 'Менеджер'
-      case 'companyManager.description':
-        return 'Аналітика та управління командою'
       case 'researchWorkspace.title':
         return 'Research Workspace'
       case 'researchWorkspace.description':
         return 'Окремий project-scoped продукт для research campaigns, grants і governed diagnostics'
-      case 'diagnostics.title':
-        return 'R&D діагностика'
-      case 'diagnostics.description':
-        return 'Окремий R&D простір для інспекції ML-сигналів і policy diagnostics у вибраній компанії'
+      case 'dipWorkspace.title':
+        return 'DIP Workspace'
+      case 'dipWorkspace.description':
+        return 'Data → Features → Research → Models → Decisions → System для нового DIP-шару'
       case 'translationModelChecks.title':
         return 'Перевірка моделей перекладу'
       case 'translationModelChecks.description':
@@ -66,13 +58,17 @@ describe('Admin dashboard page', () => {
     expect(researchSection).not.toBeNull()
     expect(toolsSection).not.toBeNull()
 
-    expect(within(companySection as HTMLElement).getByText('Суперюзер')).toBeInTheDocument()
+    expect(
+      within(companySection as HTMLElement).getByText('Створення та управління компаніями на платформі')
+    ).toBeInTheDocument()
+    expect(within(companySection as HTMLElement).queryByText('Суперюзер')).not.toBeInTheDocument()
+    expect(within(companySection as HTMLElement).queryByText('Менеджер')).not.toBeInTheDocument()
     expect(within(researchSection as HTMLElement).getByText('Research Workspace')).toBeInTheDocument()
-    expect(within(researchSection as HTMLElement).getByText('R&D діагностика')).toBeInTheDocument()
+    expect(within(researchSection as HTMLElement).getByText('DIP Workspace')).toBeInTheDocument()
     expect(within(toolsSection as HTMLElement).getByText('Перевірка моделей перекладу')).toBeInTheDocument()
     expect(within(toolsSection as HTMLElement).getByText('Демонстрація мовлення')).toBeInTheDocument()
 
     expect(within(toolsSection as HTMLElement).queryByText('Research Workspace')).not.toBeInTheDocument()
-    expect(within(toolsSection as HTMLElement).queryByText('R&D діагностика')).not.toBeInTheDocument()
+    expect(within(toolsSection as HTMLElement).queryByText('DIP Workspace')).not.toBeInTheDocument()
   })
 })

@@ -3,6 +3,7 @@ import { RoutesType } from '@/types/routes'
 
 export const RoutesTitles = Object.freeze({
   ADMIN: 'Admin',
+  ADMIN_DIP: 'Admin/DIP',
   ADMIN_R_AND_D: 'Admin/R-And-D',
   ADMIN_R_AND_D_DIAGNOSTICS: 'Admin/R-And-D/Diagnostics',
   RESEARCH: 'Research',
@@ -54,6 +55,7 @@ export const RoutesTitles = Object.freeze({
 
 export const Routes = Object.freeze({
   ...transformToRoutes(RoutesTitles),
+  SETTINGS: '/profile#settings',
   MAIN: '/',
   meditationDetail: (id: string) => `/guide/meditations/${id}`,
   adminCompanyDetail: (id: string) => `/admin/company/${id}`,

@@ -8,6 +8,8 @@ export type UserAI = {
   name: string
   avatarUrl: string
   role: UserRole
+  companyId?: string
+  companyRole?: CompanyRole
   zitadelSub?: string
   createdAt: Date
 }
@@ -47,11 +49,18 @@ export interface AuthTokens {
   hasRefreshToken?: boolean
 }
 
+/** Public browser session metadata: never contains JWTs or OAuth secrets. */
+export interface BrowserAuthSession {
+  expiresAt: number
+  hasRefreshToken: boolean
+  userRole?: UserRole
+}
+
 export type AuthStatus = 'loading' | 'authenticated' | 'unauthenticated'
 
 export interface AuthState {
   user: CustomUser | null
-  tokens: AuthTokens | null
+  tokens: BrowserAuthSession | null
   status: AuthStatus
   error: SessionError | null
 }

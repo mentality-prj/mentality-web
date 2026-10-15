@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
-import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
 import { DecisionSupportWorkspace } from '@/components/features/Company/Manager/DecisionSupport/DecisionSupportWorkspace'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
@@ -13,28 +12,19 @@ export default async function ManagerDecisionSupportPage({ params }: { params: P
   const { locale } = await params
   const session = await getServerSession()
 
-  const isSystemAdmin = session?.user?.role === 'admin'
-
-  if (!isSystemAdmin && session?.user?.companyRole !== COMPANY_ROLES.MANAGER) {
+  // Leaf authorization is mandatory even when parent App Router layouts are cached.
+  if (session?.user?.role === 'admin') {
+    redirect(`/${locale}${Routes.ADMIN}`)
+  }
+  if (!session?.user?.companyId || session.user.companyRole !== COMPANY_ROLES.MANAGER) {
     redirect(`/${locale}${Routes.COMPANY}`)
   }
 
   const t = await getTranslations('pages.Company.manager')
 
-  const companyResult = isSystemAdmin ? null : await getMyCompany(session)
-  const subtitle = companyResult && !('error' in companyResult) ? companyResult.data.name : undefined
-
-  let content: React.ReactNode
-
-  if (isSystemAdmin) {
-    content = (
-      <AdminCompanyWrapper>
-        <DecisionSupportWorkspace viewerRole="admin" />
-      </AdminCompanyWrapper>
-    )
-  } else {
-    content = <DecisionSupportWorkspace viewerRole="manager" />
-  }
+  const companyResult = await getMyCompany(session)
+  const subtitle = !('error' in companyResult) ? companyResult.data.name : undefined
+  const content = <DecisionSupportWorkspace viewerRole="manager" />
 
   return (
     <div className="gap-xl flex flex-col">

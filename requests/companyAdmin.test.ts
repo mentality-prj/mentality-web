@@ -17,7 +17,7 @@ import {
   adminResendInvite,
   adminUpdateGroup,
 } from '@/requests/companyAdmin'
-import { performAdminRequest } from '@/requests/genericFetch'
+import { performCompanyAdminRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import {
   AccessScopeEntity,
@@ -44,8 +44,15 @@ jest.mock('@/lib/logger', () => ({
   },
 }))
 
-const mockAdminSession: CustomSession = {
-  user: { id: 'admin-1', name: 'Admin User', email: 'admin@app.com', role: 'admin' as const },
+const mockCompanyAdminSession: CustomSession = {
+  user: {
+    id: 'company-admin-1',
+    name: 'Company Administrator',
+    email: 'owner@company.com',
+    role: 'user' as const,
+    companyId: 'co-1',
+    companyRole: COMPANY_ROLES.SUPERUSER,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
@@ -117,9 +124,9 @@ beforeEach(() => {
 
 describe('adminGetEmployees', () => {
   it('returns paginated data on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeApiPayload] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [mockEmployeeApiPayload] })
 
-    const result = await adminGetEmployees(mockAdminSession, COMPANY_ID, 1, 20)
+    const result = await adminGetEmployees(mockCompanyAdminSession, COMPANY_ID, 1, 20)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -130,9 +137,9 @@ describe('adminGetEmployees', () => {
 
   it('maps companyRole field from API payload', async () => {
     const managerPayload = { ...mockEmployeeApiPayload, companyRole: COMPANY_ROLES.MANAGER }
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [managerPayload] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [managerPayload] })
 
-    const result = await adminGetEmployees(mockAdminSession, COMPANY_ID)
+    const result = await adminGetEmployees(mockCompanyAdminSession, COMPANY_ID)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -148,9 +155,9 @@ describe('adminGetEmployees', () => {
       role: COMPANY_ROLES.SUPERUSER,
       groupIds: [],
     }
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [legacyPayload] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [legacyPayload] })
 
-    const result = await adminGetEmployees(mockAdminSession, COMPANY_ID)
+    const result = await adminGetEmployees(mockCompanyAdminSession, COMPANY_ID)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -159,20 +166,21 @@ describe('adminGetEmployees', () => {
   })
 
   it('builds URL with page and limit parameters', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    await adminGetEmployees(mockAdminSession, COMPANY_ID, 3, 50)
+    await adminGetEmployees(mockCompanyAdminSession, COMPANY_ID, 3, 50)
 
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employees(COMPANY_ID, 3, 50))
     )
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await adminGetEmployees(mockAdminSession, COMPANY_ID)
+    const result = await adminGetEmployees(mockCompanyAdminSession, COMPANY_ID)
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
@@ -183,13 +191,14 @@ describe('adminGetEmployees', () => {
 
 describe('adminRemoveEmployee', () => {
   it('returns data on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockEmployee })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockEmployee })
 
-    const result = await adminRemoveEmployee(mockAdminSession, COMPANY_ID, EMP_ID)
+    const result = await adminRemoveEmployee(mockCompanyAdminSession, COMPANY_ID, EMP_ID)
 
     expect('data' in result).toBe(true)
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employeeById(COMPANY_ID, EMP_ID)),
       expect.objectContaining({ method: 'DELETE' })
     )
@@ -197,18 +206,18 @@ describe('adminRemoveEmployee', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await adminRemoveEmployee(mockAdminSession, COMPANY_ID, EMP_ID)
+    const result = await adminRemoveEmployee(mockCompanyAdminSession, COMPANY_ID, EMP_ID)
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await adminRemoveEmployee(mockAdminSession, COMPANY_ID, EMP_ID)
+    const result = await adminRemoveEmployee(mockCompanyAdminSession, COMPANY_ID, EMP_ID)
 
     expect(result).toEqual({ error: 'Invalid employee data' })
   })
@@ -220,13 +229,16 @@ describe('adminAssignRole', () => {
   const dto: AssignRoleDto = { companyRole: COMPANY_ROLES.MANAGER, groupIds: [GROUP_ID] }
 
   it('returns updated employee on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { ...mockEmployee, role: COMPANY_ROLES.MANAGER } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({
+      data: { ...mockEmployee, role: COMPANY_ROLES.MANAGER },
+    })
 
-    const result = await adminAssignRole(mockAdminSession, COMPANY_ID, EMP_ID, dto)
+    const result = await adminAssignRole(mockCompanyAdminSession, COMPANY_ID, EMP_ID, dto)
 
     expect('data' in result).toBe(true)
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.employeeRole(COMPANY_ID, EMP_ID)),
       expect.objectContaining({ method: 'PATCH', body: dto })
     )
@@ -234,9 +246,9 @@ describe('adminAssignRole', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await adminAssignRole(mockAdminSession, COMPANY_ID, EMP_ID, dto)
+    const result = await adminAssignRole(mockCompanyAdminSession, COMPANY_ID, EMP_ID, dto)
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
@@ -247,29 +259,30 @@ describe('adminAssignRole', () => {
 
 describe('adminGetGroups', () => {
   it('returns groups array on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockGroup] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [mockGroup] })
 
-    const result = await adminGetGroups(mockAdminSession, COMPANY_ID)
+    const result = await adminGetGroups(mockCompanyAdminSession, COMPANY_ID)
 
     expect('data' in result).toBe(true)
     if ('data' in result) expect(result.data).toHaveLength(1)
   })
 
   it('builds URL with companyId', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    await adminGetGroups(mockAdminSession, COMPANY_ID)
+    await adminGetGroups(mockCompanyAdminSession, COMPANY_ID)
 
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groups(COMPANY_ID))
     )
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
 
-    const result = await adminGetGroups(mockAdminSession, COMPANY_ID)
+    const result = await adminGetGroups(mockCompanyAdminSession, COMPANY_ID)
 
     expect(result).toEqual({ error: 'Server error' })
     expect(logger.error).toHaveBeenCalled()
@@ -282,13 +295,14 @@ describe('adminCreateGroup', () => {
   const dto: CreateGroupDto = { name: 'Backend', type: 'team' }
 
   it('returns created group on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroup })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroup })
 
-    const result = await adminCreateGroup(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateGroup(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect('data' in result).toBe(true)
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groups(COMPANY_ID)),
       expect.objectContaining({ method: 'POST', body: dto })
     )
@@ -296,18 +310,18 @@ describe('adminCreateGroup', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
-    const result = await adminCreateGroup(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateGroup(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect(result).toEqual({ error: 'Conflict' })
     expect(logger.error).toHaveBeenCalled()
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await adminCreateGroup(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateGroup(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
@@ -317,22 +331,23 @@ describe('adminCreateGroup', () => {
 
 describe('adminUpdateGroup', () => {
   it('returns updated group on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroup })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroup })
 
-    const result = await adminUpdateGroup(mockAdminSession, COMPANY_ID, GROUP_ID, { name: 'Renamed' })
+    const result = await adminUpdateGroup(mockCompanyAdminSession, COMPANY_ID, GROUP_ID, { name: 'Renamed' })
 
     expect('data' in result).toBe(true)
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groupById(COMPANY_ID, GROUP_ID)),
       expect.objectContaining({ method: 'PATCH' })
     )
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await adminUpdateGroup(mockAdminSession, COMPANY_ID, GROUP_ID, { name: 'X' })
+    const result = await adminUpdateGroup(mockCompanyAdminSession, COMPANY_ID, GROUP_ID, { name: 'X' })
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
@@ -343,13 +358,14 @@ describe('adminUpdateGroup', () => {
 
 describe('adminDeleteGroup', () => {
   it('returns empty object on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({})
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({})
 
-    const result = await adminDeleteGroup(mockAdminSession, COMPANY_ID, GROUP_ID)
+    const result = await adminDeleteGroup(mockCompanyAdminSession, COMPANY_ID, GROUP_ID)
 
     expect(result).toEqual({})
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groupById(COMPANY_ID, GROUP_ID)),
       expect.objectContaining({ method: 'DELETE' })
     )
@@ -357,9 +373,9 @@ describe('adminDeleteGroup', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await adminDeleteGroup(mockAdminSession, COMPANY_ID, GROUP_ID)
+    const result = await adminDeleteGroup(mockCompanyAdminSession, COMPANY_ID, GROUP_ID)
 
     expect(result).toEqual({ error: 'Forbidden' })
   })
@@ -369,29 +385,30 @@ describe('adminDeleteGroup', () => {
 
 describe('adminGetInvites', () => {
   it('returns paginated data on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockInvite] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [mockInvite] })
 
-    const result = await adminGetInvites(mockAdminSession, COMPANY_ID, 1, 20)
+    const result = await adminGetInvites(mockCompanyAdminSession, COMPANY_ID, 1, 20)
 
     expect('data' in result).toBe(true)
     if ('data' in result) expect(result.data.items).toHaveLength(1)
   })
 
   it('builds URL with page and limit parameters', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
 
-    await adminGetInvites(mockAdminSession, COMPANY_ID, 2, 10)
+    await adminGetInvites(mockCompanyAdminSession, COMPANY_ID, 2, 10)
 
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.invites(COMPANY_ID, 2, 10))
     )
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
+    const result = await adminGetInvites(mockCompanyAdminSession, COMPANY_ID)
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
@@ -400,8 +417,8 @@ describe('adminGetInvites', () => {
   it('handles wrapped array in items/data/invites', async () => {
     const payloads = [{ items: [mockInvite] }, { data: [mockInvite] }, { invites: [mockInvite] }]
     for (const data of payloads) {
-      ;(performAdminRequest as jest.Mock).mockResolvedValue({ data })
-      const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
+      ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data })
+      const result = await adminGetInvites(mockCompanyAdminSession, COMPANY_ID)
       expect('data' in result).toBe(true)
       if ('data' in result) {
         expect(result.data.items).toHaveLength(1)
@@ -412,8 +429,8 @@ describe('adminGetInvites', () => {
 
   it('extracts total from pagination.total in payload', async () => {
     const data = { items: [mockInvite], pagination: { total: 42 } }
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data })
-    const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data })
+    const result = await adminGetInvites(mockCompanyAdminSession, COMPANY_ID)
     expect('data' in result).toBe(true)
     if ('data' in result) {
       expect(result.data.total).toBe(42)
@@ -427,8 +444,8 @@ describe('adminGetInvites', () => {
     jest
       .mocked(extractPaginationTotal)
       .mockImplementation((_headers, fallback) => Number(headers['x-total-count']) || fallback)
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data, headers })
-    const result = await adminGetInvites(mockAdminSession, COMPANY_ID)
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data, headers })
+    const result = await adminGetInvites(mockCompanyAdminSession, COMPANY_ID)
     expect('data' in result).toBe(true)
     if ('data' in result) {
       expect(result.data.total).toBe(99)
@@ -441,7 +458,11 @@ describe('adminGetInvites', () => {
 // ─── adminCreateInvite ────────────────────────────────────────────────────────
 
 describe('adminCreateInvite', () => {
-  const dto: CreateInviteDto = { email: 'new@company.com', role: COMPANY_ROLES.EMPLOYEE, groupIds: [GROUP_ID] }
+  const dto: CreateInviteDto = {
+    email: 'new@company.com',
+    role: COMPANY_ROLES.EMPLOYEE,
+    groupIds: [GROUP_ID],
+  }
   const expectedBackendInvitePayload = {
     inviteeEmail: 'new@company.com',
     role: COMPANY_ROLES.EMPLOYEE,
@@ -449,13 +470,14 @@ describe('adminCreateInvite', () => {
   }
 
   it('returns created invite on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockInvite })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockInvite })
 
-    const result = await adminCreateInvite(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateInvite(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect('data' in result).toBe(true)
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteBase(COMPANY_ID)),
       expect.objectContaining({ method: 'POST', body: expectedBackendInvitePayload })
     )
@@ -463,18 +485,18 @@ describe('adminCreateInvite', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
-    const result = await adminCreateInvite(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateInvite(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect(result).toEqual({ error: 'Conflict' })
     expect(logger.error).toHaveBeenCalled()
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
-    const result = await adminCreateInvite(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateInvite(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect(result).toEqual({ error: 'Invalid invite data' })
   })
@@ -482,10 +504,10 @@ describe('adminCreateInvite', () => {
   it('returns error when no groups are selected and skips request', async () => {
     const dtoWithoutGroups: CreateInviteDto = { ...dto, groupIds: [] }
 
-    const result = await adminCreateInvite(mockAdminSession, COMPANY_ID, dtoWithoutGroups)
+    const result = await adminCreateInvite(mockCompanyAdminSession, COMPANY_ID, dtoWithoutGroups)
 
     expect(result).toEqual({ error: 'Group is required' })
-    expect(performAdminRequest).not.toHaveBeenCalled()
+    expect(performCompanyAdminRequest).not.toHaveBeenCalled()
     expect(logger.error).toHaveBeenCalledWith('Failed to create company invite: no group selected', {
       companyId: COMPANY_ID,
     })
@@ -496,13 +518,14 @@ describe('adminCreateInvite', () => {
 
 describe('adminResendInvite', () => {
   it('returns invite on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockInvite })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockInvite })
 
-    const result = await adminResendInvite(mockAdminSession, COMPANY_ID, INVITE_ID)
+    const result = await adminResendInvite(mockCompanyAdminSession, COMPANY_ID, INVITE_ID)
 
     expect('data' in result).toBe(true)
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteResend(COMPANY_ID, INVITE_ID)),
       expect.objectContaining({ method: 'POST' })
     )
@@ -510,9 +533,9 @@ describe('adminResendInvite', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await adminResendInvite(mockAdminSession, COMPANY_ID, INVITE_ID)
+    const result = await adminResendInvite(mockCompanyAdminSession, COMPANY_ID, INVITE_ID)
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
@@ -523,13 +546,14 @@ describe('adminResendInvite', () => {
 
 describe('adminCancelInvite', () => {
   it('returns empty object on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({})
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({})
 
-    const result = await adminCancelInvite(mockAdminSession, COMPANY_ID, INVITE_ID)
+    const result = await adminCancelInvite(mockCompanyAdminSession, COMPANY_ID, INVITE_ID)
 
     expect(result).toEqual({})
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.inviteById(COMPANY_ID, INVITE_ID)),
       expect.objectContaining({ method: 'DELETE' })
     )
@@ -537,9 +561,9 @@ describe('adminCancelInvite', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await adminCancelInvite(mockAdminSession, COMPANY_ID, INVITE_ID)
+    const result = await adminCancelInvite(mockCompanyAdminSession, COMPANY_ID, INVITE_ID)
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()
@@ -550,27 +574,27 @@ describe('adminCancelInvite', () => {
 
 describe('adminGetAccessScopes', () => {
   it('returns array on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockScope] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [mockScope] })
 
-    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+    const result = await adminGetAccessScopes(mockCompanyAdminSession, COMPANY_ID)
 
     expect('data' in result).toBe(true)
     if ('data' in result) expect(result.data).toHaveLength(1)
   })
 
   it('returns empty array when API returns non-array', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: null })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: null })
 
-    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+    const result = await adminGetAccessScopes(mockCompanyAdminSession, COMPANY_ID)
 
     expect('data' in result).toBe(true)
     if ('data' in result) expect(result.data).toEqual([])
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+    const result = await adminGetAccessScopes(mockCompanyAdminSession, COMPANY_ID)
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
@@ -583,11 +607,11 @@ describe('adminGetAccessScopes', () => {
       canViewAnalytics: false,
     }
 
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({
       data: [legacyScopePayload],
     })
 
-    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+    const result = await adminGetAccessScopes(mockCompanyAdminSession, COMPANY_ID)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -596,7 +620,7 @@ describe('adminGetAccessScopes', () => {
   })
 
   it('expands legacy groupIds to separate normalized scopes', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({
       data: [
         {
           id: 'scope-legacy',
@@ -607,7 +631,7 @@ describe('adminGetAccessScopes', () => {
       ],
     })
 
-    const result = await adminGetAccessScopes(mockAdminSession, COMPANY_ID)
+    const result = await adminGetAccessScopes(mockCompanyAdminSession, COMPANY_ID)
 
     expect('data' in result).toBe(true)
     if ('data' in result) {
@@ -623,13 +647,14 @@ describe('adminCreateAccessScope', () => {
   const dto: CreateAccessScopeDto = { userId: EMP_ID, groupId: GROUP_ID, permission: 'VIEW_ANALYTICS' }
 
   it('returns created scope on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockScope })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockScope })
 
-    const result = await adminCreateAccessScope(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateAccessScope(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect('data' in result).toBe(true)
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.accessScopes(COMPANY_ID)),
       expect.objectContaining({ method: 'POST', body: dto })
     )
@@ -637,9 +662,9 @@ describe('adminCreateAccessScope', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Forbidden' })
 
-    const result = await adminCreateAccessScope(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateAccessScope(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect(result).toEqual({ error: 'Forbidden' })
     expect(logger.error).toHaveBeenCalled()
@@ -652,11 +677,11 @@ describe('adminCreateAccessScope', () => {
       canViewAnalytics: false,
     }
 
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({
       data: unsupportedPermissionPayload,
     })
 
-    const result = await adminCreateAccessScope(mockAdminSession, COMPANY_ID, dto)
+    const result = await adminCreateAccessScope(mockCompanyAdminSession, COMPANY_ID, dto)
 
     expect(result).toEqual({ error: 'Invalid access scope response' })
   })
@@ -666,13 +691,14 @@ describe('adminCreateAccessScope', () => {
 
 describe('adminDeleteAccessScope', () => {
   it('returns empty object on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({})
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({})
 
-    const result = await adminDeleteAccessScope(mockAdminSession, COMPANY_ID, SCOPE_ID)
+    const result = await adminDeleteAccessScope(mockCompanyAdminSession, COMPANY_ID, SCOPE_ID)
 
     expect(result).toEqual({})
-    expect(performAdminRequest).toHaveBeenCalledWith(
-      mockAdminSession,
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
+      mockCompanyAdminSession,
+      COMPANY_ID,
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.accessScopeById(COMPANY_ID, SCOPE_ID)),
       expect.objectContaining({ method: 'DELETE' })
     )
@@ -680,9 +706,9 @@ describe('adminDeleteAccessScope', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
-    const result = await adminDeleteAccessScope(mockAdminSession, COMPANY_ID, SCOPE_ID)
+    const result = await adminDeleteAccessScope(mockCompanyAdminSession, COMPANY_ID, SCOPE_ID)
 
     expect(result).toEqual({ error: 'Not found' })
     expect(logger.error).toHaveBeenCalled()

@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import { useAuth } from '@/context/AuthProvider'
 import { useLocale } from 'next-intl'
 
 import {
@@ -10,6 +9,7 @@ import {
   GAD7_RESUBMIT_COOLDOWN_MS,
   GAD7_TOTAL_QUESTIONS,
 } from '@/constants/gad7'
+import { useAuth } from '@/context/AuthProvider'
 import { getGad7Latest, submitGad7 } from '@/requests/gad7'
 import { CustomSession } from '@/types/auth'
 import { Gad7AnswerValue, Gad7ApiResponse, Gad7Level } from '@/types/gad7'

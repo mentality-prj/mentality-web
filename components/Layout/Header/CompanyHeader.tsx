@@ -1,6 +1,8 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
+import { useLocale } from 'next-intl'
 
 import { AvatarMenu, LocalDate, SearchBar } from '@/components/Layout/Header'
 import LangSwitch from '@/components/Layout/Header/LangSwitch'
@@ -10,8 +12,15 @@ import { cn } from '@/lib/utils'
 
 import TopMenu from '../TopMenu/TopMenu'
 
+const companySwitchLabels: Record<string, string> = {
+  uk: 'Змінити компанію',
+  en: 'Switch company',
+  pl: 'Zmień firmę',
+}
+
 export const CompanyHeader = ({ menu, extra }: { menu?: SidebarMenuItemType[]; extra?: React.ReactNode }) => {
   const [isMobileOpen, setIsMobileOpen] = useState(false)
+  const locale = useLocale()
   return (
     <header
       className={cn(
@@ -26,6 +35,9 @@ export const CompanyHeader = ({ menu, extra }: { menu?: SidebarMenuItemType[]; e
         </span>
       </div>
       <div className="flex items-center gap-2 md:gap-md">
+        <Link href={'/' + locale + '/select-company'} className="text-sm underline underline-offset-4">
+          {companySwitchLabels[locale] ?? companySwitchLabels.uk}
+        </Link>
         <TopMenu menu={userTopMenu} collapseToMyDayOnTablet={true} />
         <SearchBar isMobileOpen={isMobileOpen} setIsMobileOpen={setIsMobileOpen} />
         <LangSwitch />

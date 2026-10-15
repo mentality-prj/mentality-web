@@ -5,7 +5,7 @@ import {
   getMoodAnalyticsAdmin,
   updateAnalyticsPreferences,
 } from '@/requests/analytics'
-import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from '@/requests/genericFetch'
 import { CustomSession } from '@/types/auth'
 import { AnalyticsPreferences, AnalyticsResponse, RiskDistribution } from '@/types/company'
 import { COMPANY_ROLES } from '@/types/rbac'
@@ -33,7 +33,14 @@ const mockManagerSession: CustomSession = {
 }
 
 const mockAdminSession: CustomSession = {
-  user: { id: 'admin-1', name: 'Admin User', email: 'admin@app.com', role: 'admin' as const },
+  user: {
+    id: 'company-superuser-1',
+    name: 'Company Administrator',
+    email: 'owner@company.test',
+    role: 'user' as const,
+    companyId: 'co-1',
+    companyRole: COMPANY_ROLES.SUPERUSER,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
@@ -221,28 +228,29 @@ describe('getMoodAnalytics', () => {
 // ─── getMoodAnalyticsAdmin ─────────────────────────────────────────────────────
 
 describe('getMoodAnalyticsAdmin', () => {
-  it('calls performAdminRequest (not performAuthRequest)', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockAnalytics })
+  it('calls performCompanyAdminRequest (not performAuthRequest)', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockAnalytics })
 
     await getMoodAnalyticsAdmin(mockAdminSession, 'co-1', { from: '2025-04-03', to: '2026-04-03' })
 
-    expect(performAdminRequest).toHaveBeenCalled()
+    expect(performCompanyAdminRequest).toHaveBeenCalled()
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('calls the company-scoped endpoint', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockAnalytics })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockAnalytics })
 
     await getMoodAnalyticsAdmin(mockAdminSession, 'co-42', { from: '2025-04-03', to: '2026-04-03' })
 
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'co-42',
       expect.stringContaining('/companies/co-42/analytics/mood')
     )
   })
 
   it('returns analytics data on success', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockAnalytics })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockAnalytics })
 
     const result = await getMoodAnalyticsAdmin(mockAdminSession, 'co-1', {
       from: '2025-04-03',
@@ -256,7 +264,7 @@ describe('getMoodAnalyticsAdmin', () => {
   })
 
   it('returns error when API call fails', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Internal Server Error' })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Internal Server Error' })
 
     const result = await getMoodAnalyticsAdmin(mockAdminSession, 'co-1', {
       from: '2025-04-03',

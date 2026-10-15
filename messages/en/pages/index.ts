@@ -7,6 +7,7 @@ import Callback from './Callback.json'
 import Company from './Company.json'
 import CookiesPolicy from './CookiesPolicy.json'
 import Diary from './Diary.json'
+import Dip from './Dip.json'
 import FAQ from './FAQ.json'
 import Guide from './Guide.json'
 import K10 from './K10.json'
@@ -18,10 +19,11 @@ import MoodTracker from './MoodTracker.json'
 import MyProgress from './MyProgress.json'
 import MySpace from './MySpace.json'
 import PrivacyPolicy from './PrivacyPolicy.json'
+import Profile from './Profile.json'
 import PsychologicalTests from './PsychologicalTests.json'
 import Research from './Research.json'
-import Services from './Services.json'
 import ServerError from './ServerError.json'
+import Services from './Services.json'
 import Settings from './Settings.json'
 import TermsOfService from './TermsOfService.json'
 
@@ -35,6 +37,7 @@ export const pages = {
   AnxietyCheck,
   CookiesPolicy,
   Diary,
+  Dip,
   FAQ,
   Guide,
   K10,
@@ -44,6 +47,7 @@ export const pages = {
   MoodTracker,
   MyProgress,
   MySpace,
+  Profile,
   PrivacyPolicy,
   PsychologicalTests,
   Research,

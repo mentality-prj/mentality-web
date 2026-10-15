@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 
@@ -88,7 +89,7 @@ export async function POST(request: NextRequest) {
   const ZITADEL_ISSUER = process.env.NEXT_PUBLIC_ZITADEL_ISSUER
   const CLIENT_ID = process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID ?? process.env.ZITADEL_CLIENT_ID
   const CLIENT_SECRET = process.env.ZITADEL_CLIENT_SECRET
-  const REDIRECT_URI = `${process.env.NEXT_PUBLIC_BASE_URL}/callback`
+  const REDIRECT_URI = new URL('/callback', request.nextUrl.origin).toString()
 
   if (!ZITADEL_ISSUER || !CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI.startsWith('http')) {
     return jsonNoStore({ error: 'Server misconfiguration: missing Zitadel environment variables' }, { status: 500 })
@@ -139,7 +140,7 @@ export async function POST(request: NextRequest) {
       params.set('redirect_uri', REDIRECT_URI)
     } else if (grantType === 'refresh_token') {
       // Read refresh token from httpOnly cookie (never sent from client JS)
-      const cookieStore = cookies()
+      const cookieStore = await cookies()
       const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)
       storedTokens = parseStoredAuthTokensCookie(tokenCookie?.value)
       const refreshToken = storedTokens?.refreshToken
@@ -198,9 +199,9 @@ export async function POST(request: NextRequest) {
       }
 
       const safeData = {
-        access_token: data.access_token,
-        id_token: idToken,
-        expires_in: data.expires_in,
+        expiresAt: updatedTokens.expiresAt,
+        hasRefreshToken: Boolean(updatedTokens.refreshToken),
+        userRole: updatedTokens.userRole,
       }
       return setAuthCookie(jsonNoStore(safeData), serialized)
     }
@@ -224,11 +225,13 @@ export async function POST(request: NextRequest) {
     }
 
     const safeData = {
-      access_token: data.access_token,
-      id_token: data.id_token,
-      expires_in: data.expires_in,
+      expiresAt: cookieTokens.expiresAt,
+      hasRefreshToken: Boolean(cookieTokens.refreshToken),
     }
-    return setAuthCookie(jsonNoStore(safeData), serialized)
+    const response = setAuthCookie(jsonNoStore(safeData), serialized)
+    // A new login must not inherit the previous account's selected tenant.
+    response.cookies.delete(ACTIVE_COMPANY_COOKIE)
+    return response
   } catch (error) {
     return jsonNoStore(
       { error: 'Internal error', message: error instanceof Error ? error.message : String(error) },

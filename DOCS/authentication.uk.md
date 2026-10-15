@@ -1,194 +1,51 @@
-# Архітектура авторизації
+# Автентифікація та браузерний BFF
 
-## Огляд
+## Поточна архітектура
 
-Dzvin.co використовує **Zitadel** як OIDC-провайдер із потоком **Authorization Code + PKCE**. Фронтенд ніколи не працює з `client_secret` — обмін токенів відбувається через серверний API-маршрут.
+Dzvin.co використовує Zitadel (Authorization Code + PKCE), Next.js 16 App Router і NestJS. Сервер зберігає токени доступу, ID та оновлення в HttpOnly cookie `auth-tokens`. Браузер отримує тільки перевірені відомості про користувача й метадані терміну дії токена.
 
-Шар авторизації побудований як **провайдер-агностична абстракція**. Весь код застосунку взаємодіє з єдиним API (`authService` / `useAuth` / `getServerSession`), тому заміна провайдера (Auth0, Keycloak тощо) потребує змін лише в одному файлі.
+**Не використовуйте браузерний `getToken()` для отримання JWT і не додавайте `Authorization` у React-запити.** Застарілий `getToken()` навмисно повертає `null`. Токени Zitadel та привілейовані ключі QDIP/DIP не мають потрапляти до клієнтського стану.
 
-## Потік логіну
+## Вхід і сесія
 
-```mermaid
-sequenceDiagram
-    participant B as Браузер (signin)
-    participant Z as Zitadel (OIDC)
-    participant C as /callback (сторінка)
-    participant E as /api/auth/exchange
-    participant S as Бекенд (NestJS)
+1. `ZitadelAuthProvider.login()` генерує PKCE verifier/challenge та state і переводить браузер до Zitadel.
+2. `/callback` перевіряє state і надсилає код та verifier на `POST /api/auth/exchange`.
+3. Next.js обмінює код із серверним секретом Zitadel та встановлює HttpOnly cookie (SameSite=Lax, Secure у production). JSON містить лише метадані.
+4. `GET /api/auth/session` повертає користувача, перевіреного через NestJS, без JWT.
+5. `GET /api/auth/token` повертає метадані. `POST /api/auth/token` відхиляє довільні браузерні JWT.
+6. `POST /api/auth/exchange` з `grantType: 'refresh_token'` оновлює токени на сервері; `POST /api/auth/logout` очищує cookie й переводить до Zitadel.
 
-    B->>B: 1. login() — генерація PKCE (verifier + challenge),<br/>зберігання в sessionStorage
-    B->>Z: 2. Редірект на /oauth/v2/authorize
-    Z->>B: 3. Користувач логіниться (Google / email)
-    Z->>C: 4. Редірект на /callback?code=…&state=…
-    C->>E: 5. POST code + codeVerifier
-    E->>Z: 6. Обмін code на токени (з client_secret)
-    Z-->>E: access_token, id_token, refresh_token
-    E-->>C: 7. Токени (access, id, refresh)
-    C->>S: 8. POST /auth/validate-token<br/>Authorization: Bearer access_token
-    S-->>C: 9. Профіль користувача (UserAI)
-    C->>C: 10. Збереження токенів у httpOnly кукі<br/>через /api/auth/token
-    C->>B: 11. Редірект на /{locale}/my-day
-```
+Провайдер дедуплікує refresh у межах одного екземпляра. **Одночасний refresh у кількох вкладках і на сервері ще потребує реального E2E** (issue #439).
 
-## Структура файлів
+## Авторизовані API-запити
 
-```
-lib/auth/
-├── auth-provider.ts          # IAuthProvider інтерфейс
-├── constants.ts              # AUTH_TOKEN_COOKIE, AUTH_COOKIE_MAX_AGE
-├── index.ts                  # Вхідна точка — експортує authService
-├── server.ts                 # getServerSession() для серверних компонентів
-└── providers/
-    └── zitadel.ts            # ZitadelAuthProvider (поточний провайдер)
+Використовуйте `performAuthRequest()` або `apiRequest()` із браузерною сесією та налаштованим URL NestJS. Helper переводить браузерний запит на `/api/backend/*` того самого origin. Next.js перевіряє cookie через NestJS і додає перевірений bearer **лише між серверами**. Клієнтські bearer, cookie та привілейовані ключі API відхиляються.
 
-config/
-└── zitadel.ts                # Конфігурація Zitadel OIDC (env-змінні)
-
-context/
-└── AuthProvider.tsx           # React-контекст — хук useAuth()
-
-app/
-├── callback/page.tsx          # Обробник OAuth-колбеку
-└── api/auth/
-    ├── token/route.ts         # CRUD httpOnly кукі (GET/POST/DELETE)
-    └── exchange/route.ts      # Серверний обмін токенів (зберігає client_secret)
-
-middleware.ts                  # Захист маршрутів, безпекові заголовки, CSP
-
-# Зворотна сумісність (deprecated):
-lib/auth-service.ts            # → ре-експорт з lib/auth
-lib/get-server-session.ts      # → ре-експорт з lib/auth/server
-```
-
-## Використання
-
-### Клієнтські компоненти — `useAuth()`
-
-```tsx
-import { useAuth } from '@/context/AuthProvider'
-
-function MyComponent() {
-  const { user, status, login, logout, getToken } = useAuth()
-
-  if (status === 'loading') return <Spinner />
-  if (status === 'unauthenticated') return <button onClick={login}>Увійти</button>
-
-  return <div>Привіт, {user?.name}</div>
-}
-```
-
-### Серверні компоненти — `getServerSession()`
-
-```tsx
-import { getServerSession } from '@/lib/get-server-session'
-
-export default async function Page() {
-  const session = await getServerSession()
-  if (!session) redirect('/auth')
-
-  return <div>Привіт, {session.user?.name}</div>
-}
-```
-
-### API-запити — `getToken()`
+Приклад:
 
 ```ts
-import { authService } from '@/lib/auth'
+import { performAuthRequest } from '@/requests/genericFetch'
+import { APIUrl } from '@/requests/config'
 
-const token = await authService.getToken()
-// → валідний accessToken (автоматично оновлюється якщо протерміновано)
-
-fetch('/api/something', {
-  headers: { Authorization: `Bearer ${token}` },
-})
+const result = await performAuthRequest(session, APIUrl + '/mood-record', { method: 'GET' })
 ```
 
-## Управління токенами
+Серверні компоненти можуть звертатися до NestJS безпосередньо з перевіреною серверною сесією. BFF забезпечує `no-store`, перевіряє origin мутацій, обмежує розмір тіла та дозволені маршрути. API даних `GET /auth/me` та `GET/PATCH /auth/me/analytics-preferences` доступні; маршрути перевірки токенів і провайдера — ні.
 
-| Токен        | Сховище       | Призначення                                     |
-| ------------ | ------------- | ----------------------------------------------- |
-| accessToken  | httpOnly кукі | Надсилається бекенду як `Authorization: Bearer` |
-| idToken      | httpOnly кукі | Використовується для логауту (`id_token_hint`)  |
-| refreshToken | httpOnly кукі | Тихе оновлення токена до закінчення терміну     |
+## Основні файли
 
-**Назва кукі:** `auth-tokens`
-**Термін дії:** 30 днів
-**Прапорці:** `httpOnly`, `secure` (production), `sameSite=lax`
+- `lib/auth/providers/zitadel.ts` — PKCE та клієнтська сесія
+- `context/AuthProvider.tsx` — дані користувача та розклад refresh
+- `lib/auth/server.ts` — перевірка серверної сесії з timeout
+- `app/api/auth/{exchange,session,token,logout}/route.ts` — серверна авторизація
+- `app/api/backend/[...path]/route.ts` — BFF до NestJS
+- `helpers/api-wrapper.ts` — BFF-транспорт і фільтр credential-заголовків
+- `proxy.ts` — маршрутизація та заголовки безпеки Next.js 16
 
-### Оновлення токена
+`ZITADEL_CLIENT_SECRET` — тільки серверний секрет. Публічні параметри: `NEXT_PUBLIC_ZITADEL_ISSUER`, `NEXT_PUBLIC_ZITADEL_CLIENT_ID`, `NEXT_PUBLIC_BASE_URL`. URL NestJS: `NEXT_PUBLIC_API_URL`.
 
-`AuthProvider` встановлює таймер для автоматичного оновлення токена за 60 секунд до закінчення терміну дії. Якщо оновлення не вдається — користувач виходить з системи.
+## Критерії випуску
 
-## Захист маршрутів (Middleware)
+PR #437 інтегровано до `dev` після TypeScript, ESLint, Prettier, Jest, smoke-тестів та build. **Production ще не кваліфіковано.** Реальний E2E на ізольованих тестових Zitadel/NestJS має підтвердити login/callback, конкурентний refresh, logout, права доступу, міжтенантну ізоляцію та відсутність JWT у браузері (issue #439).
 
-`middleware.ts` забезпечує:
-
-1. **Захист маршрутів** — неавтентифіковані користувачі на захищених маршрутах → редірект на `/auth`
-2. **Перевірка терміну токена** — протермінований токен → серверний рефреш через Zitadel; якщо немає refresh токена → редірект на `/auth`
-3. **Редірект з логіну** — автентифіковані користувачі на `/auth` → редірект на `/my-day`
-4. **CSP-заголовки** — Content-Security-Policy, X-Frame-Options, X-Content-Type-Options
-5. **Локалізація** — кукі NEXT_LOCALE, фолбек Accept-Language
-6. **Обмеження розміру запиту** — 413 для POST/PUT/PATCH > 1MB
-
-> **Примітка:** Контроль доступу за ролями (напр. адмін-маршрути) виконується серверно в `layout.tsx`, а не в middleware.
-
-## Змінні оточення
-
-| Змінна                          | Обов'язкова | Опис                               |
-| ------------------------------- | ----------- | ---------------------------------- |
-| `NEXT_PUBLIC_ZITADEL_ISSUER`    | Так         | URL інстансу Zitadel               |
-| `NEXT_PUBLIC_ZITADEL_CLIENT_ID` | Так         | OIDC client ID                     |
-| `ZITADEL_CLIENT_SECRET`         | Так         | OIDC client secret (тільки сервер) |
-| `NEXT_PUBLIC_BASE_URL`          | Так         | URL застосунку (для redirect URI)  |
-| `NEXT_PUBLIC_API_URL`           | Так         | URL бекенд API                     |
-
-## Типи
-
-```ts
-// Користувач з бекенду (з /auth/validate-token)
-type UserAI = {
-  _id: string
-  email: string
-  name: string
-  avatarUrl: string // Аватар з Zitadel userinfo (picture claim)
-  role: UserRole // 'admin' | 'user'
-  zitadelSub?: string // Ідентифікатор суб'єкта Zitadel
-  createdAt: Date
-}
-
-// Користувач на фронтенді (зберігається в контексті)
-interface CustomUser {
-  id: string
-  name: string
-  email: string
-  image?: string // = avatarUrl з бекенду
-  role?: UserRole
-  companyId?: string
-  companyRole?: CompanyRole
-  isAIAuthorized?: boolean
-}
-
-// Сесія (сервер та клієнт)
-interface CustomSession {
-  user?: CustomUser
-  OAuthToken?: string // accessToken
-  provider?: string // 'zitadel'
-  error?: SessionError
-  expires?: string
-}
-```
-
-## Заміна провайдера авторизації
-
-Щоб замінити Zitadel іншим провайдером (наприклад Auth0):
-
-1. Створити `lib/auth/providers/auth0.ts`, що реалізує `IAuthProvider`
-2. Змінити один рядок у `lib/auth/index.ts`:
-   ```ts
-   import { Auth0AuthProvider } from '@/lib/auth/providers/auth0'
-   const provider: IAuthProvider = new Auth0AuthProvider()
-   ```
-3. Оновити `app/api/auth/exchange/route.ts` під ендпоінт нового провайдера
-4. Оновити змінні оточення
-
-Все інше — `useAuth()`, `getServerSession()`, middleware, 50+ серверних компонентів, 40+ клієнтських компонентів — залишається без змін.
+Див. `DOCS/frontend-architecture.md` та issues #436, #438, #439.

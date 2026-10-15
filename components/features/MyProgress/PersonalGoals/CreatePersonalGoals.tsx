@@ -48,7 +48,7 @@ export const CreatePersonalGoals = ({ onCreated }: { onCreated?: (goal?: GoalEnt
     : currentSuggestions
 
   const VISIBLE_COUNT = 7
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+
   const visibleSuggestionLabels = useMemo(() => {
     const shuffled = [...filteredSuggestions].sort(() => Math.random() - 0.5)
     return shuffled.slice(0, VISIBLE_COUNT).map((s) => s.label)

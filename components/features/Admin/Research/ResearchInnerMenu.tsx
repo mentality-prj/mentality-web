@@ -10,9 +10,9 @@ export function ResearchInnerMenu() {
   const t = useTranslations('pages.Admin')
   const items = [
     {
-      key: 'diagnostics',
-      href: Routes.ADMIN_R_AND_D_DIAGNOSTICS,
-      label: t('diagnostics.title'),
+      key: 'dipWorkspace',
+      href: `${Routes.ADMIN_DIP}/research`,
+      label: t('dashboard.dipWorkspace.title'),
       icon: <BrainCircuit size={16} className="icon" />,
     },
   ]

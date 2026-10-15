@@ -1,4 +1,4 @@
-import { APIUrl } from './config'
+import { publicApiRequest } from '@/helpers/api-wrapper'
 
 export interface ContactFormPayload {
   name: string
@@ -8,10 +8,5 @@ export interface ContactFormPayload {
 }
 
 export async function sendContactForm(payload: ContactFormPayload) {
-  const res = await fetch(`${APIUrl}/contact`, {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload),
-  })
-  return res
+  return publicApiRequest('/contact', payload)
 }

@@ -1,9 +1,9 @@
 'use client'
 
 import { useCallback, useEffect, useState } from 'react'
-import { useAuth } from '@/context/AuthProvider'
 
 import { useAdminCompany } from '@/context/adminCompanyContext'
+import { useAuth } from '@/context/AuthProvider'
 import { getCompanies } from '@/requests/companies'
 import { CustomSession } from '@/types/auth'
 import { CompanyEntity } from '@/types/company'

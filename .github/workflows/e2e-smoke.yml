@@ -1,0 +1,39 @@
+name: Frontend Remote Smoke
+
+on:
+  workflow_dispatch:
+    inputs:
+      base_url:
+        description: Public deployment URL, without a trailing path
+        required: true
+        default: https://dzvin.co
+        type: string
+      locale:
+        description: Locale to validate
+        required: true
+        default: uk
+        type: choice
+        options:
+          - uk
+          - en
+          - pl
+
+permissions:
+  contents: read
+
+jobs:
+  remote-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Check smoke harness
+        run: node --test scripts/e2e-smoke.test.mjs
+      - name: Verify public deployment (no credentials or mutations)
+        env:
+          E2E_BASE_URL: ${{ inputs.base_url }}
+          E2E_LOCALE: ${{ inputs.locale }}
+        run: node scripts/e2e-smoke.mjs

@@ -1,6 +1,6 @@
 import { COMPANY_ADMIN_ENDPOINTS, GROUP_ENDPOINTS } from '@/constants/companyEndpoints'
 import { logger } from '@/lib/logger'
-import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from '@/requests/genericFetch'
 import {
   createGroup,
   createGroupAdmin,
@@ -63,7 +63,14 @@ const mockEmployeeSession: CustomSession = {
 }
 
 const mockAdminSession: CustomSession = {
-  user: { id: 'sysadmin-1', name: 'System Admin', email: 'sysadmin@mentality.app', role: 'admin' as const },
+  user: {
+    id: 'company-superuser-1',
+    name: 'Company Administrator',
+    email: 'owner@company.test',
+    role: 'user' as const,
+    companyId: 'c-1',
+    companyRole: COMPANY_ROLES.SUPERUSER,
+  },
   OAuthToken: 'mock-token',
   expires: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString(),
 }
@@ -269,8 +276,8 @@ describe('deleteGroup', () => {
 // ─── Admin-scoped variants ────────────────────────────────────────────────────
 
 describe('getGroupsAdmin', () => {
-  it('calls performAdminRequest with company-scoped groups URL', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [mockGroupRaw] })
+  it('calls performCompanyAdminRequest with company-scoped groups URL', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [mockGroupRaw] })
 
     const result = await getGroupsAdmin(mockAdminSession, 'c-1')
 
@@ -279,15 +286,16 @@ describe('getGroupsAdmin', () => {
       expect(result.data).toHaveLength(1)
       expect(result.data[0].id).toBe('g-1')
     }
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groups('c-1'))
     )
     expect(performAuthRequest).not.toHaveBeenCalled()
   })
 
   it('returns empty array when API returns empty', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: [] })
 
     const result = await getGroupsAdmin(mockAdminSession, 'c-1')
 
@@ -295,8 +303,8 @@ describe('getGroupsAdmin', () => {
     if ('data' in result) expect(result.data).toHaveLength(0)
   })
 
-  it('propagates error from performAdminRequest', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
+  it('propagates error from performCompanyAdminRequest', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
 
     const result = await getGroupsAdmin(mockAdminSession, 'c-1')
 
@@ -306,14 +314,15 @@ describe('getGroupsAdmin', () => {
 })
 
 describe('createGroupAdmin', () => {
-  it('calls performAdminRequest with POST and company-scoped URL', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
+  it('calls performCompanyAdminRequest with POST and company-scoped URL', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
 
     const result = await createGroupAdmin(mockAdminSession, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ data: mockGroupRaw })
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groups('c-1')),
       expect.objectContaining({ method: 'POST' })
     )
@@ -321,15 +330,15 @@ describe('createGroupAdmin', () => {
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
     const result = await createGroupAdmin(mockAdminSession, 'c-1', { name: 'Engineering', type: 'department' })
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
 
-  it('propagates error from performAdminRequest', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
+  it('propagates error from performCompanyAdminRequest', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
     const result = await createGroupAdmin(mockAdminSession, 'c-1', { name: 'Engineering', type: 'department' })
 
@@ -339,14 +348,15 @@ describe('createGroupAdmin', () => {
 })
 
 describe('updateGroupAdmin', () => {
-  it('calls performAdminRequest with PATCH and group-by-id URL', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
+  it('calls performCompanyAdminRequest with PATCH and group-by-id URL', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
 
     const result = await updateGroupAdmin(mockAdminSession, 'c-1', 'g-1', { name: 'Backend' })
 
     expect(result).toEqual({ data: mockGroupRaw })
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groupById('c-1', 'g-1')),
       expect.objectContaining({ method: 'PATCH' })
     )
@@ -354,15 +364,15 @@ describe('updateGroupAdmin', () => {
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
     const result = await updateGroupAdmin(mockAdminSession, 'c-1', 'g-1', { name: 'Backend' })
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
 
-  it('propagates error from performAdminRequest', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+  it('propagates error from performCompanyAdminRequest', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
     const result = await updateGroupAdmin(mockAdminSession, 'c-1', 'g-1', { name: 'Backend' })
 
@@ -372,14 +382,15 @@ describe('updateGroupAdmin', () => {
 })
 
 describe('deleteGroupAdmin', () => {
-  it('calls performAdminRequest with DELETE and group-by-id URL', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
+  it('calls performCompanyAdminRequest with DELETE and group-by-id URL', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: mockGroupRaw })
 
     const result = await deleteGroupAdmin(mockAdminSession, 'c-1', 'g-1')
 
     expect(result).toEqual({ data: mockGroupRaw })
-    expect(performAdminRequest).toHaveBeenCalledWith(
+    expect(performCompanyAdminRequest).toHaveBeenCalledWith(
       mockAdminSession,
+      'c-1',
       expect.stringContaining(COMPANY_ADMIN_ENDPOINTS.groupById('c-1', 'g-1')),
       expect.objectContaining({ method: 'DELETE' })
     )
@@ -387,15 +398,15 @@ describe('deleteGroupAdmin', () => {
   })
 
   it('returns error on invalid mapped data', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ data: { id: '' } })
 
     const result = await deleteGroupAdmin(mockAdminSession, 'c-1', 'g-1')
 
     expect(result).toEqual({ error: 'Invalid group data' })
   })
 
-  it('propagates error from performAdminRequest', async () => {
-    ;(performAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
+  it('propagates error from performCompanyAdminRequest', async () => {
+    ;(performCompanyAdminRequest as jest.Mock).mockResolvedValue({ error: 'Conflict' })
 
     const result = await deleteGroupAdmin(mockAdminSession, 'c-1', 'g-1')
 

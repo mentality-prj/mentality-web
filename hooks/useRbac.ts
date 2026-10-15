@@ -1,7 +1,6 @@
 'use client'
 
 import { useAuth } from '@/context/AuthProvider'
-
 import { CustomSession } from '@/types/auth'
 import { CompanyRole } from '@/types/rbac'
 

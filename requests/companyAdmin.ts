@@ -20,7 +20,7 @@ import {
 } from '@/types/company'
 
 import { APIUrl } from './config'
-import { performAdminRequest } from './genericFetch'
+import { performCompanyAdminRequest } from './genericFetch'
 import { extractInviteArray, extractInviteTotal } from './inviteResponse.helpers'
 
 function toBackendInvitePayload(dto: CreateInviteDto): Record<string, unknown> {
@@ -40,7 +40,7 @@ export async function adminGetEmployees(
   limit = 20
 ): Promise<{ data: PaginatedEmployees } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employees(companyId, page, limit)}`
-  const res = await performAdminRequest<EmployeeEntity[]>(session, url)
+  const res = await performCompanyAdminRequest<EmployeeEntity[]>(session, companyId, url)
 
   if ('error' in res) {
     logger.error('Failed to fetch company employees', { error: res.error, companyId })
@@ -57,8 +57,9 @@ export async function adminRemoveEmployee(
   companyId: string,
   empId: string
 ): Promise<{ data: EmployeeEntity } | { error: string }> {
-  const res = await performAdminRequest<EmployeeEntity>(
+  const res = await performCompanyAdminRequest<EmployeeEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeeById(companyId, empId)}`,
     { method: 'DELETE' }
   )
@@ -84,8 +85,9 @@ export async function adminAssignRole(
   empId: string,
   dto: AssignRoleDto
 ): Promise<{ data: EmployeeEntity } | { error: string }> {
-  const res = await performAdminRequest<EmployeeEntity>(
+  const res = await performCompanyAdminRequest<EmployeeEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeeRole(companyId, empId)}`,
     { method: 'PATCH', body: dto as unknown as Record<string, unknown> }
   )
@@ -111,7 +113,11 @@ export async function adminGetGroups(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: GroupEntity[] } | { error: string }> {
-  const res = await performAdminRequest<GroupEntity[]>(session, `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`)
+  const res = await performCompanyAdminRequest<GroupEntity[]>(
+    session,
+    companyId,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`
+  )
 
   if ('error' in res) {
     logger.error('Failed to fetch company groups', { error: res.error, companyId })
@@ -126,10 +132,15 @@ export async function adminCreateGroup(
   companyId: string,
   dto: CreateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
-  const res = await performAdminRequest<GroupEntity>(session, `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`, {
-    method: 'POST',
-    body: dto as unknown as Record<string, unknown>,
-  })
+  const res = await performCompanyAdminRequest<GroupEntity>(
+    session,
+    companyId,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groups(companyId)}`,
+    {
+      method: 'POST',
+      body: dto as unknown as Record<string, unknown>,
+    }
+  )
 
   if ('error' in res) {
     logger.error('Failed to create company group', { error: res.error, companyId })
@@ -152,8 +163,9 @@ export async function adminUpdateGroup(
   id: string,
   dto: UpdateGroupDto
 ): Promise<{ data: GroupEntity } | { error: string }> {
-  const res = await performAdminRequest<GroupEntity>(
+  const res = await performCompanyAdminRequest<GroupEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groupById(companyId, id)}`,
     { method: 'PATCH', body: dto as unknown as Record<string, unknown> }
   )
@@ -178,9 +190,14 @@ export async function adminDeleteGroup(
   companyId: string,
   id: string
 ): Promise<Record<string, never> | { error: string }> {
-  const res = await performAdminRequest(session, `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groupById(companyId, id)}`, {
-    method: 'DELETE',
-  })
+  const res = await performCompanyAdminRequest(
+    session,
+    companyId,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.groupById(companyId, id)}`,
+    {
+      method: 'DELETE',
+    }
+  )
 
   if ('error' in res) {
     logger.error('Failed to delete company group', { error: res.error, companyId, id })
@@ -200,7 +217,7 @@ export async function adminGetInvites(
   limit = 20
 ): Promise<{ data: PaginatedInvites } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.invites(companyId, page, limit)}`
-  const res = await performAdminRequest<unknown>(session, url)
+  const res = await performCompanyAdminRequest<unknown>(session, companyId, url)
 
   if ('error' in res) {
     logger.error('Failed to fetch company invites', { error: res.error, companyId })
@@ -223,8 +240,9 @@ export async function adminCreateInvite(
     return { error: 'Group is required' }
   }
 
-  const res = await performAdminRequest<InviteEntity>(
+  const res = await performCompanyAdminRequest<InviteEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteBase(companyId)}`,
     { method: 'POST', body: toBackendInvitePayload(dto) }
   )
@@ -249,8 +267,9 @@ export async function adminResendInvite(
   companyId: string,
   inviteId: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
-  const res = await performAdminRequest<InviteEntity>(
+  const res = await performCompanyAdminRequest<InviteEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteResend(companyId, inviteId)}`,
     { method: 'POST' }
   )
@@ -275,8 +294,9 @@ export async function adminCancelInvite(
   companyId: string,
   inviteId: string
 ): Promise<Record<string, never> | { error: string }> {
-  const res = await performAdminRequest(
+  const res = await performCompanyAdminRequest(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteById(companyId, inviteId)}`,
     { method: 'DELETE' }
   )
@@ -296,8 +316,9 @@ export async function adminGetAccessScopes(
   session: CustomSession | null,
   companyId: string
 ): Promise<{ data: AccessScopeEntity[] } | { error: string }> {
-  const res = await performAdminRequest<AccessScopeEntity[]>(
+  const res = await performCompanyAdminRequest<AccessScopeEntity[]>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`
   )
 
@@ -316,8 +337,9 @@ export async function adminCreateAccessScope(
   companyId: string,
   dto: CreateAccessScopeDto
 ): Promise<{ data: AccessScopeEntity } | { error: string }> {
-  const res = await performAdminRequest<AccessScopeEntity>(
+  const res = await performCompanyAdminRequest<AccessScopeEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopes(companyId)}`,
     { method: 'POST', body: dto as unknown as Record<string, unknown> }
   )
@@ -343,9 +365,14 @@ export async function adminDeleteAccessScope(
   companyId: string,
   id: string
 ): Promise<Record<string, never> | { error: string }> {
-  const res = await performAdminRequest(session, `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopeById(companyId, id)}`, {
-    method: 'DELETE',
-  })
+  const res = await performCompanyAdminRequest(
+    session,
+    companyId,
+    `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.accessScopeById(companyId, id)}`,
+    {
+      method: 'DELETE',
+    }
+  )
 
   if ('error' in res) {
     logger.error('Failed to delete company access scope', { error: res.error, companyId, id })
