@@ -1,8 +1,8 @@
 'use client'
 
 import { Suspense, useEffect } from 'react'
-import { useLocale, useTranslations } from 'next-intl'
 import { useRouter, useSearchParams } from 'next/navigation'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
 
