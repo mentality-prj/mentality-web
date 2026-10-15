@@ -3,29 +3,51 @@ import { useTranslations } from 'next-intl'
 import { Tag } from '@/ds/components/Tag'
 import { ToggleGroup } from '@/ui/toggle-group'
 
-export function FilterOptionGroup({
-  value,
-  options,
-  onChange,
-  filterKey = 'tags',
-}: {
-  value: string
+type GroupProps = {
   options: readonly string[]
-  onChange: (v: string) => void
-  filterKey?: 'tags' | 'categories' | 'moodLevel' | 'stressLevel' | 'week'
-}) {
+  filterKey?: 'tags' | 'categories' | 'moodLevel' | 'stressLevel' | 'energyLevel' | 'focusLevel' | 'week'
+}
+
+type Props = GroupProps &
+  (
+    | { multiple: true; value: string[]; onChange: (values: string[]) => void }
+    | { multiple?: false; value: string; onChange: (value: string) => void }
+  )
+
+export function FilterOptionGroup(props: Props) {
   const t = useTranslations('components.Filter')
-  const translationKey = filterKey === 'categories' ? 'categories' : 'tags'
+  const translationKey = props.filterKey === 'categories' ? 'categories' : 'tags'
+
+  const options = props.options.map((opt) => (
+    <Tag
+      text={t(`filterOptions.${translationKey}`, { tag: opt })}
+      key={opt}
+      value={opt}
+      aria-label={`Toggle ${opt}`}
+    />
+  ))
+
+  if (props.multiple) {
+    return (
+      <ToggleGroup
+        type="multiple"
+        value={props.value}
+        onValueChange={props.onChange}
+        className="flex-wrap justify-start gap-xs"
+      >
+        {options}
+      </ToggleGroup>
+    )
+  }
+
   return (
-    <ToggleGroup type="single" value={value} onValueChange={onChange} className="flex-wrap justify-start gap-xs">
-      {options.map((opt) => (
-        <Tag
-          text={t(`filterOptions.${translationKey}`, { tag: `${opt}` })}
-          key={opt}
-          value={opt}
-          aria-label={`Toggle ${opt}`}
-        />
-      ))}
+    <ToggleGroup
+      type="single"
+      value={props.value}
+      onValueChange={props.onChange}
+      className="flex-wrap justify-start gap-xs"
+    >
+      {options}
     </ToggleGroup>
   )
 }
