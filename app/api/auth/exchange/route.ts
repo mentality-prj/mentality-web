@@ -162,7 +162,6 @@ export async function POST(request: NextRequest) {
     return jsonNoStore({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  let tokenSignal: AbortSignal | null = null
   try {
     const { code, codeVerifier, grantType } = body as {
       code?: string
@@ -201,7 +200,7 @@ export async function POST(request: NextRequest) {
     }
 
     const callProvider = async () => {
-      tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
+      const tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
       try {
         const response = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
           method: 'POST',
@@ -298,12 +297,8 @@ export async function POST(request: NextRequest) {
     response.cookies.delete(ACTIVE_COMPANY_COOKIE)
     return response
   } catch (error) {
-    // A response stream can reject with AbortError even when the originating
-    // fetch signal timed out with TimeoutError. Preserve the real cause.
-    const reason = tokenSignal?.aborted ? tokenSignal.reason : null
-    const timedOut =
-      (reason instanceof Error && reason.name === 'TimeoutError') ||
-      (error instanceof Error && error.name === 'TimeoutError')
+    // callProvider normalizes stream AbortError to the deadline's TimeoutError.
+    const timedOut = error instanceof Error && error.name === 'TimeoutError'
     return jsonNoStore({ error: 'Identity provider temporarily unavailable' }, { status: timedOut ? 504 : 502 })
   }
 }
