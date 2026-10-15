@@ -211,7 +211,13 @@ export async function POST(request: NextRequest) {
           signal: tokenSignal,
         })
         const payload = await readJsonPayload(response)
-        return { ok: response.ok, status: response.status, payload }
+        return {
+          ok: response.ok,
+          status: response.status,
+          payload,
+          issuedAt: Math.floor(Date.now() / 1000),
+          sessionRevision: crypto.randomUUID(),
+        }
       } catch (error) {
         // A body stream can throw AbortError although the deadline elapsed.
         const reason = tokenSignal?.aborted ? tokenSignal.reason : null
@@ -254,8 +260,8 @@ export async function POST(request: NextRequest) {
         accessToken: data.access_token,
         idToken,
         refreshToken: data.refresh_token ?? currentStoredTokens.refreshToken,
-        sessionRevision: crypto.randomUUID(),
-        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+        sessionRevision: exchangeResult.sessionRevision,
+        expiresAt: exchangeResult.issuedAt + data.expires_in,
       }
 
       const serialized = JSON.stringify(updatedTokens)
@@ -282,8 +288,8 @@ export async function POST(request: NextRequest) {
       accessToken: data.access_token,
       idToken: data.id_token,
       refreshToken: data.refresh_token,
-      sessionRevision: crypto.randomUUID(),
-      expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+      sessionRevision: exchangeResult.sessionRevision,
+      expiresAt: exchangeResult.issuedAt + data.expires_in,
     }
 
     const serialized = JSON.stringify(cookieTokens)
