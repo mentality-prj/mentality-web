@@ -28,7 +28,7 @@ export function FilterOptionGroup(props: Props) {
 
   const options = props.options.map((opt) => (
     <Tag
-      text={t(`filterOptions.${translationKey}`, { tag: opt })}
+      text={t(`filterOptions.${translationKey}`, { tag: `${opt}` })}
       key={opt}
       value={opt}
       aria-label={`Toggle ${opt}`}
