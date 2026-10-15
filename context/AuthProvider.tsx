@@ -40,16 +40,35 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // request must not erase a newer rotation performed by another tab.
         const removed = await authService.clearTokensIfUnchanged(observed)
         if (!removed) {
-          const latest = await authService.getStoredTokens()
-          const verified = latest ? await authService.getUser() : null
-          if (generation !== sessionGeneration.current) return
-          if (latest && verified) {
-            setTokens(latest)
-            setUser(verified)
-            setError(null)
-            setStatus('authenticated')
-            setRetryNotBefore(0)
-            return
+          // The first revision changed under the lock. Validate it; if it is
+          // rejected, conditionally invalidate *that* revision as well.
+          // Never send an unconditional DELETE against a newer rotation.
+          for (let tries = 0; tries < 3; tries += 1) {
+            const latest = await authService.getStoredTokens()
+            if (generation !== sessionGeneration.current) return
+            if (!latest) break
+
+            let verified: CustomUser | null
+            try {
+              verified = await authService.getUser()
+            } catch {
+              // A temporary backend outage does not prove the new cookie is
+              // invalid. Keep local state until the next reconciliation.
+              if (generation === sessionGeneration.current) {
+                setRetryNotBefore(Date.now() + 15_000)
+              }
+              return
+            }
+            if (generation !== sessionGeneration.current) return
+            if (verified) {
+              setTokens(latest)
+              setUser(verified)
+              setError(null)
+              setStatus('authenticated')
+              setRetryNotBefore(0)
+              return
+            }
+            if (await authService.clearTokensIfUnchanged(latest)) break
           }
         }
       }
@@ -126,7 +145,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       logger.warn('[AUTH_PROVIDER] Session refresh permanently failed', {
         error: err instanceof Error ? err.message : String(err),
       })
-      setError({ error: 'RefreshTokenError', message: 'Session revalidation failed' })
+      // Do not emit a hard session.error while the old user is still rendered:
+      // SessionWrapper would call unconditional logout ahead of the Web Lock.
       await invalidateSession(observed)
     }
   }, [invalidateSession])
