@@ -251,7 +251,6 @@ describe('/api/auth/exchange route', () => {
     const payload = JSON.stringify({ ...basePayload, padding: 'x'.repeat(32_768 - baseLength) })
     const bytes = new TextEncoder().encode(payload)
     expect(bytes.byteLength).toBe(32_768)
-
     ;(global.fetch as jest.Mock).mockResolvedValue(
       new Response(
         new ReadableStream<Uint8Array>({
