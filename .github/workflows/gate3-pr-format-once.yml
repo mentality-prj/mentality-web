@@ -30,6 +30,6 @@ jobs:
             git config user.name 'github-actions[bot]'
             git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
             git add requests/dipClient.ts requests/dipClient.test.ts 'app/[locale]/admin/dip/system/actions.ts' components/features/Dip/SystemView.tsx components/features/Dip/DipConnectionBanner.tsx
-            git commit -m 'style(dzvin): format Gate 3 Nest QDIP integration'
+            git commit -m 'fix(style): format Nest QDIP integration'
             git push origin HEAD:feat/dzvin-gate3-nest-dip-admin-client-20261015
           fi
