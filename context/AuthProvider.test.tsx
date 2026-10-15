@@ -53,7 +53,7 @@ async function mountWithToken(expiresAt: number) {
 describe('AuthProvider role revalidation after token refresh', () => {
   beforeEach(() => {
     jest.useFakeTimers()
-    jest.clearAllMocks()
+    jest.resetAllMocks()
     ;(authService.clearTokens as jest.Mock).mockResolvedValue(undefined)
   })
 
@@ -178,6 +178,40 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(authService.refreshTokens).not.toHaveBeenCalled()
     expect(authService.getUser).toHaveBeenCalledTimes(2)
     expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+  })
+
+  it('revalidates backend roles after focus even when cookie expiry is unchanged', async () => {
+    await mountWithToken(now + 3600)
+    ;(authService.getUser as jest.Mock).mockResolvedValue(null)
+
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+
+    expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated')
+    expect(authService.clearTokens).toHaveBeenCalledTimes(1)
+  })
+
+  it('honors the 15-second retry backoff when focus fires repeatedly', async () => {
+    await mountWithToken(now + 61)
+    ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
+    ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
+
+    await act(async () => {
+      jest.advanceTimersByTime(2000)
+      await Promise.resolve()
+    })
+    expect(authService.refreshTokens).toHaveBeenCalledTimes(1)
+
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      document.dispatchEvent(new Event('visibilitychange'))
+      await Promise.resolve()
+    })
+    expect(authService.refreshTokens).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+    expect(screen.getByTestId('company')).toHaveTextContent('company-1')
   })
 
   it('fails closed when the token refresh rejects instead of leaving stale privileges', async () => {
