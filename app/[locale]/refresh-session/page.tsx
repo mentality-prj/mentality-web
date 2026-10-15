@@ -1,6 +1,6 @@
 'use client'
 
-import { Suspense, useEffect } from 'react'
+import { Suspense, useEffect, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 
@@ -14,7 +14,8 @@ function safeReturnPath(raw: string | null, locale: string): string {
 }
 
 function SessionRecovery() {
-  const { status } = useAuth()
+  const { status, ensureFreshSession } = useAuth()
+  const [attempt, setAttempt] = useState(0)
   const locale = useLocale()
   const router = useRouter()
   const searchParams = useSearchParams()
@@ -22,12 +23,30 @@ function SessionRecovery() {
 
   useEffect(() => {
     if (status === 'loading') return
-    if (status === 'authenticated') {
-      router.replace(safeReturnPath(searchParams.get('returnTo'), locale))
-    } else {
+    if (status === 'unauthenticated') {
       router.replace(`/${locale}/auth`)
+      return
     }
-  }, [status, locale, router, searchParams])
+
+    let cancelled = false
+    let retryTimer: ReturnType<typeof setTimeout> | undefined
+    const recover = async () => {
+      // A preserved layout can report "authenticated" while its cookie has
+      // already expired. Await real rotation and backend role verification.
+      const ready = await ensureFreshSession()
+      if (cancelled) return
+      if (ready) {
+        router.replace(safeReturnPath(searchParams.get('returnTo'), locale))
+      } else {
+        retryTimer = setTimeout(() => setAttempt((previous) => previous + 1), 15_000)
+      }
+    }
+    void recover()
+    return () => {
+      cancelled = true
+      if (retryTimer) clearTimeout(retryTimer)
+    }
+  }, [status, locale, router, searchParams, ensureFreshSession, attempt])
 
   return (
     <div className="flex min-h-[50vh] flex-col items-center justify-center text-center" aria-live="polite">
