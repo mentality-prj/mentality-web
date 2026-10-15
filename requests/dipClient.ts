@@ -135,12 +135,34 @@ async function dipMutationWithKey<T>(
   return { error: 'Request failed' }
 }
 
-// Transport availability only: never expose or inspect upstream QDIP keys.
-export function getDipOrgConnectionStatus(): DipConnectionStatus {
-  return { configured: Boolean(getNestUrl()), url: null }
+// A configured URL is not proof of authorization or upstream availability.
+// Use one NestJS response for both data and the UI connection indicator.
+type BackendOrganization = { id: string; name: string; status?: string; created_at: string }
+export async function getDipOrganizationsWithConnection(): Promise<{
+  organizations: DipOrganization[]
+  connection: DipConnectionStatus
+}> {
+  const result = await nestAdminRequest<BackendOrganization[]>('/organizations')
+  if (!result.ok || !Array.isArray(result.data)) {
+    return { organizations: [], connection: { configured: false, url: null } }
+  }
+  return {
+    connection: { configured: true, url: null },
+    organizations: result.data.map((o) => ({
+      id: o.id,
+      name: o.name,
+      status: o.status,
+      createdAt: o.created_at,
+    })),
+  }
 }
-export function getDipAdminConnectionStatus(): DipConnectionStatus {
-  return { configured: Boolean(getNestUrl()), url: null }
+
+export async function getDipOrgConnectionStatus(): Promise<DipConnectionStatus> {
+  const result = await getDipOrganizationsWithConnection()
+  return result.connection
+}
+export async function getDipAdminConnectionStatus(): Promise<DipConnectionStatus> {
+  return getDipOrgConnectionStatus()
 }
 
 export async function getDipFeatures(organizationId?: string | null): Promise<DipFeature[]> {
@@ -236,13 +258,7 @@ export async function getDipWorkflows(organizationId?: string | null): Promise<D
 }
 
 export async function getDipOrganizations(): Promise<DipOrganization[]> {
-  const data = await dipRead<Array<{ id: string; name: string; status?: string; created_at: string }>>('/organizations')
-  return (data ?? []).map((o) => ({
-    id: o.id,
-    name: o.name,
-    status: o.status,
-    createdAt: o.created_at,
-  }))
+  return (await getDipOrganizationsWithConnection()).organizations
 }
 
 export async function getDipOrganizationStructure(orgId: string): Promise<DipOrganizationStructure | null> {
