@@ -73,7 +73,9 @@ export function MoodRecordsList({ records }: Props) {
             icon={<IconComponent />}
             tags={r.tags}
           >
-            <div className="mt-2 text-xs text-gray-400">{dateTime && <time dateTime={r.createdAt}>{dateTime}</time>}</div>
+            <div className="mt-2 text-xs text-gray-400">
+              {dateTime && <time dateTime={r.createdAt}>{dateTime}</time>}
+            </div>
           </Card>
         )
       })}
