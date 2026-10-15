@@ -245,6 +245,109 @@ describe('/api/auth/exchange route', () => {
     expect(global.fetch).not.toHaveBeenCalled()
   })
 
+  it('accepts a streamed upstream token response of exactly 32 KiB', async () => {
+    const basePayload = { access_token: 'server-access', id_token: 'server-id', expires_in: 3600, padding: '' }
+    const baseLength = JSON.stringify(basePayload).length
+    const payload = JSON.stringify({ ...basePayload, padding: 'x'.repeat(32_768 - baseLength) })
+    const bytes = new TextEncoder().encode(payload)
+    expect(bytes.byteLength).toBe(32_768)
+
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(
+        new ReadableStream<Uint8Array>({
+          start(controller) {
+            controller.enqueue(bytes.slice(0, 9_000))
+            controller.enqueue(bytes.slice(9_000, 24_000))
+            controller.enqueue(bytes.slice(24_000))
+            controller.close()
+          },
+        }),
+        { status: 200 }
+      )
+    )
+
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'code',
+        codeVerifier: 'verifier',
+      })
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBeTruthy()
+    expect(JSON.stringify(await response.json())).not.toContain('server-access')
+  })
+
+  it('rejects an oversized multi-chunk upstream response and cancels its stream', async () => {
+    let cancelled = false
+    const bytes = new TextEncoder().encode('x'.repeat(32_769))
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(
+        new ReadableStream<Uint8Array>({
+          start(controller) {
+            controller.enqueue(bytes.slice(0, 12_000))
+            controller.enqueue(bytes.slice(12_000, 29_000))
+            controller.enqueue(bytes.slice(29_000))
+          },
+          cancel() {
+            cancelled = true
+          },
+        }),
+        { status: 200 }
+      )
+    )
+
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'code',
+        codeVerifier: 'verifier',
+      })
+    )
+
+    expect(response.status).toBe(502)
+    expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
+    expect(cancelled).toBe(true)
+  })
+
+  it('returns 504 if the upstream response body stalls after successful headers', async () => {
+    const timeout = new AbortController()
+    const signalSpy = jest.spyOn(AbortSignal, 'timeout').mockReturnValue(timeout.signal)
+    try {
+      ;(global.fetch as jest.Mock).mockImplementation(async (_url: string, init: RequestInit) => {
+        const signal = init.signal as AbortSignal
+        return new Response(
+          new ReadableStream<Uint8Array>({
+            start(stream) {
+              const abortRead = () => stream.error(new DOMException('Stream aborted', 'AbortError'))
+              if (signal.aborted) abortRead()
+              else signal.addEventListener('abort', abortRead, { once: true })
+            },
+          }),
+          { status: 200 }
+        )
+      })
+
+      const result = POST(
+        createRequest('/api/auth/exchange', {
+          grantType: 'authorization_code',
+          code: 'code',
+          codeVerifier: 'verifier',
+        })
+      )
+      setTimeout(() => timeout.abort(new DOMException('Request timed out', 'TimeoutError')), 0)
+
+      const response = await result
+      expect(response.status).toBe(504)
+      expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
+      expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
+    } finally {
+      signalSpy.mockRestore()
+    }
+  })
+
   it('rejects cross-origin browser requests before contacting Zitadel', async () => {
     cookiesMock.mockReturnValue(createCookieStore() as never)
 
