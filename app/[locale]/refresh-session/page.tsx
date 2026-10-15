@@ -5,7 +5,6 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
-import { authService } from '@/lib/auth'
 
 function safeReturnPath(raw: string | null, locale: string): string {
   const fallback = `/${locale}/my-day`
@@ -47,26 +46,17 @@ function SessionRecovery() {
     const recover = async () => {
       // A preserved layout can report "authenticated" while its cookie has
       // already expired. Await real rotation and backend role verification.
-      const ready = await ensureFreshSession()
+      const outcome = await ensureFreshSession()
       if (cancelled) return
-      if (ready) {
+      if (outcome === 'authenticated') {
         router.replace(safeReturnPath(searchParams.get('returnTo'), locale))
         return
       }
-
-      // Only a confirmed absent cookie redirects to login. A temporary
-      // metadata/validation outage keeps the recovery route retryable.
-      try {
-        const metadata = await authService.getStoredTokens()
-        if (cancelled) return
-        if (!metadata) {
-          router.replace(`/${locale}/auth`)
-          return
-        }
-      } catch {
-        // A transient network failure is not evidence of logout.
+      if (outcome === 'invalid') {
+        router.replace(`/${locale}/auth`)
+        return
       }
-      if (!cancelled) retryTimer = setTimeout(() => setAttempt((previous) => previous + 1), 15_000)
+      retryTimer = setTimeout(() => setAttempt((previous) => previous + 1), 15_000)
     }
     void recover()
     return () => {

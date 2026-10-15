@@ -115,10 +115,20 @@ export class ZitadelAuthProvider implements IAuthProvider {
 
       const result = await exchangeAuthTokens({ grantType: 'refresh_token' })
       if ('error' in result) {
-        // A parallel request may have completed before the lock was acquired
-        // (or the lock API was unavailable). Never overwrite its cookie.
+        // Do not mistake a network/IdP outage for revoked refresh credentials.
+        // Only a definitive invalid-grant response ends this session.
         const latest = await fetchStoredAuthTokens()
-        return latest?.hasRefreshToken && latest.expiresAt > observed.expiresAt ? latest : null
+        if (
+          latest?.hasRefreshToken &&
+          latest.expiresAt > observed.expiresAt &&
+          latest.expiresAt > Math.floor(Date.now() / 1000)
+        ) {
+          return latest
+        }
+        if (!result.status || result.status === 429 || result.status >= 500) {
+          throw new Error('Identity provider temporarily unavailable')
+        }
+        return null
       }
       return result.data
     }

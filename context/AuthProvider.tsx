@@ -14,7 +14,7 @@ interface AuthContextValue {
   login: () => Promise<void>
   logout: () => Promise<void>
   getToken: () => Promise<string | null>
-  ensureFreshSession: () => Promise<boolean>
+  ensureFreshSession: () => Promise<'authenticated' | 'invalid' | 'retry'>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -33,7 +33,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     verifiedTokens.current = tokens
   }, [tokens])
 
-  const invalidateSession = useCallback(async (observed: BrowserAuthSession | null) => {
+  const invalidateSession = useCallback(async (observed: BrowserAuthSession | null): Promise<boolean> => {
     const generation = ++sessionGeneration.current
     try {
       if (observed) {
@@ -46,7 +46,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           // Never send an unconditional DELETE against a newer rotation.
           for (let tries = 0; tries < 3; tries += 1) {
             const latest = await authService.getStoredTokens()
-            if (generation !== sessionGeneration.current) return
+            if (generation !== sessionGeneration.current) return false
             if (!latest) break
 
             let verified: CustomUser | null
@@ -66,16 +66,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
                 }
                 setRetryNotBefore(Date.now() + 15_000)
               }
-              return
+              return false
             }
-            if (generation !== sessionGeneration.current) return
+            if (generation !== sessionGeneration.current) return false
             if (verified) {
               setTokens(latest)
               setUser(verified)
               setError(null)
               setStatus('authenticated')
               setRetryNotBefore(0)
-              return
+              return true
             }
             if (await authService.clearTokensIfUnchanged(latest)) break
           }
@@ -86,10 +86,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         error: err instanceof Error ? err.message : String(err),
       })
     }
-    if (generation !== sessionGeneration.current) return
+    if (generation !== sessionGeneration.current) return false
     setUser(null)
     setTokens(null)
     setStatus('unauthenticated')
+    return false
   }, [])
 
   // Always validate the company role after a successful refresh, and do not
@@ -382,71 +383,67 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [status, tokens?.expiresAt, retryNotBefore, invalidateSession, refreshAndRevalidate])
 
-  // Called by /refresh-session before it returns to a protected route.
-  // A stale React status alone is not proof that the HttpOnly cookie is fresh.
-  const ensureFreshSession = useCallback(async (): Promise<boolean> => {
+  // The recovery page needs an explicit terminal/retryable result. Legacy
+  // cookies without a revision can remain in the browser after safe cleanup,
+  // so mere cookie presence cannot determine whether sign-in is required.
+  const ensureFreshSession = useCallback(async (): Promise<'authenticated' | 'invalid' | 'retry'> => {
     const generation = sessionGeneration.current
-    // Prevent a failed metadata endpoint from turning the recovery page's
-    // effect re-subscriptions into a network-speed retry loop.
-    if (Date.now() < retryNotBefore) return false
+    if (Date.now() < retryNotBefore) return 'retry'
+
     try {
       let latest = await authService.getStoredTokens()
-      if (generation !== sessionGeneration.current) return false
+      if (generation !== sessionGeneration.current) return 'retry'
       if (!latest) {
         await invalidateSession(null)
-        return false
+        return 'invalid'
       }
 
-      const now = Math.floor(Date.now() / 1000)
-      if (latest.expiresAt <= now + 60 && latest.hasRefreshToken) {
-        if (Date.now() < retryNotBefore) return false
+      if (latest.hasRefreshToken && latest.expiresAt <= Math.floor(Date.now() / 1000) + 60) {
         const refreshed = await authService.refreshTokens()
-        if (generation !== sessionGeneration.current) return false
-        if (!refreshed) {
-          if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-            await invalidateSession(latest)
-          } else {
-            setRetryNotBefore(Date.now() + 15_000)
-          }
-          return false
+        if (generation !== sessionGeneration.current) return 'retry'
+        if (refreshed) {
+          latest = refreshed
+        } else if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
+          const recovered = await invalidateSession(latest)
+          return recovered ? 'authenticated' : 'invalid'
+        } else {
+          setRetryNotBefore(Date.now() + 15_000)
+          return 'retry'
         }
-        latest = refreshed
       }
 
       if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-        await invalidateSession(latest)
-        return false
+        const recovered = await invalidateSession(latest)
+        return recovered ? 'authenticated' : 'invalid'
       }
+
       const verified = await authService.getUser()
-      if (generation !== sessionGeneration.current) return false
+      if (generation !== sessionGeneration.current) return 'retry'
       if (!verified) {
-        await invalidateSession(latest)
-        return false
+        const recovered = await invalidateSession(latest)
+        return recovered ? 'authenticated' : 'invalid'
       }
       setTokens(latest)
       setUser(verified)
       setStatus('authenticated')
       setError(null)
       setRetryNotBefore(0)
-      return true
+      return 'authenticated'
     } catch (err) {
-      if (generation !== sessionGeneration.current) return false
+      if (generation !== sessionGeneration.current) return 'retry'
       logger.warn('[AUTH_PROVIDER] Session recovery deferred', {
         error: err instanceof Error ? err.message : String(err),
       })
-      try {
-        const latest = await authService.getStoredTokens()
-        if (generation !== sessionGeneration.current) return false
-        if (!latest || latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-          await invalidateSession(latest)
-        } else {
-          setRetryNotBefore(Date.now() + 15_000)
-        }
-      } catch {
-        // Preserve shared cookies on temporary metadata network errors.
-        setRetryNotBefore(Date.now() + 15_000)
+      // An IdP/validation outage must not delete shared cookies. Expired local
+      // authorization is hidden while the bounded hydration retry runs.
+      const local = verifiedTokens.current
+      if (!local || local.expiresAt <= Math.floor(Date.now() / 1000)) {
+        setUser(null)
+        setTokens(null)
+        setStatus('loading')
       }
-      return false
+      setRetryNotBefore(Date.now() + 15_000)
+      return 'retry'
     }
   }, [invalidateSession, retryNotBefore])
 

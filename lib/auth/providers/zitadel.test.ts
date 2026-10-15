@@ -171,6 +171,18 @@ describe('token-opaque Zitadel provider', () => {
     expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
   })
 
+  it('preserves a refreshable cookie when Zitadel returns a temporary server error', async () => {
+    const expiring = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(expiring)
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({
+      error: 'Identity provider temporarily unavailable',
+      status: 503,
+    })
+
+    await expect(provider.refreshTokens()).rejects.toThrow('Identity provider temporarily unavailable')
+    expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
+  })
+
   it('never yields a bearer token through the client API', async () => {
     expect(await provider.getToken()).toBeNull()
     expect(await provider.getSession()).toEqual({ user: testUser, provider: 'zitadel' })
