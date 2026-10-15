@@ -163,7 +163,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
   })
 
-  it('syncs another tab\'s rotated metadata after focus without rotating again', async () => {
+  it('syncs rotated metadata from another tab after focus without rotating again', async () => {
     await mountWithToken(now + 3600)
     ;(authService.getStoredTokens as jest.Mock).mockResolvedValue({
       expiresAt: now + 7200,
