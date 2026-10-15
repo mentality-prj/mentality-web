@@ -6,6 +6,7 @@ import { cookies } from 'next/headers'
 import { NextRequest } from 'next/server'
 
 import { POST } from '@/app/api/auth/exchange/route'
+import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 
 jest.mock('next/headers', () => ({
@@ -179,6 +180,7 @@ describe('/api/auth/exchange route', () => {
       )
 
       expect(response.status).toBe(200)
+      expect(response.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
       const requestOptions = (global.fetch as jest.Mock).mock.calls[0][1] as RequestInit
       const parameters = requestOptions.body as URLSearchParams
       expect(parameters.get('redirect_uri')).toBe('http://localhost:3000/callback')

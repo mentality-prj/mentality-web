@@ -6,7 +6,7 @@ import { CreateInviteDto, InviteEntity, PaginatedInvites } from '@/types/company
 import { CAN_INVITE_EMPLOYEES } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performAdminRequest, performAuthRequest } from './genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from './genericFetch'
 import { extractInviteArray, extractInviteTotal } from './inviteResponse.helpers'
 
 function toBackendInvitePayload(dto: CreateInviteDto): Record<string, unknown> {
@@ -141,7 +141,7 @@ export async function getInvitesAdmin(
   limit = 20
 ): Promise<{ data: PaginatedInvites } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.invites(companyId, page, limit)}`
-  const res = await performAdminRequest<unknown>(session, url)
+  const res = await performCompanyAdminRequest<unknown>(session, companyId, url)
   if ('error' in res) {
     logger.error('Admin: failed to fetch invites', { error: res.error, companyId })
     return { error: res.error }
@@ -162,8 +162,9 @@ export async function createInviteAdmin(
     return { error: 'Group is required' }
   }
 
-  const res = await performAdminRequest<InviteEntity>(
+  const res = await performCompanyAdminRequest<InviteEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteBase(companyId)}`,
     { method: 'POST', body: toBackendInvitePayload(dto) }
   )
@@ -182,8 +183,9 @@ export async function resendInviteAdmin(
   companyId: string,
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
-  const res = await performAdminRequest<InviteEntity>(
+  const res = await performCompanyAdminRequest<InviteEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteResend(companyId, id)}`,
     { method: 'POST' }
   )
@@ -202,8 +204,9 @@ export async function cancelInviteAdmin(
   companyId: string,
   id: string
 ): Promise<{ data: InviteEntity } | { error: string }> {
-  const res = await performAdminRequest<InviteEntity>(
+  const res = await performCompanyAdminRequest<InviteEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.inviteById(companyId, id)}`,
     { method: 'DELETE' }
   )

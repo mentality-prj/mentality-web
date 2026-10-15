@@ -76,7 +76,11 @@ export default function Sitemap() {
   const isAuthenticated = !!session?.user
   const isAdmin = session?.user?.role === Roles.ADMIN
   const companyRole = session?.user?.companyRole
-  const hasCompanyAccess = isAdmin || companyRole === COMPANY_ROLES.SUPERUSER || companyRole === COMPANY_ROLES.MANAGER
+  // A role without a verified company context must not expose B2B navigation.
+  const hasCompanyAccess =
+    !isAdmin &&
+    Boolean(session?.user?.companyId) &&
+    (companyRole === COMPANY_ROLES.SUPERUSER || companyRole === COMPANY_ROLES.MANAGER)
 
   const t = useTranslations('common.menu')
 
@@ -95,10 +99,8 @@ export default function Sitemap() {
 
   const b2bItems = [
     { key: 'company', href: Routes.COMPANY },
-    ...(isAdmin || companyRole === COMPANY_ROLES.SUPERUSER
-      ? [{ key: 'company-superuser', href: Routes.COMPANY_ADMIN }]
-      : []),
-    ...(isAdmin || companyRole === COMPANY_ROLES.MANAGER ? [{ key: 'manager', href: Routes.COMPANY_MANAGER }] : []),
+    ...(companyRole === COMPANY_ROLES.SUPERUSER ? [{ key: 'company-superuser', href: Routes.COMPANY_ADMIN }] : []),
+    ...(companyRole === COMPANY_ROLES.MANAGER ? [{ key: 'manager', href: Routes.COMPANY_MANAGER }] : []),
   ]
 
   const rows: {

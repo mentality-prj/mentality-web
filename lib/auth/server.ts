@@ -1,6 +1,7 @@
 import { cookies, headers } from 'next/headers'
 import { redirect } from 'next/navigation'
 
+import { ACTIVE_COMPANY_COOKIE, isValidCompanyId } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 import { logger } from '@/lib/logger'
@@ -126,8 +127,8 @@ const requestScopedResolvedSessions = new Map<
 const REQUEST_SCOPED_CACHE_TTL_MS = 30_000
 const REQUEST_SCOPED_CACHE_MAX_ENTRIES = 256
 
-function buildRequestScopedCacheKey(requestId: string, accessToken: string): string {
-  return `${requestId}:${accessToken}`
+function buildRequestScopedCacheKey(requestId: string, accessToken: string, companyId: string | null): string {
+  return `${requestId}:${accessToken}:${companyId ?? ''}`
 }
 
 function cleanupRequestScopedResolvedSessions(now: number): void {
@@ -147,22 +148,34 @@ function cleanupRequestScopedResolvedSessions(now: number): void {
   }
 }
 
-async function resolveServerSession(tokenCookie: string): Promise<CustomSession | null> {
+async function resolveServerSession(
+  tokenCookie: string,
+  selectedCompanyId: string | null
+): Promise<CustomSession | null> {
   const tokens = parseStoredAuthTokensCookie(tokenCookie)
   if (!tokens?.accessToken) return null
 
   const controller = new AbortController()
   const timeoutId = setTimeout(() => controller.abort(), 5_000)
   try {
-    const response = await fetch(`${APIUrl}/auth/validate-token`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${tokens.accessToken}`,
-      },
-      cache: 'no-store',
-      signal: controller.signal,
-    })
+    const validate = (companyId: string | null) =>
+      fetch(`${APIUrl}/auth/validate-token`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: `Bearer ${tokens.accessToken}`,
+          ...(companyId ? { 'x-company-id': companyId } : {}),
+        },
+        cache: 'no-store',
+        signal: controller.signal,
+      })
+
+    let response = await validate(selectedCompanyId)
+    // A stale company selection must not strand a still-authenticated user.
+    // Only context-specific denials fall back; invalid tokens remain denied.
+    if (selectedCompanyId && [403, 404, 409].includes(response.status)) {
+      response = await validate(null)
+    }
 
     if (!response.ok) {
       logger.warn('[SERVER_SESSION] Backend validation failed', { status: response.status })
@@ -178,6 +191,8 @@ async function resolveServerSession(tokenCookie: string): Promise<CustomSession 
       email: backendUser.email,
       image: backendUser.avatarUrl,
       role: backendUser.role,
+      companyId: backendUser.companyId,
+      companyRole: backendUser.companyRole,
       isAIAuthorized: true,
     }
 
@@ -212,6 +227,8 @@ export async function getServerSession(): Promise<CustomSession | null> {
   const cookieStore = await cookies()
   const headerStore = await headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
+  const requestedCompanyId = cookieStore.get(ACTIVE_COMPANY_COOKIE)?.value
+  const selectedCompanyId = isValidCompanyId(requestedCompanyId) ? requestedCompanyId : null
 
   if (!tokenCookie) return null
 
@@ -220,7 +237,7 @@ export async function getServerSession(): Promise<CustomSession | null> {
 
   const requestId = headerStore.get('x-request-id')
   if (requestId) {
-    const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken)
+    const requestScopedCacheKey = buildRequestScopedCacheKey(requestId, tokens.accessToken, selectedCompanyId)
     const now = Date.now()
     cleanupRequestScopedResolvedSessions(now)
 
@@ -234,7 +251,7 @@ export async function getServerSession(): Promise<CustomSession | null> {
       return existingRequestScopedInFlight
     }
 
-    const requestScopedPromise = resolveServerSession(tokenCookie)
+    const requestScopedPromise = resolveServerSession(tokenCookie, selectedCompanyId)
     requestScopedInFlightSessionRequests.set(requestScopedCacheKey, requestScopedPromise)
 
     try {
@@ -251,14 +268,14 @@ export async function getServerSession(): Promise<CustomSession | null> {
       }
     }
   }
-  const dedupeKey = tokens.accessToken
+  const dedupeKey = `${tokens.accessToken}:${selectedCompanyId ?? ''}`
 
   const existingRequest = inFlightSessionRequests.get(dedupeKey)
   if (existingRequest) {
     return existingRequest
   }
 
-  const requestPromise = resolveServerSession(tokenCookie)
+  const requestPromise = resolveServerSession(tokenCookie, selectedCompanyId)
   inFlightSessionRequests.set(dedupeKey, requestPromise)
 
   try {

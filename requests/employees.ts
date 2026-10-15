@@ -7,7 +7,7 @@ import { EmployeeEntity, PaginatedEmployees, UpdateEmployeeDto } from '@/types/c
 import { CAN_MANAGE_EMPLOYEES, CompanyRole } from '@/types/rbac'
 
 import { APIUrl } from './config'
-import { performAdminRequest, performAuthRequest } from './genericFetch'
+import { performAuthRequest, performCompanyAdminRequest } from './genericFetch'
 
 function assertCanManageEmployees(session: CustomSession | null): boolean {
   const role = session?.user?.companyRole
@@ -116,7 +116,7 @@ export async function getEmployeesAdmin(
   limit = 20
 ): Promise<{ data: PaginatedEmployees } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employees(companyId, page, limit)}`
-  const res = await performAdminRequest<EmployeeEntity[]>(session, url)
+  const res = await performCompanyAdminRequest<EmployeeEntity[]>(session, companyId, url)
   if ('error' in res) {
     logger.error('Admin: failed to fetch employees', { error: res.error, companyId })
     return { error: res.error }
@@ -132,7 +132,7 @@ export async function getEmployeesByRoleAdmin(
   role: CompanyRole
 ): Promise<{ data: EmployeeEntity[] } | { error: string }> {
   const url = `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeesByRole(companyId, role)}`
-  const res = await performAdminRequest<EmployeeEntity[]>(session, url)
+  const res = await performCompanyAdminRequest<EmployeeEntity[]>(session, companyId, url)
   if ('error' in res) {
     logger.error('Admin: failed to fetch employees by role', { error: res.error, companyId, role })
     return { error: res.error }
@@ -145,8 +145,9 @@ export async function removeEmployeeAdmin(
   companyId: string,
   id: string
 ): Promise<{ data: EmployeeEntity } | { error: string }> {
-  const res = await performAdminRequest<EmployeeEntity>(
+  const res = await performCompanyAdminRequest<EmployeeEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeeById(companyId, id)}`,
     { method: 'DELETE' }
   )
@@ -166,8 +167,9 @@ export async function updateEmployeeAdmin(
   id: string,
   dto: UpdateEmployeeDto
 ): Promise<{ data: EmployeeEntity } | { error: string }> {
-  const res = await performAdminRequest<EmployeeEntity>(
+  const res = await performCompanyAdminRequest<EmployeeEntity>(
     session,
+    companyId,
     `${APIUrl}${COMPANY_ADMIN_ENDPOINTS.employeeById(companyId, id)}`,
     { method: 'PATCH', body: dto as unknown as Record<string, unknown> }
   )

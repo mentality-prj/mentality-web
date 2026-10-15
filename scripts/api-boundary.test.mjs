@@ -12,6 +12,7 @@ const permittedTransports = new Set([
   'requests/auth.ts', // only same-origin /api/auth/* identity lifecycle
   'requests/dipClient.ts', // server-only QDIP management integration
   'lib/auth/server.ts', // server-side NestJS Zitadel token validation
+  'lib/auth/companyBackend.server.ts', // reviewed server-only membership and active-company verification
   'proxy.ts', // server-side refresh handoff
   'app/api/backend/[...path]/route.ts', // one NestJS BFF entrypoint
   'app/api/auth/exchange/route.ts', // Zitadel token exchange, server-only

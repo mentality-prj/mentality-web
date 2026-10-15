@@ -76,28 +76,53 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  // Silent refresh: refresh token before it expires
+  // Refresh before expiry, then revalidate the user against the backend.
+  // Refreshing token metadata alone leaves revoked company roles in the browser.
   useEffect(() => {
-    if (!tokens?.expiresAt || !tokens?.hasRefreshToken) return
+    if (status !== 'authenticated' || !tokens?.expiresAt || !tokens?.hasRefreshToken) return
 
-    const expiresInMs = (tokens.expiresAt - Math.floor(Date.now() / 1000) - 60) * 1000
-    if (expiresInMs <= 0) return
+    let cancelled = false
+    // Near-expiry tokens must refresh immediately, not stop scheduling altogether.
+    const expiresInMs = Math.max(0, (tokens.expiresAt - Math.floor(Date.now() / 1000) - 60) * 1000)
 
     const timer = setTimeout(async () => {
-      const refreshed = await authService.refreshTokens()
-      if (refreshed) {
+      try {
+        const refreshed = await authService.refreshTokens()
+        if (cancelled) return
+        if (!refreshed) throw new Error('Token refresh failed')
+
+        // Fetch from the server's verified session, never infer roles from JWTs.
+        const verifiedUser = await authService.getUser()
+        if (cancelled) return
+        if (!verifiedUser) throw new Error('Verified session no longer exists')
+
+        setUser(verifiedUser)
         setTokens(refreshed)
-      } else {
-        setError({ error: 'RefreshTokenError', message: 'Token refresh failed' })
-        await authService.clearTokens()
-        setTokens(null)
+        setError(null)
+      } catch (err) {
+        if (cancelled) return
+        logger.warn('[AUTH_PROVIDER] Refresh or role revalidation failed', {
+          error: err instanceof Error ? err.message : String(err),
+        })
+        setError({ error: 'RefreshTokenError', message: 'Session revalidation failed' })
         setUser(null)
+        setTokens(null)
         setStatus('unauthenticated')
+        try {
+          await authService.clearTokens()
+        } catch (clearError) {
+          logger.error('[AUTH_PROVIDER] Failed to clear invalid session', {
+            error: clearError instanceof Error ? clearError.message : String(clearError),
+          })
+        }
       }
     }, expiresInMs)
 
-    return () => clearTimeout(timer)
-  }, [tokens?.expiresAt, tokens?.hasRefreshToken])
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+    }
+  }, [status, tokens?.expiresAt, tokens?.hasRefreshToken])
 
   const login = useCallback(async () => {
     await authService.login()

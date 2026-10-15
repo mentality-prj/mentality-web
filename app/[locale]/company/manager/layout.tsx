@@ -1,18 +1,31 @@
 import { ReactNode } from 'react'
+import { redirect } from 'next/navigation'
 
-import { AdminCompanySelector } from '@/components/features/Company/AdminCompanySelector'
 import { AdminLayoutProvider } from '@/components/features/Company/AdminLayoutProvider'
 import { LandingFooter } from '@/components/features/Landing'
 import { CompanyHeader } from '@/components/Layout/Header/CompanyHeader'
 import { mainVariants } from '@/components/Layout/mainVariants'
 import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { companyManagerSidebarMenu } from '@/constants/menu'
+import { Routes } from '@/constants/routes'
 import { getServerSession } from '@/lib/get-server-session'
+import { COMPANY_ROLES } from '@/types/rbac'
 
-export default async function CompanyManagerLayout({ children }: { children: ReactNode }) {
+export default async function CompanyManagerLayout({
+  children,
+  params,
+}: {
+  children: ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const session = await getServerSession()
-  const isSystemAdmin = session?.user?.role === 'admin'
-  const extra = isSystemAdmin ? <AdminCompanySelector /> : undefined
+  if (session?.user?.role === 'admin') {
+    redirect(`/${locale}${Routes.ADMIN}`)
+  }
+  if (!session?.user?.companyId || session.user.companyRole !== COMPANY_ROLES.MANAGER) {
+    redirect(`/${locale}${Routes.COMPANY}`)
+  }
 
   return (
     <AdminLayoutProvider>
@@ -23,11 +36,11 @@ export default async function CompanyManagerLayout({ children }: { children: Rea
         </div>
         <div className="container-max-width relative z-10 flex w-full">
           <div className="hidden bg-white/80 backdrop-blur lg:flex">
-            <Sidebar menu={companyManagerSidebarMenu} extra={extra} />
+            <Sidebar menu={companyManagerSidebarMenu} />
           </div>
           <main className={mainVariants()}>
             <div className="padded flex w-full flex-col gap-md">
-              <CompanyHeader menu={companyManagerSidebarMenu} extra={extra} />
+              <CompanyHeader menu={companyManagerSidebarMenu} />
               {children}
             </div>
             <LandingFooter type="small" className="bg-none" />

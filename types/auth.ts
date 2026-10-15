@@ -8,6 +8,8 @@ export type UserAI = {
   name: string
   avatarUrl: string
   role: UserRole
+  companyId?: string
+  companyRole?: CompanyRole
   zitadelSub?: string
   createdAt: Date
 }

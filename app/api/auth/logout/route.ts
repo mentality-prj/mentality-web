@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
 
@@ -37,6 +38,7 @@ export async function POST(request: NextRequest): Promise<NextResponse> {
 
   const response = NextResponse.redirect(target, { status: 303 })
   response.cookies.delete(AUTH_TOKEN_COOKIE)
+  response.cookies.delete(ACTIVE_COMPANY_COOKIE)
   response.headers.set('Cache-Control', 'no-store')
   return response
 }

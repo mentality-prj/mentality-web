@@ -134,6 +134,21 @@ describe('getMyCompany', () => {
     )
   })
 
+  it('passes only the backend-verified selected company ID to the membership endpoint', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockCompany })
+    const scopedSession: CustomSession = {
+      ...mockUserSession,
+      user: { ...mockUserSession.user!, companyId: 'tenant-2', companyRole: 'manager' },
+    }
+
+    await getMyCompany(scopedSession)
+
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      scopedSession,
+      expect.stringContaining(B2B_COMPANY_MEMBERSHIP_ENDPOINTS.my + '?companyId=tenant-2')
+    )
+  })
+
   it('returns error when API call fails', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
 

@@ -1,7 +1,6 @@
 import { redirect } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 
-import { AdminCompanyWrapper } from '@/components/features/Company/AdminCompanyWrapper'
 import { EmployeeTable } from '@/components/features/Company/CompanyAdmin/EmployeeList/EmployeeTable'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
@@ -13,15 +12,17 @@ export default async function CompanyAdminEmployeesPage({ params }: { params: Pr
   const { locale } = await params
   const session = await getServerSession()
 
-  const isSystemAdmin = session?.user?.role === 'admin'
-
-  if (!isSystemAdmin && session?.user?.companyRole !== COMPANY_ROLES.SUPERUSER) {
+  // Leaf authorization is mandatory even when parent App Router layouts are cached.
+  if (session?.user?.role === 'admin') {
+    redirect(`/${locale}${Routes.ADMIN}`)
+  }
+  if (!session?.user?.companyId || session.user.companyRole !== COMPANY_ROLES.SUPERUSER) {
     redirect(`/${locale}${Routes.COMPANY}`)
   }
 
   const t = await getTranslations('pages.Company.companyAdmin')
 
-  const result = isSystemAdmin ? { error: 'admin' } : await getMyCompany(session)
+  const result = await getMyCompany(session)
   const subtitle = !('error' in result) ? result.data.name : undefined
 
   const content = <EmployeeTable />
@@ -29,7 +30,7 @@ export default async function CompanyAdminEmployeesPage({ params }: { params: Pr
   return (
     <div className="gap-xl flex flex-col">
       <PageTitle title={t('employees.title')} subtitle={subtitle} />
-      {isSystemAdmin ? <AdminCompanyWrapper>{content}</AdminCompanyWrapper> : content}
+      {content}
     </div>
   )
 }

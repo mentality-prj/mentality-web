@@ -1,18 +1,31 @@
 import { ReactNode } from 'react'
+import { redirect } from 'next/navigation'
 
-import { AdminCompanySelector } from '@/components/features/Company/AdminCompanySelector'
 import { AdminLayoutProvider } from '@/components/features/Company/AdminLayoutProvider'
 import { LandingFooter } from '@/components/features/Landing'
 import { CompanyHeader } from '@/components/Layout/Header/CompanyHeader'
 import { mainVariants } from '@/components/Layout/mainVariants'
 import Sidebar from '@/components/Layout/Sidebar/Sidebar'
 import { companyAdminSidebarMenu } from '@/constants/menu'
+import { Routes } from '@/constants/routes'
 import { getServerSession } from '@/lib/get-server-session'
+import { COMPANY_ROLES } from '@/types/rbac'
 
-export default async function CompanyAdminLayout({ children }: { children: ReactNode }) {
+export default async function CompanyAdminLayout({
+  children,
+  params,
+}: {
+  children: ReactNode
+  params: Promise<{ locale: string }>
+}) {
+  const { locale } = await params
   const session = await getServerSession()
-  const isSystemAdmin = session?.user?.role === 'admin'
-  const extra = isSystemAdmin ? <AdminCompanySelector /> : undefined
+  if (session?.user?.role === 'admin') {
+    redirect(`/${locale}${Routes.ADMIN}`)
+  }
+  if (!session?.user?.companyId || session.user.companyRole !== COMPANY_ROLES.SUPERUSER) {
+    redirect(`/${locale}${Routes.COMPANY}`)
+  }
   const menu = companyAdminSidebarMenu
 
   return (
@@ -24,11 +37,11 @@ export default async function CompanyAdminLayout({ children }: { children: React
         </div>
         <div className="container-max-width relative z-10 flex w-full">
           <div className="hidden bg-white/80 backdrop-blur lg:flex">
-            <Sidebar menu={menu} extra={extra} />
+            <Sidebar menu={menu} />
           </div>
           <main className={mainVariants()}>
             <div className="padded flex w-full flex-col gap-md">
-              <CompanyHeader menu={menu} extra={extra} />
+              <CompanyHeader menu={menu} />
               {children}
             </div>
             <LandingFooter type="small" className="bg-none" />

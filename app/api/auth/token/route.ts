@@ -1,6 +1,7 @@
 import { cookies } from 'next/headers'
 import { NextRequest, NextResponse } from 'next/server'
 
+import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
 
@@ -12,11 +13,16 @@ function noStore(body: unknown, status = 200): NextResponse {
 
 export async function GET(): Promise<NextResponse> {
   const token = (await cookies()).get(AUTH_TOKEN_COOKIE)?.value
-  if (!token) return noStore(null, 401)
+  if (!token) {
+    const response = noStore(null, 401)
+    response.cookies.delete(ACTIVE_COMPANY_COOKIE)
+    return response
+  }
   const parsed = parseStoredAuthTokensCookie(token)
   if (!parsed) {
     const response = noStore(null, 401)
     response.cookies.delete(AUTH_TOKEN_COOKIE)
+    response.cookies.delete(ACTIVE_COMPANY_COOKIE)
     return response
   }
   // The access/id/refresh tokens remain HttpOnly and are NEVER reflected in the response.
@@ -37,5 +43,6 @@ export async function DELETE(request: NextRequest): Promise<NextResponse> {
   if (!origin || origin !== request.nextUrl.origin) return noStore({ error: 'Forbidden' }, 403)
   const response = noStore({ ok: true })
   response.cookies.delete(AUTH_TOKEN_COOKIE)
+  response.cookies.delete(ACTIVE_COMPANY_COOKIE)
   return response
 }

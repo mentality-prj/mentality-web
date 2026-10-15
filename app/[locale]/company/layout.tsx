@@ -1,6 +1,7 @@
 import { ReactNode } from 'react'
 import { redirect } from 'next/navigation'
 
+import { Routes } from '@/constants/routes'
 import { getServerSession } from '@/lib/get-server-session'
 import { COMPANY_ROLES } from '@/types/rbac'
 
@@ -20,10 +21,14 @@ export default async function CompanyLayout({
     redirect(`/${locale}/auth`)
   }
 
-  const isSystemAdmin = session.user.role === 'admin'
+  // Platform-wide administration never implicitly grants company access.
+  if (session.user.role === 'admin') {
+    redirect(`/${locale}${Routes.ADMIN}`)
+  }
+
   const companyRole = session.user.companyRole
-  if (!isSystemAdmin && (!companyRole || !ALLOWED_ROLES.includes(companyRole))) {
-    redirect(`/${locale}`)
+  if (!session.user.companyId || !companyRole || !ALLOWED_ROLES.includes(companyRole)) {
+    redirect(`/${locale}/select-company`)
   }
 
   return <>{children}</>
