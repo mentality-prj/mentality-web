@@ -182,6 +182,32 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
   })
 
+  it('keeps another tab\'s rotated session when stale failure cleanup loses the race', async () => {
+    const newer = {
+      expiresAt: now + 3600,
+      hasRefreshToken: true,
+      sessionRevision: '22222222-2222-4222-8222-222222222222',
+    }
+    await mountWithToken(now + 61)
+    ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
+    ;(authService.getUser as jest.Mock)
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce(membership)
+    ;(authService.clearTokensIfUnchanged as jest.Mock).mockResolvedValue(false)
+    ;(authService.getStoredTokens as jest.Mock)
+      .mockResolvedValueOnce({ expiresAt: now + 61, hasRefreshToken: true })
+      .mockResolvedValue(newer)
+
+    await act(async () => {
+      jest.advanceTimersByTime(2000)
+      await Promise.resolve()
+    })
+
+    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+    expect(screen.getByTestId('company')).toHaveTextContent('company-1')
+  })
+
   it('revalidates backend roles after focus even when cookie expiry is unchanged', async () => {
     await mountWithToken(now + 3600)
     ;(authService.getUser as jest.Mock).mockResolvedValue(null)
