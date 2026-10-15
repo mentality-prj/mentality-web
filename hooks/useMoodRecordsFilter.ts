@@ -54,9 +54,11 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
     }
 
     ;(Object.keys(initial) as Array<keyof UseMoodRecordsFilter>).forEach((key) => {
-      const param = searchParams.get(key)
-
-      if (param !== null) {
+      // Next searchParams can contain repeated list keys as well as CSV values.
+      // get(key) would drop every occurrence after the first.
+      const values = searchParams.getAll(key)
+      if (values.length) {
+        const param = key === 'order' ? values[0] : values.join(',')
         applyParser(key, param, result)
       }
     })
