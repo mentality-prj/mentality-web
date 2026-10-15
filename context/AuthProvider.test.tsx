@@ -190,9 +190,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     }
     await mountWithToken(now + 61)
     ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
-    ;(authService.getUser as jest.Mock)
-      .mockResolvedValueOnce(null)
-      .mockResolvedValueOnce(membership)
+    ;(authService.getUser as jest.Mock).mockResolvedValueOnce(null).mockResolvedValueOnce(membership)
     ;(authService.clearTokensIfUnchanged as jest.Mock).mockResolvedValue(false)
     ;(authService.getStoredTokens as jest.Mock)
       .mockResolvedValueOnce({ expiresAt: now + 61, hasRefreshToken: true })
