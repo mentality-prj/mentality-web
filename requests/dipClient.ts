@@ -1,3 +1,9 @@
+import 'server-only'
+import { randomUUID } from 'node:crypto'
+
+import { getServerSession } from '@/lib/auth/server'
+import { APIUrl } from '@/requests/config'
+
 import type {
   DipApiKey,
   DipApiKeyCreated,
@@ -15,93 +21,84 @@ import type {
 
 type ResultValue<T> = { data: T } | { error: string }
 
-const getDipUrl = () => (process.env.DIP_URL ?? '').trim().replace(/\/+$/, '')
-const getDipScopedKey = () => (process.env.DIP_API_KEY ?? '').trim()
-const getDipAdminKey = () => (process.env.DIP_ADMIN_API_KEY ?? '').trim()
-const getDipReadKey = () => getDipScopedKey() || getDipAdminKey()
+type Method = 'GET' | 'POST' | 'PATCH'
+type BackendResult<T> = { ok: true; data: T } | { ok: false; status: number }
 
-async function dipFetchWithKey<T>(path: string, key: string): Promise<T | null> {
-  const url = getDipUrl()
-  if (!url || !key) return null
-
+// QDIP credentials are only permitted in NestJS. The Next.js server never
+// sends X-Api-Key and cannot bypass the QDIP_ADMIN_MUTATIONS_ENABLED gate.
+function getNestUrl(): string | null {
   try {
-    const res = await fetch(`${url}${path}`, {
-      headers: { 'X-Api-Key': key, 'Content-Type': 'application/json' },
-      cache: 'no-store',
-    })
-    if (!res.ok) return null
-    return (await res.json()) as T
-  } catch {
-    return null
-  }
+    const url = new URL(APIUrl.trim().replace(/\/+$/, ''))
+    if (url.username || url.password || url.search || url.hash) return null
+    if (url.protocol !== 'https:' && !(process.env.NODE_ENV !== 'production' && url.protocol === 'http:' && ['localhost', '127.0.0.1'].includes(url.hostname))) return null
+    if (!url.pathname.endsWith('/api')) return null
+    return url.href.replace(/\/+$/, '')
+  } catch { return null }
+}
+function orgSegment(value: string): string | null {
+  return /^[A-Za-z0-9_-]{1,128}$/.test(value) ? encodeURIComponent(value) : null
 }
 
+async function nestAdminRequest<T>(path: string, method: Method = 'GET', payload?: Record<string, unknown>): Promise<BackendResult<T>> {
+  const base = getNestUrl()
+  if (!base || !path.startsWith('/organizations')) return { ok: false, status: 503 }
+  // The NestJS controller independently requires Mongo admin and the exact
+  // Zitadel subject allowlist; the Next.js role check is only defense in depth.
+  const session = await getServerSession()
+  if (session?.user?.role !== 'admin' || !session.OAuthToken) return { ok: false, status: 403 }
+  try {
+    const response = await fetch(base + '/dip-admin' + path, {
+      method,
+      headers: {
+        Authorization: 'Bearer ' + session.OAuthToken,
+        Accept: 'application/json',
+        ...(method === 'GET' ? {} : {
+          'Content-Type': 'application/json',
+          'Idempotency-Key': randomUUID(),
+        }),
+      },
+      ...(method === 'GET' ? {} : { body: JSON.stringify(payload ?? {}) }),
+      cache: 'no-store',
+      redirect: 'manual',
+      signal: AbortSignal.timeout(10_000),
+    })
+    if (!response.ok || (response.status >= 300 && response.status < 400)) return { ok: false, status: response.status }
+    return { ok: true, data: (await response.json()) as T }
+  } catch { return { ok: false, status: 502 } }
+}
+
+async function dipRead<T>(path: string): Promise<T | null> {
+  const result = await nestAdminRequest<T>(path)
+  return result.ok ? result.data : null
+}
 async function dipMutationWithKey<T>(
   path: string,
-  key: string,
   init: { method: 'POST' | 'PATCH'; body: Record<string, unknown> }
 ): Promise<ResultValue<T>> {
-  const url = getDipUrl()
-  if (!url || !key) {
-    return { error: 'DIP is not configured' }
-  }
-
-  try {
-    const res = await fetch(`${url}${path}`, {
-      method: init.method,
-      headers: { 'X-Api-Key': key, 'Content-Type': 'application/json' },
-      body: JSON.stringify(init.body),
-      cache: 'no-store',
-    })
-
-    if (!res.ok) {
-      let detail = 'Request failed'
-      try {
-        const payload = (await res.json()) as { detail?: string }
-        detail = payload.detail ?? detail
-      } catch {}
-      return { error: detail }
-    }
-
-    return { data: (await res.json()) as T }
-  } catch {
-    return { error: 'Request failed' }
-  }
+  const result = await nestAdminRequest<T>(path, init.method, init.body)
+  if (result.ok) return { data: result.data }
+  // Never echo upstream error bodies or encourage automatic replay after
+  // uncertain writes with fresh Idempotency-Key UUIDs.
+  if ([409, 502, 504].includes(result.status)) return { error: 'QDIP result uncertain or conflicting; verify audit before retrying' }
+  if ([401, 403].includes(result.status)) return { error: 'Not authorized to manage QDIP' }
+  if (result.status === 503) return { error: 'QDIP administration is unavailable or mutations are disabled' }
+  if (result.status === 400) return { error: 'Invalid QDIP request' }
+  return { error: 'Request failed' }
 }
 
+// Transport availability only: never expose or inspect upstream QDIP keys.
 export function getDipOrgConnectionStatus(): DipConnectionStatus {
-  const url = getDipUrl()
-  return { configured: Boolean(url && getDipReadKey()), url: url || null }
+  return { configured: Boolean(getNestUrl()), url: null }
 }
-
 export function getDipAdminConnectionStatus(): DipConnectionStatus {
-  const url = getDipUrl()
-  return { configured: Boolean(url && getDipAdminKey()), url: url || null }
+  return { configured: Boolean(getNestUrl()), url: null }
 }
 
 export async function getDipFeatures(organizationId?: string | null): Promise<DipFeature[]> {
-  const scopedKey = getDipScopedKey()
-  const data = await dipFetchWithKey<
-    Array<{
-      id: string
-      name: string
-      type: string
-      source: string
-      transformation: string | null
-      version: string
-      organization_id: string | null
-      created_at: string
-    }>
-  >(
-    scopedKey
-      ? '/api/v1/features'
-      : organizationId
-        ? `/api/v1/organizations/${organizationId}/features`
-        : '/api/v1/features',
-    scopedKey || getDipAdminKey()
-  )
-
-  return (data ?? []).map((f) => ({
+  const id = organizationId && orgSegment(organizationId)
+  if (!id) return []
+  const data = await dipRead<Array<{ id: string; name: string; type: string; source: string; transformation: string | null; version: string; organization_id: string | null; created_at: string }>>('/organizations/' + id + '/features')
+return (data ?? []).map((f) => ({
     id: f.id,
     name: f.name,
     type: f.type as DipFeature['type'],
@@ -114,32 +111,11 @@ export async function getDipFeatures(organizationId?: string | null): Promise<Di
 }
 
 export async function getDipDecisions(limit = 50, organizationId?: string | null): Promise<DipDecisionRecord[]> {
-  const scopedKey = getDipScopedKey()
-  const data = await dipFetchWithKey<
-    Array<{
-      decision_id: string
-      workflow_id: string | null
-      workflow_name: string
-      workflow_version: string
-      entity_id: string | null
-      organization_id: string | null
-      decision: string
-      rule_matched: string
-      engine_version: string
-      timestamp: string
-      features_used: Record<string, unknown>
-      rules_executed: Array<{ rule: string; matched: boolean; conditions_evaluated: number }>
-    }>
-  >(
-    scopedKey
-      ? `/api/v1/audit?limit=${limit}`
-      : organizationId
-        ? `/api/v1/organizations/${organizationId}/audit?limit=${limit}`
-        : `/api/v1/audit?limit=${limit}`,
-    scopedKey || getDipAdminKey()
-  )
-
-  return (data ?? []).map((d) => ({
+  const id = organizationId && orgSegment(organizationId)
+  if (!id) return []
+  const boundedLimit = Number.isSafeInteger(limit) && limit >= 1 && limit <= 200 ? limit : 50
+  const data = await dipRead<Array<{ decision_id: string; workflow_id: string | null; workflow_name: string; workflow_version: string; entity_id: string | null; organization_id: string | null; decision: string; rule_matched: string; engine_version: string; timestamp: string; features_used: Record<string, unknown>; rules_executed: Array<{ rule: string; matched: boolean; conditions_evaluated: number }> }>>('/organizations/' + id + '/audit?limit=' + boundedLimit)
+return (data ?? []).map((d) => ({
     decisionId: d.decision_id,
     workflowId: d.workflow_id,
     workflowName: d.workflow_name,
@@ -160,48 +136,23 @@ export async function getDipDecisions(limit = 50, organizationId?: string | null
 }
 
 export async function getDipWorkflows(organizationId?: string | null): Promise<DipWorkflow[]> {
-  const scopedKey = getDipScopedKey()
-  const data = await dipFetchWithKey<
-    Array<{
-      id: string
-      name: string
-      version: string
-      status: string
-      organization_id: string | null
-      created_at: string
-      rules: unknown[]
-    }>
-  >(
-    scopedKey
-      ? '/api/v1/workflows'
-      : organizationId
-        ? `/api/v1/organizations/${organizationId}/workflows`
-        : '/api/v1/workflows',
-    scopedKey || getDipAdminKey()
-  )
-
-  return (data ?? []).map((w) => ({
+  const id = organizationId && orgSegment(organizationId)
+  if (!id) return []
+  const data = await dipRead<Array<{ id: string; name: string; version: string; status: string; organization_id: string | null; created_at: string; rulesCount: number }>>('/organizations/' + id + '/workflows')
+return (data ?? []).map((w) => ({
     id: w.id,
     name: w.name,
     version: w.version,
     status: w.status as DipWorkflow['status'],
     organizationId: w.organization_id,
     createdAt: w.created_at,
-    rulesCount: Array.isArray(w.rules) ? w.rules.length : 0,
+    rulesCount: w.rulesCount ?? 0,
   }))
 }
 
 export async function getDipOrganizations(): Promise<DipOrganization[]> {
-  const data = await dipFetchWithKey<
-    Array<{
-      id: string
-      name: string
-      status?: string
-      created_at: string
-    }>
-  >('/api/v1/organizations', getDipAdminKey())
-
-  return (data ?? []).map((o) => ({
+  const data = await dipRead<Array<{ id: string; name: string; status?: string; created_at: string }>>('/organizations')
+return (data ?? []).map((o) => ({
     id: o.id,
     name: o.name,
     status: o.status,
@@ -210,29 +161,14 @@ export async function getDipOrganizations(): Promise<DipOrganization[]> {
 }
 
 export async function getDipOrganizationStructure(orgId: string): Promise<DipOrganizationStructure | null> {
-  const data = await dipFetchWithKey<{
+  const id = orgSegment(orgId)
+  if (!id) return null
+  const data = await dipRead<{
     organization: { id: string; name: string; status?: string; created_at: string }
-    units: Array<{
-      id: string
-      org_id: string
-      name: string
-      type: DipOrganizationUnitType
-      parent_unit_id: string | null
-      created_at: string
-    }>
-    members: Array<{
-      id: string
-      org_id: string
-      name: string
-      email: string
-      role: DipOrganizationMemberRole
-      unit_id: string | null
-      status: string
-      created_at: string
-    }>
-  }>(`/api/v1/organizations/${orgId}/structure`, getDipAdminKey())
-
-  if (!data) return null
+    units: Array<{ id: string; org_id: string; name: string; type: DipOrganizationUnitType; parent_unit_id: string | null; created_at: string }>
+    members: Array<{ id: string; org_id: string; name: string; email: string; role: DipOrganizationMemberRole; unit_id: string | null; status: string; created_at: string }>
+  }>('/organizations/' + id + '/structure')
+if (!data) return null
 
   return {
     organization: {
@@ -263,23 +199,10 @@ export async function getDipOrganizationStructure(orgId: string): Promise<DipOrg
 }
 
 export async function getDipOrganizationKeys(orgId: string): Promise<DipApiKey[]> {
-  const data = await dipFetchWithKey<
-    Array<{
-      id: string
-      key_prefix: string
-      org_id: string
-      name: string
-      environment: string
-      scopes: string[]
-      created_at: string
-      expires_at: string | null
-      revoked_at: string | null
-      last_used_at: string | null
-      created_by: string
-    }>
-  >(`/api/v1/organizations/${orgId}/keys`, getDipAdminKey())
-
-  return (data ?? []).map((item) => ({
+  const id = orgSegment(orgId)
+  if (!id) return []
+  const data = await dipRead<Array<{ id: string; key_prefix: string; org_id: string; name: string; environment: string; scopes: string[]; created_at: string; expires_at: string | null; revoked_at: string | null; last_used_at: string | null; created_by: string }>>('/organizations/' + id + '/keys')
+return (data ?? []).map((item) => ({
     id: item.id,
     keyPrefix: item.key_prefix,
     orgId: item.org_id,
@@ -300,7 +223,7 @@ export async function createDipOrganization(payload: { name: string }): Promise<
     name: string
     status?: string
     created_at: string
-  }>('/api/v1/organizations', getDipAdminKey(), {
+  }>('/organizations', {
     method: 'POST',
     body: payload,
   })
@@ -328,7 +251,7 @@ export async function createDipOrganizationUnit(
     type: DipOrganizationUnitType
     parent_unit_id: string | null
     created_at: string
-  }>(`/api/v1/organizations/${orgId}/units`, getDipAdminKey(), {
+  }>(`/organizations/${orgId}/units`, {
     method: 'POST',
     body: {
       name: payload.name,
@@ -364,7 +287,7 @@ export async function createDipOrganizationMember(
     unit_id: string | null
     status: string
     created_at: string
-  }>(`/api/v1/organizations/${orgId}/members`, getDipAdminKey(), {
+  }>(`/organizations/${orgId}/members`, {
     method: 'POST',
     body: {
       name: payload.name,
@@ -404,7 +327,7 @@ export async function updateDipOrganizationMember(
     unit_id: string | null
     status: string
     created_at: string
-  }>(`/api/v1/organizations/${orgId}/members/${memberId}`, getDipAdminKey(), {
+  }>(`/organizations/${orgId}/members/${memberId}`, {
     method: 'PATCH',
     body: {
       ...(payload.role ? { role: payload.role } : {}),
@@ -445,7 +368,7 @@ export async function createDipOrganizationKey(
     last_used_at: string | null
     created_by: string
     key: string
-  }>(`/api/v1/organizations/${orgId}/keys`, getDipAdminKey(), {
+  }>(`/organizations/${orgId}/keys`, {
     method: 'POST',
     body: payload,
   })
@@ -483,7 +406,7 @@ export async function revokeDipOrganizationKey(orgId: string, keyId: string): Pr
     revoked_at: string | null
     last_used_at: string | null
     created_by: string
-  }>(`/api/v1/organizations/${orgId}/keys/${keyId}/revoke`, getDipAdminKey(), {
+  }>(`/organizations/${orgId}/keys/${keyId}/revoke`, {
     method: 'POST',
     body: {},
   })
