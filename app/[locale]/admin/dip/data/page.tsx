@@ -1,14 +1,13 @@
 import { getTranslations } from 'next-intl/server'
 
 import { DataView } from '@/components/features/Dip/DataView'
-import { getDipFeatures, getDipOrganizations, getDipOrgConnectionStatus } from '@/requests/dipClient'
+import { getDipFeatures, getDipOrganizationsWithConnection } from '@/requests/dipClient'
 
 export default async function DipDataPage({ searchParams }: { searchParams: Promise<{ org?: string }> }) {
   const query = await searchParams
-  const [t, organizations, connection] = await Promise.all([
+  const [t, { organizations, connection }] = await Promise.all([
     getTranslations('pages.Dip'),
-    getDipOrganizations(),
-    Promise.resolve(getDipOrgConnectionStatus()),
+    getDipOrganizationsWithConnection(),
   ])
 
   const selectedOrgId =
