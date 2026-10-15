@@ -1,3 +1,4 @@
+import { filterOptions } from '@/constants/filter'
 import { PAGE_SIZE } from '@/constants/pagination'
 import { FilterValue } from '@/context/moodRecordsFilterContext'
 import { WeekValueType } from '@/mappers/weekdays.mapper'
@@ -21,6 +22,14 @@ type MoodQueryParams = {
   weekdays?: QueryValue
 }
 
+function parseAllowedFilter<K extends 'moodLevel' | 'stressLevel' | 'energyLevel' | 'focusLevel'>(
+  key: K,
+  value?: string
+): FilterValue<K> {
+  const options = filterOptions[key] as readonly string[]
+  return value && options.includes(value) ? (value as FilterValue<K>) : ''
+}
+
 export function parseMoodQuery(params: MoodQueryParams) {
   const getFirst = (value?: string | string[]): string | undefined => {
     if (!value) return undefined
@@ -32,17 +41,22 @@ export function parseMoodQuery(params: MoodQueryParams) {
   const limit = PAGE_SIZE
 
   const normalizeArray = (value?: string[] | string): string[] =>
-    value ? (Array.isArray(value) ? value : value.split(',')).map((v) => v.trim()).filter(Boolean) : []
+    value
+      ? (Array.isArray(value) ? value : [value])
+          .flatMap((v) => v.split(','))
+          .map((v) => v.trim())
+          .filter(Boolean)
+      : []
 
   const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
   const filters: MapFiltersToApi = {
     order: getFirst(params.order) === 'oldest' ? 'oldest' : 'newest',
     tags: Array.from(new Set(normalizeArray(params.tags))),
-    moodLevel: getFirst(params.moodLevel) as FilterValue<'moodLevel'>,
-    stressLevel: getFirst(params.stressLevel) as FilterValue<'stressLevel'>,
-    energyLevel: getFirst(params.energyLevel) as FilterValue<'energyLevel'>,
-    focusLevel: getFirst(params.focusLevel) as FilterValue<'focusLevel'>,
+    moodLevel: parseAllowedFilter('moodLevel', getFirst(params.moodLevel)),
+    stressLevel: parseAllowedFilter('stressLevel', getFirst(params.stressLevel)),
+    energyLevel: parseAllowedFilter('energyLevel', getFirst(params.energyLevel)),
+    focusLevel: parseAllowedFilter('focusLevel', getFirst(params.focusLevel)),
     weekdays: normalizeArray(params.weekdays).filter((d): d is WeekValueType =>
       allowedWeekdays.includes(d as WeekValueType)
     ),
