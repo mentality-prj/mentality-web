@@ -10,6 +10,7 @@ jest.mock('@/lib/auth', () => ({
     getUser: jest.fn(),
     refreshTokens: jest.fn(),
     clearTokens: jest.fn(),
+    clearTokensIfUnchanged: jest.fn(),
     login: jest.fn(),
     logout: jest.fn(),
   },
@@ -55,6 +56,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     jest.useFakeTimers()
     jest.resetAllMocks()
     ;(authService.clearTokens as jest.Mock).mockResolvedValue(undefined)
+    ;(authService.clearTokensIfUnchanged as jest.Mock).mockResolvedValue(true)
   })
 
   afterEach(() => jest.useRealTimers())
@@ -94,7 +96,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
 
     expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated')
     expect(screen.getByTestId('company')).toHaveTextContent('none')
-    expect(authService.clearTokens).toHaveBeenCalledTimes(1)
+    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
   })
 
   it('refreshes a token 30 seconds from expiry during initial hydration', async () => {
@@ -117,7 +119,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     await mountWithToken(now - 5)
 
     expect(authService.refreshTokens).toHaveBeenCalledTimes(1)
-    expect(authService.clearTokens).not.toHaveBeenCalled()
+    expect(authService.clearTokensIfUnchanged).not.toHaveBeenCalled()
   })
 
   it('clears an expired cookie when refresh fails on initial hydration', async () => {
@@ -136,7 +138,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     })
 
     expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated')
-    expect(authService.clearTokens).toHaveBeenCalledTimes(1)
+    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
   })
 
   it('keeps a still-valid backend session during transient refresh outage and retries later', async () => {
@@ -152,7 +154,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     })
 
     expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
-    expect(authService.clearTokens).not.toHaveBeenCalled()
+    expect(authService.clearTokensIfUnchanged).not.toHaveBeenCalled()
     expect(authService.refreshTokens).toHaveBeenCalledTimes(1)
 
     await act(async () => {
@@ -190,7 +192,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     })
 
     expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated')
-    expect(authService.clearTokens).toHaveBeenCalledTimes(1)
+    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
   })
 
   it('honors the 15-second retry backoff when focus fires repeatedly', async () => {
@@ -225,6 +227,6 @@ describe('AuthProvider role revalidation after token refresh', () => {
 
     expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated')
     expect(screen.getByTestId('company')).toHaveTextContent('none')
-    expect(authService.clearTokens).toHaveBeenCalledTimes(1)
+    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
   })
 })
