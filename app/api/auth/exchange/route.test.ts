@@ -143,9 +143,14 @@ describe('/api/auth/exchange route', () => {
     })
     cookiesMock.mockReturnValue(createCookieStore(oldCookie) as never)
     let releaseProvider: (() => void) | undefined
+    let signalStarted: (() => void) | undefined
+    const started = new Promise<void>((resolve) => {
+      signalStarted = resolve
+    })
     ;(global.fetch as jest.Mock).mockImplementation(
       () =>
         new Promise((resolve) => {
+          signalStarted?.()
           releaseProvider = () =>
             resolve(
               new Response(
@@ -163,10 +168,9 @@ describe('/api/auth/exchange route', () => {
     const request = () => createRequest('/api/auth/exchange', { grantType: 'refresh_token' })
     const first = POST(request())
     const second = POST(request())
-    // Await the first external request rather than depending on timing.
-    for (let tries = 0; tries < 50 && !releaseProvider; tries += 1) {
-      await new Promise((resolve) => setTimeout(resolve, 1))
-    }
+    // WebCrypto SHA-256 resolves asynchronously; wait for the fetch mock's
+    // actual entry signal rather than polling microtasks or fixed delays.
+    await started
     expect(releaseProvider).toBeDefined()
     releaseProvider?.()
 
