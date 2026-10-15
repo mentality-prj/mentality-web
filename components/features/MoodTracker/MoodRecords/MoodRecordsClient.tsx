@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
@@ -39,7 +39,18 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
   const [showFilters, setShowFilters] = useState(false)
 
   const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
-  const page = getSafePage(searchParams.get('page'), totalPages)
+  const requestedPage = searchParams.get('page')
+  const page = getSafePage(requestedPage, totalPages)
+
+  useEffect(() => {
+    // The result count can shrink after a filter change or a record deletion.
+    // Keep the URL and the server-fetched page aligned instead of showing an empty list.
+    if (requestedPage !== null && requestedPage !== String(page)) {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('page', String(page))
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    }
+  }, [page, pathname, requestedPage, router, searchParams])
 
   return (
     <div id="mood-records-list" className="flex flex-col gap-sm">

@@ -135,6 +135,32 @@ describe('getMoodRecords', () => {
   })
 
   describe('query params', () => {
+    it('forwards combined stress, energy, tags, and weekdays to the backend', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      await getMoodRecords(
+        mockSession,
+        parseMoodQuery({
+          page: '12',
+          stressLevel: 'high',
+          energyLevel: 'low',
+          tags: ['work', 'home'],
+          weekdays: 'weekDays',
+        })
+      )
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      const urlParams = new URL(calledUrl).searchParams
+
+      expect(urlParams.get('page')).toBe('12')
+      expect(urlParams.get('stressMin')).toBe('4')
+      expect(urlParams.get('stressMax')).toBe('4')
+      expect(urlParams.get('energyMin')).toBe('2')
+      expect(urlParams.get('energyMax')).toBe('2')
+      expect(urlParams.getAll('tags')).toEqual(['work', 'home'])
+      expect(urlParams.getAll('weekdays')).toEqual(['1', '2', '3', '4', '5'])
+    })
+
     it('includes repeated tags and weekdays correctly in URL', async () => {
       ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
