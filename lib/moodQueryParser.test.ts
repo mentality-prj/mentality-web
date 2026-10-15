@@ -43,6 +43,24 @@ describe('mood history query filters', () => {
     expect(query.weekdays).toEqual([1])
   })
 
+  it('encodes non-adjacent selected levels without expanding them into ranges', () => {
+    const query = parseMoodQuery({
+      moodLevel: 'veryBad,great',
+      stressLevel: 'low,veryHigh',
+      energyLevel: 'veryLow,high',
+      focusLevel: 'low,veryHigh',
+      weekdays: 'weekends',
+    })
+
+    expect(query.moodLevels).toEqual([1, 5])
+    expect(query.stressLevels).toEqual([2, 5])
+    expect(query.energyLevels).toEqual([1, 4])
+    expect(query.focusLevels).toEqual([2, 5])
+    expect(query.moodMin).toBeUndefined()
+    expect(query.stressMin).toBeUndefined()
+    expect(query.weekdays).toEqual([6, 7])
+  })
+
   it('accepts only positive integer pages', () => {
     expect(getSafePage('11', 30)).toBe(11)
     expect(getSafePage('2.5', 30)).toBe(1)
