@@ -1,20 +1,12 @@
-import { energyKeyToLevel, EnergyKey } from '@/mappers/energy.mappers'
-import { focusKeyToLevel, FocusKey } from '@/mappers/focus.mappers'
-import { moodKeyToLevel, MoodKey } from '@/mappers/mood.mappers'
+import { energyKeyToLevel } from '@/mappers/energy.mappers'
+import { focusKeyToLevel } from '@/mappers/focus.mappers'
+import { moodKeyToLevel } from '@/mappers/mood.mappers'
 import { stressLevelToNumber } from '@/mappers/stress.mappers'
-import { mapWeekToNumbers, WeekValueType } from '@/mappers/weekdays.mapper'
+import { mapWeekToNumbers } from '@/mappers/weekdays.mapper'
+import { FilterType } from '@/types/filter'
 import { SortOrder } from '@/types/sort'
-import { StressLevel } from '@/types/stress'
 
-export type MapFiltersToApi = {
-  order: SortOrder
-  tags: string[]
-  moodLevel: MoodKey[]
-  stressLevel: StressLevel[]
-  energyLevel: EnergyKey[]
-  focusLevel: FocusKey[]
-  weekdays: WeekValueType[]
-}
+export type MapFiltersToApi = Required<FilterType> & { order: SortOrder }
 
 export function mapFiltersToApi(filters: MapFiltersToApi) {
   const toLevels = (values: string[], map: (value: string) => number | undefined): number[] =>
