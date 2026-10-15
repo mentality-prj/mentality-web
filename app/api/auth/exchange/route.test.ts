@@ -306,9 +306,44 @@ describe('/api/auth/exchange route', () => {
     )
 
     expect(response.status).toBe(502)
+    expect(response.headers.get('cache-control')).toBe('no-store')
     expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
     expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
     expect(cancelled).toBe(true)
+  })
+
+  it('returns a generic 504 if the token request times out before response headers', async () => {
+    const timeout = new AbortController()
+    const signalSpy = jest.spyOn(AbortSignal, 'timeout').mockReturnValue(timeout.signal)
+    try {
+      ;(global.fetch as jest.Mock).mockImplementation(
+        (_url: string, init: RequestInit) =>
+          new Promise<Response>((_resolve, reject) => {
+            const signal = init.signal as AbortSignal
+            const abortFetch = () => reject(new DOMException('Request aborted', 'AbortError'))
+            if (signal.aborted) abortFetch()
+            else signal.addEventListener('abort', abortFetch, { once: true })
+          })
+      )
+
+      const result = POST(
+        createRequest('/api/auth/exchange', {
+          grantType: 'authorization_code',
+          code: 'code',
+          codeVerifier: 'verifier',
+        })
+      )
+      setTimeout(() => timeout.abort(new DOMException('Request timed out', 'TimeoutError')), 0)
+
+      const response = await result
+      expect(signalSpy).toHaveBeenCalledWith(8_000)
+      expect(response.status).toBe(504)
+      expect(response.headers.get('cache-control')).toBe('no-store')
+      expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
+      expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
+    } finally {
+      signalSpy.mockRestore()
+    }
   })
 
   it('returns 504 if the upstream response body stalls after successful headers', async () => {
@@ -340,6 +375,7 @@ describe('/api/auth/exchange route', () => {
 
       const response = await result
       expect(response.status).toBe(504)
+      expect(response.headers.get('cache-control')).toBe('no-store')
       expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
       expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
     } finally {
