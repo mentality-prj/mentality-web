@@ -5,6 +5,7 @@ import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
+import type { SortOrder } from '@/types/sort'
 
 export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto) {
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
@@ -23,6 +24,7 @@ export async function getMoodRecords(
   params?: {
     page?: number
     limit?: number
+    order?: SortOrder
     moodMin?: number
     moodMax?: number
     stressMin?: number
@@ -41,6 +43,7 @@ export async function getMoodRecords(
 
   if (typeof params?.page === 'number') query.set('page', String(params.page))
   if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+  if (params.order === 'newest' || params.order === 'oldest') query.set('order', params.order)
 
   const ranges = [
     ['moodMin', 'moodMax'],
