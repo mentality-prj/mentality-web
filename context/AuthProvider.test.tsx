@@ -122,6 +122,25 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(authService.clearTokensIfUnchanged).not.toHaveBeenCalled()
   })
 
+  it('keeps expired refresh credentials during a temporary Zitadel outage', async () => {
+    ;(authService.getStoredTokens as jest.Mock).mockResolvedValue({
+      expiresAt: now - 5,
+      hasRefreshToken: true,
+    })
+    ;(authService.refreshTokens as jest.Mock).mockRejectedValue(new Error('Zitadel offline'))
+
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <AuthState />
+        </AuthProvider>
+      )
+    })
+
+    expect(screen.getByTestId('status')).toHaveTextContent('loading')
+    expect(authService.clearTokensIfUnchanged).not.toHaveBeenCalled()
+  })
+
   it('clears an expired cookie when refresh fails on initial hydration', async () => {
     ;(authService.getStoredTokens as jest.Mock).mockResolvedValue({
       expiresAt: now - 5,

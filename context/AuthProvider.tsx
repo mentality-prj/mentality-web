@@ -187,9 +187,11 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         let sessionTokens = storedTokens
         if (storedTokens.hasRefreshToken && storedTokens.expiresAt <= now + 60) {
           let refreshed: BrowserAuthSession | null = null
+          let transientFailure = false
           try {
             refreshed = await authService.refreshTokens()
           } catch (error) {
+            transientFailure = true
             logger.warn('[AUTH_PROVIDER] Hydration refresh temporarily failed', {
               error: error instanceof Error ? error.message : String(error),
             })
@@ -197,7 +199,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (refreshed) {
             sessionTokens = refreshed
           } else if (storedTokens.expiresAt <= Math.floor(Date.now() / 1000)) {
-            if (active()) await invalidateSession(storedTokens)
+            if (active()) {
+              if (transientFailure) {
+                // An IdP outage is not proof that the refresh token was revoked.
+                setRetryNotBefore(Date.now() + 15_000)
+              } else {
+                await invalidateSession(storedTokens)
+              }
+            }
             return
           } else if (active()) {
             setRetryNotBefore(Date.now() + 15_000)
