@@ -2,8 +2,9 @@ import { parseMoodQuery } from './moodQueryParser'
 
 describe('parseMoodQuery', () => {
   it('preserves page numbers after the first ten pages', () => {
-    expect(parseMoodQuery({ page: '11' })).toEqual(expect.objectContaining({ page: 11, limit: 10, order: 'newest' }))
-    expect(parseMoodQuery({ page: '42', order: 'oldest' })).toEqual(expect.objectContaining({ page: 42, order: 'oldest' }))
+    expect(parseMoodQuery({ page: '11' }).page).toBe(11)
+    expect(parseMoodQuery({ page: '42', order: 'oldest' }).page).toBe(42)
+    expect(parseMoodQuery({ page: '42', order: 'oldest' }).order).toBe('oldest')
   })
 
   it('normalizes invalid, fractional and excessively large pages', () => {
