@@ -252,6 +252,15 @@ export async function proxy(request: NextRequest) {
   // Check if token is expired
   if (isAuthenticated && authTokens && !isServerErrorPage && !isSessionRecoveryRoute) {
     const isExpired = authTokens.expiresAt < Math.floor(Date.now() / 1000)
+    if (isExpired && normalizedPath === Routes.AUTH) {
+      // Failed recovery must never bounce between /auth and /refresh-session.
+      intlResponse.cookies.delete(AUTH_TOKEN_COOKIE)
+      return applySecurityHeaders(intlResponse)
+    }
+    if (isExpired && !isProtectedPath) {
+      // Public pages do not need to revive an expired authenticated session.
+      return applySecurityHeaders(intlResponse)
+    }
     if (isExpired && !authTokens.refreshToken) {
       // Token expired and no refresh token — clear cookie and redirect to auth
       const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
