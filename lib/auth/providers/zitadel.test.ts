@@ -70,9 +70,15 @@ describe('token-opaque Zitadel provider', () => {
   it('revokes local cookie if backend user verification fails', async () => {
     sessionStorage.setItem('oauth_state', 'correct')
     sessionStorage.setItem('pkce_verifier', 'verifier')
+    const callbackMetadata = {
+      ...metadata,
+      sessionRevision: 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
+    }
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValueOnce({ data: callbackMetadata })
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(callbackMetadata)
     ;(fetchAuthenticatedUser as jest.Mock).mockResolvedValue(null)
     expect(await provider.handleCallback('code', 'correct')).toBeNull()
-    expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
+    expect(deleteStoredAuthTokensIfUnchanged).toHaveBeenCalledWith(callbackMetadata)
     expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
   })
 
