@@ -30,6 +30,7 @@ export async function GET(): Promise<NextResponse> {
     expiresAt: parsed.expiresAt,
     hasRefreshToken: Boolean(parsed.refreshToken),
     userRole: parsed.userRole,
+    sessionRevision: parsed.sessionRevision,
   })
 }
 
