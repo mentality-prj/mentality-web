@@ -46,7 +46,7 @@ describe('useMoodRecordsFilter', () => {
     expect(result.current.filters.tags).toEqual(['calm', 'work'])
     expect(result.current.filters.order).toBe(SORT_ORDER.OLDEST)
 
-    act(() => result.current.setFilters((previous) => ({ ...previous, tags: [...previous.tags, 'evening'] })))
+    act(() => result.current.setFilters((previous) => ({ ...previous, tags: [...(previous.tags ?? []), 'evening'] })))
 
     const outgoing = new URL(replace.mock.calls[0][0] as string, 'http://localhost')
     expect(outgoing.searchParams.get('moodLevel')).toBe('veryBad,great')
