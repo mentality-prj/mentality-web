@@ -2,6 +2,7 @@
 
 import {
   deleteStoredAuthTokens,
+  deleteStoredAuthTokensIfUnchanged,
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
@@ -25,6 +26,7 @@ jest.mock('@/lib/logger', () => ({
 
 jest.mock('@/requests/auth', () => ({
   deleteStoredAuthTokens: jest.fn(),
+  deleteStoredAuthTokensIfUnchanged: jest.fn(),
   exchangeAuthTokens: jest.fn(),
   fetchAuthenticatedUser: jest.fn(),
   fetchStoredAuthTokens: jest.fn(),
@@ -45,6 +47,7 @@ describe('token-opaque Zitadel provider', () => {
     ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ data: metadata })
     ;(fetchAuthenticatedUser as jest.Mock).mockResolvedValue(testUser)
     ;(deleteStoredAuthTokens as jest.Mock).mockResolvedValue(undefined)
+    ;(deleteStoredAuthTokensIfUnchanged as jest.Mock).mockResolvedValue(true)
   })
 
   it('rejects state mismatch before reaching exchange', async () => {
@@ -132,7 +135,7 @@ describe('token-opaque Zitadel provider', () => {
 
     expect(await provider.clearTokensIfUnchanged(observed)).toBe(false)
     expect(request).toHaveBeenCalledWith('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, expect.any(Function))
-    expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
+    expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
   })
 
   it('deletes an unchanged cookie only while holding the rotation lock', async () => {
@@ -152,11 +155,13 @@ describe('token-opaque Zitadel provider', () => {
         },
       },
     })
-    ;(deleteStoredAuthTokens as jest.Mock).mockImplementation(async () => {
+    ;(deleteStoredAuthTokensIfUnchanged as jest.Mock).mockImplementation(async () => {
       expect(lockHeld).toBe(true)
+      return true
     })
     expect(await provider.clearTokensIfUnchanged(observed)).toBe(true)
-    expect(deleteStoredAuthTokens).toHaveBeenCalledTimes(1)
+    expect(deleteStoredAuthTokensIfUnchanged).toHaveBeenCalledWith(observed)
+    expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
   })
 
   it('never yields a bearer token through the client API', async () => {

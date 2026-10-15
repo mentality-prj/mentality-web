@@ -3,6 +3,7 @@ import { IAuthProvider } from '@/lib/auth/auth-provider'
 import { logger } from '@/lib/logger'
 import {
   deleteStoredAuthTokens,
+  deleteStoredAuthTokensIfUnchanged,
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
@@ -176,8 +177,10 @@ export class ZitadelAuthProvider implements IAuthProvider {
         return false
       }
 
-      await deleteStoredAuthTokens()
-      return true
+      // Even if a new rotation happens before this HTTP request is handled,
+      // the route compares the cookie revision on receipt and rejects a stale
+      // deletion rather than issuing Set-Cookie against the newer session.
+      return deleteStoredAuthTokensIfUnchanged(observed)
     }
 
     if (typeof navigator !== 'undefined' && navigator.locks?.request) {

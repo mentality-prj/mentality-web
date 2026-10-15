@@ -120,6 +120,22 @@ export async function fetchAuthenticatedUser(): Promise<CustomUser | null> {
   return result.data
 }
 
+/** Conditional deletion is the only cleanup path for automatic refresh failures.
+ * Legacy cookies without an opaque revision cannot be safely deleted by stale tabs.
+ */
+export async function deleteStoredAuthTokensIfUnchanged(observed: BrowserAuthSession): Promise<boolean> {
+  if (!observed.sessionRevision) return false
+  const result = await rawJsonRequest<{ ok: boolean }>('/api/auth/token', {
+    method: 'DELETE',
+    headers: { 'x-session-revision': observed.sessionRevision },
+  })
+  if ('error' in result) {
+    if (result.status === 409 || result.status === 401) return false
+    throw new Error('Session cleanup temporarily unavailable')
+  }
+  return result.data.ok === true
+}
+
 export async function deleteStoredAuthTokens(): Promise<void> {
   const result = await rawJsonRequest<{ ok: boolean }>('/api/auth/token', { method: 'DELETE' })
 
