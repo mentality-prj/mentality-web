@@ -27,6 +27,7 @@ function makeTokenCookie(overrides: Record<string, unknown> = {}): string {
     accessToken: 'valid-access-token',
     idToken: 'valid-id-token',
     refreshToken: 'valid-refresh-token',
+    sessionRevision: 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa',
     expiresAt: Math.floor(Date.now() / 1000) + 3600, // 1 hour from now
     ...overrides,
   })
@@ -126,6 +127,14 @@ describe('Middleware Token-Based Auth', () => {
 
       expect(response.headers.get('location')).toContain('/my-day')
     })
+  })
+
+  it('allows sign-in with a rejected legacy cookie instead of redirecting in a loop', async () => {
+    const request = createRequest('/uk/auth', makeTokenCookie({ sessionRevision: undefined }))
+    const response = await middleware(request)
+
+    expect(response.headers.get('location')).toBeNull()
+    expect(response.headers.get('set-cookie')).toBeNull()
   })
 
   describe('Expired token handling', () => {

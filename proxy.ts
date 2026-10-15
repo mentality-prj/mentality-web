@@ -281,7 +281,10 @@ export async function proxy(request: NextRequest) {
 
   // If the user is already authenticated, don't show the auth page —
   // redirect them to their main My-day page instead.
-  if (isAuthenticated && normalizedPath === Routes.AUTH) {
+  // Legacy cookies (created before opaque revision identifiers) cannot be
+  // conditionally cleaned up after backend revocation. Permit sign-in instead
+  // of cycling /auth -> /my-day -> /auth with an unverified old cookie.
+  if (isAuthenticated && authTokens?.sessionRevision && normalizedPath === Routes.AUTH) {
     return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url)))
   }
 
