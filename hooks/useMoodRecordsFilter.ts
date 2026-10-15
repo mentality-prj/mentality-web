@@ -3,14 +3,15 @@
 import { useCallback, useMemo } from 'react'
 import { useSearchParams } from 'next/navigation'
 
+import { filterOptions } from '@/constants/filter'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import { EnergyKey } from '@/mappers/energy.mappers'
 import { FocusKey } from '@/mappers/focus.mappers'
 import { MoodKey } from '@/mappers/mood.mappers'
-import { WeekValueType } from '@/mappers/weekdays.mapper'
+import { weekOptions, WeekValueType } from '@/mappers/weekdays.mapper'
 import { FilterType } from '@/types/filter'
-import { SortOrder } from '@/types/sort'
-import { StressLevel } from '@/types/stress'
+import { SORT_ORDER, SortOrder } from '@/types/sort'
+import { STRESS_LEVELS, StressLevel } from '@/types/stress'
 
 type UseMoodRecordsFilter = { order: SortOrder } & FilterType
 
@@ -22,6 +23,20 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
   const filters = useMemo(() => {
     const result = { ...initial }
 
+    const parseChoice = <T extends string>(value: string, allowed: readonly T[]): T | '' =>
+      allowed.find((option) => option === value) ?? ''
+
+    const parseList = (value: string) => {
+      const values = value.split(',')
+      const trimmed = values.map((item) => item.trim())
+      return Array.from(new Set(trimmed.filter(Boolean)))
+    }
+
+    const parseWeekdays = (value: string): WeekValueType[] => {
+      const days = parseList(value)
+      return days.filter((day): day is WeekValueType => weekOptions.includes(day as WeekValueType))
+    }
+
     function applyParser<K extends keyof UseMoodRecordsFilter>(k: K, param: string, result: UseMoodRecordsFilter) {
       const parser = parsers[`${k}`]
       if (parser) {
@@ -30,13 +45,13 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
     }
 
     const parsers: { [K in keyof UseMoodRecordsFilter]: (v: string) => UseMoodRecordsFilter[K] } = {
-      order: (v) => v as SortOrder,
-      moodLevel: (v) => v as MoodKey,
-      stressLevel: (v) => v as StressLevel,
-      energyLevel: (v) => v as EnergyKey,
-      focusLevel: (v) => v as FocusKey,
-      tags: (v) => v.split(','),
-      weekdays: (v) => v.split(',') as WeekValueType[],
+      order: (v) => (v === SORT_ORDER.OLDEST ? SORT_ORDER.OLDEST : SORT_ORDER.NEWEST),
+      moodLevel: (v) => parseChoice(v, filterOptions.moodLevel) as MoodKey | '',
+      stressLevel: (v) => parseChoice(v, STRESS_LEVELS) as StressLevel | '',
+      energyLevel: (v) => parseChoice(v, filterOptions.energyLevel) as EnergyKey | '',
+      focusLevel: (v) => parseChoice(v, filterOptions.focusLevel) as FocusKey | '',
+      tags: parseList,
+      weekdays: parseWeekdays,
     }
 
     ;(Object.keys(initial) as Array<keyof UseMoodRecordsFilter>).forEach((key) => {
@@ -80,26 +95,13 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
   )
 
   const reset = useCallback(() => {
-    const params = new URLSearchParams()
-
-    ;(Object.keys(initial) as Array<keyof UseMoodRecordsFilter>).forEach((key) => {
-      const value = initial[`${key}`]
-
-      if (Array.isArray(value)) {
-        if (value.length) {
-          params.set(key, value.join(','))
-        } else {
-          params.delete(key)
-        }
-      } else if (value != null && value !== '') {
-        params.set(key, String(value))
-      } else {
-        params.delete(key)
-      }
-    })
-    params.set('page', '1')
-    router.replace(`${pathname}?${params.toString()}`, { scroll: false })
-  }, [initial, pathname, router])
+    // Clear only this component's filters and pagination. Preserve unrelated URL state.
+    const params = new URLSearchParams(searchParams.toString())
+    ;(Object.keys(initial) as Array<keyof UseMoodRecordsFilter>).forEach((key) => params.delete(key))
+    params.delete('page')
+    const query = params.toString()
+    router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
+  }, [initial, pathname, router, searchParams])
 
   return { filters, setFilters, reset }
 }
