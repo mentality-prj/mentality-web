@@ -315,16 +315,26 @@ describe('AuthProvider role revalidation after token refresh', () => {
     await mountWithToken(now + 3600)
     let resolveFirst: ((value: typeof membership) => void) | undefined
     let resolveSecond: ((value: typeof membership) => void) | undefined
+    const firstVerification = new Promise<typeof membership>((resolve) => {
+      resolveFirst = resolve
+    })
+    const secondVerification = new Promise<typeof membership>((resolve) => {
+      resolveSecond = resolve
+    })
     ;(authService.getUser as jest.Mock)
-      .mockImplementationOnce(() => new Promise((resolve) => { resolveFirst = resolve }))
-      .mockImplementationOnce(() => new Promise((resolve) => { resolveSecond = resolve }))
+      .mockReturnValueOnce(firstVerification)
+      .mockReturnValueOnce(secondVerification)
     await act(async () => {
-      window.dispatchEvent(new Event('focus'))
       window.dispatchEvent(new Event('focus'))
       await Promise.resolve()
       await Promise.resolve()
     })
     expect(resolveFirst).toBeDefined()
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+      await Promise.resolve()
+    })
     expect(resolveSecond).toBeDefined()
     await act(async () => {
       resolveSecond?.({ ...membership, companyId: 'company-2' })

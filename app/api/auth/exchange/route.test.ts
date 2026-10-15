@@ -190,6 +190,22 @@ describe('/api/auth/exchange route', () => {
     expect(JSON.stringify(await secondResponse.json())).not.toContain('server-new-refresh')
   })
 
+  it('preserves the provider rate limit as retryable HTTP 429 without returning provider internals', async () => {
+    cookiesMock.mockReturnValue(createCookieStore() as never)
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(JSON.stringify({ error: 'slow_down', secret: 'never-reflect' }), { status: 429 })
+    )
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'auth-code',
+        codeVerifier: 'verifier',
+      })
+    )
+    expect(response.status).toBe(429)
+    expect(await response.json()).toEqual({ error: 'Identity provider request failed' })
+  })
+
   it('returns 400 for invalid JSON bodies', async () => {
     cookiesMock.mockReturnValue(createCookieStore() as never)
 
