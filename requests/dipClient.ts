@@ -72,6 +72,8 @@ async function nestAdminRequest<T>(path: string, method: Method = 'GET', payload
   // Zitadel subject allowlist; the Next.js role check is only defense in depth.
   const session = await getServerSession()
   if (session?.user?.role !== 'admin' || !session.OAuthToken) return { ok: false, status: 403 }
+  const controller = new AbortController()
+  const timeout = setTimeout(() => controller.abort(), 10_000)
   try {
     const response = await fetch(base + '/dip-admin' + path, {
       method,
@@ -86,11 +88,12 @@ async function nestAdminRequest<T>(path: string, method: Method = 'GET', payload
       ...(method === 'GET' ? {} : { body: JSON.stringify(payload ?? {}) }),
       cache: 'no-store',
       redirect: 'manual',
-      signal: AbortSignal.timeout(10_000),
+      signal: controller.signal,
     })
     if (!response.ok || (response.status >= 300 && response.status < 400)) return { ok: false, status: response.status }
     return { ok: true, data: (await response.json()) as T }
   } catch { return { ok: false, status: 502 } }
+  finally { clearTimeout(timeout) }
 }
 
 async function dipRead<T>(path: string): Promise<T | null> {
