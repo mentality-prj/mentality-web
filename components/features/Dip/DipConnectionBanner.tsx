@@ -16,9 +16,8 @@ export function DipConnectionBanner({
   if (connection.configured) return null
 
   const lines = credentialsHintLines ?? [
-    'DIP_URL=http://localhost:8000',
-    'DIP_ADMIN_API_KEY=dev-api-key',
-    '# optional: DIP_API_KEY=<org-scoped-key>',
+    'QDIP credentials are configured in NestJS only',
+    'DIP_ADMIN_API_KEY must not exist in Next.js',
   ]
 
   return (
