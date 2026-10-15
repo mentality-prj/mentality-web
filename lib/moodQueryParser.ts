@@ -34,9 +34,9 @@ export function parseMoodQuery(params: MoodQueryParams) {
     return values.flatMap((item) => item.split(',')).map((item) => item.trim()).filter(Boolean)
   }
 
-  const selectAllowed = <T extends string>(value: QueryValue, allowed: readonly T[]): T | '' => {
-    const candidate = getFirst(value)?.trim()
-    return allowed.find((item) => item === candidate) ?? ''
+  const selectAllowed = <T extends string>(value: QueryValue, allowed: readonly T[]): T[] => {
+    const selected = normalizeArray(value).filter((item): item is T => allowed.includes(item as T))
+    return Array.from(new Set(selected))
   }
 
   const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
@@ -45,7 +45,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
   )
 
   const filters: MapFiltersToApi = {
-    order: selectAllowed(params.order, [SORT_ORDER.NEWEST, SORT_ORDER.OLDEST]) || SORT_ORDER.NEWEST,
+    order: getFirst(params.order) === SORT_ORDER.OLDEST ? SORT_ORDER.OLDEST : SORT_ORDER.NEWEST,
     tags: Array.from(new Set(normalizeArray(params.tags))),
     moodLevel: selectAllowed(params.moodLevel, filterOptions.moodLevel),
     stressLevel: selectAllowed(params.stressLevel, STRESS_LEVELS),
@@ -55,22 +55,28 @@ export function parseMoodQuery(params: MoodQueryParams) {
   }
 
   const mapped = mapFiltersToApi(filters)
+  const single = (levels: number[]): number | undefined => (levels.length === 1 ? levels[0] : undefined)
+  const multiple = (levels: number[]): number[] | undefined => (levels.length > 1 ? levels : undefined)
 
   return {
     page,
     limit,
     // Sorting is not yet supported by the backend's history endpoint.
-    moodMin: mapped.moodLevel,
-    moodMax: mapped.moodLevel,
+    moodMin: single(mapped.moodLevel),
+    moodMax: single(mapped.moodLevel),
+    moodLevels: multiple(mapped.moodLevel),
 
-    stressMin: mapped.stressLevel,
-    stressMax: mapped.stressLevel,
+    stressMin: single(mapped.stressLevel),
+    stressMax: single(mapped.stressLevel),
+    stressLevels: multiple(mapped.stressLevel),
 
-    energyMin: mapped.energyLevel,
-    energyMax: mapped.energyLevel,
+    energyMin: single(mapped.energyLevel),
+    energyMax: single(mapped.energyLevel),
+    energyLevels: multiple(mapped.energyLevel),
 
-    focusMin: mapped.focusLevel,
-    focusMax: mapped.focusLevel,
+    focusMin: single(mapped.focusLevel),
+    focusMax: single(mapped.focusLevel),
+    focusLevels: multiple(mapped.focusLevel),
 
     tags: filters.tags.length ? filters.tags : undefined,
     weekdays: mapped.weekdays?.length ? mapped.weekdays : undefined,
