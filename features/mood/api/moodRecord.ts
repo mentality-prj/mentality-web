@@ -31,6 +31,10 @@ export async function getMoodRecords(
     energyMax?: number
     focusMin?: number
     focusMax?: number
+    moodLevels?: number[]
+    stressLevels?: number[]
+    energyLevels?: number[]
+    focusLevels?: number[]
     tags?: string[]
     weekdays?: number[]
   }
@@ -52,6 +56,11 @@ export async function getMoodRecords(
   ranges.forEach(([minKey, maxKey]) => {
     if (typeof params![`${minKey}`] === 'number') query.set(minKey, String(params![`${minKey}`]))
     if (typeof params![`${maxKey}`] === 'number') query.set(maxKey, String(params![`${maxKey}`]))
+  })
+
+  const levels = ['moodLevels', 'stressLevels', 'energyLevels', 'focusLevels'] as const
+  levels.forEach((key) => {
+    params[key]?.forEach((value) => query.append(key, String(value)))
   })
 
   params.tags?.forEach((tag) => query.append('tags', tag))

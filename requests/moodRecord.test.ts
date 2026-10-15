@@ -161,6 +161,29 @@ describe('getMoodRecords', () => {
       expect(urlParams.getAll('weekdays')).toEqual(['1', '2', '3', '4', '5'])
     })
 
+    it('forwards non-contiguous multi-level filters to the API', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      const query = parseMoodQuery({
+        moodLevel: 'veryBad,great',
+        stressLevel: 'low,veryHigh',
+        energyLevel: 'veryLow,high',
+        focusLevel: 'low,veryHigh',
+        weekdays: 'weekends',
+      })
+      await getMoodRecords(mockSession, query)
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      const params = new URL(calledUrl).searchParams
+      expect(params.getAll('moodLevels')).toEqual(['1', '5'])
+      expect(params.getAll('stressLevels')).toEqual(['2', '5'])
+      expect(params.getAll('energyLevels')).toEqual(['1', '4'])
+      expect(params.getAll('focusLevels')).toEqual(['2', '5'])
+      expect(params.getAll('weekdays')).toEqual(['6', '7'])
+      expect(params.has('moodMin')).toBe(false)
+      expect(params.has('stressMin')).toBe(false)
+    })
+
     it('includes repeated tags and weekdays correctly in URL', async () => {
       ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 

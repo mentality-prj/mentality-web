@@ -19,10 +19,10 @@ type Props = {
 const initialFilters: Parameters<typeof useMoodRecordsFilter>[0] = {
   order: SORT_ORDER.NEWEST,
   tags: [],
-  moodLevel: '',
-  stressLevel: '',
-  energyLevel: '',
-  focusLevel: '',
+  moodLevel: [],
+  stressLevel: [],
+  energyLevel: [],
+  focusLevel: [],
   weekdays: [],
 }
 
