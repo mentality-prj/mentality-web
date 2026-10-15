@@ -171,6 +171,32 @@ describe('getMoodRecords', () => {
     })
   })
 
+  it('sends combined filters and selected sort order in one authenticated request', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+    const query = parseMoodQuery({
+      page: '11',
+      order: 'oldest',
+      stressLevel: 'high',
+      energyLevel: 'low',
+      tags: 'work,family',
+      weekdays: 'weekends',
+    })
+    await getMoodRecords(mockSession, query)
+
+    const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+    const params = new URL(calledUrl).searchParams
+
+    expect(params.get('page')).toBe('11')
+    expect(params.get('order')).toBe('oldest')
+    expect(params.get('stressMin')).toBe('4')
+    expect(params.get('stressMax')).toBe('4')
+    expect(params.get('energyMin')).toBe('2')
+    expect(params.get('energyMax')).toBe('2')
+    expect(params.getAll('tags')).toEqual(['work', 'family'])
+    expect(params.getAll('weekdays')).toEqual(['6', '7'])
+  })
+
   describe('pagination total', () => {
     it('returns total from X-Total-Count header', async () => {
       ;(performAuthRequest as jest.Mock).mockResolvedValue({
