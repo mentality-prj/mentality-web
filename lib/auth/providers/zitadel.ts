@@ -83,6 +83,8 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async refreshTokens(): Promise<BrowserAuthSession | null> {
+    // A provider instance is shared across React components, while Web Locks
+    // serialize refresh-token rotation across *tabs on the same origin*.
     if (this.refreshInFlight) return this.refreshInFlight
     const task = this.refreshOnce()
     this.refreshInFlight = task
@@ -94,11 +96,37 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   private async refreshOnce(): Promise<BrowserAuthSession | null> {
-    const state = await fetchStoredAuthTokens()
-    if (!state?.hasRefreshToken) return null
-    const result = await exchangeAuthTokens({ grantType: 'refresh_token' })
-    if ('error' in result) return null
-    return result.data
+    const observed = await fetchStoredAuthTokens()
+    if (!observed?.hasRefreshToken) return null
+
+    const rotateIfNeeded = async (): Promise<BrowserAuthSession | null> => {
+      // Re-read the HttpOnly-cookie metadata *after* acquiring the cross-tab
+      // lock. Another tab may already have rotated it while we waited.
+      const current = await fetchStoredAuthTokens()
+      if (!current?.hasRefreshToken) return null
+
+      const secondsRemaining = current.expiresAt - Math.floor(Date.now() / 1000)
+      if (current.expiresAt > observed.expiresAt || secondsRemaining > 60) {
+        return current
+      }
+
+      const result = await exchangeAuthTokens({ grantType: 'refresh_token' })
+      if ('error' in result) {
+        // A parallel request may have completed before the lock was acquired
+        // (or the lock API was unavailable). Never overwrite its cookie.
+        const latest = await fetchStoredAuthTokens()
+        return latest?.hasRefreshToken && latest.expiresAt > observed.expiresAt ? latest : null
+      }
+      return result.data
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+      return navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, rotateIfNeeded)
+    }
+
+    // Compatibility fallback: still uses same-instance single flight. Full
+    // cross-tab coordination requires the Web Locks API or a server-side store.
+    return rotateIfNeeded()
   }
 
   async logout(): Promise<void> {
