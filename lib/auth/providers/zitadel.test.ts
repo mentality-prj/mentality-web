@@ -126,9 +126,7 @@ describe('token-opaque Zitadel provider', () => {
   it('preserves a newer rotated cookie when stale cleanup acquires the refresh lock', async () => {
     const observed = { ...metadata, sessionRevision: 'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa' }
     const newer = { ...metadata, sessionRevision: 'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb' }
-    const request = jest.fn((_name: string, _options: LockOptions, callback: () => Promise<unknown>) =>
-      callback()
-    )
+    const request = jest.fn((_name: string, _options: LockOptions, callback: () => Promise<unknown>) => callback())
     Object.defineProperty(navigator, 'locks', { configurable: true, value: { request } })
     ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(newer)
 
