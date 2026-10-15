@@ -14,6 +14,7 @@ interface AuthContextValue {
   login: () => Promise<void>
   logout: () => Promise<void>
   getToken: () => Promise<string | null>
+  ensureFreshSession: () => Promise<boolean>
 }
 
 const AuthContext = createContext<AuthContextValue | null>(null)
@@ -68,7 +69,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       if (current && verifiedUser) {
         setTokens(current)
         setUser(verifiedUser)
-        setError({ error: 'RefreshRetry', message: 'Session refresh will retry shortly' })
+        // session.error is a hard API-request gate, so transient refresh
+        // warnings belong in logs, not in the authenticated session object.
+        setError(null)
+        logger.warn('[AUTH_PROVIDER] Refresh delayed; verified session still valid')
         setRetryNotBefore(Date.now() + 15_000)
         return
       }
@@ -85,16 +89,19 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     let cancelled = false
 
     async function init() {
+      const generation = sessionGeneration.current
+      const active = () => !cancelled && generation === sessionGeneration.current
       try {
         const storedTokens = await authService.getStoredTokens()
         if (!storedTokens) {
-          if (!cancelled) setStatus('unauthenticated')
+          if (active()) setStatus('unauthenticated')
           return
         }
 
+        if (!active()) return
         const now = Math.floor(Date.now() / 1000)
         if (storedTokens.expiresAt <= now && !storedTokens.hasRefreshToken) {
-          if (!cancelled) await invalidateSession()
+          if (active()) await invalidateSession()
           return
         }
 
@@ -106,15 +113,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           if (refreshed) {
             sessionTokens = refreshed
           } else if (storedTokens.expiresAt <= Math.floor(Date.now() / 1000)) {
-            if (!cancelled) await invalidateSession()
+            if (active()) await invalidateSession()
             return
-          } else if (!cancelled) {
+          } else if (active()) {
             setRetryNotBefore(Date.now() + 15_000)
           }
         }
 
         const currentUser = await authService.getUser()
-        if (!cancelled) {
+        if (active()) {
           if (currentUser) {
             setTokens(sessionTokens)
             setUser(currentUser)
@@ -127,7 +134,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         logger.error('[AUTH_PROVIDER] Init error', {
           error: err instanceof Error ? err.message : String(err),
         })
-        if (!cancelled) {
+        if (active()) {
           setError({ error: 'InitError', message: 'Failed to initialize auth' })
           setStatus('unauthenticated')
         }
@@ -176,21 +183,32 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return
       }
 
-      if (latest.expiresAt <= Math.floor(Date.now() / 1000) + 60 && latest.hasRefreshToken) {
-        await refreshAndRevalidate()
-      } else if (latest.expiresAt > (tokens?.expiresAt ?? 0)) {
-        const verifiedUser = await authService.getUser()
-        if (cancelled || generation !== sessionGeneration.current) return
-        if (!verifiedUser) {
+      const now = Math.floor(Date.now() / 1000)
+      if (latest.expiresAt <= now) {
+        // A token that expired during backoff cannot be treated as verified.
+        if (latest.hasRefreshToken && Date.now() >= retryNotBefore) {
+          await refreshAndRevalidate()
+        } else {
           await invalidateSession()
-          return
         }
-        setTokens(latest)
-        setUser(verifiedUser)
-        setError(null)
-      } else if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-        await invalidateSession()
+        return
       }
+      if (latest.hasRefreshToken && latest.expiresAt <= now + 60 && Date.now() >= retryNotBefore) {
+        await refreshAndRevalidate()
+        return
+      }
+
+      // Even unchanged expiry metadata must be revalidated: role revocation
+      // and account switching do not necessarily alter an expiry timestamp.
+      const verifiedUser = await authService.getUser()
+      if (cancelled || generation !== sessionGeneration.current) return
+      if (!verifiedUser) {
+        await invalidateSession()
+        return
+      }
+      setTokens(latest)
+      setUser(verifiedUser)
+      setError(null)
     }
 
     const onFocus = () => void reconcile()
@@ -201,7 +219,67 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       window.removeEventListener('focus', onFocus)
       document.removeEventListener('visibilitychange', onFocus)
     }
-  }, [status, tokens?.expiresAt, invalidateSession, refreshAndRevalidate])
+  }, [status, tokens?.expiresAt, retryNotBefore, invalidateSession, refreshAndRevalidate])
+
+  // Called by /refresh-session before it returns to a protected route.
+  // A stale React status alone is not proof that the HttpOnly cookie is fresh.
+  const ensureFreshSession = useCallback(async (): Promise<boolean> => {
+    const generation = sessionGeneration.current
+    try {
+      let latest = await authService.getStoredTokens()
+      if (generation !== sessionGeneration.current) return false
+      if (!latest) {
+        await invalidateSession()
+        return false
+      }
+
+      const now = Math.floor(Date.now() / 1000)
+      if (latest.expiresAt <= now + 60 && latest.hasRefreshToken) {
+        if (Date.now() < retryNotBefore) return false
+        const refreshed = await authService.refreshTokens()
+        if (generation !== sessionGeneration.current) return false
+        if (!refreshed) {
+          if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
+            await invalidateSession()
+          } else {
+            setRetryNotBefore(Date.now() + 15_000)
+          }
+          return false
+        }
+        latest = refreshed
+      }
+
+      if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
+        await invalidateSession()
+        return false
+      }
+      const verified = await authService.getUser()
+      if (generation !== sessionGeneration.current) return false
+      if (!verified) {
+        await invalidateSession()
+        return false
+      }
+      setTokens(latest)
+      setUser(verified)
+      setStatus('authenticated')
+      setError(null)
+      setRetryNotBefore(0)
+      return true
+    } catch (err) {
+      if (generation !== sessionGeneration.current) return false
+      logger.warn('[AUTH_PROVIDER] Session recovery deferred', {
+        error: err instanceof Error ? err.message : String(err),
+      })
+      const latest = await authService.getStoredTokens()
+      if (generation !== sessionGeneration.current) return false
+      if (!latest || latest.expiresAt <= Math.floor(Date.now() / 1000)) {
+        await invalidateSession()
+      } else {
+        setRetryNotBefore(Date.now() + 15_000)
+      }
+      return false
+    }
+  }, [invalidateSession, retryNotBefore])
 
   const login = useCallback(async () => {
     await authService.login()
@@ -239,8 +317,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       login,
       logout,
       getToken,
+      ensureFreshSession,
     }),
-    [user, status, error, session, login, logout, getToken]
+    [user, status, error, session, login, logout, getToken, ensureFreshSession]
   )
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>
