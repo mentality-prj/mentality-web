@@ -182,7 +182,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
   })
 
-  it('keeps another tab\'s rotated session when stale failure cleanup loses the race', async () => {
+  it('keeps newer rotated session when stale failure cleanup loses the race', async () => {
     const newer = {
       expiresAt: now + 3600,
       hasRefreshToken: true,
