@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { coalesceRefreshExchange } from '@/lib/auth/serverRefreshFlight'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 
 type TokenEndpointResponse = {
@@ -199,21 +200,36 @@ export async function POST(request: NextRequest) {
       return jsonNoStore({ error: 'Invalid grantType' }, { status: 400 })
     }
 
-    tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
-    const tokenResponse = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params,
-      redirect: 'manual',
-      cache: 'no-store',
-      signal: tokenSignal,
-    })
+    const callProvider = async () => {
+      tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
+      try {
+        const response = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params,
+          redirect: 'manual',
+          cache: 'no-store',
+          signal: tokenSignal,
+        })
+        const payload = await readJsonPayload(response)
+        return { ok: response.ok, status: response.status, payload }
+      } catch (error) {
+        // A body stream can throw AbortError although the deadline elapsed.
+        const reason = tokenSignal?.aborted ? tokenSignal.reason : null
+        if (reason instanceof Error && reason.name === 'TimeoutError') throw reason
+        throw error
+      }
+    }
 
-    const payload = await readJsonPayload(tokenResponse)
+    const exchangeResult =
+      grantType === 'refresh_token' && storedTokens?.refreshToken
+        ? await coalesceRefreshExchange(storedTokens.refreshToken, callProvider)
+        : await callProvider()
+    const payload = exchangeResult.payload
 
-    if (!tokenResponse.ok) {
+    if (!exchangeResult.ok) {
       // Never reflect identity-provider JSON (including diagnostic secrets).
-      const status = tokenResponse.status >= 300 && tokenResponse.status < 500 ? 400 : 502
+      const status = exchangeResult.status >= 300 && exchangeResult.status < 500 ? 400 : 502
       return jsonNoStore({ error: 'Identity provider request failed' }, { status })
     }
 
