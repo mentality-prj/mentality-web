@@ -161,6 +161,17 @@ describe('getMoodRecords', () => {
       expect(urlParams.getAll('weekdays')).toEqual(['1', '2', '3', '4', '5'])
     })
 
+    it('sends oldest-first sorting to the backend before pagination', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      await getMoodRecords(mockSession, parseMoodQuery({ page: '2', order: 'oldest' }))
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      const params = new URL(calledUrl).searchParams
+      expect(params.get('order')).toBe('oldest')
+      expect(params.get('page')).toBe('2')
+    })
+
     it('forwards non-contiguous multi-level filters to the API', async () => {
       ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 

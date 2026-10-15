@@ -64,7 +64,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
   return {
     page,
     limit,
-    // Sorting is not yet supported by the backend's history endpoint.
+    order: filters.order,
     moodMin: single(mapped.moodLevel),
     moodMax: single(mapped.moodLevel),
     moodLevels: multiple(mapped.moodLevel),
