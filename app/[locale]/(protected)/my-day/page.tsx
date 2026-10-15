@@ -8,11 +8,12 @@ import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoal
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
-import { getLatestMoodStory } from '@/requests/moodStory'
+import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { MoodStoryResult } from '@/types/api-responses'
 import { Roles } from '@/types/security'
@@ -25,7 +26,9 @@ const MyDay = async () => {
   const todayPromise = getLastMoodRecords(session, { days: 1 })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
-  const submittedToday = !('error' in todayRes) && (todayRes.data ?? []).length > 0
+  const submittedToday =
+    !('error' in todayRes) &&
+    (todayRes.data ?? []).some((record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt))
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
@@ -45,7 +48,7 @@ const MyDay = async () => {
   let recommendedAffirmationId: string | undefined
   let recommendedTipId: string | undefined
   if (submittedToday) {
-    storyResult = await getLatestMoodStory(session)
+    storyResult = await getTodayMoodStory(session)
     if (!('error' in storyResult)) {
       recommendedAffirmationId = storyResult.data.recommendedAffirmationId
       recommendedTipId = storyResult.data.recommendedTipId
