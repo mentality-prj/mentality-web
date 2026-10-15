@@ -2,7 +2,7 @@ import { getTranslations } from 'next-intl/server'
 
 import Card from '@/components/shared/Cards/Card'
 import { getServerSession } from '@/lib/get-server-session'
-import { getLatestMoodStory } from '@/requests/moodStory'
+import { getTodayMoodStory } from '@/requests/moodStory'
 import { MoodStoryResult } from '@/types/api-responses'
 
 import { MoodStoryAdminBar } from './MoodStoryAdminBar'
@@ -24,7 +24,7 @@ export async function MoodStoryCard({ isAdmin, initialStory }: MoodStoryCardProp
     result = initialStory
   } else {
     const session = await getServerSession()
-    result = await getLatestMoodStory(session)
+    result = await getTodayMoodStory(session)
   }
 
   if ('error' in result) {

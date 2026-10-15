@@ -4,7 +4,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 
 import { useAuth } from '@/context/AuthProvider'
 import { getAffirmationById } from '@/requests/affirmations'
-import { getLatestMoodStory } from '@/requests/moodStory'
+import { getTodayMoodStory } from '@/requests/moodStory'
 import { getTipById } from '@/requests/tips'
 import { AffirmationEntity, MoodStoryEntity, TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
@@ -25,7 +25,7 @@ export type RecommendedItems = {
   tip?: TipEntity
 }
 
-type LatestMoodStoryResult = Awaited<ReturnType<typeof getLatestMoodStory>>
+type LatestMoodStoryResult = Awaited<ReturnType<typeof getTodayMoodStory>>
 
 export function useMoodStory() {
   const { session, status: sessionStatus } = useAuth()
@@ -105,7 +105,7 @@ export function useMoodStory() {
         pollStartRef.current = null
       }
 
-      const result: LatestMoodStoryResult = await getLatestMoodStory(session as CustomSession)
+      const result: LatestMoodStoryResult = await getTodayMoodStory(session as CustomSession)
 
       if (id !== fetchIdRef.current) return
 
