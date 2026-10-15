@@ -27,6 +27,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [retryNotBefore, setRetryNotBefore] = useState(0)
   const sessionGeneration = useRef(0)
   const verifiedTokens = useRef<BrowserAuthSession | null>(null)
+  const hydrationRetries = useRef(0)
 
   useEffect(() => {
     verifiedTokens.current = tokens
@@ -209,8 +210,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           error: err instanceof Error ? err.message : String(err),
         })
         if (active()) {
-          setError({ error: 'InitError', message: 'Failed to initialize auth' })
-          setStatus('unauthenticated')
+          // A transient backend outage does not prove that HttpOnly credentials
+          // are absent. Keep loading and try a bounded revalidation instead of
+          // navigating straight to sign-in.
+          setRetryNotBefore(Date.now() + 15_000)
         }
       }
     }
@@ -220,6 +223,68 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       cancelled = true
     }
   }, [invalidateSession])
+
+  // Initialization can discover a concurrently rotated cookie while the
+  // backend is temporarily unavailable. Revalidate it after the cooldown even
+  // though the usual timer/focus effects are inactive in the loading state.
+  useEffect(() => {
+    if (status !== 'loading' || retryNotBefore <= 0) return
+    let cancelled = false
+    const timer = setTimeout(async () => {
+      const generation = sessionGeneration.current
+      const active = () => !cancelled && generation === sessionGeneration.current
+      try {
+        let latest = await authService.getStoredTokens()
+        if (!active()) return
+        if (!latest) {
+          setStatus('unauthenticated')
+          return
+        }
+
+        if (latest.hasRefreshToken && latest.expiresAt <= Math.floor(Date.now() / 1000) + 60) {
+          const refreshed = await authService.refreshTokens()
+          if (!active()) return
+          if (refreshed) latest = refreshed
+        }
+        if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
+          await invalidateSession(latest)
+          return
+        }
+
+        const verified = await authService.getUser()
+        if (!active()) return
+        if (!verified) {
+          await invalidateSession(latest)
+          return
+        }
+        setTokens(latest)
+        setUser(verified)
+        setStatus('authenticated')
+        setError(null)
+        setRetryNotBefore(0)
+        hydrationRetries.current = 0
+      } catch (err) {
+        if (!active()) return
+        hydrationRetries.current += 1
+        logger.warn('[AUTH_PROVIDER] Initialization revalidation deferred', {
+          error: err instanceof Error ? err.message : String(err),
+        })
+        if (hydrationRetries.current >= 3) {
+          // Avoid a permanently spinning recovery screen during an extended
+          // outage; do not delete a cookie we could not verify or inspect.
+          setRetryNotBefore(0)
+          setStatus('unauthenticated')
+        } else {
+          setRetryNotBefore(Date.now() + 15_000)
+        }
+      }
+    }, Math.max(0, retryNotBefore - Date.now()))
+
+    return () => {
+      cancelled = true
+      clearTimeout(timer)
+    }
+  }, [status, retryNotBefore, invalidateSession])
 
   // The single refresh timer is bounded on failures; retrying while still
   // verified is preferable to signing a user out on transient Zitadel errors.

@@ -240,6 +240,43 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(screen.getByTestId('company')).toHaveTextContent('company-1')
   })
 
+  it('revalidates a concurrently rotated cookie after an initial backend outage', async () => {
+    const expired = {
+      expiresAt: now - 5,
+      hasRefreshToken: true,
+      sessionRevision: 'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa',
+    }
+    const newer = {
+      expiresAt: now + 3600,
+      hasRefreshToken: true,
+      sessionRevision: 'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',
+    }
+    ;(authService.getStoredTokens as jest.Mock).mockResolvedValueOnce(expired).mockResolvedValue(newer)
+    ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
+    ;(authService.clearTokensIfUnchanged as jest.Mock).mockResolvedValue(false)
+    ;(authService.getUser as jest.Mock).mockRejectedValueOnce(new Error('backend temporarily offline'))
+    ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
+
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <AuthState />
+        </AuthProvider>
+      )
+    })
+
+    expect(screen.getByTestId('status')).toHaveTextContent('loading')
+    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
+
+    await act(async () => {
+      await jest.advanceTimersByTimeAsync(15_100)
+    })
+
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+    expect(screen.getByTestId('company')).toHaveTextContent('company-1')
+    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
+  })
+
   it('fails closed when the token refresh rejects instead of leaving stale privileges', async () => {
     await mountWithToken(now + 61)
     ;(authService.refreshTokens as jest.Mock).mockRejectedValue(new Error('network unavailable'))
