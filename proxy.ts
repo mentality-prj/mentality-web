@@ -146,7 +146,7 @@ async function refreshTokensServerSide(
     const baseUrl = new URL(requestUrl).origin
     const response = await fetch(`${baseUrl}/api/auth/exchange`, {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json', Cookie: cookieHeader },
+      headers: { 'Content-Type': 'application/json', Cookie: cookieHeader, Origin: baseUrl },
       body: JSON.stringify({ grantType: 'refresh_token' }),
     })
     if (!response.ok) return null

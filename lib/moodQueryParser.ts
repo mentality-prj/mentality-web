@@ -1,12 +1,11 @@
 import { filterOptions } from '@/constants/filter'
-import { PAGE_SIZE } from '@/constants/pagination'
-import { FilterValue } from '@/context/moodRecordsFilterContext'
+import { MAX_MOOD_PAGE, PAGE_SIZE } from '@/constants/pagination'
 import { WeekValueType } from '@/mappers/weekdays.mapper'
+import { SORT_ORDER } from '@/types/sort'
+import { STRESS_LEVELS } from '@/types/stress'
+import { getSafePage } from '@/utils/getSafePage'
 
 import { MapFiltersToApi, mapFiltersToApi } from './mapFiltersToApi'
-
-// Keep consistent with GetMoodRecordsQueryDto.page's bounded server contract.
-const MAX_MOOD_PAGE = 10_000
 
 type QueryValue = string | string[] | undefined
 
@@ -22,63 +21,65 @@ type MoodQueryParams = {
   weekdays?: QueryValue
 }
 
-function parseAllowedFilter<K extends 'moodLevel' | 'stressLevel' | 'energyLevel' | 'focusLevel'>(
-  key: K,
-  value?: string
-): FilterValue<K> {
-  const options = filterOptions[key] as readonly string[]
-  return value && options.includes(value) ? (value as FilterValue<K>) : ''
-}
-
 export function parseMoodQuery(params: MoodQueryParams) {
-  const getFirst = (value?: string | string[]): string | undefined => {
-    if (!value) return undefined
-    return Array.isArray(value) ? value[0] : value
-  }
+  const getFirst = (value?: QueryValue): string | undefined => (Array.isArray(value) ? value[0] : value)
 
-  const rawPage = Number(getFirst(params.page))
-  const page = Number.isSafeInteger(rawPage) && rawPage >= 1 ? Math.min(rawPage, MAX_MOOD_PAGE) : 1
+  // PAGE_SIZE is the number of records per page, not the maximum page number.
+  const page = getSafePage(getFirst(params.page), MAX_MOOD_PAGE)
   const limit = PAGE_SIZE
 
-  const normalizeArray = (value?: string[] | string): string[] =>
-    value
-      ? (Array.isArray(value) ? value : [value])
-          .flatMap((v) => v.split(','))
-          .map((v) => v.trim())
-          .filter(Boolean)
-      : []
+  const normalizeArray = (value?: QueryValue): string[] => {
+    if (!value) return []
+    const values = Array.isArray(value) ? value : [value]
+    const separated = values.flatMap((item) => item.split(','))
+    const trimmed = separated.map((item) => item.trim())
+    return trimmed.filter(Boolean)
+  }
+
+  const selectAllowed = <T extends string>(value: QueryValue, allowed: readonly T[]): T[] => {
+    const candidates = normalizeArray(value)
+    const selected = candidates.filter((item): item is T => allowed.includes(item as T))
+    return Array.from(new Set(selected))
+  }
 
   const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+  const validWeekdays = normalizeArray(params.weekdays).filter((day): day is WeekValueType => {
+    return allowedWeekdays.includes(day as WeekValueType)
+  })
 
   const filters: MapFiltersToApi = {
-    order: getFirst(params.order) === 'oldest' ? 'oldest' : 'newest',
+    order: getFirst(params.order) === SORT_ORDER.OLDEST ? SORT_ORDER.OLDEST : SORT_ORDER.NEWEST,
     tags: Array.from(new Set(normalizeArray(params.tags))),
-    moodLevel: parseAllowedFilter('moodLevel', getFirst(params.moodLevel)),
-    stressLevel: parseAllowedFilter('stressLevel', getFirst(params.stressLevel)),
-    energyLevel: parseAllowedFilter('energyLevel', getFirst(params.energyLevel)),
-    focusLevel: parseAllowedFilter('focusLevel', getFirst(params.focusLevel)),
-    weekdays: normalizeArray(params.weekdays).filter((d): d is WeekValueType =>
-      allowedWeekdays.includes(d as WeekValueType)
-    ),
+    moodLevel: selectAllowed(params.moodLevel, filterOptions.moodLevel),
+    stressLevel: selectAllowed(params.stressLevel, STRESS_LEVELS),
+    energyLevel: selectAllowed(params.energyLevel, filterOptions.energyLevel),
+    focusLevel: selectAllowed(params.focusLevel, filterOptions.focusLevel),
+    weekdays: Array.from(new Set(validWeekdays)),
   }
 
   const mapped = mapFiltersToApi(filters)
+  const single = (levels: number[]): number | undefined => (levels.length === 1 ? levels[0] : undefined)
+  const multiple = (levels: number[]): number[] | undefined => (levels.length > 1 ? levels : undefined)
 
   return {
     page,
     limit,
     order: filters.order,
-    moodMin: mapped.moodLevel,
-    moodMax: mapped.moodLevel,
+    moodMin: single(mapped.moodLevel),
+    moodMax: single(mapped.moodLevel),
+    moodLevels: multiple(mapped.moodLevel),
 
-    stressMin: mapped.stressLevel,
-    stressMax: mapped.stressLevel,
+    stressMin: single(mapped.stressLevel),
+    stressMax: single(mapped.stressLevel),
+    stressLevels: multiple(mapped.stressLevel),
 
-    energyMin: mapped.energyLevel,
-    energyMax: mapped.energyLevel,
+    energyMin: single(mapped.energyLevel),
+    energyMax: single(mapped.energyLevel),
+    energyLevels: multiple(mapped.energyLevel),
 
-    focusMin: mapped.focusLevel,
-    focusMax: mapped.focusLevel,
+    focusMin: single(mapped.focusLevel),
+    focusMax: single(mapped.focusLevel),
+    focusLevels: multiple(mapped.focusLevel),
 
     tags: filters.tags.length ? filters.tags : undefined,
     weekdays: mapped.weekdays?.length ? mapped.weekdays : undefined,

@@ -135,6 +135,66 @@ describe('getMoodRecords', () => {
   })
 
   describe('query params', () => {
+    it('forwards combined stress, energy, tags, and weekdays to the backend', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      await getMoodRecords(
+        mockSession,
+        parseMoodQuery({
+          page: '12',
+          stressLevel: 'high',
+          energyLevel: 'low',
+          tags: ['work', 'home'],
+          weekdays: 'weekDays',
+        })
+      )
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      const urlParams = new URL(calledUrl).searchParams
+
+      expect(urlParams.get('page')).toBe('12')
+      expect(urlParams.get('stressMin')).toBe('4')
+      expect(urlParams.get('stressMax')).toBe('4')
+      expect(urlParams.get('energyMin')).toBe('2')
+      expect(urlParams.get('energyMax')).toBe('2')
+      expect(urlParams.getAll('tags')).toEqual(['work', 'home'])
+      expect(urlParams.getAll('weekdays')).toEqual(['1', '2', '3', '4', '5'])
+    })
+
+    it('sends oldest-first sorting to the backend before pagination', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      await getMoodRecords(mockSession, parseMoodQuery({ page: '2', order: 'oldest' }))
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      const params = new URL(calledUrl).searchParams
+      expect(params.get('order')).toBe('oldest')
+      expect(params.get('page')).toBe('2')
+    })
+
+    it('forwards non-contiguous multi-level filters to the API', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      const query = parseMoodQuery({
+        moodLevel: 'veryBad,great',
+        stressLevel: 'low,veryHigh',
+        energyLevel: 'veryLow,high',
+        focusLevel: 'low,veryHigh',
+        weekdays: 'weekends',
+      })
+      await getMoodRecords(mockSession, query)
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      const params = new URL(calledUrl).searchParams
+      expect(params.getAll('moodLevels')).toEqual(['1', '5'])
+      expect(params.getAll('stressLevels')).toEqual(['2', '5'])
+      expect(params.getAll('energyLevels')).toEqual(['1', '4'])
+      expect(params.getAll('focusLevels')).toEqual(['2', '5'])
+      expect(params.getAll('weekdays')).toEqual(['6', '7'])
+      expect(params.has('moodMin')).toBe(false)
+      expect(params.has('stressMin')).toBe(false)
+    })
+
     it('includes repeated tags and weekdays correctly in URL', async () => {
       ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
@@ -169,32 +229,6 @@ describe('getMoodRecords', () => {
       expect(urlParams.get('focusMin')).toBe('5')
       expect(urlParams.get('focusMax')).toBe('5')
     })
-  })
-
-  it('sends combined filters and selected sort order in one authenticated request', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
-
-    const query = parseMoodQuery({
-      page: '11',
-      order: 'oldest',
-      stressLevel: 'high',
-      energyLevel: 'low',
-      tags: 'work,family',
-      weekdays: 'weekends',
-    })
-    await getMoodRecords(mockSession, query)
-
-    const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
-    const params = new URL(calledUrl).searchParams
-
-    expect(params.get('page')).toBe('11')
-    expect(params.get('order')).toBe('oldest')
-    expect(params.get('stressMin')).toBe('4')
-    expect(params.get('stressMax')).toBe('4')
-    expect(params.get('energyMin')).toBe('2')
-    expect(params.get('energyMax')).toBe('2')
-    expect(params.getAll('tags')).toEqual(['work', 'family'])
-    expect(params.getAll('weekdays')).toEqual(['6', '7'])
   })
 
   describe('pagination total', () => {

@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 
 import { MoodRecordsList } from '@/components/features/MoodTracker/MoodRecords/MoodRecordsList/MoodRecordsList'
 import { MoodRecordEntity } from '@/types/api-responses'
@@ -49,6 +49,7 @@ const mockRecord = (overrides?: Partial<MoodRecordEntity>): MoodRecordEntity => 
 
 beforeEach(() => {
   ;(useTranslations as jest.Mock).mockReturnValue((key: string) => key)
+  ;(useLocale as jest.Mock).mockReturnValue('en')
 })
 
 describe('MoodRecordsList', () => {
@@ -93,6 +94,28 @@ describe('MoodRecordsList', () => {
 
     expect(container.firstChild).toBeInTheDocument()
     expect(screen.queryByTestId('mood-record-card')).not.toBeInTheDocument()
+  })
+
+  it('displays both date and time and exposes the original timestamp', () => {
+    // MoodRecordsList switches to the browser timezone after hydration.
+    // Force UTC so this test behaves identically in Warsaw, Kyiv and CI.
+    const timezoneSpy = jest.spyOn(Intl.DateTimeFormat.prototype, 'resolvedOptions')
+    timezoneSpy.mockReturnValue({ timeZone: 'UTC' } as Intl.ResolvedDateTimeFormatOptions)
+    try {
+      render(<MoodRecordsList records={[mockRecord()]} />)
+
+      const timestamp = screen.getByText(/10:00/)
+      expect(timestamp.closest('time')).toHaveAttribute('dateTime', '2026-03-14T10:00:00.000Z')
+      expect(timestamp).toHaveTextContent(/2026/)
+    } finally {
+      timezoneSpy.mockRestore()
+    }
+  })
+
+  it('does not crash on invalid timestamps', () => {
+    render(<MoodRecordsList records={[mockRecord({ createdAt: 'invalid' })]} />)
+
+    expect(screen.queryByRole('time')).not.toBeInTheDocument()
   })
 
   it('renders createdAt date for each record', () => {

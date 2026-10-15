@@ -6,10 +6,10 @@ import { WeekValueType } from '../mappers/weekdays.mapper'
 import { StressLevel } from './stress'
 
 export type FilterType = {
-  moodLevel?: MoodKey | ''
-  stressLevel?: StressLevel | ''
-  energyLevel?: EnergyKey | ''
-  focusLevel?: FocusKey | ''
+  moodLevel?: MoodKey[]
+  stressLevel?: StressLevel[]
+  energyLevel?: EnergyKey[]
+  focusLevel?: FocusKey[]
   tags?: string[]
   weekdays?: WeekValueType[]
 }

@@ -1,16 +1,17 @@
 'use client'
 
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useSearchParams } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { MoodRecordsList } from '@/components/features/MoodTracker/MoodRecords/MoodRecordsList/MoodRecordsList'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
-import { PAGE_SIZE } from '@/constants/pagination'
+import { MAX_MOOD_PAGE, PAGE_SIZE } from '@/constants/pagination'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import type { MoodRecordEntity } from '@/types/api-responses'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
+import { getSafePage } from '@/utils/getSafePage'
 
 import { MoodRecordsFilter } from './MoodRecordsFilter'
 
@@ -37,10 +38,19 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
 
   const [showFilters, setShowFilters] = useState(false)
 
-  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
-  const rawPage = Number(searchParams.get('page'))
-  const normalizedPage = Number.isSafeInteger(rawPage) && rawPage >= 1 ? Math.min(rawPage, 10_000) : 1
-  const page = Math.min(normalizedPage, totalPages)
+  const totalPages = Math.min(MAX_MOOD_PAGE, Math.max(1, Math.ceil(totalCount / PAGE_SIZE)))
+  const requestedPage = searchParams.get('page')
+  const page = getSafePage(requestedPage, totalPages)
+
+  useEffect(() => {
+    // The result count can shrink after a filter change or a record deletion.
+    // Keep the URL and the server-fetched page aligned instead of showing an empty list.
+    if (requestedPage !== null && requestedPage !== String(page)) {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('page', String(page))
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    }
+  }, [page, pathname, requestedPage, router, searchParams])
 
   return (
     <div id="mood-records-list" className="flex flex-col gap-sm">

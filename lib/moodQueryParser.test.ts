@@ -1,70 +1,77 @@
-import { parseMoodQuery } from './moodQueryParser'
+import { parseMoodQuery } from '@/lib/moodQueryParser'
+import { getSafePage } from '@/utils/getSafePage'
 
-describe('parseMoodQuery', () => {
-  it('preserves page numbers after the first ten pages', () => {
-    expect(parseMoodQuery({ page: '11' }).page).toBe(11)
-    expect(parseMoodQuery({ page: '42', order: 'oldest' }).page).toBe(42)
-    expect(parseMoodQuery({ page: '42', order: 'oldest' }).order).toBe('oldest')
-  })
-
-  it('normalizes invalid, fractional and excessively large pages', () => {
-    for (const page of ['-1', '0', '2.5', 'NaN', 'Infinity', 'malformed']) {
-      expect(parseMoodQuery({ page }).page).toBe(1)
-    }
-    expect(parseMoodQuery({ page: '1000000' }).page).toBe(10_000)
-  })
-
-  it('maps simultaneous stress, energy, mood, focus, tags and weekday filters', () => {
+describe('mood history query filters', () => {
+  it('combines high stress, low energy, tags, and weekdays without capping deep pagination', () => {
     const query = parseMoodQuery({
       page: '12',
-      order: 'oldest',
-      moodLevel: 'great',
       stressLevel: 'high',
       energyLevel: 'low',
-      focusLevel: 'veryLow',
-      tags: ['work,family', 'work'],
-      weekdays: ['weekends,mon', 'sun'],
+      weekdays: 'weekDays,mon',
+      tags: ['work,home', 'home'],
     })
 
     expect(query).toMatchObject({
       page: 12,
-      order: 'oldest',
-      moodMin: 5,
-      moodMax: 5,
+      limit: 10,
       stressMin: 4,
       stressMax: 4,
       energyMin: 2,
       energyMax: 2,
-      focusMin: 1,
-      focusMax: 1,
-      tags: ['work', 'family'],
-      weekdays: [6, 7, 1],
+      tags: ['work', 'home'],
+      weekdays: [1, 2, 3, 4, 5],
     })
   })
 
-  it('ignores malformed metric and weekday selections instead of sending invalid DTO values', () => {
+  it('supports multiple explicit days and weekends as a union', () => {
+    expect(parseMoodQuery({ weekdays: ['mon,wed', 'weekends,sun'] }).weekdays).toEqual([1, 3, 6, 7])
+  })
+
+  it('ignores unrecognized levels and weekdays rather than sending invalid API values', () => {
     const query = parseMoodQuery({
-      moodLevel: 'nope',
-      stressLevel: 'nope',
-      energyLevel: 'none',
-      focusLevel: 'bad',
-      weekdays: ['invalid', 'mon'],
+      page: '-3',
+      moodLevel: 'unknown',
+      stressLevel: 'invalid',
+      focusLevel: '99',
+      weekdays: 'xyz,mon',
     })
+
+    expect(query.page).toBe(1)
     expect(query.moodMin).toBeUndefined()
     expect(query.stressMin).toBeUndefined()
-    expect(query.energyMin).toBeUndefined()
     expect(query.focusMin).toBeUndefined()
     expect(query.weekdays).toEqual([1])
   })
 
-  it('rejects unknown order and combines tags and ISO weekdays', () => {
-    const parsed = parseMoodQuery({
-      order: 'unexpected',
-      tags: 'work,family,work',
-      weekdays: 'weekDays,sun,invalid',
+  it('encodes non-adjacent selected levels without expanding them into ranges', () => {
+    const query = parseMoodQuery({
+      moodLevel: 'veryBad,great',
+      stressLevel: 'low,veryHigh',
+      energyLevel: 'veryLow,high',
+      focusLevel: 'low,veryHigh',
+      weekdays: 'weekends',
     })
-    expect(parsed.order).toBe('newest')
-    expect(parsed.tags).toEqual(['work', 'family'])
-    expect(parsed.weekdays).toEqual([1, 2, 3, 4, 5, 7])
+
+    expect(query.moodLevels).toEqual([1, 5])
+    expect(query.stressLevels).toEqual([2, 5])
+    expect(query.energyLevels).toEqual([1, 4])
+    expect(query.focusLevels).toEqual([2, 5])
+    expect(query.moodMin).toBeUndefined()
+    expect(query.stressMin).toBeUndefined()
+    expect(query.weekdays).toEqual([6, 7])
+  })
+
+  it('preserves the selected server-side history order', () => {
+    expect(parseMoodQuery({ order: 'oldest' }).order).toBe('oldest')
+    expect(parseMoodQuery({ order: 'not-an-order' }).order).toBe('newest')
+  })
+
+  it('accepts only positive integer pages', () => {
+    expect(getSafePage('11', 30)).toBe(11)
+    expect(getSafePage('2.5', 30)).toBe(1)
+    expect(getSafePage('Infinity', 30)).toBe(1)
+    expect(getSafePage('999', 30)).toBe(30)
+    expect(parseMoodQuery({ page: '2.5' }).page).toBe(1)
+    expect(parseMoodQuery({ page: '1000000' }).page).toBe(10_000)
   })
 })

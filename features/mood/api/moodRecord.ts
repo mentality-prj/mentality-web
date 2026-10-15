@@ -5,7 +5,7 @@ import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
-import type { SortOrder } from '@/types/sort'
+import { SortOrder } from '@/types/sort'
 
 export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto) {
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
@@ -33,6 +33,10 @@ export async function getMoodRecords(
     energyMax?: number
     focusMin?: number
     focusMax?: number
+    moodLevels?: number[]
+    stressLevels?: number[]
+    energyLevels?: number[]
+    focusLevels?: number[]
     tags?: string[]
     weekdays?: number[]
   }
@@ -43,7 +47,7 @@ export async function getMoodRecords(
 
   if (typeof params?.page === 'number') query.set('page', String(params.page))
   if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
-  if (params.order === 'newest' || params.order === 'oldest') query.set('order', params.order)
+  if (params.order) query.set('order', params.order)
 
   const ranges = [
     ['moodMin', 'moodMax'],
@@ -55,6 +59,11 @@ export async function getMoodRecords(
   ranges.forEach(([minKey, maxKey]) => {
     if (typeof params![`${minKey}`] === 'number') query.set(minKey, String(params![`${minKey}`]))
     if (typeof params![`${maxKey}`] === 'number') query.set(maxKey, String(params![`${maxKey}`]))
+  })
+
+  const levels = ['moodLevels', 'stressLevels', 'energyLevels', 'focusLevels'] as const
+  levels.forEach((key) => {
+    params[key]?.forEach((value) => query.append(key, String(value)))
   })
 
   params.tags?.forEach((tag) => query.append('tags', tag))
