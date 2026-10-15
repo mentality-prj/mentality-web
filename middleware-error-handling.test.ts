@@ -121,11 +121,12 @@ describe('Middleware Token-Based Auth', () => {
       }
     })
 
-    it('should redirect authenticated user away from auth to my-day', async () => {
+    it('allows verified or rejected cookie holders to reach sign-in without an unverified redirect', async () => {
       const request = createRequest('/uk/auth', makeTokenCookie())
       const response = await middleware(request)
 
-      expect(response.headers.get('location')).toContain('/my-day')
+      expect(response.headers.get('location')).toBeNull()
+      expect(response.headers.get('set-cookie') ?? '').not.toContain(`${AUTH_TOKEN_COOKIE}=`)
     })
   })
 
@@ -134,7 +135,7 @@ describe('Middleware Token-Based Auth', () => {
     const response = await middleware(request)
 
     expect(response.headers.get('location')).toBeNull()
-    expect(response.headers.get('set-cookie')).toBeNull()
+    expect(response.headers.get('set-cookie') ?? '').not.toContain(`${AUTH_TOKEN_COOKIE}=`)
   })
 
   describe('Expired token handling', () => {

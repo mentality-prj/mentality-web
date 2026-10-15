@@ -28,6 +28,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const sessionGeneration = useRef(0)
   const verifiedTokens = useRef<BrowserAuthSession | null>(null)
   const hydrationRetries = useRef(0)
+  const reconciliationSequence = useRef(0)
 
   useEffect(() => {
     verifiedTokens.current = tokens
@@ -340,7 +341,12 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     const reconcile = async () => {
       if (document.visibilityState === 'hidden') return
+      // Two focus/visibility events may overlap while keeping the same session
+      // generation. Only the latest verification may update identity/roles.
+      const sequence = ++reconciliationSequence.current
       const generation = sessionGeneration.current
+      const isCurrent = () =>
+        !cancelled && generation === sessionGeneration.current && sequence === reconciliationSequence.current
       let latest: BrowserAuthSession | null
       try {
         latest = await authService.getStoredTokens()
@@ -348,7 +354,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // Transient 5xx/network failures are distinct from confirmed 401.
         return
       }
-      if (cancelled || generation !== sessionGeneration.current) return
+      if (!isCurrent()) return
       if (!latest) {
         await invalidateSession(null)
         return
@@ -377,7 +383,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       } catch {
         return
       }
-      if (cancelled || generation !== sessionGeneration.current) return
+      if (!isCurrent()) return
       if (!verifiedUser) {
         await invalidateSession(latest)
         return
@@ -392,6 +398,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     document.addEventListener('visibilitychange', onFocus)
     return () => {
       cancelled = true
+      reconciliationSequence.current += 1
       window.removeEventListener('focus', onFocus)
       document.removeEventListener('visibilitychange', onFocus)
     }

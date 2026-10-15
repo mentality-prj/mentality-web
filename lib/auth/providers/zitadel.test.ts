@@ -206,6 +206,34 @@ describe('token-opaque Zitadel provider', () => {
     expect(lockHeld).toBe(false)
   })
 
+  it('keeps the refresh lock until logout navigation commits', async () => {
+    let held = false
+    const request = jest.fn(async (_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+      held = true
+      try {
+        return await callback()
+      } finally {
+        held = false
+      }
+    })
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: { request } })
+    const submit = jest.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(() => {
+      expect(held).toBe(true)
+    })
+    try {
+      const logoutPromise = provider.logout()
+      await Promise.resolve()
+      expect(submit).toHaveBeenCalledTimes(1)
+      expect(held).toBe(true)
+      window.dispatchEvent(new Event('pagehide'))
+      await logoutPromise
+      expect(held).toBe(false)
+    } finally {
+      submit.mockRestore()
+      document.querySelectorAll('form[action="/api/auth/logout"]').forEach((form) => form.remove())
+    }
+  })
+
   it('never yields a bearer token through the client API', async () => {
     expect(await provider.getToken()).toBeNull()
     expect(await provider.getSession()).toEqual({ user: testUser, provider: 'zitadel' })

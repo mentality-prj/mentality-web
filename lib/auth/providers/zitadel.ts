@@ -149,14 +149,29 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async logout(): Promise<void> {
-    // Submit a same-origin POST navigation: the server destroys the cookie and
-    // redirects to Zitadel with the ID-token hint without returning JWTs to JS.
-    const form = document.createElement('form')
-    form.method = 'POST'
-    form.action = '/api/auth/logout'
-    form.hidden = true
-    document.body.appendChild(form)
-    form.submit()
+    // A navigation starts the server-owned OIDC logout (including id_token_hint).
+    // Keep the same origin-wide lock until the navigation commits: releasing it
+    // at form.submit() would let a pending refresh recreate the deleted cookie.
+    const navigateUnderLock = async (): Promise<void> => {
+      const navigated = new Promise<void>((resolve) => {
+        window.addEventListener('pagehide', () => resolve(), { once: true })
+      })
+      const form = document.createElement('form')
+      form.method = 'POST'
+      form.action = '/api/auth/logout'
+      form.hidden = true
+      document.body.appendChild(form)
+      form.submit()
+      await navigated
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+      await navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, navigateUnderLock)
+      return
+    }
+    // Web Locks unavailable: existing navigation still logs out, but cannot
+    // guarantee cross-tab ordering without a server-side atomic session store.
+    await navigateUnderLock()
   }
 
   async getUser(): Promise<CustomUser | null> {

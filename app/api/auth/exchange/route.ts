@@ -234,7 +234,8 @@ export async function POST(request: NextRequest) {
 
     if (!exchangeResult.ok) {
       // Never reflect identity-provider JSON (including diagnostic secrets).
-      const status = exchangeResult.status >= 300 && exchangeResult.status < 500 ? 400 : 502
+      const status =
+        exchangeResult.status === 429 ? 429 : exchangeResult.status >= 300 && exchangeResult.status < 500 ? 400 : 502
       return jsonNoStore({ error: 'Identity provider request failed' }, { status })
     }
 

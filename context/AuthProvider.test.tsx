@@ -296,17 +296,44 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
   })
 
-  it('fails closed when the token refresh rejects instead of leaving stale privileges', async () => {
+  it('retains independently verified permissions after a temporary refresh network error', async () => {
     await mountWithToken(now + 61)
     ;(authService.refreshTokens as jest.Mock).mockRejectedValue(new Error('network unavailable'))
+    ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
 
     await act(async () => {
       jest.advanceTimersByTime(2000)
       await Promise.resolve()
     })
 
-    expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated')
-    expect(screen.getByTestId('company')).toHaveTextContent('none')
-    expect(authService.clearTokensIfUnchanged).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+    expect(screen.getByTestId('company')).toHaveTextContent('company-1')
+    expect(authService.clearTokensIfUnchanged).not.toHaveBeenCalled()
+  })
+
+  it('does not accept an older account verification after a newer focus result', async () => {
+    await mountWithToken(now + 3600)
+    let resolveFirst: ((value: typeof membership) => void) | undefined
+    let resolveSecond: ((value: typeof membership) => void) | undefined
+    ;(authService.getUser as jest.Mock)
+      .mockImplementationOnce(() => new Promise((resolve) => { resolveFirst = resolve }))
+      .mockImplementationOnce(() => new Promise((resolve) => { resolveSecond = resolve }))
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+      await Promise.resolve()
+    })
+    expect(resolveFirst).toBeDefined()
+    expect(resolveSecond).toBeDefined()
+    await act(async () => {
+      resolveSecond?.({ ...membership, companyId: 'company-2' })
+      await Promise.resolve()
+    })
+    await act(async () => {
+      resolveFirst?.(membership)
+      await Promise.resolve()
+    })
+    expect(screen.getByTestId('company')).toHaveTextContent('company-2')
   })
 })

@@ -280,14 +280,9 @@ export async function proxy(request: NextRequest) {
     return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url)))
   }
 
-  // If the user is already authenticated, don't show the auth page —
-  // redirect them to their main My-day page instead.
-  // Legacy cookies (created before opaque revision identifiers) cannot be
-  // conditionally cleaned up after backend revocation. Permit sign-in instead
-  // of cycling /auth -> /my-day -> /auth with an unverified old cookie.
-  if (isAuthenticated && authTokens?.sessionRevision && normalizedPath === Routes.AUTH) {
-    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url)))
-  }
+  // Never redirect the sign-in page based only on cookie presence. A revoked
+  // but unexpired session (including legacy cookies without sessionRevision)
+  // must still be able to reach login; protected layouts verify against NestJS.
 
   // Note: role-based access control (e.g. admin routes) is handled server-side
   // in the respective layout.tsx files via getServerSession(), NOT in middleware,
