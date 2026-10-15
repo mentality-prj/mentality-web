@@ -9,6 +9,7 @@ import { weekOptions, WeekValueType } from '@/mappers/weekdays.mapper'
 import { FilterType } from '@/types/filter'
 import { SORT_ORDER, SortOrder } from '@/types/sort'
 import { STRESS_LEVELS } from '@/types/stress'
+import { getBrowserTimeZone } from '@/utils/timeZone'
 
 type UseMoodRecordsFilter = { order: SortOrder } & FilterType
 
@@ -88,6 +89,14 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
         }
       })
 
+      // Bind weekday selection to the user's real browser time zone, not UTC.
+      // Re-evaluate when other filters change so DST and travel are handled by MongoDB.
+      if (updates.weekdays?.length) {
+        params.set('timeZone', getBrowserTimeZone())
+      } else {
+        params.delete('timeZone')
+      }
+
       params.set('page', '1')
 
       router.replace(`${pathname}?${params.toString()}`, { scroll: false })
@@ -100,6 +109,7 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
     const params = new URLSearchParams(searchParams.toString())
     ;(Object.keys(initial) as Array<keyof UseMoodRecordsFilter>).forEach((key) => params.delete(key))
     params.delete('page')
+    params.delete('timeZone')
     const query = params.toString()
     router.replace(query ? `${pathname}?${query}` : pathname, { scroll: false })
   }, [initial, pathname, router, searchParams])

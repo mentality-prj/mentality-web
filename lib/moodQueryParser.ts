@@ -19,6 +19,7 @@ type MoodQueryParams = {
   focusLevel?: QueryValue
   tags?: QueryValue
   weekdays?: QueryValue
+  timeZone?: QueryValue
 }
 
 export function parseMoodQuery(params: MoodQueryParams) {
@@ -83,5 +84,6 @@ export function parseMoodQuery(params: MoodQueryParams) {
 
     tags: filters.tags.length ? filters.tags : undefined,
     weekdays: mapped.weekdays?.length ? mapped.weekdays : undefined,
+    timeZone: mapped.weekdays?.length ? getFirst(params.timeZone) : undefined,
   }
 }

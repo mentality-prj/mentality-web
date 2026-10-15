@@ -61,6 +61,16 @@ describe('mood history query filters', () => {
     expect(query.weekdays).toEqual([6, 7])
   })
 
+  it('forwards the selected IANA timezone only when a weekday filter is active', () => {
+    expect(parseMoodQuery({ weekdays: 'sun', timeZone: 'America/New_York' }).timeZone).toBe(
+      'America/New_York'
+    )
+    expect(parseMoodQuery({ weekdays: 'weekends', timeZone: 'Europe/Warsaw' }).timeZone).toBe(
+      'Europe/Warsaw'
+    )
+    expect(parseMoodQuery({ timeZone: 'Europe/Warsaw' }).timeZone).toBeUndefined()
+  })
+
   it('preserves the selected server-side history order', () => {
     expect(parseMoodQuery({ order: 'oldest' }).order).toBe('oldest')
     expect(parseMoodQuery({ order: 'not-an-order' }).order).toBe('newest')

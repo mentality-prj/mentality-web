@@ -161,6 +161,20 @@ describe('getMoodRecords', () => {
       expect(urlParams.getAll('weekdays')).toEqual(['1', '2', '3', '4', '5'])
     })
 
+    it('sends the IANA timezone with weekdays to support local-day filtering', async () => {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+      await getMoodRecords(mockSession, parseMoodQuery({
+        weekdays: 'sun',
+        timeZone: 'America/New_York',
+      }))
+
+      const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+      const params = new URL(calledUrl).searchParams
+      expect(params.getAll('weekdays')).toEqual(['7'])
+      expect(params.get('timeZone')).toBe('America/New_York')
+    })
+
     it('sends oldest-first sorting to the backend before pagination', async () => {
       ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
