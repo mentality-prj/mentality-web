@@ -39,6 +39,7 @@ describe('token-opaque Zitadel provider', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     sessionStorage.clear()
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: undefined })
     provider = new ZitadelAuthProvider()
     ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(metadata)
     ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ data: metadata })
@@ -71,11 +72,52 @@ describe('token-opaque Zitadel provider', () => {
     expect(deleteStoredAuthTokens).toHaveBeenCalledTimes(1)
   })
 
-  it('deduplicates concurrent refresh calls', async () => {
+  it('deduplicates concurrent refresh calls within one tab', async () => {
+    const expiring = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(expiring)
     const results = await Promise.all([provider.refreshTokens(), provider.refreshTokens()])
     expect(results).toEqual([metadata, metadata])
     expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
-    expect(fetchStoredAuthTokens).toHaveBeenCalledTimes(1)
+    expect(fetchStoredAuthTokens).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not rotate a session which has more than 60 seconds remaining', async () => {
+    expect(await provider.refreshTokens()).toEqual(metadata)
+    expect(exchangeAuthTokens).not.toHaveBeenCalled()
+  })
+
+  it('serializes two tabs with Web Locks and re-reads the cookie before rotating', async () => {
+    let current = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    let lastLock: Promise<unknown> = Promise.resolve()
+    const request = jest.fn((_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+      const next = lastLock.then(callback)
+      lastLock = next.catch(() => undefined)
+      return next
+    })
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: { request } })
+    ;(fetchStoredAuthTokens as jest.Mock).mockImplementation(async () => current)
+    ;(exchangeAuthTokens as jest.Mock).mockImplementation(async () => {
+      current = metadata
+      return { data: metadata }
+    })
+
+    const anotherTab = new ZitadelAuthProvider()
+    const [first, second] = await Promise.all([provider.refreshTokens(), anotherTab.refreshTokens()])
+
+    expect(first).toEqual(metadata)
+    expect(second).toEqual(metadata)
+    expect(request).toHaveBeenCalledTimes(2)
+    expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
+    expect(fetchStoredAuthTokens).toHaveBeenCalledTimes(4)
+  })
+
+  it('does not retry a failed rotation in a tight loop', async () => {
+    const expiring = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(expiring)
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ error: 'Identity provider temporarily unavailable', status: 503 })
+
+    expect(await provider.refreshTokens()).toBeNull()
+    expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
   })
 
   it('never yields a bearer token through the client API', async () => {
