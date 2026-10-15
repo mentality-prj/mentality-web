@@ -161,4 +161,29 @@ export class ZitadelAuthProvider implements IAuthProvider {
   async clearTokens(): Promise<void> {
     await deleteStoredAuthTokens()
   }
+
+  async clearTokensIfUnchanged(observed: BrowserAuthSession): Promise<boolean> {
+    const clearUnderLock = async (): Promise<boolean> => {
+      const current = await fetchStoredAuthTokens()
+      if (!current) return true
+
+      // A newer rotation may finish after a failing tab started its request.
+      // Its opaque revision (not a JWT) must never be deleted by that stale tab.
+      if (current.sessionRevision && observed.sessionRevision) {
+        if (current.sessionRevision !== observed.sessionRevision) return false
+      } else if (current.expiresAt !== observed.expiresAt) {
+        // Safe upgrade path for cookies issued before sessionRevision existed.
+        return false
+      }
+
+      await deleteStoredAuthTokens()
+      return true
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+      return navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, clearUnderLock)
+    }
+    // Best effort on older browsers: check immediately before DELETE.
+    return clearUnderLock()
+  }
 }
