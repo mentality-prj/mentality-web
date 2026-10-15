@@ -165,15 +165,15 @@ describe('Middleware Token-Based Auth', () => {
       const request = createRequest('/uk/auth', makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 3600 }))
       const response = await middleware(request)
 
-      expect(response.headers.get('location')).not.toContain('/refresh-session')
-      expect(response.headers.get('set-cookie')).toContain(`${AUTH_TOKEN_COOKIE}=`)
+      expect(response.headers.get('location') ?? '').not.toContain('/refresh-session')
+      expect(response.headers.get('set-cookie') ?? '').not.toContain(`${AUTH_TOKEN_COOKIE}=`)
     })
 
     it('should not force token refresh while visiting a public page', async () => {
       const request = createRequest('/uk/about', makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 3600 }))
       const response = await middleware(request)
 
-      expect(response.headers.get('location')).not.toContain('/refresh-session')
+      expect(response.headers.get('location') ?? '').not.toContain('/refresh-session')
     })
 
     it('should not loop while rendering the session recovery route with an expired cookie', async () => {
@@ -183,7 +183,7 @@ describe('Middleware Token-Based Auth', () => {
       )
 
       const response = await middleware(request)
-      expect(response.headers.get('location')).not.toContain('/refresh-session')
+      expect(response.headers.get('location') ?? '').not.toContain('/refresh-session')
     })
   })
 
