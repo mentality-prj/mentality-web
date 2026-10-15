@@ -176,7 +176,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // it may be rejected by SSR/BFF before the first scheduled timer.
         let sessionTokens = storedTokens
         if (storedTokens.hasRefreshToken && storedTokens.expiresAt <= now + 60) {
-          const refreshed = await authService.refreshTokens()
+          let refreshed: BrowserAuthSession | null = null
+          try {
+            refreshed = await authService.refreshTokens()
+          } catch (error) {
+            logger.warn('[AUTH_PROVIDER] Hydration refresh temporarily failed', {
+              error: error instanceof Error ? error.message : String(error),
+            })
+          }
           if (refreshed) {
             sessionTokens = refreshed
           } else if (storedTokens.expiresAt <= Math.floor(Date.now() / 1000)) {
@@ -303,6 +310,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // A stale React status alone is not proof that the HttpOnly cookie is fresh.
   const ensureFreshSession = useCallback(async (): Promise<boolean> => {
     const generation = sessionGeneration.current
+    // Prevent a failed metadata endpoint from turning the recovery page's
+    // effect re-subscriptions into a network-speed retry loop.
+    if (Date.now() < retryNotBefore) return false
     try {
       let latest = await authService.getStoredTokens()
       if (generation !== sessionGeneration.current) return false
