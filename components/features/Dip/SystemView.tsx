@@ -111,7 +111,10 @@ export function SystemView({
         connection={adminConnection}
         notConfiguredLabel={t('system.adminBannerLabel')}
         notConfiguredHint={t('system.adminBannerHint')}
-        credentialsHintLines={['QDIP administration is configured only in the NestJS backend', 'QDIP_ADMIN_MUTATIONS_ENABLED=false (until security gate passes)']}
+        credentialsHintLines={[
+          'QDIP administration is configured only in the NestJS backend',
+          'QDIP_ADMIN_MUTATIONS_ENABLED=false (until security gate passes)',
+        ]}
       />
 
       <DipConnectionBanner

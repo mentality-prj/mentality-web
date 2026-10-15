@@ -43,16 +43,22 @@ describe('QDIP administration through NestJS only', () => {
     expect(options.method).toBe(method)
     expect(options.redirect).toBe('manual')
     expect(options.cache).toBe('no-store')
-    expect(options.headers).toEqual(expect.objectContaining({
-      Authorization: 'Bearer opaque-access-token',
-      Accept: 'application/json',
-    }))
+    expect(options.headers).toEqual(
+      expect.objectContaining({
+        Authorization: 'Bearer opaque-access-token',
+        Accept: 'application/json',
+      })
+    )
     expect(options.headers).not.toHaveProperty('X-Api-Key')
     if (method !== 'GET') {
-      expect(options.headers).toEqual(expect.objectContaining({
-        'Content-Type': 'application/json',
-        'Idempotency-Key': expect.stringMatching(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i),
-      }))
+      expect(options.headers).toEqual(
+        expect.objectContaining({
+          'Content-Type': 'application/json',
+          'Idempotency-Key': expect.stringMatching(
+            /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+          ),
+        })
+      )
     }
   }
 
@@ -88,28 +94,53 @@ describe('QDIP administration through NestJS only', () => {
   })
 
   it('maps data, counts safe workflow rules and suppresses unclassified feature values', async () => {
-    successful([{
-      id: 'feature-1', name: 'Stress', type: 'numeric', source: 'events',
-      transformation: null, version: 'v1', organization_id: 'org-1', created_at: '2026-01-01',
-    }])
+    successful([
+      {
+        id: 'feature-1',
+        name: 'Stress',
+        type: 'numeric',
+        source: 'events',
+        transformation: null,
+        version: 'v1',
+        organization_id: 'org-1',
+        created_at: '2026-01-01',
+      },
+    ])
     const features = await getDipFeatures('org-1')
     expect(features[0].organizationId).toBe('org-1')
     assertBackendRequest('GET', '/organizations/org-1/features')
 
-    successful([{
-      id: 'w1', name: 'Risk', version: 'v1', status: 'active', organization_id: 'org-1',
-      created_at: '2026-01-01', rulesCount: 4,
-    }])
+    successful([
+      {
+        id: 'w1',
+        name: 'Risk',
+        version: 'v1',
+        status: 'active',
+        organization_id: 'org-1',
+        created_at: '2026-01-01',
+        rulesCount: 4,
+      },
+    ])
     expect((await getDipWorkflows('org-1'))[0].rulesCount).toBe(4)
     assertBackendRequest('GET', '/organizations/org-1/workflows')
 
-    successful([{
-      decision_id: 'd1', workflow_id: 'w1', workflow_name: 'Risk', workflow_version: 'v1',
-      entity_id: 'e1', organization_id: 'org-1', decision: 'allow',
-      rule_matched: 'r1', engine_version: 'v1', timestamp: '2026-01-01',
-      features_used: {}, features_count: 4,
-      rules_executed: [{ rule: 'r1', matched: true, conditions_evaluated: 3 }],
-    }])
+    successful([
+      {
+        decision_id: 'd1',
+        workflow_id: 'w1',
+        workflow_name: 'Risk',
+        workflow_version: 'v1',
+        entity_id: 'e1',
+        organization_id: 'org-1',
+        decision: 'allow',
+        rule_matched: 'r1',
+        engine_version: 'v1',
+        timestamp: '2026-01-01',
+        features_used: {},
+        features_count: 4,
+        rules_executed: [{ rule: 'r1', matched: true, conditions_evaluated: 3 }],
+      },
+    ])
     const decisions = await getDipDecisions(10, 'org-1')
     expect(decisions[0].rulesExecuted[0].conditionsEvaluated).toBe(3)
     expect(decisions[0].featuresUsed).toEqual({})
@@ -118,7 +149,8 @@ describe('QDIP administration through NestJS only', () => {
 
   it('never returns raw admin error bodies or secrets from a failed QDIP write', async () => {
     fetchMock.mockResolvedValueOnce({
-      ok: false, status: 503,
+      ok: false,
+      status: 503,
       json: async () => ({ token: 'must-never-be-read', secret: 'sensitive' }),
     })
     const result = await createDipOrganization({ name: 'Test' })
@@ -130,32 +162,60 @@ describe('QDIP administration through NestJS only', () => {
   it('assigns a fresh UUIDv4 idempotency key to each of the six guarded mutation endpoints', async () => {
     const organization = { id: 'org-1', name: 'Demo', created_at: '2026-01-01' }
     const member = {
-      id: 'm1', org_id: 'org-1', name: 'Member', email: 'member@invalid.test',
-      role: 'scientist', unit_id: null, status: 'active', created_at: '2026-01-01',
+      id: 'm1',
+      org_id: 'org-1',
+      name: 'Member',
+      email: 'member@invalid.test',
+      role: 'scientist',
+      unit_id: null,
+      status: 'active',
+      created_at: '2026-01-01',
     }
-    const unit = { id: 'unit-1', org_id: 'org-1', name: 'Unit', type: 'team', parent_unit_id: null, created_at: '2026-01-01' }
+    const unit = {
+      id: 'unit-1',
+      org_id: 'org-1',
+      name: 'Unit',
+      type: 'team',
+      parent_unit_id: null,
+      created_at: '2026-01-01',
+    }
     const key = {
-      id: 'key-1', org_id: 'org-1', key_prefix: 'prefix', name: 'Demo',
-      environment: 'development', scopes: ['audit:read'], created_at: '2026-01-01',
-      expires_at: null, revoked_at: null, last_used_at: null, created_by: 'operator',
+      id: 'key-1',
+      org_id: 'org-1',
+      key_prefix: 'prefix',
+      name: 'Demo',
+      environment: 'development',
+      scopes: ['audit:read'],
+      created_at: '2026-01-01',
+      expires_at: null,
+      revoked_at: null,
+      last_used_at: null,
+      created_by: 'operator',
     }
     successful(organization)
     expect(await createDipOrganization({ name: 'Demo' })).toHaveProperty('data.id', 'org-1')
     successful(unit)
     expect(await createDipOrganizationUnit('org-1', { name: 'Unit', type: 'team' })).toHaveProperty('data.id', 'unit-1')
     successful(member)
-    expect(await createDipOrganizationMember('org-1', { name: 'Member', email: 'member@invalid.test', role: 'scientist' })).toHaveProperty('data.id', 'm1')
+    expect(
+      await createDipOrganizationMember('org-1', { name: 'Member', email: 'member@invalid.test', role: 'scientist' })
+    ).toHaveProperty('data.id', 'm1')
     successful(member)
     expect(await updateDipOrganizationMember('org-1', 'm1', { role: 'analyst' })).toHaveProperty('data.id', 'm1')
     successful({ ...key, key: 'one-time-secret' })
-    expect(await createDipOrganizationKey('org-1', { name: 'Demo', environment: 'development', scopes: ['audit:read'] })).toHaveProperty('data.key', 'one-time-secret')
+    expect(
+      await createDipOrganizationKey('org-1', { name: 'Demo', environment: 'development', scopes: ['audit:read'] })
+    ).toHaveProperty('data.key', 'one-time-secret')
     successful(key)
     expect(await revokeDipOrganizationKey('org-1', 'key-1')).toHaveProperty('data.keyPrefix', 'prefix')
 
     expect(fetchMock).toHaveBeenCalledTimes(6)
     const paths = [
-      '/organizations', '/organizations/org-1/units', '/organizations/org-1/members',
-      '/organizations/org-1/members/m1', '/organizations/org-1/keys',
+      '/organizations',
+      '/organizations/org-1/units',
+      '/organizations/org-1/members',
+      '/organizations/org-1/members/m1',
+      '/organizations/org-1/keys',
       '/organizations/org-1/keys/key-1/revoke',
     ]
     const keys = new Set<string>()
@@ -166,7 +226,9 @@ describe('QDIP administration through NestJS only', () => {
       const headers = init.headers as Record<string, string>
       expect(headers.Authorization).toBe('Bearer opaque-access-token')
       expect(headers['X-Api-Key']).toBeUndefined()
-      expect(headers['Idempotency-Key']).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i)
+      expect(headers['Idempotency-Key']).toMatch(
+        /^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
+      )
       keys.add(headers['Idempotency-Key'])
     }
     expect(keys.size).toBe(6)
