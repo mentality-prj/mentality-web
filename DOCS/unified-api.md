@@ -9,14 +9,14 @@ Zitadel is the **only identity provider**, not an additional application data AP
 
 ## Trust boundaries and explicit exceptions
 
-| Caller                         | API transport                                            | Credential owner                                   |
-| ------------------------------ | -------------------------------------------------------- | -------------------------------------------------- |
-| React / feature requests       | `/api/backend/*` → NestJS                                | Next.js HttpOnly session                           |
-| Public contact form            | `/api/backend/contact` → NestJS                          | Anonymous; reCAPTCHA in NestJS                     |
-| Zitadel login/logout/refresh   | `/api/auth/*` + OIDC redirect                            | Next.js only                                       |
-| SSR server components          | Backend-validated server-side NestJS client              | Next.js server                                     |
+| Caller                         | API transport                                                  | Credential owner                                                        |
+| ------------------------------ | -------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| React / feature requests       | `/api/backend/*` → NestJS                                      | Next.js HttpOnly session                                                |
+| Public contact form            | `/api/backend/contact` → NestJS                                | Anonymous; reCAPTCHA in NestJS                                          |
+| Zitadel login/logout/refresh   | `/api/auth/*` + OIDC redirect                                  | Next.js only                                                            |
+| SSR server components          | Backend-validated server-side NestJS client                    | Next.js server                                                          |
 | QDIP admin in SSR/actions      | Server-only `dipClient.ts` → guarded NestJS `/api/dip-admin/*` | NestJS QDIP platform key; Next.js only holds authenticated user session |
-| Temporary new QDIP key display | Admin-only locale-scoped one-shot key-flash route        | HttpOnly flash cookie and admin RBAC               |
+| Temporary new QDIP key display | Admin-only locale-scoped one-shot key-flash route              | HttpOnly flash cookie and admin RBAC                                    |
 
 QDIP administration uses an explicit NestJS endpoint allowlist and verified Zitadel subject authorization, plus backend Mongo admin role. No QDIP credentials or upstream URL are held by Next.js. The one-time API-key display remains a narrowly scoped, admin-only server response; it is not a generic public API. `QDIP_ADMIN_MUTATIONS_ENABLED=false` remains mandatory until independent security/integration qualification.
 

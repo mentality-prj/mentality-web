@@ -349,7 +349,9 @@ export function SystemView({
                                 defaultValue={member.unitId ?? ''}
                                 className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-textcolor-primary"
                               >
-                                <option value="" disabled={Boolean(member.unitId)}>{t('system.noUnit')}</option>
+                                <option value="" disabled={Boolean(member.unitId)}>
+                                  {t('system.noUnit')}
+                                </option>
                                 {units.map((unit) => (
                                   <option key={unit.id} value={unit.id}>
                                     {unit.name}

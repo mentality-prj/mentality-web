@@ -4,8 +4,8 @@ import { ApiKeyFlashBanner } from '@/components/features/Dip/ApiKeyFlashBanner'
 import { SystemView } from '@/components/features/Dip/SystemView'
 import {
   getDipOrganizationKeys,
-  getDipOrganizationsWithConnection,
   getDipOrganizationStructure,
+  getDipOrganizationsWithConnection,
 } from '@/requests/dipClient'
 
 export default async function DipSystemPage({
@@ -17,10 +17,7 @@ export default async function DipSystemPage({
 }) {
   const [{ locale }, query] = await Promise.all([params, searchParams])
 
-  const [t, organizationResult] = await Promise.all([
-    getTranslations('pages.Dip'),
-    getDipOrganizationsWithConnection(),
-  ])
+  const [t, organizationResult] = await Promise.all([getTranslations('pages.Dip'), getDipOrganizationsWithConnection()])
   const { organizations, connection: orgConnection } = organizationResult
   const adminConnection = orgConnection
 
