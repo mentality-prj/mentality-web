@@ -5,6 +5,7 @@ import { useRouter, useSearchParams } from 'next/navigation'
 import { useLocale, useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
+import { authService } from '@/lib/auth'
 
 function safeReturnPath(raw: string | null, locale: string): string {
   const fallback = `/${locale}/my-day`
@@ -39,11 +40,8 @@ function SessionRecovery() {
 
   useEffect(() => {
     if (status === 'loading') return
-    if (status === 'unauthenticated') {
-      router.replace(`/${locale}/auth`)
-      return
-    }
-
+    // React status can be stale when another tab signs in. Always inspect
+    // the current cookie before deciding that recovery is impossible.
     let cancelled = false
     let retryTimer: ReturnType<typeof setTimeout> | undefined
     const recover = async () => {
@@ -53,9 +51,22 @@ function SessionRecovery() {
       if (cancelled) return
       if (ready) {
         router.replace(safeReturnPath(searchParams.get('returnTo'), locale))
-      } else {
-        retryTimer = setTimeout(() => setAttempt((previous) => previous + 1), 15_000)
+        return
       }
+
+      // Only a confirmed absent cookie redirects to login. A temporary
+      // metadata/validation outage keeps the recovery route retryable.
+      try {
+        const metadata = await authService.getStoredTokens()
+        if (cancelled) return
+        if (!metadata) {
+          router.replace(`/${locale}/auth`)
+          return
+        }
+      } catch {
+        // A transient network failure is not evidence of logout.
+      }
+      if (!cancelled) retryTimer = setTimeout(() => setAttempt((previous) => previous + 1), 15_000)
     }
     void recover()
     return () => {
