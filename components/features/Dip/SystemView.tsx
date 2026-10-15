@@ -111,7 +111,7 @@ export function SystemView({
         connection={adminConnection}
         notConfiguredLabel={t('system.adminBannerLabel')}
         notConfiguredHint={t('system.adminBannerHint')}
-        credentialsHintLines={['DIP_URL=http://localhost:8000', 'DIP_ADMIN_API_KEY=<platform-admin-key>']}
+        credentialsHintLines={['QDIP administration is configured only in the NestJS backend', 'QDIP_ADMIN_MUTATIONS_ENABLED=false (until security gate passes)']}
       />
 
       <DipConnectionBanner
@@ -384,9 +384,9 @@ export function SystemView({
                   />
                   <input
                     name="scopes"
-                    defaultValue="*"
+                    defaultValue="features:read,workflows:read,audit:read"
                     className="rounded-xl border border-border bg-background px-3 py-2 text-sm text-textcolor-primary"
-                    placeholder="*"
+                    placeholder="features:read,workflows:read"
                   />
                   <button className="rounded-xl bg-primary px-4 py-2 text-sm font-medium text-primary-foreground">
                     {t('system.createKey')}
