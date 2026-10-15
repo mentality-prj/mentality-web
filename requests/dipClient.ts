@@ -1,5 +1,3 @@
-import 'server-only'
-
 import { randomUUID } from 'node:crypto'
 
 import { getServerSession } from '@/lib/auth/server'
@@ -18,6 +16,8 @@ import type {
   DipOrganizationUnitType,
   DipWorkflow,
 } from '@/types/dip'
+
+import 'server-only'
 
 type ResultValue<T> = { data: T } | { error: string }
 
