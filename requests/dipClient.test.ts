@@ -1,3 +1,4 @@
+/** @jest-environment node */
 import { getServerSession } from '@/lib/auth/server'
 import {
   createDipOrganization,
@@ -232,5 +233,17 @@ describe('QDIP administration through NestJS only', () => {
       keys.add(headers['Idempotency-Key'])
     }
     expect(keys.size).toBe(6)
+  })
+
+  it('rejects untrusted mutation IDs before sending a bearer token', async () => {
+    const badIds = ['../../outside', 'org/other', 'org?x=1', 'org#fragment', 'org%2Fother', '']
+    for (const id of badIds) {
+      expect('error' in await createDipOrganizationUnit(id, { name: 'Unit', type: 'team' })).toBe(true)
+      expect('error' in await createDipOrganizationMember(id, { name: 'User', email: 'user@example.test', role: 'scientist' })).toBe(true)
+      expect('error' in await updateDipOrganizationMember('org-1', id, { role: 'reviewer' })).toBe(true)
+      expect('error' in await createDipOrganizationKey(id, { name: 'Key', environment: 'development', scopes: ['audit:read'] })).toBe(true)
+      expect('error' in await revokeDipOrganizationKey('org-1', id)).toBe(true)
+    }
+    expect(fetchMock).not.toHaveBeenCalled()
   })
 })
