@@ -121,6 +121,7 @@ describe('/api/auth/exchange route', () => {
       expiresAt: expect.any(Number),
       hasRefreshToken: true,
       userRole: 'admin',
+      sessionRevision: expect.any(String),
     })
     const storedCookie = response.cookies.get(AUTH_TOKEN_COOKIE)?.value
 
@@ -131,6 +132,7 @@ describe('/api/auth/exchange route', () => {
       refreshToken: 'stored-refresh-token',
       expiresAt: expect.any(Number),
       userRole: 'admin',
+      sessionRevision: expect.any(String),
     })
   })
 
