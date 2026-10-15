@@ -254,6 +254,7 @@ export async function POST(request: NextRequest) {
         accessToken: data.access_token,
         idToken,
         refreshToken: data.refresh_token ?? currentStoredTokens.refreshToken,
+        sessionRevision: crypto.randomUUID(),
         expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
       }
 
@@ -266,6 +267,7 @@ export async function POST(request: NextRequest) {
         expiresAt: updatedTokens.expiresAt,
         hasRefreshToken: Boolean(updatedTokens.refreshToken),
         userRole: updatedTokens.userRole,
+        sessionRevision: updatedTokens.sessionRevision,
       }
       return setAuthCookie(jsonNoStore(safeData), serialized)
     }
@@ -280,6 +282,7 @@ export async function POST(request: NextRequest) {
       accessToken: data.access_token,
       idToken: data.id_token,
       refreshToken: data.refresh_token,
+      sessionRevision: crypto.randomUUID(),
       expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
     }
 
@@ -291,6 +294,7 @@ export async function POST(request: NextRequest) {
     const safeData = {
       expiresAt: cookieTokens.expiresAt,
       hasRefreshToken: Boolean(cookieTokens.refreshToken),
+      sessionRevision: cookieTokens.sessionRevision,
     }
     const response = setAuthCookie(jsonNoStore(safeData), serialized)
     // A new login must not inherit the previous account's selected tenant.
