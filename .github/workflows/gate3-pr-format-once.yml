@@ -1,0 +1,35 @@
+name: Gate3 temporary format changed files
+on:
+  push:
+    branches: [feat/dzvin-gate3-nest-dip-admin-client-20261015]
+    paths:
+      - .github/workflows/gate3-pr-format-once.yml
+permissions:
+  contents: write
+jobs:
+  format:
+    if: github.repository == 'mentality-prj/mentality-web' && github.ref == 'refs/heads/feat/dzvin-gate3-nest-dip-admin-client-20261015'
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/dzvin-gate3-nest-dip-admin-client-20261015
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - name: Format four bounded Gate 3 files and normalize imports
+        run: |
+          yarn prettier --write requests/dipClient.ts requests/dipClient.test.ts 'app/[locale]/admin/dip/system/actions.ts' components/features/Dip/SystemView.tsx components/features/Dip/DipConnectionBanner.tsx
+          yarn eslint --fix requests/dipClient.ts requests/dipClient.test.ts 'app/[locale]/admin/dip/system/actions.ts' components/features/Dip/SystemView.tsx components/features/Dip/DipConnectionBanner.tsx
+      - name: Commit formatting only to isolated feature branch
+        run: |
+          if ! git diff --quiet -- requests/dipClient.ts requests/dipClient.test.ts 'app/[locale]/admin/dip/system/actions.ts' components/features/Dip/SystemView.tsx components/features/Dip/DipConnectionBanner.tsx; then
+            git config user.name 'github-actions[bot]'
+            git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+            git add requests/dipClient.ts requests/dipClient.test.ts 'app/[locale]/admin/dip/system/actions.ts' components/features/Dip/SystemView.tsx components/features/Dip/DipConnectionBanner.tsx
+            git commit -m 'style(dzvin): format Gate 3 Nest QDIP integration'
+            git push origin HEAD:feat/dzvin-gate3-nest-dip-admin-client-20261015
+          fi
