@@ -164,7 +164,9 @@ describe('/api/auth/exchange route', () => {
     const first = POST(request())
     const second = POST(request())
     // Await the first external request rather than depending on timing.
-    for (let tries = 0; tries < 20 && !releaseProvider; tries += 1) await Promise.resolve()
+    for (let tries = 0; tries < 50 && !releaseProvider; tries += 1) {
+      await new Promise((resolve) => setTimeout(resolve, 1))
+    }
     expect(releaseProvider).toBeDefined()
     releaseProvider?.()
 
