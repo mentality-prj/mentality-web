@@ -22,20 +22,17 @@ type MoodQueryParams = {
 }
 
 export function parseMoodQuery(params: MoodQueryParams) {
-  const getFirst = (value?: QueryValue): string | undefined =>
-    Array.isArray(value) ? value[0] : value
+  const getFirst = (value?: QueryValue): string | undefined => (Array.isArray(value) ? value[0] : value)
 
   // PAGE_SIZE is the number of records per page, not the maximum page number.
   const page = getSafePage(getFirst(params.page), Number.MAX_SAFE_INTEGER)
   const limit = PAGE_SIZE
 
-  const normalizeArray = (value?: QueryValue): string[] =>
-    value
-      ? (Array.isArray(value) ? value : [value])
-          .flatMap((item) => item.split(','))
-          .map((item) => item.trim())
-          .filter(Boolean)
-      : []
+  const normalizeArray = (value?: QueryValue): string[] => {
+    if (!value) return []
+    const values = Array.isArray(value) ? value : [value]
+    return values.flatMap((item) => item.split(',')).map((item) => item.trim()).filter(Boolean)
+  }
 
   const selectAllowed = <T extends string>(value: QueryValue, allowed: readonly T[]): T | '' => {
     const candidate = getFirst(value)?.trim()
@@ -43,6 +40,9 @@ export function parseMoodQuery(params: MoodQueryParams) {
   }
 
   const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
+  const validWeekdays = normalizeArray(params.weekdays).filter((day): day is WeekValueType =>
+    allowedWeekdays.includes(day as WeekValueType)
+  )
 
   const filters: MapFiltersToApi = {
     order: selectAllowed(params.order, [SORT_ORDER.NEWEST, SORT_ORDER.OLDEST]) || SORT_ORDER.NEWEST,
@@ -51,9 +51,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
     stressLevel: selectAllowed(params.stressLevel, STRESS_LEVELS),
     energyLevel: selectAllowed(params.energyLevel, filterOptions.energyLevel),
     focusLevel: selectAllowed(params.focusLevel, filterOptions.focusLevel),
-    weekdays: Array.from(
-      new Set(normalizeArray(params.weekdays).filter((d): d is WeekValueType => allowedWeekdays.includes(d as WeekValueType)))
-    ),
+    weekdays: Array.from(new Set(validWeekdays)),
   }
 
   const mapped = mapFiltersToApi(filters)
