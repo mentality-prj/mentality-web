@@ -14,9 +14,7 @@ export type WellbeingSummaryData = {
  * Stress is inverted so a lower stress response improves the indicator.
  * Incomplete/out-of-range records are omitted rather than filling defaults.
  */
-export function calculateWellbeingSummary(
-  records: MoodRecordEntity[]
-): WellbeingSummaryData | null {
+export function calculateWellbeingSummary(records: MoodRecordEntity[]): WellbeingSummaryData | null {
   const values: Array<Record<WellbeingDimension, number>> = []
 
   for (const record of records) {
