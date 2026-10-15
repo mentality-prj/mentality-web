@@ -39,9 +39,35 @@ function orgSegment(value: string): string | null {
   return /^[A-Za-z0-9_-]{1,128}$/.test(value) ? encodeURIComponent(value) : null
 }
 
+// Explicit API allowlist: never interpret raw org/member IDs as URL paths.
+function isAllowedDipRoute(path: string, method: Method): boolean {
+  const [route, query, extra] = path.split('?')
+  if (extra !== undefined || /[.%\\]/.test(route)) return false
+  const parts = route.split('/').slice(1)
+  if (parts[0] !== 'organizations') return false
+  if (parts.length === 1) return query === undefined && (method === 'GET' || method === 'POST')
+  if (!orgSegment(parts[1])) return false
+  if (method === 'GET' && parts.length === 3) {
+    const resource = parts[2]
+    if (resource === 'audit') return query === undefined || /^limit=(?:[1-9]\d{0,2})$/.test(query)
+    return query === undefined && ['structure', 'features', 'workflows', 'keys'].includes(resource)
+  }
+  if (query !== undefined) return false
+  if (method === 'POST' && parts.length === 3) {
+    return ['units', 'members', 'keys'].includes(parts[2])
+  }
+  if (method === 'PATCH' && parts.length === 4) {
+    return parts[2] === 'members' && Boolean(orgSegment(parts[3]))
+  }
+  if (method === 'POST' && parts.length === 5) {
+    return parts[2] === 'keys' && Boolean(orgSegment(parts[3])) && parts[4] === 'revoke'
+  }
+  return false
+}
+
 async function nestAdminRequest<T>(path: string, method: Method = 'GET', payload?: Record<string, unknown>): Promise<BackendResult<T>> {
   const base = getNestUrl()
-  if (!base || !path.startsWith('/organizations')) return { ok: false, status: 503 }
+  if (!base || !isAllowedDipRoute(path, method)) return { ok: false, status: 503 }
   // The NestJS controller independently requires Mongo admin and the exact
   // Zitadel subject allowlist; the Next.js role check is only defense in depth.
   const session = await getServerSession()
