@@ -8,6 +8,7 @@ import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoal
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
@@ -25,7 +26,8 @@ const MyDay = async () => {
   const todayPromise = getLastMoodRecords(session, { days: 1 })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
-  const submittedToday = !('error' in todayRes) && (todayRes.data ?? []).some((record) => isSubmittedToday(record.createdAt))
+  const submittedToday =
+    !('error' in todayRes) && (todayRes.data ?? []).some((record) => isSubmittedToday(record.createdAt))
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
