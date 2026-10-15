@@ -10,6 +10,7 @@ import {
   getDipFeatures,
   getDipOrganizationKeys,
   getDipOrganizations,
+  getDipOrganizationsWithConnection,
   getDipOrgConnectionStatus,
   getDipWorkflows,
   revokeDipOrganizationKey,
@@ -76,14 +77,27 @@ describe('QDIP administration through NestJS only', () => {
     expect(fetchMock).not.toHaveBeenCalled()
   })
 
-  it('makes organization reads via Nest bearer only, never direct QDIP', async () => {
+  it('derives organization data and verified connection status from one NestJS response', async () => {
     successful([{ id: 'org-1', name: 'Research', created_at: '2026-01-01T00:00:00Z' }])
-    expect(await getDipOrganizations()).toEqual([
+    const response = await getDipOrganizationsWithConnection()
+    expect(response.organizations).toEqual([
       { id: 'org-1', name: 'Research', status: undefined, createdAt: '2026-01-01T00:00:00Z' },
     ])
+    expect(response.connection).toEqual({ configured: true, url: null })
+    expect(fetchMock).toHaveBeenCalledTimes(1)
     assertBackendRequest()
-    expect(getDipAdminConnectionStatus()).toEqual({ configured: true, url: null })
-    expect(getDipOrgConnectionStatus()).toEqual({ configured: true, url: null })
+  })
+
+  it('does not show QDIP connected for denied, unavailable or malformed backend data', async () => {
+    fetchMock.mockResolvedValueOnce({ ok: false, status: 403 })
+    expect(await getDipOrgConnectionStatus()).toEqual({ configured: false, url: null })
+    fetchMock.mockResolvedValueOnce({ ok: false, status: 503 })
+    expect(await getDipAdminConnectionStatus()).toEqual({ configured: false, url: null })
+    successful({ unexpected: 'not an organization list' })
+    expect(await getDipOrganizationsWithConnection()).toEqual({
+      organizations: [], connection: { configured: false, url: null },
+    })
+    expect(fetchMock).toHaveBeenCalledTimes(3)
   })
 
   it('requires a selected and safe organization for scoped data', async () => {
