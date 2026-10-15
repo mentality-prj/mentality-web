@@ -1,7 +1,8 @@
+import { filterOptions } from '@/constants/filter'
 import { PAGE_SIZE } from '@/constants/pagination'
-import { FilterValue } from '@/context/moodRecordsFilterContext'
 import { WeekValueType } from '@/mappers/weekdays.mapper'
-import { SortOrder } from '@/types/sort'
+import { SORT_ORDER } from '@/types/sort'
+import { STRESS_LEVELS } from '@/types/stress'
 import { getSafePage } from '@/utils/getSafePage'
 
 import { MapFiltersToApi, mapFiltersToApi } from './mapFiltersToApi'
@@ -21,28 +22,37 @@ type MoodQueryParams = {
 }
 
 export function parseMoodQuery(params: MoodQueryParams) {
-  const getFirst = (value?: string | string[]): string | undefined => {
-    if (!value) return undefined
-    return Array.isArray(value) ? value[0] : value
-  }
+  const getFirst = (value?: QueryValue): string | undefined =>
+    Array.isArray(value) ? value[0] : value
 
-  const page = getSafePage(getFirst(params.page), PAGE_SIZE)
+  // PAGE_SIZE is the number of records per page, not the maximum page number.
+  const page = getSafePage(getFirst(params.page), Number.MAX_SAFE_INTEGER)
   const limit = PAGE_SIZE
 
-  const normalizeArray = (value?: string[] | string): string[] =>
-    value ? (Array.isArray(value) ? value : value.split(',')).map((v) => v.trim()).filter(Boolean) : []
+  const normalizeArray = (value?: QueryValue): string[] =>
+    value
+      ? (Array.isArray(value) ? value : [value])
+          .flatMap((item) => item.split(','))
+          .map((item) => item.trim())
+          .filter(Boolean)
+      : []
+
+  const selectAllowed = <T extends string>(value: QueryValue, allowed: readonly T[]): T | '' => {
+    const candidate = getFirst(value)?.trim()
+    return allowed.find((item) => item === candidate) ?? ''
+  }
 
   const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
 
   const filters: MapFiltersToApi = {
-    order: (getFirst(params.order) as SortOrder) ?? 'newest',
+    order: selectAllowed(params.order, [SORT_ORDER.NEWEST, SORT_ORDER.OLDEST]) || SORT_ORDER.NEWEST,
     tags: Array.from(new Set(normalizeArray(params.tags))),
-    moodLevel: getFirst(params.moodLevel) as FilterValue<'moodLevel'>,
-    stressLevel: getFirst(params.stressLevel) as FilterValue<'stressLevel'>,
-    energyLevel: getFirst(params.energyLevel) as FilterValue<'energyLevel'>,
-    focusLevel: getFirst(params.focusLevel) as FilterValue<'focusLevel'>,
-    weekdays: normalizeArray(params.weekdays).filter((d): d is WeekValueType =>
-      allowedWeekdays.includes(d as WeekValueType)
+    moodLevel: selectAllowed(params.moodLevel, filterOptions.moodLevel),
+    stressLevel: selectAllowed(params.stressLevel, STRESS_LEVELS),
+    energyLevel: selectAllowed(params.energyLevel, filterOptions.energyLevel),
+    focusLevel: selectAllowed(params.focusLevel, filterOptions.focusLevel),
+    weekdays: Array.from(
+      new Set(normalizeArray(params.weekdays).filter((d): d is WeekValueType => allowedWeekdays.includes(d as WeekValueType)))
     ),
   }
 
@@ -51,7 +61,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
   return {
     page,
     limit,
-    // TODO: order parameter
+    // Sorting is not yet supported by the backend's history endpoint.
     moodMin: mapped.moodLevel,
     moodMax: mapped.moodLevel,
 
