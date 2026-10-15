@@ -97,20 +97,85 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(authService.clearTokens).toHaveBeenCalledTimes(1)
   })
 
-  it('refreshes a near-expiry token without skipping its immediate timer', async () => {
-    await mountWithToken(now + 15)
+  it('refreshes a token 30 seconds from expiry during initial hydration', async () => {
     ;(authService.refreshTokens as jest.Mock).mockResolvedValue({
       expiresAt: now + 3600,
       hasRefreshToken: true,
     })
-    ;(authService.getUser as jest.Mock).mockResolvedValueOnce(membership)
+    await mountWithToken(now + 30)
+
+    expect(authService.refreshTokens).toHaveBeenCalledTimes(1)
+    expect(authService.getUser).toHaveBeenCalledTimes(1)
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+  })
+
+  it('recovers an expired cookie during initialization when rotation succeeds', async () => {
+    ;(authService.refreshTokens as jest.Mock).mockResolvedValue({
+      expiresAt: now + 3600,
+      hasRefreshToken: true,
+    })
+    await mountWithToken(now - 5)
+
+    expect(authService.refreshTokens).toHaveBeenCalledTimes(1)
+    expect(authService.clearTokens).not.toHaveBeenCalled()
+  })
+
+  it('clears an expired cookie when refresh fails on initial hydration', async () => {
+    ;(authService.getStoredTokens as jest.Mock).mockResolvedValue({
+      expiresAt: now - 5,
+      hasRefreshToken: true,
+    })
+    ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
 
     await act(async () => {
-      jest.advanceTimersByTime(0)
+      render(
+        <AuthProvider>
+          <AuthState />
+        </AuthProvider>
+      )
+    })
+
+    expect(screen.getByTestId('status')).toHaveTextContent('unauthenticated')
+    expect(authService.clearTokens).toHaveBeenCalledTimes(1)
+  })
+
+  it('keeps a still-valid backend session during transient refresh outage and retries later', async () => {
+    await mountWithToken(now + 61)
+    ;(authService.refreshTokens as jest.Mock)
+      .mockResolvedValueOnce(null)
+      .mockResolvedValueOnce({ expiresAt: now + 3600, hasRefreshToken: true })
+    ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
+
+    await act(async () => {
+      jest.advanceTimersByTime(2000)
       await Promise.resolve()
     })
 
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+    expect(authService.clearTokens).not.toHaveBeenCalled()
     expect(authService.refreshTokens).toHaveBeenCalledTimes(1)
+
+    await act(async () => {
+      jest.advanceTimersByTime(16_000)
+      await Promise.resolve()
+    })
+    expect(authService.refreshTokens).toHaveBeenCalledTimes(2)
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+  })
+
+  it('syncs another tab\'s rotated metadata after focus without rotating again', async () => {
+    await mountWithToken(now + 3600)
+    ;(authService.getStoredTokens as jest.Mock).mockResolvedValue({
+      expiresAt: now + 7200,
+      hasRefreshToken: true,
+    })
+    ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
+
+    await act(async () => {
+      window.dispatchEvent(new Event('focus'))
+      await Promise.resolve()
+    })
+    expect(authService.refreshTokens).not.toHaveBeenCalled()
     expect(authService.getUser).toHaveBeenCalledTimes(2)
     expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
   })
