@@ -238,55 +238,58 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     if (status !== 'loading' || retryNotBefore <= 0) return
     let cancelled = false
-    const timer = setTimeout(async () => {
-      const generation = sessionGeneration.current
-      const active = () => !cancelled && generation === sessionGeneration.current
-      try {
-        let latest = await authService.getStoredTokens()
-        if (!active()) return
-        if (!latest) {
-          setStatus('unauthenticated')
-          return
-        }
-
-        if (latest.hasRefreshToken && latest.expiresAt <= Math.floor(Date.now() / 1000) + 60) {
-          const refreshed = await authService.refreshTokens()
+    const timer = setTimeout(
+      async () => {
+        const generation = sessionGeneration.current
+        const active = () => !cancelled && generation === sessionGeneration.current
+        try {
+          let latest = await authService.getStoredTokens()
           if (!active()) return
-          if (refreshed) latest = refreshed
-        }
-        if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
-          await invalidateSession(latest)
-          return
-        }
-
-        const verified = await authService.getUser()
-        if (!active()) return
-        if (!verified) {
-          await invalidateSession(latest)
-          return
-        }
-        setTokens(latest)
-        setUser(verified)
-        setStatus('authenticated')
-        setError(null)
-        setRetryNotBefore(0)
-        hydrationRetries.current = 0
-      } catch (err) {
-        if (!active()) return
-        hydrationRetries.current += 1
-        logger.warn('[AUTH_PROVIDER] Initialization revalidation deferred', {
-          error: err instanceof Error ? err.message : String(err),
-        })
-        if (hydrationRetries.current >= 3) {
-          // Avoid a permanently spinning recovery screen during an extended
-          // outage; do not delete a cookie we could not verify or inspect.
+          if (!latest) {
+            setStatus('unauthenticated')
+            return
+          }
+  
+          if (latest.hasRefreshToken && latest.expiresAt <= Math.floor(Date.now() / 1000) + 60) {
+            const refreshed = await authService.refreshTokens()
+            if (!active()) return
+            if (refreshed) latest = refreshed
+          }
+          if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
+            await invalidateSession(latest)
+            return
+          }
+  
+          const verified = await authService.getUser()
+          if (!active()) return
+          if (!verified) {
+            await invalidateSession(latest)
+            return
+          }
+          setTokens(latest)
+          setUser(verified)
+          setStatus('authenticated')
+          setError(null)
           setRetryNotBefore(0)
-          setStatus('unauthenticated')
-        } else {
-          setRetryNotBefore(Date.now() + 15_000)
+          hydrationRetries.current = 0
+        } catch (err) {
+          if (!active()) return
+          hydrationRetries.current += 1
+          logger.warn('[AUTH_PROVIDER] Initialization revalidation deferred', {
+            error: err instanceof Error ? err.message : String(err),
+          })
+          if (hydrationRetries.current >= 3) {
+            // Avoid a permanently spinning recovery screen during an extended
+            // outage; do not delete a cookie we could not verify or inspect.
+            setRetryNotBefore(0)
+            setStatus('unauthenticated')
+          } else {
+            setRetryNotBefore(Date.now() + 15_000)
+          }
         }
-      }
-    }, Math.max(0, retryNotBefore - Date.now()))
+      },
+      Math.max(0, retryNotBefore - Date.now())
+    )
 
     return () => {
       cancelled = true

@@ -179,6 +179,9 @@ async function resolveServerSession(
 
     if (!response.ok) {
       logger.warn('[SERVER_SESSION] Backend validation failed', { status: response.status })
+      if (response.status === 429 || response.status >= 500) {
+        throw new Error('Temporary session validation failure')
+      }
       return null
     }
 
@@ -211,7 +214,9 @@ async function resolveServerSession(
       return fallbackSession
     }
 
-    return null
+    // Network failures, timeout and malformed upstream responses must not be
+    // mapped to a permanent 401 in the browser session endpoint.
+    throw new Error('Temporary session validation failure')
   } finally {
     clearTimeout(timeoutId)
   }
@@ -223,7 +228,7 @@ async function resolveServerSession(
  * Reads the auth token cookie and validates with the backend.
  * Use in Server Components and Route Handlers.
  */
-export async function getServerSession(): Promise<CustomSession | null> {
+export async function getServerSessionStrict(): Promise<CustomSession | null> {
   const cookieStore = await cookies()
   const headerStore = await headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
@@ -284,6 +289,21 @@ export async function getServerSession(): Promise<CustomSession | null> {
     if (inFlightSessionRequests.get(dedupeKey) === requestPromise) {
       inFlightSessionRequests.delete(dedupeKey)
     }
+  }
+}
+
+/** Legacy SSR behavior: renderers may treat an unavailable backend as no
+ * session. The browser's /api/auth/session uses the strict variant so that a
+ * temporary outage becomes 503 instead of erroneously clearing credentials.
+ */
+export async function getServerSession(): Promise<CustomSession | null> {
+  try {
+    return await getServerSessionStrict()
+  } catch (err) {
+    logger.warn('[SERVER_SESSION] Deferred session validation', {
+      error: err instanceof Error ? err.message : String(err),
+    })
+    return null
   }
 }
 
