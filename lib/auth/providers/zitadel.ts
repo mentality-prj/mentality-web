@@ -66,19 +66,25 @@ export class ZitadelAuthProvider implements IAuthProvider {
 
     sessionStorage.removeItem('oauth_state')
     sessionStorage.removeItem('pkce_verifier')
-    try {
-      // The exchange endpoint sets the HttpOnly cookie and returns metadata, not tokens.
+    const completeCallback = async (): Promise<{ user: CustomUser; tokens: BrowserAuthSession }> => {
+      // Authorization-code cookie writes must use the same browser lock as
+      // refresh rotation and stale-session cleanup.
       const result = await exchangeAuthTokens({ grantType: 'authorization_code', code, codeVerifier })
       if ('error' in result) throw new Error(`Token exchange failed: ${result.error}`)
 
       const user = await this.getUser()
       if (!user) {
-        // Another tab may have signed in during backend verification. Only
-        // discard the exact cookie revision issued by *this* callback.
-        await this.clearTokensIfUnchanged(result.data)
+        // Do not nest clearTokensIfUnchanged: we already hold this lock.
+        await deleteStoredAuthTokensIfUnchanged(result.data)
         throw new Error('Unable to validate the session')
       }
       return { user, tokens: result.data }
+    }
+    try {
+      if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+        return await navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, completeCallback)
+      }
+      return await completeCallback()
     } catch (error) {
       logger.error('[AUTH:ZITADEL] Callback error', { error: error instanceof Error ? error.message : String(error) })
       return null

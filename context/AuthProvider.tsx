@@ -259,17 +259,22 @@ export function AuthProvider({ children }: { children: ReactNode }) {
             setStatus('unauthenticated')
             return
           }
-  
+
+          let refreshFailed = false
           if (latest.hasRefreshToken && latest.expiresAt <= Math.floor(Date.now() / 1000) + 60) {
             const refreshed = await authService.refreshTokens()
             if (!active()) return
-            if (refreshed) latest = refreshed
+            if (refreshed) {
+              latest = refreshed
+            } else {
+              refreshFailed = true
+            }
           }
           if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
             await invalidateSession(latest)
             return
           }
-  
+
           const verified = await authService.getUser()
           if (!active()) return
           if (!verified) {
@@ -280,7 +285,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
           setUser(verified)
           setStatus('authenticated')
           setError(null)
-          setRetryNotBefore(0)
+          setRetryNotBefore(refreshFailed ? Date.now() + 15_000 : 0)
           hydrationRetries.current = 0
         } catch (err) {
           if (!active()) return

@@ -180,6 +180,32 @@ describe('token-opaque Zitadel provider', () => {
     expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
   })
 
+  it('holds the refresh lock during authorization-code session creation', async () => {
+    let lockHeld = false
+    Object.defineProperty(navigator, 'locks', {
+      configurable: true,
+      value: {
+        request: async (_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+          lockHeld = true
+          try {
+            return await callback()
+          } finally {
+            lockHeld = false
+          }
+        },
+      },
+    })
+    ;(exchangeAuthTokens as jest.Mock).mockImplementation(async () => {
+      expect(lockHeld).toBe(true)
+      return { data: metadata }
+    })
+    sessionStorage.setItem('oauth_state', 'correct')
+    sessionStorage.setItem('pkce_verifier', 'verifier')
+
+    expect(await provider.handleCallback('code', 'correct')).toEqual({ user: testUser, tokens: metadata })
+    expect(lockHeld).toBe(false)
+  })
+
   it('never yields a bearer token through the client API', async () => {
     expect(await provider.getToken()).toBeNull()
     expect(await provider.getSession()).toEqual({ user: testUser, provider: 'zitadel' })
