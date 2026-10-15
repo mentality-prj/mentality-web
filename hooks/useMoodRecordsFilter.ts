@@ -74,7 +74,7 @@ export function useMoodRecordsFilter(initial: UseMoodRecordsFilter) {
           } else {
             params.delete(key)
           }
-        } else if (value != null && value !== '') {
+        } else if (value != null) {
           params.set(key, String(value))
         } else {
           params.delete(key)
