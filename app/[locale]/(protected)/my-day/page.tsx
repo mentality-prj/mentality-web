@@ -27,7 +27,8 @@ const MyDay = async () => {
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
   const submittedToday =
-    !('error' in todayRes) && (todayRes.data ?? []).some((record) => isSubmittedToday(record.createdAt))
+    !('error' in todayRes) &&
+    (todayRes.data ?? []).some((record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt))
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
