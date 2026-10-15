@@ -8,9 +8,25 @@ import { useAuth } from '@/context/AuthProvider'
 
 function safeReturnPath(raw: string | null, locale: string): string {
   const fallback = `/${locale}/my-day`
-  if (!raw || raw.length > 2048 || !raw.startsWith(`/${locale}/`) || raw.startsWith('//')) return fallback
-  if (raw.startsWith(`/${locale}/refresh-session`) || /[\r\n\\]/.test(raw)) return fallback
-  return raw
+  if (!raw || raw.length > 2048 || /[\r\n\\]/.test(raw)) return fallback
+
+  try {
+    // WHATWG URL resolves encoded dot segments before we apply locale and
+    // route restrictions, preventing redirects to another tenant/locale.
+    const base = 'https://internal.dzvin.invalid'
+    const normalized = new URL(raw, base)
+    if (normalized.origin !== base) return fallback
+    if (!normalized.pathname.startsWith(`/${locale}/`)) return fallback
+    if (
+      normalized.pathname === `/${locale}/refresh-session` ||
+      normalized.pathname.startsWith(`/${locale}/refresh-session/`)
+    ) {
+      return fallback
+    }
+    return normalized.pathname + normalized.search + normalized.hash
+  } catch {
+    return fallback
+  }
 }
 
 function SessionRecovery() {
