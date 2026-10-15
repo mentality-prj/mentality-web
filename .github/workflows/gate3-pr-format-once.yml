@@ -1,4 +1,5 @@
 name: Gate3 temporary format changed files
+# Retry after isolated AbortController SSR compatibility fix
 on:
   push:
     branches: [feat/dzvin-gate3-nest-dip-admin-client-20261015]
