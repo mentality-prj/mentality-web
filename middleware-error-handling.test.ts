@@ -142,36 +142,33 @@ describe('Middleware Token-Based Auth', () => {
       expect(response.headers.get('location')).toContain('/auth')
     })
 
-    it('should redirect to same URL with refreshed cookie when token expired but refresh token exists', async () => {
-      // Mock the internal /api/auth/exchange route called by middleware for server-side refresh
-      // Note: the real route strips refresh_token from JSON response (stored in httpOnly cookie only)
-      // and sets the cookie via Set-Cookie header
-      const mockCookie = `${AUTH_TOKEN_COOKIE}=${encodeURIComponent(JSON.stringify({ accessToken: 'refreshed-access-token', idToken: 'refreshed-id-token', refreshToken: 'new-refresh', expiresAt: Math.floor(Date.now() / 1000) + 3600 }))}; Path=/; HttpOnly; SameSite=Lax`
-      globalThis.fetch = jest.fn().mockResolvedValueOnce({
-        ok: true,
-        headers: new Headers({ 'set-cookie': mockCookie }),
-        json: () =>
-          Promise.resolve({
-            access_token: 'refreshed-access-token',
-            id_token: 'refreshed-id-token',
-            expires_in: 3600,
-          }),
-      })
-
+    it('should redirect expired protected requests to browser-coordinated recovery, never exchange from proxy', async () => {
+      const fetchSpy = jest.fn()
+      globalThis.fetch = fetchSpy
       const request = createRequest(
-        '/uk/my-day',
+        '/uk/my-day?source=deep-link',
         makeTokenCookie({
-          expiresAt: Math.floor(Date.now() / 1000) - 3600, // expired
+          expiresAt: Math.floor(Date.now() / 1000) - 3600,
           refreshToken: 'valid-refresh-token',
         })
       )
-      const response = await middleware(request)
 
-      // After successful refresh, middleware redirects to the same URL
-      // so server components see the updated cookie
-      const location = response.headers.get('location')
-      expect(location).not.toContain('/auth')
-      expect(location).toContain('/uk/my-day')
+      const response = await middleware(request)
+      const target = new URL(response.headers.get('location') ?? 'http://localhost:3000')
+      expect(target.pathname).toBe('/uk/refresh-session')
+      expect(target.searchParams.get('returnTo')).toBe('/uk/my-day?source=deep-link')
+      expect(response.headers.get('set-cookie')).toBeNull()
+      expect(fetchSpy).not.toHaveBeenCalled()
+    })
+
+    it('should not loop while rendering the session recovery route with an expired cookie', async () => {
+      const request = createRequest(
+        '/uk/refresh-session?returnTo=%2Fuk%2Fmy-day',
+        makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 20 })
+      )
+
+      const response = await middleware(request)
+      expect(response.headers.get('location')).not.toContain('/refresh-session')
     })
   })
 
