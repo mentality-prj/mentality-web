@@ -123,6 +123,44 @@ describe('token-opaque Zitadel provider', () => {
     expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
   })
 
+  it('preserves a newer rotated cookie when stale cleanup acquires the refresh lock', async () => {
+    const observed = { ...metadata, sessionRevision: 'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa' }
+    const newer = { ...metadata, sessionRevision: 'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb' }
+    const request = jest.fn((_name: string, _options: LockOptions, callback: () => Promise<unknown>) =>
+      callback()
+    )
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: { request } })
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(newer)
+
+    expect(await provider.clearTokensIfUnchanged(observed)).toBe(false)
+    expect(request).toHaveBeenCalledWith('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, expect.any(Function))
+    expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
+  })
+
+  it('deletes an unchanged cookie only while holding the rotation lock', async () => {
+    const observed = { ...metadata, sessionRevision: 'cccccccc-cccc-4ccc-cccc-cccccccccccc' }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(observed)
+    let lockHeld = false
+    Object.defineProperty(navigator, 'locks', {
+      configurable: true,
+      value: {
+        request: async (_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+          lockHeld = true
+          try {
+            return await callback()
+          } finally {
+            lockHeld = false
+          }
+        },
+      },
+    })
+    ;(deleteStoredAuthTokens as jest.Mock).mockImplementation(async () => {
+      expect(lockHeld).toBe(true)
+    })
+    expect(await provider.clearTokensIfUnchanged(observed)).toBe(true)
+    expect(deleteStoredAuthTokens).toHaveBeenCalledTimes(1)
+  })
+
   it('never yields a bearer token through the client API', async () => {
     expect(await provider.getToken()).toBeNull()
     expect(await provider.getSession()).toEqual({ user: testUser, provider: 'zitadel' })
