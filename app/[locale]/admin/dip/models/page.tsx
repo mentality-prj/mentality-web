@@ -6,7 +6,7 @@ import { getDipOrgConnectionStatus } from '@/requests/dipClient'
 export default async function DipModelsPage() {
   const [t, connection] = await Promise.all([
     getTranslations('pages.Dip'),
-    Promise.resolve(getDipOrgConnectionStatus()),
+    getDipOrgConnectionStatus(),
   ])
 
   return <ModelsView connection={connection} t={t} />
