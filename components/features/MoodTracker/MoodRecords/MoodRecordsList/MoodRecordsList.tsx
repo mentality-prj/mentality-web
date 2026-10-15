@@ -1,6 +1,7 @@
 'use client'
 
-import { useTranslations } from 'next-intl'
+import { useEffect, useState } from 'react'
+import { useLocale, useTranslations } from 'next-intl'
 
 import Card from '@/components/shared/Cards/Card'
 import { ENERGIES } from '@/constants/energy'
@@ -8,7 +9,6 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { STRESSES } from '@/constants/stress'
 import { Tag } from '@/ds/components/Tag'
-import { formatDate } from '@/helpers/data'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 type Props = {
@@ -16,6 +16,14 @@ type Props = {
 }
 
 export function MoodRecordsList({ records }: Props) {
+  const locale = useLocale()
+  const [timeZone, setTimeZone] = useState('UTC')
+
+  useEffect(() => {
+    // Hydrate using UTC, then display the user's own local date and time.
+    setTimeZone(Intl.DateTimeFormat().resolvedOptions().timeZone || 'UTC')
+  }, [])
+
   const t = useTranslations('components.Mood')
   const commonGeneral = useTranslations('common.General')
   const ts = useTranslations('components.StressLevelScale')
@@ -30,7 +38,18 @@ export function MoodRecordsList({ records }: Props) {
         const moodInfo = MOODS[moodIndex - 1]
         const IconComponent = moodInfo.icon
         const label = t(moodInfo.label as string)
-        const date = r.createdAt ? formatDate(new Date(r.createdAt).toISOString()) : ''
+        const timestamp = r.createdAt ? new Date(r.createdAt) : null
+        const validTimestamp = timestamp && !Number.isNaN(timestamp.getTime())
+        const dateTime = validTimestamp
+          ? new Intl.DateTimeFormat(locale, {
+              day: '2-digit',
+              month: '2-digit',
+              year: 'numeric',
+              hour: '2-digit',
+              minute: '2-digit',
+              timeZone,
+            }).format(timestamp)
+          : ''
 
         const stressInfo = STRESSES.find((s) => s.value === r.stressLevel) ?? STRESSES[0]
         const energyInfo = ENERGIES.find((e) => e.value === r.energyLevel) ?? ENERGIES[2]
@@ -54,7 +73,9 @@ export function MoodRecordsList({ records }: Props) {
             icon={<IconComponent />}
             tags={r.tags}
           >
-            <div className="mt-2 text-xs text-gray-400">{date}</div>
+            <div className="mt-2 text-xs text-gray-400">
+              {dateTime && <time dateTime={r.createdAt}>{dateTime}</time>}
+            </div>
           </Card>
         )
       })}
