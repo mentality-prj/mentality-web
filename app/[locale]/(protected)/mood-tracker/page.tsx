@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { MoodRecords } from '@/components/features/MoodTracker/MoodRecords/MoodRecords'
 import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
 import { TenDaysSummary } from '@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary'
+import { WellbeingSummary } from '@/components/features/MoodTracker/WellbeingSummary/WellbeingSummary'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
@@ -38,8 +39,9 @@ export default async function MoodTracker({
         <div className="desktop:w-3/5">
           <NewMoodNoteSection />
         </div>
-        <div className="desktop:w-2/5">
-          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res.data ?? []} />
+        <div className="flex flex-col gap-sm desktop:w-2/5">
+          <WellbeingSummary records={res?.data ?? []} />
+          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res?.data ?? []} />
         </div>
       </div>
       <MoodRecords totalCount={total} records={moodNotes ?? []} />
