@@ -114,7 +114,10 @@ describe('token-opaque Zitadel provider', () => {
   it('does not retry a failed rotation in a tight loop', async () => {
     const expiring = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
     ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(expiring)
-    ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ error: 'Identity provider temporarily unavailable', status: 503 })
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({
+      error: 'Identity provider temporarily unavailable',
+      status: 503,
+    })
 
     expect(await provider.refreshTokens()).toBeNull()
     expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
