@@ -1,4 +1,18 @@
 {
   "title": "Śledzenie nastroju",
-  "subtitle": "Śledź zmiany swojego nastroju i poziomu stresu"
+  "subtitle": "Śledź zmiany swojego nastroju i poziomu stresu",
+  "wellbeing": {
+    "title": "Przegląd samopoczucia",
+    "subtitle": "Twoje oceny nastroju, stresu, energii i koncentracji z ostatnich 10 dni",
+    "scoreAccessible": "Wskaźnik samopoczucia: {score} na 100",
+    "entries": "Na podstawie {count, plural, one {# wpisu} few {# wpisów} many {# wpisów} other {# wpisów}} nastroju",
+    "empty": "Brak kompletnych wpisów nastroju z ostatnich 10 dni. Dodaj wpis, aby zobaczyć podsumowanie.",
+    "disclaimer": "Osobisty wskaźnik zmian oparty na Twoich wpisach, a nie ocena medyczna. Niższy stres zwiększa wynik.",
+    "dimensions": {
+      "mood": "Nastrój",
+      "stressBalance": "Niski stres",
+      "energy": "Energia",
+      "focus": "Koncentracja"
+    }
+  }
 }

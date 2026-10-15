@@ -30,6 +30,10 @@ jest.mock('@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary', () 
   TenDaysSummary: () => <div data-testid="ten-days-summary" />,
 }))
 
+jest.mock('@/components/features/MoodTracker/WellbeingSummary/WellbeingSummary', () => ({
+  WellbeingSummary: () => <div data-testid="wellbeing-summary" />,
+}))
+
 jest.mock('@/ds/components/PageTitle', () => ({
   PageTitle: ({ title, subtitle }: { title: string; subtitle?: string }) => (
     <div>
