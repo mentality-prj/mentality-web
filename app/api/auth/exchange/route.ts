@@ -99,11 +99,14 @@ function normalizeTokenEndpointResponse(payload: unknown): TokenEndpointResponse
 }
 
 async function readJsonPayload(response: Response): Promise<unknown> {
+  // Stream/transport failures must propagate to the outer handler. In particular,
+  // a body that stalls after successful response headers can still time out.
+  const text = await readLimitedText(response, MAX_TOKEN_RESPONSE_BYTES)
+  if (!text) return null
   try {
-    const text = await readLimitedText(response, MAX_TOKEN_RESPONSE_BYTES)
-    return text ? JSON.parse(text) : null
+    return JSON.parse(text)
   } catch {
-    // Includes oversized and malformed upstream payloads.
+    // Only malformed JSON is treated as an invalid provider payload.
     return null
   }
 }
@@ -158,6 +161,7 @@ export async function POST(request: NextRequest) {
     return jsonNoStore({ error: 'Invalid JSON' }, { status: 400 })
   }
 
+  let tokenSignal: AbortSignal | null = null
   try {
     const { code, codeVerifier, grantType } = body as {
       code?: string
@@ -195,13 +199,14 @@ export async function POST(request: NextRequest) {
       return jsonNoStore({ error: 'Invalid grantType' }, { status: 400 })
     }
 
+    tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
     const tokenResponse = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
       body: params,
       redirect: 'manual',
       cache: 'no-store',
-      signal: AbortSignal.timeout(TOKEN_TIMEOUT_MS),
+      signal: tokenSignal,
     })
 
     const payload = await readJsonPayload(tokenResponse)
@@ -277,10 +282,15 @@ export async function POST(request: NextRequest) {
     response.cookies.delete(ACTIVE_COMPANY_COOKIE)
     return response
   } catch (error) {
-    // Aborted and failed upstream requests never expose exception messages.
+    // A response stream can reject with AbortError even when the originating
+    // fetch signal timed out with TimeoutError. Preserve the real cause.
+    const reason = tokenSignal?.aborted ? tokenSignal.reason : null
+    const timedOut =
+      (reason instanceof Error && reason.name === 'TimeoutError') ||
+      (error instanceof Error && error.name === 'TimeoutError')
     return jsonNoStore(
       { error: 'Identity provider temporarily unavailable' },
-      { status: error instanceof Error && error.name === 'TimeoutError' ? 504 : 502 }
+      { status: timedOut ? 504 : 502 }
     )
   }
 }
