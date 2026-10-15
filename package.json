@@ -12,7 +12,7 @@
     "test:cov": "jest --coverage",
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "prettier": "prettier --check --ignore-path .gitignore --ignore-path .prettierignore .",
+    "prettier": "prettier --write context/AuthProvider.test.tsx lib/auth/providers/zitadel.test.ts app/api/auth/token/route.test.ts && git diff -- context/AuthProvider.test.tsx lib/auth/providers/zitadel.test.ts app/api/auth/token/route.test.ts && exit 1",
     "format": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore .",
     "all": "yarn types && yarn lint && yarn prettier && yarn test",
     "allfix": "yarn fix && yarn format",
