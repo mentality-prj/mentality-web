@@ -31,18 +31,21 @@ export function parseMoodQuery(params: MoodQueryParams) {
   const normalizeArray = (value?: QueryValue): string[] => {
     if (!value) return []
     const values = Array.isArray(value) ? value : [value]
-    return values.flatMap((item) => item.split(',')).map((item) => item.trim()).filter(Boolean)
+    const separated = values.flatMap((item) => item.split(','))
+    const trimmed = separated.map((item) => item.trim())
+    return trimmed.filter(Boolean)
   }
 
   const selectAllowed = <T extends string>(value: QueryValue, allowed: readonly T[]): T[] => {
-    const selected = normalizeArray(value).filter((item): item is T => allowed.includes(item as T))
+    const candidates = normalizeArray(value)
+    const selected = candidates.filter((item): item is T => allowed.includes(item as T))
     return Array.from(new Set(selected))
   }
 
   const allowedWeekdays: WeekValueType[] = ['weekDays', 'weekends', 'mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun']
-  const validWeekdays = normalizeArray(params.weekdays).filter((day): day is WeekValueType =>
-    allowedWeekdays.includes(day as WeekValueType)
-  )
+  const validWeekdays = normalizeArray(params.weekdays).filter((day): day is WeekValueType => {
+    return allowedWeekdays.includes(day as WeekValueType)
+  })
 
   const filters: MapFiltersToApi = {
     order: getFirst(params.order) === SORT_ORDER.OLDEST ? SORT_ORDER.OLDEST : SORT_ORDER.NEWEST,
