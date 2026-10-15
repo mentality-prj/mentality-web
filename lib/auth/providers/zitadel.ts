@@ -73,7 +73,9 @@ export class ZitadelAuthProvider implements IAuthProvider {
 
       const user = await this.getUser()
       if (!user) {
-        await deleteStoredAuthTokens()
+        // Another tab may have signed in during backend verification. Only
+        // discard the exact cookie revision issued by *this* callback.
+        await this.clearTokensIfUnchanged(result.data)
         throw new Error('Unable to validate the session')
       }
       return { user, tokens: result.data }

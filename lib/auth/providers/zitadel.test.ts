@@ -72,7 +72,8 @@ describe('token-opaque Zitadel provider', () => {
     sessionStorage.setItem('pkce_verifier', 'verifier')
     ;(fetchAuthenticatedUser as jest.Mock).mockResolvedValue(null)
     expect(await provider.handleCallback('code', 'correct')).toBeNull()
-    expect(deleteStoredAuthTokens).toHaveBeenCalledTimes(1)
+    expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
+    expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
   })
 
   it('deduplicates concurrent refresh calls within one tab', async () => {
