@@ -1,5 +1,5 @@
 import { filterOptions } from '@/constants/filter'
-import { PAGE_SIZE } from '@/constants/pagination'
+import { MAX_MOOD_PAGE, PAGE_SIZE } from '@/constants/pagination'
 import { WeekValueType } from '@/mappers/weekdays.mapper'
 import { SORT_ORDER } from '@/types/sort'
 import { STRESS_LEVELS } from '@/types/stress'
@@ -25,7 +25,7 @@ export function parseMoodQuery(params: MoodQueryParams) {
   const getFirst = (value?: QueryValue): string | undefined => (Array.isArray(value) ? value[0] : value)
 
   // PAGE_SIZE is the number of records per page, not the maximum page number.
-  const page = getSafePage(getFirst(params.page), Number.MAX_SAFE_INTEGER)
+  const page = getSafePage(getFirst(params.page), MAX_MOOD_PAGE)
   const limit = PAGE_SIZE
 
   const normalizeArray = (value?: QueryValue): string[] => {

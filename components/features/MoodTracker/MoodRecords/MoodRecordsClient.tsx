@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 
 import { MoodRecordsList } from '@/components/features/MoodTracker/MoodRecords/MoodRecordsList/MoodRecordsList'
 import { Pagination } from '@/components/shared/Pagination/Pagination'
-import { PAGE_SIZE } from '@/constants/pagination'
+import { MAX_MOOD_PAGE, PAGE_SIZE } from '@/constants/pagination'
 import { usePathname, useRouter } from '@/i18n/navigation'
 import type { MoodRecordEntity } from '@/types/api-responses'
 import { UserTag } from '@/types/tags'
@@ -38,7 +38,7 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
 
   const [showFilters, setShowFilters] = useState(false)
 
-  const totalPages = Math.max(1, Math.ceil(totalCount / PAGE_SIZE))
+  const totalPages = Math.min(MAX_MOOD_PAGE, Math.max(1, Math.ceil(totalCount / PAGE_SIZE)))
   const requestedPage = searchParams.get('page')
   const page = getSafePage(requestedPage, totalPages)
 

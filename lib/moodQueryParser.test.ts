@@ -71,5 +71,7 @@ describe('mood history query filters', () => {
     expect(getSafePage('2.5', 30)).toBe(1)
     expect(getSafePage('Infinity', 30)).toBe(1)
     expect(getSafePage('999', 30)).toBe(30)
+    expect(parseMoodQuery({ page: '2.5' }).page).toBe(1)
+    expect(parseMoodQuery({ page: '1000000' }).page).toBe(10_000)
   })
 })
