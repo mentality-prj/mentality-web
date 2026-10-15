@@ -3,11 +3,9 @@ import { getTranslations } from 'next-intl/server'
 import { ApiKeyFlashBanner } from '@/components/features/Dip/ApiKeyFlashBanner'
 import { SystemView } from '@/components/features/Dip/SystemView'
 import {
-  getDipAdminConnectionStatus,
   getDipOrganizationKeys,
-  getDipOrganizations,
   getDipOrganizationStructure,
-  getDipOrgConnectionStatus,
+  getDipOrganizationsWithConnection,
 } from '@/requests/dipClient'
 
 export default async function DipSystemPage({
@@ -19,12 +17,9 @@ export default async function DipSystemPage({
 }) {
   const [{ locale }, query] = await Promise.all([params, searchParams])
 
-  const [t, organizations, orgConnection, adminConnection] = await Promise.all([
-    getTranslations('pages.Dip'),
-    getDipOrganizations(),
-    Promise.resolve(getDipOrgConnectionStatus()),
-    Promise.resolve(getDipAdminConnectionStatus()),
-  ])
+  const [t, organizationResult] = await Promise.all([getTranslations('pages.Dip'), getDipOrganizationsWithConnection()])
+  const { organizations, connection: orgConnection } = organizationResult
+  const adminConnection = orgConnection
 
   const selectedOrgId =
     query.org && organizations.some((organization) => organization.id === query.org)

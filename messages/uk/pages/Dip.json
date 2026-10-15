@@ -13,7 +13,7 @@
 
   "notConfigured": {
     "label": "DIP не налаштовано",
-    "hint": "Найпростіше налаштування: додайте DIP_URL і DIP_ADMIN_API_KEY у ваш .env.local. DIP_API_KEY є лише опційним, якщо хочете окремий org-scoped ключ."
+    "hint": "Доступ до QDIP недоступний. Перевірте NestJS, права адміністратора платформи у Zitadel та серверну конфігурацію QDIP."
   },
 
   "common": {
@@ -72,12 +72,12 @@
     "connection": "Підключення",
     "connected": "Підключено до DIP",
     "disconnected": "DIP не підключено",
-    "orgKeyConnected": "Доступ до research налаштовано",
-    "orgKeyMissing": "Доступ до research відсутній",
-    "adminKeyConnected": "Platform admin ключ налаштовано",
-    "adminKeyMissing": "Platform admin ключ відсутній",
-    "adminBannerLabel": "Platform admin доступ не налаштовано",
-    "adminBannerHint": "Використайте DIP_ADMIN_API_KEY, щоб відкрити керування організаціями і системне адміністрування.",
+    "orgKeyConnected": "Доступ до організацій QDIP підтверджено",
+    "orgKeyMissing": "Доступ до організацій QDIP недоступний або заборонений",
+    "adminKeyConnected": "Доступ адміністратора платформи підтверджено",
+    "adminKeyMissing": "Доступ адміністратора платформи недоступний або заборонений",
+    "adminBannerLabel": "Адміністрування QDIP недоступне",
+    "adminBannerHint": "Перевірте права адміністратора платформи у Zitadel та серверну конфігурацію QDIP у NestJS. Ключі залишаються лише на backend.",
     "organizations": "Організації",
     "organizationsEmpty": "Організації не знайдено.",
     "organizationName": "Назва організації",

@@ -121,7 +121,7 @@ export async function updateOrganizationMemberRoleAction(formData: FormData): Pr
 
   const result = await updateDipOrganizationMember(orgId, memberId, {
     role,
-    unitId: unitIdRaw || null,
+    ...(unitIdRaw ? { unitId: unitIdRaw } : {}),
   })
   if ('error' in result) {
     redirect(buildRedirectPath(locale, orgId, 'error', result.error))
@@ -136,20 +136,20 @@ export async function createOrganizationKeyAction(formData: FormData): Promise<n
   const orgId = String(formData.get('orgId') ?? '')
   const name = String(formData.get('name') ?? '').trim()
   const environment = String(formData.get('environment') ?? 'development').trim() || 'development'
-  const scopesRaw = String(formData.get('scopes') ?? '*').trim()
+  const scopesRaw = String(formData.get('scopes') ?? '').trim()
   const scopes = scopesRaw
     .split(',')
     .map((item) => item.trim())
     .filter(Boolean)
 
-  if (!orgId || !name) {
-    redirect(buildRedirectPath(locale, orgId || undefined, 'error', 'Key name is required'))
+  if (!orgId || !name || scopes.length === 0 || scopes.includes('*')) {
+    redirect(buildRedirectPath(locale, orgId || undefined, 'error', 'Key name and explicit scopes are required'))
   }
 
   const result = await createDipOrganizationKey(orgId, {
     name,
     environment,
-    scopes: scopes.length > 0 ? scopes : ['*'],
+    scopes,
   })
   if ('error' in result) {
     redirect(buildRedirectPath(locale, orgId, 'error', result.error))

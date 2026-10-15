@@ -10,7 +10,7 @@ import ts from 'typescript'
 const permittedTransports = new Set([
   'helpers/api-wrapper.ts',
   'requests/auth.ts', // only same-origin /api/auth/* identity lifecycle
-  'requests/dipClient.ts', // server-only QDIP management integration
+  'requests/dipClient.ts', // server-only NestJS QDIP administration adapter
   'lib/auth/server.ts', // server-side NestJS Zitadel token validation
   'lib/auth/companyBackend.server.ts', // reviewed server-only membership and active-company verification
   'proxy.ts', // server-side refresh handoff
@@ -88,4 +88,15 @@ test('Zitadel validation is not a second browser-accessible NestJS API', () => {
   const contact = readFileSync(join(rootDir, 'requests/contact.ts'), 'utf8')
   assert.match(contact, /publicApiRequest\('\/contact'/)
   assert.doesNotMatch(contact, /\bAPIUrl\b/)
+})
+
+test('QDIP administration may only reach NestJS, without upstream platform credentials', () => {
+  const client = readFileSync(join(rootDir, 'requests/dipClient.ts'), 'utf8')
+  const actions = readFileSync(join(rootDir, 'app/[locale]/admin/dip/system/actions.ts'), 'utf8')
+  assert.match(client, /import ['"]server-only['"]/)
+  assert.match(client, /['"]\/dip-admin['"]/)
+  assert.doesNotMatch(client, /process\.env\.(?:DIP_URL|DIP_API_KEY|DIP_ADMIN_API_KEY)/)
+  assert.doesNotMatch(client, /['"]X-Api-Key['"]/)
+  assert.doesNotMatch(client, /\/api\/v1\/(?:organizations|audit|features|workflows)/)
+  assert.doesNotMatch(actions, /\bfetch\s*\(/)
 })

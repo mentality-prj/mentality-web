@@ -13,7 +13,7 @@
 
   "notConfigured": {
     "label": "DIP nie jest skonfigurowany",
-    "hint": "Najprostsza konfiguracja: dodaj DIP_URL i DIP_ADMIN_API_KEY do pliku .env.local. DIP_API_KEY jest opcjonalny, jeśli chcesz osobny klucz org-scoped."
+    "hint": "Dostęp do QDIP jest niedostępny. Sprawdź usługę NestJS, uprawnienia administratora platformy w Zitadel i konfigurację QDIP wyłącznie na backendzie."
   },
 
   "common": {
@@ -72,12 +72,12 @@
     "connection": "Połączenie",
     "connected": "Połączono z DIP",
     "disconnected": "DIP nie jest połączony",
-    "orgKeyConnected": "Dostęp do research jest skonfigurowany",
-    "orgKeyMissing": "Brakuje dostępu do research",
-    "adminKeyConnected": "Skonfigurowano platform-admin key",
-    "adminKeyMissing": "Brakuje platform-admin key",
-    "adminBannerLabel": "Dostęp platform-admin nie jest skonfigurowany",
-    "adminBannerHint": "Użyj DIP_ADMIN_API_KEY, aby odblokować zarządzanie organizacjami i administrację systemową.",
+    "orgKeyConnected": "Dostęp do organizacji QDIP zweryfikowany",
+    "orgKeyMissing": "Dostęp do organizacji QDIP niedostępny lub zabroniony",
+    "adminKeyConnected": "Dostęp administratora platformy zweryfikowany",
+    "adminKeyMissing": "Dostęp administratora platformy niedostępny lub zabroniony",
+    "adminBannerLabel": "Administracja QDIP jest niedostępna",
+    "adminBannerHint": "Sprawdź uprawnienia administratora platformy w Zitadel i konfigurację QDIP w NestJS. Klucze pozostają wyłącznie na backendzie.",
     "organizations": "Organizacje",
     "organizationsEmpty": "Nie znaleziono organizacji.",
     "organizationName": "Nazwa organizacji",
