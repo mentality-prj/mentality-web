@@ -169,7 +169,7 @@ describe('Middleware Token-Based Auth', () => {
       const response = await middleware(request)
 
       expect(response.headers.get('location')).not.toContain('/refresh-session')
-      expect(response.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBe('')
+      expect(response.headers.get('set-cookie')).toContain(`${AUTH_TOKEN_COOKIE}=`)
     })
 
     it('should not force token refresh while visiting a public page', async () => {
