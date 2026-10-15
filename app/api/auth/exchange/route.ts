@@ -288,9 +288,6 @@ export async function POST(request: NextRequest) {
     const timedOut =
       (reason instanceof Error && reason.name === 'TimeoutError') ||
       (error instanceof Error && error.name === 'TimeoutError')
-    return jsonNoStore(
-      { error: 'Identity provider temporarily unavailable' },
-      { status: timedOut ? 504 : 502 }
-    )
+    return jsonNoStore({ error: 'Identity provider temporarily unavailable' }, { status: timedOut ? 504 : 502 })
   }
 }
