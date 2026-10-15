@@ -162,10 +162,7 @@ describe('Middleware Token-Based Auth', () => {
     })
 
     it('should render sign-in directly after failed recovery instead of a redirect loop', async () => {
-      const request = createRequest(
-        '/uk/auth',
-        makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 3600 })
-      )
+      const request = createRequest('/uk/auth', makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 3600 }))
       const response = await middleware(request)
 
       expect(response.headers.get('location')).not.toContain('/refresh-session')
@@ -173,10 +170,7 @@ describe('Middleware Token-Based Auth', () => {
     })
 
     it('should not force token refresh while visiting a public page', async () => {
-      const request = createRequest(
-        '/uk/about',
-        makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 3600 })
-      )
+      const request = createRequest('/uk/about', makeTokenCookie({ expiresAt: Math.floor(Date.now() / 1000) - 3600 }))
       const response = await middleware(request)
 
       expect(response.headers.get('location')).not.toContain('/refresh-session')
