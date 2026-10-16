@@ -96,19 +96,11 @@ describe('MoodTracker page', () => {
     expect(screen.getByTestId('mood-records')).toHaveTextContent('2 records')
   })
 
-  it('passes empty records to MoodRecords when API returns an error', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
-      error: 'Forbidden',
-      message: 'No access',
-      status: 403,
-    })
-    ;(getMoodRecords as jest.Mock).mockResolvedValue({
-      data: { moodNotes: [], total: 0 },
-    })
+  it('does not present a failed history request as an empty diary', async () => {
+    ;(getMoodRecords as jest.Mock).mockResolvedValue({ error: 'Backend unavailable', status: 503 })
 
-    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
-
-    expect(screen.getByTestId('mood-records')).toHaveTextContent('0 records')
+    await expect(MoodTrackerPage({ searchParams: Promise.resolve({}) })).rejects.toThrow('Unable to load mood records')
+    expect(buildMoodMarksData).not.toHaveBeenCalled()
   })
 
   it('calls buildMoodMarksData and buildDailySummaries with records', async () => {
@@ -118,12 +110,11 @@ describe('MoodTracker page', () => {
     expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords)
   })
 
-  it('passes empty array to helpers when API returns an error', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'error' })
+  it('does not present a failed summary request as valid zero-valued statistics', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'Backend unavailable' })
 
-    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
-
-    expect(buildMoodMarksData).toHaveBeenCalledWith([])
-    expect(buildDailySummaries).toHaveBeenCalledWith([])
+    await expect(MoodTrackerPage({ searchParams: Promise.resolve({}) })).rejects.toThrow('Unable to load mood summary')
+    expect(buildMoodMarksData).not.toHaveBeenCalled()
+    expect(buildDailySummaries).not.toHaveBeenCalled()
   })
 })

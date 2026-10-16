@@ -45,6 +45,15 @@ beforeEach(() => {
 })
 
 describe('createMoodRecord', () => {
+  it('rejects a malformed creation response', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: {} })
+
+    expect(await createMoodRecord(mockSession, mockDto)).toEqual({
+      error: 'Invalid mood record response from backend',
+      status: 502,
+    })
+  })
+
   it('returns data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockRecord })
 
@@ -132,6 +141,30 @@ describe('getMoodRecords', () => {
     const result = await getMoodRecords(mockSession)
 
     expect(result).toEqual({ error: 'Unauthorized' })
+  })
+
+  it('rejects malformed successful responses instead of treating them as empty history', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { message: 'wrong payload' } })
+
+    expect(await getMoodRecords(mockSession)).toEqual({
+      error: 'Invalid mood record response from backend',
+      status: 502,
+    })
+  })
+
+  it('rejects invalid individual records rather than returning corrupt UI data', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, stressLevel: 'high' }] })
+
+    expect(await getMoodRecords(mockSession)).toEqual({
+      error: 'Invalid mood record response from backend',
+      status: 502,
+    })
+  })
+
+  it('accepts a real empty history as a valid result', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
+
+    expect(await getMoodRecords(mockSession)).toEqual({ data: { moodNotes: [], total: 0 } })
   })
 
   describe('query params', () => {
@@ -281,6 +314,15 @@ describe('getMoodRecords', () => {
 })
 
 describe('getLastMoodRecords', () => {
+  it('rejects an unexpected summary payload', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: null })
+
+    expect(await getLastMoodRecords(mockSession)).toEqual({
+      error: 'Invalid mood record response from backend',
+      status: 502,
+    })
+  })
+
   it('returns data without params', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
@@ -340,6 +382,15 @@ describe('getLastMoodRecords', () => {
 })
 
 describe('getMoodRecordById', () => {
+  it('rejects an invalid record DTO', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: 'missing-values' } })
+
+    expect(await getMoodRecordById(mockSession, 'bad')).toEqual({
+      error: 'Invalid mood record response from backend',
+      status: 502,
+    })
+  })
+
   it('returns data on success', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockRecord })
 

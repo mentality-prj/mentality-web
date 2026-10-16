@@ -20,17 +20,20 @@ export default async function MoodTracker({
   const session = await getServerSession()
   const query = parseMoodQuery(await searchParams)
   const [result, res] = await Promise.all([getMoodRecords(session, query), getLastMoodRecords(session, { days: 10 })])
-  const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
-  const total = 'error' in result ? 0 : result.data.total
-
+  // Do not confuse an upstream error or contract mismatch with a genuinely
+  // empty diary. The protected error boundary renders a recoverable failure.
   if ('error' in result) {
-    console.error('Failed to load mood records:', result.error)
+    throw new Error('Unable to load mood records')
+  }
+  if ('error' in res) {
+    throw new Error('Unable to load mood summary')
   }
 
-  const moodMarksData = buildMoodMarksData(res?.data ?? [])
+  const { moodNotes, total } = result.data
+  const moodMarksData = buildMoodMarksData(res.data)
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
-  const summaries = buildDailySummaries(res?.data ?? [])
+  const summaries = buildDailySummaries(res.data)
 
   return (
     <div className="flex flex-col gap-md">
@@ -40,11 +43,11 @@ export default async function MoodTracker({
           <NewMoodNoteSection />
         </div>
         <div className="flex flex-col gap-sm desktop:w-2/5">
-          <WellbeingSummary records={res?.data ?? []} />
-          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res?.data ?? []} />
+          <WellbeingSummary records={res.data} />
+          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res.data} />
         </div>
       </div>
-      <MoodRecords totalCount={total} records={moodNotes ?? []} />
+      <MoodRecords totalCount={total} records={moodNotes} />
     </div>
   )
 }

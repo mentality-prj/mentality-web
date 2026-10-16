@@ -7,6 +7,10 @@ import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { SortOrder } from '@/types/sort'
 
+import { decodeMoodRecord, decodeMoodRecordList } from './moodRecord.contract'
+
+const INVALID_MOOD_RESPONSE = 'Invalid mood record response from backend'
+
 export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto) {
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
     method: 'POST',
@@ -16,7 +20,9 @@ export async function createMoodRecord(session: CustomSession | null, dto: Creat
     logger.error('Failed to create mood record', { error: res.error })
     return { error: res.error }
   }
-  return { data: res.data }
+  const record = decodeMoodRecord(res.data)
+  if (!record) return { error: INVALID_MOOD_RESPONSE, status: 502 }
+  return { data: record }
 }
 
 export async function getMoodRecords(
@@ -44,11 +50,11 @@ export async function getMoodRecords(
 ) {
   const query = new URLSearchParams()
 
-  if (!params) params = {}
+  const filters = params ?? {}
 
-  if (typeof params?.page === 'number') query.set('page', String(params.page))
-  if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
-  if (params.order) query.set('order', params.order)
+  if (typeof filters.page === 'number') query.set('page', String(filters.page))
+  if (typeof filters.limit === 'number') query.set('limit', String(filters.limit))
+  if (filters.order) query.set('order', filters.order)
 
   const ranges = [
     ['moodMin', 'moodMax'],
@@ -58,23 +64,24 @@ export async function getMoodRecords(
   ] as const
 
   ranges.forEach(([minKey, maxKey]) => {
-    if (typeof params![`${minKey}`] === 'number') query.set(minKey, String(params![`${minKey}`]))
-    if (typeof params![`${maxKey}`] === 'number') query.set(maxKey, String(params![`${maxKey}`]))
+    if (typeof filters[minKey] === 'number') query.set(minKey, String(filters[minKey]))
+    if (typeof filters[maxKey] === 'number') query.set(maxKey, String(filters[maxKey]))
   })
 
   const levels = ['moodLevels', 'stressLevels', 'energyLevels', 'focusLevels'] as const
   levels.forEach((key) => {
-    params[key]?.forEach((value) => query.append(key, String(value)))
+    filters[key]?.forEach((value) => query.append(key, String(value)))
   })
 
-  params.tags?.forEach((tag) => query.append('tags', tag))
-  params.weekdays?.forEach((day) => query.append('weekdays', String(day)))
-  if (params.weekdays?.length && params.timeZone) query.set('timeZone', params.timeZone)
+  filters.tags?.forEach((tag) => query.append('tags', tag))
+  filters.weekdays?.forEach((day) => query.append('weekdays', String(day)))
+  if (filters.weekdays?.length && filters.timeZone) query.set('timeZone', filters.timeZone)
 
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }
-  const moodNotes: MoodRecordEntity[] = Array.isArray(res.data) ? res.data : []
+  const moodNotes = decodeMoodRecordList(res.data)
+  if (!moodNotes) return { error: INVALID_MOOD_RESPONSE, status: 502 }
   const total = extractPaginationTotal(res.headers, moodNotes.length)
   return { data: { moodNotes, total } }
 }
@@ -87,7 +94,9 @@ export async function getLastMoodRecords(session: CustomSession | null, params?:
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.LAST}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }
-  return { data: res.data }
+  const records = decodeMoodRecordList(res.data)
+  if (!records) return { error: INVALID_MOOD_RESPONSE, status: 502 }
+  return { data: records }
 }
 
 export async function getMoodRecordById(session: CustomSession | null, id: string) {
@@ -95,5 +104,7 @@ export async function getMoodRecordById(session: CustomSession | null, id: strin
     method: 'GET',
   })
   if ('error' in res) return { error: res.error }
-  return { data: res.data }
+  const record = decodeMoodRecord(res.data)
+  if (!record) return { error: INVALID_MOOD_RESPONSE, status: 502 }
+  return { data: record }
 }
