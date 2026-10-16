@@ -22,75 +22,78 @@ export async function MoodProgressSummary({ stats, failed = false }: Props) {
     return t(direction, { amount: Math.abs(change) })
   }
 
+  const emptyMessage = t(failed ? 'loadError' : 'empty')
+  const stressDescription = summary ? `${t('stressChange')}: ${changeText(summary.stressChange, true)}` : ''
+  const moodDescription = summary ? `${t('moodChange')}: ${changeText(summary.moodChange, false)}` : ''
+
   return (
     <section className="grid grid-cols-1 gap-md desktop:grid-cols-2" aria-label={t('heading')}>
-      <SectionCard className="flex flex-col gap-sm p-4 md:p-6">
-        <div>
-          <h2 className="text-lg font-semibold">{t('stressTitle')}</h2>
-          <p className="text-sm text-textcolor-secondary">{t('stressSubtitle')}</p>
+      <SectionCard className="p-4 md:p-6">
+        <div className="flex flex-col gap-sm">
+          <div>
+            <h2 className="text-lg font-semibold">{t('stressTitle')}</h2>
+            <p className="text-sm text-textcolor-secondary">{t('stressSubtitle')}</p>
+          </div>
+          {summary?.stressScore !== null && summary?.stressScore !== undefined ? (
+            <>
+              <div className="flex items-baseline gap-2">
+                <span className="text-4xl font-semibold tabular-nums">{summary.stressScore}</span>
+                <span className="text-base text-textcolor-secondary">/ 100</span>
+              </div>
+              <div
+                role="meter"
+                aria-label={t('stressTitle')}
+                aria-valuemin={0}
+                aria-valuemax={100}
+                aria-valuenow={summary.stressScore}
+                className="h-2 w-full overflow-hidden rounded-full bg-black/10"
+              >
+                <div
+                  className="h-full rounded-full bg-primary transition-[width]"
+                  style={{ width: `${summary.stressScore}%` }}
+                />
+              </div>
+              <p className="text-xs text-textcolor-secondary">{t('observedDays', { count: summary.recentDays })}</p>
+              <p className="text-sm text-textcolor-secondary">{stressDescription}</p>
+            </>
+          ) : (
+            <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">{emptyMessage}</p>
+          )}
+          <p className="text-xs text-textcolor-secondary">{t('disclaimer')}</p>
         </div>
-        {summary?.stressScore !== null && summary?.stressScore !== undefined ? (
-          <>
-            <div className="flex items-baseline gap-2">
-              <span className="text-4xl font-semibold tabular-nums">{summary.stressScore}</span>
-              <span className="text-base text-textcolor-secondary">/ 100</span>
-            </div>
-            <div
-              role="meter"
-              aria-label={t('stressTitle')}
-              aria-valuemin={0}
-              aria-valuemax={100}
-              aria-valuenow={summary.stressScore}
-              className="h-2 overflow-hidden rounded-full bg-black/10"
-            >
-              <div className="h-full rounded-full bg-primary" style={{ width: `${summary.stressScore}%` }} />
-            </div>
-            <p className="text-xs text-textcolor-secondary">{t('observedDays', { count: summary.recentDays })}</p>
-            <p className="text-sm text-textcolor-secondary">
-              {t('stressChange')}: {changeText(summary.stressChange, true)}
-            </p>
-          </>
-        ) : (
-          <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">
-            {t(failed ? 'loadError' : 'empty')}
-          </p>
-        )}
-        <p className="mt-auto text-xs text-textcolor-secondary">{t('disclaimer')}</p>
       </SectionCard>
 
-      <SectionCard className="flex flex-col gap-sm p-4 md:p-6">
-        <div>
-          <h2 className="text-lg font-semibold">{t('heading')}</h2>
-          <p className="text-sm text-textcolor-secondary">{t('subtitle')}</p>
+      <SectionCard className="p-4 md:p-6">
+        <div className="flex flex-col gap-sm">
+          <div>
+            <h2 className="text-lg font-semibold">{t('heading')}</h2>
+            <p className="text-sm text-textcolor-secondary">{t('subtitle')}</p>
+          </div>
+          {summary && summary.recentDays > 0 ? (
+            <>
+              <dl className="grid grid-cols-2 gap-3">
+                <div className="rounded-lg bg-black/5 p-3">
+                  <dt className="text-xs text-textcolor-secondary">{t('currentStreak')}</dt>
+                  <dd className="text-2xl font-semibold tabular-nums">{summary.currentStreak}</dd>
+                </div>
+                <div className="rounded-lg bg-black/5 p-3">
+                  <dt className="text-xs text-textcolor-secondary">{t('longestStreak')}</dt>
+                  <dd className="text-2xl font-semibold tabular-nums">{summary.longestStreak}</dd>
+                </div>
+              </dl>
+              <p className="text-sm text-textcolor-secondary">{moodDescription}</p>
+              <MoodProgressTrend
+                trend={summary.trend}
+                moodLabel={t('mood')}
+                stressLabel={t('stress')}
+                chartAccessible={t('chartAccessible')}
+              />
+            </>
+          ) : (
+            <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">{emptyMessage}</p>
+          )}
+          <p className="text-xs text-textcolor-secondary">{t('dateNote')}</p>
         </div>
-        {summary && summary.recentDays > 0 ? (
-          <>
-            <dl className="grid grid-cols-2 gap-3">
-              <div className="rounded-lg bg-black/5 p-3">
-                <dt className="text-xs text-textcolor-secondary">{t('currentStreak')}</dt>
-                <dd className="text-2xl font-semibold tabular-nums">{summary.currentStreak}</dd>
-              </div>
-              <div className="rounded-lg bg-black/5 p-3">
-                <dt className="text-xs text-textcolor-secondary">{t('longestStreak')}</dt>
-                <dd className="text-2xl font-semibold tabular-nums">{summary.longestStreak}</dd>
-              </div>
-            </dl>
-            <p className="text-sm text-textcolor-secondary">
-              {t('moodChange')}: {changeText(summary.moodChange, false)}
-            </p>
-            <MoodProgressTrend
-              trend={summary.trend}
-              moodLabel={t('mood')}
-              stressLabel={t('stress')}
-              chartAccessible={t('chartAccessible')}
-            />
-          </>
-        ) : (
-          <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">
-            {t(failed ? 'loadError' : 'empty')}
-          </p>
-        )}
-        <p className="text-xs text-textcolor-secondary">{t('dateNote')}</p>
       </SectionCard>
     </section>
   )
