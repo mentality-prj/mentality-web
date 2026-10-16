@@ -1,23 +1,24 @@
 import {
-  decodeResearchCollection,
-  decodeResearchEntity,
   decodeResearchWorkspaceProjects,
   hasResearchEntityId,
 } from '@/features/research/api/researchCollection.contract'
 import {
+  decodeResearchGrantResponse,
+  decodeResearchMemberResponse,
+  decodeResearchProjectResponse,
+} from '@/features/research/api/researchEntityResponses'
+import {
+  decodeResearchAuditResponse,
   decodeResearchGrantsResponse,
   decodeResearchMembersResponse,
   decodeResearchProjectsResponse,
 } from '@/features/research/api/researchListResponses'
 import {
-  normalizeAuditEvents,
   normalizeCohort,
   normalizeExportResponse,
-  normalizeGrant,
   normalizeHistoryDataset,
   normalizeInspection,
   normalizeProject,
-  normalizeProjectMember,
 } from '@/features/research/model/researchProjectEntities'
 import {
   toResearchProjectCohortBody,
@@ -27,7 +28,6 @@ import {
 import {
   asArray,
   asObject,
-  EMPTY_PERMISSIONS,
   getBoolean,
   getStringArray,
   getValue,
@@ -188,47 +188,26 @@ export async function createResearchProject(
   session: CustomSession | null,
   payload: ResearchProjectMutationInput
 ): Result<ResearchProject> {
-  const response = await performResearchRequest(session, '', {
+  const response = await performAuthRequest(session, RESEARCH_BASE_URL, {
     method: 'POST',
     body: toResearchProjectMutationBody(payload),
+    decodeResponse: decodeResearchProjectResponse,
   })
 
-  if ('error' in response) {
-    return response
-  }
-
-  const project = decodeResearchEntity(response.data)
-  if (!project) {
-    return { error: 'Invalid research project response from backend', status: 502 }
-  }
-
-  return { data: normalizeProject(project, session) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: normalizeProject(response.data, session) }
 }
 
 export async function getResearchProjectById(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProject> {
-  const response = await performAuthRequest<Record<string, unknown>>(session, `${RESEARCH_BASE_URL}/${projectId}`, {
-    decodeResponse: (value) => {
-      const entity = decodeResearchEntity(value)
-      return entity
-        ? { success: true, data: entity }
-        : { success: false, error: 'Invalid research project response from backend' }
-    },
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}`, {
+    decodeResponse: decodeResearchProjectResponse,
   })
 
-  if ('error' in response) {
-    return forwardApiFailure(response)
-  }
-
-  // Keep feature-level validation as a defense in depth for adapters/mocks.
-  const project = decodeResearchEntity(response.data)
-  if (!project) {
-    return { error: 'Invalid research project response from backend', status: 502 }
-  }
-
-  return { data: normalizeProject(project, session) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: normalizeProject(response.data, session) }
 }
 
 export async function updateResearchProject(
@@ -236,21 +215,14 @@ export async function updateResearchProject(
   projectId: string,
   payload: Partial<ResearchProjectMutationInput>
 ): Result<ResearchProject> {
-  const response = await performResearchRequest(session, `/${projectId}`, {
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}`, {
     method: 'PATCH',
     body: toResearchProjectMutationBody(payload),
+    decodeResponse: decodeResearchProjectResponse,
   })
 
-  if ('error' in response) {
-    return response
-  }
-
-  const project = decodeResearchEntity(response.data)
-  if (!project) {
-    return { error: 'Invalid research project response from backend', status: 502 }
-  }
-
-  return { data: normalizeProject(project, session) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: normalizeProject(response.data, session) }
 }
 
 export async function getResearchProjectMembers(
@@ -269,21 +241,14 @@ export async function addResearchProjectMember(
   projectId: string,
   payload: { userId: string; role: ResearchWorkspaceRole }
 ): Result<ResearchProjectMember> {
-  const response = await performResearchRequest(session, `/${projectId}/members`, {
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/members`, {
     method: 'POST',
     body: payload,
+    decodeResponse: decodeResearchMemberResponse,
   })
 
-  if ('error' in response) {
-    return response
-  }
-
-  const member = normalizeProjectMember(response.data, EMPTY_PERMISSIONS)
-  if (!member) {
-    return { error: 'Failed to normalize project member' }
-  }
-
-  return { data: member }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function removeResearchProjectMember(
@@ -349,26 +314,14 @@ export async function createResearchProjectGrant(
   projectId: string,
   payload: ResearchProjectGrantInput
 ): Result<ResearchProjectGrant> {
-  const response = await performResearchRequest(session, `/${projectId}/grants`, {
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/grants`, {
     method: 'POST',
     body: toResearchProjectGrantBody(payload),
+    decodeResponse: decodeResearchGrantResponse,
   })
 
-  if ('error' in response) {
-    return response
-  }
-
-  const grantData = decodeResearchEntity(response.data)
-  if (!grantData) {
-    return { error: 'Invalid research grant response from backend', status: 502 }
-  }
-
-  const grant = normalizeGrant(grantData)
-  if (!grant) {
-    return { error: 'Invalid research grant response from backend', status: 502 }
-  }
-
-  return { data: grant }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function getResearchProjectMLInspection(
@@ -438,23 +391,12 @@ export async function getResearchProjectAudit(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchAuditEvent[]> {
-  const response = await performResearchRequest(session, `/${projectId}/audit`)
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/audit`, {
+    decodeResponse: decodeResearchAuditResponse,
+  })
 
-  if ('error' in response) {
-    return response
-  }
-
-  const events = decodeResearchCollection(response.data, ['items', 'data', 'events'])
-  if (!events) {
-    return { error: 'Invalid research audit response from backend', status: 502 }
-  }
-
-  const audit = normalizeAuditEvents(events)
-  if (audit.length !== events.length) {
-    return { error: 'Invalid research audit response from backend', status: 502 }
-  }
-
-  return { data: audit }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function getResearchWorkspaceAccess(session: CustomSession | null): Result<ResearchWorkspaceAccess> {

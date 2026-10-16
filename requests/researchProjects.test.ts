@@ -423,6 +423,7 @@ describe('researchProjects requests', () => {
           retentionUntil: null,
           consentMode: 'company_boundary_only',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(mockedPerformAuthRequest).toHaveBeenNthCalledWith(
@@ -435,6 +436,7 @@ describe('researchProjects requests', () => {
           name: 'Sleep Resilience Updated',
           exportPolicy: 'allowed',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(createResult).toEqual(expect.objectContaining({ data: expect.objectContaining({ id: 'project-1' }) }))
@@ -491,6 +493,7 @@ describe('researchProjects requests', () => {
       {
         method: 'POST',
         body: { userId: 'reviewer-1', role: 'reviewer' },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(mockedPerformAuthRequest).toHaveBeenNthCalledWith(
@@ -983,6 +986,41 @@ describe('researchProjects requests', () => {
     await expect(getResearchProjectGrants(mockSession, 'project-1')).resolves.toEqual({
       error: 'Invalid research grants response from backend',
       status: 502,
+    })
+  })
+
+  it('decodes audit collections at the transport boundary without dropping malformed entries', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { events: [] } })
+    await expect(getResearchProjectAudit(mockSession, 'project-1')).resolves.toEqual({ data: [] })
+    expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      'http://localhost:3200/api/research/v1/projects/project-1/audit',
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
+    )
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { events: [{ eventType: 'missing-id' }] } })
+    await expect(getResearchProjectAudit(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research audit response from backend',
+      status: 502,
+    })
+  })
+
+  it('rejects malformed member creation without returning a phantom member', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: {} })
+
+    await expect(
+      addResearchProjectMember(mockSession, 'project-1', { userId: 'reviewer-1', role: 'reviewer' })
+    ).resolves.toEqual({ error: 'Failed to normalize project member', status: 502 })
+  })
+
+  it('preserves upstream authorization failures for write responses', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      error: { name: 'Forbidden', message: 'Cannot update project', status: 403 },
+    })
+
+    await expect(updateResearchProject(mockSession, 'project-1', { name: 'Denied' })).resolves.toEqual({
+      error: 'Cannot update project',
+      status: 403,
     })
   })
 

@@ -1,4 +1,8 @@
-import { normalizeGrant, normalizeProjectMember } from '@/features/research/model/researchProjectEntities'
+import {
+  normalizeAuditEvents,
+  normalizeGrant,
+  normalizeProjectMember,
+} from '@/features/research/model/researchProjectEntities'
 import { EMPTY_PERMISSIONS } from '@/features/research/model/researchProjectPrimitives'
 import type { ResearchProjectGrant, ResearchProjectMember } from '@/types/research'
 
@@ -7,6 +11,7 @@ import { decodeResearchCollection, hasResearchEntityId } from './researchCollect
 const projectsError = 'Invalid research projects response from backend'
 const membersError = 'Invalid research members response from backend'
 const grantsError = 'Invalid research grants response from backend'
+const auditError = 'Invalid research audit response from backend'
 
 export function decodeResearchProjectsResponse(value: unknown) {
   const projects = decodeResearchCollection(value, ['items', 'projects', 'data'])
@@ -38,4 +43,14 @@ export function decodeResearchGrantsResponse(value: unknown) {
     return { success: false as const, error: grantsError }
   }
   return { success: true as const, data: grants.filter((item): item is ResearchProjectGrant => item !== null) }
+}
+
+/** Preserve all-or-nothing audit decoding and event metadata projection. */
+export function decodeResearchAuditResponse(value: unknown) {
+  const events = decodeResearchCollection(value, ['items', 'data', 'events'])
+  if (!events) return { success: false as const, error: auditError }
+
+  const audit = normalizeAuditEvents(events)
+  if (audit.length !== events.length) return { success: false as const, error: auditError }
+  return { success: true as const, data: audit }
 }
