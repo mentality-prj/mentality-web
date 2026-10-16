@@ -5,13 +5,15 @@ import {
   normalizeCohort,
   normalizeExportResponse,
   normalizeHistoryDataset,
+  normalizeInspection,
 } from '@/features/research/model/researchProjectEntities'
 import { asObject, getValue } from '@/features/research/model/researchProjectPrimitives'
-import type { ResearchExportRequest } from '@/types/research'
+import type { ResearchExportRequest, ResearchMLInspectionQuery } from '@/types/research'
 
 const invalidCohort = 'Invalid research cohort response from backend'
 const invalidHistory = 'Invalid research history dataset response from backend'
 const invalidExport = 'Invalid research export response from backend'
+const invalidInspection = 'Invalid research ML inspection response from backend'
 
 const scalar = z.union([z.string(), z.number().finite(), z.boolean()])
 const optionalDate = scalar.nullable().optional()
@@ -28,6 +30,19 @@ const cohortSchema = z
     startsAt: optionalDate,
     endsAt: optionalDate,
     dateRange: z.object({ from: optionalDate, to: optionalDate }).passthrough().nullable().optional(),
+  })
+  .passthrough()
+
+const inspectionSchema = z
+  .object({
+    target: z.string().trim().min(1).optional(),
+    targetId: z.string().nullable().optional(),
+    modelVersion: z.string().nullable().optional(),
+    contract: z.string().nullable().optional(),
+    allowedContract: z.string().nullable().optional(),
+    governance: z.record(z.unknown()).nullable().optional(),
+    governanceMetadata: z.record(z.unknown()).nullable().optional(),
+    metadata: z.record(z.unknown()).nullable().optional(),
   })
   .passthrough()
 
@@ -53,19 +68,29 @@ export function decodeResearchCohortResponse(value: unknown) {
 
   const candidate = Array.isArray(value) ? (value.length === 1 ? value[0] : null) : value
   const parsed = cohortSchema.safeParse(candidate)
-  if (!parsed.success || !cohortFields.some((field) => Object.prototype.hasOwnProperty.call(parsed.data, field))) {
-    return { success: false as const, error: invalidCohort }
-  }
+  if (!parsed.success) return { success: false as const, error: invalidCohort }
+
+  const hasCohortData = cohortFields.some((field) => {
+    if (!Object.prototype.hasOwnProperty.call(parsed.data, field)) return false
+    if (field !== 'dateRange') return true
+    const range = parsed.data.dateRange
+    return (
+      range !== null &&
+      range !== undefined &&
+      (Object.prototype.hasOwnProperty.call(range, 'from') || Object.prototype.hasOwnProperty.call(range, 'to'))
+    )
+  })
+  if (!hasCohortData) return { success: false as const, error: invalidCohort }
 
   return { success: true as const, data: normalizeCohort(parsed.data) }
 }
 
-function isValidTotal(value: unknown): boolean {
+function isValidTotal(value: unknown, returnedCount: number): boolean {
   if (value === undefined || value === null) return true
-  if (typeof value === 'number') return Number.isSafeInteger(value) && value >= 0
-  if (typeof value === 'string' && value.trim()) {
+  if (typeof value === 'number') return Number.isSafeInteger(value) && value >= returnedCount
+  if (typeof value === 'string' && /^\d+$/.test(value.trim())) {
     const count = Number(value)
-    return Number.isSafeInteger(count) && count >= 0
+    return Number.isSafeInteger(count) && count >= returnedCount
   }
   return false
 }
@@ -74,7 +99,11 @@ function isValidTotal(value: unknown): boolean {
 export function decodeResearchHistoryResponse(value: unknown) {
   const records = decodeResearchCollection(value, ['items', 'data', 'rows'])
   const envelope = asObject(value)
-  if (!records || records.some((item) => Object.keys(item).length === 0) || !isValidTotal(envelope?.total)) {
+  if (
+    !records ||
+    records.some((item) => Object.keys(item).length === 0) ||
+    !isValidTotal(envelope?.total, records.length)
+  ) {
     return { success: false as const, error: invalidHistory }
   }
 
@@ -87,7 +116,7 @@ export function decodeResearchHistoryResponse(value: unknown) {
 export function createResearchExportDecoder(projectId: string, request: ResearchExportRequest) {
   return (value: unknown) => {
     const source = asObject(value)
-    if (!source || typeof source.status !== 'string' || !source.status.trim()) {
+    if (!source || (source.status !== 'pending_review' && source.status !== 'ready')) {
       return { success: false as const, error: invalidExport }
     }
 
@@ -99,10 +128,37 @@ export function createResearchExportDecoder(projectId: string, request: Research
       return { success: false as const, error: invalidExport }
     }
 
-    if (source.status === 'ready' && getValue(source, ['content', 'payload', 'data']) == null) {
-      return { success: false as const, error: invalidExport }
+    if (source.status === 'ready') {
+      const content = getValue(source, ['content', 'payload', 'data'])
+      if (content == null || (typeof content === 'string' && !content.trim())) {
+        return { success: false as const, error: invalidExport }
+      }
     }
 
     return { success: true as const, data: normalizeExportResponse(value, projectId, request) }
+  }
+}
+
+/** An absent inspection is valid; invalid HTTP 2xx objects must not become synthetic results. */
+export function createResearchInspectionDecoder(query?: ResearchMLInspectionQuery) {
+  return (value: unknown) => {
+    if (value === null) return { success: true as const, data: null }
+
+    const parsed = inspectionSchema.safeParse(value)
+    if (!parsed.success) return { success: false as const, error: invalidInspection }
+
+    const identityKeys = ['target', 'targetId', 'modelVersion', 'contract', 'allowedContract'] as const
+    const metadataKeys = ['governance', 'governanceMetadata', 'metadata'] as const
+    const hasIdentity = identityKeys.some((key) => {
+      const field = parsed.data[key]
+      return typeof field === 'string' && field.trim().length > 0
+    })
+    const hasMetadata = metadataKeys.some((key) => {
+      const field = parsed.data[key]
+      return field !== null && field !== undefined && Object.keys(field).length > 0
+    })
+    if (!hasIdentity && !hasMetadata) return { success: false as const, error: invalidInspection }
+
+    return { success: true as const, data: normalizeInspection(parsed.data, query) }
   }
 }

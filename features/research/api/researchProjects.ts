@@ -11,11 +11,12 @@ import {
 } from '@/features/research/api/researchListResponses'
 import {
   createResearchExportDecoder,
+  createResearchInspectionDecoder,
   decodeResearchCohortResponse,
   decodeResearchHistoryResponse,
 } from '@/features/research/api/researchOperationalResponses'
 import { decodeResearchWorkspaceResponse } from '@/features/research/api/researchWorkspaceResponse'
-import { normalizeInspection, normalizeProject } from '@/features/research/model/researchProjectEntities'
+import { normalizeProject } from '@/features/research/model/researchProjectEntities'
 import {
   toResearchProjectCohortBody,
   toResearchProjectGrantBody,
@@ -320,20 +321,17 @@ export async function getResearchProjectMLInspection(
   projectId: string,
   query?: ResearchMLInspectionQuery
 ): Result<ResearchMLInspection | null> {
-  const response = await performResearchRequest(
-    session,
-    `/${projectId}/ml/inspection${buildQuery({
-      target: query?.target,
-      targetId: query?.targetId,
-      modelVersion: query?.modelVersion,
-    })}`
-  )
+  const url = `${RESEARCH_BASE_URL}/${projectId}/ml/inspection${buildQuery({
+    target: query?.target,
+    targetId: query?.targetId,
+    modelVersion: query?.modelVersion,
+  })}`
+  const response = await performAuthRequest(session, url, {
+    decodeResponse: createResearchInspectionDecoder(query),
+  })
 
-  if ('error' in response) {
-    return response
-  }
-
-  return { data: normalizeInspection(response.data, query) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function getResearchProjectHistoryDataset(

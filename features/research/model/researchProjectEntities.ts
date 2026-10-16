@@ -300,7 +300,7 @@ export function normalizeExportResponse(
   const format = getString(source, ['format'], request.format) as ResearchExportFormat
   const defaultFileName = `research-export-${projectId}.${format === 'csv' ? 'csv' : 'json'}`
   const contentValue = getValue(source, ['content', 'payload', 'data'])
-  const content = format === 'csv' ? stringifyValue(contentValue) : stringifyValue(contentValue || source)
+  const content = format === 'csv' ? stringifyValue(contentValue) : stringifyValue(contentValue ?? source)
 
   return {
     status: status === 'ready' ? 'ready' : 'pending_review',
