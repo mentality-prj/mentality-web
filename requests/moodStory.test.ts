@@ -1,6 +1,6 @@
 import { MOOD_STORY_ENDPOINTS } from '@/constants/endpoints'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
-import { getLatestMoodStory, regenerateMoodStory } from '@/requests/moodStory'
+import { getLatestMoodStory, getTodayMoodStory, regenerateMoodStory } from '@/requests/moodStory'
 import { MoodStoryEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
@@ -90,6 +90,24 @@ describe('getLatestMoodStory', () => {
 
     expect(result).toEqual({ data: mockStory })
     expect(performAuthRequest).toHaveBeenCalledWith(null, expect.any(String), expect.any(Object))
+  })
+})
+
+describe('getTodayMoodStory', () => {
+  it('uses today-only endpoint and returns the generated story', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockStory })
+    const result = await getTodayMoodStory(mockSession)
+    expect(result).toEqual({ data: mockStory })
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      expect.stringContaining(MOOD_STORY_ENDPOINTS.TODAY),
+      expect.objectContaining({ method: 'GET' })
+    )
+  })
+
+  it('preserves the 404 status while current-day generation is pending', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not Found', status: 404 })
+    expect(await getTodayMoodStory(mockSession)).toEqual({ error: 'Not Found', status: 404 })
   })
 })
 

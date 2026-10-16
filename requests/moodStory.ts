@@ -5,10 +5,10 @@ import { CustomSession } from '@/types/auth'
 import { APIUrl } from './config'
 import { performAdminRequest, performAuthRequest } from './genericFetch'
 
-export async function getLatestMoodStory(
-  session: CustomSession | null
-): Promise<{ data: MoodStoryEntity } | { error: string; status?: number }> {
-  const res = await performAuthRequest<MoodStoryEntity>(session, `${APIUrl}${MOOD_STORY_ENDPOINTS.LATEST}`, {
+type MoodStoryResponse = { data: MoodStoryEntity } | { error: string; status?: number }
+
+async function fetchMoodStory(session: CustomSession | null, endpoint: string): Promise<MoodStoryResponse> {
+  const res = await performAuthRequest<MoodStoryEntity>(session, `${APIUrl}${endpoint}`, {
     method: 'GET',
   })
   if ('error' in res) {
@@ -18,6 +18,14 @@ export async function getLatestMoodStory(
     return { error: 'No mood story returned from server' }
   }
   return { data: res.data }
+}
+
+export function getLatestMoodStory(session: CustomSession | null): Promise<MoodStoryResponse> {
+  return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.LATEST)
+}
+
+export function getTodayMoodStory(session: CustomSession | null): Promise<MoodStoryResponse> {
+  return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.TODAY)
 }
 
 export async function regenerateMoodStory(
