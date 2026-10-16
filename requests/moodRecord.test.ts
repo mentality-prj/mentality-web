@@ -164,10 +164,8 @@ describe('getMoodRecords', () => {
     it('sends the IANA timezone with weekdays to support local-day filtering', async () => {
       ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
-      await getMoodRecords(mockSession, parseMoodQuery({
-        weekdays: 'sun',
-        timeZone: 'America/New_York',
-      }))
+      const query = parseMoodQuery({ weekdays: 'sun', timeZone: 'America/New_York' })
+      await getMoodRecords(mockSession, query)
 
       const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
       const params = new URL(calledUrl).searchParams
