@@ -107,9 +107,12 @@ test('QDIP administration may only reach NestJS, without upstream platform crede
 function collectModelImports(source) {
   const paths = []
   const visit = (node) => {
-    const declaration = ts.isImportDeclaration(node) || ts.isExportDeclaration(node)
-    const dynamic = ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword
-    const moduleNode = declaration ? node.moduleSpecifier : dynamic ? node.arguments[0] : null
+    let moduleNode
+    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
+      moduleNode = node.moduleSpecifier
+    } else if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword) {
+      moduleNode = node.arguments[0]
+    }
 
     if (moduleNode && ts.isStringLiteralLike(moduleNode)) {
       paths.push(moduleNode.text)
@@ -129,18 +132,15 @@ function isForbiddenModelTarget(target) {
 }
 
 test('model boundaries recognize dynamic imports and directory barrels', () => {
-  const code = [
-    "import '@/features/research/api'",
-    "export * from '../api'",
-    "const load = () => import('@/requests/genericFetch')",
-  ].join('\n')
-  const source = ts.createSourceFile('model.ts', code, ts.ScriptTarget.Latest, true)
+  const code = "import '@/features/research/api'; export * from '../api';"
+  const dynamicImport = "const load = () => import('@/requests/genericFetch')"
+  const source = ts.createSourceFile('model.ts', code + dynamicImport, ts.ScriptTarget.Latest, true)
+  const imports = collectModelImports(source)
 
-  assert.deepEqual(collectModelImports(source), [
-    '@/features/research/api',
-    '../api',
-    '@/requests/genericFetch',
-  ])
+  assert.equal(imports.length, 3)
+  assert.equal(imports[0], '@/features/research/api')
+  assert.equal(imports[1], '../api')
+  assert.equal(imports[2], '@/requests/genericFetch')
   assert.equal(isForbiddenModelTarget('features\\research\\api\\index'), true)
   assert.equal(isForbiddenModelTarget('features/research/api'), true)
   assert.equal(isForbiddenModelTarget('requests'), true)
