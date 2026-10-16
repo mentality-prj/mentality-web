@@ -35,7 +35,13 @@ export default async function DiaryPage() {
           inactiveLabel={t('components.Calendar.daysWithoutActivity', { type: 'myThoughts' })}
         /> */}
       </div>
-      <UserNotes notes={response.data ?? []} />
+      {'error' in response ? (
+        <div role="alert" className="rounded-2xl border border-gray-100 bg-white p-6 text-sm text-textcolor-secondary">
+          {t('components.Diary.historyLoadError')}
+        </div>
+      ) : (
+        <UserNotes notes={response.data ?? []} />
+      )}
     </div>
   )
 }
