@@ -19,5 +19,6 @@
   "Empty": "You have no notes yet",
   "HistoryTitle": "Notes history",
   "backToMyDay": "Back to My Day",
-  "NoMatchingNotes": "No notes match the selected filters"
+  "NoMatchingNotes": "No notes match the selected filters",
+  "historyLoadError": "Unable to load your diary history. Refresh the page and try again."
 }
