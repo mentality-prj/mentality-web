@@ -54,8 +54,10 @@ describe('genericFetch optional runtime decoding', () => {
 
   it('accepts valid nullable data using a tagged decoder result', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: null })
-    const decodeNull = (value: unknown) =>
-      value === null ? { success: true as const, data: null } : { success: false as const }
+    const decodeNull = (value: unknown) => {
+      if (value === null) return { success: true as const, data: null }
+      return { success: false as const }
+    }
 
     await expect(performAuthRequest(session, url, { decodeResponse: decodeNull })).resolves.toEqual({
       data: null,
@@ -78,7 +80,10 @@ describe('genericFetch optional runtime decoding', () => {
 
   it('allows domain-specific failure messages without throwing', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: {} })
-    const decodeResponse = () => ({ success: false as const, error: 'Invalid research project response from backend' })
+    const decodeResponse = () => ({
+      success: false as const,
+      error: 'Invalid research project response from backend',
+    })
 
     await expect(performAuthRequest(session, url, { decodeResponse })).resolves.toEqual({
       error: 'Invalid research project response from backend',
