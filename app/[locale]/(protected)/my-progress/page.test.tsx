@@ -20,14 +20,15 @@ jest.mock('@/ds/components/SectionCard', () => ({
   SectionCard: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }))
 jest.mock('@/components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary', () => ({
-  MoodProgressSummary: ({ stats, failed }: { stats: MoodStatistics | null; failed?: boolean }) => (
-    <div data-testid="mood-progress">{failed ? 'failed' : stats?.totalRecords ?? 'empty'}</div>
-  ),
+  MoodProgressSummary: ({ stats, failed }: { stats: MoodStatistics | null; failed?: boolean }) => {
+    const value = failed ? 'failed' : stats?.totalRecords
+    return <div data-testid="mood-progress">{value ?? 'empty'}</div>
+  },
 }))
 jest.mock('@/components/features/MyProgress/PersonalGoals/PersonalGoalsList', () => ({
-  PersonalGoalsList: ({ initialGoals }: { initialGoals?: GoalEntity[] }) => (
-    <div data-testid="goals-list">{initialGoals?.length ?? 0}</div>
-  ),
+  PersonalGoalsList: ({ initialGoals }: { initialGoals?: GoalEntity[] }) => {
+    return <div data-testid="goals-list">{initialGoals?.length ?? 0}</div>
+  },
 }))
 
 const mockSession: CustomSession = {
@@ -58,7 +59,8 @@ describe('My Progress B2C overview', () => {
     render(await MyProgress())
 
     expect(screen.getByRole('link', { name: 'diaryLink' })).toHaveAttribute('href', '/diary')
-    expect(screen.getByRole('link', { name: 'moodLink' })).toHaveAttribute('href', '/mood-tracker#mood-records-list')
+    const moodHistoryLink = screen.getByRole('link', { name: 'moodLink' })
+    expect(moodHistoryLink).toHaveAttribute('href', '/mood-tracker#mood-records-list')
     expect(screen.getByRole('link', { name: 'goalsLink' })).toHaveAttribute('href', '/my-progress/goals')
   })
 
