@@ -11,7 +11,6 @@ The active roadmap is [#482](https://github.com/mentality-prj/mentality-web/issu
 - Deployment: reconcile dev and production before release; do not assume a merged dev PR is deployed.
 - Quality: focused contract/auth/browser checks for changed behavior; document checks that could not run.
 
-
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 You can view the live application at [mentality-web.vercel.app](https://mentality-web.vercel.app).
