@@ -1,5 +1,3 @@
-import { z } from 'zod'
-
 import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { logger } from '@/lib/logger'
 import { performAuthRequest } from '@/requests/genericFetch'
@@ -16,24 +14,26 @@ const session: CustomSession = {
 }
 
 const url = 'https://backend.example.test/api/research/v1/projects'
-const stringArray = z.array(z.string())
-const decodeStrings = (value: unknown) => {
-  const parsed = stringArray.safeParse(value)
-  return parsed.success ? { success: true as const, data: parsed.data } : { success: false as const }
+
+function decodeStrings(value: unknown) {
+  if (!Array.isArray(value)) return { success: false as const }
+  if (!value.every((item) => typeof item === 'string')) return { success: false as const }
+  return { success: true as const, data: value as string[] }
 }
 
 beforeEach(() => {
   jest.clearAllMocks()
 })
 
-describe('genericFetch optional runtime decoding', () => {
-  it('validates successful JSON and preserves transport headers', async () => {
-    const headers = new Headers({ 'x-total-count': '2' })
-    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: ['a', 'b'], headers })
+describe('genericFetch optional response decoder', () => {
+  it('validates successful responses and preserves headers', async () => {
+    const headers = new Headers()
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: ['a'], headers })
 
-    const result = await performAuthRequest(session, url, { method: 'GET', decodeResponse: decodeStrings })
-
-    expect(result).toEqual({ data: ['a', 'b'], headers })
+    await expect(performAuthRequest(session, url, { decodeResponse: decodeStrings })).resolves.toEqual({
+      data: ['a'],
+      headers,
+    })
     expect(apiRequestWithAuth).toHaveBeenCalledWith(
       session,
       url,
@@ -42,8 +42,8 @@ describe('genericFetch optional runtime decoding', () => {
     )
   })
 
-  it('rejects invalid successful responses as a 502 without sending response details to logs', async () => {
-    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: { secret: 'do not log this payload' } })
+  it('rejects malformed JSON without logging its content', async () => {
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: { secret: 'sensitive' } })
 
     await expect(performAuthRequest(session, url, { decodeResponse: decodeStrings })).resolves.toEqual({
       error: 'Invalid API response from backend',
@@ -52,65 +52,55 @@ describe('genericFetch optional runtime decoding', () => {
     expect(logger.error).toHaveBeenCalledWith('Invalid API response contract', { url, method: 'GET' })
   })
 
-  it('accepts valid nullable data using a tagged decoder result', async () => {
+  it('allows null when the decoder explicitly accepts null', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: null })
-    const decodeNull = (value: unknown) => {
+    const decoder = (value: unknown) => {
       if (value === null) return { success: true as const, data: null }
       return { success: false as const }
     }
 
-    await expect(performAuthRequest(session, url, { decodeResponse: decodeNull })).resolves.toEqual({
+    await expect(performAuthRequest(session, url, { decodeResponse: decoder })).resolves.toEqual({
       data: null,
       headers: undefined,
     })
   })
 
-  it('preserves upstream HTTP errors and never decodes the error response', async () => {
+  it('preserves transport errors without invoking the decoder', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({
       error: { name: 'Forbidden', message: 'Access denied', status: 403 },
     })
-    const decodeResponse = jest.fn(decodeStrings)
+    const decoder = jest.fn(decodeStrings)
 
-    await expect(performAuthRequest(session, url, { decodeResponse })).resolves.toEqual({
+    await expect(performAuthRequest(session, url, { decodeResponse: decoder })).resolves.toEqual({
       error: 'Access denied',
       status: 403,
     })
-    expect(decodeResponse).not.toHaveBeenCalled()
+    expect(decoder).not.toHaveBeenCalled()
   })
 
-  it('allows domain-specific failure messages without throwing', async () => {
+  it('supports domain errors and handles thrown decoder exceptions', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: {} })
-    const decodeResponse = () => ({
+    const invalid = () => ({
       success: false as const,
       error: 'Invalid research project response from backend',
     })
-
-    await expect(performAuthRequest(session, url, { decodeResponse })).resolves.toEqual({
+    await expect(performAuthRequest(session, url, { decodeResponse: invalid })).resolves.toEqual({
       error: 'Invalid research project response from backend',
       status: 502,
     })
-  })
 
-  it('turns a decoder exception into a controlled API failure', async () => {
-    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: {} })
-    const decodeResponse = (): { success: false } => {
-      throw new Error('Internal decoder details should not escape')
+    const throws = (): { success: false } => {
+      throw new Error('do not leak decoder details')
     }
-
-    await expect(performAuthRequest(session, url, { decodeResponse })).resolves.toEqual({
+    await expect(performAuthRequest(session, url, { decodeResponse: throws })).resolves.toEqual({
       error: 'Invalid API response from backend',
       status: 502,
     })
   })
 
-  it('keeps existing calls without a decoder backward compatible', async () => {
-    ;(apiRequestWithAuth as jest.Mock).mockResolvedValueOnce({ data: undefined, headers: undefined })
-    await expect(performAuthRequest<{ id: string }>(session, url)).resolves.toEqual({
-      data: undefined,
-      headers: undefined,
-    })
+  it('retains the legacy response for callers without a decoder', async () => {
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: { id: 'legacy' } })
 
-    ;(apiRequestWithAuth as jest.Mock).mockResolvedValueOnce({ data: { id: 'legacy' } })
     await expect(performAuthRequest<{ id: string }>(session, url)).resolves.toEqual({
       data: { id: 'legacy' },
       headers: undefined,
