@@ -311,6 +311,32 @@ describe('AuthProvider role revalidation after token refresh', () => {
     expect(authService.clearTokensIfUnchanged).not.toHaveBeenCalled()
   })
 
+  it('retains the refresh cookie when a temporary outage crosses access-token expiry', async () => {
+    ;(authService.getStoredTokens as jest.Mock).mockResolvedValue({
+      expiresAt: now + 5,
+      hasRefreshToken: true,
+    })
+    ;(authService.refreshTokens as jest.Mock).mockRejectedValue(new Error('Zitadel unavailable'))
+    ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
+
+    await act(async () => {
+      render(
+        <AuthProvider>
+          <AuthState />
+        </AuthProvider>
+      )
+    })
+    expect(screen.getByTestId('status')).toHaveTextContent('authenticated')
+
+    await act(async () => {
+      await jest.advanceTimersByTimeAsync(6_000)
+    })
+
+    expect(screen.getByTestId('status')).toHaveTextContent('loading')
+    expect(screen.getByTestId('company')).toHaveTextContent('none')
+    expect(authService.clearTokensIfUnchanged).not.toHaveBeenCalled()
+  })
+
   it('does not accept an older account verification after a newer focus result', async () => {
     await mountWithToken(now + 3600)
     let resolveFirst: ((value: typeof membership) => void) | undefined
