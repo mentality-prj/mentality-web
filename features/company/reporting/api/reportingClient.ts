@@ -10,6 +10,7 @@ import {
 import { asArray, asObject } from '@/features/company/reporting/model/projections/shared'
 import { mapMlInspectionToVM } from '@/features/company/reporting/model/reportingMappers'
 import { forwardApiFailure } from '@/lib/api-result'
+import type { ApiResultPromise } from '@/lib/api-result'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import {
@@ -20,7 +21,6 @@ import {
 } from '@/requests/decisionSupport'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import type { CustomSession } from '@/types/auth'
-import type { ApiResultPromise } from '@/lib/api-result'
 import type { PolicyMetrics } from '@/types/decisionSupport'
 import type {
   MLInspectionVM,
