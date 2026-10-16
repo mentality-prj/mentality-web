@@ -100,6 +100,11 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
       resetForm()
       if (onSave) onSave()
       if (onClose) onClose()
+    } catch (error) {
+      logger.error('Mood record submission failed unexpectedly', {
+        error: error instanceof Error ? error.message : String(error),
+      })
+      notifyError(safeT('Toast.Failed', 'Failed to save mood'))
     } finally {
       setIsSubmitting(false)
     }
