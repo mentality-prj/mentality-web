@@ -822,9 +822,11 @@ describe('researchProjects requests', () => {
   })
 
   it('maps 403 workspace access to a denied state and derives capabilities from successful responses', async () => {
-    mockedApiRequestWithAuth.mockResolvedValueOnce({
-      error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
-    }).mockResolvedValueOnce({
+    mockedApiRequestWithAuth
+      .mockResolvedValueOnce({
+        error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
+      })
+      .mockResolvedValueOnce({
       data: {
         capabilities: ['scientist', 'research_admin', 'ignored-role'],
         canCreateProject: false,
@@ -902,9 +904,11 @@ describe('researchProjects requests', () => {
       },
     }
 
-    mockedApiRequestWithAuth.mockResolvedValueOnce({
-      error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
-    }).mockResolvedValueOnce({
+    mockedApiRequestWithAuth
+      .mockResolvedValueOnce({
+        error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
+      })
+      .mockResolvedValueOnce({
       data: {
         capabilities: [],
         canCreateProject: false,
