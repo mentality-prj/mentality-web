@@ -5,11 +5,13 @@ import MoodTrackerPage from '@/app/[locale]/(protected)/mood-tracker/page'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
+import { getMoodStatistics } from '@/requests/userStatistics'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn(), getMoodRecords: jest.fn() }))
+jest.mock('@/requests/userStatistics', () => ({ getMoodStatistics: jest.fn() }))
 jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({
   buildMoodMarksData: jest.fn().mockReturnValue({}),
@@ -32,6 +34,11 @@ jest.mock('@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary', () 
 
 jest.mock('@/components/features/MoodTracker/WellbeingSummary/WellbeingSummary', () => ({
   WellbeingSummary: () => <div data-testid="wellbeing-summary" />,
+}))
+jest.mock('@/components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary', () => ({
+  MoodProgressSummary: ({ failed }: { failed?: boolean }) => (
+    <div data-testid="mood-progress">{failed ? 'error' : 'ready'}</div>
+  ),
 }))
 
 jest.mock('@/ds/components/PageTitle', () => ({
@@ -62,6 +69,7 @@ beforeEach(() => {
   ;(getMoodRecords as jest.Mock).mockResolvedValue({
     data: { moodNotes: mockRecords, total: mockRecords.length },
   })
+  ;(getMoodStatistics as jest.Mock).mockResolvedValue({ data: { totalRecords: 2, trend30d: [] } })
 })
 
 describe('MoodTracker page', () => {
@@ -82,6 +90,18 @@ describe('MoodTracker page', () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByTestId('new-mood-note-section')).toBeInTheDocument()
+  })
+
+  it('loads existing user mood statistics and renders progress without new endpoints', async () => {
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession)
+    expect(screen.getByTestId('mood-progress')).toHaveTextContent('ready')
+  })
+
+  it('shows an explicit progress error state if the existing statistics request fails', async () => {
+    ;(getMoodStatistics as jest.Mock).mockResolvedValue({ error: 'Backend unavailable' })
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(screen.getByTestId('mood-progress')).toHaveTextContent('error')
   })
 
   it('renders TenDaysSummary', async () => {
