@@ -824,6 +824,47 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('validates workspace access at the transport boundary before computing permissions', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      data: { capabilities: ['scientist'], companies: [{ id: 'company-1' }] },
+    })
+
+    const access = await getResearchWorkspaceAccess(mockSession)
+    expect(access).toHaveProperty('data.hasAccess', true)
+    expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      'http://localhost:3200/api/research/v1/projects',
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
+    )
+  })
+
+  it('coalesces concurrent workspace requests but does not cache completed results', async () => {
+    let releaseResponse: ((value: unknown) => void) | undefined
+    mockedApiRequestWithAuth.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          releaseResponse = resolve
+        })
+    )
+
+    const first = getResearchWorkspaceAccess(mockSession)
+    const second = getResearchWorkspaceAccess(mockSession)
+    expect(mockedApiRequestWithAuth).toHaveBeenCalledTimes(1)
+
+    if (!releaseResponse) throw new Error('Expected the workspace request to start')
+    releaseResponse({ data: { capabilities: ['scientist'] } })
+
+    const [firstResult, secondResult] = await Promise.all([first, second])
+    expect(firstResult).toEqual(secondResult)
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      data: { capabilities: ['research_admin'] },
+    })
+    const thirdResult = await getResearchWorkspaceAccess(mockSession)
+    expect(thirdResult).toHaveProperty('data.canCreateProjects', true)
+    expect(mockedApiRequestWithAuth).toHaveBeenCalledTimes(2)
+  })
+
   it('maps 403 workspace access to a denied state and derives capabilities from successful responses', async () => {
     mockedApiRequestWithAuth
       .mockResolvedValueOnce({
