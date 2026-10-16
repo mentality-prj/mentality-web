@@ -685,7 +685,7 @@ describe('researchProjects requests', () => {
     expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1/ml/inspection?target=cohort&targetId=group-1&modelVersion=v3.2.1',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(result).toEqual(
       expect.objectContaining({
@@ -697,6 +697,25 @@ describe('researchProjects requests', () => {
         }),
       })
     )
+  })
+
+  it('rejects malformed ML inspection success as 502 while preserving null and upstream 403', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { target: 42 } })
+    await expect(getResearchProjectMLInspection(mockSession, 'project-1', { target: 'cohort' })).resolves.toEqual({
+      error: 'Invalid research ML inspection response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: null })
+    await expect(getResearchProjectMLInspection(mockSession, 'project-1', { target: 'cohort' })).resolves.toEqual({
+      data: null,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ error: { message: 'Forbidden', status: 403 } })
+    await expect(getResearchProjectMLInspection(mockSession, 'project-1', { target: 'cohort' })).resolves.toEqual({
+      error: 'Forbidden',
+      status: 403,
+    })
   })
 
   it('gets the history dataset and normalizes dynamic columns', async () => {
