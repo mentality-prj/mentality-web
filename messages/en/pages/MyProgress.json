@@ -1,7 +1,26 @@
 {
   "title": "My progress",
   "subtitle": "Achievements, statistics and personal goals — all in one place to see your progress 💛",
-  "achievements": { "title": "My achievements" },
-  "goals": { "title": "My goals" },
-  "statistics": { "title": "My statistics" }
+  "achievements": {
+    "title": "My achievements"
+  },
+  "goals": {
+    "title": "My goals"
+  },
+  "statistics": {
+    "title": "My statistics"
+  },
+  "overview": {
+    "historyHeading": "Your reflections",
+    "historyDescription": "Revisit your thoughts and mood check-ins whenever it helps.",
+    "moodTitle": "Mood history",
+    "moodDescription": "Review your check-ins and how they change over time.",
+    "moodLink": "View mood entries",
+    "diaryTitle": "Your diary",
+    "diaryDescription": "A private place to keep the thoughts you want to remember.",
+    "diaryLink": "Open diary",
+    "goalsHeading": "Your current goals",
+    "goalsLink": "All personal goals",
+    "goalsError": "Unable to load your goals. Refresh the page and try again."
+  }
 }

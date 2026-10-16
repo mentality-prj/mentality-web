@@ -1,7 +1,26 @@
 {
   "title": "Mój postęp",
   "subtitle": "Osiągnięcia, statystyki i cele osobiste — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛",
-  "achievements": { "title": "Moje osiągnięcia" },
-  "goals": { "title": "Moje cele" },
-  "statistics": { "title": "Moje statystyki" }
+  "achievements": {
+    "title": "Moje osiągnięcia"
+  },
+  "goals": {
+    "title": "Moje cele"
+  },
+  "statistics": {
+    "title": "Moje statystyki"
+  },
+  "overview": {
+    "historyHeading": "Twoje zapiski",
+    "historyDescription": "Wracaj do swoich myśli i zapisów nastroju, kiedy uznasz to za pomocne.",
+    "moodTitle": "Historia nastroju",
+    "moodDescription": "Przeglądaj wpisy i zmiany nastroju w czasie.",
+    "moodLink": "Zobacz wpisy nastroju",
+    "diaryTitle": "Twój dziennik",
+    "diaryDescription": "Prywatne miejsce na myśli, które chcesz zachować.",
+    "diaryLink": "Otwórz dziennik",
+    "goalsHeading": "Twoje aktualne cele",
+    "goalsLink": "Wszystkie cele osobiste",
+    "goalsError": "Nie udało się wczytać celów. Odśwież stronę i spróbuj ponownie."
+  }
 }
