@@ -39,6 +39,7 @@ export async function getMoodRecords(
     focusLevels?: number[]
     tags?: string[]
     weekdays?: number[]
+    timeZone?: string
   }
 ) {
   const query = new URLSearchParams()
@@ -68,6 +69,7 @@ export async function getMoodRecords(
 
   params.tags?.forEach((tag) => query.append('tags', tag))
   params.weekdays?.forEach((day) => query.append('weekdays', String(day)))
+  if (params.weekdays?.length && params.timeZone) query.set('timeZone', params.timeZone)
 
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })

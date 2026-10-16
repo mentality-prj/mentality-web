@@ -12,6 +12,7 @@ import type { MoodRecordEntity } from '@/types/api-responses'
 import { UserTag } from '@/types/tags'
 import { Button } from '@/ui/button'
 import { getSafePage } from '@/utils/getSafePage'
+import { getBrowserTimeZone } from '@/utils/timeZone'
 
 import { MoodRecordsFilter } from './MoodRecordsFilter'
 
@@ -37,6 +38,24 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
   }
 
   const [showFilters, setShowFilters] = useState(false)
+  const [browserTimeZone, setBrowserTimeZone] = useState<string | null>(null)
+  const hasWeekdayFilter = searchParams.getAll('weekdays').some((value) => value.split(',').some(Boolean))
+  const urlTimeZone = searchParams.get('timeZone')
+
+  useEffect(() => {
+    const detected = getBrowserTimeZone()
+    setBrowserTimeZone(detected)
+
+    // Shared/deep-linked weekday filters must be interpreted in the viewer's
+    // time zone. Replace the URL once; the server then fetches the correct page.
+    if (hasWeekdayFilter && urlTimeZone !== detected) {
+      const params = new URLSearchParams(searchParams.toString())
+      params.set('timeZone', detected)
+      router.replace(`${pathname}?${params.toString()}`, { scroll: false })
+    }
+  }, [hasWeekdayFilter, pathname, router, searchParams, urlTimeZone])
+
+  const timeZoneReady = !hasWeekdayFilter || (browserTimeZone !== null && browserTimeZone === urlTimeZone)
 
   const totalPages = Math.min(MAX_MOOD_PAGE, Math.max(1, Math.ceil(totalCount / PAGE_SIZE)))
   const requestedPage = searchParams.get('page')
@@ -45,12 +64,12 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
   useEffect(() => {
     // The result count can shrink after a filter change or a record deletion.
     // Keep the URL and the server-fetched page aligned instead of showing an empty list.
-    if (requestedPage !== null && requestedPage !== String(page)) {
+    if (timeZoneReady && requestedPage !== null && requestedPage !== String(page)) {
       const params = new URLSearchParams(searchParams.toString())
       params.set('page', String(page))
       router.replace(`${pathname}?${params.toString()}`, { scroll: false })
     }
-  }, [page, pathname, requestedPage, router, searchParams])
+  }, [page, pathname, requestedPage, router, searchParams, timeZoneReady])
 
   return (
     <div id="mood-records-list" className="flex flex-col gap-sm">
@@ -69,10 +88,15 @@ export function MoodRecordsClient({ records, availableTags, totalCount }: Props)
 
       <div className="flex flex-col-reverse gap-md md:flex-row">
         <div className={`flex flex-col gap-sm ${showFilters ? 'md:w-3/5 xl:w-2/3' : 'w-full'}`}>
-          {records.length === 0 && <p className="mt-2 text-sm text-gray-500">{mt('History.Empty')}</p>}
-
-          <MoodRecordsList records={records} />
-          {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />}
+          {!timeZoneReady ? (
+            <div className="min-h-24" role="status" aria-busy="true" aria-label={mt('History.Title')} />
+          ) : (
+            <>
+              {records.length === 0 && <p className="mt-2 text-sm text-gray-500">{mt('History.Empty')}</p>}
+              <MoodRecordsList records={records} />
+              {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onPageChange={handlePageChange} />}
+            </>
+          )}
         </div>
         <div id="mood-records-filters" className={`${showFilters ? 'md:w-2/5 xl:w-1/3' : 'hidden'}`}>
           <MoodRecordsFilter availableTags={availableTags} />
