@@ -9,14 +9,13 @@ import {
   decodeResearchMembersResponse,
   decodeResearchProjectsResponse,
 } from '@/features/research/api/researchListResponses'
-import { decodeResearchWorkspaceResponse } from '@/features/research/api/researchWorkspaceResponse'
 import {
-  normalizeCohort,
-  normalizeExportResponse,
-  normalizeHistoryDataset,
-  normalizeInspection,
-  normalizeProject,
-} from '@/features/research/model/researchProjectEntities'
+  createResearchExportDecoder,
+  decodeResearchCohortResponse,
+  decodeResearchHistoryResponse,
+} from '@/features/research/api/researchOperationalResponses'
+import { decodeResearchWorkspaceResponse } from '@/features/research/api/researchWorkspaceResponse'
+import { normalizeInspection, normalizeProject } from '@/features/research/model/researchProjectEntities'
 import {
   toResearchProjectCohortBody,
   toResearchProjectGrantBody,
@@ -267,14 +266,12 @@ export async function getResearchProjectCohort(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProjectCohort | null> {
-  const response = await performResearchRequest(session, `/${projectId}/cohorts`)
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/cohorts`, {
+    decodeResponse: decodeResearchCohortResponse,
+  })
 
-  if ('error' in response) {
-    return response
-  }
-
-  const source = Array.isArray(response.data) ? response.data[0] : response.data
-  return { data: normalizeCohort(source) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function updateResearchProjectCohort(
@@ -282,16 +279,14 @@ export async function updateResearchProjectCohort(
   projectId: string,
   payload: ResearchProjectCohortInput
 ): Result<ResearchProjectCohort | null> {
-  const response = await performResearchRequest(session, `/${projectId}/cohorts`, {
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/cohorts`, {
     method: 'PATCH',
     body: toResearchProjectCohortBody(payload),
+    decodeResponse: decodeResearchCohortResponse,
   })
 
-  if ('error' in response) {
-    return response
-  }
-
-  return { data: normalizeCohort(response.data) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function getResearchProjectGrants(
@@ -346,20 +341,17 @@ export async function getResearchProjectHistoryDataset(
   projectId: string,
   filters: ResearchHistoryDatasetFilters = {}
 ): Result<ResearchHistoryDataset> {
-  const response = await performResearchRequest(
-    session,
-    `/${projectId}/datasets/history${buildQuery({
-      from: filters.from,
-      to: filters.to,
-      limit: filters.limit,
-    })}`
-  )
+  const url = `${RESEARCH_BASE_URL}/${projectId}/datasets/history${buildQuery({
+    from: filters.from,
+    to: filters.to,
+    limit: filters.limit,
+  })}`
+  const response = await performAuthRequest(session, url, {
+    decodeResponse: decodeResearchHistoryResponse,
+  })
 
-  if ('error' in response) {
-    return response
-  }
-
-  return { data: normalizeHistoryDataset(response.data) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function requestResearchProjectExport(
@@ -367,20 +359,18 @@ export async function requestResearchProjectExport(
   projectId: string,
   payload: ResearchExportRequest
 ): Result<ResearchExportResponse> {
-  const response = await performResearchRequest(session, `/${projectId}/exports`, {
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/exports`, {
     method: 'POST',
     body: {
       format: payload.format,
       requestedFields: payload.requestedFields,
       reason: payload.reason,
     },
+    decodeResponse: createResearchExportDecoder(projectId, payload),
   })
 
-  if ('error' in response) {
-    return response
-  }
-
-  return { data: normalizeExportResponse(response.data, projectId, payload) }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function getResearchProjectAudit(
