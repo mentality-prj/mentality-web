@@ -36,10 +36,7 @@ export default async function DiaryPage() {
         /> */}
       </div>
       {'error' in response ? (
-        <div
-          role="alert"
-          className="rounded-2xl border border-gray-100 bg-white p-6 text-sm text-textcolor-secondary"
-        >
+        <div role="alert" className="rounded-2xl border border-gray-100 bg-white p-6 text-sm text-textcolor-secondary">
           {t('components.Diary.historyLoadError')}
         </div>
       ) : (
