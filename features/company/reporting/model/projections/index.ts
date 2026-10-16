@@ -1,5 +1,5 @@
-export { mapReportOverviewProjectionToVM } from './overview'
-export { mapRiskEventProjectionToVM, buildRiskEventFallbackDetail } from './risk'
 export { mapMLInspectionProjectionToVM } from './ml'
+export { mapReportOverviewProjectionToVM } from './overview'
 export { mapPersonalRiskOverviewProjectionToVM, mapPersonalRiskTimelineProjectionToVM } from './personal'
+export { buildRiskEventFallbackDetail, mapRiskEventProjectionToVM } from './risk'
 export { mapTeamDynamicsProjectionToVM } from './team'

@@ -1,4 +1,3 @@
-import { mapMlInspectionToVM } from '@/features/company/reporting/model/reportingMappers'
 import {
   buildRiskEventFallbackDetail,
   mapMLInspectionProjectionToVM,
@@ -9,6 +8,7 @@ import {
   mapTeamDynamicsProjectionToVM,
 } from '@/features/company/reporting/model/projections'
 import { asArray, asObject } from '@/features/company/reporting/model/projections/shared'
+import { mapMlInspectionToVM } from '@/features/company/reporting/model/reportingMappers'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import {

@@ -1,7 +1,25 @@
 import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
 import type { TeamDynamicsVM } from '@/types/reporting'
 
-import { AGGREGATE_ONLY, asObject, asArray, getString, getNumber, getBoolean, getObject, getStringArray, formatNumber, humanizeToken, normalizeRiskLevel, toneFromRiskLevel, dedupeStrings, mapProjectionConfidence, scaleRiskValue, mapInsightToCard, createMetricCard } from './shared'
+import {
+  AGGREGATE_ONLY,
+  asArray,
+  asObject,
+  createMetricCard,
+  dedupeStrings,
+  formatNumber,
+  getBoolean,
+  getNumber,
+  getObject,
+  getString,
+  getStringArray,
+  humanizeToken,
+  mapInsightToCard,
+  mapProjectionConfidence,
+  normalizeRiskLevel,
+  scaleRiskValue,
+  toneFromRiskLevel,
+} from './shared'
 
 export function riskIntensity(value: number | null, masked = false): TeamDynamicsVM['heatmap'][number]['intensity'] {
   if (masked) return 'masked'

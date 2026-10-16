@@ -1,7 +1,21 @@
 import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
 import type { RiskEventDetailVM, RiskEventVM } from '@/types/reporting'
 
-import { ALWAYS, getString, getNumber, getObject, getStringArray, formatNumber, humanizeToken, normalizeRiskLevel, dedupeStrings, mapProjectionConfidence, flattenDiagnostics, buildExplainability, JsonObject } from './shared'
+import {
+  ALWAYS,
+  buildExplainability,
+  dedupeStrings,
+  flattenDiagnostics,
+  formatNumber,
+  getNumber,
+  getObject,
+  getString,
+  getStringArray,
+  humanizeToken,
+  JsonObject,
+  mapProjectionConfidence,
+  normalizeRiskLevel,
+} from './shared'
 
 export function mapRiskEventProjectionToVM(source: JsonObject, locale?: string, index = 0): RiskEventVM {
   const copy = getReportingCopy(locale)

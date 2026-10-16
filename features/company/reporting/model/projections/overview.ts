@@ -1,7 +1,24 @@
 import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
 import type { InsightCardVM, ReportOverviewVM, ReportRankingItemVM } from '@/types/reporting'
 
-import { ALWAYS, asObject, asArray, getString, getNumber, getObject, getStringArray, formatNumber, formatCurrency, humanizeToken, normalizeRiskLevel, toneFromRiskLevel, dedupeStrings, mapProjectionConfidence, mapInsightToCard, createMetricCard } from './shared'
+import {
+  ALWAYS,
+  asArray,
+  asObject,
+  createMetricCard,
+  dedupeStrings,
+  formatCurrency,
+  formatNumber,
+  getNumber,
+  getObject,
+  getString,
+  getStringArray,
+  humanizeToken,
+  mapInsightToCard,
+  mapProjectionConfidence,
+  normalizeRiskLevel,
+  toneFromRiskLevel,
+} from './shared'
 
 export function mapReportOverviewProjectionToVM(source: unknown, locale?: string): ReportOverviewVM {
   const copy = getReportingCopy(locale)

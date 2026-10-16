@@ -1,7 +1,29 @@
 import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
 import type { PersonalRiskOverviewVM, PersonalRiskTimelineVM } from '@/types/reporting'
 
-import { ALWAYS, asObject, asArray, getString, getNumber, getObject, getStringArray, formatNumber, formatSignedNumber, formatPercent, humanizeToken, normalizeRiskLevel, toneFromRiskLevel, riskLevelLabel, normalizeTrendDirection, toneFromTrend, dedupeStrings, mapProjectionConfidence, scaleRiskValue, mapInsightToCard, createMetricCard } from './shared'
+import {
+  ALWAYS,
+  asArray,
+  asObject,
+  createMetricCard,
+  dedupeStrings,
+  formatNumber,
+  formatPercent,
+  formatSignedNumber,
+  getNumber,
+  getObject,
+  getString,
+  getStringArray,
+  humanizeToken,
+  mapInsightToCard,
+  mapProjectionConfidence,
+  normalizeRiskLevel,
+  normalizeTrendDirection,
+  riskLevelLabel,
+  scaleRiskValue,
+  toneFromRiskLevel,
+  toneFromTrend,
+} from './shared'
 
 export function mapPersonalRiskOverviewProjectionToVM(
   overviewSource: unknown,

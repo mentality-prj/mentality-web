@@ -1,7 +1,24 @@
 import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
 import type { MLInspectionVM } from '@/types/reporting'
 
-import { ALWAYS, asObject, asArray, getString, getNumber, getObject, formatNumber, formatPercent, humanizeToken, normalizeRiskLevel, toneFromRiskLevel, dedupeStrings, mapProjectionConfidence, flattenDiagnostics, mapInsightToCard, createMetricCard } from './shared'
+import {
+  ALWAYS,
+  asArray,
+  asObject,
+  createMetricCard,
+  dedupeStrings,
+  flattenDiagnostics,
+  formatNumber,
+  formatPercent,
+  getNumber,
+  getObject,
+  getString,
+  humanizeToken,
+  mapInsightToCard,
+  mapProjectionConfidence,
+  normalizeRiskLevel,
+  toneFromRiskLevel,
+} from './shared'
 
 export function mapMLInspectionProjectionToVM(
   operationalSource: unknown,

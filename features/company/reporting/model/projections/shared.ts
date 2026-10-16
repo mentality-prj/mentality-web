@@ -1,6 +1,15 @@
 import { getReportingCopy } from '@/features/company/reporting/model/reportingCopy'
 import { createConfidenceBadgeVM } from '@/features/company/reporting/model/reportingMappers'
-import type { ConfidenceBadgeVM, ConfidenceLevel, InsightCardVM, InsightFactVM, RiskEventDetailVM, RiskLevel, TrendDirection, VisibilityRule } from '@/types/reporting'
+import type {
+  ConfidenceBadgeVM,
+  ConfidenceLevel,
+  InsightCardVM,
+  InsightFactVM,
+  RiskEventDetailVM,
+  RiskLevel,
+  TrendDirection,
+  VisibilityRule,
+} from '@/types/reporting'
 
 export type JsonObject = Record<string, unknown>
 
