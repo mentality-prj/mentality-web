@@ -5,6 +5,11 @@ import {
   hasResearchEntityId,
 } from '@/features/research/api/researchCollection.contract'
 import {
+  decodeResearchGrantsResponse,
+  decodeResearchMembersResponse,
+  decodeResearchProjectsResponse,
+} from '@/features/research/api/researchListResponses'
+import {
   normalizeAuditEvents,
   normalizeCohort,
   normalizeExportResponse,
@@ -172,18 +177,11 @@ export function hasResearchCapability(access: ResearchWorkspaceAccess | null): b
 }
 
 export async function getResearchProjects(session: CustomSession | null): Result<ResearchProject[]> {
-  const response = await performResearchRequest(session, '')
-
-  if ('error' in response) {
-    return response
-  }
-
-  const projects = decodeResearchCollection(response.data, ['items', 'projects', 'data'])
-  if (!projects || !projects.every(hasResearchEntityId)) {
-    return { error: 'Invalid research projects response from backend', status: 502 }
-  }
-
-  return { data: projects.map((project) => normalizeProject(project, session)) }
+  const response = await performAuthRequest(session, RESEARCH_BASE_URL, {
+    decodeResponse: decodeResearchProjectsResponse,
+  })
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data.map((project) => normalizeProject(project, session)) }
 }
 
 export async function createResearchProject(
@@ -259,23 +257,11 @@ export async function getResearchProjectMembers(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProjectMember[]> {
-  const response = await performResearchRequest(session, `/${projectId}/members`)
-
-  if ('error' in response) {
-    return response
-  }
-
-  const items = decodeResearchCollection(response.data, ['items', 'members', 'data'])
-  if (!items) {
-    return { error: 'Invalid research members response from backend', status: 502 }
-  }
-
-  const members = items.map((item) => normalizeProjectMember(item, EMPTY_PERMISSIONS))
-  if (members.some((member) => member === null)) {
-    return { error: 'Invalid research members response from backend', status: 502 }
-  }
-
-  return { data: members.filter((member): member is ResearchProjectMember => member !== null) }
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/members`, {
+    decodeResponse: decodeResearchMembersResponse,
+  })
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function addResearchProjectMember(
@@ -351,23 +337,11 @@ export async function getResearchProjectGrants(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProjectGrant[]> {
-  const response = await performResearchRequest(session, `/${projectId}/grants`)
-
-  if ('error' in response) {
-    return response
-  }
-
-  const items = decodeResearchCollection(response.data, ['items', 'grants', 'data'])
-  if (!items || !items.every(hasResearchEntityId)) {
-    return { error: 'Invalid research grants response from backend', status: 502 }
-  }
-
-  const grants = items.map((item) => normalizeGrant(item))
-  if (grants.some((grant) => grant === null)) {
-    return { error: 'Invalid research grants response from backend', status: 502 }
-  }
-
-  return { data: grants.filter((grant): grant is ResearchProjectGrant => grant !== null) }
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/grants`, {
+    decodeResponse: decodeResearchGrantsResponse,
+  })
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function createResearchProjectGrant(
