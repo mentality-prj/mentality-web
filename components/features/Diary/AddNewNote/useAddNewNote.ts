@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
 import useTags from '@/hooks/useTags'
+import { logger } from '@/lib/logger'
 import { createDiary } from '@/requests/diary'
 import type { CreateDiaryDto } from '@/types/api-responses'
 import type { UserTag } from '@/types/tags'
@@ -64,8 +65,20 @@ export function useAddNewNote({ availableTags = [], onSave, onClose }: Params) {
 
       notifySuccess(t('saveSuccess'))
       resetForm()
-      if (onSave) onSave()
-      if (onClose) onClose()
+      // The diary entry is persisted; a refresh failure must not be shown as a failed save.
+      try {
+        onSave?.()
+        onClose?.()
+      } catch (error) {
+        logger.warn('Diary saved but post-save UI update failed', {
+          error: error instanceof Error ? error.message : String(error),
+        })
+      }
+    } catch (error) {
+      logger.error('Diary submission failed unexpectedly', {
+        error: error instanceof Error ? error.message : String(error),
+      })
+      notifyError(t('saveError'))
     } finally {
       setIsSubmitting(false)
     }
