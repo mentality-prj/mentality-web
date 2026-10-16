@@ -827,12 +827,12 @@ describe('researchProjects requests', () => {
         error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
       })
       .mockResolvedValueOnce({
-      data: {
-        capabilities: ['scientist', 'research_admin', 'ignored-role'],
-        canCreateProject: false,
-        items: [createProjectPayload()],
-      },
-    })
+        data: {
+          capabilities: ['scientist', 'research_admin', 'ignored-role'],
+          canCreateProject: false,
+          items: [createProjectPayload()],
+        },
+      })
 
     const deniedResult = await getResearchWorkspaceAccess(mockSession)
     const accessResult = await getResearchWorkspaceAccess(mockSession)
@@ -909,12 +909,12 @@ describe('researchProjects requests', () => {
         error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
       })
       .mockResolvedValueOnce({
-      data: {
-        capabilities: [],
-        canCreateProject: false,
-        items: [createProjectPayload()],
-      },
-    })
+        data: {
+          capabilities: [],
+          canCreateProject: false,
+          items: [createProjectPayload()],
+        },
+      })
 
     const deniedAdminResult = await getResearchWorkspaceAccess(adminSession)
     const grantedAdminResult = await getResearchWorkspaceAccess(adminSession)
