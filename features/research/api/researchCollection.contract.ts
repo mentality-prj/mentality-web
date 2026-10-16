@@ -80,6 +80,17 @@ export function decodeResearchWorkspaceProjects(value: unknown): Record<string, 
   return workspaceMetadataKeys.some((key) => Object.prototype.hasOwnProperty.call(envelope.data, key)) ? [] : null
 }
 
+/**
+ * Validate single-entity responses before applying permissive ViewModel
+ * normalization. Reject missing or ambiguous IDs rather than manufacturing
+ * successful empty projects or random grant identifiers.
+ */
+export function decodeResearchEntity(value: unknown): Record<string, unknown> | null {
+  const parsed = collectionItem.safeParse(value)
+  if (!parsed.success || !hasResearchEntityId(parsed.data)) return null
+  return parsed.data
+}
+
 /** Project and grant list entries must have stable identities. */
 export function hasResearchEntityId(item: Record<string, unknown>): boolean {
   return hasFirstValidId(item, ['id', '_id'])

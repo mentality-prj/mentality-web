@@ -1,5 +1,6 @@
 import {
   decodeResearchCollection,
+  decodeResearchEntity,
   decodeResearchWorkspaceProjects,
   hasResearchEntityId,
 } from '@/features/research/api/researchCollection.contract'
@@ -150,18 +151,20 @@ function getResearchWorkspaceAccessCacheKey(session: CustomSession | null): stri
   return `${session?.user?.id ?? session?.user?.email ?? 'anonymous'}:${token}`
 }
 
-async function performResearchRequest<T = unknown>(
+async function performResearchRequest(
   session: CustomSession | null,
   path: string,
   options?: { method?: string; body?: Record<string, unknown> }
-): ApiResultPromise<T> {
-  const response = await performAuthRequest<T>(session, `${RESEARCH_BASE_URL}${path}`, options)
+): ApiResultPromise<unknown> {
+  // Parse transport bytes as unknown; concrete types are established by the
+  // feature decoders, never by generic type assertions on untrusted JSON.
+  const response = await performAuthRequest<unknown>(session, `${RESEARCH_BASE_URL}${path}`, options)
 
   if ('error' in response) {
     return forwardApiFailure(response)
   }
 
-  return { data: response.data as T }
+  return { data: response.data }
 }
 
 export function hasResearchCapability(access: ResearchWorkspaceAccess | null): boolean {
@@ -169,7 +172,7 @@ export function hasResearchCapability(access: ResearchWorkspaceAccess | null): b
 }
 
 export async function getResearchProjects(session: CustomSession | null): Result<ResearchProject[]> {
-  const response = await performResearchRequest<unknown>(session, '')
+  const response = await performResearchRequest(session, '')
 
   if ('error' in response) {
     return response
@@ -187,7 +190,7 @@ export async function createResearchProject(
   session: CustomSession | null,
   payload: ResearchProjectMutationInput
 ): Result<ResearchProject> {
-  const response = await performResearchRequest<unknown>(session, '', {
+  const response = await performResearchRequest(session, '', {
     method: 'POST',
     body: toResearchProjectMutationBody(payload),
   })
@@ -196,20 +199,30 @@ export async function createResearchProject(
     return response
   }
 
-  return { data: normalizeProject(asObject(response.data), session) }
+  const project = decodeResearchEntity(response.data)
+  if (!project) {
+    return { error: 'Invalid research project response from backend', status: 502 }
+  }
+
+  return { data: normalizeProject(project, session) }
 }
 
 export async function getResearchProjectById(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProject> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}`)
+  const response = await performResearchRequest(session, `/${projectId}`)
 
   if ('error' in response) {
     return response
   }
 
-  return { data: normalizeProject(asObject(response.data), session) }
+  const project = decodeResearchEntity(response.data)
+  if (!project) {
+    return { error: 'Invalid research project response from backend', status: 502 }
+  }
+
+  return { data: normalizeProject(project, session) }
 }
 
 export async function updateResearchProject(
@@ -217,7 +230,7 @@ export async function updateResearchProject(
   projectId: string,
   payload: Partial<ResearchProjectMutationInput>
 ): Result<ResearchProject> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}`, {
+  const response = await performResearchRequest(session, `/${projectId}`, {
     method: 'PATCH',
     body: toResearchProjectMutationBody(payload),
   })
@@ -226,14 +239,19 @@ export async function updateResearchProject(
     return response
   }
 
-  return { data: normalizeProject(asObject(response.data), session) }
+  const project = decodeResearchEntity(response.data)
+  if (!project) {
+    return { error: 'Invalid research project response from backend', status: 502 }
+  }
+
+  return { data: normalizeProject(project, session) }
 }
 
 export async function getResearchProjectMembers(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProjectMember[]> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/members`)
+  const response = await performResearchRequest(session, `/${projectId}/members`)
 
   if ('error' in response) {
     return response
@@ -257,7 +275,7 @@ export async function addResearchProjectMember(
   projectId: string,
   payload: { userId: string; role: ResearchWorkspaceRole }
 ): Result<ResearchProjectMember> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/members`, {
+  const response = await performResearchRequest(session, `/${projectId}/members`, {
     method: 'POST',
     body: payload,
   })
@@ -279,7 +297,7 @@ export async function removeResearchProjectMember(
   projectId: string,
   userId: string
 ): Result<{ ok: true }> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/members/${userId}`, {
+  const response = await performResearchRequest(session, `/${projectId}/members/${userId}`, {
     method: 'DELETE',
   })
 
@@ -294,7 +312,7 @@ export async function getResearchProjectCohort(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProjectCohort | null> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/cohorts`)
+  const response = await performResearchRequest(session, `/${projectId}/cohorts`)
 
   if ('error' in response) {
     return response
@@ -309,7 +327,7 @@ export async function updateResearchProjectCohort(
   projectId: string,
   payload: ResearchProjectCohortInput
 ): Result<ResearchProjectCohort | null> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/cohorts`, {
+  const response = await performResearchRequest(session, `/${projectId}/cohorts`, {
     method: 'PATCH',
     body: toResearchProjectCohortBody(payload),
   })
@@ -325,7 +343,7 @@ export async function getResearchProjectGrants(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProjectGrant[]> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/grants`)
+  const response = await performResearchRequest(session, `/${projectId}/grants`)
 
   if ('error' in response) {
     return response
@@ -349,7 +367,7 @@ export async function createResearchProjectGrant(
   projectId: string,
   payload: ResearchProjectGrantInput
 ): Result<ResearchProjectGrant> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/grants`, {
+  const response = await performResearchRequest(session, `/${projectId}/grants`, {
     method: 'POST',
     body: toResearchProjectGrantBody(payload),
   })
@@ -358,9 +376,14 @@ export async function createResearchProjectGrant(
     return response
   }
 
-  const grant = normalizeGrant(response.data)
+  const grantData = decodeResearchEntity(response.data)
+  if (!grantData) {
+    return { error: 'Invalid research grant response from backend', status: 502 }
+  }
+
+  const grant = normalizeGrant(grantData)
   if (!grant) {
-    return { error: 'Failed to normalize research grant' }
+    return { error: 'Invalid research grant response from backend', status: 502 }
   }
 
   return { data: grant }
@@ -371,7 +394,7 @@ export async function getResearchProjectMLInspection(
   projectId: string,
   query?: ResearchMLInspectionQuery
 ): Result<ResearchMLInspection | null> {
-  const response = await performResearchRequest<unknown>(
+  const response = await performResearchRequest(
     session,
     `/${projectId}/ml/inspection${buildQuery({
       target: query?.target,
@@ -392,7 +415,7 @@ export async function getResearchProjectHistoryDataset(
   projectId: string,
   filters: ResearchHistoryDatasetFilters = {}
 ): Result<ResearchHistoryDataset> {
-  const response = await performResearchRequest<unknown>(
+  const response = await performResearchRequest(
     session,
     `/${projectId}/datasets/history${buildQuery({
       from: filters.from,
@@ -413,9 +436,13 @@ export async function requestResearchProjectExport(
   projectId: string,
   payload: ResearchExportRequest
 ): Result<ResearchExportResponse> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/exports`, {
+  const response = await performResearchRequest(session, `/${projectId}/exports`, {
     method: 'POST',
-    body: payload as unknown as Record<string, unknown>,
+    body: {
+      format: payload.format,
+      requestedFields: payload.requestedFields,
+      reason: payload.reason,
+    },
   })
 
   if ('error' in response) {
@@ -429,7 +456,7 @@ export async function getResearchProjectAudit(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchAuditEvent[]> {
-  const response = await performResearchRequest<unknown>(session, `/${projectId}/audit`)
+  const response = await performResearchRequest(session, `/${projectId}/audit`)
 
   if ('error' in response) {
     return response
@@ -457,7 +484,7 @@ export async function getResearchWorkspaceAccess(session: CustomSession | null):
   }
 
   const requestPromise: Promise<ResultValue<ResearchWorkspaceAccess>> = (async () => {
-    const response = await performResearchRequest<unknown>(session, '')
+    const response = await performResearchRequest(session, '')
 
     if ('error' in response) {
       if (response.status === 403 && !isResearchCompanyBoundaryNotDefined(response.error)) {

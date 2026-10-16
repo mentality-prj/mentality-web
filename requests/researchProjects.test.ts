@@ -228,6 +228,52 @@ describe('researchProjects requests', () => {
     })
   })
 
+  it('rejects malformed project success payloads on single-project reads and writes', async () => {
+    mockedPerformAuthRequest.mockResolvedValue({ data: { id: null, _id: 'fallback-id' } })
+
+    const invalid = { error: 'Invalid research project response from backend', status: 502 }
+    await expect(getResearchProjectById(mockSession, 'project-1')).resolves.toEqual(invalid)
+
+    await expect(
+      createResearchProject(mockSession, {
+        companyId: 'company-1',
+        name: 'Study',
+        description: '',
+        objective: '',
+        status: 'draft',
+        approvalStatus: 'draft',
+        exportPolicy: 'review_required',
+        pseudonymizationMode: 'required',
+        principalInvestigatorId: 'pi-1',
+        retentionUntil: null,
+        consentMode: 'company_boundary_only',
+      })
+    ).resolves.toEqual(invalid)
+
+    await expect(updateResearchProject(mockSession, 'project-1', { name: 'Updated study' })).resolves.toEqual(invalid)
+
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: null })
+    await expect(getResearchProjectById(mockSession, 'project-1')).resolves.toEqual(invalid)
+  })
+
+  it('rejects successful grant creation without a stable backend ID', async () => {
+    mockedPerformAuthRequest.mockResolvedValue({ data: { title: 'Unnamed grant' } })
+
+    const result = await createResearchProjectGrant(mockSession, 'project-1', {
+      allowedContracts: ['standard-dpa'],
+      allowedFields: ['sleepScore'],
+      allowedTargets: ['subject'],
+      groupIds: [],
+      userSelectionMode: 'all',
+      pseudonymizationMode: 'required',
+      from: null,
+      to: null,
+      exportAllowed: false,
+    })
+
+    expect(result).toEqual({ error: 'Invalid research grant response from backend', status: 502 })
+  })
+
   it('gets a single project by id and preserves metadata defaults', async () => {
     mockedPerformAuthRequest.mockResolvedValue({
       data: {
