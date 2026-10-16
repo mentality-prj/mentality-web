@@ -1,5 +1,7 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
+import { Link } from '@/i18n/navigation'
+
 import { MoodLevelBars } from '@/components/features/MoodTracker/MoodLevelBars/MoodLevelBars'
 import Card from '@/components/shared/Cards/Card'
 import { ENERGIES } from '@/constants/energy'
@@ -38,6 +40,11 @@ export const TodayMoodNotes = async () => {
       title={t('title')}
       link={`${Routes.MOODTRACKER}#mood-records-list`}
       linkText={t('linkText')}
+      tools={
+        <Link href={Routes.DIARY} className="text-sm font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">
+          {t('writeDiary')}
+        </Link>
+      }
       time={time}
       subtitle={tm(moodInfo.label)}
       tags={todayRecord.tags}
