@@ -40,10 +40,7 @@ export default async function MyProgress() {
             <div className="flex flex-col gap-sm">
               <h3 className="font-semibold">{t('diaryTitle')}</h3>
               <p className="text-sm text-textcolor-secondary">{t('diaryDescription')}</p>
-              <Link
-                href={Routes.DIARY}
-                className="w-fit text-sm font-medium text-primary underline underline-offset-4"
-              >
+              <Link href={Routes.DIARY} className="w-fit text-sm text-primary underline underline-offset-4">
                 {t('diaryLink')}
               </Link>
             </div>
@@ -51,20 +48,14 @@ export default async function MyProgress() {
         </div>
       </section>
 
-      <MoodProgressSummary
-        stats={'error' in moodResult ? null : moodResult.data}
-        failed={'error' in moodResult}
-      />
+      <MoodProgressSummary stats={'error' in moodResult ? null : moodResult.data} failed={'error' in moodResult} />
 
       <section className="flex flex-col gap-sm" aria-labelledby="progress-goals-heading">
         <div className="flex flex-wrap items-center justify-between gap-sm">
           <h2 id="progress-goals-heading" className="text-lg font-semibold">
             {t('goalsHeading')}
           </h2>
-          <Link
-            href={Routes.MYPROGRESSGOALS}
-            className="text-sm font-medium text-primary underline underline-offset-4"
-          >
+          <Link href={Routes.MYPROGRESSGOALS} className="text-sm text-primary underline underline-offset-4">
             {t('goalsLink')}
           </Link>
         </div>
