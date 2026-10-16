@@ -63,6 +63,50 @@ describe('reportingClient URL normalization', () => {
     })
   })
 
+  it('renders real risk events from a direct array response', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      data: [{ eventId: 'risk-1', signal: 'High stress', severity: 'high', status: 'open' }],
+    })
+
+    const result = await getRiskEventsVM({ session: mockSession, companyId: 'company-1', locale: 'uk' })
+
+    expect('data' in result && result.data).toEqual([
+      expect.objectContaining({ id: 'risk-1', title: 'High stress', status: 'open' }),
+    ])
+  })
+
+  it('accepts a valid empty or populated items envelope', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValueOnce({ data: { items: [], total: 0 } })
+    await expect(getRiskEventsVM({ session: mockSession, companyId: 'company-1' })).resolves.toEqual({ data: [] })
+
+    ;(performAuthRequest as jest.Mock).mockResolvedValueOnce({
+      data: { items: [{ id: 'risk-2', title: 'Low energy' }], total: 1 },
+    })
+    const result = await getRiskEventsVM({ session: mockSession, companyId: 'company-1' })
+    expect('data' in result && result.data?.[0]?.id).toBe('risk-2')
+  })
+
+  it.each([
+    null,
+    {},
+    { items: null },
+    { items: 'not an array' },
+    { items: [null] },
+    { items: [{ title: '' }] },
+    { items: [{ unrelatedField: true }] },
+    [{ id: 'risk-1' }, false],
+  ])('rejects malformed risk-feed payloads instead of silently dropping events (%j)', async (payload) => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: payload })
+
+    await expect(getRiskEventsVM({ session: mockSession, companyId: 'company-1' })).resolves.toEqual({
+      error: 'Invalid risk event feed response from backend',
+      status: 502,
+    })
+    expect(logger.error).toHaveBeenCalledWith('Invalid reporting projection response', {
+      path: '/api/operational/v1/risk-events/feed',
+    })
+  })
+
   it('requests admin diagnostics projections without duplicating the api prefix', async () => {
     await getMLInspectionVM(mockSession, 'company-1', 'company', '64e000000000000000000001', 'uk')
 

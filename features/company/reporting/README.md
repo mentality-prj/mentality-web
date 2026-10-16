@@ -12,3 +12,5 @@ Canonical source now lives under `features/company/reporting`:
 Legacy paths are re-export shims; they remain while consumers are migrated. All server-side access continues through backend RBAC and the browser BFF.
 
 Report API calls use the shared `ApiResult<T>` success/error contract and retain upstream HTTP status codes. Model-layer modules cannot import API transports or UI; this dependency direction is checked by `scripts/api-boundary.test.mjs`.
+
+The risk feed API validates both `RiskEvent[]` and `{ items: RiskEvent[] }` at runtime. Invalid response shapes or invalid individual events are surfaced as an API error (HTTP status 502) rather than a misleading empty feed; actual empty arrays remain valid.
