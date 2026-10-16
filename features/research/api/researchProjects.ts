@@ -1,4 +1,7 @@
-import { decodeResearchWorkspaceProjects, hasResearchEntityId } from '@/features/research/api/researchCollection.contract'
+import {
+  decodeResearchWorkspaceProjects,
+  hasResearchEntityId,
+} from '@/features/research/api/researchCollection.contract'
 import {
   decodeResearchGrantResponse,
   decodeResearchMemberResponse,

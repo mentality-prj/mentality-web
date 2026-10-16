@@ -1,4 +1,8 @@
-import { normalizeAuditEvents, normalizeGrant, normalizeProjectMember } from '@/features/research/model/researchProjectEntities'
+import {
+  normalizeAuditEvents,
+  normalizeGrant,
+  normalizeProjectMember,
+} from '@/features/research/model/researchProjectEntities'
 import { EMPTY_PERMISSIONS } from '@/features/research/model/researchProjectPrimitives'
 import type { ResearchProjectGrant, ResearchProjectMember } from '@/types/research'
 
