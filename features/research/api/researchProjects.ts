@@ -1,5 +1,6 @@
 import {
   decodeResearchGrantResponse,
+  decodeResearchMemberRemovalResponse,
   decodeResearchMemberResponse,
   decodeResearchProjectResponse,
 } from '@/features/research/api/researchEntityResponses'
@@ -152,22 +153,6 @@ function getResearchWorkspaceAccessCacheKey(session: CustomSession | null): stri
   return `${session?.user?.id ?? session?.user?.email ?? 'anonymous'}:${token}`
 }
 
-async function performResearchRequest(
-  session: CustomSession | null,
-  path: string,
-  options?: { method?: string; body?: Record<string, unknown> }
-): ApiResultPromise<unknown> {
-  // Parse transport bytes as unknown; concrete types are established by the
-  // feature decoders, never by generic type assertions on untrusted JSON.
-  const response = await performAuthRequest<unknown>(session, `${RESEARCH_BASE_URL}${path}`, options)
-
-  if ('error' in response) {
-    return forwardApiFailure(response)
-  }
-
-  return { data: response.data }
-}
-
 export function hasResearchCapability(access: ResearchWorkspaceAccess | null): boolean {
   return Boolean(access?.hasAccess)
 }
@@ -252,15 +237,13 @@ export async function removeResearchProjectMember(
   projectId: string,
   userId: string
 ): Result<{ ok: true }> {
-  const response = await performResearchRequest(session, `/${projectId}/members/${userId}`, {
+  const response = await performAuthRequest(session, `${RESEARCH_BASE_URL}/${projectId}/members/${userId}`, {
     method: 'DELETE',
+    decodeResponse: decodeResearchMemberRemovalResponse,
   })
 
-  if ('error' in response) {
-    return response
-  }
-
-  return { data: { ok: true } }
+  if ('error' in response) return forwardApiFailure(response)
+  return { data: response.data }
 }
 
 export async function getResearchProjectCohort(

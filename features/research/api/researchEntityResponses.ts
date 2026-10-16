@@ -29,3 +29,11 @@ export function decodeResearchMemberResponse(value: unknown) {
   if (!member) return { success: false as const, error: invalidMember }
   return { success: true as const, data: member }
 }
+
+/** DELETE returns 204 without a payload; success-shaped JSON is a contract violation. */
+export function decodeResearchMemberRemovalResponse(value: unknown) {
+  if (value !== undefined && value !== null) {
+    return { success: false as const, error: 'Invalid research member removal response from backend' }
+  }
+  return { success: true as const, data: { ok: true as const } }
+}

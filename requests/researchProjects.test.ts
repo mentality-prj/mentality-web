@@ -471,7 +471,7 @@ describe('researchProjects requests', () => {
           grants: [],
         },
       })
-      .mockResolvedValueOnce({ data: {} })
+      .mockResolvedValueOnce({ data: undefined })
 
     const listResult = await getResearchProjectMembers(mockSession, 'project-1')
     const addResult = await addResearchProjectMember(mockSession, 'project-1', {
@@ -502,6 +502,7 @@ describe('researchProjects requests', () => {
       'http://localhost:3200/api/research/v1/projects/project-1/members/reviewer-1',
       {
         method: 'DELETE',
+        decodeResponse: expect.any(Function),
       }
     )
     expect(listResult).toEqual(
@@ -509,6 +510,25 @@ describe('researchProjects requests', () => {
     )
     expect(addResult).toEqual(expect.objectContaining({ data: expect.objectContaining({ id: 'member-2' }) }))
     expect(removeResult).toEqual({ data: { ok: true } })
+  })
+
+  it('rejects invalid Research member deletion bodies without masking upstream errors', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { ok: false } })
+    await expect(removeResearchProjectMember(mockSession, 'project-1', 'reviewer-1')).resolves.toEqual({
+      error: 'Invalid research member removal response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ error: { message: 'Forbidden', status: 403 } })
+    await expect(removeResearchProjectMember(mockSession, 'project-1', 'reviewer-1')).resolves.toEqual({
+      error: 'Forbidden',
+      status: 403,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: null })
+    await expect(removeResearchProjectMember(mockSession, 'project-1', 'reviewer-1')).resolves.toEqual({
+      data: { ok: true },
+    })
   })
 
   it('normalizes member identity from nested user payloads', async () => {
