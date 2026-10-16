@@ -40,7 +40,10 @@ export const TodayMoodNotes = async () => {
       link={`${Routes.MOODTRACKER}#mood-records-list`}
       linkText={t('linkText')}
       tools={
-        <Link href={Routes.DIARY} className="text-sm font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2">
+        <Link
+          href={Routes.DIARY}
+          className="text-sm font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
           {t('writeDiary')}
         </Link>
       }
