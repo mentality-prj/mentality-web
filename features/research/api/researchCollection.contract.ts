@@ -4,6 +4,20 @@ const collectionItem = z.record(z.unknown())
 const collectionSchema = z.array(collectionItem)
 const entityId = z.union([z.string().trim().min(1), z.number().finite()])
 
+function hasFirstValidId(record: Record<string, unknown>, keys: readonly string[]): boolean {
+  const key = keys.find((name) => Object.prototype.hasOwnProperty.call(record, name))
+  return key ? entityId.safeParse(record[key]).success : false
+}
+
+function isValidCompany(value: unknown): boolean {
+  if (entityId.safeParse(value).success) return true
+
+  const object = collectionItem.safeParse(value)
+  return object.success && hasFirstValidId(object.data, ['id', '_id', 'companyId'])
+}
+
+const companyList = z.array(z.unknown()).refine((values) => values.every(isValidCompany))
+
 const projectKeys = ['items', 'projects', 'data'] as const
 
 const workspaceMetadataSchema = z
@@ -12,9 +26,9 @@ const workspaceMetadataSchema = z
     workspaceCapabilities: z.array(z.string()).optional(),
     canCreateProject: z.boolean().optional(),
     createProjectAllowed: z.boolean().optional(),
-    companies: z.array(z.unknown()).optional(),
-    availableCompanies: z.array(z.unknown()).optional(),
-    companyScopes: z.array(z.unknown()).optional(),
+    companies: companyList.optional(),
+    availableCompanies: companyList.optional(),
+    companyScopes: companyList.optional(),
   })
   .passthrough()
 
@@ -56,17 +70,17 @@ export function decodeResearchWorkspaceProjects(value: unknown): Record<string, 
   const envelope = collectionItem.safeParse(value)
   if (!envelope.success) return null
 
+  const metadata = workspaceMetadataSchema.safeParse(value)
+  if (!metadata.success) return null
+
   if (projectKeys.some((key) => Object.prototype.hasOwnProperty.call(envelope.data, key))) {
     return decodeResearchCollection(value, projectKeys)
   }
-
-  const metadata = workspaceMetadataSchema.safeParse(value)
-  if (!metadata.success) return null
 
   return workspaceMetadataKeys.some((key) => Object.prototype.hasOwnProperty.call(envelope.data, key)) ? [] : null
 }
 
 /** Project and grant list entries must have stable identities. */
 export function hasResearchEntityId(item: Record<string, unknown>): boolean {
-  return entityId.safeParse(item.id).success || entityId.safeParse(item._id).success
+  return hasFirstValidId(item, ['id', '_id'])
 }
