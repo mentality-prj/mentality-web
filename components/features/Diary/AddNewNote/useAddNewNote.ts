@@ -3,6 +3,7 @@ import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
 import useTags from '@/hooks/useTags'
+import { authService } from '@/lib/auth'
 import { logger } from '@/lib/logger'
 import { createDiary } from '@/requests/diary'
 import type { CreateDiaryDto } from '@/types/api-responses'
@@ -44,19 +45,25 @@ export function useAddNewNote({ availableTags = [], onSave, onClose }: Params) {
     e?.preventDefault()
     if (isSubmitting || !isFormValid) return
 
-    if (!session?.user) {
-      notifyError(t('notAuthenticated'))
-      return
-    }
-
     setIsSubmitting(true)
     try {
+      // The protected page can be server-authenticated before AuthProvider has
+      // hydrated after a real Zitadel redirect. Recheck the existing BFF
+      // session instead of dropping the user's draft without issuing a POST.
+      // Only verified user metadata reaches the browser; JWTs remain HttpOnly.
+      const verifiedSession = session?.user ? session : null
+      const user = verifiedSession?.user ?? (await authService.getUser())
+      if (!user) {
+        notifyError(t('notAuthenticated'))
+        return
+      }
+
       const dto: CreateDiaryDto = {
         content: note,
         tags: selectedTags,
         isActive: false,
       }
-      const result = await createDiary(session, dto)
+      const result = await createDiary(verifiedSession ?? { user }, dto)
 
       if ('error' in result) {
         notifyError(extractErrorMessage(result.error, t('saveError')))
