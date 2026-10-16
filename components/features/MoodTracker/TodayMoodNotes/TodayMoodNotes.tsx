@@ -7,6 +7,7 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { Routes } from '@/constants/routes'
 import { STRESSES } from '@/constants/stress'
+import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 
@@ -38,6 +39,14 @@ export const TodayMoodNotes = async () => {
       title={t('title')}
       link={`${Routes.MOODTRACKER}#mood-records-list`}
       linkText={t('linkText')}
+      tools={
+        <Link
+          href={Routes.DIARY}
+          className="text-sm font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+          {t('writeDiary')}
+        </Link>
+      }
       time={time}
       subtitle={tm(moodInfo.label)}
       tags={todayRecord.tags}

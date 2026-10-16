@@ -34,16 +34,19 @@ jest.mock('@/components/shared/Cards/Card', () => ({
     title,
     text,
     link,
+    tools,
   }: {
     children?: React.ReactNode
     title?: React.ReactNode
     text?: React.ReactNode
     link?: string
+    tools?: React.ReactNode
   }) => (
     <div>
       {link && <a href={link} aria-label={typeof title === 'string' ? title : 'link'} />}
       {title && <h3>{title}</h3>}
       {text && <div data-testid="card-text">{text}</div>}
+      {tools}
       {children}
     </div>
   ),
@@ -126,8 +129,10 @@ describe('TodayMoodNotes', () => {
 
     render(await TodayMoodNotes())
 
-    const link = screen.getByRole('link')
-    expect(link).toHaveAttribute('href', '/mood-tracker#mood-records-list')
+    const moodLink = screen.getByRole('link', { name: 'title' })
+    expect(moodLink).toHaveAttribute('href', '/mood-tracker#mood-records-list')
+    const diaryLink = screen.getByRole('link', { name: 'writeDiary' })
+    expect(diaryLink).toHaveAttribute('href', '/diary')
   })
 
   it('renders multiple records', async () => {
