@@ -77,8 +77,7 @@ export function decodeResearchCohortResponse(value: unknown) {
     return (
       range !== null &&
       range !== undefined &&
-      (Object.prototype.hasOwnProperty.call(range, 'from') ||
-        Object.prototype.hasOwnProperty.call(range, 'to'))
+      (Object.prototype.hasOwnProperty.call(range, 'from') || Object.prototype.hasOwnProperty.call(range, 'to'))
     )
   })
   if (!hasCohortData) return { success: false as const, error: invalidCohort }
