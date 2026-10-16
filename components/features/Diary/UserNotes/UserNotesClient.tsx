@@ -91,7 +91,7 @@ export function UserNotesClient({ notes, availableTags }: Props) {
 
       <div className="grid grid-cols-3 gap-md">
         <div className={`flex flex-col gap-sm ${showFilters ? 'col-span-2' : 'col-span-3'}`}>
-          {filteredNotes.length === 0 && <p className="mt-2 text-sm text-gray-500">У вас ще немає записів</p>}
+          {filteredNotes.length === 0 && <p className="mt-2 text-sm text-gray-500">{nt('NoMatchingNotes')}</p>}
 
           <UserNotesList notes={paginatedNotes} availableTags={availableTags} />
           {totalPages > 1 && <Pagination page={page} totalPages={totalPages} onPageChange={setPage} />}
