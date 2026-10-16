@@ -291,7 +291,7 @@ describe('researchProjects requests', () => {
     expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(result).toEqual(
       expect.objectContaining({
@@ -307,6 +307,22 @@ describe('researchProjects requests', () => {
         }),
       })
     )
+  })
+
+  it('passes a typed project decoder to the authenticated transport', async () => {
+    mockedPerformAuthRequest.mockResolvedValue({ data: createProjectPayload() })
+
+    await getResearchProjectById(mockSession, 'project-1')
+
+    const options = mockedPerformAuthRequest.mock.calls[0][2]
+    expect(options.decodeResponse(createProjectPayload())).toEqual({
+      success: true,
+      data: createProjectPayload(),
+    })
+    expect(options.decodeResponse({ id: null, _id: 'fallback-id' })).toEqual({
+      success: false,
+      error: 'Invalid research project response from backend',
+    })
   })
 
   it('grants full project management permissions to system admins', async () => {
