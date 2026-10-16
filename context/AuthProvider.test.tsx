@@ -163,7 +163,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
   it('keeps a still-valid backend session during transient refresh outage and retries later', async () => {
     await mountWithToken(now + 61)
     ;(authService.refreshTokens as jest.Mock)
-      .mockResolvedValueOnce(null)
+      .mockRejectedValueOnce(new Error('Temporary network outage'))
       .mockResolvedValueOnce({ expiresAt: now + 3600, hasRefreshToken: true })
     ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
 
@@ -209,7 +209,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     }
     await mountWithToken(now + 61)
     ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
-    ;(authService.getUser as jest.Mock).mockResolvedValueOnce(null).mockResolvedValueOnce(membership)
+    ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
     ;(authService.clearTokensIfUnchanged as jest.Mock).mockResolvedValue(false)
     ;(authService.getStoredTokens as jest.Mock)
       .mockResolvedValueOnce({ expiresAt: now + 61, hasRefreshToken: true })
@@ -240,7 +240,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
 
   it('honors the 15-second retry backoff when focus fires repeatedly', async () => {
     await mountWithToken(now + 61)
-    ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
+    ;(authService.refreshTokens as jest.Mock).mockRejectedValue(new Error('Temporary network outage'))
     ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
 
     await act(async () => {
