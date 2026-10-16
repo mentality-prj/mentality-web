@@ -2,7 +2,9 @@ import { getTranslations } from 'next-intl/server'
 
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
+import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
+import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
 import { getUserDiaries } from '@/requests/diary'
 
@@ -14,6 +16,9 @@ export default async function DiaryPage() {
   return (
     <div className="flex flex-col gap-md">
       <PageTitle title={t('pages.Diary.title')} subtitle={t('pages.Diary.subtitle')} />
+      <Link href={Routes.MYDAY} className="w-fit text-sm font-medium underline underline-offset-4">
+        {t('components.Diary.backToMyDay')}
+      </Link>
       <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         <AddNewNoteSection />
         {/* TODO: fix calendar */}
