@@ -8,9 +8,7 @@ import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 import { SortOrder } from '@/types/sort'
 
-import { decodeMoodRecord, decodeMoodRecordList } from './moodRecord.contract'
-
-const INVALID_MOOD_RESPONSE = 'Invalid mood record response from backend'
+import { decodeMoodRecordListResponse, decodeMoodRecordResponse } from './moodRecord.contract'
 
 export async function createMoodRecord(
   session: CustomSession | null,
@@ -19,14 +17,13 @@ export async function createMoodRecord(
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
     method: 'POST',
     body: dto,
+    decodeResponse: decodeMoodRecordResponse,
   })
   if ('error' in res) {
     logger.error('Failed to create mood record', { error: res.error })
     return forwardApiFailure(res)
   }
-  const record = decodeMoodRecord(res.data)
-  if (!record) return { error: INVALID_MOOD_RESPONSE, status: 502 }
-  return { data: record }
+  return { data: res.data }
 }
 
 export async function getMoodRecords(
@@ -82,12 +79,13 @@ export async function getMoodRecords(
   if (filters.weekdays?.length && filters.timeZone) query.set('timeZone', filters.timeZone)
 
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query.toString() ? `?${query.toString()}` : ''}`
-  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
+  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, {
+    method: 'GET',
+    decodeResponse: decodeMoodRecordListResponse,
+  })
   if ('error' in res) return forwardApiFailure(res)
-  const moodNotes = decodeMoodRecordList(res.data)
-  if (!moodNotes) return { error: INVALID_MOOD_RESPONSE, status: 502 }
-  const total = extractPaginationTotal(res.headers, moodNotes.length)
-  return { data: { moodNotes, total } }
+  const total = extractPaginationTotal(res.headers, res.data.length)
+  return { data: { moodNotes: res.data, total } }
 }
 
 export async function getLastMoodRecords(
@@ -99,19 +97,19 @@ export async function getLastMoodRecords(
   if (typeof params?.days === 'number' && params.days > 0) query.set('days', String(params.days))
   else if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.LAST}${query.toString() ? `?${query.toString()}` : ''}`
-  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
+  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, {
+    method: 'GET',
+    decodeResponse: decodeMoodRecordListResponse,
+  })
   if ('error' in res) return forwardApiFailure(res)
-  const records = decodeMoodRecordList(res.data)
-  if (!records) return { error: INVALID_MOOD_RESPONSE, status: 502 }
-  return { data: records }
+  return { data: res.data }
 }
 
 export async function getMoodRecordById(session: CustomSession | null, id: string): ApiResultPromise<MoodRecordEntity> {
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.byId(id)}`, {
     method: 'GET',
+    decodeResponse: decodeMoodRecordResponse,
   })
   if ('error' in res) return forwardApiFailure(res)
-  const record = decodeMoodRecord(res.data)
-  if (!record) return { error: INVALID_MOOD_RESPONSE, status: 502 }
-  return { data: record }
+  return { data: res.data }
 }
