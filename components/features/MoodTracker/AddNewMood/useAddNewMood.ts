@@ -98,8 +98,16 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
       setLastSubmittedAt(result.data?.createdAt ?? new Date().toISOString())
       notifySuccess(safeT('Toast.Saved', 'Mood saved'))
       resetForm()
-      if (onSave) onSave()
-      if (onClose) onClose()
+      // The record is already persisted. A UI refresh failure must not be
+      // reported as a failed save, which could prompt duplicate submissions.
+      try {
+        onSave?.()
+        onClose?.()
+      } catch (error) {
+        logger.warn('Mood saved but post-save UI update failed', {
+          error: error instanceof Error ? error.message : String(error),
+        })
+      }
     } catch (error) {
       logger.error('Mood record submission failed unexpectedly', {
         error: error instanceof Error ? error.message : String(error),
