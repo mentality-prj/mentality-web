@@ -321,9 +321,7 @@ describe('AuthProvider role revalidation after token refresh', () => {
     const secondVerification = new Promise<typeof membership>((resolve) => {
       resolveSecond = resolve
     })
-    ;(authService.getUser as jest.Mock)
-      .mockReturnValueOnce(firstVerification)
-      .mockReturnValueOnce(secondVerification)
+    ;(authService.getUser as jest.Mock).mockReturnValueOnce(firstVerification).mockReturnValueOnce(secondVerification)
     await act(async () => {
       window.dispatchEvent(new Event('focus'))
       await Promise.resolve()
