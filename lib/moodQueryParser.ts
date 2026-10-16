@@ -22,6 +22,15 @@ type MoodQueryParams = {
   timeZone?: QueryValue
 }
 
+function parseTimeZone(value?: string): string | undefined {
+  if (!value || value.length > 100) return undefined
+  try {
+    return new Intl.DateTimeFormat('en', { timeZone: value }).resolvedOptions().timeZone
+  } catch {
+    return undefined
+  }
+}
+
 export function parseMoodQuery(params: MoodQueryParams) {
   const getFirst = (value?: QueryValue): string | undefined => (Array.isArray(value) ? value[0] : value)
 
@@ -84,6 +93,6 @@ export function parseMoodQuery(params: MoodQueryParams) {
 
     tags: filters.tags.length ? filters.tags : undefined,
     weekdays: mapped.weekdays?.length ? mapped.weekdays : undefined,
-    timeZone: mapped.weekdays?.length ? getFirst(params.timeZone) : undefined,
+    timeZone: mapped.weekdays?.length ? parseTimeZone(getFirst(params.timeZone)) : undefined,
   }
 }
