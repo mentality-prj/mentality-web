@@ -39,34 +39,43 @@ describe('calculateMoodProgress', () => {
   })
 
   it('does not infer a trend from a single recorded day in a week', () => {
-    const result = calculateMoodProgress({
-      ...stats,
-      trend30d: stats.trend30d.slice(0, 3),
-    }, now)
+    const result = calculateMoodProgress(
+      {
+        ...stats,
+        trend30d: stats.trend30d.slice(0, 3),
+      },
+      now
+    )
     expect(result.recentDays).toBe(1)
     expect(result.moodChange).toBeNull()
     expect(result.stressChange).toBeNull()
   })
 
   it('returns no stress score when there are no check-ins this week', () => {
-    const result = calculateMoodProgress({
-      ...stats,
-      trend30d: stats.trend30d.slice(0, 2),
-    }, now)
+    const result = calculateMoodProgress(
+      {
+        ...stats,
+        trend30d: stats.trend30d.slice(0, 2),
+      },
+      now
+    )
     expect(result.stressScore).toBeNull()
     expect(result.recentDays).toBe(0)
     expect(result.stressChange).toBeNull()
   })
 
   it('does not treat invalid readings or future observations as actual check-ins', () => {
-    const result = calculateMoodProgress({
-      ...stats,
-      trend30d: [
-        ...stats.trend30d,
-        { date: '2026-09-20', mood: 100, stress: 0, energy: 3, focus: 3 },
-        { date: '2026-09-21', mood: 4, stress: 1, energy: 3, focus: 3 },
-      ],
-    }, now)
+    const result = calculateMoodProgress(
+      {
+        ...stats,
+        trend30d: [
+          ...stats.trend30d,
+          { date: '2026-09-20', mood: 100, stress: 0, energy: 3, focus: 3 },
+          { date: '2026-09-21', mood: 4, stress: 1, energy: 3, focus: 3 },
+        ],
+      },
+      now
+    )
     expect(result.recentDays).toBe(2)
     expect(result.stressScore).toBe(13)
   })

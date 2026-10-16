@@ -35,14 +35,25 @@ export async function MoodProgressSummary({ stats, failed = false }: Props) {
               <span className="text-4xl font-semibold tabular-nums">{summary.stressScore}</span>
               <span className="text-base text-textcolor-secondary">/ 100</span>
             </div>
-            <div role="meter" aria-label={t('stressTitle')} aria-valuemin={0} aria-valuemax={100} aria-valuenow={summary.stressScore} className="h-2 overflow-hidden rounded-full bg-black/10">
+            <div
+              role="meter"
+              aria-label={t('stressTitle')}
+              aria-valuemin={0}
+              aria-valuemax={100}
+              aria-valuenow={summary.stressScore}
+              className="h-2 overflow-hidden rounded-full bg-black/10"
+            >
               <div className="h-full rounded-full bg-primary" style={{ width: `${summary.stressScore}%` }} />
             </div>
             <p className="text-xs text-textcolor-secondary">{t('observedDays', { count: summary.recentDays })}</p>
-            <p className="text-sm text-textcolor-secondary">{t('stressChange')}: {changeText(summary.stressChange, true)}</p>
+            <p className="text-sm text-textcolor-secondary">
+              {t('stressChange')}: {changeText(summary.stressChange, true)}
+            </p>
           </>
         ) : (
-          <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">{t(failed ? 'loadError' : 'empty')}</p>
+          <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">
+            {t(failed ? 'loadError' : 'empty')}
+          </p>
         )}
         <p className="mt-auto text-xs text-textcolor-secondary">{t('disclaimer')}</p>
       </SectionCard>
@@ -64,7 +75,9 @@ export async function MoodProgressSummary({ stats, failed = false }: Props) {
                 <dd className="text-2xl font-semibold tabular-nums">{summary.longestStreak}</dd>
               </div>
             </dl>
-            <p className="text-sm text-textcolor-secondary">{t('moodChange')}: {changeText(summary.moodChange, false)}</p>
+            <p className="text-sm text-textcolor-secondary">
+              {t('moodChange')}: {changeText(summary.moodChange, false)}
+            </p>
             <MoodProgressTrend
               trend={summary.trend}
               moodLabel={t('mood')}
@@ -73,7 +86,9 @@ export async function MoodProgressSummary({ stats, failed = false }: Props) {
             />
           </>
         ) : (
-          <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">{t(failed ? 'loadError' : 'empty')}</p>
+          <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">
+            {t(failed ? 'loadError' : 'empty')}
+          </p>
         )}
         <p className="text-xs text-textcolor-secondary">{t('dateNote')}</p>
       </SectionCard>

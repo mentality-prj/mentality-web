@@ -81,8 +81,14 @@ export function calculateMoodProgress(stats: MoodStatistics, now: Date = new Dat
     stressScore: currentStress === null ? null : toScore(currentStress),
     recentDays: recent.length,
     previousDays: previous.length,
-    moodChange: hasComparison && currentMood !== null && earlierMood !== null ? Math.round((currentMood - earlierMood) * 25) : null,
-    stressChange: hasComparison && currentStress !== null && earlierStress !== null ? Math.round((currentStress - earlierStress) * 25) : null,
+    moodChange:
+      hasComparison && currentMood !== null && earlierMood !== null
+        ? Math.round((currentMood - earlierMood) * 25)
+        : null,
+    stressChange:
+      hasComparison && currentStress !== null && earlierStress !== null
+        ? Math.round((currentStress - earlierStress) * 25)
+        : null,
     currentStreak: Math.max(0, stats.currentStreak ?? 0),
     longestStreak: Math.max(0, stats.longestStreak ?? 0),
     totalRecords: Math.max(0, stats.totalRecords ?? 0),
