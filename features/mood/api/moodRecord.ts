@@ -1,6 +1,5 @@
 import { MOOD_RECORD_ENDPOINTS } from '@/constants/endpoints'
-import { forwardApiFailure } from '@/lib/api-result'
-import type { ApiResultPromise } from '@/lib/api-result'
+import { type ApiResultPromise, forwardApiFailure } from '@/lib/api-result'
 import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
