@@ -4,15 +4,20 @@ import type { MoodRecordEntity } from '@/types/api-responses'
 
 // Decode untrusted NestJS JSON once at the feature boundary. A malformed
 // response is a contract failure, not a valid empty mood history.
+const moodScale = z.number().int().min(1).max(5)
+const validTimestamp = z.string().refine((value) => !Number.isNaN(new Date(value).getTime()), {
+  message: 'Invalid mood record timestamp',
+})
+
 const moodRecordSchema = z
   .object({
     id: z.string().min(1),
-    moodLevel: z.number().finite().optional(),
-    stressLevel: z.number().finite(),
-    energyLevel: z.number().finite(),
-    focusLevel: z.number().finite(),
+    moodLevel: moodScale.optional(),
+    stressLevel: moodScale,
+    energyLevel: moodScale,
+    focusLevel: moodScale,
     tags: z.array(z.string()).optional(),
-    createdAt: z.string().optional(),
+    createdAt: validTimestamp.optional(),
   })
   .passthrough()
 

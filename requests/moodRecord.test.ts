@@ -161,6 +161,34 @@ describe('getMoodRecords', () => {
     })
   })
 
+  it('rejects non-integer and out-of-range mood scales', async () => {
+    for (const invalidLevel of [0, 2.5, 6]) {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, moodLevel: invalidLevel }] })
+
+      expect(await getMoodRecords(mockSession)).toEqual({
+        error: 'Invalid mood record response from backend',
+        status: 502,
+      })
+    }
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, energyLevel: 0 }] })
+
+    expect(await getMoodRecords(mockSession)).toEqual({
+      error: 'Invalid mood record response from backend',
+      status: 502,
+    })
+  })
+
+  it('rejects invalid dates that would break downstream summary rendering', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      data: [{ ...mockRecord, createdAt: 'not-a-date' }],
+    })
+
+    expect(await getMoodRecords(mockSession)).toEqual({
+      error: 'Invalid mood record response from backend',
+      status: 502,
+    })
+  })
+
   it('accepts a real empty history as a valid result', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
 
