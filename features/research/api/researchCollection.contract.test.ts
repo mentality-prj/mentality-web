@@ -1,5 +1,6 @@
 import {
   decodeResearchCollection,
+  decodeResearchEntity,
   decodeResearchWorkspaceProjects,
   hasResearchEntityId,
 } from './researchCollection.contract'
@@ -33,6 +34,19 @@ describe('Research API list contracts', () => {
     expect(decodeResearchWorkspaceProjects({ companyScopes: [{ companyId: '' }] })).toBeNull()
     expect(decodeResearchWorkspaceProjects({ companies: [{ id: 'company-1' }] })).toEqual([])
     expect(decodeResearchWorkspaceProjects({})).toBeNull()
+  })
+
+  it('rejects malformed single entities with no usable primary identifier', () => {
+    expect(decodeResearchEntity(null)).toBeNull()
+    expect(decodeResearchEntity([])).toBeNull()
+    expect(decodeResearchEntity({})).toBeNull()
+    expect(decodeResearchEntity({ id: null, _id: 'fallback' })).toBeNull()
+    expect(decodeResearchEntity({ id: '', _id: 'fallback' })).toBeNull()
+    expect(decodeResearchEntity({ id: 'project-1', name: 'Study' })).toEqual({
+      id: 'project-1',
+      name: 'Study',
+    })
+    expect(decodeResearchEntity({ _id: 'project-2' })).toEqual({ _id: 'project-2' })
   })
 
   it('recognizes stable entity identities without generating random ids', () => {
