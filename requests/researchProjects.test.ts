@@ -210,6 +210,24 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('distinguishes empty project lists from malformed success payloads', async () => {
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: { items: [] } })
+
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({ data: [] })
+
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: {} })
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({
+      error: 'Invalid research projects response from backend',
+      status: 502,
+    })
+
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: { items: [{ id: 'project-1' }, {}] } })
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({
+      error: 'Invalid research projects response from backend',
+      status: 502,
+    })
+  })
+
   it('gets a single project by id and preserves metadata defaults', async () => {
     mockedPerformAuthRequest.mockResolvedValue({
       data: {
@@ -876,6 +894,43 @@ describe('researchProjects requests', () => {
         },
       })
     )
+  })
+
+  it('rejects malformed members and grants instead of silently dropping entries', async () => {
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: { members: [{ userId: 'user-1' }, {}] } })
+
+    await expect(getResearchProjectMembers(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research members response from backend',
+      status: 502,
+    })
+
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: { items: [{ id: 'grant-1' }, {}] } })
+    await expect(getResearchProjectGrants(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research grants response from backend',
+      status: 502,
+    })
+  })
+
+  it('rejects malformed audit history instead of reporting an empty audit', async () => {
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: { events: 'invalid' } })
+
+    await expect(getResearchProjectAudit(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research audit response from backend',
+      status: 502,
+    })
+  })
+
+  it('does not grant research workspace access for a malformed successful response', async () => {
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: {} })
+
+    await expect(getResearchWorkspaceAccess(mockSession)).resolves.toEqual({
+      error: 'Invalid research workspace response from backend',
+      status: 502,
+    })
+
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: { capabilities: ['scientist'], canCreateProject: false } })
+    const access = await getResearchWorkspaceAccess(mockSession)
+    expect(access).toHaveProperty('data.hasAccess', true)
   })
 
   it('preserves upstream 503 for research requests', async () => {
