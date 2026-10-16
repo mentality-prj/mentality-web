@@ -2,5 +2,6 @@
   "title": "Today's mood",
   "empty": "You have no records for today",
   "more": "View all records",
-  "linkText": "Mood statistics"
+  "linkText": "Mood statistics",
+  "writeDiary": "Write in diary"
 }
