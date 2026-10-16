@@ -933,6 +933,15 @@ describe('researchProjects requests', () => {
     expect(access).toHaveProperty('data.hasAccess', true)
   })
 
+  it('rejects invalid workspace company metadata before returning access', async () => {
+    mockedPerformAuthRequest.mockResolvedValueOnce({ data: { companies: [null, {}] } })
+
+    await expect(getResearchWorkspaceAccess(mockSession)).resolves.toEqual({
+      error: 'Invalid research workspace response from backend',
+      status: 502,
+    })
+  })
+
   it('preserves upstream 503 for research requests', async () => {
     mockedPerformAuthRequest.mockResolvedValue({ error: 'Service unavailable', status: 503 })
 
