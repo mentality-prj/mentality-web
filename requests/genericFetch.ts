@@ -6,7 +6,7 @@ import { Roles } from '@/types/security'
 
 type Result<T> = { data?: T; headers?: Headers } | { error: string; status?: number }
 
-export type ApiResponseDecoder<T> = (value: unknown) => { success: true; data: T } | { success: false }
+export type ApiResponseDecoder<T> = (value: unknown) => { success: true; data: T } | { success: false; error?: string }
 
 type RequestOptions<T> = {
   method?: string
@@ -61,7 +61,7 @@ export async function performAuthRequest<T = unknown>(
       const decoded = options.decodeResponse(data)
       if (!decoded.success) {
         logger.error('Invalid API response contract', { url, method })
-        return { error: 'Invalid API response from backend', status: 502 }
+        return { error: decoded.error || 'Invalid API response from backend', status: 502 }
       }
 
       return { data: decoded.data, headers }
