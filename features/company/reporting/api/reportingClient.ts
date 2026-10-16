@@ -9,6 +9,7 @@ import {
 } from '@/features/company/reporting/model/projections'
 import { asArray, asObject } from '@/features/company/reporting/model/projections/shared'
 import { mapMlInspectionToVM } from '@/features/company/reporting/model/reportingMappers'
+import { forwardApiFailure } from '@/lib/api-result'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import {
@@ -19,6 +20,7 @@ import {
 } from '@/requests/decisionSupport'
 import { performAdminRequest, performAuthRequest } from '@/requests/genericFetch'
 import type { CustomSession } from '@/types/auth'
+import type { ApiResultPromise } from '@/lib/api-result'
 import type { PolicyMetrics } from '@/types/decisionSupport'
 import type {
   MLInspectionVM,
@@ -31,7 +33,7 @@ import type {
   TeamDynamicsVM,
 } from '@/types/reporting'
 
-type Result<T> = Promise<{ data: T } | { error: string }>
+type Result<T> = ApiResultPromise<T>
 
 type DecisionSupportScope = {
   session: CustomSession | null
@@ -91,7 +93,7 @@ async function requestProjection<T>(
 
   if ('error' in response) {
     logger.error('Failed to request reporting projection', { error: response.error, path, admin })
-    return { error: response.error }
+    return forwardApiFailure(response)
   }
 
   return { data: response.data as T }

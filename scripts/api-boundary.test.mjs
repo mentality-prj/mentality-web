@@ -100,3 +100,40 @@ test('QDIP administration may only reach NestJS, without upstream platform crede
   assert.doesNotMatch(client, /\/api\/v1\/(?:organizations|audit|features|workflows)/)
   assert.doesNotMatch(actions, /\bfetch\s*\(/)
 })
+
+// Model modules contain pure transformation/domain logic, not data acquisition.
+// Scan actual import/export declarations (including barrels), rather than
+// matching filenames in comments or string literals.
+test('Research and Reporting models do not depend on API or UI layers', () => {
+  const modelRoots = ['features/research/model', 'features/company/reporting/model']
+  const violations = []
+
+  for (const modelRoot of modelRoots) {
+    for (const file of listCodeFiles(join(rootDir, modelRoot))) {
+      const filename = relative(rootDir, file).replaceAll('\\\\', '/')
+      const source = ts.createSourceFile(filename, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true)
+
+      for (const statement of source.statements) {
+        if (!ts.isImportDeclaration(statement) && !ts.isExportDeclaration(statement)) continue
+        const moduleSpecifier = statement.moduleSpecifier
+        if (!moduleSpecifier || !ts.isStringLiteral(moduleSpecifier)) continue
+
+        const specifier = moduleSpecifier.text
+        const target = specifier.startsWith('@/')
+          ? specifier.slice(2)
+          : specifier.startsWith('.')
+            ? relative(rootDir, resolve(file, '..', specifier)).replaceAll('\\\\', '/')
+            : null
+        if (!target) continue
+
+        const forbiddenRoot = /^(requests|app|components|context|hooks|actions|ui)\//.test(target)
+        const forbiddenFeatureLayer = target.startsWith('features/') && /\/(api|hooks|ui)\//.test(target)
+        if (forbiddenRoot || forbiddenFeatureLayer) {
+          violations.push(`${filename} -> ${specifier}`)
+        }
+      }
+    }
+  }
+
+  assert.deepEqual(violations, [], 'Domain model imports must point inward, not to transport or UI layers')
+})

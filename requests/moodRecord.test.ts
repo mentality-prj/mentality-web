@@ -135,6 +135,12 @@ describe('getMoodRecords', () => {
     expect(calledUrl).toContain('limit=5')
   })
 
+  it('preserves upstream 401 on failed history requests', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
+
+    await expect(getMoodRecords(mockSession)).resolves.toEqual({ error: 'Unauthorized', status: 401 })
+  })
+
   it('returns error on failure', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Unauthorized' })
 

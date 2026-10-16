@@ -27,9 +27,11 @@ import {
   upsertWorkspaceCompanyOption,
 } from '@/features/research/model/researchProjectPrimitives'
 import { isResearchCompanyBoundaryNotDefined } from '@/helpers/researchErrorMessage'
+import { forwardApiFailure } from '@/lib/api-result'
 import { getCompanies, getMyCompany } from '@/requests/companies'
 import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
+import type { ApiResult, ApiResultPromise } from '@/lib/api-result'
 import type { CustomSession } from '@/types/auth'
 import type {
   ResearchAuditEvent,
@@ -52,8 +54,8 @@ import type {
   ResearchWorkspaceRole,
 } from '@/types/research'
 
-type ResultValue<T> = { data: T } | { error: string; status?: number }
-type Result<T> = Promise<ResultValue<T>>
+type ResultValue<T> = ApiResult<T>
+type Result<T> = ApiResultPromise<T>
 
 const RESEARCH_BASE_URL = `${APIUrl}/research/v1/projects`
 
@@ -149,11 +151,11 @@ async function performResearchRequest<T = unknown>(
   session: CustomSession | null,
   path: string,
   options?: { method?: string; body?: Record<string, unknown> }
-): Promise<{ data: T } | { error: string; status?: number }> {
+): ApiResultPromise<T> {
   const response = await performAuthRequest<T>(session, `${RESEARCH_BASE_URL}${path}`, options)
 
   if ('error' in response) {
-    return { error: response.error, status: response.status }
+    return forwardApiFailure(response)
   }
 
   return { data: response.data as T }
