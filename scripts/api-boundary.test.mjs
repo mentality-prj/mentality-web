@@ -100,3 +100,76 @@ test('QDIP administration may only reach NestJS, without upstream platform crede
   assert.doesNotMatch(client, /\/api\/v1\/(?:organizations|audit|features|workflows)/)
   assert.doesNotMatch(actions, /\bfetch\s*\(/)
 })
+
+// Model modules contain pure transformation/domain logic, not data acquisition.
+// Scan actual import/export declarations (including barrels), rather than
+// matching filenames in comments or string literals.
+function collectModelImports(source) {
+  const paths = []
+  const visit = (node) => {
+    let moduleNode
+    if (ts.isImportDeclaration(node) || ts.isExportDeclaration(node)) {
+      moduleNode = node.moduleSpecifier
+    } else if (ts.isCallExpression(node) && node.expression.kind === ts.SyntaxKind.ImportKeyword) {
+      moduleNode = node.arguments[0]
+    }
+
+    if (moduleNode && ts.isStringLiteralLike(moduleNode)) {
+      paths.push(moduleNode.text)
+    }
+    ts.forEachChild(node, visit)
+  }
+  visit(source)
+  return paths
+}
+
+function isForbiddenModelTarget(target) {
+  const path = target.replaceAll('\\', '/')
+  return (
+    /^(requests|app|components|context|hooks|actions|ui)(\/|$)/.test(path) ||
+    (path.startsWith('features/') && /\/(api|hooks|ui)(\/|$)/.test(path))
+  )
+}
+
+test('model boundaries recognize dynamic imports and directory barrels', () => {
+  const code = "import '@/features/research/api'; export * from '../api';"
+  const dynamicImport = "const load = () => import('@/requests/genericFetch')"
+  const source = ts.createSourceFile('model.ts', code + dynamicImport, ts.ScriptTarget.Latest, true)
+  const imports = collectModelImports(source)
+
+  assert.equal(imports.length, 3)
+  assert.equal(imports[0], '@/features/research/api')
+  assert.equal(imports[1], '../api')
+  assert.equal(imports[2], '@/requests/genericFetch')
+  assert.equal(isForbiddenModelTarget('features\\research\\api\\index'), true)
+  assert.equal(isForbiddenModelTarget('features/research/api'), true)
+  assert.equal(isForbiddenModelTarget('requests'), true)
+  assert.equal(isForbiddenModelTarget('features/research/model'), false)
+})
+
+test('Research and Reporting models do not depend on API or UI layers', () => {
+  const modelRoots = ['features/research/model', 'features/company/reporting/model']
+  const violations = []
+
+  for (const modelRoot of modelRoots) {
+    for (const file of listCodeFiles(join(rootDir, modelRoot))) {
+      const filename = relative(rootDir, file).replaceAll('\\', '/')
+      const source = ts.createSourceFile(filename, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true)
+
+      for (const specifier of collectModelImports(source)) {
+        const target = specifier.startsWith('@/')
+          ? specifier.slice(2)
+          : specifier.startsWith('.')
+            ? relative(rootDir, resolve(file, '..', specifier)).replaceAll('\\', '/')
+            : null
+        if (!target) continue
+
+        if (isForbiddenModelTarget(target)) {
+          violations.push(filename + ' -> ' + specifier)
+        }
+      }
+    }
+  }
+
+  assert.deepEqual(violations, [], 'Domain model imports must point inward, not to transport or UI layers')
+})

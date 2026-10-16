@@ -878,6 +878,15 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('preserves upstream 503 for research requests', async () => {
+    mockedPerformAuthRequest.mockResolvedValue({ error: 'Service unavailable', status: 503 })
+
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({
+      error: 'Service unavailable',
+      status: 503,
+    })
+  })
+
   it('preserves company boundary 403 as an error instead of masking it as denied access', async () => {
     mockedPerformAuthRequest.mockResolvedValue({
       error: 'Company boundary для research layer не визначено',
