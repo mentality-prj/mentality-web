@@ -1,5 +1,17 @@
 # Dzvin.co App
 
+## Current engineering direction (October 2026)
+
+The active roadmap is [#482](https://github.com/mentality-prj/mentality-web/issues/482): close critical stabilization work and prioritize end-to-end product functionality over a second broad refactor.
+
+- Runtime: Next.js 16.4 (App Router), React 19.3, TypeScript, next-intl, Jest and Yarn (see package.json).
+- Auth: Zitadel with server-owned session and same-origin BFF; domain authorization is enforced by NestJS.
+- Features: Mood, Company and Research. Prefer existing shared UI/design-system primitives.
+- API: use the existing shared transport and response decoders; do not create a second API client.
+- Deployment: reconcile dev and production before release; do not assume a merged dev PR is deployed.
+- Quality: focused contract/auth/browser checks for changed behavior; document checks that could not run.
+
+
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 You can view the live application at [mentality-web.vercel.app](https://mentality-web.vercel.app).
