@@ -1,4 +1,3 @@
-import { decodeResearchWorkspaceResponse } from '@/features/research/api/researchWorkspaceResponse'
 import {
   decodeResearchGrantResponse,
   decodeResearchMemberResponse,
@@ -10,6 +9,7 @@ import {
   decodeResearchMembersResponse,
   decodeResearchProjectsResponse,
 } from '@/features/research/api/researchListResponses'
+import { decodeResearchWorkspaceResponse } from '@/features/research/api/researchWorkspaceResponse'
 import {
   normalizeCohort,
   normalizeExportResponse,
@@ -24,7 +24,6 @@ import {
 } from '@/features/research/model/researchProjectPayloads'
 import {
   asArray,
-  asObject,
   getBoolean,
   getStringArray,
   getValue,
