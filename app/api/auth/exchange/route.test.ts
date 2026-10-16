@@ -121,6 +121,7 @@ describe('/api/auth/exchange route', () => {
       expiresAt: expect.any(Number),
       hasRefreshToken: true,
       userRole: 'admin',
+      sessionRevision: expect.any(String),
     })
     const storedCookie = response.cookies.get(AUTH_TOKEN_COOKIE)?.value
 
@@ -131,7 +132,78 @@ describe('/api/auth/exchange route', () => {
       refreshToken: 'stored-refresh-token',
       expiresAt: expect.any(Number),
       userRole: 'admin',
+      sessionRevision: expect.any(String),
     })
+  })
+
+  it('coalesces simultaneous server refresh requests with the same HttpOnly cookie', async () => {
+    const oldCookie = JSON.stringify({
+      accessToken: 'server-old-access',
+      idToken: 'server-existing-id',
+      refreshToken: 'unique-coalesced-rotation-token',
+      expiresAt: Math.floor(Date.now() / 1000) - 5,
+    })
+    cookiesMock.mockReturnValue(createCookieStore(oldCookie) as never)
+    let releaseProvider: (() => void) | undefined
+    let signalStarted: (() => void) | undefined
+    const started = new Promise<void>((resolve) => {
+      signalStarted = resolve
+    })
+    ;(global.fetch as jest.Mock).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          signalStarted?.()
+          releaseProvider = () =>
+            resolve(
+              new Response(
+                JSON.stringify({
+                  access_token: 'server-new-access',
+                  refresh_token: 'server-new-refresh',
+                  expires_in: 1800,
+                }),
+                { status: 200 }
+              )
+            )
+        })
+    )
+
+    const request = () => createRequest('/api/auth/exchange', { grantType: 'refresh_token' })
+    const first = POST(request())
+    const second = POST(request())
+    // WebCrypto SHA-256 resolves asynchronously; wait for the fetch mock's
+    // actual entry signal rather than polling microtasks or fixed delays.
+    await started
+    expect(releaseProvider).toBeDefined()
+    releaseProvider?.()
+
+    const [firstResponse, secondResponse] = await Promise.all([first, second])
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+    expect(firstResponse.status).toBe(200)
+    expect(secondResponse.status).toBe(200)
+    expect(firstResponse.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBe(
+      secondResponse.cookies.get(AUTH_TOKEN_COOKIE)?.value
+    )
+    expect(JSON.parse(firstResponse.cookies.get(AUTH_TOKEN_COOKIE)?.value ?? '{}')).toMatchObject({
+      accessToken: 'server-new-access',
+      refreshToken: 'server-new-refresh',
+    })
+    expect(JSON.stringify(await secondResponse.json())).not.toContain('server-new-refresh')
+  })
+
+  it('preserves the provider rate limit as retryable HTTP 429 without returning provider internals', async () => {
+    cookiesMock.mockReturnValue(createCookieStore() as never)
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(JSON.stringify({ error: 'slow_down', secret: 'never-reflect' }), { status: 429 })
+    )
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'auth-code',
+        codeVerifier: 'verifier',
+      })
+    )
+    expect(response.status).toBe(429)
+    expect(await response.json()).toEqual({ error: 'Identity provider request failed' })
   })
 
   it('returns 400 for invalid JSON bodies', async () => {

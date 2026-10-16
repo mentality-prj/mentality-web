@@ -30,6 +30,10 @@ export function normalizeStoredAuthTokens(payload: unknown): StoredAuthTokens | 
     tokens.refreshToken = record.refreshToken.trim()
   }
 
+  if (typeof record.sessionRevision === 'string' && /^[0-9a-f-]{36}$/i.test(record.sessionRevision)) {
+    tokens.sessionRevision = record.sessionRevision
+  }
+
   if (isUserRole(record.userRole)) {
     tokens.userRole = record.userRole
   }

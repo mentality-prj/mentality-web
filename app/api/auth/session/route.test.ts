@@ -1,40 +1,41 @@
 /** @jest-environment @edge-runtime/jest-environment */
-import { getServerSession } from '@/lib/auth/server'
+
+import { getServerSessionStrict } from '@/lib/auth/server'
 
 import { GET } from './route'
 
-jest.mock('@/lib/auth/server', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/auth/server', () => ({
+  getServerSessionStrict: jest.fn(),
+}))
 
-const getSession = getServerSession as jest.MockedFunction<typeof getServerSession>
-
-describe('verified browser session response', () => {
+describe('browser session status', () => {
   beforeEach(() => jest.clearAllMocks())
 
-  it('never returns bearer tokens or session credentials to browser JS', async () => {
-    getSession.mockResolvedValue({
-      user: {
-        id: '1',
-        name: 'User',
-        email: 'u@example.test',
-        companyId: 'company-1',
-        companyRole: 'manager',
-      },
-      OAuthToken: 'private-bearer-token',
-    })
-    const result = await GET()
-    expect(result.status).toBe(200)
-    expect(await result.json()).toEqual({
-      id: '1',
-      name: 'User',
-      email: 'u@example.test',
-      companyId: 'company-1',
-      companyRole: 'manager',
-    })
-    expect(result.headers.get('cache-control')).toBe('no-store')
+  it('returns HTTP 503 without caching when backend validation is temporarily unavailable', async () => {
+    ;(getServerSessionStrict as jest.Mock).mockRejectedValue(new Error('backend offline'))
+
+    const response = await GET()
+    expect(response.status).toBe(503)
+    expect(response.headers.get('cache-control')).toBe('no-store')
+    expect(await response.json()).toEqual({ error: 'Session validation temporarily unavailable' })
   })
 
-  it('returns 401 for anonymous calls', async () => {
-    getSession.mockResolvedValue(null)
-    expect((await GET()).status).toBe(401)
+  it('returns HTTP 401 only when the server confirmed no authenticated user', async () => {
+    ;(getServerSessionStrict as jest.Mock).mockResolvedValue(null)
+
+    const response = await GET()
+    expect(response.status).toBe(401)
+    expect(response.headers.get('cache-control')).toBe('no-store')
+  })
+
+  it('returns only verified user attributes for a valid session', async () => {
+    ;(getServerSessionStrict as jest.Mock).mockResolvedValue({
+      user: { id: 'user-1', email: 'user@example.test', name: 'User' },
+      OAuthToken: 'not-for-browser',
+    })
+
+    const response = await GET()
+    expect(response.status).toBe(200)
+    expect(await response.json()).toEqual({ id: 'user-1', email: 'user@example.test', name: 'User' })
   })
 })

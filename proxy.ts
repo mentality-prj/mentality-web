@@ -6,7 +6,6 @@ import { routing } from '@/i18n/routing'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
 import { APIUrl } from '@/requests/config'
-import type { AuthTokens } from '@/types/auth'
 import type { SupportedLanguage } from '@/types/languages'
 
 const LOCALE_COOKIE = 'NEXT_LOCALE'
@@ -136,26 +135,6 @@ function applyRequestContextHeaders(response: NextResponse, pathname: string, re
   return response
 }
 
-async function refreshTokensServerSide(
-  currentTokens: AuthTokens,
-  requestUrl: string,
-  cookieHeader: string
-): Promise<{ setCookieHeader: string | null } | null> {
-  if (!currentTokens.refreshToken) return null
-  try {
-    const baseUrl = new URL(requestUrl).origin
-    const response = await fetch(`${baseUrl}/api/auth/exchange`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', Cookie: cookieHeader, Origin: baseUrl },
-      body: JSON.stringify({ grantType: 'refresh_token' }),
-    })
-    if (!response.ok) return null
-    return { setCookieHeader: response.headers.get('set-cookie') }
-  } catch {
-    return null
-  }
-}
-
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = crypto.randomUUID()
@@ -233,7 +212,7 @@ export async function proxy(request: NextRequest) {
 
   // Auth logic — check for auth token cookie
   const tokenCookie = request.cookies.get(AUTH_TOKEN_COOKIE)?.value
-  const authTokens: AuthTokens | null = parseStoredAuthTokensCookie(tokenCookie)
+  const authTokens = parseStoredAuthTokensCookie(tokenCookie)
   const isAuthenticated = !!authTokens
 
   const publicRoutes = [
@@ -260,40 +239,40 @@ export async function proxy(request: NextRequest) {
       .map(([key, path]) => [key, normalizedPath === path || normalizedPath.startsWith(path + '/')])
   )
 
-  const isProtectedPath = Object.values(protectedRoutes).some(Boolean)
+  // Company selection requires an authenticated backend session even though
+  // it is not represented in the Routes enum.
+  const isProtectedPath = Object.values(protectedRoutes).some(Boolean) || normalizedPath === '/select-company'
 
   // Skip session error checks for server-error page to avoid redirect loops
   const isServerErrorPage = normalizedPath === Routes.SERVERERROR
 
+  // Avoid two independent SSR/proxy rotations from the same expired cookie.
+  // The public recovery route hydrates AuthProvider, whose Web Lock serializes
+  // refresh across tabs before navigating back to the protected destination.
+  const isSessionRecoveryRoute = normalizedPath === '/refresh-session'
+
   // Check if token is expired
-  if (isAuthenticated && authTokens && !isServerErrorPage) {
+  if (isAuthenticated && authTokens && !isServerErrorPage && !isSessionRecoveryRoute) {
     const isExpired = authTokens.expiresAt < Math.floor(Date.now() / 1000)
+    if (isExpired && normalizedPath === Routes.AUTH) {
+      // A different tab may already have rotated its cookie; do not write a
+      // stale Set-Cookie deletion from this public request.
+      return applySecurityHeaders(intlResponse)
+    }
+    if (isExpired && !isProtectedPath) {
+      // Public pages do not need to revive an expired authenticated session.
+      return applySecurityHeaders(intlResponse)
+    }
     if (isExpired && !authTokens.refreshToken) {
-      // Token expired and no refresh token — clear cookie and redirect to auth
-      const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
-      response.cookies.delete(AUTH_TOKEN_COOKIE)
-      return applySecurityHeaders(response)
+      // Do not send stale Set-Cookie deletion: another tab may have logged in
+      // after this request arrived. Explicit session cleanup is conditional.
+      return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url)))
     }
 
     if (isExpired && authTokens.refreshToken) {
-      // Token expired but refresh token exists — try server-side refresh
-      const cookieHeader = request.headers.get('cookie') ?? ''
-      const refreshResult = await refreshTokensServerSide(authTokens, request.url, cookieHeader)
-      if (refreshResult) {
-        // Redirect to the same URL so the refreshed cookie is visible to
-        // Server Components / Route Handlers on the next request.
-        const redirectResponse = NextResponse.redirect(request.url)
-        // Forward the Set-Cookie from exchange route (contains refreshToken)
-        if (refreshResult.setCookieHeader) {
-          redirectResponse.headers.set('set-cookie', refreshResult.setCookieHeader)
-        }
-        return applySecurityHeaders(redirectResponse)
-      } else {
-        // Refresh failed — clear cookie and redirect to auth
-        const response = NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url))
-        response.cookies.delete(AUTH_TOKEN_COOKIE)
-        return applySecurityHeaders(response)
-      }
+      const recovery = new URL(`/${locale}/refresh-session`, request.url)
+      recovery.searchParams.set('returnTo', pathname + request.nextUrl.search)
+      return applySecurityHeaders(NextResponse.redirect(recovery))
     }
   }
 
@@ -301,11 +280,9 @@ export async function proxy(request: NextRequest) {
     return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.AUTH}`, request.url)))
   }
 
-  // If the user is already authenticated, don't show the auth page —
-  // redirect them to their main My-day page instead.
-  if (isAuthenticated && normalizedPath === Routes.AUTH) {
-    return applySecurityHeaders(NextResponse.redirect(new URL(`/${locale}${Routes.MYDAY}`, request.url)))
-  }
+  // Never redirect the sign-in page based only on cookie presence. A revoked
+  // but unexpired session (including legacy cookies without sessionRevision)
+  // must still be able to reach login; protected layouts verify against NestJS.
 
   // Note: role-based access control (e.g. admin routes) is handled server-side
   // in the respective layout.tsx files via getServerSession(), NOT in middleware,
