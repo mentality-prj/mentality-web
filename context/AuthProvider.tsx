@@ -35,6 +35,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [tokens])
 
   const invalidateSession = useCallback(async (observed: BrowserAuthSession | null): Promise<boolean> => {
+    // Invalidation supersedes earlier background verification results.
+    reconciliationSequence.current += 1
     const generation = ++sessionGeneration.current
     try {
       if (observed) {
@@ -98,51 +100,71 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // silently keep a rejected backend session authenticated.
   const refreshAndRevalidate = useCallback(async () => {
     const generation = sessionGeneration.current
+    const sequence = ++reconciliationSequence.current
+    const isCurrent = () => generation === sessionGeneration.current && sequence === reconciliationSequence.current
+    let definitelyRejected = false
     let observed = verifiedTokens.current
     try {
       observed = (await authService.getStoredTokens()) ?? observed
-      if (generation !== sessionGeneration.current) return
+      if (!isCurrent()) return
       const refreshed = await authService.refreshTokens()
       if (refreshed) observed = refreshed
-      if (!refreshed) throw new Error('Token refresh failed')
+      if (!refreshed) {
+        definitelyRejected = true
+        throw new Error('Token refresh permanently rejected')
+      }
 
       const verifiedUser = await authService.getUser()
-      if (generation !== sessionGeneration.current) return
-      if (!verifiedUser) throw new Error('Verified session no longer exists')
+      if (!isCurrent()) return
+      if (!verifiedUser) {
+        definitelyRejected = true
+        throw new Error('Verified session no longer exists')
+      }
 
       setTokens(refreshed)
       setUser(verifiedUser)
       setError(null)
       setRetryNotBefore(0)
     } catch (err) {
-      if (generation !== sessionGeneration.current) return
+      if (!isCurrent()) return
       // A temporary IdP failure must not log out a still-valid, independently
       // verified backend session. Back off, then retry before actual expiry.
       let current: BrowserAuthSession | null = null
       try {
         current = await authService.getStoredTokens()
       } catch {
-        // Network failures must not be mistaken for a missing HttpOnly cookie.
-        // Keep already verified, unexpired state until a later reconciliation.
+        // Metadata read failure is retryable, not proof of revocation.
+        if (!isCurrent()) return
         if (verifiedTokens.current && verifiedTokens.current.expiresAt > Math.floor(Date.now() / 1000)) {
           setRetryNotBefore(Date.now() + 15_000)
           return
         }
+        setTokens(null)
+        setUser(null)
+        setStatus('loading')
+        setRetryNotBefore(Date.now() + 15_000)
+        return
       }
-      if (generation !== sessionGeneration.current) return
+      if (!isCurrent()) return
       const secondsRemaining = current ? current.expiresAt - Math.floor(Date.now() / 1000) : 0
       let verifiedUser: CustomUser | null = null
-      if (secondsRemaining > 10) {
+      if (!definitelyRejected && current && secondsRemaining > 0) {
         try {
           verifiedUser = await authService.getUser()
         } catch {
+          if (!isCurrent()) return
           if (verifiedTokens.current && verifiedTokens.current.expiresAt > Math.floor(Date.now() / 1000)) {
             setRetryNotBefore(Date.now() + 15_000)
             return
           }
+          setTokens(null)
+          setUser(null)
+          setStatus('loading')
+          setRetryNotBefore(Date.now() + 15_000)
+          return
         }
       }
-      if (generation !== sessionGeneration.current) return
+      if (!isCurrent()) return
       if (current && verifiedUser) {
         setTokens(current)
         setUser(verifiedUser)
@@ -150,6 +172,15 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         // warnings belong in logs, not in the authenticated session object.
         setError(null)
         logger.warn('[AUTH_PROVIDER] Refresh delayed; verified session still valid')
+        setRetryNotBefore(Date.now() + 15_000)
+        return
+      }
+      if (!definitelyRejected && current?.hasRefreshToken) {
+        // Access-token expiry during an IdP outage does not revoke refresh
+        // credentials. Hide stale privileges and reconcile after the backoff.
+        setUser(null)
+        setTokens(null)
+        setStatus('loading')
         setRetryNotBefore(Date.now() + 15_000)
         return
       }
@@ -252,7 +283,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const timer = setTimeout(
       async () => {
         const generation = sessionGeneration.current
-        const active = () => !cancelled && generation === sessionGeneration.current
+        const sequence = ++reconciliationSequence.current
+        const active = () =>
+          !cancelled && generation === sessionGeneration.current && sequence === reconciliationSequence.current
         try {
           let latest = await authService.getStoredTokens()
           if (!active()) return
@@ -323,8 +356,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     const refreshAtMs = tokens.hasRefreshToken ? expiresAtMs - 60_000 : expiresAtMs
     const delay = Math.max(0, Math.min(Math.max(refreshAtMs, retryNotBefore), expiresAtMs) - now)
     const timer = setTimeout(() => {
-      if (!tokens.hasRefreshToken || (Date.now() >= expiresAtMs && Date.now() < retryNotBefore)) {
+      if (!tokens.hasRefreshToken) {
         void invalidateSession(tokens)
+      } else if (Date.now() >= expiresAtMs && Date.now() < retryNotBefore) {
+        // Do not erase a recoverable refresh cookie while Zitadel is unavailable.
+        setUser(null)
+        setTokens(null)
+        setStatus('loading')
       } else {
         void refreshAndRevalidate()
       }
@@ -363,8 +401,14 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       const now = Math.floor(Date.now() / 1000)
       if (latest.expiresAt <= now) {
         // A token that expired during backoff cannot be treated as verified.
-        if (latest.hasRefreshToken && Date.now() >= retryNotBefore) {
-          await refreshAndRevalidate()
+        if (latest.hasRefreshToken) {
+          if (Date.now() >= retryNotBefore) {
+            await refreshAndRevalidate()
+          } else {
+            setUser(null)
+            setTokens(null)
+            setStatus('loading')
+          }
         } else {
           await invalidateSession(latest)
         }
@@ -409,11 +453,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   // so mere cookie presence cannot determine whether sign-in is required.
   const ensureFreshSession = useCallback(async (): Promise<'authenticated' | 'invalid' | 'retry'> => {
     const generation = sessionGeneration.current
+    const sequence = ++reconciliationSequence.current
+    const isCurrent = () => generation === sessionGeneration.current && sequence === reconciliationSequence.current
     if (Date.now() < retryNotBefore) return 'retry'
 
     try {
       let latest = await authService.getStoredTokens()
-      if (generation !== sessionGeneration.current) return 'retry'
+      if (!isCurrent()) return 'retry'
       if (!latest) {
         await invalidateSession(null)
         return 'invalid'
@@ -421,7 +467,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
       if (latest.hasRefreshToken && latest.expiresAt <= Math.floor(Date.now() / 1000) + 60) {
         const refreshed = await authService.refreshTokens()
-        if (generation !== sessionGeneration.current) return 'retry'
+        if (!isCurrent()) return 'retry'
         if (refreshed) {
           latest = refreshed
         } else if (latest.expiresAt <= Math.floor(Date.now() / 1000)) {
@@ -439,7 +485,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       }
 
       const verified = await authService.getUser()
-      if (generation !== sessionGeneration.current) return 'retry'
+      if (!isCurrent()) return 'retry'
       if (!verified) {
         const recovered = await invalidateSession(latest)
         return recovered ? 'authenticated' : 'invalid'
@@ -451,7 +497,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
       setRetryNotBefore(0)
       return 'authenticated'
     } catch (err) {
-      if (generation !== sessionGeneration.current) return 'retry'
+      if (!isCurrent()) return 'retry'
       logger.warn('[AUTH_PROVIDER] Session recovery deferred', {
         error: err instanceof Error ? err.message : String(err),
       })
