@@ -1,7 +1,5 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
-import { Link } from '@/i18n/navigation'
-
 import { MoodLevelBars } from '@/components/features/MoodTracker/MoodLevelBars/MoodLevelBars'
 import Card from '@/components/shared/Cards/Card'
 import { ENERGIES } from '@/constants/energy'
@@ -9,6 +7,7 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { Routes } from '@/constants/routes'
 import { STRESSES } from '@/constants/stress'
+import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 
