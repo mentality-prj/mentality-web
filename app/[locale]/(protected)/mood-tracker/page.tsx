@@ -26,17 +26,16 @@ export default async function MoodTracker({
     getLastMoodRecords(session, { days: 10 }),
     getMoodStatistics(session),
   ])
-  const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
-  const total = 'error' in result ? 0 : result.data.total
+  // Invalid remote data and backend errors are not empty mood histories.
+  // Let the existing protected error boundary render the failure.
+  if ('error' in result) throw new Error('Unable to load mood records')
+  if ('error' in res) throw new Error('Unable to load mood summary')
 
-  if ('error' in result) {
-    console.error('Failed to load mood records:', result.error)
-  }
-
-  const moodMarksData = buildMoodMarksData(res?.data ?? [])
+  const { moodNotes, total } = result.data
+  const moodMarksData = buildMoodMarksData(res.data)
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
-  const summaries = buildDailySummaries(res?.data ?? [])
+  const summaries = buildDailySummaries(res.data)
 
   return (
     <div className="flex flex-col gap-md">
@@ -46,15 +45,15 @@ export default async function MoodTracker({
           <NewMoodNoteSection />
         </div>
         <div className="flex flex-col gap-sm desktop:w-2/5">
-          <WellbeingSummary records={res?.data ?? []} />
-          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res?.data ?? []} />
+          <WellbeingSummary records={res.data} />
+          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res.data} />
         </div>
       </div>
       <MoodProgressSummary
         stats={'error' in progressResult ? null : progressResult.data}
         failed={'error' in progressResult}
       />
-      <MoodRecords totalCount={total} records={moodNotes ?? []} />
+      <MoodRecords totalCount={total} records={moodNotes} />
     </div>
   )
 }
