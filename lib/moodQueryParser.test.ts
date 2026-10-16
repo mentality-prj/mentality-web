@@ -67,6 +67,12 @@ describe('mood history query filters', () => {
     expect(parseMoodQuery({ timeZone: 'Europe/Warsaw' }).timeZone).toBeUndefined()
   })
 
+  it('rejects invalid and oversized timezone values before the backend request', () => {
+    expect(parseMoodQuery({ weekdays: 'mon', timeZone: 'Not/A_Real_Zone' }).timeZone).toBeUndefined()
+    expect(parseMoodQuery({ weekdays: 'mon', timeZone: 'x'.repeat(101) }).timeZone).toBeUndefined()
+    expect(parseMoodQuery({ weekdays: 'mon', timeZone: 'UTC' }).timeZone).toBe('UTC')
+  })
+
   it('preserves the selected server-side history order', () => {
     expect(parseMoodQuery({ order: 'oldest' }).order).toBe('oldest')
     expect(parseMoodQuery({ order: 'not-an-order' }).order).toBe('newest')
