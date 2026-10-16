@@ -1,7 +1,4 @@
-import {
-  decodeResearchWorkspaceProjects,
-  hasResearchEntityId,
-} from '@/features/research/api/researchCollection.contract'
+import { decodeResearchWorkspaceResponse } from '@/features/research/api/researchWorkspaceResponse'
 import {
   decodeResearchGrantResponse,
   decodeResearchMemberResponse,
@@ -408,7 +405,9 @@ export async function getResearchWorkspaceAccess(session: CustomSession | null):
   }
 
   const requestPromise: Promise<ResultValue<ResearchWorkspaceAccess>> = (async () => {
-    const response = await performResearchRequest(session, '')
+    const response = await performAuthRequest(session, RESEARCH_BASE_URL, {
+      decodeResponse: decodeResearchWorkspaceResponse,
+    })
 
     if ('error' in response) {
       if (response.status === 403 && !isResearchCompanyBoundaryNotDefined(response.error)) {
@@ -426,14 +425,10 @@ export async function getResearchWorkspaceAccess(session: CustomSession | null):
       return response
     }
 
-    const source = asObject(response.data)
+    const { source, projects: projectItems } = response.data
     const capabilities = getStringArray(source, ['capabilities', 'workspaceCapabilities']).filter(
       (item): item is ResearchWorkspaceCapability => item === 'scientist' || item === 'research_admin'
     )
-    const projectItems = decodeResearchWorkspaceProjects(response.data)
-    if (!projectItems || !projectItems.every(hasResearchEntityId)) {
-      return { error: 'Invalid research workspace response from backend', status: 502 }
-    }
 
     const projects = projectItems.map((item) => normalizeProject(item, session))
     const companies = await resolveWorkspaceCompanies(session, source, projects)
