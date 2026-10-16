@@ -9,8 +9,7 @@ import {
 } from '@/features/company/reporting/model/projections'
 import { asArray, asObject } from '@/features/company/reporting/model/projections/shared'
 import { mapMlInspectionToVM } from '@/features/company/reporting/model/reportingMappers'
-import { forwardApiFailure } from '@/lib/api-result'
-import type { ApiResultPromise } from '@/lib/api-result'
+import { type ApiResultPromise, forwardApiFailure } from '@/lib/api-result'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import {
