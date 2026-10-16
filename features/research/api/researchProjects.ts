@@ -1,4 +1,8 @@
-import { decodeResearchCollection, decodeResearchWorkspaceProjects, hasResearchEntityId } from '@/features/research/api/researchCollection.contract'
+import {
+  decodeResearchCollection,
+  decodeResearchWorkspaceProjects,
+  hasResearchEntityId,
+} from '@/features/research/api/researchCollection.contract'
 import {
   normalizeAuditEvents,
   normalizeCohort,
