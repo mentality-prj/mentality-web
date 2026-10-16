@@ -578,7 +578,7 @@ describe('researchProjects requests', () => {
       1,
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1/cohorts',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(mockedPerformAuthRequest).toHaveBeenNthCalledWith(
       2,
@@ -592,6 +592,7 @@ describe('researchProjects requests', () => {
           from: '2026-01-01',
           to: '2026-04-30',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(cohortResult).toEqual(
@@ -734,7 +735,7 @@ describe('researchProjects requests', () => {
     expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1/datasets/history?from=2026-01-01&to=2026-02-28&limit=20',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(result).toEqual(
       expect.objectContaining({
@@ -776,6 +777,7 @@ describe('researchProjects requests', () => {
           requestedFields: ['sleepScore'],
           reason: 'Data review',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(result).toEqual(
@@ -787,6 +789,47 @@ describe('researchProjects requests', () => {
         }),
       })
     )
+  })
+
+  it('rejects malformed success payloads for cohort, history and export without changing 403 behavior', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { groupIds: 'not-an-array' } })
+    await expect(getResearchProjectCohort(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research cohort response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { items: [{ id: 'a' }, null] } })
+    await expect(getResearchProjectHistoryDataset(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research history dataset response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { status: 'ready' } })
+    await expect(
+      requestResearchProjectExport(mockSession, 'project-1', {
+        format: 'csv',
+        requestedFields: ['stressScore'],
+        reason: 'Review',
+      })
+    ).resolves.toEqual({ error: 'Invalid research export response from backend', status: 502 })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      error: { message: 'Forbidden', status: 403 },
+    })
+    await expect(getResearchProjectCohort(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Forbidden',
+      status: 403,
+    })
+  })
+
+  it('keeps an absent cohort as null and an empty history as a legitimate result', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: [] })
+    await expect(getResearchProjectCohort(mockSession, 'project-1')).resolves.toEqual({ data: null })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { items: [], total: 0 } })
+    await expect(getResearchProjectHistoryDataset(mockSession, 'project-1')).resolves.toEqual({
+      data: { items: [], columns: [], total: 0 },
+    })
   })
 
   it('gets audit events and flattens metadata payloads', async () => {
