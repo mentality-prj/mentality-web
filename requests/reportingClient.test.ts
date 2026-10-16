@@ -70,9 +70,9 @@ describe('reportingClient URL normalization', () => {
 
     const result = await getRiskEventsVM({ session: mockSession, companyId: 'company-1', locale: 'uk' })
 
-    expect('data' in result && result.data).toEqual([
-      expect.objectContaining({ id: 'risk-1', title: 'High stress', status: 'open' }),
-    ])
+    expect(result).toHaveProperty('data.0.id', 'risk-1')
+    expect(result).toHaveProperty('data.0.title', 'High stress')
+    expect(result).toHaveProperty('data.0.status', 'open')
   })
 
   it('accepts a valid empty or populated items envelope', async () => {
@@ -83,25 +83,31 @@ describe('reportingClient URL normalization', () => {
       data: { items: [{ id: 'risk-2', title: 'Low energy' }], total: 1 },
     })
     const result = await getRiskEventsVM({ session: mockSession, companyId: 'company-1' })
-    expect('data' in result && result.data?.[0]?.id).toBe('risk-2')
+    expect(result).toHaveProperty('data.0.id', 'risk-2')
   })
 
-  it.each([
-    null,
-    {},
-    { items: null },
-    { items: 'not an array' },
-    { items: [null] },
-    { items: [{ title: '' }] },
-    { items: [{ unrelatedField: true }] },
-    [{ id: 'risk-1' }, false],
-  ])('rejects malformed risk-feed payloads instead of silently dropping events (%j)', async (payload) => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: payload })
+  it('rejects malformed risk-feed payloads instead of silently dropping events', async () => {
+    const malformedPayloads = [
+      null,
+      {},
+      { items: null },
+      { items: 'not an array' },
+      { items: [null] },
+      { items: [{ title: '' }] },
+      { items: [{ unrelatedField: true }] },
+      [{ id: 'risk-1' }, false],
+    ]
 
-    await expect(getRiskEventsVM({ session: mockSession, companyId: 'company-1' })).resolves.toEqual({
-      error: 'Invalid risk event feed response from backend',
-      status: 502,
-    })
+    for (const payload of malformedPayloads) {
+      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: payload })
+
+      await expect(getRiskEventsVM({ session: mockSession, companyId: 'company-1' })).resolves.toEqual({
+        error: 'Invalid risk event feed response from backend',
+        status: 502,
+      })
+    }
+
+    expect(logger.error).toHaveBeenCalledTimes(malformedPayloads.length)
     expect(logger.error).toHaveBeenCalledWith('Invalid reporting projection response', {
       path: '/api/operational/v1/risk-events/feed',
     })
