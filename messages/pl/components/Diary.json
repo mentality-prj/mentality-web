@@ -18,5 +18,6 @@
   },
   "Empty": "Nie masz jeszcze żadnych notatek",
   "HistoryTitle": "Historia notatek",
-  "backToMyDay": "Wróć do Mojego dnia"
+  "backToMyDay": "Wróć do Mojego dnia",
+  "NoMatchingNotes": "Brak notatek pasujących do wybranych filtrów"
 }
