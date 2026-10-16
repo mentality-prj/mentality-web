@@ -28,10 +28,10 @@ import {
 } from '@/features/research/model/researchProjectPrimitives'
 import { isResearchCompanyBoundaryNotDefined } from '@/helpers/researchErrorMessage'
 import { forwardApiFailure } from '@/lib/api-result'
+import type { ApiResult, ApiResultPromise } from '@/lib/api-result'
 import { getCompanies, getMyCompany } from '@/requests/companies'
 import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
-import type { ApiResult, ApiResultPromise } from '@/lib/api-result'
 import type { CustomSession } from '@/types/auth'
 import type {
   ResearchAuditEvent,
