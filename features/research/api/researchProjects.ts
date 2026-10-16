@@ -211,12 +211,20 @@ export async function getResearchProjectById(
   session: CustomSession | null,
   projectId: string
 ): Result<ResearchProject> {
-  const response = await performResearchRequest(session, `/${projectId}`)
+  const response = await performAuthRequest<Record<string, unknown>>(session, `${RESEARCH_BASE_URL}/${projectId}`, {
+    decodeResponse: (value) => {
+      const entity = decodeResearchEntity(value)
+      return entity
+        ? { success: true, data: entity }
+        : { success: false, error: 'Invalid research project response from backend' }
+    },
+  })
 
   if ('error' in response) {
-    return response
+    return forwardApiFailure(response)
   }
 
+  // Keep feature-level validation as a defense in depth for adapters/mocks.
   const project = decodeResearchEntity(response.data)
   if (!project) {
     return { error: 'Invalid research project response from backend', status: 502 }
