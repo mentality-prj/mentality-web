@@ -110,7 +110,7 @@ test('Research and Reporting models do not depend on API or UI layers', () => {
 
   for (const modelRoot of modelRoots) {
     for (const file of listCodeFiles(join(rootDir, modelRoot))) {
-      const filename = relative(rootDir, file).replaceAll('\\\\', '/')
+      const filename = relative(rootDir, file).replaceAll('\\', '/')
       const source = ts.createSourceFile(filename, readFileSync(file, 'utf8'), ts.ScriptTarget.Latest, true)
 
       for (const statement of source.statements) {
@@ -122,12 +122,12 @@ test('Research and Reporting models do not depend on API or UI layers', () => {
         const target = specifier.startsWith('@/')
           ? specifier.slice(2)
           : specifier.startsWith('.')
-            ? relative(rootDir, resolve(file, '..', specifier)).replaceAll('\\\\', '/')
+            ? relative(rootDir, resolve(file, '..', specifier)).replaceAll('\\', '/')
             : null
         if (!target) continue
 
-        const forbiddenRoot = /^(requests|app|components|context|hooks|actions|ui)\//.test(target)
-        const forbiddenFeatureLayer = target.startsWith('features/') && /\/(api|hooks|ui)\//.test(target)
+        const forbiddenRoot = /^(requests|app|components|context|hooks|actions|ui)(\/|$)/.test(target)
+        const forbiddenFeatureLayer = target.startsWith('features/') && /\/(api|hooks|ui)(\/|$)/.test(target)
         if (forbiddenRoot || forbiddenFeatureLayer) {
           violations.push(`${filename} -> ${specifier}`)
         }
