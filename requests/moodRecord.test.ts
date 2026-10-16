@@ -1,4 +1,5 @@
 import { MOOD_RECORD_ENDPOINTS } from '@/constants/endpoints'
+import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { logger } from '@/lib/logger'
 import { parseMoodQuery } from '@/lib/moodQueryParser'
 import { performAuthRequest } from '@/requests/genericFetch'
@@ -6,7 +7,11 @@ import { createMoodRecord, getLastMoodRecords, getMoodRecordById, getMoodRecords
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-jest.mock('@/requests/genericFetch')
+jest.mock('@/helpers/api-request-with-auth')
+jest.mock('@/requests/genericFetch', () => {
+  const actual = jest.requireActual('@/requests/genericFetch')
+  return { ...actual, performAuthRequest: jest.fn(actual.performAuthRequest) }
+})
 jest.mock('@/lib/logger', () => ({
   __esModule: true,
   logger: {
@@ -46,7 +51,7 @@ beforeEach(() => {
 
 describe('createMoodRecord', () => {
   it('rejects a malformed creation response', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: {} })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: {} })
 
     expect(await createMoodRecord(mockSession, mockDto)).toEqual({
       error: 'Invalid mood record response from backend',
@@ -55,7 +60,7 @@ describe('createMoodRecord', () => {
   })
 
   it('returns data on success', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockRecord })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: mockRecord })
 
     const result = await createMoodRecord(mockSession, mockDto)
 
@@ -68,7 +73,7 @@ describe('createMoodRecord', () => {
   })
 
   it('returns error and logs on failure', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Server error' })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ error: 'Server error' })
 
     const result = await createMoodRecord(mockSession, mockDto)
 
@@ -77,7 +82,7 @@ describe('createMoodRecord', () => {
   })
 
   it('works with null session', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockRecord })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: mockRecord })
 
     const result = await createMoodRecord(null, mockDto)
 
@@ -88,7 +93,7 @@ describe('createMoodRecord', () => {
 
 describe('getMoodRecords', () => {
   it('returns data without params', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     const result = await getMoodRecords(mockSession)
 
@@ -106,7 +111,7 @@ describe('getMoodRecords', () => {
   })
 
   it('appends page param to url', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     await getMoodRecords(mockSession, { page: 2 })
 
@@ -114,7 +119,7 @@ describe('getMoodRecords', () => {
   })
 
   it('appends limit param to url', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     await getMoodRecords(mockSession, { limit: 10 })
 
@@ -126,7 +131,7 @@ describe('getMoodRecords', () => {
   })
 
   it('appends both page and limit params', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     await getMoodRecords(mockSession, { page: 3, limit: 5 })
 
@@ -136,13 +141,13 @@ describe('getMoodRecords', () => {
   })
 
   it('preserves upstream 401 on failed history requests', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
 
     await expect(getMoodRecords(mockSession)).resolves.toEqual({ error: 'Unauthorized', status: 401 })
   })
 
   it('returns error on failure', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Unauthorized' })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ error: 'Unauthorized' })
 
     const result = await getMoodRecords(mockSession)
 
@@ -150,7 +155,7 @@ describe('getMoodRecords', () => {
   })
 
   it('rejects malformed successful responses instead of treating them as empty history', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { message: 'wrong payload' } })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: { message: 'wrong payload' } })
 
     expect(await getMoodRecords(mockSession)).toEqual({
       error: 'Invalid mood record response from backend',
@@ -159,7 +164,7 @@ describe('getMoodRecords', () => {
   })
 
   it('rejects invalid individual records rather than returning corrupt UI data', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, stressLevel: 'high' }] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, stressLevel: 'high' }] })
 
     expect(await getMoodRecords(mockSession)).toEqual({
       error: 'Invalid mood record response from backend',
@@ -169,14 +174,14 @@ describe('getMoodRecords', () => {
 
   it('rejects non-integer and out-of-range mood scales', async () => {
     for (const invalidLevel of [0, 2.5, 6]) {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, moodLevel: invalidLevel }] })
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, moodLevel: invalidLevel }] })
 
       expect(await getMoodRecords(mockSession)).toEqual({
         error: 'Invalid mood record response from backend',
         status: 502,
       })
     }
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, energyLevel: 0 }] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [{ ...mockRecord, energyLevel: 0 }] })
 
     expect(await getMoodRecords(mockSession)).toEqual({
       error: 'Invalid mood record response from backend',
@@ -185,7 +190,7 @@ describe('getMoodRecords', () => {
   })
 
   it('rejects invalid dates that would break downstream summary rendering', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({
       data: [{ ...mockRecord, createdAt: 'not-a-date' }],
     })
 
@@ -195,15 +200,28 @@ describe('getMoodRecords', () => {
     })
   })
 
+  it('validates history in the shared transport exactly once', async () => {
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+    await getMoodRecords(mockSession)
+
+    const options = (performAuthRequest as jest.Mock).mock.calls[0][2]
+    expect(options.decodeResponse).toEqual(expect.any(Function))
+    expect(options.decodeResponse([{ ...mockRecord, stressLevel: 'invalid' }])).toEqual({
+      success: false,
+      error: 'Invalid mood record response from backend',
+    })
+  })
+
   it('accepts a real empty history as a valid result', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [] })
 
     expect(await getMoodRecords(mockSession)).toEqual({ data: { moodNotes: [], total: 0 } })
   })
 
   describe('query params', () => {
     it('forwards combined stress, energy, tags, and weekdays to the backend', async () => {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
       await getMoodRecords(
         mockSession,
@@ -229,7 +247,7 @@ describe('getMoodRecords', () => {
     })
 
     it('sends the IANA timezone with weekdays to support local-day filtering', async () => {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
       const query = parseMoodQuery({ weekdays: 'sun', timeZone: 'America/New_York' })
       await getMoodRecords(mockSession, query)
@@ -241,7 +259,7 @@ describe('getMoodRecords', () => {
     })
 
     it('sends oldest-first sorting to the backend before pagination', async () => {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
       await getMoodRecords(mockSession, parseMoodQuery({ page: '2', order: 'oldest' }))
 
@@ -252,7 +270,7 @@ describe('getMoodRecords', () => {
     })
 
     it('forwards non-contiguous multi-level filters to the API', async () => {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
       const query = parseMoodQuery({
         moodLevel: 'veryBad,great',
@@ -275,7 +293,7 @@ describe('getMoodRecords', () => {
     })
 
     it('includes repeated tags and weekdays correctly in URL', async () => {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
       const searchParams = {
         tags: ['a', 'a', 'b', ''],
@@ -312,7 +330,7 @@ describe('getMoodRecords', () => {
 
   describe('pagination total', () => {
     it('returns total from X-Total-Count header', async () => {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({
         data: [mockRecord],
         headers: new Headers({
           'X-Total-Count': '100',
@@ -330,7 +348,7 @@ describe('getMoodRecords', () => {
     })
 
     it('fals back to moodNotes length when header is missing', async () => {
-      ;(performAuthRequest as jest.Mock).mockResolvedValue({
+      ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({
         data: [mockRecord],
         headers: new Headers(),
       })
@@ -349,7 +367,7 @@ describe('getMoodRecords', () => {
 
 describe('getLastMoodRecords', () => {
   it('rejects an unexpected summary payload', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: null })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: null })
 
     expect(await getLastMoodRecords(mockSession)).toEqual({
       error: 'Invalid mood record response from backend',
@@ -358,7 +376,7 @@ describe('getLastMoodRecords', () => {
   })
 
   it('returns data without params', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     const result = await getLastMoodRecords(mockSession)
 
@@ -371,7 +389,7 @@ describe('getLastMoodRecords', () => {
   })
 
   it('uses days param when provided and > 0', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     await getLastMoodRecords(mockSession, { days: 7 })
 
@@ -379,7 +397,7 @@ describe('getLastMoodRecords', () => {
   })
 
   it('falls back to limit when days is 0', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     await getLastMoodRecords(mockSession, { days: 0, limit: 5 })
 
@@ -389,7 +407,7 @@ describe('getLastMoodRecords', () => {
   })
 
   it('uses limit when days is not provided', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     await getLastMoodRecords(mockSession, { limit: 3 })
 
@@ -397,7 +415,7 @@ describe('getLastMoodRecords', () => {
   })
 
   it('prefers days over limit when both are provided', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
     await getLastMoodRecords(mockSession, { days: 10, limit: 3 })
 
@@ -407,7 +425,7 @@ describe('getLastMoodRecords', () => {
   })
 
   it('returns error on failure', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
     const result = await getLastMoodRecords(mockSession)
 
@@ -417,7 +435,7 @@ describe('getLastMoodRecords', () => {
 
 describe('getMoodRecordById', () => {
   it('rejects an invalid record DTO', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { id: 'missing-values' } })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: { id: 'missing-values' } })
 
     expect(await getMoodRecordById(mockSession, 'bad')).toEqual({
       error: 'Invalid mood record response from backend',
@@ -426,7 +444,7 @@ describe('getMoodRecordById', () => {
   })
 
   it('returns data on success', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockRecord })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: mockRecord })
 
     const result = await getMoodRecordById(mockSession, 'record-1')
 
@@ -439,7 +457,7 @@ describe('getMoodRecordById', () => {
   })
 
   it('returns error on failure', async () => {
-    ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Not found' })
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ error: 'Not found' })
 
     const result = await getMoodRecordById(mockSession, 'record-999')
 

@@ -32,3 +32,20 @@ export function decodeMoodRecordList(value: unknown): MoodRecordEntity[] | null 
   const result = moodRecordListSchema.safeParse(value)
   return result.success ? result.data : null
 }
+
+const INVALID_MOOD_RESPONSE = 'Invalid mood record response from backend'
+
+/** Tagged decoders let genericFetch distinguish valid empty lists from bad JSON. */
+export function decodeMoodRecordResponse(value: unknown) {
+  const record = decodeMoodRecord(value)
+  return record
+    ? { success: true as const, data: record }
+    : { success: false as const, error: INVALID_MOOD_RESPONSE }
+}
+
+export function decodeMoodRecordListResponse(value: unknown) {
+  const records = decodeMoodRecordList(value)
+  return records
+    ? { success: true as const, data: records }
+    : { success: false as const, error: INVALID_MOOD_RESPONSE }
+}

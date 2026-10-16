@@ -15,9 +15,22 @@ type RequestOptions<T> = {
   decodeResponse?: ApiResponseDecoder<T>
 }
 
+type DecodedRequestOptions<T> = RequestOptions<T> & { decodeResponse: ApiResponseDecoder<T> }
+type DecodedResult<T> = { data: T; headers?: Headers } | { error: string; status?: number }
+
 /**
  * Perform an authenticated API request and normalize the result to { data } | { error }
  */
+export function performAuthRequest<T>(
+  session: CustomSession | null,
+  url: string,
+  options: DecodedRequestOptions<T>
+): Promise<DecodedResult<T>>
+export function performAuthRequest<T = unknown>(
+  session: CustomSession | null,
+  url: string,
+  options?: RequestOptions<T>
+): Promise<Result<T>>
 export async function performAuthRequest<T = unknown>(
   session: CustomSession | null,
   url: string,

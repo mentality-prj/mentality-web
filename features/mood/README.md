@@ -13,3 +13,5 @@ Legacy imports remain available as **re-export compatibility shims**, so migrati
 Layering: app route → feature UI/hook → feature API/model → shared transport. A feature may depend on shared `lib`/`ui`/`ds`, but should not import another feature's internal files.
 
 For Mood Tracker SSR, failed history/summary requests throw to the protected route's error boundary. Only a successful `[]` is an empty history. Legacy `requests/moodRecord.ts` stays as an import shim during migration.
+
+Mood Records now supply tagged Zod decoders directly to `performAuthRequest`. All four read/write entry points receive runtime-validated DTOs, and history pagination keeps transport headers. Invalid successful payloads produce the existing 502 failure; valid `[]` is still an empty history. Shared transport's decoded-request overload guarantees typed data on success; legacy undecoded callers remain backward-compatible.
