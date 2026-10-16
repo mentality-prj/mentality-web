@@ -1,3 +1,4 @@
+import { decodeRiskEventFeed } from '@/features/company/reporting/api/riskFeed.contract'
 import {
   buildRiskEventFallbackDetail,
   mapMLInspectionProjectionToVM,
@@ -7,7 +8,6 @@ import {
   mapRiskEventProjectionToVM,
   mapTeamDynamicsProjectionToVM,
 } from '@/features/company/reporting/model/projections'
-import { asArray, asObject } from '@/features/company/reporting/model/projections/shared'
 import { mapMlInspectionToVM } from '@/features/company/reporting/model/reportingMappers'
 import { type ApiResultPromise, forwardApiFailure } from '@/lib/api-result'
 import { logger } from '@/lib/logger'
@@ -115,14 +115,13 @@ export async function getRiskEventsVM({ session, admin, locale }: DecisionSuppor
     return result
   }
 
-  const root = asObject(result.data)
-  const items = Array.isArray(result.data) ? result.data : asArray(root?.items)
-  return {
-    data: items.flatMap((item, index) => {
-      const event = asObject(item)
-      return event ? [mapRiskEventProjectionToVM(event, locale, index)] : []
-    }),
+  const items = decodeRiskEventFeed(result.data)
+  if (!items) {
+    logger.error('Invalid reporting projection response', { path: '/api/operational/v1/risk-events/feed' })
+    return { error: 'Invalid risk event feed response from backend', status: 502 }
   }
+
+  return { data: items.map((event, index) => mapRiskEventProjectionToVM(event, locale, index)) }
 }
 
 export async function getRiskEventDetailVM(

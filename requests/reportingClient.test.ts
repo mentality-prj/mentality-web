@@ -63,6 +63,15 @@ describe('reportingClient URL normalization', () => {
     })
   })
 
+  it('surfaces an invalid risk feed as an upstream contract failure', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: { unexpected: true } })
+
+    await expect(getRiskEventsVM({ session: mockSession, companyId: 'company-1' })).resolves.toEqual({
+      error: 'Invalid risk event feed response from backend',
+      status: 502,
+    })
+  })
+
   it('requests admin diagnostics projections without duplicating the api prefix', async () => {
     await getMLInspectionVM(mockSession, 'company-1', 'company', '64e000000000000000000001', 'uk')
 
