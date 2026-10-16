@@ -1,4 +1,9 @@
 import {
+  decodeResearchCollection,
+  decodeResearchWorkspaceProjects,
+  hasResearchEntityId,
+} from '@/features/research/api/researchCollection.contract'
+import {
   normalizeAuditEvents,
   normalizeCohort,
   normalizeExportResponse,
@@ -12,7 +17,6 @@ import {
   toResearchProjectCohortBody,
   toResearchProjectGrantBody,
   toResearchProjectMutationBody,
-  unwrapCollection,
 } from '@/features/research/model/researchProjectPayloads'
 import {
   asArray,
@@ -171,11 +175,12 @@ export async function getResearchProjects(session: CustomSession | null): Result
     return response
   }
 
-  const projects = unwrapCollection(response.data, ['items', 'projects', 'data'])
-    .map((item) => normalizeProject(asObject(item), session))
-    .filter((item) => Boolean(item.id))
+  const projects = decodeResearchCollection(response.data, ['items', 'projects', 'data'])
+  if (!projects || !projects.every(hasResearchEntityId)) {
+    return { error: 'Invalid research projects response from backend', status: 502 }
+  }
 
-  return { data: projects }
+  return { data: projects.map((project) => normalizeProject(project, session)) }
 }
 
 export async function createResearchProject(
@@ -234,11 +239,17 @@ export async function getResearchProjectMembers(
     return response
   }
 
-  const members = unwrapCollection(response.data, ['items', 'members', 'data'])
-    .map((item) => normalizeProjectMember(item, EMPTY_PERMISSIONS))
-    .filter((item): item is ResearchProjectMember => item !== null)
+  const items = decodeResearchCollection(response.data, ['items', 'members', 'data'])
+  if (!items) {
+    return { error: 'Invalid research members response from backend', status: 502 }
+  }
 
-  return { data: members }
+  const members = items.map((item) => normalizeProjectMember(item, EMPTY_PERMISSIONS))
+  if (members.some((member) => member === null)) {
+    return { error: 'Invalid research members response from backend', status: 502 }
+  }
+
+  return { data: members.filter((member): member is ResearchProjectMember => member !== null) }
 }
 
 export async function addResearchProjectMember(
@@ -320,11 +331,17 @@ export async function getResearchProjectGrants(
     return response
   }
 
-  const grants = unwrapCollection(response.data, ['items', 'grants', 'data'])
-    .map((item) => normalizeGrant(item))
-    .filter((item): item is ResearchProjectGrant => item !== null)
+  const items = decodeResearchCollection(response.data, ['items', 'grants', 'data'])
+  if (!items || !items.every(hasResearchEntityId)) {
+    return { error: 'Invalid research grants response from backend', status: 502 }
+  }
 
-  return { data: grants }
+  const grants = items.map((item) => normalizeGrant(item))
+  if (grants.some((grant) => grant === null)) {
+    return { error: 'Invalid research grants response from backend', status: 502 }
+  }
+
+  return { data: grants.filter((grant): grant is ResearchProjectGrant => grant !== null) }
 }
 
 export async function createResearchProjectGrant(
@@ -418,7 +435,17 @@ export async function getResearchProjectAudit(
     return response
   }
 
-  return { data: normalizeAuditEvents(getValue(asObject(response.data), ['items', 'data', 'events']) ?? response.data) }
+  const events = decodeResearchCollection(response.data, ['items', 'data', 'events'])
+  if (!events) {
+    return { error: 'Invalid research audit response from backend', status: 502 }
+  }
+
+  const audit = normalizeAuditEvents(events)
+  if (audit.length !== events.length) {
+    return { error: 'Invalid research audit response from backend', status: 502 }
+  }
+
+  return { data: audit }
 }
 
 export async function getResearchWorkspaceAccess(session: CustomSession | null): Result<ResearchWorkspaceAccess> {
@@ -452,9 +479,12 @@ export async function getResearchWorkspaceAccess(session: CustomSession | null):
     const capabilities = getStringArray(source, ['capabilities', 'workspaceCapabilities']).filter(
       (item): item is ResearchWorkspaceCapability => item === 'scientist' || item === 'research_admin'
     )
-    const projects = unwrapCollection(response.data, ['items', 'projects', 'data'])
-      .map((item) => normalizeProject(asObject(item), session))
-      .filter((item) => Boolean(item.id))
+    const projectItems = decodeResearchWorkspaceProjects(response.data)
+    if (!projectItems || !projectItems.every(hasResearchEntityId)) {
+      return { error: 'Invalid research workspace response from backend', status: 502 }
+    }
+
+    const projects = projectItems.map((item) => normalizeProject(item, session))
     const companies = await resolveWorkspaceCompanies(session, source, projects)
 
     const canCreateProjects =
