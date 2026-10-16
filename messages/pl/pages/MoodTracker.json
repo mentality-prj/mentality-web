@@ -14,5 +14,27 @@
       "energy": "Energia",
       "focus": "Koncentracja"
     }
+  },
+  "progress": {
+    "heading": "Postępy samopoczucia",
+    "subtitle": "Zmiany w Twoich wpisach z ostatnich 30 dni",
+    "stressTitle": "Wskaźnik stresu",
+    "stressSubtitle": "Średnia samoocena z ostatnich 7 dni kalendarzowych (0 = najniższy, 100 = najwyższy)",
+    "observedDays": "Dni z wpisami: {count}",
+    "stressChange": "Stres względem poprzedniego tygodnia",
+    "moodChange": "Nastrój względem poprzedniego tygodnia",
+    "currentStreak": "Aktualna seria, dni",
+    "longestStreak": "Najdłuższa seria, dni",
+    "mood": "Nastrój",
+    "stress": "Stres",
+    "chartAccessible": "Średnie dzienne oceny nastroju i stresu z ostatnich 30 dni w skali od 1 do 5",
+    "notEnough": "Za mało danych do porównania",
+    "noChange": "Bez zmian",
+    "improved": "Poprawa o {amount} pkt",
+    "increased": "Pogorszenie o {amount} pkt",
+    "empty": "Dodaj wpisy nastroju, aby zobaczyć postępy.",
+    "loadError": "Nie udało się pobrać statystyk. Odśwież stronę.",
+    "disclaimer": "To odzwierciedlenie Twoich własnych ocen, nie ocena medyczna ani diagnoza. Wyższy wynik oznacza większy stres.",
+    "dateNote": "Porównano ostatnie 7 dni z poprzednimi 7 na podstawie dni z wpisami (co najmniej 2 w każdym tygodniu). Dzienne podsumowania używają obecnie UTC."
   }
 }

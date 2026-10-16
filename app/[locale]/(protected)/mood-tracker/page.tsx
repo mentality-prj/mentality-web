@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
+import { MoodProgressSummary } from '@/components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary'
 import { MoodRecords } from '@/components/features/MoodTracker/MoodRecords/MoodRecords'
 import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
 import { TenDaysSummary } from '@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary'
@@ -9,6 +10,7 @@ import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { parseMoodQuery } from '@/lib/moodQueryParser'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
+import { getMoodStatistics } from '@/requests/userStatistics'
 
 export default async function MoodTracker({
   searchParams,
@@ -19,7 +21,7 @@ export default async function MoodTracker({
 
   const session = await getServerSession()
   const query = parseMoodQuery(await searchParams)
-  const [result, res] = await Promise.all([getMoodRecords(session, query), getLastMoodRecords(session, { days: 10 })])
+  const [result, res, progressResult] = await Promise.all([getMoodRecords(session, query), getLastMoodRecords(session, { days: 10 }), getMoodStatistics(session)])
   const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
   const total = 'error' in result ? 0 : result.data.total
 
@@ -44,6 +46,7 @@ export default async function MoodTracker({
           <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res?.data ?? []} />
         </div>
       </div>
+      <MoodProgressSummary stats={'error' in progressResult ? null : progressResult.data} failed={'error' in progressResult} />
       <MoodRecords totalCount={total} records={moodNotes ?? []} />
     </div>
   )
