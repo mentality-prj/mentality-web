@@ -18,7 +18,7 @@ export async function MoodProgressSummary({ stats, failed = false }: Props) {
   const changeText = (change: number | null, lowerIsBetter: boolean): string => {
     if (change === null) return t('notEnough')
     if (change === 0) return t('noChange')
-    const direction = (change < 0) === lowerIsBetter ? 'improved' : 'increased'
+    const direction = change < 0 === lowerIsBetter ? 'improved' : 'increased'
     return t(direction, { amount: Math.abs(change) })
   }
 

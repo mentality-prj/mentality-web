@@ -12,7 +12,7 @@
     "test:cov": "jest --coverage",
     "lint": "eslint .",
     "fix": "eslint . --fix",
-    "prettier": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary.tsx && git diff -- components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary.tsx && prettier --check --ignore-path .gitignore --ignore-path .prettierignore .",
+    "prettier": "prettier --check --ignore-path .gitignore --ignore-path .prettierignore .",
     "format": "prettier --write --ignore-path .gitignore --ignore-path .prettierignore .",
     "all": "yarn types && yarn lint && yarn prettier && yarn test",
     "allfix": "yarn fix && yarn format",
