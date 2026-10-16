@@ -45,12 +45,14 @@ export interface AuthTokens {
   refreshToken?: string
   expiresAt: number
   userRole?: UserRole
+  sessionRevision?: string
   /** Returned by GET /api/auth/token — refresh token is kept server-side only */
   hasRefreshToken?: boolean
 }
 
 /** Public browser session metadata: never contains JWTs or OAuth secrets. */
 export interface BrowserAuthSession {
+  sessionRevision?: string
   expiresAt: number
   hasRefreshToken: boolean
   userRole?: UserRole

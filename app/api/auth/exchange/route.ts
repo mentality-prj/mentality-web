@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { coalesceRefreshExchange } from '@/lib/auth/serverRefreshFlight'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 
 type TokenEndpointResponse = {
@@ -161,7 +162,6 @@ export async function POST(request: NextRequest) {
     return jsonNoStore({ error: 'Invalid JSON' }, { status: 400 })
   }
 
-  let tokenSignal: AbortSignal | null = null
   try {
     const { code, codeVerifier, grantType } = body as {
       code?: string
@@ -199,21 +199,43 @@ export async function POST(request: NextRequest) {
       return jsonNoStore({ error: 'Invalid grantType' }, { status: 400 })
     }
 
-    tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
-    const tokenResponse = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params,
-      redirect: 'manual',
-      cache: 'no-store',
-      signal: tokenSignal,
-    })
+    const callProvider = async () => {
+      const tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
+      try {
+        const response = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params,
+          redirect: 'manual',
+          cache: 'no-store',
+          signal: tokenSignal,
+        })
+        const payload = await readJsonPayload(response)
+        return {
+          ok: response.ok,
+          status: response.status,
+          payload,
+          issuedAt: Math.floor(Date.now() / 1000),
+          sessionRevision: crypto.randomUUID(),
+        }
+      } catch (error) {
+        // A body stream can throw AbortError although the deadline elapsed.
+        const reason = tokenSignal?.aborted ? tokenSignal.reason : null
+        if (reason instanceof Error && reason.name === 'TimeoutError') throw reason
+        throw error
+      }
+    }
 
-    const payload = await readJsonPayload(tokenResponse)
+    const exchangeResult =
+      grantType === 'refresh_token' && storedTokens?.refreshToken
+        ? await coalesceRefreshExchange(storedTokens.refreshToken, callProvider)
+        : await callProvider()
+    const payload = exchangeResult.payload
 
-    if (!tokenResponse.ok) {
+    if (!exchangeResult.ok) {
       // Never reflect identity-provider JSON (including diagnostic secrets).
-      const status = tokenResponse.status >= 300 && tokenResponse.status < 500 ? 400 : 502
+      const status =
+        exchangeResult.status === 429 ? 429 : exchangeResult.status >= 300 && exchangeResult.status < 500 ? 400 : 502
       return jsonNoStore({ error: 'Identity provider request failed' }, { status })
     }
 
@@ -239,7 +261,8 @@ export async function POST(request: NextRequest) {
         accessToken: data.access_token,
         idToken,
         refreshToken: data.refresh_token ?? currentStoredTokens.refreshToken,
-        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+        sessionRevision: exchangeResult.sessionRevision,
+        expiresAt: exchangeResult.issuedAt + data.expires_in,
       }
 
       const serialized = JSON.stringify(updatedTokens)
@@ -251,6 +274,7 @@ export async function POST(request: NextRequest) {
         expiresAt: updatedTokens.expiresAt,
         hasRefreshToken: Boolean(updatedTokens.refreshToken),
         userRole: updatedTokens.userRole,
+        sessionRevision: updatedTokens.sessionRevision,
       }
       return setAuthCookie(jsonNoStore(safeData), serialized)
     }
@@ -265,7 +289,8 @@ export async function POST(request: NextRequest) {
       accessToken: data.access_token,
       idToken: data.id_token,
       refreshToken: data.refresh_token,
-      expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+      sessionRevision: exchangeResult.sessionRevision,
+      expiresAt: exchangeResult.issuedAt + data.expires_in,
     }
 
     const serialized = JSON.stringify(cookieTokens)
@@ -276,18 +301,15 @@ export async function POST(request: NextRequest) {
     const safeData = {
       expiresAt: cookieTokens.expiresAt,
       hasRefreshToken: Boolean(cookieTokens.refreshToken),
+      sessionRevision: cookieTokens.sessionRevision,
     }
     const response = setAuthCookie(jsonNoStore(safeData), serialized)
     // A new login must not inherit the previous account's selected tenant.
     response.cookies.delete(ACTIVE_COMPANY_COOKIE)
     return response
   } catch (error) {
-    // A response stream can reject with AbortError even when the originating
-    // fetch signal timed out with TimeoutError. Preserve the real cause.
-    const reason = tokenSignal?.aborted ? tokenSignal.reason : null
-    const timedOut =
-      (reason instanceof Error && reason.name === 'TimeoutError') ||
-      (error instanceof Error && error.name === 'TimeoutError')
+    // callProvider normalizes stream AbortError to the deadline's TimeoutError.
+    const timedOut = error instanceof Error && error.name === 'TimeoutError'
     return jsonNoStore({ error: 'Identity provider temporarily unavailable' }, { status: timedOut ? 504 : 502 })
   }
 }

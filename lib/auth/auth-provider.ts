@@ -40,6 +40,9 @@ export interface IAuthProvider {
   /** Clear stored tokens */
   clearTokens(): Promise<void>
 
+  /** Delete only if the server-authored cookie revision still matches. */
+  clearTokensIfUnchanged(observed: BrowserAuthSession): Promise<boolean>
+
   /** Get the provider's issuer URL (for CSP headers in middleware) */
   getIssuerUrl(): string
 }

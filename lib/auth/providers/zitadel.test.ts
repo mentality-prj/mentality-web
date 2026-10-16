@@ -2,6 +2,7 @@
 
 import {
   deleteStoredAuthTokens,
+  deleteStoredAuthTokensIfUnchanged,
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
@@ -25,6 +26,7 @@ jest.mock('@/lib/logger', () => ({
 
 jest.mock('@/requests/auth', () => ({
   deleteStoredAuthTokens: jest.fn(),
+  deleteStoredAuthTokensIfUnchanged: jest.fn(),
   exchangeAuthTokens: jest.fn(),
   fetchAuthenticatedUser: jest.fn(),
   fetchStoredAuthTokens: jest.fn(),
@@ -39,11 +41,13 @@ describe('token-opaque Zitadel provider', () => {
   beforeEach(() => {
     jest.clearAllMocks()
     sessionStorage.clear()
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: undefined })
     provider = new ZitadelAuthProvider()
     ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(metadata)
     ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ data: metadata })
     ;(fetchAuthenticatedUser as jest.Mock).mockResolvedValue(testUser)
     ;(deleteStoredAuthTokens as jest.Mock).mockResolvedValue(undefined)
+    ;(deleteStoredAuthTokensIfUnchanged as jest.Mock).mockResolvedValue(true)
   })
 
   it('rejects state mismatch before reaching exchange', async () => {
@@ -66,16 +70,168 @@ describe('token-opaque Zitadel provider', () => {
   it('revokes local cookie if backend user verification fails', async () => {
     sessionStorage.setItem('oauth_state', 'correct')
     sessionStorage.setItem('pkce_verifier', 'verifier')
+    const callbackMetadata = {
+      ...metadata,
+      sessionRevision: 'eeeeeeee-eeee-4eee-8eee-eeeeeeeeeeee',
+    }
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValueOnce({ data: callbackMetadata })
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(callbackMetadata)
     ;(fetchAuthenticatedUser as jest.Mock).mockResolvedValue(null)
     expect(await provider.handleCallback('code', 'correct')).toBeNull()
-    expect(deleteStoredAuthTokens).toHaveBeenCalledTimes(1)
+    expect(deleteStoredAuthTokensIfUnchanged).toHaveBeenCalledWith(callbackMetadata)
+    expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
   })
 
-  it('deduplicates concurrent refresh calls', async () => {
+  it('deduplicates concurrent refresh calls within one tab', async () => {
+    const expiring = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(expiring)
     const results = await Promise.all([provider.refreshTokens(), provider.refreshTokens()])
     expect(results).toEqual([metadata, metadata])
     expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
-    expect(fetchStoredAuthTokens).toHaveBeenCalledTimes(1)
+    expect(fetchStoredAuthTokens).toHaveBeenCalledTimes(2)
+  })
+
+  it('does not rotate a session which has more than 60 seconds remaining', async () => {
+    expect(await provider.refreshTokens()).toEqual(metadata)
+    expect(exchangeAuthTokens).not.toHaveBeenCalled()
+  })
+
+  it('serializes two tabs with Web Locks and re-reads the cookie before rotating', async () => {
+    let current = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    let lastLock: Promise<unknown> = Promise.resolve()
+    const request = jest.fn((_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+      const next = lastLock.then(callback)
+      lastLock = next.catch(() => undefined)
+      return next
+    })
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: { request } })
+    ;(fetchStoredAuthTokens as jest.Mock).mockImplementation(async () => current)
+    ;(exchangeAuthTokens as jest.Mock).mockImplementation(async () => {
+      current = metadata
+      return { data: metadata }
+    })
+
+    const anotherTab = new ZitadelAuthProvider()
+    const [first, second] = await Promise.all([provider.refreshTokens(), anotherTab.refreshTokens()])
+
+    expect(first).toEqual(metadata)
+    expect(second).toEqual(metadata)
+    expect(request).toHaveBeenCalledTimes(2)
+    expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
+    expect(fetchStoredAuthTokens).toHaveBeenCalledTimes(4)
+  })
+
+  it('does not retry a failed rotation in a tight loop', async () => {
+    const expiring = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(expiring)
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({ error: 'invalid_grant', status: 400 })
+
+    expect(await provider.refreshTokens()).toBeNull()
+    expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
+  })
+
+  it('preserves a newer rotated cookie when stale cleanup acquires the refresh lock', async () => {
+    const observed = { ...metadata, sessionRevision: 'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa' }
+    const newer = { ...metadata, sessionRevision: 'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb' }
+    const request = jest.fn((_name: string, _options: LockOptions, callback: () => Promise<unknown>) => callback())
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: { request } })
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(newer)
+
+    expect(await provider.clearTokensIfUnchanged(observed)).toBe(false)
+    expect(request).toHaveBeenCalledWith('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, expect.any(Function))
+    expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
+  })
+
+  it('deletes an unchanged cookie only while holding the rotation lock', async () => {
+    const observed = { ...metadata, sessionRevision: 'cccccccc-cccc-4ccc-cccc-cccccccccccc' }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(observed)
+    let lockHeld = false
+    Object.defineProperty(navigator, 'locks', {
+      configurable: true,
+      value: {
+        request: async (_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+          lockHeld = true
+          try {
+            return await callback()
+          } finally {
+            lockHeld = false
+          }
+        },
+      },
+    })
+    ;(deleteStoredAuthTokensIfUnchanged as jest.Mock).mockImplementation(async () => {
+      expect(lockHeld).toBe(true)
+      return true
+    })
+    expect(await provider.clearTokensIfUnchanged(observed)).toBe(true)
+    expect(deleteStoredAuthTokensIfUnchanged).toHaveBeenCalledWith(observed)
+    expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
+  })
+
+  it('preserves a refreshable cookie when Zitadel returns a temporary server error', async () => {
+    const expiring = { ...metadata, expiresAt: Math.floor(Date.now() / 1000) + 15 }
+    ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(expiring)
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValue({
+      error: 'Identity provider temporarily unavailable',
+      status: 503,
+    })
+
+    await expect(provider.refreshTokens()).rejects.toThrow('Identity provider temporarily unavailable')
+    expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
+  })
+
+  it('holds the refresh lock during authorization-code session creation', async () => {
+    let lockHeld = false
+    Object.defineProperty(navigator, 'locks', {
+      configurable: true,
+      value: {
+        request: async (_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+          lockHeld = true
+          try {
+            return await callback()
+          } finally {
+            lockHeld = false
+          }
+        },
+      },
+    })
+    ;(exchangeAuthTokens as jest.Mock).mockImplementation(async () => {
+      expect(lockHeld).toBe(true)
+      return { data: metadata }
+    })
+    sessionStorage.setItem('oauth_state', 'correct')
+    sessionStorage.setItem('pkce_verifier', 'verifier')
+
+    expect(await provider.handleCallback('code', 'correct')).toEqual({ user: testUser, tokens: metadata })
+    expect(lockHeld).toBe(false)
+  })
+
+  it('keeps the refresh lock until logout navigation commits', async () => {
+    let held = false
+    const request = jest.fn(async (_name: string, _options: LockOptions, callback: () => Promise<unknown>) => {
+      held = true
+      try {
+        return await callback()
+      } finally {
+        held = false
+      }
+    })
+    Object.defineProperty(navigator, 'locks', { configurable: true, value: { request } })
+    const submit = jest.spyOn(HTMLFormElement.prototype, 'submit').mockImplementation(() => {
+      expect(held).toBe(true)
+    })
+    try {
+      const logoutPromise = provider.logout()
+      await Promise.resolve()
+      expect(submit).toHaveBeenCalledTimes(1)
+      expect(held).toBe(true)
+      window.dispatchEvent(new Event('pagehide'))
+      await logoutPromise
+      expect(held).toBe(false)
+    } finally {
+      submit.mockRestore()
+      document.querySelectorAll('form[action="/api/auth/logout"]').forEach((form) => form.remove())
+    }
   })
 
   it('never yields a bearer token through the client API', async () => {

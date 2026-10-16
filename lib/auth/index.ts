@@ -30,6 +30,8 @@ export const authService = {
   getSession: () => provider.getSession(),
   getStoredTokens: () => provider.getStoredTokens(),
   clearTokens: () => provider.clearTokens(),
+  clearTokensIfUnchanged: (observed: import('@/types/auth').BrowserAuthSession) =>
+    provider.clearTokensIfUnchanged(observed),
 
   /** Issuer URL for CSP headers (used by middleware) */
   getIssuerUrl: () => provider.getIssuerUrl(),

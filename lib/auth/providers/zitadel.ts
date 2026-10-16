@@ -3,6 +3,7 @@ import { IAuthProvider } from '@/lib/auth/auth-provider'
 import { logger } from '@/lib/logger'
 import {
   deleteStoredAuthTokens,
+  deleteStoredAuthTokensIfUnchanged,
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
@@ -65,17 +66,25 @@ export class ZitadelAuthProvider implements IAuthProvider {
 
     sessionStorage.removeItem('oauth_state')
     sessionStorage.removeItem('pkce_verifier')
-    try {
-      // The exchange endpoint sets the HttpOnly cookie and returns metadata, not tokens.
+    const completeCallback = async (): Promise<{ user: CustomUser; tokens: BrowserAuthSession }> => {
+      // Authorization-code cookie writes must use the same browser lock as
+      // refresh rotation and stale-session cleanup.
       const result = await exchangeAuthTokens({ grantType: 'authorization_code', code, codeVerifier })
       if ('error' in result) throw new Error(`Token exchange failed: ${result.error}`)
 
       const user = await this.getUser()
       if (!user) {
-        await deleteStoredAuthTokens()
+        // Do not nest clearTokensIfUnchanged: we already hold this lock.
+        await deleteStoredAuthTokensIfUnchanged(result.data)
         throw new Error('Unable to validate the session')
       }
       return { user, tokens: result.data }
+    }
+    try {
+      if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+        return await navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, completeCallback)
+      }
+      return await completeCallback()
     } catch (error) {
       logger.error('[AUTH:ZITADEL] Callback error', { error: error instanceof Error ? error.message : String(error) })
       return null
@@ -83,6 +92,8 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async refreshTokens(): Promise<BrowserAuthSession | null> {
+    // A provider instance is shared across React components, while Web Locks
+    // serialize refresh-token rotation across *tabs on the same origin*.
     if (this.refreshInFlight) return this.refreshInFlight
     const task = this.refreshOnce()
     this.refreshInFlight = task
@@ -94,22 +105,73 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   private async refreshOnce(): Promise<BrowserAuthSession | null> {
-    const state = await fetchStoredAuthTokens()
-    if (!state?.hasRefreshToken) return null
-    const result = await exchangeAuthTokens({ grantType: 'refresh_token' })
-    if ('error' in result) return null
-    return result.data
+    const observed = await fetchStoredAuthTokens()
+    if (!observed?.hasRefreshToken) return null
+
+    const rotateIfNeeded = async (): Promise<BrowserAuthSession | null> => {
+      // Re-read the HttpOnly-cookie metadata *after* acquiring the cross-tab
+      // lock. Another tab may already have rotated it while we waited.
+      const current = await fetchStoredAuthTokens()
+      if (!current?.hasRefreshToken) return null
+
+      const secondsRemaining = current.expiresAt - Math.floor(Date.now() / 1000)
+      if (secondsRemaining > 0 && (current.expiresAt > observed.expiresAt || secondsRemaining > 60)) {
+        return current
+      }
+
+      const result = await exchangeAuthTokens({ grantType: 'refresh_token' })
+      if ('error' in result) {
+        // Do not mistake a network/IdP outage for revoked refresh credentials.
+        // Only a definitive invalid-grant response ends this session.
+        const latest = await fetchStoredAuthTokens()
+        if (
+          latest?.hasRefreshToken &&
+          latest.expiresAt > observed.expiresAt &&
+          latest.expiresAt > Math.floor(Date.now() / 1000)
+        ) {
+          return latest
+        }
+        if (!result.status || result.status === 429 || result.status >= 500) {
+          throw new Error('Identity provider temporarily unavailable')
+        }
+        return null
+      }
+      return result.data
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+      return navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, rotateIfNeeded)
+    }
+
+    // Compatibility fallback: still uses same-instance single flight. Full
+    // cross-tab coordination requires the Web Locks API or a server-side store.
+    return rotateIfNeeded()
   }
 
   async logout(): Promise<void> {
-    // Submit a same-origin POST navigation: the server destroys the cookie and
-    // redirects to Zitadel with the ID-token hint without returning JWTs to JS.
-    const form = document.createElement('form')
-    form.method = 'POST'
-    form.action = '/api/auth/logout'
-    form.hidden = true
-    document.body.appendChild(form)
-    form.submit()
+    // A navigation starts the server-owned OIDC logout (including id_token_hint).
+    // Keep the same origin-wide lock until the navigation commits: releasing it
+    // at form.submit() would let a pending refresh recreate the deleted cookie.
+    const navigateUnderLock = async (): Promise<void> => {
+      const navigated = new Promise<void>((resolve) => {
+        window.addEventListener('pagehide', () => resolve(), { once: true })
+      })
+      const form = document.createElement('form')
+      form.method = 'POST'
+      form.action = '/api/auth/logout'
+      form.hidden = true
+      document.body.appendChild(form)
+      form.submit()
+      await navigated
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+      await navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, navigateUnderLock)
+      return
+    }
+    // Web Locks unavailable: existing navigation still logs out, but cannot
+    // guarantee cross-tab ordering without a server-side atomic session store.
+    await navigateUnderLock()
   }
 
   async getUser(): Promise<CustomUser | null> {
@@ -132,5 +194,32 @@ export class ZitadelAuthProvider implements IAuthProvider {
 
   async clearTokens(): Promise<void> {
     await deleteStoredAuthTokens()
+  }
+
+  async clearTokensIfUnchanged(observed: BrowserAuthSession): Promise<boolean> {
+    const clearUnderLock = async (): Promise<boolean> => {
+      const current = await fetchStoredAuthTokens()
+      if (!current) return true
+
+      // A newer rotation may finish after a failing tab started its request.
+      // Its opaque revision (not a JWT) must never be deleted by that stale tab.
+      if (current.sessionRevision && observed.sessionRevision) {
+        if (current.sessionRevision !== observed.sessionRevision) return false
+      } else if (current.expiresAt !== observed.expiresAt) {
+        // Safe upgrade path for cookies issued before sessionRevision existed.
+        return false
+      }
+
+      // Even if a new rotation happens before this HTTP request is handled,
+      // the route compares the cookie revision on receipt and rejects a stale
+      // deletion rather than issuing Set-Cookie against the newer session.
+      return deleteStoredAuthTokensIfUnchanged(observed)
+    }
+
+    if (typeof navigator !== 'undefined' && navigator.locks?.request) {
+      return navigator.locks.request('dzvin:zitadel-refresh-v1', { mode: 'exclusive' }, clearUnderLock)
+    }
+    // Best effort on older browsers: check immediately before DELETE.
+    return clearUnderLock()
   }
 }

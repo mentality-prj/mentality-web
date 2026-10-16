@@ -103,13 +103,37 @@ export async function exchangeAuthTokens(
 
 export async function fetchStoredAuthTokens(): Promise<BrowserAuthSession | null> {
   const result = await rawJsonRequest<BrowserAuthSession | null>('/api/auth/token', { method: 'GET' })
-  return 'error' in result ? null : result.data
+  if ('error' in result) {
+    if (result.status === 401) return null
+    throw new Error('Session metadata temporarily unavailable')
+  }
+  return result.data
 }
 
 /** Only verified user attributes reach browser state; never JWTs. */
 export async function fetchAuthenticatedUser(): Promise<CustomUser | null> {
   const result = await rawJsonRequest<CustomUser>('/api/auth/session', { method: 'GET' })
-  return 'error' in result ? null : result.data
+  if ('error' in result) {
+    if (result.status === 401 || result.status === 403) return null
+    throw new Error('Session verification temporarily unavailable')
+  }
+  return result.data
+}
+
+/** Conditional deletion is the only cleanup path for automatic refresh failures.
+ * Legacy cookies without an opaque revision cannot be safely deleted by stale tabs.
+ */
+export async function deleteStoredAuthTokensIfUnchanged(observed: BrowserAuthSession): Promise<boolean> {
+  if (!observed.sessionRevision) return false
+  const result = await rawJsonRequest<{ ok: boolean }>('/api/auth/token', {
+    method: 'DELETE',
+    headers: { 'x-session-revision': observed.sessionRevision },
+  })
+  if ('error' in result) {
+    if (result.status === 409 || result.status === 401) return false
+    throw new Error('Session cleanup temporarily unavailable')
+  }
+  return result.data.ok === true
 }
 
 export async function deleteStoredAuthTokens(): Promise<void> {
