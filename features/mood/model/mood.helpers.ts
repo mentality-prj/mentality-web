@@ -1,4 +1,5 @@
 import { levelToMoodKey } from '@/mappers/mood.mappers'
+import { getLocalDayKey, isValidTimeZone } from '@/utils/timeZone'
 
 export const buildMoodMarksData = (records: any[] = []) => {
   return records.reduce<Record<string, number>>((acc, record) => {
@@ -24,9 +25,14 @@ export const buildMoodMarksData = (records: any[] = []) => {
   }, {})
 }
 
-export const buildDailySummaries = (records: any[] = []) => {
+export const buildDailySummaries = (records: any[] = [], timeZone?: string) => {
   const dayMap = records.reduce<Record<string, { count: number; stressSum: number; stressCount: number }>>((acc, r) => {
-    const date = r.createdAt ? new Date(r.createdAt).toISOString().slice(0, 10) : 'unknown'
+    const instant = r.createdAt ? new Date(r.createdAt) : null
+    const date = instant && !Number.isNaN(instant.getTime())
+      ? timeZone && isValidTimeZone(timeZone)
+        ? (getLocalDayKey(instant, timeZone) ?? 'unknown')
+        : instant.toISOString().slice(0, 10)
+      : 'unknown'
     if (!acc[date]) acc[date] = { count: 0, stressSum: 0, stressCount: 0 }
     acc[date].count += 1
     if (typeof r.stressLevel === 'number') {
@@ -45,14 +51,9 @@ export const buildDailySummaries = (records: any[] = []) => {
     .sort((a, b) => (a.date < b.date ? 1 : -1))
 }
 
-/** Returns true if the ISO timestamp falls on the same UTC calendar date as "today" (in UTC). */
-export function isSubmittedToday(isoTimestamp: string): boolean {
-  const submitted = new Date(isoTimestamp)
-  if (Number.isNaN(submitted.getTime())) return false
-  const now = new Date()
-  return (
-    submitted.getUTCFullYear() === now.getUTCFullYear() &&
-    submitted.getUTCMonth() === now.getUTCMonth() &&
-    submitted.getUTCDate() === now.getUTCDate()
-  )
+/** Unknown or invalid zone cannot confirm the current calendar day. */
+export function isSubmittedToday(isoTimestamp: string, timeZone: string | null, now = new Date()): boolean {
+  if (typeof isoTimestamp !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/.test(isoTimestamp)) return false
+  const submittedDay = getLocalDayKey(new Date(isoTimestamp), timeZone)
+  return submittedDay !== null && submittedDay === getLocalDayKey(now, timeZone)
 }

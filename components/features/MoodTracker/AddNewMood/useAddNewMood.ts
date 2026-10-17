@@ -18,9 +18,10 @@ type Params = {
   onSave?: () => void
   onClose?: () => void
   initialLastSubmittedAt?: string | null
+  timeZone?: string | null
 }
 
-export function useAddNewMood({ availableTags = [], onSave, onClose, initialLastSubmittedAt }: Params) {
+export function useAddNewMood({ availableTags = [], onSave, onClose, initialLastSubmittedAt, timeZone }: Params) {
   const { session } = useAuth()
   const t = useTranslations('components.Mood')
 
@@ -52,7 +53,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const [formKey, setFormKey] = useState(0)
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(initialLastSubmittedAt ?? null)
 
-  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt) : false
+  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, timeZone ?? null) : false
 
   const resetForm = () => {
     setSelectedMood(null)
@@ -67,7 +68,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
-    if (submittedToday) return
+    if (submittedToday || !timeZone) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -118,7 +119,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
     }
   }
 
-  const isFormValid = !!selectedMood && !submittedToday
+  const isFormValid = !!selectedMood && !!timeZone && !submittedToday
 
   return {
     selectedMood,

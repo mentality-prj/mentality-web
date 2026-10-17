@@ -25,9 +25,10 @@ interface AddNewMoodProps {
   onSave?: () => void
   availableTags?: UserTag[]
   initialLastSubmittedAt?: string | null
+  timeZone?: string | null
 }
 
-const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedAt }: AddNewMoodProps) => {
+const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedAt, timeZone }: AddNewMoodProps) => {
   const tm = useTranslations('components.Mood')
   const ct = useTranslations('common.Buttons')
   const tt = useTranslations('components.Tags')
@@ -63,7 +64,7 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
     handleSubmit,
     onTagCreated,
     formKey,
-  } = useAddNewMood({ availableTags, onSave, onClose, initialLastSubmittedAt })
+  } = useAddNewMood({ availableTags, onSave, onClose, initialLastSubmittedAt, timeZone })
   const isSm = useBreakpoint('sm')
   const [hoveredMoodKey, setHoveredMoodKey] = useState<MoodKey | null>(null)
 

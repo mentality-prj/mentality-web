@@ -11,6 +11,7 @@ import { PageTitle } from '@/ds/components/PageTitle'
 import { buildDailySummaries, buildMoodMarksData, isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { parseMoodQuery } from '@/lib/moodQueryParser'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getMoodStatistics } from '@/requests/userStatistics'
 
@@ -22,10 +23,11 @@ export default async function MoodTracker({
   const t = await getTranslations('pages.MoodTracker')
 
   const session = await getServerSession()
+  const timeZone = await getUserTimeZone()
   const query = parseMoodQuery(await searchParams)
   const [result, res, progressResult] = await Promise.all([
     getMoodRecords(session, query),
-    getLastMoodRecords(session, { days: 10 }),
+    getLastMoodRecords(session, { days: 10, timeZone: timeZone ?? undefined }),
     getMoodStatistics(session),
   ])
   // Invalid remote data and backend errors are not empty mood histories.
@@ -37,9 +39,9 @@ export default async function MoodTracker({
   const moodMarksData = buildMoodMarksData(res.data)
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
-  const summaries = buildDailySummaries(res.data)
+  const summaries = buildDailySummaries(res.data, timeZone ?? undefined)
   const todayRecord =
-    res.data.find((record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt)) ?? null
+    (timeZone ? res.data.find((record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt, timeZone)) : null) ?? null
 
   return (
     <div className="flex flex-col gap-md">

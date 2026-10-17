@@ -13,6 +13,7 @@ import { Routes } from '@/constants/routes'
 import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getTodayMoodStory } from '@/requests/moodStory'
@@ -24,13 +25,14 @@ const MyDay = async () => {
   const session = await getServerSession()
   const t = await getTranslations('components.DailyCard')
   const isAdmin = session?.user?.role === Roles.ADMIN
+  const timeZone = await getUserTimeZone()
 
-  const todayPromise = getLastMoodRecords(session, { days: 1 })
+  const todayPromise = getLastMoodRecords(session, { days: 1, timeZone: timeZone ?? undefined })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
   const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
   const todayRecord =
-    todayRecords.find(({ createdAt }) => typeof createdAt === 'string' && isSubmittedToday(createdAt)) ?? null
+    (timeZone ? todayRecords.find(({ createdAt }) => typeof createdAt === 'string' && isSubmittedToday(createdAt, timeZone)) : null) ?? null
   const submittedToday = todayRecord !== null
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []

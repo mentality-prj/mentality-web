@@ -90,12 +90,15 @@ export async function getMoodRecords(
 
 export async function getLastMoodRecords(
   session: CustomSession | null,
-  params?: { limit?: number; days?: number }
+  params?: { limit?: number; days?: number; timeZone?: string }
 ): ApiResultPromise<MoodRecordEntity[]> {
   const query = new URLSearchParams()
   // If days is provided (>0) use it; otherwise fall back to limit for backward compatibility
   if (typeof params?.days === 'number' && params.days > 0) query.set('days', String(params.days))
   else if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+  if (typeof params?.days === 'number' && params.days > 0 && params.timeZone) {
+    query.set('timeZone', params.timeZone)
+  }
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.LAST}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, {
     method: 'GET',
