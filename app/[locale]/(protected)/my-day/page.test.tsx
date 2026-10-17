@@ -125,7 +125,7 @@ describe('My Day optional support', () => {
     expect(screen.getByTestId('mood-prompt')).toHaveAttribute('data-history-verified', 'false')
   })
 
-  it('keeps support visible even when a mood story is unavailable', async () {
+  it('keeps support visible even when a mood story is unavailable', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
       data: [{ id: 'mood-1', createdAt: '2026-10-17T09:00:00.000Z', stressLevel: 4 }],
     })
