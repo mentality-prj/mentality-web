@@ -160,7 +160,11 @@ describe('TodayMoodNotes', () => {
 
     await TodayMoodNotes()
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 1, timeZone: 'Europe/Warsaw' })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, {
+      days: 1,
+      timeZone: 'Europe/Warsaw',
+      dailyOnly: true,
+    })
   })
 
   it('falls back gracefully when stressLevel has an unknown value', async () => {

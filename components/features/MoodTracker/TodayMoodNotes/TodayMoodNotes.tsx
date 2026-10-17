@@ -20,7 +20,7 @@ export const TodayMoodNotes = async () => {
   const tm = await getTranslations('components.Mood')
   const timeZone = await getUserTimeZone()
   if (!timeZone) return null
-  const todayRecordMood = await getLastMoodRecords(session, { days: 1, timeZone })
+  const todayRecordMood = await getLastMoodRecords(session, { days: 1, timeZone, dailyOnly: true })
   const todayRecords = 'error' in todayRecordMood ? [] : (todayRecordMood.data ?? [])
   const todayRecord = todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
 
