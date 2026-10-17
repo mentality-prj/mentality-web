@@ -58,7 +58,7 @@ describe('mood form local day at hydration', () => {
 
   it('handles a concurrent 409 without retrying the daily check-in', async () => {
     ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Warsaw')
-    ;(isSubmittedToday as jest.Mock).mockReturnValue(false)
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
     ;(createMoodRecord as jest.Mock).mockResolvedValue({ error: 'Daily check-in exists', status: 409 })
     const onSave = jest.fn()
     const onClose = jest.fn()
