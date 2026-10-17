@@ -53,7 +53,9 @@ export const buildDailySummaries = (records: any[] = [], timeZone?: string) => {
 
 /** Unknown or invalid zone cannot confirm the current calendar day. */
 export function isSubmittedToday(isoTimestamp: string, timeZone: string | null, now = new Date()): boolean {
-  if (typeof isoTimestamp !== 'string' || !/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}/.test(isoTimestamp)) return false
+  if (typeof isoTimestamp !== 'string' || !/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/.test(isoTimestamp)) {
+    return false
+  }
   const submittedDay = getLocalDayKey(new Date(isoTimestamp), timeZone)
   return submittedDay !== null && submittedDay === getLocalDayKey(now, timeZone)
 }

@@ -6,8 +6,8 @@ import { ENERGIES } from '@/constants/energy'
 import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { Routes } from '@/constants/routes'
-import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { STRESSES } from '@/constants/stress'
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
 import { getUserTimeZone } from '@/lib/userTimeZone'
@@ -23,7 +23,7 @@ export const TodayMoodNotes = async () => {
   const todayRecordMood = await getLastMoodRecords(session, { days: 1, timeZone })
   const todayRecord = 'error' in todayRecordMood
     ? null
-    : (todayRecordMood.data?.find(({ createdAt }) => isSubmittedToday(createdAt, timeZone)) ?? null)
+    : (todayRecordMood.data?.find(({ createdAt }) => typeof createdAt === 'string' && isSubmittedToday(createdAt, timeZone)) ?? null)
 
   if (!todayRecord) {
     return null
@@ -37,7 +37,9 @@ export const TodayMoodNotes = async () => {
   const energyInfo = ENERGIES.find((e) => e.value === todayRecord.energyLevel) ?? ENERGIES[2]
   const focusInfo = FOCUSES.find((f) => f.value === todayRecord.focusLevel) ?? FOCUSES[2]
   const time = todayRecord.createdAt
-    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', timeZone }).format(new Date(todayRecord.createdAt))
+    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', timeZone }).format(
+        new Date(todayRecord.createdAt)
+      )
     : ''
 
   return (
