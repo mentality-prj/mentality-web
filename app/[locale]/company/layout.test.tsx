@@ -16,7 +16,9 @@ beforeEach(() => {
   delete process.env.DZVIN_B2C_ONLY_RELEASE
   jest.clearAllMocks()
 })
-afterAll(() => delete process.env.DZVIN_B2C_ONLY_RELEASE)
+afterAll(() => {
+  delete process.env.DZVIN_B2C_ONLY_RELEASE
+})
 
 const params = Promise.resolve({ locale: 'en' })
 const renderLayout = (user: object | null) => {
@@ -34,10 +36,7 @@ async function expectLayoutRedirect(user: object | null, destination: string) {
 describe('company layout access boundary', () => {
   it('redirects company members away in B2C-only deployment', async () => {
     process.env.DZVIN_B2C_ONLY_RELEASE = 'true'
-    await expectLayoutRedirect(
-      { role: 'user', companyId: 'company-1', companyRole: COMPANY_ROLES.MANAGER },
-      ''
-    )
+    await expectLayoutRedirect({ role: 'user', companyId: 'company-1', companyRole: COMPANY_ROLES.MANAGER }, '')
   })
   it('redirects unauthenticated visitors to login', async () => {
     await expectLayoutRedirect(null, '/auth')
