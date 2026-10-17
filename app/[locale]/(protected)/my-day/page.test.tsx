@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import MyDay from '@/app/[locale]/(protected)/my-day/page'
 import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
@@ -11,6 +12,7 @@ import { fetchPersonalGoals } from '@/requests/personalGoals'
 jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({ isSubmittedToday: jest.fn() }))
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({
   getLastMoodRecords: jest.fn(),
   getMoodRecords: jest.fn(),
@@ -52,6 +54,7 @@ beforeEach(() => {
   jest.clearAllMocks()
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getServerSession as jest.Mock).mockResolvedValue({ user: { id: 'qa-user', role: 'user' } })
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [] })
   ;(getMoodRecords as jest.Mock).mockResolvedValue({ data: { moodNotes: [] } })
   ;(fetchPersonalGoals as jest.Mock).mockResolvedValue({ data: [] })

@@ -4,12 +4,14 @@ import { getTranslations } from 'next-intl/server'
 import MoodTrackerPage from '@/app/[locale]/(protected)/mood-tracker/page'
 import { buildDailySummaries, buildMoodMarksData, isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getMoodStatistics } from '@/requests/userStatistics'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn(), getMoodRecords: jest.fn() }))
 jest.mock('@/requests/userStatistics', () => ({ getMoodStatistics: jest.fn() }))
 jest.mock('next-intl/server')
@@ -74,6 +76,7 @@ const mockRecords: MoodRecordEntity[] = [
 beforeEach(() => {
   jest.clearAllMocks()
   ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: mockRecords })
   ;(getMoodRecords as jest.Mock).mockResolvedValue({
@@ -86,7 +89,7 @@ describe('MoodTracker page', () => {
   it('calls getLastMoodRecords with days: 10', async () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10 })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, timeZone: 'Europe/Warsaw' })
   })
 
   it('renders page title and subtitle', async () => {
@@ -150,7 +153,7 @@ describe('MoodTracker page', () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(buildMoodMarksData).toHaveBeenCalledWith(mockRecords)
-    expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords)
+    expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords, 'Europe/Warsaw')
   })
 
   it('does not present a failed summary request as valid zero-valued statistics', async () => {
