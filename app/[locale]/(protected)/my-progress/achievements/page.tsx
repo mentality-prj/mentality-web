@@ -3,13 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import { Routes } from '@/constants/routes'
 import { SectionCard } from '@/ds/components/SectionCard'
-import {
-  completedGoalCount,
-  diaryEntryCount,
-  earnedMilestones,
-  validActivityCount,
-  type ActivityKind,
-} from '@/helpers/b2cAchievements'
+import { completedGoalCount, diaryEntryCount, earnedMilestones, validActivityCount } from '@/helpers/b2cAchievements'
 import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
 import { getUserDiaries } from '@/requests/diary'
@@ -25,7 +19,7 @@ export default async function MyProgressAchievementsPage() {
     fetchPersonalGoals(session),
   ])
 
-  const activities: { kind: ActivityKind; count: number | null; href: string }[] = [
+  const activities = [
     {
       kind: 'mood',
       count: 'error' in moodResult ? null : validActivityCount(moodResult.data.totalRecords),
@@ -41,7 +35,7 @@ export default async function MyProgressAchievementsPage() {
       count: 'error' in goalsResult || !Array.isArray(goalsResult.data) ? null : completedGoalCount(goalsResult.data),
       href: Routes.MYPROGRESSGOALS,
     },
-  ]
+  ] as const
 
   return (
     <div className="flex flex-col gap-default">
