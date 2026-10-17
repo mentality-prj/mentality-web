@@ -29,10 +29,7 @@ export function getLatestMoodStory(session: CustomSession | null): Promise<MoodS
   return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.LATEST)
 }
 
-export function getTodayMoodStory(
-  session: CustomSession | null,
-  timeZone?: string | null
-): Promise<MoodStoryResponse> {
+export function getTodayMoodStory(session: CustomSession | null, timeZone?: string | null): Promise<MoodStoryResponse> {
   return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.TODAY, timeZone)
 }
 
