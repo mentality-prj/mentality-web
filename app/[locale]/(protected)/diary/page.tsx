@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server'
 
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
+import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
@@ -21,6 +22,7 @@ export default async function DiaryPage() {
       </Link>
       <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         <AddNewNoteSection />
+        <QuickSupportCard />
         {/* TODO: fix calendar */}
         {/* <Calendar
           selectedDays={[new Date()]}

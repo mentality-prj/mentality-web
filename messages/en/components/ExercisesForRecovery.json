@@ -1,9 +1,23 @@
 {
   "title": "Exercises for recovery",
-  "meditation": { "title": "Meditation", "desc": "Calm your mind and restore balance in just a few minutes." },
-  "breathing": { "title": "Breathing exercises", "desc": "Try techniques to reduce stress and improve focus." },
+  "meditation": {
+    "title": "Meditation",
+    "desc": "Calm your mind and restore balance in just a few minutes."
+  },
+  "breathing": {
+    "title": "Breathing exercises",
+    "desc": "Try techniques to reduce stress and improve focus."
+  },
   "calming": {
     "title": "Calm me now",
     "desc": "Quick tips to help you deal with anxiety right here and now."
+  },
+  "quickSupport": {
+    "title": "Need a moment?",
+    "description": "You can start with one small action right now — no questionnaire or score needed.",
+    "groundingPrompt": "Notice your feet resting on the ground. Look around and quietly name three things you can see. Breathe at a pace that feels comfortable.",
+    "breathingAction": "Breathing exercises",
+    "calmingAction": "Calming exercises",
+    "optionalNote": "This is an optional self-support exercise, not a diagnosis or prediction."
   }
 }
