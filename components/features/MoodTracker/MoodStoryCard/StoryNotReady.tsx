@@ -8,6 +8,7 @@ import { useRouter } from '@/i18n/navigation'
 import { getTodayMoodStory } from '@/requests/moodStory'
 import type { CustomSession } from '@/types/auth'
 import { Button } from '@/ui/button'
+import { getVerifiedBrowserTimeZone } from '@/utils/timeZone'
 
 const POLL_INTERVAL_MS = 3_000
 const MAX_ATTEMPTS = 20
@@ -26,7 +27,7 @@ export function StoryNotReady() {
     let attempts = 0
 
     const checkToday = async () => {
-      const result = await getTodayMoodStory(session as CustomSession)
+      const result = await getTodayMoodStory(session as CustomSession, getVerifiedBrowserTimeZone())
       if (cancelled) return
 
       if ('data' in result && result.data.screens.length > 0) {

@@ -56,7 +56,7 @@ const MyDay = async () => {
   let recommendedAffirmationId: string | undefined
   let recommendedTipId: string | undefined
   if (submittedToday) {
-    storyResult = await getTodayMoodStory(session)
+    storyResult = await getTodayMoodStory(session, timeZone)
     if (!('error' in storyResult)) {
       recommendedAffirmationId = storyResult.data.recommendedAffirmationId
       recommendedTipId = storyResult.data.recommendedTipId

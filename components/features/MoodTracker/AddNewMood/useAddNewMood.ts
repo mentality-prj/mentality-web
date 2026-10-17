@@ -105,7 +105,7 @@ export function useAddNewMood({
         focusLevel: focusLevel,
       }
 
-      const result = await createMoodRecord(session as unknown as CustomSession | null, dto)
+      const result = await createMoodRecord(session as unknown as CustomSession | null, dto, effectiveTimeZone)
       if ('error' in result) {
         notifyError(extractErrorMessage(result.error, safeT('Toast.Failed', 'Failed to save mood')))
         return
