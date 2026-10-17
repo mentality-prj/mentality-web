@@ -106,7 +106,10 @@ export function useMoodStory() {
         pollStartRef.current = null
       }
 
-      const result: LatestMoodStoryResult = await getTodayMoodStory(session as CustomSession, getVerifiedBrowserTimeZone())
+      const result: LatestMoodStoryResult = await getTodayMoodStory(
+        session as CustomSession,
+        getVerifiedBrowserTimeZone()
+      )
 
       if (id !== fetchIdRef.current) return
 

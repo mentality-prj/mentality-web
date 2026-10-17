@@ -7,7 +7,11 @@ import { performAdminRequest, performAuthRequest } from './genericFetch'
 
 type MoodStoryResponse = { data: MoodStoryEntity } | { error: string; status?: number }
 
-async function fetchMoodStory(session: CustomSession | null, endpoint: string, timeZone?: string | null): Promise<MoodStoryResponse> {
+async function fetchMoodStory(
+  session: CustomSession | null,
+  endpoint: string,
+  timeZone?: string | null
+): Promise<MoodStoryResponse> {
   const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
   const res = await performAuthRequest<MoodStoryEntity>(session, `${APIUrl}${endpoint}${query}`, {
     method: 'GET',
@@ -25,7 +29,10 @@ export function getLatestMoodStory(session: CustomSession | null): Promise<MoodS
   return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.LATEST)
 }
 
-export function getTodayMoodStory(session: CustomSession | null, timeZone?: string | null): Promise<MoodStoryResponse> {
+export function getTodayMoodStory(
+  session: CustomSession | null,
+  timeZone?: string | null
+): Promise<MoodStoryResponse> {
   return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.TODAY, timeZone)
 }
 
@@ -34,9 +41,11 @@ export async function regenerateMoodStory(
   timeZone?: string | null
 ): Promise<{ data: MoodStoryEntity } | { error: string }> {
   const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
-  const res = await performAdminRequest<MoodStoryEntity>(session, `${APIUrl}${MOOD_STORY_ENDPOINTS.REGENERATE}${query}`, {
-    method: 'POST',
-  })
+  const res = await performAdminRequest<MoodStoryEntity>(
+    session,
+    `${APIUrl}${MOOD_STORY_ENDPOINTS.REGENERATE}${query}`,
+    { method: 'POST' }
+  )
   if ('error' in res) {
     return { error: res.error }
   }
