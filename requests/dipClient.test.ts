@@ -25,16 +25,20 @@ jest.mock('@/requests/config', () => ({ APIUrl: 'https://backend.test/api' }))
 const authorized = { user: { id: 'u1', role: 'admin' }, OAuthToken: 'opaque-access-token' }
 const mockedSession = jest.mocked(getServerSession)
 const initialFetch = global.fetch
+const originalB2COnlyRelease = process.env.DZVIN_B2C_ONLY_RELEASE
 const fetchMock = jest.fn()
 
 describe('QDIP administration through NestJS only', () => {
   beforeEach(() => {
+    delete process.env.DZVIN_B2C_ONLY_RELEASE
     jest.clearAllMocks()
     global.fetch = fetchMock as typeof fetch
     mockedSession.mockResolvedValue(authorized as never)
   })
   afterAll(() => {
     global.fetch = initialFetch
+    if (originalB2COnlyRelease === undefined) delete process.env.DZVIN_B2C_ONLY_RELEASE
+    else process.env.DZVIN_B2C_ONLY_RELEASE = originalB2COnlyRelease
   })
   function successful(data: unknown) {
     fetchMock.mockResolvedValueOnce({ ok: true, status: 200, json: async () => data })
@@ -63,6 +67,23 @@ describe('QDIP administration through NestJS only', () => {
       )
     }
   }
+
+  it('blocks both read and write Server Action helpers in B2C-only mode before session and fetch', async () => {
+    process.env.DZVIN_B2C_ONLY_RELEASE = 'true'
+    expect(await getDipOrganizationsWithConnection()).toEqual({
+      organizations: [],
+      connection: { configured: false, url: null },
+    })
+    expect(await getDipFeatures('org-1')).toEqual([])
+    expect(await createDipOrganization({ name: 'blocked' })).toEqual({
+      error: 'QDIP administration is unavailable or mutations are disabled',
+    })
+    expect(await revokeDipOrganizationKey('org-1', 'key-1')).toEqual({
+      error: 'QDIP administration is unavailable or mutations are disabled',
+    })
+    expect(mockedSession).not.toHaveBeenCalled()
+    expect(fetchMock).not.toHaveBeenCalled()
+  })
 
   it('denies anonymous and non-admin callers before contacting Nest or QDIP', async () => {
     mockedSession.mockResolvedValueOnce(null)

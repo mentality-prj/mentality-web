@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 import { LandingFooter } from '@/components/features/Landing'
 import { ResearchStateCard } from '@/components/features/Research/ResearchStateCard'
@@ -10,9 +11,11 @@ import { getResearchSidebarMenu } from '@/constants/menu'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getLocalizedResearchErrorMessage } from '@/helpers/researchErrorMessage'
 import { getServerSession } from '@/lib/auth/server'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
 
 export default async function ResearchLayout({ children }: { children: ReactNode }) {
+  if (isB2COnlyRelease()) redirect(`/${await getLocale()}`)
   const t = await getTranslations('pages.Research')
   const session = await getServerSession()
   const result = await getResearchWorkspaceAccess(session)

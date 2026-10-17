@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { getServerSession } from '@/lib/auth/server'
+import { isB2CBackendResourceAllowed, isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { getValidatedBackendPath } from '@/lib/backend/path'
 import { APIUrl } from '@/requests/config'
 
@@ -39,6 +40,9 @@ async function proxyBackendRequest(
   const { path: pathSegments } = await context.params
   const path = getValidatedBackendPath(pathSegments, request.nextUrl.search, method)
   if (!path) return respond({ error: 'Invalid backend resource' }, 400)
+  if (isB2COnlyRelease() && !isB2CBackendResourceAllowed(path)) {
+    return respond({ error: 'Not found' }, 404)
+  }
   if (method !== 'GET' && !isAllowedMutation(request)) return respond({ error: 'Forbidden' }, 403)
 
   // NestJS marks POST /contact as @Public and verifies reCAPTCHA itself.

@@ -14,8 +14,10 @@ const originalFetch = global.fetch
 
 afterAll(() => {
   global.fetch = originalFetch
+  delete process.env.DZVIN_B2C_ONLY_RELEASE
 })
 beforeEach(() => {
+  delete process.env.DZVIN_B2C_ONLY_RELEASE
   jest.clearAllMocks()
   sessionMock.mockResolvedValue(null)
 })
@@ -28,6 +30,35 @@ function req(path: string, init?: ConstructorParameters<typeof NextRequest>[1]) 
 const ctx = (path: string[]) => ({ params: Promise.resolve({ path }) })
 
 describe('same-origin backend BFF', () => {
+  it('denies privileged B2B and QDIP resources in B2C-only release before session/upstream', async () => {
+    process.env.DZVIN_B2C_ONLY_RELEASE = 'true'
+    global.fetch = jest.fn() as unknown as typeof fetch
+    for (const resource of [
+      'companies',
+      'research',
+      'dip-admin',
+      'decision-support',
+      'prediction',
+      'operational',
+      'team',
+      'admin-diagnostics',
+      'personal',
+    ]) {
+      const response = await GET(req(`/api/backend/${resource}`), ctx([resource]))
+      expect(response.status).toBe(404)
+    }
+    expect(global.fetch).not.toHaveBeenCalled()
+    expect(sessionMock).not.toHaveBeenCalled()
+  })
+
+  it('keeps B2C mood and diary resource paths available with normal auth enforcement', async () => {
+    process.env.DZVIN_B2C_ONLY_RELEASE = 'true'
+    const mood = await GET(req('/api/backend/mood-record'), ctx(['mood-record']))
+    const diary = await GET(req('/api/backend/diary'), ctx(['diary']))
+    expect(mood.status).toBe(401)
+    expect(diary.status).toBe(401)
+  })
+
   it('rejects path traversal and identity-provider routes', () => {
     expect(getValidatedBackendPath(['auth', 'token'], '')).toBeNull()
     expect(getValidatedBackendPath(['..'], '')).toBeNull()
