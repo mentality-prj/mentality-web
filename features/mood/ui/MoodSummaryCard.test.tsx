@@ -24,7 +24,7 @@ describe('My Day entry timezone', () => {
 
   it('passes the same verified timezone to the mood modal as the server day view', async () => {
     ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
-    render(await MoodSummaryCard())
+    render(await MoodSummaryCard({}))
 
     expect(screen.getByTestId('my-day-mood-time-zone')).toHaveTextContent('Europe/Warsaw')
     expect(getUserTimeZone).toHaveBeenCalledTimes(1)
@@ -32,7 +32,7 @@ describe('My Day entry timezone', () => {
 
   it('does not guess a timezone when no verified browser zone is available', async () => {
     ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
-    render(await MoodSummaryCard())
+    render(await MoodSummaryCard({}))
 
     expect(screen.getByTestId('my-day-mood-time-zone')).toHaveTextContent('unavailable')
   })
