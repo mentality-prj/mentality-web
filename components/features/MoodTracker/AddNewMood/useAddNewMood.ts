@@ -64,7 +64,14 @@ export function useAddNewMood({
   const [browserTimeZone, setBrowserTimeZone] = useState<string | null>(null)
 
   useEffect(() => {
-    setBrowserTimeZone(getVerifiedBrowserTimeZone())
+    const syncTimeZone = () => setBrowserTimeZone(getVerifiedBrowserTimeZone())
+    syncTimeZone()
+    window.addEventListener('focus', syncTimeZone)
+    document.addEventListener('visibilitychange', syncTimeZone)
+    return () => {
+      window.removeEventListener('focus', syncTimeZone)
+      document.removeEventListener('visibilitychange', syncTimeZone)
+    }
   }, [])
 
   const effectiveTimeZone = browserTimeZone ?? timeZone ?? null
@@ -83,7 +90,11 @@ export function useAddNewMood({
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
-    if (submittedToday || !effectiveTimeZone || !historyVerified) return
+    // Re-resolve at submission: the device zone may change while the form stays open.
+    const submissionTimeZone = getVerifiedBrowserTimeZone() ?? timeZone ?? null
+    const submittedOnCurrentDay = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, submissionTimeZone) : false
+    if (submissionTimeZone !== effectiveTimeZone) setBrowserTimeZone(submissionTimeZone)
+    if (submittedOnCurrentDay || !submissionTimeZone || !historyVerified) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -105,7 +116,7 @@ export function useAddNewMood({
         focusLevel: focusLevel,
       }
 
-      const result = await createMoodRecord(session as unknown as CustomSession | null, dto, effectiveTimeZone)
+      const result = await createMoodRecord(session as unknown as CustomSession | null, dto, submissionTimeZone)
       if ('error' in result) {
         notifyError(extractErrorMessage(result.error, safeT('Toast.Failed', 'Failed to save mood')))
         return
