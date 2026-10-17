@@ -91,6 +91,15 @@ describe('createMoodRecord', () => {
   })
 })
 
+describe('getLastMoodRecords IANA local day', () => {
+  it('forwards the IANA zone alongside days', async () => {
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [] })
+    await getLastMoodRecords(mockSession, { days: 1, timeZone: 'Europe/Kyiv' })
+    const url = (performAuthRequest as jest.Mock).mock.calls[0][1] as string
+    expect(new URL(url).searchParams.get('timeZone')).toBe('Europe/Kyiv')
+  })
+})
+
 describe('getMoodRecords', () => {
   it('returns data without params', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [mockRecord] })

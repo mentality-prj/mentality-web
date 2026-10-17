@@ -6,7 +6,7 @@ import { DaySummary } from '@/types/daySummary'
 
 import { StressLevelChart } from './StressLevelChart'
 
-export const StressLevel = async ({ summaries }: { summaries?: DaySummary[] }) => {
+export const StressLevel = async ({ summaries, timeZone }: { summaries?: DaySummary[]; timeZone?: string }) => {
   const t = await getTranslations('components.StressLevel')
   const locale = await getLocale()
 
@@ -17,7 +17,7 @@ export const StressLevel = async ({ summaries }: { summaries?: DaySummary[] }) =
       icon={<CloudLightning className="opacity-50" color="white" size="128" />}
     >
       <div className="flex w-full flex-col gap-xs">
-        <StressLevelChart summaries={summaries} locale={locale} />
+        <StressLevelChart summaries={summaries} locale={locale} timeZone={timeZone} />
       </div>
     </SummaryCard>
   )

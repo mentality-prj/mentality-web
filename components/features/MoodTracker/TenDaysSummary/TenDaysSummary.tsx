@@ -12,18 +12,20 @@ export async function TenDaysSummary({
   moodMarksData,
   lastRecordsSummary,
   records,
+  timeZone,
 }: {
   moodMarksData?: MoodMarksData
   lastRecordsSummary?: DaySummary[]
   records?: MoodRecordEntity[]
+  timeZone: string
 }) {
   return (
     <SectionCard className="p-4 md:p-6">
       <div className="flex flex-col items-center justify-center gap-sm">
-        <BestDay summaries={lastRecordsSummary} records={records} />
-        <LastTenDaysMoodRecords summaries={lastRecordsSummary} />
+        <BestDay summaries={lastRecordsSummary} records={records} timeZone={timeZone} />
+        <LastTenDaysMoodRecords summaries={lastRecordsSummary} timeZone={timeZone} />
         <MoodMarks data={moodMarksData} />
-        <StressLevel summaries={lastRecordsSummary} />
+        <StressLevel summaries={lastRecordsSummary} timeZone={timeZone} />
       </div>
     </SectionCard>
   )

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
@@ -11,6 +11,7 @@ import type { CreateMoodRecordDto } from '@/types/api-responses'
 import type { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
 import { extractErrorMessage } from '@/utils/apiError'
+import { getVerifiedBrowserTimeZone } from '@/utils/timeZone'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 type Params = {
@@ -18,9 +19,18 @@ type Params = {
   onSave?: () => void
   onClose?: () => void
   initialLastSubmittedAt?: string | null
+  timeZone?: string | null
+  historyVerified?: boolean
 }
 
-export function useAddNewMood({ availableTags = [], onSave, onClose, initialLastSubmittedAt }: Params) {
+export function useAddNewMood({
+  availableTags = [],
+  onSave,
+  onClose,
+  initialLastSubmittedAt,
+  timeZone,
+  historyVerified = true,
+}: Params) {
   const { session } = useAuth()
   const t = useTranslations('components.Mood')
 
@@ -51,8 +61,14 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const [focusLevel, setFocusLevel] = useState<number>(1)
   const [formKey, setFormKey] = useState(0)
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(initialLastSubmittedAt ?? null)
+  const [browserTimeZone, setBrowserTimeZone] = useState<string | null>(null)
 
-  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt) : false
+  useEffect(() => {
+    setBrowserTimeZone(getVerifiedBrowserTimeZone())
+  }, [])
+
+  const effectiveTimeZone = browserTimeZone ?? timeZone ?? null
+  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, effectiveTimeZone) : false
 
   const resetForm = () => {
     setSelectedMood(null)
@@ -67,7 +83,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
-    if (submittedToday) return
+    if (submittedToday || !effectiveTimeZone || !historyVerified) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -118,7 +134,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
     }
   }
 
-  const isFormValid = !!selectedMood && !submittedToday
+  const isFormValid = !!selectedMood && !!effectiveTimeZone && !submittedToday && historyVerified
 
   return {
     selectedMood,

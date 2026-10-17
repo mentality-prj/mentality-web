@@ -2,12 +2,16 @@ import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
+jest.mock('@/helpers/mood.helpers', () => ({ isSubmittedToday: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn() }))
 jest.mock('next-intl/server')
 
@@ -79,6 +83,8 @@ const mockRecord: MoodRecordEntity = {
 beforeEach(() => {
   jest.clearAllMocks()
   ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
+  ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
 })
 
@@ -154,7 +160,7 @@ describe('TodayMoodNotes', () => {
 
     await TodayMoodNotes()
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 1 })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 1, timeZone: 'Europe/Warsaw' })
   })
 
   it('falls back gracefully when stressLevel has an unknown value', async () => {

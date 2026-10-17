@@ -7,8 +7,10 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { Routes } from '@/constants/routes'
 import { STRESSES } from '@/constants/stress'
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getLastMoodRecords } from '@/requests/moodRecord'
 
 export const TodayMoodNotes = async () => {
@@ -16,8 +18,11 @@ export const TodayMoodNotes = async () => {
   const locale = await getLocale()
   const t = await getTranslations('components.TodayMoodNotes')
   const tm = await getTranslations('components.Mood')
-  const todayRecordMood = await getLastMoodRecords(session, { days: 1 })
-  const todayRecord = 'error' in todayRecordMood ? null : (todayRecordMood?.data?.[0] ?? null)
+  const timeZone = await getUserTimeZone()
+  if (!timeZone) return null
+  const todayRecordMood = await getLastMoodRecords(session, { days: 1, timeZone })
+  const todayRecords = 'error' in todayRecordMood ? [] : (todayRecordMood.data ?? [])
+  const todayRecord = todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
 
   if (!todayRecord) {
     return null
@@ -31,7 +36,9 @@ export const TodayMoodNotes = async () => {
   const energyInfo = ENERGIES.find((e) => e.value === todayRecord.energyLevel) ?? ENERGIES[2]
   const focusInfo = FOCUSES.find((f) => f.value === todayRecord.focusLevel) ?? FOCUSES[2]
   const time = todayRecord.createdAt
-    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(new Date(todayRecord.createdAt))
+    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', timeZone }).format(
+        new Date(todayRecord.createdAt)
+      )
     : ''
 
   return (

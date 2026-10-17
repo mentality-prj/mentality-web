@@ -13,6 +13,7 @@ import { Routes } from '@/constants/routes'
 import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getTodayMoodStory } from '@/requests/moodStory'
@@ -24,14 +25,18 @@ const MyDay = async () => {
   const session = await getServerSession()
   const t = await getTranslations('components.DailyCard')
   const isAdmin = session?.user?.role === Roles.ADMIN
+  const timeZone = await getUserTimeZone()
 
-  const todayPromise = getLastMoodRecords(session, { days: 1 })
+  const todayPromise = getLastMoodRecords(session, { limit: 1 })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
+  const historyVerified = !('error' in todayRes)
   const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
-  const todayRecord =
-    todayRecords.find(({ createdAt }) => typeof createdAt === 'string' && isSubmittedToday(createdAt)) ?? null
-  const submittedToday = todayRecord !== null
+  const initialLastSubmittedAt = todayRecords[0]?.createdAt ?? null
+  const todayRecord = timeZone
+    ? todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
+    : undefined
+  const submittedToday = todayRecord !== undefined
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
@@ -64,7 +69,13 @@ const MyDay = async () => {
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} initialStory={storyResult} />
         ) : (
-          <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+          <MoodSummaryCard
+            title={t('greeting')}
+            subtitle={t('greetingText')}
+            counts={moodCounts}
+            initialLastSubmittedAt={initialLastSubmittedAt}
+            historyVerified={historyVerified}
+          />
         )}
         {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
         <DailyTipClient recommendedId={recommendedTipId} />
