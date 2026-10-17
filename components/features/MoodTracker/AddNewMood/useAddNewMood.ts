@@ -118,6 +118,20 @@ export function useAddNewMood({
 
       const result = await createMoodRecord(session as unknown as CustomSession | null, dto, submissionTimeZone)
       if ('error' in result) {
+        if (result.status === 409) {
+          // Another tab or device already saved today's full check-in.
+          // Never resubmit; refresh the server-rendered day and close this form.
+          notifyError(safeT('Toast.AlreadySaved', "Today's check-in has already been saved"))
+          try {
+            onSave?.()
+            onClose?.()
+          } catch (error) {
+            logger.warn('Daily check-in conflict: UI refresh failed', {
+              error: error instanceof Error ? error.message : String(error),
+            })
+          }
+          return
+        }
         notifyError(extractErrorMessage(result.error, safeT('Toast.Failed', 'Failed to save mood')))
         return
       }
