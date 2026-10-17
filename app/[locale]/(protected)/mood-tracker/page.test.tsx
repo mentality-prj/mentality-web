@@ -2,7 +2,7 @@ import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
 import MoodTrackerPage from '@/app/[locale]/(protected)/mood-tracker/page'
-import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
+import { buildDailySummaries, buildMoodMarksData, isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getMoodStatistics } from '@/requests/userStatistics'
@@ -16,10 +16,16 @@ jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({
   buildMoodMarksData: jest.fn().mockReturnValue({}),
   buildDailySummaries: jest.fn().mockReturnValue([]),
+  isSubmittedToday: jest.fn().mockReturnValue(false),
 }))
 
 jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
   QuickSupportCard: () => <div data-testid="quick-support" />,
+}))
+jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
+  MoodNextStepCard: ({ record }: { record: MoodRecordEntity }) => (
+    <div data-testid="mood-next-step">{record.stressLevel}</div>
+  ),
 }))
 
 jest.mock('@/components/features/MoodTracker/MoodRecords/MoodRecords', () => ({
@@ -111,6 +117,14 @@ describe('MoodTracker page', () => {
   it('offers immediate support without requiring a mood submission', async () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
+  })
+
+  it('shows a contextual next step only when the server has a current-day mood record', async () => {
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(screen.getByTestId('mood-next-step')).toHaveTextContent('2')
+    expect(screen.queryByTestId('quick-support')).not.toBeInTheDocument()
   })
 
   it('renders TenDaysSummary', async () => {

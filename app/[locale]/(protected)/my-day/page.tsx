@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
+import { MoodNextStepCard } from '@/components/features/Guide/MoodNextStepCard'
 import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
@@ -27,9 +28,10 @@ const MyDay = async () => {
   const todayPromise = getLastMoodRecords(session, { days: 1 })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
-  const submittedToday =
-    !('error' in todayRes) &&
-    (todayRes.data ?? []).some((record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt))
+  const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
+  const todayRecord =
+    todayRecords.find(({ createdAt }) => typeof createdAt === 'string' && isSubmittedToday(createdAt)) ?? null
+  const submittedToday = todayRecord !== null
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
@@ -64,7 +66,7 @@ const MyDay = async () => {
         ) : (
           <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
         )}
-        <QuickSupportCard />
+        {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
         <DailyTipClient recommendedId={recommendedTipId} />
         <TodayMoodNotes />
       </div>
