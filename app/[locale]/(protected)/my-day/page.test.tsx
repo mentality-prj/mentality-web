@@ -29,7 +29,19 @@ jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
   ),
 }))
 jest.mock('@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard', () => ({
-  MoodSummaryCard: () => <div data-testid="mood-prompt" />,
+  MoodSummaryCard: ({
+    initialLastSubmittedAt,
+    historyVerified,
+  }: {
+    initialLastSubmittedAt?: string | null
+    historyVerified?: boolean
+  }) => (
+    <div
+      data-testid="mood-prompt"
+      data-last-submitted-at={initialLastSubmittedAt ?? ''}
+      data-history-verified={String(historyVerified)}
+    />
+  ),
 }))
 jest.mock('@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard', () => ({
   MoodStoryCard: () => <div data-testid="mood-story" />,
@@ -66,10 +78,7 @@ describe('My Day optional support', () => {
   it('shows grounding before any check-in is required', async () => {
     render(await MyDay())
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), {
-      days: 1,
-      timeZone: 'Europe/Warsaw',
-    })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), { limit: 1 })
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()
@@ -100,7 +109,23 @@ describe('My Day optional support', () => {
     expect(getTodayMoodStory).not.toHaveBeenCalled()
   })
 
-  it('keeps support visible even when a mood story is unavailable', async () => {
+  it('passes last submission to browser gating before timezone cookie initialization', async () => {
+    ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
+      data: [{ id: 'recent', createdAt: '2026-10-17T22:10:00.000Z', stressLevel: 4 }],
+    })
+    render(await MyDay())
+    expect(screen.getByTestId('mood-prompt')).toHaveAttribute('data-last-submitted-at', '2026-10-17T22:10:00.000Z')
+    expect(isSubmittedToday).not.toHaveBeenCalled()
+  })
+
+  it('blocks unverified history instead of treating an API failure as no submission', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'Unavailable', status: 503 })
+    render(await MyDay())
+    expect(screen.getByTestId('mood-prompt')).toHaveAttribute('data-history-verified', 'false')
+  })
+
+  it('keeps support visible even when a mood story is unavailable', async () {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
       data: [{ id: 'mood-1', createdAt: '2026-10-17T09:00:00.000Z', stressLevel: 4 }],
     })

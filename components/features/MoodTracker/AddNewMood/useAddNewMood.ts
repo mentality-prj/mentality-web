@@ -20,9 +20,17 @@ type Params = {
   onClose?: () => void
   initialLastSubmittedAt?: string | null
   timeZone?: string | null
+  historyVerified?: boolean
 }
 
-export function useAddNewMood({ availableTags = [], onSave, onClose, initialLastSubmittedAt, timeZone }: Params) {
+export function useAddNewMood({
+  availableTags = [],
+  onSave,
+  onClose,
+  initialLastSubmittedAt,
+  timeZone,
+  historyVerified = true,
+}: Params) {
   const { session } = useAuth()
   const t = useTranslations('components.Mood')
 
@@ -75,7 +83,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
-    if (submittedToday || !effectiveTimeZone) return
+    if (submittedToday || !effectiveTimeZone || !historyVerified) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -126,7 +134,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
     }
   }
 
-  const isFormValid = !!selectedMood && !!effectiveTimeZone && !submittedToday
+  const isFormValid = !!selectedMood && !!effectiveTimeZone && !submittedToday && historyVerified
 
   return {
     selectedMood,

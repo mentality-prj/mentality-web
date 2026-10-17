@@ -4,7 +4,7 @@ import { STRESSES } from '@/constants/stress'
 import { DaySummary } from '@/types/daySummary'
 import { getRecentLocalDayKeys } from '@/utils/timeZone'
 
-type Props = { summaries?: DaySummary[]; locale?: string; timeZone: string }
+type Props = { summaries?: DaySummary[]; locale?: string; timeZone?: string }
 
 export async function StressLevelChart({ summaries, locale, timeZone }: Props) {
   const t = await getTranslations('components.StressLevel')
@@ -16,7 +16,7 @@ export async function StressLevelChart({ summaries, locale, timeZone }: Props) {
     }
   }
 
-  const data = getRecentLocalDayKeys(10, timeZone).map((date) => ({ date, stress: map[date] ?? null }))
+  const data = getRecentLocalDayKeys(10, timeZone ?? null).map((date) => ({ date, stress: map[date] ?? null }))
 
   const width = 600
   const height = 250

@@ -10,9 +10,15 @@ interface Props {
   availableTags?: UserTag[]
   initialLastSubmittedAt?: string | null
   timeZone?: string | null
+  historyVerified?: boolean
 }
 
-export const NewMoodNoteSectionClient = ({ availableTags = [], initialLastSubmittedAt, timeZone }: Props) => {
+export const NewMoodNoteSectionClient = ({
+  availableTags = [],
+  initialLastSubmittedAt,
+  timeZone,
+  historyVerified,
+}: Props) => {
   const router = useRouter()
 
   const handleSave = () => {
@@ -26,6 +32,7 @@ export const NewMoodNoteSectionClient = ({ availableTags = [], initialLastSubmit
         onSave={handleSave}
         initialLastSubmittedAt={initialLastSubmittedAt}
         timeZone={timeZone}
+        historyVerified={historyVerified}
       />
     </div>
   )

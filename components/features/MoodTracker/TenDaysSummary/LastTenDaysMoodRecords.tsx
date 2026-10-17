@@ -9,7 +9,7 @@ import { getRecentLocalDayKeys } from '@/utils/timeZone'
 interface LastTenDaysMoodRecordsProps {
   /** Daily mood summaries for the last 10 days. Each entry contains a date (ISO YYYY-MM-DD) and a record count. */
   summaries?: DaySummary[]
-  timeZone: string
+  timeZone?: string
 }
 
 /**
@@ -44,7 +44,7 @@ export async function LastTenDaysMoodRecords({ summaries, timeZone }: LastTenDay
     }
   }
 
-  const dates = getRecentLocalDayKeys(10, timeZone)
+  const dates = getRecentLocalDayKeys(10, timeZone ?? null)
   const weekdayFormatter = new Intl.DateTimeFormat(locale || undefined, { weekday: 'short', timeZone: 'UTC' })
   const todayIso = dates[dates.length - 1]
 

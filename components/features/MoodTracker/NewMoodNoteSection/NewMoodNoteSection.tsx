@@ -24,6 +24,7 @@ export async function NewMoodNoteSection() {
       availableTags={tags}
       initialLastSubmittedAt={initialLastSubmittedAt}
       timeZone={timeZone}
+      historyVerified={!('error' in lastRecordRes)}
     />
   )
 }

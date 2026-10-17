@@ -6,7 +6,7 @@ import { DaySummary } from '@/types/daySummary'
 
 import { StressLevelChart } from './StressLevelChart'
 
-export const StressLevel = async ({ summaries, timeZone }: { summaries?: DaySummary[]; timeZone: string }) => {
+export const StressLevel = async ({ summaries, timeZone }: { summaries?: DaySummary[]; timeZone?: string }) => {
   const t = await getTranslations('components.StressLevel')
   const locale = await getLocale()
 

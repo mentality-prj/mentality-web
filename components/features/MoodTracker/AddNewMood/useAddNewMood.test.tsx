@@ -1,4 +1,4 @@
-import { renderHook } from '@testing-library/react'
+import { act, renderHook } from '@testing-library/react'
 import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
@@ -50,6 +50,13 @@ describe('mood form local day at hydration', () => {
     renderHook(() => useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt, timeZone: 'Europe/Warsaw' }))
 
     expect(isSubmittedToday).toHaveBeenLastCalledWith(lastSubmittedAt, 'Europe/Kyiv')
+  })
+
+  it('blocks form validation when the last-record lookup failed', () => {
+    ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Warsaw')
+    const { result } = renderHook(() => useAddNewMood({ timeZone: 'Europe/Warsaw', historyVerified: false }))
+    act(() => result.current.setSelectedMood('good'))
+    expect(result.current.isFormValid).toBe(false)
   })
 
   it('never enables a local-day submission without a verified zone', () => {

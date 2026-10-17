@@ -21,6 +21,8 @@ interface MoodSummaryCardClientProps {
   counts?: { mood: string; count: number }[]
   availableTags?: UserTag[]
   timeZone?: string | null
+  initialLastSubmittedAt?: string | null
+  historyVerified?: boolean
 }
 
 const MoodSummaryCardClient = ({
@@ -29,6 +31,8 @@ const MoodSummaryCardClient = ({
   counts = [],
   availableTags = [],
   timeZone,
+  initialLastSubmittedAt,
+  historyVerified = true,
 }: MoodSummaryCardClientProps) => {
   const tm = useTranslations('components.Mood')
   const router = useRouter()
@@ -48,6 +52,8 @@ const MoodSummaryCardClient = ({
               }}
               availableTags={availableTags}
               timeZone={timeZone}
+              initialLastSubmittedAt={initialLastSubmittedAt}
+              historyVerified={historyVerified}
             />
           </div>
         </>

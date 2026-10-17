@@ -15,7 +15,7 @@ import { getLocalDayKey } from '@/utils/timeZone'
 interface BestDayProps {
   summaries?: DaySummary[]
   records?: MoodRecordEntity[]
-  timeZone: string
+  timeZone?: string
 }
 export const BestDay = async ({ records, timeZone }: BestDayProps) => {
   const t = await getTranslations('components.BestDay')

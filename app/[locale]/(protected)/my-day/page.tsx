@@ -27,10 +27,12 @@ const MyDay = async () => {
   const isAdmin = session?.user?.role === Roles.ADMIN
   const timeZone = await getUserTimeZone()
 
-  const todayPromise = getLastMoodRecords(session, { days: 1, timeZone: timeZone ?? undefined })
+  const todayPromise = getLastMoodRecords(session, { limit: 1 })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
+  const historyVerified = !('error' in todayRes)
   const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
+  const initialLastSubmittedAt = todayRecords[0]?.createdAt ?? null
   const todayRecord = timeZone
     ? todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
     : undefined
@@ -67,7 +69,13 @@ const MyDay = async () => {
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} initialStory={storyResult} />
         ) : (
-          <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+          <MoodSummaryCard
+            title={t('greeting')}
+            subtitle={t('greetingText')}
+            counts={moodCounts}
+            initialLastSubmittedAt={initialLastSubmittedAt}
+            historyVerified={historyVerified}
+          />
         )}
         {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
         <DailyTipClient recommendedId={recommendedTipId} />
