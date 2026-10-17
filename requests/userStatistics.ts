@@ -1,7 +1,7 @@
 import { B2C_USER_STATISTICS_ENDPOINTS } from '@/constants/endpoints'
 import { CustomSession } from '@/types/auth'
-import { isValidTimeZone } from '@/utils/timeZone'
 import { MoodStatistics, PsyTestsStatistics } from '@/types/userStatistics'
+import { isValidTimeZone } from '@/utils/timeZone'
 
 import { APIUrl } from './config'
 import { performAuthRequest } from './genericFetch'
