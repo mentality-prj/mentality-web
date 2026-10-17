@@ -1,5 +1,7 @@
 import { ReactNode } from 'react'
-import { getTranslations } from 'next-intl/server'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { redirect } from 'next/navigation'
 
 import { LandingFooter } from '@/components/features/Landing'
 import { ResearchStateCard } from '@/components/features/Research/ResearchStateCard'
@@ -13,6 +15,7 @@ import { getServerSession } from '@/lib/auth/server'
 import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
 
 export default async function ResearchLayout({ children }: { children: ReactNode }) {
+  if (isB2COnlyRelease()) redirect(`/${await getLocale()}`)
   const t = await getTranslations('pages.Research')
   const session = await getServerSession()
   const result = await getResearchWorkspaceAccess(session)

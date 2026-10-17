@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { redirect } from 'next/navigation'
 
 import { Routes } from '@/constants/routes'
@@ -15,6 +16,7 @@ export default async function CompanyLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  if (isB2COnlyRelease()) redirect(`/${locale}`)
   const session = await getServerSession()
 
   if (!session?.user) {

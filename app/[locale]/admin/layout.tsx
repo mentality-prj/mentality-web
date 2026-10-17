@@ -1,4 +1,5 @@
 import { ReactNode } from 'react'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { redirect } from 'next/navigation'
 
 import { AdminHeader } from '@/admin/index'
@@ -17,6 +18,7 @@ export default async function AdminLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  if (isB2COnlyRelease()) redirect(`/${locale}`)
   const session = await getServerSession()
   if (!session || !session.user || session.user.role !== 'admin') {
     redirect(`/${locale}/auth`)
