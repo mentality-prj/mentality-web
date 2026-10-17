@@ -38,7 +38,7 @@ describe('mood form local day at hydration', () => {
   it('uses the browser IANA zone when the server cookie is missing', () => {
     ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Warsaw')
 
-    const { result } = renderHook(() => useAddNewMood({ initialLastSubmittedAt, timeZone: null }))
+    const { result } = renderHook(() => useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt, timeZone: null }))
 
     expect(isSubmittedToday).toHaveBeenLastCalledWith(lastSubmittedAt, 'Europe/Warsaw')
     expect(result.current.submittedToday).toBe(true)
@@ -47,7 +47,7 @@ describe('mood form local day at hydration', () => {
   it('prefers the current browser IANA zone to a stale travel cookie', () => {
     ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Kyiv')
 
-    renderHook(() => useAddNewMood({ initialLastSubmittedAt, timeZone: 'Europe/Warsaw' }))
+    renderHook(() => useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt, timeZone: 'Europe/Warsaw' }))
 
     expect(isSubmittedToday).toHaveBeenLastCalledWith(lastSubmittedAt, 'Europe/Kyiv')
   })
