@@ -88,6 +88,8 @@ export async function MoodProgressSummary({ stats, failed = false, timeZone }: P
                 moodLabel={t('mood')}
                 stressLabel={t('stress')}
                 chartAccessible={t('chartAccessible')}
+                dateLabel={t('dateColumn')}
+                timeZone={timeZone}
               />
             </>
           ) : (
