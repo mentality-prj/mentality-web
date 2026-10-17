@@ -2,7 +2,37 @@
   "title": "Mój postęp",
   "subtitle": "Osiągnięcia, statystyki i cele osobiste — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛",
   "achievements": {
-    "title": "Moje osiągnięcia"
+    "title": "Moje osiągnięcia",
+    "heading": "Małe kroki, które warto zauważyć",
+    "description": "Zobacz, co udało Ci się zrobić dla siebie: zapisy nastroju, wpisy w dzienniku i ukończone cele osobiste.",
+    "noPressure": "Przerwy nie zerują postępów. Nie ma tu serii, kar ani porównań z innymi.",
+    "activityCount": "Łącznie: {count}",
+    "noMilestonesYet": "Zacznij, kiedy zechcesz. Nawet jeden mały krok ma znaczenie.",
+    "loadError": "Nie udało się teraz wczytać tych danych. Odśwież stronę później.",
+    "liveSummaryNote": "To podsumowanie obecnych wpisów, a nie trwały rejestr odznak. Usunięte dane nie są już liczone.",
+    "mood": {
+      "title": "Zapisy nastroju",
+      "description": "Każdy zapis to okazja, by zauważyć swoje samopoczucie bez oceniania.",
+      "action": "Zobacz historię nastroju"
+    },
+    "diary": {
+      "title": "Wpisy w dzienniku",
+      "description": "Archiwalne wpisy też się liczą — są częścią Twojego doświadczenia.",
+      "action": "Otwórz dziennik"
+    },
+    "goals": {
+      "title": "Ukończone cele",
+      "description": "Tylko cele osobiste oznaczone przez Ciebie jako ukończone.",
+      "action": "Zobacz cele"
+    },
+    "milestones": {
+      "firstCheckin": "Pierwszy zapis nastroju",
+      "fiveCheckins": "Pięć zapisów nastroju",
+      "firstDiary": "Pierwszy wpis w dzienniku",
+      "fiveDiaries": "Pięć wpisów w dzienniku",
+      "firstGoal": "Pierwszy ukończony cel",
+      "threeGoals": "Trzy ukończone cele"
+    }
   },
   "goals": {
     "title": "Moje cele"
