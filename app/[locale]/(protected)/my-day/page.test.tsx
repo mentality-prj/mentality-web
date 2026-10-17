@@ -78,7 +78,7 @@ describe('My Day optional support', () => {
   it('shows grounding before any check-in is required', async () => {
     render(await MyDay())
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), { limit: 1 })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), { limit: 1, dailyOnly: true })
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()

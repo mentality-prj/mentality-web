@@ -99,6 +99,13 @@ describe('createMoodRecord', () => {
 })
 
 describe('getLastMoodRecords IANA local day', () => {
+  it('passes dailyOnly to exclude new quick and stress-spike records from My Day', async () => {
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [] })
+    await getLastMoodRecords(mockSession, { limit: 1, dailyOnly: true })
+    const url = (performAuthRequest as jest.Mock).mock.calls[0][1] as string
+    expect(new URL(url).searchParams.get('dailyOnly')).toBe('true')
+  })
+
   it('forwards the IANA zone alongside days', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: [] })
     await getLastMoodRecords(mockSession, { days: 1, timeZone: 'Europe/Kyiv' })

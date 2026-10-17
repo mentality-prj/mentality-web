@@ -27,7 +27,7 @@ const MyDay = async () => {
   const isAdmin = session?.user?.role === Roles.ADMIN
   const timeZone = await getUserTimeZone()
 
-  const todayPromise = getLastMoodRecords(session, { limit: 1 })
+  const todayPromise = getLastMoodRecords(session, { limit: 1, dailyOnly: true })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
   const historyVerified = !('error' in todayRes)
