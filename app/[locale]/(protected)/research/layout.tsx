@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
 
@@ -12,6 +11,7 @@ import { getResearchSidebarMenu } from '@/constants/menu'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getLocalizedResearchErrorMessage } from '@/helpers/researchErrorMessage'
 import { getServerSession } from '@/lib/auth/server'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { getResearchWorkspaceAccess } from '@/requests/researchProjects'
 
 export default async function ResearchLayout({ children }: { children: ReactNode }) {

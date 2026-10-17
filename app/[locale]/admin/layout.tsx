@@ -1,5 +1,4 @@
 import { ReactNode } from 'react'
-import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { redirect } from 'next/navigation'
 
 import { AdminHeader } from '@/admin/index'
@@ -8,6 +7,7 @@ import { Logo } from '@/components/Layout/Header'
 import AdminMobileNavDrawer from '@/components/Layout/MobileNavDrawer/AdminMobileNavDrawer'
 import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { getServerSession } from '@/lib/get-server-session'
 
 export default async function AdminLayout({

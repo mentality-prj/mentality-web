@@ -1,8 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 
 import { getServerSession } from '@/lib/auth/server'
-import { getValidatedBackendPath } from '@/lib/backend/path'
 import { isB2CBackendResourceAllowed, isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
+import { getValidatedBackendPath } from '@/lib/backend/path'
 import { APIUrl } from '@/requests/config'
 
 export const dynamic = 'force-dynamic'
