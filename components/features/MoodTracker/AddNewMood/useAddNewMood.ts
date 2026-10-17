@@ -121,7 +121,8 @@ export function useAddNewMood({
         if (result.status === 409) {
           // Another tab or device already saved today's full check-in.
           // Never resubmit; refresh the server-rendered day and close this form.
-          notifyError(safeT('Toast.AlreadySaved', "Today's check-in has already been saved"))
+          setLastSubmittedAt(new Date().toISOString())
+          notifyError(safeT('DailyLimit.Message', "Today's check-in has already been saved"))
           try {
             onSave?.()
             onClose?.()
