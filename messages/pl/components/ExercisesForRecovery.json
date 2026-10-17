@@ -19,5 +19,22 @@
     "breathingAction": "Ćwiczenia oddechowe",
     "calmingAction": "Ćwiczenia uspokajające",
     "optionalNote": "To opcjonalne ćwiczenie wspierające, a nie diagnoza ani prognoza."
+  },
+  "nextStep": {
+    "title": "Co możesz teraz zrobić?",
+    "observations": {
+      "stress": "W swoim wpisie określiłeś(-aś) stres na {level} z 5.",
+      "mood": "Oceniłeś(-aś) nastrój na {level} z 5.",
+      "general": "Zapisano Twój nastrój. Jeśli chcesz, możesz wybrać małe działanie."
+    },
+    "suggestions": {
+      "breathing": "Możesz spróbować krótkiego ćwiczenia oddechowego we własnym tempie. To propozycja, nie obowiązek.",
+      "calming": "Jeśli potrzebujesz chwili, wybierz jedno z ćwiczeń uspokajających. To całkowicie opcjonalne."
+    },
+    "actions": {
+      "breathing": "Otwórz ćwiczenia oddechowe",
+      "calming": "Otwórz ćwiczenia uspokajające"
+    },
+    "limitNote": "Ta podpowiedź wynika z prostej reguły opartej na jednym wpisie. Nie jest prognozą, diagnozą ani oceną ryzyka. Nie wiemy, co pomoże właśnie Tobie."
   }
 }
