@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
@@ -12,6 +12,7 @@ import type { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
 import { extractErrorMessage } from '@/utils/apiError'
 import { notifyError, notifySuccess } from '@/utils/toast'
+import { getVerifiedBrowserTimeZone } from '@/utils/timeZone'
 
 type Params = {
   availableTags?: UserTag[]
@@ -52,8 +53,14 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const [focusLevel, setFocusLevel] = useState<number>(1)
   const [formKey, setFormKey] = useState(0)
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(initialLastSubmittedAt ?? null)
+  const [browserTimeZone, setBrowserTimeZone] = useState<string | null>(null)
 
-  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, timeZone ?? null) : false
+  useEffect(() => {
+    setBrowserTimeZone(getVerifiedBrowserTimeZone())
+  }, [])
+
+  const effectiveTimeZone = browserTimeZone ?? timeZone ?? null
+  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, effectiveTimeZone) : false
 
   const resetForm = () => {
     setSelectedMood(null)
@@ -68,7 +75,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
-    if (submittedToday || !timeZone) return
+    if (submittedToday || !effectiveTimeZone) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -119,7 +126,7 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
     }
   }
 
-  const isFormValid = !!selectedMood && !!timeZone && !submittedToday
+  const isFormValid = !!selectedMood && !!effectiveTimeZone && !submittedToday
 
   return {
     selectedMood,
