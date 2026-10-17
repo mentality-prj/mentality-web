@@ -54,7 +54,9 @@ export function HeroSection() {
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
           </div>
           <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
-            <div className="w-full max-w-[420px] rounded-[24px] border border-[var(--outline-secondary)] bg-white p-5 shadow-sm tablet:p-7">
+            <div
+              className="w-full max-w-[420px] rounded-[24px] border border-[var(--outline-secondary)] bg-white p-5 shadow-sm tablet:p-7"
+            >
               <h2 className="text-title text-xl leading-snug">{t('Hero.path.heading')}</h2>
               <ol className="mt-5 flex flex-col gap-4">
                 {(['mood', 'diary', 'support'] as const).map((step, index) => (
@@ -65,11 +67,15 @@ export function HeroSection() {
                     >
                       {index + 1}
                     </span>
-                    <span className="pt-1 text-base leading-relaxed text-textcolor-secondary">{t(`Hero.path.${step}`)}</span>
+                    <span className="pt-1 text-base leading-relaxed text-textcolor-secondary">
+                      {t(`Hero.path.${step}`)}
+                    </span>
                   </li>
                 ))}
               </ol>
-              <p className="mt-5 border-t border-[var(--outline-secondary)] pt-4 text-sm leading-relaxed text-textcolor-secondary">
+              <p
+                className="mt-5 border-t border-[var(--outline-secondary)] pt-4 text-sm leading-relaxed text-textcolor-secondary"
+              >
                 {t('Hero.path.note')}
               </p>
             </div>
