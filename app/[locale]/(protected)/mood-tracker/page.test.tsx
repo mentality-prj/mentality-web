@@ -18,6 +18,10 @@ jest.mock('@/helpers/mood.helpers', () => ({
   buildDailySummaries: jest.fn().mockReturnValue([]),
 }))
 
+jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
+  QuickSupportCard: () => <div data-testid="quick-support" />,
+}))
+
 jest.mock('@/components/features/MoodTracker/MoodRecords/MoodRecords', () => ({
   MoodRecords: ({ records }: { records: MoodRecordEntity[] }) => (
     <div data-testid="mood-records">{records.length} records</div>
@@ -102,6 +106,11 @@ describe('MoodTracker page', () => {
     ;(getMoodStatistics as jest.Mock).mockResolvedValue({ error: 'Backend unavailable' })
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
     expect(screen.getByTestId('mood-progress')).toHaveTextContent('error')
+  })
+
+  it('offers immediate support without requiring a mood submission', async () => {
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
   })
 
   it('renders TenDaysSummary', async () => {
