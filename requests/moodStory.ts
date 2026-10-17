@@ -41,11 +41,9 @@ export async function regenerateMoodStory(
   timeZone?: string | null
 ): Promise<{ data: MoodStoryEntity } | { error: string }> {
   const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
-  const res = await performAdminRequest<MoodStoryEntity>(
-    session,
-    `${APIUrl}${MOOD_STORY_ENDPOINTS.REGENERATE}${query}`,
-    { method: 'POST' }
-  )
+  const url = `${APIUrl}${MOOD_STORY_ENDPOINTS.REGENERATE}${query}`
+  const options = { method: 'POST' as const }
+  const res = await performAdminRequest<MoodStoryEntity>(session, url, options)
   if ('error' in res) {
     return { error: res.error }
   }
