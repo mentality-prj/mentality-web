@@ -1,4 +1,4 @@
-import { render, screen, within } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
 import MyProgressAchievementsPage from '@/app/[locale]/(protected)/my-progress/achievements/page'
