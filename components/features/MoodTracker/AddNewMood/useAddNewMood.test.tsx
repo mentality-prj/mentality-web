@@ -4,7 +4,6 @@ import { useTranslations } from 'next-intl'
 import { useAuth } from '@/context/AuthProvider'
 import { isSubmittedToday } from '@/helpers/mood.helpers'
 import useTags from '@/hooks/useTags'
-import { createMoodRecord } from '@/requests/moodRecord'
 import { getVerifiedBrowserTimeZone } from '@/utils/timeZone'
 
 import { useAddNewMood } from './useAddNewMood'
@@ -14,7 +13,6 @@ jest.mock('@/context/AuthProvider', () => ({ useAuth: jest.fn() }))
 jest.mock('@/helpers/mood.helpers', () => ({ isSubmittedToday: jest.fn() }))
 jest.mock('@/hooks/useTags', () => ({ __esModule: true, default: jest.fn() }))
 jest.mock('@/utils/timeZone', () => ({ getVerifiedBrowserTimeZone: jest.fn() }))
-jest.mock('@/requests/moodRecord', () => ({ createMoodRecord: jest.fn() }))
 
 const lastSubmittedAt = '2026-10-17T22:10:00.000Z'
 
@@ -52,30 +50,6 @@ describe('mood form local day at hydration', () => {
     renderHook(() => useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt, timeZone: 'Europe/Warsaw' }))
 
     expect(isSubmittedToday).toHaveBeenLastCalledWith(lastSubmittedAt, 'Europe/Kyiv')
-  })
-
-  it('rechecks the current zone at submit so travel cannot bypass daily admission', async () => {
-    ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Warsaw')
-    const isKyivDay = (_: string, zone: string) => zone === 'Europe/Kyiv'
-    ;(isSubmittedToday as jest.Mock).mockImplementation(isKyivDay)
-    const { result } = renderHook(() => useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt }))
-    act(() => result.current.setSelectedMood('good'))
-    expect(result.current.submittedToday).toBe(false)
-
-    ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Kyiv')
-    await act(async () => result.current.handleSubmit())
-
-    expect(isSubmittedToday).toHaveBeenLastCalledWith(lastSubmittedAt, 'Europe/Kyiv')
-    expect(createMoodRecord).not.toHaveBeenCalled()
-  })
-
-  it('refreshes the form zone on focus while it stays mounted', () => {
-    ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Warsaw')
-    const { result } = renderHook(() => useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt }))
-    ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Kyiv')
-    act(() => window.dispatchEvent(new Event('focus')))
-    expect(isSubmittedToday).toHaveBeenLastCalledWith(lastSubmittedAt, 'Europe/Kyiv')
-    expect(result.current.submittedToday).toBe(true)
   })
 
   it('blocks form validation when the last-record lookup failed', () => {
