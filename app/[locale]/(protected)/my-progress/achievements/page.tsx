@@ -3,13 +3,18 @@ import { getTranslations } from 'next-intl/server'
 
 import { Routes } from '@/constants/routes'
 import { SectionCard } from '@/ds/components/SectionCard'
-import { earnedMilestones, completedGoalCount, diaryEntryCount, validActivityCount } from '@/helpers/b2cAchievements'
+import {
+  completedGoalCount,
+  diaryEntryCount,
+  earnedMilestones,
+  validActivityCount,
+  type ActivityKind,
+} from '@/helpers/b2cAchievements'
 import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
 import { getUserDiaries } from '@/requests/diary'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { getMoodStatistics } from '@/requests/userStatistics'
-import type { ActivityKind } from '@/helpers/b2cAchievements'
 
 export default async function MyProgressAchievementsPage() {
   const t = await getTranslations('pages.MyProgress.achievements')
