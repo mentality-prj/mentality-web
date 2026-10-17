@@ -28,12 +28,9 @@ const MyDay = async () => {
   const todayPromise = getLastMoodRecords(session, { days: 1 })
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
+  const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
   const todayRecord =
-    'error' in todayRes
-      ? null
-      : (todayRes.data ?? []).find(
-          (record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt)
-        ) ?? null
+    todayRecords.find(({ createdAt }) => typeof createdAt === 'string' && isSubmittedToday(createdAt)) ?? null
   const submittedToday = todayRecord !== null
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
