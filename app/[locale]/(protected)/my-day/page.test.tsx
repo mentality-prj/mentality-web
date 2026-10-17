@@ -21,6 +21,11 @@ jest.mock('@/helpers/moodProgress', () => ({ calculateMoodProgress: jest.fn() })
 jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
   QuickSupportCard: () => <div data-testid="quick-support" />,
 }))
+jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
+  MoodNextStepCard: ({ record }: { record: { stressLevel?: number } }) => (
+    <div data-testid="mood-next-step">{record.stressLevel}</div>
+  ),
+}))
 jest.mock('@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard', () => ({
   MoodSummaryCard: () => <div data-testid="mood-prompt" />,
 }))
@@ -61,15 +66,17 @@ describe('My Day optional support', () => {
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()
+    expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
   })
 
   it('keeps support visible even when a mood story is unavailable', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
-      data: [{ id: 'mood-1', createdAt: '2026-10-17T09:00:00.000Z' }],
+      data: [{ id: 'mood-1', createdAt: '2026-10-17T09:00:00.000Z', stressLevel: 4 }],
     })
     render(await MyDay())
 
     expect(screen.getByTestId('mood-story')).toBeInTheDocument()
-    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.getByTestId('mood-next-step')).toHaveTextContent('4')
+    expect(screen.queryByTestId('quick-support')).not.toBeInTheDocument()
   })
 })
