@@ -72,7 +72,7 @@ describe('mood form local day at hydration', () => {
     expect(createMoodRecord).toHaveBeenCalledTimes(1)
     expect(onSave).toHaveBeenCalledTimes(1)
     expect(onClose).toHaveBeenCalledTimes(1)
-    expect(notifyError).toHaveBeenCalledWith(expect.stringContaining('already'))
+    expect(notifyError).toHaveBeenCalledWith('Toast.AlreadySaved')
   })
 
   it('blocks form validation when the last-record lookup failed', () => {
