@@ -54,7 +54,14 @@ export default async function MoodTracker({
         </div>
         <div className="flex flex-col gap-sm desktop:w-2/5">
           <WellbeingSummary records={res.data} />
-          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res.data} />
+          {timeZone && (
+            <TenDaysSummary
+              moodMarksData={moodMarksData}
+              lastRecordsSummary={summaries}
+              records={res.data}
+              timeZone={timeZone}
+            />
+          )}
         </div>
       </div>
       <MoodProgressSummary

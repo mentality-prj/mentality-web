@@ -1,5 +1,5 @@
 import { buildDailySummaries, isSubmittedToday } from '@/helpers/mood.helpers'
-import { getLocalDayKey, isValidTimeZone } from '@/utils/timeZone'
+import { getLocalDayKey, getRecentLocalDayKeys, isValidTimeZone } from '@/utils/timeZone'
 
 describe('user-local calendar day', () => {
   it.each([
@@ -26,6 +26,20 @@ describe('user-local calendar day', () => {
     expect(isSubmittedToday('2026-10-17T22:00:00.000Z', 'Mars/Phobos')).toBe(false)
     expect(isValidTimeZone('Europe/Kyiv')).toBe(true)
     expect(isValidTimeZone('Mars/Phobos')).toBe(false)
+  })
+
+  it('enumerates civil days across midnight and DST without host-zone drift', () => {
+    expect(getRecentLocalDayKeys(3, 'Europe/Warsaw', new Date('2026-10-17T22:30:00Z'))).toEqual([
+      '2026-10-16',
+      '2026-10-17',
+      '2026-10-18',
+    ])
+    expect(getRecentLocalDayKeys(3, 'Europe/Warsaw', new Date('2026-03-29T22:30:00Z'))).toEqual([
+      '2026-03-28',
+      '2026-03-29',
+      '2026-03-30',
+    ])
+    expect(getRecentLocalDayKeys(10, null)).toEqual([])
   })
 
   it('groups daily summaries by the selected local date', () => {

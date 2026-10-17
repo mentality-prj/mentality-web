@@ -4,10 +4,12 @@ import { getLocale, getTranslations } from 'next-intl/server'
 import Card from '@/components/shared/Cards/Card'
 import { cn } from '@/lib/utils'
 import { DaySummary } from '@/types/daySummary'
+import { getRecentLocalDayKeys } from '@/utils/timeZone'
 
 interface LastTenDaysMoodRecordsProps {
   /** Daily mood summaries for the last 10 days. Each entry contains a date (ISO YYYY-MM-DD) and a record count. */
   summaries?: DaySummary[]
+  timeZone: string
 }
 
 /**
@@ -23,7 +25,7 @@ interface LastTenDaysMoodRecordsProps {
  *
  * Server component — fetches locale and translations on the server.
  */
-export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecordsProps) {
+export async function LastTenDaysMoodRecords({ summaries, timeZone }: LastTenDaysMoodRecordsProps) {
   const t = await getTranslations('components.LastTenDaysMoodRecords')
 
   const count = Array.isArray(summaries) ? summaries.reduce((s, r) => s + (r.records ?? 0), 0) : 0
@@ -42,25 +44,16 @@ export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecor
     }
   }
 
-  const today = new Date()
-  // build last 10 days from oldest to newest
-  const dates = Array.from({ length: 10 }, (_, i) => {
-    const d = new Date(today)
-    d.setDate(today.getDate() - (9 - i))
-    return d
-  })
-
-  const weekdayFormatter = new Intl.DateTimeFormat(locale || undefined, { weekday: 'short' })
-
-  const todayIso = new Date().toISOString().slice(0, 10)
+  const dates = getRecentLocalDayKeys(10, timeZone)
+  const weekdayFormatter = new Intl.DateTimeFormat(locale || undefined, { weekday: 'short', timeZone: 'UTC' })
+  const todayIso = dates[dates.length - 1]
 
   return (
     <Card title={t('title')} text={text} className="w-full">
       <div className="flex w-full flex-row gap-1">
-        {dates.map((date) => {
-          const iso = date.toISOString().slice(0, 10)
-          const dayCount = map[iso as string]
-          const label = weekdayFormatter.format(date)
+        {dates.map((iso) => {
+          const dayCount = map[iso]
+          const label = weekdayFormatter.format(new Date(`${iso}T12:00:00.000Z`))
           const isToday = iso === todayIso
           const isDone = typeof dayCount === 'number' && dayCount > 0
           const isMissed = !isDone && !isToday
@@ -72,7 +65,7 @@ export async function LastTenDaysMoodRecords({ summaries }: LastTenDaysMoodRecor
                 isToday && 'info'
               )}
             >
-              <div className="p-1 pb-0 text-sm">{date.getDate()}</div>
+              <div className="p-1 pb-0 text-sm">{Number(iso.slice(-2))}</div>
               <div className="p-1 text-xs">{label}</div>
               <div
                 className={cn(

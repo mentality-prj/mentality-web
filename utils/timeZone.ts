@@ -35,3 +35,16 @@ export function getLocalDayKey(date: Date, timeZone: string | null | undefined):
   )
   return `${parts.year}-${parts.month}-${parts.day}`
 }
+
+/** Inclusive civil-date window; UTC arithmetic avoids host timezone/DST drift. */
+export function getRecentLocalDayKeys(days: number, timeZone: string | null, now = new Date()): string[] {
+  if (!Number.isInteger(days) || days < 1 || days > 31) return []
+  const today = getLocalDayKey(now, timeZone)
+  if (!today) return []
+  const anchor = new Date(`${today}T12:00:00.000Z`)
+  return Array.from({ length: days }, (_, index) => {
+    const date = new Date(anchor)
+    date.setUTCDate(anchor.getUTCDate() - (days - 1 - index))
+    return date.toISOString().slice(0, 10)
+  })
+}
