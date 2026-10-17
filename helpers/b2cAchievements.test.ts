@@ -33,14 +33,7 @@ describe('personal achievements from existing B2C records', () => {
   })
 
   it('recognizes only completed personal goals, not overdue or failed ones', () => {
-    expect(
-      completedGoalCount([
-        goal('pending'),
-        goal('in progress'),
-        goal('failed'),
-        goal('completed'),
-        goal('completed'),
-      ])
-    ).toBe(2)
+    const goals = [goal('pending'), goal('in progress'), goal('failed'), goal('completed'), goal('completed')]
+    expect(completedGoalCount(goals)).toBe(2)
   })
 })
