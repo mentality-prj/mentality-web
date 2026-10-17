@@ -1,8 +1,8 @@
 import { getTranslations } from 'next-intl/server'
 
-import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
+import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
