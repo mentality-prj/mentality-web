@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
+import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { MoodProgressSummary } from '@/components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary'
 import { MoodRecords } from '@/components/features/MoodTracker/MoodRecords/MoodRecords'
 import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
@@ -41,8 +42,9 @@ export default async function MoodTracker({
     <div className="flex flex-col gap-md">
       <PageTitle title={t('title')} subtitle={t('subtitle')} />
       <div className="flex w-full flex-col gap-sm tablet:gap-md desktop:flex-row">
-        <div className="desktop:w-3/5">
+        <div className="flex flex-col gap-sm desktop:w-3/5">
           <NewMoodNoteSection />
+          <QuickSupportCard />
         </div>
         <div className="flex flex-col gap-sm desktop:w-2/5">
           <WellbeingSummary records={res.data} />
