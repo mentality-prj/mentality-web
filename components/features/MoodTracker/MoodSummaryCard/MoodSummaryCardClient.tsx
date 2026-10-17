@@ -20,6 +20,7 @@ interface MoodSummaryCardClientProps {
   subtitle?: ReactNode
   counts?: { mood: string; count: number }[]
   availableTags?: UserTag[]
+  timeZone?: string | null
 }
 
 const MoodSummaryCardClient = ({
@@ -27,6 +28,7 @@ const MoodSummaryCardClient = ({
   subtitle,
   counts = [],
   availableTags = [],
+  timeZone,
 }: MoodSummaryCardClientProps) => {
   const tm = useTranslations('components.Mood')
   const router = useRouter()
@@ -45,6 +47,7 @@ const MoodSummaryCardClient = ({
                 router.refresh()
               }}
               availableTags={availableTags}
+              timeZone={timeZone}
             />
           </div>
         </>
