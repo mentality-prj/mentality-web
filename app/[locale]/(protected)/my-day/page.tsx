@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
+import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
@@ -63,6 +64,7 @@ const MyDay = async () => {
         ) : (
           <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
         )}
+        <QuickSupportCard />
         <DailyTipClient recommendedId={recommendedTipId} />
         <TodayMoodNotes />
       </div>
