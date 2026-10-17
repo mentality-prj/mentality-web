@@ -1,6 +1,6 @@
-import { chooseMoodNextStep } from './moodNextStep'
-
 import type { MoodRecordEntity } from '@/types/api-responses'
+
+import { chooseMoodNextStep } from './moodNextStep'
 
 const base: MoodRecordEntity = {
   id: 'private-user-record',
