@@ -34,7 +34,7 @@ const MyDay = async () => {
   const todayRecord = timeZone
     ? todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
     : undefined
-  const submittedToday = todayRecord !== null
+  const submittedToday = todayRecord !== undefined
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {

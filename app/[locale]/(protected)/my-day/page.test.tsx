@@ -66,10 +66,38 @@ describe('My Day optional support', () => {
   it('shows grounding before any check-in is required', async () => {
     render(await MyDay())
 
+    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), {
+      days: 1,
+      timeZone: 'Europe/Warsaw',
+    })
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()
     expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
+  })
+
+  it('does not show stale mood story or recommendations when only yesterday has a record', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
+      data: [{ id: 'yesterday', createdAt: '2026-10-16T21:00:00.000Z', stressLevel: 5 }],
+    })
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(false)
+
+    render(await MyDay())
+
+    expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.queryByTestId('mood-story')).not.toBeInTheDocument()
+    expect(getTodayMoodStory).not.toHaveBeenCalled()
+  })
+
+  it('does not infer a day from the locale when time zone is unavailable', async () => {
+    ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
+
+    render(await MyDay())
+
+    expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(getTodayMoodStory).not.toHaveBeenCalled()
   })
 
   it('keeps support visible even when a mood story is unavailable', async () => {
