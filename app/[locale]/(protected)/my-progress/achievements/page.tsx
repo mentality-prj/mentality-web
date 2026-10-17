@@ -83,7 +83,10 @@ export default async function MyProgressAchievementsPage() {
                   </>
                 )}
 
-                <Link href={href} className="mt-auto w-fit text-sm font-medium text-primary underline underline-offset-4">
+                <Link
+                  href={href}
+                  className="mt-auto w-fit text-sm font-medium text-primary underline underline-offset-4"
+                >
                   {t(`${kind}.action`)}
                 </Link>
               </div>
