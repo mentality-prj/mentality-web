@@ -2,7 +2,37 @@
   "title": "My progress",
   "subtitle": "Achievements, statistics and personal goals — all in one place to see your progress 💛",
   "achievements": {
-    "title": "My achievements"
+    "title": "My achievements",
+    "heading": "Small steps worth noticing",
+    "description": "See the things you've chosen to do for yourself: mood check-ins, diary entries and completed personal goals.",
+    "noPressure": "Missing a day never resets your progress. No streaks, penalties or comparisons with others.",
+    "activityCount": "Total: {count}",
+    "noMilestonesYet": "Start whenever you're ready. One small step matters.",
+    "loadError": "We couldn't load these records right now. Please refresh the page later.",
+    "liveSummaryNote": "This is a snapshot of your current personal records, not a permanent badge ledger. Deleted records are no longer counted.",
+    "mood": {
+      "title": "Mood check-ins",
+      "description": "Each check-in is a chance to notice how you feel, without judgment.",
+      "action": "View mood history"
+    },
+    "diary": {
+      "title": "Diary entries",
+      "description": "Archived entries still count — they're part of your experience.",
+      "action": "Open diary"
+    },
+    "goals": {
+      "title": "Completed goals",
+      "description": "Only personal goals that you've marked as completed.",
+      "action": "View goals"
+    },
+    "milestones": {
+      "firstCheckin": "Your first mood check-in",
+      "fiveCheckins": "Five mood check-ins",
+      "firstDiary": "Your first diary entry",
+      "fiveDiaries": "Five diary entries",
+      "firstGoal": "Your first completed goal",
+      "threeGoals": "Three completed goals"
+    }
   },
   "goals": {
     "title": "My goals"
