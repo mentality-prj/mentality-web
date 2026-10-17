@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
-import { getLocale, getTranslations } from 'next-intl/server'
 import { redirect } from 'next/navigation'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 import { LandingFooter } from '@/components/features/Landing'
 import { ResearchStateCard } from '@/components/features/Research/ResearchStateCard'
