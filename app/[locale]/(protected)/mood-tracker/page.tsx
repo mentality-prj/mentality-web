@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
-import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { MoodNextStepCard } from '@/components/features/Guide/MoodNextStepCard'
+import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { MoodProgressSummary } from '@/components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary'
 import { MoodRecords } from '@/components/features/MoodTracker/MoodRecords/MoodRecords'
 import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
