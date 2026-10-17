@@ -6,13 +6,15 @@ import { Routes } from '@/constants/routes'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { getMoodStatistics } from '@/requests/userStatistics'
 
 export default async function MyProgress() {
   const session = await getServerSession()
   const t = await getTranslations('pages.MyProgress.overview')
-  const [moodResult, goalsResult] = await Promise.all([getMoodStatistics(session), fetchPersonalGoals(session)])
+  const timeZone = await getUserTimeZone()
+  const [moodResult, goalsResult] = await Promise.all([getMoodStatistics(session, timeZone), fetchPersonalGoals(session)])
 
   return (
     <div className="flex flex-col gap-default">
@@ -48,7 +50,11 @@ export default async function MyProgress() {
         </div>
       </section>
 
-      <MoodProgressSummary stats={'error' in moodResult ? null : moodResult.data} failed={'error' in moodResult} />
+      <MoodProgressSummary
+        stats={'error' in moodResult ? null : moodResult.data}
+        failed={'error' in moodResult}
+        timeZone={timeZone}
+      />
 
       <section className="flex flex-col gap-sm" aria-labelledby="progress-goals-heading">
         <div className="flex flex-wrap items-center justify-between gap-sm">

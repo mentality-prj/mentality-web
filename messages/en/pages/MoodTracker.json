@@ -35,6 +35,7 @@
     "empty": "Add mood check-ins to see your progress.",
     "loadError": "Unable to load your statistics. Try refreshing the page.",
     "disclaimer": "A reflection of your self-reported ratings, not a medical assessment or diagnosis. A higher score means more stress.",
-    "dateNote": "Compares the last 7 days with the preceding 7, using days with check-ins (at least 2 each week). Daily aggregates currently use UTC."
+    "dateNote": "Compares the last 7 days with the preceding 7, using days with check-ins (at least 2 each week). Daily aggregates currently use UTC.",
+    "dateNoteLocal": "Compares the most recent 7 calendar days with the previous 7 (at least 2 observed days per week). All dates and streaks use your time zone."
   }
 }

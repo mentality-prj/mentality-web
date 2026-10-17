@@ -64,6 +64,33 @@ describe('calculateMoodProgress', () => {
     expect(result.stressChange).toBeNull()
   })
 
+  it('uses Warsaw civil-day keys around the spring DST boundary', () => {
+    const result = calculateMoodProgress(
+      {
+        ...stats,
+        trend30d: [{ date: '2026-03-30', mood: 3, stress: 4, energy: 3, focus: 3 }],
+      },
+      new Date('2026-03-29T22:30:00.000Z'),
+      'Europe/Warsaw'
+    )
+    expect(result.trend.at(-1)).toMatchObject({ date: '2026-03-30', mood: 3, stress: 4 })
+    expect(result.recentDays).toBe(1)
+    expect(result.stressScore).toBe(75)
+  })
+
+  it('uses Kyiv local next-day observations before UTC midnight', () => {
+    const result = calculateMoodProgress(
+      {
+        ...stats,
+        trend30d: [{ date: '2026-10-18', mood: 5, stress: 1, energy: 3, focus: 3 }],
+      },
+      new Date('2026-10-17T22:30:00.000Z'),
+      'Europe/Kyiv'
+    )
+    expect(result.trend.at(-1)?.date).toBe('2026-10-18')
+    expect(result.recentDays).toBe(1)
+  })
+
   it('does not treat invalid readings or future observations as actual check-ins', () => {
     const result = calculateMoodProgress(
       {

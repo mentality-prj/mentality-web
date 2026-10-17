@@ -1,4 +1,5 @@
 import type { DailyPoint, MoodStatistics } from '@/types/userStatistics'
+import { getRecentLocalDayKeys } from '@/utils/timeZone'
 
 const DAYS_IN_WEEK = 7
 const DAYS_IN_MONTH = 30
@@ -36,15 +37,22 @@ function average(points: DailyPoint[], field: 'mood' | 'stress'): number | null 
 /**
  * Compares seven calendar days with the preceding seven calendar days.
  * Each observed day gets equal weight. Missing days stay missing, not zero.
- * Backend daily date buckets and streaks currently use UTC.
+ * Date buckets/streaks come from the backend in the validated IANA zone,
+ * with explicit UTC fallback when none is available.
  */
-export function calculateMoodProgress(stats: MoodStatistics, now: Date = new Date()): MoodProgressData {
+export function calculateMoodProgress(
+  stats: MoodStatistics,
+  now: Date = new Date(),
+  timeZone?: string | null
+): MoodProgressData {
   const today = new Date(now)
   today.setUTCHours(0, 0, 0, 0)
   const todayMs = today.getTime()
   const oneDayMs = 24 * 60 * 60 * 1000
 
-  const startOf = (daysAgo: number): string => new Date(todayMs - daysAgo * oneDayMs).toISOString().slice(0, 10)
+  const zonedDays = getRecentLocalDayKeys(DAYS_IN_MONTH, timeZone ?? null, now)
+  const startOf = (daysAgo: number): string =>
+    zonedDays[DAYS_IN_MONTH - 1 - daysAgo] ?? new Date(todayMs - daysAgo * oneDayMs).toISOString().slice(0, 10)
   const lastDay = startOf(0)
   const recentStart = startOf(DAYS_IN_WEEK - 1)
   const previousStart = startOf(DAYS_IN_WEEK * 2 - 1)

@@ -28,7 +28,7 @@ export default async function MoodTracker({
   const [result, res, progressResult] = await Promise.all([
     getMoodRecords(session, query),
     getLastMoodRecords(session, { days: 10, timeZone: timeZone ?? undefined }),
-    getMoodStatistics(session),
+    getMoodStatistics(session, timeZone),
   ])
   // Invalid remote data and backend errors are not empty mood histories.
   // Let the existing protected error boundary render the failure.
@@ -67,6 +67,7 @@ export default async function MoodTracker({
       <MoodProgressSummary
         stats={'error' in progressResult ? null : progressResult.data}
         failed={'error' in progressResult}
+        timeZone={timeZone}
       />
       <MoodRecords totalCount={total} records={moodNotes} />
     </div>

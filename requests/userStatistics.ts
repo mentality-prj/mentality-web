@@ -1,5 +1,6 @@
 import { B2C_USER_STATISTICS_ENDPOINTS } from '@/constants/endpoints'
 import { CustomSession } from '@/types/auth'
+import { isValidTimeZone } from '@/utils/timeZone'
 import { MoodStatistics, PsyTestsStatistics } from '@/types/userStatistics'
 
 import { APIUrl } from './config'
@@ -7,11 +8,15 @@ import { performAuthRequest } from './genericFetch'
 
 /** Fetches mood check-in statistics for the authenticated user. */
 export async function getMoodStatistics(
-  session: CustomSession | null
+  session: CustomSession | null,
+  timeZone?: string | null
 ): Promise<{ data: MoodStatistics } | { error: string; status?: number }> {
-  const res = await performAuthRequest<MoodStatistics>(session, `${APIUrl}${B2C_USER_STATISTICS_ENDPOINTS.MOOD}`, {
-    method: 'GET',
-  })
+  const zoneQuery = isValidTimeZone(timeZone) ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
+  const res = await performAuthRequest<MoodStatistics>(
+    session,
+    `${APIUrl}${B2C_USER_STATISTICS_ENDPOINTS.MOOD}${zoneQuery}`,
+    { method: 'GET' }
+  )
   if ('error' in res) {
     return res.status !== undefined ? { error: res.error, status: res.status } : { error: res.error }
   }

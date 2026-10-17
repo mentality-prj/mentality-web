@@ -6,6 +6,7 @@ import { SectionCard } from '@/ds/components/SectionCard'
 import { completedGoalCount, diaryEntryCount, earnedMilestones, validActivityCount } from '@/helpers/b2cAchievements'
 import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getUserDiaries } from '@/requests/diary'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { getMoodStatistics } from '@/requests/userStatistics'
@@ -13,8 +14,9 @@ import { getMoodStatistics } from '@/requests/userStatistics'
 export default async function MyProgressAchievementsPage() {
   const t = await getTranslations('pages.MyProgress.achievements')
   const session = await getServerSession()
+  const timeZone = await getUserTimeZone()
   const [moodResult, diaryResult, goalsResult] = await Promise.all([
-    getMoodStatistics(session),
+    getMoodStatistics(session, timeZone),
     getUserDiaries(session),
     fetchPersonalGoals(session),
   ])
