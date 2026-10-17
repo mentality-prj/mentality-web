@@ -1,13 +1,14 @@
 import { getTranslations } from 'next-intl/server'
 
 import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
+import { MoodNextStepCard } from '@/components/features/Guide/MoodNextStepCard'
 import { MoodProgressSummary } from '@/components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary'
 import { MoodRecords } from '@/components/features/MoodTracker/MoodRecords/MoodRecords'
 import { NewMoodNoteSection } from '@/components/features/MoodTracker/NewMoodNoteSection/NewMoodNoteSection'
 import { TenDaysSummary } from '@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary'
 import { WellbeingSummary } from '@/components/features/MoodTracker/WellbeingSummary/WellbeingSummary'
 import { PageTitle } from '@/ds/components/PageTitle'
-import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
+import { buildDailySummaries, buildMoodMarksData, isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { parseMoodQuery } from '@/lib/moodQueryParser'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
@@ -37,6 +38,8 @@ export default async function MoodTracker({
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
   const summaries = buildDailySummaries(res.data)
+  const todayRecord =
+    res.data.find((record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt)) ?? null
 
   return (
     <div className="flex flex-col gap-md">
@@ -44,7 +47,7 @@ export default async function MoodTracker({
       <div className="flex w-full flex-col gap-sm tablet:gap-md desktop:flex-row">
         <div className="flex flex-col gap-sm desktop:w-3/5">
           <NewMoodNoteSection />
-          <QuickSupportCard />
+          {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
         </div>
         <div className="flex flex-col gap-sm desktop:w-2/5">
           <WellbeingSummary records={res.data} />
