@@ -57,9 +57,7 @@ describe('mood form local day at hydration', () => {
   it('rechecks the current zone at submit so travel cannot bypass daily admission', async () => {
     ;(getVerifiedBrowserTimeZone as jest.Mock).mockReturnValue('Europe/Warsaw')
     ;(isSubmittedToday as jest.Mock).mockImplementation((_: string, zone: string) => zone === 'Europe/Kyiv')
-    const { result } = renderHook(() =>
-      useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt, timeZone: 'Europe/Warsaw' })
-    )
+    const { result } = renderHook(() => useAddNewMood({ initialLastSubmittedAt: lastSubmittedAt }))
     act(() => result.current.setSelectedMood('good'))
     expect(result.current.submittedToday).toBe(false)
 

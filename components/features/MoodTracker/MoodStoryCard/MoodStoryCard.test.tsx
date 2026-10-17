@@ -173,6 +173,13 @@ describe('MoodStoryCard', () => {
     expect(getTodayMoodStory).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
   })
 
+  it('forwards a missing zone without inventing UTC', async () => {
+    ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
+    ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
+    render(await MoodStoryCard())
+    expect(getTodayMoodStory).toHaveBeenCalledWith(mockSession, null)
+  })
+
   it('calls getTodayMoodStory with null when there is no session', async () => {
     ;(getServerSession as jest.Mock).mockResolvedValue(null)
     ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
