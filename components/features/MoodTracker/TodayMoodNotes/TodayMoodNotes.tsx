@@ -21,9 +21,8 @@ export const TodayMoodNotes = async () => {
   const timeZone = await getUserTimeZone()
   if (!timeZone) return null
   const todayRecordMood = await getLastMoodRecords(session, { days: 1, timeZone })
-  const todayRecord = 'error' in todayRecordMood
-    ? null
-    : (todayRecordMood.data?.find(({ createdAt }) => typeof createdAt === 'string' && isSubmittedToday(createdAt, timeZone)) ?? null)
+  const todayRecords = 'error' in todayRecordMood ? [] : (todayRecordMood.data ?? [])
+  const todayRecord = todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
 
   if (!todayRecord) {
     return null

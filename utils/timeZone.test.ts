@@ -29,10 +29,12 @@ describe('user-local calendar day', () => {
   })
 
   it('groups daily summaries by the selected local date', () => {
-    expect(buildDailySummaries([
+    const entries = [
       { createdAt: '2026-10-17T21:50:00.000Z', stressLevel: 2 },
       { createdAt: '2026-10-17T22:10:00.000Z', stressLevel: 4 },
-    ], 'Europe/Warsaw')).toMatchObject([
+    ]
+    const summaries = buildDailySummaries(entries, 'Europe/Warsaw')
+    expect(summaries).toMatchObject([
       { date: '2026-10-18', records: 1 },
       { date: '2026-10-17', records: 1 },
     ])

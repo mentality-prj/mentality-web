@@ -28,11 +28,13 @@ export const buildMoodMarksData = (records: any[] = []) => {
 export const buildDailySummaries = (records: any[] = [], timeZone?: string) => {
   const dayMap = records.reduce<Record<string, { count: number; stressSum: number; stressCount: number }>>((acc, r) => {
     const instant = r.createdAt ? new Date(r.createdAt) : null
-    const date = instant && !Number.isNaN(instant.getTime())
-      ? timeZone && isValidTimeZone(timeZone)
-        ? (getLocalDayKey(instant, timeZone) ?? 'unknown')
-        : instant.toISOString().slice(0, 10)
-      : 'unknown'
+    let date = 'unknown'
+    if (instant && !Number.isNaN(instant.getTime())) {
+      date =
+        timeZone && isValidTimeZone(timeZone)
+          ? (getLocalDayKey(instant, timeZone) ?? 'unknown')
+          : instant.toISOString().slice(0, 10)
+    }
     if (!acc[date]) acc[date] = { count: 0, stressSum: 0, stressCount: 0 }
     acc[date].count += 1
     if (typeof r.stressLevel === 'number') {
@@ -53,9 +55,8 @@ export const buildDailySummaries = (records: any[] = [], timeZone?: string) => {
 
 /** Unknown or invalid zone cannot confirm the current calendar day. */
 export function isSubmittedToday(isoTimestamp: string, timeZone: string | null, now = new Date()): boolean {
-  if (typeof isoTimestamp !== 'string' || !/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/.test(isoTimestamp)) {
-    return false
-  }
+  if (typeof isoTimestamp !== 'string') return false
+  if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/.test(isoTimestamp)) return false
   const submittedDay = getLocalDayKey(new Date(isoTimestamp), timeZone)
   return submittedDay !== null && submittedDay === getLocalDayKey(now, timeZone)
 }

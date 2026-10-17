@@ -19,5 +19,13 @@ export const MoodSummaryCard = async ({ title = '', subtitle, counts = [] }: Moo
 
   const tags: UserTag[] = !('error' in res) && Array.isArray(res.data) ? res.data : []
 
-  return <MoodSummaryCardClient title={title} subtitle={subtitle} counts={counts} availableTags={tags} timeZone={timeZone} />
+  return (
+    <MoodSummaryCardClient
+      title={title}
+      subtitle={subtitle}
+      counts={counts}
+      availableTags={tags}
+      timeZone={timeZone}
+    />
+  )
 }

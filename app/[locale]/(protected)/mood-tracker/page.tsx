@@ -40,8 +40,9 @@ export default async function MoodTracker({
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
   const summaries = buildDailySummaries(res.data, timeZone ?? undefined)
-  const todayRecord =
-    (timeZone ? res.data.find((record) => typeof record.createdAt === 'string' && isSubmittedToday(record.createdAt, timeZone)) : null) ?? null
+  const todayRecord = timeZone
+    ? res.data.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
+    : undefined
 
   return (
     <div className="flex flex-col gap-md">

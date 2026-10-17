@@ -19,7 +19,13 @@ export async function NewMoodNoteSection() {
   const lastRecord = !('error' in lastRecordRes) ? (lastRecordRes.data?.[0] ?? null) : null
   const initialLastSubmittedAt = lastRecord?.createdAt ?? null
 
-  return <NewMoodNoteSectionClient availableTags={tags} initialLastSubmittedAt={initialLastSubmittedAt} timeZone={timeZone} />
+  return (
+    <NewMoodNoteSectionClient
+      availableTags={tags}
+      initialLastSubmittedAt={initialLastSubmittedAt}
+      timeZone={timeZone}
+    />
+  )
 }
 
 export default NewMoodNoteSection
