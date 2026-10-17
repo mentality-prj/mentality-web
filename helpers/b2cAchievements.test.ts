@@ -1,6 +1,6 @@
-import { completedGoalCount, diaryEntryCount, earnedMilestones, validActivityCount } from './b2cAchievements'
-
 import type { DiaryEntity, GoalEntity } from '@/types/api-responses'
+
+import { completedGoalCount, diaryEntryCount, earnedMilestones, validActivityCount } from './b2cAchievements'
 
 function goal(status: GoalEntity['status']): GoalEntity {
   return { id: status, text: 'Personal activity', check: 0, repeat: 1, status, category: 'default' }
