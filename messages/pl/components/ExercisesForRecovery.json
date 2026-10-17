@@ -1,6 +1,9 @@
 {
   "title": "Ćwiczenia regeneracyjne",
-  "meditation": { "title": "Medytacja", "desc": "Uspokój swój umysł i przywróć równowagę w kilka minut." },
+  "meditation": {
+    "title": "Medytacja",
+    "desc": "Uspokój swój umysł i przywróć równowagę w kilka minut."
+  },
   "breathing": {
     "title": "Ćwiczenia oddechowe",
     "desc": "Spróbuj technik zmniejszających stres i poprawiających koncentrację."
@@ -8,5 +11,13 @@
   "calming": {
     "title": "Uspokój mnie teraz",
     "desc": "Szybkie porady, które pomogą Ci radzić sobie z lękiem tutaj i teraz."
+  },
+  "quickSupport": {
+    "title": "Potrzebujesz chwili?",
+    "description": "Możesz zrobić mały krok już teraz — bez ankiety i ocen.",
+    "groundingPrompt": "Poczuj, jak stopy opierają się o podłogę. Rozejrzyj się i spokojnie nazwij trzy rzeczy, które widzisz. Oddychaj w wygodnym dla siebie rytmie.",
+    "breathingAction": "Ćwiczenia oddechowe",
+    "calmingAction": "Ćwiczenia uspokajające",
+    "optionalNote": "To opcjonalne ćwiczenie wspierające, a nie diagnoza ani prognoza."
   }
 }
