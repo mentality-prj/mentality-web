@@ -1,9 +1,7 @@
 'use client'
 import { useLayoutEffect, useRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import AvatarStack from '@/components/shared/AvatarStack'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/ui/button'
@@ -11,7 +9,6 @@ import { Button } from '@/ui/button'
 export function HeroSection() {
   const t = useTranslations('pages.Landing')
 
-  const avatars = ['/avatars/avatar1.png', '/avatars/avatar2.png', '/avatars/avatar3.png']
   const heroRef = useRef<HTMLElement | null>(null)
 
   useLayoutEffect(() => {
@@ -58,25 +55,14 @@ export function HeroSection() {
           </div>
           <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
             <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
-              <div className="flex items-center justify-between gap-sm">
-                <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
-                  {t('Hero.testimonial.title')}
-                </h3>
-                <button
-                  type="button"
-                  aria-label={t('Hero.testimonial.primary')}
-                  className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[var(--outline-secondary)]"
-                >
-                  <ArrowUpRight size={24} className="text-[var(--text-muted)]" />
-                </button>
-              </div>
+              <h2 className="text-title text-xl">{t('Hero.path.heading')}</h2>
               <div className="mt-4 border-t border-[var(--outline-secondary)]" />
-              <div className="mt-4 flex items-center justify-between">
-                <AvatarStack images={avatars} />
-                <span className="text-[26px] font-bold leading-[150%] text-[var(--text-muted)]">
-                  {t('Hero.testimonial.metric')}
-                </span>
-              </div>
+              <ol className="mt-4 list-inside list-decimal text-textcolor-secondary">
+                <li>{t('Hero.path.mood')}</li>
+                <li>{t('Hero.path.diary')}</li>
+                <li>{t('Hero.path.support')}</li>
+              </ol>
+              <p className="mt-4 text-sm text-textcolor-secondary">{t('Hero.path.note')}</p>
             </div>
           </div>
           <div className="mx-auto flex justify-start tablet:mx-0">

@@ -1,62 +1,63 @@
 {
   "Hero": {
-    "title": "A better understanding of mental state, grounded in data.",
-    "subtitle": "Dzvin.co helps track changes in mental state, analyze behavioral patterns, and assess which actions may have a positive impact on well-being.",
-    "cta": "Try for free",
-    "testimonial": {
-      "title": "For personal support\nand teams",
-      "cta": "Learn more",
-      "metric": "725+",
-      "primary": "Reviews"
+    "title": "Here when you need support",
+    "subtitle": "Dzvin is a space for everyday self-support. Check in with your mood, write privately in your journal, or try a brief exercise when things feel overwhelming.",
+    "cta": "Start for free",
+    "path": {
+      "heading": "Your pace, your support",
+      "mood": "Notice your mood, stress and energy whenever you choose.",
+      "diary": "Write down your thoughts in a personal journal.",
+      "support": "Open a breathing or calming exercise without completing a questionnaire.",
+      "note": "Dzvin supports self-care. It does not diagnose conditions or replace professional or emergency care."
     }
   },
   "Features": {
     "interactivity": {
-      "title": "State Change Analysis",
-      "subtitle": "The system analyzes behavioral patterns and helps identify trends and factors that may affect well-being."
+      "title": "Mood check-ins",
+      "subtitle": "Briefly record your mood, stress, energy and focus to notice changes over time."
     },
     "support": {
-      "title": "Data-Driven Recommendations",
-      "subtitle": "Recommendations are formed using anonymized patterns and outcomes from people with similar scenarios."
+      "title": "Personal journal",
+      "subtitle": "Write what is on your mind and revisit your entries in your history."
     },
     "ai": {
-      "title": "Clear Explanations",
-      "subtitle": "You can see why the system suggests specific recommendations and which steps may support your well-being."
+      "title": "Practical next steps",
+      "subtitle": "Find short exercises in the existing guide. Suggestions are not a diagnosis or a forecast."
     }
   },
   "Services": {
-    "title": "From data to clear\nand practical insights",
+    "title": "Small moments of self-care\nevery day",
     "cards": {
       "intro": {
-        "text": "Dzvin.co combines behavioral pattern analysis, state change assessment, and data-driven recommendations."
+        "text": "You don't need to analyze everything. Sometimes naming how you feel, writing it down or taking a short pause is enough for now."
       },
       "predictionEngine": {
-        "title": "Pattern Analysis",
-        "text": "The system analyzes changes in state and helps identify factors that may affect well-being."
+        "title": "Your history",
+        "text": "Look back at your own mood check-ins and notice changes over time, without scores or competition."
       },
       "scenarioSimulation": {
-        "title": "Assessment of Possible Changes",
-        "text": "Compare different approaches and observe how changes in habits or workload may be associated with changes in state."
+        "title": "Breathing and calming",
+        "text": "Choose a simple exercise from the guide when you want to ease tension."
       },
       "cohortEvidence": {
-        "title": "Context Through Data",
-        "text": "Anonymous comparison with similar patterns helps you better understand your own experience and the dynamics of your state."
+        "title": "A space to write",
+        "text": "Keep thoughts in your journal and return to them whenever you're ready."
       }
     }
   },
   "HowItWorks": {
     "title": "How it works",
-    "subtitle": "For personal use and teams",
+    "subtitle": "No mandatory tests, no rush",
     "steps": {
-      "register": "Start with a short questionnaire — it helps build a baseline profile and understand your current state.",
-      "choose": "Get analytics and recommendations — the system shows trends, related factors, and possible directions for support.",
-      "receive": "Track changes over time — after each interaction, the system refines its assessment of your state and adapts recommendations."
+      "register": "Sign in — create a personal space for your entries.",
+      "choose": "Choose what helps — check in, write in your journal or try an exercise.",
+      "receive": "Come back when useful — review your history and choose one manageable next step."
     },
-    "cta": "Start now"
+    "cta": "Start for free"
   },
   "ReduceStress": {
-    "title": "Support when you need it",
-    "subtitle": "Dzvin.co helps you better understand your state, notice changes, and find practical steps to support your well-being."
+    "title": "Support on your terms",
+    "subtitle": "A short pause or journal entry can be a useful step. You decide what feels right today."
   },
   "Footer": {
     "copyright": "© {year} {company}. All rights reserved.",
