@@ -33,7 +33,17 @@ describe('same-origin backend BFF', () => {
   it('denies privileged B2B and QDIP resources in B2C-only release before session/upstream', async () => {
     process.env.DZVIN_B2C_ONLY_RELEASE = 'true'
     global.fetch = jest.fn() as unknown as typeof fetch
-    for (const resource of ['companies', 'research', 'dip-admin', 'decision-support', 'prediction']) {
+    for (const resource of [
+      'companies',
+      'research',
+      'dip-admin',
+      'decision-support',
+      'prediction',
+      'operational',
+      'team',
+      'admin-diagnostics',
+      'personal',
+    ]) {
       const response = await GET(req(`/api/backend/${resource}`), ctx([resource]))
       expect(response.status).toBe(404)
     }

@@ -21,6 +21,10 @@ describe('B2C-only server release policy', () => {
       'research/projects',
       'dip-admin/organizations',
       'decision-support',
+      'operational/v1/reports/overview',
+      'team/v1/overview',
+      'admin-diagnostics/v1/ml/inspection',
+      'personal/v1/overview',
       'PREDICTION',
     ]) {
       expect(isB2CBackendResourceAllowed(path)).toBe(false)

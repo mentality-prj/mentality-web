@@ -17,6 +17,10 @@ const BLOCKED_B2B_RESOURCES = new Set([
   'dip',
   'dip-admin',
   'decision-support',
+  'operational',
+  'team',
+  'admin-diagnostics',
+  'personal',
   'prediction',
   'cohorts',
 ])
