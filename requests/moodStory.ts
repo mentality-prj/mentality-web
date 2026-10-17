@@ -7,8 +7,13 @@ import { performAdminRequest, performAuthRequest } from './genericFetch'
 
 type MoodStoryResponse = { data: MoodStoryEntity } | { error: string; status?: number }
 
-async function fetchMoodStory(session: CustomSession | null, endpoint: string): Promise<MoodStoryResponse> {
-  const res = await performAuthRequest<MoodStoryEntity>(session, `${APIUrl}${endpoint}`, {
+async function fetchMoodStory(
+  session: CustomSession | null,
+  endpoint: string,
+  timeZone?: string | null
+): Promise<MoodStoryResponse> {
+  const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
+  const res = await performAuthRequest<MoodStoryEntity>(session, `${APIUrl}${endpoint}${query}`, {
     method: 'GET',
   })
   if ('error' in res) {
@@ -24,16 +29,18 @@ export function getLatestMoodStory(session: CustomSession | null): Promise<MoodS
   return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.LATEST)
 }
 
-export function getTodayMoodStory(session: CustomSession | null): Promise<MoodStoryResponse> {
-  return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.TODAY)
+export function getTodayMoodStory(session: CustomSession | null, timeZone?: string | null): Promise<MoodStoryResponse> {
+  return fetchMoodStory(session, MOOD_STORY_ENDPOINTS.TODAY, timeZone)
 }
 
 export async function regenerateMoodStory(
-  session: CustomSession | null
+  session: CustomSession | null,
+  timeZone?: string | null
 ): Promise<{ data: MoodStoryEntity } | { error: string }> {
-  const res = await performAdminRequest<MoodStoryEntity>(session, `${APIUrl}${MOOD_STORY_ENDPOINTS.REGENERATE}`, {
-    method: 'POST',
-  })
+  const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
+  const url = `${APIUrl}${MOOD_STORY_ENDPOINTS.REGENERATE}${query}`
+  const options = { method: 'POST' as const }
+  const res = await performAdminRequest<MoodStoryEntity>(session, url, options)
   if ('error' in res) {
     return { error: res.error }
   }

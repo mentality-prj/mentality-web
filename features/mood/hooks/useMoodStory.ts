@@ -8,6 +8,7 @@ import { getTodayMoodStory } from '@/requests/moodStory'
 import { getTipById } from '@/requests/tips'
 import { AffirmationEntity, MoodStoryEntity, TipEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
+import { getVerifiedBrowserTimeZone } from '@/utils/timeZone'
 
 const POLL_INTERVAL_MS = 3_000
 const POLL_TIMEOUT_MS = 60_000
@@ -105,7 +106,10 @@ export function useMoodStory() {
         pollStartRef.current = null
       }
 
-      const result: LatestMoodStoryResult = await getTodayMoodStory(session as CustomSession)
+      const result: LatestMoodStoryResult = await getTodayMoodStory(
+        session as CustomSession,
+        getVerifiedBrowserTimeZone()
+      )
 
       if (id !== fetchIdRef.current) return
 

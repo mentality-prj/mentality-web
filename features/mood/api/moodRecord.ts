@@ -12,9 +12,11 @@ import { decodeMoodRecordListResponse, decodeMoodRecordResponse } from './moodRe
 
 export async function createMoodRecord(
   session: CustomSession | null,
-  dto: CreateMoodRecordDto
+  dto: CreateMoodRecordDto,
+  timeZone?: string
 ): ApiResultPromise<MoodRecordEntity> {
-  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
+  const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
+  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query}`, {
     method: 'POST',
     body: dto,
     decodeResponse: decodeMoodRecordResponse,

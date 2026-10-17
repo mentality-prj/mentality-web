@@ -94,6 +94,13 @@ describe('getLatestMoodStory', () => {
 })
 
 describe('getTodayMoodStory', () => {
+  it('sends the IANA calendar zone when reading an asynchronously generated story', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockStory })
+    await getTodayMoodStory(mockSession, 'Europe/Kyiv')
+    const url = (performAuthRequest as jest.Mock).mock.calls[0][1] as string
+    expect(new URL(url).searchParams.get('timeZone')).toBe('Europe/Kyiv')
+  })
+
   it('uses today-only endpoint and returns the generated story', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockStory })
     const result = await getTodayMoodStory(mockSession)
@@ -118,6 +125,13 @@ const mockAdminSession: CustomSession = {
 }
 
 describe('regenerateMoodStory', () => {
+  it('sends an IANA zone to keep admin regeneration in the same local day', async () => {
+    ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockStory })
+    await regenerateMoodStory(mockAdminSession, 'Europe/Warsaw')
+    const url = (performAdminRequest as jest.Mock).mock.calls[0][1] as string
+    expect(new URL(url).searchParams.get('timeZone')).toBe('Europe/Warsaw')
+  })
+
   it('returns data on success', async () => {
     ;(performAdminRequest as jest.Mock).mockResolvedValue({ data: mockStory })
 

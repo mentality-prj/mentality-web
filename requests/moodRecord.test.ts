@@ -50,6 +50,13 @@ beforeEach(() => {
 })
 
 describe('createMoodRecord', () => {
+  it('forwards verified IANA zone on creation for the async story event', async () => {
+    ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: mockRecord })
+    await createMoodRecord(mockSession, mockDto, 'Europe/Warsaw')
+    const url = (performAuthRequest as jest.Mock).mock.calls[0][1] as string
+    expect(new URL(url).searchParams.get('timeZone')).toBe('Europe/Warsaw')
+  })
+
   it('rejects a malformed creation response', async () => {
     ;(apiRequestWithAuth as jest.Mock).mockResolvedValue({ data: {} })
 

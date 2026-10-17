@@ -4,11 +4,13 @@ import { getTranslations } from 'next-intl/server'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { resolveActionRoute } from '@/helpers/moodStory.helpers'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getTodayMoodStory } from '@/requests/moodStory'
 import { MoodStoryScreenEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/moodStory', () => ({ getTodayMoodStory: jest.fn() }))
 jest.mock('next-intl/server')
 
@@ -62,6 +64,7 @@ const mockScreens: MoodStoryScreenEntity[] = [
 beforeEach(() => {
   jest.clearAllMocks()
   ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
 })
 
@@ -167,7 +170,14 @@ describe('MoodStoryCard', () => {
 
     render(await MoodStoryCard())
 
-    expect(getTodayMoodStory).toHaveBeenCalledWith(mockSession)
+    expect(getTodayMoodStory).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
+  })
+
+  it('forwards a missing zone without inventing UTC', async () => {
+    ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
+    ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
+    render(await MoodStoryCard())
+    expect(getTodayMoodStory).toHaveBeenCalledWith(mockSession, null)
   })
 
   it('calls getTodayMoodStory with null when there is no session', async () => {
@@ -176,7 +186,7 @@ describe('MoodStoryCard', () => {
 
     render(await MoodStoryCard())
 
-    expect(getTodayMoodStory).toHaveBeenCalledWith(null)
+    expect(getTodayMoodStory).toHaveBeenCalledWith(null, 'Europe/Warsaw')
   })
 })
 
