@@ -1,9 +1,7 @@
 'use client'
 import { useLayoutEffect, useRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import AvatarStack from '@/components/shared/AvatarStack'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/ui/button'
@@ -11,7 +9,6 @@ import { Button } from '@/ui/button'
 export function HeroSection() {
   const t = useTranslations('pages.Landing')
 
-  const avatars = ['/avatars/avatar1.png', '/avatars/avatar2.png', '/avatars/avatar3.png']
   const heroRef = useRef<HTMLElement | null>(null)
 
   useLayoutEffect(() => {
@@ -57,26 +54,24 @@ export function HeroSection() {
             <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
           </div>
           <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
-            <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
-              <div className="flex items-center justify-between gap-sm">
-                <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
-                  {t('Hero.testimonial.title')}
-                </h3>
-                <button
-                  type="button"
-                  aria-label={t('Hero.testimonial.primary')}
-                  className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[var(--outline-secondary)]"
-                >
-                  <ArrowUpRight size={24} className="text-[var(--text-muted)]" />
-                </button>
-              </div>
-              <div className="mt-4 border-t border-[var(--outline-secondary)]" />
-              <div className="mt-4 flex items-center justify-between">
-                <AvatarStack images={avatars} />
-                <span className="text-[26px] font-bold leading-[150%] text-[var(--text-muted)]">
-                  {t('Hero.testimonial.metric')}
-                </span>
-              </div>
+            <div className="w-full max-w-[420px] rounded-[24px] border border-[var(--outline-secondary)] bg-white p-5 shadow-sm tablet:p-7">
+              <h2 className="text-title text-xl leading-snug">{t('Hero.path.heading')}</h2>
+              <ol className="mt-5 flex flex-col gap-4">
+                {(['mood', 'diary', 'support'] as const).map((step, index) => (
+                  <li key={step} className="flex items-start gap-3">
+                    <span
+                      aria-hidden="true"
+                      className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-background-muted text-sm font-semibold text-textcolor-primary"
+                    >
+                      {index + 1}
+                    </span>
+                    <span className="pt-1 text-base leading-relaxed text-textcolor-secondary">{t(`Hero.path.${step}`)}</span>
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-5 border-t border-[var(--outline-secondary)] pt-4 text-sm leading-relaxed text-textcolor-secondary">
+                {t('Hero.path.note')}
+              </p>
             </div>
           </div>
           <div className="mx-auto flex justify-start tablet:mx-0">

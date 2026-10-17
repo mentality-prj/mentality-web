@@ -3,14 +3,14 @@ import { render, screen } from '@testing-library/react'
 import { ServicesSection } from '@/app/[locale]/(public)/components/ServicesSection'
 
 const translations: Record<string, string> = {
-  'Services.title': 'From data to predictions\nand verified decisions',
+  'Services.title': 'Small moments of self-care\nevery day',
   'Services.cards.intro.text': 'Intro text',
-  'Services.cards.cohortEvidence.title': 'Cohort Evidence',
-  'Services.cards.cohortEvidence.text': 'Cohort evidence text',
-  'Services.cards.scenarioSimulation.title': 'Scenario Simulation',
-  'Services.cards.scenarioSimulation.text': 'Scenario simulation text',
-  'Services.cards.predictionEngine.title': 'Prediction Engine',
-  'Services.cards.predictionEngine.text': 'Prediction engine text',
+  'Services.cards.cohortEvidence.title': 'A space to write',
+  'Services.cards.cohortEvidence.text': 'Journal entry help',
+  'Services.cards.scenarioSimulation.title': 'Breathing and calming',
+  'Services.cards.scenarioSimulation.text': 'Choose simple exercises',
+  'Services.cards.predictionEngine.title': 'Your history',
+  'Services.cards.predictionEngine.text': 'Review your check-ins',
 }
 
 jest.mock('next-intl', () => ({
@@ -37,7 +37,7 @@ describe('ServicesSection', () => {
     render(<ServicesSection />)
 
     const heading = screen.getByRole('heading', {
-      name: /From data to predictions\s+and verified decisions/,
+      name: /Small moments of self-care\s+every day/,
       level: 2,
     })
 
@@ -50,8 +50,8 @@ describe('ServicesSection', () => {
 
     expect(screen.getAllByTestId('vertical-card')).toHaveLength(4)
     expect(screen.getByText('Intro text')).toBeInTheDocument()
-    expect(screen.getByText('Cohort Evidence')).toBeInTheDocument()
-    expect(screen.getByText('Scenario Simulation')).toBeInTheDocument()
-    expect(screen.getByText('Prediction Engine')).toBeInTheDocument()
+    expect(screen.getByText('A space to write')).toBeInTheDocument()
+    expect(screen.getByText('Breathing and calming')).toBeInTheDocument()
+    expect(screen.getByText('Your history')).toBeInTheDocument()
   })
 })
