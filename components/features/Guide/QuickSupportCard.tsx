@@ -13,7 +13,7 @@ export async function QuickSupportCard() {
 
   return (
     <section aria-labelledby="quick-support-heading">
-      <SectionCard type="support">
+      <SectionCard>
         <div className="flex flex-col gap-sm">
           <div>
             <h2 id="quick-support-heading" className="text-lg font-semibold">
