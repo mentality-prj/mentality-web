@@ -22,6 +22,9 @@ const BLOCKED_B2B_RESOURCES = new Set([
   'admin-diagnostics',
   'personal',
   'prediction',
+  // Legacy, not-yet-qualified mood forecasting and preventive nudges.
+  'mood-risk',
+  'mood-feed',
   'cohorts',
 ])
 
