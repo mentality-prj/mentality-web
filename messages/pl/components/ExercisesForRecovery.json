@@ -36,5 +36,16 @@
       "calming": "Otwórz ćwiczenia uspokajające"
     },
     "limitNote": "Ta podpowiedź wynika z prostej reguły opartej na jednym wpisie. Nie jest prognozą, diagnozą ani oceną ryzyka. Nie wiemy, co pomoże właśnie Tobie."
+  },
+  "safety": {
+    "label": "Bezpieczeństwo i pomoc",
+    "diaryPrivacy": "Dziennik może zawierać wrażliwe informacje. Przed zapisaniem zdecyduj, czym chcesz podzielić się z usługą.",
+    "privacyLink": "Jak przetwarzane są dane",
+    "emergencySummary": "Potrzebujesz pilnej pomocy?",
+    "emergencyIntro": "Jeśli istnieje bezpośrednie zagrożenie życia lub ryzyko skrzywdzenia siebie albo innych, natychmiast skontaktuj się ze służbami ratunkowymi.",
+    "phoneAction": "Zadzwoń pod 112",
+    "phoneCoverage": "112 działa w Ukrainie i we wszystkich krajach UE. W innym kraju skontaktuj się z lokalnymi służbami ratunkowymi.",
+    "otherSupport": "Jeśli nie ma bezpośredniego zagrożenia, porozmawiaj z zaufaną osobą lub wykwalifikowanym specjalistą.",
+    "limitation": "Dzvin służy do samopomocy; nie jest służbą interwencji kryzysowej ani zamiennikiem opieki medycznej."
   }
 }
