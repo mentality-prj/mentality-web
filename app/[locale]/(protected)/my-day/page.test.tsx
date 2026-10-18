@@ -25,6 +25,9 @@ jest.mock('@/helpers/moodProgress', () => ({ calculateMoodProgress: jest.fn() })
 jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
   QuickSupportCard: () => <div data-testid="quick-support" />,
 }))
+jest.mock('@/components/features/Guide/SafetyResources', () => ({
+  SafetyResources: () => <div data-testid="safety-resources" />,
+}))
 jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
   MoodNextStepCard: ({ record }: { record: { stressLevel?: number } }) => (
     <div data-testid="mood-next-step">{record.stressLevel}</div>
@@ -159,5 +162,6 @@ describe('My Day optional support', () => {
     expect(screen.getByTestId('mood-story')).toBeInTheDocument()
     expect(screen.getByTestId('mood-next-step')).toHaveTextContent('4')
     expect(screen.queryByTestId('quick-support')).not.toBeInTheDocument()
+    expect(screen.getByTestId('safety-resources')).toBeInTheDocument()
   })
 })
