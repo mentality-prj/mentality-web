@@ -6,7 +6,13 @@ import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/ui/button'
 
-export function HeroSection() {
+const heroActions = [
+  { key: 'mood', href: Routes.MOODTRACKER },
+  { key: 'diary', href: Routes.DIARY },
+  { key: 'support', href: `${Routes.GUIDE}/breathing` },
+] as const
+
+export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('pages.Landing')
 
   const heroRef = useRef<HTMLElement | null>(null)
@@ -58,16 +64,29 @@ export function HeroSection() {
               <h2 className="text-title text-xl">{t('Hero.path.heading')}</h2>
               <div className="mt-4 border-t border-[var(--outline-secondary)]" />
               <ol className="mt-4 list-inside list-decimal text-textcolor-secondary">
-                <li>{t('Hero.path.mood')}</li>
-                <li>{t('Hero.path.diary')}</li>
-                <li>{t('Hero.path.support')}</li>
+                {heroActions.map(({ key, href }) => (
+                  <li key={key} className="mb-2">
+                    {isAuthenticated ? (
+                      <Link
+                        href={href}
+                        className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
+                      >
+                        {t(`Hero.path.${key}`)}
+                      </Link>
+                    ) : (
+                      t(`Hero.path.${key}`)
+                    )}
+                  </li>
+                ))}
               </ol>
               <p className="mt-4 text-sm text-textcolor-secondary">{t('Hero.path.note')}</p>
             </div>
           </div>
           <div className="mx-auto flex justify-start tablet:mx-0">
             <Button asChild variant="volume" size="large">
-              <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
+              <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}>
+                {isAuthenticated ? t('Hero.returnCta') : t('Hero.cta')}
+              </Link>
             </Button>
           </div>
         </div>
