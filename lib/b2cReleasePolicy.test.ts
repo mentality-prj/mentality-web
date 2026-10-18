@@ -26,6 +26,8 @@ describe('B2C-only server release policy', () => {
       'admin-diagnostics/v1/ml/inspection',
       'personal/v1/overview',
       'PREDICTION',
+      'mood-risk/actionable',
+      'MOOD-FEED',
     ]) {
       expect(isB2CBackendResourceAllowed(path)).toBe(false)
     }
