@@ -57,10 +57,7 @@ describe('Diary deletion requires ownership and confirmation', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'delete' }))
     await waitFor(() => expect(refresh).toHaveBeenCalledTimes(1))
-    expect(deleteDiary).toHaveBeenCalledWith(
-      { user: { id: 'qa-one' } },
-      '507f1f77bcf86cd799439011'
-    )
+    expect(deleteDiary).toHaveBeenCalledWith({ user: { id: 'qa-one' } }, '507f1f77bcf86cd799439011')
     expect(notifySuccess).toHaveBeenCalledWith('deleteSuccess')
   })
 
