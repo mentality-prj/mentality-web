@@ -41,15 +41,9 @@ describe('returning visitor landing actions', () => {
     render(<HeroSection isAuthenticated />)
 
     expect(screen.getByRole('link', { name: 'Open My Day' })).toHaveAttribute('href', '/my-day')
-    expect(screen.getByRole('link', { name: 'Notice your mood and energy' })).toHaveAttribute(
-      'href',
-      '/mood-tracker'
-    )
+    expect(screen.getByRole('link', { name: 'Notice your mood and energy' })).toHaveAttribute('href', '/mood-tracker')
     expect(screen.getByRole('link', { name: 'Write in your journal' })).toHaveAttribute('href', '/diary')
-    expect(screen.getByRole('link', { name: 'Try breathing or calming' })).toHaveAttribute(
-      'href',
-      '/guide/breathing'
-    )
+    expect(screen.getByRole('link', { name: 'Try breathing or calming' })).toHaveAttribute('href', '/guide/breathing')
     expect(screen.queryByRole('link', { name: 'Start for free' })).not.toBeInTheDocument()
   })
 })
