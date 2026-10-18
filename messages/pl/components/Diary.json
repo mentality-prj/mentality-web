@@ -15,8 +15,8 @@
     "archiveError": "Nie udało się zarchiwizować notatki",
     "archiveSuccess": "Notatka zarchiwizowana pomyślnie",
     "archive": "Archiwizuj",
-    "delete": "Usuń na stałe",
-    "deleteConfirm": "Na stałe usunąć ten wpis z dziennika? Tej czynności nie można cofnąć.",
+    "delete": "Usuń wpis",
+    "deleteConfirm": "Usunąć ten wpis z dziennika? Tej czynności nie można cofnąć.",
     "deleteError": "Nie udało się usunąć wpisu",
     "deleteSuccess": "Wpis został usunięty"
   },
