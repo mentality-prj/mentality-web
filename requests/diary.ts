@@ -53,4 +53,3 @@ export async function deleteDiary(session: CustomSession | null, id: string) {
   if ('error' in res) return { error: res.error }
   return { data: true }
 }
-
