@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
+import { DiaryExportButton } from '@/components/features/Diary/DiaryExportButton'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
 import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { SafetyResources } from '@/components/features/Guide/SafetyResources'
@@ -44,7 +45,10 @@ export default async function DiaryPage() {
           {t('components.Diary.historyLoadError')}
         </div>
       ) : (
-        <UserNotes notes={response.data ?? []} />
+        <>
+          <DiaryExportButton notes={response.data ?? []} />
+          <UserNotes notes={response.data ?? []} />
+        </>
       )}
     </div>
   )

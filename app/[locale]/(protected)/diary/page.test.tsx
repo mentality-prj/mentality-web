@@ -12,6 +12,15 @@ jest.mock('@/components/features/Diary/AddNewNoteSection/AddNewNoteSection', () 
   __esModule: true,
   default: () => <div data-testid="diary-editor" />,
 }))
+jest.mock('@/components/features/Diary/DiaryExportButton', () => ({
+  DiaryExportButton: ({ notes }: { notes: { id: string; isActive?: boolean }[] }) => (
+    <div
+      data-testid="diary-export"
+      data-count={notes.length}
+      data-archived={notes.filter((note) => note.isActive).length}
+    />
+  ),
+}))
 jest.mock('@/components/features/Diary/UserNotes/UserNotes', () => ({
   __esModule: true,
   default: () => <div data-testid="diary-history" />,
@@ -48,6 +57,19 @@ describe('Diary daily support entry', () => {
     expect(screen.getByTestId('diary-history')).toBeInTheDocument()
   })
 
+  it('passes archived and active entries to the complete export', async () => {
+    ;(getUserDiaries as jest.Mock).mockResolvedValue({
+      data: [
+        { id: 'one', content: 'note', isActive: false },
+        { id: 'two', content: 'archived', isActive: true },
+      ],
+    })
+    render(await DiaryPage())
+
+    expect(screen.getByTestId('diary-export')).toHaveAttribute('data-count', '2')
+    expect(screen.getByTestId('diary-export')).toHaveAttribute('data-archived', '1')
+  })
+
   it('keeps the immediate support action available when diary history is unavailable', async () => {
     ;(getUserDiaries as jest.Mock).mockResolvedValue({ error: 'Network failure' })
     render(await DiaryPage())
@@ -56,5 +78,6 @@ describe('Diary daily support entry', () => {
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(screen.getByTestId('safety-resources')).toHaveAttribute('data-diary-privacy', 'true')
     expect(screen.queryByTestId('diary-history')).not.toBeInTheDocument()
+    expect(screen.queryByTestId('diary-export')).not.toBeInTheDocument()
   })
 })

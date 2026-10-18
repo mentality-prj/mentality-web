@@ -24,5 +24,7 @@
   "HistoryTitle": "Historia notatek",
   "backToMyDay": "Wróć do Mojego dnia",
   "NoMatchingNotes": "Brak notatek pasujących do wybranych filtrów",
-  "historyLoadError": "Nie udało się wczytać historii dziennika. Odśwież stronę i spróbuj ponownie."
+  "historyLoadError": "Nie udało się wczytać historii dziennika. Odśwież stronę i spróbuj ponownie.",
+  "exportAction": "Eksportuj wszystkie wpisy (JSON)",
+  "exportError": "Nie udało się wyeksportować dziennika"
 }
