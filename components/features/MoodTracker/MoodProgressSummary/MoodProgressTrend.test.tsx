@@ -32,13 +32,7 @@ describe('MoodProgressTrend accessible calendar dates', () => {
 
   it('explicitly identifies the UTC fallback when user zone is not available', () => {
     render(
-      <MoodProgressTrend
-        trend={trend}
-        moodLabel="Mood"
-        stressLabel="Stress"
-        chartAccessible="Chart"
-        dateLabel="Date"
-      />
+      <MoodProgressTrend trend={trend} moodLabel="Mood" stressLabel="Stress" chartAccessible="Chart" dateLabel="Date" />
     )
     expect(screen.getByRole('columnheader', { name: 'Date (UTC)' })).toBeInTheDocument()
   })
