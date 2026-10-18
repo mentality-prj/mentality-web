@@ -36,5 +36,16 @@
       "calming": "Open calming exercises"
     },
     "limitNote": "This suggestion follows a simple rule based on one self-reported check-in. It is not a forecast, diagnosis, or risk assessment. We cannot know which action will help you."
+  },
+  "safety": {
+    "label": "Safety and support",
+    "diaryPrivacy": "Your diary may contain sensitive information. Before saving, choose what you want to share with the service.",
+    "privacyLink": "How your data is handled",
+    "emergencySummary": "Need urgent help?",
+    "emergencyIntro": "If there is immediate danger to life or a risk of harming yourself or someone else, contact emergency services now.",
+    "phoneAction": "Call 112",
+    "phoneCoverage": "112 operates in Ukraine and across the EU. Elsewhere, call your local emergency service.",
+    "otherSupport": "If there is no immediate danger, consider contacting someone you trust or a qualified professional.",
+    "limitation": "Dzvin is a self-support tool, not a crisis response service or a substitute for medical care."
   }
 }
