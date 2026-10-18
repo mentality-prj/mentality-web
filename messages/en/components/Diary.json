@@ -24,5 +24,7 @@
   "HistoryTitle": "Notes history",
   "backToMyDay": "Back to My Day",
   "NoMatchingNotes": "No notes match the selected filters",
-  "historyLoadError": "Unable to load your diary history. Refresh the page and try again."
+  "historyLoadError": "Unable to load your diary history. Refresh the page and try again.",
+  "exportAction": "Export all diary entries (JSON)",
+  "exportError": "Unable to export diary"
 }
