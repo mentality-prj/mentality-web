@@ -39,6 +39,8 @@ describe('same-origin backend BFF', () => {
       'dip-admin',
       'decision-support',
       'prediction',
+      'mood-risk',
+      'mood-feed',
       'operational',
       'team',
       'admin-diagnostics',
