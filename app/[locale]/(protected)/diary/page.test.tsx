@@ -19,6 +19,11 @@ jest.mock('@/components/features/Diary/UserNotes/UserNotes', () => ({
 jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
   QuickSupportCard: () => <div data-testid="quick-support" />,
 }))
+jest.mock('@/components/features/Guide/SafetyResources', () => ({
+  SafetyResources: ({ showDiaryPrivacy }: { showDiaryPrivacy?: boolean }) => (
+    <div data-testid="safety-resources" data-diary-privacy={String(Boolean(showDiaryPrivacy))} />
+  ),
+}))
 jest.mock('@/ds/components/PageTitle', () => ({
   PageTitle: ({ title }: { title: string }) => <h1>{title}</h1>,
 }))
@@ -39,6 +44,7 @@ describe('Diary daily support entry', () => {
 
     expect(screen.getByTestId('diary-editor')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.getByTestId('safety-resources')).toHaveAttribute('data-diary-privacy', 'true')
     expect(screen.getByTestId('diary-history')).toBeInTheDocument()
   })
 
@@ -48,6 +54,7 @@ describe('Diary daily support entry', () => {
 
     expect(screen.getByRole('alert')).toHaveTextContent('components.Diary.historyLoadError')
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.getByTestId('safety-resources')).toHaveAttribute('data-diary-privacy', 'true')
     expect(screen.queryByTestId('diary-history')).not.toBeInTheDocument()
   })
 })
