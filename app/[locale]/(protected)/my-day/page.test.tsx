@@ -5,6 +5,7 @@ import MyDay from '@/app/[locale]/(protected)/my-day/page'
 import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { getUserTimeZone } from '@/lib/userTimeZone'
+import { getTodayDiaryStatus } from '@/requests/diary'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
@@ -13,6 +14,7 @@ jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({ isSubmittedToday: jest.fn() }))
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
 jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
+jest.mock('@/requests/diary', () => ({ getTodayDiaryStatus: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({
   getLastMoodRecords: jest.fn(),
   getMoodRecords: jest.fn(),
@@ -26,6 +28,11 @@ jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
 jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
   MoodNextStepCard: ({ record }: { record: { stressLevel?: number } }) => (
     <div data-testid="mood-next-step">{record.stressLevel}</div>
+  ),
+}))
+jest.mock('@/components/features/MyDay/DailyRoutineCard', () => ({
+  DailyRoutineCard: ({ moodStatus, diaryStatus }: { moodStatus: string; diaryStatus: string }) => (
+    <div data-testid="daily-routine" data-mood-status={moodStatus} data-diary-status={diaryStatus} />
   ),
 }))
 jest.mock('@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard', () => ({
@@ -68,6 +75,7 @@ beforeEach(() => {
   ;(getServerSession as jest.Mock).mockResolvedValue({ user: { id: 'qa-user', role: 'user' } })
   ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [] })
+  ;(getTodayDiaryStatus as jest.Mock).mockResolvedValue({ data: { hasEntry: false } })
   ;(getMoodRecords as jest.Mock).mockResolvedValue({ data: { moodNotes: [] } })
   ;(fetchPersonalGoals as jest.Mock).mockResolvedValue({ data: [] })
   ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Not ready', status: 404 })
@@ -81,6 +89,8 @@ describe('My Day optional support', () => {
     expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), { limit: 1, dailyOnly: true })
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-mood-status', 'available')
+    expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-diary-status', 'available')
     expect(getTodayMoodStory).not.toHaveBeenCalled()
     expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
   })
@@ -123,6 +133,21 @@ describe('My Day optional support', () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'Unavailable', status: 503 })
     render(await MyDay())
     expect(screen.getByTestId('mood-prompt')).toHaveAttribute('data-history-verified', 'false')
+  })
+
+  it('marks only confirmed local-day entries, never assumes success on failures', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
+      data: [{ id: 'today', createdAt: '2026-10-18T08:00:00.000Z', stressLevel: 3 }],
+    })
+    ;(getTodayDiaryStatus as jest.Mock).mockResolvedValue({ data: { hasEntry: true } })
+
+    const { unmount } = render(await MyDay())
+    expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-mood-status', 'done')
+    expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-diary-status', 'done')
+    unmount()
+    ;(getTodayDiaryStatus as jest.Mock).mockResolvedValue({ error: 'unavailable' })
+    render(await MyDay())
+    expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-diary-status', 'unknown')
   })
 
   it('keeps support visible even when a mood story is unavailable', async () => {

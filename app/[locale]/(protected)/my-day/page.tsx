@@ -6,6 +6,7 @@ import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
+import { DailyRoutineCard } from '@/components/features/MyDay/DailyRoutineCard'
 import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoals/DeadlineCountdown'
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
@@ -15,6 +16,7 @@ import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
 import { getUserTimeZone } from '@/lib/userTimeZone'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
+import { getTodayDiaryStatus } from '@/requests/diary'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
@@ -29,6 +31,8 @@ const MyDay = async () => {
 
   const todayPromise = getLastMoodRecords(session, { limit: 1, dailyOnly: true })
   const goalsPromise = fetchPersonalGoals(session)
+  // Do not fetch diary text just to render a completion indicator.
+  const diaryStatusPromise = timeZone ? getTodayDiaryStatus(session, timeZone) : null
   const todayRes = await todayPromise
   const historyVerified = !('error' in todayRes)
   const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
@@ -51,6 +55,13 @@ const MyDay = async () => {
 
   const goalsRes = await goalsPromise
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
+  const diaryResult = diaryStatusPromise ? await diaryStatusPromise : null
+  const diaryStatus =
+    diaryResult && 'data' in diaryResult && typeof diaryResult.data?.hasEntry === 'boolean'
+      ? diaryResult.data.hasEntry
+        ? 'done'
+        : 'available'
+      : 'unknown'
 
   let storyResult: MoodStoryResult | undefined
   let recommendedAffirmationId: string | undefined
@@ -66,6 +77,10 @@ const MyDay = async () => {
   return (
     <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
       <div className="flex flex-col gap-sm xl:col-span-2">
+        <DailyRoutineCard
+          moodStatus={historyVerified && timeZone ? (submittedToday ? 'done' : 'available') : 'unknown'}
+          diaryStatus={diaryStatus}
+        />
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} initialStory={storyResult} />
         ) : (

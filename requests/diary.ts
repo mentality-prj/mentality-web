@@ -23,6 +23,17 @@ export async function getUserDiaries(session: CustomSession | null) {
   return { data: res.data }
 }
 
+/** Read-only user-local diary activity; no private entry text is transmitted. */
+export async function getTodayDiaryStatus(session: CustomSession | null, timeZone: string) {
+  const url = `${APIUrl}/diary/today-status?timeZone=${encodeURIComponent(timeZone)}`
+  const res = await performAuthRequest<{ hasEntry: boolean }>(session, url, { method: 'GET' })
+  if ('error' in res) {
+    logger.warn('Failed to load private daily diary status', { error: res.error })
+    return { error: res.error }
+  }
+  return { data: res.data }
+}
+
 export async function getDiaryById(session: CustomSession | null, id: string) {
   const res = await performAuthRequest<DiaryEntity>(session, `${APIUrl}/diary/${id}`, { method: 'GET' })
   if ('error' in res) return { error: res.error }

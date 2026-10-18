@@ -19,5 +19,19 @@
     "noRecordsToday": "No records for today"
   },
   "greeting": "Hi! Great to see you here",
-  "greetingText": "How are you feeling today?"
+  "greetingText": "How are you feeling today?",
+  "routine": {
+    "title": "Your day, at your pace",
+    "description": "Choose what feels useful right now. Every step is optional, and missed days are okay.",
+    "moodTitle": "Check in with yourself",
+    "moodDescription": "Note your mood, stress and energy",
+    "diaryTitle": "Write down your thoughts",
+    "diaryDescription": "A private note for yourself, without judgment",
+    "supportTitle": "Take a short pause",
+    "supportDescription": "A brief breathing exercise, whenever you need it",
+    "done": "Recorded today",
+    "optional": "Whenever you like",
+    "unknown": "Status is temporarily unavailable",
+    "progressAction": "View your progress"
+  }
 }

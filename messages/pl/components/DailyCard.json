@@ -19,5 +19,19 @@
     "noRecordsToday": "Brak zapisów na dziś"
   },
   "greeting": "Cześć! Świetnie Cię tutaj widzieć",
-  "greetingText": "Jak się dzisiaj czujesz?"
+  "greetingText": "Jak się dzisiaj czujesz?",
+  "routine": {
+    "title": "Twój dzień, w Twoim tempie",
+    "description": "Wybierz to, co teraz Ci pomaga. Wszystkie kroki są opcjonalne, a opuszczone dni są w porządku.",
+    "moodTitle": "Sprawdź, jak się czujesz",
+    "moodDescription": "Zanotuj nastrój, stres i energię",
+    "diaryTitle": "Zapisz swoje myśli",
+    "diaryDescription": "Prywatna notatka dla siebie, bez oceniania",
+    "supportTitle": "Zrób krótką przerwę",
+    "supportDescription": "Krótka praktyka oddechowa, kiedy tego potrzebujesz",
+    "done": "Zapisano dzisiaj",
+    "optional": "Kiedy chcesz",
+    "unknown": "Status jest chwilowo niedostępny",
+    "progressAction": "Zobacz swoje postępy"
+  }
 }
