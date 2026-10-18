@@ -1,4 +1,4 @@
-import { CircleCheck, ArrowUpRight } from 'lucide-react'
+import { ArrowUpRight, CircleCheck } from 'lucide-react'
 import { getTranslations } from 'next-intl/server'
 
 import { Routes } from '@/constants/routes'
