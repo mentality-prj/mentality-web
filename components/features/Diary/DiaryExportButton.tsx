@@ -42,7 +42,7 @@ export function DiaryExportButton({ notes }: Props) {
       type="button"
       disabled={notes.length === 0}
       onClick={onExport}
-      className="inline-flex min-h-11 w-fit items-center gap-2 rounded-xl border border-current px-4 py-2 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50 focus-visible:outline-2 focus-visible:outline-offset-2"
+      className="inline-flex min-h-11 w-fit items-center gap-2 rounded-xl border border-current px-4 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:cursor-not-allowed disabled:opacity-50"
     >
       <Download size={18} aria-hidden="true" />
       {t('exportAction')}
