@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
 import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
+import { SafetyResources } from '@/components/features/Guide/SafetyResources'
 import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { Link } from '@/i18n/navigation'
@@ -20,6 +21,7 @@ export default async function DiaryPage() {
       <Link href={Routes.MYDAY} className="w-fit text-sm font-medium underline underline-offset-4">
         {t('components.Diary.backToMyDay')}
       </Link>
+      <SafetyResources showDiaryPrivacy />
       <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         <AddNewNoteSection />
         <QuickSupportCard />

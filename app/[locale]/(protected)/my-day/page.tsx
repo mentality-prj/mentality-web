@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
 import { MoodNextStepCard } from '@/components/features/Guide/MoodNextStepCard'
 import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
+import { SafetyResources } from '@/components/features/Guide/SafetyResources'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
@@ -93,6 +94,7 @@ const MyDay = async () => {
           />
         )}
         {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
+        <SafetyResources />
         <DailyTipClient recommendedId={recommendedTipId} />
         <TodayMoodNotes />
       </div>
