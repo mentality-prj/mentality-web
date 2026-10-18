@@ -36,7 +36,6 @@ describe('HeroSection B2C first-use copy', () => {
   })
 })
 
-
 describe('returning visitor landing actions', () => {
   it('links a validated returning user to My Day and existing self-support screens', () => {
     render(<HeroSection isAuthenticated />)
