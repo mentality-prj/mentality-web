@@ -62,7 +62,7 @@ export function MoodProgressTrend({ trend, moodLabel, stressLabel, chartAccessib
         <caption>{chartAccessible}</caption>
         <thead>
           <tr>
-            <th scope="col">{dateLabel} ({timeZone ?? 'UTC'})</th>
+            <th scope="col">{`${dateLabel} (${timeZone ?? 'UTC'})`}</th>
             <th scope="col">{moodLabel}</th>
             <th scope="col">{stressLabel}</th>
           </tr>
