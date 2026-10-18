@@ -47,7 +47,9 @@ export async function activateDiary(session: CustomSession | null, id: string) {
 }
 
 export async function deleteDiary(session: CustomSession | null, id: string) {
-  const res = await performAuthRequest<void>(session, `${APIUrl}/diary/${encodeURIComponent(id)}`, { method: 'DELETE' })
+  const res = await performAuthRequest<void>(session, `${APIUrl}/diary/${encodeURIComponent(id)}`, {
+    method: 'DELETE',
+  })
   if ('error' in res) return { error: res.error }
   return { data: true }
 }
