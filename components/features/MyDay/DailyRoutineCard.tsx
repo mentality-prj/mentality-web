@@ -61,7 +61,11 @@ export async function DailyRoutineCard({ moodStatus, diaryStatus }: Props) {
               <li key={key}>
                 <Link
                   href={href}
-                  className="flex min-h-16 items-center justify-between gap-md rounded-xl border border-current/10 p-3 transition-colors hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2"
+                  className={
+                    "flex min-h-16 items-center justify-between gap-md rounded-xl " +
+                    "border border-current/10 p-3 transition-colors hover:bg-black/5 " +
+                    "focus-visible:outline-2 focus-visible:outline-offset-2"
+                  }
                 >
                   <div className="min-w-0 flex-1">
                     <span className="font-medium">{title}</span>
