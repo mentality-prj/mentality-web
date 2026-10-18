@@ -61,17 +61,15 @@ export async function DailyRoutineCard({ moodStatus, diaryStatus }: Props) {
               <li key={key}>
                 <Link
                   href={href}
-                  className={
-                    "flex min-h-16 items-center justify-between gap-md rounded-xl " +
-                    "border border-current/10 p-3 transition-colors hover:bg-black/5 " +
-                    "focus-visible:outline-2 focus-visible:outline-offset-2"
-                  }
+                  className="flex min-h-16 items-center justify-between gap-md rounded-xl border border-current/10 p-3 transition-colors hover:bg-black/5 focus-visible:outline-2 focus-visible:outline-offset-2"
                 >
                   <div className="min-w-0 flex-1">
                     <span className="font-medium">{title}</span>
                     <p className="mt-1 text-sm text-textcolor-secondary">{description}</p>
                     <span className="mt-1 inline-flex items-center gap-xs text-xs text-textcolor-secondary">
-                      {status === 'done' && <CircleCheck size={15} aria-hidden="true" className="text-primary" />}
+                      {status === 'done' && (
+                        <CircleCheck size={15} aria-hidden="true" className="text-primary" />
+                      )}
                       {status === 'done'
                         ? t('done')
                         : status === 'unknown'
