@@ -14,7 +14,10 @@ export default async function MyProgress() {
   const session = await getServerSession()
   const t = await getTranslations('pages.MyProgress.overview')
   const timeZone = await getUserTimeZone()
-  const [moodResult, goalsResult] = await Promise.all([getMoodStatistics(session, timeZone), fetchPersonalGoals(session)])
+  const [moodResult, goalsResult] = await Promise.all([
+    getMoodStatistics(session, timeZone),
+    fetchPersonalGoals(session),
+  ])
 
   return (
     <div className="flex flex-col gap-default">
