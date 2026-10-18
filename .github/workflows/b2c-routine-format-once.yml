@@ -1,0 +1,30 @@
+name: Format B2C routine (one time)
+on:
+  push:
+    branches:
+      - feat/b2c-my-day-optional-routine
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    timeout-minutes: 7
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/b2c-my-day-optional-routine
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+      - name: Apply official repository formatter to only changed files
+        run: |
+          yarn prettier --write 'app/[locale]/(protected)/my-day/page.test.tsx' 'components/features/MyDay/DailyRoutineCard.tsx'
+          git diff --check
+          git add 'app/[locale]/(protected)/my-day/page.test.tsx' 'components/features/MyDay/DailyRoutineCard.tsx'
+          if git diff --cached --quiet; then exit 0; fi
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git commit -m 'style(b2c): apply project Prettier to daily routine'
+          git push origin HEAD:feat/b2c-my-day-optional-routine
