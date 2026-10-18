@@ -9,11 +9,12 @@ import { MoodProgressTrend } from './MoodProgressTrend'
 type Props = {
   stats: MoodStatistics | null
   failed?: boolean
+  timeZone?: string | null
 }
 
-export async function MoodProgressSummary({ stats, failed = false }: Props) {
+export async function MoodProgressSummary({ stats, failed = false, timeZone }: Props) {
   const t = await getTranslations('pages.MoodTracker.progress')
-  const summary = stats ? calculateMoodProgress(stats) : null
+  const summary = stats ? calculateMoodProgress(stats, new Date(), timeZone) : null
 
   const changeText = (change: number | null, lowerIsBetter: boolean): string => {
     if (change === null) return t('notEnough')
@@ -87,12 +88,14 @@ export async function MoodProgressSummary({ stats, failed = false }: Props) {
                 moodLabel={t('mood')}
                 stressLabel={t('stress')}
                 chartAccessible={t('chartAccessible')}
+                dateLabel={t('dateColumn')}
+                timeZone={timeZone}
               />
             </>
           ) : (
             <p className="rounded-lg bg-black/5 p-4 text-sm text-textcolor-secondary">{emptyMessage}</p>
           )}
-          <p className="text-xs text-textcolor-secondary">{t('dateNote')}</p>
+          <p className="text-xs text-textcolor-secondary">{t(timeZone ? 'dateNoteLocal' : 'dateNote')}</p>
         </div>
       </SectionCard>
     </section>

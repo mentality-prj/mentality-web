@@ -9,10 +9,12 @@ type Props = {
   moodLabel: string
   stressLabel: string
   chartAccessible: string
+  dateLabel: string
+  timeZone?: string | null
 }
 
 /** 30-day recorded daily averages; missing check-ins are genuine gaps. */
-export function MoodProgressTrend({ trend, moodLabel, stressLabel, chartAccessible }: Props) {
+export function MoodProgressTrend({ trend, moodLabel, stressLabel, chartAccessible, dateLabel, timeZone }: Props) {
   const data = trend.map((item) => ({ ...item, day: item.date.slice(5) }))
   const observations = trend.filter((item) => item.mood !== null && item.stress !== null)
 
@@ -60,7 +62,7 @@ export function MoodProgressTrend({ trend, moodLabel, stressLabel, chartAccessib
         <caption>{chartAccessible}</caption>
         <thead>
           <tr>
-            <th scope="col">Date (UTC)</th>
+            <th scope="col">{`${dateLabel} (${timeZone ?? 'UTC'})`}</th>
             <th scope="col">{moodLabel}</th>
             <th scope="col">{stressLabel}</th>
           </tr>

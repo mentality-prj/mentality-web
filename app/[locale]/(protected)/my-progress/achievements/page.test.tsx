@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import MyProgressAchievementsPage from '@/app/[locale]/(protected)/my-progress/achievements/page'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getUserDiaries } from '@/requests/diary'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { getMoodStatistics } from '@/requests/userStatistics'
@@ -10,6 +11,7 @@ import type { CustomSession } from '@/types/auth'
 
 jest.mock('next-intl/server')
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/diary', () => ({ getUserDiaries: jest.fn() }))
 jest.mock('@/requests/personalGoals', () => ({ fetchPersonalGoals: jest.fn() }))
 jest.mock('@/requests/userStatistics', () => ({ getMoodStatistics: jest.fn() }))
@@ -29,6 +31,7 @@ beforeEach(() => {
   jest.clearAllMocks()
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getMoodStatistics as jest.Mock).mockResolvedValue({ data: { totalRecords: 5 } })
   ;(getUserDiaries as jest.Mock).mockResolvedValue({
     data: [{ id: 'entry-a', content: 'private diary content', isActive: true }],
@@ -45,7 +48,7 @@ describe('My Achievements B2C page', () => {
   it('shows only earned, source-backed achievements, never private diary text', async () => {
     render(await MyProgressAchievementsPage())
 
-    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession)
+    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
     expect(getUserDiaries).toHaveBeenCalledWith(mockSession)
     expect(fetchPersonalGoals).toHaveBeenCalledWith(mockSession)
     expect(screen.getByText('milestones.firstCheckin')).toBeInTheDocument()

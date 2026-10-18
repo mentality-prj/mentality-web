@@ -107,7 +107,7 @@ describe('MoodTracker page', () => {
 
   it('loads existing user mood statistics and renders progress without new endpoints', async () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
-    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession)
+    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
     expect(screen.getByTestId('mood-progress')).toHaveTextContent('ready')
   })
 

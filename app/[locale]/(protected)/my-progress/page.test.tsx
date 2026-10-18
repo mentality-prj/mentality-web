@@ -3,6 +3,7 @@ import { getTranslations } from 'next-intl/server'
 
 import MyProgress from '@/app/[locale]/(protected)/my-progress/page'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { getMoodStatistics } from '@/requests/userStatistics'
 import type { GoalEntity } from '@/types/api-responses'
@@ -11,6 +12,7 @@ import type { MoodStatistics } from '@/types/userStatistics'
 
 jest.mock('next-intl/server')
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/personalGoals', () => ({ fetchPersonalGoals: jest.fn() }))
 jest.mock('@/requests/userStatistics', () => ({ getMoodStatistics: jest.fn() }))
 jest.mock('@/i18n/navigation', () => ({
@@ -41,6 +43,7 @@ beforeEach(() => {
   jest.clearAllMocks()
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getMoodStatistics as jest.Mock).mockResolvedValue({ data: { totalRecords: 8, trend30d: [] } })
   ;(fetchPersonalGoals as jest.Mock).mockResolvedValue({ data: [{ id: 'goal-1', text: 'Take a walk' }] })
 })
@@ -49,7 +52,7 @@ describe('My Progress B2C overview', () => {
   it('shows real mood and goal data using the authenticated user session', async () => {
     render(await MyProgress())
 
-    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession)
+    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
     expect(fetchPersonalGoals).toHaveBeenCalledWith(mockSession)
     expect(screen.getByTestId('mood-progress')).toHaveTextContent('8')
     expect(screen.getByTestId('goals-list')).toHaveTextContent('1')

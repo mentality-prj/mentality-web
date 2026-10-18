@@ -35,6 +35,8 @@
     "empty": "Dodaj wpisy nastroju, aby zobaczyć postępy.",
     "loadError": "Nie udało się pobrać statystyk. Odśwież stronę.",
     "disclaimer": "To odzwierciedlenie Twoich własnych ocen, nie ocena medyczna ani diagnoza. Wyższy wynik oznacza większy stres.",
-    "dateNote": "Porównano ostatnie 7 dni z poprzednimi 7 na podstawie dni z wpisami (co najmniej 2 w każdym tygodniu). Dzienne podsumowania używają obecnie UTC."
+    "dateNote": "Porównano ostatnie 7 dni z poprzednimi 7 na podstawie dni z wpisami (co najmniej 2 w każdym tygodniu). Dzienne podsumowania używają obecnie UTC.",
+    "dateNoteLocal": "Porównujemy ostatnie 7 dni kalendarzowych z poprzednimi 7 (co najmniej 2 dni z zapisami w każdym tygodniu). Daty i serie uwzględniają Twoją strefę czasową.",
+    "dateColumn": "Data"
   }
 }

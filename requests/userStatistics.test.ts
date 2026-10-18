@@ -60,6 +60,28 @@ describe('getMoodStatistics', () => {
     )
   })
 
+  it('sends the verified IANA zone as a query value for local civil-day statistics', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockMoodStats })
+
+    await getMoodStatistics(mockSession, 'Europe/Kyiv')
+
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      expect.stringContaining('timeZone=Europe%2FKyiv'),
+      expect.objectContaining({ method: 'GET' })
+    )
+  })
+
+  it('ignores invalid zone input rather than forming an untrusted query', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: mockMoodStats })
+    await getMoodStatistics(mockSession, 'Europe/Invalid')
+    expect(performAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      expect.not.stringContaining('timeZone='),
+      expect.objectContaining({ method: 'GET' })
+    )
+  })
+
   it('returns error and status on failure', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ error: 'Server error', status: 500 })
 
