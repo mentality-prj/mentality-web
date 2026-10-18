@@ -14,7 +14,11 @@
     "notAuthenticated": "You need to be logged in to archive a note",
     "archiveError": "Failed to archive note",
     "archiveSuccess": "Note archived successfully",
-    "archive": "Archive"
+    "archive": "Archive",
+    "delete": "Delete permanently",
+    "deleteConfirm": "Permanently delete this diary entry? This action cannot be undone.",
+    "deleteError": "Unable to delete diary entry",
+    "deleteSuccess": "Diary entry deleted"
   },
   "Empty": "You have no notes yet",
   "HistoryTitle": "Notes history",
