@@ -11,17 +11,17 @@ import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 
 jest.mock('next-intl/server')
-jest.mock('@/helpers/mood.helpers', () => ({isSubmittedToday: jest.fn() }))
-jest.mock('@/lib/get-server-session', () => ({getServerSession: jest.fn() }))
-jest.mock('@/lib/userTimeZone', () => ({getUserTimeZone: jest.fn() }))
-jest.mock('@/requests/diary', () => ({getTodayDiaryStatus: jest.fn() }))
+jest.mock('@/helpers/mood.helpers', () => ({ isSubmittedToday: jest.fn() }))
+jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
+jest.mock('@/requests/diary', () => ({ getTodayDiaryStatus: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({
   getLastMoodRecords: jest.fn(),
   getMoodRecords: jest.fn(),
 }))
-jest.mock('@/requests/moodStory', () => ({getTodayMoodStory: jest.fn() }))
-jest.mock('@/requests/personalGoals', () => ({fetchPersonalGoals: jest.fn() }))
-jest.mock('@/helpers/moodProgress', () => ({calculateMoodProgress: jest.fn() }))
+jest.mock('@/requests/moodStory', () => ({ getTodayMoodStory: jest.fn() }))
+jest.mock('@/requests/personalGoals', () => ({ fetchPersonalGoals: jest.fn() }))
+jest.mock('@/helpers/moodProgress', () => ({ calculateMoodProgress: jest.fn() }))
 jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
   QuickSupportCard: () => <div data-testid="quick-support" />,
 }))
@@ -32,7 +32,11 @@ jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
 }))
 jest.mock('@/components/features/MyDay/DailyRoutineCard', () => ({
   DailyRoutineCard: ({ moodStatus, diaryStatus }: { moodStatus: string; diaryStatus: string }) => (
-    <div data-testid="daily-routine" data-mood-status={moodStatus} data-diary-status={diaryStatus} />
+    <div
+      data-testid="daily-routine"
+      data-mood-status={moodStatus}
+      data-diary-status={diaryStatus}
+    />
   ),
 }))
 jest.mock('@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard', () => ({
