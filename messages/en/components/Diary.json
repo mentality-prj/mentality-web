@@ -15,8 +15,8 @@
     "archiveError": "Failed to archive note",
     "archiveSuccess": "Note archived successfully",
     "archive": "Archive",
-    "delete": "Delete permanently",
-    "deleteConfirm": "Permanently delete this diary entry? This action cannot be undone.",
+    "delete": "Delete entry",
+    "deleteConfirm": "Delete this diary entry? This action cannot be undone.",
     "deleteError": "Unable to delete diary entry",
     "deleteSuccess": "Diary entry deleted"
   },
