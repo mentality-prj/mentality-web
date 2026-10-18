@@ -14,7 +14,11 @@ jest.mock('@/components/features/Diary/AddNewNoteSection/AddNewNoteSection', () 
 }))
 jest.mock('@/components/features/Diary/DiaryExportButton', () => ({
   DiaryExportButton: ({ notes }: { notes: { id: string; isActive?: boolean }[] }) => (
-    <div data-testid="diary-export" data-count={notes.length} data-archived={notes.filter((note) => note.isActive).length} />
+    <div
+      data-testid="diary-export"
+      data-count={notes.length}
+      data-archived={notes.filter((note) => note.isActive).length}
+    />
   ),
 }))
 jest.mock('@/components/features/Diary/UserNotes/UserNotes', () => ({
