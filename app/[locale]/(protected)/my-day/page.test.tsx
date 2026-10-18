@@ -32,11 +32,7 @@ jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
 }))
 jest.mock('@/components/features/MyDay/DailyRoutineCard', () => ({
   DailyRoutineCard: ({ moodStatus, diaryStatus }: { moodStatus: string; diaryStatus: string }) => (
-    <div
-      data-testid="daily-routine"
-      data-mood-status={moodStatus}
-      data-diary-status={diaryStatus}
-    />
+    <div data-testid="daily-routine" data-mood-status={moodStatus} data-diary-status={diaryStatus} />
   ),
 }))
 jest.mock('@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard', () => ({
@@ -149,7 +145,6 @@ describe('My Day optional support', () => {
     expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-mood-status', 'done')
     expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-diary-status', 'done')
     unmount()
-
     ;(getTodayDiaryStatus as jest.Mock).mockResolvedValue({ error: 'unavailable' })
     render(await MyDay())
     expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-diary-status', 'unknown')
