@@ -21,7 +21,7 @@ jest.mock('@/lib/logger', () => ({
 
 const user = { id: 'user-1', name: 'Company Manager', email: 'manager@example.test', role: 'user' }
 const membership = { ...user, companyId: 'company-1', companyRole: 'manager' }
-const now = Math.floor(Date.now() / 1000)
+const now = Math.floor(new Date('2026-10-18T12:00:00.000Z').getTime() / 1000)
 
 function AuthState() {
   const { session, status } = useAuth()
@@ -53,7 +53,7 @@ async function mountWithToken(expiresAt: number) {
 
 describe('AuthProvider role revalidation after token refresh', () => {
   beforeEach(() => {
-    jest.useFakeTimers()
+    jest.useFakeTimers().setSystemTime(new Date(now * 1000))
     jest.resetAllMocks()
     ;(authService.clearTokens as jest.Mock).mockResolvedValue(undefined)
     ;(authService.clearTokensIfUnchanged as jest.Mock).mockResolvedValue(true)
