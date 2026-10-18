@@ -9,6 +9,7 @@ describe('public B2C landing copy', () => {
     { locale: 'pl', catalog: pl },
   ])('$locale has truthful self-support content across the landing', ({ catalog }) => {
     expect(catalog.Hero.title.length).toBeGreaterThan(5)
+    expect(catalog.Hero.returnCta.length).toBeGreaterThan(5)
     expect(catalog.Hero.path.heading.length).toBeGreaterThan(5)
     expect(catalog.Hero.path.mood.length).toBeGreaterThan(5)
     expect(catalog.Hero.path.diary.length).toBeGreaterThan(5)
