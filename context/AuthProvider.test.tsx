@@ -211,7 +211,10 @@ describe('AuthProvider role revalidation after token refresh', () => {
     ;(authService.refreshTokens as jest.Mock).mockResolvedValue(null)
     ;(authService.getUser as jest.Mock).mockResolvedValue(membership)
     ;(authService.clearTokensIfUnchanged as jest.Mock).mockResolvedValue(false)
+    // First read and post-refresh read still see the stale revision. Only
+    // after conditional deletion loses the race does the newer revision appear.
     ;(authService.getStoredTokens as jest.Mock)
+      .mockResolvedValueOnce({ expiresAt: now + 61, hasRefreshToken: true })
       .mockResolvedValueOnce({ expiresAt: now + 61, hasRefreshToken: true })
       .mockResolvedValue(newer)
 
