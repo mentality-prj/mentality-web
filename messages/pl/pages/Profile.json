@@ -16,5 +16,12 @@
     "eyebrow": "Ustawienia",
     "title": "Ustawienia dostępu i raportów",
     "subtitle": "Administrator widzi wszystkie dostępne ustawienia serwisu, a zwykły użytkownik nie widzi tej sekcji."
+  },
+  "personalData": {
+    "title": "Moje dane osobowe",
+    "description": "Pobierz historię samopoczucia w formacie JSON. Dziennik można wyeksportować osobno.",
+    "exportMood": "Pobierz historię nastroju",
+    "exportDiary": "Eksportuj dziennik",
+    "scope": "Ten plik zawiera wyłącznie wpisy nastroju. Nie jest pełnym eksportem konta i nie usuwa żadnych danych."
   }
 }
