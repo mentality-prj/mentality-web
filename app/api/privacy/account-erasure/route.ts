@@ -1,10 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server'
 
-import { requestAccountErasureBackend } from '@/lib/backend/accountErasure.server'
 import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { getServerSessionStrict } from '@/lib/auth/server'
 import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
+import { requestAccountErasureBackend } from '@/lib/backend/accountErasure.server'
 
 export const dynamic = 'force-dynamic'
 const CONFIRMATION = 'DELETE MY ACCOUNT'
