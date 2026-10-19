@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { authService } from '@/lib/auth'
+import { fetchAccountErasureAvailability, submitAccountErasureRequest } from '@/requests/auth'
 
 type Availability = {
   available: boolean
@@ -29,13 +30,10 @@ export function AccountErasureControl() {
 
   useEffect(() => {
     let cancelled = false
-    void fetch('/api/privacy/account-erasure', { credentials: 'same-origin', cache: 'no-store' })
-      .then(async (response) => {
-        if (!response.ok) throw new Error('unavailable')
-        return (await response.json()) as Availability
-      })
+    void fetchAccountErasureAvailability()
       .then((result) => {
-        if (!cancelled) setAvailability(result)
+        if ('error' in result) throw new Error('unavailable')
+        if (!cancelled) setAvailability(result.data)
       })
       .catch(() => {
         if (!cancelled) setMessage(t('statusUnavailable'))
@@ -53,21 +51,15 @@ export function AccountErasureControl() {
     setSubmitting(true)
     setMessage('')
     try {
-      const response = await fetch('/api/privacy/account-erasure', {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ confirmation: CONFIRMATION }),
-        cache: 'no-store',
-      })
-      if (response.status === 202) {
+      const result = await submitAccountErasureRequest()
+      if ('data' in result && result.data.status === 'erasure_in_progress') {
         setSubmitted(true)
         // Next's route removed ONLY the Dzvin HttpOnly auth cookie.
         // Do not trigger provider-wide logout for a shared Zitadel identity.
         setMessage(t('requested'))
         return
       }
-      setMessage(response.status === 401 ? t('freshAuthRequired') : t('requestUnavailable'))
+      setMessage('error' in result && result.status === 401 ? t('freshAuthRequired') : t('requestUnavailable'))
     } catch {
       setMessage(t('requestUnavailable'))
     } finally {
