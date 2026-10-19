@@ -98,7 +98,9 @@ export class ZitadelAuthProvider implements IAuthProvider {
       return await completeCallback()
     } catch (error) {
       logger.error('[AUTH:ZITADEL] Callback error', { error: error instanceof Error ? error.message : String(error) })
-      return null
+      // A transient backend outage after a successful code exchange must leave
+      // the verified server-owned cookie intact for recovery.
+      throw error instanceof Error ? error : new Error('Authentication could not be completed')
     }
   }
 
