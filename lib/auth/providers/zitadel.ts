@@ -35,6 +35,16 @@ export class ZitadelAuthProvider implements IAuthProvider {
   }
 
   async login(): Promise<void> {
+    sessionStorage.removeItem('dzvin_erasure_reauth_return')
+    return this.startSignIn(false)
+  }
+
+  async reauthenticateForErasure(): Promise<void> {
+    sessionStorage.setItem('dzvin_erasure_reauth_return', 'profile')
+    return this.startSignIn(true)
+  }
+
+  private async startSignIn(fresh: boolean): Promise<void> {
     const codeVerifier = generateRandomString(64)
     const codeChallenge = await generateCodeChallenge(codeVerifier)
     const state = generateRandomString(32)
@@ -51,7 +61,8 @@ export class ZitadelAuthProvider implements IAuthProvider {
       code_challenge: codeChallenge,
       code_challenge_method: 'S256',
       state,
-      prompt: 'select_account',
+      prompt: fresh ? 'login' : 'select_account',
+      ...(fresh ? { max_age: '0' } : {}),
     })
     window.location.href = `${zitadelConfig.issuer}/oauth/v2/authorize?${params.toString()}`
   }
