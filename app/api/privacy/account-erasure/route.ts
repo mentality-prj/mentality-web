@@ -33,11 +33,7 @@ async function getAuthenticatedBackendContext(request: NextRequest) {
   return { bearer: session.OAuthToken, idToken: stored.idToken }
 }
 
-async function forwardRequest(
-  request: NextRequest,
-  method: 'GET' | 'POST',
-  body?: object
-): Promise<NextResponse> {
+async function forwardRequest(request: NextRequest, method: 'GET' | 'POST', body?: object): Promise<NextResponse> {
   try {
     const context = await getAuthenticatedBackendContext(request)
     if (!context) return json({ error: 'Unauthorized' }, 401)
@@ -54,9 +50,11 @@ async function forwardRequest(
     })
     if (upstream.status >= 300 && upstream.status < 400) return json({ error: 'Unexpected redirect' }, 502)
     if (upstream.status === 401) return json({ error: 'Fresh authentication required' }, 401)
-    if (upstream.status === 403) return json({ error: 'Account has shared access or cannot be erased automatically' }, 403)
+    if (upstream.status === 403)
+      return json({ error: 'Account has shared access or cannot be erased automatically' }, 403)
     if (upstream.status === 409) return json({ error: 'Account data requires manual review' }, 409)
-    if (!upstream.ok) return json({ error: 'Account erasure is currently unavailable' }, upstream.status >= 500 ? 503 : 400)
+    if (!upstream.ok)
+      return json({ error: 'Account erasure is currently unavailable' }, upstream.status >= 500 ? 503 : 400)
 
     // Limit upstream payloads: response should contain only enum-like status,
     // never pass raw provider errors or cookies to the browser.
