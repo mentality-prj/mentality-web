@@ -9,7 +9,15 @@ jest.mock('@/lib/auth/server', () => ({ getServerSessionStrict: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getMoodRecords: jest.fn() }))
 
 const session = { user: { id: 'qa-one', role: 'user' }, OAuthToken: 'server-only' }
-const first = { id: 'owned-1', moodLevel: 3, stressLevel: 4, energyLevel: 2, focusLevel: 3, tags: ['sleep'], createdAt: '2026-10-19T08:00:00.000Z' }
+const first = {
+  id: 'owned-1',
+  moodLevel: 3,
+  stressLevel: 4,
+  energyLevel: 2,
+  focusLevel: 3,
+  tags: ['sleep'],
+  createdAt: '2026-10-19T08:00:00.000Z',
+}
 
 describe('GET /api/privacy/mood-export', () => {
   beforeEach(() => {
