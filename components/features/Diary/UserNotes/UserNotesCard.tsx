@@ -59,18 +59,20 @@ export function UserNotesCard({ id, content, createdAt, availableTags, tags }: P
 
   const onDelete = async () => {
     if (isDeleting || isArchiving) return
+    // Confirm synchronously in the original click gesture: browsers can
+    // suppress native dialogs after an awaited authentication request.
+    if (!window.confirm(t('deleteConfirm'))) return
     setIsDeleting(true)
     try {
-      // Confirm the authenticated identity even if React's auth hydration is
-      // still pending. API BFF/NestJS independently enforce ownership.
+      // Resolve server-verified auth even when the React provider has not
+      // hydrated yet. Neither the client identity nor confirmation grants
+      // access: BFF/NestJS still enforce the cookie and record ownership.
       const verifiedSession = session?.user ? session : null
       const user = verifiedSession?.user ?? (await authService.getUser())
       if (!user) {
         notifyError(t('notAuthenticated'))
         return
       }
-      // No destructive request is sent without a native confirmation.
-      if (!window.confirm(t('deleteConfirm'))) return
       const result = await deleteDiary(verifiedSession ?? { user }, id)
       if ('error' in result) {
         notifyError(extractErrorMessage(result.error, t('deleteError')))
