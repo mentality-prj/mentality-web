@@ -4,12 +4,14 @@ import { useTranslations } from 'next-intl'
 import { UserNotesCard } from '@/components/features/Diary/UserNotes/UserNotesCard'
 import { useAuth } from '@/context/AuthProvider'
 import { useRouter } from '@/i18n/navigation'
+import { authService } from '@/lib/auth'
 import { deleteDiary } from '@/requests/diary'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 jest.mock('next-intl', () => ({ useTranslations: jest.fn() }))
 jest.mock('@/context/AuthProvider', () => ({ useAuth: jest.fn() }))
 jest.mock('@/i18n/navigation', () => ({ useRouter: jest.fn() }))
+jest.mock('@/lib/auth', () => ({ authService: { getUser: jest.fn() } }))
 jest.mock('@/requests/diary', () => ({ activateDiary: jest.fn(), deleteDiary: jest.fn() }))
 jest.mock('@/utils/toast', () => ({ notifyError: jest.fn(), notifySuccess: jest.fn() }))
 jest.mock('@/ds/components/TooltipIcon', () => ({
@@ -70,5 +72,45 @@ describe('Diary deletion requires ownership and confirmation', () => {
     await waitFor(() => expect(notifyError).toHaveBeenCalled())
     expect(refresh).not.toHaveBeenCalled()
     expect(screen.getByText('Private')).toBeInTheDocument()
+  })
+
+  it('recovers server-verified auth before showing native delete confirmation', async () => {
+    ;(useAuth as jest.Mock).mockReturnValue({ session: null })
+    ;(authService.getUser as jest.Mock).mockResolvedValue({ id: 'qa-one' })
+    ;(deleteDiary as jest.Mock).mockResolvedValue({ data: true })
+    const confirm = jest.spyOn(window, 'confirm').mockReturnValue(true)
+    render(<UserNotesCard id="507f1f77bcf86cd799439011" content="Private" availableTags={[]} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'delete' }))
+    await waitFor(() => expect(deleteDiary).toHaveBeenCalledTimes(1))
+    expect(authService.getUser).toHaveBeenCalledTimes(1)
+    expect(confirm).toHaveBeenCalledTimes(1)
+    expect(deleteDiary).toHaveBeenCalledWith(
+      { user: { id: 'qa-one' } },
+      '507f1f77bcf86cd799439011'
+    )
+  })
+
+  it('never displays confirmation or deletes when server identity is absent', async () => {
+    ;(useAuth as jest.Mock).mockReturnValue({ session: null })
+    ;(authService.getUser as jest.Mock).mockResolvedValue(null)
+    const confirm = jest.spyOn(window, 'confirm').mockReturnValue(true)
+    render(<UserNotesCard id="507f1f77bcf86cd799439011" content="Private" availableTags={[]} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'delete' }))
+    await waitFor(() => expect(notifyError).toHaveBeenCalledWith('notAuthenticated'))
+    expect(confirm).not.toHaveBeenCalled()
+    expect(deleteDiary).not.toHaveBeenCalled()
+  }
+
+  it('does not delete recovered-auth diary when confirmation is canceled', async () => {
+    ;(useAuth as jest.Mock).mockReturnValue({ session: null })
+    ;(authService.getUser as jest.Mock).mockResolvedValue({ id: 'qa-one' })
+    const confirm = jest.spyOn(window, 'confirm').mockReturnValue(false)
+    render(<UserNotesCard id="507f1f77bcf86cd799439011" content="Private" availableTags={[]} />)
+
+    fireEvent.click(screen.getByRole('button', { name: 'delete' }))
+    await waitFor(() => expect(confirm).toHaveBeenCalledTimes(1))
+    expect(deleteDiary).not.toHaveBeenCalled()
   })
 })
