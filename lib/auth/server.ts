@@ -156,7 +156,7 @@ async function resolveServerSession(
   if (!tokens?.accessToken) return null
 
   const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), 5_000)
+  const timeoutId = setTimeout(() => controller.abort(), 8_000)
   try {
     const validate = (companyId: string | null) =>
       fetch(`${APIUrl}/auth/validate-token`, {
@@ -179,11 +179,16 @@ async function resolveServerSession(
 
     if (!response.ok) {
       logger.warn('[SERVER_SESSION] Backend validation failed', { status: response.status })
+      // Only an explicit authorization denial proves the session is invalid.
+      // A temporarily unavailable backend must not cause a logout.
+      if (response.status !== 401 && response.status !== 403) {
+        throw new Error('Temporary session validation failure')
+      }
       return null
     }
 
     const backendUser: UserAI = await response.json()
-    if (!backendUser?._id) return null
+    if (!backendUser?._id) throw new Error('Invalid session validation response')
 
     const user: CustomUser = {
       id: backendUser._id,
@@ -211,7 +216,7 @@ async function resolveServerSession(
       return fallbackSession
     }
 
-    return null
+    throw new Error('Temporary session validation failure')
   } finally {
     clearTimeout(timeoutId)
   }
@@ -223,7 +228,7 @@ async function resolveServerSession(
  * Reads the auth token cookie and validates with the backend.
  * Use in Server Components and Route Handlers.
  */
-export async function getServerSession(): Promise<CustomSession | null> {
+export async function getServerSessionStrict(): Promise<CustomSession | null> {
   const cookieStore = await cookies()
   const headerStore = await headers()
   const tokenCookie = cookieStore.get(AUTH_TOKEN_COOKIE)?.value
@@ -284,6 +289,19 @@ export async function getServerSession(): Promise<CustomSession | null> {
     if (inFlightSessionRequests.get(dedupeKey) === requestPromise) {
       inFlightSessionRequests.delete(dedupeKey)
     }
+  }
+}
+
+/** Legacy SSR callers retain their fail-closed nullable contract; the browser
+ * session endpoint uses the strict variant to preserve temporary 503 errors. */
+export async function getServerSession(): Promise<CustomSession | null> {
+  try {
+    return await getServerSessionStrict()
+  } catch (error) {
+    logger.warn('[SERVER_SESSION] Deferred validation', {
+      error: error instanceof Error ? error.message : String(error),
+    })
+    return null
   }
 }
 

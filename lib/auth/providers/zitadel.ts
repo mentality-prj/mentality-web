@@ -78,7 +78,9 @@ export class ZitadelAuthProvider implements IAuthProvider {
       return { user, tokens: result.data }
     } catch (error) {
       logger.error('[AUTH:ZITADEL] Callback error', { error: error instanceof Error ? error.message : String(error) })
-      return null
+      // Do not discard a valid OAuth code exchange when NestJS is temporarily
+      // unavailable. The callback can recheck the existing HttpOnly session.
+      throw error instanceof Error ? error : new Error('Authentication could not be completed')
     }
   }
 

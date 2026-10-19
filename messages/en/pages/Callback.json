@@ -4,5 +4,7 @@
   "authError": "Authentication Error",
   "missingParams": "Missing code or state parameter",
   "unknownError": "Authentication failed — unknown error",
-  "backToSignIn": "Back to Sign In"
+  "backToSignIn": "Back to Sign In",
+  "sessionUnavailable": "The service cannot verify your session right now. Retry without signing in again.",
+  "retrySession": "Retry session verification"
 }

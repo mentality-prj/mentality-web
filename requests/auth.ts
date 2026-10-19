@@ -19,6 +19,13 @@ type AuthExchangeRequest =
 
 type AuthExchangeResponse = BrowserAuthSession
 
+export class SessionVerificationUnavailableError extends Error {
+  constructor() {
+    super('Session verification temporarily unavailable')
+    this.name = 'SessionVerificationUnavailableError'
+  }
+}
+
 function getAuthApiBaseUrl() {
   return APIUrl.trim().replace(/\/+$/, '')
 }
@@ -109,7 +116,11 @@ export async function fetchStoredAuthTokens(): Promise<BrowserAuthSession | null
 /** Only verified user attributes reach browser state; never JWTs. */
 export async function fetchAuthenticatedUser(): Promise<CustomUser | null> {
   const result = await rawJsonRequest<CustomUser>('/api/auth/session', { method: 'GET' })
-  return 'error' in result ? null : result.data
+  if ('error' in result) {
+    if (result.status === 401 || result.status === 403) return null
+    throw new SessionVerificationUnavailableError()
+  }
+  return result.data
 }
 
 export async function deleteStoredAuthTokens(): Promise<void> {
