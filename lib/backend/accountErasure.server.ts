@@ -1,6 +1,6 @@
-import 'server-only'
-
 import { APIUrl } from '@/requests/config'
+
+import 'server-only'
 
 const REQUEST_TIMEOUT_MS = 20_000
 const UPSTREAM_PATH = '/auth/me/account-erasure'
