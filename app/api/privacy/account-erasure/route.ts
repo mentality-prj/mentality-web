@@ -31,7 +31,11 @@ async function getAuthenticatedBackendContext(request: NextRequest) {
   return { bearer: session.OAuthToken, idToken: stored.idToken }
 }
 
-async function forwardRequest(request: NextRequest, method: 'GET' | 'POST', body?: { confirmation: string }): Promise<NextResponse> {
+async function forwardRequest(
+  request: NextRequest,
+  method: 'GET' | 'POST',
+  body?: { confirmation: string }
+): Promise<NextResponse> {
   try {
     const context = await getAuthenticatedBackendContext(request)
     if (!context) return json({ error: 'Unauthorized' }, 401)
