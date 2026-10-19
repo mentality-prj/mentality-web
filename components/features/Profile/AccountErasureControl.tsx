@@ -77,7 +77,10 @@ export function AccountErasureControl() {
 
   if (submitted) {
     return (
-      <div role="status" className="rounded-lg border border-border bg-background-alt p-4 text-sm text-textcolor-primary">
+      <div
+        role="status"
+        className="rounded-lg border border-border bg-background-alt p-4 text-sm text-textcolor-primary"
+      >
         {message}
       </div>
     )
@@ -94,9 +97,14 @@ export function AccountErasureControl() {
       </div>
 
       {loading ? (
-        <p role="status" className="text-sm text-textcolor-secondary">{t('checking')}</p>
+        <p role="status" className="text-sm text-textcolor-secondary">
+          {t('checking')}
+        </p>
       ) : !availability?.available ? (
-        <p role="status" className="rounded-lg border border-border bg-background-alt p-3 text-sm text-textcolor-secondary">
+        <p
+          role="status"
+          className="rounded-lg border border-border bg-background-alt p-3 text-sm text-textcolor-secondary"
+        >
           {message || t('notAvailable')}
         </p>
       ) : (
@@ -140,7 +148,9 @@ export function AccountErasureControl() {
         </div>
       )}
       {message && availability?.available && (
-        <p role="alert" className="text-sm text-textcolor-primary">{message}</p>
+        <p role="alert" className="text-sm text-textcolor-primary">
+          {message}
+        </p>
       )}
     </section>
   )
