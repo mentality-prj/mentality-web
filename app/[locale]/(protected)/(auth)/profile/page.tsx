@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { UserProfile } from '@/components/features/Profile'
+import { AccountErasureControl } from '@/components/features/Profile/AccountErasureControl'
 import { AnalyticsReportSettings } from '@/components/features/Settings/AnalyticsReportSettings'
 import { StaticCard } from '@/components/shared/Cards/StaticCard'
 import { PageTitle } from '@/ds/components/PageTitle'
@@ -66,6 +67,12 @@ export default async function ProfilePage() {
               </Link>
             </div>
             <p className="mt-3 text-xs text-textcolor-secondary">{t('personalData.scope')}</p>
+          </StaticCard>
+        )}
+
+        {user && (
+          <StaticCard className="border border-border bg-background">
+            <AccountErasureControl />
           </StaticCard>
         )}
 

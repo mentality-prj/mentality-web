@@ -101,6 +101,24 @@ export async function exchangeAuthTokens(
   return { data: result.data }
 }
 
+export type AccountErasureAvailability = {
+  available: boolean
+  status: 'not_requested' | 'erasure_in_progress'
+  scope: 'dzvin_app_only'
+}
+
+/** The only browser transport for the app-scoped erasure BFF. No tokens in JS. */
+export function fetchAccountErasureAvailability(): Promise<RawJsonRequestResult<AccountErasureAvailability>> {
+  return rawJsonRequest<AccountErasureAvailability>('/api/privacy/account-erasure', { method: 'GET' })
+}
+
+export function submitAccountErasureRequest(): Promise<RawJsonRequestResult<{ status: 'erasure_in_progress' }>> {
+  return rawJsonRequest<{ status: 'erasure_in_progress' }>('/api/privacy/account-erasure', {
+    method: 'POST',
+    body: { confirmation: 'DELETE MY ACCOUNT' },
+  })
+}
+
 export async function fetchStoredAuthTokens(): Promise<BrowserAuthSession | null> {
   const result = await rawJsonRequest<BrowserAuthSession | null>('/api/auth/token', { method: 'GET' })
   if ('error' in result) {

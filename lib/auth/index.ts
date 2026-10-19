@@ -22,6 +22,7 @@ export const authService = {
   },
 
   login: () => provider.login(),
+  reauthenticateForErasure: () => provider.reauthenticateForErasure(),
   handleCallback: (code: string, state: string) => provider.handleCallback(code, state),
   refreshTokens: () => provider.refreshTokens(),
   logout: () => provider.logout(),

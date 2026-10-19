@@ -23,5 +23,22 @@
     "exportMood": "Download mood history",
     "exportDiary": "Export diary",
     "scope": "This file contains mood check-ins only. It is not a full account export and does not delete any data."
+  },
+  "erasure": {
+    "title": "Delete Dzvin account",
+    "description": "Deletion is irreversible. Export any records you need first. This applies to Dzvin data; certain records may be retained to meet applicable legal obligations.",
+    "identityScope": "Your shared Zitadel identity and access to other QDIP apps will not be deleted automatically.",
+    "checking": "Checking deletion availability…",
+    "notAvailable": "Account deletion is not yet available while safe cleanup and data retention requirements are being finalized.",
+    "statusUnavailable": "Account deletion status is temporarily unavailable.",
+    "reauthenticate": "Reauthenticate with Zitadel",
+    "understand": "I understand that my personal Dzvin records may be deleted permanently.",
+    "typeConfirmation": "To confirm, type: {phrase}",
+    "confirmationLabel": "Account deletion confirmation phrase",
+    "submitting": "Submitting request…",
+    "submit": "Request Dzvin account deletion",
+    "freshAuthRequired": "A fresh Zitadel sign-in is required. Use the reauthenticate button and confirm again.",
+    "requestUnavailable": "Your request could not be accepted. Do not assume data was removed; retry later or contact support.",
+    "requested": "Request received. Your Dzvin access is blocked and remaining cleanup is in progress. Your global Zitadel identity is preserved."
   }
 }

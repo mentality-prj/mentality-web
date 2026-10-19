@@ -16,6 +16,7 @@ const permittedTransports = new Set([
   'proxy.ts', // server-side refresh handoff
   'app/api/backend/[...path]/route.ts', // one NestJS BFF entrypoint
   'app/api/auth/exchange/route.ts', // Zitadel token exchange, server-only
+  'lib/backend/accountErasure.server.ts', // reviewed server-only, HttpOnly-ID-token erasure transport
   // One-time, admin-only HttpOnly key-flash response; cannot be sent via the
   // generic NestJS BFF without exposing an API key to the wrong audience.
   'components/features/Dip/ApiKeyFlashBanner.tsx',
