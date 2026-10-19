@@ -32,7 +32,9 @@ export async function GET(): Promise<NextResponse> {
     const session = await getServerSessionStrict()
     if (!session?.user?.id) return privateResponse({ error: 'Unauthorized' }, 401)
 
-    const entries: Array<Pick<MoodRecordEntity, 'id' | 'moodLevel' | 'stressLevel' | 'energyLevel' | 'focusLevel' | 'tags' | 'createdAt'>> = []
+    const entries: Array<
+      Pick<MoodRecordEntity, 'id' | 'moodLevel' | 'stressLevel' | 'energyLevel' | 'focusLevel' | 'tags' | 'createdAt'>
+    > = []
     const seen = new Set<string>()
     for (let page = 1; page <= MAX_ENTRIES / PAGE_SIZE + 1; page += 1) {
       const result = await getMoodRecords(session, { page, limit: PAGE_SIZE, order: 'oldest' })
@@ -66,19 +68,16 @@ export async function GET(): Promise<NextResponse> {
 
     const exportedAt = new Date().toISOString()
     const filename = `dzvin-mood-history-${exportedAt.slice(0, 10)}.json`
-    return new NextResponse(
-      JSON.stringify({ format: 'dzvin-mood-history', version: 1, exportedAt, entries }),
-      {
-        status: 200,
-        headers: {
-          'Content-Type': 'application/json; charset=utf-8',
-          'Content-Disposition': `attachment; filename="${filename}"`,
-          'Cache-Control': 'private, no-store, max-age=0',
-          'X-Content-Type-Options': 'nosniff',
-          Vary: 'Cookie',
-        },
-      }
-    )
+    return new NextResponse(JSON.stringify({ format: 'dzvin-mood-history', version: 1, exportedAt, entries }), {
+      status: 200,
+      headers: {
+        'Content-Type': 'application/json; charset=utf-8',
+        'Content-Disposition': `attachment; filename="${filename}"`,
+        'Cache-Control': 'private, no-store, max-age=0',
+        'X-Content-Type-Options': 'nosniff',
+        Vary: 'Cookie',
+      },
+    })
   } catch {
     return privateResponse({ error: 'Session or export service temporarily unavailable' }, 503)
   }
