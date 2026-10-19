@@ -31,14 +31,14 @@ async function getAuthenticatedBackendContext(request: NextRequest) {
   return { bearer: session.OAuthToken, idToken: stored.idToken }
 }
 
-async function forwardRequest(request: NextRequest, method: 'GET' | 'POST', body?: object): Promise<NextResponse> {
+async function forwardRequest(request: NextRequest, method: 'GET' | 'POST', body?: { confirmation: string }): Promise<NextResponse> {
   try {
     const context = await getAuthenticatedBackendContext(request)
     if (!context) return json({ error: 'Unauthorized' }, 401)
     const upstream = await requestAccountErasureBackend(
       context.bearer,
       method,
-      method === 'POST' ? { confirmation: String(body && 'confirmation' in body ? body.confirmation : ''), idToken: context.idToken } : undefined
+      method === 'POST' ? { confirmation: body?.confirmation ?? '', idToken: context.idToken } : undefined
     )
     if (upstream.status >= 300 && upstream.status < 400) return json({ error: 'Unexpected redirect' }, 502)
     if (upstream.status === 401) return json({ error: 'Fresh authentication required' }, 401)
