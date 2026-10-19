@@ -8,6 +8,7 @@ import Card from '@/components/shared/Cards/Card'
 import { useAuth } from '@/context/AuthProvider'
 import { TooltipIcon } from '@/ds/components/TooltipIcon'
 import { formatDate } from '@/helpers/data'
+import { authService } from '@/lib/auth'
 import { useRouter } from '@/i18n/navigation'
 import { activateDiary, deleteDiary } from '@/requests/diary'
 import { UserTag } from '@/types/tags'
@@ -34,13 +35,17 @@ export function UserNotesCard({ id, content, createdAt, availableTags, tags }: P
   const cardTags = availableTags.filter((t) => safeTags.includes(t.key)).map((t) => t.name)
   const onArchive = async () => {
     if (isArchiving || isDeleting) return
-    if (!session?.user) {
-      notifyError(t('notAuthenticated'))
-      return
-    }
     setIsArchiving(true)
     try {
-      const result = await activateDiary(session, id)
+      // SSR can show actions before the client AuthProvider has hydrated.
+      // Re-check the *server-verified* cookie session, never trust a local ID.
+      const verifiedSession = session?.user ? session : null
+      const user = verifiedSession?.user ?? (await authService.getUser())
+      if (!user) {
+        notifyError(t('notAuthenticated'))
+        return
+      }
+      const result = await activateDiary(verifiedSession ?? { user }, id)
       if ('error' in result) {
         notifyError(extractErrorMessage(result.error, t('archiveError')))
         return
@@ -54,15 +59,19 @@ export function UserNotesCard({ id, content, createdAt, availableTags, tags }: P
 
   const onDelete = async () => {
     if (isDeleting || isArchiving) return
-    if (!session?.user) {
-      notifyError(t('notAuthenticated'))
-      return
-    }
-    // Destructive operation requires the user's explicit confirmation.
-    if (!window.confirm(t('deleteConfirm'))) return
     setIsDeleting(true)
     try {
-      const result = await deleteDiary(session, id)
+      // Confirm the authenticated identity even if React's auth hydration is
+      // still pending. API BFF/NestJS independently enforce ownership.
+      const verifiedSession = session?.user ? session : null
+      const user = verifiedSession?.user ?? (await authService.getUser())
+      if (!user) {
+        notifyError(t('notAuthenticated'))
+        return
+      }
+      // No destructive request is sent without a native confirmation.
+      if (!window.confirm(t('deleteConfirm'))) return
+      const result = await deleteDiary(verifiedSession ?? { user }, id)
       if ('error' in result) {
         notifyError(extractErrorMessage(result.error, t('deleteError')))
         return
