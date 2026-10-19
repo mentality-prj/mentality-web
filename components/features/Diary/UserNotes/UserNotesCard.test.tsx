@@ -91,7 +91,7 @@ describe('Diary deletion requires ownership and confirmation', () => {
     )
   })
 
-  it('never displays confirmation or deletes when server identity is absent', async () => {
+  it('never deletes an unauthenticated diary even after confirmation', async () => {
     ;(useAuth as jest.Mock).mockReturnValue({ session: null })
     ;(authService.getUser as jest.Mock).mockResolvedValue(null)
     const confirm = jest.spyOn(window, 'confirm').mockReturnValue(true)
@@ -99,7 +99,7 @@ describe('Diary deletion requires ownership and confirmation', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'delete' }))
     await waitFor(() => expect(notifyError).toHaveBeenCalledWith('notAuthenticated'))
-    expect(confirm).not.toHaveBeenCalled()
+    expect(confirm).toHaveBeenCalledTimes(1)
     expect(deleteDiary).not.toHaveBeenCalled()
   })
 
@@ -111,6 +111,7 @@ describe('Diary deletion requires ownership and confirmation', () => {
 
     fireEvent.click(screen.getByRole('button', { name: 'delete' }))
     await waitFor(() => expect(confirm).toHaveBeenCalledTimes(1))
+    expect(authService.getUser).not.toHaveBeenCalled()
     expect(deleteDiary).not.toHaveBeenCalled()
   })
 })
