@@ -92,7 +92,9 @@ function CallbackContent() {
         const result = await authService.handleCallback(code!, state!)
         if (result) {
           const locale = getPreferredLocale()
-          router.replace(`/${locale}/my-day`)
+          const reauthReturn = sessionStorage.getItem('dzvin_erasure_reauth_return')
+          sessionStorage.removeItem('dzvin_erasure_reauth_return')
+          router.replace(reauthReturn === 'profile' ? `/${locale}/profile` : `/${locale}/my-day`)
         } else {
           setError(getMessages().unknownError)
         }
