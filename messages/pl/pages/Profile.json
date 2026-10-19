@@ -23,5 +23,22 @@
     "exportMood": "Pobierz historię nastroju",
     "exportDiary": "Eksportuj dziennik",
     "scope": "Ten plik zawiera wyłącznie wpisy nastroju. Nie jest pełnym eksportem konta i nie usuwa żadnych danych."
+  },
+  "erasure": {
+    "title": "Usuń konto Dzvin",
+    "description": "Usunięcie jest nieodwracalne. Najpierw wyeksportuj potrzebne dane. Dotyczy to danych Dzvin; część informacji może być przechowywana zgodnie z obowiązującymi przepisami.",
+    "identityScope": "Wspólna tożsamość Zitadel oraz dostęp do innych aplikacji QDIP nie zostaną automatycznie usunięte.",
+    "checking": "Sprawdzanie dostępności usunięcia…",
+    "notAvailable": "Usuwanie konta jest obecnie niedostępne, ponieważ finalizowane są zasady bezpiecznego czyszczenia i retencji danych.",
+    "statusUnavailable": "Status usuwania konta jest tymczasowo niedostępny.",
+    "reauthenticate": "Potwierdź ponownie tożsamość w Zitadel",
+    "understand": "Rozumiem, że moje osobiste dane Dzvin mogą zostać trwale usunięte.",
+    "typeConfirmation": "Aby potwierdzić, wpisz: {phrase}",
+    "confirmationLabel": "Fraza potwierdzająca usunięcie konta",
+    "submitting": "Wysyłanie żądania…",
+    "submit": "Poproś o usunięcie konta Dzvin",
+    "freshAuthRequired": "Wymagane jest ponowne logowanie do Zitadel. Potwierdź tożsamość, a następnie ponów żądanie.",
+    "requestUnavailable": "Nie udało się przyjąć żądania. Nie zakładaj, że dane zostały usunięte; spróbuj ponownie później lub skontaktuj się z pomocą.",
+    "requested": "Żądanie przyjęte. Dostęp do Dzvin został zablokowany, a usuwanie pozostałych danych trwa. Globalna tożsamość Zitadel została zachowana."
   }
 }
