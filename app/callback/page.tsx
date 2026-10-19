@@ -131,7 +131,9 @@ function CallbackContent() {
       setCanRetrySession(false)
       setError(getMessages().unknownError)
     } catch (err) {
-      setError(err instanceof SessionVerificationUnavailableError ? getMessages().sessionUnavailable : getMessages().unknownError)
+      setError(
+        err instanceof SessionVerificationUnavailableError ? getMessages().sessionUnavailable : getMessages().unknownError
+      )
     } finally {
       setRetryingSession(false)
     }
