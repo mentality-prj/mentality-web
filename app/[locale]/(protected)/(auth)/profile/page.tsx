@@ -4,6 +4,7 @@ import { UserProfile } from '@/components/features/Profile'
 import { AnalyticsReportSettings } from '@/components/features/Settings/AnalyticsReportSettings'
 import { StaticCard } from '@/components/shared/Cards/StaticCard'
 import { PageTitle } from '@/ds/components/PageTitle'
+import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
 import { COMPANY_ROLES } from '@/types/rbac'
 
@@ -47,6 +48,26 @@ export default async function ProfilePage() {
             ))}
           </dl>
         </StaticCard>
+
+        {user && (
+          <StaticCard className="border border-border bg-background">
+            <h2 className="text-lg font-semibold text-textcolor-primary">{t('personalData.title')}</h2>
+            <p className="mt-2 text-sm text-textcolor-secondary">{t('personalData.description')}</p>
+            <div className="mt-4 flex flex-wrap items-center gap-4">
+              <a
+                href="/api/privacy/mood-export"
+                download
+                className="inline-flex rounded-lg border border-border px-4 py-2 text-sm font-medium text-textcolor-primary hover:bg-background-alt"
+              >
+                {t('personalData.exportMood')}
+              </a>
+              <Link href="/diary" className="text-sm font-medium underline underline-offset-4">
+                {t('personalData.exportDiary')}
+              </Link>
+            </div>
+            <p className="mt-3 text-xs text-textcolor-secondary">{t('personalData.scope')}</p>
+          </StaticCard>
+        )}
 
         {canViewSettings && (
           <section id="settings" className="scroll-mt-24">
