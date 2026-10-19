@@ -101,7 +101,7 @@ describe('Diary deletion requires ownership and confirmation', () => {
     await waitFor(() => expect(notifyError).toHaveBeenCalledWith('notAuthenticated'))
     expect(confirm).not.toHaveBeenCalled()
     expect(deleteDiary).not.toHaveBeenCalled()
-  }
+  })
 
   it('does not delete recovered-auth diary when confirmation is canceled', async () => {
     ;(useAuth as jest.Mock).mockReturnValue({ session: null })
