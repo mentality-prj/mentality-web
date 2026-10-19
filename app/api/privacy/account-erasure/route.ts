@@ -1,15 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 
+import { requestAccountErasureBackend } from '@/lib/backend/accountErasure.server'
 import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { getServerSessionStrict } from '@/lib/auth/server'
 import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
-import { APIUrl } from '@/requests/config'
 
 export const dynamic = 'force-dynamic'
-const REQUEST_TIMEOUT_MS = 20_000
 const CONFIRMATION = 'DELETE MY ACCOUNT'
-const UPSTREAM = '/auth/me/account-erasure'
 
 function json(body: unknown, status: number): NextResponse {
   const response = NextResponse.json(body, { status })
@@ -37,17 +35,11 @@ async function forwardRequest(request: NextRequest, method: 'GET' | 'POST', body
   try {
     const context = await getAuthenticatedBackendContext(request)
     if (!context) return json({ error: 'Unauthorized' }, 401)
-    const upstream = await fetch(`${APIUrl.trim().replace(/\/+$/, '')}${UPSTREAM}`, {
+    const upstream = await requestAccountErasureBackend(
+      context.bearer,
       method,
-      headers: {
-        Authorization: `Bearer ${context.bearer}`,
-        ...(method === 'POST' ? { 'Content-Type': 'application/json' } : {}),
-      },
-      ...(method === 'POST' ? { body: JSON.stringify({ ...body, idToken: context.idToken }) } : {}),
-      redirect: 'manual',
-      cache: 'no-store',
-      signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
-    })
+      method === 'POST' ? { confirmation: String(body && 'confirmation' in body ? body.confirmation : ''), idToken: context.idToken } : undefined
+    )
     if (upstream.status >= 300 && upstream.status < 400) return json({ error: 'Unexpected redirect' }, 502)
     if (upstream.status === 401) return json({ error: 'Fresh authentication required' }, 401)
     if (upstream.status === 403)
