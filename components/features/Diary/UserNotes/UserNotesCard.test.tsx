@@ -74,7 +74,7 @@ describe('Diary deletion requires ownership and confirmation', () => {
     expect(screen.getByText('Private')).toBeInTheDocument()
   })
 
-  it('recovers server-verified auth before showing native delete confirmation', async () => {
+  it('uses server-verified auth for confirmed diary deletion', async () => {
     ;(useAuth as jest.Mock).mockReturnValue({ session: null })
     ;(authService.getUser as jest.Mock).mockResolvedValue({ id: 'qa-one' })
     ;(deleteDiary as jest.Mock).mockResolvedValue({ data: true })
@@ -85,10 +85,7 @@ describe('Diary deletion requires ownership and confirmation', () => {
     await waitFor(() => expect(deleteDiary).toHaveBeenCalledTimes(1))
     expect(authService.getUser).toHaveBeenCalledTimes(1)
     expect(confirm).toHaveBeenCalledTimes(1)
-    expect(deleteDiary).toHaveBeenCalledWith(
-      { user: { id: 'qa-one' } },
-      '507f1f77bcf86cd799439011'
-    )
+    expect(deleteDiary).toHaveBeenCalledWith({ user: { id: 'qa-one' } }, '507f1f77bcf86cd799439011')
   })
 
   it('never deletes an unauthenticated diary even after confirmation', async () => {
