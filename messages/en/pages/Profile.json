@@ -16,5 +16,12 @@
     "eyebrow": "Settings",
     "title": "Access and report settings",
     "subtitle": "Administrators can see all available site settings, while regular users do not see this section."
+  },
+  "personalData": {
+    "title": "My personal data",
+    "description": "Download your mood check-in history as JSON. Your diary can be exported separately.",
+    "exportMood": "Download mood history",
+    "exportDiary": "Export diary",
+    "scope": "This file contains mood check-ins only. It is not a full account export and does not delete any data."
   }
 }
