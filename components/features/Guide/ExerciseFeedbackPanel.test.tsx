@@ -39,7 +39,9 @@ describe('ExerciseFeedbackPanel', () => {
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'true')
 
     fireEvent.click(screen.getByRole('button', { name: 'notHelpful' }))
-    await waitFor(() => expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'true'))
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'true')
+    )
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'false')
   })
 
