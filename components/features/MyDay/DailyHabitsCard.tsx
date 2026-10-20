@@ -146,10 +146,15 @@ export function DailyHabitsCard() {
       <SectionCard className="!rounded-[20px] !p-4 sm:!p-5">
         <div className="flex min-w-0 flex-col gap-4">
           <div className="space-y-1">
-            <h2 id="daily-habits-heading" className="text-[17px] font-semibold leading-6 text-textcolor-primary sm:text-lg">
+            <h2
+              id="daily-habits-heading"
+              className="text-[17px] font-semibold leading-6 text-textcolor-primary sm:text-lg"
+            >
               {t('title')}
             </h2>
-            <p className="max-w-[58ch] text-[13px] leading-5 text-textcolor-secondary sm:text-sm">{t('description')}</p>
+            <p className="max-w-[58ch] text-[13px] leading-5 text-textcolor-secondary sm:text-sm">
+              {t('description')}
+            </p>
           </div>
           {loading ? (
             <p role="status" className="text-sm text-textcolor-secondary">
@@ -215,7 +220,11 @@ export function DailyHabitsCard() {
                                 : 'bg-primary text-primary-foreground hover:bg-primary-hover'
                             }`}
                           >
-                            {record.doneToday ? <RotateCcw size={15} aria-hidden="true" /> : <Check size={15} aria-hidden="true" />}
+                            {record.doneToday ? (
+                              <RotateCcw size={15} aria-hidden="true" />
+                            ) : (
+                              <Check size={15} aria-hidden="true" />
+                            )}
                             {t(record.doneToday ? 'undo' : 'markToday')}
                           </button>
                           {href && (
