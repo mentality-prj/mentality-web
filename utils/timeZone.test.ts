@@ -23,6 +23,12 @@ describe('user-local calendar day', () => {
   it('fails closed for missing zones and invalid input', () => {
     expect(isSubmittedToday('2026-10-17T22:00:00.000Z', null)).toBe(false)
     expect(isSubmittedToday('invalid-iso', 'Europe/Warsaw')).toBe(false)
+    // Offset-less timestamps would be parsed in different host zones by SSR and browser.
+    expect(isSubmittedToday('2026-10-17T22:00:00', 'Europe/Warsaw')).toBe(false)
+    expect(isSubmittedToday('2026-10-17T22:00:00Zgarbage', 'Europe/Warsaw')).toBe(false)
+    expect(isSubmittedToday('2026-02-30T10:00:00Z', 'Europe/Warsaw', new Date('2026-03-02T10:00:00Z'))).toBe(false)
+    expect(isSubmittedToday('2026-10-17T22:00:00+01:00', 'Europe/Warsaw', new Date('2026-10-17T22:30:00Z'))).toBe(false)
+    expect(isSubmittedToday('2026-10-18T00:10:00+02:00', 'Europe/Warsaw', new Date('2026-10-17T22:30:00Z'))).toBe(true)
     expect(isSubmittedToday('2026-10-17T22:00:00.000Z', 'Mars/Phobos')).toBe(false)
     expect(isValidTimeZone('Europe/Kyiv')).toBe(true)
     expect(isValidTimeZone('Mars/Phobos')).toBe(false)
