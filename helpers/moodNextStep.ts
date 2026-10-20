@@ -3,7 +3,7 @@ import type { MoodRecordEntity } from '@/types/api-responses'
 
 export const MOOD_ACTIONS = ['breathing', 'calming', 'meditation', 'focus'] as const
 export type MoodAction = (typeof MOOD_ACTIONS)[number]
-export type MoodObservation = 'stress' | 'mood' | 'energy' | 'focus' | 'general'
+export type MoodObservation = 'stress' | 'mood' | 'energy' | 'focus' | 'preference' | 'general'
 
 export const MOOD_ACTION_HREF: Record<MoodAction, string> = {
   breathing: `${Routes.GUIDE}/breathing`,
@@ -11,6 +11,8 @@ export const MOOD_ACTION_HREF: Record<MoodAction, string> = {
   meditation: Routes.MEDITATIONS,
   focus: Routes.ATTENTION_SPRINT,
 }
+
+export type MoodPreference = { category: MoodAction; helpful: boolean }
 
 export type MoodNextStep = {
   observation: MoodObservation
@@ -29,7 +31,10 @@ function validLevel(value: unknown): value is number {
  * when someone reports high stress or low mood. The user can override it.
  * Never inspect diary text, tags, identifiers or inferred risk scores.
  */
-export function chooseMoodNextStep(record: MoodRecordEntity): MoodNextStep {
+export function chooseMoodNextStep(
+  record: MoodRecordEntity,
+  feedback: readonly MoodPreference[] = []
+): MoodNextStep {
   if (validLevel(record.stressLevel) && record.stressLevel >= 4) {
     return {
       observation: 'stress',
@@ -63,6 +68,20 @@ export function chooseMoodNextStep(record: MoodRecordEntity): MoodNextStep {
       action: 'focus',
       href: MOOD_ACTION_HREF.focus,
       level: record.focusLevel,
+    }
+  }
+
+  // Current self-report signals always take priority. When no signal stands
+  // out, reuse the most recent activity the user explicitly found helpful.
+  // API preferences are ordered newest first and only contain owner data.
+  const positive = feedback.find(
+    (entry) => entry.helpful === true && MOOD_ACTIONS.includes(entry.category)
+  )
+  if (positive) {
+    return {
+      observation: 'preference',
+      action: positive.category,
+      href: MOOD_ACTION_HREF[positive.category],
     }
   }
 
