@@ -5,7 +5,7 @@ import { APIUrl } from './config'
 import { performAuthRequest, type ApiResponseDecoder } from './genericFetch'
 
 export const DAILY_HABIT_KINDS = ['breathing', 'movement', 'journaling', 'screenBreak'] as const
-export type DailyHabitKind = (typeof DAILY_HABIT_KIN)[number]
+export type DailyHabitKind = (typeof DAILY_HABIT_KINDS)[number]
 export type DailyHabitToday = { kind: DailyHabitKind; doneToday: boolean }
 
 const API_PATH = `${APIUrl}/daily-habits`
