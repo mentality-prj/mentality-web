@@ -1,5 +1,10 @@
 import { buildDailySummaries, isSubmittedToday } from '@/helpers/mood.helpers'
-import { getLocalDayKey, getRecentLocalDayKeys, isValidTimeZone } from '@/utils/timeZone'
+import {
+  getLocalDayKey,
+  getRecentLocalDayKeys,
+  isValidTimeZone,
+  millisecondsUntilNextLocalDay,
+} from '@/utils/timeZone'
 
 describe('user-local calendar day', () => {
   it.each([
@@ -32,6 +37,25 @@ describe('user-local calendar day', () => {
     expect(isSubmittedToday('2026-10-17T22:00:00.000Z', 'Mars/Phobos')).toBe(false)
     expect(isValidTimeZone('Europe/Kyiv')).toBe(true)
     expect(isValidTimeZone('Mars/Phobos')).toBe(false)
+  })
+
+  it.each([
+    ['Warsaw spring', 'Europe/Warsaw', '2026-03-28T23:00:00.000Z', 23],
+    ['Warsaw autumn', 'Europe/Warsaw', '2026-10-24T22:00:00.000Z', 25],
+    ['Kyiv spring', 'Europe/Kyiv', '2026-03-28T22:00:00.000Z', 23],
+    ['Kyiv autumn', 'Europe/Kyiv', '2026-10-24T21:00:00.000Z', 25],
+  ])('schedules next local midnight across %s DST (%s)', (_, zone, now, hours) => {
+    expect(millisecondsUntilNextLocalDay(new Date(now), zone)).toBe(hours * 60 * 60 * 1000)
+  })
+
+  it('refreshes at the exact next local day and fails closed for unknown zones', () => {
+    expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T21:59:59.500Z'), 'Europe/Warsaw')).toBe(500)
+    expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T22:00:00.000Z'), 'Europe/Warsaw')).toBe(
+      24 * 60 * 60 * 1000
+    )
+    expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T22:00:00Z'), null)).toBeNull()
+    expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T22:00:00Z'), 'Mars/Phobos')).toBeNull()
+    expect(millisecondsUntilNextLocalDay(new Date('not-a-date'), 'Europe/Warsaw')).toBeNull()
   })
 
   it('enumerates civil days across midnight and DST without host-zone drift', () => {
