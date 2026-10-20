@@ -7,6 +7,7 @@ import { SafetyResources } from '@/components/features/Guide/SafetyResources'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
+import { DailyHabitsCard } from '@/components/features/MyDay/DailyHabitsCard'
 import { DailyRoutineCard } from '@/components/features/MyDay/DailyRoutineCard'
 import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoals/DeadlineCountdown'
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
@@ -17,12 +18,14 @@ import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
 import { getUserTimeZone } from '@/lib/userTimeZone'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
+import { getDailyHabits } from '@/requests/dailyHabits'
 import { getTodayDiaryStatus } from '@/requests/diary'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { MoodStoryResult } from '@/types/api-responses'
 import { Roles } from '@/types/security'
+import { getLocalDayKey } from '@/utils/timeZone'
 
 const MyDay = async () => {
   const session = await getServerSession()
@@ -32,6 +35,7 @@ const MyDay = async () => {
 
   const todayPromise = getLastMoodRecords(session, { limit: 1, dailyOnly: true })
   const goalsPromise = fetchPersonalGoals(session)
+  const habitsPromise = timeZone ? getDailyHabits(session, timeZone) : null
   // Do not fetch diary text just to render a completion indicator.
   const diaryStatusPromise = timeZone ? getTodayDiaryStatus(session, timeZone) : null
   const todayRes = await todayPromise
@@ -53,6 +57,11 @@ const MyDay = async () => {
       moodCounts = mapMoodRecordsToCounts(moodNotes ?? [])
     }
   }
+
+  const habitsResult = habitsPromise ? await habitsPromise : null
+  const habitDayKey = getLocalDayKey(new Date(), timeZone)
+  const initialHabits = habitsResult && 'data' in habitsResult ? (habitsResult.data ?? []) : []
+  const habitsFailed = Boolean(timeZone && (!habitsResult || 'error' in habitsResult))
 
   const goalsRes = await goalsPromise
   const initialGoals = 'error' in goalsRes ? [] : (goalsRes.data ?? [])
@@ -81,6 +90,13 @@ const MyDay = async () => {
         <DailyRoutineCard
           moodStatus={historyVerified && timeZone ? (submittedToday ? 'done' : 'available') : 'unknown'}
           diaryStatus={diaryStatus}
+        />
+        <DailyHabitsCard
+          key={habitDayKey ?? 'unknown-day'}
+          initialHabits={initialHabits}
+          timeZone={timeZone}
+          initialDayKey={habitDayKey}
+          failed={habitsFailed}
         />
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} initialStory={storyResult} />
