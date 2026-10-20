@@ -66,3 +66,23 @@ export async function saveExerciseFeedback(
     },
   })
 }
+
+export async function clearExerciseFeedback(
+  session: CustomSession | null,
+  category: MoodAction
+): Promise<{ data: { category: MoodAction; cleared: true } } | { error: string; status?: number }> {
+  if (!MOOD_ACTIONS.includes(category)) {
+    return { error: 'Invalid exercise feedback category' }
+  }
+
+  return performAuthRequest(session, `${FEEDBACK_URL}/${category}`, {
+    method: 'DELETE',
+    decodeResponse: (value) => {
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return { success: false }
+      const response = value as Record<string, unknown>
+      return response.category === category && response.cleared === true
+        ? { success: true, data: { category, cleared: true as const } }
+        : { success: false }
+    },
+  })
+}
