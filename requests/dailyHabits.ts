@@ -1,0 +1,96 @@
+import type { CustomSession } from '@/types/auth'
+import { isValidTimeZone } from '@/utils/timeZone'
+
+import { APIUrl } from './config'
+import { performAuthRequest, type ApiResponseDecoder } from './genericFetch'
+
+export const DAILY_HABIT_KINDS = ['breathing', 'movement', 'journaling', 'screenBreak'] as const
+export type DailyHabitKind = (typeof DAILY_HABIT_KIN)[number]
+export type DailyHabitToday = { kind: DailyHabitKind; doneToday: boolean }
+
+const API_PATH = `${APIUrl}/daily-habits`
+
+function allowedKind(value: unknown): value is DailyHabitKind {
+  return typeof value === 'string' && DAILY_HABIT_KINDS.some((kind) => kind === value)
+}
+
+function decodeHabit(value: unknown): DailyHabitToday | null {
+  if (!value || typeof value !== 'object' || Array.isArray(value)) return null
+  const data = value as Record<string, unknown>
+  if (!allowedKind(data.kind) || typeof data.doneToday !== 'boolean') return null
+  return { kind: data.kind, doneToday: data.doneToday }
+}
+
+const decodeList: ApiResponseDecoder<DailyHabitToday[]> = (value) => {
+  if (!Array.isArray(value) || value.length > DAILY_HABIT_KINDS.length) return { success: false }
+  const entries: DailyHabitToday[] = []
+  for (const valueEntry of value) {
+    const parsed = decodeHabit(valueEntry)
+    if (!parsed || entries.some((item) => item.kind === parsed.kind)) return { success: false }
+    entries.push(parsed)
+  }
+  return { success: true, data: entries }
+}
+
+function validateZone(timeZone: string | null): string | null {
+  return isValidTimeZone(timeZone) ? encodeURIComponent(timeZone) : null
+}
+
+export async function getDailyHabits(session: CustomSession | null, timeZone: string | null) {
+  const zone = validateZone(timeZone)
+  if (!zone) return { error: 'Valid local timezone required' }
+  return performAuthRequest(session, `${API_PATH}?timeZone=${zone}`, {
+    method: 'GET',
+    decodeResponse: decodeList,
+  })
+}
+
+export async function chooseDailyHabit(
+  session: CustomSession | null,
+  kind: DailyHabitKind,
+  timeZone: string | null
+) {
+  const zone = validateZone(timeZone)
+  if (!zone || !allowedKind(kind)) return { error: 'Invalid habit or timezone' }
+  return performAuthRequest(session, `${API_PATH}/${kind}?timeZone=${zone}`, {
+    method: 'PUT',
+    decodeResponse: (value) => {
+      const result = decodeHabit(value)
+      return result && result.kind === kind ? { success: true, data: result } : { success: false }
+    },
+  })
+}
+
+export async function checkDailyHabit(
+  session: CustomSession | null,
+  kind: DailyHabitKind,
+  completed: boolean,
+  timeZone: string | null
+) {
+  const zone = validateZone(timeZone)
+  if (!zone || !allowedKind(kind) || typeof completed !== 'boolean') return { error: 'Invalid habit check' }
+  return performAuthRequest(session, `${API_PATH}/${kind}/today?timeZone=${zone}`, {
+    method: 'PATCH',
+    body: { completed },
+    decodeResponse: (value) => {
+      const result = decodeHabit(value)
+      return result && result.kind === kind && result.doneToday === completed
+        ? { success: true, data: result }
+        : { success: false }
+    },
+  })
+}
+
+export async function removeDailyHabit(session: CustomSession | null, kind: DailyHabitKind) {
+  if (!allowedKind(kind)) return { error: 'Invalid habit' }
+  return performAuthRequest(session, `${API_PATH}/${kind}`, {
+    method: 'DELETE',
+    decodeResponse: (value) => {
+      if (!value || typeof value !== 'object' || Array.isArray(value)) return { success: false }
+      const result = value as Record<string, unknown>
+      return result.kind === kind && result.selected === false
+        ? { success: true, data: { kind, selected: false as const } }
+        : { success: false }
+    },
+  })
+}
