@@ -131,7 +131,7 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
                 const isBusy = busy !== null
                 const href = RELATED_PAGES[kind]
                 return (
-                  <li key={kind} className="rounded-xl border border-current/10 p-3">
+                  <li key={kind} className="border-current/10 rounded-xl border p-3">
                     <div className="flex flex-col gap-sm">
                       <div>
                         <h3 className="font-medium">{t(`options.${kind}.title`)}</h3>
@@ -176,7 +176,7 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
                           type="button"
                           disabled={isBusy}
                           onClick={() => void change(kind, 'select')}
-                          className="min-h-11 w-fit rounded-xl border border-current/20 px-3 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+                          className="border-current/20 min-h-11 w-fit rounded-xl border px-3 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
                         >
                           {t('choose')}
                         </button>
