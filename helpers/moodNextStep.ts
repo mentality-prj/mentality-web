@@ -1,12 +1,20 @@
 import { Routes } from '@/constants/routes'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
-type Action = 'breathing' | 'calming'
-type Observation = 'stress' | 'mood' | 'general'
+export const MOOD_ACTIONS = ['breathing', 'calming', 'meditation', 'focus'] as const
+export type MoodAction = (typeof MOOD_ACTIONS)[number]
+export type MoodObservation = 'stress' | 'mood' | 'energy' | 'focus' | 'general'
+
+export const MOOD_ACTION_HREF: Record<MoodAction, string> = {
+  breathing: `${Routes.GUIDE}/breathing`,
+  calming: `${Routes.GUIDE}/calming`,
+  meditation: Routes.MEDITATIONS,
+  focus: Routes.ATTENTION_SPRINT,
+}
 
 export type MoodNextStep = {
-  observation: Observation
-  action: Action
+  observation: MoodObservation
+  action: MoodAction
   href: string
   level?: number
 }
@@ -16,15 +24,17 @@ function validLevel(value: unknown): value is number {
 }
 
 /**
- * Transparent, non-predictive UI selection from a single self-report.
- * This is NOT a diagnosis, risk assessment or QDIP/Future Engine decision.
+ * Non-predictive first option from one self-reported check-in. The order is
+ * deliberate: an optional calming action outranks games or concentration work
+ * when someone reports high stress or low mood. The user can override it.
+ * Never inspect diary text, tags, identifiers or inferred risk scores.
  */
 export function chooseMoodNextStep(record: MoodRecordEntity): MoodNextStep {
   if (validLevel(record.stressLevel) && record.stressLevel >= 4) {
     return {
       observation: 'stress',
       action: 'breathing',
-      href: `${Routes.GUIDE}/breathing`,
+      href: MOOD_ACTION_HREF.breathing,
       level: record.stressLevel,
     }
   }
@@ -33,14 +43,32 @@ export function chooseMoodNextStep(record: MoodRecordEntity): MoodNextStep {
     return {
       observation: 'mood',
       action: 'calming',
-      href: `${Routes.GUIDE}/calming`,
+      href: MOOD_ACTION_HREF.calming,
       level: record.moodLevel,
+    }
+  }
+
+  if (validLevel(record.energyLevel) && record.energyLevel <= 2) {
+    return {
+      observation: 'energy',
+      action: 'meditation',
+      href: MOOD_ACTION_HREF.meditation,
+      level: record.energyLevel,
+    }
+  }
+
+  if (validLevel(record.focusLevel) && record.focusLevel <= 2) {
+    return {
+      observation: 'focus',
+      action: 'focus',
+      href: MOOD_ACTION_HREF.focus,
+      level: record.focusLevel,
     }
   }
 
   return {
     observation: 'general',
     action: 'breathing',
-    href: `${Routes.GUIDE}/breathing`,
+    href: MOOD_ACTION_HREF.breathing,
   }
 }
