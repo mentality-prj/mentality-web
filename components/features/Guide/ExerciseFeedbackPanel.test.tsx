@@ -3,11 +3,11 @@ import { useTranslations } from 'next-intl'
 
 import { ExerciseFeedbackPanel } from '@/components/features/Guide/ExerciseFeedbackPanel'
 import { useAuth } from '@/context/AuthProvider'
-import { saveExerciseFeedback } from '@/requests/exerciseFeedback'
+import { clearExerciseFeedback, saveExerciseFeedback } from '@/requests/exerciseFeedback'
 
 jest.mock('next-intl', () => ({ useTranslations: jest.fn() }))
 jest.mock('@/context/AuthProvider', () => ({ useAuth: jest.fn() }))
-jest.mock('@/requests/exerciseFeedback', () => ({ saveExerciseFeedback: jest.fn() }))
+jest.mock('@/requests/exerciseFeedback', () => ({ saveExerciseFeedback: jest.fn(), clearExerciseFeedback: jest.fn() }))
 
 beforeEach(() => {
   jest.clearAllMocks()
@@ -52,6 +52,23 @@ describe('ExerciseFeedbackPanel', () => {
     fireEvent.click(screen.getByRole('button', { name: 'notHelpful' }))
     await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('failed'))
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'false')
+  })
+
+  it('removes a previously saved rating and its future recommendation influence', async () => {
+    ;(clearExerciseFeedback as jest.Mock).mockResolvedValue({
+      data: { category: 'calming', cleared: true },
+    })
+    render(<ExerciseFeedbackPanel category="calming" initialHelpful={true} />)
+    expect(screen.getByRole('button', { name: 'clear' })).toBeInTheDocument()
+    fireEvent.click(screen.getByRole('button', { name: 'clear' }))
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('cleared'))
+    expect(clearExerciseFeedback).toHaveBeenCalledWith(
+      expect.objectContaining({ user: expect.objectContaining({ id: 'current-owner' }) }),
+      'calming'
+    )
+    expect(screen.queryByRole('button', { name: 'clear' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'false')
     expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'false')
   })
 
