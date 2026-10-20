@@ -2,9 +2,13 @@ import { fireEvent, render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
 import { MoodNextStepCard } from '@/components/features/Guide/MoodNextStepCard'
+import { getServerSession } from '@/lib/get-server-session'
+import { getExerciseFeedback } from '@/requests/exerciseFeedback'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 jest.mock('next-intl/server')
+jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/requests/exerciseFeedback', () => ({ getExerciseFeedback: jest.fn() }))
 jest.mock('@/i18n/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }))
@@ -25,6 +29,8 @@ const moodRecord: MoodRecordEntity = {
 
 beforeEach(() => {
   jest.clearAllMocks()
+  ;(getServerSession as jest.Mock).mockResolvedValue({ user: { id: 'qa-user' } })
+  ;(getExerciseFeedback as jest.Mock).mockResolvedValue({ data: [] })
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string, vars?: { level?: number }) => {
     return vars ? `${key}:${vars.level}` : key
   })
@@ -91,6 +97,26 @@ describe('MoodNextStepCard', () => {
     fireEvent.click(breatheChoice)
     expect(screen.queryByText('userChoiceNote')).not.toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'actions.breathing' })).toHaveAttribute('href', '/guide/breathing')
+  })
+
+  it('uses saved voluntary feedback only for neutral check-ins, not elevated stress', async () => {
+    ;(getExerciseFeedback as jest.Mock).mockResolvedValue({
+      data: [{ category: 'meditation', helpful: true }, { category: 'focus', helpful: false }],
+    })
+    const { unmount } = render(await MoodNextStepCard({ record: { ...moodRecord, stressLevel: 3, energyLevel: 3 } }))
+    expect(screen.getByText('observations.preference:0')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'actions.meditation' })).toHaveAttribute('href', '/guide/meditations')
+    unmount()
+
+    render(await MoodNextStepCard({ record: moodRecord }))
+    expect(screen.getByText('observations.stress:4')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'actions.breathing' })).toHaveAttribute('href', '/guide/breathing')
+  })
+
+  it('falls back to record-only rules when preferences are temporarily unavailable', async () => {
+    ;(getExerciseFeedback as jest.Mock).mockResolvedValue({ error: 'Unavailable', status: 503 })
+    render(await MoodNextStepCard({ record: { ...moodRecord, stressLevel: 3, energyLevel: 3 } }))
+    expect(screen.getByText('observations.general:0')).toBeInTheDocument()
   })
 
   it('does not invent a specific observation for invalid scores', async () => {
