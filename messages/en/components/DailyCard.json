@@ -21,16 +21,16 @@
   "greeting": "Hi! Great to see you here",
   "greetingText": "How are you feeling today?",
   "habits": {
-    "title": "Your optional daily habits",
-    "description": "Choose small activities you'd like to repeat. You decide whether and when to do them.",
-    "choose": "Add to my day",
-    "selected": "Selected — available today",
-    "doneToday": "Marked for today",
-    "markToday": "I did this today",
-    "undo": "Undo today's mark",
-    "remove": "Remove from my day",
-    "openActivity": "Open activity",
-    "noPressure": "No streaks, deadlines or penalties. Skipped days do not undo progress. You can undo a mark.",
+    "title": "My habits",
+    "description": "Small actions at your own pace. No pressure.",
+    "choose": "Add",
+    "selected": "Added to my day",
+    "doneToday": "Done today",
+    "markToday": "Done",
+    "undo": "Undo",
+    "remove": "Remove",
+    "openActivity": "Open",
+    "noPressure": "Skipping days is fine. No streaks, deadlines or penalties.",
     "unknownDay": "Your time zone isn't available yet. Refresh My Day before checking off an activity.",
     "loadError": "Could not load your habits. Refresh the page later.",
     "failed": "Couldn't save the change. Check your connection and try again.",
@@ -54,6 +54,7 @@
         "description": "Set your phone aside and rest for a few minutes."
       }
     },
-    "loading": "Loading habits…"
+    "loading": "Loading habits…",
+    "retry": "Try again"
   }
 }
