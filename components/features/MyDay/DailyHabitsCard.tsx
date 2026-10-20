@@ -108,55 +108,55 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
   return (
     <section aria-labelledby="daily-habits-heading">
       <SectionCard>
-        <div className="gap-md flex flex-col">
+        <div className="flex flex-col gap-md">
           <div>
             <h2 id="daily-habits-heading" className="text-lg font-semibold">
               {t('title')}
             </h2>
-            <p className="text-textcolor-secondary mt-1 text-sm leading-relaxed">{t('description')}</p>
+            <p className="mt-1 text-sm leading-relaxed text-textcolor-secondary">{t('description')}</p>
           </div>
 
           {!timeZone || !initialDayKey ? (
-            <p role="status" className="text-textcolor-secondary text-sm">
+            <p role="status" className="text-sm text-textcolor-secondary">
               {t('unknownDay')}
             </p>
           ) : failed ? (
-            <p role="alert" className="text-textcolor-secondary text-sm">
+            <p role="alert" className="text-sm text-textcolor-secondary">
               {t('loadError')}
             </p>
           ) : (
-            <ul className="gap-sm flex flex-col">
+            <ul className="flex flex-col gap-sm">
               {DAILY_HABIT_KINDS.map((kind) => {
                 const record = habits.find((habit) => habit.kind === kind)
                 const isBusy = busy !== null
                 const href = RELATED_PAGES[kind]
                 return (
-                  <li key={kind} className="border-current/10 rounded-xl border p-3">
-                    <div className="gap-sm flex flex-col">
+                  <li key={kind} className="rounded-xl border border-current/10 p-3">
+                    <div className="flex flex-col gap-sm">
                       <div>
                         <h3 className="font-medium">{t(`options.${kind}.title`)}</h3>
-                        <p className="text-textcolor-secondary text-sm">{t(`options.${kind}.description`)}</p>
+                        <p className="text-sm text-textcolor-secondary">{t(`options.${kind}.description`)}</p>
                       </div>
                       {record ? (
                         <>
-                          <span className="gap-xs text-textcolor-secondary inline-flex items-center text-xs">
+                          <span className="inline-flex items-center gap-xs text-xs text-textcolor-secondary">
                             {record.doneToday && <CircleCheck size={16} className="text-primary" aria-hidden="true" />}
                             {t(record.doneToday ? 'doneToday' : 'selected')}
                           </span>
-                          <div className="gap-sm flex flex-wrap items-center">
+                          <div className="flex flex-wrap items-center gap-sm">
                             <button
                               type="button"
                               disabled={isBusy}
                               aria-pressed={record.doneToday}
                               onClick={() => void change(kind, record.doneToday ? 'undo' : 'check')}
-                              className="border-primary text-primary min-h-11 rounded-xl border px-3 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+                              className="min-h-11 rounded-xl border border-primary px-3 py-2 text-sm font-medium text-primary focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
                             >
                               {t(record.doneToday ? 'undo' : 'markToday')}
                             </button>
                             {href && (
                               <Link
                                 href={href}
-                                className="text-primary inline-flex min-h-11 items-center text-sm underline underline-offset-4"
+                                className="inline-flex min-h-11 items-center text-sm text-primary underline underline-offset-4"
                               >
                                 {t('openActivity')}
                               </Link>
@@ -165,7 +165,7 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
                               type="button"
                               disabled={isBusy}
                               onClick={() => void change(kind, 'remove')}
-                              className="text-textcolor-secondary min-h-11 text-sm underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+                              className="min-h-11 text-sm text-textcolor-secondary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
                             >
                               {t('remove')}
                             </button>
@@ -176,7 +176,7 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
                           type="button"
                           disabled={isBusy}
                           onClick={() => void change(kind, 'select')}
-                          className="border-current/20 min-h-11 w-fit rounded-xl border px-3 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+                          className="min-h-11 w-fit rounded-xl border border-current/20 px-3 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
                         >
                           {t('choose')}
                         </button>
@@ -187,12 +187,12 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
               })}
             </ul>
           )}
-          <p className="text-textcolor-secondary text-xs leading-relaxed">{t('noPressure')}</p>
+          <p className="text-xs leading-relaxed text-textcolor-secondary">{t('noPressure')}</p>
           {notice && (
             <p
               role={notice === 'failed' ? 'alert' : 'status'}
               aria-live="polite"
-              className="text-textcolor-secondary text-sm"
+              className="text-sm text-textcolor-secondary"
             >
               {t(notice)}
             </p>
