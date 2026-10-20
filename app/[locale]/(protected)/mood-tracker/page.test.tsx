@@ -71,7 +71,7 @@ describe('MoodTracker page', () => {
   it('calls getLastMoodRecords with days: 10', async () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, timeZone: 'Europe/Warsaw' })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, limit: 100, timeZone: 'Europe/Warsaw' })
   })
 
   it('renders page title and subtitle', async () => {
@@ -131,7 +131,7 @@ describe('MoodTracker page', () => {
     ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, timeZone: undefined })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, limit: 100, timeZone: undefined })
     expect(screen.queryByTestId('ten-days-summary')).not.toBeInTheDocument()
   })
 })
