@@ -33,7 +33,7 @@ const MyDay = async () => {
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
   const todayHistoryVerified = !('error' in todayRes) && Array.isArray(todayRes.data)
-  const todayRecords = todayHistoryVerified ? todayRes.data : []
+  const todayRecords = 'error' in todayRes || !Array.isArray(todayRes.data) ? [] : todayRes.data
   const initialLastSubmittedAt = todayRecords[0]?.createdAt ?? null
   const todayRecord = timeZone
     ? todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
