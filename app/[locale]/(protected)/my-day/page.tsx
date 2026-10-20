@@ -56,7 +56,6 @@ const MyDay = async () => {
   return (
     <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
       <div className="flex flex-col gap-sm xl:col-span-2">
-        <DailyHabitsCard />
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} initialStory={storyResult} />
         ) : (
@@ -64,6 +63,7 @@ const MyDay = async () => {
         )}
         <DailyTipClient recommendedId={recommendedTipId} />
         <TodayMoodNotes />
+        <DailyHabitsCard />
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">
