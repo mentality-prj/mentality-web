@@ -27,13 +27,14 @@ export default async function MoodTracker({
   ])
   // A failed remote read is not an empty history: do not claim there were no mood records.
   if ('error' in result) throw new Error('Unable to load mood records')
-  if ('error' in res) throw new Error('Unable to load mood summary')
+  if ('error' in res || !Array.isArray(res.data)) throw new Error('Unable to load mood summary')
 
   const { moodNotes, total } = result.data
-  const moodMarksData = buildMoodMarksData(res.data)
+  const history = res.data
+  const moodMarksData = buildMoodMarksData(history)
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
-  const summaries = buildDailySummaries(res.data, timeZone ?? undefined)
+  const summaries = buildDailySummaries(history, timeZone ?? undefined)
 
   return (
     <div className="flex flex-col gap-md">
@@ -43,12 +44,12 @@ export default async function MoodTracker({
           <NewMoodNoteSection />
         </div>
         <div className="flex flex-col gap-sm desktop:w-2/5">
-          <WellbeingSummary records={res.data} />
+          <WellbeingSummary records={history} />
           {timeZone && (
             <TenDaysSummary
               moodMarksData={moodMarksData}
               lastRecordsSummary={summaries}
-              records={res.data}
+              records={history}
             />
           )}
         </div>
