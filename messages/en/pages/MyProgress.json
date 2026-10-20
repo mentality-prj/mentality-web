@@ -52,5 +52,22 @@
     "goalsHeading": "Your current goals",
     "goalsLink": "All personal goals",
     "goalsError": "Unable to load your goals. Refresh the page and try again."
+  },
+  "exercises": {
+    "heading": "Activities you've rated",
+    "description": "Your own impressions can help you choose what to try another time.",
+    "empty": "No ratings yet. After trying an activity, you may note whether you found it helpful. It's optional.",
+    "browseAction": "Explore breathing exercises",
+    "loadError": "Could not load your activity ratings. Please try refreshing the page later.",
+    "helpful": "You marked: “Helpful”",
+    "notHelpful": "You marked: “Not helpful”",
+    "changeAction": "Open activity and change rating",
+    "limitNote": "Only your latest voluntary rating for each activity type is shown. An unanswered activity is not a negative rating. These notes do not prove clinical benefit or effectiveness.",
+    "categories": {
+      "breathing": "Breathing exercises",
+      "calming": "Calming exercises",
+      "meditation": "Meditations",
+      "focus": "Attention Sprint"
+    }
   }
 }
