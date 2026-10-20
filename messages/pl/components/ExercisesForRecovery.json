@@ -27,7 +27,8 @@
       "mood": "Oceniłeś(-aś) nastrój na {level} z 5.",
       "general": "Zapisano Twój nastrój. Jeśli chcesz, możesz wybrać małe działanie.",
       "energy": "Oceniłeś(-aś) swoją energię na {level} z 5.",
-      "focus": "Oceniłeś(-aś) swoją koncentrację na {level} z 5."
+      "focus": "Oceniłeś(-aś) swoją koncentrację na {level} z 5.",
+      "preference": "Wcześniej oznaczyłeś(-aś) tę aktywność jako pomocną. Możesz spróbować ponownie lub wybrać inną."
     },
     "suggestions": {
       "breathing": "Możesz spróbować krótkiego ćwiczenia oddechowego we własnym tempie. To propozycja, nie obowiązek.",
@@ -61,5 +62,17 @@
     "phoneCoverage": "112 działa w Ukrainie i we wszystkich krajach UE. W innym kraju skontaktuj się z lokalnymi służbami ratunkowymi.",
     "otherSupport": "Jeśli nie ma bezpośredniego zagrożenia, porozmawiaj z zaufaną osobą lub wykwalifikowanym specjalistą.",
     "limitation": "Dzvin służy do samopomocy; nie jest służbą interwencji kryzysowej ani zamiennikiem opieki medycznej."
+  },
+  "feedback": {
+    "title": "Czy to ćwiczenie było pomocne?",
+    "description": "Jeśli wypróbowałeś(-aś) ćwiczenie, możesz je ocenić. Odpowiedź można zmienić w dowolnym momencie.",
+    "helpful": "Pomogło",
+    "notHelpful": "Nie pomogło",
+    "saving": "Zapisujemy odpowiedź…",
+    "saved": "Odpowiedź zapisana. Dziękujemy.",
+    "failed": "Nie udało się zapisać odpowiedzi. Spróbuj ponownie.",
+    "login": "Poczekaj na zakończenie logowania.",
+    "previouslySaved": "Twoja ostatnia ocena została zapisana. Możesz ją zmienić.",
+    "privacyNote": "Zapisywana jest tylko kategoria ćwiczenia i ocena, bez treści dziennika. Nie jest to ocena kliniczna."
   }
 }
