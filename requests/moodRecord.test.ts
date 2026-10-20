@@ -248,14 +248,29 @@ describe('getLastMoodRecords', () => {
     expect(performAuthRequest).toHaveBeenCalledWith(mockSession, expect.stringContaining('limit=3'), expect.any(Object))
   })
 
-  it('prefers days over limit when both are provided', async () => {
+  it('sends both days and limit so the 10-day summary is not capped at 10 records', async () => {
     ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
 
-    await getLastMoodRecords(mockSession, { days: 10, limit: 3 })
+    await getLastMoodRecords(mockSession, { days: 10, limit: 100, timeZone: 'Europe/Warsaw' })
 
     const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
-    expect(calledUrl).toContain('days=10')
-    expect(calledUrl).not.toContain('limit=')
+    const params = new URL(calledUrl).searchParams
+    expect(params.get('days')).toBe('10')
+    expect(params.get('limit')).toBe('100')
+    expect(params.get('timeZone')).toBe('Europe/Warsaw')
+  })
+
+  it('requests only full daily check-ins for the local day', async () => {
+    ;(performAuthRequest as jest.Mock).mockResolvedValue({ data: [mockRecord] })
+
+    await getLastMoodRecords(mockSession, { days: 1, limit: 1, timeZone: 'Europe/Kyiv', dailyOnly: true })
+
+    const calledUrl: string = (performAuthRequest as jest.Mock).mock.calls[0][1]
+    const params = new URL(calledUrl).searchParams
+    expect(params.get('days')).toBe('1')
+    expect(params.get('limit')).toBe('1')
+    expect(params.get('timeZone')).toBe('Europe/Kyiv')
+    expect(params.get('dailyOnly')).toBe('true')
   })
 
   it('returns error on failure', async () => {
