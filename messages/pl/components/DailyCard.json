@@ -21,16 +21,16 @@
   "greeting": "Cześć! Świetnie Cię tutaj widzieć",
   "greetingText": "Jak się dzisiaj czujesz?",
   "habits": {
-    "title": "Twoje dobrowolne codzienne nawyki",
-    "description": "Wybierz drobne czynności, do których chcesz wracać. Sam(a) decydujesz, czy i kiedy je wykonać.",
-    "choose": "Dodaj do mojego dnia",
-    "selected": "Wybrano — można zrobić dziś",
-    "doneToday": "Zaznaczono na dziś",
-    "markToday": "Zrobiłem(-am) to dzisiaj",
-    "undo": "Cofnij dzisiejsze zaznaczenie",
-    "remove": "Usuń z mojego dnia",
-    "openActivity": "Otwórz ćwiczenie",
-    "noPressure": "Bez serii, terminów ani kar. Pominięty dzień niczego nie przekreśla. Zaznaczenie można cofnąć.",
+    "title": "Moje nawyki",
+    "description": "Małe kroki we własnym tempie. Bez zobowiązań.",
+    "choose": "Dodaj",
+    "selected": "W moim dniu",
+    "doneToday": "Zrobione dzisiaj",
+    "markToday": "Zrobione",
+    "undo": "Cofnij",
+    "remove": "Usuń",
+    "openActivity": "Otwórz",
+    "noPressure": "Możesz pomijać dni. Bez serii, terminów i kar.",
     "unknownDay": "Nie udało się jeszcze ustalić Twojej strefy czasowej. Odśwież Mój dzień przed zaznaczeniem wykonania.",
     "loadError": "Nie udało się pobrać nawyków. Odśwież stronę później.",
     "failed": "Nie udało się zapisać zmiany. Sprawdź połączenie i spróbuj ponownie.",
@@ -54,6 +54,7 @@
         "description": "Odłóż telefon i odpocznij przez kilka minut."
       }
     },
-    "loading": "Wczytywanie nawyków…"
+    "loading": "Wczytywanie nawyków…",
+    "retry": "Spróbuj ponownie"
   }
 }
