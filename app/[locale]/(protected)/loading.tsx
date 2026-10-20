@@ -19,7 +19,10 @@ export default async function Loading() {
       className="flex min-h-[min(56svh,30rem)] w-full items-center justify-center px-4 py-12"
     >
       <div className="flex max-w-sm flex-col items-center gap-3 text-center">
-        <span className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary" aria-hidden="true">
+        <span
+          className="inline-flex h-12 w-12 items-center justify-center rounded-full bg-secondary"
+          aria-hidden="true"
+        >
           <span className="h-6 w-6 animate-spin rounded-full border-[3px] border-primary/20 border-t-primary motion-reduce:animate-none" />
         </span>
         <div className="space-y-1">
