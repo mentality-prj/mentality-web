@@ -1,22 +1,43 @@
 import { getTranslations } from 'next-intl/server'
 
+import { MoodActionPicker, type MoodActionCopy } from '@/components/features/Guide/MoodActionPicker'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { chooseMoodNextStep } from '@/helpers/moodNextStep'
-import { Link } from '@/i18n/navigation'
 import type { MoodRecordEntity } from '@/types/api-responses'
-import { Button } from '@/ui/button'
 
 type Props = {
   record: MoodRecordEntity
 }
 
 /**
- * The recommendation is optional and based on one self-reported record only.
- * No diary text, tags, diagnosis or unverified predictive confidence is used.
+ * Uses only the four explicit self-report levels. No inferred medical state,
+ * diary content, identifiers, or model-generated predictive confidence.
  */
 export async function MoodNextStepCard({ record }: Props) {
   const t = await getTranslations('components.ExercisesForRecovery.nextStep')
   const step = chooseMoodNextStep(record)
+  const copy: MoodActionCopy = {
+    choosePrompt: t('choosePrompt'),
+    userChoiceNote: t('userChoiceNote'),
+    options: {
+      breathing: t('options.breathing'),
+      calming: t('options.calming'),
+      meditation: t('options.meditation'),
+      focus: t('options.focus'),
+    },
+    suggestions: {
+      breathing: t('suggestions.breathing'),
+      calming: t('suggestions.calming'),
+      meditation: t('suggestions.meditation'),
+      focus: t('suggestions.focus'),
+    },
+    actions: {
+      breathing: t('actions.breathing'),
+      calming: t('actions.calming'),
+      meditation: t('actions.meditation'),
+      focus: t('actions.focus'),
+    },
+  }
 
   return (
     <section aria-labelledby="mood-next-step-heading">
@@ -30,10 +51,7 @@ export async function MoodNextStepCard({ record }: Props) {
               {t(`observations.${step.observation}`, { level: step.level ?? 0 })}
             </p>
           </div>
-          <p className="text-sm leading-relaxed">{t(`suggestions.${step.action}`)}</p>
-          <Button asChild variant="secondary" size="medium" className="w-fit">
-            <Link href={step.href}>{t(`actions.${step.action}`)}</Link>
-          </Button>
+          <MoodActionPicker key={record.id} suggestedAction={step.action} copy={copy} />
           <p className="text-xs leading-relaxed text-textcolor-secondary">{t('limitNote')}</p>
         </div>
       </SectionCard>
