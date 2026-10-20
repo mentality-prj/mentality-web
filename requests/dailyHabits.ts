@@ -45,11 +45,7 @@ export async function getDailyHabits(session: CustomSession | null, timeZone: st
   })
 }
 
-export async function chooseDailyHabit(
-  session: CustomSession | null,
-  kind: DailyHabitKind,
-  timeZone: string | null
-) {
+export async function chooseDailyHabit(session: CustomSession | null, kind: DailyHabitKind, timeZone: string | null) {
   const zone = validateZone(timeZone)
   if (!zone || !allowedKind(kind)) return { error: 'Invalid habit or timezone' }
   return performAuthRequest(session, `${API_PATH}/${kind}?timeZone=${zone}`, {
