@@ -7,26 +7,24 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { Routes } from '@/constants/routes'
 import { STRESSES } from '@/constants/stress'
-import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { Link } from '@/i18n/navigation'
-import { getServerSession } from '@/lib/get-server-session'
-import { getUserTimeZone } from '@/lib/userTimeZone'
-import { getLastMoodRecords } from '@/requests/moodRecord'
+import type { MoodRecordEntity } from '@/types/api-responses'
 
-export const TodayMoodNotes = async () => {
-  const session = await getServerSession()
+/**
+ * Render My Day's verified daily record without a duplicate read that could
+ * contradict its routine status or contextual recommendation.
+ */
+export const TodayMoodNotes = async ({
+  record: todayRecord,
+  timeZone,
+}: {
+  record: MoodRecordEntity | null
+  timeZone: string | null
+}) => {
+  if (!todayRecord || !timeZone) return null
   const locale = await getLocale()
   const t = await getTranslations('components.TodayMoodNotes')
   const tm = await getTranslations('components.Mood')
-  const timeZone = await getUserTimeZone()
-  if (!timeZone) return null
-  const todayRecordMood = await getLastMoodRecords(session, { days: 1, timeZone, dailyOnly: true })
-  const todayRecords = 'error' in todayRecordMood ? [] : (todayRecordMood.data ?? [])
-  const todayRecord = todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
-
-  if (!todayRecord) {
-    return null
-  }
 
   const moodLevel = todayRecord.moodLevel ?? 3
   const moodIndex = Math.max(1, Math.min(5, moodLevel))
