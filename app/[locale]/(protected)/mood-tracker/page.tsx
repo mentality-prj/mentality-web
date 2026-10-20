@@ -25,10 +25,13 @@ export default async function MoodTracker({
   const session = await getServerSession()
   const timeZone = await getUserTimeZone()
   const query = parseMoodQuery(await searchParams)
-  const [result, res, progressResult] = await Promise.all([
+  const [result, res, progressResult, todayDailyResult] = await Promise.all([
     getMoodRecords(session, query),
     getLastMoodRecords(session, { days: 10, timeZone: timeZone ?? undefined }),
     getMoodStatistics(session, timeZone),
+    // The 10-day chart includes micro-events; only a full daily check-in may
+    // drive today's contextual next step (quick/stress entries are not daily check-ins).
+    timeZone ? getLastMoodRecords(session, { days: 1, limit: 1, timeZone, dailyOnly: true }) : null,
   ])
   // Invalid remote data and backend errors are not empty mood histories.
   // Let the existing protected error boundary render the failure.
@@ -40,9 +43,10 @@ export default async function MoodTracker({
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
   const summaries = buildDailySummaries(res.data, timeZone ?? undefined)
-  const todayRecord = timeZone
-    ? res.data.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
-    : undefined
+  const todayRecord =
+    timeZone && todayDailyResult && !('error' in todayDailyResult)
+      ? todayDailyResult.data.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
+      : undefined
 
   return (
     <div className="flex flex-col gap-md">
