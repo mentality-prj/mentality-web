@@ -142,6 +142,8 @@ describe('My Day optional support', () => {
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()
+    expect(getDailyHabits).not.toHaveBeenCalled()
+    expect(screen.getByTestId('daily-habits')).toHaveAttribute('data-state', 'unknown-day')
   })
 
   it('shows only verified saved habit selections and does not infer completion from a mood check-in', async () => {
