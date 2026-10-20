@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
 import type { MoodAction } from '@/helpers/moodNextStep'
-import { saveExerciseFeedback } from '@/requests/exerciseFeedback'
+import { clearExerciseFeedback, saveExerciseFeedback } from '@/requests/exerciseFeedback'
 
 type Props = {
   category: MoodAction
@@ -21,9 +21,9 @@ export function ExerciseFeedbackPanel({ category, initialHelpful }: Props) {
   const { session } = useAuth()
   const [helpful, setHelpful] = useState<boolean | null>(initialHelpful)
   const [saving, setSaving] = useState(false)
-  const [message, setMessage] = useState<'saved' | 'failed' | 'login' | null>(null)
+  const [message, setMessage] = useState<'saved' | 'cleared' | 'failed' | 'login' | null>(null)
 
-  const submit = async (answer: boolean) => {
+  const submit = async (answer: boolean | null) => {
     if (saving) return
     if (!session?.user) {
       setMessage('login')
@@ -32,12 +32,15 @@ export function ExerciseFeedbackPanel({ category, initialHelpful }: Props) {
     setSaving(true)
     setMessage(null)
     try {
-      const result = await saveExerciseFeedback(session, category, answer)
+      const result =
+        answer === null
+          ? await clearExerciseFeedback(session, category)
+          : await saveExerciseFeedback(session, category, answer)
       if ('error' in result) {
         setMessage('failed')
       } else {
-        setHelpful(result.data.helpful)
-        setMessage('saved')
+        setHelpful(answer)
+        setMessage(answer === null ? 'cleared' : 'saved')
       }
     } catch {
       setMessage('failed')
@@ -72,6 +75,16 @@ export function ExerciseFeedbackPanel({ category, initialHelpful }: Props) {
           </button>
         ))}
       </div>
+      {helpful !== null && (
+        <button
+          type="button"
+          disabled={saving}
+          onClick={() => void submit(null)}
+          className="mt-3 min-h-11 text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+        >
+          {t('clear')}
+        </button>
+      )}
       <p className="mt-2 text-xs text-textcolor-secondary">{t('privacyNote')}</p>
       <p aria-live="polite" role="status" className="mt-2 text-sm text-textcolor-secondary">
         {saving ? t('saving') : message ? t(message) : helpful !== null ? t('previouslySaved') : ''}
