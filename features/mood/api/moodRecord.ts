@@ -6,14 +6,15 @@ import { performAuthRequest } from '@/requests/genericFetch'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto) {
-  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
+export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto, timeZone?: string) {
+  const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
+  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query}`, {
     method: 'POST',
     body: dto,
   })
   if ('error' in res) {
     logger.error('Failed to create mood record', { error: res.error })
-    return { error: res.error }
+    return { error: res.error, status: res.status }
   }
   return { data: res.data }
 }
