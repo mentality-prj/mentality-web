@@ -90,6 +90,12 @@ describe('MoodTracker page', () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, timeZone: 'Europe/Warsaw' })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, {
+      days: 1,
+      limit: 1,
+      timeZone: 'Europe/Warsaw',
+      dailyOnly: true,
+    })
   })
 
   it('renders page title and subtitle', async () => {
@@ -128,6 +134,30 @@ describe('MoodTracker page', () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
     expect(screen.getByTestId('mood-next-step')).toHaveTextContent('2')
     expect(screen.queryByTestId('quick-support')).not.toBeInTheDocument()
+  })
+
+  it('does not use a quick or stress event as today\'s full check-in recommendation', async () => {
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
+    ;(getLastMoodRecords as jest.Mock).mockImplementation(async (_session, params) =>
+      params?.dailyOnly ? { data: [] } : { data: mockRecords }
+    )
+
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
+    // Historical summaries still include all check-ins and micro-events.
+    expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords, 'Europe/Warsaw')
+  })
+
+  it('does not infer a daily check-in when the user time zone is unknown', async () => {
+    ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
+
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(getLastMoodRecords).toHaveBeenCalledTimes(1)
   })
 
   it('renders TenDaysSummary', async () => {
