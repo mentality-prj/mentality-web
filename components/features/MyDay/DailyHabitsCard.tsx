@@ -148,7 +148,10 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
                               {t(record.doneToday ? 'undo' : 'markToday')}
                             </button>
                             {href && (
-                              <Link href={href} className="inline-flex min-h-11 items-center text-sm text-primary underline underline-offset-4">
+                              <Link
+                                href={href}
+                                className="inline-flex min-h-11 items-center text-sm text-primary underline underline-offset-4"
+                              >
                                 {t('openActivity')}
                               </Link>
                             )}
@@ -180,7 +183,11 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
           )}
           <p className="text-xs leading-relaxed text-textcolor-secondary">{t('noPressure')}</p>
           {notice && (
-            <p role={notice === 'failed' ? 'alert' : 'status'} aria-live="polite" className="text-sm text-textcolor-secondary">
+            <p
+              role={notice === 'failed' ? 'alert' : 'status'}
+              aria-live="polite"
+              className="text-sm text-textcolor-secondary"
+            >
               {t(notice)}
             </p>
           )}
