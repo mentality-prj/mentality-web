@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import type { MoodAction } from '@/helpers/moodNextStep'
 import { useAuth } from '@/context/AuthProvider'
+import type { MoodAction } from '@/helpers/moodNextStep'
 import { saveExerciseFeedback } from '@/requests/exerciseFeedback'
 
 type Props = {
