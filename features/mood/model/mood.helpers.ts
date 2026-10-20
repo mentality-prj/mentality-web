@@ -56,7 +56,28 @@ export const buildDailySummaries = (records: any[] = [], timeZone?: string) => {
 /** Unknown or invalid zone cannot confirm the current calendar day. */
 export function isSubmittedToday(isoTimestamp: string, timeZone: string | null, now = new Date()): boolean {
   if (typeof isoTimestamp !== 'string') return false
-  if (!/^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}/.test(isoTimestamp)) return false
+  // An offset is mandatory: offset-less ISO strings are interpreted using the
+  // host timezone and may disagree between SSR and the user's browser.
+  const match = isoTimestamp.match(
+    /^(\d{4})-(\d{2})-(\d{2})T(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?(?:Z|[+-]\d{2}:\d{2})$/
+  )
+  if (!match) return false
+  const [, yearText, monthText, dayText, hourText, minuteText, secondText] = match
+  const year = Number(yearText)
+  const month = Number(monthText)
+  const day = Number(dayText)
+  const civilDate = new Date(0)
+  civilDate.setUTCFullYear(year, month - 1, day)
+  if (
+    civilDate.getUTCFullYear() !== year ||
+    civilDate.getUTCMonth() !== month - 1 ||
+    civilDate.getUTCDate() !== day ||
+    Number(hourText) > 23 ||
+    Number(minuteText) > 59 ||
+    Number(secondText) > 59
+  ) {
+    return false
+  }
   const submittedDay = getLocalDayKey(new Date(isoTimestamp), timeZone)
   return submittedDay !== null && submittedDay === getLocalDayKey(now, timeZone)
 }
