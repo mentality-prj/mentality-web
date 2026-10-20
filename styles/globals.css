@@ -789,3 +789,9 @@ body {
     @apply grid grid-cols-1 gap-sm sm:grid-cols-3;
   }
 }
+
+/* The authenticated app footer should not appear before streamed page content.
+   Keep this scoped to the actual route loading boundary, not ordinary data loads. */
+main:has([data-protected-route-loading]) > footer {
+  display: none;
+}
