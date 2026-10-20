@@ -56,7 +56,11 @@ export async function getDailyHabits(session: CustomSession | null, timeZone: st
   return request(session, `${url}?timeZone=${zone}`, 'GET', decodeList)
 }
 
-export async function chooseDailyHabit(session: CustomSession | null, kind: DailyHabitKind, timeZone: string | null) {
+export async function chooseDailyHabit(
+  session: CustomSession | null,
+  kind: DailyHabitKind,
+  timeZone: string | null
+) {
   const zone = zoneParam(timeZone)
   if (!zone || !allowedKind(kind)) return { error: 'Invalid habit or timezone' }
   return request(session, `${url}/${kind}?timeZone=${zone}`, 'PUT', (value) => {
@@ -73,10 +77,16 @@ export async function checkDailyHabit(
 ) {
   const zone = zoneParam(timeZone)
   if (!zone || !allowedKind(kind) || typeof completed !== 'boolean') return { error: 'Invalid habit check' }
-  return request(session, `${url}/${kind}/today?timeZone=${zone}`, 'PATCH', (value) => {
-    const habit = decodeHabit(value)
-    return habit?.kind === kind && habit.doneToday === completed ? habit : null
-  }, { completed })
+  return request(
+    session,
+    `${url}/${kind}/today?timeZone=${zone}`,
+    'PATCH',
+    (value) => {
+      const habit = decodeHabit(value)
+      return habit?.kind === kind && habit.doneToday === completed ? habit : null
+    },
+    { completed }
+  )
 }
 
 export async function removeDailyHabit(session: CustomSession | null, kind: DailyHabitKind) {
