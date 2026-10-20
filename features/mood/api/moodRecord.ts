@@ -6,14 +6,15 @@ import { performAuthRequest } from '@/requests/genericFetch'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto) {
-  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
+export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto, timeZone?: string) {
+  const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
+  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query}`, {
     method: 'POST',
     body: dto,
   })
   if ('error' in res) {
     logger.error('Failed to create mood record', { error: res.error })
-    return { error: res.error }
+    return { error: res.error, status: res.status }
   }
   return { data: res.data }
 }
@@ -65,11 +66,16 @@ export async function getMoodRecords(
   return { data: { moodNotes, total } }
 }
 
-export async function getLastMoodRecords(session: CustomSession | null, params?: { limit?: number; days?: number }) {
+export async function getLastMoodRecords(
+  session: CustomSession | null,
+  params?: { limit?: number; days?: number; timeZone?: string; dailyOnly?: boolean }
+) {
   const query = new URLSearchParams()
   // If days is provided (>0) use it; otherwise fall back to limit for backward compatibility
   if (typeof params?.days === 'number' && params.days > 0) query.set('days', String(params.days))
   else if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+  if (typeof params?.days === 'number' && params.days > 0 && params.timeZone) query.set('timeZone', params.timeZone)
+  if (params?.dailyOnly) query.set('dailyOnly', 'true')
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.LAST}${query.toString() ? `?${query.toString()}` : ''}`
   const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
   if ('error' in res) return { error: res.error }
