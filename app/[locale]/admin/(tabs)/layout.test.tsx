@@ -13,11 +13,7 @@ jest.mock('@/components/Layout/MobileNavDrawer/AdminMobileNavDrawer', () => ({
 
 describe('Admin tabs mobile navigation', () => {
   it('keeps only the tabs selector; global admin layout owns the single navigation drawer', () => {
-    render(
-      <AdminTabsLayout>
-        <div>Dashboard content</div>
-      </AdminTabsLayout>
-    )
+    render(<AdminTabsLayout><div>Dashboard content</div></AdminTabsLayout>)
 
     expect(screen.getByRole('navigation', { name: 'Admin sections' })).toBeInTheDocument()
     expect(screen.getByText('Dashboard content')).toBeInTheDocument()
