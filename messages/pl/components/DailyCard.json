@@ -33,5 +33,40 @@
     "optional": "Kiedy chcesz",
     "unknown": "Status jest chwilowo niedostępny",
     "progressAction": "Zobacz swoje postępy"
+  },
+  "habits": {
+    "title": "Twoje dobrowolne codzienne nawyki",
+    "description": "Wybierz drobne czynności, do których chcesz wracać. Sam(a) decydujesz, czy i kiedy je wykonać.",
+    "choose": "Dodaj do mojego dnia",
+    "selected": "Wybrano — można zrobić dziś",
+    "doneToday": "Zaznaczono na dziś",
+    "markToday": "Zrobiłem(-am) to dzisiaj",
+    "undo": "Cofnij dzisiejsze zaznaczenie",
+    "remove": "Usuń z mojego dnia",
+    "openActivity": "Otwórz ćwiczenie",
+    "noPressure": "Bez serii, terminów ani kar. Pominięty dzień niczego nie przekreśla. Zaznaczenie można cofnąć.",
+    "unknownDay": "Nie udało się jeszcze ustalić Twojej strefy czasowej. Odśwież Mój dzień przed zaznaczeniem wykonania.",
+    "loadError": "Nie udało się pobrać nawyków. Odśwież stronę później.",
+    "failed": "Nie udało się zapisać zmiany. Sprawdź połączenie i spróbuj ponownie.",
+    "saved": "Twój wybór został zapisany.",
+    "login": "Przed zapisem dokończ logowanie.",
+    "options": {
+      "breathing": {
+        "title": "Krótka przerwa na oddech",
+        "description": "Dwie minuty oddychania we własnym tempie."
+      },
+      "movement": {
+        "title": "Odrobina ruchu",
+        "description": "Krótki spacer lub łagodne rozciąganie, jeśli masz ochotę."
+      },
+      "journaling": {
+        "title": "Zapisz jedną myśl",
+        "description": "Kilka prywatnych słów w dzienniku, jeśli chcesz."
+      },
+      "screenBreak": {
+        "title": "Przerwa od ekranu",
+        "description": "Odłóż telefon i odpocznij przez kilka minut."
+      }
+    }
   }
 }
