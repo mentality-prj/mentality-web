@@ -16,6 +16,8 @@ export function TimeZoneSync() {
   useEffect(() => {
     let lastLocalDay: string | null = null
     let midnightTimer: number | null = null
+    let scheduledZone: string | null = null
+    let scheduledDay: string | null = null
     const sync = () => {
       const zone = getVerifiedBrowserTimeZone()
       if (!zone) return
@@ -24,11 +26,15 @@ export function TimeZoneSync() {
       const dayChanged = lastLocalDay !== null && lastLocalDay !== localDay
       lastLocalDay = localDay
 
-      // Reschedule on focus and after a DST/zone change. A one-minute interval
-      // remains only as a fallback for background-tab timer throttling.
-      if (midnightTimer !== null) window.clearTimeout(midnightTimer)
-      const untilMidnight = millisecondsUntilNextLocalDay(now, zone)
-      if (untilMidnight !== null) midnightTimer = window.setTimeout(sync, untilMidnight + 1000)
+      // Compute the DST-aware boundary once per local day or zone change.
+      // Polling each minute is only a fallback for throttled background tabs.
+      if (midnightTimer === null || scheduledZone !== zone || scheduledDay !== localDay) {
+        if (midnightTimer !== null) window.clearTimeout(midnightTimer)
+        const untilMidnight = millisecondsUntilNextLocalDay(now, zone)
+        midnightTimer = untilMidnight === null ? null : window.setTimeout(sync, untilMidnight + 1000)
+        scheduledZone = zone
+        scheduledDay = localDay
+      }
 
       const encoded = encodeURIComponent(zone)
       const existing = document.cookie.split('; ').find((item) => item.startsWith(`${USER_TIME_ZONE_COOKIE}=`))
