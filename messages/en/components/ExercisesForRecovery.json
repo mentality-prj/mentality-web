@@ -27,7 +27,8 @@
       "mood": "You rated your mood {level} out of 5.",
       "general": "You checked in with your mood. If you wish, you can choose one small action.",
       "energy": "You rated your energy at {level} out of 5.",
-      "focus": "You rated your focus at {level} out of 5."
+      "focus": "You rated your focus at {level} out of 5.",
+      "preference": "You previously marked this activity as helpful. You could try it again or choose another."
     },
     "suggestions": {
       "breathing": "You could try a short breathing exercise at a comfortable pace. It's an option, not a requirement.",
@@ -61,5 +62,17 @@
     "phoneCoverage": "112 operates in Ukraine and across the EU. Elsewhere, call your local emergency service.",
     "otherSupport": "If there is no immediate danger, consider contacting someone you trust or a qualified professional.",
     "limitation": "Dzvin is a self-support tool, not a crisis response service or a substitute for medical care."
+  },
+  "feedback": {
+    "title": "Was this activity helpful?",
+    "description": "If you've tried the activity, you can rate it. Change your answer whenever you like.",
+    "helpful": "Helpful",
+    "notHelpful": "Not helpful",
+    "saving": "Saving your response…",
+    "saved": "Response saved. Thank you.",
+    "failed": "Could not save your response. Try again.",
+    "login": "Please allow your sign-in to finish first.",
+    "previouslySaved": "Your latest response is saved. You can change it.",
+    "privacyNote": "Only the activity category and its rating are saved, never diary text. This is not a clinical assessment."
   }
 }
