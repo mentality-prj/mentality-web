@@ -5,6 +5,7 @@ import MyDay from '@/app/[locale]/(protected)/my-day/page'
 import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { getUserTimeZone } from '@/lib/userTimeZone'
+import { getDailyHabits } from '@/requests/dailyHabits'
 import { getTodayDiaryStatus } from '@/requests/diary'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 import { getTodayMoodStory } from '@/requests/moodStory'
@@ -15,6 +16,7 @@ jest.mock('@/helpers/mood.helpers', () => ({ isSubmittedToday: jest.fn() }))
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
 jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/diary', () => ({ getTodayDiaryStatus: jest.fn() }))
+jest.mock('@/requests/dailyHabits', () => ({ getDailyHabits: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({
   getLastMoodRecords: jest.fn(),
   getMoodRecords: jest.fn(),
@@ -27,6 +29,23 @@ jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
 }))
 jest.mock('@/components/features/Guide/SafetyResources', () => ({
   SafetyResources: () => <div data-testid="safety-resources" />,
+}))
+jest.mock('@/components/features/MyDay/DailyHabitsCard', () => ({
+  DailyHabitsCard: ({
+    initialHabits,
+    failed,
+    timeZone,
+  }: {
+    initialHabits: Array<{ kind: string; doneToday: boolean }>
+    failed: boolean
+    timeZone: string | null
+  }) => (
+    <div
+      data-testid="daily-habits"
+      data-state={failed ? 'error' : timeZone ? 'ready' : 'unknown-day'}
+      data-habits={initialHabits.map(({ kind, doneToday }) => `${kind}:${doneToday}`).join(',')}
+    />
+  ),
 }))
 jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
   MoodNextStepCard: ({ record }: { record: { stressLevel?: number } }) => (
@@ -79,6 +98,7 @@ beforeEach(() => {
   ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [] })
   ;(getTodayDiaryStatus as jest.Mock).mockResolvedValue({ data: { hasEntry: false } })
+  ;(getDailyHabits as jest.Mock).mockResolvedValue({ data: [] })
   ;(getMoodRecords as jest.Mock).mockResolvedValue({ data: { moodNotes: [] } })
   ;(fetchPersonalGoals as jest.Mock).mockResolvedValue({ data: [] })
   ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Not ready', status: 404 })
@@ -90,6 +110,8 @@ describe('My Day optional support', () => {
     render(await MyDay())
 
     expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), { limit: 1, dailyOnly: true })
+    expect(getDailyHabits).toHaveBeenCalledWith(expect.anything(), 'Europe/Warsaw')
+    expect(screen.getByTestId('daily-habits')).toHaveAttribute('data-state', 'ready')
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-mood-status', 'available')
@@ -120,6 +142,26 @@ describe('My Day optional support', () => {
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()
+  })
+
+  it('shows only verified saved habit selections and does not infer completion from a mood check-in', async () => {
+    ;(getDailyHabits as jest.Mock).mockResolvedValue({
+      data: [{ kind: 'breathing', doneToday: true }, { kind: 'movement', doneToday: false }],
+    })
+    render(await MyDay())
+    expect(screen.getByTestId('daily-habits')).toHaveAttribute(
+      'data-habits',
+      'breathing:true,movement:false'
+    )
+    expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-mood-status', 'available')
+  })
+
+  it('preserves My Day mood, diary and support if habits API fails', async () => {
+    ;(getDailyHabits as jest.Mock).mockResolvedValue({ error: 'Unavailable', status: 503 })
+    render(await MyDay())
+    expect(screen.getByTestId('daily-habits')).toHaveAttribute('data-state', 'error')
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
   })
 
   it('passes last submission to browser gating before timezone cookie initialization', async () => {
