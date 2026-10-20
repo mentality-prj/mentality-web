@@ -32,7 +32,8 @@ const MyDay = async () => {
   )
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
-  const todayRecords = 'error' in todayRes ? [] : (todayRes.data ?? [])
+  const todayHistoryVerified = !('error' in todayRes) && Array.isArray(todayRes.data)
+  const todayRecords = todayHistoryVerified ? todayRes.data : []
   const initialLastSubmittedAt = todayRecords[0]?.createdAt ?? null
   const todayRecord = timeZone
     ? todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
@@ -75,7 +76,7 @@ const MyDay = async () => {
             subtitle={t('greetingText')}
             counts={moodCounts}
             initialLastSubmittedAt={initialLastSubmittedAt}
-            historyVerified={!('error' in todayRes)}
+            historyVerified={todayHistoryVerified}
           />
         )}
         <DailyTipClient recommendedId={recommendedTipId} />
