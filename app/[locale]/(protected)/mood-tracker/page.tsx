@@ -21,7 +21,10 @@ export default async function MoodTracker({
   const session = await getServerSession()
   const timeZone = await getUserTimeZone()
   const query = parseMoodQuery(await searchParams)
-  const [result, res] = await Promise.all([getMoodRecords(session, query), getLastMoodRecords(session, { days: 10, timeZone: timeZone ?? undefined })])
+  const [result, res] = await Promise.all([
+    getMoodRecords(session, query),
+    getLastMoodRecords(session, { days: 10, timeZone: timeZone ?? undefined }),
+  ])
   const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
   const total = 'error' in result ? 0 : result.data.total
 
