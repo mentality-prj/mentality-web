@@ -7,7 +7,8 @@ import { getExerciseFeedback } from '@/requests/exerciseFeedback'
 export async function ExerciseFeedback({ category }: { category: MoodAction }) {
   const session = await getServerSession()
   const response = await getExerciseFeedback(session)
-  const saved = 'error' in response ? null : (response.data.find((entry) => entry.category === category)?.helpful ?? null)
+  const saved =
+    'error' in response ? null : (response.data.find((entry) => entry.category === category)?.helpful ?? null)
 
   return <ExerciseFeedbackPanel category={category} initialHelpful={saved} />
 }
