@@ -148,7 +148,10 @@ describe('My Day optional support', () => {
 
   it('shows only verified saved habit selections and does not infer completion from a mood check-in', async () => {
     ;(getDailyHabits as jest.Mock).mockResolvedValue({
-      data: [{ kind: 'breathing', doneToday: true }, { kind: 'movement', doneToday: false }],
+      data: [
+        { kind: 'breathing', doneToday: true },
+        { kind: 'movement', doneToday: false },
+      ],
     })
     render(await MyDay())
     expect(screen.getByTestId('daily-habits')).toHaveAttribute('data-habits', 'breathing:true,movement:false')
