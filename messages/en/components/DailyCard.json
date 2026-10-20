@@ -33,5 +33,40 @@
     "optional": "Whenever you like",
     "unknown": "Status is temporarily unavailable",
     "progressAction": "View your progress"
+  },
+  "habits": {
+    "title": "Your optional daily habits",
+    "description": "Choose small activities you'd like to repeat. You decide whether and when to do them.",
+    "choose": "Add to my day",
+    "selected": "Selected — available today",
+    "doneToday": "Marked for today",
+    "markToday": "I did this today",
+    "undo": "Undo today's mark",
+    "remove": "Remove from my day",
+    "openActivity": "Open activity",
+    "noPressure": "No streaks, deadlines or penalties. Skipped days do not undo progress. You can undo a mark.",
+    "unknownDay": "Your time zone isn't available yet. Refresh My Day before checking off an activity.",
+    "loadError": "Could not load your habits. Refresh the page later.",
+    "failed": "Couldn't save the change. Check your connection and try again.",
+    "saved": "Your choice was saved.",
+    "login": "Please complete sign-in before saving.",
+    "options": {
+      "breathing": {
+        "title": "A short breathing break",
+        "description": "Two minutes of breathing at a comfortable pace."
+      },
+      "movement": {
+        "title": "A little movement",
+        "description": "A short walk or gentle stretch, if you feel like it."
+      },
+      "journaling": {
+        "title": "Write down one thought",
+        "description": "A few private words in your journal, if you want."
+      },
+      "screenBreak": {
+        "title": "Take a screen break",
+        "description": "Set your phone aside and rest for a few minutes."
+      }
+    }
   }
 }
