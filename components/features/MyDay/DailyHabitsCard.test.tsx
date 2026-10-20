@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
-import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import { DailyHabitsCard } from '@/components/features/MyDay/DailyHabitsCard'
 import { useAuth } from '@/context/AuthProvider'
