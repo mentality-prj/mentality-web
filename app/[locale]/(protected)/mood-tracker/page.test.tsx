@@ -115,6 +115,15 @@ describe('MoodTracker page', () => {
     expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords, 'Europe/Warsaw')
   })
 
+  it('rejects an undefined history payload rather than rendering an empty summary', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: undefined })
+
+    await expect(MoodTrackerPage({ searchParams: Promise.resolve({}) })).rejects.toThrow(
+      'Unable to load mood summary'
+    )
+    expect(buildMoodMarksData).not.toHaveBeenCalled()
+  })
+
   it('never substitutes an empty mood history after a read failure', async () => {
     ;(getMoodRecords as jest.Mock).mockResolvedValue({ error: 'Unavailable', status: 503 })
 
