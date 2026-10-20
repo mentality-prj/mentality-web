@@ -67,7 +67,9 @@ describe('DailyHabitsCard: no-pressure daily routine', () => {
     expect(screen.getByRole('link', { name: 'openActivity' })).toHaveAttribute('href', '/guide/breathing')
 
     fireEvent.click(screen.getByRole('button', { name: 'markToday' }))
-    await waitFor(() => expect(screen.getByRole('button', { name: 'undo' })).toHaveAttribute('aria-pressed', 'true'))
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'undo' })).toHaveAttribute('aria-pressed', 'true')
+    )
     expect(checkDailyHabit).toHaveBeenCalledWith(session, 'breathing', true, 'Europe/Warsaw')
     expect(screen.getByText('doneToday')).toBeInTheDocument()
   })
@@ -79,12 +81,7 @@ describe('DailyHabitsCard: no-pressure daily routine', () => {
     ;(removeDailyHabit as jest.Mock).mockResolvedValue({
       data: { kind: 'journaling', selected: false },
     })
-    render(
-      <DailyHabitsCard
-        {...base}
-        initialHabits={[{ kind: 'journaling', doneToday: true }]}
-      />
-    )
+    render(<DailyHabitsCard {...base} initialHabits={[{ kind: 'journaling', doneToday: true }]} />)
     expect(screen.getByRole('link', { name: 'openActivity' })).toHaveAttribute('href', '/diary')
     fireEvent.click(screen.getByRole('button', { name: 'undo' }))
     await waitFor(() => expect(screen.getByRole('button', { name: 'markToday' })).toBeInTheDocument())
