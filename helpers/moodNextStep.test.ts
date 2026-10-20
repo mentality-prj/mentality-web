@@ -61,6 +61,23 @@ describe('transparent, non-predictive next action', () => {
     expect(chooseMoodNextStep({ ...base, stressLevel: 4.5, moodLevel: 0 }).observation).toBe('general')
   })
 
+  it('reuses the most recent explicit positive response only for neutral check-ins', () => {
+    const feedback = [
+      { category: 'focus' as const, helpful: false },
+      { category: 'meditation' as const, helpful: true },
+      { category: 'calming' as const, helpful: true },
+    ]
+    expect(chooseMoodNextStep(base, feedback)).toEqual({
+      observation: 'preference',
+      action: 'meditation',
+      href: '/guide/meditations',
+    })
+    expect(chooseMoodNextStep({ ...base, stressLevel: 5 }, feedback).action).toBe('breathing')
+    expect(chooseMoodNextStep({ ...base, moodLevel: 1 }, feedback).action).toBe('calming')
+    expect(chooseMoodNextStep({ ...base, energyLevel: 1 }, feedback).action).toBe('meditation')
+    expect(chooseMoodNextStep(base, [{ category: 'focus', helpful: false }]).observation).toBe('general')
+  })
+
   it('only returns fixed supported links without private IDs, tags or predictions', () => {
     const result = chooseMoodNextStep({ ...base, focusLevel: 1 })
     expect(Object.values(MOOD_ACTION_HREF)).toEqual([
