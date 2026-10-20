@@ -73,6 +73,8 @@
     "failed": "Could not save your response. Try again.",
     "login": "Please allow your sign-in to finish first.",
     "previouslySaved": "Your latest response is saved. You can change it.",
-    "privacyNote": "Only the activity category and its rating are saved, never diary text. This is not a clinical assessment."
+    "privacyNote": "Only the activity category and its rating are saved, never diary text. This is not a clinical assessment.",
+    "clear": "Remove my rating",
+    "cleared": "Rating removed. It will no longer affect suggestions."
   }
 }
