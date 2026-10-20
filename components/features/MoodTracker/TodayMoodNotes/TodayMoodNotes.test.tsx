@@ -1,26 +1,13 @@
 import { render, screen } from '@testing-library/react'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
-import { isSubmittedToday } from '@/helpers/mood.helpers'
-import { getServerSession } from '@/lib/get-server-session'
-import { getUserTimeZone } from '@/lib/userTimeZone'
-import { getLastMoodRecords } from '@/requests/moodRecord'
-import { MoodRecordEntity } from '@/types/api-responses'
-import { CustomSession } from '@/types/auth'
+import type { MoodRecordEntity } from '@/types/api-responses'
 
-jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
-jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
-jest.mock('@/helpers/mood.helpers', () => ({ isSubmittedToday: jest.fn() }))
-jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn() }))
 jest.mock('next-intl/server')
-
 jest.mock('@/i18n/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }))
-
-jest.mock('lucide-react', () => ({ Calendar: () => null, Clock: () => null }))
-
 jest.mock('@/components/features/MoodTracker/MoodLevelBars/MoodLevelBars', () => ({
   MoodLevelBars: () => (
     <div>
@@ -30,45 +17,30 @@ jest.mock('@/components/features/MoodTracker/MoodLevelBars/MoodLevelBars', () =>
     </div>
   ),
 }))
-
 jest.mock('@/components/shared/Cards/Card', () => ({
   __esModule: true,
   default: ({
     children,
     title,
-    text,
     link,
     tools,
+    time,
   }: {
     children?: React.ReactNode
     title?: React.ReactNode
-    text?: React.ReactNode
     link?: string
     tools?: React.ReactNode
+    time?: string
   }) => (
     <div>
       {link && <a href={link} aria-label={typeof title === 'string' ? title : 'link'} />}
       {title && <h3>{title}</h3>}
-      {text && <div data-testid="card-text">{text}</div>}
+      {time && <span data-testid="mood-time">{time}</span>}
       {tools}
       {children}
     </div>
   ),
 }))
-
-jest.mock('@/ds/components/Tag', () => ({
-  Tag: ({ text }: { text: string }) => <span data-testid="tag">{text}</span>,
-}))
-
-jest.mock('@/ds/components/TooltipIcon', () => ({
-  TooltipIcon: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}))
-
-const mockSession: CustomSession = {
-  user: { id: 'user-1', name: 'Test User', email: 'user@test.com', role: 'user' as const },
-  OAuthToken: 'mock-token',
-  expires: new Date(Date.now() + 86400000).toISOString(),
-}
 
 const mockRecord: MoodRecordEntity = {
   id: 'rec-1',
@@ -77,106 +49,45 @@ const mockRecord: MoodRecordEntity = {
   energyLevel: 3,
   focusLevel: 4,
   tags: ['calm'],
-  createdAt: '2026-03-13T10:00:00.000Z',
+  createdAt: '2026-10-17T22:10:00.000Z',
 }
 
 beforeEach(() => {
   jest.clearAllMocks()
-  ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
-  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
-  ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
+  ;(getLocale as jest.Mock).mockResolvedValue('uk')
 })
 
 describe('TodayMoodNotes', () => {
-  it('renders nothing when there are no records', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [] })
-
-    const { container } = render(await TodayMoodNotes())
-
+  it('does not show a record when My Day has not verified a full daily check-in', async () => {
+    const { container } = render(await TodayMoodNotes({ record: null, timeZone: 'Europe/Warsaw' }))
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('renders nothing when API returns an error', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
-      error: 'Unauthorized',
-      message: 'Session expired',
-      status: 401,
-    })
-
-    const { container } = render(await TodayMoodNotes())
-
+  it('does not infer today from server UTC or user locale without a verified time zone', async () => {
+    const { container } = render(await TodayMoodNotes({ record: mockRecord, timeZone: null }))
     expect(container).toBeEmptyDOMElement()
   })
 
-  it('renders stress, energy and focus labels for each record', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [mockRecord] })
-
-    render(await TodayMoodNotes())
-
-    expect(screen.queryByText('empty')).not.toBeInTheDocument()
+  it('shows the verified record and links to mood history and diary', async () => {
+    render(await TodayMoodNotes({ record: mockRecord, timeZone: 'Europe/Warsaw' }))
     expect(screen.getByText('stress')).toBeInTheDocument()
     expect(screen.getByText('energy')).toBeInTheDocument()
     expect(screen.getByText('focus')).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'title' })).toHaveAttribute(
+      'href',
+      '/mood-tracker#mood-records-list'
+    )
+    expect(screen.getByRole('link', { name: 'writeDiary' })).toHaveAttribute('href', '/diary')
+    // After UTC 22:00 Warsaw is already on the next local calendar day.
+    expect(screen.getByTestId('mood-time')).toHaveTextContent('00:10')
   })
 
-  it('renders a tag for each of the three level dimensions', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [mockRecord] })
-
-    render(await TodayMoodNotes())
-
-    expect(screen.getByText('stress')).toBeInTheDocument()
-    expect(screen.getByText('energy')).toBeInTheDocument()
-    expect(screen.getByText('focus')).toBeInTheDocument()
-  })
-
-  it('renders the "more" link to mood-tracker when a record exists', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [mockRecord] })
-
-    render(await TodayMoodNotes())
-
-    const moodLink = screen.getByRole('link', { name: 'title' })
-    expect(moodLink).toHaveAttribute('href', '/mood-tracker#mood-records-list')
-    const diaryLink = screen.getByRole('link', { name: 'writeDiary' })
-    expect(diaryLink).toHaveAttribute('href', '/diary')
-  })
-
-  it('renders multiple records', async () => {
-    const records: MoodRecordEntity[] = [
-      { ...mockRecord, id: 'rec-1' },
-      { ...mockRecord, id: 'rec-2', stressLevel: 5, energyLevel: 1 },
-    ]
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: records })
-
-    render(await TodayMoodNotes())
-
-    // component only renders the first (most recent) record — days: 1 (today only)
-    const stressLabels = screen.getAllByText('stress')
-    expect(stressLabels).toHaveLength(1)
-  })
-
-  it('calls getLastMoodRecords with limit 1', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [] })
-
-    await TodayMoodNotes()
-
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, {
-      days: 1,
+  it('keeps rendering when a historical record has an unexpected level', async () => {
+    render(await TodayMoodNotes({
+      record: { ...mockRecord, stressLevel: 99, energyLevel: 99, focusLevel: 99 },
       timeZone: 'Europe/Warsaw',
-      dailyOnly: true,
-    })
-  })
-
-  it('falls back gracefully when stressLevel has an unknown value', async () => {
-    const recordWithUnknownLevels: MoodRecordEntity = {
-      ...mockRecord,
-      stressLevel: 99,
-      energyLevel: 99,
-      focusLevel: 99,
-    }
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: [recordWithUnknownLevels] })
-
-    // Should render without throwing — fallback constants are used
-    await expect(async () => render(await TodayMoodNotes())).not.toThrow()
+    }))
+    expect(screen.getByText('stress')).toBeInTheDocument()
   })
 })
