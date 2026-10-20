@@ -76,7 +76,9 @@ jest.mock('@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard', () =>
   MoodStoryCard: () => <div data-testid="mood-story" />,
 }))
 jest.mock('@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes', () => ({
-  TodayMoodNotes: () => <div data-testid="today-mood" />,
+  TodayMoodNotes: ({ record, timeZone }: { record?: { id: string } | null; timeZone?: string | null }) => (
+    <div data-testid="today-mood" data-record-id={record?.id ?? ''} data-time-zone={timeZone ?? ''} />
+  ),
 }))
 jest.mock('@/components/features/Affirmations/DailyAffirmationClient', () => ({
   DailyAffirmationClient: () => <div />,
@@ -109,7 +111,12 @@ describe('My Day optional support', () => {
   it('shows grounding before any check-in is required', async () => {
     render(await MyDay())
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), { limit: 1, dailyOnly: true })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), {
+      days: 1,
+      limit: 1,
+      timeZone: 'Europe/Warsaw',
+      dailyOnly: true,
+    })
     expect(getDailyHabits).toHaveBeenCalledWith(expect.anything(), 'Europe/Warsaw')
     expect(screen.getByTestId('daily-habits')).toHaveAttribute('data-state', 'ready')
     expect(screen.getByTestId('mood-prompt')).toBeInTheDocument()
@@ -174,6 +181,7 @@ describe('My Day optional support', () => {
     render(await MyDay())
     expect(screen.getByTestId('mood-prompt')).toHaveAttribute('data-last-submitted-at', '2026-10-17T22:10:00.000Z')
     expect(isSubmittedToday).not.toHaveBeenCalled()
+    expect(getLastMoodRecords).toHaveBeenCalledWith(expect.anything(), { limit: 1, dailyOnly: true })
   })
 
   it('blocks unverified history instead of treating an API failure as no submission', async () => {
@@ -205,6 +213,8 @@ describe('My Day optional support', () => {
 
     expect(screen.getByTestId('mood-story')).toBeInTheDocument()
     expect(screen.getByTestId('mood-next-step')).toHaveTextContent('4')
+    expect(screen.getByTestId('today-mood')).toHaveAttribute('data-record-id', 'mood-1')
+    expect(screen.getByTestId('today-mood')).toHaveAttribute('data-time-zone', 'Europe/Warsaw')
     expect(screen.queryByTestId('quick-support')).not.toBeInTheDocument()
     expect(screen.getByTestId('safety-resources')).toBeInTheDocument()
   })
