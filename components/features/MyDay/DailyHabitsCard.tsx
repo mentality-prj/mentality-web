@@ -2,8 +2,8 @@
 
 import { useEffect, useRef, useState } from 'react'
 import { CircleCheck } from 'lucide-react'
-import { useTranslations } from 'next-intl'
 import { useRouter } from 'next/navigation'
+import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
 import { SectionCard } from '@/ds/components/SectionCard'
