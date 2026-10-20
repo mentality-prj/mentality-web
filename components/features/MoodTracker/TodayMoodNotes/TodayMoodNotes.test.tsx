@@ -74,20 +74,19 @@ describe('TodayMoodNotes', () => {
     expect(screen.getByText('stress')).toBeInTheDocument()
     expect(screen.getByText('energy')).toBeInTheDocument()
     expect(screen.getByText('focus')).toBeInTheDocument()
-    expect(screen.getByRole('link', { name: 'title' })).toHaveAttribute(
-      'href',
-      '/mood-tracker#mood-records-list'
-    )
+    expect(screen.getByRole('link', { name: 'title' })).toHaveAttribute('href', '/mood-tracker#mood-records-list')
     expect(screen.getByRole('link', { name: 'writeDiary' })).toHaveAttribute('href', '/diary')
     // After UTC 22:00 Warsaw is already on the next local calendar day.
     expect(screen.getByTestId('mood-time')).toHaveTextContent('00:10')
   })
 
   it('keeps rendering when a historical record has an unexpected level', async () => {
-    render(await TodayMoodNotes({
-      record: { ...mockRecord, stressLevel: 99, energyLevel: 99, focusLevel: 99 },
-      timeZone: 'Europe/Warsaw',
-    }))
+    render(
+      await TodayMoodNotes({
+        record: { ...mockRecord, stressLevel: 99, energyLevel: 99, focusLevel: 99 },
+        timeZone: 'Europe/Warsaw',
+      })
+    )
     expect(screen.getByText('stress')).toBeInTheDocument()
   })
 })
