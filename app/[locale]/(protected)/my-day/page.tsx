@@ -15,7 +15,7 @@ import { logger } from '@/lib/logger'
 import { getUserTimeZone } from '@/lib/userTimeZone'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
-import { getLatestMoodStory } from '@/requests/moodStory'
+import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { MoodStoryResult } from '@/types/api-responses'
 import { Roles } from '@/types/security'
@@ -56,8 +56,8 @@ const MyDay = async () => {
   let storyResult: MoodStoryResult | undefined
   let recommendedAffirmationId: string | undefined
   let recommendedTipId: string | undefined
-  if (submittedToday) {
-    storyResult = await getLatestMoodStory(session)
+  if (submittedToday && timeZone) {
+    storyResult = await getTodayMoodStory(session, timeZone)
     if (!('error' in storyResult)) {
       recommendedAffirmationId = storyResult.data.recommendedAffirmationId
       recommendedTipId = storyResult.data.recommendedTipId
