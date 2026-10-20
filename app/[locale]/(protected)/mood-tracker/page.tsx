@@ -8,6 +8,7 @@ import { PageTitle } from '@/ds/components/PageTitle'
 import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { parseMoodQuery } from '@/lib/moodQueryParser'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
 
 export default async function MoodTracker({
@@ -18,8 +19,9 @@ export default async function MoodTracker({
   const t = await getTranslations('pages.MoodTracker')
 
   const session = await getServerSession()
+  const timeZone = await getUserTimeZone()
   const query = parseMoodQuery(await searchParams)
-  const [result, res] = await Promise.all([getMoodRecords(session, query), getLastMoodRecords(session, { days: 10 })])
+  const [result, res] = await Promise.all([getMoodRecords(session, query), getLastMoodRecords(session, { days: 10, timeZone: timeZone ?? undefined })])
   const moodNotes = 'error' in result ? [] : (result.data.moodNotes ?? [])
   const total = 'error' in result ? 0 : result.data.total
 
@@ -30,7 +32,7 @@ export default async function MoodTracker({
   const moodMarksData = buildMoodMarksData(res?.data ?? [])
 
   // build daily summaries: { date: 'YYYY-MM-DD', records: number }
-  const summaries = buildDailySummaries(res?.data ?? [])
+  const summaries = buildDailySummaries(res?.data ?? [], timeZone ?? undefined)
 
   return (
     <div className="flex flex-col gap-md">
@@ -41,7 +43,13 @@ export default async function MoodTracker({
         </div>
         <div className="flex flex-col gap-sm desktop:w-2/5">
           <WellbeingSummary records={res?.data ?? []} />
-          <TenDaysSummary moodMarksData={moodMarksData} lastRecordsSummary={summaries} records={res?.data ?? []} />
+          {timeZone && (
+            <TenDaysSummary
+              moodMarksData={moodMarksData}
+              lastRecordsSummary={summaries}
+              records={res?.data ?? []}
+            />
+          )}
         </div>
       </div>
       <MoodRecords totalCount={total} records={moodNotes ?? []} />
