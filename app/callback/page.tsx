@@ -52,8 +52,8 @@ export default function CallbackPage() {
     <Suspense
       fallback={
         <div className="text-center">
-          <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-primary/30 border-t-primary" />
-          <p className="mt-4 text-textcolor-secondary">{callbackEn.loading}</p>
+          <div className="border-primary/30 border-t-primary mx-auto h-10 w-10 animate-spin rounded-full border-4" />
+          <p className="text-textcolor-secondary mt-4">{callbackEn.loading}</p>
         </div>
       }
     >
@@ -127,7 +127,9 @@ function CallbackContent() {
       setError(getMessages().unknownError)
     } catch (err) {
       setError(
-        err instanceof SessionVerificationUnavailableError ? getMessages().sessionUnavailable : getMessages().unknownError
+        err instanceof SessionVerificationUnavailableError
+          ? getMessages().sessionUnavailable
+          : getMessages().unknownError
       )
     } finally {
       setRetryingSession(false)
@@ -137,19 +139,13 @@ function CallbackContent() {
   if (error) {
     return (
       <div className="text-center">
-        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full bg-error/10">
-          <svg
-            className="h-7 w-7 text-error"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-            strokeWidth={2}
-          >
+        <div className="bg-error/10 mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-full">
+          <svg className="text-error h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12" />
           </svg>
         </div>
-        <h1 className="text-2xl font-bold text-textcolor-primary">{getMessages().authError}</h1>
-        <p className="mt-2 text-textcolor-secondary">{error}</p>
+        <h1 className="text-textcolor-primary text-2xl font-bold">{getMessages().authError}</h1>
+        <p className="text-textcolor-secondary mt-2">{error}</p>
         {canRetrySession && (
           <Button onClick={() => void retryVerifiedSession()} disabled={retryingSession} className="mt-6">
             {getMessages().retrySession}
@@ -164,8 +160,8 @@ function CallbackContent() {
 
   return (
     <div className="text-center">
-      <div className="mx-auto h-10 w-10 animate-spin rounded-full border-4 border-primary/30 border-t-primary" />
-      <p className="mt-4 text-textcolor-secondary">{getMessages().completingSignIn}</p>
+      <div className="border-primary/30 border-t-primary mx-auto h-10 w-10 animate-spin rounded-full border-4" />
+      <p className="text-textcolor-secondary mt-4">{getMessages().completingSignIn}</p>
     </div>
   )
 }
