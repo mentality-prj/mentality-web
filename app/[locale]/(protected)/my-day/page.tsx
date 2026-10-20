@@ -4,6 +4,7 @@ import { DailyAffirmationClient } from '@/components/features/Affirmations/Daily
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
+import { DailyHabitsCard } from '@/components/features/MyDay/DailyHabitsCard'
 import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoals/DeadlineCountdown'
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
@@ -55,6 +56,7 @@ const MyDay = async () => {
   return (
     <article className="grid grid-cols-1 gap-default laptop:grid-cols-2 xl:grid-cols-4">
       <div className="flex flex-col gap-sm xl:col-span-2">
+        <DailyHabitsCard />
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} initialStory={storyResult} />
         ) : (
