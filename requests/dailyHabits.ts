@@ -1,4 +1,4 @@
-import type { CustomSession } from '@/types/auth'
+import { CustomSession } from '@/types/auth'
 import { isValidTimeZone } from '@/utils/timeZone'
 
 import { APIUrl } from './config'
