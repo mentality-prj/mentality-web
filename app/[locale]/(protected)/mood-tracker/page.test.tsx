@@ -136,7 +136,7 @@ describe('MoodTracker page', () => {
     expect(screen.queryByTestId('quick-support')).not.toBeInTheDocument()
   })
 
-  it('does not use a quick or stress event as today\'s full check-in recommendation', async () => {
+  it("does not use a quick or stress event as today's full check-in recommendation", async () => {
     ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
     ;(getLastMoodRecords as jest.Mock).mockImplementation(async (_session, params) =>
       params?.dailyOnly ? { data: [] } : { data: mockRecords }
