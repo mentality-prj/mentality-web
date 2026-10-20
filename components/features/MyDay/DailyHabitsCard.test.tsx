@@ -72,7 +72,9 @@ describe('My Day voluntary habits mobile UI', () => {
     fireEvent.click(screen.getByRole('button', { name: 'markToday' }))
     await waitFor(() => expect(screen.getByRole('button', { name: 'undo' })).toHaveAttribute('aria-pressed', 'true'))
     fireEvent.click(screen.getByRole('button', { name: 'undo' }))
-    await waitFor(() => expect(screen.getByRole('button', { name: 'markToday' })).toHaveAttribute('aria-pressed', 'false'))
+    await waitFor(() =>
+      expect(screen.getByRole('button', { name: 'markToday' })).toHaveAttribute('aria-pressed', 'false')
+    )
     expect(checkDailyHabit).toHaveBeenCalledWith(session, 'breathing', false, 'Europe/Warsaw')
   })
 
