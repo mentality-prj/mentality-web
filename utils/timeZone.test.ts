@@ -50,9 +50,7 @@ describe('user-local calendar day', () => {
 
   it('refreshes at the exact next local day and fails closed for unknown zones', () => {
     expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T21:59:59.500Z'), 'Europe/Warsaw')).toBe(500)
-    expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T22:00:00.000Z'), 'Europe/Warsaw')).toBe(
-      24 * 60 * 60 * 1000
-    )
+    expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T22:00:00.000Z'), 'Europe/Warsaw')).toBe(24 * 60 * 60 * 1000)
     expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T22:00:00Z'), null)).toBeNull()
     expect(millisecondsUntilNextLocalDay(new Date('2026-10-17T22:00:00Z'), 'Mars/Phobos')).toBeNull()
     expect(millisecondsUntilNextLocalDay(new Date('not-a-date'), 'Europe/Warsaw')).toBeNull()
