@@ -2,21 +2,26 @@ import { getTranslations } from 'next-intl/server'
 
 import { MoodActionPicker, type MoodActionCopy } from '@/components/features/Guide/MoodActionPicker'
 import { SectionCard } from '@/ds/components/SectionCard'
-import { chooseMoodNextStep, type MoodPreference } from '@/helpers/moodNextStep'
+import { chooseMoodNextStep } from '@/helpers/moodNextStep'
+import { getServerSession } from '@/lib/get-server-session'
+import { getExerciseFeedback } from '@/requests/exerciseFeedback'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 type Props = {
   record: MoodRecordEntity
-  feedback?: readonly MoodPreference[]
 }
 
 /**
  * Uses only the four explicit self-report levels. No inferred medical state,
  * diary content, identifiers, or model-generated predictive confidence.
  */
-export async function MoodNextStepCard({ record, feedback = [] }: Props) {
+export async function MoodNextStepCard({ record }: Props) {
   const t = await getTranslations('components.ExercisesForRecovery.nextStep')
-  const step = chooseMoodNextStep(record, feedback)
+  // Keep the existing My Day / Mood Tracker callers unchanged. Missing or
+  // unavailable feedback falls back to self-report-only rules.
+  const session = await getServerSession()
+  const response = await getExerciseFeedback(session)
+  const step = chooseMoodNextStep(record, 'error' in response ? [] : response.data)
   const copy: MoodActionCopy = {
     choosePrompt: t('choosePrompt'),
     userChoiceNote: t('userChoiceNote'),
