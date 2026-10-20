@@ -2,7 +2,7 @@ import { CustomSession } from '@/types/auth'
 import { isValidTimeZone } from '@/utils/timeZone'
 
 import { APIUrl } from './config'
-import { performAuthRequest, type ApiResponseDecoder } from './genericFetch'
+import { type ApiResponseDecoder, performAuthRequest } from './genericFetch'
 
 export const DAILY_HABIT_KINDS = ['breathing', 'movement', 'journaling', 'screenBreak'] as const
 export type DailyHabitKind = (typeof DAILY_HABIT_KINDS)[number]
