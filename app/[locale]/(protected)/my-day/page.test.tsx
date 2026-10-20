@@ -151,10 +151,7 @@ describe('My Day optional support', () => {
       data: [{ kind: 'breathing', doneToday: true }, { kind: 'movement', doneToday: false }],
     })
     render(await MyDay())
-    expect(screen.getByTestId('daily-habits')).toHaveAttribute(
-      'data-habits',
-      'breathing:true,movement:false'
-    )
+    expect(screen.getByTestId('daily-habits')).toHaveAttribute('data-habits', 'breathing:true,movement:false')
     expect(screen.getByTestId('daily-routine')).toHaveAttribute('data-mood-status', 'available')
   })
 
