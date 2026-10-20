@@ -33,7 +33,12 @@ const MyDay = async () => {
   const isAdmin = session?.user?.role === Roles.ADMIN
   const timeZone = await getUserTimeZone()
 
-  const todayPromise = getLastMoodRecords(session, { limit: 1, dailyOnly: true })
+  // Query the user's local calendar day; when the zone is unknown, pass only
+  // the latest timestamp to the client without claiming a completed local check-in.
+  const todayPromise = getLastMoodRecords(
+    session,
+    timeZone ? { days: 1, limit: 1, timeZone, dailyOnly: true } : { limit: 1, dailyOnly: true }
+  )
   const goalsPromise = fetchPersonalGoals(session)
   const habitsPromise = timeZone ? getDailyHabits(session, timeZone) : null
   // Do not fetch diary text just to render a completion indicator.
@@ -112,7 +117,7 @@ const MyDay = async () => {
         {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
         <SafetyResources />
         <DailyTipClient recommendedId={recommendedTipId} />
-        <TodayMoodNotes />
+        <TodayMoodNotes record={todayRecord ?? null} timeZone={timeZone} />
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">
