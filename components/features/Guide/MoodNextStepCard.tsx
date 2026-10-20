@@ -2,20 +2,21 @@ import { getTranslations } from 'next-intl/server'
 
 import { MoodActionPicker, type MoodActionCopy } from '@/components/features/Guide/MoodActionPicker'
 import { SectionCard } from '@/ds/components/SectionCard'
-import { chooseMoodNextStep } from '@/helpers/moodNextStep'
+import { chooseMoodNextStep, type MoodPreference } from '@/helpers/moodNextStep'
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 type Props = {
   record: MoodRecordEntity
+  feedback?: readonly MoodPreference[]
 }
 
 /**
  * Uses only the four explicit self-report levels. No inferred medical state,
  * diary content, identifiers, or model-generated predictive confidence.
  */
-export async function MoodNextStepCard({ record }: Props) {
+export async function MoodNextStepCard({ record, feedback = [] }: Props) {
   const t = await getTranslations('components.ExercisesForRecovery.nextStep')
-  const step = chooseMoodNextStep(record)
+  const step = chooseMoodNextStep(record, feedback)
   const copy: MoodActionCopy = {
     choosePrompt: t('choosePrompt'),
     userChoiceNote: t('userChoiceNote'),
