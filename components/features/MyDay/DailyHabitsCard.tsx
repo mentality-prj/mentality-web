@@ -88,7 +88,7 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
       if (action === 'remove') {
         setHabits((previous) => previous.filter((habit) => habit.kind !== kind))
       } else {
-        if (!('doneToday' in response.data) || typeof response.data.doneToday !== 'boolean') {
+        if (!response.data || !('doneToday' in response.data) || typeof response.data.doneToday !== 'boolean') {
           setNotice('failed')
           return
         }
