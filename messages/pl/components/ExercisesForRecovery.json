@@ -73,6 +73,8 @@
     "failed": "Nie udało się zapisać odpowiedzi. Spróbuj ponownie.",
     "login": "Poczekaj na zakończenie logowania.",
     "previouslySaved": "Twoja ostatnia ocena została zapisana. Możesz ją zmienić.",
-    "privacyNote": "Zapisywana jest tylko kategoria ćwiczenia i ocena, bez treści dziennika. Nie jest to ocena kliniczna."
+    "privacyNote": "Zapisywana jest tylko kategoria ćwiczenia i ocena, bez treści dziennika. Nie jest to ocena kliniczna.",
+    "clear": "Usuń moją ocenę",
+    "cleared": "Ocena usunięta. Nie będzie już wpływać na propozycje."
   }
 }
