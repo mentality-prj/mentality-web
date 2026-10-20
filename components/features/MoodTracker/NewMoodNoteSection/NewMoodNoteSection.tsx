@@ -11,7 +11,10 @@ export async function NewMoodNoteSection() {
   const timeZone = await getUserTimeZone()
   const [tagsRes, lastRecordRes] = await Promise.all([
     fetchNormalizedUserTags(session),
-    getLastMoodRecords(session, { limit: 1, dailyOnly: true }),
+    getLastMoodRecords(
+      session,
+      timeZone ? { days: 1, limit: 1, timeZone, dailyOnly: true } : { limit: 1, dailyOnly: true }
+    ),
   ])
 
   const tags: UserTag[] = !('error' in tagsRes) && Array.isArray(tagsRes.data) ? tagsRes.data : []

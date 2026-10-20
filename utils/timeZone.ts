@@ -48,3 +48,25 @@ export function getRecentLocalDayKeys(days: number, timeZone: string | null, now
     return date.toISOString().slice(0, 10)
   })
 }
+
+/**
+ * Milliseconds until the next civil midnight in the user's IANA zone.
+ * Binary search over real instants handles 23- and 25-hour DST days without
+ * assuming that the next local day starts after 24 UTC hours.
+ */
+export function millisecondsUntilNextLocalDay(now: Date, timeZone: string | null): number | null {
+  const today = getLocalDayKey(now, timeZone)
+  if (!today) return null
+
+  let before = now.getTime()
+  let after = before + 27 * 60 * 60 * 1000
+  if (getLocalDayKey(new Date(after), timeZone) === today) return null
+
+  while (after - before > 1) {
+    const middle = before + Math.floor((after - before) / 2)
+    if (getLocalDayKey(new Date(middle), timeZone) === today) before = middle
+    else after = middle
+  }
+
+  return after - now.getTime()
+}
