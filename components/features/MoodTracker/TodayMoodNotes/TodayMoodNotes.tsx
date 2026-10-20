@@ -7,20 +7,19 @@ import { FOCUSES } from '@/constants/focus'
 import { MOODS } from '@/constants/moods'
 import { Routes } from '@/constants/routes'
 import { STRESSES } from '@/constants/stress'
-import { getServerSession } from '@/lib/get-server-session'
-import { getLastMoodRecords } from '@/requests/moodRecord'
+import type { MoodRecordEntity } from '@/types/api-responses'
 
-export const TodayMoodNotes = async () => {
-  const session = await getServerSession()
+export const TodayMoodNotes = async ({
+  record: todayRecord,
+  timeZone,
+}: {
+  record: MoodRecordEntity | null
+  timeZone: string | null
+}) => {
+  if (!todayRecord || !timeZone) return null
   const locale = await getLocale()
   const t = await getTranslations('components.TodayMoodNotes')
   const tm = await getTranslations('components.Mood')
-  const todayRecordMood = await getLastMoodRecords(session, { days: 1 })
-  const todayRecord = 'error' in todayRecordMood ? null : (todayRecordMood?.data?.[0] ?? null)
-
-  if (!todayRecord) {
-    return null
-  }
 
   const moodLevel = todayRecord.moodLevel ?? 3
   const moodIndex = Math.max(1, Math.min(5, moodLevel))
@@ -30,7 +29,9 @@ export const TodayMoodNotes = async () => {
   const energyInfo = ENERGIES.find((e) => e.value === todayRecord.energyLevel) ?? ENERGIES[2]
   const focusInfo = FOCUSES.find((f) => f.value === todayRecord.focusLevel) ?? FOCUSES[2]
   const time = todayRecord.createdAt
-    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit' }).format(new Date(todayRecord.createdAt))
+    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', timeZone }).format(
+        new Date(todayRecord.createdAt)
+      )
     : ''
 
   return (
