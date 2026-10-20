@@ -105,27 +105,26 @@ export function DailyHabitsCard() {
     setBusy(kind)
     setNotice(null)
     try {
-      const result =
-        action === 'select'
-          ? await chooseDailyHabit(session, kind, freshZone)
-          : action === 'remove'
-            ? await removeDailyHabit(session, kind)
-            : await checkDailyHabit(session, kind, action === 'check', freshZone)
+      if (action === 'remove') {
+        const removed = await removeDailyHabit(session, kind)
+        if ('error' in removed) {
+          setNotice('failed')
+          return
+        }
+        setHabits((previous) => previous.filter((entry) => entry.kind !== kind))
+        setNotice('saved')
+        return
+      }
 
+      const result = action === 'select'
+        ? await chooseDailyHabit(session, kind, freshZone)
+        : await checkDailyHabit(session, kind, action === 'check', freshZone)
       if ('error' in result) {
         setNotice('failed')
         return
       }
-      if (action === 'remove') {
-        setHabits((previous) => previous.filter((entry) => entry.kind !== kind))
-      } else {
-        if (!result.data || typeof result.data.doneToday !== 'boolean') {
-          setNotice('failed')
-          return
-        }
-        const next: DailyHabitToday = { kind, doneToday: result.data.doneToday }
-        setHabits((previous) => [...previous.filter((entry) => entry.kind !== kind), next])
-      }
+      const next: DailyHabitToday = { kind, doneToday: result.data.doneToday }
+      setHabits((previous) => [...previous.filter((entry) => entry.kind !== kind), next])
       setNotice('saved')
     } catch {
       setNotice('failed')
