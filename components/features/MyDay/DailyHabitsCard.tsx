@@ -88,8 +88,12 @@ export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed
       if (action === 'remove') {
         setHabits((previous) => previous.filter((habit) => habit.kind !== kind))
       } else {
-        // Preserve other selected actions: do not refetch or reset other marks.
-        const updated: DailyHabitToday = { kind, doneToday: action === 'check' ? true : response.data.doneToday }
+        if (!('doneToday' in response.data) || typeof response.data.doneToday !== 'boolean') {
+          setNotice('failed')
+          return
+        }
+        // Preserve other selected actions and trust only backend-acknowledged state.
+        const updated: DailyHabitToday = { kind, doneToday: response.data.doneToday }
         setHabits((previous) => [...previous.filter((habit) => habit.kind !== kind), updated])
       }
       setNotice('saved')
