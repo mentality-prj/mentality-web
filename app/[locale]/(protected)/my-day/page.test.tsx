@@ -98,6 +98,14 @@ describe('My Day local calendar boundary and visual hierarchy', () => {
     expect(getTodayMoodStory).not.toHaveBeenCalled()
   })
 
+  it('does not enable daily submission when the server returns an invalid success payload', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: undefined })
+    render(await MyDay())
+
+    expect(screen.getByTestId('mood-summary')).toHaveAttribute('data-verified', 'false')
+    expect(screen.queryByTestId('mood-story')).not.toBeInTheDocument()
+  })
+
   it('does not claim a verified history after the backend fails', async () => {
     ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'Unavailable', status: 503 })
     render(await MyDay())
