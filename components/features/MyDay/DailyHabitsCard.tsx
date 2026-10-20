@@ -12,9 +12,9 @@ import {
   checkDailyHabit,
   chooseDailyHabit,
   DAILY_HABIT_KINDS,
-  removeDailyHabit,
   type DailyHabitKind,
   type DailyHabitToday,
+  removeDailyHabit,
 } from '@/requests/dailyHabits'
 import { getLocalDayKey } from '@/utils/timeZone'
 
