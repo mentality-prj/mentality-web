@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
@@ -11,6 +11,7 @@ import type { CreateMoodRecordDto } from '@/types/api-responses'
 import type { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
 import { extractErrorMessage } from '@/utils/apiError'
+import { getVerifiedBrowserTimeZone } from '@/utils/timeZone'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 type Params = {
@@ -18,9 +19,18 @@ type Params = {
   onSave?: () => void
   onClose?: () => void
   initialLastSubmittedAt?: string | null
+  timeZone?: string | null
+  historyVerified?: boolean
 }
 
-export function useAddNewMood({ availableTags = [], onSave, onClose, initialLastSubmittedAt }: Params) {
+export function useAddNewMood({
+  availableTags = [],
+  onSave,
+  onClose,
+  initialLastSubmittedAt,
+  timeZone,
+  historyVerified = true,
+}: Params) {
   const { session } = useAuth()
   const t = useTranslations('components.Mood')
 
@@ -51,8 +61,21 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const [focusLevel, setFocusLevel] = useState<number>(1)
   const [formKey, setFormKey] = useState(0)
   const [lastSubmittedAt, setLastSubmittedAt] = useState<string | null>(initialLastSubmittedAt ?? null)
+  const [browserTimeZone, setBrowserTimeZone] = useState<string | null>(null)
 
-  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt) : false
+  useEffect(() => {
+    const syncTimeZone = () => setBrowserTimeZone(getVerifiedBrowserTimeZone())
+    syncTimeZone()
+    window.addEventListener('focus', syncTimeZone)
+    document.addEventListener('visibilitychange', syncTimeZone)
+    return () => {
+      window.removeEventListener('focus', syncTimeZone)
+      document.removeEventListener('visibilitychange', syncTimeZone)
+    }
+  }, [])
+
+  const effectiveTimeZone = browserTimeZone ?? timeZone ?? null
+  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, effectiveTimeZone) : false
 
   const resetForm = () => {
     setSelectedMood(null)
@@ -67,7 +90,11 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
   const handleSubmit = async (e?: React.FormEvent) => {
     e?.preventDefault()
     if (isSubmitting) return
-    if (submittedToday) return
+    // Re-resolve at submission: the device zone may change while the form stays open.
+    const submissionTimeZone = getVerifiedBrowserTimeZone() ?? timeZone ?? null
+    const submittedOnCurrentDay = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, submissionTimeZone) : false
+    if (submissionTimeZone !== effectiveTimeZone) setBrowserTimeZone(submissionTimeZone)
+    if (submittedOnCurrentDay || !submissionTimeZone || !historyVerified) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -89,8 +116,23 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
         focusLevel: focusLevel,
       }
 
-      const result = await createMoodRecord(session as unknown as CustomSession | null, dto)
+      const result = await createMoodRecord(session as unknown as CustomSession | null, dto, submissionTimeZone)
       if ('error' in result) {
+        if (result.status === 409) {
+          // Another tab or device already saved today's full check-in.
+          // Never resubmit; refresh the server-rendered day and close this form.
+          setLastSubmittedAt(new Date().toISOString())
+          notifyError(safeT('DailyLimit.Message', "Today's check-in has already been saved"))
+          try {
+            onSave?.()
+            onClose?.()
+          } catch (error) {
+            logger.warn('Daily check-in conflict: UI refresh failed', {
+              error: error instanceof Error ? error.message : String(error),
+            })
+          }
+          return
+        }
         notifyError(extractErrorMessage(result.error, safeT('Toast.Failed', 'Failed to save mood')))
         return
       }
@@ -98,14 +140,27 @@ export function useAddNewMood({ availableTags = [], onSave, onClose, initialLast
       setLastSubmittedAt(result.data?.createdAt ?? new Date().toISOString())
       notifySuccess(safeT('Toast.Saved', 'Mood saved'))
       resetForm()
-      if (onSave) onSave()
-      if (onClose) onClose()
+      // The record is already persisted. A UI refresh failure must not be
+      // reported as a failed save, which could prompt duplicate submissions.
+      try {
+        onSave?.()
+        onClose?.()
+      } catch (error) {
+        logger.warn('Mood saved but post-save UI update failed', {
+          error: error instanceof Error ? error.message : String(error),
+        })
+      }
+    } catch (error) {
+      logger.error('Mood record submission failed unexpectedly', {
+        error: error instanceof Error ? error.message : String(error),
+      })
+      notifyError(safeT('Toast.Failed', 'Failed to save mood'))
     } finally {
       setIsSubmitting(false)
     }
   }
 
-  const isFormValid = !!selectedMood && !submittedToday
+  const isFormValid = !!selectedMood && !!effectiveTimeZone && !submittedToday && historyVerified
 
   return {
     selectedMood,
