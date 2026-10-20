@@ -29,7 +29,9 @@ export const TodayMoodNotes = async ({
   const energyInfo = ENERGIES.find((e) => e.value === todayRecord.energyLevel) ?? ENERGIES[2]
   const focusInfo = FOCUSES.find((f) => f.value === todayRecord.focusLevel) ?? FOCUSES[2]
   const time = todayRecord.createdAt
-    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', timeZone }).format(new Date(todayRecord.createdAt))
+    ? new Intl.DateTimeFormat(locale, { hour: '2-digit', minute: '2-digit', timeZone }).format(
+        new Date(todayRecord.createdAt)
+      )
     : ''
 
   return (
