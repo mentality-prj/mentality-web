@@ -3,7 +3,12 @@
 import { useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 
-import { getLocalDayKey, getVerifiedBrowserTimeZone, millisecondsUntilNextLocalDay, USER_TIME_ZONE_COOKIE } from '@/utils/timeZone'
+import {
+  getLocalDayKey,
+  getVerifiedBrowserTimeZone,
+  millisecondsUntilNextLocalDay,
+  USER_TIME_ZONE_COOKIE,
+} from '@/utils/timeZone'
 
 /** Align server-rendered day-sensitive views with a browser IANA zone. */
 export function TimeZoneSync() {
