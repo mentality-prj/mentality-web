@@ -71,9 +71,10 @@ export async function getLastMoodRecords(
   params?: { limit?: number; days?: number; timeZone?: string; dailyOnly?: boolean }
 ) {
   const query = new URLSearchParams()
-  // If days is provided (>0) use it; otherwise fall back to limit for backward compatibility
+  // Calendar-window filtering and record limits are independent.
+  // The backend defaults to only 10 records even with days=10.
   if (typeof params?.days === 'number' && params.days > 0) query.set('days', String(params.days))
-  else if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+  if (typeof params?.limit === 'number' && params.limit > 0) query.set('limit', String(params.limit))
   if (typeof params?.days === 'number' && params.days > 0 && params.timeZone) query.set('timeZone', params.timeZone)
   if (params?.dailyOnly) query.set('dailyOnly', 'true')
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.LAST}${query.toString() ? `?${query.toString()}` : ''}`
