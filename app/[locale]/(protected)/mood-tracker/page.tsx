@@ -23,7 +23,7 @@ export default async function MoodTracker({
   const query = parseMoodQuery(await searchParams)
   const [result, res] = await Promise.all([
     getMoodRecords(session, query),
-    getLastMoodRecords(session, { days: 10, timeZone: timeZone ?? undefined }),
+    getLastMoodRecords(session, { days: 10, limit: 100, timeZone: timeZone ?? undefined }),
   ])
   // A failed remote read is not an empty history: do not claim there were no mood records.
   if ('error' in result) throw new Error('Unable to load mood records')
