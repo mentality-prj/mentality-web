@@ -1,7 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { SectionCard } from '@/ds/components/SectionCard'
-import { MOOD_ACTION_HREF, type MoodAction } from '@/helpers/moodNextStep'
+import { MOOD_ACTION_HREF } from '@/helpers/moodNextStep'
 import { Link } from '@/i18n/navigation'
 import type { ExerciseFeedbackEntry } from '@/requests/exerciseFeedback'
 
@@ -53,7 +53,7 @@ export async function HelpfulExercisesSummary({ feedback, failed }: Props) {
                       {t(helpful ? 'helpful' : 'notHelpful')}
                     </p>
                     <Link
-                      href={MOOD_ACTION_HREF[category as MoodAction]}
+                      href={MOOD_ACTION_HREF[category]}
                       className="mt-1 w-fit text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
                     >
                       {t('changeAction')}
