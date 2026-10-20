@@ -25,17 +25,31 @@
     "observations": {
       "stress": "W swoim wpisie określiłeś(-aś) stres na {level} z 5.",
       "mood": "Oceniłeś(-aś) nastrój na {level} z 5.",
-      "general": "Zapisano Twój nastrój. Jeśli chcesz, możesz wybrać małe działanie."
+      "general": "Zapisano Twój nastrój. Jeśli chcesz, możesz wybrać małe działanie.",
+      "energy": "Oceniłeś(-aś) swoją energię na {level} z 5.",
+      "focus": "Oceniłeś(-aś) swoją koncentrację na {level} z 5."
     },
     "suggestions": {
       "breathing": "Możesz spróbować krótkiego ćwiczenia oddechowego we własnym tempie. To propozycja, nie obowiązek.",
-      "calming": "Jeśli potrzebujesz chwili, wybierz jedno z ćwiczeń uspokajających. To całkowicie opcjonalne."
+      "calming": "Jeśli potrzebujesz chwili, wybierz jedno z ćwiczeń uspokajających. To całkowicie opcjonalne.",
+      "meditation": "Jeśli masz mało energii, możesz wybrać spokojną medytację albo po prostu zrobić przerwę. To opcjonalne.",
+      "focus": "Jeśli chcesz poćwiczyć uwagę, możesz spróbować gry Attention Sprint. Przerwij, gdy poczujesz dyskomfort."
     },
     "actions": {
       "breathing": "Otwórz ćwiczenia oddechowe",
-      "calming": "Otwórz ćwiczenia uspokajające"
+      "calming": "Otwórz ćwiczenia uspokajające",
+      "meditation": "Otwórz medytacje",
+      "focus": "Otwórz Attention Sprint"
     },
-    "limitNote": "Ta podpowiedź wynika z prostej reguły opartej na jednym wpisie. Nie jest prognozą, diagnozą ani oceną ryzyka. Nie wiemy, co pomoże właśnie Tobie."
+    "limitNote": "Początkowa podpowiedź wynika z prostej reguły opartej na jednym zgłoszonym wpisie. Nie jest prognozą, diagnozą ani oceną ryzyka. Nie wiemy, która aktywność okaże się dla Ciebie pomocna.",
+    "choosePrompt": "Wolisz inną aktywność? Wybierz to, co Ci teraz odpowiada.",
+    "userChoiceNote": "Wyświetlamy wybraną przez Ciebie aktywność. Ten wybór nie jest zapisywany jako preferencja.",
+    "options": {
+      "breathing": "Pooddychać",
+      "calming": "Uspokoić się",
+      "meditation": "Zrobić przerwę",
+      "focus": "Ćwiczyć uwagę"
+    }
   },
   "safety": {
     "label": "Bezpieczeństwo i pomoc",
