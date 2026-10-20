@@ -20,6 +20,17 @@ export async function getLatestMoodStory(
   return { data: res.data }
 }
 
+export async function getTodayMoodStory(
+  session: CustomSession | null,
+  timeZone: string
+): Promise<{ data: MoodStoryEntity } | { error: string; status?: number }> {
+  const url = `${APIUrl}/mood-story/today?timeZone=${encodeURIComponent(timeZone)}`
+  const res = await performAuthRequest<MoodStoryEntity>(session, url, { method: 'GET' })
+  if ('error' in res) return { error: res.error, status: res.status }
+  if (res.data == null) return { error: 'Today mood story is not ready' }
+  return { data: res.data }
+}
+
 export async function regenerateMoodStory(
   session: CustomSession | null
 ): Promise<{ data: MoodStoryEntity } | { error: string }> {
