@@ -3,14 +3,13 @@ import { render, screen } from '@testing-library/react'
 import { HeroSection } from './HeroSection'
 
 const translations: Record<string, string> = {
-  'Hero.title': 'Here when you need support',
-  'Hero.subtitle': 'Track your mood or write in a private journal',
-  'Hero.cta': 'Start for free',
-  'Hero.returnCta': 'Open My Day',
-  'Hero.path.heading': 'Your pace, your support',
-  'Hero.path.mood': 'Notice your mood and energy',
-  'Hero.path.diary': 'Write in your journal',
-  'Hero.path.support': 'Try breathing or calming',
+  'Hero.title': 'Here when you need it',
+  'Hero.subtitle': 'Try a short breathing exercise without signing in.',
+  'Hero.returnTitle': 'Your Dzvin',
+  'Hero.returnSubtitle': 'Return to your entries.',
+  'Hero.tryCta': 'Try 30 seconds',
+  'Hero.cta': 'Create an account',
+  'Hero.returnCta': 'My Day',
 }
 
 jest.mock('next-intl', () => ({
@@ -19,29 +18,24 @@ jest.mock('next-intl', () => ({
 jest.mock('@/i18n/navigation', () => ({
   Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
 }))
-jest.mock('@/ui/button', () => ({
-  Button: ({ children }: { children: React.ReactNode }) => <>{children}</>,
+jest.mock('./BreathingPreview', () => ({
+  BreathingPreview: () => <div data-testid="breathing-preview" />,
 }))
 
-describe('HeroSection B2C first-use copy', () => {
-  it('offers three real self-support actions instead of fake testimonials', () => {
+describe('Landing conversion hero', () => {
+  it('offers a working no-account preview first and a separate signup action', () => {
     render(<HeroSection />)
-    expect(screen.getByRole('heading', { level: 1, name: 'Here when you need support' })).toBeInTheDocument()
-    expect(screen.getByRole('heading', { level: 2, name: 'Your pace, your support' })).toBeInTheDocument()
-    expect(screen.getByRole('list').querySelectorAll('li')).toHaveLength(3)
-    expect(screen.getByRole('link', { name: 'Start for free' })).toHaveAttribute('href', '/auth')
+    expect(screen.getByRole('heading', { level: 1, name: 'Here when you need it' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /Try 30 seconds/ })).toHaveAttribute('href', '#try-now')
+    expect(screen.getByRole('link', { name: /Create an account/ })).toHaveAttribute('href', '/auth')
+    expect(screen.getByTestId('breathing-preview')).toBeInTheDocument()
     expect(screen.queryByText('725+')).not.toBeInTheDocument()
   })
-})
 
-describe('returning visitor landing actions', () => {
-  it('links a validated returning user to My Day and existing self-support screens', () => {
+  it('sends returning users to My Day rather than the signup screen', () => {
     render(<HeroSection isAuthenticated />)
-
-    expect(screen.getByRole('link', { name: 'Open My Day' })).toHaveAttribute('href', '/my-day')
-    expect(screen.getByRole('link', { name: 'Notice your mood and energy' })).toHaveAttribute('href', '/mood-tracker')
-    expect(screen.getByRole('link', { name: 'Write in your journal' })).toHaveAttribute('href', '/diary')
-    expect(screen.getByRole('link', { name: 'Try breathing or calming' })).toHaveAttribute('href', '/guide/breathing')
-    expect(screen.queryByRole('link', { name: 'Start for free' })).not.toBeInTheDocument()
+    expect(screen.getByRole('heading', { level: 1, name: 'Your Dzvin' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /My Day/ })).toHaveAttribute('href', '/my-day')
+    expect(screen.queryByRole('link', { name: /Create an account/ })).not.toBeInTheDocument()
   })
 })
