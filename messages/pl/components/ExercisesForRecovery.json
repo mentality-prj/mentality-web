@@ -70,6 +70,7 @@
     "notHelpful": "Nie pomogło",
     "saving": "Zapisujemy odpowiedź…",
     "saved": "Odpowiedź zapisana. Dziękujemy.",
+    "loadFailed": "Nie udało się wczytać poprzedniej oceny. Może nadal być zapisana; spróbuj odświeżyć stronę.",
     "failed": "Nie udało się zapisać odpowiedzi. Spróbuj ponownie.",
     "login": "Poczekaj na zakończenie logowania.",
     "previouslySaved": "Twoja ostatnia ocena została zapisana. Możesz ją zmienić.",
