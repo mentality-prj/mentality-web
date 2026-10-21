@@ -13,6 +13,7 @@ export const RoutesTitles = Object.freeze({
   SERVICES: 'Services',
   FAQ: 'Faq',
   CONTACTS: 'Contacts',
+  BUSINESS: 'Business',
   AFFIRMATIONS: 'Affirmations',
   ARTICLES: 'Articles',
   DIARY: 'Diary',
