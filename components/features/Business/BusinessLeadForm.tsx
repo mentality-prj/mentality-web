@@ -1,8 +1,8 @@
 'use client'
 
-import { type FormEvent, useState } from 'react'
-import Script from 'next/script'
 import { useTranslations } from 'next-intl'
+import Script from 'next/script'
+import { type FormEvent, useState } from 'react'
 import { z } from 'zod'
 
 import { Routes } from '@/constants/routes'
