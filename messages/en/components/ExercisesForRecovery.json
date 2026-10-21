@@ -70,6 +70,7 @@
     "notHelpful": "Not helpful",
     "saving": "Saving your response…",
     "saved": "Response saved. Thank you.",
+    "loadFailed": "Could not load your previous rating. It may still be saved; please try refreshing.",
     "failed": "Could not save your response. Try again.",
     "login": "Please allow your sign-in to finish first.",
     "previouslySaved": "Your latest response is saved. You can change it.",
