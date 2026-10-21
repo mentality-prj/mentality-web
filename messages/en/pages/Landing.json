@@ -166,9 +166,9 @@
       "title": "Collaborative wellbeing research",
       "description": "Partnerships with universities and research programs: cohorts, reproducible protocols and evaluation. Prediction remains a future research direction, not a proven outcome.",
       "features": {
-        "cohorts": "Cohorts and research projects",
-        "validation": "Comparing observations",
-        "reports": "Audits and research reporting"
+        "cohorts": "Cohorts and protocols",
+        "validation": "Evaluation plans",
+        "reports": "Reporting and reproducibility"
       },
       "cta": "Propose research"
     }
