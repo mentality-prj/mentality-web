@@ -140,8 +140,8 @@
     "description": "Osobisty Dzvin pozostaje pod Twoją kontrolą. Firmy i badacze mają odrębne narzędzia.",
     "b2b": {
       "label": "Dla firm · B2B",
-      "title": "Wspieranie zespołów zamiast nadzoru nad ludźmi",
-      "description": "Narzędzia dla HR i kierownictwa: grupy, role i zagregowane wskaźniki zespołów. Prywatne wpisy pracowników pozostają prywatne.",
+      "title": "Wsparcie pracowników i rozwój zespołów",
+      "description": "Osobisty Dzvin dla pracowników oraz osobne narzędzia firmowe: role, grupy i uprawnione dane zbiorcze. Prywatne wpisy pozostają prywatne.",
       "features": {
         "teams": "Struktura organizacji i role",
         "analytics": "Zagregowane dane zespołowe",
@@ -172,5 +172,11 @@
       },
       "cta": "Możliwości R&D"
     }
+  },
+  "BusinessInvitation": {
+    "eyebrow": "Dla firm",
+    "title": "Wsparcie ludzi pomaga budować silniejsze zespoły",
+    "description": "Zapewnij pracownikom indywidualne wsparcie i omów możliwości organizacyjne przydatne dla Twojego zespołu. Zacznijmy od pilotażu.",
+    "cta": "Porozmawiajmy o pilotażu"
   }
 }
