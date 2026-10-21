@@ -7,6 +7,7 @@ export const RoutesTitles = Object.freeze({
   ADMIN_R_AND_D: 'Admin/R-And-D',
   ADMIN_R_AND_D_DIAGNOSTICS: 'Admin/R-And-D/Diagnostics',
   RESEARCH: 'Research',
+  RESEARCH_PARTNERS: 'Research-Partners',
   RESEARCH_PROJECTS: 'Research/Projects',
   RESEARCH_PROJECTS_CREATE: 'Research/Projects/Create',
   ABOUT: 'About',
