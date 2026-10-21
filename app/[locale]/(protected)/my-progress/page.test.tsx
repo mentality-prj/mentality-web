@@ -70,7 +70,7 @@ describe('My Progress B2C overview', () => {
   it('shows real mood and goal data using the authenticated user session', async () => {
     render(await MyProgress())
 
-    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
+    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession)
     expect(fetchPersonalGoals).toHaveBeenCalledWith(mockSession)
     expect(getExerciseFeedback).toHaveBeenCalledWith(mockSession)
     expect(screen.getByTestId('mood-progress')).toHaveTextContent('8')
