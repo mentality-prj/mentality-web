@@ -79,7 +79,6 @@ export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boo
                   </li>
                 ))}
               </ol>
-              <p className="mt-4 text-sm text-textcolor-secondary">{t('Hero.path.note')}</p>
             </div>
           </div>
           <div className="mx-auto flex justify-start tablet:mx-0">

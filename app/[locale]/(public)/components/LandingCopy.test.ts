@@ -14,7 +14,7 @@ describe('public B2C landing copy', () => {
     expect(catalog.Hero.path.mood.length).toBeGreaterThan(5)
     expect(catalog.Hero.path.diary.length).toBeGreaterThan(5)
     expect(catalog.Hero.path.support.length).toBeGreaterThan(5)
-    expect(catalog.Hero.path.note.length).toBeGreaterThan(5)
+    expect('note' in catalog.Hero.path).toBe(false)
     expect(catalog.HowItWorks.steps.choose).toContain(' — ')
     expect(catalog.HowItWorks.steps.register).toContain(' — ')
     expect(catalog.HowItWorks.steps.receive).toContain(' — ')
