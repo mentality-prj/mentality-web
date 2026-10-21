@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import GuideMeditationsClient from '@/components/features/Guide/GuideMeditationsClient'
+import { ExerciseFeedback } from '@/components/features/Guide/ExerciseFeedback'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function GuideMeditationsPage() {
@@ -11,6 +12,7 @@ export default async function GuideMeditationsPage() {
       <section className="mt-6">
         <GuideMeditationsClient />
       </section>
+      <ExerciseFeedback category="meditation" />
     </article>
   )
 }

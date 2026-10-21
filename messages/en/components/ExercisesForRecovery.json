@@ -25,17 +25,32 @@
     "observations": {
       "stress": "You reported stress at {level} out of 5 in your check-in.",
       "mood": "You rated your mood {level} out of 5.",
-      "general": "You checked in with your mood. If you wish, you can choose one small action."
+      "general": "You checked in with your mood. If you wish, you can choose one small action.",
+      "energy": "You rated your energy at {level} out of 5.",
+      "focus": "You rated your focus at {level} out of 5.",
+      "preference": "You previously marked this activity as helpful. You could try it again or choose another."
     },
     "suggestions": {
       "breathing": "You could try a short breathing exercise at a comfortable pace. It's an option, not a requirement.",
-      "calming": "If you'd like a pause, you can choose one of the calming exercises. It's entirely optional."
+      "calming": "If you'd like a pause, you can choose one of the calming exercises. It's entirely optional.",
+      "meditation": "If you feel low on energy, you could explore a gentle meditation or simply take a break. This is optional.",
+      "focus": "If you would like to practise attention, you could try Attention Sprint. Stop whenever it feels uncomfortable."
     },
     "actions": {
       "breathing": "Open breathing exercises",
-      "calming": "Open calming exercises"
+      "calming": "Open calming exercises",
+      "meditation": "Open meditations",
+      "focus": "Open Attention Sprint"
     },
-    "limitNote": "This suggestion follows a simple rule based on one self-reported check-in. It is not a forecast, diagnosis, or risk assessment. We cannot know which action will help you."
+    "limitNote": "The initial suggestion uses a simple rule based on one self-reported check-in. It is not a forecast, diagnosis, or risk assessment. We cannot know which activity will help you.",
+    "choosePrompt": "Prefer a different activity? Choose what suits you now.",
+    "userChoiceNote": "You're seeing the activity you selected. This choice is not stored as a preference.",
+    "options": {
+      "breathing": "Breathe",
+      "calming": "Find calm",
+      "meditation": "Take a pause",
+      "focus": "Practise focus"
+    }
   },
   "safety": {
     "label": "Safety and support",
@@ -47,5 +62,20 @@
     "phoneCoverage": "112 operates in Ukraine and across the EU. Elsewhere, call your local emergency service.",
     "otherSupport": "If there is no immediate danger, consider contacting someone you trust or a qualified professional.",
     "limitation": "Dzvin is a self-support tool, not a crisis response service or a substitute for medical care."
+  },
+  "feedback": {
+    "title": "Was this activity helpful?",
+    "description": "If you've tried the activity, you can rate it. Change your answer whenever you like.",
+    "helpful": "Helpful",
+    "notHelpful": "Not helpful",
+    "saving": "Saving your response…",
+    "saved": "Response saved. Thank you.",
+    "loadFailed": "Could not load your previous rating. It may still be saved; please try refreshing.",
+    "failed": "Could not save your response. Try again.",
+    "login": "Please allow your sign-in to finish first.",
+    "previouslySaved": "Your latest response is saved. You can change it.",
+    "privacyNote": "Only the activity category and your latest rating are saved, never diary text. Your rating may shape future optional suggestions and can be removed.",
+    "clear": "Remove my rating",
+    "cleared": "Rating removed. It will no longer affect suggestions."
   }
 }
