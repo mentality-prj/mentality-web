@@ -1,7 +1,73 @@
 {
   "title": "My progress",
   "subtitle": "Achievements, statistics and personal goals — all in one place to see your progress 💛",
-  "achievements": { "title": "My achievements" },
-  "goals": { "title": "My goals" },
-  "statistics": { "title": "My statistics" }
+  "achievements": {
+    "title": "My achievements",
+    "heading": "Small steps worth noticing",
+    "description": "See the things you've chosen to do for yourself: mood check-ins, diary entries and completed personal goals.",
+    "noPressure": "Missing a day never resets your progress. No streaks, penalties or comparisons with others.",
+    "activityCount": "Total: {count}",
+    "noMilestonesYet": "Start whenever you're ready. One small step matters.",
+    "loadError": "We couldn't load these records right now. Please refresh the page later.",
+    "liveSummaryNote": "This is a snapshot of your current personal records, not a permanent badge ledger. Deleted records are no longer counted.",
+    "mood": {
+      "title": "Mood check-ins",
+      "description": "Each check-in is a chance to notice how you feel, without judgment.",
+      "action": "View mood history"
+    },
+    "diary": {
+      "title": "Diary entries",
+      "description": "Archived entries still count — they're part of your experience.",
+      "action": "Open diary"
+    },
+    "goals": {
+      "title": "Completed goals",
+      "description": "Only personal goals that you've marked as completed.",
+      "action": "View goals"
+    },
+    "milestones": {
+      "firstCheckin": "Your first mood check-in",
+      "fiveCheckins": "Five mood check-ins",
+      "firstDiary": "Your first diary entry",
+      "fiveDiaries": "Five diary entries",
+      "firstGoal": "Your first completed goal",
+      "threeGoals": "Three completed goals"
+    }
+  },
+  "goals": {
+    "title": "My goals"
+  },
+  "statistics": {
+    "title": "My statistics"
+  },
+  "overview": {
+    "historyHeading": "Your reflections",
+    "historyDescription": "Revisit your thoughts and mood check-ins whenever it helps.",
+    "moodTitle": "Mood history",
+    "moodDescription": "Review your check-ins and how they change over time.",
+    "moodLink": "View mood entries",
+    "diaryTitle": "Your diary",
+    "diaryDescription": "A private place to keep the thoughts you want to remember.",
+    "diaryLink": "Open diary",
+    "goalsHeading": "Your current goals",
+    "goalsLink": "All personal goals",
+    "goalsError": "Unable to load your goals. Refresh the page and try again."
+  },
+  "exercises": {
+    "heading": "Activities you've rated",
+    "description": "Your own impressions can help you choose what to try another time.",
+    "empty": "No ratings yet. After trying an activity, you may note whether you found it helpful. It's optional.",
+    "browseAction": "Explore breathing exercises",
+    "loadError": "Could not load your activity ratings. Please try refreshing the page later.",
+    "helpful": "You marked: “Helpful”",
+    "notHelpful": "You marked: “Not helpful”",
+    "changeAction": "Open activity and change rating",
+    "limitNote": "Only your latest voluntary rating for each activity type is shown. An unanswered activity is not a negative rating. These notes do not prove clinical benefit or effectiveness.",
+    "categories": {
+      "breathing": "Breathing exercises",
+      "calming": "Calming exercises",
+      "meditation": "Meditations",
+      "focus": "Attention Sprint"
+    }
+  }
 }

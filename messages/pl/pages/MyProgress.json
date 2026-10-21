@@ -1,7 +1,73 @@
 {
   "title": "Mój postęp",
   "subtitle": "Osiągnięcia, statystyki i cele osobiste — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛",
-  "achievements": { "title": "Moje osiągnięcia" },
-  "goals": { "title": "Moje cele" },
-  "statistics": { "title": "Moje statystyki" }
+  "achievements": {
+    "title": "Moje osiągnięcia",
+    "heading": "Małe kroki, które warto zauważyć",
+    "description": "Zobacz, co udało Ci się zrobić dla siebie: zapisy nastroju, wpisy w dzienniku i ukończone cele osobiste.",
+    "noPressure": "Przerwy nie zerują postępów. Nie ma tu serii, kar ani porównań z innymi.",
+    "activityCount": "Łącznie: {count}",
+    "noMilestonesYet": "Zacznij, kiedy zechcesz. Nawet jeden mały krok ma znaczenie.",
+    "loadError": "Nie udało się teraz wczytać tych danych. Odśwież stronę później.",
+    "liveSummaryNote": "To podsumowanie obecnych wpisów, a nie trwały rejestr odznak. Usunięte dane nie są już liczone.",
+    "mood": {
+      "title": "Zapisy nastroju",
+      "description": "Każdy zapis to okazja, by zauważyć swoje samopoczucie bez oceniania.",
+      "action": "Zobacz historię nastroju"
+    },
+    "diary": {
+      "title": "Wpisy w dzienniku",
+      "description": "Archiwalne wpisy też się liczą — są częścią Twojego doświadczenia.",
+      "action": "Otwórz dziennik"
+    },
+    "goals": {
+      "title": "Ukończone cele",
+      "description": "Tylko cele osobiste oznaczone przez Ciebie jako ukończone.",
+      "action": "Zobacz cele"
+    },
+    "milestones": {
+      "firstCheckin": "Pierwszy zapis nastroju",
+      "fiveCheckins": "Pięć zapisów nastroju",
+      "firstDiary": "Pierwszy wpis w dzienniku",
+      "fiveDiaries": "Pięć wpisów w dzienniku",
+      "firstGoal": "Pierwszy ukończony cel",
+      "threeGoals": "Trzy ukończone cele"
+    }
+  },
+  "goals": {
+    "title": "Moje cele"
+  },
+  "statistics": {
+    "title": "Moje statystyki"
+  },
+  "overview": {
+    "historyHeading": "Twoje zapiski",
+    "historyDescription": "Wracaj do swoich myśli i zapisów nastroju, kiedy uznasz to za pomocne.",
+    "moodTitle": "Historia nastroju",
+    "moodDescription": "Przeglądaj wpisy i zmiany nastroju w czasie.",
+    "moodLink": "Zobacz wpisy nastroju",
+    "diaryTitle": "Twój dziennik",
+    "diaryDescription": "Prywatne miejsce na myśli, które chcesz zachować.",
+    "diaryLink": "Otwórz dziennik",
+    "goalsHeading": "Twoje aktualne cele",
+    "goalsLink": "Wszystkie cele osobiste",
+    "goalsError": "Nie udało się wczytać celów. Odśwież stronę i spróbuj ponownie."
+  },
+  "exercises": {
+    "heading": "Ocenione przez Ciebie aktywności",
+    "description": "Twoje własne odczucia mogą pomóc w wyborze ćwiczeń na przyszłość.",
+    "empty": "Nie masz jeszcze ocen. Po wypróbowaniu ćwiczenia możesz zaznaczyć, czy było dla Ciebie pomocne. To opcjonalne.",
+    "browseAction": "Zobacz ćwiczenia oddechowe",
+    "loadError": "Nie udało się pobrać ocen ćwiczeń. Spróbuj odświeżyć stronę później.",
+    "helpful": "Twoja ocena: „Pomogło”",
+    "notHelpful": "Twoja ocena: „Nie pomogło”",
+    "changeAction": "Otwórz ćwiczenie i zmień ocenę",
+    "limitNote": "Wyświetlamy tylko Twoją ostatnią dobrowolną ocenę każdej kategorii. Brak oceny nie oznacza oceny negatywnej. Te wpisy nie dowodzą skuteczności ćwiczeń i nie są oceną medyczną.",
+    "categories": {
+      "breathing": "Ćwiczenia oddechowe",
+      "calming": "Ćwiczenia uspokajające",
+      "meditation": "Medytacje",
+      "focus": "Attention Sprint"
+    }
+  }
 }
