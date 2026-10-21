@@ -50,7 +50,7 @@ export function BreathingPreview({ isAuthenticated = false }: { isAuthenticated?
     <section
       id="try-now"
       aria-labelledby="breathing-preview-heading"
-      className="scroll-mt-6 rounded-3xl border border-[var(--outline-secondary)] bg-background-muted p-5 tablet:p-7"
+      className="scroll-mt-6 rounded-[30px] border border-white/80 bg-white/80 p-5 shadow-[0_22px_55px_rgba(70,100,153,0.12)] backdrop-blur-md tablet:p-7"
     >
       <div className="flex items-start justify-between gap-4">
         <div>
@@ -65,7 +65,7 @@ export function BreathingPreview({ isAuthenticated = false }: { isAuthenticated?
       </div>
 
       <div className="my-6 flex justify-center">
-        <div className="flex h-44 w-44 flex-col items-center justify-center rounded-full border-[5px] border-[var(--outline-secondary)] bg-white text-center">
+        <div className="flex h-44 w-44 flex-col items-center justify-center rounded-full border-[5px] border-[#b2e8e8] bg-[radial-gradient(circle_at_34%_26%,#ffffff_0%,#e3f9f4_55%,#d0e8fd_100%)] text-center shadow-[0_18px_42px_rgba(59,176,177,0.16)]">
           <span aria-live="polite" aria-atomic="true" className="text-base font-medium text-textcolor-primary">
             {running ? t(inhaling ? 'inhale' : 'exhale') : t(completed ? 'done' : 'ready')}
           </span>
@@ -84,7 +84,7 @@ export function BreathingPreview({ isAuthenticated = false }: { isAuthenticated?
         className="h-1.5 overflow-hidden rounded-full bg-white"
       >
         <div
-          className="h-full rounded-full bg-[var(--primary)]"
+          className="h-full rounded-full bg-[linear-gradient(90deg,#29b7a9,#6670e9)]"
           style={{ width: String(Math.round((elapsed / TOTAL_SECONDS) * 100)) + '%' }}
         />
       </div>
@@ -102,7 +102,7 @@ export function BreathingPreview({ isAuthenticated = false }: { isAuthenticated?
           <button
             type="button"
             onClick={start}
-            className="min-h-12 rounded-full bg-[var(--primary)] px-5 py-3 text-sm font-semibold text-white focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="min-h-12 rounded-full bg-[linear-gradient(110deg,#7246dd,#4470e4)] px-5 py-3 text-sm font-semibold text-white shadow-[0_10px_25px_rgba(93,78,210,0.16)] focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             {t(completed ? 'restart' : 'start')}
           </button>
