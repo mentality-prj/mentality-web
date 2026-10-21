@@ -1,7 +1,16 @@
 import { buildDailySummaries, isSubmittedToday } from '@/helpers/mood.helpers'
-import { getLocalDayKey, getRecentLocalDayKeys, isValidTimeZone, millisecondsUntilNextLocalDay } from '@/utils/timeZone'
+import { getLocalDayKey, getRecentLocalDayKeys, isSynchronizedTimeZone, isValidTimeZone, millisecondsUntilNextLocalDay } from '@/utils/timeZone'
 
 describe('user-local calendar day', () => {
+  it('rejects stale SSR history after device-zone changes or missing initialization', () => {
+    expect(isSynchronizedTimeZone('Europe/Warsaw', 'Europe/Warsaw')).toBe(true)
+    expect(isSynchronizedTimeZone('Europe/Kyiv', 'Europe/Warsaw')).toBe(false)
+    expect(isSynchronizedTimeZone('Europe/Warsaw', null)).toBe(false)
+    expect(isSynchronizedTimeZone(null, 'Europe/Warsaw')).toBe(false)
+    expect(isSynchronizedTimeZone('Mars/Phobos', 'Mars/Phobos')).toBe(false)
+    expect(isSynchronizedTimeZone('UTC', 'Etc/UTC')).toBe(false)
+  })
+
   it.each([
     ['Europe/Warsaw', '2026-10-17T22:30:00.000Z', '2026-10-18'],
     ['Europe/Kyiv', '2026-10-17T21:30:00.000Z', '2026-10-18'],
