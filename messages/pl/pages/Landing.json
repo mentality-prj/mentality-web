@@ -1,29 +1,28 @@
 {
   "Hero": {
     "title": "Wsparcie, gdy go potrzebujesz",
-    "subtitle": "Dzvin to przestrzeń do codziennego dbania o siebie. Zapisz swój nastrój, podziel się myślami w prywatnym dzienniku lub wypróbuj krótkie ćwiczenie w trudniejszej chwili.",
+    "subtitle": "Jeden dzień nie pokazuje całego obrazu. Dzvin zachowuje Twoje zapiski i informacje o samopoczuciu w osobistej historii, aby łatwiej było dostrzegać zmiany i wyciągać własne wnioski.",
     "cta": "Zacznij za darmo",
     "returnCta": "Przejdź do Mojego dnia",
     "path": {
       "heading": "Twoje tempo, Twoje wsparcie",
       "mood": "Obserwuj nastrój, stres i energię, kiedy masz na to ochotę.",
       "diary": "Zapisuj swoje myśli w osobistym dzienniku.",
-      "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety.",
-      "note": "Dzvin służy samopomocy. Nie stawia diagnoz i nie zastępuje profesjonalnej ani ratunkowej pomocy."
+      "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety."
     }
   },
   "Features": {
     "interactivity": {
       "title": "Codzienny nastrój",
-      "subtitle": "Zapisuj nastrój, stres, energię i koncentrację, aby zauważać zmiany w czasie."
+      "subtitle": "Zapisz, jak się teraz czujesz. Wróć do swoich wpisów, by zobaczyć, co się zmieniło."
     },
     "support": {
       "title": "Osobisty dziennik",
-      "subtitle": "Zapisuj myśli w dogodnej chwili i wracaj do wcześniejszych wpisów."
+      "subtitle": "Myśli warte zachowania. Prywatne notatki, do których możesz wrócić we własnym tempie."
     },
     "ai": {
       "title": "Proste kolejne kroki",
-      "subtitle": "Korzystaj z krótkich ćwiczeń w poradniku. Wskazówki nie są diagnozą ani prognozą."
+      "subtitle": "Ćwiczenia oddechowe, wyciszające i na koncentrację — krótka praktyka bez zbędnych kroków."
     }
   },
   "Services": {

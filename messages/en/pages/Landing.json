@@ -1,29 +1,28 @@
 {
   "Hero": {
     "title": "Here when you need support",
-    "subtitle": "Dzvin is a space for everyday self-support. Check in with your mood, write privately in your journal, or try a brief exercise when things feel overwhelming.",
+    "subtitle": "A single day doesn't tell the whole story. Dzvin keeps your notes and check-ins in one personal history, so you can notice changes and draw your own conclusions.",
     "cta": "Start for free",
     "returnCta": "Open My Day",
     "path": {
       "heading": "Your pace, your support",
       "mood": "Notice your mood, stress and energy whenever you choose.",
       "diary": "Write down your thoughts in a personal journal.",
-      "support": "Open a breathing or calming exercise without completing a questionnaire.",
-      "note": "Dzvin supports self-care. It does not diagnose conditions or replace professional or emergency care."
+      "support": "Open a breathing or calming exercise without completing a questionnaire."
     }
   },
   "Features": {
     "interactivity": {
       "title": "Mood check-ins",
-      "subtitle": "Briefly record your mood, stress, energy and focus to notice changes over time."
+      "subtitle": "Capture how you feel now. Look back when you want to see what has changed."
     },
     "support": {
       "title": "Personal journal",
-      "subtitle": "Write what is on your mind and revisit your entries in your history."
+      "subtitle": "Thoughts worth keeping. Private journal entries you can revisit on your terms."
     },
     "ai": {
       "title": "Practical next steps",
-      "subtitle": "Find short exercises in the existing guide. Suggestions are not a diagnosis or a forecast."
+      "subtitle": "Breathing, calming and focus exercises — short practices without unnecessary steps."
     }
   },
   "Services": {

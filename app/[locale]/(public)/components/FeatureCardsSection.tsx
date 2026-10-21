@@ -1,4 +1,4 @@
-import { FlaskConical, Lightbulb, Radar } from 'lucide-react'
+import { Activity, BookOpenText, Wind } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { SectionCard } from '@/ds/components/SectionCard'
@@ -7,13 +7,13 @@ import { Statuses } from '@/types/status.types'
 export function FeatureCardsSection() {
   const t = useTranslations('pages.Landing')
   const interactivityDecoration = (
-    <Radar aria-hidden className="absolute bottom-[-14px] left-[-16px] h-32 w-32 text-white/35" strokeWidth={1.6} />
+    <Activity aria-hidden className="absolute bottom-[-14px] left-[-16px] h-32 w-32 text-white/35" strokeWidth={1.6} />
   )
   const supportDecoration = (
-    <FlaskConical aria-hidden className="absolute bottom-[-18px] right-2 h-32 w-32 text-white/35" strokeWidth={1.6} />
+    <BookOpenText aria-hidden className="absolute bottom-[-18px] right-2 h-32 w-32 text-white/35" strokeWidth={1.6} />
   )
   const aiDecoration = (
-    <Lightbulb aria-hidden className="absolute right-[-12px] top-[-12px] h-32 w-32 text-white/35" strokeWidth={1.6} />
+    <Wind aria-hidden className="absolute right-[-12px] top-[-12px] h-32 w-32 text-white/35" strokeWidth={1.6} />
   )
 
   return (

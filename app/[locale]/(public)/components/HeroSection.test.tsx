@@ -11,7 +11,6 @@ const translations: Record<string, string> = {
   'Hero.path.mood': 'Notice your mood and energy',
   'Hero.path.diary': 'Write in your journal',
   'Hero.path.support': 'Try breathing or calming',
-  'Hero.path.note': 'Not a diagnosis or a substitute for professional support',
 }
 
 jest.mock('next-intl', () => ({
@@ -31,7 +30,6 @@ describe('HeroSection B2C first-use copy', () => {
     expect(screen.getByRole('heading', { level: 2, name: 'Your pace, your support' })).toBeInTheDocument()
     expect(screen.getByRole('list').querySelectorAll('li')).toHaveLength(3)
     expect(screen.getByRole('link', { name: 'Start for free' })).toHaveAttribute('href', '/auth')
-    expect(screen.getByText(/Not a diagnosis/)).toBeInTheDocument()
     expect(screen.queryByText('725+')).not.toBeInTheDocument()
   })
 })
