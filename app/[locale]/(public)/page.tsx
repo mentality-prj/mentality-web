@@ -1,15 +1,20 @@
+import { getServerSession } from '@/lib/auth/server'
+
 import { FeatureCardsSection } from './components/FeatureCardsSection'
 import { HeroSection } from './components/HeroSection'
-import { HowItWorksSection } from './components/HowItWorksSection'
-import { ServicesSection } from './components/ServicesSection'
+import { PlatformHeroSection } from './components/PlatformHeroSection'
+import { PlatformProductsSection } from './components/PlatformProductsSection'
 
-export default function LandingPage() {
+export default async function LandingPage() {
+  const session = await getServerSession()
+  const isAuthenticated = Boolean(session?.user)
+
   return (
     <>
-      <HeroSection />
-      <FeatureCardsSection />
-      <ServicesSection />
-      <HowItWorksSection />
+      <PlatformHeroSection isAuthenticated={isAuthenticated} />
+      <PlatformProductsSection />
+      <HeroSection isAuthenticated={isAuthenticated} />
+      <FeatureCardsSection isAuthenticated={isAuthenticated} />
     </>
   )
 }

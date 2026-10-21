@@ -26,7 +26,8 @@
     "Failed": "Nie udało się zapisać nastroju"
   },
   "DailyLimit": {
-    "Message": "Już zapisałeś(aś) swój nastrój dzisiaj. Wróć jutro!"
+    "Message": "Już zapisałeś(aś) swój nastrój dzisiaj. Wróć jutro!",
+    "SyncMessage": "Zapis jest niedostępny do czasu weryfikacji dzisiejszych wpisów i strefy czasowej urządzenia. Jeśli problem nie ustępuje, odśwież stronę."
   },
   "History": {
     "Title": "Historia zapisów nastroju",

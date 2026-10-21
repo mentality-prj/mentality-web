@@ -9,9 +9,16 @@ import AddNewMood from '../AddNewMood/AddNewMood'
 interface Props {
   availableTags?: UserTag[]
   initialLastSubmittedAt?: string | null
+  timeZone?: string | null
+  historyVerified?: boolean
 }
 
-export const NewMoodNoteSectionClient = ({ availableTags = [], initialLastSubmittedAt }: Props) => {
+export const NewMoodNoteSectionClient = ({
+  availableTags = [],
+  initialLastSubmittedAt,
+  timeZone,
+  historyVerified,
+}: Props) => {
   const router = useRouter()
 
   const handleSave = () => {
@@ -20,7 +27,13 @@ export const NewMoodNoteSectionClient = ({ availableTags = [], initialLastSubmit
 
   return (
     <div className="w-full wide:w-auto">
-      <AddNewMood availableTags={availableTags} onSave={handleSave} initialLastSubmittedAt={initialLastSubmittedAt} />
+      <AddNewMood
+        availableTags={availableTags}
+        onSave={handleSave}
+        initialLastSubmittedAt={initialLastSubmittedAt}
+        timeZone={timeZone}
+        historyVerified={historyVerified}
+      />
     </div>
   )
 }

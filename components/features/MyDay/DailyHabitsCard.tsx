@@ -123,9 +123,10 @@ export function DailyHabitsCard() {
         return
       }
 
-      const result = action === 'select'
-        ? await chooseDailyHabit(session, kind, freshZone)
-        : await checkDailyHabit(session, kind, action === 'check', freshZone)
+      const result =
+        action === 'select'
+          ? await chooseDailyHabit(session, kind, freshZone)
+          : await checkDailyHabit(session, kind, action === 'check', freshZone)
       if ('error' in result) {
         setNotice('failed')
         return
@@ -148,31 +149,29 @@ export function DailyHabitsCard() {
           <div className="space-y-1">
             <h2
               id="daily-habits-heading"
-              className="text-[17px] font-semibold leading-6 text-textcolor-primary sm:text-lg"
+              className="text-textcolor-primary text-[17px] font-semibold leading-6 sm:text-lg"
             >
               {t('title')}
             </h2>
-            <p className="max-w-[58ch] text-[13px] leading-5 text-textcolor-secondary sm:text-sm">
-              {t('description')}
-            </p>
+            <p className="text-textcolor-secondary max-w-[58ch] text-[13px] leading-5 sm:text-sm">{t('description')}</p>
           </div>
           {loading ? (
-            <p role="status" className="text-sm text-textcolor-secondary">
+            <p role="status" className="text-textcolor-secondary text-sm">
               {t('loading')}
             </p>
           ) : !timeZone || !dayKey ? (
-            <p role="status" className="text-sm text-textcolor-secondary">
+            <p role="status" className="text-textcolor-secondary text-sm">
               {t('unknownDay')}
             </p>
           ) : failed ? (
             <div className="flex flex-wrap items-center gap-3">
-              <p role="alert" className="text-sm text-textcolor-secondary">
+              <p role="alert" className="text-textcolor-secondary text-sm">
                 {t('loadError')}
               </p>
               <button
                 type="button"
                 onClick={() => void reload()}
-                className="inline-flex min-h-11 items-center rounded-[10px] px-3 text-sm font-semibold text-primary hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                className="text-primary hover:bg-secondary focus-visible:outline-primary inline-flex min-h-11 items-center rounded-[10px] px-3 text-sm font-semibold focus-visible:outline-2 focus-visible:outline-offset-2"
               >
                 {t('retry')}
               </button>
@@ -185,26 +184,26 @@ export function DailyHabitsCard() {
                 const href = RELATED_PAGES[kind]
                 const HabitIcon = HABIT_ICONS[kind]
                 return (
-                  <li key={kind} className="min-w-0 rounded-[14px] border border-border bg-white px-3.5 py-3 sm:px-4">
+                  <li key={kind} className="border-border min-w-0 rounded-[14px] border bg-white px-3.5 py-3 sm:px-4">
                     <div className="flex min-w-0 items-start gap-3">
                       <span
                         aria-hidden="true"
-                        className="flex h-9 w-9 flex-none items-center justify-center rounded-[10px] bg-secondary text-primary"
+                        className="bg-secondary text-primary flex h-9 w-9 flex-none items-center justify-center rounded-[10px]"
                       >
                         <HabitIcon className="h-[18px] w-[18px]" />
                       </span>
                       <div className="min-w-0 flex-1">
-                        <h3 className="text-[15px] font-semibold leading-5 text-textcolor-primary">
+                        <h3 className="text-textcolor-primary text-[15px] font-semibold leading-5">
                           {t(`options.${kind}.title`)}
                         </h3>
-                        <p className="mt-0.5 text-[13px] leading-[19px] text-textcolor-secondary">
+                        <p className="text-textcolor-secondary mt-0.5 text-[13px] leading-[19px]">
                           {t(`options.${kind}.description`)}
                         </p>
                       </div>
                     </div>
                     {record ? (
                       <div className="mt-2 flex flex-col items-start gap-1.5 pl-12">
-                        <span className="inline-flex items-center gap-1.5 text-xs leading-4 text-textcolor-secondary">
+                        <span className="text-textcolor-secondary inline-flex items-center gap-1.5 text-xs leading-4">
                           {record.doneToday && <CircleCheck size={14} className="text-primary" aria-hidden="true" />}
                           {t(record.doneToday ? 'doneToday' : 'selected')}
                         </span>
@@ -214,7 +213,7 @@ export function DailyHabitsCard() {
                             disabled={isBusy}
                             aria-pressed={record.doneToday}
                             onClick={() => void change(kind, record.doneToday ? 'undo' : 'check')}
-                            className={`inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-3 text-[13px] font-semibold leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 ${
+                            className={`focus-visible:outline-primary inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-3 text-[13px] font-semibold leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50 ${
                               record.doneToday
                                 ? 'bg-secondary text-primary hover:bg-secondary-hover'
                                 : 'bg-primary text-primary-foreground hover:bg-primary-hover'
@@ -230,7 +229,7 @@ export function DailyHabitsCard() {
                           {href && (
                             <Link
                               href={href}
-                              className="inline-flex min-h-11 items-center rounded-[10px] px-2 text-[13px] font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                              className="text-primary focus-visible:outline-primary inline-flex min-h-11 items-center rounded-[10px] px-2 text-[13px] font-medium underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
                             >
                               {t('openActivity')}
                             </Link>
@@ -239,7 +238,7 @@ export function DailyHabitsCard() {
                             type="button"
                             disabled={isBusy}
                             onClick={() => void change(kind, 'remove')}
-                            className="inline-flex min-h-11 items-center rounded-[10px] px-2 text-[13px] text-textcolor-secondary hover:bg-background-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
+                            className="text-textcolor-secondary hover:bg-background-soft focus-visible:outline-primary inline-flex min-h-11 items-center rounded-[10px] px-2 text-[13px] focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
                           >
                             {t('remove')}
                           </button>
@@ -251,7 +250,7 @@ export function DailyHabitsCard() {
                           type="button"
                           disabled={isBusy}
                           onClick={() => void change(kind, 'select')}
-                          className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] bg-secondary px-3 text-[13px] font-semibold leading-5 text-primary transition-colors hover:bg-secondary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
+                          className="bg-secondary text-primary hover:bg-secondary-hover focus-visible:outline-primary inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-3 text-[13px] font-semibold leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
                         >
                           <Plus size={15} aria-hidden="true" />
                           {t('choose')}
@@ -263,12 +262,12 @@ export function DailyHabitsCard() {
               })}
             </ul>
           )}
-          <p className="text-xs leading-[18px] text-textcolor-secondary">{t('noPressure')}</p>
+          <p className="text-textcolor-secondary text-xs leading-[18px]">{t('noPressure')}</p>
           {notice && (
             <p
               role={notice === 'failed' ? 'alert' : 'status'}
               aria-live="polite"
-              className="text-[13px] leading-5 text-textcolor-secondary"
+              className="text-textcolor-secondary text-[13px] leading-5"
             >
               {t(notice)}
             </p>

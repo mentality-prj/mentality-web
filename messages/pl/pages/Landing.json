@@ -1,62 +1,66 @@
 {
   "Hero": {
-    "title": "Lepsze zrozumienie stanu psychicznego, oparte na danych.",
-    "subtitle": "Dzvin.co pomaga śledzić zmiany stanu psychicznego, analizować wzorce behawioralne i oceniać, które działania mogą pozytywnie wpływać na samopoczucie.",
-    "cta": "Wypróbuj za darmo",
-    "testimonial": {
-      "title": "Dla wsparcia osobistego\ni zespołów",
-      "cta": "Dowiedz się więcej",
-      "metric": "725+",
-      "primary": "Opinie"
-    }
+    "title": "Wypróbuj osobisty Dzvin",
+    "subtitle": "30 sekund ćwiczenia oddechowego bez logowania. Konto pozwala zachować informacje o samopoczuciu i wpisy.",
+    "cta": "Utwórz konto",
+    "returnCta": "Mój dzień",
+    "path": {
+      "heading": "Twoje tempo, Twoje wsparcie",
+      "mood": "Obserwuj nastrój, stres i energię, kiedy masz na to ochotę.",
+      "diary": "Zapisuj swoje myśli w osobistym dzienniku.",
+      "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety."
+    },
+    "returnTitle": "Twój osobisty Dzvin",
+    "returnSubtitle": "Wróć do swoich wpisów lub spróbuj krótkiego ćwiczenia.",
+    "tryCta": "Wypróbuj 30 sekund"
   },
   "Features": {
     "interactivity": {
-      "title": "Analiza zmian stanu",
-      "subtitle": "System analizuje wzorce behawioralne i pomaga dostrzegać trendy oraz czynniki, które mogą wpływać na samopoczucie."
+      "title": "Codzienny nastrój",
+      "subtitle": "Zapisz, jak się teraz czujesz. Wróć do swoich wpisów, by zobaczyć, co się zmieniło."
     },
     "support": {
-      "title": "Rekomendacje oparte na danych",
-      "subtitle": "Rekomendacje są tworzone z uwzględnieniem zanonimizowanych wzorców i wyników osób o podobnych scenariuszach."
+      "title": "Osobisty dziennik",
+      "subtitle": "Myśli warte zachowania. Prywatne notatki, do których możesz wrócić we własnym tempie."
     },
     "ai": {
-      "title": "Zrozumiałe wyjaśnienia",
-      "subtitle": "Widzisz, dlaczego system proponuje określone rekomendacje i jakie kroki mogą wspierać Twoje samopoczucie."
+      "title": "Proste kolejne kroki",
+      "subtitle": "Ćwiczenia oddechowe, wyciszające i na koncentrację — krótka praktyka bez zbędnych kroków."
     }
   },
   "Services": {
-    "title": "Od danych do zrozumiałych\ni praktycznych wniosków",
+    "title": "Drobne chwile troski o siebie\nkażdego dnia",
     "cards": {
       "intro": {
-        "text": "Dzvin.co łączy analizę wzorców behawioralnych, ocenę zmian stanu i rekomendacje oparte na danych."
+        "text": "Nie musisz wszystkiego analizować. Czasem wystarczy nazwać swój stan, zapisać myśli lub zrobić krótką przerwę."
       },
       "predictionEngine": {
-        "title": "Analiza wzorców",
-        "text": "System analizuje zmiany stanu i pomaga określać czynniki, które mogą wpływać na samopoczucie."
+        "title": "Twoja historia",
+        "text": "Przeglądaj wcześniejsze wpisy o nastroju i obserwuj zmiany, bez ocen i rywalizacji."
       },
       "scenarioSimulation": {
-        "title": "Ocena możliwych zmian",
-        "text": "Porównuj różne podejścia i obserwuj, jak zmiany nawyków lub obciążenia mogą być powiązane ze zmianami stanu."
+        "title": "Oddech i wyciszenie",
+        "text": "Wybierz proste ćwiczenie z poradnika, gdy chcesz zmniejszyć napięcie."
       },
       "cohortEvidence": {
-        "title": "Kontekst dzięki danym",
-        "text": "Zanonimizowane porównanie z podobnymi wzorcami pomaga lepiej rozumieć własne doświadczenie i dynamikę stanu."
+        "title": "Miejsce na myśli",
+        "text": "Zachowuj myśli w dzienniku i wracaj do nich, kiedy będziesz gotowy."
       }
     }
   },
   "HowItWorks": {
     "title": "Jak to działa",
-    "subtitle": "Do użytku osobistego i dla zespołów",
+    "subtitle": "Bez obowiązkowych testów i pośpiechu",
     "steps": {
-      "register": "Zacznij od krótkiego kwestionariusza — pomoże on zbudować profil bazowy i zrozumieć Twój obecny stan.",
-      "choose": "Otrzymaj analitykę i rekomendacje — system pokaże trendy, powiązane czynniki oraz możliwe kierunki wsparcia.",
-      "receive": "Śledź zmiany w czasie — po każdej interakcji system doprecyzowuje ocenę stanu i dostosowuje rekomendacje."
+      "register": "Zaloguj się — stwórz osobistą przestrzeń na swoje wpisy.",
+      "choose": "Wybierz działanie — zapisz nastrój, otwórz dziennik lub ćwiczenie.",
+      "receive": "Wracaj, kiedy chcesz — przeglądaj historię i wybieraj mały kolejny krok."
     },
-    "cta": "Rozpocznij teraz"
+    "cta": "Zacznij za darmo"
   },
   "ReduceStress": {
-    "title": "Wsparcie, gdy jest potrzebne",
-    "subtitle": "Dzvin.co pomaga lepiej zrozumieć swój stan, zauważać zmiany i znajdować praktyczne kroki wspierające samopoczucie."
+    "title": "Wsparcie w Twoim tempie",
+    "subtitle": "Krótka przerwa lub wpis w dzienniku mogą być pomocne. Sam decydujesz, co jest odpowiednie dzisiaj."
   },
   "Footer": {
     "copyright": "© {year} {company}. Wszelkie prawa zastrzeżone.",
@@ -64,5 +68,109 @@
     "privacy": "Polityka prywatności",
     "terms": "Warunki korzystania",
     "cookies": "Polityka cookies"
+  },
+  "Preview": {
+    "heading": "Ćwiczenie oddechowe",
+    "duration": "30 sekund · trzy cykle",
+    "withoutAccount": "Bez logowania",
+    "ready": "Gotowi?",
+    "inhale": "Wdech",
+    "exhale": "Wydech",
+    "done": "Gotowe",
+    "start": "Rozpocznij",
+    "stop": "Zatrzymaj",
+    "restart": "Powtórz",
+    "next": "Przejdź do Dzvin",
+    "progress": "Postęp ćwiczenia",
+    "private": "Ćwiczenie działa w przeglądarce. Nic nie jest zapisywane."
+  },
+  "Next": {
+    "heading": "Co możesz zrobić dalej",
+    "subtitle": "Wybierz dowolny punkt wyjścia.",
+    "mood": {
+      "title": "Zapisz samopoczucie",
+      "description": "Zapisuj nastrój, stres, energię i koncentrację, a potem obserwuj zmiany."
+    },
+    "diary": {
+      "title": "Osobisty dziennik",
+      "description": "Zachowuj myśli i wracaj do wpisów, kiedy chcesz."
+    },
+    "practice": {
+      "title": "Więcej ćwiczeń",
+      "description": "Oddech, wyciszenie i koncentracja — wybierz, czego chcesz spróbować."
+    },
+    "afterLogin": "Dostępne po zalogowaniu",
+    "open": "Otwórz",
+    "closing": "Twoje informacje o samopoczuciu i wpisy pozostają w osobistej przestrzeni.",
+    "signup": "Zacznij za darmo"
+  },
+  "Platform": {
+    "eyebrow": "Dzvin · dla ludzi",
+    "title": "Nie musisz trzymać wszystkiego w głowie.",
+    "subtitle": "Czasem chcesz zapisać swoje myśli. Innym razem po prostu zaznaczyć, jak się czujesz. Dzvin zachowuje te chwile w osobistej historii, do której możesz wrócić.",
+    "primaryCta": "Wypróbuj Dzvin",
+    "secondaryCta": "Poznaj Dzvin",
+    "capabilitiesHeading": "Co obejmuje rozwiązanie dla firm",
+    "capabilities": {
+      "organization": {
+        "title": "Zespoły i struktura",
+        "description": "Działy, grupy i role w jednym kontekście organizacyjnym."
+      },
+      "analytics": {
+        "title": "Analizy zagregowane",
+        "description": "Trendy samooceny na poziomie zespołów, bez dostępu do prywatnych dzienników."
+      },
+      "access": {
+        "title": "Role i uprawnienia",
+        "description": "Dane firmy dostępne zgodnie z zakresem uprawnień użytkownika."
+      }
+    },
+    "returnCta": "Otwórz Mój dzień",
+    "businessCta": "Dla firm",
+    "visual": {
+      "title": "Jak minął dzień?",
+      "subtitle": "Możesz zacząć od jednej notatki.",
+      "checkin": "Zapis samopoczucia",
+      "journal": "Osobisty dziennik",
+      "practice": "Krótka przerwa"
+    }
+  },
+  "Products": {
+    "heading": "Dla siebie, dla zespołów, dla badań",
+    "description": "Osobisty Dzvin pozostaje pod Twoją kontrolą. Firmy i badacze mają odrębne narzędzia.",
+    "b2b": {
+      "label": "Dla firm · B2B",
+      "title": "Wspieranie zespołów zamiast nadzoru nad ludźmi",
+      "description": "Narzędzia dla HR i kierownictwa: grupy, role i zagregowane wskaźniki zespołów. Prywatne wpisy pracowników pozostają prywatne.",
+      "features": {
+        "teams": "Struktura organizacji i role",
+        "analytics": "Zagregowane dane zespołowe",
+        "decisions": "Kontekst do decyzji o wsparciu"
+      },
+      "cta": "Porozmawiaj o wdrożeniu",
+      "detailsCta": "Możliwości dla firm"
+    },
+    "b2c": {
+      "label": "Dla Ciebie · B2C",
+      "title": "Twój osobisty Dzvin",
+      "description": "Notatki, zapisy samopoczucia i ćwiczenia, do których wrócisz, kiedy zechcesz.",
+      "features": {
+        "checkins": "Dostrzegaj zmiany w samopoczuciu",
+        "diary": "Zapisuj myśli w prywatnym dzienniku",
+        "exercises": "Wybieraj krótkie ćwiczenia bez pośpiechu"
+      },
+      "cta": "Wypróbuj Dzvin"
+    },
+    "rd": {
+      "label": "Dla badań · R&D",
+      "title": "Dane do sprawdzania hipotez",
+      "description": "Projekty badawcze, kohorty i narzędzia do pracy z wynikami.",
+      "features": {
+        "cohorts": "Kohorty i projekty badawcze",
+        "validation": "Porównywanie obserwacji",
+        "reports": "Audyty i raportowanie badań"
+      },
+      "cta": "Możliwości R&D"
+    }
   }
 }

@@ -25,9 +25,18 @@ interface AddNewMoodProps {
   onSave?: () => void
   availableTags?: UserTag[]
   initialLastSubmittedAt?: string | null
+  timeZone?: string | null
+  historyVerified?: boolean
 }
 
-const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedAt }: AddNewMoodProps) => {
+const AddNewMood = ({
+  onClose,
+  onSave,
+  availableTags = [],
+  initialLastSubmittedAt,
+  timeZone,
+  historyVerified = true,
+}: AddNewMoodProps) => {
   const tm = useTranslations('components.Mood')
   const ct = useTranslations('common.Buttons')
   const tt = useTranslations('components.Tags')
@@ -59,11 +68,12 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
     setShowAddTag,
     isSubmitting,
     isFormValid,
+    timeZoneSynchronized,
     submittedToday,
     handleSubmit,
     onTagCreated,
     formKey,
-  } = useAddNewMood({ availableTags, onSave, onClose, initialLastSubmittedAt })
+  } = useAddNewMood({ availableTags, onSave, onClose, initialLastSubmittedAt, timeZone, historyVerified })
   const isSm = useBreakpoint('sm')
   const [hoveredMoodKey, setHoveredMoodKey] = useState<MoodKey | null>(null)
 
@@ -104,6 +114,11 @@ const AddNewMood = ({ onClose, onSave, availableTags = [], initialLastSubmittedA
         className="p-6 max-md:w-[100%] max-md:p-4"
       >
         <div className="flex flex-col gap-default">
+          {(!timeZoneSynchronized || !historyVerified) && (
+            <p role="status" className="text-sm text-textcolor-secondary">
+              {tm('DailyLimit.SyncMessage')}
+            </p>
+          )}
           <h5>{tm('howAreYou')}</h5>
           <div className="grid grid-cols-5 px-4 max-lg:px-0" style={{ gridAutoColumns: 'max-content' }}>
             {MOODS.map((mood) => {

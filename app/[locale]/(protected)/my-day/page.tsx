@@ -1,6 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
 import { DailyAffirmationClient } from '@/components/features/Affirmations/DailyAffirmationClient'
+import { MoodNextStepCard } from '@/components/features/Guide/MoodNextStepCard'
+import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
+import { SafetyResources } from '@/components/features/Guide/SafetyResources'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { MoodSummaryCard } from '@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard'
 import { TodayMoodNotes } from '@/components/features/MoodTracker/TodayMoodNotes/TodayMoodNotes'
@@ -9,11 +12,13 @@ import { DeadlineCountdown } from '@/components/features/MyProgress/PersonalGoal
 import { PersonalGoalsList } from '@/components/features/MyProgress/PersonalGoals/PersonalGoalsList'
 import { DailyTipClient } from '@/components/features/Tips/DailyTipClient'
 import { Routes } from '@/constants/routes'
+import { isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
 import { logger } from '@/lib/logger'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { mapMoodRecordsToCounts } from '@/mappers/mood.mappers'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
-import { getLatestMoodStory } from '@/requests/moodStory'
+import { getTodayMoodStory } from '@/requests/moodStory'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { MoodStoryResult } from '@/types/api-responses'
 import { Roles } from '@/types/security'
@@ -22,11 +27,21 @@ const MyDay = async () => {
   const session = await getServerSession()
   const t = await getTranslations('components.DailyCard')
   const isAdmin = session?.user?.role === Roles.ADMIN
+  const timeZone = await getUserTimeZone()
 
-  const todayPromise = getLastMoodRecords(session, { days: 1 })
+  const todayPromise = getLastMoodRecords(
+    session,
+    timeZone ? { days: 1, limit: 1, timeZone, dailyOnly: true } : { limit: 1, dailyOnly: true }
+  )
   const goalsPromise = fetchPersonalGoals(session)
   const todayRes = await todayPromise
-  const submittedToday = !('error' in todayRes) && (todayRes.data ?? []).length > 0
+  const todayHistoryVerified = !('error' in todayRes) && Array.isArray(todayRes.data)
+  const todayRecords = 'error' in todayRes || !Array.isArray(todayRes.data) ? [] : todayRes.data
+  const initialLastSubmittedAt = todayRecords[0]?.createdAt ?? null
+  const todayRecord = timeZone
+    ? todayRecords.find(({ createdAt }) => isSubmittedToday(createdAt ?? '', timeZone))
+    : undefined
+  const submittedToday = todayRecord !== undefined
 
   let moodCounts: ReturnType<typeof mapMoodRecordsToCounts> = []
   if (!submittedToday) {
@@ -45,8 +60,8 @@ const MyDay = async () => {
   let storyResult: MoodStoryResult | undefined
   let recommendedAffirmationId: string | undefined
   let recommendedTipId: string | undefined
-  if (submittedToday) {
-    storyResult = await getLatestMoodStory(session)
+  if (submittedToday && timeZone) {
+    storyResult = await getTodayMoodStory(session, timeZone)
     if (!('error' in storyResult)) {
       recommendedAffirmationId = storyResult.data.recommendedAffirmationId
       recommendedTipId = storyResult.data.recommendedTipId
@@ -59,11 +74,19 @@ const MyDay = async () => {
         {submittedToday ? (
           <MoodStoryCard isAdmin={isAdmin} initialStory={storyResult} />
         ) : (
-          <MoodSummaryCard title={t('greeting')} subtitle={t('greetingText')} counts={moodCounts} />
+          <MoodSummaryCard
+            title={t('greeting')}
+            subtitle={t('greetingText')}
+            counts={moodCounts}
+            initialLastSubmittedAt={initialLastSubmittedAt}
+            historyVerified={todayHistoryVerified}
+          />
         )}
+        {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
         <DailyTipClient recommendedId={recommendedTipId} />
-        <TodayMoodNotes />
+        <TodayMoodNotes record={todayRecord ?? null} timeZone={timeZone} />
         <DailyHabitsCard />
+        <SafetyResources />
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">

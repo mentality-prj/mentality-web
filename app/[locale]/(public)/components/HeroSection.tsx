@@ -1,90 +1,42 @@
-'use client'
-import { useLayoutEffect, useRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import AvatarStack from '@/components/shared/AvatarStack'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
-import { Button } from '@/ui/button'
 
-export function HeroSection() {
+import { BreathingPreview } from './BreathingPreview'
+
+export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('pages.Landing')
 
-  const avatars = ['/avatars/avatar1.png', '/avatars/avatar2.png', '/avatars/avatar3.png']
-  const heroRef = useRef<HTMLElement | null>(null)
-
-  useLayoutEffect(() => {
-    const heroEl = heroRef.current
-    const logoEl = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
-    if (!heroEl || !logoEl) return
-    const DECORATIVE_INSET_RATIO = 0.28
-
-    const updateGradientAnchor = () => {
-      const heroRect = heroEl.getBoundingClientRect()
-      const logoRect = logoEl.getBoundingClientRect()
-      const pseudoLeft = heroRect.left - heroRect.width * DECORATIVE_INSET_RATIO
-      const anchorX = logoRect.left + logoRect.width / 2 - pseudoLeft
-      heroEl.style.setProperty('--hero-gradient-x', `${anchorX}px`)
-      const pseudoTop = heroRect.top - heroRect.height * DECORATIVE_INSET_RATIO
-      const anchorY = Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)
-      heroEl.style.setProperty('--hero-gradient-y', `${anchorY}px`)
-      heroEl.dataset.heroRingsReady = 'true'
-    }
-
-    updateGradientAnchor()
-    window.addEventListener('resize', updateGradientAnchor)
-
-    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateGradientAnchor) : null
-    observer?.observe(logoEl)
-
-    return () => {
-      window.removeEventListener('resize', updateGradientAnchor)
-      observer?.disconnect()
-    }
-  }, [])
-
   return (
-    <section
-      ref={heroRef}
-      data-hero-rings-ready="false"
-      className="hero-zen mb-8 w-full py-8 tablet:mb-10 tablet:py-10 sm:py-12 md:py-16"
-    >
-      <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8">
-        <div className="grid grid-cols-1 items-center gap-default md:grid-cols-2 md:gap-x-md">
-          <div className="flex max-w-[720px] flex-col gap-default md:max-lg:contents">
-            <h1 className="landing-h1 md:max-lg:col-span-2">{t('Hero.title')}</h1>
-            <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
-          </div>
-          <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
-            <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
-              <div className="flex items-center justify-between gap-sm">
-                <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
-                  {t('Hero.testimonial.title')}
-                </h3>
-                <button
-                  type="button"
-                  aria-label={t('Hero.testimonial.primary')}
-                  className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[var(--outline-secondary)]"
-                >
-                  <ArrowUpRight size={24} className="text-[var(--text-muted)]" />
-                </button>
-              </div>
-              <div className="mt-4 border-t border-[var(--outline-secondary)]" />
-              <div className="mt-4 flex items-center justify-between">
-                <AvatarStack images={avatars} />
-                <span className="text-[26px] font-bold leading-[150%] text-[var(--text-muted)]">
-                  {t('Hero.testimonial.metric')}
-                </span>
-              </div>
-            </div>
-          </div>
-          <div className="mx-auto flex justify-start tablet:mx-0">
-            <Button asChild variant="volume" size="large">
-              <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
-            </Button>
+    <section id="b2c-experience" aria-labelledby="b2c-experience-heading" className="scroll-mt-5 border-t border-[#c6e7f0]/70 bg-[linear-gradient(130deg,#dffaff_0%,#e8f6ff_48%,#eee4ff_100%)]">
+      <div className="container-max-width mx-auto grid grid-cols-1 items-center gap-8 px-4 py-8 tablet:px-6 tablet:py-12 md:grid-cols-2 md:gap-12 md:px-8 md:py-16 lg:px-10">
+        <div className="flex flex-col items-start gap-5">
+          <h2 id="b2c-experience-heading" className="text-2xl font-semibold text-[#23335b] tablet:text-3xl">
+            {isAuthenticated ? t('Hero.returnTitle') : t('Hero.title')}
+          </h2>
+          <p className="max-w-xl text-base leading-relaxed text-[#4b5e7a] tablet:text-lg">
+            {isAuthenticated ? t('Hero.returnSubtitle') : t('Hero.subtitle')}
+          </p>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+            <a
+              href="#try-now"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[linear-gradient(110deg,#7545dd,#4368e6)] px-6 py-3 text-center text-sm font-semibold text-white shadow-[0_12px_26px_rgba(93,78,210,0.18)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              {t('Hero.tryCta')}
+              <ArrowDown aria-hidden size={17} />
+            </a>
+            <Link
+              href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#b3cce3] bg-white/65 px-6 py-3 text-center text-sm font-semibold text-[#293f65] hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              {isAuthenticated ? t('Hero.returnCta') : t('Hero.cta')}
+              <ArrowUpRight aria-hidden size={17} />
+            </Link>
           </div>
         </div>
+        <BreathingPreview isAuthenticated={isAuthenticated} />
       </div>
     </section>
   )
