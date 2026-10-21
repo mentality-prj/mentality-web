@@ -9,6 +9,11 @@ export function isValidTimeZone(value: unknown): value is string {
   }
 }
 
+/** Daily admission may use only a history read from the same validated browser zone. */
+export function isSynchronizedTimeZone(browserZone: unknown, serverZone: unknown): boolean {
+  return isValidTimeZone(browserZone) && isValidTimeZone(serverZone) && browserZone === serverZone
+}
+
 export const USER_TIME_ZONE_COOKIE = 'dzvin_time_zone'
 
 export function getVerifiedBrowserTimeZone(): string | null {
