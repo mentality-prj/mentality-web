@@ -45,6 +45,21 @@ describe('ExerciseFeedbackPanel', () => {
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'false')
   })
 
+  it('does not present an unavailable feedback read as an unanswered activity', async () => {
+    ;(saveExerciseFeedback as jest.Mock).mockResolvedValue({
+      data: { category: 'breathing', helpful: true },
+    })
+    render(<ExerciseFeedbackPanel category="breathing" initialHelpful={null} loadFailed />)
+
+    expect(screen.getByRole('alert')).toHaveTextContent('loadFailed')
+    expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'false')
+
+    fireEvent.click(screen.getByRole('button', { name: 'helpful' }))
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('saved'))
+    expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'true')
+  })
+
   it('keeps the previously stored response if the backend fails', async () => {
     ;(saveExerciseFeedback as jest.Mock).mockResolvedValue({ error: 'Unavailable', status: 503 })
     render(<ExerciseFeedbackPanel category="focus" initialHelpful={true} />)
