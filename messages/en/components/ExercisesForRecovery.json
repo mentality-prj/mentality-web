@@ -18,7 +18,17 @@
     "groundingPrompt": "Notice your feet resting on the ground. Look around and quietly name three things you can see. Breathe at a pace that feels comfortable.",
     "breathingAction": "Breathing exercises",
     "calmingAction": "Calming exercises",
-    "optionalNote": "This is an optional self-support exercise, not a diagnosis or prediction."
+    "optionalNote": "This is an optional self-support exercise, not a diagnosis or prediction.",
+    "returnToHelpful": {
+      "prompt": "You previously marked {category} as helpful. You can return to it without another mood check-in.",
+      "open": "Try this activity again",
+      "categories": {
+        "breathing": "Breathing",
+        "calming": "Calming",
+        "meditation": "Meditation",
+        "focus": "Attention Sprint"
+      }
+    }
   },
   "nextStep": {
     "title": "What could you try next?",
@@ -76,6 +86,7 @@
     "previouslySaved": "Your latest response is saved. You can change it.",
     "privacyNote": "Only the activity category and your latest rating are saved, never diary text. Your rating may shape future optional suggestions and can be removed.",
     "clear": "Remove my rating",
-    "cleared": "Rating removed. It will no longer affect suggestions."
+    "cleared": "Rating removed. It will no longer affect suggestions.",
+    "progressLink": "Review my ratings in My Progress"
   }
 }
