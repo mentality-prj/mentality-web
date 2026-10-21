@@ -1,15 +1,18 @@
 {
   "Hero": {
-    "title": "Here when you need support",
-    "subtitle": "A single day doesn't tell the whole story. Dzvin keeps your notes and check-ins in one personal history, so you can notice changes and draw your own conclusions.",
-    "cta": "Start for free",
-    "returnCta": "Open My Day",
+    "title": "Here when you need it",
+    "subtitle": "Try a short breathing exercise here, without signing in. Create a private space when you want to track mood or keep journal entries.",
+    "cta": "Create an account",
+    "returnCta": "My Day",
     "path": {
       "heading": "Your pace, your support",
       "mood": "Notice your mood, stress and energy whenever you choose.",
       "diary": "Write down your thoughts in a personal journal.",
       "support": "Open a breathing or calming exercise without completing a questionnaire."
-    }
+    },
+    "returnTitle": "Your Dzvin",
+    "returnSubtitle": "Return to your entries or start with a short exercise.",
+    "tryCta": "Try 30 seconds"
   },
   "Features": {
     "interactivity": {
@@ -65,5 +68,40 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
     "cookies": "Cookie Policy"
+  },
+  "Preview": {
+    "heading": "Breathing exercise",
+    "duration": "30 seconds · three cycles",
+    "withoutAccount": "No sign-in",
+    "ready": "Ready",
+    "inhale": "Breathe in",
+    "exhale": "Breathe out",
+    "done": "Complete",
+    "start": "Start",
+    "stop": "Stop",
+    "restart": "Try again",
+    "next": "Continue in Dzvin",
+    "progress": "Exercise progress",
+    "private": "Runs in your browser. Nothing is saved."
+  },
+  "Next": {
+    "heading": "What you can do next",
+    "subtitle": "Choose any starting point.",
+    "mood": {
+      "title": "Mood check-in",
+      "description": "Record mood, stress, energy and focus and revisit the changes."
+    },
+    "diary": {
+      "title": "Private journal",
+      "description": "Keep your thoughts and return to your entries whenever you wish."
+    },
+    "practice": {
+      "title": "More exercises",
+      "description": "Breathing, calming and focus — choose what you want to try."
+    },
+    "afterLogin": "Available after sign-in",
+    "open": "Open",
+    "closing": "Your check-ins and journal entries are kept in your personal space.",
+    "signup": "Start for free"
   }
 }

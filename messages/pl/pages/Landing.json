@@ -1,15 +1,18 @@
 {
   "Hero": {
-    "title": "Wsparcie, gdy go potrzebujesz",
-    "subtitle": "Jeden dzień nie pokazuje całego obrazu. Dzvin zachowuje Twoje zapiski i informacje o samopoczuciu w osobistej historii, aby łatwiej było dostrzegać zmiany i wyciągać własne wnioski.",
-    "cta": "Zacznij za darmo",
-    "returnCta": "Przejdź do Mojego dnia",
+    "title": "Wtedy, gdy potrzebujesz",
+    "subtitle": "Wypróbuj krótkie ćwiczenie oddechowe tutaj, bez logowania. Jeśli zechcesz śledzić nastrój lub pisać dziennik, stwórz osobistą przestrzeń.",
+    "cta": "Utwórz konto",
+    "returnCta": "Mój dzień",
     "path": {
       "heading": "Twoje tempo, Twoje wsparcie",
       "mood": "Obserwuj nastrój, stres i energię, kiedy masz na to ochotę.",
       "diary": "Zapisuj swoje myśli w osobistym dzienniku.",
       "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety."
-    }
+    },
+    "returnTitle": "Twój Dzvin",
+    "returnSubtitle": "Wróć do swoich zapisów lub zacznij od krótkiego ćwiczenia.",
+    "tryCta": "Wypróbuj 30 sekund"
   },
   "Features": {
     "interactivity": {
@@ -65,5 +68,40 @@
     "privacy": "Polityka prywatności",
     "terms": "Warunki korzystania",
     "cookies": "Polityka cookies"
+  },
+  "Preview": {
+    "heading": "Ćwiczenie oddechowe",
+    "duration": "30 sekund · trzy cykle",
+    "withoutAccount": "Bez logowania",
+    "ready": "Gotowi?",
+    "inhale": "Wdech",
+    "exhale": "Wydech",
+    "done": "Gotowe",
+    "start": "Rozpocznij",
+    "stop": "Zatrzymaj",
+    "restart": "Powtórz",
+    "next": "Przejdź do Dzvin",
+    "progress": "Postęp ćwiczenia",
+    "private": "Ćwiczenie działa w przeglądarce. Nic nie jest zapisywane."
+  },
+  "Next": {
+    "heading": "Co możesz zrobić dalej",
+    "subtitle": "Wybierz dowolny punkt wyjścia.",
+    "mood": {
+      "title": "Zapisz samopoczucie",
+      "description": "Zapisuj nastrój, stres, energię i koncentrację, a potem obserwuj zmiany."
+    },
+    "diary": {
+      "title": "Osobisty dziennik",
+      "description": "Zachowuj myśli i wracaj do wpisów, kiedy chcesz."
+    },
+    "practice": {
+      "title": "Więcej ćwiczeń",
+      "description": "Oddech, wyciszenie i koncentracja — wybierz, czego chcesz spróbować."
+    },
+    "afterLogin": "Dostępne po zalogowaniu",
+    "open": "Otwórz",
+    "closing": "Twoje informacje o samopoczuciu i wpisy pozostają w osobistej przestrzeni.",
+    "signup": "Zacznij za darmo"
   }
 }

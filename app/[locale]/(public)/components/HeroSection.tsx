@@ -1,94 +1,42 @@
-'use client'
-import { useLayoutEffect, useRef } from 'react'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
-import { Button } from '@/ui/button'
 
-const heroActions = [
-  { key: 'mood', href: Routes.MOODTRACKER },
-  { key: 'diary', href: Routes.DIARY },
-  { key: 'support', href: `${Routes.GUIDE}/breathing` },
-] as const
+import { BreathingPreview } from './BreathingPreview'
 
 export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('pages.Landing')
 
-  const heroRef = useRef<HTMLElement | null>(null)
-
-  useLayoutEffect(() => {
-    const heroEl = heroRef.current
-    const logoEl = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
-    if (!heroEl || !logoEl) return
-    const DECORATIVE_INSET_RATIO = 0.28
-
-    const updateGradientAnchor = () => {
-      const heroRect = heroEl.getBoundingClientRect()
-      const logoRect = logoEl.getBoundingClientRect()
-      const pseudoLeft = heroRect.left - heroRect.width * DECORATIVE_INSET_RATIO
-      const anchorX = logoRect.left + logoRect.width / 2 - pseudoLeft
-      heroEl.style.setProperty('--hero-gradient-x', `${anchorX}px`)
-      const pseudoTop = heroRect.top - heroRect.height * DECORATIVE_INSET_RATIO
-      const anchorY = Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)
-      heroEl.style.setProperty('--hero-gradient-y', `${anchorY}px`)
-      heroEl.dataset.heroRingsReady = 'true'
-    }
-
-    updateGradientAnchor()
-    window.addEventListener('resize', updateGradientAnchor)
-
-    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateGradientAnchor) : null
-    observer?.observe(logoEl)
-
-    return () => {
-      window.removeEventListener('resize', updateGradientAnchor)
-      observer?.disconnect()
-    }
-  }, [])
-
   return (
-    <section
-      ref={heroRef}
-      data-hero-rings-ready="false"
-      className="hero-zen mb-8 w-full py-8 tablet:mb-10 tablet:py-10 sm:py-12 md:py-16"
-    >
-      <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8">
-        <div className="grid grid-cols-1 items-center gap-default md:grid-cols-2 md:gap-x-md">
-          <div className="flex max-w-[720px] flex-col gap-default md:max-lg:contents">
-            <h1 className="landing-h1 md:max-lg:col-span-2">{t('Hero.title')}</h1>
-            <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
-          </div>
-          <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
-            <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
-              <h2 className="text-title text-xl">{t('Hero.path.heading')}</h2>
-              <div className="mt-4 border-t border-[var(--outline-secondary)]" />
-              <ol className="mt-4 list-inside list-decimal text-textcolor-secondary">
-                {heroActions.map(({ key, href }) => (
-                  <li key={key} className="mb-2">
-                    {isAuthenticated ? (
-                      <Link
-                        href={href}
-                        className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
-                      >
-                        {t(`Hero.path.${key}`)}
-                      </Link>
-                    ) : (
-                      t(`Hero.path.${key}`)
-                    )}
-                  </li>
-                ))}
-              </ol>
-            </div>
-          </div>
-          <div className="mx-auto flex justify-start tablet:mx-0">
-            <Button asChild variant="volume" size="large">
-              <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}>
-                {isAuthenticated ? t('Hero.returnCta') : t('Hero.cta')}
-              </Link>
-            </Button>
+    <section aria-labelledby="landing-heading" className="border-b border-[var(--outline-secondary)] bg-white">
+      <div className="container-max-width mx-auto grid grid-cols-1 items-center gap-8 px-4 py-8 tablet:px-6 tablet:py-12 md:grid-cols-2 md:gap-12 md:px-8 md:py-16 lg:px-10">
+        <div className="flex flex-col items-start gap-5">
+          <h1 id="landing-heading" className="landing-h1 max-w-[680px]">
+            {isAuthenticated ? t('Hero.returnTitle') : t('Hero.title')}
+          </h1>
+          <p className="max-w-xl text-base leading-relaxed text-textcolor-secondary tablet:text-lg">
+            {isAuthenticated ? t('Hero.returnSubtitle') : t('Hero.subtitle')}
+          </p>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+            <a
+              href="#try-now"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[var(--primary)] px-6 py-3 text-center text-sm font-semibold text-white transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              {t('Hero.tryCta')}
+              <ArrowDown aria-hidden size={17} />
+            </a>
+            <Link
+              href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[var(--outline-secondary)] px-6 py-3 text-center text-sm font-semibold text-textcolor-primary hover:border-[var(--primary)] focus-visible:outline-2 focus-visible:outline-offset-2"
+            >
+              {isAuthenticated ? t('Hero.returnCta') : t('Hero.cta')}
+              <ArrowUpRight aria-hidden size={17} />
+            </Link>
           </div>
         </div>
+        <BreathingPreview isAuthenticated={isAuthenticated} />
       </div>
     </section>
   )

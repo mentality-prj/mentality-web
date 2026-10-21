@@ -3,6 +3,7 @@
 import { Suspense, useEffect, useRef, useState } from 'react'
 import { useRouter, useSearchParams } from 'next/navigation'
 
+import { consumeLandingIntent } from '@/helpers/landingIntent'
 import { routing } from '@/i18n/routing'
 import { authService } from '@/lib/auth'
 import { logger } from '@/lib/logger'
@@ -95,7 +96,7 @@ function CallbackContent() {
         const result = await authService.handleCallback(code!, state!)
         if (result) {
           const locale = getPreferredLocale()
-          router.replace(`/${locale}/my-day`)
+          router.replace(`/${locale}${consumeLandingIntent() ?? '/my-day'}`)
         } else {
           setError(getMessages().unknownError)
         }
@@ -120,7 +121,7 @@ function CallbackContent() {
     try {
       const user = await authService.getUser()
       if (user) {
-        router.replace(`/${getPreferredLocale()}/my-day`)
+        router.replace(`/${getPreferredLocale()}${consumeLandingIntent() ?? '/my-day'}`)
         return
       }
       setCanRetrySession(false)
