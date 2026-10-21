@@ -59,6 +59,10 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath(['contact'], '', 'POST')).toBe('contact')
     expect(getValidatedBackendPath(['contact'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'anything'], '', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'business'], '', 'POST')).toBe('contact/business')
+    expect(getValidatedBackendPath(['contact', 'business'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'business'], '?debug=1', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'business', 'other'], '', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['contact'], '?admin=1', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['Contact'], '', 'POST')).toBeNull()
 
@@ -80,6 +84,57 @@ describe('same-origin backend BFF', () => {
     const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
     expect(headers.get('authorization')).toBeNull()
     expect(headers.get('cookie')).toBeNull()
+  })
+
+  it('routes business submissions only to the explicit anonymous endpoint without a bearer', async () => {
+    global.fetch = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), {
+        status: 201,
+        headers: { 'content-type': 'application/json' },
+      })
+    ) as unknown as typeof fetch
+
+    const res = await POST(
+      req('/api/backend/contact/business', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ companyName: 'Example Co', interest: 'pilot', token: 'captcha' }),
+      }),
+      ctx(['contact', 'business'])
+    )
+    expect(res.status).toBe(201)
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://backend.example/api/contact/business',
+      expect.objectContaining({ method: 'POST', redirect: 'manual' })
+    )
+    const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
+    expect(headers.get('Authorization')).toBeNull()
+    expect(headers.get('Cookie')).toBeNull()
+
+    const blocked = await POST(
+      req('/api/backend/contact/business?admin=1', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example' },
+        body: '{}',
+      }),
+      ctx(['contact', 'business'])
+    )
+    expect(blocked.status).toBe(400)
+  })
+
+  it('rejects cross-site anonymous business leads before backend forwarding', async () => {
+    global.fetch = jest.fn() as unknown as typeof fetch
+    const res = await POST(
+      req('/api/backend/contact/business', {
+        method: 'POST',
+        headers: { origin: 'https://attacker.invalid', 'content-type': 'application/json' },
+        body: '{}',
+      }),
+      ctx(['contact', 'business'])
+    )
+    expect(res.status).toBe(403)
+    expect(global.fetch).not.toHaveBeenCalled()
   })
 
   it('blocks cross-origin and oversized anonymous contact submissions before proxying', async () => {
