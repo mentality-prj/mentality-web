@@ -2,7 +2,7 @@ import { MOOD_ACTIONS, type MoodAction } from '@/helpers/moodNextStep'
 import type { CustomSession } from '@/types/auth'
 
 import { APIUrl } from './config'
-import { performAuthRequest, type ApiResponseDecoder } from './genericFetch'
+import { type ApiResponseDecoder, performAuthRequest } from './genericFetch'
 
 export type ExerciseFeedbackEntry = {
   category: MoodAction
