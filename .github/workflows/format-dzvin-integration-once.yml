@@ -1,0 +1,40 @@
+name: Dzvin One-Time Integration Formatting
+
+on:
+  push:
+    branches:
+      - integration/dzvin-551-554-web-20261021
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    if: github.repository == 'mentality-prj/mentality-web'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out exact integration branch
+        uses: actions/checkout@v4
+        with:
+          ref: integration/dzvin-551-554-web-20261021
+          persist-credentials: true
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install locked dependencies
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Apply repository Prettier rules
+        run: yarn format
+      - name: Commit formatting only if files changed
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -u
+          if ! git diff --cached --quiet; then
+            git commit -m 'style(dzvin): format integrated release candidate'
+            git push origin HEAD:refs/heads/integration/dzvin-551-554-web-20261021
+          fi
