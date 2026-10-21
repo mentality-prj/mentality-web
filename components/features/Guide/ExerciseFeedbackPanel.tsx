@@ -3,8 +3,8 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { useAuth } from '@/context/AuthProvider'
 import { Routes } from '@/constants/routes'
+import { useAuth } from '@/context/AuthProvider'
 import type { MoodAction } from '@/helpers/moodNextStep'
 import { Link } from '@/i18n/navigation'
 import { clearExerciseFeedback, saveExerciseFeedback } from '@/requests/exerciseFeedback'
