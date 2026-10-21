@@ -3,8 +3,10 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { Routes } from '@/constants/routes'
 import { useAuth } from '@/context/AuthProvider'
 import type { MoodAction } from '@/helpers/moodNextStep'
+import { Link } from '@/i18n/navigation'
 import { clearExerciseFeedback, saveExerciseFeedback } from '@/requests/exerciseFeedback'
 
 type Props = {
@@ -94,6 +96,14 @@ export function ExerciseFeedbackPanel({ category, initialHelpful, loadFailed = f
       >
         {saving ? t('saving') : message ? t(message) : loadFailed ? t('loadFailed') : helpful !== null ? t('previouslySaved') : ''}
       </p>
+      {helpful !== null && (
+        <Link
+          href={Routes.MYPROGRESS}
+          className="mt-3 inline-flex min-h-11 w-fit items-center text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+          {t('progressLink')}
+        </Link>
+      )}
     </section>
   )
 }
