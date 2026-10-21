@@ -1,94 +1,102 @@
-import { ArrowUpRight, BarChart3, Building2, ShieldCheck, Users } from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight, BookOpenText, Heart, Sparkles, Wind } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
-export function PlatformHeroSection() {
+/**
+ * Dzvin is introduced through the person's day, not through enterprise reporting.
+ * This is a decorative product vignette — it contains no fabricated user data.
+ */
+export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('pages.Landing.Platform')
-  const capabilities = [
-    { key: 'organization', Icon: Users, title: t('capabilities.organization.title'), description: t('capabilities.organization.description') },
-    { key: 'analytics', Icon: BarChart3, title: t('capabilities.analytics.title'), description: t('capabilities.analytics.description') },
-    { key: 'access', Icon: ShieldCheck, title: t('capabilities.access.title'), description: t('capabilities.access.description') },
-  ] as const
 
   return (
     <section
       aria-labelledby="platform-heading"
-      className="relative isolate overflow-hidden bg-[linear-gradient(132deg,#e6faff_0%,#e4f2ff_43%,#f1e6fd_77%,#faeafa_100%)]"
+      className="relative isolate overflow-hidden bg-[linear-gradient(120deg,#fff1e8_0%,#fceafa_36%,#e8f4ff_72%,#def7f0_100%)]"
     >
       <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-28 -top-28 h-[440px] w-[440px] rounded-full bg-cyan-300/35 blur-[88px] tablet:h-[580px] tablet:w-[580px]" />
-        <div className="absolute -bottom-52 left-[20%] h-[420px] w-[620px] rounded-full bg-violet-300/35 blur-[110px]" />
-        <div className="absolute -right-40 top-4 h-[420px] w-[480px] rounded-full bg-sky-400/20 blur-[100px]" />
+        <div className="absolute -left-24 -top-40 h-[430px] w-[520px] rounded-full bg-[#ffb9a9]/45 blur-[95px]" />
+        <div className="absolute -bottom-52 left-[22%] h-[440px] w-[540px] rounded-full bg-[#cca7ff]/35 blur-[95px]" />
+        <div className="absolute -right-32 top-[10%] h-[540px] w-[480px] rounded-full bg-[#8fe8d7]/35 blur-[95px]" />
       </div>
-      <div className="container-max-width relative mx-auto grid items-center gap-9 px-4 py-10 tablet:px-6 tablet:py-14 md:grid-cols-[minmax(0,1.05fr)_minmax(0,0.95fr)] md:gap-12 md:px-8 md:py-20 lg:px-10">
+      <div className="container-max-width relative mx-auto grid items-center gap-9 px-4 pb-12 pt-10 tablet:px-6 tablet:pb-16 tablet:pt-14 md:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] md:gap-14 md:px-8 md:py-20 lg:px-10">
         <div className="flex flex-col items-start gap-5">
-          <p className="inline-flex items-center gap-2 rounded-full border border-blue-200/70 bg-white/65 px-4 py-2 text-xs font-semibold tracking-wide text-[#32548e] shadow-sm backdrop-blur-sm">
-            <Building2 aria-hidden size={17} />
+          <span className="inline-flex items-center gap-2 rounded-full border border-[#f0cce0] bg-white/65 px-4 py-2 text-xs font-semibold tracking-wide text-[#795179] shadow-sm backdrop-blur-sm">
+            <Heart aria-hidden size={17} strokeWidth={1.8} />
             {t('eyebrow')}
-          </p>
-          <h1 id="platform-heading" className="landing-h1 max-w-[44rem] text-[#182747]">
+          </span>
+          <h1 id="platform-heading" className="landing-h1 max-w-[43rem] text-[#302a4f]">
             {t('title')}
           </h1>
-          <p className="max-w-[38rem] text-base leading-[1.7] text-[#425473] tablet:text-lg">
+          <p className="max-w-[38rem] text-base leading-[1.75] text-[#575570] tablet:text-lg">
             {t('subtitle')}
           </p>
-          <div className="mt-3 flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+          <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <Link
-              href={Routes.CONTACTS}
-              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[linear-gradient(110deg,#7545dd,#4368e6)] px-7 py-3 text-center text-sm font-semibold text-white shadow-[0_12px_28px_rgba(90,72,205,0.25)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#604bd6]"
+              href={isAuthenticated ? Routes.MYDAY : "#b2c-experience"}
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[linear-gradient(110deg,#a452bd,#6b58d9)] px-7 py-3 text-center text-sm font-semibold text-white shadow-[0_14px_30px_rgba(130,80,174,0.22)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7153c8]"
             >
-              {t('primaryCta')}
-              <ArrowUpRight aria-hidden size={17} />
+              {isAuthenticated ? t('returnCta') : t('primaryCta')}
+              <ArrowDownRight aria-hidden size={18} />
             </Link>
-            <Link
-              href={Routes.SERVICES + '#b2b'}
-              className="inline-flex min-h-12 items-center justify-center rounded-full border border-[#9fb9e2] bg-white/75 px-6 py-3 text-center text-sm font-semibold text-[#243963] backdrop-blur-sm transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#604bd6]"
+            <a
+              href="#products"
+              className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full border border-[#d3bddf] bg-white/75 px-6 py-3 text-center text-sm font-semibold text-[#59446c] backdrop-blur-sm transition-colors hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7153c8]"
             >
               {t('secondaryCta')}
-            </Link>
+            </a>
           </div>
+          <Link
+            href={Routes.SERVICES + '#b2b'}
+            className="mt-1 inline-flex min-h-10 items-center gap-2 text-sm font-medium text-[#5e5580] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            {t('businessCta')}
+            <ArrowUpRight aria-hidden size={16} />
+          </Link>
         </div>
 
-        <div className="relative mx-auto w-full max-w-[560px] pb-3 pt-2">
-          <div aria-hidden="true" className="pointer-events-none absolute -inset-5 rounded-[42px] bg-[linear-gradient(130deg,rgba(84,191,255,0.55),rgba(143,107,250,0.35),rgba(255,150,224,0.32))] opacity-75 blur-[34px]" />
-          <div className="relative isolate overflow-hidden rounded-[34px] border border-white/55 bg-[linear-gradient(142deg,#203d85_0%,#313b88_47%,#6a429e_100%)] p-5 text-white shadow-[0_30px_85px_rgba(39,54,126,0.27)] tablet:p-7">
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden">
-              <div className="absolute -right-16 -top-20 h-72 w-72 rounded-full bg-[#52cbf3]/45 blur-[66px]" />
-              <div className="absolute -bottom-36 left-0 h-72 w-72 rounded-full bg-[#d794ff]/40 blur-[75px]" />
-              <div className="absolute right-[3%] top-[28%] h-40 w-40 rounded-full border border-white/20" />
-              <div className="absolute -right-12 top-[18%] h-52 w-52 rounded-full border border-white/10" />
-              <div className="absolute left-[22%] top-[-9%] h-32 w-32 rounded-full bg-white/10 blur-3xl" />
-            </div>
-            <div className="relative">
-              <div className="mb-7 flex items-center justify-between gap-4">
-                <span className="text-xs font-semibold tracking-[0.18em] text-white/75">DZVIN / B2B</span>
-                <span aria-hidden="true" className="flex gap-1.5">
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#95e9fd]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#c7b1ff]" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-[#ffaddd]" />
-                </span>
+        <div className="relative mx-auto w-full max-w-[520px] py-4" aria-hidden="true">
+          <div className="pointer-events-none absolute inset-6 -rotate-[5deg] rounded-[38px] bg-[#c1eedd]/80 blur-[4px]" />
+          <div className="pointer-events-none absolute inset-4 rotate-[4deg] rounded-[38px] bg-[#d8ccf8]/85" />
+          <div className="relative overflow-hidden rounded-[32px] border border-white/90 bg-white/90 p-5 shadow-[0_35px_75px_rgba(93,78,136,0.18)] tablet:p-7">
+            <div className="mb-5 flex items-center justify-between">
+              <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f5e2fc] text-[#8f53a7]">
+                <Heart size={23} strokeWidth={1.8} />
               </div>
-              <h2 className="max-w-[22rem] text-2xl font-semibold leading-tight tracking-tight text-white tablet:text-[1.75rem]">
-                {t('capabilitiesHeading')}
-              </h2>
-              <ul className="mt-6 space-y-3">
-                {capabilities.map(({ key, Icon, title, description }) => (
-                  <li key={key} className="flex items-start gap-3.5 rounded-2xl border border-white/20 bg-white/[0.13] p-3.5 backdrop-blur-md tablet:p-4">
-                    <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-white/20 text-[#d9f8ff]">
-                      <Icon aria-hidden size={21} strokeWidth={1.7} />
-                    </span>
-                    <div className="min-w-0">
-                      <h3 className="font-semibold leading-snug text-white">{title}</h3>
-                      <p className="mt-1 text-sm leading-relaxed text-white/85">{description}</p>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-              <div aria-hidden="true" className="mt-7 h-1.5 w-28 rounded-full bg-[linear-gradient(90deg,#8ce7ff,#bfb1ff,#f5ade2)]" />
+              <span className="rounded-full bg-[#f7edf9] px-3 py-1.5 text-xs font-medium text-[#8a588c]">
+                DZVIN
+              </span>
+            </div>
+            <h2 className="text-[1.45rem] font-semibold leading-tight tracking-tight text-[#393451] tablet:text-[1.65rem]">
+              {t('visual.title')}
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[#756d84]">{t('visual.subtitle')}</p>
+
+            <div className="mt-6 rounded-[22px] bg-[linear-gradient(120deg,#fff1ed,#f8ecfa)] p-4">
+              <div className="mb-3 flex items-center gap-2 text-sm font-semibold text-[#754d78]">
+                <Sparkles size={17} strokeWidth={1.8} />
+                {t('visual.checkin')}
+              </div>
+              <div className="flex items-center justify-between gap-2">
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5c9b7] text-[#824b56]"><Heart size={21} /></span>
+                <span className="h-1.5 flex-1 rounded-full bg-[linear-gradient(90deg,#efb6aa,#d9b9ef,#a6d8e5)]" />
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#d9cbf5] text-[#6d5b99]"><Sparkles size={21} /></span>
+              </div>
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="rounded-[20px] border border-[#ebdfed] bg-[#faf6fd] p-4">
+                <BookOpenText size={22} strokeWidth={1.7} className="text-[#8b69aa]" />
+                <p className="mt-3 text-sm font-semibold text-[#5a4b69]">{t('visual.journal')}</p>
+              </div>
+              <div className="rounded-[20px] border border-[#d4ebe3] bg-[#edf9f4] p-4">
+                <Wind size={22} strokeWidth={1.7} className="text-[#328d78]" />
+                <p className="mt-3 text-sm font-semibold text-[#426b61]">{t('visual.practice')}</p>
+              </div>
             </div>
           </div>
+          <div className="pointer-events-none absolute -bottom-1 -left-4 h-14 w-14 rounded-full bg-[#ffd1b7]/80 blur-md tablet:-left-7 tablet:h-20 tablet:w-20" />
         </div>
       </div>
     </section>

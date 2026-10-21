@@ -11,7 +11,7 @@ export default async function LandingPage() {
 
   return (
     <>
-      <PlatformHeroSection />
+      <PlatformHeroSection isAuthenticated={isAuthenticated} />
       <PlatformProductsSection />
       <HeroSection isAuthenticated={isAuthenticated} />
       <FeatureCardsSection isAuthenticated={isAuthenticated} />
