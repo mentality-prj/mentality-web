@@ -55,7 +55,7 @@ export async function saveExerciseFeedback(
     return { error: 'Invalid exercise feedback input' }
   }
 
-  return performAuthRequest(session, FEEDBACK_URL, {
+  return performAuthRequest<ExerciseFeedbackEntry>(session, FEEDBACK_URL, {
     method: 'POST',
     body: { category, helpful },
     decodeResponse: (value) => {
@@ -75,7 +75,7 @@ export async function clearExerciseFeedback(
     return { error: 'Invalid exercise feedback category' }
   }
 
-  return performAuthRequest(session, `${FEEDBACK_URL}/${category}`, {
+  return performAuthRequest<{ category: MoodAction; cleared: true }>(session, `${FEEDBACK_URL}/${category}`, {
     method: 'DELETE',
     decodeResponse: (value) => {
       if (!value || typeof value !== 'object' || Array.isArray(value)) return { success: false }
