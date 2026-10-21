@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
-import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 import { HelpfulReturnPrompt } from '@/components/features/Guide/HelpfulReturnPrompt'
+import { QuickSupportCard } from '@/components/features/Guide/QuickSupportCard'
 
 jest.mock('next-intl/server')
 jest.mock('@/components/features/Guide/HelpfulReturnPrompt', () => ({
