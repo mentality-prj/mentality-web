@@ -10,13 +10,14 @@ import { clearExerciseFeedback, saveExerciseFeedback } from '@/requests/exercise
 type Props = {
   category: MoodAction
   initialHelpful: boolean | null
+  loadFailed?: boolean
 }
 
 /**
  * Only a voluntary categorical answer. This does not record a completion,
  * derive medical effectiveness or submit diary/check-in data.
  */
-export function ExerciseFeedbackPanel({ category, initialHelpful }: Props) {
+export function ExerciseFeedbackPanel({ category, initialHelpful, loadFailed = false }: Props) {
   const t = useTranslations('components.ExercisesForRecovery.feedback')
   const { session } = useAuth()
   const [helpful, setHelpful] = useState<boolean | null>(initialHelpful)
@@ -86,8 +87,12 @@ export function ExerciseFeedbackPanel({ category, initialHelpful }: Props) {
         </button>
       )}
       <p className="mt-2 text-xs text-textcolor-secondary">{t('privacyNote')}</p>
-      <p aria-live="polite" role="status" className="mt-2 text-sm text-textcolor-secondary">
-        {saving ? t('saving') : message ? t(message) : helpful !== null ? t('previouslySaved') : ''}
+      <p
+        aria-live="polite"
+        role={loadFailed && !message && !saving ? 'alert' : 'status'}
+        className="mt-2 text-sm text-textcolor-secondary"
+      >
+        {saving ? t('saving') : message ? t(message) : loadFailed ? t('loadFailed') : helpful !== null ? t('previouslySaved') : ''}
       </p>
     </section>
   )
