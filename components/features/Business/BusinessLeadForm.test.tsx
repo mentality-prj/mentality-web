@@ -21,6 +21,7 @@ const submitBusiness = () => {
 }
 
 beforeEach(() => {
+  process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY = 'test-recaptcha-key'
   jest.clearAllMocks()
   ;(useTranslations as jest.Mock).mockReturnValue((key: string) => key)
   ;(window as Window).grecaptcha = { execute: jest.fn().mockResolvedValue('verified-token') }
