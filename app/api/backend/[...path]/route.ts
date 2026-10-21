@@ -41,10 +41,11 @@ async function proxyBackendRequest(
   if (!path) return respond({ error: 'Invalid backend resource' }, 400)
   if (method !== 'GET' && !isAllowedMutation(request)) return respond({ error: 'Forbidden' }, 403)
 
-  // Only the two allowlisted public contact endpoints bypass the user session.
+  // Only three explicitly allowlisted public contact endpoints bypass the user session.
   // The NestJS endpoints validate the payload and reCAPTCHA server-side.
   // Never forward a session bearer to these anonymous submissions.
-  const isPublicContact = method === 'POST' && (path === 'contact' || path === 'contact/business')
+  const isPublicContact = method === 'POST' &&
+    (path === 'contact' || path === 'contact/business' || path === 'contact/research')
   const session = isPublicContact ? null : await getServerSession()
   if (!isPublicContact && (!session?.user || !session.OAuthToken)) {
     return respond({ error: 'Unauthorized' }, 401)
