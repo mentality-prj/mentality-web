@@ -21,5 +21,7 @@ describe('public B2C landing copy', () => {
     const allText = JSON.stringify(catalog)
     expect(allText).not.toContain('725+')
     expect(allText).not.toContain('testimonial')
+    expect(catalog.Hero.subtitle).not.toContain('простір для щоденної самопідтримки')
+    expect(catalog.Hero.subtitle).not.toContain('to ease tension')
   })
 })
