@@ -16,6 +16,15 @@ jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn(), getMoodRecords: jest.fn() }))
 jest.mock('@/requests/moodStory', () => ({ getTodayMoodStory: jest.fn() }))
 jest.mock('@/requests/personalGoals', () => ({ fetchPersonalGoals: jest.fn() }))
+jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
+  MoodNextStepCard: () => <div data-testid="mood-next-step" />,
+}))
+jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
+  QuickSupportCard: () => <div data-testid="quick-support" />,
+}))
+jest.mock('@/components/features/Guide/SafetyResources', () => ({
+  SafetyResources: () => <div data-testid="safety-resources" />,
+}))
 jest.mock('@/components/features/MoodTracker/MoodSummaryCard/MoodSummaryCard', () => ({
   MoodSummaryCard: ({ historyVerified }: { historyVerified: boolean }) => (
     <div data-testid="mood-summary" data-verified={String(historyVerified)} />
@@ -72,6 +81,7 @@ describe('My Day local calendar boundary and visual hierarchy', () => {
     expect(screen.queryByTestId('mood-story')).not.toBeInTheDocument()
     expect(screen.queryByTestId('today-record')).not.toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
   })
 
   it('shows the verified daily entry while retaining mood first, optional habits last', async () => {
@@ -85,7 +95,7 @@ describe('My Day local calendar boundary and visual hierarchy', () => {
     const content = container.querySelector('article > div')
     expect(content).not.toBeNull()
     const widgets = Array.from(content?.children ?? []).map((element) => element.getAttribute('data-testid'))
-    expect(widgets).toEqual(['mood-story', 'tip', 'today-record', 'daily-habits'])
+    expect(widgets).toEqual(['mood-story', 'mood-next-step', 'tip', 'today-record', 'daily-habits', 'safety-resources'])
   })
 
   it('fails closed when timezone is unknown, even if the backend returns a record', async () => {
