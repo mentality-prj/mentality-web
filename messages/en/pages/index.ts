@@ -23,6 +23,7 @@ import PrivacyPolicy from './PrivacyPolicy.json'
 import Profile from './Profile.json'
 import PsychologicalTests from './PsychologicalTests.json'
 import Research from './Research.json'
+import ResearchPartners from './ResearchPartners.json'
 import ServerError from './ServerError.json'
 import Services from './Services.json'
 import Settings from './Settings.json'
@@ -53,6 +54,7 @@ export const pages = {
   PrivacyPolicy,
   PsychologicalTests,
   Research,
+  ResearchPartners,
   MentalGames,
   Services,
   Settings,
