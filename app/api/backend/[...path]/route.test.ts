@@ -60,6 +60,11 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath(['contact'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'anything'], '', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'business'], '', 'POST')).toBe('contact/business')
+    expect(getValidatedBackendPath(['contact', 'research'], '', 'POST')).toBe('contact/research')
+    expect(getValidatedBackendPath(['contact', 'research'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'research'], '?company=1', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'research', 'members'], '', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['Contact', 'research'], '', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'business'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'business'], '?debug=1', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'business', 'other'], '', 'POST')).toBeNull()
@@ -135,6 +140,43 @@ describe('same-origin backend BFF', () => {
     )
     expect(res.status).toBe(403)
     expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('sends anonymous research partner leads to the exact public endpoint only', async () => {
+    global.fetch = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), {
+        status: 201,
+        headers: { 'content-type': 'application/json' },
+      })
+    ) as unknown as typeof fetch
+
+    const res = await POST(
+      req('/api/backend/contact/research', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ institutionName: 'University', researchTopic: 'Wellbeing', token: 'captcha' }),
+      }),
+      ctx(['contact', 'research'])
+    )
+    expect(res.status).toBe(201)
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://backend.example/api/contact/research',
+      expect.objectContaining({ method: 'POST', redirect: 'manual', cache: 'no-store' })
+    )
+    const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
+    expect(headers.get('Authorization')).toBeNull()
+    expect(headers.get('Cookie')).toBeNull()
+
+    const refused = await POST(
+      req('/api/backend/contact/research', {
+        method: 'POST',
+        headers: { origin: 'https://outside.example' },
+        body: '{}',
+      }),
+      ctx(['contact', 'research'])
+    )
+    expect(refused.status).toBe(403)
   })
 
   it('blocks cross-origin and oversized anonymous contact submissions before proxying', async () => {
