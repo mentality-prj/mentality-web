@@ -34,7 +34,7 @@ export function PlatformProductsSection() {
       title: t('b2b.title'),
       description: t('b2b.description'),
       cta: t('b2b.cta'),
-      href: Routes.CONTACTS,
+      href: Routes.BUSINESS,
       className: 'lg:col-span-4 border-[#cad9fa] bg-[linear-gradient(145deg,#e7f3ff_0%,#d9e8fc_58%,#e8e4fc_100%)] text-[#2d426f] shadow-[0_20px_45px_rgba(85,120,182,0.12)]',
       labelClass: 'bg-white/70 text-[#4a70a5] border-white/90',
       descriptionClass: 'text-[#536888]',
