@@ -40,7 +40,7 @@ describe('Dzvin people-first platform landing', () => {
     expect(cards[2]).toHaveClass('lg:col-span-3')
     expect(within(cards[0]).getByRole('link')).toHaveAttribute('href', '#b2c-experience')
     expect(within(cards[1]).getByRole('link', { name: /pages.Landing.Products.b2b.cta/ })).toHaveAttribute('href', '/business#business-inquiry')
-    expect(within(cards[1]).getByRole('link', { name: /pages.Landing.Products.b2b.detailsCta/ })).toHaveAttribute('href', '/services#b2b')
+    expect(within(cards[1]).getByRole('link', { name: /pages.Landing.Products.b2b.detailsCta/ })).toHaveAttribute('href', '/business')
     expect(within(cards[2]).getByRole('link')).toHaveAttribute('href', '/services#rd')
   })
   it('provides a dedicated B2B pilot entry after the personal journey', () => {
