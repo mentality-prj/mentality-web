@@ -107,4 +107,3 @@ jobs:
         run: yarn next typegen
       - name: Independently compile the production app
         run: yarn build
-
