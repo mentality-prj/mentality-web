@@ -49,7 +49,7 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
             </a>
           </div>
           <Link
-            href={Routes.SERVICES + '#b2b'}
+            href={Routes.BUSINESS}
             className="mt-1 inline-flex min-h-10 items-center gap-2 text-sm font-medium text-[#5e5580] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             {t('businessCta')}
