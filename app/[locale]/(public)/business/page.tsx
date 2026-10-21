@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { BusinessLeadForm } from '@/components/features/Business/BusinessLeadForm'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
+import { publicPageMetadata } from '@/lib/seo/publicPageMetadata'
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'pages.Business' })
-  return { title: t('metaTitle'), description: t('metaDescription') }
+  return publicPageMetadata({ locale, path: '/business', title: t('metaTitle'), description: t('metaDescription') })
 }
 
 export default async function BusinessPage() {

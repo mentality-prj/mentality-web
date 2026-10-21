@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { ResearchPartnerForm } from '@/components/features/Research/ResearchPartnerForm'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
+import { publicPageMetadata } from '@/lib/seo/publicPageMetadata'
 
 export async function generateMetadata({
   params,
@@ -12,7 +13,7 @@ export async function generateMetadata({
 }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'pages.ResearchPartners' })
-  return { title: t('metaTitle'), description: t('metaDescription') }
+  return publicPageMetadata({ locale, path: '/research-partners', title: t('metaTitle'), description: t('metaDescription') })
 }
 
 /** Research partner discovery is public; private study projects stay behind authorized routes. */

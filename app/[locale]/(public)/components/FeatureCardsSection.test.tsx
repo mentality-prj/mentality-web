@@ -15,6 +15,9 @@ const translations: Record<string, string> = {
   'Next.open': 'Open',
   'Next.closing': 'Your records are kept in your private space.',
   'Next.signup': 'Start for free',
+  'Next.progressTitle': 'What helped you',
+  'Next.progressDescription': 'Your voluntary ratings can be changed.',
+  'Next.progressCta': 'See My Progress',
   'Hero.returnCta': 'My Day',
 }
 
@@ -34,6 +37,8 @@ describe('Intent-based landing next actions', () => {
     expect(screen.getByRole('link', { name: /Private journal/ })).toHaveAttribute('href', '/auth')
     expect(screen.getByRole('link', { name: /More exercises/ })).toHaveAttribute('href', '#try-now')
     expect(screen.getByRole('link', { name: 'Start for free' })).toHaveAttribute('href', '/auth')
+    expect(screen.getByText('What helped you')).toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'See My Progress' })).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('link', { name: /Mood check-in/ }))
     expect(window.sessionStorage.getItem('dzvin:landing-intent:v1')).toContain('"mood"')
     window.sessionStorage.clear()
@@ -45,5 +50,6 @@ describe('Intent-based landing next actions', () => {
     expect(screen.getByRole('link', { name: /Private journal/ })).toHaveAttribute('href', '/diary')
     expect(screen.getByRole('link', { name: /More exercises/ })).toHaveAttribute('href', '/guide/breathing')
     expect(screen.getByRole('link', { name: 'My Day' })).toHaveAttribute('href', '/my-day')
+    expect(screen.getByRole('link', { name: 'See My Progress' })).toHaveAttribute('href', '/my-progress')
   })
 })
