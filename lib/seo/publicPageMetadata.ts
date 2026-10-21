@@ -22,8 +22,7 @@ export function publicPageMetadata({
   description: string
 }): Metadata {
   const selectedLocale = SUPPORTED_LOCALES.find((supported) => supported === locale) ?? 'uk'
-  const localizedPath = (language: (typeof SUPPORTED_LOCALES)[number]) =>
-    `/${language}${path === '/' ? '' : path}`
+  const localizedPath = (language: (typeof SUPPORTED_LOCALES)[number]) => `/${language}${path === '/' ? '' : path}`
   const canonicalPath = localizedPath(selectedLocale)
   const canonicalUrl = new URL(canonicalPath, PUBLIC_ORIGIN).toString()
 

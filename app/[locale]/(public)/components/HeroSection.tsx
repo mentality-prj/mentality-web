@@ -10,7 +10,11 @@ export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boo
   const t = useTranslations('pages.Landing')
 
   return (
-    <section id="b2c-experience" aria-labelledby="b2c-experience-heading" className="scroll-mt-5 border-t border-[#c6e7f0]/70 bg-[linear-gradient(130deg,#dffaff_0%,#e8f6ff_48%,#eee4ff_100%)]">
+    <section
+      id="b2c-experience"
+      aria-labelledby="b2c-experience-heading"
+      className="scroll-mt-5 border-t border-[#c6e7f0]/70 bg-[linear-gradient(130deg,#dffaff_0%,#e8f6ff_48%,#eee4ff_100%)]"
+    >
       <div className="container-max-width mx-auto grid grid-cols-1 items-center gap-8 px-4 py-8 tablet:px-6 tablet:py-12 md:grid-cols-2 md:gap-12 md:px-8 md:py-16 lg:px-10">
         <div className="flex flex-col items-start gap-5">
           <h2 id="b2c-experience-heading" className="text-2xl font-semibold text-[#23335b] tablet:text-3xl">

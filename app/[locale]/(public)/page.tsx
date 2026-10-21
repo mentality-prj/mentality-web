@@ -10,11 +10,7 @@ import { HeroSection } from './components/HeroSection'
 import { PlatformHeroSection } from './components/PlatformHeroSection'
 import { PlatformProductsSection } from './components/PlatformProductsSection'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'pages.Landing.seo' })
   return publicPageMetadata({ locale, path: '/', title: t('title'), description: t('description') })

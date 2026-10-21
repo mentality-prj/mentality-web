@@ -46,12 +46,10 @@ export async function HelpfulExercisesSummary({ feedback, failed }: Props) {
           ) : (
             <ul className="grid grid-cols-1 gap-sm tablet:grid-cols-2">
               {feedback.map(({ category, helpful }) => (
-                <li key={category} className="min-w-0 rounded-xl border border-current/10 p-4">
+                <li key={category} className="border-current/10 min-w-0 rounded-xl border p-4">
                   <div className="flex flex-col gap-xs">
                     <h3 className="font-medium">{t(`categories.${category}`)}</h3>
-                    <p className="text-sm text-textcolor-secondary">
-                      {t(helpful ? 'helpful' : 'notHelpful')}
-                    </p>
+                    <p className="text-sm text-textcolor-secondary">{t(helpful ? 'helpful' : 'notHelpful')}</p>
                     <Link
                       href={MOOD_ACTION_HREF[category]}
                       className="mt-1 w-fit text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"

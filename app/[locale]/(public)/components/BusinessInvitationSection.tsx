@@ -9,7 +9,10 @@ export function BusinessInvitationSection() {
   const t = useTranslations('pages.Landing.BusinessInvitation')
 
   return (
-    <section aria-labelledby="business-invitation-heading" className="bg-[linear-gradient(110deg,#e9f4ff,#eff0ff_52%,#fff0f6)]">
+    <section
+      aria-labelledby="business-invitation-heading"
+      className="bg-[linear-gradient(110deg,#e9f4ff,#eff0ff_52%,#fff0f6)]"
+    >
       <div className="container-max-width mx-auto px-4 py-10 tablet:px-6 tablet:py-14 md:px-8 lg:px-10">
         <div className="flex flex-col items-start gap-5 rounded-[28px] border border-[#d7d9f0] bg-white/70 p-6 tablet:p-8 md:flex-row md:items-center md:justify-between">
           <div className="max-w-2xl">
@@ -17,12 +20,13 @@ export function BusinessInvitationSection() {
               <Building2 aria-hidden size={17} />
               {t('eyebrow')}
             </p>
-            <h2 id="business-invitation-heading" className="mt-3 text-2xl font-semibold leading-tight text-[#323653] tablet:text-3xl">
+            <h2
+              id="business-invitation-heading"
+              className="mt-3 text-2xl font-semibold leading-tight text-[#323653] tablet:text-3xl"
+            >
               {t('title')}
             </h2>
-            <p className="mt-3 text-sm leading-relaxed text-[#606681] tablet:text-base">
-              {t('description')}
-            </p>
+            <p className="mt-3 text-sm leading-relaxed text-[#606681] tablet:text-base">{t('description')}</p>
           </div>
           <Link
             href={Routes.BUSINESS}

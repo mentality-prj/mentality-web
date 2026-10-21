@@ -108,39 +108,100 @@ export function BusinessLeadForm() {
           <div className="grid gap-4 sm:grid-cols-2">
             <label htmlFor="business-name" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.name')}
-              <input id="business-name" autoComplete="name" className={fieldClass} required minLength={2} maxLength={120} value={name} onChange={(e) => setName(e.target.value)} />
+              <input
+                id="business-name"
+                autoComplete="name"
+                className={fieldClass}
+                required
+                minLength={2}
+                maxLength={120}
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </label>
             <label htmlFor="business-email" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.email')}
-              <input id="business-email" type="email" autoComplete="email" className={fieldClass} required maxLength={254} value={email} onChange={(e) => setEmail(e.target.value)} />
+              <input
+                id="business-email"
+                type="email"
+                autoComplete="email"
+                className={fieldClass}
+                required
+                maxLength={254}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+              />
             </label>
           </div>
           <label htmlFor="business-company" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.companyName')}
-            <input id="business-company" autoComplete="organization" className={fieldClass} required minLength={2} maxLength={160} value={companyName} onChange={(e) => setCompanyName(e.target.value)} />
+            <input
+              id="business-company"
+              autoComplete="organization"
+              className={fieldClass}
+              required
+              minLength={2}
+              maxLength={160}
+              value={companyName}
+              onChange={(e) => setCompanyName(e.target.value)}
+            />
           </label>
           <label htmlFor="business-role" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.role')}
-            <input id="business-role" autoComplete="organization-title" className={fieldClass} maxLength={120} value={role} onChange={(e) => setRole(e.target.value)} />
+            <input
+              id="business-role"
+              autoComplete="organization-title"
+              className={fieldClass}
+              maxLength={120}
+              value={role}
+              onChange={(e) => setRole(e.target.value)}
+            />
           </label>
           <div className="grid gap-4 sm:grid-cols-2">
             <label htmlFor="business-size" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.teamSize')}
-              <select id="business-size" className={fieldClass} required value={teamSize} onChange={(e) => setTeamSize(e.target.value as TeamSize)}>
+              <select
+                id="business-size"
+                className={fieldClass}
+                required
+                value={teamSize}
+                onChange={(e) => setTeamSize(e.target.value as TeamSize)}
+              >
                 <option value="">{t('choose')}</option>
-                {TEAM_SIZES.map((size) => <option key={size} value={size}>{t(`teamSizes.${size}`)}</option>)}
+                {TEAM_SIZES.map((size) => (
+                  <option key={size} value={size}>
+                    {t(`teamSizes.${size}`)}
+                  </option>
+                ))}
               </select>
             </label>
             <label htmlFor="business-interest" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.interest')}
-              <select id="business-interest" className={fieldClass} required value={interest} onChange={(e) => setInterest(e.target.value as Interest)}>
-                {INTERESTS.map((option) => <option key={option} value={option}>{t(`interests.${option}`)}</option>)}
+              <select
+                id="business-interest"
+                className={fieldClass}
+                required
+                value={interest}
+                onChange={(e) => setInterest(e.target.value as Interest)}
+              >
+                {INTERESTS.map((option) => (
+                  <option key={option} value={option}>
+                    {t(`interests.${option}`)}
+                  </option>
+                ))}
               </select>
             </label>
           </div>
           <label htmlFor="business-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.message')}
-            <textarea id="business-message" rows={3} maxLength={1500} className={fieldClass} value={message} onChange={(e) => setMessage(e.target.value)} />
+            <textarea
+              id="business-message"
+              rows={3}
+              maxLength={1500}
+              className={fieldClass}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </label>
           <input
             aria-hidden="true"
@@ -151,7 +212,10 @@ export function BusinessLeadForm() {
             value={website}
             onChange={(e) => setWebsite(e.target.value)}
           />
-          <label htmlFor="business-contact-consent" className="flex items-start gap-3 text-sm leading-relaxed text-[#605875]">
+          <label
+            htmlFor="business-contact-consent"
+            className="flex items-start gap-3 text-sm leading-relaxed text-[#605875]"
+          >
             <input
               id="business-contact-consent"
               type="checkbox"
@@ -165,7 +229,11 @@ export function BusinessLeadForm() {
           <Link href={Routes.PRIVACY} className="w-fit text-sm text-[#7654ad] underline underline-offset-4">
             {t('privacyLink')}
           </Link>
-          {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
+          {error && (
+            <p role="alert" className="text-sm text-red-700">
+              {error}
+            </p>
+          )}
           <button
             type="submit"
             disabled={status === 'sending'}

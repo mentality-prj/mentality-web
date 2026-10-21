@@ -53,10 +53,7 @@ export function ExerciseFeedbackPanel({ category, initialHelpful, loadFailed = f
   }
 
   return (
-    <section
-      aria-labelledby={`exercise-feedback-${category}`}
-      className="mt-6 rounded-xl border border-current/10 p-4"
-    >
+    <section aria-labelledby={`exercise-feedback-${category}`} className="border-current/10 mt-6 rounded-xl border p-4">
       <h2 id={`exercise-feedback-${category}`} className="text-base font-semibold">
         {t('title')}
       </h2>
@@ -94,7 +91,15 @@ export function ExerciseFeedbackPanel({ category, initialHelpful, loadFailed = f
         role={loadFailed && !message && !saving ? 'alert' : 'status'}
         className="mt-2 text-sm text-textcolor-secondary"
       >
-        {saving ? t('saving') : message ? t(message) : loadFailed ? t('loadFailed') : helpful !== null ? t('previouslySaved') : ''}
+        {saving
+          ? t('saving')
+          : message
+            ? t(message)
+            : loadFailed
+              ? t('loadFailed')
+              : helpful !== null
+                ? t('previouslySaved')
+                : ''}
       </p>
       {helpful !== null && (
         <Link

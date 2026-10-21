@@ -1,5 +1,11 @@
 import { buildDailySummaries, isSubmittedToday } from '@/helpers/mood.helpers'
-import { getLocalDayKey, getRecentLocalDayKeys, isSynchronizedTimeZone, isValidTimeZone, millisecondsUntilNextLocalDay } from '@/utils/timeZone'
+import {
+  getLocalDayKey,
+  getRecentLocalDayKeys,
+  isSynchronizedTimeZone,
+  isValidTimeZone,
+  millisecondsUntilNextLocalDay,
+} from '@/utils/timeZone'
 
 describe('user-local calendar day', () => {
   it('rejects stale SSR history after device-zone changes or missing initialization', () => {

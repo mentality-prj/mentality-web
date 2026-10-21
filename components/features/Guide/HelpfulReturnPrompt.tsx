@@ -19,7 +19,7 @@ export async function HelpfulReturnPrompt() {
 
   const t = await getTranslations('components.ExercisesForRecovery.quickSupport.returnToHelpful')
   return (
-    <div className="flex flex-col gap-xs border-t border-current/10 pt-3">
+    <div className="border-current/10 flex flex-col gap-xs border-t pt-3">
       <p className="text-sm leading-relaxed text-textcolor-secondary">
         {t('prompt', { category: t(`categories.${previouslyHelpful.category}`) })}
       </p>

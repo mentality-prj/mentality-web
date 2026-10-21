@@ -6,14 +6,15 @@ import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { publicPageMetadata } from '@/lib/seo/publicPageMetadata'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'pages.ResearchPartners' })
-  return publicPageMetadata({ locale, path: '/research-partners', title: t('metaTitle'), description: t('metaDescription') })
+  return publicPageMetadata({
+    locale,
+    path: '/research-partners',
+    title: t('metaTitle'),
+    description: t('metaDescription'),
+  })
 }
 
 /** Research partner discovery is public; private study projects stay behind authorized routes. */
@@ -36,9 +37,7 @@ export default async function ResearchPartnersPage() {
               <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-[#302a4f] tablet:text-5xl">
                 {t('title')}
               </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-[#59556f] tablet:text-lg">
-                {t('subtitle')}
-              </p>
+              <p className="max-w-2xl text-base leading-relaxed text-[#59556f] tablet:text-lg">{t('subtitle')}</p>
               <p className="max-w-xl rounded-2xl border border-[#ddcfe8] bg-white/65 px-4 py-3 text-sm leading-relaxed text-[#605875]">
                 {t('state')}
               </p>
@@ -58,8 +57,13 @@ export default async function ResearchPartnersPage() {
               </ul>
             </section>
 
-            <section className="rounded-2xl border border-[#e7d7ee] bg-white/70 p-5" aria-labelledby="research-forecast-heading">
-              <h2 id="research-forecast-heading" className="font-semibold text-[#383053]">{t('forecastTitle')}</h2>
+            <section
+              className="rounded-2xl border border-[#e7d7ee] bg-white/70 p-5"
+              aria-labelledby="research-forecast-heading"
+            >
+              <h2 id="research-forecast-heading" className="font-semibold text-[#383053]">
+                {t('forecastTitle')}
+              </h2>
               <p className="mt-2 text-sm leading-relaxed text-[#59556f]">{t('forecastBody')}</p>
             </section>
 

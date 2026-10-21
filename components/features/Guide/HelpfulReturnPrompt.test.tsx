@@ -15,8 +15,8 @@ jest.mock('@/i18n/navigation', () => ({
 beforeEach(() => {
   jest.clearAllMocks()
   ;(getServerSession as jest.Mock).mockResolvedValue({ user: { id: 'current-user' } })
-  ;(getTranslations as jest.Mock).mockResolvedValue(
-    (key: string, values?: { category: string }) => values ? `${key}:${values.category}` : key
+  ;(getTranslations as jest.Mock).mockResolvedValue((key: string, values?: { category: string }) =>
+    values ? `${key}:${values.category}` : key
   )
 })
 

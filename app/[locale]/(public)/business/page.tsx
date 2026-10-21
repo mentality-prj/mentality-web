@@ -6,11 +6,7 @@ import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { publicPageMetadata } from '@/lib/seo/publicPageMetadata'
 
-export async function generateMetadata({
-  params,
-}: {
-  params: Promise<{ locale: string }>
-}): Promise<Metadata> {
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'pages.Business' })
   return publicPageMetadata({ locale, path: '/business', title: t('metaTitle'), description: t('metaDescription') })
@@ -24,10 +20,7 @@ export default async function BusinessPage() {
   return (
     <div className="bg-[linear-gradient(135deg,#fff3ed_0%,#f7f0ff_50%,#eaf8f7_100%)]">
       <div className="container-max-width mx-auto px-4 py-10 tablet:px-6 tablet:py-14 md:px-8 lg:px-10">
-        <Link
-          href={Routes.MAIN}
-          className="text-sm font-medium text-[#615675] underline-offset-4 hover:underline"
-        >
+        <Link href={Routes.MAIN} className="text-sm font-medium text-[#615675] underline-offset-4 hover:underline">
           {t('back')}
         </Link>
         <div className="mt-8 grid items-start gap-10 lg:grid-cols-[1fr_0.9fr]">
@@ -37,9 +30,7 @@ export default async function BusinessPage() {
               <h1 className="max-w-2xl text-4xl font-semibold leading-tight tracking-tight text-[#302a4f] tablet:text-5xl">
                 {t('title')}
               </h1>
-              <p className="max-w-2xl text-base leading-relaxed text-[#59556f] tablet:text-lg">
-                {t('subtitle')}
-              </p>
+              <p className="max-w-2xl text-base leading-relaxed text-[#59556f] tablet:text-lg">{t('subtitle')}</p>
               <p className="max-w-xl rounded-2xl border border-[#ddcfe8] bg-white/65 px-4 py-3 text-sm leading-relaxed text-[#605875]">
                 {t('availability')}
               </p>

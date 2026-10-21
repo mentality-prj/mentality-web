@@ -44,8 +44,8 @@ async function proxyBackendRequest(
   // Only three explicitly allowlisted public contact endpoints bypass the user session.
   // The NestJS endpoints validate the payload and reCAPTCHA server-side.
   // Never forward a session bearer to these anonymous submissions.
-  const isPublicContact = method === 'POST' &&
-    (path === 'contact' || path === 'contact/business' || path === 'contact/research')
+  const isPublicContact =
+    method === 'POST' && (path === 'contact' || path === 'contact/business' || path === 'contact/research')
   const session = isPublicContact ? null : await getServerSession()
   if (!isPublicContact && (!session?.user || !session.OAuthToken)) {
     return respond({ error: 'Unauthorized' }, 401)

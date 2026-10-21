@@ -25,8 +25,20 @@ jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => translations[key] ?? key,
 }))
 jest.mock('@/i18n/navigation', () => ({
-  Link: ({ children, href, className, onClick }: { children: React.ReactNode; href: string; className?: string; onClick?: () => void }) => (
-    <a href={href} className={className} onClick={onClick}>{children}</a>
+  Link: ({
+    children,
+    href,
+    className,
+    onClick,
+  }: {
+    children: React.ReactNode
+    href: string
+    className?: string
+    onClick?: () => void
+  }) => (
+    <a href={href} className={className} onClick={onClick}>
+      {children}
+    </a>
   ),
 }))
 

@@ -104,31 +104,81 @@ export function ResearchPartnerForm() {
         <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4" noValidate>
           <label htmlFor="research-name" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.name')}
-            <input id="research-name" autoComplete="name" className={inputClass} required minLength={2} maxLength={120} value={name} onChange={(e) => setName(e.target.value)} />
+            <input
+              id="research-name"
+              autoComplete="name"
+              className={inputClass}
+              required
+              minLength={2}
+              maxLength={120}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+            />
           </label>
           <label htmlFor="research-email" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.email')}
-            <input id="research-email" type="email" autoComplete="email" className={inputClass} required maxLength={254} value={email} onChange={(e) => setEmail(e.target.value)} />
+            <input
+              id="research-email"
+              type="email"
+              autoComplete="email"
+              className={inputClass}
+              required
+              maxLength={254}
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </label>
           <label htmlFor="research-institution" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.institutionName')}
-            <input id="research-institution" autoComplete="organization" className={inputClass} required minLength={2} maxLength={160} value={institutionName} onChange={(e) => setInstitutionName(e.target.value)} />
+            <input
+              id="research-institution"
+              autoComplete="organization"
+              className={inputClass}
+              required
+              minLength={2}
+              maxLength={160}
+              value={institutionName}
+              onChange={(e) => setInstitutionName(e.target.value)}
+            />
           </label>
           <label htmlFor="research-topic" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.researchTopic')}
-            <input id="research-topic" className={inputClass} required minLength={5} maxLength={300} value={researchTopic} onChange={(e) => setResearchTopic(e.target.value)} />
+            <input
+              id="research-topic"
+              className={inputClass}
+              required
+              minLength={5}
+              maxLength={300}
+              value={researchTopic}
+              onChange={(e) => setResearchTopic(e.target.value)}
+            />
           </label>
           <label htmlFor="research-interest" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.researchInterest')}
-            <select id="research-interest" className={inputClass} required value={researchInterest} onChange={(e) => setResearchInterest(e.target.value as ResearchInterest)}>
+            <select
+              id="research-interest"
+              className={inputClass}
+              required
+              value={researchInterest}
+              onChange={(e) => setResearchInterest(e.target.value as ResearchInterest)}
+            >
               {RESEARCH_INTERESTS.map((interest) => (
-                <option key={interest} value={interest}>{t(`interests.${interest}`)}</option>
+                <option key={interest} value={interest}>
+                  {t(`interests.${interest}`)}
+                </option>
               ))}
             </select>
           </label>
           <label htmlFor="research-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.message')}
-            <textarea id="research-message" rows={3} maxLength={1000} className={inputClass} value={message} onChange={(e) => setMessage(e.target.value)} />
+            <textarea
+              id="research-message"
+              rows={3}
+              maxLength={1000}
+              className={inputClass}
+              value={message}
+              onChange={(e) => setMessage(e.target.value)}
+            />
           </label>
           <input
             name="website"
@@ -153,7 +203,11 @@ export function ResearchPartnerForm() {
           <Link href={Routes.PRIVACY} className="w-fit text-sm text-[#7654ad] underline underline-offset-4">
             {t('privacyLink')}
           </Link>
-          {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
+          {error && (
+            <p role="alert" className="text-sm text-red-700">
+              {error}
+            </p>
+          )}
           <button
             type="submit"
             disabled={status === 'sending'}

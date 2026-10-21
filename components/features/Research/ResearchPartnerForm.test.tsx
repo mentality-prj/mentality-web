@@ -14,8 +14,12 @@ jest.mock('@/i18n/navigation', () => ({
 function completeInquiry() {
   fireEvent.change(screen.getByLabelText('fields.name'), { target: { value: 'Researcher Novak' } })
   fireEvent.change(screen.getByLabelText('fields.email'), { target: { value: 'novak@university.example' } })
-  fireEvent.change(screen.getByLabelText('fields.institutionName'), { target: { value: 'Institute of Social Studies' } })
-  fireEvent.change(screen.getByLabelText('fields.researchTopic'), { target: { value: 'Daily self-support and wellbeing' } })
+  fireEvent.change(screen.getByLabelText('fields.institutionName'), {
+    target: { value: 'Institute of Social Studies' },
+  })
+  fireEvent.change(screen.getByLabelText('fields.researchTopic'), {
+    target: { value: 'Daily self-support and wellbeing' },
+  })
   fireEvent.click(screen.getByLabelText('fields.consent'))
   fireEvent.click(screen.getByRole('button', { name: 'send' }))
 }

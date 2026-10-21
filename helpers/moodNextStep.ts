@@ -31,10 +31,7 @@ function validLevel(value: unknown): value is number {
  * when someone reports high stress or low mood. The user can override it.
  * Never inspect diary text, tags, identifiers or inferred risk scores.
  */
-export function chooseMoodNextStep(
-  record: MoodRecordEntity,
-  feedback: readonly MoodPreference[] = []
-): MoodNextStep {
+export function chooseMoodNextStep(record: MoodRecordEntity, feedback: readonly MoodPreference[] = []): MoodNextStep {
   if (validLevel(record.stressLevel) && record.stressLevel >= 4) {
     return {
       observation: 'stress',
@@ -74,9 +71,7 @@ export function chooseMoodNextStep(
   // Current self-report signals always take priority. When no signal stands
   // out, reuse the most recent activity the user explicitly found helpful.
   // API preferences are ordered newest first and only contain owner data.
-  const positive = feedback.find(
-    (entry) => entry.helpful === true && MOOD_ACTIONS.includes(entry.category)
-  )
+  const positive = feedback.find((entry) => entry.helpful === true && MOOD_ACTIONS.includes(entry.category))
   if (positive) {
     return {
       observation: 'preference',
