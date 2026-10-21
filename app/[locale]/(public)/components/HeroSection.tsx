@@ -1,17 +1,20 @@
 'use client'
 import { useLayoutEffect, useRef } from 'react'
-import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
-import AvatarStack from '@/components/shared/AvatarStack'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { Button } from '@/ui/button'
 
-export function HeroSection() {
+const heroActions = [
+  { key: 'mood', href: Routes.MOODTRACKER },
+  { key: 'diary', href: Routes.DIARY },
+  { key: 'support', href: `${Routes.GUIDE}/breathing` },
+] as const
+
+export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('pages.Landing')
 
-  const avatars = ['/avatars/avatar1.png', '/avatars/avatar2.png', '/avatars/avatar3.png']
   const heroRef = useRef<HTMLElement | null>(null)
 
   useLayoutEffect(() => {
@@ -58,30 +61,32 @@ export function HeroSection() {
           </div>
           <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
             <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
-              <div className="flex items-center justify-between gap-sm">
-                <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
-                  {t('Hero.testimonial.title')}
-                </h3>
-                <button
-                  type="button"
-                  aria-label={t('Hero.testimonial.primary')}
-                  className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[var(--outline-secondary)]"
-                >
-                  <ArrowUpRight size={24} className="text-[var(--text-muted)]" />
-                </button>
-              </div>
+              <h2 className="text-title text-xl">{t('Hero.path.heading')}</h2>
               <div className="mt-4 border-t border-[var(--outline-secondary)]" />
-              <div className="mt-4 flex items-center justify-between">
-                <AvatarStack images={avatars} />
-                <span className="text-[26px] font-bold leading-[150%] text-[var(--text-muted)]">
-                  {t('Hero.testimonial.metric')}
-                </span>
-              </div>
+              <ol className="mt-4 list-inside list-decimal text-textcolor-secondary">
+                {heroActions.map(({ key, href }) => (
+                  <li key={key} className="mb-2">
+                    {isAuthenticated ? (
+                      <Link
+                        href={href}
+                        className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
+                      >
+                        {t(`Hero.path.${key}`)}
+                      </Link>
+                    ) : (
+                      t(`Hero.path.${key}`)
+                    )}
+                  </li>
+                ))}
+              </ol>
+              <p className="mt-4 text-sm text-textcolor-secondary">{t('Hero.path.note')}</p>
             </div>
           </div>
           <div className="mx-auto flex justify-start tablet:mx-0">
             <Button asChild variant="volume" size="large">
-              <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
+              <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}>
+                {isAuthenticated ? t('Hero.returnCta') : t('Hero.cta')}
+              </Link>
             </Button>
           </div>
         </div>
