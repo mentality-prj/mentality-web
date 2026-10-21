@@ -105,11 +105,11 @@
     "signup": "Start for free"
   },
   "Platform": {
-    "eyebrow": "Dzvin · for organizations",
-    "title": "Understand team wellbeing. Make decisions with data.",
-    "subtitle": "Dzvin brings together organizational structure, team-level metrics and analytical tools. For HR and leaders who need to understand change over time and its operational context.",
-    "primaryCta": "Discuss implementation",
-    "secondaryCta": "Explore business capabilities",
+    "eyebrow": "Dzvin · for people",
+    "title": "Not everything has to stay in your head.",
+    "subtitle": "Some days you want to write down your thoughts. Other days, just note how you feel. Dzvin keeps those moments in a personal history you can revisit.",
+    "primaryCta": "Try Dzvin for yourself",
+    "secondaryCta": "Explore Dzvin",
     "capabilitiesHeading": "What the business offering covers",
     "capabilities": {
       "organization": {
@@ -124,42 +124,51 @@
         "title": "Roles and access boundaries",
         "description": "Company information scoped to each user's permissions."
       }
+    },
+    "returnCta": "Open My Day",
+    "businessCta": "For organizations",
+    "visual": {
+      "title": "How was your day?",
+      "subtitle": "You can begin with a single check-in.",
+      "checkin": "Mood check-in",
+      "journal": "Personal journal",
+      "practice": "Take a short pause"
     }
   },
   "Products": {
-    "heading": "Three Dzvin offerings",
-    "description": "Different products for organizations, individuals and research teams.",
+    "heading": "For yourself, for teams, for research",
+    "description": "Personal Dzvin is yours to use on your terms. Organizations and researchers have distinct tools.",
     "b2b": {
-      "label": "B2B · organizations",
-      "audience": "HR and leadership",
-      "title": "Team wellbeing management",
-      "description": "Tools for group-level insights and organizational decisions.",
+      "label": "For organizations · B2B",
+      "title": "Support teams, not monitor people",
+      "description": "Tools for HR and leaders: groups, roles and aggregated team insights. Personal journal entries remain private.",
       "features": {
-        "teams": "Companies, departments, groups and roles",
-        "analytics": "Aggregated team-level metrics",
-        "decisions": "Analytical context for decisions"
+        "teams": "Organization structure and roles",
+        "analytics": "Aggregated team-level insights",
+        "decisions": "Context for better support decisions"
       },
-      "cta": "Explore B2B"
+      "cta": "Discuss implementation",
+      "detailsCta": "Explore business capabilities"
     },
     "b2c": {
-      "label": "B2C · personal",
-      "title": "Your personal space",
-      "description": "Check-ins, a journal, history and exercises for personal use.",
+      "label": "For you · B2C",
+      "title": "Your personal Dzvin",
+      "description": "Check-ins, journal entries and exercises you can return to whenever you want.",
       "features": {
-        "checkins": "Mood, stress, energy and focus",
-        "diary": "Private entries and history",
-        "exercises": "Short breathing and other exercises"
+        "checkins": "Notice changes in how you feel",
+        "diary": "Keep thoughts in a private journal",
+        "exercises": "Choose short exercises at your own pace"
       },
       "cta": "Try Dzvin"
     },
     "rd": {
-      "label": "R&D · research",
-      "title": "Research environment",
-      "description": "Research projects, cohorts, observations and hypothesis assessment.",
+      "label": "For research · R&D",
+      "title": "Data for testing hypotheses",
+      "description": "Research projects, cohorts and tools for working with outcomes.",
       "features": {
-        "cohorts": "Research cohorts",
-        "validation": "Outcome comparisons and hypothesis evaluation",
-        "reports": "Datasets, audits and reporting"
+        "cohorts": "Cohorts and research projects",
+        "validation": "Comparing observations",
+        "reports": "Audits and research reporting"
       },
       "cta": "Explore R&D"
     }

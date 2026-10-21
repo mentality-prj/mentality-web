@@ -105,11 +105,11 @@
     "signup": "Zacznij za darmo"
   },
   "Platform": {
-    "eyebrow": "Dzvin · dla firm",
-    "title": "Rozumiej kondycję zespołów. Podejmuj decyzje na podstawie danych.",
-    "subtitle": "Dzvin łączy strukturę organizacji, wskaźniki zespołowe i narzędzia analityczne. Dla HR i liderów, którzy potrzebują obrazu zmian oraz kontekstu do działania.",
-    "primaryCta": "Porozmawiaj o wdrożeniu",
-    "secondaryCta": "Możliwości dla firm",
+    "eyebrow": "Dzvin · dla ludzi",
+    "title": "Nie musisz trzymać wszystkiego w głowie.",
+    "subtitle": "Czasem chcesz zapisać swoje myśli. Innym razem po prostu zaznaczyć, jak się czujesz. Dzvin zachowuje te chwile w osobistej historii, do której możesz wrócić.",
+    "primaryCta": "Wypróbuj Dzvin",
+    "secondaryCta": "Poznaj Dzvin",
     "capabilitiesHeading": "Co obejmuje rozwiązanie dla firm",
     "capabilities": {
       "organization": {
@@ -124,44 +124,53 @@
         "title": "Role i uprawnienia",
         "description": "Dane firmy dostępne zgodnie z zakresem uprawnień użytkownika."
       }
+    },
+    "returnCta": "Otwórz Mój dzień",
+    "businessCta": "Dla firm",
+    "visual": {
+      "title": "Jak minął dzień?",
+      "subtitle": "Możesz zacząć od jednej notatki.",
+      "checkin": "Zapis samopoczucia",
+      "journal": "Osobisty dziennik",
+      "practice": "Krótka przerwa"
     }
   },
   "Products": {
-    "heading": "Trzy obszary Dzvin",
-    "description": "Oddzielne produkty dla firm, osób prywatnych i zespołów badawczych.",
+    "heading": "Dla siebie, dla zespołów, dla badań",
+    "description": "Osobisty Dzvin pozostaje pod Twoją kontrolą. Firmy i badacze mają odrębne narzędzia.",
     "b2b": {
-      "label": "B2B · firmy",
-      "audience": "HR i kierownictwo",
-      "title": "Zarządzanie dobrostanem zespołów",
-      "description": "Narzędzia do analizy danych grupowych i podejmowania decyzji organizacyjnych.",
+      "label": "Dla firm · B2B",
+      "title": "Wspieranie zespołów zamiast nadzoru nad ludźmi",
+      "description": "Narzędzia dla HR i kierownictwa: grupy, role i zagregowane wskaźniki zespołów. Prywatne wpisy pracowników pozostają prywatne.",
       "features": {
-        "teams": "Firmy, działy, grupy i role",
-        "analytics": "Zagregowane wskaźniki zespołowe",
-        "decisions": "Dane w kontekście decyzji"
+        "teams": "Struktura organizacji i role",
+        "analytics": "Zagregowane dane zespołowe",
+        "decisions": "Kontekst do decyzji o wsparciu"
       },
-      "cta": "Zobacz B2B"
+      "cta": "Porozmawiaj o wdrożeniu",
+      "detailsCta": "Możliwości dla firm"
     },
     "b2c": {
-      "label": "B2C · osobiste",
-      "title": "Twoja przestrzeń",
-      "description": "Samooceny, dziennik, historia i ćwiczenia do użytku osobistego.",
+      "label": "Dla Ciebie · B2C",
+      "title": "Twój osobisty Dzvin",
+      "description": "Notatki, zapisy samopoczucia i ćwiczenia, do których wrócisz, kiedy zechcesz.",
       "features": {
-        "checkins": "Nastrój, stres, energia i koncentracja",
-        "diary": "Prywatne wpisy i historia",
-        "exercises": "Krótkie ćwiczenia oddechowe i inne"
+        "checkins": "Dostrzegaj zmiany w samopoczuciu",
+        "diary": "Zapisuj myśli w prywatnym dzienniku",
+        "exercises": "Wybieraj krótkie ćwiczenia bez pośpiechu"
       },
       "cta": "Wypróbuj Dzvin"
     },
     "rd": {
-      "label": "R&D · badania",
-      "title": "Środowisko badawcze",
-      "description": "Projekty badawcze, kohorty, obserwacje i weryfikacja hipotez.",
+      "label": "Dla badań · R&D",
+      "title": "Dane do sprawdzania hipotez",
+      "description": "Projekty badawcze, kohorty i narzędzia do pracy z wynikami.",
       "features": {
-        "cohorts": "Kohorty badawcze",
-        "validation": "Porównywanie wyników i ocena hipotez",
-        "reports": "Zbiory danych, audyty i raporty"
+        "cohorts": "Kohorty i projekty badawcze",
+        "validation": "Porównywanie obserwacji",
+        "reports": "Audyty i raportowanie badań"
       },
-      "cta": "Poznaj R&D"
+      "cta": "Możliwości R&D"
     }
   }
 }
