@@ -1,0 +1,54 @@
+{
+  "metaTitle": "Dzvin dla firm — wsparcie zespołu i pilotaż",
+  "metaDescription": "Poznaj Dzvin dla firm: dostęp dla pracowników, narzędzia organizacyjne, prywatność i pilotaż.",
+  "eyebrow": "Dzvin dla firm",
+  "title": "Wspieraj ludzi. Buduj silniejsze zespoły.",
+  "subtitle": "Pracownicy otrzymują prywatną przestrzeń do codziennego wsparcia. Dzvin rozwija oddzielne narzędzia organizacyjne i zbiorcze analizy dostępne wyłącznie dla uprawnionych osób.",
+  "availability": "Funkcje biznesowe są w trakcie rozwoju. Demonstracja obejmuje istniejące możliwości; zakres pilotażu ustalamy indywidualnie.",
+  "privacy": "Prywatny dziennik nie służy do raportowania pracodawcy. Dostęp organizacyjny wymaga odpowiednich uprawnień i ochrony małych grup.",
+  "featuresHeading": "Co może obejmować pilotaż",
+  "features": [
+    "Indywidualny Dzvin do dobrowolnego wsparcia pracowników",
+    "Grupy, role i uprawnienia organizacyjne",
+    "Dozwolone dane zbiorcze pomagające zrozumieć potrzeby zespołów"
+  ],
+  "processHeading": "Jak rozpocząć współpracę",
+  "process": [
+    "Poznajemy potrzeby i kontekst zespołu",
+    "Pokazujemy dostępne funkcje i uzgadniamy granice pilotażu",
+    "Ustalamy wdrożenie i kryteria oceny"
+  ],
+  "formTitle": "Porozmawiajmy o pilotażu",
+  "formSubtitle": "Podaj kontakt służbowy i krótki opis potrzeby. Dane zdrowotne pracowników ani wpisy z ich dzienników nie są wymagane.",
+  "fields": {
+    "name": "Imię i nazwisko",
+    "email": "Email służbowy",
+    "companyName": "Nazwa firmy",
+    "role": "Stanowisko (opcjonalnie)",
+    "teamSize": "Przybliżona wielkość zespołu",
+    "interest": "Cel zapytania",
+    "message": "Wiadomość (opcjonalnie)",
+    "consent": "Zgadzam się na kontakt Dzvin w sprawie tego zapytania firmowego."
+  },
+  "teamSizes": {
+    "1-20": "1–20",
+    "21-100": "21–100",
+    "101-500": "101–500",
+    "501+": "501+",
+    "unsure": "Jeszcze nie wiem"
+  },
+  "interests": {
+    "pilot": "Omów pilotaż",
+    "demo": "Zobacz demonstrację",
+    "partnership": "Inna współpraca"
+  },
+  "choose": "Wybierz opcję",
+  "submit": "Wyślij zapytanie",
+  "sending": "Wysyłanie…",
+  "success": "Zapytanie zostało odebrane. Skontaktujemy się na podany adres w sprawie kolejnego kroku.",
+  "invalid": "Sprawdź wymagane pola i zgodę na kontakt.",
+  "captcha": "Weryfikacja formularza jest niedostępna. Odśwież stronę.",
+  "failed": "Nie udało się wysłać zapytania. Sprawdź połączenie i spróbuj ponownie.",
+  "privacyLink": "Polityka prywatności",
+  "back": "Wróć do Dzvin"
+}

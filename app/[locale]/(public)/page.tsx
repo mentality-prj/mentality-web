@@ -1,5 +1,6 @@
 import { getServerSession } from '@/lib/auth/server'
 
+import { BusinessInvitationSection } from './components/BusinessInvitationSection'
 import { FeatureCardsSection } from './components/FeatureCardsSection'
 import { HeroSection } from './components/HeroSection'
 import { PlatformHeroSection } from './components/PlatformHeroSection'
@@ -15,6 +16,7 @@ export default async function LandingPage() {
       <PlatformProductsSection />
       <HeroSection isAuthenticated={isAuthenticated} />
       <FeatureCardsSection isAuthenticated={isAuthenticated} />
+      <BusinessInvitationSection />
     </>
   )
 }

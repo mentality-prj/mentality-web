@@ -140,8 +140,8 @@
     "description": "Personal Dzvin is yours to use on your terms. Organizations and researchers have distinct tools.",
     "b2b": {
       "label": "For organizations · B2B",
-      "title": "Support teams, not monitor people",
-      "description": "Tools for HR and leaders: groups, roles and aggregated team insights. Personal journal entries remain private.",
+      "title": "Employee support and team development",
+      "description": "Personal Dzvin access for employees, with separate company capabilities: roles, groups and permission-scoped aggregate information. Private journals remain personal.",
       "features": {
         "teams": "Organization structure and roles",
         "analytics": "Aggregated team-level insights",
@@ -172,5 +172,11 @@
       },
       "cta": "Explore R&D"
     }
+  },
+  "BusinessInvitation": {
+    "eyebrow": "For companies",
+    "title": "Supporting people is part of building stronger teams",
+    "description": "Offer employees personal self-support and explore which organizational features could help your team. Start by discussing a scoped pilot.",
+    "cta": "Discuss a business pilot"
   }
 }

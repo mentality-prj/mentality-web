@@ -1,5 +1,6 @@
 import { render, screen, within } from '@testing-library/react'
 
+import { BusinessInvitationSection } from './BusinessInvitationSection'
 import { PlatformHeroSection } from './PlatformHeroSection'
 import { PlatformProductsSection } from './PlatformProductsSection'
 
@@ -17,7 +18,7 @@ describe('Dzvin people-first platform landing', () => {
     expect(screen.getByRole('heading', { level: 1, name: 'pages.Landing.Platform.title' })).toBeInTheDocument()
     expect(screen.getByRole('link', { name: /pages.Landing.Platform.primaryCta/ })).toHaveAttribute('href', '#b2c-experience')
     expect(screen.getByRole('link', { name: /pages.Landing.Platform.secondaryCta/ })).toHaveAttribute('href', '#products')
-    expect(screen.getByRole('link', { name: /pages.Landing.Platform.businessCta/ })).toHaveAttribute('href', '/services#b2b')
+    expect(screen.getByRole('link', { name: /pages.Landing.Platform.businessCta/ })).toHaveAttribute('href', '/business')
     expect(container.querySelectorAll('h1')).toHaveLength(1)
     expect(screen.queryByText('DZVIN / B2B')).not.toBeInTheDocument()
   })
@@ -38,8 +39,14 @@ describe('Dzvin people-first platform landing', () => {
     expect(within(cards[2]).getByText('pages.Landing.Products.rd.title')).toBeInTheDocument()
     expect(cards[2]).toHaveClass('lg:col-span-3')
     expect(within(cards[0]).getByRole('link')).toHaveAttribute('href', '#b2c-experience')
-    expect(within(cards[1]).getByRole('link', { name: /pages.Landing.Products.b2b.cta/ })).toHaveAttribute('href', '/contacts')
-    expect(within(cards[1]).getByRole('link', { name: /pages.Landing.Products.b2b.detailsCta/ })).toHaveAttribute('href', '/services#b2b')
+    expect(within(cards[1]).getByRole('link', { name: /pages.Landing.Products.b2b.cta/ })).toHaveAttribute('href', '/business#business-inquiry')
+    expect(within(cards[1]).getByRole('link', { name: /pages.Landing.Products.b2b.detailsCta/ })).toHaveAttribute('href', '/business')
     expect(within(cards[2]).getByRole('link')).toHaveAttribute('href', '/services#rd')
   })
+  it('provides a dedicated B2B pilot entry after the personal journey', () => {
+    render(<BusinessInvitationSection />)
+    expect(screen.getByRole('heading', { name: 'pages.Landing.BusinessInvitation.title' })).toBeInTheDocument()
+    expect(screen.getByRole('link', { name: /pages.Landing.BusinessInvitation.cta/ })).toHaveAttribute('href', '/business')
+  })
+
 })
