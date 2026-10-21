@@ -7,7 +7,6 @@ import { Routes } from '@/constants/routes'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { Link } from '@/i18n/navigation'
 import { getServerSession } from '@/lib/get-server-session'
-import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getExerciseFeedback } from '@/requests/exerciseFeedback'
 import { fetchPersonalGoals } from '@/requests/personalGoals'
 import { getMoodStatistics } from '@/requests/userStatistics'
@@ -15,9 +14,8 @@ import { getMoodStatistics } from '@/requests/userStatistics'
 export default async function MyProgress() {
   const session = await getServerSession()
   const t = await getTranslations('pages.MyProgress.overview')
-  const timeZone = await getUserTimeZone()
   const [moodResult, goalsResult, feedbackResult] = await Promise.all([
-    getMoodStatistics(session, timeZone),
+    getMoodStatistics(session),
     fetchPersonalGoals(session),
     getExerciseFeedback(session),
   ])
@@ -59,7 +57,7 @@ export default async function MyProgress() {
       <MoodProgressSummary
         stats={'error' in moodResult ? null : moodResult.data}
         failed={'error' in moodResult}
-        timeZone={timeZone}
+        timeZone={null}
       />
 
       <HelpfulExercisesSummary
