@@ -3,6 +3,7 @@ import Admin from './Admin.json'
 import AffirmationsPage from './AffirmationsPage.json'
 import AnxietyCheck from './AnxietyCheck.json'
 import Auth from './Auth.json'
+import Business from './Business.json'
 import Callback from './Callback.json'
 import Company from './Company.json'
 import CookiesPolicy from './CookiesPolicy.json'
@@ -32,6 +33,7 @@ export const pages = {
   Admin,
   AffirmationsPage,
   Auth,
+  Business,
   Callback,
   Company,
   AnxietyCheck,
