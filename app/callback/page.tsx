@@ -9,6 +9,7 @@ import { logger } from '@/lib/logger'
 import callbackEn from '@/messages/en/pages/Callback.json'
 import callbackPl from '@/messages/pl/pages/Callback.json'
 import callbackUk from '@/messages/uk/pages/Callback.json'
+import { SessionVerificationUnavailableError } from '@/requests/auth'
 import { SupportedLanguage, supportedLanguages } from '@/types/languages'
 import { Button } from '@/ui/button'
 
@@ -65,6 +66,8 @@ function CallbackContent() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const [error, setError] = useState<string | null>(null)
+  const [canRetrySession, setCanRetrySession] = useState(false)
+  const [retryingSession, setRetryingSession] = useState(false)
   const handledRef = useRef(false)
 
   useEffect(() => {
@@ -99,12 +102,44 @@ function CallbackContent() {
           setError(getMessages().unknownError)
         }
       } catch (err) {
-        setError(err instanceof Error ? err.message : getMessages().unknownError)
+        if (err instanceof SessionVerificationUnavailableError) {
+          setCanRetrySession(true)
+          setError(getMessages().sessionUnavailable)
+        } else {
+          setError(err instanceof Error ? err.message : getMessages().unknownError)
+        }
       }
     }
 
     exchangeCode()
   }, [searchParams, router])
+
+  // OAuth authorization codes are single-use. Retry only the existing
+  // HttpOnly session verification, never the original OAuth code exchange.
+  async function retryVerifiedSession() {
+    if (retryingSession) return
+    setRetryingSession(true)
+    try {
+      const user = await authService.getUser()
+      if (user) {
+        const locale = getPreferredLocale()
+        const reauthReturn = sessionStorage.getItem('dzvin_erasure_reauth_return')
+        sessionStorage.removeItem('dzvin_erasure_reauth_return')
+        router.replace(reauthReturn === 'profile' ? `/${locale}/profile` : `/${locale}/my-day`)
+        return
+      }
+      setCanRetrySession(false)
+      setError(getMessages().unknownError)
+    } catch (err) {
+      setError(
+        err instanceof SessionVerificationUnavailableError
+          ? getMessages().sessionUnavailable
+          : getMessages().unknownError
+      )
+    } finally {
+      setRetryingSession(false)
+    }
+  }
 
   if (error) {
     return (
@@ -116,6 +151,11 @@ function CallbackContent() {
         </div>
         <h1 className="text-2xl font-bold text-textcolor-primary">{getMessages().authError}</h1>
         <p className="mt-2 text-textcolor-secondary">{error}</p>
+        {canRetrySession && (
+          <Button onClick={() => void retryVerifiedSession()} disabled={retryingSession} className="mt-6">
+            {getMessages().retrySession}
+          </Button>
+        )}
         <Button onClick={() => router.replace(`/${getPreferredLocale()}/auth`)} className="mt-6">
           {getMessages().backToSignIn}
         </Button>

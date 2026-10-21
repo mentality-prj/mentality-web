@@ -7,6 +7,7 @@ import {
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
+  SessionVerificationUnavailableError,
 } from '@/requests/auth'
 import type { BrowserAuthSession, CustomSession, CustomUser } from '@/types/auth'
 
@@ -98,6 +99,9 @@ export class ZitadelAuthProvider implements IAuthProvider {
       return await completeCallback()
     } catch (error) {
       logger.error('[AUTH:ZITADEL] Callback error', { error: error instanceof Error ? error.message : String(error) })
+      // Only an infrastructure failure is retryable after a completed OAuth
+      // exchange. Definitively invalid credentials keep the existing contract.
+      if (error instanceof SessionVerificationUnavailableError) throw error
       return null
     }
   }
