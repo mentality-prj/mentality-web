@@ -18,7 +18,17 @@
     "groundingPrompt": "Poczuj, jak stopy opierają się o podłogę. Rozejrzyj się i spokojnie nazwij trzy rzeczy, które widzisz. Oddychaj w wygodnym dla siebie rytmie.",
     "breathingAction": "Ćwiczenia oddechowe",
     "calmingAction": "Ćwiczenia uspokajające",
-    "optionalNote": "To opcjonalne ćwiczenie wspierające, a nie diagnoza ani prognoza."
+    "optionalNote": "To opcjonalne ćwiczenie wspierające, a nie diagnoza ani prognoza.",
+    "returnToHelpful": {
+      "prompt": "Wcześniej oznaczyłeś(-aś) {category} jako pomocne. Możesz wrócić do tego ćwiczenia bez kolejnego wpisu o nastroju.",
+      "open": "Spróbuj ponownie",
+      "categories": {
+        "breathing": "Ćwiczenia oddechowe",
+        "calming": "Ćwiczenia uspokajające",
+        "meditation": "Medytacja",
+        "focus": "Attention Sprint"
+      }
+    }
   },
   "nextStep": {
     "title": "Co możesz teraz zrobić?",
@@ -76,6 +86,7 @@
     "previouslySaved": "Twoja ostatnia ocena została zapisana. Możesz ją zmienić.",
     "privacyNote": "Zapisywana jest tylko kategoria ćwiczenia i Twoja ostatnia ocena, bez treści dziennika. Ocena może wpływać na przyszłe opcjonalne podpowiedzi. Możesz ją usunąć.",
     "clear": "Usuń moją ocenę",
-    "cleared": "Ocena usunięta. Nie będzie już wpływać na propozycje."
+    "cleared": "Ocena usunięta. Nie będzie już wpływać na propozycje.",
+    "progressLink": "Zobacz moje oceny w Moich postępach"
   }
 }
