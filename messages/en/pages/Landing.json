@@ -102,12 +102,15 @@
     "afterLogin": "Available after sign-in",
     "open": "Open",
     "closing": "Your check-ins and journal entries are kept in your personal space.",
-    "signup": "Start for free"
+    "signup": "Start for free",
+    "progressTitle": "Notice what you found useful",
+    "progressDescription": "After an activity you can optionally say whether it helped. Your latest ratings appear in My Progress and can be changed or removed.",
+    "progressCta": "See My Progress"
   },
   "Platform": {
     "eyebrow": "Dzvin · for people",
-    "title": "Not everything has to stay in your head.",
-    "subtitle": "Some days you want to write down your thoughts. Other days, just note how you feel. Dzvin keeps those moments in a personal history you can revisit.",
+    "title": "Understand yourself better. Day by day.",
+    "subtitle": "Check in with how you feel, save your thoughts and choose short activities at your own pace. If you wish, rate activities and revisit your own history and progress.",
     "primaryCta": "Try Dzvin for yourself",
     "secondaryCta": "Explore Dzvin",
     "capabilitiesHeading": "What the business offering covers",
@@ -141,19 +144,19 @@
     "b2b": {
       "label": "For organizations · B2B",
       "title": "Employee support and team development",
-      "description": "Personal Dzvin access for employees, with separate company capabilities: roles, groups and permission-scoped aggregate information. Private journals remain personal.",
+      "description": "Personal self-support for employees. For organizations, we are developing separate tools and permission-limited aggregates, without access to private journals.",
       "features": {
         "teams": "Organization structure and roles",
         "analytics": "Aggregated team-level insights",
         "decisions": "Context for better support decisions"
       },
-      "cta": "Discuss implementation",
+      "cta": "Discuss a pilot",
       "detailsCta": "Explore business capabilities"
     },
     "b2c": {
       "label": "For you · B2C",
       "title": "Your personal Dzvin",
-      "description": "Check-ins, journal entries and exercises you can return to whenever you want.",
+      "description": "Mood check-ins, a private journal, exercises and optional ratings, so you can return to activities you personally found useful.",
       "features": {
         "checkins": "Notice changes in how you feel",
         "diary": "Keep thoughts in a private journal",
@@ -164,7 +167,7 @@
     "rd": {
       "label": "For research · R&D",
       "title": "Collaborative wellbeing research",
-      "description": "Partnerships with universities and research programs: cohorts, reproducible protocols and evaluation. Prediction remains a future research direction, not a proven outcome.",
+      "description": "We invite universities and research teams to design protocols, cohorts and evaluation together. Prediction remains a research direction, not an established result.",
       "features": {
         "cohorts": "Cohorts and protocols",
         "validation": "Evaluation plans",
@@ -178,5 +181,9 @@
     "title": "Supporting people is part of building stronger teams",
     "description": "Offer employees personal self-support and explore which organizational features could help your team. Start by discussing a scoped pilot.",
     "cta": "Discuss a business pilot"
+  },
+  "seo": {
+    "title": "Dzvin — personal support at your own pace",
+    "description": "Track your mood, keep a private journal, explore short practices and rate them voluntarily. Dzvin for people, organizations and research."
   }
 }
