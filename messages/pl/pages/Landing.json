@@ -1,62 +1,64 @@
 {
   "Hero": {
-    "title": "Lepsze zrozumienie stanu psychicznego, oparte na danych.",
-    "subtitle": "Dzvin.co pomaga śledzić zmiany stanu psychicznego, analizować wzorce behawioralne i oceniać, które działania mogą pozytywnie wpływać na samopoczucie.",
-    "cta": "Wypróbuj za darmo",
-    "testimonial": {
-      "title": "Dla wsparcia osobistego\ni zespołów",
-      "cta": "Dowiedz się więcej",
-      "metric": "725+",
-      "primary": "Opinie"
+    "title": "Wsparcie, gdy go potrzebujesz",
+    "subtitle": "Dzvin to przestrzeń do codziennego dbania o siebie. Zapisz swój nastrój, podziel się myślami w prywatnym dzienniku lub wypróbuj krótkie ćwiczenie w trudniejszej chwili.",
+    "cta": "Zacznij za darmo",
+    "returnCta": "Przejdź do Mojego dnia",
+    "path": {
+      "heading": "Twoje tempo, Twoje wsparcie",
+      "mood": "Obserwuj nastrój, stres i energię, kiedy masz na to ochotę.",
+      "diary": "Zapisuj swoje myśli w osobistym dzienniku.",
+      "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety.",
+      "note": "Dzvin służy samopomocy. Nie stawia diagnoz i nie zastępuje profesjonalnej ani ratunkowej pomocy."
     }
   },
   "Features": {
     "interactivity": {
-      "title": "Analiza zmian stanu",
-      "subtitle": "System analizuje wzorce behawioralne i pomaga dostrzegać trendy oraz czynniki, które mogą wpływać na samopoczucie."
+      "title": "Codzienny nastrój",
+      "subtitle": "Zapisuj nastrój, stres, energię i koncentrację, aby zauważać zmiany w czasie."
     },
     "support": {
-      "title": "Rekomendacje oparte na danych",
-      "subtitle": "Rekomendacje są tworzone z uwzględnieniem zanonimizowanych wzorców i wyników osób o podobnych scenariuszach."
+      "title": "Osobisty dziennik",
+      "subtitle": "Zapisuj myśli w dogodnej chwili i wracaj do wcześniejszych wpisów."
     },
     "ai": {
-      "title": "Zrozumiałe wyjaśnienia",
-      "subtitle": "Widzisz, dlaczego system proponuje określone rekomendacje i jakie kroki mogą wspierać Twoje samopoczucie."
+      "title": "Proste kolejne kroki",
+      "subtitle": "Korzystaj z krótkich ćwiczeń w poradniku. Wskazówki nie są diagnozą ani prognozą."
     }
   },
   "Services": {
-    "title": "Od danych do zrozumiałych\ni praktycznych wniosków",
+    "title": "Drobne chwile troski o siebie\nkażdego dnia",
     "cards": {
       "intro": {
-        "text": "Dzvin.co łączy analizę wzorców behawioralnych, ocenę zmian stanu i rekomendacje oparte na danych."
+        "text": "Nie musisz wszystkiego analizować. Czasem wystarczy nazwać swój stan, zapisać myśli lub zrobić krótką przerwę."
       },
       "predictionEngine": {
-        "title": "Analiza wzorców",
-        "text": "System analizuje zmiany stanu i pomaga określać czynniki, które mogą wpływać na samopoczucie."
+        "title": "Twoja historia",
+        "text": "Przeglądaj wcześniejsze wpisy o nastroju i obserwuj zmiany, bez ocen i rywalizacji."
       },
       "scenarioSimulation": {
-        "title": "Ocena możliwych zmian",
-        "text": "Porównuj różne podejścia i obserwuj, jak zmiany nawyków lub obciążenia mogą być powiązane ze zmianami stanu."
+        "title": "Oddech i wyciszenie",
+        "text": "Wybierz proste ćwiczenie z poradnika, gdy chcesz zmniejszyć napięcie."
       },
       "cohortEvidence": {
-        "title": "Kontekst dzięki danym",
-        "text": "Zanonimizowane porównanie z podobnymi wzorcami pomaga lepiej rozumieć własne doświadczenie i dynamikę stanu."
+        "title": "Miejsce na myśli",
+        "text": "Zachowuj myśli w dzienniku i wracaj do nich, kiedy będziesz gotowy."
       }
     }
   },
   "HowItWorks": {
     "title": "Jak to działa",
-    "subtitle": "Do użytku osobistego i dla zespołów",
+    "subtitle": "Bez obowiązkowych testów i pośpiechu",
     "steps": {
-      "register": "Zacznij od krótkiego kwestionariusza — pomoże on zbudować profil bazowy i zrozumieć Twój obecny stan.",
-      "choose": "Otrzymaj analitykę i rekomendacje — system pokaże trendy, powiązane czynniki oraz możliwe kierunki wsparcia.",
-      "receive": "Śledź zmiany w czasie — po każdej interakcji system doprecyzowuje ocenę stanu i dostosowuje rekomendacje."
+      "register": "Zaloguj się — stwórz osobistą przestrzeń na swoje wpisy.",
+      "choose": "Wybierz działanie — zapisz nastrój, otwórz dziennik lub ćwiczenie.",
+      "receive": "Wracaj, kiedy chcesz — przeglądaj historię i wybieraj mały kolejny krok."
     },
-    "cta": "Rozpocznij teraz"
+    "cta": "Zacznij za darmo"
   },
   "ReduceStress": {
-    "title": "Wsparcie, gdy jest potrzebne",
-    "subtitle": "Dzvin.co pomaga lepiej zrozumieć swój stan, zauważać zmiany i znajdować praktyczne kroki wspierające samopoczucie."
+    "title": "Wsparcie w Twoim tempie",
+    "subtitle": "Krótka przerwa lub wpis w dzienniku mogą być pomocne. Sam decydujesz, co jest odpowiednie dzisiaj."
   },
   "Footer": {
     "copyright": "© {year} {company}. Wszelkie prawa zastrzeżone.",
