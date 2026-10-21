@@ -82,7 +82,7 @@ const MyDay = async () => {
             historyVerified={todayHistoryVerified}
           />
         )}
-        {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard />}
+        {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard showHelpfulReturn />}
         <DailyTipClient recommendedId={recommendedTipId} />
         <TodayMoodNotes record={todayRecord ?? null} timeZone={timeZone} />
         <DailyHabitsCard />

@@ -56,7 +56,7 @@ export async function HelpfulExercisesSummary({ feedback, failed }: Props) {
                       href={MOOD_ACTION_HREF[category]}
                       className="mt-1 w-fit text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
                     >
-                      {t('changeAction')}
+                      {t(helpful ? 'repeatAction' : 'changeAction')}
                     </Link>
                   </div>
                 </li>

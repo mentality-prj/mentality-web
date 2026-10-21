@@ -1,16 +1,18 @@
+import { Suspense } from 'react'
 import { getTranslations } from 'next-intl/server'
 
 import { Routes } from '@/constants/routes'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { Link } from '@/i18n/navigation'
 
+import { HelpfulReturnPrompt } from './HelpfulReturnPrompt'
+
 /**
  * A small grounding prompt is always available without waiting for the
  * exercises API or requiring a mood check-in. The links reuse the Guide.
  */
-export async function QuickSupportCard() {
+export async function QuickSupportCard({ showHelpfulReturn = false }: { showHelpfulReturn?: boolean } = {}) {
   const t = await getTranslations('components.ExercisesForRecovery.quickSupport')
-
   return (
     <section aria-labelledby="quick-support-heading">
       <SectionCard>
@@ -36,6 +38,11 @@ export async function QuickSupportCard() {
               {t('calmingAction')}
             </Link>
           </div>
+          {showHelpfulReturn && (
+            <Suspense fallback={null}>
+              <HelpfulReturnPrompt />
+            </Suspense>
+          )}
           <p className="text-xs text-textcolor-secondary">{t('optionalNote')}</p>
         </div>
       </SectionCard>
