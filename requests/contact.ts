@@ -28,3 +28,20 @@ export type BusinessContactFormPayload = {
 export async function sendBusinessContactForm(payload: BusinessContactFormPayload) {
   return publicApiRequest('/contact/business', payload)
 }
+
+/** Research partner discovery only; never participant data or journal entries. */
+export type ResearchContactFormPayload = {
+  name: string
+  email: string
+  institutionName: string
+  researchTopic: string
+  researchInterest: 'study' | 'pilot' | 'partnership'
+  message?: string
+  contactConsent: true
+  token: string
+  website?: string
+}
+
+export async function sendResearchContactForm(payload: ResearchContactFormPayload) {
+  return publicApiRequest('/contact/research', payload)
+}
