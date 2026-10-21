@@ -166,9 +166,9 @@
       "title": "Wspólne badania dobrostanu",
       "description": "Współpraca z uczelniami i programami badawczymi: kohorty, odtwarzalne protokoły i ocena wyników. Predykcja pozostaje kierunkiem rozwoju, a nie potwierdzonym rezultatem.",
       "features": {
-        "cohorts": "Kohorty i projekty badawcze",
-        "validation": "Porównywanie obserwacji",
-        "reports": "Audyty i raportowanie badań"
+        "cohorts": "Kohorty i protokoły",
+        "validation": "Plany ewaluacji",
+        "reports": "Raportowanie i odtwarzalność"
       },
       "cta": "Zaproponuj badania"
     }
