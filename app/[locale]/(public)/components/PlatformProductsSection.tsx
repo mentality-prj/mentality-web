@@ -54,7 +54,7 @@ export function PlatformProductsSection() {
       title: t('rd.title'),
       description: t('rd.description'),
       cta: t('rd.cta'),
-      href: Routes.SERVICES + '#rd',
+      href: Routes.RESEARCH_PARTNERS,
       className: 'md:col-span-2 lg:col-span-3 border-[#e2d5f3] bg-[linear-gradient(145deg,#f5eaff_0%,#ede8ff_60%,#faf1fc_100%)] text-[#55466a] shadow-[0_20px_45px_rgba(128,91,169,0.1)]',
       labelClass: 'bg-white/70 text-[#80639e] border-white/90',
       descriptionClass: 'text-[#756584]',
