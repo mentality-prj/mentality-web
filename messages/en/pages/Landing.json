@@ -163,14 +163,14 @@
     },
     "rd": {
       "label": "For research · R&D",
-      "title": "Data for testing hypotheses",
-      "description": "Research projects, cohorts and tools for working with outcomes.",
+      "title": "Collaborative wellbeing research",
+      "description": "Partnerships with universities and research programs: cohorts, reproducible protocols and evaluation. Prediction remains a future research direction, not a proven outcome.",
       "features": {
         "cohorts": "Cohorts and research projects",
         "validation": "Comparing observations",
         "reports": "Audits and research reporting"
       },
-      "cta": "Explore R&D"
+      "cta": "Propose research"
     }
   },
   "BusinessInvitation": {
