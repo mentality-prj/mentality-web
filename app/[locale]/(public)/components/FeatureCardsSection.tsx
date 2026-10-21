@@ -52,6 +52,18 @@ export function FeatureCardsSection({ isAuthenticated = false }: { isAuthenticat
           )
         })}
       </div>
+      <div className="mt-6 rounded-2xl border border-[#dce7f5] bg-white/85 px-5 py-4">
+        <h3 className="text-base font-semibold text-[#323653]">{t('Next.progressTitle')}</h3>
+        <p className="mt-1 text-sm leading-relaxed text-[#5c627a]">{t('Next.progressDescription')}</p>
+        {isAuthenticated && (
+          <Link
+            href={Routes.MYPROGRESS}
+            className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            {t('Next.progressCta')}
+          </Link>
+        )}
+      </div>
       <div className="mt-7 flex flex-col items-start justify-between gap-4 border-t border-[var(--outline-secondary)] pt-6 sm:flex-row sm:items-center">
         <p className="max-w-lg text-sm text-textcolor-secondary">{t('Next.closing')}</p>
         <Link
