@@ -6,7 +6,7 @@ import { performAuthRequest } from '@/requests/genericFetch'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
-export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto, timeZone?: string) {
+export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto, timeZone?: string | null) {
   const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query}`, {
     method: 'POST',
