@@ -35,7 +35,7 @@ const AddNewMood = ({
   availableTags = [],
   initialLastSubmittedAt,
   timeZone,
-  historyVerified,
+  historyVerified = true,
 }: AddNewMoodProps) => {
   const tm = useTranslations('components.Mood')
   const ct = useTranslations('common.Buttons')
