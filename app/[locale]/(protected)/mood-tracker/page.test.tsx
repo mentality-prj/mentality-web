@@ -16,8 +16,15 @@ jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({
   buildMoodMarksData: jest.fn().mockReturnValue({}),
   buildDailySummaries: jest.fn().mockReturnValue([]),
+  isSubmittedToday: jest.fn().mockReturnValue(false),
 }))
 
+jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
+  MoodNextStepCard: () => <div data-testid="mood-next-step" />,
+}))
+jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
+  QuickSupportCard: () => <div data-testid="quick-support" />,
+}))
 jest.mock('@/components/features/MoodTracker/MoodRecords/MoodRecords', () => ({
   MoodRecords: ({ records }: { records: MoodRecordEntity[] }) => (
     <div data-testid="mood-records">{records.length} records</div>
@@ -72,6 +79,12 @@ describe('MoodTracker page', () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, limit: 100, timeZone: 'Europe/Warsaw' })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, {
+      days: 1,
+      limit: 1,
+      timeZone: 'Europe/Warsaw',
+      dailyOnly: true,
+    })
   })
 
   it('renders page title and subtitle', async () => {
@@ -85,6 +98,8 @@ describe('MoodTracker page', () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(screen.getByTestId('new-mood-note-section')).toBeInTheDocument()
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
   })
 
   it('renders TenDaysSummary', async () => {

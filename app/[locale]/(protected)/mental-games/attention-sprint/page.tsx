@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import { AttentionSprint } from '@/components/features/AttentionSprint'
+import { ExerciseFeedback } from '@/components/features/Guide/ExerciseFeedback'
 import { PageTitle } from '@/ds/components/PageTitle'
 
 export default async function SprintPage() {
@@ -12,6 +13,7 @@ export default async function SprintPage() {
       <div className="p-4">
         <AttentionSprint />
       </div>
+      <ExerciseFeedback category="focus" />
     </article>
   )
 }
