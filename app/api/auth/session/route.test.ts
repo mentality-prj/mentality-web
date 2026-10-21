@@ -1,11 +1,11 @@
 /** @jest-environment @edge-runtime/jest-environment */
-import { getServerSession } from '@/lib/auth/server'
+import { getServerSessionStrict } from '@/lib/auth/server'
 
 import { GET } from './route'
 
-jest.mock('@/lib/auth/server', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/auth/server', () => ({ getServerSessionStrict: jest.fn() }))
 
-const getSession = getServerSession as jest.MockedFunction<typeof getServerSession>
+const getSession = getServerSessionStrict as jest.MockedFunction<typeof getServerSessionStrict>
 
 describe('verified browser session response', () => {
   beforeEach(() => jest.clearAllMocks())
