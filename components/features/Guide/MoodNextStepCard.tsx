@@ -1,6 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
-import { MoodActionPicker, type MoodActionCopy } from '@/components/features/Guide/MoodActionPicker'
+import { type MoodActionCopy, MoodActionPicker } from '@/components/features/Guide/MoodActionPicker'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { chooseMoodNextStep } from '@/helpers/moodNextStep'
 import { getServerSession } from '@/lib/get-server-session'
