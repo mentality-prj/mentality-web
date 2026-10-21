@@ -7,6 +7,9 @@ import { clearExerciseFeedback, saveExerciseFeedback } from '@/requests/exercise
 
 jest.mock('next-intl', () => ({ useTranslations: jest.fn() }))
 jest.mock('@/context/AuthProvider', () => ({ useAuth: jest.fn() }))
+jest.mock('@/i18n/navigation', () => ({
+  Link: ({ children, href }: { children: React.ReactNode; href: string }) => <a href={href}>{children}</a>,
+}))
 jest.mock('@/requests/exerciseFeedback', () => ({ saveExerciseFeedback: jest.fn(), clearExerciseFeedback: jest.fn() }))
 
 beforeEach(() => {
@@ -21,6 +24,7 @@ describe('ExerciseFeedbackPanel', () => {
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'false')
     expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'false')
     expect(saveExerciseFeedback).not.toHaveBeenCalled()
+    expect(screen.queryByRole('link', { name: 'progressLink' })).not.toBeInTheDocument()
   })
 
   it('only marks the vote selected after server acknowledgment, and allows a later change', async () => {
@@ -37,6 +41,7 @@ describe('ExerciseFeedbackPanel', () => {
       true
     )
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'true')
+    expect(screen.getByRole('link', { name: 'progressLink' })).toHaveAttribute('href', '/my-progress')
 
     fireEvent.click(screen.getByRole('button', { name: 'notHelpful' }))
     await waitFor(() =>
@@ -83,6 +88,7 @@ describe('ExerciseFeedbackPanel', () => {
       'calming'
     )
     expect(screen.queryByRole('button', { name: 'clear' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'progressLink' })).not.toBeInTheDocument()
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'false')
     expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'false')
   })
