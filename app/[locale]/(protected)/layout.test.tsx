@@ -30,6 +30,8 @@ jest.mock('@/components/Layout/Sidebar/Sidebar', () => ({
   default: () => <div data-testid="sidebar" />,
 }))
 
+jest.mock('@/components/Layout/TimeZoneSync', () => ({ TimeZoneSync: () => null }))
+
 jest.mock('@/components/Layout/ProtectedLayoutSegmentGate', () => ({
   __esModule: true,
   default: ({ defaultContent }: { defaultContent: React.ReactNode }) => <>{defaultContent}</>,
