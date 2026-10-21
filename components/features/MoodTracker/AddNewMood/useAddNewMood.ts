@@ -11,7 +11,7 @@ import type { CreateMoodRecordDto } from '@/types/api-responses'
 import type { CustomSession } from '@/types/auth'
 import { UserTag } from '@/types/tags'
 import { extractErrorMessage } from '@/utils/apiError'
-import { getVerifiedBrowserTimeZone } from '@/utils/timeZone'
+import { getVerifiedBrowserTimeZone, isSynchronizedTimeZone } from '@/utils/timeZone'
 import { notifyError, notifySuccess } from '@/utils/toast'
 
 type Params = {
@@ -74,8 +74,9 @@ export function useAddNewMood({
     }
   }, [])
 
-  const effectiveTimeZone = browserTimeZone ?? timeZone ?? null
-  const submittedToday = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, effectiveTimeZone) : false
+  // History verified for one IANA zone cannot authorize a write in another.
+  const timeZoneSynchronized = isSynchronizedTimeZone(browserTimeZone, timeZone)
+  const submittedToday = timeZoneSynchronized && lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, browserTimeZone) : false
 
   const resetForm = () => {
     setSelectedMood(null)
@@ -91,10 +92,19 @@ export function useAddNewMood({
     e?.preventDefault()
     if (isSubmitting) return
     // Re-resolve at submission: the device zone may change while the form stays open.
-    const submissionTimeZone = getVerifiedBrowserTimeZone() ?? timeZone ?? null
+    const submissionTimeZone = getVerifiedBrowserTimeZone()
+    if (submissionTimeZone !== browserTimeZone) setBrowserTimeZone(submissionTimeZone)
+    if (!isSynchronizedTimeZone(submissionTimeZone, timeZone) || !historyVerified) {
+      notifyError(
+        safeT(
+          'DailyLimit.SyncMessage',
+          "Saving requires a verified local day. Refresh the page if the issue persists."
+        )
+      )
+      return
+    }
     const submittedOnCurrentDay = lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, submissionTimeZone) : false
-    if (submissionTimeZone !== effectiveTimeZone) setBrowserTimeZone(submissionTimeZone)
-    if (submittedOnCurrentDay || !submissionTimeZone || !historyVerified) return
+    if (submittedOnCurrentDay) return
     if (!selectedMood) {
       notifyError(safeT('Validation.SelectMood', 'Please select a mood'))
       return
@@ -160,7 +170,7 @@ export function useAddNewMood({
     }
   }
 
-  const isFormValid = !!selectedMood && !!effectiveTimeZone && !submittedToday && historyVerified
+  const isFormValid = !!selectedMood && timeZoneSynchronized && !submittedToday && historyVerified
 
   return {
     selectedMood,
@@ -180,6 +190,7 @@ export function useAddNewMood({
     setShowAddTag,
     isSubmitting,
     isFormValid,
+    timeZoneSynchronized,
     submittedToday,
     handleSubmit,
     onTagCreated,
