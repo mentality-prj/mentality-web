@@ -10,12 +10,12 @@ export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boo
   const t = useTranslations('pages.Landing')
 
   return (
-    <section aria-labelledby="landing-heading" className="border-b border-[var(--outline-secondary)] bg-white">
+    <section id="b2c-experience" aria-labelledby="b2c-experience-heading" className="scroll-mt-5 border-t border-[var(--outline-secondary)] bg-background-muted">
       <div className="container-max-width mx-auto grid grid-cols-1 items-center gap-8 px-4 py-8 tablet:px-6 tablet:py-12 md:grid-cols-2 md:gap-12 md:px-8 md:py-16 lg:px-10">
         <div className="flex flex-col items-start gap-5">
-          <h1 id="landing-heading" className="landing-h1 max-w-[680px]">
+          <h2 id="b2c-experience-heading" className="text-2xl font-semibold text-textcolor-primary tablet:text-3xl">
             {isAuthenticated ? t('Hero.returnTitle') : t('Hero.title')}
-          </h1>
+          </h2>
           <p className="max-w-xl text-base leading-relaxed text-textcolor-secondary tablet:text-lg">
             {isAuthenticated ? t('Hero.returnSubtitle') : t('Hero.subtitle')}
           </p>

@@ -1,7 +1,7 @@
 {
   "Hero": {
-    "title": "Wtedy, gdy potrzebujesz",
-    "subtitle": "Wypróbuj krótkie ćwiczenie oddechowe tutaj, bez logowania. Jeśli zechcesz śledzić nastrój lub pisać dziennik, stwórz osobistą przestrzeń.",
+    "title": "Wypróbuj osobisty Dzvin",
+    "subtitle": "30 sekund ćwiczenia oddechowego bez logowania. Konto pozwala zachować informacje o samopoczuciu i wpisy.",
     "cta": "Utwórz konto",
     "returnCta": "Mój dzień",
     "path": {
@@ -10,8 +10,8 @@
       "diary": "Zapisuj swoje myśli w osobistym dzienniku.",
       "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety."
     },
-    "returnTitle": "Twój Dzvin",
-    "returnSubtitle": "Wróć do swoich zapisów lub zacznij od krótkiego ćwiczenia.",
+    "returnTitle": "Twój osobisty Dzvin",
+    "returnSubtitle": "Wróć do swoich wpisów lub spróbuj krótkiego ćwiczenia.",
     "tryCta": "Wypróbuj 30 sekund"
   },
   "Features": {
@@ -103,5 +103,65 @@
     "open": "Otwórz",
     "closing": "Twoje informacje o samopoczuciu i wpisy pozostają w osobistej przestrzeni.",
     "signup": "Zacznij za darmo"
+  },
+  "Platform": {
+    "eyebrow": "Dzvin · dla firm",
+    "title": "Rozumiej kondycję zespołów. Podejmuj decyzje na podstawie danych.",
+    "subtitle": "Dzvin łączy strukturę organizacji, wskaźniki zespołowe i narzędzia analityczne. Dla HR i liderów, którzy potrzebują obrazu zmian oraz kontekstu do działania.",
+    "primaryCta": "Porozmawiaj o wdrożeniu",
+    "secondaryCta": "Możliwości dla firm",
+    "capabilitiesHeading": "Co obejmuje rozwiązanie dla firm",
+    "capabilities": {
+      "organization": {
+        "title": "Zespoły i struktura",
+        "description": "Działy, grupy i role w jednym kontekście organizacyjnym."
+      },
+      "analytics": {
+        "title": "Analizy zagregowane",
+        "description": "Trendy samooceny na poziomie zespołów, bez dostępu do prywatnych dzienników."
+      },
+      "access": {
+        "title": "Role i uprawnienia",
+        "description": "Dane firmy dostępne zgodnie z zakresem uprawnień użytkownika."
+      }
+    }
+  },
+  "Products": {
+    "heading": "Trzy obszary Dzvin",
+    "description": "Oddzielne produkty dla firm, osób prywatnych i zespołów badawczych.",
+    "b2b": {
+      "label": "B2B · firmy",
+      "audience": "HR i kierownictwo",
+      "title": "Zarządzanie dobrostanem zespołów",
+      "description": "Narzędzia do analizy danych grupowych i podejmowania decyzji organizacyjnych.",
+      "features": {
+        "teams": "Firmy, działy, grupy i role",
+        "analytics": "Zagregowane wskaźniki zespołowe",
+        "decisions": "Dane w kontekście decyzji"
+      },
+      "cta": "Zobacz B2B"
+    },
+    "b2c": {
+      "label": "B2C · osobiste",
+      "title": "Twoja przestrzeń",
+      "description": "Samooceny, dziennik, historia i ćwiczenia do użytku osobistego.",
+      "features": {
+        "checkins": "Nastrój, stres, energia i koncentracja",
+        "diary": "Prywatne wpisy i historia",
+        "exercises": "Krótkie ćwiczenia oddechowe i inne"
+      },
+      "cta": "Wypróbuj Dzvin"
+    },
+    "rd": {
+      "label": "R&D · badania",
+      "title": "Środowisko badawcze",
+      "description": "Projekty badawcze, kohorty, obserwacje i weryfikacja hipotez.",
+      "features": {
+        "cohorts": "Kohorty badawcze",
+        "validation": "Porównywanie wyników i ocena hipotez",
+        "reports": "Zbiory danych, audyty i raporty"
+      },
+      "cta": "Poznaj R&D"
+    }
   }
 }

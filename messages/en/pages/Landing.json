@@ -1,7 +1,7 @@
 {
   "Hero": {
-    "title": "Here when you need it",
-    "subtitle": "Try a short breathing exercise here, without signing in. Create a private space when you want to track mood or keep journal entries.",
+    "title": "Try personal Dzvin",
+    "subtitle": "A 30-second breathing exercise without signing in. Create an account when you want to save check-ins or journal entries.",
     "cta": "Create an account",
     "returnCta": "My Day",
     "path": {
@@ -10,8 +10,8 @@
       "diary": "Write down your thoughts in a personal journal.",
       "support": "Open a breathing or calming exercise without completing a questionnaire."
     },
-    "returnTitle": "Your Dzvin",
-    "returnSubtitle": "Return to your entries or start with a short exercise.",
+    "returnTitle": "Your personal Dzvin",
+    "returnSubtitle": "Return to your entries or try a short exercise.",
     "tryCta": "Try 30 seconds"
   },
   "Features": {
@@ -103,5 +103,65 @@
     "open": "Open",
     "closing": "Your check-ins and journal entries are kept in your personal space.",
     "signup": "Start for free"
+  },
+  "Platform": {
+    "eyebrow": "Dzvin · for organizations",
+    "title": "Understand team wellbeing. Make decisions with data.",
+    "subtitle": "Dzvin brings together organizational structure, team-level metrics and analytical tools. For HR and leaders who need to understand change over time and its operational context.",
+    "primaryCta": "Discuss implementation",
+    "secondaryCta": "Explore business capabilities",
+    "capabilitiesHeading": "What the business offering covers",
+    "capabilities": {
+      "organization": {
+        "title": "Teams and structure",
+        "description": "Departments, groups and roles within one organizational context."
+      },
+      "analytics": {
+        "title": "Aggregated insights",
+        "description": "Self-reported trends at the team level, not access to private journals."
+      },
+      "access": {
+        "title": "Roles and access boundaries",
+        "description": "Company information scoped to each user's permissions."
+      }
+    }
+  },
+  "Products": {
+    "heading": "Three Dzvin offerings",
+    "description": "Different products for organizations, individuals and research teams.",
+    "b2b": {
+      "label": "B2B · organizations",
+      "audience": "HR and leadership",
+      "title": "Team wellbeing management",
+      "description": "Tools for group-level insights and organizational decisions.",
+      "features": {
+        "teams": "Companies, departments, groups and roles",
+        "analytics": "Aggregated team-level metrics",
+        "decisions": "Analytical context for decisions"
+      },
+      "cta": "Explore B2B"
+    },
+    "b2c": {
+      "label": "B2C · personal",
+      "title": "Your personal space",
+      "description": "Check-ins, a journal, history and exercises for personal use.",
+      "features": {
+        "checkins": "Mood, stress, energy and focus",
+        "diary": "Private entries and history",
+        "exercises": "Short breathing and other exercises"
+      },
+      "cta": "Try Dzvin"
+    },
+    "rd": {
+      "label": "R&D · research",
+      "title": "Research environment",
+      "description": "Research projects, cohorts, observations and hypothesis assessment.",
+      "features": {
+        "cohorts": "Research cohorts",
+        "validation": "Outcome comparisons and hypothesis evaluation",
+        "reports": "Datasets, audits and reporting"
+      },
+      "cta": "Explore R&D"
+    }
   }
 }
