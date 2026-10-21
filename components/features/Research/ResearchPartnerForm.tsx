@@ -1,13 +1,13 @@
 'use client'
 
 import { type FormEvent, useState } from 'react'
-import { useTranslations } from 'next-intl'
 import Script from 'next/script'
+import { useTranslations } from 'next-intl'
 import { z } from 'zod'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
-import { sendResearchContactForm, type ResearchContactFormPayload } from '@/requests/contact'
+import { type ResearchContactFormPayload, sendResearchContactForm } from '@/requests/contact'
 
 const RESEARCH_INTERESTS = ['study', 'pilot', 'partnership'] as const
 type ResearchInterest = ResearchContactFormPayload['researchInterest']
