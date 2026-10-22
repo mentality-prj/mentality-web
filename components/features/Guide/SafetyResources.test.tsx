@@ -15,7 +15,7 @@ beforeEach(() => {
 
 describe('P0 unconditional urgent help and diary privacy', () => {
   it('shows immediate emergency contact on My Day without expanding a panel', async () => {
-    render(await SafetyResources())
+    render(await SafetyResources({}))
 
     expect(screen.getByRole('complementary', { name: 'label' })).toBeInTheDocument()
     expect(screen.getByRole('heading', { name: 'emergencySummary' })).toBeInTheDocument()
