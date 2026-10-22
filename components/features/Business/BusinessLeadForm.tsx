@@ -1,12 +1,13 @@
 'use client'
 
-import { type FormEvent, useState } from 'react'
+import { type FormEvent, useRef, useState } from 'react'
 import Script from 'next/script'
 import { useTranslations } from 'next-intl'
 import { z } from 'zod'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
+import { createLeadSubmissionId } from '@/lib/contact/createLeadSubmissionId'
 import { type BusinessContactFormPayload, sendBusinessContactForm } from '@/requests/contact'
 
 const TEAM_SIZES = ['1-20', '21-100', '101-500', '501+', 'unsure'] as const
@@ -28,6 +29,7 @@ export function BusinessLeadForm() {
   const [message, setMessage] = useState('')
   const [contactConsent, setContactConsent] = useState(false)
   const [website, setWebsite] = useState('')
+  const submissionId = useRef<string | null>(null)
   const [status, setStatus] = useState<'idle' | 'sending' | 'success'>('idle')
   const [error, setError] = useState<string | null>(null)
 
@@ -62,7 +64,9 @@ export function BusinessLeadForm() {
     setStatus('sending')
     try {
       const token = await window.grecaptcha.execute(siteKey, { action: 'contact' })
+      if (!submissionId.current) submissionId.current = createLeadSubmissionId()
       const response = await sendBusinessContactForm({
+        submissionId: submissionId.current,
         name: name.trim(),
         email: email.trim(),
         companyName: companyName.trim(),
