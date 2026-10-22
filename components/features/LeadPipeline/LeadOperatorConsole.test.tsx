@@ -1,6 +1,6 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import { advanceOperatorLeadStage, getOperatorLead, listOperatorLeads } from '@/helpers/api-wrapper'
+import { advanceOperatorLeadStage, getOperatorLead, listOperatorLeads, planOperatorLeadFollowUp } from '@/helpers/api-wrapper'
 
 import { LeadOperatorConsole } from './LeadOperatorConsole'
 
@@ -14,6 +14,7 @@ jest.mock('@/helpers/api-wrapper', () => ({
   listOperatorLeads: jest.fn(),
   getOperatorLead: jest.fn(),
   advanceOperatorLeadStage: jest.fn(),
+  planOperatorLeadFollowUp: jest.fn(),
 }))
 
 const lead = {
@@ -27,6 +28,7 @@ const detail = {
   name: 'Anna Novak',
   email: 'anna@company.example',
   message: 'Interested in a pilot',
+  followUpRevision: 0,
 }
 
 beforeEach(() => {
@@ -40,7 +42,7 @@ describe('private lead operator console', () => {
     render(<LeadOperatorConsole />)
     await waitFor(() => expect(screen.getByText('Example Company')).toBeInTheDocument())
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
-    expect(listOperatorLeads).toHaveBeenCalledWith('business')
+    expect(listOperatorLeads).toHaveBeenCalledWith('business', false)
 
     fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
     await waitFor(() => expect(screen.getByText('anna@company.example')).toBeInTheDocument())
@@ -70,4 +72,29 @@ describe('private lead operator console', () => {
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
     expect(getOperatorLead).not.toHaveBeenCalled()
   })
+  it('updates follow-up due date using the selected stage and revision', async () => {
+    ;(planOperatorLeadFollowUp as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: async () => ({ followUpOn: '2026-11-02', nextAction: 'schedule_demo', followUpRevision: 1 }),
+    })
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(screen.getByRole('button', { name: /Example Company/ })).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
+    const date = await screen.findByLabelText('followUpOn')
+    fireEvent.change(date, { target: { value: '2026-11-02' } })
+    fireEvent.change(screen.getByLabelText('nextAction'), { target: { value: 'schedule_demo' } })
+    fireEvent.click(screen.getByRole('button', { name: 'saveFollowUp' }))
+    await waitFor(() => expect(planOperatorLeadFollowUp).toHaveBeenCalledWith(
+      lead._id, 'inquiry', 0, '2026-11-02', 'schedule_demo'
+    ))
+  })
+
+  it('switches to a due-only queue without retrieving personal details', async () => {
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(screen.getByRole('button', { name: /Example Company/ })).toBeInTheDocument())
+    fireEvent.click(screen.getByLabelText('dueOnly'))
+    await waitFor(() => expect(listOperatorLeads).toHaveBeenCalledWith('business', true))
+    expect(getOperatorLead).not.toHaveBeenCalled()
+  })
+
 })
