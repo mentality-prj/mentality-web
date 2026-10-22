@@ -305,7 +305,7 @@ export function LeadOperatorConsole() {
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
         <div className={panel}>
           <h2 className="text-lg font-semibold">{t('incoming')}</h2>
-          {!busy && leads.length === 0 && <p className="mt-3 text-sm">{t('empty')}</p>}
+          {!busy && !error && leads.length === 0 && <p className="mt-3 text-sm">{t('empty')}</p>}
           <ul className="mt-4 space-y-2">
             {leads.map((lead) => (
               <li key={lead._id}>
