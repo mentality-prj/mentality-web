@@ -36,5 +36,15 @@
     "schedule_demo": "Запланувати демонстрацію",
     "prepare_pilot": "Підготувати пілот",
     "review_decision": "Узгодити рішення"
+  },
+  "recordContactOutcome": "Зафіксувати результат контакту",
+  "contacted": "Зв’язався з партнером",
+  "noResponseReschedule": "Немає відповіді — перепланувати",
+  "manualOutcomeNotice": "Ця дія лише фіксує ваш результат; повідомлень партнеру вона не надсилає.",
+  "futureFollowUpRequired": "Для відсутності відповіді виберіть нову майбутню дату.",
+  "contactHistory": "Історія контактів",
+  "outcomes": {
+    "contacted": "Контакт відбувся",
+    "no_response": "Відповіді не було"
   }
 }
