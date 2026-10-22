@@ -59,6 +59,24 @@ describe('B2B pilot form', () => {
     expect(submitted.message).toBeUndefined()
   })
 
+  it('uses the same opaque submission ID after a transport retry', async () => {
+    ;(sendBusinessContactForm as jest.Mock)
+      .mockRejectedValueOnce(new Error('network timeout'))
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ success: true }) })
+
+    render(<BusinessLeadForm />)
+    submitBusiness()
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('failed'))
+    const first = (sendBusinessContactForm as jest.Mock).mock.calls[0][0].submissionId as string
+
+    fireEvent.click(screen.getByRole('button', { name: 'submit' }))
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('success'))
+    const second = (sendBusinessContactForm as jest.Mock).mock.calls[1][0].submissionId as string
+
+    expect(first).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+    expect(second).toBe(first)
+  })
+
   it('does not report success when the new backend endpoint is unavailable', async () => {
     ;(sendBusinessContactForm as jest.Mock).mockResolvedValue({
       ok: false,
