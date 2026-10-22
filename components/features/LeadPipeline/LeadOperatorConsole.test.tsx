@@ -1,4 +1,4 @@
-import { fireEvent, render, screen, waitFor } from '@testing-library/react'
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import {
   advanceOperatorLeadStage,
@@ -147,6 +147,34 @@ describe('private lead operator console', () => {
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
     expect(getOperatorLead).not.toHaveBeenCalled()
   })
+  it('does not restore the pipeline summary from an old in-flight request after a 403', async () => {
+    let releaseSummary: ((value: unknown) => void) | undefined
+    ;(getOperatorLeadSummary as jest.Mock).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          releaseSummary = resolve
+        })
+    )
+    ;(listOperatorLeads as jest.Mock).mockResolvedValue({ ok: false, status: 403 })
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(getOperatorLeadSummary).toHaveBeenCalledTimes(1))
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+
+    await act(async () => {
+      releaseSummary?.({
+        ok: true,
+        json: async () => ({
+          category: 'business',
+          total: 1,
+          due: 1,
+          stages: { inquiry: 1 },
+        }),
+      })
+    })
+    expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
+    expect(screen.queryByText('Example Company')).not.toBeInTheDocument()
+  })
+
   it('removes a previously opened contact when detail permission is revoked', async () => {
     ;(getOperatorLead as jest.Mock)
       .mockResolvedValueOnce({ ok: true, json: async () => detail })
