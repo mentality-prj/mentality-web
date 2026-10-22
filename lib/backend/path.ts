@@ -35,6 +35,8 @@ export function getValidatedBackendPath(segments: string[], search: string, meth
     if (segments.length === 4 && method === 'GET') return segments.join('/')
     if (segments.length === 5 && ['stage', 'follow-up'].includes(segments[4]) && method === 'PATCH')
       return segments.join('/')
+    if (segments.length === 6 && segments[4] === 'follow-up' && segments[5] === 'complete' && method === 'PATCH')
+      return segments.join('/')
     return null
   }
 
