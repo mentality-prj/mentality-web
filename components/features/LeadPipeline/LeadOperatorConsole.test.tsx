@@ -2,6 +2,7 @@ import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
 import {
   advanceOperatorLeadStage,
+  completeOperatorLeadFollowUp,
   getOperatorLead,
   listOperatorLeads,
   planOperatorLeadFollowUp,
@@ -19,6 +20,7 @@ jest.mock('@/helpers/api-wrapper', () => ({
   listOperatorLeads: jest.fn(),
   getOperatorLead: jest.fn(),
   advanceOperatorLeadStage: jest.fn(),
+  completeOperatorLeadFollowUp: jest.fn(),
   planOperatorLeadFollowUp: jest.fn(),
 }))
 
@@ -101,4 +103,39 @@ describe('private lead operator console', () => {
     await waitFor(() => expect(listOperatorLeads).toHaveBeenCalledWith('business', true))
     expect(getOperatorLead).not.toHaveBeenCalled()
   })
+  it('records a human contact result and removes the completed reminder', async () => {
+    ;(getOperatorLead as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: async () => ({ ...detail, followUpOn: '2026-10-15', nextAction: 'reply' }),
+    })
+    ;(completeOperatorLeadFollowUp as jest.Mock).mockResolvedValue({ ok: true, json: async () => ({}) })
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(screen.getByRole('button', { name: /Example Company/ })).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
+    fireEvent.click(await screen.findByRole('button', { name: 'contacted' }))
+    await waitFor(() => expect(completeOperatorLeadFollowUp).toHaveBeenCalledWith(
+      lead._id, 'inquiry', 0, 'contacted', null, null
+    ))
+  })
+
+  it('requires a future reschedule when the partner did not respond', async () => {
+    ;(getOperatorLead as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: async () => ({ ...detail, followUpOn: '2026-10-15', nextAction: 'reply' }),
+    })
+    ;(completeOperatorLeadFollowUp as jest.Mock).mockResolvedValue({ ok: true, json: async () => ({}) })
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(screen.getByRole('button', { name: /Example Company/ })).toBeInTheDocument())
+    fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
+    const button = await screen.findByRole('button', { name: 'noResponseReschedule' })
+    expect(button).toBeDisabled()
+    const nextDay = new Date(Date.now() + 3 * 86400000).toISOString().slice(0, 10)
+    fireEvent.change(screen.getByLabelText('followUpOn'), { target: { value: nextDay } })
+    expect(button).toBeEnabled()
+    fireEvent.click(button)
+    await waitFor(() => expect(completeOperatorLeadFollowUp).toHaveBeenCalledWith(
+      lead._id, 'inquiry', 0, 'no_response', nextDay, 'reply'
+    ))
+  })
+
 })
