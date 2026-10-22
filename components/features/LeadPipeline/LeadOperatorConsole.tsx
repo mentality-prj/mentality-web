@@ -198,8 +198,9 @@ export function LeadOperatorConsole() {
       if (accessDenied) {
         accessRevoked.current = true
         clearSensitiveLeadData()
+      } else {
+        setSelected(null)
       }
-      else setSelected(null)
       setError(t('unavailable'))
     } finally {
       setBusy(false)
