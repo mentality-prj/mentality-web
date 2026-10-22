@@ -81,6 +81,23 @@ describe('research partner inquiry form', () => {
     expect(second).toBe(first)
   })
 
+  it('rotates submission ID when edited form data would otherwise collide with an old lead', async () => {
+    ;(sendResearchContactForm as jest.Mock)
+      .mockRejectedValueOnce(new Error('timeout'))
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ success: true }) })
+
+    render(<ResearchPartnerForm />)
+    completeInquiry()
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('failed'))
+    const original = (sendResearchContactForm as jest.Mock).mock.calls[0][0].submissionId as string
+
+    fireEvent.change(screen.getByLabelText('fields.institutionName'), { target: { value: 'Updated University Lab' } })
+    fireEvent.click(screen.getByRole('button', { name: 'send' }))
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('success'))
+    const updated = (sendResearchContactForm as jest.Mock).mock.calls[1][0].submissionId as string
+    expect(updated).not.toBe(original)
+  })
+
   it('does not announce success for an unavailable new backend route', async () => {
     ;(sendResearchContactForm as jest.Mock).mockResolvedValue({ ok: false, status: 404 })
     render(<ResearchPartnerForm />)
