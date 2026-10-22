@@ -4,5 +4,6 @@
   "backToMeditations": "Wróć do medytacji",
   "otherMeditations": "Inne medytacje",
   "linkText": "Przejdź do medytacji",
-  "somethingWentWrong": "Coś poszło nie tak"
+  "somethingWentWrong": "Coś poszło nie tak",
+  "categoryFeedbackNote": "Ocena dotyczy kategorii „Medytacje”, a nie tego konkretnego ćwiczenia ani sesji."
 }
