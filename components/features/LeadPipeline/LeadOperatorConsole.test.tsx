@@ -147,6 +147,18 @@ describe('private lead operator console', () => {
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
     expect(getOperatorLead).not.toHaveBeenCalled()
   })
+  it('keeps the operator screen locked after changing category on a denied session', async () => {
+    ;(listOperatorLeads as jest.Mock).mockResolvedValue({ ok: false, status: 403 })
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+    fireEvent.change(screen.getByLabelText('category'), { target: { value: 'research' } })
+
+    expect(listOperatorLeads).toHaveBeenCalledTimes(1)
+    expect(screen.getByRole('alert')).toHaveTextContent('unavailable')
+    expect(screen.queryByText('empty')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
+  })
+
   it('does not restore the pipeline summary from an old in-flight request after a 403', async () => {
     let releaseSummary: ((value: unknown) => void) | undefined
     ;(getOperatorLeadSummary as jest.Mock).mockImplementation(
