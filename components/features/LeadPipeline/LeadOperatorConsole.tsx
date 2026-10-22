@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
 import {
@@ -79,6 +79,7 @@ const action =
 export function LeadOperatorConsole() {
   const t = useTranslations('pages.LeadPipeline')
   const [category, setCategory] = useState<Category>('business')
+  const accessRevoked = useRef(false)
   const [summary, setSummary] = useState<PipelineSummary | null>(null)
   const [summaryRevision, setSummaryRevision] = useState(0)
   const [leads, setLeads] = useState<LeadSummary[]>([])
@@ -98,10 +99,18 @@ export function LeadOperatorConsole() {
 
     void listOperatorLeads(category, dueOnly)
       .then(async (response) => {
-        if (!response.ok) throw new Error('Operator list unavailable')
+        if (!response.ok) {
+          if (response.status === 401 || response.status === 403) {
+            accessRevoked.current = true
+            setSelected(null)
+            setLeads([])
+            setSummary(null)
+          }
+          throw new Error('Operator list unavailable')
+        }
         const payload: unknown = await response.json()
         if (!Array.isArray(payload)) throw new Error('Invalid lead list')
-        if (!abort.signal.aborted) setLeads(payload as LeadSummary[])
+        if (!abort.signal.aborted && !accessRevoked.current) setLeads(payload as LeadSummary[])
       })
       .catch(() => {
         if (!abort.signal.aborted) setError(t('unavailable'))
@@ -118,7 +127,15 @@ export function LeadOperatorConsole() {
     setSummary(null)
     void getOperatorLeadSummary(category)
       .then(async (response) => {
-        if (!response.ok) return
+        if (!response.ok) {
+          if (response.status === 401 || response.status === 403) {
+            accessRevoked.current = true
+            setSelected(null)
+            setLeads([])
+            setSummary(null)
+          }
+          return
+        }
         const body: unknown = await response.json()
         if (
           body &&
@@ -133,7 +150,7 @@ export function LeadOperatorConsole() {
           body.stages &&
           typeof body.stages === 'object'
         ) {
-          if (!cancelled) setSummary(body as PipelineSummary)
+          if (!cancelled && !accessRevoked.current) setSummary(body as PipelineSummary)
         }
       })
       .catch(() => {
@@ -171,7 +188,10 @@ export function LeadOperatorConsole() {
       setFollowUpOn(detail.followUpOn || '')
       setNextAction(detail.nextAction || 'reply')
     } catch {
-      if (accessDenied) clearSensitiveLeadData()
+      if (accessDenied) {
+        accessRevoked.current = true
+        clearSensitiveLeadData()
+      }
       else setSelected(null)
       setError(t('unavailable'))
     } finally {
@@ -215,7 +235,10 @@ export function LeadOperatorConsole() {
     try {
       const response = await advanceOperatorLeadStage(selected._id, expectedStage, nextStage)
       if (!response.ok) {
-        if (response.status === 401 || response.status === 403) clearSensitiveLeadData()
+        if (response.status === 401 || response.status === 403) {
+          accessRevoked.current = true
+          clearSensitiveLeadData()
+        }
         setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
         return
       }
@@ -241,7 +264,10 @@ export function LeadOperatorConsole() {
         clear ? null : nextAction
       )
       if (!response.ok) {
-        if (response.status === 401 || response.status === 403) clearSensitiveLeadData()
+        if (response.status === 401 || response.status === 403) {
+          accessRevoked.current = true
+          clearSensitiveLeadData()
+        }
         setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
         return
       }
@@ -273,7 +299,10 @@ export function LeadOperatorConsole() {
         noResponse ? nextAction : null
       )
       if (!response.ok) {
-        if (response.status === 401 || response.status === 403) clearSensitiveLeadData()
+        if (response.status === 401 || response.status === 403) {
+          accessRevoked.current = true
+          clearSensitiveLeadData()
+        }
         setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
         return
       }
