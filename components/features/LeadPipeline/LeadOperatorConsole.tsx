@@ -94,7 +94,8 @@ export function LeadOperatorConsole() {
     const abort = new AbortController()
     setSelected(null)
     setLeads([])
-    setError(null)
+    setError(accessRevoked.current ? t('unavailable') : null)
+    if (accessRevoked.current) return () => abort.abort()
     setBusy(true)
 
     void listOperatorLeads(category, dueOnly)
@@ -125,6 +126,7 @@ export function LeadOperatorConsole() {
   useEffect(() => {
     let cancelled = false
     setSummary(null)
+    if (accessRevoked.current) return () => { cancelled = true }
     void getOperatorLeadSummary(category)
       .then(async (response) => {
         if (!response.ok) {
@@ -133,6 +135,7 @@ export function LeadOperatorConsole() {
             setSelected(null)
             setLeads([])
             setSummary(null)
+            setError(t('unavailable'))
           }
           return
         }
@@ -159,7 +162,7 @@ export function LeadOperatorConsole() {
     return () => {
       cancelled = true
     }
-  }, [category, summaryRevision])
+  }, [category, summaryRevision, t])
 
   const clearSensitiveLeadData = () => {
     // An expired/revoked operator session must not leave previously fetched
