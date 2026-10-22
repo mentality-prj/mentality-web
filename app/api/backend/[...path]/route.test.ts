@@ -182,6 +182,17 @@ describe('same-origin backend BFF', () => {
   it('restricts internal contact leads to exact authenticated routes', async () => {
     const prefix = ['contact', 'internal', 'leads']
     const id = '507f1f77bcf86cd799439011'
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business')).toBe(
+      'contact/internal/leads/summary?category=business'
+    )
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=research')).toBe(
+      'contact/internal/leads/summary?category=research'
+    )
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=general')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business&extra=1')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business&category=research')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business', 'PATCH')).toBeNull()
+
     expect(getValidatedBackendPath(prefix, '?category=business&due=true&limit=25')).toBe(
       'contact/internal/leads?category=business&due=true&limit=25'
     )
