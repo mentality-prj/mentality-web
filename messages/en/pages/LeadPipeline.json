@@ -36,5 +36,15 @@
     "schedule_demo": "Schedule a demo",
     "prepare_pilot": "Prepare the pilot",
     "review_decision": "Review commercial decision"
+  },
+  "recordContactOutcome": "Record the contact result",
+  "contacted": "Contacted partner",
+  "noResponseReschedule": "No response — reschedule",
+  "manualOutcomeNotice": "This records your result only; no message is sent to the partner.",
+  "futureFollowUpRequired": "Choose a new future date when recording no response.",
+  "contactHistory": "Contact history",
+  "outcomes": {
+    "contacted": "Contacted",
+    "no_response": "No response"
   }
 }
