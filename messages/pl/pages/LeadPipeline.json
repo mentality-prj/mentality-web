@@ -46,5 +46,8 @@
   "outcomes": {
     "contacted": "Kontakt nawiązany",
     "no_response": "Brak odpowiedzi"
-  }
+  },
+  "pipelineOverview": "Status zapytań partnerskich",
+  "totalLeads": "Łącznie zapytań",
+  "dueLeads": "Na dziś / zaległe"
 }
