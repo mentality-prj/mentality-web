@@ -182,6 +182,11 @@ describe('same-origin backend BFF', () => {
   it('restricts internal contact leads to exact authenticated routes', async () => {
     const prefix = ['contact', 'internal', 'leads']
     const id = '507f1f77bcf86cd799439011'
+    expect(getValidatedBackendPath(prefix, '?category=business&due=true&limit=25')).toBe(
+      'contact/internal/leads?category=business&due=true&limit=25'
+    )
+    expect(getValidatedBackendPath(prefix, '?category=business&due=false')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=business&due=true&due=true')).toBeNull()
     expect(getValidatedBackendPath(prefix, '?category=business&limit=25')).toBe(
       'contact/internal/leads?category=business&limit=25'
     )
@@ -198,6 +203,11 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath([...prefix, id, 'stage'], '', 'PATCH')).toBe(
       'contact/internal/leads/' + id + '/stage'
     )
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up'], '', 'PATCH')).toBe(
+      'contact/internal/leads/' + id + '/follow-up'
+    )
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up'], '?replay=1', 'PATCH')).toBeNull()
     expect(getValidatedBackendPath([...prefix, id, 'stage'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath([...prefix, 'malformed'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath([...prefix, id, 'contacts'], '', 'PATCH')).toBeNull()
