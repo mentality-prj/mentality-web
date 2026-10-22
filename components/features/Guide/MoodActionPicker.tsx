@@ -29,20 +29,22 @@ export function MoodActionPicker({ suggestedAction, copy }: Props) {
       <p className="text-sm font-medium">{copy.choosePrompt}</p>
       <div className="flex flex-wrap gap-xs" role="group" aria-label={copy.choosePrompt}>
         {MOOD_ACTIONS.map((action) => (
-          <button
+          <Button
             key={action}
             type="button"
+            variant="secondary"
+            size="medium"
             aria-pressed={selectedAction === action}
             onClick={() => setSelectedAction(action)}
             className={[
-              'min-h-11 rounded-xl border px-3 py-2 text-sm transition-colors focus-visible:outline-2 focus-visible:outline-offset-2',
+              'min-h-11',
               selectedAction === action
                 ? 'border-primary bg-primary/10 font-semibold text-textcolor-primary'
-                : 'border-current/20 text-textcolor-secondary hover:bg-black/5',
+                : 'border-outline-secondary text-textcolor-secondary',
             ].join(' ')}
           >
             {copy.options[action]}
-          </button>
+          </Button>
         ))}
       </div>
       {selectedAction !== suggestedAction && (
