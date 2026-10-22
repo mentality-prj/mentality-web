@@ -16,7 +16,7 @@ export async function SafetyResources({ showDiaryPrivacy = false }: Props) {
 
   return (
     <aside aria-label={t('label')}>
-      <SectionCard className="rounded-2xl border border-outline-secondary p-4">
+      <SectionCard className="border-outline-secondary rounded-2xl border p-4">
         <div className="flex flex-col gap-sm">
           {showDiaryPrivacy && (
             <p className="leading-relaxed text-textcolor-secondary">
