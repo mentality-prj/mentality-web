@@ -6,9 +6,9 @@ import { useTranslations } from 'next-intl'
 import {
   advanceOperatorLeadStage,
   getOperatorLead,
+  type LeadNextAction,
   listOperatorLeads,
   planOperatorLeadFollowUp,
-  type LeadNextAction,
 } from '@/helpers/api-wrapper'
 
 type Category = 'business' | 'research'
