@@ -139,7 +139,9 @@ export function LeadOperatorConsole() {
       .catch(() => {
         // The lead list remains usable if the summary endpoint is unavailable.
       })
-    return () => { cancelled = true }
+    return () => {
+      cancelled = true
+    }
   }, [category, summaryRevision])
 
   const openLead = async (leadId: string) => {
@@ -262,13 +264,15 @@ export function LeadOperatorConsole() {
 
       {summary && (
         <section aria-label={t('pipelineOverview')} className="grid grid-cols-2 gap-2 sm:grid-cols-5">
-          {([
-            ['totalLeads', summary.total],
-            ['stages.qualified', summary.stages.qualified],
-            ['stages.pilot', summary.stages.pilot],
-            ['stages.won', summary.stages.won],
-            ['dueLeads', summary.due],
-          ] as const).map(([key, count]) => (
+          {(
+            [
+              ['totalLeads', summary.total],
+              ['stages.qualified', summary.stages.qualified],
+              ['stages.pilot', summary.stages.pilot],
+              ['stages.won', summary.stages.won],
+              ['dueLeads', summary.due],
+            ] as const
+          ).map(([key, count]) => (
             <div key={key} className="rounded-xl border border-[var(--outline-secondary)] bg-white px-3 py-3">
               <span className="block text-xs text-textcolor-secondary">{t(key)}</span>
               <strong className="mt-1 block text-xl tabular-nums">{count}</strong>

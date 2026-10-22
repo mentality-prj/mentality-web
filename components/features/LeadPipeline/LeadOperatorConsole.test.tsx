@@ -52,8 +52,14 @@ beforeEach(() => {
       due: 2,
       asOfDate: '2026-10-22',
       stages: {
-        inquiry: 3, qualified: 2, demo: 1, pilot: 1, decision: 1,
-        won: 1, lost: 0, closed: 0,
+        inquiry: 3,
+        qualified: 2,
+        demo: 1,
+        pilot: 1,
+        decision: 1,
+        won: 1,
+        lost: 0,
+        closed: 0,
       },
     }),
   })
@@ -168,5 +174,4 @@ describe('private lead operator console', () => {
     await waitFor(() => expect(getOperatorLeadSummary).toHaveBeenCalledWith('research'))
     expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
   })
-
 })
