@@ -1,4 +1,6 @@
 {
   "title": "Pamiętnik",
-  "subtitle": "Prowadź dziennik swoich myśli"
+  "subtitle": "Prowadź dziennik swoich myśli",
+  "historyError": "Nie udało się wczytać historii dziennika. To nie oznacza utraty wpisów.",
+  "retryHistory": "Spróbuj ponownie"
 }
