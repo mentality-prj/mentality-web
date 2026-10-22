@@ -197,8 +197,11 @@ export function LeadOperatorConsole() {
       setNextAction(detail.nextAction || 'reply')
     } catch {
       if (accessDenied) accessRevoked.current = true
-      if (accessRevoked.current) clearSensitiveLeadData()
-      else setSelected(null)
+      if (accessRevoked.current) {
+        clearSensitiveLeadData()
+      } else {
+        setSelected(null)
+      }
       setError(t('unavailable'))
     } finally {
       setBusy(false)
@@ -217,8 +220,10 @@ export function LeadOperatorConsole() {
         listOperatorLeads(category, dueOnly),
       ])
       if (
-        (detailResponse.status === 401 || detailResponse.status === 403) ||
-        (listResponse.status === 401 || listResponse.status === 403)
+        detailResponse.status === 401 ||
+        detailResponse.status === 403 ||
+        listResponse.status === 401 ||
+        listResponse.status === 403
       ) {
         accessRevoked.current = true
         clearSensitiveLeadData()
