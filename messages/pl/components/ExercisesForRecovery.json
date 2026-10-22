@@ -87,6 +87,7 @@
     "privacyNote": "Zapisywana jest tylko kategoria ćwiczenia i Twoja ostatnia ocena, bez treści dziennika. Ocena może wpływać na przyszłe opcjonalne podpowiedzi. Możesz ją usunąć.",
     "clear": "Usuń moją ocenę",
     "cleared": "Ocena usunięta. Nie będzie już wpływać na propozycje.",
-    "progressLink": "Zobacz moje oceny w Moich postępach"
+    "progressLink": "Zobacz moje oceny w Moich postępach",
+    "returnToMyDay": "Wróć do Mojego dnia"
   }
 }
