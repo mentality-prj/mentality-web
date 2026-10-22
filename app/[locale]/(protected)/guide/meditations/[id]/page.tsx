@@ -62,6 +62,7 @@ export default async function MeditationPage({ params }: { params: Promise<{ id:
           {/* TODO: Add card  */}
         </div>
         <OtherMeditations currentMeditationId={id} />
+        <p className="text-sm leading-relaxed text-textcolor-secondary">{tpm('categoryFeedbackNote')}</p>
         <ExerciseFeedback category="meditation" />
       </div>
     </article>
