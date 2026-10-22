@@ -83,10 +83,10 @@ const MyDay = async () => {
           />
         )}
         {todayRecord ? <MoodNextStepCard record={todayRecord} /> : <QuickSupportCard showHelpfulReturn />}
+        <SafetyResources />
         <DailyTipClient recommendedId={recommendedTipId} />
         <TodayMoodNotes record={todayRecord ?? null} timeZone={timeZone} />
         <DailyHabitsCard />
-        <SafetyResources />
       </div>
 
       <div className="flex flex-col gap-sm self-start xl:contents">
