@@ -13,9 +13,15 @@ export function DiaryHistoryError() {
 
   return (
     <section role="alert">
-      <SectionCard className="rounded-2xl border border-outline-secondary p-6">
+      <SectionCard className="border-outline-secondary rounded-2xl border p-6">
         <p className="text-sm text-textcolor-secondary">{t('historyError')}</p>
-        <Button type="button" variant="secondary" size="medium" onClick={() => router.refresh()} className="mt-3 min-h-11">
+        <Button
+          type="button"
+          variant="secondary"
+          size="medium"
+          onClick={() => router.refresh()}
+          className="mt-3 min-h-11"
+        >
           {t('retryHistory')}
         </Button>
       </SectionCard>
