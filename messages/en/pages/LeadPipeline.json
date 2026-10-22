@@ -46,5 +46,8 @@
   "outcomes": {
     "contacted": "Contacted",
     "no_response": "No response"
-  }
+  },
+  "pipelineOverview": "Partner inquiry pipeline",
+  "totalLeads": "Total inquiries",
+  "dueLeads": "Due / overdue"
 }
