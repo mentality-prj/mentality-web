@@ -126,7 +126,11 @@ export function LeadOperatorConsole() {
   useEffect(() => {
     let cancelled = false
     setSummary(null)
-    if (accessRevoked.current) return () => { cancelled = true }
+    if (accessRevoked.current) {
+      return () => {
+        cancelled = true
+      }
+    }
     void getOperatorLeadSummary(category)
       .then(async (response) => {
         if (!response.ok) {
