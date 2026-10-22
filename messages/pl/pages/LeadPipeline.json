@@ -1,0 +1,28 @@
+{
+  "title": "Obsługa zapytań Dzvin",
+  "description": "Tylko dla uprawnionych operatorów. Zapytania firmowe i badawcze nie obejmują prywatnych dzienników.",
+  "category": "Ścieżka",
+  "business": "Firmy",
+  "research": "Badania",
+  "incoming": "Nowe zapytania",
+  "detail": "Szczegóły i kolejny etap",
+  "loading": "Aktualizowanie…",
+  "empty": "Brak zapytań",
+  "unnamed": "Organizacja bez nazwy",
+  "choose": "Wybierz zapytanie z listy",
+  "unavailable": "Nie można pobrać zapytań lub brak dostępu.",
+  "conflict": "Nie można zmienić etapu. Inny operator mógł już zaktualizować zapytanie. Odśwież wybór.",
+  "stage": "Etap",
+  "moveTo": "Przejdź do: {stage}",
+  "private": "Używaj danych kontaktowych wyłącznie do odpowiedzi na zapytanie. Nie publikuj ich w raportach.",
+  "stages": {
+    "inquiry": "Zapytanie",
+    "qualified": "Zakwalifikowano",
+    "demo": "Prezentacja",
+    "pilot": "Pilotaż",
+    "decision": "Decyzja handlowa",
+    "won": "Wygrana",
+    "lost": "Utracona",
+    "closed": "Zamknięte"
+  }
+}
