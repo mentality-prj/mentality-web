@@ -3,6 +3,8 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { advanceOperatorLeadStage, getOperatorLead, listOperatorLeads } from '@/helpers/api-wrapper'
+
 type Category = 'business' | 'research'
 type Stage = 'inquiry' | 'qualified' | 'demo' | 'pilot' | 'decision' | 'won' | 'lost' | 'closed'
 
@@ -63,10 +65,7 @@ export function LeadOperatorConsole() {
     setError(null)
     setBusy(true)
 
-    void fetch(`/api/backend/contact/internal/leads?category=${category}&limit=25`, {
-      cache: 'no-store',
-      signal: abort.signal,
-    })
+    void listOperatorLeads(category)
       .then(async (response) => {
         if (!response.ok) throw new Error('Operator list unavailable')
         const payload: unknown = await response.json()
@@ -88,7 +87,7 @@ export function LeadOperatorConsole() {
     setBusy(true)
     setError(null)
     try {
-      const response = await fetch(`/api/backend/contact/internal/leads/${leadId}`, { cache: 'no-store' })
+      const response = await getOperatorLead(leadId)
       if (!response.ok) throw new Error('Operator detail unavailable')
       const detail = (await response.json()) as LeadDetail
       if (detail._id !== leadId || detail.category !== category) throw new Error('Mismatched detail')
@@ -107,17 +106,10 @@ export function LeadOperatorConsole() {
     setError(null)
     const expectedStage = selected.leadStage || 'inquiry'
     try {
-      const response = await fetch(`/api/backend/contact/internal/leads/${selected._id}/stage`, {
-        method: 'PATCH',
-        headers: { 'Content-Type': 'application/json' },
-        cache: 'no-store',
-        body: JSON.stringify({ expectedStage, nextStage }),
-      })
+      const response = await advanceOperatorLeadStage(selected._id, expectedStage, nextStage)
       if (!response.ok) throw new Error('Stage update rejected')
       await openLead(selected._id)
-      const listResponse = await fetch(`/api/backend/contact/internal/leads?category=${category}&limit=25`, {
-        cache: 'no-store',
-      })
+      const listResponse = await listOperatorLeads(category)
       if (!listResponse.ok) throw new Error('List refresh failed')
       setLeads((await listResponse.json()) as LeadSummary[])
     } catch {
