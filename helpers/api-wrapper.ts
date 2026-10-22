@@ -18,15 +18,7 @@ export async function publicApiRequest<T extends object>(
  * These do not grant access: NestJS verifies Mongo role + explicit allowlist.
  * No client bearer, company ID, user activity or personal journal is attached.
  */
-export type OperatorLeadStage =
-  | 'inquiry'
-  | 'qualified'
-  | 'demo'
-  | 'pilot'
-  | 'decision'
-  | 'won'
-  | 'lost'
-  | 'closed'
+export type OperatorLeadStage = 'inquiry' | 'qualified' | 'demo' | 'pilot' | 'decision' | 'won' | 'lost' | 'closed'
 
 export function listOperatorLeads(category: 'business' | 'research'): Promise<Response> {
   return fetch(`/api/backend/contact/internal/leads?category=${category}&limit=25`, {
