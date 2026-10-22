@@ -20,8 +20,9 @@ export async function publicApiRequest<T extends object>(
  */
 export type OperatorLeadStage = 'inquiry' | 'qualified' | 'demo' | 'pilot' | 'decision' | 'won' | 'lost' | 'closed'
 
-export function listOperatorLeads(category: 'business' | 'research'): Promise<Response> {
-  return fetch(`/api/backend/contact/internal/leads?category=${category}&limit=25`, {
+export function listOperatorLeads(category: 'business' | 'research', dueOnly = false): Promise<Response> {
+  const due = dueOnly ? '&due=true' : ''
+  return fetch(`/api/backend/contact/internal/leads?category=${category}&limit=25${due}`, {
     cache: 'no-store',
   })
 }
@@ -42,6 +43,24 @@ export function advanceOperatorLeadStage(
     headers: { 'Content-Type': 'application/json' },
     cache: 'no-store',
     body: JSON.stringify({ expectedStage, nextStage }),
+  })
+}
+
+export type LeadNextAction = 'reply' | 'schedule_demo' | 'prepare_pilot' | 'review_decision'
+
+export function planOperatorLeadFollowUp(
+  id: string,
+  expectedStage: OperatorLeadStage,
+  expectedRevision: number,
+  followUpOn: string | null,
+  nextAction: LeadNextAction | null
+): Promise<Response> {
+  if (!/^[a-fA-F0-9]{24}$/.test(id)) throw new Error('Invalid lead ID')
+  return fetch(`/api/backend/contact/internal/leads/${id}/follow-up`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
+    body: JSON.stringify({ expectedStage, expectedRevision, followUpOn, nextAction }),
   })
 }
 
