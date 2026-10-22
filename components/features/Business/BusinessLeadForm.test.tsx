@@ -77,6 +77,23 @@ describe('B2B pilot form', () => {
     expect(second).toBe(first)
   })
 
+  it('rotates submission ID when edited form data would otherwise collide with an old lead', async () => {
+    ;(sendBusinessContactForm as jest.Mock)
+      .mockRejectedValueOnce(new Error('timeout'))
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ success: true }) })
+
+    render(<BusinessLeadForm />)
+    submitBusiness()
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('failed'))
+    const original = (sendBusinessContactForm as jest.Mock).mock.calls[0][0].submissionId as string
+
+    fireEvent.change(screen.getByLabelText('fields.companyName'), { target: { value: 'Updated Company' } })
+    fireEvent.click(screen.getByRole('button', { name: 'submit' }))
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('success'))
+    const updated = (sendBusinessContactForm as jest.Mock).mock.calls[1][0].submissionId as string
+    expect(updated).not.toBe(original)
+  })
+
   it('does not report success when the new backend endpoint is unavailable', async () => {
     ;(sendBusinessContactForm as jest.Mock).mockResolvedValue({
       ok: false,
