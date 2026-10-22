@@ -1,6 +1,11 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
-import { advanceOperatorLeadStage, getOperatorLead, listOperatorLeads, planOperatorLeadFollowUp } from '@/helpers/api-wrapper'
+import {
+  advanceOperatorLeadStage,
+  getOperatorLead,
+  listOperatorLeads,
+  planOperatorLeadFollowUp,
+} from '@/helpers/api-wrapper'
 
 import { LeadOperatorConsole } from './LeadOperatorConsole'
 
@@ -84,9 +89,9 @@ describe('private lead operator console', () => {
     fireEvent.change(date, { target: { value: '2026-11-02' } })
     fireEvent.change(screen.getByLabelText('nextAction'), { target: { value: 'schedule_demo' } })
     fireEvent.click(screen.getByRole('button', { name: 'saveFollowUp' }))
-    await waitFor(() => expect(planOperatorLeadFollowUp).toHaveBeenCalledWith(
-      lead._id, 'inquiry', 0, '2026-11-02', 'schedule_demo'
-    ))
+    await waitFor(() =>
+      expect(planOperatorLeadFollowUp).toHaveBeenCalledWith(lead._id, 'inquiry', 0, '2026-11-02', 'schedule_demo')
+    )
   })
 
   it('switches to a due-only queue without retrieving personal details', async () => {
@@ -96,5 +101,4 @@ describe('private lead operator console', () => {
     await waitFor(() => expect(listOperatorLeads).toHaveBeenCalledWith('business', true))
     expect(getOperatorLead).not.toHaveBeenCalled()
   })
-
 })
