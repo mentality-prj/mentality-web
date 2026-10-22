@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server'
 
+import { Routes } from '@/constants/routes'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { MOOD_ACTION_HREF } from '@/helpers/moodNextStep'
 import { Link } from '@/i18n/navigation'
@@ -62,6 +63,12 @@ export async function HelpfulExercisesSummary({ feedback, failed }: Props) {
             </ul>
           )}
 
+          <Link
+            href={Routes.MYDAY}
+            className="inline-flex min-h-11 w-fit items-center text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            {t('returnToMyDay')}
+          </Link>
           <p className="text-xs leading-relaxed text-textcolor-secondary">{t('limitNote')}</p>
         </div>
       </SectionCard>
