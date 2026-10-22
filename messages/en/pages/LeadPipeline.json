@@ -1,0 +1,28 @@
+{
+  "title": "Dzvin lead operations",
+  "description": "Authorized operators only. Business and research partner inquiries are separate from personal journals.",
+  "category": "Pipeline",
+  "business": "Companies",
+  "research": "Research",
+  "incoming": "Incoming leads",
+  "detail": "Lead details and next step",
+  "loading": "Updating…",
+  "empty": "No inquiries",
+  "unnamed": "Unnamed organization",
+  "choose": "Select an inquiry from the list",
+  "unavailable": "Unable to load inquiries or access denied.",
+  "conflict": "Stage could not be updated. Another operator may have advanced this inquiry. Refresh your selection.",
+  "stage": "Stage",
+  "moveTo": "Move to {stage}",
+  "private": "Use contact details only to respond to this inquiry. Do not export them to public reports.",
+  "stages": {
+    "inquiry": "Inquiry",
+    "qualified": "Qualified",
+    "demo": "Demo",
+    "pilot": "Pilot",
+    "decision": "Commercial decision",
+    "won": "Won",
+    "lost": "Lost",
+    "closed": "Closed"
+  }
+}
