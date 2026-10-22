@@ -1,6 +1,7 @@
 import { getTranslations } from 'next-intl/server'
 
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
+import { DiaryHistoryError } from '@/components/features/Diary/DiaryHistoryError'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getServerSession } from '@/lib/get-server-session'
@@ -30,7 +31,7 @@ export default async function DiaryPage() {
           inactiveLabel={t('components.Calendar.daysWithoutActivity', { type: 'myThoughts' })}
         /> */}
       </div>
-      <UserNotes notes={response.data ?? []} />
+      {'error' in response ? <DiaryHistoryError /> : <UserNotes notes={response.data ?? []} />}
     </div>
   )
 }
