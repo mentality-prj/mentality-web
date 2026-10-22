@@ -3,7 +3,13 @@
 import { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { advanceOperatorLeadStage, getOperatorLead, listOperatorLeads } from '@/helpers/api-wrapper'
+import {
+  advanceOperatorLeadStage,
+  getOperatorLead,
+  listOperatorLeads,
+  planOperatorLeadFollowUp,
+  type LeadNextAction,
+} from '@/helpers/api-wrapper'
 
 type Category = 'business' | 'research'
 type Stage = 'inquiry' | 'qualified' | 'demo' | 'pilot' | 'decision' | 'won' | 'lost' | 'closed'
@@ -18,6 +24,8 @@ type LeadSummary = {
   interest?: string
   researchInterest?: string
   leadStage?: Stage
+  followUpOn?: string
+  nextAction?: LeadNextAction
 }
 
 type LeadDetail = LeadSummary & {
@@ -28,6 +36,7 @@ type LeadDetail = LeadSummary & {
   researchTopic?: string
   contactConsentAt?: string
   leadStageHistory?: Array<{ from: Stage; to: Stage; changedAt: string }>
+  followUpRevision?: number
 }
 
 const NEXT_STAGES: Record<Stage, readonly Stage[]> = {
@@ -42,6 +51,7 @@ const NEXT_STAGES: Record<Stage, readonly Stage[]> = {
 }
 
 const LEAD_ID = /^[a-fA-F0-9]{24}$/
+const NEXT_ACTIONS: LeadNextAction[] = ['reply', 'schedule_demo', 'prepare_pilot', 'review_decision']
 const panel = 'rounded-2xl border border-[var(--outline-secondary)] bg-white p-5'
 const action =
   'min-h-10 rounded-full border border-[var(--outline-secondary)] bg-white px-4 py-2 text-sm font-semibold disabled:opacity-50'
@@ -57,6 +67,9 @@ export function LeadOperatorConsole() {
   const [selected, setSelected] = useState<LeadDetail | null>(null)
   const [busy, setBusy] = useState(false)
   const [error, setError] = useState<string | null>(null)
+  const [dueOnly, setDueOnly] = useState(false)
+  const [followUpOn, setFollowUpOn] = useState('')
+  const [nextAction, setNextAction] = useState<LeadNextAction>('reply')
 
   useEffect(() => {
     const abort = new AbortController()
@@ -65,7 +78,7 @@ export function LeadOperatorConsole() {
     setError(null)
     setBusy(true)
 
-    void listOperatorLeads(category)
+    void listOperatorLeads(category, dueOnly)
       .then(async (response) => {
         if (!response.ok) throw new Error('Operator list unavailable')
         const payload: unknown = await response.json()
@@ -80,7 +93,7 @@ export function LeadOperatorConsole() {
       })
 
     return () => abort.abort()
-  }, [category, t])
+  }, [category, dueOnly, t])
 
   const openLead = async (leadId: string) => {
     if (!LEAD_ID.test(leadId)) return
@@ -92,6 +105,8 @@ export function LeadOperatorConsole() {
       const detail = (await response.json()) as LeadDetail
       if (detail._id !== leadId || detail.category !== category) throw new Error('Mismatched detail')
       setSelected(detail)
+      setFollowUpOn(detail.followUpOn || '')
+      setNextAction(detail.nextAction || 'reply')
     } catch {
       setSelected(null)
       setError(t('unavailable'))
@@ -109,8 +124,32 @@ export function LeadOperatorConsole() {
       const response = await advanceOperatorLeadStage(selected._id, expectedStage, nextStage)
       if (!response.ok) throw new Error('Stage update rejected')
       await openLead(selected._id)
-      const listResponse = await listOperatorLeads(category)
+      const listResponse = await listOperatorLeads(category, dueOnly)
       if (!listResponse.ok) throw new Error('List refresh failed')
+      setLeads((await listResponse.json()) as LeadSummary[])
+    } catch {
+      setError(t('conflict'))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const saveFollowUp = async (clear = false) => {
+    if (!selected || !LEAD_ID.test(selected._id) || (!clear && !followUpOn)) return
+    setBusy(true)
+    setError(null)
+    try {
+      const response = await planOperatorLeadFollowUp(
+        selected._id,
+        selected.leadStage || 'inquiry',
+        selected.followUpRevision || 0,
+        clear ? null : followUpOn,
+        clear ? null : nextAction
+      )
+      if (!response.ok) throw new Error('Follow-up changed')
+      await openLead(selected._id)
+      const listResponse = await listOperatorLeads(category, dueOnly)
+      if (!listResponse.ok) throw new Error('Lead queue refresh failed')
       setLeads((await listResponse.json()) as LeadSummary[])
     } catch {
       setError(t('conflict'))
@@ -141,6 +180,16 @@ export function LeadOperatorConsole() {
         </select>
       </label>
 
+      <label className="flex w-fit items-center gap-2 text-sm">
+        <input
+          type="checkbox"
+          checked={dueOnly}
+          onChange={(event) => setDueOnly(event.target.checked)}
+          disabled={busy}
+        />
+        {t('dueOnly')}
+      </label>
+
       {error && (
         <p role="alert" className="text-sm text-red-700">
           {error}
@@ -169,6 +218,7 @@ export function LeadOperatorConsole() {
                   <span className="mt-1 block text-xs text-textcolor-secondary">
                     {t(`stages.${lead.leadStage || 'inquiry'}`)}
                     {lead.createdAt ? ` · ${new Date(lead.createdAt).toLocaleDateString()}` : ''}
+                    {lead.followUpOn ? ` · ${t('followUpOn')}: ${lead.followUpOn}` : ''}
                   </span>
                 </button>
               </li>
@@ -195,6 +245,44 @@ export function LeadOperatorConsole() {
               <p className="text-sm">
                 {t('stage')}: <strong>{t(`stages.${selected.leadStage || 'inquiry'}`)}</strong>
               </p>
+              <fieldset className="flex flex-col gap-3 rounded-xl border border-[var(--outline-secondary)] p-4">
+                <legend className="px-2 text-sm font-semibold">{t('followUpHeading')}</legend>
+                <label className="flex flex-col gap-1 text-sm">
+                  {t('nextAction')}
+                  <select
+                    className="min-h-10 rounded-lg border border-[var(--outline-secondary)] px-3"
+                    value={nextAction}
+                    onChange={(event) => setNextAction(event.target.value as LeadNextAction)}
+                    disabled={busy}
+                  >
+                    {NEXT_ACTIONS.map((actionName) => (
+                      <option key={actionName} value={actionName}>
+                        {t(`actions.${actionName}`)}
+                      </option>
+                    ))}
+                  </select>
+                </label>
+                <label className="flex flex-col gap-1 text-sm">
+                  {t('followUpOn')}
+                  <input
+                    type="date"
+                    value={followUpOn}
+                    onChange={(event) => setFollowUpOn(event.target.value)}
+                    className="min-h-10 rounded-lg border border-[var(--outline-secondary)] px-3"
+                    disabled={busy}
+                  />
+                </label>
+                <div className="flex flex-wrap gap-2">
+                  <button className={action} disabled={busy || !followUpOn} onClick={() => void saveFollowUp()}>
+                    {t('saveFollowUp')}
+                  </button>
+                  {selected.followUpOn && (
+                    <button className={action} disabled={busy} onClick={() => void saveFollowUp(true)}>
+                      {t('clearFollowUp')}
+                    </button>
+                  )}
+                </div>
+              </fieldset>
               <div className="flex flex-wrap gap-2">
                 {NEXT_STAGES[selected.leadStage || 'inquiry'].map((nextStage) => (
                   <button key={nextStage} className={action} disabled={busy} onClick={() => void advance(nextStage)}>
