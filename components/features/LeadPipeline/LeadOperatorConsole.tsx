@@ -5,6 +5,7 @@ import { useTranslations } from 'next-intl'
 
 import {
   advanceOperatorLeadStage,
+  completeOperatorLeadFollowUp,
   getOperatorLead,
   type LeadNextAction,
   listOperatorLeads,
@@ -37,6 +38,7 @@ type LeadDetail = LeadSummary & {
   contactConsentAt?: string
   leadStageHistory?: Array<{ from: Stage; to: Stage; changedAt: string }>
   followUpRevision?: number
+  followUpHistory?: Array<{ action: LeadNextAction; outcome: 'contacted' | 'no_response'; dueOn: string; completedAt: string }>
 }
 
 const NEXT_STAGES: Record<Stage, readonly Stage[]> = {
@@ -147,6 +149,36 @@ export function LeadOperatorConsole() {
         clear ? null : nextAction
       )
       if (!response.ok) throw new Error('Follow-up changed')
+      await openLead(selected._id)
+      const listResponse = await listOperatorLeads(category, dueOnly)
+      if (!listResponse.ok) throw new Error('Lead queue refresh failed')
+      setLeads((await listResponse.json()) as LeadSummary[])
+    } catch {
+      setError(t('conflict'))
+    } finally {
+      setBusy(false)
+    }
+  }
+
+  const recordContactOutcome = async (outcome: 'contacted' | 'no_response') => {
+    if (!selected || !LEAD_ID.test(selected._id) || !selected.followUpOn) return
+    const noResponse = outcome === 'no_response'
+    if (noResponse && (!followUpOn || followUpOn <= new Date().toISOString().slice(0, 10))) {
+      setError(t('futureFollowUpRequired'))
+      return
+    }
+    setBusy(true)
+    setError(null)
+    try {
+      const response = await completeOperatorLeadFollowUp(
+        selected._id,
+        selected.leadStage || 'inquiry',
+        selected.followUpRevision || 0,
+        outcome,
+        noResponse ? followUpOn : null,
+        noResponse ? nextAction : null
+      )
+      if (!response.ok) throw new Error('Contact outcome changed')
       await openLead(selected._id)
       const listResponse = await listOperatorLeads(category, dueOnly)
       if (!listResponse.ok) throw new Error('Lead queue refresh failed')
@@ -281,6 +313,24 @@ export function LeadOperatorConsole() {
                       {t('clearFollowUp')}
                     </button>
                   )}
+                {selected.followUpOn && (
+                  <div className="flex flex-col gap-2 border-t border-[var(--outline-secondary)] pt-3">
+                    <p className="text-sm font-medium">{t('recordContactOutcome')}</p>
+                    <div className="flex flex-wrap gap-2">
+                      <button className={action} disabled={busy} onClick={() => void recordContactOutcome('contacted')}>
+                        {t('contacted')}
+                      </button>
+                      <button
+                        className={action}
+                        disabled={busy || !followUpOn || followUpOn <= new Date().toISOString().slice(0, 10)}
+                        onClick={() => void recordContactOutcome('no_response')}
+                      >
+                        {t('noResponseReschedule')}
+                      </button>
+                    </div>
+                    <p className="text-xs text-textcolor-secondary">{t('manualOutcomeNotice')}</p>
+                  </div>
+                )}
                 </div>
               </fieldset>
               <div className="flex flex-wrap gap-2">
@@ -290,6 +340,19 @@ export function LeadOperatorConsole() {
                   </button>
                 ))}
               </div>
+              {selected.followUpHistory && selected.followUpHistory.length > 0 && (
+                <section aria-label={t('contactHistory')} className="border-t border-[var(--outline-secondary)] pt-3">
+                  <h3 className="text-sm font-semibold">{t('contactHistory')}</h3>
+                  <ul className="mt-2 space-y-1 text-xs text-textcolor-secondary">
+                    {selected.followUpHistory.slice(-5).reverse().map((item, index) => (
+                      <li key={index}>
+                        {t(`outcomes.${item.outcome}`)} · {t(`actions.${item.action}`)} ·
+                        {' '}{new Date(item.completedAt).toLocaleDateString()}
+                      </li>
+                    ))}
+                  </ul>
+                </section>
+              )}
               <p className="text-xs text-textcolor-secondary">{t('private')}</p>
             </div>
           )}
