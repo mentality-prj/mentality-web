@@ -187,6 +187,59 @@ describe('private lead operator console', () => {
     expect(screen.queryByText('Example Company')).not.toBeInTheDocument()
   })
 
+  it('never restores a pending contact detail after summary authorization was revoked', async () => {
+    let releaseDetail: ((response: unknown) => void) | undefined
+    let denySummary: ((response: unknown) => void) | undefined
+    ;(getOperatorLead as jest.Mock).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          releaseDetail = resolve
+        })
+    )
+    ;(getOperatorLeadSummary as jest.Mock).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          denySummary = resolve
+        })
+    )
+
+    render(<LeadOperatorConsole />)
+    fireEvent.click(await screen.findByRole('button', { name: /Example Company/ }))
+    await waitFor(() => expect(getOperatorLead).toHaveBeenCalledTimes(1))
+
+    await act(async () => {
+      denySummary?.({ ok: false, status: 403 })
+    })
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+
+    await act(async () => {
+      releaseDetail?.({ ok: true, json: async () => detail })
+    })
+    expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
+    expect(screen.queryByText('Example Company')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
+  })
+
+  it('locks the console when the post-PATCH queue refresh is denied but the detail read succeeds', async () => {
+    ;(advanceOperatorLeadStage as jest.Mock).mockResolvedValue({ ok: true })
+    ;(listOperatorLeads as jest.Mock)
+      .mockResolvedValueOnce({ ok: true, json: async () => [lead] })
+      .mockResolvedValueOnce({ ok: false, status: 403 })
+    render(<LeadOperatorConsole />)
+    fireEvent.click(await screen.findByRole('button', { name: /Example Company/ }))
+    await screen.findByText('anna@company.example')
+    fireEvent.click(screen.getByRole('button', { name: 'moveTo: stages.qualified' }))
+
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+    expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
+    expect(screen.queryByText('Example Company')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
+
+    fireEvent.change(screen.getByLabelText('category'), { target: { value: 'research' } })
+    expect(listOperatorLeads).toHaveBeenCalledTimes(2)
+    expect(getOperatorLead).toHaveBeenCalledTimes(2)
+  })
+
   it('removes a previously opened contact when detail permission is revoked', async () => {
     ;(getOperatorLead as jest.Mock)
       .mockResolvedValueOnce({ ok: true, json: async () => detail })
