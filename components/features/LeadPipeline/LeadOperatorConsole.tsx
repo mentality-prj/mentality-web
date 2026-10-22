@@ -144,20 +144,35 @@ export function LeadOperatorConsole() {
     }
   }, [category, summaryRevision])
 
+  const clearSensitiveLeadData = () => {
+    // An expired/revoked operator session must not leave previously fetched
+    // names, emails, messages or pipeline metadata visible in this screen.
+    setSelected(null)
+    setLeads([])
+    setSummary(null)
+    setFollowUpOn('')
+    setNextAction('reply')
+  }
+
   const openLead = async (leadId: string) => {
     if (!LEAD_ID.test(leadId)) return
     setBusy(true)
     setError(null)
+    let accessDenied = false
     try {
       const response = await getOperatorLead(leadId)
-      if (!response.ok) throw new Error('Operator detail unavailable')
+      if (!response.ok) {
+        accessDenied = response.status === 401 || response.status === 403
+        throw new Error('Operator detail unavailable')
+      }
       const detail = (await response.json()) as LeadDetail
       if (detail._id !== leadId || detail.category !== category) throw new Error('Mismatched detail')
       setSelected(detail)
       setFollowUpOn(detail.followUpOn || '')
       setNextAction(detail.nextAction || 'reply')
     } catch {
-      setSelected(null)
+      if (accessDenied) clearSensitiveLeadData()
+      else setSelected(null)
       setError(t('unavailable'))
     } finally {
       setBusy(false)
@@ -187,9 +202,7 @@ export function LeadOperatorConsole() {
       setSummaryRevision((previous) => previous + 1)
     } catch {
       // The previous detail and queue may be stale after the committed write.
-      setSelected(null)
-      setLeads([])
-      setSummary(null)
+      clearSensitiveLeadData()
       setError(t('unavailable'))
     }
   }
@@ -202,6 +215,7 @@ export function LeadOperatorConsole() {
     try {
       const response = await advanceOperatorLeadStage(selected._id, expectedStage, nextStage)
       if (!response.ok) {
+        if (response.status === 401 || response.status === 403) clearSensitiveLeadData()
         setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
         return
       }
@@ -227,6 +241,7 @@ export function LeadOperatorConsole() {
         clear ? null : nextAction
       )
       if (!response.ok) {
+        if (response.status === 401 || response.status === 403) clearSensitiveLeadData()
         setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
         return
       }
@@ -258,6 +273,7 @@ export function LeadOperatorConsole() {
         noResponse ? nextAction : null
       )
       if (!response.ok) {
+        if (response.status === 401 || response.status === 403) clearSensitiveLeadData()
         setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
         return
       }
