@@ -25,6 +25,7 @@ describe('ExerciseFeedbackPanel', () => {
     expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'false')
     expect(saveExerciseFeedback).not.toHaveBeenCalled()
     expect(screen.queryByRole('link', { name: 'progressLink' })).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'returnToMyDay' })).toHaveAttribute('href', '/my-day')
   })
 
   it('only marks the vote selected after server acknowledgment, and allows a later change', async () => {
@@ -42,6 +43,7 @@ describe('ExerciseFeedbackPanel', () => {
     )
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'true')
     expect(screen.getByRole('link', { name: 'progressLink' })).toHaveAttribute('href', '/my-progress')
+    expect(screen.getByRole('link', { name: 'returnToMyDay' })).toHaveAttribute('href', '/my-day')
 
     fireEvent.click(screen.getByRole('button', { name: 'notHelpful' }))
     await waitFor(() =>
@@ -89,6 +91,7 @@ describe('ExerciseFeedbackPanel', () => {
     )
     expect(screen.queryByRole('button', { name: 'clear' })).not.toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'progressLink' })).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'returnToMyDay' })).toHaveAttribute('href', '/my-day')
     expect(screen.getByRole('button', { name: 'helpful' })).toHaveAttribute('aria-pressed', 'false')
     expect(screen.getByRole('button', { name: 'notHelpful' })).toHaveAttribute('aria-pressed', 'false')
   })
