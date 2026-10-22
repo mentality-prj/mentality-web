@@ -147,6 +147,37 @@ describe('private lead operator console', () => {
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
     expect(getOperatorLead).not.toHaveBeenCalled()
   })
+  it('removes a previously opened contact when detail permission is revoked', async () => {
+    ;(getOperatorLead as jest.Mock)
+      .mockResolvedValueOnce({ ok: true, json: async () => detail })
+      .mockResolvedValueOnce({ ok: false, status: 403 })
+    render(<LeadOperatorConsole />)
+    await screen.findByLabelText('pipelineOverview')
+    fireEvent.click(await screen.findByRole('button', { name: /Example Company/ }))
+    await screen.findByText('anna@company.example')
+
+    fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+    expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
+    expect(screen.queryByText('Example Company')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
+  })
+
+  it.each([401, 403])('purges confidential contact data after a revoked stage PATCH (%s)', async (status) => {
+    ;(advanceOperatorLeadStage as jest.Mock).mockResolvedValue({ ok: false, status })
+    render(<LeadOperatorConsole />)
+    await screen.findByLabelText('pipelineOverview')
+    fireEvent.click(await screen.findByRole('button', { name: /Example Company/ }))
+    await screen.findByText('anna@company.example')
+
+    fireEvent.click(screen.getByRole('button', { name: 'moveTo: stages.qualified' }))
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+    expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
+    expect(screen.queryByText('Example Company')).not.toBeInTheDocument()
+    expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
+    expect(advanceOperatorLeadStage).toHaveBeenCalledTimes(1)
+  })
+
   it('updates follow-up due date using the selected stage and revision', async () => {
     ;(planOperatorLeadFollowUp as jest.Mock).mockResolvedValue({
       ok: true,
