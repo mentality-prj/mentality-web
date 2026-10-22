@@ -65,7 +65,16 @@ export function ResearchPartnerForm() {
       const token = await window.grecaptcha.execute(siteKey, { action: 'contact' })
       // Retry the same normalized inquiry with the same UUID; when the user
       // edits a failed submission, it becomes a new qualified inquiry.
-      const normalizedPayload = JSON.stringify([name.trim(), email.trim(), institutionName.trim(), researchTopic.trim(), researchInterest, message.trim(), contactConsent, website])
+      const normalizedPayload = JSON.stringify([
+        name.trim(),
+        email.trim(),
+        institutionName.trim(),
+        researchTopic.trim(),
+        researchInterest,
+        message.trim(),
+        contactConsent,
+        website,
+      ])
       if (submissionPayload.current !== normalizedPayload || !submissionId.current) {
         submissionId.current = createLeadSubmissionId()
         submissionPayload.current = normalizedPayload
