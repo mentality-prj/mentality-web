@@ -179,7 +179,7 @@ export function LeadOperatorConsole() {
   }
 
   const openLead = async (leadId: string) => {
-    if (!LEAD_ID.test(leadId)) return
+    if (!LEAD_ID.test(leadId) || accessRevoked.current) return
     setBusy(true)
     setError(null)
     let accessDenied = false
@@ -190,17 +190,15 @@ export function LeadOperatorConsole() {
         throw new Error('Operator detail unavailable')
       }
       const detail = (await response.json()) as LeadDetail
+      if (accessRevoked.current) return
       if (detail._id !== leadId || detail.category !== category) throw new Error('Mismatched detail')
       setSelected(detail)
       setFollowUpOn(detail.followUpOn || '')
       setNextAction(detail.nextAction || 'reply')
     } catch {
-      if (accessDenied) {
-        accessRevoked.current = true
-        clearSensitiveLeadData()
-      } else {
-        setSelected(null)
-      }
+      if (accessDenied) accessRevoked.current = true
+      if (accessRevoked.current) clearSensitiveLeadData()
+      else setSelected(null)
       setError(t('unavailable'))
     } finally {
       setBusy(false)
@@ -218,8 +216,19 @@ export function LeadOperatorConsole() {
         getOperatorLead(leadId),
         listOperatorLeads(category, dueOnly),
       ])
+      if (
+        (detailResponse.status === 401 || detailResponse.status === 403) ||
+        (listResponse.status === 401 || listResponse.status === 403)
+      ) {
+        accessRevoked.current = true
+        clearSensitiveLeadData()
+        setError(t('unavailable'))
+        return
+      }
+      if (accessRevoked.current) return
       if (!detailResponse.ok || !listResponse.ok) throw new Error('Lead refresh unavailable')
       const [detail, list]: [LeadDetail, unknown] = await Promise.all([detailResponse.json(), listResponse.json()])
+      if (accessRevoked.current) return
       if (detail._id !== leadId || detail.category !== category || !Array.isArray(list)) {
         throw new Error('Invalid lead refresh response')
       }
@@ -236,7 +245,7 @@ export function LeadOperatorConsole() {
   }
 
   const advance = async (nextStage: Stage) => {
-    if (!selected || !LEAD_ID.test(selected._id)) return
+    if (accessRevoked.current || !selected || !LEAD_ID.test(selected._id)) return
     setBusy(true)
     setError(null)
     const expectedStage = selected.leadStage || 'inquiry'
@@ -260,7 +269,7 @@ export function LeadOperatorConsole() {
   }
 
   const saveFollowUp = async (clear = false) => {
-    if (!selected || !LEAD_ID.test(selected._id) || (!clear && !followUpOn)) return
+    if (accessRevoked.current || !selected || !LEAD_ID.test(selected._id) || (!clear && !followUpOn)) return
     setBusy(true)
     setError(null)
     try {
@@ -289,7 +298,7 @@ export function LeadOperatorConsole() {
   }
 
   const recordContactOutcome = async (outcome: 'contacted' | 'no_response') => {
-    if (!selected || !LEAD_ID.test(selected._id) || !selected.followUpOn) return
+    if (accessRevoked.current || !selected || !LEAD_ID.test(selected._id) || !selected.followUpOn) return
     const noResponse = outcome === 'no_response'
     if (noResponse && (!followUpOn || followUpOn <= new Date().toISOString().slice(0, 10))) {
       setError(t('futureFollowUpRequired'))
