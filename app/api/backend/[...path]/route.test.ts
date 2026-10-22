@@ -202,10 +202,7 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath([...prefix, 'malformed'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath([...prefix, id, 'contacts'], '', 'PATCH')).toBeNull()
 
-    const denied = await GET(
-      req('/api/backend/contact/internal/leads?category=business'),
-      ctx(prefix)
-    )
+    const denied = await GET(req('/api/backend/contact/internal/leads?category=business'), ctx(prefix))
     expect(denied.status).toBe(401)
     expect(global.fetch).not.toHaveBeenCalled()
   })

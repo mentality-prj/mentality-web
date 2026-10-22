@@ -41,7 +41,8 @@ const NEXT_STAGES: Record<Stage, readonly Stage[]> = {
 
 const LEAD_ID = /^[a-fA-F0-9]{24}$/
 const panel = 'rounded-2xl border border-[var(--outline-secondary)] bg-white p-5'
-const action = 'min-h-10 rounded-full border border-[var(--outline-secondary)] bg-white px-4 py-2 text-sm font-semibold disabled:opacity-50'
+const action =
+  'min-h-10 rounded-full border border-[var(--outline-secondary)] bg-white px-4 py-2 text-sm font-semibold disabled:opacity-50'
 
 /**
  * No lead email/message in the list request. Read an individual record only
@@ -114,10 +115,9 @@ export function LeadOperatorConsole() {
       })
       if (!response.ok) throw new Error('Stage update rejected')
       await openLead(selected._id)
-      const listResponse = await fetch(
-        `/api/backend/contact/internal/leads?category=${category}&limit=25`,
-        { cache: 'no-store' },
-      )
+      const listResponse = await fetch(`/api/backend/contact/internal/leads?category=${category}&limit=25`, {
+        cache: 'no-store',
+      })
       if (!listResponse.ok) throw new Error('List refresh failed')
       setLeads((await listResponse.json()) as LeadSummary[])
     } catch {
@@ -149,8 +149,16 @@ export function LeadOperatorConsole() {
         </select>
       </label>
 
-      {error && <p role="alert" className="text-sm text-red-700">{error}</p>}
-      {busy && <p role="status" className="text-sm">{t('loading')}</p>}
+      {error && (
+        <p role="alert" className="text-sm text-red-700">
+          {error}
+        </p>
+      )}
+      {busy && (
+        <p role="status" className="text-sm">
+          {t('loading')}
+        </p>
+      )}
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
         <div className={panel}>
@@ -197,12 +205,7 @@ export function LeadOperatorConsole() {
               </p>
               <div className="flex flex-wrap gap-2">
                 {NEXT_STAGES[selected.leadStage || 'inquiry'].map((nextStage) => (
-                  <button
-                    key={nextStage}
-                    className={action}
-                    disabled={busy}
-                    onClick={() => void advance(nextStage)}
-                  >
+                  <button key={nextStage} className={action} disabled={busy} onClick={() => void advance(nextStage)}>
                     {t('moveTo', { stage: t(`stages.${nextStage}`) })}
                   </button>
                 ))}
