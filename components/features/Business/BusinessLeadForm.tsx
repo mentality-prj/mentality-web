@@ -30,6 +30,7 @@ export function BusinessLeadForm() {
   const [contactConsent, setContactConsent] = useState(false)
   const [website, setWebsite] = useState('')
   const submissionId = useRef<string | null>(null)
+  const submissionPayload = useRef<string | null>(null)
   const [status, setStatus] = useState<'idle' | 'sending' | 'success'>('idle')
   const [error, setError] = useState<string | null>(null)
 
@@ -64,7 +65,13 @@ export function BusinessLeadForm() {
     setStatus('sending')
     try {
       const token = await window.grecaptcha.execute(siteKey, { action: 'contact' })
-      if (!submissionId.current) submissionId.current = createLeadSubmissionId()
+      // Retry the same normalized inquiry with the same UUID; when the user
+      // edits a failed submission, it becomes a new qualified inquiry.
+      const normalizedPayload = JSON.stringify([name.trim(), email.trim(), companyName.trim(), role.trim(), teamSize, interest, message.trim(), contactConsent, website])
+      if (submissionPayload.current !== normalizedPayload || !submissionId.current) {
+        submissionId.current = createLeadSubmissionId()
+        submissionPayload.current = normalizedPayload
+      }
       const response = await sendBusinessContactForm({
         submissionId: submissionId.current,
         name: name.trim(),
