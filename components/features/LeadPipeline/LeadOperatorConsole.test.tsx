@@ -4,6 +4,7 @@ import {
   advanceOperatorLeadStage,
   completeOperatorLeadFollowUp,
   getOperatorLead,
+  getOperatorLeadSummary,
   listOperatorLeads,
   planOperatorLeadFollowUp,
 } from '@/helpers/api-wrapper'
@@ -19,6 +20,7 @@ jest.mock('next-intl', () => {
 jest.mock('@/helpers/api-wrapper', () => ({
   listOperatorLeads: jest.fn(),
   getOperatorLead: jest.fn(),
+  getOperatorLeadSummary: jest.fn(),
   advanceOperatorLeadStage: jest.fn(),
   completeOperatorLeadFollowUp: jest.fn(),
   planOperatorLeadFollowUp: jest.fn(),
@@ -42,6 +44,19 @@ beforeEach(() => {
   jest.clearAllMocks()
   ;(listOperatorLeads as jest.Mock).mockResolvedValue({ ok: true, json: async () => [lead] })
   ;(getOperatorLead as jest.Mock).mockResolvedValue({ ok: true, json: async () => detail })
+  ;(getOperatorLeadSummary as jest.Mock).mockResolvedValue({
+    ok: true,
+    json: async () => ({
+      category: 'business',
+      total: 9,
+      due: 2,
+      asOfDate: '2026-10-22',
+      stages: {
+        inquiry: 3, qualified: 2, demo: 1, pilot: 1, decision: 1,
+        won: 1, lost: 0, closed: 0,
+      },
+    }),
+  })
 })
 
 describe('private lead operator console', () => {
@@ -137,4 +152,21 @@ describe('private lead operator console', () => {
       expect(completeOperatorLeadFollowUp).toHaveBeenCalledWith(lead._id, 'inquiry', 0, 'no_response', nextDay, 'reply')
     )
   })
+  it('shows first-party aggregated counts without contact identities or website conversions', async () => {
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(screen.getByLabelText('pipelineOverview')).toBeInTheDocument())
+    expect(getOperatorLeadSummary).toHaveBeenCalledWith('business')
+    expect(screen.getByText('totalLeads')).toBeInTheDocument()
+    expect(screen.getByText('dueLeads')).toBeInTheDocument()
+    expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
+  })
+
+  it('never displays a stale business count when the operator switches to research', async () => {
+    render(<LeadOperatorConsole />)
+    await waitFor(() => expect(screen.getByLabelText('pipelineOverview')).toBeInTheDocument())
+    fireEvent.change(screen.getByLabelText('category'), { target: { value: 'research' } })
+    await waitFor(() => expect(getOperatorLeadSummary).toHaveBeenCalledWith('research'))
+    expect(screen.queryByLabelText('pipelineOverview')).not.toBeInTheDocument()
+  })
+
 })
