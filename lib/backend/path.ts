@@ -31,6 +31,12 @@ export function getValidatedBackendPath(segments: string[], search: string, meth
       if (limit && (!/^[1-9][0-9]?$/.test(limit) || Number(limit) > 50)) return null
       return `contact/internal/leads${search}`
     }
+    if (segments.length === 4 && segments[3] === 'summary' && method === 'GET') {
+      const query = new URLSearchParams(search)
+      if ([...query.keys()].length !== 1 || query.getAll('category').length !== 1) return null
+      if (!['business', 'research'].includes(query.get('category') || '')) return null
+      return `contact/internal/leads/summary${search}`
+    }
     if (search || !objectId.test(segments[3] || '')) return null
     if (segments.length === 4 && method === 'GET') return segments.join('/')
     if (segments.length === 5 && ['stage', 'follow-up'].includes(segments[4]) && method === 'PATCH')
