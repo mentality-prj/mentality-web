@@ -24,5 +24,17 @@
     "won": "Won",
     "lost": "Lost",
     "closed": "Closed"
+  },
+  "dueOnly": "Only due or overdue follow-ups",
+  "followUpHeading": "Next contact",
+  "nextAction": "Action",
+  "followUpOn": "Follow-up date",
+  "saveFollowUp": "Save next action",
+  "clearFollowUp": "Clear reminder",
+  "actions": {
+    "reply": "Reply to partner",
+    "schedule_demo": "Schedule a demo",
+    "prepare_pilot": "Prepare the pilot",
+    "review_decision": "Review commercial decision"
   }
 }
