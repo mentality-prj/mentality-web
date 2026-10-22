@@ -87,6 +87,7 @@
     "privacyNote": "Only the activity category and your latest rating are saved, never diary text. Your rating may shape future optional suggestions and can be removed.",
     "clear": "Remove my rating",
     "cleared": "Rating removed. It will no longer affect suggestions.",
-    "progressLink": "Review my ratings in My Progress"
+    "progressLink": "Review my ratings in My Progress",
+    "returnToMyDay": "Return to My Day"
   }
 }
