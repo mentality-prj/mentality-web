@@ -101,14 +101,22 @@ export function ExerciseFeedbackPanel({ category, initialHelpful, loadFailed = f
                 ? t('previouslySaved')
                 : ''}
       </p>
-      {helpful !== null && (
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+        {helpful !== null && (
+          <Link
+            href={Routes.MYPROGRESS}
+            className="inline-flex min-h-11 w-fit items-center text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            {t('progressLink')}
+          </Link>
+        )}
         <Link
-          href={Routes.MYPROGRESS}
-          className="mt-3 inline-flex min-h-11 w-fit items-center text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+          href={Routes.MYDAY}
+          className="inline-flex min-h-11 w-fit items-center text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
         >
-          {t('progressLink')}
+          {t('returnToMyDay')}
         </Link>
-      )}
+      </div>
     </section>
   )
 }
