@@ -20,6 +20,11 @@ jest.mock('@/components/features/Diary/UserNotes/UserNotes', () => ({
 jest.mock('@/components/features/Diary/DiaryHistoryError', () => ({
   DiaryHistoryError: () => <p role="alert">history-load-failed</p>,
 }))
+jest.mock('@/components/features/Guide/SafetyResources', () => ({
+  SafetyResources: ({ showDiaryPrivacy }: { showDiaryPrivacy?: boolean }) => (
+    <div data-testid="safety" data-privacy={String(showDiaryPrivacy)} />
+  ),
+}))
 jest.mock('@/ds/components/PageTitle', () => ({ PageTitle: () => <h1>Diary</h1> }))
 
 beforeEach(() => jest.clearAllMocks())
@@ -32,6 +37,10 @@ describe('owner diary history read states', () => {
     expect(screen.getByRole('alert')).toHaveTextContent('history-load-failed')
     expect(screen.queryByText(/saved-entries:/)).not.toBeInTheDocument()
     expect(screen.getByText('editable-diary-composer')).toBeInTheDocument()
+    expect(screen.getByTestId('safety')).toHaveAttribute('data-privacy', 'true')
+    const safety = screen.getByTestId('safety')
+    const composer = screen.getByText('editable-diary-composer')
+    expect(safety.compareDocumentPosition(composer) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy()
   })
 
   it('shows confirmed saved diary records when the read succeeds', async () => {
