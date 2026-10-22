@@ -18,20 +18,22 @@ export function getValidatedBackendPath(segments: string[], search: string, meth
     const objectId = /^[a-fA-F0-9]{24}$/
     if (segments.length === 3 && method === 'GET') {
       const query = new URLSearchParams(search)
-      const allowed = new Set(['category', 'stage', 'limit'])
+      const allowed = new Set(['category', 'stage', 'limit', 'due'])
       const category = query.get('category')
       if (!['business', 'research'].includes(category || '')) return null
       if ([...query.keys()].some((key) => !allowed.has(key) || query.getAll(key).length !== 1)) return null
       const stage = query.get('stage')
       if (stage && !['inquiry', 'qualified', 'demo', 'pilot', 'decision', 'won', 'lost', 'closed'].includes(stage))
         return null
+      const due = query.get('due')
+      if (due !== null && due !== 'true') return null
       const limit = query.get('limit')
       if (limit && (!/^[1-9][0-9]?$/.test(limit) || Number(limit) > 50)) return null
       return `contact/internal/leads${search}`
     }
     if (search || !objectId.test(segments[3] || '')) return null
     if (segments.length === 4 && method === 'GET') return segments.join('/')
-    if (segments.length === 5 && segments[4] === 'stage' && method === 'PATCH') return segments.join('/')
+    if (segments.length === 5 && ['stage', 'follow-up'].includes(segments[4]) && method === 'PATCH') return segments.join('/')
     return null
   }
 
