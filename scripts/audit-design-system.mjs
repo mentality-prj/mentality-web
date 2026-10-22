@@ -13,11 +13,7 @@ function visit(directory) {
     const path = join(directory, entry.name)
     if (entry.isDirectory()) {
       visit(path)
-    } else if (
-      entry.isFile() &&
-      entry.name.endsWith('.tsx') &&
-      !/\.(?:test|spec|stories)\.tsx$/.test(entry.name)
-    ) {
+    } else if (entry.isFile() && entry.name.endsWith('.tsx') && !/\.(?:test|spec|stories)\.tsx$/.test(entry.name)) {
       const text = readFileSync(path, 'utf8')
       const tags = [...text.matchAll(rawTag)].map((match) => match[1])
       const file = relative(root, path).replaceAll('\\', '/')
@@ -36,8 +32,13 @@ for (const directory of roots) visit(join(root, directory))
 const total = (key) => scanned.reduce((sum, file) => sum + file[key], 0)
 const candidates = scanned.filter((file) => file.rawButtons || file.rawFields || file.manualCard)
 const ranking = [...candidates]
-  .sort((a, b) => b.rawButtons * 2 + b.rawFields * 2 + Number(b.manualCard) -
-    (a.rawButtons * 2 + a.rawFields * 2 + Number(a.manualCard)))
+  .sort(
+    (a, b) =>
+      b.rawButtons * 2 +
+      b.rawFields * 2 +
+      Number(b.manualCard) -
+      (a.rawButtons * 2 + a.rawFields * 2 + Number(a.manualCard))
+  )
   .slice(0, 12)
 
 const summary = [
@@ -48,8 +49,8 @@ const summary = [
   `Raw input/textarea/select tags: ${total('rawFields')} across ${scanned.filter((f) => f.rawFields).length} files`,
   `Manually styled card candidates: ${scanned.filter((f) => f.manualCard).length}`,
   'These are review candidates: native controls may be legitimate and layout-only components need no DS import.',
-  ...ranking.map((file) =>
-    `  ${file.file}: buttons=${file.rawButtons}, fields=${file.rawFields}, cardCandidate=${file.manualCard}`
+  ...ranking.map(
+    (file) => `  ${file.file}: buttons=${file.rawButtons}, fields=${file.rawFields}, cardCandidate=${file.manualCard}`
   ),
 ]
 console.log(summary.join('\n'))
@@ -72,7 +73,12 @@ for (const [file, ...patterns] of required) {
 if (process.env.GITHUB_STEP_SUMMARY) {
   appendFileSync(
     process.env.GITHUB_STEP_SUMMARY,
-    '## Design system audit\n\n' + summary.slice(1, 7).map((line) => `- ${line}`).join('\n') + '\n'
+    '## Design system audit\n\n' +
+      summary
+        .slice(1, 7)
+        .map((line) => `- ${line}`)
+        .join('\n') +
+      '\n'
   )
 }
 if (failed) process.exitCode = 1
