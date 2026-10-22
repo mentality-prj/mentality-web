@@ -1,5 +1,7 @@
 import { fireEvent, render, screen, waitFor } from '@testing-library/react'
 
+import { advanceOperatorLeadStage, getOperatorLead, listOperatorLeads } from '@/helpers/api-wrapper'
+
 import { LeadOperatorConsole } from './LeadOperatorConsole'
 
 jest.mock('next-intl', () => {
@@ -7,6 +9,12 @@ jest.mock('next-intl', () => {
     variables?.stage ? `${key}: ${variables.stage}` : key
   return { useTranslations: () => translate }
 })
+
+jest.mock('@/helpers/api-wrapper', () => ({
+  listOperatorLeads: jest.fn(),
+  getOperatorLead: jest.fn(),
+  advanceOperatorLeadStage: jest.fn(),
+}))
 
 const lead = {
   _id: '507f1f77bcf86cd799439011',
@@ -21,59 +29,45 @@ const detail = {
   message: 'Interested in a pilot',
 }
 
-const originalFetch = global.fetch
-
-afterEach(() => {
-  global.fetch = originalFetch
+beforeEach(() => {
   jest.clearAllMocks()
+  ;(listOperatorLeads as jest.Mock).mockResolvedValue({ ok: true, json: async () => [lead] })
+  ;(getOperatorLead as jest.Mock).mockResolvedValue({ ok: true, json: async () => detail })
 })
 
 describe('private lead operator console', () => {
-  it('does not receive contact email in list and loads it only after a selection', async () => {
-    global.fetch = jest.fn().mockImplementation(async (url: string) => {
-      const body = url.endsWith('/' + lead._id) ? detail : [lead]
-      return { ok: true, json: async () => body }
-    }) as unknown as typeof fetch
-
+  it('shows no contact email before explicitly requesting a lead detail', async () => {
     render(<LeadOperatorConsole />)
     await waitFor(() => expect(screen.getByText('Example Company')).toBeInTheDocument())
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
-    expect(global.fetch).toHaveBeenCalledWith(
-      '/api/backend/contact/internal/leads?category=business&limit=25',
-      expect.objectContaining({ cache: 'no-store' })
-    )
+    expect(listOperatorLeads).toHaveBeenCalledWith('business')
+
     fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
     await waitFor(() => expect(screen.getByText('anna@company.example')).toBeInTheDocument())
+    expect(getOperatorLead).toHaveBeenCalledWith(lead._id)
   })
 
-  it('sends compare-and-swap expectedStage with the selected lead identity', async () => {
-    const requests: Array<{ url: string; init?: RequestInit }> = []
-    global.fetch = jest.fn().mockImplementation(async (url: string, init?: RequestInit) => {
-      requests.push({ url, init })
-      if (init?.method === 'PATCH') return { ok: true, json: async () => ({ leadStage: 'qualified' }) }
-      if (url.endsWith('/' + lead._id)) return { ok: true, json: async () => detail }
-      return { ok: true, json: async () => [lead] }
-    }) as unknown as typeof fetch
-
+  it('submits compare-and-swap stage transition using the selected lead ID', async () => {
+    ;(advanceOperatorLeadStage as jest.Mock).mockResolvedValue({
+      ok: true,
+      json: async () => ({ leadStage: 'qualified' }),
+    })
     render(<LeadOperatorConsole />)
     await waitFor(() => expect(screen.getByRole('button', { name: /Example Company/ })).toBeInTheDocument())
     fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
     await waitFor(() => expect(screen.getByRole('button', { name: 'moveTo: stages.qualified' })).toBeInTheDocument())
-    fireEvent.click(screen.getByRole('button', { name: 'moveTo: stages.qualified' }))
 
-    await waitFor(() => expect(requests.some((request) => request.init?.method === 'PATCH')).toBe(true))
-    const request = requests.find((entry) => entry.init?.method === 'PATCH')
-    expect(request?.url).toBe('/api/backend/contact/internal/leads/' + lead._id + '/stage')
-    expect(JSON.parse(String(request?.init?.body))).toEqual({
-      expectedStage: 'inquiry',
-      nextStage: 'qualified',
+    fireEvent.click(screen.getByRole('button', { name: 'moveTo: stages.qualified' }))
+    await waitFor(() => {
+      expect(advanceOperatorLeadStage).toHaveBeenCalledWith(lead._id, 'inquiry', 'qualified')
     })
   })
 
-  it('fails without displaying lead data when backend denies access', async () => {
-    global.fetch = jest.fn().mockResolvedValue({ ok: false, status: 403 }) as unknown as typeof fetch
+  it('hides all lead details when the operator-only backend denies access', async () => {
+    ;(listOperatorLeads as jest.Mock).mockResolvedValue({ ok: false, status: 403 })
     render(<LeadOperatorConsole />)
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
+    expect(getOperatorLead).not.toHaveBeenCalled()
   })
 })
