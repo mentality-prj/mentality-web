@@ -22,6 +22,7 @@ export type BusinessContactFormPayload = {
   message?: string
   contactConsent: true
   token: string
+  submissionId?: string
   website?: string
 }
 
@@ -39,6 +40,7 @@ export type ResearchContactFormPayload = {
   message?: string
   contactConsent: true
   token: string
+  submissionId?: string
   website?: string
 }
 
