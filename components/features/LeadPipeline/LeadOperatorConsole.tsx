@@ -176,10 +176,7 @@ export function LeadOperatorConsole() {
         listOperatorLeads(category, dueOnly),
       ])
       if (!detailResponse.ok || !listResponse.ok) throw new Error('Lead refresh unavailable')
-      const [detail, list]: [LeadDetail, unknown] = await Promise.all([
-        detailResponse.json(),
-        listResponse.json(),
-      ])
+      const [detail, list]: [LeadDetail, unknown] = await Promise.all([detailResponse.json(), listResponse.json()])
       if (detail._id !== leadId || detail.category !== category || !Array.isArray(list)) {
         throw new Error('Invalid lead refresh response')
       }
