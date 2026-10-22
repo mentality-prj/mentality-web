@@ -97,6 +97,8 @@ describe('private lead operator console', () => {
     ;(listOperatorLeads as jest.Mock).mockResolvedValue({ ok: false, status: 403 })
     render(<LeadOperatorConsole />)
     await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+    // A denied operator request is not proof that the pipeline is empty.
+    expect(screen.queryByText('empty')).not.toBeInTheDocument()
     expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
     expect(getOperatorLead).not.toHaveBeenCalled()
   })
