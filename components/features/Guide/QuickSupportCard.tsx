@@ -4,6 +4,7 @@ import { getTranslations } from 'next-intl/server'
 import { Routes } from '@/constants/routes'
 import { SectionCard } from '@/ds/components/SectionCard'
 import { Link } from '@/i18n/navigation'
+import { Button } from '@/ui/button'
 
 import { HelpfulReturnPrompt } from './HelpfulReturnPrompt'
 
@@ -25,18 +26,12 @@ export async function QuickSupportCard({ showHelpfulReturn = false }: { showHelp
           </div>
           <p className="text-sm leading-relaxed">{t('groundingPrompt')}</p>
           <div className="flex flex-wrap gap-sm">
-            <Link
-              href={`${Routes.GUIDE}/breathing`}
-              className="inline-flex min-h-11 items-center rounded-xl bg-primary px-4 py-2 text-sm font-medium text-white focus-visible:outline-2 focus-visible:outline-offset-2"
-            >
-              {t('breathingAction')}
-            </Link>
-            <Link
-              href={`${Routes.GUIDE}/calming`}
-              className="inline-flex min-h-11 items-center rounded-xl border border-current px-4 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2"
-            >
-              {t('calmingAction')}
-            </Link>
+            <Button asChild variant="default" size="medium" className="min-h-11">
+              <Link href={`${Routes.GUIDE}/breathing`}>{t('breathingAction')}</Link>
+            </Button>
+            <Button asChild variant="secondary" size="medium" className="min-h-11">
+              <Link href={`${Routes.GUIDE}/calming`}>{t('calmingAction')}</Link>
+            </Button>
           </div>
           {showHelpfulReturn && (
             <Suspense fallback={null}>
