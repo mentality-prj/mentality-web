@@ -82,6 +82,7 @@ describe('My Day local calendar boundary and visual hierarchy', () => {
     expect(screen.queryByTestId('today-record')).not.toBeInTheDocument()
     expect(getTodayMoodStory).not.toHaveBeenCalled()
     expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.getByTestId('safety-resources')).toBeInTheDocument()
   })
 
   it('shows the verified daily entry while retaining mood first, optional habits last', async () => {
@@ -95,7 +96,7 @@ describe('My Day local calendar boundary and visual hierarchy', () => {
     const content = container.querySelector('article > div')
     expect(content).not.toBeNull()
     const widgets = Array.from(content?.children ?? []).map((element) => element.getAttribute('data-testid'))
-    expect(widgets).toEqual(['mood-story', 'mood-next-step', 'tip', 'today-record', 'daily-habits', 'safety-resources'])
+    expect(widgets).toEqual(['mood-story', 'mood-next-step', 'safety-resources', 'tip', 'today-record', 'daily-habits'])
   })
 
   it('fails closed when timezone is unknown, even if the backend returns a record', async () => {
