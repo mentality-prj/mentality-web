@@ -93,6 +93,36 @@ describe('private lead operator console', () => {
     })
   })
 
+  it('does not call a committed stage transition a conflict when its refresh fails', async () => {
+    ;(advanceOperatorLeadStage as jest.Mock).mockResolvedValue({ ok: true })
+    ;(getOperatorLead as jest.Mock)
+      .mockResolvedValueOnce({ ok: true, json: async () => detail })
+      .mockResolvedValueOnce({ ok: false, status: 503 })
+    render(<LeadOperatorConsole />)
+    fireEvent.click(await screen.findByRole('button', { name: /Example Company/ }))
+    fireEvent.click(await screen.findByRole('button', { name: 'moveTo: stages.qualified' }))
+
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+    expect(screen.queryByText('conflict')).not.toBeInTheDocument()
+    expect(screen.queryByText('anna@company.example')).not.toBeInTheDocument()
+    expect(advanceOperatorLeadStage).toHaveBeenCalledTimes(1)
+  })
+
+  it('does not invite a duplicate follow-up after a successful PATCH and failed queue refresh', async () => {
+    ;(planOperatorLeadFollowUp as jest.Mock).mockResolvedValue({ ok: true })
+    ;(listOperatorLeads as jest.Mock)
+      .mockResolvedValueOnce({ ok: true, json: async () => [lead] })
+      .mockResolvedValueOnce({ ok: false, status: 503 })
+    render(<LeadOperatorConsole />)
+    fireEvent.click(await screen.findByRole('button', { name: /Example Company/ }))
+    fireEvent.change(await screen.findByLabelText('followUpOn'), { target: { value: '2026-11-02' } })
+    fireEvent.click(screen.getByRole('button', { name: 'saveFollowUp' }))
+
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('unavailable'))
+    expect(screen.queryByRole('button', { name: 'saveFollowUp' })).not.toBeInTheDocument()
+    expect(planOperatorLeadFollowUp).toHaveBeenCalledTimes(1)
+  })
+
   it('hides all lead details when the operator-only backend denies access', async () => {
     ;(listOperatorLeads as jest.Mock).mockResolvedValue({ ok: false, status: 403 })
     render(<LeadOperatorConsole />)
