@@ -3,6 +3,7 @@ import { notFound } from 'next/navigation'
 
 import { LeadOperatorConsole } from '@/components/features/LeadPipeline/LeadOperatorConsole'
 import { Routes } from '@/constants/routes'
+import { apiRequest } from '@/helpers/api-wrapper'
 import { requireServerSession } from '@/lib/auth/server'
 import { APIUrl } from '@/requests/config'
 
@@ -21,16 +22,13 @@ export default async function InternalContactLeadsPage({ params }: { params: Pro
   if (!session?.OAuthToken) notFound()
 
   try {
-    const response = await fetch(`${APIUrl.replace(/\/+$/, '')}/contact/internal/leads?category=business&limit=1`, {
-      method: 'GET',
-      headers: { Authorization: `Bearer ${session.OAuthToken}` },
-      cache: 'no-store',
-      redirect: 'manual',
-      signal: AbortSignal.timeout(10000),
-    })
-    // Fail closed when the server-side operator allowlist or backend feature
-    // has not been configured; no contact metadata is rendered on failure.
-    if (!response.ok) notFound()
+    const result = await apiRequest<unknown>(
+      session,
+      `${APIUrl.replace(/\/+$/, '')}/contact/internal/leads?category=business&limit=1`,
+      { method: 'GET' }
+    )
+    // No operator access or unavailable backend: never render private data.
+    if (result.error || !Array.isArray(result.data)) notFound()
   } catch {
     notFound()
   }
