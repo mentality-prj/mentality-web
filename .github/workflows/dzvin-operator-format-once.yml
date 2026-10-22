@@ -1,0 +1,41 @@
+name: Dzvin Operator Console One-Time Format
+on:
+  push:
+    branches:
+      - feat/dzvin-548-lead-operator-console-20261022
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/dzvin-548-lead-operator-console-20261022
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install project-locked formatter
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Apply repository formatting to exactly three changed files
+        run: |
+          ./node_modules/.bin/prettier --write \
+            'app/[locale]/(protected)/admin/contact-leads/page.tsx' \
+            'app/api/backend/[...path]/route.test.ts' \
+            'components/features/LeadPipeline/LeadOperatorConsole.tsx'
+      - name: Commit only the scoped formatting changes
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- 'app/[locale]/(protected)/admin/contact-leads/page.tsx' \
+            'app/api/backend/[...path]/route.test.ts' \
+            'components/features/LeadPipeline/LeadOperatorConsole.tsx'
+          if ! git diff --cached --quiet; then
+            git commit -m 'style(dzvin): format operator console source'
+            git push origin HEAD:refs/heads/feat/dzvin-548-lead-operator-console-20261022
+          fi
