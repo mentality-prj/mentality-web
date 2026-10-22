@@ -7,6 +7,7 @@ import {
   advanceOperatorLeadStage,
   completeOperatorLeadFollowUp,
   getOperatorLead,
+  getOperatorLeadSummary,
   type LeadNextAction,
   listOperatorLeads,
   planOperatorLeadFollowUp,
@@ -27,6 +28,14 @@ type LeadSummary = {
   leadStage?: Stage
   followUpOn?: string
   nextAction?: LeadNextAction
+}
+
+type PipelineSummary = {
+  category: Category
+  total: number
+  due: number
+  asOfDate: string
+  stages: Record<Stage, number>
 }
 
 type LeadDetail = LeadSummary & {
@@ -70,6 +79,8 @@ const action =
 export function LeadOperatorConsole() {
   const t = useTranslations('pages.LeadPipeline')
   const [category, setCategory] = useState<Category>('business')
+  const [summary, setSummary] = useState<PipelineSummary | null>(null)
+  const [summaryRevision, setSummaryRevision] = useState(0)
   const [leads, setLeads] = useState<LeadSummary[]>([])
   const [selected, setSelected] = useState<LeadDetail | null>(null)
   const [busy, setBusy] = useState(false)
@@ -101,6 +112,35 @@ export function LeadOperatorConsole() {
 
     return () => abort.abort()
   }, [category, dueOnly, t])
+
+  useEffect(() => {
+    let cancelled = false
+    setSummary(null)
+    void getOperatorLeadSummary(category)
+      .then(async (response) => {
+        if (!response.ok) return
+        const body: unknown = await response.json()
+        if (
+          body &&
+          typeof body === 'object' &&
+          'category' in body &&
+          body.category === category &&
+          'total' in body &&
+          typeof body.total === 'number' &&
+          'due' in body &&
+          typeof body.due === 'number' &&
+          'stages' in body &&
+          body.stages &&
+          typeof body.stages === 'object'
+        ) {
+          if (!cancelled) setSummary(body as PipelineSummary)
+        }
+      })
+      .catch(() => {
+        // The lead list remains usable if the summary endpoint is unavailable.
+      })
+    return () => { cancelled = true }
+  }, [category, summaryRevision])
 
   const openLead = async (leadId: string) => {
     if (!LEAD_ID.test(leadId)) return
@@ -134,6 +174,7 @@ export function LeadOperatorConsole() {
       const listResponse = await listOperatorLeads(category, dueOnly)
       if (!listResponse.ok) throw new Error('List refresh failed')
       setLeads((await listResponse.json()) as LeadSummary[])
+      setSummaryRevision((previous) => previous + 1)
     } catch {
       setError(t('conflict'))
     } finally {
@@ -158,6 +199,7 @@ export function LeadOperatorConsole() {
       const listResponse = await listOperatorLeads(category, dueOnly)
       if (!listResponse.ok) throw new Error('Lead queue refresh failed')
       setLeads((await listResponse.json()) as LeadSummary[])
+      setSummaryRevision((previous) => previous + 1)
     } catch {
       setError(t('conflict'))
     } finally {
@@ -188,6 +230,7 @@ export function LeadOperatorConsole() {
       const listResponse = await listOperatorLeads(category, dueOnly)
       if (!listResponse.ok) throw new Error('Lead queue refresh failed')
       setLeads((await listResponse.json()) as LeadSummary[])
+      setSummaryRevision((previous) => previous + 1)
     } catch {
       setError(t('conflict'))
     } finally {
@@ -216,6 +259,23 @@ export function LeadOperatorConsole() {
           <option value="research">{t('research')}</option>
         </select>
       </label>
+
+      {summary && (
+        <section aria-label={t('pipelineOverview')} className="grid grid-cols-2 gap-2 sm:grid-cols-5">
+          {([
+            ['totalLeads', summary.total],
+            ['stages.qualified', summary.stages.qualified],
+            ['stages.pilot', summary.stages.pilot],
+            ['stages.won', summary.stages.won],
+            ['dueLeads', summary.due],
+          ] as const).map(([key, count]) => (
+            <div key={key} className="rounded-xl border border-[var(--outline-secondary)] bg-white px-3 py-3">
+              <span className="block text-xs text-textcolor-secondary">{t(key)}</span>
+              <strong className="mt-1 block text-xl tabular-nums">{count}</strong>
+            </div>
+          ))}
+        </section>
+      )}
 
       <label className="flex w-fit items-center gap-2 text-sm">
         <input
