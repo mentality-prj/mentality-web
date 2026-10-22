@@ -6,6 +6,7 @@ on:
       - dev
       - production
       - 'release/**'
+      - 'integration/**'
 
 jobs:
   check-file-changes:
