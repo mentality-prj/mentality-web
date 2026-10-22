@@ -1,0 +1,41 @@
+name: Dzvin Contact Retry One-Time Format
+on:
+  push:
+    branches:
+      - 'integration/dzvin-551-554-web-20261021'
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: 'integration/dzvin-551-554-web-20261021'
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install pinned Prettier
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Format only retry-aware lead forms and tests
+        run: |
+          ./node_modules/.bin/prettier --write \
+            components/features/Business/BusinessLeadForm.tsx \
+            components/features/Business/BusinessLeadForm.test.tsx \
+            components/features/Research/ResearchPartnerForm.tsx \
+            components/features/Research/ResearchPartnerForm.test.tsx
+      - name: Commit only scoped formatting
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- components/features/Business/BusinessLeadForm.tsx \
+            components/features/Business/BusinessLeadForm.test.tsx \
+            components/features/Research/ResearchPartnerForm.tsx \
+            components/features/Research/ResearchPartnerForm.test.tsx
+          if ! git diff --cached --quiet; then
+            git commit -m 'style(dzvin): format retry-bound contact forms'
+            git push origin HEAD:refs/heads/integration/dzvin-551-554-web-20261021
+          fi
