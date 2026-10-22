@@ -203,6 +203,11 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath([...prefix, id, 'stage'], '', 'PATCH')).toBe(
       'contact/internal/leads/' + id + '/stage'
     )
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up', 'complete'], '', 'PATCH')).toBe(
+      'contact/internal/leads/' + id + '/follow-up/complete'
+    )
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up', 'complete'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up', 'complete'], '?action=1', 'PATCH')).toBeNull()
     expect(getValidatedBackendPath([...prefix, id, 'follow-up'], '', 'PATCH')).toBe(
       'contact/internal/leads/' + id + '/follow-up'
     )
