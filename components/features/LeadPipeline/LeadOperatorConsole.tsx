@@ -164,6 +164,39 @@ export function LeadOperatorConsole() {
     }
   }
 
+  /**
+   * A successful PATCH is already committed. A subsequent GET can fail on its
+   * own; never relabel that read failure as a write conflict (which could cause
+   * an operator to repeat a completed contact or stage transition).
+   */
+  const refreshAfterMutation = async (leadId: string) => {
+    try {
+      const [detailResponse, listResponse] = await Promise.all([
+        getOperatorLead(leadId),
+        listOperatorLeads(category, dueOnly),
+      ])
+      if (!detailResponse.ok || !listResponse.ok) throw new Error('Lead refresh unavailable')
+      const [detail, list]: [LeadDetail, unknown] = await Promise.all([
+        detailResponse.json(),
+        listResponse.json(),
+      ])
+      if (detail._id !== leadId || detail.category !== category || !Array.isArray(list)) {
+        throw new Error('Invalid lead refresh response')
+      }
+      setSelected(detail)
+      setFollowUpOn(detail.followUpOn || '')
+      setNextAction(detail.nextAction || 'reply')
+      setLeads(list as LeadSummary[])
+      setSummaryRevision((previous) => previous + 1)
+    } catch {
+      // The previous detail and queue may be stale after the committed write.
+      setSelected(null)
+      setLeads([])
+      setSummary(null)
+      setError(t('unavailable'))
+    }
+  }
+
   const advance = async (nextStage: Stage) => {
     if (!selected || !LEAD_ID.test(selected._id)) return
     setBusy(true)
@@ -172,11 +205,7 @@ export function LeadOperatorConsole() {
     try {
       const response = await advanceOperatorLeadStage(selected._id, expectedStage, nextStage)
       if (!response.ok) throw new Error('Stage update rejected')
-      await openLead(selected._id)
-      const listResponse = await listOperatorLeads(category, dueOnly)
-      if (!listResponse.ok) throw new Error('List refresh failed')
-      setLeads((await listResponse.json()) as LeadSummary[])
-      setSummaryRevision((previous) => previous + 1)
+      await refreshAfterMutation(selected._id)
     } catch {
       setError(t('conflict'))
     } finally {
@@ -197,11 +226,7 @@ export function LeadOperatorConsole() {
         clear ? null : nextAction
       )
       if (!response.ok) throw new Error('Follow-up changed')
-      await openLead(selected._id)
-      const listResponse = await listOperatorLeads(category, dueOnly)
-      if (!listResponse.ok) throw new Error('Lead queue refresh failed')
-      setLeads((await listResponse.json()) as LeadSummary[])
-      setSummaryRevision((previous) => previous + 1)
+      await refreshAfterMutation(selected._id)
     } catch {
       setError(t('conflict'))
     } finally {
@@ -228,11 +253,7 @@ export function LeadOperatorConsole() {
         noResponse ? nextAction : null
       )
       if (!response.ok) throw new Error('Contact outcome changed')
-      await openLead(selected._id)
-      const listResponse = await listOperatorLeads(category, dueOnly)
-      if (!listResponse.ok) throw new Error('Lead queue refresh failed')
-      setLeads((await listResponse.json()) as LeadSummary[])
-      setSummaryRevision((previous) => previous + 1)
+      await refreshAfterMutation(selected._id)
     } catch {
       setError(t('conflict'))
     } finally {
