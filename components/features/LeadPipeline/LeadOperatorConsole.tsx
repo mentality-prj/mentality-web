@@ -204,10 +204,14 @@ export function LeadOperatorConsole() {
     const expectedStage = selected.leadStage || 'inquiry'
     try {
       const response = await advanceOperatorLeadStage(selected._id, expectedStage, nextStage)
-      if (!response.ok) throw new Error('Stage update rejected')
+      if (!response.ok) {
+        setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
+        return
+      }
       await refreshAfterMutation(selected._id)
     } catch {
-      setError(t('conflict'))
+      // A transport failure is not proof of an optimistic concurrency conflict.
+      setError(t('unavailable'))
     } finally {
       setBusy(false)
     }
@@ -225,10 +229,14 @@ export function LeadOperatorConsole() {
         clear ? null : followUpOn,
         clear ? null : nextAction
       )
-      if (!response.ok) throw new Error('Follow-up changed')
+      if (!response.ok) {
+        setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
+        return
+      }
       await refreshAfterMutation(selected._id)
     } catch {
-      setError(t('conflict'))
+      // A transport failure is not proof of an optimistic concurrency conflict.
+      setError(t('unavailable'))
     } finally {
       setBusy(false)
     }
@@ -252,10 +260,14 @@ export function LeadOperatorConsole() {
         noResponse ? followUpOn : null,
         noResponse ? nextAction : null
       )
-      if (!response.ok) throw new Error('Contact outcome changed')
+      if (!response.ok) {
+        setError(t(response.status === 409 ? 'conflict' : 'unavailable'))
+        return
+      }
       await refreshAfterMutation(selected._id)
     } catch {
-      setError(t('conflict'))
+      // A transport failure is not proof of an optimistic concurrency conflict.
+      setError(t('unavailable'))
     } finally {
       setBusy(false)
     }
