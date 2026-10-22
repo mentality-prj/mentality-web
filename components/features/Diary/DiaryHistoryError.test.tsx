@@ -2,8 +2,8 @@ import { fireEvent, render, screen } from '@testing-library/react'
 
 import { DiaryHistoryError } from './DiaryHistoryError'
 
-const refresh = jest.fn()
-jest.mock('next/navigation', () => ({ useRouter: () => ({ refresh }) }))
+const mockRefresh = jest.fn()
+jest.mock('next/navigation', () => ({ useRouter: () => ({ refresh: mockRefresh }) }))
 jest.mock('next-intl', () => ({ useTranslations: () => (key: string) => key }))
 
 beforeEach(() => jest.clearAllMocks())
@@ -14,6 +14,6 @@ describe('diary history error', () => {
 
     expect(screen.getByRole('alert')).toHaveTextContent('historyError')
     fireEvent.click(screen.getByRole('button', { name: 'retryHistory' }))
-    expect(refresh).toHaveBeenCalledTimes(1)
+    expect(mockRefresh).toHaveBeenCalledTimes(1)
   })
 })
