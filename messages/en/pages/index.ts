@@ -13,6 +13,7 @@ import FAQ from './FAQ.json'
 import Guide from './Guide.json'
 import K10 from './K10.json'
 import Landing from './Landing.json'
+import LeadPipeline from './LeadPipeline.json'
 import Meditation from './Meditation.json'
 import MentalCheck from './MentalCheck.json'
 import MentalGames from './MentalGames.json'
@@ -45,6 +46,7 @@ export const pages = {
   Guide,
   K10,
   Landing,
+  LeadPipeline,
   Meditation,
   MentalCheck,
   MoodTracker,
