@@ -63,6 +63,24 @@ describe('research partner inquiry form', () => {
     expect(submitted.diary).toBeUndefined()
   })
 
+  it('reuses the same submission key when network success is uncertain', async () => {
+    ;(sendResearchContactForm as jest.Mock)
+      .mockRejectedValueOnce(new Error('timeout after save'))
+      .mockResolvedValueOnce({ ok: true, json: async () => ({ success: true }) })
+
+    render(<ResearchPartnerForm />)
+    completeInquiry()
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent('failed'))
+    const first = (sendResearchContactForm as jest.Mock).mock.calls[0][0].submissionId as string
+
+    fireEvent.click(screen.getByRole('button', { name: 'send' }))
+    await waitFor(() => expect(screen.getByRole('status')).toHaveTextContent('success'))
+    const second = (sendResearchContactForm as jest.Mock).mock.calls[1][0].submissionId as string
+
+    expect(first).toMatch(/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/)
+    expect(second).toBe(first)
+  })
+
   it('does not announce success for an unavailable new backend route', async () => {
     ;(sendResearchContactForm as jest.Mock).mockResolvedValue({ ok: false, status: 404 })
     render(<ResearchPartnerForm />)
