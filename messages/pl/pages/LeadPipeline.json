@@ -36,5 +36,15 @@
     "schedule_demo": "Umów prezentację",
     "prepare_pilot": "Przygotuj pilotaż",
     "review_decision": "Uzgodnij decyzję handlową"
+  },
+  "recordContactOutcome": "Zapisz wynik kontaktu",
+  "contacted": "Skontaktowano się z partnerem",
+  "noResponseReschedule": "Brak odpowiedzi — przeplanuj",
+  "manualOutcomeNotice": "Ta czynność tylko zapisuje wynik; nie wysyła wiadomości do partnera.",
+  "futureFollowUpRequired": "Przy braku odpowiedzi wybierz nowy przyszły termin.",
+  "contactHistory": "Historia kontaktów",
+  "outcomes": {
+    "contacted": "Kontakt nawiązany",
+    "no_response": "Brak odpowiedzi"
   }
 }
