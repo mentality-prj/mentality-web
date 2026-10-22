@@ -1,4 +1,4 @@
-import { existsSync, readFileSync, readdirSync, appendFileSync } from 'node:fs'
+import { appendFileSync, existsSync, readdirSync, readFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 const root = process.cwd()
