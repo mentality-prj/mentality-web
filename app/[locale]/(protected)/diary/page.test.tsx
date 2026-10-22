@@ -5,7 +5,9 @@ import { getUserDiaries } from '@/requests/diary'
 import DiaryPage from './page'
 
 jest.mock('next-intl/server', () => ({ getTranslations: jest.fn().mockResolvedValue((key: string) => key) }))
-jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn().mockResolvedValue({ user: { id: 'diary-owner' } }) }))
+jest.mock('@/lib/get-server-session', () => ({
+  getServerSession: jest.fn().mockResolvedValue({ user: { id: 'diary-owner' } }),
+}))
 jest.mock('@/requests/diary', () => ({ getUserDiaries: jest.fn() }))
 jest.mock('@/components/features/Diary/AddNewNoteSection/AddNewNoteSection', () => ({
   __esModule: true,
