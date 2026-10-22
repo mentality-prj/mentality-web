@@ -27,6 +27,12 @@ export function listOperatorLeads(category: 'business' | 'research', dueOnly = f
   })
 }
 
+export function getOperatorLeadSummary(category: 'business' | 'research'): Promise<Response> {
+  return fetch(`/api/backend/contact/internal/leads/summary?category=${category}`, {
+    cache: 'no-store',
+  })
+}
+
 export function getOperatorLead(id: string): Promise<Response> {
   if (!/^[a-fA-F0-9]{24}$/.test(id)) throw new Error('Invalid lead ID')
   return fetch(`/api/backend/contact/internal/leads/${id}`, { cache: 'no-store' })
