@@ -64,6 +64,24 @@ export function planOperatorLeadFollowUp(
   })
 }
 
+/** Records only the human operator's declared result. It does not send mail. */
+export function completeOperatorLeadFollowUp(
+  id: string,
+  expectedStage: OperatorLeadStage,
+  expectedRevision: number,
+  outcome: 'contacted' | 'no_response',
+  followUpOn: string | null = null,
+  nextAction: LeadNextAction | null = null
+): Promise<Response> {
+  if (!/^[a-fA-F0-9]{24}$/.test(id)) throw new Error('Invalid lead ID')
+  return fetch(`/api/backend/contact/internal/leads/${id}/follow-up/complete`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
+    body: JSON.stringify({ expectedStage, expectedRevision, outcome, followUpOn, nextAction }),
+  })
+}
+
 export type ApiRequestOptions = {
   method?: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   body?: Record<string, unknown> | FormData
