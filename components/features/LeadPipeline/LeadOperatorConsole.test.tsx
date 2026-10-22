@@ -113,9 +113,9 @@ describe('private lead operator console', () => {
     await waitFor(() => expect(screen.getByRole('button', { name: /Example Company/ })).toBeInTheDocument())
     fireEvent.click(screen.getByRole('button', { name: /Example Company/ }))
     fireEvent.click(await screen.findByRole('button', { name: 'contacted' }))
-    await waitFor(() => expect(completeOperatorLeadFollowUp).toHaveBeenCalledWith(
-      lead._id, 'inquiry', 0, 'contacted', null, null
-    ))
+    await waitFor(() =>
+      expect(completeOperatorLeadFollowUp).toHaveBeenCalledWith(lead._id, 'inquiry', 0, 'contacted', null, null)
+    )
   })
 
   it('requires a future reschedule when the partner did not respond', async () => {
@@ -133,9 +133,8 @@ describe('private lead operator console', () => {
     fireEvent.change(screen.getByLabelText('followUpOn'), { target: { value: nextDay } })
     expect(button).toBeEnabled()
     fireEvent.click(button)
-    await waitFor(() => expect(completeOperatorLeadFollowUp).toHaveBeenCalledWith(
-      lead._id, 'inquiry', 0, 'no_response', nextDay, 'reply'
-    ))
+    await waitFor(() =>
+      expect(completeOperatorLeadFollowUp).toHaveBeenCalledWith(lead._id, 'inquiry', 0, 'no_response', nextDay, 'reply')
+    )
   })
-
 })
