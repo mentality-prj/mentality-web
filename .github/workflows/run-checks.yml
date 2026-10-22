@@ -78,11 +78,6 @@ jobs:
         run: yarn lint
       - name: Prettier
         run: yarn prettier
-      - name: Show formatting fixes on failure
-        if: failure()
-        run: |
-          ./node_modules/.bin/prettier --write components/features/Diary/DiaryHistoryError.tsx components/features/Guide/SafetyResources.tsx scripts/audit-design-system.mjs
-          git diff -- components/features/Diary/DiaryHistoryError.tsx components/features/Guide/SafetyResources.tsx scripts/audit-design-system.mjs
       - name: Unit tests
         run: yarn test --runInBand --watch=false
       - name: Design system and P0 safety audit
