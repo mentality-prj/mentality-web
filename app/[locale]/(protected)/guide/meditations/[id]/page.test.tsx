@@ -56,6 +56,7 @@ describe('individual meditation voluntary feedback', () => {
     expect(screen.getByRole('heading', { name: 'My meditation' })).toBeInTheDocument()
     expect(screen.getByText('Follow the breathing steps')).toBeInTheDocument()
     expect(screen.getByText('feedback:meditation')).toBeInTheDocument()
+    expect(screen.getByText('categoryFeedbackNote')).toBeInTheDocument()
     expect(screen.getByText('other-meditations')).toBeInTheDocument()
   })
 
