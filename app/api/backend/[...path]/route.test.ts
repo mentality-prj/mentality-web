@@ -212,7 +212,7 @@ describe('same-origin backend BFF', () => {
 
   it('keeps internal lead GET and PATCH bearer-authenticated and same-origin', async () => {
     sessionMock.mockResolvedValue({
-      user: { id: 'operator', email: 'operator@example.com' },
+      user: { id: 'operator', name: 'Operator', email: 'operator@example.com' },
       OAuthToken: 'verified-server-bearer',
     })
     global.fetch = jest.fn().mockResolvedValue(
