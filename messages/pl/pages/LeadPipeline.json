@@ -24,5 +24,17 @@
     "won": "Wygrana",
     "lost": "Utracona",
     "closed": "Zamknięte"
+  },
+  "dueOnly": "Tylko zadania na dziś lub zaległe",
+  "followUpHeading": "Następny kontakt",
+  "nextAction": "Działanie",
+  "followUpOn": "Termin kolejnego działania",
+  "saveFollowUp": "Zapisz następne działanie",
+  "clearFollowUp": "Usuń przypomnienie",
+  "actions": {
+    "reply": "Odpowiedz partnerowi",
+    "schedule_demo": "Umów prezentację",
+    "prepare_pilot": "Przygotuj pilotaż",
+    "review_decision": "Uzgodnij decyzję handlową"
   }
 }
