@@ -93,6 +93,21 @@ describe('private lead operator console', () => {
     })
   })
 
+  it.each([
+    [409, 'conflict'],
+    [503, 'unavailable'],
+  ])('distinguishes stage PATCH HTTP %s from a genuine concurrency conflict', async (status, message) => {
+    ;(advanceOperatorLeadStage as jest.Mock).mockResolvedValue({ ok: false, status })
+    render(<LeadOperatorConsole />)
+    fireEvent.click(await screen.findByRole('button', { name: /Example Company/ }))
+    fireEvent.click(await screen.findByRole('button', { name: 'moveTo: stages.qualified' }))
+
+    await waitFor(() => expect(screen.getByRole('alert')).toHaveTextContent(message))
+    expect(advanceOperatorLeadStage).toHaveBeenCalledTimes(1)
+    // A rejected write must not trigger a detail/queue refresh claiming success.
+    expect(getOperatorLead).toHaveBeenCalledTimes(1)
+  })
+
   it('does not call a committed stage transition a conflict when its refresh fails', async () => {
     ;(advanceOperatorLeadStage as jest.Mock).mockResolvedValue({ ok: true })
     ;(getOperatorLead as jest.Mock)
