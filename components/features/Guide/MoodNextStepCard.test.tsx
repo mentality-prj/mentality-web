@@ -15,9 +15,6 @@ jest.mock('@/i18n/navigation', () => ({
 jest.mock('@/ds/components/SectionCard', () => ({
   SectionCard: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }))
-jest.mock('@/ui/button', () => ({
-  Button: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}))
 
 const moodRecord: MoodRecordEntity = {
   id: 'qa-record',
