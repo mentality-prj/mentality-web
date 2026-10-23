@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { z } from 'zod'
 
 import { Routes } from '@/constants/routes'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { Link } from '@/i18n/navigation'
 import { createLeadSubmissionId } from '@/lib/contact/createLeadSubmissionId'
 import { type ResearchContactFormPayload, sendResearchContactForm } from '@/requests/contact'
@@ -108,11 +109,8 @@ export function ResearchPartnerForm() {
   }
 
   return (
-    <section
-      id="research-inquiry"
-      aria-labelledby="research-inquiry-heading"
-      className="rounded-[28px] border border-[#e2d4ed] bg-white/95 p-5 shadow-[0_22px_55px_rgba(102,78,141,0.12)] tablet:p-7"
-    >
+    <section id="research-inquiry" aria-labelledby="research-inquiry-heading">
+      <SectionCard className="rounded-[28px] border border-[#e2d4ed] bg-white/95 p-5 shadow-[0_22px_55px_rgba(102,78,141,0.12)] tablet:p-7">
       {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
         <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
       )}
@@ -236,6 +234,7 @@ export function ResearchPartnerForm() {
           </Button>
         </form>
       )}
+      </SectionCard>
     </section>
   )
 }
