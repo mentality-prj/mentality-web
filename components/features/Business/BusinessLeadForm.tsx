@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { z } from 'zod'
 
 import { Routes } from '@/constants/routes'
+import { SectionCard } from '@/ds/components/SectionCard'
 import { Link } from '@/i18n/navigation'
 import { createLeadSubmissionId } from '@/lib/contact/createLeadSubmissionId'
 import { type BusinessContactFormPayload, sendBusinessContactForm } from '@/requests/contact'
@@ -112,11 +113,8 @@ export function BusinessLeadForm() {
   }
 
   return (
-    <section
-      id="business-inquiry"
-      aria-labelledby="business-inquiry-heading"
-      className="rounded-[28px] border border-[#e4d5eb] bg-white/95 p-5 shadow-[0_22px_55px_rgba(102,78,141,0.12)] tablet:p-7"
-    >
+    <section id="business-inquiry" aria-labelledby="business-inquiry-heading">
+      <SectionCard className="rounded-[28px] border border-[#e4d5eb] bg-white/95 p-5 shadow-[0_22px_55px_rgba(102,78,141,0.12)] tablet:p-7">
       {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
         <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
       )}
@@ -263,6 +261,7 @@ export function BusinessLeadForm() {
           </Button>
         </form>
       )}
+      </SectionCard>
     </section>
   )
 }
