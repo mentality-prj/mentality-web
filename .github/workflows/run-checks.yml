@@ -79,11 +79,6 @@ jobs:
         run: yarn lint
       - name: Prettier
         run: yarn prettier
-      - name: Show DS migration formatting diff
-        if: failure()
-        run: |
-          ./node_modules/.bin/prettier --write components/features/LeadPipeline/LeadOperatorConsole.tsx
-          git diff -- components/features/LeadPipeline/LeadOperatorConsole.tsx
       - name: Unit tests
         run: yarn test --runInBand --watch=false
       - name: Design system and P0 safety audit
