@@ -112,7 +112,9 @@ export function ResearchPartnerForm() {
     <section id="research-inquiry" aria-labelledby="research-inquiry-heading">
       <SectionCard className="rounded-[28px] border border-[#e2d4ed] bg-white/95 p-5 shadow-[0_22px_55px_rgba(102,78,141,0.12)] tablet:p-7">
         {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
-          <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
+          <Script
+            src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`}
+          />
         )}
         <h2 id="research-inquiry-heading" className="text-2xl font-semibold text-[#302a4f]">
           {t('formTitle')}
