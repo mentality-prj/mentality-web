@@ -3,9 +3,12 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { Routes } from '@/constants/routes'
 import { useAuth } from '@/context/AuthProvider'
 import type { MoodAction } from '@/helpers/moodNextStep'
+import { Link } from '@/i18n/navigation'
 import { clearExerciseFeedback, saveExerciseFeedback } from '@/requests/exerciseFeedback'
+import { Button } from '@/ui/button'
 
 type Props = {
   category: MoodAction
@@ -51,40 +54,38 @@ export function ExerciseFeedbackPanel({ category, initialHelpful, loadFailed = f
   }
 
   return (
-    <section
-      aria-labelledby={`exercise-feedback-${category}`}
-      className="mt-6 rounded-xl border border-current/10 p-4"
-    >
+    <section aria-labelledby={`exercise-feedback-${category}`} className="border-current/10 mt-6 rounded-xl border p-4">
       <h2 id={`exercise-feedback-${category}`} className="text-base font-semibold">
         {t('title')}
       </h2>
       <p className="mt-1 text-sm text-textcolor-secondary">{t('description')}</p>
       <div className="mt-3 flex flex-wrap gap-sm" role="group" aria-label={t('title')}>
         {([true, false] as const).map((answer) => (
-          <button
+          <Button
             type="button"
+            variant="secondary"
+            size="medium"
             key={String(answer)}
             aria-pressed={helpful === answer}
             disabled={saving}
             onClick={() => void submit(answer)}
-            className={[
-              'min-h-11 rounded-xl border px-4 py-2 text-sm font-medium focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50',
-              helpful === answer ? 'border-primary bg-primary/10' : 'border-current/20 hover:bg-black/5',
-            ].join(' ')}
+            className={`min-h-11 disabled:opacity-50 ${helpful === answer ? 'border-primary bg-primary/10' : ''}`}
           >
             {t(answer ? 'helpful' : 'notHelpful')}
-          </button>
+          </Button>
         ))}
       </div>
       {helpful !== null && (
-        <button
+        <Button
           type="button"
+          variant="linkButton"
+          size="medium"
           disabled={saving}
           onClick={() => void submit(null)}
-          className="mt-3 min-h-11 text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2 disabled:opacity-50"
+          className="mt-3 min-h-11 disabled:opacity-50"
         >
           {t('clear')}
-        </button>
+        </Button>
       )}
       <p className="mt-2 text-xs text-textcolor-secondary">{t('privacyNote')}</p>
       <p
@@ -92,8 +93,32 @@ export function ExerciseFeedbackPanel({ category, initialHelpful, loadFailed = f
         role={loadFailed && !message && !saving ? 'alert' : 'status'}
         className="mt-2 text-sm text-textcolor-secondary"
       >
-        {saving ? t('saving') : message ? t(message) : loadFailed ? t('loadFailed') : helpful !== null ? t('previouslySaved') : ''}
+        {saving
+          ? t('saving')
+          : message
+            ? t(message)
+            : loadFailed
+              ? t('loadFailed')
+              : helpful !== null
+                ? t('previouslySaved')
+                : ''}
       </p>
+      <div className="mt-3 flex flex-wrap items-center gap-x-5 gap-y-2">
+        {helpful !== null && (
+          <Link
+            href={Routes.MYPROGRESS}
+            className="inline-flex min-h-11 w-fit items-center text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            {t('progressLink')}
+          </Link>
+        )}
+        <Link
+          href={Routes.MYDAY}
+          className="inline-flex min-h-11 w-fit items-center text-sm font-medium text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
+        >
+          {t('returnToMyDay')}
+        </Link>
+      </div>
     </section>
   )
 }

@@ -15,9 +15,6 @@ jest.mock('@/i18n/navigation', () => ({
 jest.mock('@/ds/components/SectionCard', () => ({
   SectionCard: ({ children }: { children: React.ReactNode }) => <div>{children}</div>,
 }))
-jest.mock('@/ui/button', () => ({
-  Button: ({ children }: { children: React.ReactNode }) => <>{children}</>,
-}))
 
 const moodRecord: MoodRecordEntity = {
   id: 'qa-record',
@@ -101,7 +98,10 @@ describe('MoodNextStepCard', () => {
 
   it('uses saved voluntary feedback only for neutral check-ins, not elevated stress', async () => {
     ;(getExerciseFeedback as jest.Mock).mockResolvedValue({
-      data: [{ category: 'meditation', helpful: true }, { category: 'focus', helpful: false }],
+      data: [
+        { category: 'meditation', helpful: true },
+        { category: 'focus', helpful: false },
+      ],
     })
     const { unmount } = render(await MoodNextStepCard({ record: { ...moodRecord, stressLevel: 3, energyLevel: 3 } }))
     expect(screen.getByText('observations.preference:0')).toBeInTheDocument()

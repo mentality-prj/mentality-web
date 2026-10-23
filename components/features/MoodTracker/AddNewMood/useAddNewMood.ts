@@ -76,7 +76,8 @@ export function useAddNewMood({
 
   // History verified for one IANA zone cannot authorize a write in another.
   const timeZoneSynchronized = isSynchronizedTimeZone(browserTimeZone, timeZone)
-  const submittedToday = timeZoneSynchronized && lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, browserTimeZone) : false
+  const submittedToday =
+    timeZoneSynchronized && lastSubmittedAt ? isSubmittedToday(lastSubmittedAt, browserTimeZone) : false
 
   const resetForm = () => {
     setSelectedMood(null)
@@ -96,10 +97,7 @@ export function useAddNewMood({
     if (submissionTimeZone !== browserTimeZone) setBrowserTimeZone(submissionTimeZone)
     if (!isSynchronizedTimeZone(submissionTimeZone, timeZone) || !historyVerified) {
       notifyError(
-        safeT(
-          'DailyLimit.SyncMessage',
-          "Saving requires a verified local day. Refresh the page if the issue persists."
-        )
+        safeT('DailyLimit.SyncMessage', 'Saving requires a verified local day. Refresh the page if the issue persists.')
       )
       return
     }

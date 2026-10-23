@@ -1,0 +1,49 @@
+{
+  "metaTitle": "Dzvin R&D — research partnerships",
+  "metaDescription": "Collaborate with Dzvin on responsible research protocols, cohorts, evaluation and ethical data boundaries.",
+  "eyebrow": "Dzvin R&D",
+  "title": "Explore which support approaches may help.",
+  "subtitle": "We are developing a research collaboration pathway for universities, institutes and programs. Start with a research question, protocol and responsible data access, not unproven prediction claims.",
+  "state": "R&D is in development. Existing research modules can be reviewed during a technical meeting; each use case and dataset is scoped separately.",
+  "capHeading": "What we can design together",
+  "capabilities": [
+    "Voluntary observations and standardized self-reports",
+    "Cohort comparisons and reproducible study protocols",
+    "Evaluation of personal practices with documented outcomes"
+  ],
+  "forecastTitle": "Prediction models are a separate development track",
+  "forecastBody": "QDIP and Future Engine may support future prediction research. We do not present forecast accuracy or intervention effectiveness as established.",
+  "stepsHeading": "How a research partnership begins",
+  "steps": [
+    "Inquiry and research hypothesis",
+    "Ethics, privacy and permissions review",
+    "Study protocol, available data and pilot scope",
+    "Collaborative evaluation and reporting"
+  ],
+  "privacy": "There is no automatic access to private journals, employee information or research cohorts. Every study needs its own legal and ethical basis.",
+  "formTitle": "Propose a research collaboration",
+  "formSubtitle": "Describe your institution and broad research topic. Please do not submit identifiable participant or medical data.",
+  "fields": {
+    "name": "Contact name",
+    "email": "Work email",
+    "institutionName": "Institution / university",
+    "researchTopic": "Research topic",
+    "researchInterest": "Collaboration type",
+    "message": "Additional context (optional)",
+    "consent": "I agree that Dzvin may reply about this research inquiry."
+  },
+  "interests": {
+    "study": "Joint study",
+    "pilot": "Research pilot",
+    "partnership": "Other partnership"
+  },
+  "choose": "Select an option",
+  "send": "Send inquiry",
+  "sending": "Sending…",
+  "success": "Research inquiry received. We'll discuss next steps at the email provided.",
+  "invalid": "Check the required fields and permission to contact you.",
+  "captcha": "Form verification is temporarily unavailable. Try refreshing the page.",
+  "failed": "We couldn't send the inquiry. Please try again.",
+  "privacyLink": "Privacy policy",
+  "back": "Back to Dzvin"
+}

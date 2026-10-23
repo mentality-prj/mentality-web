@@ -1,0 +1,54 @@
+{
+  "metaTitle": "Dzvin for organizations — support and pilots",
+  "metaDescription": "Explore Dzvin for organizations: employee access, organizational tools, privacy boundaries and a scoped pilot.",
+  "eyebrow": "Dzvin for organizations",
+  "title": "Support people. Build stronger teams.",
+  "subtitle": "Employees get a personal space for everyday self-support. Dzvin is developing separate organizational tools and role-restricted aggregate analytics for organizations.",
+  "availability": "Business capabilities are in development. Demonstrations cover existing functionality; pilot scope is agreed individually.",
+  "privacy": "Private journals are not an employer reporting tool. Organizational views require explicit access rights and safeguards for small groups.",
+  "featuresHeading": "What a pilot can include",
+  "features": [
+    "Personal Dzvin access for voluntary employee support",
+    "Organizational groups, roles and permissions",
+    "Permitted aggregate information to help understand team needs"
+  ],
+  "processHeading": "How collaboration starts",
+  "process": [
+    "Discuss your team's needs and context",
+    "Review current capabilities and agree pilot boundaries",
+    "Define a launch scope and evaluation criteria"
+  ],
+  "formTitle": "Discuss a business pilot",
+  "formSubtitle": "Share work contact details and a short request. No employee health details or private journal entries are needed.",
+  "fields": {
+    "name": "Your name",
+    "email": "Work email",
+    "companyName": "Company name",
+    "role": "Your role (optional)",
+    "teamSize": "Approximate team size",
+    "interest": "What are you interested in?",
+    "message": "Message (optional)",
+    "consent": "I agree that Dzvin may contact me about this business inquiry."
+  },
+  "teamSizes": {
+    "1-20": "1–20",
+    "21-100": "21–100",
+    "101-500": "101–500",
+    "501+": "501+",
+    "unsure": "Not sure yet"
+  },
+  "interests": {
+    "pilot": "Discuss a pilot",
+    "demo": "See a demonstration",
+    "partnership": "Other collaboration"
+  },
+  "choose": "Choose an option",
+  "submit": "Send inquiry",
+  "sending": "Sending…",
+  "success": "Your inquiry was received. We'll use the provided email to discuss the next step.",
+  "invalid": "Check the required fields and permission to contact you.",
+  "captcha": "Form verification is temporarily unavailable. Try refreshing the page.",
+  "failed": "We couldn't send your inquiry. Check the connection and try again.",
+  "privacyLink": "Privacy policy",
+  "back": "Back to Dzvin"
+}

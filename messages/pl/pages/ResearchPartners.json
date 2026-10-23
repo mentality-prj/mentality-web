@@ -1,0 +1,49 @@
+{
+  "metaTitle": "Dzvin R&D — współpraca badawcza",
+  "metaDescription": "Współpraca z Dzvin w zakresie odpowiedzialnych protokołów badawczych, kohort, oceny i ochrony danych.",
+  "eyebrow": "Dzvin R&D",
+  "title": "Badajmy, jakie sposoby wsparcia mogą pomagać.",
+  "subtitle": "Rozwijamy współpracę z uczelniami, instytutami i programami badawczymi. Zaczynamy od pytania badawczego, protokołu i zasad dostępu do danych — bez niepotwierdzonych obietnic trafności prognoz.",
+  "state": "R&D jest w trakcie rozwoju. Istniejące moduły można omówić podczas spotkania technicznego; zakres scenariusza i danych ustalamy osobno.",
+  "capHeading": "Co możemy wspólnie zaprojektować",
+  "capabilities": [
+    "Dobrowolne obserwacje i standaryzowane samooceny",
+    "Porównania kohort i odtwarzalne protokoły badawcze",
+    "Ocenę indywidualnych praktyk z dokumentacją wyników"
+  ],
+  "forecastTitle": "Modele predykcyjne to odrębny kierunek rozwoju",
+  "forecastBody": "QDIP i Future Engine mogą wspierać przyszłe badania prognostyczne. Nie deklarujemy potwierdzonej trafności prognoz ani skuteczności interwencji.",
+  "stepsHeading": "Jak rozpoczyna się współpraca",
+  "steps": [
+    "Zapytanie i hipoteza badawcza",
+    "Przegląd etyki, prywatności i uprawnień",
+    "Protokół, dostępne dane i zakres pilotażu",
+    "Wspólna ewaluacja i raportowanie"
+  ],
+  "privacy": "Brak automatycznego dostępu do prywatnych dzienników, danych pracowników i kohort. Każde badanie wymaga odrębnej podstawy prawnej i etycznej.",
+  "formTitle": "Zaproponuj współpracę badawczą",
+  "formSubtitle": "Opisz instytucję i ogólny temat badań. Nie przesyłaj danych osobowych ani medycznych uczestników.",
+  "fields": {
+    "name": "Imię i nazwisko",
+    "email": "Email służbowy",
+    "institutionName": "Instytucja / uczelnia",
+    "researchTopic": "Temat badań",
+    "researchInterest": "Rodzaj współpracy",
+    "message": "Dodatkowy kontekst (opcjonalnie)",
+    "consent": "Zgadzam się na odpowiedź Dzvin dotyczącą tego zapytania badawczego."
+  },
+  "interests": {
+    "study": "Wspólne badanie",
+    "pilot": "Pilotaż badawczy",
+    "partnership": "Inna współpraca"
+  },
+  "choose": "Wybierz opcję",
+  "send": "Wyślij zapytanie",
+  "sending": "Wysyłanie…",
+  "success": "Zapytanie badawcze zostało odebrane. Omówimy kolejne kroki na wskazany email.",
+  "invalid": "Sprawdź wymagane pola i zgodę na kontakt.",
+  "captcha": "Weryfikacja formularza jest niedostępna. Odśwież stronę.",
+  "failed": "Nie udało się wysłać zapytania. Spróbuj ponownie.",
+  "privacyLink": "Polityka prywatności",
+  "back": "Wróć do Dzvin"
+}

@@ -68,6 +68,8 @@
       "calming": "Ćwiczenia uspokajające",
       "meditation": "Medytacje",
       "focus": "Attention Sprint"
-    }
+    },
+    "repeatAction": "Spróbuj ponownie",
+    "returnToMyDay": "Wróć do Mojego dnia"
   }
 }

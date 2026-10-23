@@ -30,12 +30,10 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
           <h1 id="platform-heading" className="landing-h1 max-w-[43rem] text-[#302a4f]">
             {t('title')}
           </h1>
-          <p className="max-w-[38rem] text-base leading-[1.75] text-[#575570] tablet:text-lg">
-            {t('subtitle')}
-          </p>
+          <p className="max-w-[38rem] text-base leading-[1.75] text-[#575570] tablet:text-lg">{t('subtitle')}</p>
           <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
             <Link
-              href={isAuthenticated ? Routes.MYDAY : "#b2c-experience"}
+              href={isAuthenticated ? Routes.MYDAY : '#b2c-experience'}
               className="inline-flex min-h-12 items-center justify-center gap-2 rounded-full bg-[linear-gradient(110deg,#a452bd,#6b58d9)] px-7 py-3 text-center text-sm font-semibold text-white shadow-[0_14px_30px_rgba(130,80,174,0.22)] transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#7153c8]"
             >
               {isAuthenticated ? t('returnCta') : t('primaryCta')}
@@ -49,7 +47,7 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
             </a>
           </div>
           <Link
-            href={Routes.SERVICES + '#b2b'}
+            href={Routes.BUSINESS}
             className="mt-1 inline-flex min-h-10 items-center gap-2 text-sm font-medium text-[#5e5580] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
             {t('businessCta')}
@@ -65,9 +63,7 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
               <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f5e2fc] text-[#8f53a7]">
                 <Heart size={23} strokeWidth={1.8} />
               </div>
-              <span className="rounded-full bg-[#f7edf9] px-3 py-1.5 text-xs font-medium text-[#8a588c]">
-                DZVIN
-              </span>
+              <span className="rounded-full bg-[#f7edf9] px-3 py-1.5 text-xs font-medium text-[#8a588c]">DZVIN</span>
             </div>
             <h2 className="text-[1.45rem] font-semibold leading-tight tracking-tight text-[#393451] tablet:text-[1.65rem]">
               {t('visual.title')}
@@ -80,9 +76,13 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
                 {t('visual.checkin')}
               </div>
               <div className="flex items-center justify-between gap-2">
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5c9b7] text-[#824b56]"><Heart size={21} /></span>
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#f5c9b7] text-[#824b56]">
+                  <Heart size={21} />
+                </span>
                 <span className="h-1.5 flex-1 rounded-full bg-[linear-gradient(90deg,#efb6aa,#d9b9ef,#a6d8e5)]" />
-                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#d9cbf5] text-[#6d5b99]"><Sparkles size={21} /></span>
+                <span className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#d9cbf5] text-[#6d5b99]">
+                  <Sparkles size={21} />
+                </span>
               </div>
             </div>
             <div className="mt-3 grid grid-cols-2 gap-3">

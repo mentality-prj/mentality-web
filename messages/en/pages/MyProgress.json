@@ -68,6 +68,8 @@
       "calming": "Calming exercises",
       "meditation": "Meditations",
       "focus": "Attention Sprint"
-    }
+    },
+    "repeatAction": "Try this activity again",
+    "returnToMyDay": "Return to My Day"
   }
 }

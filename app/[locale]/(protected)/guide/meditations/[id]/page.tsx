@@ -1,5 +1,6 @@
 import { getLocale, getTranslations } from 'next-intl/server'
 
+import { ExerciseFeedback } from '@/components/features/Guide/ExerciseFeedback'
 import { OtherMeditations } from '@/components/features/Meditations/OtherMeditations'
 import { StyledDescription } from '@/components/features/Meditations/StyledDescription'
 import Card from '@/components/shared/Cards/Card'
@@ -61,6 +62,8 @@ export default async function MeditationPage({ params }: { params: Promise<{ id:
           {/* TODO: Add card  */}
         </div>
         <OtherMeditations currentMeditationId={id} />
+        <p className="text-sm leading-relaxed text-textcolor-secondary">{tpm('categoryFeedbackNote')}</p>
+        <ExerciseFeedback category="meditation" />
       </div>
     </article>
   )

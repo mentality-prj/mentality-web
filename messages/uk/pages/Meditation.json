@@ -4,5 +4,6 @@
   "backToMeditations": "Повернутись до медитацій",
   "otherMeditations": "Інші медитації",
   "linkText": "Перейти до медитації",
-  "somethingWentWrong": "Щось пішло не так"
+  "somethingWentWrong": "Щось пішло не так",
+  "categoryFeedbackNote": "Оцінка зберігається для категорії «Медитації», а не для цієї конкретної вправи чи заняття."
 }
