@@ -198,7 +198,7 @@ export function BusinessLeadForm() {
                     {t(`teamSizes.${size}`)}
                   </option>
                 ))}
-              </NativeSelect
+              </NativeSelect>
             </label>
             <label htmlFor="business-interest" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.interest')}
@@ -214,7 +214,7 @@ export function BusinessLeadForm() {
                     {t(`interests.${option}`)}
                   </option>
                 ))}
-              </NativeSelect
+              </NativeSelect>
             </label>
           </div>
           <label htmlFor="business-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
@@ -260,7 +260,7 @@ export function BusinessLeadForm() {
           )}
           <Button type="submit" size="large" disabled={status === 'sending'} className="min-h-12">
             {t(status === 'sending' ? 'sending' : 'submit')}
-          </Button
+          </Button>
         </form>
       )}
     </section>
