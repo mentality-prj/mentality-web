@@ -177,7 +177,7 @@ export function DailyHabitsCard() {
                 className="min-h-11"
               >
                 {t('retry')}
-              </Button
+              </Button>
             </div>
           ) : (
             <ul className="grid min-w-0 gap-2.5">
@@ -226,7 +226,7 @@ export function DailyHabitsCard() {
                               <Check size={15} aria-hidden="true" />
                             )}
                             {t(record.doneToday ? 'undo' : 'markToday')}
-                          </Button
+                          </Button>
                           {href && (
                             <Link
                               href={href}
@@ -244,7 +244,7 @@ export function DailyHabitsCard() {
                             className="min-h-11 text-[13px] text-textcolor-secondary disabled:opacity-50"
                           >
                             {t('remove')}
-                          </Button
+                          </Button>
                         </div>
                       </div>
                     ) : (
@@ -259,7 +259,7 @@ export function DailyHabitsCard() {
                         >
                           <Plus size={15} aria-hidden="true" />
                           {t('choose')}
-                        </Button
+                        </Button>
                       </div>
                     )}
                   </li>
