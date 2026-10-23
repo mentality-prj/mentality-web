@@ -63,6 +63,25 @@ const required = [
   ['app/[locale]/(protected)/my-day/page.tsx', /<SafetyResources\s*\/>/],
 ]
 let failed = false
+
+// Release-facing workflows are expected to use the shared controls.
+// Raw native inputs inside ui/ primitives are deliberate and excluded from this scan.
+const migratedJourneys = [
+  'components/features/Business/BusinessLeadForm.tsx',
+  'components/features/Research/ResearchPartnerForm.tsx',
+  'components/features/MyDay/DailyHabitsCard.tsx',
+  'components/features/LeadPipeline/LeadOperatorConsole.tsx',
+]
+for (const file of migratedJourneys) {
+  const entry = scanned.find((candidate) => candidate.file === file)
+  // The operator console is only present in the stacked PR #556.
+  if (!entry) continue
+  if (!entry.hasDsImport || entry.rawButtons > 0 || entry.rawFields > 0) {
+    console.error(`Incomplete design-system migration: ${file}`)
+    failed = true
+  }
+}
+
 for (const [file, ...patterns] of required) {
   const text = readFileSync(join(root, file), 'utf8')
   if (patterns.some((pattern) => !pattern.test(text))) {
