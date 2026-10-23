@@ -115,152 +115,152 @@ export function BusinessLeadForm() {
   return (
     <section id="business-inquiry" aria-labelledby="business-inquiry-heading">
       <SectionCard className="rounded-[28px] border border-[#e4d5eb] bg-white/95 p-5 shadow-[0_22px_55px_rgba(102,78,141,0.12)] tablet:p-7">
-      {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
-        <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
-      )}
-      <h2 id="business-inquiry-heading" className="text-2xl font-semibold text-[#302a4f]">
-        {t('formTitle')}
-      </h2>
-      <p className="mt-2 text-sm leading-relaxed text-[#605875]">{t('formSubtitle')}</p>
-      {status === 'success' ? (
-        <p role="status" className="mt-6 rounded-xl bg-[#eaf7f1] p-4 text-sm text-[#265d4f]">
-          {t('success')}
-        </p>
-      ) : (
-        <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4" noValidate>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label htmlFor="business-name" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
-              {t('fields.name')}
+        {process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY && (
+          <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
+        )}
+        <h2 id="business-inquiry-heading" className="text-2xl font-semibold text-[#302a4f]">
+          {t('formTitle')}
+        </h2>
+        <p className="mt-2 text-sm leading-relaxed text-[#605875]">{t('formSubtitle')}</p>
+        {status === 'success' ? (
+          <p role="status" className="mt-6 rounded-xl bg-[#eaf7f1] p-4 text-sm text-[#265d4f]">
+            {t('success')}
+          </p>
+        ) : (
+          <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4" noValidate>
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label htmlFor="business-name" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
+                {t('fields.name')}
+                <Input
+                  id="business-name"
+                  autoComplete="name"
+                  className={fieldClass}
+                  required
+                  minLength={2}
+                  maxLength={120}
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                />
+              </label>
+              <label htmlFor="business-email" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
+                {t('fields.email')}
+                <Input
+                  id="business-email"
+                  type="email"
+                  autoComplete="email"
+                  className={fieldClass}
+                  required
+                  maxLength={254}
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+              </label>
+            </div>
+            <label htmlFor="business-company" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
+              {t('fields.companyName')}
               <Input
-                id="business-name"
-                autoComplete="name"
+                id="business-company"
+                autoComplete="organization"
                 className={fieldClass}
                 required
                 minLength={2}
-                maxLength={120}
-                value={name}
-                onChange={(e) => setName(e.target.value)}
+                maxLength={160}
+                value={companyName}
+                onChange={(e) => setCompanyName(e.target.value)}
               />
             </label>
-            <label htmlFor="business-email" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
-              {t('fields.email')}
+            <label htmlFor="business-role" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
+              {t('fields.role')}
               <Input
-                id="business-email"
-                type="email"
-                autoComplete="email"
+                id="business-role"
+                autoComplete="organization-title"
                 className={fieldClass}
-                required
-                maxLength={254}
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                maxLength={120}
+                value={role}
+                onChange={(e) => setRole(e.target.value)}
               />
             </label>
-          </div>
-          <label htmlFor="business-company" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
-            {t('fields.companyName')}
-            <Input
-              id="business-company"
-              autoComplete="organization"
-              className={fieldClass}
-              required
-              minLength={2}
-              maxLength={160}
-              value={companyName}
-              onChange={(e) => setCompanyName(e.target.value)}
-            />
-          </label>
-          <label htmlFor="business-role" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
-            {t('fields.role')}
-            <Input
-              id="business-role"
-              autoComplete="organization-title"
-              className={fieldClass}
-              maxLength={120}
-              value={role}
-              onChange={(e) => setRole(e.target.value)}
-            />
-          </label>
-          <div className="grid gap-4 sm:grid-cols-2">
-            <label htmlFor="business-size" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
-              {t('fields.teamSize')}
-              <NativeSelect
-                id="business-size"
+            <div className="grid gap-4 sm:grid-cols-2">
+              <label htmlFor="business-size" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
+                {t('fields.teamSize')}
+                <NativeSelect
+                  id="business-size"
+                  className={fieldClass}
+                  required
+                  value={teamSize}
+                  onChange={(e) => setTeamSize(e.target.value as TeamSize)}
+                >
+                  <option value="">{t('choose')}</option>
+                  {TEAM_SIZES.map((size) => (
+                    <option key={size} value={size}>
+                      {t(`teamSizes.${size}`)}
+                    </option>
+                  ))}
+                </NativeSelect>
+              </label>
+              <label htmlFor="business-interest" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
+                {t('fields.interest')}
+                <NativeSelect
+                  id="business-interest"
+                  className={fieldClass}
+                  required
+                  value={interest}
+                  onChange={(e) => setInterest(e.target.value as Interest)}
+                >
+                  {INTERESTS.map((option) => (
+                    <option key={option} value={option}>
+                      {t(`interests.${option}`)}
+                    </option>
+                  ))}
+                </NativeSelect>
+              </label>
+            </div>
+            <label htmlFor="business-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
+              {t('fields.message')}
+              <Textarea
+                id="business-message"
+                rows={3}
+                maxLength={1500}
                 className={fieldClass}
-                required
-                value={teamSize}
-                onChange={(e) => setTeamSize(e.target.value as TeamSize)}
-              >
-                <option value="">{t('choose')}</option>
-                {TEAM_SIZES.map((size) => (
-                  <option key={size} value={size}>
-                    {t(`teamSizes.${size}`)}
-                  </option>
-                ))}
-              </NativeSelect>
+                value={message}
+                onChange={(e) => setMessage(e.target.value)}
+              />
             </label>
-            <label htmlFor="business-interest" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
-              {t('fields.interest')}
-              <NativeSelect
-                id="business-interest"
-                className={fieldClass}
+            <Input
+              aria-hidden="true"
+              tabIndex={-1}
+              name="website"
+              autoComplete="off"
+              className="absolute left-[-9999px]"
+              value={website}
+              onChange={(e) => setWebsite(e.target.value)}
+            />
+            <label
+              htmlFor="business-contact-consent"
+              className="flex items-start gap-3 text-sm leading-relaxed text-[#605875]"
+            >
+              <Checkbox
+                id="business-contact-consent"
                 required
-                value={interest}
-                onChange={(e) => setInterest(e.target.value as Interest)}
-              >
-                {INTERESTS.map((option) => (
-                  <option key={option} value={option}>
-                    {t(`interests.${option}`)}
-                  </option>
-                ))}
-              </NativeSelect>
+                className="mt-1 shrink-0"
+                checked={contactConsent}
+                onCheckedChange={(checked) => setContactConsent(checked === true)}
+              />
+              {t('fields.consent')}
             </label>
-          </div>
-          <label htmlFor="business-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
-            {t('fields.message')}
-            <Textarea
-              id="business-message"
-              rows={3}
-              maxLength={1500}
-              className={fieldClass}
-              value={message}
-              onChange={(e) => setMessage(e.target.value)}
-            />
-          </label>
-          <Input
-            aria-hidden="true"
-            tabIndex={-1}
-            name="website"
-            autoComplete="off"
-            className="absolute left-[-9999px]"
-            value={website}
-            onChange={(e) => setWebsite(e.target.value)}
-          />
-          <label
-            htmlFor="business-contact-consent"
-            className="flex items-start gap-3 text-sm leading-relaxed text-[#605875]"
-          >
-            <Checkbox
-              id="business-contact-consent"
-              required
-              className="mt-1 shrink-0"
-              checked={contactConsent}
-              onCheckedChange={(checked) => setContactConsent(checked === true)}
-            />
-            {t('fields.consent')}
-          </label>
-          <Link href={Routes.PRIVACY} className="w-fit text-sm text-[#7654ad] underline underline-offset-4">
-            {t('privacyLink')}
-          </Link>
-          {error && (
-            <p role="alert" className="text-sm text-red-700">
-              {error}
-            </p>
-          )}
-          <Button type="submit" size="large" disabled={status === 'sending'} className="min-h-12">
-            {t(status === 'sending' ? 'sending' : 'submit')}
-          </Button>
-        </form>
-      )}
+            <Link href={Routes.PRIVACY} className="w-fit text-sm text-[#7654ad] underline underline-offset-4">
+              {t('privacyLink')}
+            </Link>
+            {error && (
+              <p role="alert" className="text-sm text-red-700">
+                {error}
+              </p>
+            )}
+            <Button type="submit" size="large" disabled={status === 'sending'} className="min-h-12">
+              {t(status === 'sending' ? 'sending' : 'submit')}
+            </Button>
+          </form>
+        )}
       </SectionCard>
     </section>
   )
