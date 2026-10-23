@@ -383,11 +383,7 @@ export function LeadOperatorConsole() {
       )}
 
       <label className="flex w-fit items-center gap-2 text-sm">
-        <Checkbox
-          checked={dueOnly}
-          onCheckedChange={(checked) => setDueOnly(checked === true)}
-          disabled={busy}
-        />
+        <Checkbox checked={dueOnly} onCheckedChange={(checked) => setDueOnly(checked === true)} disabled={busy} />
         {t('dueOnly')}
       </label>
 
@@ -476,11 +472,25 @@ export function LeadOperatorConsole() {
                   />
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  <Button type="button" variant="secondary" size="medium" className={action} disabled={busy || !followUpOn} onClick={() => void saveFollowUp()}>
+                  <Button
+                    type="button"
+                    variant="secondary"
+                    size="medium"
+                    className={action}
+                    disabled={busy || !followUpOn}
+                    onClick={() => void saveFollowUp()}
+                  >
                     {t('saveFollowUp')}
                   </Button>
                   {selected.followUpOn && (
-                    <Button type="button" variant="secondary" size="medium" className={action} disabled={busy} onClick={() => void saveFollowUp(true)}>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      size="medium"
+                      className={action}
+                      disabled={busy}
+                      onClick={() => void saveFollowUp(true)}
+                    >
                       {t('clearFollowUp')}
                     </Button>
                   )}
@@ -516,7 +526,15 @@ export function LeadOperatorConsole() {
               </fieldset>
               <div className="flex flex-wrap gap-2">
                 {NEXT_STAGES[selected.leadStage || 'inquiry'].map((nextStage) => (
-                  <Button key={nextStage} type="button" variant="secondary" size="medium" className={action} disabled={busy} onClick={() => void advance(nextStage)}>
+                  <Button
+                    key={nextStage}
+                    type="button"
+                    variant="secondary"
+                    size="medium"
+                    className={action}
+                    disabled={busy}
+                    onClick={() => void advance(nextStage)}
+                  >
                     {t('moveTo', { stage: t(`stages.${nextStage}`) })}
                   </Button>
                 ))}
