@@ -16,6 +16,7 @@ import {
   getDailyHabits,
   removeDailyHabit,
 } from '@/requests/dailyHabits'
+import { Button } from '@/ui/button'
 import { getLocalDayKey, getVerifiedBrowserTimeZone } from '@/utils/timeZone'
 
 const HABIT_ICONS = {
@@ -168,13 +169,15 @@ export function DailyHabitsCard() {
               <p role="alert" className="text-sm text-textcolor-secondary">
                 {t('loadError')}
               </p>
-              <button
+              <Button
                 type="button"
                 onClick={() => void reload()}
-                className="inline-flex min-h-11 items-center rounded-[10px] px-3 text-sm font-semibold text-primary hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+                variant="linkButton"
+                size="medium"
+                className="min-h-11"
               >
                 {t('retry')}
-              </button>
+              </Button>
             </div>
           ) : (
             <ul className="grid min-w-0 gap-2.5">
@@ -208,16 +211,14 @@ export function DailyHabitsCard() {
                           {t(record.doneToday ? 'doneToday' : 'selected')}
                         </span>
                         <div className="flex w-full flex-wrap items-center gap-x-2 gap-y-1">
-                          <button
+                          <Button
                             type="button"
                             disabled={isBusy}
                             aria-pressed={record.doneToday}
                             onClick={() => void change(kind, record.doneToday ? 'undo' : 'check')}
-                            className={`inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] px-3 text-[13px] font-semibold leading-5 transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50 ${
-                              record.doneToday
-                                ? 'bg-secondary text-primary hover:bg-secondary-hover'
-                                : 'bg-primary text-primary-foreground hover:bg-primary-hover'
-                            }`}
+                            variant={record.doneToday ? 'secondary' : 'default'}
+                            size="medium"
+                            className="min-h-11 gap-1.5 text-[13px] disabled:opacity-50"
                           >
                             {record.doneToday ? (
                               <RotateCcw size={15} aria-hidden="true" />
@@ -225,7 +226,7 @@ export function DailyHabitsCard() {
                               <Check size={15} aria-hidden="true" />
                             )}
                             {t(record.doneToday ? 'undo' : 'markToday')}
-                          </button>
+                          </Button>
                           {href && (
                             <Link
                               href={href}
@@ -234,27 +235,31 @@ export function DailyHabitsCard() {
                               {t('openActivity')}
                             </Link>
                           )}
-                          <button
+                          <Button
                             type="button"
                             disabled={isBusy}
                             onClick={() => void change(kind, 'remove')}
-                            className="inline-flex min-h-11 items-center rounded-[10px] px-2 text-[13px] text-textcolor-secondary hover:bg-background-soft focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
+                            variant="linkButton"
+                            size="medium"
+                            className="min-h-11 text-[13px] text-textcolor-secondary disabled:opacity-50"
                           >
                             {t('remove')}
-                          </button>
+                          </Button>
                         </div>
                       </div>
                     ) : (
                       <div className="mt-2 pl-12">
-                        <button
+                        <Button
                           type="button"
                           disabled={isBusy}
                           onClick={() => void change(kind, 'select')}
-                          className="inline-flex min-h-11 items-center justify-center gap-1.5 rounded-[10px] bg-secondary px-3 text-[13px] font-semibold leading-5 text-primary transition-colors hover:bg-secondary-hover focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary disabled:opacity-50"
+                          variant="secondary"
+                          size="medium"
+                          className="min-h-11 gap-1.5 text-[13px] disabled:opacity-50"
                         >
                           <Plus size={15} aria-hidden="true" />
                           {t('choose')}
-                        </button>
+                        </Button>
                       </div>
                     )}
                   </li>
