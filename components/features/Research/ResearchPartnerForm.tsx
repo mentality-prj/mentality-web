@@ -9,12 +9,16 @@ import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { createLeadSubmissionId } from '@/lib/contact/createLeadSubmissionId'
 import { type ResearchContactFormPayload, sendResearchContactForm } from '@/requests/contact'
+import { Button } from '@/ui/button'
+import { Checkbox } from '@/ui/checkbox'
+import { Input } from '@/ui/input'
+import { NativeSelect } from '@/ui/native-select'
+import { Textarea } from '@/ui/textarea'
 
 const RESEARCH_INTERESTS = ['study', 'pilot', 'partnership'] as const
 type ResearchInterest = ResearchContactFormPayload['researchInterest']
 
-const inputClass =
-  'min-h-11 w-full rounded-xl border border-[#d7c9e0] bg-white px-3 py-2 text-sm text-[#302a4f] outline-none focus-visible:border-[#9372c0] focus-visible:ring-1 focus-visible:ring-[#9372c0]'
+const inputClass = 'min-h-11 rounded-xl border-outline-secondary bg-white text-textcolor-primary'
 
 /** Only general inquiry details; never request individual participant information. */
 export function ResearchPartnerForm() {
@@ -124,7 +128,7 @@ export function ResearchPartnerForm() {
         <form onSubmit={onSubmit} className="mt-6 flex flex-col gap-4" noValidate>
           <label htmlFor="research-name" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.name')}
-            <input
+            <Input
               id="research-name"
               autoComplete="name"
               className={inputClass}
@@ -137,7 +141,7 @@ export function ResearchPartnerForm() {
           </label>
           <label htmlFor="research-email" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.email')}
-            <input
+            <Input
               id="research-email"
               type="email"
               autoComplete="email"
@@ -150,7 +154,7 @@ export function ResearchPartnerForm() {
           </label>
           <label htmlFor="research-institution" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.institutionName')}
-            <input
+            <Input
               id="research-institution"
               autoComplete="organization"
               className={inputClass}
@@ -163,7 +167,7 @@ export function ResearchPartnerForm() {
           </label>
           <label htmlFor="research-topic" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.researchTopic')}
-            <input
+            <Input
               id="research-topic"
               className={inputClass}
               required
@@ -175,7 +179,7 @@ export function ResearchPartnerForm() {
           </label>
           <label htmlFor="research-interest" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.researchInterest')}
-            <select
+            <NativeSelect
               id="research-interest"
               className={inputClass}
               required
@@ -187,11 +191,11 @@ export function ResearchPartnerForm() {
                   {t(`interests.${interest}`)}
                 </option>
               ))}
-            </select>
+            </NativeSelect
           </label>
           <label htmlFor="research-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.message')}
-            <textarea
+            <Textarea
               id="research-message"
               rows={3}
               maxLength={1000}
@@ -200,7 +204,7 @@ export function ResearchPartnerForm() {
               onChange={(e) => setMessage(e.target.value)}
             />
           </label>
-          <input
+          <Input
             name="website"
             aria-hidden="true"
             tabIndex={-1}
@@ -210,13 +214,12 @@ export function ResearchPartnerForm() {
             onChange={(e) => setWebsite(e.target.value)}
           />
           <label htmlFor="research-consent" className="flex items-start gap-3 text-sm leading-relaxed text-[#605875]">
-            <input
+            <Checkbox
               id="research-consent"
-              type="checkbox"
               required
               checked={contactConsent}
-              onChange={(e) => setContactConsent(e.target.checked)}
-              className="mt-1 h-4 w-4 shrink-0 accent-[#7955bb]"
+              onCheckedChange={(checked) => setContactConsent(checked === true)}
+              className="mt-1 shrink-0"
             />
             {t('fields.consent')}
           </label>
@@ -228,13 +231,9 @@ export function ResearchPartnerForm() {
               {error}
             </p>
           )}
-          <button
-            type="submit"
-            disabled={status === 'sending'}
-            className="min-h-12 rounded-full bg-[linear-gradient(110deg,#9959b5,#6755cc)] px-6 py-3 font-semibold text-white disabled:opacity-60"
-          >
+          <Button type="submit" size="large" disabled={status === 'sending'} className="min-h-12">
             {t(status === 'sending' ? 'sending' : 'send')}
-          </button>
+          </Button
         </form>
       )}
     </section>
