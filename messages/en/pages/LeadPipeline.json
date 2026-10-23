@@ -1,0 +1,53 @@
+{
+  "title": "Dzvin lead operations",
+  "description": "Authorized operators only. Business and research partner inquiries are separate from personal journals.",
+  "category": "Pipeline",
+  "business": "Companies",
+  "research": "Research",
+  "incoming": "Incoming leads",
+  "detail": "Lead details and next step",
+  "loading": "Updating…",
+  "empty": "No inquiries",
+  "unnamed": "Unnamed organization",
+  "choose": "Select an inquiry from the list",
+  "unavailable": "Unable to load inquiries or access denied.",
+  "conflict": "Stage could not be updated. Another operator may have advanced this inquiry. Refresh your selection.",
+  "stage": "Stage",
+  "moveTo": "Move to {stage}",
+  "private": "Use contact details only to respond to this inquiry. Do not export them to public reports.",
+  "stages": {
+    "inquiry": "Inquiry",
+    "qualified": "Qualified",
+    "demo": "Demo",
+    "pilot": "Pilot",
+    "decision": "Commercial decision",
+    "won": "Won",
+    "lost": "Lost",
+    "closed": "Closed"
+  },
+  "dueOnly": "Only due or overdue follow-ups",
+  "followUpHeading": "Next contact",
+  "nextAction": "Action",
+  "followUpOn": "Follow-up date",
+  "saveFollowUp": "Save next action",
+  "clearFollowUp": "Clear reminder",
+  "actions": {
+    "reply": "Reply to partner",
+    "schedule_demo": "Schedule a demo",
+    "prepare_pilot": "Prepare the pilot",
+    "review_decision": "Review commercial decision"
+  },
+  "recordContactOutcome": "Record the contact result",
+  "contacted": "Contacted partner",
+  "noResponseReschedule": "No response — reschedule",
+  "manualOutcomeNotice": "This records your result only; no message is sent to the partner.",
+  "futureFollowUpRequired": "Choose a new future date when recording no response.",
+  "contactHistory": "Contact history",
+  "outcomes": {
+    "contacted": "Contacted",
+    "no_response": "No response"
+  },
+  "pipelineOverview": "Partner inquiry pipeline",
+  "totalLeads": "Total inquiries",
+  "dueLeads": "Due / overdue"
+}
