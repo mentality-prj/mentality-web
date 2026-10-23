@@ -12,6 +12,11 @@ import {
   listOperatorLeads,
   planOperatorLeadFollowUp,
 } from '@/helpers/api-wrapper'
+import { SectionCard } from '@/ds/components/SectionCard'
+import { Button } from '@/ui/button'
+import { Checkbox } from '@/ui/checkbox'
+import { Input } from '@/ui/input'
+import { NativeSelect } from '@/ui/native-select'
 
 type Category = 'business' | 'research'
 type Stage = 'inquiry' | 'qualified' | 'demo' | 'pilot' | 'decision' | 'won' | 'lost' | 'closed'
@@ -68,9 +73,8 @@ const NEXT_STAGES: Record<Stage, readonly Stage[]> = {
 
 const LEAD_ID = /^[a-fA-F0-9]{24}$/
 const NEXT_ACTIONS: LeadNextAction[] = ['reply', 'schedule_demo', 'prepare_pilot', 'review_decision']
-const panel = 'rounded-2xl border border-[var(--outline-secondary)] bg-white p-5'
-const action =
-  'min-h-10 rounded-full border border-[var(--outline-secondary)] bg-white px-4 py-2 text-sm font-semibold disabled:opacity-50'
+const panel = 'border-outline-secondary rounded-2xl border bg-white p-5'
+const action = 'min-h-11 disabled:opacity-50'
 
 /**
  * No lead email/message in the list request. Read an individual record only
@@ -348,15 +352,15 @@ export function LeadOperatorConsole() {
 
       <label className="flex w-fit flex-col gap-2 text-sm font-medium">
         {t('category')}
-        <select
-          className="min-h-11 rounded-lg border border-[var(--outline-secondary)] bg-white px-3"
+        <NativeSelect
+          className="min-h-11 w-auto"
           value={category}
           onChange={(event) => setCategory(event.target.value as Category)}
           disabled={busy}
         >
           <option value="business">{t('business')}</option>
           <option value="research">{t('research')}</option>
-        </select>
+        </NativeSelect
       </label>
 
       {summary && (
@@ -370,19 +374,18 @@ export function LeadOperatorConsole() {
               ['dueLeads', summary.due],
             ] as const
           ).map(([key, count]) => (
-            <div key={key} className="rounded-xl border border-[var(--outline-secondary)] bg-white px-3 py-3">
+            <SectionCard key={key} className="border-outline-secondary rounded-xl border bg-white px-3 py-3">
               <span className="block text-xs text-textcolor-secondary">{t(key)}</span>
               <strong className="mt-1 block text-xl tabular-nums">{count}</strong>
-            </div>
+            </SectionCard>
           ))}
         </section>
       )}
 
       <label className="flex w-fit items-center gap-2 text-sm">
-        <input
-          type="checkbox"
+        <Checkbox
           checked={dueOnly}
-          onChange={(event) => setDueOnly(event.target.checked)}
+          onCheckedChange={(checked) => setDueOnly(checked === true)}
           disabled={busy}
         />
         {t('dueOnly')}
@@ -400,16 +403,18 @@ export function LeadOperatorConsole() {
       )}
 
       <div className="grid gap-4 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.2fr)]">
-        <div className={panel}>
+        <SectionCard className={panel}>
           <h2 className="text-lg font-semibold">{t('incoming')}</h2>
           {!busy && !error && leads.length === 0 && <p className="mt-3 text-sm">{t('empty')}</p>}
           <ul className="mt-4 space-y-2">
             {leads.map((lead) => (
               <li key={lead._id}>
-                <button
+                <Button
                   type="button"
+                  variant="secondary"
+                  size="medium"
                   disabled={busy}
-                  className="w-full rounded-xl border border-[var(--outline-secondary)] p-3 text-left focus-visible:outline-2"
+                  className="h-auto min-h-11 w-full flex-col items-start whitespace-normal rounded-xl p-3 text-left"
                   onClick={() => void openLead(lead._id)}
                 >
                   <span className="block font-medium">{lead.companyName || lead.institutionName || t('unnamed')}</span>
@@ -418,13 +423,13 @@ export function LeadOperatorConsole() {
                     {lead.createdAt ? ` · ${new Date(lead.createdAt).toLocaleDateString()}` : ''}
                     {lead.followUpOn ? ` · ${t('followUpOn')}: ${lead.followUpOn}` : ''}
                   </span>
-                </button>
+                </Button
               </li>
             ))}
           </ul>
-        </div>
+        </SectionCard>
 
-        <div className={panel}>
+        <SectionCard className={panel}>
           <h2 className="text-lg font-semibold">{t('detail')}</h2>
           {!selected ? (
             <p className="mt-3 text-sm text-textcolor-secondary">{t('choose')}</p>
@@ -447,8 +452,8 @@ export function LeadOperatorConsole() {
                 <legend className="px-2 text-sm font-semibold">{t('followUpHeading')}</legend>
                 <label className="flex flex-col gap-1 text-sm">
                   {t('nextAction')}
-                  <select
-                    className="min-h-10 rounded-lg border border-[var(--outline-secondary)] px-3"
+                  <NativeSelect
+                    className="min-h-11"
                     value={nextAction}
                     onChange={(event) => setNextAction(event.target.value as LeadNextAction)}
                     disabled={busy}
@@ -458,45 +463,51 @@ export function LeadOperatorConsole() {
                         {t(`actions.${actionName}`)}
                       </option>
                     ))}
-                  </select>
+                  </NativeSelect
                 </label>
                 <label className="flex flex-col gap-1 text-sm">
                   {t('followUpOn')}
-                  <input
+                  <Input
                     type="date"
                     value={followUpOn}
                     onChange={(event) => setFollowUpOn(event.target.value)}
-                    className="min-h-10 rounded-lg border border-[var(--outline-secondary)] px-3"
+                    className="min-h-11"
                     disabled={busy}
                   />
                 </label>
                 <div className="flex flex-wrap gap-2">
-                  <button className={action} disabled={busy || !followUpOn} onClick={() => void saveFollowUp()}>
+                  <Button type="button" variant="secondary" size="medium" className={action} disabled={busy || !followUpOn} onClick={() => void saveFollowUp()}>
                     {t('saveFollowUp')}
-                  </button>
+                  </Button
                   {selected.followUpOn && (
-                    <button className={action} disabled={busy} onClick={() => void saveFollowUp(true)}>
+                    <Button type="button" variant="secondary" size="medium" className={action} disabled={busy} onClick={() => void saveFollowUp(true)}>
                       {t('clearFollowUp')}
-                    </button>
+                    </Button
                   )}
                   {selected.followUpOn && (
                     <div className="flex flex-col gap-2 border-t border-[var(--outline-secondary)] pt-3">
                       <p className="text-sm font-medium">{t('recordContactOutcome')}</p>
                       <div className="flex flex-wrap gap-2">
-                        <button
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          size="medium"
                           className={action}
                           disabled={busy}
                           onClick={() => void recordContactOutcome('contacted')}
                         >
                           {t('contacted')}
-                        </button>
-                        <button
+                        </Button
+                        <Button
+                          type="button"
+                          variant="secondary"
+                          size="medium"
                           className={action}
                           disabled={busy || !followUpOn || followUpOn <= new Date().toISOString().slice(0, 10)}
                           onClick={() => void recordContactOutcome('no_response')}
                         >
                           {t('noResponseReschedule')}
-                        </button>
+                        </Button
                       </div>
                       <p className="text-xs text-textcolor-secondary">{t('manualOutcomeNotice')}</p>
                     </div>
@@ -505,9 +516,9 @@ export function LeadOperatorConsole() {
               </fieldset>
               <div className="flex flex-wrap gap-2">
                 {NEXT_STAGES[selected.leadStage || 'inquiry'].map((nextStage) => (
-                  <button key={nextStage} className={action} disabled={busy} onClick={() => void advance(nextStage)}>
+                  <Button key={nextStage} type="button" variant="secondary" size="medium" className={action} disabled={busy} onClick={() => void advance(nextStage)}>
                     {t('moveTo', { stage: t(`stages.${nextStage}`) })}
-                  </button>
+                  </Button
                 ))}
               </div>
               {selected.followUpHistory && selected.followUpHistory.length > 0 && (
@@ -529,7 +540,7 @@ export function LeadOperatorConsole() {
               <p className="text-xs text-textcolor-secondary">{t('private')}</p>
             </div>
           )}
-        </div>
+        </SectionCard>
       </div>
     </section>
   )
