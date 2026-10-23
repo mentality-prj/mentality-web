@@ -191,7 +191,7 @@ export function ResearchPartnerForm() {
                   {t(`interests.${interest}`)}
                 </option>
               ))}
-            </NativeSelect
+            </NativeSelect>
           </label>
           <label htmlFor="research-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.message')}
@@ -233,7 +233,7 @@ export function ResearchPartnerForm() {
           )}
           <Button type="submit" size="large" disabled={status === 'sending'} className="min-h-12">
             {t(status === 'sending' ? 'sending' : 'send')}
-          </Button
+          </Button>
         </form>
       )}
     </section>
