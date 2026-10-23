@@ -20,7 +20,10 @@ function mockFetch({ fail = false } = {}) {
       return new Response(null, { status: 307, headers: { Location: '/uk/auth' } })
     }
     if (pathname === '/api/auth/token' && options.method === 'POST') {
-      return new Response(null, { status: 403 })
+      return new Response(null, { status: 405, headers: { 'cache-control': 'no-store' } })
+    }
+    if (pathname === '/api/auth/token' && options.method === 'DELETE') {
+      return new Response(null, { status: 403, headers: { 'cache-control': 'no-store' } })
     }
     if (pathname === '/api/auth/token') {
       return new Response(null, { status: 401, headers: { 'cache-control': 'no-store' } })
@@ -31,7 +34,7 @@ function mockFetch({ fail = false } = {}) {
 
 test('smoke harness validates all public and anonymous boundaries', async () => {
   const results = await runSmoke({ baseUrl: 'https://dzvin.example', fetchImpl: mockFetch() })
-  assert.equal(results.length, 6)
+  assert.equal(results.length, 7)
   assert.ok(results.every((result) => result.ok))
 })
 
