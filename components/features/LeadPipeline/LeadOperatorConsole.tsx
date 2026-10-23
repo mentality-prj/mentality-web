@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { SectionCard } from '@/ds/components/SectionCard'
 import {
   advanceOperatorLeadStage,
   completeOperatorLeadFollowUp,
@@ -12,7 +13,6 @@ import {
   listOperatorLeads,
   planOperatorLeadFollowUp,
 } from '@/helpers/api-wrapper'
-import { SectionCard } from '@/ds/components/SectionCard'
 import { Button } from '@/ui/button'
 import { Checkbox } from '@/ui/checkbox'
 import { Input } from '@/ui/input'
