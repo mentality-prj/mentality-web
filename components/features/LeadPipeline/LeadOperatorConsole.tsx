@@ -360,7 +360,7 @@ export function LeadOperatorConsole() {
         >
           <option value="business">{t('business')}</option>
           <option value="research">{t('research')}</option>
-        </NativeSelect
+        </NativeSelect>
       </label>
 
       {summary && (
@@ -423,7 +423,7 @@ export function LeadOperatorConsole() {
                     {lead.createdAt ? ` · ${new Date(lead.createdAt).toLocaleDateString()}` : ''}
                     {lead.followUpOn ? ` · ${t('followUpOn')}: ${lead.followUpOn}` : ''}
                   </span>
-                </Button
+                </Button>
               </li>
             ))}
           </ul>
@@ -463,7 +463,7 @@ export function LeadOperatorConsole() {
                         {t(`actions.${actionName}`)}
                       </option>
                     ))}
-                  </NativeSelect
+                  </NativeSelect>
                 </label>
                 <label className="flex flex-col gap-1 text-sm">
                   {t('followUpOn')}
@@ -478,11 +478,11 @@ export function LeadOperatorConsole() {
                 <div className="flex flex-wrap gap-2">
                   <Button type="button" variant="secondary" size="medium" className={action} disabled={busy || !followUpOn} onClick={() => void saveFollowUp()}>
                     {t('saveFollowUp')}
-                  </Button
+                  </Button>
                   {selected.followUpOn && (
                     <Button type="button" variant="secondary" size="medium" className={action} disabled={busy} onClick={() => void saveFollowUp(true)}>
                       {t('clearFollowUp')}
-                    </Button
+                    </Button>
                   )}
                   {selected.followUpOn && (
                     <div className="flex flex-col gap-2 border-t border-[var(--outline-secondary)] pt-3">
@@ -497,7 +497,7 @@ export function LeadOperatorConsole() {
                           onClick={() => void recordContactOutcome('contacted')}
                         >
                           {t('contacted')}
-                        </Button
+                        </Button>
                         <Button
                           type="button"
                           variant="secondary"
@@ -507,7 +507,7 @@ export function LeadOperatorConsole() {
                           onClick={() => void recordContactOutcome('no_response')}
                         >
                           {t('noResponseReschedule')}
-                        </Button
+                        </Button>
                       </div>
                       <p className="text-xs text-textcolor-secondary">{t('manualOutcomeNotice')}</p>
                     </div>
@@ -518,7 +518,7 @@ export function LeadOperatorConsole() {
                 {NEXT_STAGES[selected.leadStage || 'inquiry'].map((nextStage) => (
                   <Button key={nextStage} type="button" variant="secondary" size="medium" className={action} disabled={busy} onClick={() => void advance(nextStage)}>
                     {t('moveTo', { stage: t(`stages.${nextStage}`) })}
-                  </Button
+                  </Button>
                 ))}
               </div>
               {selected.followUpHistory && selected.followUpHistory.length > 0 && (
