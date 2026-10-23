@@ -55,13 +55,23 @@ export async function runSmoke({ baseUrl, locale = 'uk', fetchImpl = fetch }) {
     assert.equal(response.headers.get('cache-control'), 'no-store')
   })
 
-  await verify('cross-origin token mutation is forbidden', async () => {
+  await verify('client-controlled token writes are disabled', async () => {
     const response = await request('/api/auth/token', {
       method: 'POST',
       headers: { Origin: 'https://attacker.invalid', 'Content-Type': 'application/json' },
       body: JSON.stringify({ accessToken: 'invalid', idToken: 'invalid', expiresAt: 9999999999 }),
     })
+    assert.equal(response.status, 405)
+    assert.equal(response.headers.get('cache-control'), 'no-store')
+  })
+
+  await verify('cross-origin cookie deletion is forbidden', async () => {
+    const response = await request('/api/auth/token', {
+      method: 'DELETE',
+      headers: { Origin: 'https://attacker.invalid' },
+    })
     assert.equal(response.status, 403)
+    assert.equal(response.headers.get('cache-control'), 'no-store')
   })
 
   const failures = results.filter((result) => !result.ok)
