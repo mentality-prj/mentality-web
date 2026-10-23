@@ -9,14 +9,18 @@ import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 import { createLeadSubmissionId } from '@/lib/contact/createLeadSubmissionId'
 import { type BusinessContactFormPayload, sendBusinessContactForm } from '@/requests/contact'
+import { Button } from '@/ui/button'
+import { Checkbox } from '@/ui/checkbox'
+import { Input } from '@/ui/input'
+import { NativeSelect } from '@/ui/native-select'
+import { Textarea } from '@/ui/textarea'
 
 const TEAM_SIZES = ['1-20', '21-100', '101-500', '501+', 'unsure'] as const
 const INTERESTS = ['pilot', 'demo', 'partnership'] as const
 type TeamSize = BusinessContactFormPayload['teamSize']
 type Interest = BusinessContactFormPayload['interest']
 
-const fieldClass =
-  'min-h-11 w-full rounded-xl border border-[#d7c9e0] bg-white px-3 py-2 text-sm text-[#302a4f] outline-none focus-visible:border-[#9372c0] focus-visible:ring-1 focus-visible:ring-[#9372c0]'
+const fieldClass = 'min-h-11 rounded-xl border-outline-secondary bg-white text-textcolor-primary'
 
 export function BusinessLeadForm() {
   const t = useTranslations('pages.Business')
@@ -129,7 +133,7 @@ export function BusinessLeadForm() {
           <div className="grid gap-4 sm:grid-cols-2">
             <label htmlFor="business-name" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.name')}
-              <input
+              <Input
                 id="business-name"
                 autoComplete="name"
                 className={fieldClass}
@@ -142,7 +146,7 @@ export function BusinessLeadForm() {
             </label>
             <label htmlFor="business-email" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.email')}
-              <input
+              <Input
                 id="business-email"
                 type="email"
                 autoComplete="email"
@@ -156,7 +160,7 @@ export function BusinessLeadForm() {
           </div>
           <label htmlFor="business-company" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.companyName')}
-            <input
+            <Input
               id="business-company"
               autoComplete="organization"
               className={fieldClass}
@@ -169,7 +173,7 @@ export function BusinessLeadForm() {
           </label>
           <label htmlFor="business-role" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.role')}
-            <input
+            <Input
               id="business-role"
               autoComplete="organization-title"
               className={fieldClass}
@@ -181,7 +185,7 @@ export function BusinessLeadForm() {
           <div className="grid gap-4 sm:grid-cols-2">
             <label htmlFor="business-size" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.teamSize')}
-              <select
+              <NativeSelect
                 id="business-size"
                 className={fieldClass}
                 required
@@ -194,11 +198,11 @@ export function BusinessLeadForm() {
                     {t(`teamSizes.${size}`)}
                   </option>
                 ))}
-              </select>
+              </NativeSelect
             </label>
             <label htmlFor="business-interest" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
               {t('fields.interest')}
-              <select
+              <NativeSelect
                 id="business-interest"
                 className={fieldClass}
                 required
@@ -210,12 +214,12 @@ export function BusinessLeadForm() {
                     {t(`interests.${option}`)}
                   </option>
                 ))}
-              </select>
+              </NativeSelect
             </label>
           </div>
           <label htmlFor="business-message" className="flex flex-col gap-2 text-sm font-medium text-[#403852]">
             {t('fields.message')}
-            <textarea
+            <Textarea
               id="business-message"
               rows={3}
               maxLength={1500}
@@ -224,7 +228,7 @@ export function BusinessLeadForm() {
               onChange={(e) => setMessage(e.target.value)}
             />
           </label>
-          <input
+          <Input
             aria-hidden="true"
             tabIndex={-1}
             name="website"
@@ -237,13 +241,12 @@ export function BusinessLeadForm() {
             htmlFor="business-contact-consent"
             className="flex items-start gap-3 text-sm leading-relaxed text-[#605875]"
           >
-            <input
+            <Checkbox
               id="business-contact-consent"
-              type="checkbox"
               required
-              className="mt-1 h-4 w-4 shrink-0 accent-[#7955bb]"
+              className="mt-1 shrink-0"
               checked={contactConsent}
-              onChange={(e) => setContactConsent(e.target.checked)}
+              onCheckedChange={(checked) => setContactConsent(checked === true)}
             />
             {t('fields.consent')}
           </label>
@@ -255,13 +258,9 @@ export function BusinessLeadForm() {
               {error}
             </p>
           )}
-          <button
-            type="submit"
-            disabled={status === 'sending'}
-            className="min-h-12 rounded-full bg-[linear-gradient(110deg,#9959b5,#6755cc)] px-6 py-3 font-semibold text-white disabled:opacity-60"
-          >
+          <Button type="submit" size="large" disabled={status === 'sending'} className="min-h-12">
             {t(status === 'sending' ? 'sending' : 'submit')}
-          </button>
+          </Button
         </form>
       )}
     </section>
