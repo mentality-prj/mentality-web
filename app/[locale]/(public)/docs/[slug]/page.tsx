@@ -20,9 +20,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     title: `${article.title} | Dzvin.co`,
     description: article.summary,
     alternates: {
-      canonical: `https://www.dzvin.co/${locale}/docs/${slug}`,
+      canonical: `https://docs.dzvin.co/${locale}/docs/${slug}`,
       languages: Object.fromEntries(
-        ['uk', 'en', 'pl'].map((lang) => [lang, `https://www.dzvin.co/${lang}/docs/${slug}`])
+        ['uk', 'en', 'pl'].map((lang) => [lang, `https://docs.dzvin.co/${lang}/docs/${slug}`])
       ),
     },
   }
@@ -71,13 +71,13 @@ export default async function DocArticlePage({ params }: Props) {
               {docs.notice}
             </aside>
             <nav aria-label={docs.links} className="mt-8 flex flex-wrap gap-6 text-sm font-semibold text-violet-800">
-              <Link href="/services" className="hover:underline">
+              <Link href={`https://www.dzvin.co/${locale}/services`} className="hover:underline">
                 {docs.services}
               </Link>
-              <Link href="/faq" className="hover:underline">
+              <Link href={`https://www.dzvin.co/${locale}/faq`} className="hover:underline">
                 {docs.faq}
               </Link>
-              <Link href="/privacy" className="hover:underline">
+              <Link href={`https://www.dzvin.co/${locale}/privacy`} className="hover:underline">
                 {docs.privacy}
               </Link>
             </nav>
