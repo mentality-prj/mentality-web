@@ -1,7 +1,9 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
+
 import { getPublicDoc, getPublicDocs, publicDocSlugs } from '@/content/public-docs'
 import { Link } from '@/i18n/navigation'
+
 import { DocsNavigation } from '../DocsNavigation'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
