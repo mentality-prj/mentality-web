@@ -1,16 +1,425 @@
 {
-  "title": "Dzvin.co Documentation",
-  "kicker": "Knowledge center",
-  "lead": "Practical guidance on product capabilities, workflows and limitations.",
-  "browse": "Explore topics",
-  "back": "All documentation",
-  "nav": "Documentation navigation",
+  "title": "Dzvin.co Product Documentation",
+  "kicker": "For marketing & Product Owners",
+  "lead": "Product positioning, customer value, capability map, demos and a ready-to-use presentation narrative.",
+  "browse": "Product and presentation resources",
+  "back": "All product documentation",
+  "nav": "Dzvin.co product documentation",
   "status": "Edition: October 2026",
   "links": "Further resources",
   "services": "Services",
   "faq": "FAQ",
   "privacy": "Privacy policy",
   "articles": [
+    {
+      "slug": "product-story",
+      "category": "Positioning",
+      "title": "The Dzvin.co product story",
+      "summary": "What the product solves, what to sell and why it is more than a daily wellbeing tracker.",
+      "sections": [
+        {
+          "title": "One-sentence positioning",
+          "paragraphs": [
+            "Dzvin.co combines personal observations, team-level insights and research workflows to turn wellbeing changes into understandable signals and practical next steps."
+          ]
+        },
+        {
+          "title": "30-second pitch",
+          "paragraphs": [
+            "Wellbeing information is often fragmented across check-ins, journals and separate reports. Individuals struggle to see a trajectory, managers recognize issues late and researchers find it hard to connect measurement with outcomes. Dzvin.co brings these jobs into one environment: individuals record their experience, organizations review permitted group-level patterns, and research teams structure programs and examine outcomes."
+          ]
+        },
+        {
+          "title": "The customer problem",
+          "paragraphs": [
+            "A one-time check-in is a snapshot, not a trajectory. Even repeated measurements have limited value unless people can review changes, choose a next step and see what happens afterwards.",
+            "The core product narrative is 'observe → understand a trend → prioritize → act → check again'. It describes a workflow, not a promise that every intervention will work."
+          ]
+        },
+        {
+          "title": "Three product experiences",
+          "paragraphs": [
+            "Personal: daily observations, history, exercises, goals and questionnaires. Organizational: roles, groups, team analytics, risk-event workflows and manager actions. Research: projects, cohorts, inspection, reporting artifacts and controlled access.",
+            "Each experience has a different user, buying rationale and output. A good presentation does not blur all three into one generic pitch."
+          ]
+        },
+        {
+          "title": "The strongest differentiator to explain",
+          "paragraphs": [
+            "Do not open with 'we have AI and charts'. Open with the decision the audience makes without context today: what support should I try, which team needs attention or how do we evaluate a program?",
+            "Show the path from signal to managed action. Internal algorithms, model parameters and proprietary implementation are not needed to communicate the value."
+          ]
+        },
+        {
+          "title": "A tangible output for each user",
+          "paragraphs": [
+            "Individuals get a timeline of observations and accessible next steps. Managers get an overview of team dynamics and signals to review. Researchers get a structured path from program design to observation and reporting."
+          ]
+        },
+        {
+          "title": "Public claims that can be supported",
+          "paragraphs": [
+            "Describe user-visible modules, the types of observations captured, permitted roles, the ways data is grouped and the workflow from signal to action.",
+            "Avoid claiming proven reductions in burnout, guaranteed improvements in employee retention, model accuracy or financial ROI without independently verified evidence."
+          ]
+        },
+        {
+          "title": "Ready-to-use slide copy",
+          "paragraphs": [
+            "Headline: 'From wellbeing signals to decisions you can examine.' Subtitle: 'One platform for individuals, organizations and research programs.'",
+            "Three supporting points: 'Capture consistent observations', 'Surface patterns and priorities', 'Organize follow-up actions and assess change'."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "solutions",
+      "category": "Audiences",
+      "title": "Who Dzvin.co serves and why",
+      "summary": "Buyer concerns, user jobs, examples and presentation angles by segment.",
+      "sections": [
+        {
+          "title": "Individuals: the job to be done",
+          "paragraphs": [
+            "People need a simple way to notice changes, stop relying on memory and move from a daily check-in to an accessible practice.",
+            "Show a check-in, the observation history, suggested exercises, goals and the next check-in. The takeaway is a coherent personal workflow."
+          ]
+        },
+        {
+          "title": "Individuals: scenario",
+          "paragraphs": [
+            "After a demanding week, a user records stress, energy, focus and mood; reviews earlier entries; selects an available exercise; and checks in again the following day.",
+            "This is an illustrative scenario, not a testimonial or proof that the exercise caused an improvement."
+          ]
+        },
+        {
+          "title": "Companies: decision makers and users",
+          "paragraphs": [
+            "Typical stakeholders include HR, People Operations, team leads and company leadership. Managers work with defined permissions, while administrators maintain the organizational structure and access.",
+            "The buyer asks 'Where is risk building up and how do we respond in time?' The manager asks 'Which permitted group or signal needs review today?'"
+          ]
+        },
+        {
+          "title": "Companies: scenario",
+          "paragraphs": [
+            "After a series of check-ins, a manager views aggregated analytics, changes the period and group selection, reviews risk events, opens details and records an appropriate follow-up action.",
+            "The value shown is a managed prioritization workflow, not automated employee evaluation."
+          ]
+        },
+        {
+          "title": "Research: decision makers and users",
+          "paragraphs": [
+            "The research audience includes universities, research institutions, program leads and funding partners. Day-to-day users are authorized researchers and project administrators.",
+            "The buyer asks 'Can we standardize repeated observations, compare cohorts, control access and prepare program evidence?'"
+          ]
+        },
+        {
+          "title": "Research: scenario",
+          "paragraphs": [
+            "A research team creates a project, defines membership and cohorts, examines history and available inspection tools, requests an export and reviews the audit trail.",
+            "The output is a traceable research workflow, not a claim of validated intervention effects."
+          ]
+        },
+        {
+          "title": "Connecting the segments",
+          "paragraphs": [
+            "Individual interactions create repeated observations. The team experience reviews permitted aggregated views. Research programs structure cohorts and track study-related outputs.",
+            "Present this as a related product family, while keeping scope, budgets, access and success criteria distinct."
+          ]
+        },
+        {
+          "title": "Questions before a presentation",
+          "paragraphs": [
+            "Identify the buyer, the decision they need to make, the source of data, the expected output, access restrictions and the demo scenario. A team leader does not need a research export tour.",
+            "End with 'Which decision would your team like to make faster or with more context?' rather than a long feature checklist."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "capability-map",
+      "category": "Capabilities",
+      "title": "Product capability map",
+      "summary": "Real user-facing modules, outputs, roles and what to show on screen.",
+      "sections": [
+        {
+          "title": "Personal check-ins",
+          "paragraphs": [
+            "The standard check-in captures stress, mood, energy and focus. Personal areas also support journals or notes, exercises, short questionnaires, goals and progress review.",
+            "Slide message: 'Connected observations instead of isolated questionnaires.' Demo: record an entry, review history, choose a next step."
+          ]
+        },
+        {
+          "title": "Personal progress",
+          "paragraphs": [
+            "History and statistics views help users review changes over time. Goals and short exercises connect measurement with possible next actions.",
+            "Slide message: 'See the progression, not just today's score.'"
+          ]
+        },
+        {
+          "title": "Organization structure",
+          "paragraphs": [
+            "Administrative screens provide groups and subgroups, membership, invites, roles and manager access to specified groups.",
+            "Slide message: 'Insights aligned with actual teams and permissions.' Avoid making an unsupported claim of guaranteed anonymity."
+          ]
+        },
+        {
+          "title": "Team analytics",
+          "paragraphs": [
+            "Organization views include summary metrics, trends, risk distribution and group breakdowns. Authorized managers can change the time window and group selection.",
+            "Slide message: 'See where the situation is changing.' Demo: overview, period selection, group breakdown."
+          ]
+        },
+        {
+          "title": "Decision-support workflow",
+          "paragraphs": [
+            "A dedicated management view combines summary reporting with a feed of risk events. The interface supports opening event details, follow-up actions and resolving events.",
+            "Slide message: 'A signal becomes a manageable workflow.' The product does not independently make personnel decisions."
+          ]
+        },
+        {
+          "title": "Research projects",
+          "paragraphs": [
+            "The Research Workspace provides project lists, creation, participants, cohort settings, grant-related material and historical datasets.",
+            "Slide message: 'A managed program workspace from setup to analysis.' Access depends on authorized roles and program configuration."
+          ]
+        },
+        {
+          "title": "Research inspection and reporting",
+          "paragraphs": [
+            "Research views include model-inspection surfaces, export requests and audit history. These support tracking work and building structured reporting materials.",
+            "Slide message: 'From collection to inspectable results.' Demonstrate only authorized, non-sensitive data."
+          ]
+        },
+        {
+          "title": "Permissions and availability",
+          "paragraphs": [
+            "The app has distinct experiences for individuals, managers, administrators and researchers. A feature's inclusion in the capability map does not imply availability to every account.",
+            "The PO should record access prerequisites and the test environment needed for each demo."
+          ]
+        },
+        {
+          "title": "Verification maturity",
+          "paragraphs": [
+            "A visible screen or an implemented API contract does not prove that a customer integration, complete end-to-end flow or a prediction's quality is independently validated.",
+            "Separate the labels 'visible in the product', 'verified through an end-to-end flow' and 'outcome measured with evidence'."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "demo-scenarios",
+      "category": "Live demos",
+      "title": "End-to-end demonstration scripts",
+      "summary": "Screen sequence, presenter narrative and expected audience takeaway.",
+      "sections": [
+        {
+          "title": "Demo 1 — personal, 3–5 minutes",
+          "paragraphs": [
+            "Start with: 'How do I see how I felt over several days?' Show a short check-in, the four dimensions, history, an available exercise and the next daily entry.",
+            "Final screen: the observation timeline. Presenter line: 'Your entries accumulate into a personal trajectory instead of disappearing into separate forms.'"
+          ]
+        },
+        {
+          "title": "Demo 2 — organization, 5–7 minutes",
+          "paragraphs": [
+            "Begin with an HR question: 'Which teams need our attention this week?' Show company groups and manager scope, then the analytics overview, trends and period filters.",
+            "Open the risk-event feed and a sample event. Explain how a manager moves from a signal to reviewing context and a follow-up action. Use only authorized demo data."
+          ]
+        },
+        {
+          "title": "Demo 3 — research, 5–7 minutes",
+          "paragraphs": [
+            "Ask: 'How can we manage repeated observations in a structured program?' Show projects, the selected project overview, membership, cohort settings and historical data.",
+            "Finish with inspection, export-request and audit screens. The story is controlled research operations and traceability."
+          ]
+        },
+        {
+          "title": "Before presenting",
+          "paragraphs": [
+            "Confirm the test account's role, prepare a sample project and group with non-personal records, ensure each screen has meaningful data and approve any screenshots.",
+            "If an environment cannot demonstrate a feature, mark it as not currently verified instead of staging fake live results."
+          ]
+        },
+        {
+          "title": "Turn demos into slides",
+          "paragraphs": [
+            "For each step use three pieces: 'Customer situation → product screen → decision or observation enabled'. Highlight one part of the screenshot rather than showing an unreadable full dashboard.",
+            "Close each demo with a concrete artifact: an individual's history, a reviewed team priority or a structured research output."
+          ]
+        },
+        {
+          "title": "Questions to prepare for",
+          "paragraphs": [
+            "'Where does information come from?' — Voluntary entries, questionnaires and data relevant to the selected workflow. 'Who can view it?' — Authorized roles and configured permissions.",
+            "'How do you know an intervention works?' — Only make claims supported by a defined measurement and a verified outcome."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "presentation-kit",
+      "category": "Presentation toolkit",
+      "title": "Ready-to-use Dzvin.co presentation",
+      "summary": "Ten-slide deck narrative, copy blocks, short pitches and buyer questions.",
+      "sections": [
+        {
+          "title": "Slide 1 — proposition",
+          "paragraphs": [
+            "Headline: 'Dzvin.co: from observation to action.' Subtitle: 'Personal wellbeing support, team analytics and research workflows in one platform.'",
+            "Visual: three connected product experiences — Individual, Organization, Research."
+          ]
+        },
+        {
+          "title": "Slide 2 — problem",
+          "paragraphs": [
+            "Headline: 'Signals are everywhere. A useful picture is not.' Points: measurements are fragmented, changes are hard to compare, response is delayed and program outcomes are hard to assess.",
+            "Visual: separate inputs that do not lead to a next decision."
+          ]
+        },
+        {
+          "title": "Slide 3 — approach",
+          "paragraphs": [
+            "Headline: 'One loop: observe → understand → prioritize → act → review.' Explain how the product organizes signals and next steps for different user roles.",
+            "Visual: a simple five-step product journey, not an internal algorithm diagram."
+          ]
+        },
+        {
+          "title": "Slide 4 — personal experience",
+          "paragraphs": [
+            "Headline: 'A personal trajectory, not a one-off questionnaire.' Show daily check-ins, history, practices, goals and questionnaires.",
+            "Caption: 'A user records their state and returns to a clear next step.'"
+          ]
+        },
+        {
+          "title": "Slide 5 — organizational experience",
+          "paragraphs": [
+            "Headline: 'Team signals managers can work with.' Show groups, trends, risk distribution, events and the action workflow.",
+            "Caption: 'Group context → priority → managed follow-up.'"
+          ]
+        },
+        {
+          "title": "Slide 6 — research experience",
+          "paragraphs": [
+            "Headline: 'From an observation program to inspectable results.' Show projects, cohorts, history, inspection, export and audit.",
+            "Caption: 'A structured research workflow and materials for reporting.'"
+          ]
+        },
+        {
+          "title": "Slide 7 — product distinction",
+          "paragraphs": [
+            "Headline: 'More than a collection of tests and charts.' Three ideas: connected experiences, understanding change over time and checking what happened after action.",
+            "Avoid unsupported superlatives and comparisons with competitors."
+          ]
+        },
+        {
+          "title": "Slide 8 — first deployment",
+          "paragraphs": [
+            "Headline: 'Start with one decision worth improving.' Steps: select the group, define observations, configure access, run a pilot, review usage and outcome measures.",
+            "Show a verification plan, not fabricated customer logos."
+          ]
+        },
+        {
+          "title": "Slide 9 — measures",
+          "paragraphs": [
+            "Headline: 'Value deserves measurement.' Examples: participation continuity, data completeness, time from signal to review, changes in aggregate indicators and research-protocol completion.",
+            "Separate observed product usage from business impact that needs pilot confirmation."
+          ]
+        },
+        {
+          "title": "Slide 10 — next step",
+          "paragraphs": [
+            "Headline: 'Test Dzvin.co in your own workflow.' Invite the audience to a focused demo or a pilot with an agreed audience, access model and criteria for success.",
+            "End with one question: 'Which decision is hardest today without a consistent picture?'"
+          ]
+        },
+        {
+          "title": "Short pitch variants",
+          "paragraphs": [
+            "For HR: 'Dzvin.co helps organizations understand changing team conditions and organize responses to risk signals.' For individuals: 'Dzvin.co turns short daily observations into a personal timeline and practical next steps.' For researchers: 'Dzvin.co structures cohorts, observations and evaluation workflows.'",
+            "Pair each pitch with the appropriate real screen, not a generic AI claim."
+          ]
+        },
+        {
+          "title": "Likely questions and answers",
+          "paragraphs": [
+            "Why not just a survey? — Because observations connect to history, trends and follow-up workflows. What does a manager see? — Role-permitted group views, reports and risk events. How do we prove the value? — Agree on the outcome, observation window and evaluation method.",
+            "Which audience goes on the slide? — The audience that buys or uses the selected experience."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "po-guide",
+      "category": "For Product Owners",
+      "title": "PO product handbook",
+      "summary": "Align value, feature scope, proof, demos and measurable acceptance criteria.",
+      "sections": [
+        {
+          "title": "Separate problem, capability and outcome",
+          "paragraphs": [
+            "Problem: the team leader cannot see changing patterns. Capability: a role-scoped team view with time filters. Product outcome: the manager knows which group to examine and which action to discuss.",
+            "A capability does not automatically establish a measured business effect. Keep these statements distinct in specs and sales materials."
+          ]
+        },
+        {
+          "title": "Role map",
+          "paragraphs": [
+            "Individuals use check-ins, history, exercises and goals. Managers access permitted groups, analytics and risk events. Administrators set up organizational structure, membership and permissions. Researchers work with projects, cohorts, inspection and reporting.",
+            "Each user story should identify the role, permitted data, action and expected on-screen result."
+          ]
+        },
+        {
+          "title": "Acceptance: personal journey",
+          "paragraphs": [
+            "Scenario: a user records a check-in, finds it in their history and returns to an available practice or goal.",
+            "Check persistence, timestamps, data isolation, empty states and error communication."
+          ]
+        },
+        {
+          "title": "Acceptance: organization journey",
+          "paragraphs": [
+            "Scenario: a manager opens permitted groups, selects a period, reviews a trend and event, and records an allowed action.",
+            "Check authorization boundaries, missing data, event state transitions and handling of empty groups."
+          ]
+        },
+        {
+          "title": "Acceptance: research journey",
+          "paragraphs": [
+            "Scenario: a researcher enters a project, works with a cohort, reviews history and inspection, requests an export and checks audit events.",
+            "Check permissions, true system states, data/export policies and no cross-project access."
+          ]
+        },
+        {
+          "title": "Pilot metrics",
+          "paragraphs": [
+            "Personal: repeat check-in rate, regularity and use of practices. Organization: observation coverage, time to review a signal, percentage of events processed. Research: completion of collection waves, data quality, procedure compliance and reporting turnaround.",
+            "These are suggested KPI definitions for pilots, not achieved results claimed by Dzvin.co."
+          ]
+        },
+        {
+          "title": "Evidence behind a claim",
+          "paragraphs": [
+            "A strong external claim needs evidence: a real working demo, an automated test, an evaluated pilot report or independent validation. If evidence is unavailable, frame the statement as a product capability or intended use.",
+            "Do not claim forecast accuracy, time savings, financial return or employee outcomes without supporting measurement."
+          ]
+        },
+        {
+          "title": "Demo readiness",
+          "paragraphs": [
+            "Marketing needs a safe dataset with groups, records and sample events that do not contain private customer information. The PO should track exactly which screens and scenarios are stable in a test environment.",
+            "A flow that has not passed full end-to-end testing must not be labeled production-verified."
+          ]
+        },
+        {
+          "title": "From backlog to deck",
+          "paragraphs": [
+            "Every feature slide should map to a customer problem, a specific workflow, an available screen, the intended benefit and a measurable success criterion.",
+            "Keep this chain consistent in the product specification, demonstration and external deck."
+          ]
+        }
+      ]
+    },
     {
       "slug": "getting-started",
       "category": "Basics",
@@ -185,5 +594,8 @@
         }
       ]
     }
-  ]
+  ],
+  "referenceTitle": "Feature reference",
+  "featuredCta": "Open the presentation script",
+  "featuredNote": "For a customer deck, start with the product story, select the buyer's segment, show a relevant demo and close with measurable success criteria."
 }
