@@ -1,0 +1,53 @@
+name: Format public docs PR once
+
+on:
+  push:
+    branches:
+      - feat/dzvin-public-docs-20261024
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install pinned dependencies
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Format only known failing files
+        run: |
+          ./node_modules/.bin/prettier --write \
+            'app/[locale]/(public)/docs/[slug]/page.tsx' \
+            'app/[locale]/(public)/docs/DocsNavigation.tsx' \
+            'app/[locale]/(public)/docs/page.tsx' \
+            'content/public-docs/index.ts' \
+            'app/callback/page.tsx' \
+            'components/features/MyDay/DailyHabitsCard.test.tsx' \
+            'components/features/MyDay/DailyHabitsCard.tsx' \
+            'requests/dailyHabits.ts'
+      - name: Commit formatting on feature branch
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -- \
+            'app/[locale]/(public)/docs/[slug]/page.tsx' \
+            'app/[locale]/(public)/docs/DocsNavigation.tsx' \
+            'app/[locale]/(public)/docs/page.tsx' \
+            'content/public-docs/index.ts' \
+            'app/callback/page.tsx' \
+            'components/features/MyDay/DailyHabitsCard.test.tsx' \
+            'components/features/MyDay/DailyHabitsCard.tsx' \
+            'requests/dailyHabits.ts'
+          if ! git diff --cached --quiet; then
+            git commit -m 'style(docs): align docs and existing prettier baseline'
+            git push origin HEAD:feat/dzvin-public-docs-20261024
+          fi
