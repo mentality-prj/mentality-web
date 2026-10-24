@@ -56,11 +56,7 @@ export async function getDailyHabits(session: CustomSession | null, timeZone: st
   return request(session, `${url}?timeZone=${zone}`, 'GET', decodeList)
 }
 
-export async function chooseDailyHabit(
-  session: CustomSession | null,
-  kind: DailyHabitKind,
-  timeZone: string | null
-) {
+export async function chooseDailyHabit(session: CustomSession | null, kind: DailyHabitKind, timeZone: string | null) {
   const zone = zoneParam(timeZone)
   if (!zone || !allowedKind(kind)) return { error: 'Invalid habit or timezone' }
   return request(session, `${url}/${kind}?timeZone=${zone}`, 'PUT', (value) => {

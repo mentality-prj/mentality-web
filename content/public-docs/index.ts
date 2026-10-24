@@ -3,10 +3,25 @@ import pl from './pl.json'
 import uk from './uk.json'
 
 export type PublicDocs = {
-  title: string; kicker: string; lead: string; browse: string; back: string; nav: string
-  notice: string; status: string; links: string; services: string; faq: string; privacy: string
-  articles: { slug: string; category: string; title: string; summary: string
-    sections: { title: string; paragraphs: string[] }[] }[]
+  title: string
+  kicker: string
+  lead: string
+  browse: string
+  back: string
+  nav: string
+  notice: string
+  status: string
+  links: string
+  services: string
+  faq: string
+  privacy: string
+  articles: {
+    slug: string
+    category: string
+    title: string
+    summary: string
+    sections: { title: string; paragraphs: string[] }[]
+  }[]
 }
 export function getPublicDocs(locale: string): PublicDocs {
   if (locale === 'en') return en

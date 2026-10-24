@@ -90,9 +90,7 @@ describe('My Day voluntary habits mobile UI', () => {
   })
 
   it('offers a retry on API failure without exposing unverified actions', async () => {
-    ;(getDailyHabits as jest.Mock)
-      .mockResolvedValueOnce({ error: 'Unavailable' })
-      .mockResolvedValueOnce({ data: [] })
+    ;(getDailyHabits as jest.Mock).mockResolvedValueOnce({ error: 'Unavailable' }).mockResolvedValueOnce({ data: [] })
     render(<DailyHabitsCard />)
     await screen.findByRole('alert')
     expect(screen.queryByRole('button', { name: 'choose' })).not.toBeInTheDocument()
