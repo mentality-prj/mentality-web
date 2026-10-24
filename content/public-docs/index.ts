@@ -9,7 +9,6 @@ export type PublicDocs = {
   browse: string
   back: string
   nav: string
-  notice: string
   status: string
   links: string
   services: string

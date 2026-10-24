@@ -5,6 +5,7 @@ describe('public documentation', () => {
     expect(new Set(publicDocSlugs).size).toBe(6)
     for (const locale of ['uk', 'en', 'pl']) {
       const docs = getPublicDocs(locale)
+      expect(docs).not.toHaveProperty('notice')
       expect(docs.articles.map((doc) => doc.slug)).toEqual(publicDocSlugs)
       expect(docs.articles.every((doc) => doc.sections.length >= 2)).toBe(true)
       for (const slug of publicDocSlugs) expect(getPublicDoc(locale, slug)).toBeDefined()

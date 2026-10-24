@@ -68,9 +68,6 @@ export default async function DocArticlePage({ params }: Props) {
                 </section>
               ))}
             </div>
-            <aside className="mt-10 rounded-2xl border border-amber-200 bg-amber-50 p-5 text-sm leading-relaxed text-amber-950">
-              {docs.notice}
-            </aside>
             <nav aria-label={docs.links} className="mt-8 flex flex-wrap gap-6 text-sm font-semibold text-violet-800">
               <Link href={`https://www.dzvin.co/${locale}/services`} className="hover:underline">
                 {docs.services}
