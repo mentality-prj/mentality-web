@@ -8,6 +8,7 @@ import { getLandingFooterLayout, LANDING_FOOTER_SOCIAL_LINKS } from './landingFo
 
 export async function LandingFooter({ type, className }: { type?: 'small' | 'default'; className?: string }) {
   const t = await getTranslations('pages.Landing')
+  const tNav = await getTranslations('components.Navbar')
 
   const { paddingY, marginTop, background } = getLandingFooterLayout(type)
 
@@ -21,6 +22,7 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
           <FooterSocialMedia links={LANDING_FOOTER_SOCIAL_LINKS} />
           <div className="flex flex-col items-center gap-sm text-center">
             <FooterLinks
+              docsLabel={tNav('docs')}
               privacyLabel={t('Footer.privacy')}
               termsLabel={t('Footer.terms')}
               cookiesLabel={t('Footer.cookies')}

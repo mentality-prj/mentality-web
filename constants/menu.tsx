@@ -15,6 +15,7 @@ export const landingMenu: LandingMenuType = [
   { key: 'about', href: Routes.ABOUT },
   { key: 'services', href: Routes.SERVICES },
   { key: 'faq', href: Routes.FAQ },
+  { key: 'docs', href: Routes.DOCS },
   { key: 'contacts', href: Routes.CONTACTS },
   { key: 'my-day', href: Routes.MYDAY, icon: 'bookHeart' },
 ]

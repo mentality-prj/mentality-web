@@ -1,0 +1,190 @@
+{
+  "title": "Dokumentacja Dzvin.co",
+  "kicker": "Centrum wiedzy",
+  "lead": "Praktyczne informacje o funkcjach, sposobach użycia i ograniczeniach serwisu.",
+  "browse": "Wybierz temat",
+  "back": "Cała dokumentacja",
+  "nav": "Nawigacja po dokumentacji",
+  "notice": "Dzvin.co wspiera samoobserwację. Wyniki nie są diagnozą ani zamiennikiem profesjonalnej pomocy.",
+  "status": "Wersja: październik 2026",
+  "links": "Przydatne linki",
+  "services": "Usługi",
+  "faq": "FAQ",
+  "privacy": "Polityka prywatności",
+  "articles": [
+    {
+      "slug": "getting-started",
+      "category": "Podstawy",
+      "title": "Pierwsze kroki",
+      "summary": "Do czego służy serwis i jak zacząć",
+      "sections": [
+        {
+          "title": "Cel",
+          "paragraphs": [
+            "Dzvin.co umożliwia rejestrowanie stresu, nastroju, energii i koncentracji, analizowanie zmian oraz poznawanie pomocnych praktyk.",
+            "Istnieją odrębne scenariusze dla osób, organizacji i programów badawczych."
+          ]
+        },
+        {
+          "title": "Jak zacząć",
+          "paragraphs": [
+            "Utwórz konto lub zaloguj się. Otwórz Mój dzień, wykonaj krótką samoocenę i sprawdź dostępne wskazówki.",
+            "Regularne pomiary mają większą wartość niż pojedynczy wynik."
+          ]
+        },
+        {
+          "title": "Interpretacja",
+          "paragraphs": [
+            "Jedna samoocena opisuje moment, a nie całościowy stan zdrowia.",
+            "Niektóre funkcje zależą od roli i etapu wdrożenia."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "personal",
+      "category": "Dla osób",
+      "title": "Wsparcie osobiste",
+      "summary": "Codzienne pomiary, kwestionariusze i postępy",
+      "sections": [
+        {
+          "title": "Samoocena",
+          "paragraphs": [
+            "Podstawowy pomiar obejmuje stres, nastrój, energię i koncentrację w skali od 1 do 5.",
+            "Notatki i obserwacje pomagają rozumieć kontekst, ale nie dowodzą przyczyn zmian."
+          ]
+        },
+        {
+          "title": "Ćwiczenia",
+          "paragraphs": [
+            "Po pomiarze mogą pojawić się wskazówki i ćwiczenia. Można też przeglądać historię i własne cele.",
+            "Porównuj okresy zamiast skupiać się na jednej liczbie."
+          ]
+        },
+        {
+          "title": "Kwestionariusze",
+          "paragraphs": [
+            "Krótkie kwestionariusze wspierają samoobserwację.",
+            "Nie są diagnozą ani zaleceniem leczenia."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "organizations",
+      "category": "Dla firm",
+      "title": "Analiza zespołów",
+      "summary": "Zagregowane trendy i wspomaganie decyzji",
+      "sections": [
+        {
+          "title": "Dla organizacji",
+          "paragraphs": [
+            "Moduł firmowy pomaga analizować trendy dobrostanu, stresu i energii w zespołach.",
+            "Raporty i dostęp zależą od uprawnień i konfiguracji firmy."
+          ]
+        },
+        {
+          "title": "Od sygnału do działania",
+          "paragraphs": [
+            "Sygnał ryzyka powinien prowadzić do sprawdzenia kontekstu, a nie automatycznej oceny pracownika.",
+            "Nie podejmuj decyzji kadrowych na podstawie jednego wskaźnika. Małe grupy mogą nie zapewniać anonimowości."
+          ]
+        },
+        {
+          "title": "Odpowiedzialność",
+          "paragraphs": [
+            "Organizacja odpowiada za właściwą podstawę prawną przetwarzania danych i poinformowanie pracowników.",
+            "Sama agregacja nie gwarantuje anonimowości."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "research",
+      "category": "Badania",
+      "title": "Badania i walidacja",
+      "summary": "Kohorty, obserwacje i jakość dowodów",
+      "sections": [
+        {
+          "title": "Zastosowania",
+          "paragraphs": [
+            "Scenariusze badawcze obejmują porównywanie kohort, powtarzane pomiary i analizę wyników programów.",
+            "Dostęp do narzędzia nie oznacza niezależnej walidacji klinicznej każdego modelu."
+          ]
+        },
+        {
+          "title": "Rzetelność",
+          "paragraphs": [
+            "Przed analizą określ próbę, metryki, okresy, sposób postępowania z brakującymi danymi i kryteria jakości.",
+            "Rozróżniaj korelację, prognozę i przyczynowość. Raportuj niepewność."
+          ]
+        },
+        {
+          "title": "Dostęp",
+          "paragraphs": [
+            "Warunki współpracy badawczej i publikacji wyników uzgadnia się osobno.",
+            "Należy uwzględnić wymagania etyczne i ochronę prywatności."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "category": "Zaufanie",
+      "title": "Prywatność i dane",
+      "summary": "Przetwarzanie informacji i prawa użytkowników",
+      "sections": [
+        {
+          "title": "Twoje dane",
+          "paragraphs": [
+            "Serwis może przetwarzać dane konta, dobrowolne samooceny i interakcje z aplikacją.",
+            "Dokładne kategorie, cele i podstawy przetwarzania określa aktualna Polityka prywatności."
+          ]
+        },
+        {
+          "title": "Dostęp w firmie",
+          "paragraphs": [
+            "Raporty firmowe muszą respektować uprawnienia i zasady ochrony danych.",
+            "Nie wpisuj zbędnych danych wrażliwych ani nie udostępniaj haseł."
+          ]
+        },
+        {
+          "title": "Twoje prawa",
+          "paragraphs": [
+            "O dostęp, sprostowanie lub usunięcie danych można wnioskować przez oficjalne kanały Dzvin.co.",
+            "Ten poradnik nie zastępuje Polityki prywatności ani Regulaminu."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "limitations",
+      "category": "Ważne",
+      "title": "Możliwości i ograniczenia",
+      "summary": "Co można, a czego nie można wywnioskować z wyników",
+      "sections": [
+        {
+          "title": "Niepewność",
+          "paragraphs": [
+            "Samooceny mogą być niepełne lub zależne od kontekstu. Prognozy i wskaźniki ryzyka nie gwarantują wyników.",
+            "Sugestie nie stanowią dowodu związku przyczynowego."
+          ]
+        },
+        {
+          "title": "Ograniczenia medyczne",
+          "paragraphs": [
+            "Dzvin.co nie jest służbą ratunkową, nie stawia diagnoz i nie zastępuje pomocy lekarskiej ani psychologicznej.",
+            "W nagłym zagrożeniu zdrowia lub życia skontaktuj się z lokalnymi służbami ratunkowymi."
+          ]
+        },
+        {
+          "title": "Dostępność",
+          "paragraphs": [
+            "Część raportów i modułów może być ograniczona uprawnieniami lub etapem rozwoju.",
+            "Sprawdź FAQ lub skontaktuj się z zespołem w sprawie aktualnej dostępności."
+          ]
+        }
+      ]
+    }
+  ]
+}
