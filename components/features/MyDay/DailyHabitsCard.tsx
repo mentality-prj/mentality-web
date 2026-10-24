@@ -123,9 +123,10 @@ export function DailyHabitsCard() {
         return
       }
 
-      const result = action === 'select'
-        ? await chooseDailyHabit(session, kind, freshZone)
-        : await checkDailyHabit(session, kind, action === 'check', freshZone)
+      const result =
+        action === 'select'
+          ? await chooseDailyHabit(session, kind, freshZone)
+          : await checkDailyHabit(session, kind, action === 'check', freshZone)
       if ('error' in result) {
         setNotice('failed')
         return
@@ -152,9 +153,7 @@ export function DailyHabitsCard() {
             >
               {t('title')}
             </h2>
-            <p className="max-w-[58ch] text-[13px] leading-5 text-textcolor-secondary sm:text-sm">
-              {t('description')}
-            </p>
+            <p className="max-w-[58ch] text-[13px] leading-5 text-textcolor-secondary sm:text-sm">{t('description')}</p>
           </div>
           {loading ? (
             <p role="status" className="text-sm text-textcolor-secondary">

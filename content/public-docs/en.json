@@ -1,0 +1,190 @@
+{
+  "title": "Dzvin.co Documentation",
+  "kicker": "Knowledge center",
+  "lead": "Practical guidance on product capabilities, workflows and limitations.",
+  "browse": "Explore topics",
+  "back": "All documentation",
+  "nav": "Documentation navigation",
+  "notice": "Dzvin.co supports self-reflection. Results are not a medical diagnosis or a substitute for professional care.",
+  "status": "Edition: October 2026",
+  "links": "Further resources",
+  "services": "Services",
+  "faq": "FAQ",
+  "privacy": "Privacy policy",
+  "articles": [
+    {
+      "slug": "getting-started",
+      "category": "Basics",
+      "title": "Getting started",
+      "summary": "What the service does and how to begin",
+      "sections": [
+        {
+          "title": "Purpose",
+          "paragraphs": [
+            "Dzvin.co helps people record stress, mood, energy and focus, review trends and find potentially useful wellbeing activities.",
+            "There are separate experiences for individuals, organizations and research programs."
+          ]
+        },
+        {
+          "title": "First steps",
+          "paragraphs": [
+            "Create an account or sign in. Open My Day, complete a short self-check and review the available guidance.",
+            "Check in consistently. Trends matter more than a single daily score."
+          ]
+        },
+        {
+          "title": "Interpreting results",
+          "paragraphs": [
+            "A single response reflects one moment, not your overall health.",
+            "Some functionality is limited by role or release stage."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "personal",
+      "category": "Individuals",
+      "title": "Personal support",
+      "summary": "Daily check-ins, questionnaires and progress",
+      "sections": [
+        {
+          "title": "Daily checks",
+          "paragraphs": [
+            "The standard check-in covers stress, mood, energy and focus on a 1–5 scale.",
+            "Notes and repeated observations offer context, but cannot establish causation."
+          ]
+        },
+        {
+          "title": "Suggestions and exercises",
+          "paragraphs": [
+            "Relevant exercises and suggestions may follow a check-in. Personal features also support viewing history and goals.",
+            "Compare periods rather than trying to optimize one number."
+          ]
+        },
+        {
+          "title": "Questionnaires",
+          "paragraphs": [
+            "Short psychological questionnaires may help with self-reflection.",
+            "They do not establish a diagnosis or prescribe treatment."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "organizations",
+      "category": "Organizations",
+      "title": "Team insights",
+      "summary": "Aggregated patterns and decision support",
+      "sections": [
+        {
+          "title": "Organizational use",
+          "paragraphs": [
+            "The team experience helps analyze group-level changes in stress, energy and wellbeing.",
+            "Available reports and access depend on user permissions and organization settings."
+          ]
+        },
+        {
+          "title": "Acting on signals",
+          "paragraphs": [
+            "A risk signal should prompt further contextual review, not an automated judgement about an employee.",
+            "Do not make personnel decisions from one aggregate metric. Small groups may still permit re-identification."
+          ]
+        },
+        {
+          "title": "Responsibilities",
+          "paragraphs": [
+            "Organizations remain responsible for appropriate legal grounds for processing and transparent staff communication.",
+            "Aggregation alone does not ensure anonymity."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "research",
+      "category": "Research",
+      "title": "Research and validation",
+      "summary": "Cohorts, repeated observations and evidence quality",
+      "sections": [
+        {
+          "title": "Research workflows",
+          "paragraphs": [
+            "Research scenarios include cohort comparisons, repeated measurements and program outcome reviews.",
+            "Access to a feature does not imply independent clinical validation of every model."
+          ]
+        },
+        {
+          "title": "Evidence quality",
+          "paragraphs": [
+            "Specify samples, metrics, windows, missing-data handling and quality criteria before analysis.",
+            "Separate correlation, prediction and causal effects. Report uncertainty."
+          ]
+        },
+        {
+          "title": "Access",
+          "paragraphs": [
+            "Research partnerships, data scope and publishing terms are agreed separately.",
+            "Ethics and privacy requirements remain applicable."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "category": "Trust",
+      "title": "Privacy and data",
+      "summary": "Data processing, access and user rights",
+      "sections": [
+        {
+          "title": "Your data",
+          "paragraphs": [
+            "The service may process account information, voluntary assessments and product interactions.",
+            "The current Privacy Policy defines the precise categories, purposes and legal basis."
+          ]
+        },
+        {
+          "title": "Workplace access",
+          "paragraphs": [
+            "Organizational reports must respect permissions and applicable privacy rules.",
+            "Avoid entering unnecessary sensitive details and never share account credentials."
+          ]
+        },
+        {
+          "title": "Your rights",
+          "paragraphs": [
+            "Use official Dzvin.co contacts to request access, correction or deletion of personal data.",
+            "This guide does not replace the Privacy Policy or Terms of Service."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "limitations",
+      "category": "Important",
+      "title": "Capabilities and limitations",
+      "summary": "What indicators and predictions can and cannot establish",
+      "sections": [
+        {
+          "title": "Uncertainty",
+          "paragraphs": [
+            "Self-reports may be incomplete, biased or context-dependent. Forecasts and risk indicators do not guarantee outcomes.",
+            "Recommendations are not proof of causal effects."
+          ]
+        },
+        {
+          "title": "Medical boundary",
+          "paragraphs": [
+            "Dzvin.co is not an emergency service. It does not diagnose conditions or replace medical or psychological care.",
+            "For an immediate safety or health emergency, contact local emergency services."
+          ]
+        },
+        {
+          "title": "Availability",
+          "paragraphs": [
+            "Some reports and modules may be role-restricted or not generally available while the product evolves.",
+            "For current availability, consult the FAQ or support team."
+          ]
+        }
+      ]
+    }
+  ]
+}

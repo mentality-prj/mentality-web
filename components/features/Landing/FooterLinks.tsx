@@ -2,6 +2,7 @@ import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
 type FooterLinksProps = {
+  docsLabel: string
   privacyLabel: string
   termsLabel: string
   cookiesLabel: string
@@ -10,8 +11,9 @@ type FooterLinksProps = {
 const FOOTER_LINK_CLASSNAME =
   'text-[var(--text-muted)] transition-colors hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]'
 
-export function FooterLinks({ privacyLabel, termsLabel, cookiesLabel }: FooterLinksProps) {
+export function FooterLinks({ docsLabel, privacyLabel, termsLabel, cookiesLabel }: FooterLinksProps) {
   const links = [
+    { href: Routes.DOCS, label: docsLabel },
     { href: Routes.PRIVACY, label: privacyLabel },
     { href: Routes.TERMS, label: termsLabel },
     { href: Routes.COOKIES, label: cookiesLabel },

@@ -67,7 +67,7 @@ describe('token-opaque Zitadel provider', () => {
     sessionStorage.setItem('oauth_state', 'correct')
     sessionStorage.setItem('pkce_verifier', 'verifier')
     ;(fetchAuthenticatedUser as jest.Mock).mockResolvedValue(null)
-    expect(await provider.handleCallback('code', 'correct')).toBeNull()
+    await expect(provider.handleCallback('code', 'correct')).rejects.toThrow('Unable to validate the session')
     expect(deleteStoredAuthTokens).toHaveBeenCalledTimes(1)
   })
 
