@@ -7,6 +7,9 @@ export type PublicDocs = {
   kicker: string
   lead: string
   browse: string
+  referenceTitle: string
+  featuredCta: string
+  featuredNote: string
   back: string
   nav: string
   status: string

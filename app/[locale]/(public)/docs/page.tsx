@@ -32,14 +32,22 @@ export default async function DocsIndexPage({ params }: Props) {
           </span>
           <h1 className="mt-5 text-4xl font-bold tracking-tight text-slate-900 md:text-5xl">{docs.title}</h1>
           <p className="mt-5 text-lg leading-relaxed text-slate-700">{docs.lead}</p>
-          <p className="mt-3 text-sm text-slate-500">{docs.status}</p>
+          <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600">{docs.featuredNote}</p>
+          <Link
+            href="/docs/presentation-kit"
+            className="mt-6 inline-flex items-center gap-2 rounded-full bg-violet-700 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-700"
+          >
+            {docs.featuredCta}
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </Link>
+          <p className="mt-4 text-xs text-slate-500">{docs.status}</p>
         </header>
         <section aria-labelledby="doc-topics" className="mt-12">
           <h2 id="doc-topics" className="text-2xl font-bold text-slate-900">
             {docs.browse}
           </h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
-            {docs.articles.map((article) => (
+            {docs.articles.slice(0, 6).map((article) => (
               <Link
                 key={article.slug}
                 href={`/docs/${article.slug}`}
@@ -56,7 +64,24 @@ export default async function DocsIndexPage({ params }: Props) {
             ))}
           </div>
         </section>
-        <nav aria-label={docs.links} className="mt-8 flex flex-wrap gap-6 text-sm font-semibold text-violet-800">
+        <section aria-labelledby="docs-reference" className="mt-14">
+          <h2 id="docs-reference" className="text-2xl font-bold text-slate-900">
+            {docs.referenceTitle}
+          </h2>
+          <div className="mt-6 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+            {docs.articles.slice(6).map((article) => (
+              <Link
+                key={article.slug}
+                href={`/docs/${article.slug}`}
+                className="group rounded-2xl border border-slate-200 bg-white/70 p-5 transition-colors hover:border-violet-300 hover:bg-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-violet-700"
+              >
+                <h3 className="text-base font-semibold text-slate-900">{article.title}</h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-600">{article.summary}</p>
+              </Link>
+            ))}
+          </div>
+        </section>
+        <nav aria-label={docs.links} className="mt-10 flex flex-wrap gap-6 text-sm font-semibold text-violet-800">
           <Link href={`https://www.dzvin.co/${locale}/services`} className="hover:underline">
             {docs.services}
           </Link>
