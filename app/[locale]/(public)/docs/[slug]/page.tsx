@@ -1,6 +1,6 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
-import { getPublicDocs, getPublicDoc, publicDocSlugs } from '@/content/public-docs'
+import { getPublicDoc, getPublicDocs, publicDocSlugs } from '@/content/public-docs'
 import { Link } from '@/i18n/navigation'
 import { DocsNavigation } from '../DocsNavigation'
 

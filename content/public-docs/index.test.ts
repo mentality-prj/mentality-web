@@ -1,4 +1,4 @@
-import { getPublicDocs, getPublicDoc, publicDocSlugs } from './index'
+import { getPublicDoc, getPublicDocs, publicDocSlugs } from './index'
 
 describe('public documentation', () => {
   it('has the same six valid slugs in all three locales', () => {

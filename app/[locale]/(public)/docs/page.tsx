@@ -1,5 +1,5 @@
-import type { Metadata } from 'next'
 import { ArrowRight, BookOpen } from 'lucide-react'
+import type { Metadata } from 'next'
 
 import { getPublicDocs } from '@/content/public-docs'
 import { Link } from '@/i18n/navigation'

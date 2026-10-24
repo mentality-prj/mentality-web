@@ -1,5 +1,5 @@
-import { Link } from '@/i18n/navigation'
 import type { PublicDocs } from '@/content/public-docs'
+import { Link } from '@/i18n/navigation'
 
 export function DocsNavigation({ docs, activeSlug }: { docs: PublicDocs; activeSlug?: string }) {
   return (
