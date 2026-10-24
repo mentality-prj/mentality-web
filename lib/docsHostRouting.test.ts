@@ -10,7 +10,8 @@ describe('docs.dzvin.co host boundary', () => {
     expect(getDocsHostRoute('docs.dzvin.co', '/', 'pl')).toEqual({ action: 'redirect', destination: '/pl/docs' })
     expect(getDocsHostRoute('docs.dzvin.co', '/en', 'uk')).toEqual({ action: 'redirect', destination: '/en/docs' })
     expect(getDocsHostRoute('docs.dzvin.co', '/docs/personal', 'en')).toEqual({
-      action: 'redirect', destination: '/en/docs/personal',
+      action: 'redirect',
+      destination: '/en/docs/personal',
     })
   })
   it('permits only locale-specific documentation pages', () => {
@@ -26,7 +27,9 @@ describe('docs.dzvin.co host boundary', () => {
   })
   it('sends non-documentation links to the main website', () => {
     expect(getDocsHostRoute('docs.dzvin.co', '/uk/privacy', 'uk')).toEqual({
-      action: 'redirect', destination: '/uk/privacy', mainSite: true,
+      action: 'redirect',
+      destination: '/uk/privacy',
+      mainSite: true,
     })
   })
 })

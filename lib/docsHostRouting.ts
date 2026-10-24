@@ -9,7 +9,11 @@ export type DocsHostRoute =
 
 const docsHost = 'docs.dzvin.co'
 
-export function getDocsHostRoute(hostname: string, pathname: string, preferredLocale: 'uk' | 'en' | 'pl'): DocsHostRoute | null {
+export function getDocsHostRoute(
+  hostname: string,
+  pathname: string,
+  preferredLocale: 'uk' | 'en' | 'pl'
+): DocsHostRoute | null {
   if (hostname.toLowerCase() !== docsHost) return null
 
   if (pathname === '/' || pathname === '') {
