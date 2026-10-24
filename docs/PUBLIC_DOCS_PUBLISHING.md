@@ -17,4 +17,4 @@ Public content lives **only** in `content/public-docs/{uk,en,pl}.json`, rendered
 - The Next.js proxy only permits `/{uk,en,pl}/docs*` on the docs hostname. Other public routes redirect to `www.dzvin.co`; API and OAuth callback routes return 404.
 - Public docs routes must be present in the proxy's public-route allowlist and bypass expired-session redirects.
 - Canonical URLs point to the documentation hostname after the domain is live.
-- Domain DNS and HTTPS must be verified before merging the release. No promotion without green CI and IP review.
+- Merge requires green CI and explicit IP/privacy review. The documentation subdomain must **not** be announced as live until external DNS, HTTPS and anonymous HTTP access have been verified. The main site can expose `/{locale}/docs` first.
