@@ -1,16 +1,17 @@
 import type { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 
-import { getPublicDoc, getPublicDocs, publicDocSlugs } from '@/content/public-docs'
+import { getPublicDoc, getPublicDocs } from '@/content/public-docs'
 import { Link } from '@/i18n/navigation'
 
 import { DocsNavigation } from '../DocsNavigation'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
 
-export function generateStaticParams() {
-  return publicDocSlugs.map((slug) => ({ slug }))
-}
+// Article pages render with locale-aware header/session context. Do not
+// statically prerender slug-only params: request-time headers/cookies in the
+// shared public layout trigger DYNAMIC_SERVER_USAGE on production.
+export const dynamic = 'force-dynamic'
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params
