@@ -1,0 +1,46 @@
+name: One-shot docs hostname formatting
+
+on:
+  push:
+    branches:
+      - feat/dzvin-public-docs-20261024
+
+permissions:
+  contents: write
+
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install dependencies
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Fix import order and formatting
+        run: |
+          ./node_modules/.bin/eslint --fix proxy.ts
+          ./node_modules/.bin/prettier --write \
+            proxy.ts \
+            lib/docsHostRouting.ts \
+            lib/docsHostRouting.test.ts \
+            'app/[locale]/(public)/docs/page.tsx' \
+            'app/[locale]/(public)/docs/[slug]/page.tsx' \
+            docs/PUBLIC_DOCS_PUBLISHING.md
+      - name: Remove one-shot workflow and commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git rm -- .github/workflows/docs-format-final.yml
+          git add -- proxy.ts lib/docsHostRouting.ts lib/docsHostRouting.test.ts \
+            'app/[locale]/(public)/docs/page.tsx' \
+            'app/[locale]/(public)/docs/[slug]/page.tsx' \
+            docs/PUBLIC_DOCS_PUBLISHING.md
+          git commit -m 'style(docs): format public hostname routing and remove temporary workflow'
+          git push origin HEAD:feat/dzvin-public-docs-20261024
