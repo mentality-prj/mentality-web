@@ -1,0 +1,586 @@
+import type { DeckLocale, ProductDeck } from './decks'
+
+export type FundingAudience = 'investment' | 'grant'
+
+const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
+  "uk": {
+    "investment": {
+      "title": "Dzvin.co — інвестиційна презентація",
+      "subtitle": "Pre-launch mental wellbeing × Decision Intelligence: інженерна основа, наукові гіпотези та план запуску.",
+      "slides": [
+        {
+          "title": "Інвестиційна теза",
+          "description": "Фінансування потрібне, щоб перетворити розроблений програмний прототип на перевірений продукт і дослідницький напрям.",
+          "points": [
+            "Людиноцентричний B2C · найвищий комерційний потенціал B2B · окремий R&D",
+            "QDIP/Decision Intelligence як перевірювана технологічна гіпотеза"
+          ]
+        },
+        {
+          "title": "Проблема",
+          "description": "Разові опитування та ризикові бали не створюють повного ланцюга від спостереження до безпечної дії.",
+          "points": [
+            "Роз’єднані дані й неповний контекст",
+            "Невизначеність і право користувача вибирати",
+            "Відсутність доказів користі без належного дослідження"
+          ]
+        },
+        {
+          "title": "Продукт і ринок застосування",
+          "description": "Три можливі напрямки монетизації й суспільної користі із загальною дослідницькою основою.",
+          "points": [
+            "B2C: особисті спостереження та самопідтримка",
+            "B2B: дозволені групові тенденції та підтримка рішень",
+            "R&D: когорти, гіпотези, перевірка та звітність"
+          ]
+        },
+        {
+          "title": "Чому Decision Intelligence",
+          "description": "Мета — не просто прогнозувати ризик, а досліджувати пояснюваний вибір доречної дії з контролем людини.",
+          "points": [
+            "Сигнали стану та динаміки",
+            "Невизначеність, правила та межі дозволених дій",
+            "Пояснення → вибір → зворотний зв’язок → оцінювання"
+          ]
+        },
+        {
+          "title": "Що вже розроблено",
+          "description": "Підтверджені артефакти: вебкомпоненти, NestJS backend, дослідницькі матеріали QDIP та автоматизовані тести.",
+          "points": [
+            "Наявні UI особистого, корпоративного й R&D контурів",
+            "Backend-модулі ризику та підтримки рішень",
+            "Ще не підтверджені повні production E2E та ефект у клієнтів"
+          ]
+        },
+        {
+          "title": "Чому це зараз pre-launch",
+          "description": "Немає комерційних клієнтів, завершених досліджень ефективності чи підтвердженого product-market fit.",
+          "points": [
+            "Інженерна та безпекова інтеграція залишається завданням",
+            "Дані та етичні протоколи для валідації — наступний етап",
+            "Всі claims відділено від очікуваних результатів"
+          ]
+        },
+        {
+          "title": "Маршрут до запуску",
+          "description": "П’ять доказових етапів з gate-критеріями, без вигаданих дат.",
+          "points": [
+            "1. Інтеграції та приватність → 2. Research protocol",
+            "3. Feasibility та UX → 4. Дослідження DI",
+            "5. Контрольований запуск, go/no-go і стійкість"
+          ]
+        },
+        {
+          "title": "На що інвестиції",
+          "description": "Кошти потрібні на реалізацію конкретних milestone, а не на непідтверджений масштаб.",
+          "points": [
+            "Інженерія та інтеграції; безпека",
+            "Decision Intelligence R&D та дослідницькі протоколи",
+            "Пілоти, люди, операції та інфраструктура"
+          ]
+        },
+        {
+          "title": "Бізнес-модель як гіпотеза",
+          "description": "Після валідації можна перевіряти B2B-ліцензії, партнерські дослідницькі програми та розвиток персонального продукту.",
+          "points": [
+            "Немає заявлених продажів і CAC/LTV",
+            "Ціни й масштаб перевірятимемо із ринком",
+            "Unit economics — результат майбутніх досліджень"
+          ]
+        },
+        {
+          "title": "Запит до партнера",
+          "description": "Обговорімо формат фінансування, бюджет на віхи, права та дослідницьких партнерів.",
+          "points": [
+            "Погодити обсяг наступного траншу за реальними кошторисами",
+            "Визначити milestones, звітність і go/no-go",
+            "Почати інвестиційний due diligence"
+          ]
+        }
+      ]
+    },
+    "grant": {
+      "title": "Dzvin.co — науково-грантова презентація",
+      "subtitle": "Excellence · Impact · Implementation: Decision Intelligence in Mental Health як перевірюване дослідницьке завдання.",
+      "slides": [
+        {
+          "title": "Проєкт і дослідницька мета",
+          "description": "Побудувати й перевірити пояснювану та uncertainty-aware підтримку людських рішень у digital mental wellbeing.",
+          "points": [
+            "Прикладний продукт: Dzvin.co",
+            "Окремий decision-intelligence технологічний напрям: QDIP"
+          ]
+        },
+        {
+          "title": "State of the art",
+          "description": "Динамічні моделі, JITAI й micro-randomized trials уже існують; проблема — надійна, придатна до дії інтеграція в чутливому домені.",
+          "points": [
+            "Prediction ≠ policy benefit",
+            "Етичні обмеження та неповні дані",
+            "Потрібне незалежне порівняння з baseline"
+          ]
+        },
+        {
+          "title": "Excellence: гіпотези новизни",
+          "description": "Перевіримо не окремий новий алгоритм, а композицію правил, моделі, невизначеності та пояснення.",
+          "points": [
+            "Гібридні rule/model policy",
+            "Калібрування й можливість abstention",
+            "User override, пояснення та повторне оцінювання"
+          ]
+        },
+        {
+          "title": "Методологія",
+          "description": "Поетапні synthetic benchmarks та, за умов етичного погодження, дослідження з людьми.",
+          "points": [
+            "Rule-only, ML-only та hybrid baseline",
+            "Calibration, Brier, detection delay, selective risk",
+            "Decision utility й зрозумілість користувачеві"
+          ]
+        },
+        {
+          "title": "Інженерний baseline",
+          "description": "Існують вебмодулі, backend-компоненти й формалізовані research-напрямки.",
+          "points": [
+            "Особиста підтримка, команди, Research Workspace",
+            "Прототип не дорівнює клінічній валідації",
+            "Окремі integration/security gates відкриті"
+          ]
+        },
+        {
+          "title": "Impact: кому потрібна інновація",
+          "description": "Людям, організаціям і дослідницьким програмам, якщо відповідні гіпотези підтвердяться.",
+          "points": [
+            "Особиста автономія й зручні дії",
+            "Дозволені командні тенденції",
+            "Порівнювані дослідницькі протоколи"
+          ]
+        },
+        {
+          "title": "Implementation: робочі пакети",
+          "description": "Робочі пакети прив’язані до deliverables та acceptance criteria.",
+          "points": [
+            "WP1 Secure product integration",
+            "WP2 DI formalization and testing",
+            "WP3 Feasibility, evidence, reporting and launch"
+          ]
+        },
+        {
+          "title": "Ризики та етика",
+          "description": "Нестача даних, false positives, bias, приватність, шкода від хибних рекомендацій.",
+          "points": [
+            "Informed consent і role-scoped доступ",
+            "Право утриматися від рішення",
+            "Go/no-go та публікація негативних результатів"
+          ]
+        },
+        {
+          "title": "Фінансова логіка",
+          "description": "Сума й тривалість визначаються на основі команди, бюджету та правил конкретного конкурсу.",
+          "points": [
+            "Інженерія · R&D · ethics/security · інфраструктура",
+            "Витрати прив’язані до конкретних результатів",
+            "Не заявляємо чужі гранти або підписані партнерства"
+          ]
+        },
+        {
+          "title": "Запрошення до співпраці",
+          "description": "Шукаємо фінансування та наукових партнерів для незалежної перевірки інновації.",
+          "points": [
+            "Узгодити конкурс і eligibility",
+            "Підготувати консорціум, work packages, бюджет",
+            "Запустити відповідну due-diligence розмову"
+          ]
+        }
+      ]
+    }
+  },
+  "en": {
+    "investment": {
+      "title": "Dzvin.co — investor deck",
+      "subtitle": "Pre-launch mental wellbeing × Decision Intelligence: software groundwork, testable science and a launch plan.",
+      "slides": [
+        {
+          "title": "Investment thesis",
+          "description": "Support a prototype's transition into a qualified product and a verifiable research program.",
+          "points": [
+            "People-first B2C; B2B economic opportunity; distinct R&D",
+            "Decision Intelligence powered research questions"
+          ]
+        },
+        {
+          "title": "The problem",
+          "description": "Surveys and scores alone do not determine safe next actions.",
+          "points": [
+            "Fragmented observations",
+            "Uncertainty and human choice",
+            "Effects require independent validation"
+          ]
+        },
+        {
+          "title": "Product opportunity",
+          "description": "Three user experiences with distinct sustainability hypotheses.",
+          "points": [
+            "Personal: observation and self-support",
+            "Organizations: authorized team views and action workflow",
+            "Research: cohorts and structured evidence"
+          ]
+        },
+        {
+          "title": "Why Decision Intelligence",
+          "description": "Study not only what might happen, but which next step is explainable and appropriate.",
+          "points": [
+            "Trends and context",
+            "Policy constraints and uncertainty",
+            "Explanation → human choice → feedback"
+          ]
+        },
+        {
+          "title": "Engineering evidence",
+          "description": "Code for product interfaces, NestJS decision support and QDIP research material exists.",
+          "points": [
+            "Personal, organizational and research surfaces",
+            "Automated code tests",
+            "Full release E2E and outcomes not yet demonstrated"
+          ]
+        },
+        {
+          "title": "Pre-launch reality",
+          "description": "There are no commercial customers, completed effectiveness studies or established product-market fit.",
+          "points": [
+            "Security and integration gates remain",
+            "Research partners and protocols are needed",
+            "Claims separated from hypotheses"
+          ]
+        },
+        {
+          "title": "Path to launch",
+          "description": "Five evidence-gated milestones rather than invented delivery dates.",
+          "points": [
+            "Integration → protocol → feasibility",
+            "DI evaluation → controlled launch",
+            "Reproducible acceptance criteria"
+          ]
+        },
+        {
+          "title": "Use of funds",
+          "description": "Finance engineering, research, safety and evidence generation.",
+          "points": [
+            "Integration and security",
+            "Decision Intelligence R&D",
+            "Pilots, people and infrastructure"
+          ]
+        },
+        {
+          "title": "Business hypotheses",
+          "description": "Future B2B contracts, funded research and personal product growth are possibilities to evaluate.",
+          "points": [
+            "No asserted revenue or traction",
+            "Pricing needs market validation",
+            "Unit economics remain unknown"
+          ]
+        },
+        {
+          "title": "Partner invitation",
+          "description": "Discuss milestones, budget, governance and the suitable financing instrument.",
+          "points": [
+            "Agree a costed tranche",
+            "Define reporting and go/no-go",
+            "Begin investor diligence"
+          ]
+        }
+      ]
+    },
+    "grant": {
+      "title": "Dzvin.co — research funding deck",
+      "subtitle": "Excellence · Impact · Implementation: a falsifiable DI in mental health research program.",
+      "slides": [
+        {
+          "title": "Project objective",
+          "description": "Develop and evaluate uncertainty-aware, explainable decision support for digital mental wellbeing.",
+          "points": [
+            "Dzvin.co applied domain",
+            "QDIP decision-intelligence research track"
+          ]
+        },
+        {
+          "title": "State of the art",
+          "description": "JITAI, adaptive models and micro-randomized trials already exist; reliable decision policies still require careful evaluation.",
+          "points": [
+            "Prediction is not benefit",
+            "Sensitive data and incomplete observation",
+            "Compare to simple baselines"
+          ]
+        },
+        {
+          "title": "Excellence: hypotheses",
+          "description": "Test the integration of rules, model signals, uncertainty and transparent action selection.",
+          "points": [
+            "Hybrid policies",
+            "Calibration and abstention",
+            "Explanation and user control"
+          ]
+        },
+        {
+          "title": "Methods",
+          "description": "Start with reproducible synthetic comparisons; use participant studies only under appropriate approvals.",
+          "points": [
+            "Rule-only, ML-only, hybrid baselines",
+            "Calibration, Brier, selective risk",
+            "Decision utility and comprehension"
+          ]
+        },
+        {
+          "title": "Existing groundwork",
+          "description": "Personal, team and Research Workspace code plus research specifications exist.",
+          "points": [
+            "Software prototype, not clinical proof",
+            "Security/integration still gated",
+            "No independent field effectiveness result"
+          ]
+        },
+        {
+          "title": "Impact",
+          "description": "Potential relevance to individuals, authorized team-support workflows and reproducible research.",
+          "points": [
+            "Personal agency",
+            "Appropriate group context",
+            "Traceable study programs"
+          ]
+        },
+        {
+          "title": "Implementation work packages",
+          "description": "Link each funded package to testable deliverables.",
+          "points": [
+            "WP1 Secure integration",
+            "WP2 DI methods and benchmarks",
+            "WP3 Feasibility, evidence and launch"
+          ]
+        },
+        {
+          "title": "Ethics and risks",
+          "description": "Incomplete observations, bias, privacy, harmful overconfidence and misuse.",
+          "points": [
+            "Consent and data minimization",
+            "Abstention and human approval",
+            "Go/no-go with negative results"
+          ]
+        },
+        {
+          "title": "Funding framework",
+          "description": "Budget and duration depend on actual costs and the target call's rules.",
+          "points": [
+            "Engineering, R&D, ethics, hosting",
+            "Milestone-based budgeting",
+            "No invented grant commitments"
+          ]
+        },
+        {
+          "title": "Collaboration request",
+          "description": "Seek qualified research/funding partners for an independently assessed study.",
+          "points": [
+            "Identify suitable call and eligibility",
+            "Design consortium and protocol",
+            "Agree budget and evidence plan"
+          ]
+        }
+      ]
+    }
+  },
+  "pl": {
+    "investment": {
+      "title": "Dzvin.co — prezentacja inwestorska",
+      "subtitle": "Prototyp mental wellbeing × Decision Intelligence: podstawa techniczna, hipotezy naukowe i plan uruchomienia.",
+      "slides": [
+        {
+          "title": "Teza inwestycyjna",
+          "description": "Finansowanie umożliwia przejście od prototypu do zweryfikowanego produktu i badań.",
+          "points": [
+            "B2C dla osób, potencjał B2B, odrębny R&D",
+            "Decision Intelligence jako hipoteza do sprawdzenia"
+          ]
+        },
+        {
+          "title": "Problem",
+          "description": "Same ankiety i wyniki ryzyka nie określają bezpiecznych kolejnych działań.",
+          "points": [
+            "Rozproszone dane",
+            "Niepewność i wybór człowieka",
+            "Brak dowodu efektu bez badań"
+          ]
+        },
+        {
+          "title": "Proponowany produkt",
+          "description": "Trzy obszary z odrębnymi modelami dalszego rozwoju.",
+          "points": [
+            "Osoby: obserwacja i wsparcie",
+            "Firmy: dozwolona analityka grup",
+            "Nauka: kohorty i badania"
+          ]
+        },
+        {
+          "title": "Dlaczego DI",
+          "description": "Nie tylko przewidywanie, lecz wyjaśnione działanie w granicach danych.",
+          "points": [
+            "Trendy i kontekst",
+            "Zasady i niepewność",
+            "Wyjaśnienie → wybór → feedback"
+          ]
+        },
+        {
+          "title": "Co zbudowano",
+          "description": "Istnieje kod aplikacji, moduły backendowe i materiały QDIP.",
+          "points": [
+            "Moduły B2C, B2B i R&D",
+            "Automatyczne testy",
+            "Brak pełnego E2E i wyników klientów"
+          ]
+        },
+        {
+          "title": "Rzeczywisty etap",
+          "description": "Brak klientów komercyjnych i potwierdzonej efektywności.",
+          "points": [
+            "Niedokończone integracje i bezpieczeństwo",
+            "Potrzebne protokoły i partnerzy",
+            "Brak uzasadnienia, by deklarować gotowy biznes"
+          ]
+        },
+        {
+          "title": "Droga do uruchomienia",
+          "description": "Pięć etapów weryfikowanych dowodami.",
+          "points": [
+            "Integracja → protokół → feasibility",
+            "Ocena DI → kontrolowane uruchomienie",
+            "Kryteria go/no-go"
+          ]
+        },
+        {
+          "title": "Na co środki",
+          "description": "Finansowanie rozwoju, badań i bezpieczeństwa.",
+          "points": [
+            "Integracja i ochrona danych",
+            "Decision Intelligence R&D",
+            "Pilotaże i infrastruktura"
+          ]
+        },
+        {
+          "title": "Przyszły model biznesowy",
+          "description": "B2B, badania i produkt osobisty wymagają weryfikacji rynkowej.",
+          "points": [
+            "Bez deklarowanej sprzedaży",
+            "Ceny dopiero do ustalenia",
+            "Brak potwierdzonych unit economics"
+          ]
+        },
+        {
+          "title": "Zaproszenie inwestorskie",
+          "description": "Ustalmy budżet, etapy, odpowiedzialność i rodzaj finansowania.",
+          "points": [
+            "Kosztorys transzy",
+            "Warunki raportowania",
+            "Rozmowa due diligence"
+          ]
+        }
+      ]
+    },
+    "grant": {
+      "title": "Dzvin.co — prezentacja grantowa",
+      "subtitle": "Excellence · Impact · Implementation: Decision Intelligence w zdrowiu psychicznym.",
+      "slides": [
+        {
+          "title": "Cel projektu",
+          "description": "Budowa i ocena wyjaśnialnego wsparcia decyzji w digital mental wellbeing.",
+          "points": [
+            "Dzvin.co jako produkt",
+            "QDIP jako kierunek technologiczny"
+          ]
+        },
+        {
+          "title": "Stan wiedzy",
+          "description": "JITAI, adaptacja i mikro-randomizowane badania już istnieją; korzyść z polityki decyzji trzeba wykazać.",
+          "points": [
+            "Prognoza ≠ korzyść",
+            "Braki w danych",
+            "Potrzeba baseline i walidacji"
+          ]
+        },
+        {
+          "title": "Excellence: hipotezy",
+          "description": "Połączenie reguł, modeli, niepewności i wyboru działania.",
+          "points": [
+            "Polityki hybrydowe",
+            "Kalibracja i abstention",
+            "Zrozumiałe wyjaśnienia"
+          ]
+        },
+        {
+          "title": "Metodyka",
+          "description": "Testy syntetyczne, a następnie badania z ludźmi po odpowiednich zgodach.",
+          "points": [
+            "Rule-only / ML-only / hybrid",
+            "Brier, kalibracja, selective risk",
+            "Decision utility i zrozumiałość"
+          ]
+        },
+        {
+          "title": "Podstawa inżynierska",
+          "description": "Istnieją moduły produktu i dokumentacja naukowa.",
+          "points": [
+            "Prototyp, nie dowód kliniczny",
+            "Otwarte warunki bezpieczeństwa",
+            "Brak wyników terenowych"
+          ]
+        },
+        {
+          "title": "Impact",
+          "description": "Potencjalna wartość dla osób, zespołów i nauki.",
+          "points": [
+            "Autonomia użytkownika",
+            "Uprawnione dane zespołów",
+            "Powtarzalne badania"
+          ]
+        },
+        {
+          "title": "Implementation",
+          "description": "Pakiety prac z kryteriami odbioru.",
+          "points": [
+            "WP1 Integracja i bezpieczeństwo",
+            "WP2 DI i benchmarki",
+            "WP3 Feasibility i raportowanie"
+          ]
+        },
+        {
+          "title": "Ryzyka i etyka",
+          "description": "Błędy, bias, prywatność, brak danych, szkodliwe rekomendacje.",
+          "points": [
+            "Zgoda i minimalizacja",
+            "Abstention i kontrola człowieka",
+            "Go/no-go i wyniki negatywne"
+          ]
+        },
+        {
+          "title": "Finansowanie",
+          "description": "Wartość i czas projektu wynikają z kosztorysu oraz zasad konkursu.",
+          "points": [
+            "Rozwój, R&D, etyka, hosting",
+            "Budżet według rezultatów",
+            "Brak wymyślonych umów"
+          ]
+        },
+        {
+          "title": "Partnerstwo",
+          "description": "Poszukujemy finansowania i niezależnych partnerów badawczych.",
+          "points": [
+            "Wybór programu",
+            "Konsorcjum i protokół",
+            "Wspólny plan finansowania"
+          ]
+        }
+      ]
+    }
+  }
+}
+
+export function getFundingDeck(locale: DeckLocale, audience: FundingAudience): ProductDeck {
+  return fundingDecks[locale][audience]
+}
