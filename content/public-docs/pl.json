@@ -25,35 +25,35 @@
           ]
         },
         {
-          "title": "Rezultaty etapu inwestycyjnego",
+          "title": "Program tworzenia wartości",
           "paragraphs": [
             "Program obejmuje WP1 — integrację i ochronę danych; WP2 — metody badawcze Decision Intelligence; WP3 — badania użyteczności; WP4 — niezależną ocenę i gotowość do uruchomienia.",
             "Finansowanie będzie powiązane z weryfikowalnymi rezultatami pakietów prac: od kwalifikacji produktu po niezależną ocenę i przygotowanie uruchomienia."
           ]
         },
         {
-          "title": "Co już można sprawdzić",
+          "title": "Istniejąca podstawa technologiczna",
           "paragraphs": [
             "Istnieją publiczne komponenty Web B2C/B2B/R&D, zadania roadmapy i bezpieczeństwa oraz publiczna dokumentacja QDIP.",
             "Rejestr dowodów rozróżnia wykonany kod, pełną kwalifikację systemu i przyszłe wyniki empiryczne."
           ]
         },
         {
-          "title": "Hipoteza naukowa",
+          "title": "Kluczowe pytanie badawcze",
           "paragraphs": [
             "Czy przejrzysta polityka decyzji, łącząca sygnały w czasie, niepewność i możliwość powstrzymania się od rekomendacji, ma przewagę nad statycznymi poradami?",
             "Projekt badawczy obejmuje porównania z modelami bazowymi, wcześniej określone wskaźniki, kalibrację, bezpieczeństwo i nadzór człowieka."
           ]
         },
         {
-          "title": "Dlaczego teraz",
+          "title": "Uzasadnienie etapu",
           "paragraphs": [
             "Prace techniczne pozwalają zaplanować sprawdzalne badania i kwalifikację wdrożenia, ale ważne ryzyka integracyjne i naukowe pozostają.",
             "Etap inwestycyjny ma doprowadzić od istniejącego oprogramowania do zweryfikowanego systemu z powtarzalnymi dowodami technicznymi i naukowymi."
           ]
         },
         {
-          "title": "Kolejna rozmowa",
+          "title": "Model partnerstwa",
           "paragraphs": [
             "Partnerstwo inwestycyjne obejmuje analizę technologii, etapy i warunki współpracy. Finansowanie badań obejmuje metodykę, wyniki, wpływ i nadzór.",
             "Do formalnego wniosku potrzebne są potwierdzone kompetencje zespołu, podmiot prawny, terminy, koszty, IP i wybrany instrument finansowania."
@@ -68,42 +68,42 @@
       "summary": "Problem, potencjał, obecny etap i cel dalszego rozwoju",
       "sections": [
         {
-          "title": "Projekt",
+          "title": "Strategia produktu",
           "paragraphs": [
             "Dzvin.co łączy trzy doświadczenia: prywatne narzędzia osobiste, dozwoloną analitykę grupową i kontrolowany obszar badań.",
             "Kierunek naukowy to Decision Intelligence: przejście od sygnału ryzyka do wyjaśnionych działań z niepewnością, kontrolą człowieka i późniejszą weryfikacją."
           ]
         },
         {
-          "title": "Dlaczego to ważne",
+          "title": "Niezaspokojona potrzeba",
           "paragraphs": [
             "Pojedyncze ankiety i osobne dzienniki nie tworzą ciągłego obrazu i procesu działania. Samo przewidywanie ryzyka nie rozstrzyga, jakie działanie jest stosowne.",
             "W mental-health AI szczególnie ważne są prywatność, błędy, niepewność, zgoda i wpływ na człowieka."
           ]
         },
         {
-          "title": "Potencjalni odbiorcy",
+          "title": "Segmenty docelowe",
           "paragraphs": [
             "Osoby prywatne zyskują historię obserwacji; organizacje — dozwolony kontekst grupowy; naukowcy — ustrukturyzowany proces badań.",
             "Zastosowania badawcze obejmują kohorty, obserwacje podłużne i kontrolowaną ocenę hipotez. Segmenty mają odrębne kryteria walidacji."
           ]
         },
         {
-          "title": "Dowody rozwoju",
+          "title": "Aktywa technologiczne",
           "paragraphs": [
             "Repozytoria zawierają interfejsy produktów, komponenty backendowe, testy i dokumentację metod badawczych.",
             "Istniejący kod stanowi podstawę kwalifikacji technicznej; zewnętrzne wyniki pilotaży i badań należą do kolejnego etapu."
           ]
         },
         {
-          "title": "Kolejny etap budowania wartości",
+          "title": "Rezultaty kolejnej fazy",
           "paragraphs": [
             "Dokończenie integracji i bezpieczeństwa, formalizacja badań, pilotaże ze zgodą uczestników, ocena użyteczności i przygotowanie kontrolowanego uruchomienia.",
             "Finansowanie etapowe można powiązać z odbiorem pakietów prac i udokumentowanymi kryteriami postępu."
           ]
         },
         {
-          "title": "Dalsza trwałość",
+          "title": "Długoterminowy model biznesowy",
           "paragraphs": [
             "Hipotezy biznesowe obejmują przyszłe umowy B2B, współpracę badawczą i osobny rozwój doświadczenia indywidualnego.",
             "Model biznesowy będzie oparty na badaniu popytu, cen, kosztów wdrożenia i potencjału skalowania."
@@ -118,49 +118,49 @@
       "summary": "QDIP, wyjaśnialność, niepewność i hipotezy badawcze",
       "sections": [
         {
-          "title": "Od predykcji do decyzji",
+          "title": "Od predykcji do świadomego działania",
           "paragraphs": [
             "Model ryzyka odpowiada na pytanie, co może się wydarzyć. Decision Intelligence dodaje wybór odpowiedniego działania przy określonych założeniach i ograniczeniach.",
             "Nadzór człowieka i granice zastosowania stanowią integralną część metodyki, zwłaszcza przy niepełnych lub niepewnych danych."
           ]
         },
         {
-          "title": "Rola QDIP",
+          "title": "QDIP jako kierunek technologiczny",
           "paragraphs": [
             "QDIP to odrębny kierunek technologiczny łączący reguły i sygnały modelowe, polityki, wyjaśnienia, audyt i monitoring.",
             "Dzvin.co jest obszarem zastosowania zasad QDIP. Ocena integracji i przewagi naukowej należy do planowanych badań."
           ]
         },
         {
-          "title": "Hipoteza 1: czas i zmiana",
+          "title": "Hipoteza 1 · Dynamika w czasie",
           "paragraphs": [
             "Serie obserwacji i adaptacyjne punkty odniesienia mogą być przydatniejsze niż pojedynczy wynik.",
             "Badania: opóźnienie wykrycia, fałszywe alarmy, braki danych, proste modele odniesienia."
           ]
         },
         {
-          "title": "Hipoteza 2: niepewność",
+          "title": "Hipoteza 2 · Niepewność",
           "paragraphs": [
             "Model powinien informować o niewystarczających danych i móc powstrzymać się od ryzykownej rekomendacji.",
             "Badania: kalibracja, selective risk, brakujące dane i częstotliwość abstention."
           ]
         },
         {
-          "title": "Hipoteza 3: wyjaśnialne działanie",
+          "title": "Hipoteza 3 · Wyjaśnialne decyzje",
           "paragraphs": [
             "Obserwacje → możliwe działania → ograniczenia → wyjaśnienie → wybór użytkownika → informacja zwrotna.",
             "Badania: reguły vs modele vs hybryda, możliwość audytu, zrozumiałość i decyzja użytkownika."
           ]
         },
         {
-          "title": "Hipoteza 4: efekt działania",
+          "title": "Hipoteza 4 · Przydatność działania",
           "paragraphs": [
             "Sprawdzenie, czy kontrolowane przez użytkownika działanie poprawia uzgodnione wyniki bliższe niż statyczne rekomendacje.",
             "Najpierw feasibility, potem odpowiednio przygotowane badania, także mikro-randomizowane przy spełnieniu wymogów etycznych."
           ]
         },
         {
-          "title": "Granice oryginalności",
+          "title": "Pozycjonowanie naukowe i nowość",
           "paragraphs": [
             "Interwencje adaptacyjne, podejścia bayesowskie i badania mikro-randomizowane mają istniejącą podstawę naukową. Potencjalną nowością jest ich zastosowanie wraz z politykami decyzji, wyjaśnialnością i kontrolą człowieka.",
             "Potencjalna nowość to weryfikowalne połączenie zasad decyzji, niepewności, wyjaśnień i kontroli w mental wellbeing. Nowość wymaga przeglądu stanu wiedzy i wyników badań."
@@ -175,42 +175,42 @@
       "summary": "Istniejące komponenty a otwarte warunki uruchomienia",
       "sections": [
         {
-          "title": "Stan na 25 października 2026",
+          "title": "Status techniczny · 25 października 2026 r.",
           "paragraphs": [
             "Na 25 października 2026 Dzvin.co to prototyp oprogramowania z komponentami indywidualnymi, organizacyjnymi i badawczymi. Integracja produkcyjna i zewnętrzna ocena należą do kolejnego etapu.",
             "Gotowość określają pełne scenariusze, uprawnienia, bezpieczeństwo i niezawodność operacyjna."
           ]
         },
         {
-          "title": "B2C",
+          "title": "Moduł indywidualny",
           "paragraphs": [
             "Kod zawiera samoocenę, dziennik, ćwiczenia, cele, historię i statystyki; roadmapa przewiduje spójny cykl wsparcia.",
             "Do sprawdzenia: autoryzacja, prywatność i rzeczywisty scenariusz E2E."
           ]
         },
         {
-          "title": "B2B",
+          "title": "Moduł organizacyjny",
           "paragraphs": [
             "Dostępne są moduły zarządzania organizacją, grup, ról, analityki i decision support.",
             "Izolacja firm, uprawnienia, migracje backendowe i prawdziwe E2E pozostają warunkami uruchomienia."
           ]
         },
         {
-          "title": "R&D",
+          "title": "Infrastruktura badawcza",
           "paragraphs": [
             "Istnieją moduły projektów, członków, kohort, inspekcji, eksportu i audytu.",
             "Potrzebne są protokoły, partnerzy, dane i weryfikacja pracy z uprawnieniami."
           ]
         },
         {
-          "title": "QDIP i decyzje",
+          "title": "Integracja Decision Intelligence",
           "paragraphs": [
             "Istnieją materiały o ryzyku adaptacyjnym, politykach, wyjaśnieniach i metodyce; kod backendowy zawiera moduły wsparcia decyzji.",
-            "Przewaga naukowa i pełna integracja produkcyjna nie zostały potwierdzone."
+            "Istniejąca podstawa QDIP i materiały badawcze definiują punkt wyjścia do oceny zintegrowanych polityk decyzji w Dzvin.co."
           ]
         },
         {
-          "title": "Kryterium zakończenia",
+          "title": "Kryteria gotowości",
           "paragraphs": [
             "Gotowość wymaga testów dostępu, bezpieczeństwa, API, E2E i audytu w środowisku docelowym.",
             "Zakończenie prac potwierdzają kryteria akceptacji, środowisko testowe i powtarzalne wyniki."
@@ -225,42 +225,42 @@
       "summary": "Co potwierdza kod, a co nadal wymaga testów, pilotażu lub niezależnego badania",
       "sections": [
         {
-          "title": "Jak czytać status",
+          "title": "Poziomy dowodów",
           "paragraphs": [
             "Rejestr oddziela dokumentację projektową, istniejący kod, testy komponentów, integrację i wyniki badań empirycznych.",
             "Poniższa macierz zawiera publiczne źródła i statusy, nie oznacza aktywacji każdej funkcji w produkcji."
           ]
         },
         {
-          "title": "B2C dla osób",
+          "title": "Moduł indywidualny",
           "paragraphs": [
             "Kod zawiera moduły samooceny, historii, praktyk i dalszych działań.",
-            "Status: istnieją komponenty; pełny E2E z autoryzacją i backendem nadal wymaga kwalifikacji."
+            "Status: częściowa realizacja oprogramowania; uruchomienie organizacyjne zależy od dalszych testów uprawnień, izolacji i integracji."
           ]
         },
         {
-          "title": "B2B dla organizacji",
+          "title": "Moduł organizacyjny",
           "paragraphs": [
             "Kod zawiera zespoły, role, analitykę i wspomaganie decyzji, ale izolacja firm i uprawnienia pozostają bramkami wydania.",
             "Status: częściowo wdrożone, nie potwierdzono klientów ani wpływu."
           ]
         },
         {
-          "title": "R&D",
+          "title": "Moduł badawczy",
           "paragraphs": [
             "Research Workspace zawiera projekty, kohorty, dane, inspekcję, eksporty i audyt.",
             "Status: baza techniczna i metodologiczna, bez niezależnego badania skuteczności."
           ]
         },
         {
-          "title": "QDIP i Decision Intelligence",
+          "title": "QDIP / Decision Intelligence",
           "paragraphs": [
             "Publiczna dokumentacja QDIP opisuje połączenie reguł, modeli, polityk, wyjaśnień i oceny ryzyka.",
             "Status: fundamenty i hipotezy; przewaga naukowa w Dzvin wymaga badań."
           ]
         },
         {
-          "title": "Aktualizacja dowodów",
+          "title": "Zarządzanie statusem",
           "paragraphs": [
             "Do statusu validated wymagane są data, commit, środowisko, protokół testu i akceptacja.",
             "Status dojrzałości zmienia się po sprawdzeniu środowiska i spełnieniu kryteriów akceptacji."
@@ -275,42 +275,42 @@
       "summary": "Etapy, rezultaty i warunki zakończenia",
       "sections": [
         {
-          "title": "Etap 1 — integracje",
+          "title": "Etap 1 · Integracja",
           "paragraphs": [
             "Zakończyć integracje Web, NestJS i QDIP, ochronę danych, uwierzytelnianie i możliwość rollbacku.",
             "Kryterium: testy integracyjne, bezpieczeństwa i kwalifikacja QA."
           ]
         },
         {
-          "title": "Etap 2 — metodyka naukowa",
+          "title": "Etap 2 · Metodyka badań",
           "paragraphs": [
             "Zdefiniować hipotezy, baseline, zasady rezygnacji z rekomendacji, wskaźniki, dane i zgodę.",
             "Kryterium: protokół i odtwarzalne testy na danych syntetycznych."
           ]
         },
         {
-          "title": "Etap 3 — feasibility",
+          "title": "Etap 3 · Badanie wykonalności",
           "paragraphs": [
             "Odpowiedzialnie pozyskać uczestników i sprawdzić UX, wykonalność procesu i jakość danych.",
             "Kryterium: raport z obserwacji; wymagane zgody etyczne przed badaniami."
           ]
         },
         {
-          "title": "Etap 4 — ocena DI",
+          "title": "Etap 4 · Ocena Decision Intelligence",
           "paragraphs": [
             "Porównać reguły, modele i podejście hybrydowe; sprawdzić kalibrację, szkodę i przydatność decyzji.",
             "Kryterium: raport z metodą, niepewnością i negatywnymi wynikami."
           ]
         },
         {
-          "title": "Etap 5 — uruchomienie",
+          "title": "Etap 5 · Kontrolowane uruchomienie",
           "paragraphs": [
             "Przygotować monitoring, wsparcie, ochronę danych i plan operacyjny.",
             "Kryterium: E2E, formalna decyzja go/no-go i model dalszego działania."
           ]
         },
         {
-          "title": "Charakter roadmapy",
+          "title": "Zasady planowania",
           "paragraphs": [
             "Roadmapa określa zależne etapy. Kalendarz, skład zespołu i zasoby stanowią część zatwierdzonego planu realizacji.",
             "Etap jest ukończony dopiero po osiągnięciu kryteriów."
@@ -325,42 +325,42 @@
       "summary": "Powiązanie finansowania z rezultatami, ryzykiem i kryteriami zakończenia",
       "sections": [
         {
-          "title": "WP1 — integracja i bezpieczeństwo",
+          "title": "WP1 · Integracja i ochrona danych",
           "paragraphs": [
             "Weryfikacja Web ↔ NestJS ↔ QDIP, logowania, izolacji organizacji, uprawnień, E2E i rollbacku.",
             "Warunek: powtarzalne testy, negatywne scenariusze bezpieczeństwa i zatwierdzenie go/no-go."
           ]
         },
         {
-          "title": "WP2 — metodologia DI",
+          "title": "WP2 · Badania Decision Intelligence",
           "paragraphs": [
             "Definicja polityki decyzji, baseline, kalibracji, niepewności, testów brakujących danych i porównań hybrydowych.",
             "Warunek: protokół, odtwarzalne benchmarki syntetyczne, analiza błędów i wyników negatywnych."
           ]
         },
         {
-          "title": "WP3 — feasibility i etyka",
+          "title": "WP3 · Walidacja użytkowników",
           "paragraphs": [
-            "Przygotowanie zgody, minimalizacji danych, grupy badawczej i bezpiecznego badania z uczestnikami. Nie deklarujemy podpisanych partnerów.",
+            "Pakiet prac obejmuje protokół, zgodę, kryteria włączenia uczestników i minimalizację danych. Rozwój partnerstw badawczych stanowi element programu.",
             "Warunek: właściwe zgody, dane odpowiedniej jakości, raport UX i ograniczeń."
           ]
         },
         {
-          "title": "WP4 — ocena i uruchomienie",
+          "title": "WP4 · Ocena i uruchomienie",
           "paragraphs": [
             "Ocena użyteczności decyzji, kontroli człowieka, przygotowanie niezależnego przeglądu i operacji.",
             "Warunek: raport dowodów, go/no-go, plan utrzymania i ryzyk."
           ]
         },
         {
-          "title": "Zależności",
+          "title": "Zależności i etapy",
           "paragraphs": [
             "WP1 to warunek wydania; WP2 może działać na danych syntetycznych. WP3 zależy od bezpieczeństwa i etyki, WP4 od jakości danych.",
             "Niespełnienie warunku wymaga aktualizacji planu i budżetu."
           ]
         },
         {
-          "title": "Budżet i zarządzanie",
+          "title": "Zarządzanie i raportowanie",
           "paragraphs": [
             "Koszty: inżynieria, ML/Decision Science, bezpieczeństwo i etyka, UX/pilotaże, infrastruktura, operacje.",
             "Model kosztów pakietów prac określi czas trwania, nakład pracy, koszty, osoby odpowiedzialne i rezultaty. Warunki inwestycji będą przedmiotem osobnej propozycji."
@@ -375,42 +375,42 @@
       "summary": "Dowody techniczne, ocena użytkowników i badania decyzji",
       "sections": [
         {
-          "title": "Inżynieria",
+          "title": "Weryfikacja techniczna",
           "paragraphs": [
             "Sprawdzić uwierzytelnianie, granice firm, API, odporność i rollback.",
             "Dowody: CI, E2E, testy negatywne bezpieczeństwa i dzienniki."
           ]
         },
         {
-          "title": "Dane i etyka",
+          "title": "Etyka i zarządzanie danymi",
           "paragraphs": [
             "Zaczynamy od danych syntetycznych; rzeczywiste badania wymagają zgody i ograniczenia danych.",
             "Kontrola prywatności, błędów i uprzedzeń; agregacja nie gwarantuje anonimowości."
           ]
         },
         {
-          "title": "Porównania naukowe",
+          "title": "Badania porównawcze",
           "paragraphs": [
             "Zestawić statyczne reguły z hybrydowymi politykami i niepewnością.",
             "Przydatne metryki: Brier, kalibracja, brakujące dane, alerty, selective risk i decision utility."
           ]
         },
         {
-          "title": "Użyteczność",
+          "title": "Walidacja użytkowników",
           "paragraphs": [
             "Ocena łatwości codziennych działań, zrozumiałości wyjaśnień i kontroli użytkownika.",
             "Badania produktu stworzą podstawy do oceny wartości dla użytkowników, jakości procesów i możliwości dalszego rozwoju."
           ]
         },
         {
-          "title": "Jakość badań",
+          "title": "Powtarzalność badań",
           "paragraphs": [
             "Utrwalać protokół, replikację, błędy, wyniki negatywne i przegląd niezależny.",
             "TRIPOD+AI to standard raportowania dla odpowiednich zadań, a nie zastępstwo zgody etycznej."
           ]
         },
         {
-          "title": "Go/no-go",
+          "title": "Kryteria rozwoju programu",
           "paragraphs": [
             "Dalszy rozwój przy odpowiednim bezpieczeństwie, jakości danych i wynikach według ustalonych kryteriów.",
             "Wyniki poza ustalonymi kryteriami prowadzą do udokumentowanego przeglądu hipotezy, modelu lub zakresu programu."
@@ -425,7 +425,7 @@
       "summary": "Od rozwijanego prototypu do produktu przygotowanego do uruchomienia: technologia, etapy i możliwe kierunki wzrostu",
       "sections": [
         {
-          "title": "Technologia i potencjał zastosowania",
+          "title": "Potencjał technologiczny",
           "paragraphs": [
             "Dzvin.co łączy osobiste wsparcie dobrostanu, planowaną analitykę zespołów i przestrzeń badawczą. Kierunek QDIP / Decision Intelligence zakłada badanie wyjaśnialnego wyboru działań z uwzględnieniem kontekstu, niepewności i kontroli człowieka.",
             "Podstawą projektu są istniejące komponenty inżynierskie i możliwość przekształcenia ich w zweryfikowany produkt dla kilku zastosowań. Przewaga technologiczna wymaga jeszcze badań."
@@ -446,21 +446,21 @@
           ]
         },
         {
-          "title": "Program i kamienie milowe",
+          "title": "Program realizacji",
           "paragraphs": [
             "WP1: integracja i bezpieczeństwo. WP2: porównawcza ocena metod QDIP / DI i protokoły. WP3: badania użyteczności pod odpowiednim nadzorem etycznym. WP4: niezależna ocena i przygotowanie uruchomienia.",
             "Każdy pakiet ma warunki odbioru oraz decyzję go/no-go. Zależności i dowody są opisane w planie wykonania i rejestrze dowodów."
           ]
         },
         {
-          "title": "Model długoterminowego rozwoju",
+          "title": "Model długoterminowy",
           "paragraphs": [
             "Po walidacji technologii i popytu projekt może zweryfikować modele licencjonowania B2B, współpracy badawczej i osobistego serwisu.",
             "Strategia komercyjna będzie wynikała z przyszłych badań potrzeb klientów, gotowości do płacenia, kosztów wdrożenia i jakości produktu."
           ]
         },
         {
-          "title": "Formy współpracy",
+          "title": "Partnerstwa inwestycyjne i badawcze",
           "paragraphs": [
             "Dla inwestorów prywatnych: finansowanie kolejnego etapu rozwoju z mierzalnymi rezultatami i raportowaniem ryzyka. Dla fundacji: pakiety badawcze, metody oceny, potencjalny wpływ i przejrzyste deliverables.",
             "Wysokość kapitału, szczegółowy budżet, harmonogram i warunki ustala się w indywidualnej propozycji. Dostępne są prezentacje, roadmapa i rejestr dowodów."
