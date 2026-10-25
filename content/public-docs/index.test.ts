@@ -1,31 +1,36 @@
 import { getPublicDoc, getPublicDocs, publicDocSlugs } from './index'
 
-describe('public documentation', () => {
-  it('has the same fourteen valid slugs in all three locales', () => {
-    expect(new Set(publicDocSlugs).size).toBe(14)
+const fundingSlugs = [
+  'investment-thesis',
+  'scientific-novelty',
+  'development-progress',
+  'funding-roadmap',
+  'validation-plan',
+  'funding-request',
+]
+
+describe('public investor documentation', () => {
+  it('provides a consistent 20-chapter dossier across all languages', () => {
+    expect(new Set(publicDocSlugs).size).toBe(20)
     for (const locale of ['uk', 'en', 'pl']) {
       const docs = getPublicDocs(locale)
       expect(docs).not.toHaveProperty('notice')
-      expect(docs.articles.map((doc) => doc.slug)).toEqual(publicDocSlugs)
-      expect(docs.articles.slice(0, 8).map((doc) => doc.slug)).toEqual([
-        'product-story',
-        'solutions',
-        'capability-map',
-        'demo-scenarios',
-        'economics',
-        'comparison',
-        'presentation-kit',
-        'po-guide',
-      ])
-      expect(docs.articles.slice(0, 8).every((doc) => doc.sections.length >= 3)).toBe(true)
-      expect(docs.articles.every((doc) => doc.sections.length >= 2)).toBe(true)
-      expect(docs.articles.slice(0, 8).every((doc) => doc.sections.length >= 3)).toBe(true)
-      for (const slug of publicDocSlugs) expect(getPublicDoc(locale, slug)).toBeDefined()
+      expect(docs.articles.map(article => article.slug)).toEqual(publicDocSlugs)
+      expect(docs.articles.slice(0, 6).map(article => article.slug)).toEqual(fundingSlugs)
+      expect(docs.articles.slice(0, 6).every(article => article.sections.length >= 6)).toBe(true)
+      expect(docs.articles.every(article => article.sections.length >= 2)).toBe(true)
+      expect(docs.stageDescription.length).toBeGreaterThan(60)
+      expect(docs.fundingHeadline.length).toBeGreaterThan(15)
+      for (const slug of fundingSlugs) expect(getPublicDoc(locale, slug)).toBeDefined()
     }
   })
-  it('keeps implementation details out of public copy', () => {
-    const forbidden = /qdip|kernel|worker|hmac|api.key|private.endpoint|internal.token|service.account|model.weights/i
-    for (const locale of ['uk', 'en', 'pl']) expect(JSON.stringify(getPublicDocs(locale))).not.toMatch(forbidden)
+  it('uses the public QDIP research narrative without leaking secrets', () => {
+    const forbidden = /(?:private.endpoint|internal.token|service.account|model.weights|hmac.secret|secret.key)/i
+    for (const locale of ['uk', 'en', 'pl']) {
+      const docs = getPublicDocs(locale)
+      expect(JSON.stringify(docs)).not.toMatch(forbidden)
+      expect(getPublicDoc(locale, 'scientific-novelty')?.sections.length).toBeGreaterThanOrEqual(6)
+    }
   })
   it('rejects unknown documents', () => {
     expect(getPublicDoc('uk', '../internal')).toBeUndefined()
