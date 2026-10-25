@@ -1,7 +1,7 @@
 {
   "hero": {
     "eyebrow": "Usługi Dzvin.co",
-    "title": "Wsparcie osobiste, analityka korporacyjna i prognozowanie naukowe w jednym systemie",
+    "title": "Dobrostan osobisty, procesy zespołowe i badania Decision Intelligence",
     "subtitle": "Dzvin.co to rozwijana platforma digital wellbeing: osobiste narzędzia wsparcia, przygotowywana analityka zespołów z kontrolą dostępu oraz badawczy kierunek Decision Intelligence in Mental Health z wykorzystaniem QDIP. Nie mamy ukończonych pilotaży u klientów ani potwierdzonych wyników skuteczności; celem kolejnego etapu jest ich sprawdzenie.",
     "note": "Wszystkie wykresy poniżej są ilustracyjne: pokazują, jak istniejące moduły platformy mogą wizualizować dane, a nie rzeczywiste dane klientów.",
     "audiences": {
@@ -22,7 +22,7 @@
   "blueprint": {
     "eyebrow": "Architektura usługi",
     "title": "Trzy ścieżki usługowe jednej platformy",
-    "subtitle": "Platforma działa jako usługa osobista dla użytkownika, usługa analityczna dla firmy oraz usługa walidacyjna dla programów i badań. Poniżej pokazano, jak zmienia się jej rola w każdym z tych scenariuszy.",
+    "subtitle": "Projekt rozwija trzy powiązane obszary: osobiste wsparcie, scenariusze organizacyjne z kontrolą dostępu oraz przestrzeń badań. Zintegrowane uruchomienie wymaga dalszej weryfikacji.",
     "cards": {
       "personalFlow": {
         "title": "Osobista ścieżka wsparcia",
@@ -58,7 +58,7 @@
       },
       "journeyTitle": "Jak działa usługa",
       "before": {
-        "title": "Co było wcześniej",
+        "title": "Problem, który chcemy rozwiązać",
         "items": {
           "one": {
             "title": "Oddzielne sygnały bez wspólnego obrazu",
@@ -88,27 +88,27 @@
           "description": "Zapisane ćwiczenia, materiały i historia zmian pozostają dostępne, dzięki czemu łatwo powtórzyć to, co już wcześniej przyniosło widoczny efekt."
         }
       },
-      "outcomesTitle": "Co się poprawiło",
+      "outcomesTitle": "Doświadczenie wymagające weryfikacji",
       "after": {
         "items": {
           "one": {
-            "title": "Stan staje się czytelny w czasie",
-            "description": "Zamiast pojedynczych epizodów pojawia się pełniejszy obraz tego, jak samopoczucie zmienia się w dniach i tygodniach."
+            "title": "Historia pozwala obserwować zmiany",
+            "description": "Planowany widok porządkuje kolejne wpisy użytkownika. Czy pomaga zrozumieć stan, trzeba zbadać."
           },
           "two": {
-            "title": "Kolejny krok staje się konkretny",
-            "description": "Po ocenie pojawia się nie abstrakcyjna rada, lecz zrozumiałe działanie, które można wykonać od razu."
+            "title": "Dostępny kolejny krok",
+            "description": "Projekt przewiduje opcjonalną praktykę po samoocenie; przydatność tego procesu będzie przedmiotem UX badań."
           },
           "three": {
-            "title": "Wsparcie staje się narastające",
-            "description": "Pomocne praktyki i widoczny postęp przestają się gubić i zaczynają budować ścieżkę, którą łatwiej kontynuować."
+            "title": "Połączone obserwacje i praktyki",
+            "description": "Celem jest wspólny dziennik i zestaw ćwiczeń. Wpływ na samopoczucie nie został jeszcze zweryfikowany."
           }
         }
       },
       "outcomes": {
-        "one": "Lepsze rozumienie swojego stanu i mniej chaosu w tym, co się z tobą dzieje.",
-        "two": "Proste codzienne kroki, które pomagają poczuć więcej spokoju i oparcia.",
-        "three": "Jaśniejszy obraz tego, co działa właśnie dla ciebie i jak zmienia się samopoczucie z czasem."
+        "one": "Możliwość przeglądania historii i zauważania zmian.",
+        "two": "Wybór krótkich dobrowolnych ćwiczeń pod kontrolą użytkownika.",
+        "three": "Możliwość śledzenia własnych danych; użyteczność wymaga oceny."
       },
       "chart": {
         "label": "Wynik samooceny",
@@ -127,8 +127,8 @@
           "description": "Platforma porządkuje zespoły, role, grupy i poziomy dostępu w jednej warstwie zarządczej, dzięki czemu menedżer widzi właściwy wycinek organizacji bez chaosu uprawnień, ręcznego scalania danych i niekończących się uzgodnień."
         },
         "analytics": {
-          "title": "Dynamika stanu zespołów i grup",
-          "description": "Zamiast składać rozproszone sygnały z wielu źródeł, menedżer dostaje jedną powierzchnię analityczną z trendami stresu, energii, koncentracji i nastroju, co pozwala szybciej wychwycić zespoły wymagające uwagi."
+          "title": "Wskaźniki zespołu oparte na dostępnych obserwacjach",
+          "description": "Projektowany widok łączy dozwolone grupowe wskaźniki stresu, nastroju, energii i koncentracji. Aktualność zależy od danych i konfiguracji; działanie wymaga testów."
         },
         "decisionSupport": {
           "title": "Priorytety działań i kontroli wsparcia",
