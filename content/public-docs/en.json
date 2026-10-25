@@ -13,9 +13,9 @@
   "articles": [
     {
       "slug": "funding-brief",
-      "category": "Investment brief",
+      "category": "Investment strategy",
       "title": "Executive Investment Overview",
-      "summary": "Problem, DI × mental-health thesis, existing assets, execution milestones and funding purpose",
+      "summary": "Investment rationale, Dzvin.co technology foundations, the QDIP research programme and next-stage deliverables.",
       "sections": [
         {
           "title": "Investment Thesis",
@@ -56,16 +56,16 @@
           "title": "Partnership Model",
           "paragraphs": [
             "Investor engagement covers technology diligence, stage milestones and partnership terms. Research funding covers methodology, deliverables, potential impact and governance.",
-            "A binding application additionally requires verified team, legal applicant, staffing, detailed budget, schedule, IP/FTO and eligible funding instrument."
+            "For a specific investment or grant process, the programme documentation will include the responsible legal entity, delivery team, resource plan, budget, intellectual-property position and proposed partnership terms."
           ]
         }
       ]
     },
     {
       "slug": "investment-thesis",
-      "category": "Investment case",
+      "category": "Investment strategy",
       "title": "Strategic Investment Rationale",
-      "summary": "The opportunity, project hypothesis and what the next tranche should achieve",
+      "summary": "Strategic context, target segments, existing technology assets and the model for long-term value creation.",
       "sections": [
         {
           "title": "Product Strategy",
@@ -113,9 +113,9 @@
     },
     {
       "slug": "scientific-novelty",
-      "category": "Scientific case",
+      "category": "Scientific programme",
       "title": "Scientific Programme: Decision Intelligence in Mental Wellbeing",
-      "summary": "QDIP as a research-enabling decision framework, scientific hypotheses and validation criteria",
+      "summary": "Decision Intelligence research hypotheses, the architectural role of QDIP and the comparative evaluation framework.",
       "sections": [
         {
           "title": "From Prediction to Informed Action",
@@ -156,7 +156,7 @@
           "title": "Hypothesis 4 · Action Utility",
           "paragraphs": [
             "Test whether decision-aware, user-controlled support improves an agreed proximal outcome relative to fixed suggestions.",
-            "Start with feasibility work. Randomized or micro-randomized evaluation requires adequate protocol, ethics and participant protections. No study outcome is claimed."
+            "The research sequence begins with feasibility work. Randomized or micro-randomized evaluation proceeds only within an approved protocol and appropriate participant protections."
           ]
         },
         {
@@ -170,9 +170,9 @@
     },
     {
       "slug": "development-progress",
-      "category": "Current status",
+      "category": "Development readiness",
       "title": "Development Status and Engineering Readiness",
-      "summary": "Real engineering artifacts versus open release and validation gates",
+      "summary": "Existing engineering assets, integration maturity and technical criteria for controlled deployment.",
       "sections": [
         {
           "title": "Technology Status · 25 October 2026",
@@ -192,7 +192,7 @@
           "title": "Organizational Product",
           "paragraphs": [
             "Company administration, groups, permissions, analytics and manager decision support have frontend implementations.",
-            "Multi-tenant authorization, backend migrations, privileged access checks and real operator E2E are launch gates, not completed customer deployments."
+            "Enterprise release qualification covers tenant isolation, permission boundaries, database migrations and end-to-end testing of authorized operational workflows."
           ]
         },
         {
@@ -220,9 +220,9 @@
     },
     {
       "slug": "evidence-register",
-      "category": "Evidence & readiness",
+      "category": "Evidence register",
       "title": "Technology Assets and Evidence Register",
-      "summary": "Separate software evidence from unverified use cases, research claims and launch gates",
+      "summary": "Source-linked engineering assets, test evidence and outstanding qualification milestones.",
       "sections": [
         {
           "title": "Evidence Maturity Levels",
@@ -270,9 +270,9 @@
     },
     {
       "slug": "funding-roadmap",
-      "category": "Roadmap",
+      "category": "Development programme",
       "title": "Dzvin.co Development Roadmap",
-      "summary": "Milestones, acceptance gates and observable deliverables",
+      "summary": "Ordered technology, research and operational phases with defined milestones and deliverables.",
       "sections": [
         {
           "title": "Phase 1 · Integration Readiness",
@@ -320,9 +320,9 @@
     },
     {
       "slug": "execution-plan",
-      "category": "Implementation",
+      "category": "Development programme",
       "title": "Implementation Programme WP1–WP4",
-      "summary": "A verifiable execution plan connected to risks, deliverables and actual resource budgeting",
+      "summary": "Four work packages covering integration, DI research, user feasibility and launch qualification.",
       "sections": [
         {
           "title": "WP1 · Integration and Data Protection",
@@ -370,9 +370,9 @@
     },
     {
       "slug": "validation-plan",
-      "category": "Research plan",
+      "category": "Scientific validation",
       "title": "Technology and Scientific Validation Programme",
-      "summary": "Technical qualification, user feasibility and decision-level evaluation",
+      "summary": "Methods for assessing system security, engineering quality, research hypotheses and user feasibility.",
       "sections": [
         {
           "title": "Engineering Verification",
@@ -420,9 +420,9 @@
     },
     {
       "slug": "funding-request",
-      "category": "Investment opportunity",
+      "category": "Investment partnership",
       "title": "Dzvin.co Investment Opportunity",
-      "summary": "From an existing software prototype to a launch-qualified product: technology, milestone outcomes and growth options",
+      "summary": "Technology opportunity, investment rationale, programme deliverables and partnership structure.",
       "sections": [
         {
           "title": "Technology Opportunity",
@@ -470,9 +470,9 @@
     },
     {
       "slug": "product-story",
-      "category": "Positioning",
+      "category": "Product strategy",
       "title": "Dzvin.co Product Concept",
-      "summary": "How Dzvin.co connects team-level patterns with a managed response",
+      "summary": "A connected product strategy spanning personal wellbeing, organizations and research.",
       "sections": [
         {
           "title": "Product strategy",
@@ -499,9 +499,9 @@
     },
     {
       "slug": "solutions",
-      "category": "Audiences",
+      "category": "Target segments",
       "title": "Target Segments and Applications",
-      "summary": "Organizations first, with separate personal and research use cases",
+      "summary": "Proposed applications for individuals, organizations and scientific research programmes.",
       "sections": [
         {
           "title": "Personal segment",
@@ -528,9 +528,9 @@
     },
     {
       "slug": "capability-map",
-      "category": "Capabilities",
+      "category": "Product architecture",
       "title": "Product Capability Architecture",
-      "summary": "Personal, organizational and research capabilities without inflated claims",
+      "summary": "Functional capabilities across three workstreams and the criteria for system qualification.",
       "sections": [
         {
           "title": "Personal capabilities",
@@ -557,9 +557,9 @@
     },
     {
       "slug": "demo-scenarios",
-      "category": "Live demos",
+      "category": "User journeys",
       "title": "Core User Journeys",
-      "summary": "Three product journeys to verify during a demonstration",
+      "summary": "Target end-to-end product workflows and their technical demonstration and validation criteria.",
       "sections": [
         {
           "title": "Personal user journey",
@@ -586,9 +586,9 @@
     },
     {
       "slug": "economics",
-      "category": "B2B value",
+      "category": "Commercialization",
       "title": "Commercialization and Economic Model",
-      "summary": "A transparent pilot scenario calculator, not a fabricated ROI estimate",
+      "summary": "Potential business models, economic evaluation indicators and planned market discovery.",
       "sections": [
         {
           "title": "Commercialization avenues",
@@ -615,9 +615,9 @@
     },
     {
       "slug": "comparison",
-      "category": "Evaluation",
+      "category": "Market positioning",
       "title": "Market Positioning",
-      "summary": "Dzvin.co alongside one-off surveys and standalone dashboards",
+      "summary": "Functional positioning against other solution categories and a framework for comparative evaluation.",
       "sections": [
         {
           "title": "Solution categories",
@@ -644,9 +644,9 @@
     },
     {
       "slug": "presentation-kit",
-      "category": "Presentation toolkit",
+      "category": "Presentation materials",
       "title": "Presentation Library",
-      "summary": "Three finished audience-specific decks, printable to PDF",
+      "summary": "Investor and research-funding presentations, plus three audience-specific product decks.",
       "sections": [
         {
           "title": "Investment materials",
@@ -673,9 +673,9 @@
     },
     {
       "slug": "po-guide",
-      "category": "For Product Owners",
+      "category": "Research programme",
       "title": "Pilot Validation Strategy",
-      "summary": "Define the evaluation design and success criteria",
+      "summary": "Proposed pilot protocol, quality indicators and decision criteria for subsequent development.",
       "sections": [
         {
           "title": "Pilot programme objectives",
@@ -702,9 +702,9 @@
     },
     {
       "slug": "getting-started",
-      "category": "Basics",
+      "category": "Personal product",
       "title": "Personal Product Overview",
-      "summary": "What the service does and how to begin",
+      "summary": "Purpose, intended use and target interaction model of the personal wellbeing experience.",
       "sections": [
         {
           "title": "Product purpose",
@@ -731,9 +731,9 @@
     },
     {
       "slug": "personal",
-      "category": "Individuals",
+      "category": "Personal product",
       "title": "Personal Workstream",
-      "summary": "Daily check-ins, questionnaires and progress",
+      "summary": "Check-ins, observation history, questionnaires, goals and voluntary wellbeing practices.",
       "sections": [
         {
           "title": "Self-observation model",
@@ -760,9 +760,9 @@
     },
     {
       "slug": "organizations",
-      "category": "Organizations",
+      "category": "Organizational product",
       "title": "Organizational Workstream",
-      "summary": "Aggregated patterns and decision support",
+      "summary": "Authorized group analytics, role-scoped access and team decision-support processes.",
       "sections": [
         {
           "title": "Organizational purpose",
@@ -789,9 +789,9 @@
     },
     {
       "slug": "research",
-      "category": "Research",
+      "category": "Research infrastructure",
       "title": "Research Workstream",
-      "summary": "Cohorts, repeated observations and evidence quality",
+      "summary": "Projects, cohorts, repeated measures, methodology, controlled data access and audit.",
       "sections": [
         {
           "title": "Research scope",
@@ -818,9 +818,9 @@
     },
     {
       "slug": "privacy",
-      "category": "Trust",
+      "category": "Data governance",
       "title": "Data Governance and Privacy",
-      "summary": "Data processing, access and user rights",
+      "summary": "Architecture principles for privacy, access segregation and personal-data protection.",
       "sections": [
         {
           "title": "Data handling principles",
@@ -847,9 +847,9 @@
     },
     {
       "slug": "limitations",
-      "category": "Important",
+      "category": "Scope and safety",
       "title": "Scope, Limitations and Safety",
-      "summary": "What indicators and predictions can and cannot establish",
+      "summary": "Intended use, interpretation limits and the conditions for responsible deployment.",
       "sections": [
         {
           "title": "Interpretation boundaries",
