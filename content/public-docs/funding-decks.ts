@@ -342,7 +342,12 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Implementation work packages',
           description: 'Link each funded package to testable deliverables.',
-          points: ['WP1 Secure integration', 'WP2 DI methods and benchmarks', 'WP3 Feasibility, evidence and launch'],
+          points: [
+            'WP1 Integration and data protection',
+            'WP2 DI methods and evaluation',
+            'WP3 Human feasibility',
+            'WP4 Evidence and launch readiness',
+          ],
         },
         {
           title: 'Ethics and risks',
