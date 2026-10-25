@@ -707,24 +707,24 @@
       "summary": "What the service does and how to begin",
       "sections": [
         {
-          "title": "Purpose",
+          "title": "Product purpose",
           "paragraphs": [
-            "Dzvin.co helps people record stress, mood, energy and focus, review trends and find potentially useful wellbeing activities.",
-            "There are separate experiences for individuals, organizations and research programs."
+            "The personal workstream is designed to support repeated observations of stress, mood, energy and focus.",
+            "The proposed journey connects check-ins, personal history and optional wellbeing activities."
           ]
         },
         {
-          "title": "First steps",
+          "title": "Target user journey",
           "paragraphs": [
-            "Create an account or sign in. Open My Day, complete a short self-check and review the available guidance.",
-            "Check in consistently. Trends matter more than a single daily score."
+            "The intended sequence comprises identity verification, a brief self-report, longitudinal history and an optional next action.",
+            "Integrated authentication and real-data workflows remain subject to release qualification."
           ]
         },
         {
-          "title": "Interpreting results",
+          "title": "Interpreting observations",
           "paragraphs": [
-            "A single response reflects one moment, not your overall health.",
-            "Some functionality is limited by role or release stage."
+            "A single observation reflects a subjective state at a given moment; longitudinal review may provide additional context.",
+            "Self-reports are not equivalent to clinical assessment and cannot establish causation."
           ]
         }
       ]
@@ -736,24 +736,24 @@
       "summary": "Daily check-ins, questionnaires and progress",
       "sections": [
         {
-          "title": "Daily checks",
+          "title": "Self-observation model",
           "paragraphs": [
-            "The standard check-in covers stress, mood, energy and focus on a 1–5 scale.",
-            "Notes and repeated observations offer context, but cannot establish causation."
+            "The prototype includes four core indicators: stress, mood, energy and focus.",
+            "Repeated entries provide a personal timeline, with interpretation dependent on context and data quality."
           ]
         },
         {
-          "title": "Suggestions and exercises",
+          "title": "Activities and goals",
           "paragraphs": [
-            "Relevant exercises and suggestions may follow a check-in. Personal features also support viewing history and goals.",
-            "Compare periods rather than trying to optimize one number."
+            "The target experience includes voluntary practices, personal goals and the ability to revisit observations.",
+            "User acceptability and appropriateness of suggested actions will be assessed in the validation programme."
           ]
         },
         {
           "title": "Questionnaires",
           "paragraphs": [
-            "Short psychological questionnaires may help with self-reflection.",
-            "They do not establish a diagnosis or prescribe treatment."
+            "Structured questionnaires are considered supporting instruments for repeated observations.",
+            "Their intended use and interpretation are governed by the relevant methodology rather than automated diagnosis."
           ]
         }
       ]
@@ -765,24 +765,24 @@
       "summary": "Aggregated patterns and decision support",
       "sections": [
         {
-          "title": "Organizational use",
+          "title": "Organizational purpose",
           "paragraphs": [
-            "The team experience helps analyze group-level changes in stress, energy and wellbeing.",
-            "Available reports and access depend on user permissions and organization settings."
+            "The organizational workstream is being developed around permissioned team-level trends and managed response processes.",
+            "Proposed capabilities cover group views, role-scoped access and structured decision support."
           ]
         },
         {
-          "title": "Acting on signals",
+          "title": "Management oversight",
           "paragraphs": [
-            "A risk signal should prompt further contextual review, not an automated judgement about an employee.",
-            "Do not make personnel decisions from one aggregate metric. Small groups may still permit re-identification."
+            "Group indicators are intended to support contextual review and prioritization of wellbeing initiatives.",
+            "Employment and other sensitive decisions remain with authorized people; the system is not intended for automated judgments based on a single score."
           ]
         },
         {
-          "title": "Responsibilities",
+          "title": "Data protection",
           "paragraphs": [
-            "Organizations remain responsible for appropriate legal grounds for processing and transparent staff communication.",
-            "Aggregation alone does not ensure anonymity."
+            "The model emphasizes data minimization, access segmentation and assessment of small-group reidentification risks.",
+            "Operational use will depend on legal basis, organizational policies and successful security qualification."
           ]
         }
       ]
@@ -794,24 +794,24 @@
       "summary": "Cohorts, repeated observations and evidence quality",
       "sections": [
         {
-          "title": "Research workflows",
+          "title": "Research scope",
           "paragraphs": [
-            "Research scenarios include cohort comparisons, repeated measurements and program outcome reviews.",
-            "Access to a feature does not imply independent clinical validation of every model."
+            "Research Workspace is designed around projects, cohorts, repeated measures, controlled exports and audit.",
+            "Scientific use requires a defined protocol, appropriately scoped permissions and traceable workflows."
           ]
         },
         {
           "title": "Evidence quality",
           "paragraphs": [
-            "Specify samples, metrics, windows, missing-data handling and quality criteria before analysis.",
-            "Separate correlation, prediction and causal effects. Report uncertainty."
+            "Evaluation protocols cover population, metrics, temporal availability, missing values and prespecified hypotheses.",
+            "Research reporting distinguishes predictive performance, association and causal inference."
           ]
         },
         {
-          "title": "Access",
+          "title": "Research governance",
           "paragraphs": [
-            "Research partnerships, data scope and publishing terms are agreed separately.",
-            "Ethics and privacy requirements remain applicable."
+            "Data access is governed by legitimate research purpose, permissions and applicable ethics review.",
+            "Reproducibility and operational auditability are independent research acceptance criteria."
           ]
         }
       ]
@@ -823,24 +823,24 @@
       "summary": "Data processing, access and user rights",
       "sections": [
         {
-          "title": "Your data",
+          "title": "Data handling principles",
           "paragraphs": [
-            "The service may process account information, voluntary assessments and product interactions.",
-            "The current Privacy Policy defines the precise categories, purposes and legal basis."
+            "The product concept includes account data, voluntary self-reports and interaction records processed for specified purposes.",
+            "Processing grounds, data categories and data-subject rights are described in the current Privacy Policy."
           ]
         },
         {
-          "title": "Workplace access",
+          "title": "Organizational access boundaries",
           "paragraphs": [
-            "Organizational reports must respect permissions and applicable privacy rules.",
-            "Avoid entering unnecessary sensitive details and never share account credentials."
+            "Role-based and organization-scoped access is part of the intended architecture.",
+            "Tenant isolation, small-group privacy and access auditing remain mandatory qualification criteria."
           ]
         },
         {
-          "title": "Your rights",
+          "title": "Individual rights",
           "paragraphs": [
-            "Use official Dzvin.co contacts to request access, correction or deletion of personal data.",
-            "This guide does not replace the Privacy Policy or Terms of Service."
+            "Requests concerning access, rectification or deletion are managed through Dzvin.co's official contact channels.",
+            "Specific obligations are defined by applicable law and the governing privacy documents."
           ]
         }
       ]
@@ -852,24 +852,24 @@
       "summary": "What indicators and predictions can and cannot establish",
       "sections": [
         {
-          "title": "Uncertainty",
+          "title": "Interpretation boundaries",
           "paragraphs": [
-            "Self-reports may be incomplete, biased or context-dependent. Forecasts and risk indicators do not guarantee outcomes.",
-            "Recommendations are not proof of causal effects."
+            "Self-reports and derived signals depend on the completeness, frequency and context of observations.",
+            "A prediction or aggregated trend does not itself establish a causal effect."
           ]
         },
         {
-          "title": "Medical boundary",
+          "title": "Clinical scope",
           "paragraphs": [
-            "Dzvin.co is not an emergency service. It does not diagnose conditions or replace medical or psychological care.",
-            "For an immediate safety or health emergency, contact local emergency services."
+            "Dzvin.co is being developed for wellbeing support and research, not emergency care or automated diagnosis.",
+            "Any future clinical use would require separate intended-use, regulatory and evidence assessments."
           ]
         },
         {
-          "title": "Availability",
+          "title": "Release availability",
           "paragraphs": [
-            "Some reports and modules may be role-restricted or not generally available while the product evolves.",
-            "For current availability, consult the FAQ or support team."
+            "Workstreams have distinct permissions, data configurations and deployment stages.",
+            "Availability is determined by the completion of integration, security and operational acceptance gates."
           ]
         }
       ]
