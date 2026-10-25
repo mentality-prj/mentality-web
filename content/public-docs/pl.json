@@ -1,7 +1,7 @@
 {
-  "title": "Dzvin.co — rozwiązania dla zespołów, osób i badań",
-  "kicker": "Produkt, procesy i rezultaty",
-  "lead": "Dzvin.co pomaga HR i liderom przejść od rozproszonych ankiet do regularnej analizy zmian w zespołach oraz uporządkowanej reakcji na sygnały ryzyka.",
+  "title": "Dzvin.co — dossier dla inwestorów i grantodawców",
+  "kicker": "Finansowanie · projekt w rozwoju",
+  "lead": "Projekt digital mental wellbeing z kierunkiem badawczym Decision Intelligence. Poszukujemy finansowania na dokończenie wdrożenia, niezależną walidację i odpowiedzialne pilotaże.",
   "browse": "Wybierz interesujący obszar",
   "back": "Cała dokumentacja produktu",
   "nav": "Dokumentacja produktu Dzvin.co",
@@ -11,6 +11,313 @@
   "faq": "FAQ",
   "privacy": "Polityka prywatności",
   "articles": [
+    {
+      "slug": "investment-thesis",
+      "category": "Inwestycje",
+      "title": "Dlaczego warto finansować Dzvin.co",
+      "summary": "Problem, potencjał, obecny etap i cel dalszego rozwoju",
+      "sections": [
+        {
+          "title": "Projekt",
+          "paragraphs": [
+            "Dzvin.co łączy trzy doświadczenia: prywatne narzędzia osobiste, dozwoloną analitykę grupową i kontrolowany obszar badań.",
+            "Kierunek naukowy to Decision Intelligence: przejście od sygnału ryzyka do wyjaśnionych działań z niepewnością, kontrolą człowieka i późniejszą weryfikacją."
+          ]
+        },
+        {
+          "title": "Dlaczego to ważne",
+          "paragraphs": [
+            "Pojedyncze ankiety i osobne dzienniki nie tworzą ciągłego obrazu i procesu działania. Samo przewidywanie ryzyka nie rozstrzyga, jakie działanie jest stosowne.",
+            "W mental-health AI szczególnie ważne są prywatność, błędy, niepewność, zgoda i wpływ na człowieka."
+          ]
+        },
+        {
+          "title": "Potencjalni odbiorcy",
+          "paragraphs": [
+            "Osoby prywatne zyskują historię obserwacji; organizacje — dozwolony kontekst grupowy; naukowcy — ustrukturyzowany proces badań.",
+            "To przyszli odbiorcy, a nie obecni klienci ani uczestnicy ukończonych badań."
+          ]
+        },
+        {
+          "title": "Dowody rozwoju",
+          "paragraphs": [
+            "Repozytoria zawierają interfejsy produktów, komponenty backendowe, testy i dokumentację metod badawczych.",
+            "Artefakty inżynierskie nie potwierdzają przychodów, efektywności klinicznej ani skali."
+          ]
+        },
+        {
+          "title": "Cel finansowania",
+          "paragraphs": [
+            "Dokończenie integracji i bezpieczeństwa, formalizacja badań, pilotaże ze zgodą uczestników, ocena użyteczności i przygotowanie kontrolowanego uruchomienia.",
+            "Finansowanie powinno zmniejszyć niepewność technologiczną, naukową i produktową przez konkretne kamienie milowe."
+          ]
+        },
+        {
+          "title": "Dalsza trwałość",
+          "paragraphs": [
+            "Hipotezy biznesowe obejmują przyszłe umowy B2B, współpracę badawczą i osobny rozwój doświadczenia indywidualnego.",
+            "Nie deklarujemy sprzedaży, zweryfikowanych cen ani wyników rynkowych."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "scientific-novelty",
+      "category": "Nauka",
+      "title": "Nowość naukowa: DI in Mental Health",
+      "summary": "QDIP, wyjaśnialność, niepewność i hipotezy badawcze",
+      "sections": [
+        {
+          "title": "Od predykcji do decyzji",
+          "paragraphs": [
+            "Model ryzyka odpowiada na pytanie, co może się wydarzyć. Decision Intelligence dodaje wybór odpowiedniego działania przy określonych założeniach i ograniczeniach.",
+            "Dzvin to kierunek badawczy, nie autonomiczny system diagnozy czy decyzji klinicznych."
+          ]
+        },
+        {
+          "title": "Rola QDIP",
+          "paragraphs": [
+            "QDIP to odrębny kierunek technologiczny łączący reguły i sygnały modelowe, polityki, wyjaśnienia, audyt i monitoring.",
+            "Dzvin ma być miejscem oceny tych zasad w wellbeing. Sam kod nie dowodzi pełnej integracji produkcyjnej."
+          ]
+        },
+        {
+          "title": "Hipoteza 1: czas i zmiana",
+          "paragraphs": [
+            "Serie obserwacji i adaptacyjne punkty odniesienia mogą być przydatniejsze niż pojedynczy wynik.",
+            "Badania: opóźnienie wykrycia, fałszywe alarmy, braki danych, proste modele odniesienia."
+          ]
+        },
+        {
+          "title": "Hipoteza 2: niepewność",
+          "paragraphs": [
+            "Model powinien informować o niewystarczających danych i móc powstrzymać się od ryzykownej rekomendacji.",
+            "Badania: kalibracja, selective risk, brakujące dane i częstotliwość abstention."
+          ]
+        },
+        {
+          "title": "Hipoteza 3: wyjaśnialne działanie",
+          "paragraphs": [
+            "Obserwacje → możliwe działania → ograniczenia → wyjaśnienie → wybór użytkownika → informacja zwrotna.",
+            "Badania: reguły vs modele vs hybryda, możliwość audytu, zrozumiałość i decyzja użytkownika."
+          ]
+        },
+        {
+          "title": "Hipoteza 4: efekt działania",
+          "paragraphs": [
+            "Sprawdzenie, czy kontrolowane przez użytkownika działanie poprawia uzgodnione wyniki bliższe niż statyczne rekomendacje.",
+            "Najpierw feasibility, potem odpowiednio przygotowane badania, także mikro-randomizowane przy spełnieniu wymogów etycznych."
+          ]
+        },
+        {
+          "title": "Granice oryginalności",
+          "paragraphs": [
+            "JITAI, modele Bayesowskie i uczenie maszynowe już istnieją. Nie przypisujemy sobie ich wynalezienia.",
+            "Potencjalna nowość to weryfikowalne połączenie zasad decyzji, niepewności, wyjaśnień i kontroli w mental wellbeing. Nowość wymaga przeglądu stanu wiedzy i wyników badań."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "development-progress",
+      "category": "Status",
+      "title": "Postęp prac i ograniczenia",
+      "summary": "Istniejące komponenty a otwarte warunki uruchomienia",
+      "sections": [
+        {
+          "title": "Stan na 25 października 2026",
+          "paragraphs": [
+            "Dzvin to prototyp oprogramowania z publiczną dokumentacją i kodem interfejsów osobistych, firmowych i badawczych.",
+            "Nie ma klientów komercyjnych, ukończonych badań terenowych ani potwierdzonej efektywności."
+          ]
+        },
+        {
+          "title": "B2C",
+          "paragraphs": [
+            "Kod zawiera samoocenę, dziennik, ćwiczenia, cele, historię i statystyki; roadmapa przewiduje spójny cykl wsparcia.",
+            "Do sprawdzenia: autoryzacja, prywatność i rzeczywisty scenariusz E2E."
+          ]
+        },
+        {
+          "title": "B2B",
+          "paragraphs": [
+            "Dostępne są moduły zarządzania organizacją, grup, ról, analityki i decision support.",
+            "Izolacja firm, uprawnienia, migracje backendowe i prawdziwe E2E pozostają warunkami uruchomienia."
+          ]
+        },
+        {
+          "title": "R&D",
+          "paragraphs": [
+            "Istnieją moduły projektów, członków, kohort, inspekcji, eksportu i audytu.",
+            "Potrzebne są protokoły, partnerzy, dane i weryfikacja pracy z uprawnieniami."
+          ]
+        },
+        {
+          "title": "QDIP i decyzje",
+          "paragraphs": [
+            "Istnieją materiały o ryzyku adaptacyjnym, politykach, wyjaśnieniach i metodyce; kod backendowy zawiera moduły wsparcia decyzji.",
+            "Przewaga naukowa i pełna integracja produkcyjna nie zostały potwierdzone."
+          ]
+        },
+        {
+          "title": "Kryterium zakończenia",
+          "paragraphs": [
+            "Gotowość wymaga testów dostępu, bezpieczeństwa, API, E2E i audytu w środowisku docelowym.",
+            "Kod i build nie są dowodem zakończonego wdrożenia."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "funding-roadmap",
+      "category": "Roadmapa",
+      "title": "Od prototypu do uruchomienia",
+      "summary": "Etapy, rezultaty i warunki zakończenia",
+      "sections": [
+        {
+          "title": "Etap 1 — integracje",
+          "paragraphs": [
+            "Zakończyć integracje Web, NestJS i QDIP, ochronę danych, uwierzytelnianie i możliwość rollbacku.",
+            "Kryterium: testy integracyjne, bezpieczeństwa i kwalifikacja QA."
+          ]
+        },
+        {
+          "title": "Etap 2 — metodyka naukowa",
+          "paragraphs": [
+            "Zdefiniować hipotezy, baseline, zasady rezygnacji z rekomendacji, wskaźniki, dane i zgodę.",
+            "Kryterium: protokół i odtwarzalne testy na danych syntetycznych."
+          ]
+        },
+        {
+          "title": "Etap 3 — feasibility",
+          "paragraphs": [
+            "Odpowiedzialnie pozyskać uczestników i sprawdzić UX, wykonalność procesu i jakość danych.",
+            "Kryterium: raport z obserwacji; wymagane zgody etyczne przed badaniami."
+          ]
+        },
+        {
+          "title": "Etap 4 — ocena DI",
+          "paragraphs": [
+            "Porównać reguły, modele i podejście hybrydowe; sprawdzić kalibrację, szkodę i przydatność decyzji.",
+            "Kryterium: raport z metodą, niepewnością i negatywnymi wynikami."
+          ]
+        },
+        {
+          "title": "Etap 5 — uruchomienie",
+          "paragraphs": [
+            "Przygotować monitoring, wsparcie, ochronę danych i plan operacyjny.",
+            "Kryterium: E2E, formalna decyzja go/no-go i model dalszego działania."
+          ]
+        },
+        {
+          "title": "Charakter roadmapy",
+          "paragraphs": [
+            "To kolejność kamieni milowych, nie uzgodnione daty. TRL, liczebność zespołu i koszty wymagają dowodów i dopasowania do finansowania.",
+            "Etap jest ukończony dopiero po osiągnięciu kryteriów."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "validation-plan",
+      "category": "Walidacja",
+      "title": "Jak sprawdzimy hipotezy",
+      "summary": "Dowody techniczne, ocena użytkowników i badania decyzji",
+      "sections": [
+        {
+          "title": "Inżynieria",
+          "paragraphs": [
+            "Sprawdzić uwierzytelnianie, granice firm, API, odporność i rollback.",
+            "Dowody: CI, E2E, testy negatywne bezpieczeństwa i dzienniki."
+          ]
+        },
+        {
+          "title": "Dane i etyka",
+          "paragraphs": [
+            "Zaczynamy od danych syntetycznych; rzeczywiste badania wymagają zgody i ograniczenia danych.",
+            "Kontrola prywatności, błędów i uprzedzeń; agregacja nie gwarantuje anonimowości."
+          ]
+        },
+        {
+          "title": "Porównania naukowe",
+          "paragraphs": [
+            "Zestawić statyczne reguły z hybrydowymi politykami i niepewnością.",
+            "Przydatne metryki: Brier, kalibracja, brakujące dane, alerty, selective risk i decision utility."
+          ]
+        },
+        {
+          "title": "Użyteczność",
+          "paragraphs": [
+            "Ocena łatwości codziennych działań, zrozumiałości wyjaśnień i kontroli użytkownika.",
+            "Przed wynikami badań nie deklarujemy poprawy zdrowia, retencji ani ROI."
+          ]
+        },
+        {
+          "title": "Jakość badań",
+          "paragraphs": [
+            "Utrwalać protokół, replikację, błędy, wyniki negatywne i przegląd niezależny.",
+            "TRIPOD+AI to standard raportowania dla odpowiednich zadań, a nie zastępstwo zgody etycznej."
+          ]
+        },
+        {
+          "title": "Go/no-go",
+          "paragraphs": [
+            "Dalszy rozwój przy odpowiednim bezpieczeństwie, jakości danych i wynikach według ustalonych kryteriów.",
+            "Brak dowodów lub niebezpieczna pewność wymaga korekty bądź przerwania prac."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "funding-request",
+      "category": "Finansowanie",
+      "title": "Na co potrzebujemy finansowania",
+      "summary": "Koszty, transze, partnerstwa i odpowiedzialność",
+      "sections": [
+        {
+          "title": "Cel",
+          "paragraphs": [
+            "Zintegrować produkt, zakończyć bezpieczeństwo, przeprowadzić odtwarzalne badania i odpowiedzialne pilotaże.",
+            "Nie podajemy nieuzgodnionych kwot ani fikcyjnych inwestorów. Poniższy kalkulator pomaga zaplanować budżet."
+          ]
+        },
+        {
+          "title": "Kategorie",
+          "paragraphs": [
+            "Rozwój i integracja; badania DI; prywatność i bezpieczeństwo; UX i pilotaże; infrastruktura; zarządzanie.",
+            "Każdy koszt należy powiązać z mierzalnym rezultatem."
+          ]
+        },
+        {
+          "title": "Transze",
+          "paragraphs": [
+            "A — integracje i bezpieczeństwo. B — protokół i zbieranie danych. C — ocena i gotowość do uruchomienia.",
+            "Kwoty i terminy wymagają prawdziwej kalkulacji i dopasowania do programu."
+          ]
+        },
+        {
+          "title": "Przejrzystość",
+          "paragraphs": [
+            "Inwestor otrzyma potwierdzenie etapów, raporty, rejestr ryzyk i plan dalszego finansowania.",
+            "Warunki IP, udziałów i sprawozdawczości zależą od źródła finansowania."
+          ]
+        },
+        {
+          "title": "Partnerstwa",
+          "paragraphs": [
+            "Poszukujemy inwestorów, instytucji naukowych, ekspertów etycznych i organizacji zainteresowanych przyszłym pilotażem.",
+            "Nie deklarujemy podpisanych umów ani klientów."
+          ]
+        },
+        {
+          "title": "Kontakt",
+          "paragraphs": [
+            "Do rozmowy potrzebny jest rodzaj finansowania, cel programu, plan etapów, zasoby i zweryfikowane koszty.",
+            "Skontaktuj się z zespołem Dzvin.co w sprawie finansowania lub współpracy badawczej."
+          ]
+        }
+      ]
+    },
     {
       "slug": "product-story",
       "category": "Pozycjonowanie",
@@ -434,5 +741,15 @@
   ],
   "referenceTitle": "Poradniki funkcji",
   "featuredCta": "Umów prezentację",
-  "featuredNote": "Dla organizacji: sygnały zespołowe, proces wspierania decyzji i mierzalna ocena. Dostępne są też obszary osobiste i badawcze."
+  "featuredNote": "Dla organizacji: sygnały zespołowe, proces wspierania decyzji i mierzalna ocena. Dostępne są też obszary osobiste i badawcze.",
+  "fundingHeadline": "Od obserwacji samopoczucia do decyzji, które można zweryfikować",
+  "fundingIntro": "Dzvin.co rozwija osobiste narzędzia dobrostanu, analitykę zespołów i program badawczy Decision Intelligence w obszarze zdrowia psychicznego. Chcemy sprawdzić, czy przejrzyste sygnały z informacją o niepewności pomagają podejmować lepsze decyzje pod kontrolą człowieka.",
+  "stageLabel": "ETAP: PROTOTYP / PRZED URUCHOMIENIEM",
+  "stageDescription": "Projekt w rozwoju, bez klientów komercyjnych, zakończonych pilotaży i potwierdzonej skuteczności klinicznej. Istnieją komponenty i materiały badawcze; integracje, bezpieczeństwo i pełne testy E2E wymagają dalszej weryfikacji.",
+  "fundingCta": "Porozmawiajmy o finansowaniu",
+  "fundingSecondaryCta": "Prezentacja inwestorska",
+  "fundingLibrary": "Dossier inwestycyjne i grantowe",
+  "productLibrary": "Dodatek: produkt i scenariusze",
+  "evidenceLabel": "Źródła i kryteria weryfikacji",
+  "fundingNote": "Finansowanie służy sprawdzalnemu rozwojowi projektu, a nie zakupowi udowodnionych już efektów."
 }
