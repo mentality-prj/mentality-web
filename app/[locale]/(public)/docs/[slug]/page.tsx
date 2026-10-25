@@ -4,7 +4,9 @@ import { notFound } from 'next/navigation'
 import { getPublicDoc, getPublicDocs } from '@/content/public-docs'
 import { Link } from '@/i18n/navigation'
 
+import { ComparisonMatrix } from '../ComparisonMatrix'
 import { DocsNavigation } from '../DocsNavigation'
+import { RoiScenarioCalculator } from '../RoiScenarioCalculator'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
 
@@ -20,6 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${article.title} | Dzvin.co`,
     description: article.summary,
+    openGraph: { title: article.title, description: article.summary, type: 'article' },
     alternates: {
       canonical: `https://docs.dzvin.co/${locale}/docs/${slug}`,
       languages: Object.fromEntries(
@@ -34,6 +37,35 @@ export default async function DocArticlePage({ params }: Props) {
   const docs = getPublicDocs(locale)
   const article = getPublicDoc(locale, slug)
   if (!article) notFound()
+  const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
+  const c = {
+    uk: {
+      demo: 'Замовити демонстрацію',
+      presentations: 'Презентації продукту',
+      teams: 'Для компаній',
+      individuals: 'Для людей',
+      research: 'Для досліджень',
+      next: 'Підберемо сценарій перевірки Dzvin.co для вашої задачі.',
+    },
+    en: {
+      demo: 'Request a demonstration',
+      presentations: 'Product presentations',
+      teams: 'For organizations',
+      individuals: 'For individuals',
+      research: 'For research',
+      next: 'Discuss a focused Dzvin.co demonstration for your workflow.',
+    },
+    pl: {
+      demo: 'Poproś o prezentację',
+      presentations: 'Prezentacje produktu',
+      teams: 'Dla firm',
+      individuals: 'Dla osób',
+      research: 'Dla badań',
+      next: 'Omówmy demonstrację Dzvin.co dopasowaną do potrzeb.',
+    },
+  }[lang]
+  const segment = slug === 'research' ? 'research' : slug === 'personal' ? 'individuals' : 'teams'
+  const demoUrl = `https://www.dzvin.co/${lang}/contacts?source=docs&intent=demo&segment=${segment}`
   return (
     <div className="min-h-[70vh] bg-[linear-gradient(180deg,#faf5ff_0%,#f8fafc_30%,white_100%)]">
       <div className="container-max-width mx-auto px-4 py-9 tablet:px-6 md:px-8 md:py-14 lg:px-10">
@@ -68,6 +100,33 @@ export default async function DocArticlePage({ params }: Props) {
                 </section>
               ))}
             </div>
+            {slug === 'economics' && <RoiScenarioCalculator locale={lang} />}
+            {slug === 'comparison' && <ComparisonMatrix locale={lang} />}
+            {slug === 'presentation-kit' && (
+              <section className="mt-10" aria-label={c.presentations}>
+                <h2 className="text-2xl font-bold text-slate-950">{c.presentations}</h2>
+                <div className="mt-4 grid gap-3 sm:grid-cols-3">
+                  {(['teams', 'individuals', 'research'] as const).map((audience) => (
+                    <Link
+                      key={audience}
+                      href={`/docs/decks/${audience}`}
+                      className="rounded-2xl border border-violet-200 bg-violet-50 p-5 text-sm font-bold text-violet-900 transition hover:border-violet-500 hover:bg-violet-100"
+                    >
+                      {c[audience]}
+                    </Link>
+                  ))}
+                </div>
+              </section>
+            )}
+            <section className="mt-12 rounded-3xl bg-slate-950 p-6 text-white md:p-8">
+              <p className="text-xl font-bold leading-relaxed">{c.next}</p>
+              <a
+                href={demoUrl}
+                className="mt-5 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-violet-100"
+              >
+                {c.demo}
+              </a>
+            </section>
             <nav aria-label={docs.links} className="mt-8 flex flex-wrap gap-6 text-sm font-semibold text-violet-800">
               <Link href={`https://www.dzvin.co/${locale}/services`} className="hover:underline">
                 {docs.services}
