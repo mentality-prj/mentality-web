@@ -9,5 +9,9 @@
   "error": "Nie udało się wysłać wiadomości",
   "errorValidateForm": "Proszę wypełnić formularz",
   "errorValidateField": "To pole jest wymagane.",
-  "errorValidateFieldEmail": "Nieprawidłowy adres e-mail"
+  "errorValidateFieldEmail": "Nieprawidłowy adres e-mail",
+  "errorValidateFieldName": "Imię musi mieć co najmniej 2 znaki",
+  "errorValidateFieldMessage": "Wiadomość musi mieć co najmniej 5 znaków",
+  "errorCaptcha": "Nie udało się zweryfikować zabezpieczenia antyspamowego. Spróbuj ponownie.",
+  "errorUnavailable": "Nie udało się dostarczyć wiadomości. Spróbuj ponownie."
 }

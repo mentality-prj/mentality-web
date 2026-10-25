@@ -85,6 +85,9 @@ export const ContactForm = ({
       return 'errorValidateField'
     }
 
+    if (field === 'name' && trimmedValue.length < 2) return 'errorValidateFieldName'
+    if (field === 'message' && trimmedValue.length < 5) return 'errorValidateFieldMessage'
+
     if (field === 'email') {
       const isValid = z.string().email().safeParse(trimmedValue).success
       if (!isValid) return 'errorValidateFieldEmail'
@@ -92,6 +95,9 @@ export const ContactForm = ({
 
     return ''
   }
+
+  const canSubmit =
+    !validateField('name', name) && !validateField('email', email) && !validateField('message', message) && !honeypot
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
@@ -121,7 +127,7 @@ export const ContactForm = ({
 
     try {
       if (!window.grecaptcha) {
-        notifyError('reCAPTCHA not loaded')
+        notifyError(t('errorCaptcha'))
         setLoading(false)
         return
       }
@@ -138,17 +144,21 @@ export const ContactForm = ({
             : message,
         token,
       })
-      if (!res.ok) throw new Error('Failed to send message')
+      if (!res.ok) {
+        notifyError(t(res.status === 403 ? 'errorCaptcha' : 'errorUnavailable'))
+        return
+      }
+      const receipt = (await res.json()) as { success?: boolean }
+      if (receipt.success !== true) {
+        notifyError(t('errorUnavailable'))
+        return
+      }
       setName('')
       setEmail('')
       setMessage('')
       notifySuccess(t('success'))
-    } catch (err) {
-      if (err instanceof Error) {
-        notifyError(err.message)
-      } else {
-        notifyError('Unknown error')
-      }
+    } catch {
+      notifyError(t('errorUnavailable'))
     } finally {
       setLoading(false)
     }
@@ -158,7 +168,7 @@ export const ContactForm = ({
       <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
       <h1 className="mb-6 text-2xl font-bold">{t('title')}</h1>
       {source === 'docs' && (
-        <p className="mb-4 rounded-xl bg-violet-50 p-4 text-sm text-violet-900">{initialMessage}</p>
+        <p className="mb-4 rounded-md bg-violet-50 p-4 text-sm text-violet-900">{initialMessage}</p>
       )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-sm" noValidate>
         <div className="flex flex-col gap-1">
@@ -214,12 +224,13 @@ export const ContactForm = ({
                 message: validateField('message', message),
               }))
             }}
-            className={errors.message ? 'border-error' : ''}
+            rows={5}
+            className={`min-h-40 resize-y ${errors.message ? 'border-error' : ''}`}
             required
           />
           {errors.message && <span className="ml-3 text-sm text-textcolor-muted">{t(errors.message)}</span>}
         </div>
-        <Button type="submit" disabled={loading}>
+        <Button type="submit" disabled={loading || !canSubmit}>
           {loading ? t('sending') : t('send')}
         </Button>
       </form>
