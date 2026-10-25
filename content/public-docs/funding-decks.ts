@@ -6,8 +6,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
   uk: {
     investment: {
       title: 'Dzvin.co — інвестиційна презентація',
-      subtitle:
-        'Pre-launch mental wellbeing × Decision Intelligence: інженерна основа, наукові гіпотези та план запуску.',
+      subtitle: 'Dzvin.co: технологічна основа, наукова програма Decision Intelligence та стратегія розвитку.',
       slides: [
         {
           title: 'Інвестиційна теза',
@@ -30,7 +29,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Продукт і ринок застосування',
-          description: 'Три можливі напрямки монетизації й суспільної користі із загальною дослідницькою основою.',
+          description:
+            'Три напрями застосування з окремими моделями створення цінності та спільною технологічною основою.',
           points: [
             'B2C: особисті спостереження та самопідтримка',
             'B2B: дозволені групові тенденції та підтримка рішень',
@@ -91,9 +91,9 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           description:
             'Після валідації можна перевіряти B2B-ліцензії, партнерські дослідницькі програми та розвиток персонального продукту.',
           points: [
-            'Немає заявлених продажів і CAC/LTV',
-            'Ціни й масштаб перевірятимемо із ринком',
-            'Unit economics — результат майбутніх досліджень',
+            'Оцінювання попиту та готовності платити в цільових сегментах',
+            'Порівняння моделей корпоративного й персонального використання',
+            'Формування моделі витрат, обслуговування та масштабування',
           ],
         },
         {
@@ -103,7 +103,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           points: [
             'Погодити обсяг наступного траншу за реальними кошторисами',
             'Визначити етапи, звітність і критерії продовження',
-            'Почати інвестиційний due diligence',
+            'Погодити порядок технологічної та фінансової експертизи',
           ],
         },
       ],
@@ -111,7 +111,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
     grant: {
       title: 'Dzvin.co — науково-грантова презентація',
       subtitle:
-        'Excellence · Impact · Implementation: Decision Intelligence in Mental Health як перевірюване дослідницьке завдання.',
+        'Наукова новизна, очікуваний вплив і програма реалізації: Decision Intelligence у сфері психічного добробуту.',
       slides: [
         {
           title: 'Проєкт і дослідницька мета',
@@ -120,23 +120,23 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           points: ['Прикладний продукт: Dzvin.co', 'Окремий decision-intelligence технологічний напрям: QDIP'],
         },
         {
-          title: 'State of the art',
+          title: 'Науковий контекст',
           description:
-            'Динамічні моделі, JITAI й micro-randomized trials уже існують; проблема — надійна, придатна до дії інтеграція в чутливому домені.',
+            'Адаптивні інтервенції та мікрорандомізовані дослідження формують наукову основу для оцінювання рішень у чутливій предметній області.',
           points: [
-            'Prediction ≠ policy benefit',
+            'Прогнозна точність не тотожна корисності рішення',
             'Етичні обмеження та неповні дані',
-            'Потрібне незалежне порівняння з baseline',
+            'Порівняння з наперед визначеними базовими підходами',
           ],
         },
         {
-          title: 'Excellence: гіпотези новизни',
+          title: 'Гіпотези наукової новизни',
           description:
             'Перевіримо не окремий новий алгоритм, а композицію правил, моделі, невизначеності та пояснення.',
           points: [
-            'Гібридні rule/model policy',
-            'Калібрування й можливість abstention',
-            'User override, пояснення та повторне оцінювання',
+            'Гібридні політики на основі правил і моделей',
+            'Калібрування та утримання від ненадійної рекомендації',
+            'Пояснення, контроль користувача та повторне оцінювання',
           ],
         },
         {
@@ -144,22 +144,22 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           description:
             'Порівняльні випробування на синтетичних даних і дослідження з учасниками після необхідних погоджень.',
           points: [
-            'Rule-only, ML-only та hybrid baseline',
-            'Calibration, Brier, detection delay, selective risk',
-            'Decision utility й зрозумілість користувачеві',
+            'Порівняння правил, моделей та гібридних підходів',
+            'Калібрування, оцінка Браєра, затримка та ризик помилки',
+            'Практична корисність рішень та зрозумілість пояснень',
           ],
         },
         {
-          title: 'Інженерний baseline',
+          title: 'Інженерна основа',
           description: 'Розроблено вебкомпоненти й серверні модулі, сформовано окремі дослідницькі напрями.',
           points: [
             'Особиста підтримка, команди, Research Workspace',
-            'Прототип не дорівнює клінічній валідації',
-            'Окремі integration/security gates відкриті',
+            'Клінічне оцінювання є окремою дослідницькою вимогою',
+            'Інтеграційні та безпекові критерії приймання',
           ],
         },
         {
-          title: 'Impact: кому потрібна інновація',
+          title: 'Потенційний вплив і застосування',
           description: 'Людям, організаціям і дослідницьким програмам, якщо відповідні гіпотези підтвердяться.',
           points: [
             'Особиста автономія й зручні дії',
@@ -168,7 +168,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Implementation: робочі пакети',
+          title: 'Програма реалізації та робочі пакети',
           description: 'Чотири робочі пакети мають визначені результати та критерії приймання.',
           points: [
             'WP1 · Інтеграція та захист даних',
@@ -183,7 +183,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           points: [
             'Інформована згода та рольовий доступ',
             'Право утриматися від рішення',
-            'Go/no-go та публікація негативних результатів',
+            'Формалізовані рішення за контрольними точками та звітність',
           ],
         },
         {
@@ -211,7 +211,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
     investment: {
       title: 'Dzvin.co — investor deck',
       subtitle:
-        'Pre-launch mental wellbeing × Decision Intelligence: software groundwork, testable science and a launch plan.',
+        'Dzvin.co technology foundations, the Decision Intelligence research programme and development strategy.',
       slides: [
         {
           title: 'Investment thesis',
@@ -252,7 +252,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Current development stage',
           description:
-            'There are no commercial customers, completed effectiveness studies or established product-market fit.',
+            'The project is in product development, with engineering qualification and independent field evaluation planned for the next stage.',
           points: [
             'Security and integration gates remain',
             'Research partners and protocols are needed',
@@ -279,15 +279,20 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           description:
             'Future B2B contracts, funded research and personal product growth are possibilities to evaluate.',
           points: [
-            'No asserted revenue or traction',
-            'Pricing needs market validation',
-            'Unit economics remain unknown',
+            'Structured demand research and willingness-to-pay assessment',
+            'Evaluation of enterprise and personal business models',
+            'Cost-to-serve modelling and scalability assessment',
           ],
         },
         {
           title: 'Investment partnership model',
-          description: 'Discuss milestones, budget, governance and the suitable financing instrument.',
-          points: ['Agree a costed tranche', 'Define reporting and go/no-go', 'Begin investor diligence'],
+          description:
+            'Partnership structure connects the delivery programme, investment milestones, governance and accountability.',
+          points: [
+            'Establish a milestone-linked budget and delivery plan',
+            'Define reporting and go/no-go',
+            'Define the technical and financial due-diligence process',
+          ],
         },
       ],
     },
@@ -330,13 +335,13 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           title: 'Existing groundwork',
           description: 'Personal, team and Research Workspace code plus research specifications exist.',
           points: [
-            'Software prototype, not clinical proof',
+            'Clinical evaluation has separate evidence requirements',
             'Security/integration still gated',
-            'No independent field effectiveness result',
+            'Independent field evaluation is part of the research programme',
           ],
         },
         {
-          title: 'Impact',
+          title: 'Potencjalny wpływ',
           description:
             'Potential relevance to individuals, authorized team-support workflows and reproducible research.',
           points: ['Personal agency', 'Appropriate group context', 'Traceable study programs'],
@@ -367,7 +372,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Research partnership',
-          description: 'Seek qualified research/funding partners for an independently assessed study.',
+          description:
+            'Research partnerships will support method development, independent evaluation and accountable dissemination.',
           points: [
             'Identify suitable call and eligibility',
             'Design consortium and protocol',
@@ -385,13 +391,18 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
       slides: [
         {
           title: 'Teza inwestycyjna',
-          description: 'Finansowanie umożliwia przejście od prototypu do zweryfikowanego produktu i badań.',
+          description:
+            'Kolejny etap rozwoju obejmuje kwalifikację produktu, weryfikację technologii i przygotowanie badań.',
           points: ['B2C dla osób, potencjał B2B, odrębny R&D', 'Decision Intelligence jako hipoteza do sprawdzenia'],
         },
         {
           title: 'Problem',
           description: 'Same ankiety i wyniki ryzyka nie określają bezpiecznych kolejnych działań.',
-          points: ['Rozproszone dane', 'Niepewność i wybór człowieka', 'Brak dowodu efektu bez badań'],
+          points: [
+            'Rozproszone dane',
+            'Niepewność i wybór człowieka',
+            'Ocena wpływu wymaga odrębnego protokołu badawczego',
+          ],
         },
         {
           title: 'Proponowany produkt',
@@ -401,7 +412,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Dlaczego DI',
           description: 'Nie tylko przewidywanie, lecz wyjaśnione działanie w granicach danych.',
-          points: ['Trendy i kontekst', 'Zasady i niepewność', 'Wyjaśnienie → wybór → feedback'],
+          points: ['Trendy i kontekst', 'Zasady i niepewność', 'Wyjaśnienie → wybór użytkownika → informacja zwrotna'],
         },
         {
           title: 'Co zbudowano',
@@ -420,7 +431,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Droga do uruchomienia',
           description: 'Pięć etapów weryfikowanych dowodami.',
-          points: ['Integracja → protokół → feasibility', 'Ocena DI → kontrolowane uruchomienie', 'Kryteria go/no-go'],
+          points: [
+            'Integracja → protokół → ocena wykonalności',
+            'Ocena DI → kontrolowane uruchomienie',
+            'Kryteria kontynuacji programu',
+          ],
         },
         {
           title: 'Kolejny etap inwestycyjny',
@@ -438,30 +453,30 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Model partnerstwa inwestycyjnego',
-          description: 'Ustalmy budżet, etapy, odpowiedzialność i rodzaj finansowania.',
-          points: ['Kosztorys transzy', 'Warunki raportowania', 'Rozmowa due diligence'],
+          description: 'Partnerstwo obejmuje ustalenie budżetu, etapów, odpowiedzialności i formy finansowania.',
+          points: ['Kosztorys transzy', 'Warunki raportowania', 'Proces oceny technologicznej i finansowej'],
         },
       ],
     },
     grant: {
       title: 'Dzvin.co — prezentacja grantowa',
-      subtitle: 'Excellence · Impact · Implementation: Decision Intelligence w zdrowiu psychicznym.',
+      subtitle: 'Nowość naukowa, potencjalny wpływ i plan realizacji badań Decision Intelligence.',
       slides: [
         {
           title: 'Cel projektu',
-          description: 'Budowa i ocena wyjaśnialnego wsparcia decyzji w digital mental wellbeing.',
+          description: 'Rozwój i ocena wyjaśnialnego wspierania decyzji w obszarze dobrostanu psychicznego.',
           points: ['Dzvin.co jako produkt', 'QDIP jako kierunek technologiczny'],
         },
         {
           title: 'Stan wiedzy',
           description:
             'JITAI, adaptacja i mikro-randomizowane badania już istnieją; korzyść z polityki decyzji trzeba wykazać.',
-          points: ['Prognoza ≠ korzyść', 'Braki w danych', 'Potrzeba baseline i walidacji'],
+          points: ['Prognoza ≠ korzyść', 'Braki w danych', 'Porównanie ze zdefiniowanymi metodami odniesienia'],
         },
         {
-          title: 'Excellence: hipotezy',
+          title: 'Hipotezy badawcze',
           description: 'Połączenie reguł, modeli, niepewności i wyboru działania.',
-          points: ['Polityki hybrydowe', 'Kalibracja i abstention', 'Zrozumiałe wyjaśnienia'],
+          points: ['Polityki hybrydowe', 'Kalibracja i wstrzymanie niepewnych rekomendacji', 'Zrozumiałe wyjaśnienia'],
         },
         {
           title: 'Metodyka',
@@ -487,7 +502,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           points: ['Autonomia użytkownika', 'Uprawnione dane zespołów', 'Powtarzalne badania'],
         },
         {
-          title: 'Implementation',
+          title: 'Pakiety prac i realizacja',
           description: 'Pakiety prac z kryteriami odbioru.',
           points: [
             'WP1 Integracja i ochrona danych',
@@ -498,8 +513,12 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Ryzyka i etyka',
-          description: 'Błędy, bias, prywatność, brak danych, szkodliwe rekomendacje.',
-          points: ['Zgoda i minimalizacja', 'Abstention i kontrola człowieka', 'Go/no-go i wyniki negatywne'],
+          description: 'Błędy ocen, stronniczość modeli, prywatność, niekompletne dane i bezpieczeństwo rekomendacji.',
+          points: [
+            'Zgoda i minimalizacja',
+            'Wstrzymanie rekomendacji i nadzór człowieka',
+            'Kryteria kontynuacji i raportowanie wyników negatywnych',
+          ],
         },
         {
           title: 'Finansowanie',
@@ -512,8 +531,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Partnerstwo',
-          description: 'Poszukujemy finansowania i niezależnych partnerów badawczych.',
-          points: ['Wybór programu', 'Konsorcjum i protokół', 'Wspólny plan finansowania'],
+          description: 'Partnerstwa badawcze wspierają rozwój metod, niezależną ocenę i wdrożenie wyników.',
+          points: ['Wybór programu', 'Partnerzy badawczy i zatwierdzony protokół', 'Wspólny plan finansowania'],
         },
       ],
     },

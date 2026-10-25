@@ -109,6 +109,33 @@ describe('public investor documentation', () => {
     expect(dossier).not.toMatch(/(?:\bExit gate:|\bDeliverables:|\bsynthetic datasets|\brelease gates)/i)
   })
 
+  it('keeps public documentation metadata accurate and localized', () => {
+    const localizedInvestmentCategory = {
+      uk: 'Інвестиційна стратегія',
+      en: 'Investment strategy',
+      pl: 'Strategia inwestycyjna',
+    }
+    for (const locale of ['uk', 'en', 'pl'] as const) {
+      const docs = getPublicDocs(locale)
+      expect(docs.articles).toHaveLength(23)
+      expect(docs.articles[0].category).toBe(localizedInvestmentCategory[locale])
+      for (const article of docs.articles) {
+        expect(article.category.trim().length).toBeGreaterThan(6)
+        expect(article.summary.length).toBeGreaterThan(45)
+        expect(article.summary).not.toMatch(
+          /(?:ROI|калькулятор|kalkulator|live demos|як почати|how to begin|jak zacząć)/i
+        )
+      }
+      expect(getPublicDoc(locale, 'presentation-kit')?.summary).toMatch(
+        locale === 'uk'
+          ? /грантових фондів/
+          : locale === 'en'
+            ? /research-funding presentations/
+            : /funduszy badawczych/
+      )
+    }
+  })
+
   it('rejects unknown documents', () => {
     expect(getPublicDoc('uk', '../internal')).toBeUndefined()
   })

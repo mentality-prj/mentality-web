@@ -13,14 +13,14 @@
   "articles": [
     {
       "slug": "funding-brief",
-      "category": "Investment brief",
+      "category": "Strategia inwestycyjna",
       "title": "Podsumowanie inwestycyjne",
-      "summary": "Problem, DI × mental health, prototyp, kamienie milowe i cel finansowania",
+      "summary": "Koncepcja inwestycyjna, fundamenty technologiczne Dzvin.co, program badań QDIP i rezultaty kolejnego etapu.",
       "sections": [
         {
           "title": "Teza inwestycyjna",
           "paragraphs": [
-            "Dzvin.co to rozwijany projekt digital mental wellbeing: narzędzia dla osób, potencjalny produkt dla organizacji i obszar badań. Hipoteza naukowa to zastosowanie Decision Intelligence oraz QDIP do wyjaśnialnego, kontrolowanego przez człowieka wyboru działań przy niepewnych danych.",
+            "Dzvin.co to rozwijana platforma wspierania dobrostanu psychicznego, obejmująca funkcje indywidualne, organizacyjne i badawcze. Program naukowy analizuje wykorzystanie Decision Intelligence i QDIP do wyjaśnialnego wyboru działań przy niepewnych danych, pod kontrolą człowieka.",
             "Istniejące prace inżynierskie stanowią podstawę kolejnego etapu: integracji, bezpieczeństwa, walidacji naukowej i kontrolowanego uruchomienia."
           ]
         },
@@ -63,9 +63,9 @@
     },
     {
       "slug": "investment-thesis",
-      "category": "Inwestycje",
+      "category": "Strategia inwestycyjna",
       "title": "Strategiczne uzasadnienie inwestycji",
-      "summary": "Problem, potencjał, obecny etap i cel dalszego rozwoju",
+      "summary": "Kontekst strategiczny, segmenty docelowe, aktywa technologiczne i model tworzenia długoterminowej wartości.",
       "sections": [
         {
           "title": "Strategia produktu",
@@ -78,7 +78,7 @@
           "title": "Niezaspokojona potrzeba",
           "paragraphs": [
             "Pojedyncze ankiety i osobne dzienniki nie tworzą ciągłego obrazu i procesu działania. Samo przewidywanie ryzyka nie rozstrzyga, jakie działanie jest stosowne.",
-            "W mental-health AI szczególnie ważne są prywatność, błędy, niepewność, zgoda i wpływ na człowieka."
+            "W zastosowaniach sztucznej inteligencji dotyczących dobrostanu psychicznego zasadnicze znaczenie mają ochrona danych, niepewność modeli, zgoda użytkowników i bezpieczeństwo proponowanych działań."
           ]
         },
         {
@@ -113,9 +113,9 @@
     },
     {
       "slug": "scientific-novelty",
-      "category": "Nauka",
+      "category": "Program naukowy",
       "title": "Program naukowy: Decision Intelligence w dobrostanie psychicznym",
-      "summary": "QDIP, wyjaśnialność, niepewność i hipotezy badawcze",
+      "summary": "Hipotezy Decision Intelligence, rola QDIP w architekturze i metodyka badań porównawczych.",
       "sections": [
         {
           "title": "Od predykcji do świadomego działania",
@@ -142,7 +142,7 @@
           "title": "Hipoteza 2 · Niepewność",
           "paragraphs": [
             "Model powinien informować o niewystarczających danych i móc powstrzymać się od ryzykownej rekomendacji.",
-            "Badania: kalibracja, selective risk, brakujące dane i częstotliwość abstention."
+            "Wskaźniki badawcze obejmują kalibrację, ryzyko błędu przy wydanych rekomendacjach, odporność na braki danych i częstotliwość wstrzymywania rekomendacji."
           ]
         },
         {
@@ -170,9 +170,9 @@
     },
     {
       "slug": "development-progress",
-      "category": "Status",
+      "category": "Gotowość techniczna",
       "title": "Postęp rozwoju i gotowość techniczna",
-      "summary": "Istniejące komponenty a otwarte warunki uruchomienia",
+      "summary": "Istniejące komponenty, etap integracji oraz kryteria techniczne kontrolowanego uruchomienia.",
       "sections": [
         {
           "title": "Status techniczny · 25 października 2026 r.",
@@ -220,9 +220,9 @@
     },
     {
       "slug": "evidence-register",
-      "category": "Evidence & readiness",
+      "category": "Rejestr dowodów",
       "title": "Aktywa technologiczne i rejestr dowodów",
-      "summary": "Co potwierdza kod, a co nadal wymaga testów, pilotażu lub niezależnego badania",
+      "summary": "Aktywa programistyczne, dowody z testów i otwarte etapy kwalifikacji ze wskazaniem stopnia potwierdzenia.",
       "sections": [
         {
           "title": "Poziomy dowodów",
@@ -270,14 +270,14 @@
     },
     {
       "slug": "funding-roadmap",
-      "category": "Roadmapa",
+      "category": "Program rozwoju",
       "title": "Roadmapa rozwoju Dzvin.co",
-      "summary": "Etapy, rezultaty i warunki zakończenia",
+      "summary": "Kolejne etapy technologiczne, badawcze i operacyjne wraz z rezultatami i kamieniami milowymi.",
       "sections": [
         {
           "title": "Etap 1 · Integracja",
           "paragraphs": [
-            "Zakończyć integracje Web, NestJS i QDIP, ochronę danych, uwierzytelnianie i możliwość rollbacku.",
+            "Etap obejmuje integrację aplikacji internetowej, usług NestJS i QDIP, kontrolę dostępu, ochronę danych oraz procedury przywracania poprzedniej wersji.",
             "Kryterium: testy integracyjne, bezpieczeństwa i kwalifikacja QA."
           ]
         },
@@ -320,14 +320,14 @@
     },
     {
       "slug": "execution-plan",
-      "category": "Implementation",
+      "category": "Program rozwoju",
       "title": "Program realizacji WP1–WP4",
-      "summary": "Powiązanie finansowania z rezultatami, ryzykiem i kryteriami zakończenia",
+      "summary": "Cztery pakiety prac: integracja, badania DI, ocena użyteczności i przygotowanie uruchomienia.",
       "sections": [
         {
           "title": "WP1 · Integracja i ochrona danych",
           "paragraphs": [
-            "Weryfikacja Web ↔ NestJS ↔ QDIP, logowania, izolacji organizacji, uprawnień, E2E i rollbacku.",
+            "Prace obejmują weryfikację integracji aplikacji internetowej, usług NestJS i QDIP, uwierzytelniania, izolacji organizacji, uprawnień, scenariuszy end-to-end i procedur wycofania wersji.",
             "Warunek: powtarzalne testy, negatywne scenariusze bezpieczeństwa i zatwierdzenie go/no-go."
           ]
         },
@@ -370,9 +370,9 @@
     },
     {
       "slug": "validation-plan",
-      "category": "Walidacja",
+      "category": "Walidacja naukowa",
       "title": "Program walidacji technologicznej i naukowej",
-      "summary": "Dowody techniczne, ocena użytkowników i badania decyzji",
+      "summary": "Metody oceny bezpieczeństwa, jakości technicznej, hipotez naukowych i użyteczności produktu.",
       "sections": [
         {
           "title": "Weryfikacja techniczna",
@@ -420,9 +420,9 @@
     },
     {
       "slug": "funding-request",
-      "category": "Szansa inwestycyjna",
+      "category": "Partnerstwo inwestycyjne",
       "title": "Dzvin.co — możliwość inwestycyjna",
-      "summary": "Od rozwijanego prototypu do produktu przygotowanego do uruchomienia: technologia, etapy i możliwe kierunki wzrostu",
+      "summary": "Potencjał technologiczny, uzasadnienie inwestycji, rezultaty programu i model współpracy.",
       "sections": [
         {
           "title": "Potencjał technologiczny",
@@ -470,9 +470,9 @@
     },
     {
       "slug": "product-story",
-      "category": "Pozycjonowanie",
+      "category": "Strategia produktu",
       "title": "Koncepcja produktu Dzvin.co",
-      "summary": "Jak Dzvin.co łączy trendy zespołowe z odpowiednią reakcją",
+      "summary": "Spójna koncepcja produktu dla użytkowników indywidualnych, organizacji i badań.",
       "sections": [
         {
           "title": "Strategia produktu",
@@ -499,9 +499,9 @@
     },
     {
       "slug": "solutions",
-      "category": "Odbiorcy",
+      "category": "Segmenty docelowe",
       "title": "Segmenty docelowe i zastosowania",
-      "summary": "Najpierw organizacje; dodatkowo zastosowania osobiste i badawcze",
+      "summary": "Planowane zastosowania dla użytkowników indywidualnych, organizacji i programów badawczych.",
       "sections": [
         {
           "title": "Segment indywidualny",
@@ -528,9 +528,9 @@
     },
     {
       "slug": "capability-map",
-      "category": "Funkcje",
+      "category": "Architektura produktu",
       "title": "Architektura funkcjonalna produktu",
-      "summary": "Funkcje osobiste, firmowe i badawcze bez niepotwierdzonych obietnic",
+      "summary": "Moduły funkcjonalne trzech obszarów i kryteria ich gotowości integracyjnej.",
       "sections": [
         {
           "title": "Moduł indywidualny",
@@ -557,9 +557,9 @@
     },
     {
       "slug": "demo-scenarios",
-      "category": "Demo",
+      "category": "Scenariusze użytkowania",
       "title": "Kluczowe scenariusze użytkowania",
-      "summary": "Trzy scenariusze, które można sprawdzić podczas demo",
+      "summary": "Docelowe procesy i kryteria demonstracji technicznej oraz weryfikacji.",
       "sections": [
         {
           "title": "Scenariusz indywidualny",
@@ -586,9 +586,9 @@
     },
     {
       "slug": "economics",
-      "category": "B2B value",
+      "category": "Komercjalizacja",
       "title": "Komercjalizacja i model ekonomiczny",
-      "summary": "Kalkulator pilotażu z przejrzystymi założeniami",
+      "summary": "Kierunki modelu biznesowego, wskaźniki oceny ekonomicznej i program badań rynku.",
       "sections": [
         {
           "title": "Kierunki komercjalizacji",
@@ -615,9 +615,9 @@
     },
     {
       "slug": "comparison",
-      "category": "Evaluation",
+      "category": "Pozycjonowanie rynkowe",
       "title": "Pozycjonowanie rynkowe",
-      "summary": "Dzvin.co, pojedyncze ankiety i samodzielne dashboardy",
+      "summary": "Porównanie kategorii rozwiązań i spójne kryteria oceny funkcjonalnej.",
       "sections": [
         {
           "title": "Kategorie rozwiązań",
@@ -644,9 +644,9 @@
     },
     {
       "slug": "presentation-kit",
-      "category": "Prezentacje",
+      "category": "Materiały prezentacyjne",
       "title": "Materiały prezentacyjne",
-      "summary": "Trzy prezentacje dla różnych odbiorców, gotowe do wydruku PDF",
+      "summary": "Prezentacje dla inwestorów i funduszy badawczych oraz trzy prezentacje produktowe.",
       "sections": [
         {
           "title": "Materiały inwestycyjne",
@@ -673,9 +673,9 @@
     },
     {
       "slug": "po-guide",
-      "category": "Product Owner",
+      "category": "Program badawczy",
       "title": "Strategia walidacji pilotażowej",
-      "summary": "Jak ustalić kryteria oceny i sukcesu",
+      "summary": "Plan oceny pilotażowej, wskaźniki jakości i kryteria dalszego rozwoju.",
       "sections": [
         {
           "title": "Cel pilotażu",
@@ -702,9 +702,9 @@
     },
     {
       "slug": "getting-started",
-      "category": "Podstawy",
+      "category": "Produkt indywidualny",
       "title": "Charakterystyka produktu indywidualnego",
-      "summary": "Do czego służy serwis i jak zacząć",
+      "summary": "Przeznaczenie i docelowy model korzystania z osobistego modułu dobrostanu.",
       "sections": [
         {
           "title": "Przeznaczenie",
@@ -731,9 +731,9 @@
     },
     {
       "slug": "personal",
-      "category": "Dla osób",
+      "category": "Produkt indywidualny",
       "title": "Moduł indywidualny",
-      "summary": "Codzienne pomiary, kwestionariusze i postępy",
+      "summary": "Samooceny, historia, kwestionariusze, cele i dobrowolne praktyki.",
       "sections": [
         {
           "title": "Model samoobserwacji",
@@ -760,9 +760,9 @@
     },
     {
       "slug": "organizations",
-      "category": "Dla firm",
+      "category": "Produkt organizacyjny",
       "title": "Moduł organizacyjny",
-      "summary": "Zagregowane trendy i wspomaganie decyzji",
+      "summary": "Uprawnione analizy grupowe, kontrola dostępu i procesy wspierania decyzji w zespołach.",
       "sections": [
         {
           "title": "Przeznaczenie",
@@ -789,9 +789,9 @@
     },
     {
       "slug": "research",
-      "category": "Badania",
+      "category": "Infrastruktura badawcza",
       "title": "Moduł badawczy",
-      "summary": "Kohorty, obserwacje i jakość dowodów",
+      "summary": "Projekty, kohorty, powtarzane pomiary, metodyka, kontrola dostępu do danych i audyt.",
       "sections": [
         {
           "title": "Zakres badań",
@@ -818,9 +818,9 @@
     },
     {
       "slug": "privacy",
-      "category": "Zaufanie",
+      "category": "Zarządzanie danymi",
       "title": "Zarządzanie danymi i prywatność",
-      "summary": "Przetwarzanie informacji i prawa użytkowników",
+      "summary": "Zasady prywatności, separacji uprawnień i ochrony danych osobowych.",
       "sections": [
         {
           "title": "Zasady przetwarzania",
@@ -847,9 +847,9 @@
     },
     {
       "slug": "limitations",
-      "category": "Ważne",
+      "category": "Zakres i bezpieczeństwo",
       "title": "Zakres zastosowania i bezpieczeństwo",
-      "summary": "Co można, a czego nie można wywnioskować z wyników",
+      "summary": "Przeznaczenie produktu, ograniczenia interpretacji i kryteria odpowiedzialnego uruchomienia.",
       "sections": [
         {
           "title": "Granice interpretacji",
