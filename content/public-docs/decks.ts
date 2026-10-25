@@ -42,17 +42,17 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Як вимірювати результат',
-          description: 'Комерційну цінність треба підтверджувати пілотом, а не обіцянкою відсотків.',
+          description: 'Економічна результативність стане предметом окремого пілотного оцінювання.',
           points: ['Час до розгляду сигналу', 'Регулярність участі', 'Опрацювання подій', 'Витрати процесу'],
         },
         {
           title: 'Економічна модель',
-          description: 'Порівняйте виміряний ефект із витратами ліцензії та впровадження.',
+          description: 'Фінансова модель включатиме результати оцінювання, витрати впровадження та підтримки.',
           points: ['Встановіть базову точку', 'Заміряйте фактичну зміну', 'Розрахуйте можливу вартість змін'],
         },
         {
           title: 'Наступний крок — цільовий пілот',
-          description: 'Почніть з однієї команди, відповідальної особи та метрики.',
+          description: 'Пілотна програма визначить вибірку, відповідальність і критерії приймання.',
           points: ['Демонстрація з дозволеними даними', 'Узгоджені критерії успіху', 'Рішення за результатом пілоту'],
         },
       ],
@@ -93,7 +93,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Відкрийте особисті сервіси',
-          description: 'Ознайомтеся з Dzvin.co й оберіть потрібний сценарій.',
+          description: 'План розвитку включає цільові сценарії та їхню інтеграційну перевірку.',
           points: ['Щоденна самооцінка', 'Історія, практики й цілі'],
         },
       ],
@@ -134,7 +134,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Обговорімо дослідницьку задачу',
-          description: 'Узгодимо демонстрацію релевантного сценарію.',
+          description: 'Наступний етап передбачає технічну перевірку дослідницьких сценаріїв.',
           points: ['Склад учасників', 'Доступ і дані', 'Критерій оцінки'],
         },
       ],
@@ -176,17 +176,17 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Measure what matters',
-          description: 'Test operational value rather than promise unsupported percentages.',
+          description: 'Operational value will be evaluated through a defined pilot protocol.',
           points: ['Time to review a signal', 'Repeat participation', 'Events followed up', 'Process cost'],
         },
         {
           title: 'Economic evaluation',
-          description: 'Compare observed pilot effects with licensing and setup costs.',
+          description: 'The business model will incorporate empirical findings and delivery costs.',
           points: ['Establish a baseline', 'Measure actual change', 'Assess value using your own costs'],
         },
         {
           title: 'Start with one pilot',
-          description: 'Choose a team, an owner and a measurable outcome.',
+          description: 'The pilot programme will define a cohort, accountable owners and evaluation metrics.',
           points: ['Demonstrate an authorized workflow', 'Agree success criteria', 'Evaluate the pilot'],
         },
       ],
@@ -227,7 +227,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Explore Dzvin.co',
-          description: 'See the available personal product experiences.',
+          description: 'Review the target personal workflows and their validation criteria.',
           points: ['Daily check-ins', 'History, exercises and goals'],
         },
       ],

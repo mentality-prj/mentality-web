@@ -8,34 +8,34 @@ type Props = { params: Promise<{ locale: string }> }
 
 const decksLabel = {
   uk: {
-    title: 'Презентації для фінансування',
+    title: 'Інвестиційні та науково-грантові матеріали',
     investment: 'Інвестиційна презентація',
     grant: 'Грантова презентація',
     investmentSummary: 'Інвестиційна логіка, прогрес розробки та план запуску.',
     grantSummary: 'Наукова новизна, методологія та план досліджень.',
-    contact: 'Обговорити фінансування',
+    contact: 'Інвестиційне партнерство',
     evidence: 'Реєстр доказів',
-    roadmap: 'Робочі пакети й roadmap',
+    roadmap: 'Програма реалізації',
   },
   en: {
-    title: 'Funding presentations',
+    title: 'Investor and research funding materials',
     investment: 'Investor presentation',
     grant: 'Grant presentation',
     investmentSummary: 'Investment thesis, engineering evidence and launch plan.',
     grantSummary: 'Scientific novelty, evaluation and research roadmap.',
-    contact: 'Discuss funding',
+    contact: 'Investment partnership',
     evidence: 'Evidence register',
-    roadmap: 'Work packages and roadmap',
+    roadmap: 'Implementation programme',
   },
   pl: {
-    title: 'Prezentacje dla finansujących',
+    title: 'Materiały inwestycyjne i badawcze',
     investment: 'Prezentacja inwestorska',
     grant: 'Prezentacja grantowa',
     investmentSummary: 'Teza inwestycyjna, rozwój i plan uruchomienia.',
     grantSummary: 'Nowość naukowa, metodyka i plan badań.',
-    contact: 'Omów finansowanie',
+    contact: 'Partnerstwo inwestycyjne',
     evidence: 'Rejestr dowodów',
-    roadmap: 'Pakiety prac i roadmapa',
+    roadmap: 'Program realizacji',
   },
 }
 

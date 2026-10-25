@@ -8,7 +8,6 @@ import { ComparisonMatrix } from '../ComparisonMatrix'
 import { DocsNavigation } from '../DocsNavigation'
 import { DossierEvidence } from '../DossierEvidence'
 import { InvestorEvidenceMatrix } from '../InvestorEvidenceMatrix'
-import { RoiScenarioCalculator } from '../RoiScenarioCalculator'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
 
@@ -42,40 +41,40 @@ export default async function DocArticlePage({ params }: Props) {
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
   const c = {
     uk: {
-      demo: 'Замовити демонстрацію',
-      funding: 'Обговорити фінансування',
+      demo: 'Технічна демонстрація',
+      funding: 'Інвестиційне партнерство',
       investDeck: 'Інвестиційна презентація',
       grantDeck: 'Грантова презентація',
-      nextFunding: 'Обговорімо фінансування наступного етапу розробки й перевірки Dzvin.co.',
+      nextFunding: 'Матеріали для обговорення інвестиційної програми та наступного етапу розвитку Dzvin.co.',
       presentations: 'Презентації продукту',
       teams: 'Для компаній',
       individuals: 'Для людей',
       research: 'Для досліджень',
-      next: 'Підберемо сценарій перевірки Dzvin.co для вашої задачі.',
+      next: 'Доступні продуктові презентації та огляд цільових сценаріїв Dzvin.co.',
     },
     en: {
-      demo: 'Request a demonstration',
-      funding: 'Discuss funding',
+      demo: 'Technical demonstration',
+      funding: 'Investment partnership',
       investDeck: 'Investor deck',
       grantDeck: 'Grant deck',
-      nextFunding: 'Discuss funding for the next verifiable development stage.',
+      nextFunding: 'Materials for evaluating the investment programme and the next development stage.',
       presentations: 'Product presentations',
       teams: 'For organizations',
       individuals: 'For individuals',
       research: 'For research',
-      next: 'Discuss a focused Dzvin.co demonstration for your workflow.',
+      next: 'Review the product presentations and target Dzvin.co user journeys.',
     },
     pl: {
-      demo: 'Poproś o prezentację',
-      funding: 'Porozmawiajmy o finansowaniu',
+      demo: 'Demonstracja techniczna',
+      funding: 'Partnerstwo inwestycyjne',
       investDeck: 'Prezentacja inwestorska',
       grantDeck: 'Prezentacja grantowa',
-      nextFunding: 'Porozmawiajmy o finansowaniu następnego etapu rozwoju Dzvin.co.',
+      nextFunding: 'Materiały do oceny programu inwestycyjnego i kolejnego etapu rozwoju Dzvin.co.',
       presentations: 'Prezentacje produktu',
       teams: 'Dla firm',
       individuals: 'Dla osób',
       research: 'Dla badań',
-      next: 'Omówmy demonstrację Dzvin.co dopasowaną do potrzeb.',
+      next: 'Prezentacje i docelowe scenariusze użytkowania Dzvin.co.',
     },
   }[lang]
   const segment = slug === 'research' ? 'research' : slug === 'personal' ? 'individuals' : 'teams'
@@ -137,7 +136,6 @@ export default async function DocArticlePage({ params }: Props) {
                 </Link>
               </div>
             )}
-            {slug === 'economics' && <RoiScenarioCalculator locale={lang} />}
             {slug === 'comparison' && <ComparisonMatrix locale={lang} />}
             {slug === 'presentation-kit' && (
               <section className="mt-10" aria-label={c.presentations}>
