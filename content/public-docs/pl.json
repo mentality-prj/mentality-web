@@ -1,11 +1,11 @@
 {
-  "title": "Dzvin.co — dossier dla inwestorów i grantodawców",
-  "kicker": "Finansowanie · projekt w rozwoju",
-  "lead": "Projekt digital mental wellbeing z kierunkiem badawczym Decision Intelligence. Poszukujemy finansowania na dokończenie wdrożenia, niezależną walidację i odpowiedzialne pilotaże.",
-  "browse": "Wybierz interesujący obszar",
-  "back": "Cała dokumentacja produktu",
-  "nav": "Dokumentacja produktu Dzvin.co",
-  "status": "Wersja: październik 2026",
+  "title": "Dzvin.co | Strategia produktu i dossier inwestycyjne",
+  "kicker": "Dzvin.co · Dokumentacja projektu",
+  "lead": "Strategia produktu, kierunek QDIP / Decision Intelligence, postęp inżynierski i program rozwoju prowadzący do kontrolowanego uruchomienia.",
+  "browse": "Biblioteka dokumentów",
+  "back": "Dokumentacja Dzvin.co",
+  "nav": "Sekcje dokumentacji",
+  "status": "Aktualizacja: 25 października 2026 r.",
   "links": "Przydatne linki",
   "services": "Usługi",
   "faq": "FAQ",
@@ -14,7 +14,7 @@
     {
       "slug": "funding-brief",
       "category": "Investment brief",
-      "title": "Dzvin.co w 3 minuty — opis dla finansujących",
+      "title": "Podsumowanie inwestycyjne",
       "summary": "Problem, DI × mental health, prototyp, kamienie milowe i cel finansowania",
       "sections": [
         {
@@ -64,7 +64,7 @@
     {
       "slug": "investment-thesis",
       "category": "Inwestycje",
-      "title": "Potencjał inwestycyjny Dzvin.co",
+      "title": "Strategiczne uzasadnienie inwestycji",
       "summary": "Problem, potencjał, obecny etap i cel dalszego rozwoju",
       "sections": [
         {
@@ -114,7 +114,7 @@
     {
       "slug": "scientific-novelty",
       "category": "Nauka",
-      "title": "Nowość naukowa: DI in Mental Health",
+      "title": "Program naukowy: Decision Intelligence w dobrostanie psychicznym",
       "summary": "QDIP, wyjaśnialność, niepewność i hipotezy badawcze",
       "sections": [
         {
@@ -171,7 +171,7 @@
     {
       "slug": "development-progress",
       "category": "Status",
-      "title": "Postęp prac i ograniczenia",
+      "title": "Postęp rozwoju i gotowość techniczna",
       "summary": "Istniejące komponenty a otwarte warunki uruchomienia",
       "sections": [
         {
@@ -221,7 +221,7 @@
     {
       "slug": "evidence-register",
       "category": "Evidence & readiness",
-      "title": "Rejestr dowodów i gotowości",
+      "title": "Aktywa technologiczne i rejestr dowodów",
       "summary": "Co potwierdza kod, a co nadal wymaga testów, pilotażu lub niezależnego badania",
       "sections": [
         {
@@ -271,7 +271,7 @@
     {
       "slug": "funding-roadmap",
       "category": "Roadmapa",
-      "title": "Od prototypu do uruchomienia",
+      "title": "Roadmapa rozwoju Dzvin.co",
       "summary": "Etapy, rezultaty i warunki zakończenia",
       "sections": [
         {
@@ -321,7 +321,7 @@
     {
       "slug": "execution-plan",
       "category": "Implementation",
-      "title": "Pakiety prac, etapy i transze finansowania",
+      "title": "Program realizacji WP1–WP4",
       "summary": "Powiązanie finansowania z rezultatami, ryzykiem i kryteriami zakończenia",
       "sections": [
         {
@@ -371,7 +371,7 @@
     {
       "slug": "validation-plan",
       "category": "Walidacja",
-      "title": "Jak sprawdzimy hipotezy",
+      "title": "Program walidacji technologicznej i naukowej",
       "summary": "Dowody techniczne, ocena użytkowników i badania decyzji",
       "sections": [
         {
@@ -471,7 +471,7 @@
     {
       "slug": "product-story",
       "category": "Pozycjonowanie",
-      "title": "Od sygnałów do działań zespołu",
+      "title": "Koncepcja produktu Dzvin.co",
       "summary": "Jak Dzvin.co łączy trendy zespołowe z odpowiednią reakcją",
       "sections": [
         {
@@ -500,7 +500,7 @@
     {
       "slug": "solutions",
       "category": "Odbiorcy",
-      "title": "Dla kogo jest Dzvin.co",
+      "title": "Segmenty docelowe i zastosowania",
       "summary": "Najpierw organizacje; dodatkowo zastosowania osobiste i badawcze",
       "sections": [
         {
@@ -536,7 +536,7 @@
     {
       "slug": "capability-map",
       "category": "Funkcje",
-      "title": "Możliwości Dzvin.co",
+      "title": "Architektura funkcjonalna produktu",
       "summary": "Funkcje osobiste, firmowe i badawcze bez niepotwierdzonych obietnic",
       "sections": [
         {
@@ -565,7 +565,7 @@
     {
       "slug": "demo-scenarios",
       "category": "Demo",
-      "title": "Jak działa Dzvin.co",
+      "title": "Kluczowe scenariusze użytkowania",
       "summary": "Trzy scenariusze, które można sprawdzić podczas demo",
       "sections": [
         {
@@ -601,7 +601,7 @@
     {
       "slug": "economics",
       "category": "B2B value",
-      "title": "Wartość biznesowa",
+      "title": "Komercjalizacja i model ekonomiczny",
       "summary": "Kalkulator pilotażu z przejrzystymi założeniami",
       "sections": [
         {
@@ -630,7 +630,7 @@
     {
       "slug": "comparison",
       "category": "Evaluation",
-      "title": "Porównanie podejść",
+      "title": "Pozycjonowanie rynkowe",
       "summary": "Dzvin.co, pojedyncze ankiety i samodzielne dashboardy",
       "sections": [
         {
@@ -659,7 +659,7 @@
     {
       "slug": "presentation-kit",
       "category": "Prezentacje",
-      "title": "Prezentacje Dzvin.co",
+      "title": "Materiały prezentacyjne",
       "summary": "Trzy prezentacje dla różnych odbiorców, gotowe do wydruku PDF",
       "sections": [
         {
@@ -688,7 +688,7 @@
     {
       "slug": "po-guide",
       "category": "Product Owner",
-      "title": "Pilotaż i wdrożenie",
+      "title": "Strategia walidacji pilotażowej",
       "summary": "Jak ustalić kryteria oceny i sukcesu",
       "sections": [
         {
@@ -717,7 +717,7 @@
     {
       "slug": "getting-started",
       "category": "Podstawy",
-      "title": "Pierwsze kroki",
+      "title": "Charakterystyka produktu indywidualnego",
       "summary": "Do czego służy serwis i jak zacząć",
       "sections": [
         {
@@ -746,7 +746,7 @@
     {
       "slug": "personal",
       "category": "Dla osób",
-      "title": "Wsparcie osobiste",
+      "title": "Moduł indywidualny",
       "summary": "Codzienne pomiary, kwestionariusze i postępy",
       "sections": [
         {
@@ -775,7 +775,7 @@
     {
       "slug": "organizations",
       "category": "Dla firm",
-      "title": "Analiza zespołów",
+      "title": "Moduł organizacyjny",
       "summary": "Zagregowane trendy i wspomaganie decyzji",
       "sections": [
         {
@@ -804,7 +804,7 @@
     {
       "slug": "research",
       "category": "Badania",
-      "title": "Badania i walidacja",
+      "title": "Moduł badawczy",
       "summary": "Kohorty, obserwacje i jakość dowodów",
       "sections": [
         {
@@ -833,7 +833,7 @@
     {
       "slug": "privacy",
       "category": "Zaufanie",
-      "title": "Prywatność i dane",
+      "title": "Zarządzanie danymi i prywatność",
       "summary": "Przetwarzanie informacji i prawa użytkowników",
       "sections": [
         {
@@ -862,7 +862,7 @@
     {
       "slug": "limitations",
       "category": "Ważne",
-      "title": "Możliwości i ograniczenia",
+      "title": "Zakres zastosowania i bezpieczeństwo",
       "summary": "Co można, a czego nie można wywnioskować z wyników",
       "sections": [
         {
@@ -889,17 +889,17 @@
       ]
     }
   ],
-  "referenceTitle": "Poradniki funkcji",
-  "featuredCta": "Porozmawiajmy o finansowaniu",
-  "featuredNote": "Dzvin.co jest przed uruchomieniem. Poszukujemy finansowania na integrację, badania i kontrolowany start.",
-  "fundingHeadline": "Od obserwacji samopoczucia do decyzji, które można zweryfikować",
-  "fundingIntro": "Dzvin.co rozwija osobiste narzędzia dobrostanu, analitykę zespołów i program badawczy Decision Intelligence w obszarze zdrowia psychicznego. Chcemy sprawdzić, czy przejrzyste sygnały z informacją o niepewności pomagają podejmować lepsze decyzje pod kontrolą człowieka.",
-  "stageLabel": "ETAP: PROTOTYP / PRZED URUCHOMIENIEM",
-  "stageDescription": "Projekt w rozwoju, bez klientów komercyjnych, zakończonych pilotaży i potwierdzonej skuteczności klinicznej. Istnieją komponenty i materiały badawcze; integracje, bezpieczeństwo i pełne testy E2E wymagają dalszej weryfikacji.",
-  "fundingCta": "Porozmawiajmy o finansowaniu",
+  "referenceTitle": "Dokumentacja funkcjonalna i zasady",
+  "featuredCta": "Prezentacja inwestorska",
+  "featuredNote": "Aktualny stan i następne etapy opisano w rejestrze dowodów i roadmapie.",
+  "fundingHeadline": "Dzvin.co: technologia wspierania decyzji w dobrostanie psychicznym",
+  "fundingIntro": "Rozwijana platforma łącząca scenariusze indywidualne, narzędzia organizacyjne i badania Decision Intelligence oparte na kierunku technologicznym QDIP.",
+  "stageLabel": "ETAP PRODUKTU · ROZWÓJ I INTEGRACJA",
+  "stageDescription": "Powstały podstawowe komponenty indywidualne, organizacyjne i badawcze. Kolejne etapy obejmują integrację, bezpieczeństwo, ocenę naukową i przygotowanie kontrolowanego uruchomienia. Zewnętrzne pilotaże i badania efektów nie zostały jeszcze zakończone.",
+  "fundingCta": "Partnerstwo inwestycyjne",
   "fundingSecondaryCta": "Prezentacja inwestorska",
-  "fundingLibrary": "Dossier inwestycyjne i grantowe",
-  "productLibrary": "Dodatek: produkt i scenariusze",
-  "evidenceLabel": "Źródła i kryteria weryfikacji",
-  "fundingNote": "Finansowanie służy sprawdzalnemu rozwojowi projektu, a nie zakupowi udowodnionych już efektów."
+  "fundingLibrary": "Strategia, technologia i program rozwoju",
+  "productLibrary": "Koncepcja produktu i zastosowania",
+  "evidenceLabel": "Dowody i kryteria gotowości",
+  "fundingNote": "Dowody inżynierskie, hipotezy badawcze i planowana walidacja odpowiadają różnym poziomom dojrzałości."
 }
