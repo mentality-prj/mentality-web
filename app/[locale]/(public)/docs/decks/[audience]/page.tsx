@@ -72,7 +72,7 @@ export default async function ProductDeckPage({ params }: Props) {
     : `https://www.dzvin.co/${lang}/contacts?source=docs&intent=demo&segment=${audience}`
 
   return (
-    <div className="dzvin-deck min-h-screen bg-slate-100">
+    <div className="dzvin-deck min-h-screen bg-background-muted">
       <DeckToolbar printLabel={c.print} fullscreenLabel={c.full} />
       <div className="dzvin-deck-shell mx-auto max-w-6xl space-y-8 px-4 py-8 md:px-8">
         <div className="dzvin-deck-links flex flex-wrap items-center justify-between gap-3 text-sm">
@@ -84,25 +84,25 @@ export default async function ProductDeckPage({ params }: Props) {
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
-        <section className="dzvin-slide dzvin-slide-cover relative flex aspect-[16/9] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-800 p-8 text-white shadow-xl md:p-14">
+        <section className="dzvin-slide dzvin-slide-cover relative flex aspect-[16/9] flex-col justify-between overflow-hidden rounded-3xl border border-border bg-background-muted p-8 text-textcolor-primary shadow-sm md:p-14">
           <div className="relative z-10 flex items-center justify-between gap-4">
-            <span className="font-semibold tracking-[0.25em] text-violet-200">DZVIN.CO</span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+            <span className="font-semibold tracking-[0.25em] text-primary">DZVIN.CO</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-textcolor-secondary">
               {isFunding ? c.fundingLabel : c.label}
             </span>
           </div>
           <div className="relative z-10 max-w-4xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-violet-200">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               {isFunding ? c.fundingLabel : c.label}
             </p>
-            <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-6xl">{deck.title}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-2xl">{deck.subtitle}</p>
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-textcolor-primary md:text-6xl">{deck.title}</h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-textcolor-secondary md:text-2xl">{deck.subtitle}</p>
           </div>
           <div
             aria-hidden="true"
-            className="absolute -bottom-28 -right-24 h-96 w-96 rounded-full border-[54px] border-violet-400/20"
+            className="absolute -bottom-28 -right-24 h-96 w-96 rounded-full border-[54px] border-primary/10"
           />
-          <span className="relative z-10 text-sm text-violet-200">Dzvin.co · 2026</span>
+          <span className="relative z-10 text-sm text-primary">Dzvin.co · 2026</span>
         </section>
         {deck.slides.map((slide, index) => (
           <section
@@ -144,7 +144,7 @@ export default async function ProductDeckPage({ params }: Props) {
             {c.overview}
           </a>
           <a
-            className="rounded-full bg-violet-700 px-5 py-3 font-semibold text-white hover:bg-violet-800"
+            className="rounded-full bg-primary px-5 py-3 font-semibold text-primary-foreground hover:bg-primary-hover"
             href={demoUrl}
           >
             {isFunding ? c.funding : c.demo}
