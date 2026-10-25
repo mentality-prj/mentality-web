@@ -7,9 +7,36 @@ import { Link } from '@/i18n/navigation'
 type Props = { params: Promise<{ locale: string }> }
 
 const decksLabel = {
-  uk: { title: 'Презентації для фінансування', investment: 'Інвестиційна презентація', grant: 'Грантова презентація', investmentSummary: 'Інвестиційна логіка, прогрес розробки та план запуску.', grantSummary: 'Наукова новизна, методологія та план досліджень.', contact: 'Обговорити фінансування', evidence: 'Реєстр доказів', roadmap: 'Робочі пакети й roadmap' },
-  en: { title: 'Funding presentations', investment: 'Investor presentation', grant: 'Grant presentation', investmentSummary: 'Investment thesis, engineering evidence and launch plan.', grantSummary: 'Scientific novelty, evaluation and research roadmap.', contact: 'Discuss funding', evidence: 'Evidence register', roadmap: 'Work packages and roadmap' },
-  pl: { title: 'Prezentacje dla finansujących', investment: 'Prezentacja inwestorska', grant: 'Prezentacja grantowa', investmentSummary: 'Teza inwestycyjna, rozwój i plan uruchomienia.', grantSummary: 'Nowość naukowa, metodyka i plan badań.', contact: 'Omów finansowanie', evidence: 'Rejestr dowodów', roadmap: 'Pakiety prac i roadmapa' },
+  uk: {
+    title: 'Презентації для фінансування',
+    investment: 'Інвестиційна презентація',
+    grant: 'Грантова презентація',
+    investmentSummary: 'Інвестиційна логіка, прогрес розробки та план запуску.',
+    grantSummary: 'Наукова новизна, методологія та план досліджень.',
+    contact: 'Обговорити фінансування',
+    evidence: 'Реєстр доказів',
+    roadmap: 'Робочі пакети й roadmap',
+  },
+  en: {
+    title: 'Funding presentations',
+    investment: 'Investor presentation',
+    grant: 'Grant presentation',
+    investmentSummary: 'Investment thesis, engineering evidence and launch plan.',
+    grantSummary: 'Scientific novelty, evaluation and research roadmap.',
+    contact: 'Discuss funding',
+    evidence: 'Evidence register',
+    roadmap: 'Work packages and roadmap',
+  },
+  pl: {
+    title: 'Prezentacje dla finansujących',
+    investment: 'Prezentacja inwestorska',
+    grant: 'Prezentacja grantowa',
+    investmentSummary: 'Teza inwestycyjna, rozwój i plan uruchomienia.',
+    grantSummary: 'Nowość naukowa, metodyka i plan badań.',
+    contact: 'Omów finansowanie',
+    evidence: 'Rejestr dowodów',
+    roadmap: 'Pakiety prac i roadmapa',
+  },
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
@@ -50,23 +77,44 @@ export default async function DocsIndexPage({ params }: Props) {
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
           <div className="mt-5 flex flex-wrap gap-3">
-            <a href={contactUrl} className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-hover">
+            <a
+              href={contactUrl}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
+            >
               {t.contact}
               <ArrowRight className="h-4 w-4" aria-hidden="true" />
             </a>
-            <Link href="/docs/evidence-register" className="inline-flex items-center rounded-full border border-border bg-white px-5 py-3 text-sm font-semibold text-textcolor-primary hover:bg-background-muted">{t.evidence}</Link>
-            <Link href="/docs/execution-plan" className="inline-flex items-center rounded-full border border-border bg-white px-5 py-3 text-sm font-semibold text-textcolor-primary hover:bg-background-muted">{t.roadmap}</Link>
+            <Link
+              href="/docs/evidence-register"
+              className="inline-flex items-center rounded-full border border-border bg-white px-5 py-3 text-sm font-semibold text-textcolor-primary hover:bg-background-muted"
+            >
+              {t.evidence}
+            </Link>
+            <Link
+              href="/docs/execution-plan"
+              className="inline-flex items-center rounded-full border border-border bg-white px-5 py-3 text-sm font-semibold text-textcolor-primary hover:bg-background-muted"
+            >
+              {t.roadmap}
+            </Link>
           </div>
           <p className="mt-4 text-xs text-slate-500">{docs.status}</p>
         </header>
         <section aria-labelledby="funding-decks" className="mt-14">
-          <h2 id="funding-decks" className="text-2xl font-bold text-slate-900">{t.title}</h2>
+          <h2 id="funding-decks" className="text-2xl font-bold text-slate-900">
+            {t.title}
+          </h2>
           <div className="mt-6 grid gap-4 md:grid-cols-2">
-            {([
-              { href: '/docs/decks/investment', title: t.investment, summary: t.investmentSummary },
-              { href: '/docs/decks/grant', title: t.grant, summary: t.grantSummary },
-            ] as const).map((item) => (
-              <Link key={item.href} href={item.href} className="group flex min-h-40 flex-col rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm transition hover:border-violet-300 hover:shadow-md">
+            {(
+              [
+                { href: '/docs/decks/investment', title: t.investment, summary: t.investmentSummary },
+                { href: '/docs/decks/grant', title: t.grant, summary: t.grantSummary },
+              ] as const
+            ).map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="group flex min-h-40 flex-col rounded-3xl border border-slate-200 bg-white/90 p-6 shadow-sm transition hover:border-violet-300 hover:shadow-md"
+              >
                 <h3 className="text-xl font-bold text-slate-900">{item.title}</h3>
                 <p className="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{item.summary}</p>
                 <ArrowRight className="mt-4 h-5 w-5 self-end text-violet-700" aria-hidden="true" />

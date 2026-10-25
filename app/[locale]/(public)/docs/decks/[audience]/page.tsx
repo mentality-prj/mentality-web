@@ -95,8 +95,12 @@ export default async function ProductDeckPage({ params }: Props) {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               {isFunding ? c.fundingLabel : c.label}
             </p>
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-textcolor-primary md:text-6xl">{deck.title}</h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-textcolor-secondary md:text-2xl">{deck.subtitle}</p>
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-textcolor-primary md:text-6xl">
+              {deck.title}
+            </h1>
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-textcolor-secondary md:text-2xl">
+              {deck.subtitle}
+            </p>
           </div>
           <div
             aria-hidden="true"
