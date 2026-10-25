@@ -26,6 +26,7 @@ export function DocsDirectory({ docs, locale }: { docs: PublicDocs; locale: stri
     articles: group.articles.filter(article =>
       !normalized || [article.title, article.category, article.summary, ...article.sections.map(s => s.title)]
         .some(v => v.toLocaleLowerCase(lang).includes(normalized))
+    )
   }))
   return (
     <div className="mt-12">
