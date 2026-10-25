@@ -87,10 +87,14 @@ export default async function ProductDeckPage({ params }: Props) {
         <section className="dzvin-slide dzvin-slide-cover relative flex aspect-[16/9] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-800 p-8 text-white shadow-xl md:p-14">
           <div className="relative z-10 flex items-center justify-between gap-4">
             <span className="font-semibold tracking-[0.25em] text-violet-200">DZVIN.CO</span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-200">{isFunding ? c.fundingLabel : c.label}</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-200">
+              {isFunding ? c.fundingLabel : c.label}
+            </span>
           </div>
           <div className="relative z-10 max-w-4xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-violet-200">{isFunding ? c.fundingLabel : c.label}</p>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-violet-200">
+              {isFunding ? c.fundingLabel : c.label}
+            </p>
             <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-6xl">{deck.title}</h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-2xl">{deck.subtitle}</p>
           </div>

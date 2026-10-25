@@ -17,7 +17,11 @@ declare global {
     }
   }
 }
-export const ContactForm = ({ source, segment, intent }: { source?: 'docs'; segment?: string; intent?: 'funding' | 'demo' } = {}) => {
+export const ContactForm = ({
+  source,
+  segment,
+  intent,
+}: { source?: 'docs'; segment?: string; intent?: 'funding' | 'demo' } = {}) => {
   const t = useTranslations('components.ContactForm')
   const locale = useLocale()
   const topics = {
@@ -39,9 +43,21 @@ export const ContactForm = ({ source, segment, intent }: { source?: 'docs'; segm
   }
 
   const fundingTopics = {
-    uk: { investment: 'Хочу обговорити інвестування у запуск Dzvin.co: стадія розробки, QDIP/Decision Intelligence, бюджет і milestones.', grant: 'Хочу обговорити грантове фінансування дослідження Decision Intelligence in mental health на базі Dzvin.co.' },
-    en: { investment: 'I would like to discuss financing the development and launch of Dzvin.co, including milestones and the QDIP research track.', grant: 'I would like to discuss research/grant funding for Decision Intelligence in mental health with Dzvin.co.' },
-    pl: { investment: 'Chcę omówić finansowanie rozwoju i uruchomienia Dzvin.co, etapy i kierunek badań QDIP.', grant: 'Chcę omówić dofinansowanie badań Decision Intelligence in mental health w Dzvin.co.' },
+    uk: {
+      investment:
+        'Хочу обговорити інвестування у запуск Dzvin.co: стадія розробки, QDIP/Decision Intelligence, бюджет і milestones.',
+      grant:
+        'Хочу обговорити грантове фінансування дослідження Decision Intelligence in mental health на базі Dzvin.co.',
+    },
+    en: {
+      investment:
+        'I would like to discuss financing the development and launch of Dzvin.co, including milestones and the QDIP research track.',
+      grant: 'I would like to discuss research/grant funding for Decision Intelligence in mental health with Dzvin.co.',
+    },
+    pl: {
+      investment: 'Chcę omówić finansowanie rozwoju i uruchomienia Dzvin.co, etapy i kierunek badań QDIP.',
+      grant: 'Chcę omówić dofinansowanie badań Decision Intelligence in mental health w Dzvin.co.',
+    },
   }
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
   const initialMessage =

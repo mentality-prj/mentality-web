@@ -4,7 +4,8 @@ type Props = { searchParams: Promise<{ source?: string; intent?: string; segment
 
 export default async function ContactPage({ searchParams }: Props) {
   const params = await searchParams
-  const intent = params.source === 'docs' && (params.intent === 'funding' || params.intent === 'demo') ? params.intent : undefined
+  const intent =
+    params.source === 'docs' && (params.intent === 'funding' || params.intent === 'demo') ? params.intent : undefined
   const validSegments = intent === 'funding' ? ['investment', 'grant'] : ['teams', 'individuals', 'research']
   const segment = validSegments.includes(params.segment ?? '') ? params.segment : undefined
   return (

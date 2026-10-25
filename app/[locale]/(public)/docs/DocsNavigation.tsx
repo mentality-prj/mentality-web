@@ -8,13 +8,18 @@ export function DocsNavigation({ docs, activeSlug }: { docs: PublicDocs; activeS
     { label: docs.referenceTitle, articles: docs.articles.slice(14) },
   ]
   return (
-    <nav aria-label={docs.nav} className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm md:sticky md:top-6 md:max-h-[calc(100vh-3rem)] md:overflow-y-auto">
-      <Link href="/docs" className="mb-3 block rounded-xl px-3 py-2 font-semibold text-slate-900 hover:bg-slate-50">{docs.back}</Link>
-      {groups.map(group => (
+    <nav
+      aria-label={docs.nav}
+      className="rounded-3xl border border-slate-200 bg-white/90 p-4 shadow-sm md:sticky md:top-6 md:max-h-[calc(100vh-3rem)] md:overflow-y-auto"
+    >
+      <Link href="/docs" className="mb-3 block rounded-xl px-3 py-2 font-semibold text-slate-900 hover:bg-slate-50">
+        {docs.back}
+      </Link>
+      {groups.map((group) => (
         <div key={group.label} className="mt-5 border-t border-slate-200 pt-4">
           <h2 className="px-3 text-xs font-bold uppercase tracking-wider text-slate-500">{group.label}</h2>
           <ul className="mt-2 space-y-1">
-            {group.articles.map(article => (
+            {group.articles.map((article) => (
               <li key={article.slug}>
                 <Link
                   href={`/docs/${article.slug}`}

@@ -1,4 +1,4 @@
-import { getFundingDeck, type FundingAudience } from './funding-decks'
+import { type FundingAudience, getFundingDeck } from './funding-decks'
 
 export type DeckLocale = 'uk' | 'en' | 'pl'
 export type DeckAudience = 'teams' | 'individuals' | 'research' | FundingAudience

@@ -5,8 +5,8 @@ import { getPublicDoc, getPublicDocs } from '@/content/public-docs'
 import { Link } from '@/i18n/navigation'
 
 import { ComparisonMatrix } from '../ComparisonMatrix'
-import { DossierEvidence } from '../DossierEvidence'
 import { DocsNavigation } from '../DocsNavigation'
+import { DossierEvidence } from '../DossierEvidence'
 import { FundingBudgetPlanner } from '../FundingBudgetPlanner'
 import { RoiScenarioCalculator } from '../RoiScenarioCalculator'
 
@@ -80,7 +80,7 @@ export default async function DocArticlePage({ params }: Props) {
   }[lang]
   const segment = slug === 'research' ? 'research' : slug === 'personal' ? 'individuals' : 'teams'
   const demoUrl = `https://www.dzvin.co/${lang}/contacts?source=docs&intent=demo&segment=${segment}`
-  const isFunding = docs.articles.slice(0, 6).some(item => item.slug === slug)
+  const isFunding = docs.articles.slice(0, 6).some((item) => item.slug === slug)
   const fundingUrl = `https://www.dzvin.co/${lang}/contacts?source=docs&intent=funding&segment=investment`
   return (
     <div className="min-h-[70vh] bg-[linear-gradient(180deg,#faf5ff_0%,#f8fafc_30%,white_100%)]">
@@ -118,11 +118,23 @@ export default async function DocArticlePage({ params }: Props) {
             </div>
             {slug === 'funding-request' && <FundingBudgetPlanner locale={lang} />}
             {slug === 'scientific-novelty' && <DossierEvidence locale={lang} variant="research" />}
-            {(slug === 'development-progress' || slug === 'validation-plan' || slug === 'funding-roadmap') && <DossierEvidence locale={lang} variant="engineering" />}
+            {(slug === 'development-progress' || slug === 'validation-plan' || slug === 'funding-roadmap') && (
+              <DossierEvidence locale={lang} variant="engineering" />
+            )}
             {slug === 'investment-thesis' && (
               <div className="mt-10 grid gap-4 sm:grid-cols-2">
-                <Link href="/docs/decks/investment" className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 text-sm font-bold text-indigo-950 hover:bg-indigo-100">{c.investDeck}</Link>
-                <Link href="/docs/decks/grant" className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 text-sm font-bold text-indigo-950 hover:bg-indigo-100">{c.grantDeck}</Link>
+                <Link
+                  href="/docs/decks/investment"
+                  className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 text-sm font-bold text-indigo-950 hover:bg-indigo-100"
+                >
+                  {c.investDeck}
+                </Link>
+                <Link
+                  href="/docs/decks/grant"
+                  className="rounded-2xl border border-indigo-200 bg-indigo-50 p-5 text-sm font-bold text-indigo-950 hover:bg-indigo-100"
+                >
+                  {c.grantDeck}
+                </Link>
               </div>
             )}
             {slug === 'economics' && <RoiScenarioCalculator locale={lang} />}
