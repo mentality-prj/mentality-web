@@ -56,8 +56,10 @@ describe('public investor documentation', () => {
       const article = getPublicDoc(locale, 'funding-request')
       expect(article?.title).toBe(titles[locale])
       expect(article?.sections).toHaveLength(6)
-      expect(article?.sections.every(section => section.paragraphs.length >= 2)).toBe(true)
-      expect(JSON.stringify(article)).not.toMatch(/(?:CRM|вигадує суму|fikcyjnych inwestorów|fabricated estimate|на що підуть кошти)/i)
+      expect(article?.sections.every((section) => section.paragraphs.length >= 2)).toBe(true)
+      expect(JSON.stringify(article)).not.toMatch(
+        /(?:CRM|вигадує суму|fikcyjnych inwestorów|fabricated estimate|на що підуть кошти)/i
+      )
     }
   })
   it('rejects unknown documents', () => {

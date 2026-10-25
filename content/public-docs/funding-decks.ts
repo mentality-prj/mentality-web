@@ -78,7 +78,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Наступний інвестиційний етап',
-          description: 'Від інженерного прототипу — до перевіреного продукту, наукового оцінювання та підготовки запуску.',
+          description:
+            'Від інженерного прототипу — до перевіреного продукту, наукового оцінювання та підготовки запуску.',
           points: [
             'Інженерія та інтеграції; безпека',
             'Decision Intelligence R&D та дослідницькі протоколи',
@@ -266,7 +267,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Next investment milestone',
-          description: 'From software groundwork to a qualified product, research evidence and controlled launch readiness.',
+          description:
+            'From software groundwork to a qualified product, research evidence and controlled launch readiness.',
           points: ['Integration and security', 'Decision Intelligence R&D', 'Pilots, people and infrastructure'],
         },
         {
