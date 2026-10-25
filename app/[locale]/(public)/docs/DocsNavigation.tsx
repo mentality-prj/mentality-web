@@ -3,9 +3,9 @@ import { Link } from '@/i18n/navigation'
 
 export function DocsNavigation({ docs, activeSlug }: { docs: PublicDocs; activeSlug?: string }) {
   const groups = [
-    { label: docs.fundingLibrary, articles: docs.articles.slice(0, 6) },
-    { label: docs.productLibrary, articles: docs.articles.slice(6, 14) },
-    { label: docs.referenceTitle, articles: docs.articles.slice(14) },
+    { label: docs.fundingLibrary, articles: docs.articles.slice(0, 9) },
+    { label: docs.productLibrary, articles: docs.articles.slice(9, 17) },
+    { label: docs.referenceTitle, articles: docs.articles.slice(17) },
   ]
   return (
     <nav

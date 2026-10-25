@@ -1,23 +1,26 @@
 import { getPublicDoc, getPublicDocs, publicDocSlugs } from './index'
 
 const fundingSlugs = [
+  'funding-brief',
   'investment-thesis',
   'scientific-novelty',
   'development-progress',
+  'evidence-register',
   'funding-roadmap',
+  'execution-plan',
   'validation-plan',
   'funding-request',
 ]
 
 describe('public investor documentation', () => {
-  it('provides a consistent 20-chapter dossier across all languages', () => {
-    expect(new Set(publicDocSlugs).size).toBe(20)
+  it('provides a consistent 23-chapter dossier across all languages', () => {
+    expect(new Set(publicDocSlugs).size).toBe(23)
     for (const locale of ['uk', 'en', 'pl']) {
       const docs = getPublicDocs(locale)
       expect(docs).not.toHaveProperty('notice')
       expect(docs.articles.map((article) => article.slug)).toEqual(publicDocSlugs)
-      expect(docs.articles.slice(0, 6).map((article) => article.slug)).toEqual(fundingSlugs)
-      expect(docs.articles.slice(0, 6).every((article) => article.sections.length >= 6)).toBe(true)
+      expect(docs.articles.slice(0, 9).map((article) => article.slug)).toEqual(fundingSlugs)
+      expect(docs.articles.slice(0, 9).every((article) => article.sections.length >= 6)).toBe(true)
       expect(docs.articles.every((article) => article.sections.length >= 2)).toBe(true)
       expect(docs.stageDescription.length).toBeGreaterThan(60)
       expect(docs.fundingHeadline.length).toBeGreaterThan(15)
