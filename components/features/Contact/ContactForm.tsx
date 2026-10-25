@@ -17,7 +17,7 @@ declare global {
     }
   }
 }
-export const ContactForm = ({ source, segment }: { source?: 'docs'; segment?: string } = {}) => {
+export const ContactForm = ({ source, segment, intent }: { source?: 'docs'; segment?: string; intent?: 'funding' | 'demo' } = {}) => {
   const t = useTranslations('components.ContactForm')
   const locale = useLocale()
   const topics = {
@@ -37,9 +37,19 @@ export const ContactForm = ({ source, segment }: { source?: 'docs'; segment?: st
       research: 'Chcę omówić program badawczy Dzvin.co.',
     },
   }
+
+  const fundingTopics = {
+    uk: { investment: 'Хочу обговорити інвестування у запуск Dzvin.co: стадія розробки, QDIP/Decision Intelligence, бюджет і milestones.', grant: 'Хочу обговорити грантове фінансування дослідження Decision Intelligence in mental health на базі Dzvin.co.' },
+    en: { investment: 'I would like to discuss financing the development and launch of Dzvin.co, including milestones and the QDIP research track.', grant: 'I would like to discuss research/grant funding for Decision Intelligence in mental health with Dzvin.co.' },
+    pl: { investment: 'Chcę omówić finansowanie rozwoju i uruchomienia Dzvin.co, etapy i kierunek badań QDIP.', grant: 'Chcę omówić dofinansowanie badań Decision Intelligence in mental health w Dzvin.co.' },
+  }
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
   const initialMessage =
-    source === 'docs' ? topics[lang][segment as 'teams' | 'individuals' | 'research'] || topics[lang].teams : ''
+    source === 'docs'
+      ? intent === 'funding'
+        ? fundingTopics[lang][segment === 'grant' ? 'grant' : 'investment']
+        : topics[lang][segment as 'teams' | 'individuals' | 'research'] || topics[lang].teams
+      : ''
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -108,7 +118,7 @@ export const ContactForm = ({ source, segment }: { source?: 'docs'; segment?: st
         email,
         message:
           source === 'docs'
-            ? `${message}\n\n[Source: docs.dzvin.co | Intent: demo | Segment: ${segment || 'teams'}]`
+            ? `${message}\n\n[Source: docs.dzvin.co | Intent: ${intent === 'funding' ? 'funding' : 'demo'} | Segment: ${segment || (intent === 'funding' ? 'investment' : 'teams')}]`
             : message,
         token,
       })

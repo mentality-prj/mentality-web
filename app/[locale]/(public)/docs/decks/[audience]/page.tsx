@@ -18,6 +18,8 @@ const wording = {
     full: 'Повний екран',
     overview: 'Документація',
     demo: 'Запросити демо',
+    funding: 'Обговорити фінансування',
+    fundingLabel: 'Інвестиції та дослідження',
     label: 'Презентація продукту',
     page: 'Слайд',
     illustration: 'Схематичне відображення можливостей, не клієнтські дані',
@@ -27,6 +29,8 @@ const wording = {
     full: 'Full screen',
     overview: 'Documentation',
     demo: 'Request demo',
+    funding: 'Discuss funding',
+    fundingLabel: 'Investment & Research',
     label: 'Product presentation',
     page: 'Slide',
     illustration: 'Conceptual product workflow, not customer data',
@@ -36,6 +40,8 @@ const wording = {
     full: 'Pełny ekran',
     overview: 'Dokumentacja',
     demo: 'Poproś o demo',
+    funding: 'Omów finansowanie',
+    fundingLabel: 'Inwestycje i badania',
     label: 'Prezentacja produktu',
     page: 'Slajd',
     illustration: 'Schemat procesu, nie dane klienta',
@@ -60,7 +66,10 @@ export default async function ProductDeckPage({ params }: Props) {
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
   const c = wording[lang]
   const deck = getProductDeck(lang, audience as DeckAudience)
-  const demoUrl = `https://www.dzvin.co/${lang}/contacts?source=docs&intent=demo&segment=${audience}`
+  const isFunding = audience === 'investment' || audience === 'grant'
+  const demoUrl = isFunding
+    ? `https://www.dzvin.co/${lang}/contacts?source=docs&intent=funding&segment=${audience}`
+    : `https://www.dzvin.co/${lang}/contacts?source=docs&intent=demo&segment=${audience}`
 
   return (
     <div className="dzvin-deck min-h-screen bg-slate-100">
@@ -71,17 +80,17 @@ export default async function ProductDeckPage({ params }: Props) {
             {c.overview}
           </a>
           <a className="inline-flex items-center gap-1 font-semibold text-violet-700 hover:underline" href={demoUrl}>
-            {c.demo}
+            {isFunding ? c.funding : c.demo}
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
         <section className="dzvin-slide dzvin-slide-cover relative flex aspect-[16/9] flex-col justify-between overflow-hidden rounded-3xl bg-gradient-to-br from-slate-950 via-indigo-950 to-violet-800 p-8 text-white shadow-xl md:p-14">
           <div className="relative z-10 flex items-center justify-between gap-4">
             <span className="font-semibold tracking-[0.25em] text-violet-200">DZVIN.CO</span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-slate-200">{c.label}</span>
+            <span className="text-xs font-semibold uppercase tracking-wider text-slate-200">{isFunding ? c.fundingLabel : c.label}</span>
           </div>
           <div className="relative z-10 max-w-4xl">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-violet-200">{c.label}</p>
+            <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-violet-200">{isFunding ? c.fundingLabel : c.label}</p>
             <h1 className="text-3xl font-bold leading-tight tracking-tight md:text-6xl">{deck.title}</h1>
             <p className="mt-6 max-w-2xl text-lg leading-relaxed text-slate-200 md:text-2xl">{deck.subtitle}</p>
           </div>
@@ -134,7 +143,7 @@ export default async function ProductDeckPage({ params }: Props) {
             className="rounded-full bg-violet-700 px-5 py-3 font-semibold text-white hover:bg-violet-800"
             href={demoUrl}
           >
-            {c.demo}
+            {isFunding ? c.funding : c.demo}
           </a>
         </div>
       </div>
