@@ -1,0 +1,36 @@
+name: Format editorial changes once
+on:
+  push:
+    branches:
+      - docs/dzvin-enterprise-editorial-standard-20261025
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: docs/dzvin-enterprise-editorial-standard-20261025
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - name: Format changed TypeScript and TSX files
+        run: |
+          yarn eslint --fix 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/ComparisonMatrix.tsx' 'content/public-docs/decks.ts' 'content/public-docs/funding-decks.ts' 'content/public-docs/index.test.ts'
+          yarn prettier --write 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/ComparisonMatrix.tsx' 'content/public-docs/decks.ts' 'content/public-docs/funding-decks.ts' 'content/public-docs/index.test.ts'
+      - name: Commit and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/dzvin-editorial-format-once.yml
+          git add 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/ComparisonMatrix.tsx' 'content/public-docs/decks.ts' 'content/public-docs/funding-decks.ts' 'content/public-docs/index.test.ts'
+          if ! git diff --cached --quiet; then
+            git commit -m "style(docs): normalize corporate editorial changes"
+            git push origin HEAD:docs/dzvin-enterprise-editorial-standard-20261025
+          fi
