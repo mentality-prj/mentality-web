@@ -11,7 +11,7 @@ export function DocsNavigation({ docs, activeSlug }: { docs: PublicDocs; activeS
         {docs.back}
       </Link>
       <ul className="space-y-1">
-        {docs.articles.slice(0, 6).map((article) => (
+        {docs.articles.slice(0, 8).map((article) => (
           <li key={article.slug}>
             <Link
               href={`/docs/${article.slug}`}
@@ -31,7 +31,7 @@ export function DocsNavigation({ docs, activeSlug }: { docs: PublicDocs; activeS
         {docs.referenceTitle}
       </h2>
       <ul className="mt-2 space-y-1">
-        {docs.articles.slice(6).map((article) => (
+        {docs.articles.slice(8).map((article) => (
           <li key={article.slug}>
             <Link
               href={`/docs/${article.slug}`}
