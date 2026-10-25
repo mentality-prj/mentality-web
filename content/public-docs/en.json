@@ -12,6 +12,56 @@
   "privacy": "Privacy policy",
   "articles": [
     {
+      "slug": "funding-brief",
+      "category": "Investment brief",
+      "title": "Dzvin.co in 3 minutes — funding brief",
+      "summary": "Problem, DI × mental-health thesis, existing assets, execution milestones and funding purpose",
+      "sections": [
+        {
+          "title": "The investment thesis",
+          "paragraphs": [
+            "Dzvin.co is a people-first digital mental-wellbeing project with personal, prospective enterprise, and research experiences. Its proposed scientific differentiator is applying Decision Intelligence and QDIP research principles to explainable, uncertainty-aware, human-controlled action selection rather than risk scores alone.",
+            "As of 25 October 2026 this is a software prototype without paying customers, revenue, completed independent pilots or validated effectiveness. Funding will support a qualified release and scientific/product validation."
+          ]
+        },
+        {
+          "title": "What funding buys",
+          "paragraphs": [
+            "WP1: integrated product and security. WP2: decision-policy science and reproducible evaluation. WP3: ethically governed human feasibility. WP4: evidence, operating readiness and controlled launch.",
+            "The work-package framework exists; headcount, calendar, pricing and the actual funding amount require verified project-owner budgets."
+          ]
+        },
+        {
+          "title": "What is verifiable now",
+          "paragraphs": [
+            "Public material includes web-interface code, B2C/B2B/R&D feature modules, source-of-truth roadmap and launch gates, and QDIP's public research narrative.",
+            "These are engineering and research foundations, not customer outcomes or proven clinical performance."
+          ]
+        },
+        {
+          "title": "The falsifiable hypothesis",
+          "paragraphs": [
+            "Can a transparent policy that incorporates temporal risk signals, uncertainty and the ability to abstain improve a preregistered decision-level metric over static advice or prediction alone?",
+            "If prespecified metrics fail, superiority is rejected; calibration, safety, missingness, bias and user override are central evaluation criteria."
+          ]
+        },
+        {
+          "title": "Why now",
+          "paragraphs": [
+            "Existing technical groundwork makes controlled experiments and release qualification possible without starting from a blank project, while integration and scientific risks remain material.",
+            "The funding thesis is milestone-based risk reduction, not scaling fictitious traction."
+          ]
+        },
+        {
+          "title": "Next meeting",
+          "paragraphs": [
+            "Investors: technical assets, de-risking tranches, addressable use cases and eventual commercialization hypothesis. Grant reviewers: Excellence/Impact/Implementation, methods, work packages, consortium and call-specific budget.",
+            "A binding application additionally requires verified team, legal applicant, staffing, detailed budget, schedule, IP/FTO and eligible funding instrument."
+          ]
+        }
+      ]
+    },
+    {
       "slug": "investment-thesis",
       "category": "Investment case",
       "title": "Why fund Dzvin.co?",
@@ -169,6 +219,56 @@
       ]
     },
     {
+      "slug": "evidence-register",
+      "category": "Evidence & readiness",
+      "title": "Evidence register and development readiness",
+      "summary": "Separate software evidence from unverified use cases, research claims and launch gates",
+      "sections": [
+        {
+          "title": "How to interpret readiness",
+          "paragraphs": [
+            "A route, test, runnable API, end-to-end release and externally validated intervention are different levels of evidence.",
+            "The matrix below references public engineering and methodological sources. It does not certify all features as safely activated for every account."
+          ]
+        },
+        {
+          "title": "B2C personal",
+          "paragraphs": [
+            "The web repository contains personal check-in, history, exercise and self-support components and related roadmap tasks.",
+            "Status: code artifacts available; a full live identity/backend/browser E2E is not independently certified by this dossier."
+          ]
+        },
+        {
+          "title": "B2B organizations",
+          "paragraphs": [
+            "There are company routes, roles, team analytics and manager decision-support code, but secure multi-tenant access and data migration remain launch gates.",
+            "Status: partially implemented, guarded activation, no verified enterprise customers or field impact."
+          ]
+        },
+        {
+          "title": "R&D research",
+          "paragraphs": [
+            "Research Workspace covers projects, cohorts, inspection, datasets, export requests and audit; formal methodology work is documented.",
+            "Status: software/research baseline, not external validation or completed ethics-reviewed trial."
+          ]
+        },
+        {
+          "title": "QDIP / Decision Intelligence",
+          "paragraphs": [
+            "The public QDIP research narrative describes hybrid rules/models, policy governance, explanations, risk signals and evaluation.",
+            "Status: conceptual and engineering foundations; a statistically demonstrated advantage within Dzvin is pending."
+          ]
+        },
+        {
+          "title": "How evidence will change",
+          "paragraphs": [
+            "An upgrade to 'validated' requires date, artifact/commit, environment, explicit test or study protocol, and accountable sign-off.",
+            "A marketing claim or mocked test cannot substitute for the actual evidence level."
+          ]
+        }
+      ]
+    },
+    {
       "slug": "funding-roadmap",
       "category": "Roadmap",
       "title": "Roadmap from prototype to launch",
@@ -214,6 +314,56 @@
           "paragraphs": [
             "Phases are milestone order, not committed calendar dates. Starting/ending TRL, headcount, time estimates and costs should be call-specific and evidence-backed.",
             "Only mark a phase done when its explicit acceptance evidence is available."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "execution-plan",
+      "category": "Implementation",
+      "title": "Work packages, milestone gates and funding tranches",
+      "summary": "A verifiable execution plan connected to risks, deliverables and actual resource budgeting",
+      "sections": [
+        {
+          "title": "WP1 — secure integrated product",
+          "paragraphs": [
+            "Complete Web ↔ NestJS ↔ QDIP contracts, identity, company isolation, permissions, real end-to-end tests and rollback.",
+            "Exit: repeatable CI and QA E2E, negative security cases, approved go/no-go and a controlled deployment record."
+          ]
+        },
+        {
+          "title": "WP2 — Decision Intelligence methods",
+          "paragraphs": [
+            "Formalize decision policies and baselines, calibration and abstention, missingness tests, rule/model/hybrid comparisons and the statistical plan.",
+            "Exit: preregistered research protocol, reproducible synthetic benchmarks and an uncertainty/bias report, including failed hypotheses."
+          ]
+        },
+        {
+          "title": "WP3 — human feasibility and ethics",
+          "paragraphs": [
+            "Define consent, minimization, study population, user experience protocol and appropriately controlled real-world feasibility. No recruitment partner is represented as already signed.",
+            "Exit: approved ethics/legal framework, responsibly gathered data, qualitative UX findings and non-inflated outcome reporting."
+          ]
+        },
+        {
+          "title": "WP4 — evidence and controlled launch",
+          "paragraphs": [
+            "If suitable data are available, evaluate decision usefulness and human control; prepare independent review, monitoring, support and the sustainability model.",
+            "Exit: auditable results, documented go/no-go, operational checklist, refreshed risk and financial register."
+          ]
+        },
+        {
+          "title": "Dependencies",
+          "paragraphs": [
+            "WP1 is a release prerequisite; WP2 can run in parallel using synthetic data. WP3 cannot collect real data before required safety/ethics conditions; WP4 requires appropriate evidence quality.",
+            "Unmet gates trigger a scope/financing review, not a success claim."
+          ]
+        },
+        {
+          "title": "Resources and governance",
+          "paragraphs": [
+            "Budget buckets: engineering, Decision Science/ML, privacy/security/ethics, UX and participants, infrastructure and operations.",
+            "The signed project plan must contain named owners, verified effort and direct costs, timetable, eligible expenses, legal applicant and reporting cadence."
           ]
         }
       ]
@@ -740,8 +890,8 @@
     }
   ],
   "referenceTitle": "Feature reference",
-  "featuredCta": "Request a demonstration",
-  "featuredNote": "For organizations: team-level signals, decision-support workflows and measurable evaluation. Separate personal and research experiences are also available.",
+  "featuredCta": "Discuss funding",
+  "featuredNote": "Dzvin.co is pre-launch. Funding is sought for qualified integration, reproducible research and a controlled launch.",
   "fundingHeadline": "From wellbeing observations to decisions we can evaluate",
   "fundingIntro": "Dzvin.co is developing personal wellbeing journeys, authorized team-level insights and a research program exploring Decision Intelligence in mental health. We aim to test whether explainable, uncertainty-aware signals can support appropriate human-controlled next steps.",
   "stageLabel": "STAGE: SOFTWARE PROTOTYPE / PRE-LAUNCH",
