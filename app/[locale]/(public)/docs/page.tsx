@@ -70,7 +70,7 @@ export default async function DocsIndexPage({ params }: Props) {
           <p className="mt-5 text-lg leading-relaxed text-slate-700">{docs.fundingIntro}</p>
           <p className="mt-4 max-w-3xl text-sm leading-relaxed text-slate-600">{docs.stageDescription}</p>
           <Link
-            href={`/docs/funding-brief`}
+            href="/docs/decks/investment"
             className="mt-6 inline-flex items-center gap-2 rounded-full bg-violet-700 px-5 py-3 text-sm font-semibold text-white transition-colors hover:bg-violet-800 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-violet-700"
           >
             {docs.fundingSecondaryCta}
