@@ -46,6 +46,20 @@ describe('public investor documentation', () => {
       expect(plan?.sections.some((section) => section.title.includes('WP4'))).toBe(true)
     }
   })
+  it('presents a fundable opportunity instead of asking visitors to construct our budget', () => {
+    const titles = {
+      uk: 'Інвестиційна можливість Dzvin.co',
+      en: 'Dzvin.co Investment Opportunity',
+      pl: 'Dzvin.co — możliwość inwestycyjna',
+    }
+    for (const locale of ['uk', 'en', 'pl'] as const) {
+      const article = getPublicDoc(locale, 'funding-request')
+      expect(article?.title).toBe(titles[locale])
+      expect(article?.sections).toHaveLength(6)
+      expect(article?.sections.every(section => section.paragraphs.length >= 2)).toBe(true)
+      expect(JSON.stringify(article)).not.toMatch(/(?:CRM|вигадує суму|fikcyjnych inwestorów|fabricated estimate|на що підуть кошти)/i)
+    }
+  })
   it('rejects unknown documents', () => {
     expect(getPublicDoc('uk', '../internal')).toBeUndefined()
   })
