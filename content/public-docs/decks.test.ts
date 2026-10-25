@@ -13,7 +13,8 @@ describe('public product presentations', () => {
   })
 
   it('keeps presentation claims aligned with a project still in development', () => {
-    const obsolete = /(?:No asserted revenue or traction|Unit economics remain unknown|Wartość pilotażu trzeba sprawdzić|Przygotujmy demo|Відкрийте особисті сервіси|Немає заявлених продажів|No invented grant commitments)/i
+    const obsolete =
+      /(?:No asserted revenue or traction|Unit economics remain unknown|Wartość pilotażu trzeba sprawdzić|Przygotujmy demo|Відкрийте особисті сервіси|Немає заявлених продажів|No invented grant commitments)/i
     for (const locale of ['uk', 'en', 'pl']) {
       for (const audience of deckAudiences) {
         const deck = getProductDeck(locale, audience)

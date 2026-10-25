@@ -48,7 +48,11 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         {
           title: 'Економічна модель',
           description: 'Фінансова модель включатиме результати оцінювання, витрати впровадження та підтримки.',
-          points: ['Визначення вихідних показників', 'Порівняльна оцінка за результатами пілоту', 'Моделювання витрат і потенційної цінності'],
+          points: [
+            'Визначення вихідних показників',
+            'Порівняльна оцінка за результатами пілоту',
+            'Моделювання витрат і потенційної цінності',
+          ],
         },
         {
           title: 'Наступний крок — цільовий пілот',
@@ -88,7 +92,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'На що звернути увагу',
-          description: 'Дослідження користувацької придатності визначить зрозумілість історії та зручність повторної взаємодії.',
+          description:
+            'Дослідження користувацької придатності визначить зрозумілість історії та зручність повторної взаємодії.',
           points: ['Чи зручно повертатися?', 'Чи легко бачити зміни?'],
         },
         {
@@ -134,7 +139,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Дослідницьке партнерство та валідація',
-          description: 'Наступний етап охоплює технічну кваліфікацію дослідницьких сценаріїв і розробку протоколів співпраці.',
+          description:
+            'Наступний етап охоплює технічну кваліфікацію дослідницьких сценаріїв і розробку протоколів співпраці.',
           points: ['Склад учасників', 'Доступ і дані', 'Критерій оцінки'],
         },
       ],
@@ -152,7 +158,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Organizational capability roadmap',
-          description: 'The target organizational experience combines repeated observations, authorized group analytics and structured event review.',
+          description:
+            'The target organizational experience combines repeated observations, authorized group analytics and structured event review.',
           points: [
             'Organization structure and permissions',
             'Mood, stress, energy and focus trends',
@@ -182,12 +189,20 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         {
           title: 'Economic evaluation',
           description: 'The business model will incorporate empirical findings and delivery costs.',
-          points: ['Baseline indicators and reference period', 'Pilot-based evaluation of observed changes', 'Delivery-cost and value-creation model'],
+          points: [
+            'Baseline indicators and reference period',
+            'Pilot-based evaluation of observed changes',
+            'Delivery-cost and value-creation model',
+          ],
         },
         {
           title: 'Planned feasibility programme',
           description: 'The pilot programme will define a cohort, accountable owners and evaluation metrics.',
-          points: ['Technical qualification of an authorized workflow', 'Defined acceptance criteria', 'Evidence-based progression decision'],
+          points: [
+            'Technical qualification of an authorized workflow',
+            'Defined acceptance criteria',
+            'Evidence-based progression decision',
+          ],
         },
       ],
     },
@@ -311,7 +326,11 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         {
           title: 'Ocena ekonomiczna',
           description: 'Model ekonomiczny uwzględni wyniki badań, koszt wdrożenia i koszty utrzymania.',
-          points: ['Definicja wskaźników bazowych', 'Pomiar zmian w badaniu pilotażowym', 'Analiza kosztów wdrożenia i utrzymania'],
+          points: [
+            'Definicja wskaźników bazowych',
+            'Pomiar zmian w badaniu pilotażowym',
+            'Analiza kosztów wdrożenia i utrzymania',
+          ],
         },
         {
           title: 'Pilotaż jako kolejny krok',

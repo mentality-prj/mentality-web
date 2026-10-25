@@ -6,8 +6,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
   uk: {
     investment: {
       title: 'Dzvin.co — інвестиційна презентація',
-      subtitle:
-        'Dzvin.co: технологічна основа, наукова програма Decision Intelligence та стратегія розвитку.',
+      subtitle: 'Dzvin.co: технологічна основа, наукова програма Decision Intelligence та стратегія розвитку.',
       slides: [
         {
           title: 'Інвестиційна теза',
@@ -30,7 +29,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Продукт і ринок застосування',
-          description: 'Три напрями застосування з окремими моделями створення цінності та спільною технологічною основою.',
+          description:
+            'Три напрями застосування з окремими моделями створення цінності та спільною технологічною основою.',
           points: [
             'B2C: особисті спостереження та самопідтримка',
             'B2B: дозволені групові тенденції та підтримка рішень',
@@ -286,8 +286,13 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Investment partnership model',
-          description: 'Partnership structure connects the delivery programme, investment milestones, governance and accountability.',
-          points: ['Establish a milestone-linked budget and delivery plan', 'Define reporting and go/no-go', 'Define the technical and financial due-diligence process'],
+          description:
+            'Partnership structure connects the delivery programme, investment milestones, governance and accountability.',
+          points: [
+            'Establish a milestone-linked budget and delivery plan',
+            'Define reporting and go/no-go',
+            'Define the technical and financial due-diligence process',
+          ],
         },
       ],
     },
@@ -367,7 +372,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Research partnership',
-          description: 'Research partnerships will support method development, independent evaluation and accountable dissemination.',
+          description:
+            'Research partnerships will support method development, independent evaluation and accountable dissemination.',
           points: [
             'Identify suitable call and eligibility',
             'Design consortium and protocol',
@@ -385,13 +391,18 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
       slides: [
         {
           title: 'Teza inwestycyjna',
-          description: 'Kolejny etap rozwoju obejmuje kwalifikację produktu, weryfikację technologii i przygotowanie badań.',
+          description:
+            'Kolejny etap rozwoju obejmuje kwalifikację produktu, weryfikację technologii i przygotowanie badań.',
           points: ['B2C dla osób, potencjał B2B, odrębny R&D', 'Decision Intelligence jako hipoteza do sprawdzenia'],
         },
         {
           title: 'Problem',
           description: 'Same ankiety i wyniki ryzyka nie określają bezpiecznych kolejnych działań.',
-          points: ['Rozproszone dane', 'Niepewność i wybór człowieka', 'Ocena wpływu wymaga odrębnego protokołu badawczego'],
+          points: [
+            'Rozproszone dane',
+            'Niepewność i wybór człowieka',
+            'Ocena wpływu wymaga odrębnego protokołu badawczego',
+          ],
         },
         {
           title: 'Proponowany produkt',
@@ -420,7 +431,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Droga do uruchomienia',
           description: 'Pięć etapów weryfikowanych dowodami.',
-          points: ['Integracja → protokół → ocena wykonalności', 'Ocena DI → kontrolowane uruchomienie', 'Kryteria kontynuacji programu'],
+          points: [
+            'Integracja → protokół → ocena wykonalności',
+            'Ocena DI → kontrolowane uruchomienie',
+            'Kryteria kontynuacji programu',
+          ],
         },
         {
           title: 'Kolejny etap inwestycyjny',
@@ -499,7 +514,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Ryzyka i etyka',
           description: 'Błędy ocen, stronniczość modeli, prywatność, niekompletne dane i bezpieczeństwo rekomendacji.',
-          points: ['Zgoda i minimalizacja', 'Wstrzymanie rekomendacji i nadzór człowieka', 'Kryteria kontynuacji i raportowanie wyników negatywnych'],
+          points: [
+            'Zgoda i minimalizacja',
+            'Wstrzymanie rekomendacji i nadzór człowieka',
+            'Kryteria kontynuacji i raportowanie wyników negatywnych',
+          ],
         },
         {
           title: 'Finansowanie',

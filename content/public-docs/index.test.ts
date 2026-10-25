@@ -122,7 +122,9 @@ describe('public investor documentation', () => {
       for (const article of docs.articles) {
         expect(article.category.trim().length).toBeGreaterThan(6)
         expect(article.summary.length).toBeGreaterThan(45)
-        expect(article.summary).not.toMatch(/(?:ROI|калькулятор|kalkulator|live demos|як почати|how to begin|jak zacząć)/i)
+        expect(article.summary).not.toMatch(
+          /(?:ROI|калькулятор|kalkulator|live demos|як почати|how to begin|jak zacząć)/i
+        )
       }
       expect(getPublicDoc(locale, 'presentation-kit')?.summary).toMatch(
         locale === 'uk'
