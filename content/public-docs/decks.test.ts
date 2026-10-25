@@ -36,7 +36,9 @@ describe('public product presentations', () => {
       expect(copy).toContain('Unmind')
       expect(copy).toContain('Wysa')
       expect(copy).toContain('29%')
-      expect(copy).not.toMatch(/(?:бюджет програми|обсяг наступного траншу|milestone-linked budget|kosztorys transzy|ustalenie budżetu)/i)
+      expect(copy).not.toMatch(
+        /(?:бюджет програми|обсяг наступного траншу|milestone-linked budget|kosztorys transzy|ustalenie budżetu)/i
+      )
     }
   })
 
