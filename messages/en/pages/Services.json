@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "Dzvin.co services",
     "title": "Personal support, corporate analytics and scientific forecasting in one system",
-    "subtitle": "Dzvin.co helps identify stress, burnout and behavioral risk before they escalate into critical outcomes. The platform combines personal state tracking, team stability analytics, and research-grade forecasting models built on behavioral dynamics and uncertainty.",
+    "subtitle": "Dzvin.co is an in-development digital wellbeing platform with personal support tools, an emerging permissioned team-analytics experience and a Decision Intelligence in Mental Health research direction using QDIP. There are no completed customer pilots or validated effectiveness results yet; the next stage is designed to test these hypotheses.",
     "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
     "audiences": {
       "b2c": {
@@ -119,7 +119,7 @@
     "b2b": {
       "tag": "Corporate",
       "title": "For companies",
-      "description": "The B2B layer turns team state signals into an early-response operating system: leaders and HR get an aggregated risk view, see where teams are losing energy, and can act before the issue becomes burnout, attrition or a visible performance drag.",
+      "description": "The B2B experience is being developed to show permissioned aggregate trends in stress, mood, energy and focus, supporting HR and managers in reviewing team-support priorities. Its practical benefit remains a hypothesis requiring security qualification and independent evaluation.",
       "managerTitle": "What a manager sees and controls",
       "capabilities": {
         "governance": {
@@ -135,19 +135,19 @@
           "description": "The system highlights critical risk zones, helps identify where intervention will have the biggest payoff, and moves management action from intuition-led to evidence-led."
         }
       },
-      "outcomesTitle": "What this gives the business",
+      "outcomesTitle": "Potential value to evaluate",
       "businessImpact": {
         "one": {
-          "title": "One management surface for team well-being",
-          "description": "Leadership gets a transparent aggregated view of team state without exposing private stories, which makes well-being manageable as an operating discipline rather than a reactive afterthought."
+          "title": "Planned team-support workflow",
+          "description": "Once qualified, role-scoped group signals and documented follow-up may help teams organize wellbeing support. Measured outcomes are not yet available."
         },
         "two": {
-          "title": "Faster decisions with measurable operational payoff",
-          "description": "When risk becomes visible earlier, companies can prioritize support faster, direct manager attention with more precision, and reduce losses from burnout, attrition and performance decline."
+          "title": "Hypothesis: more timely signal review",
+          "description": "We plan to evaluate whether repeated observations and a managed workflow improve time to review. Reduced burnout and attrition have not been demonstrated."
         },
         "three": {
-          "title": "A stronger case for HR and executive buy-in",
-          "description": "Data dynamics move the conversation from ‘well-being matters’ to ‘here is where the business is already losing capacity and where support creates measurable return’, making leadership alignment easier to secure."
+          "title": "Evidence to inform HR decisions",
+          "description": "The research plan includes evaluating trends and agreed KPIs while avoiding causal claims without a suitable study design."
         }
       },
       "outcomes": {
@@ -164,7 +164,7 @@
     "rd": {
       "tag": "Research",
       "title": "For researchers, institutes and universities",
-      "description": "The R&D layer turns the platform into a research environment: standardized self-checks, behavioral signals, cohort analysis, prediction validation and outcome tracking in one system.",
+      "description": "The R&D workspace is being developed for research projects, cohorts, repeated observations and future evaluation of predictive and Decision Intelligence hypotheses. No scientific superiority or intervention effect has been established.",
       "technicalTitle": "The technical research layer",
       "capabilities": {
         "cohorts": {
@@ -173,7 +173,7 @@
         },
         "validation": {
           "title": "Validate predictions",
-          "description": "The prediction-to-outcome loop shows model accuracy, drift and change after intervention at the cohort or program level."
+          "description": "The proposed forecast-to-observation loop is intended to support evaluation of calibration, drift and changes after action. Independent research outcomes are not yet available."
         },
         "reporting": {
           "title": "Report impact",
@@ -233,7 +233,7 @@
           }
         }
       },
-      "outcomesTitle": "What researchers and institutions get",
+      "outcomesTitle": "Research capabilities and hypotheses",
       "details": {
         "title": "What enters the evidence cycle",
         "items": {

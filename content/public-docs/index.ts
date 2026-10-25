@@ -6,6 +6,16 @@ export type PublicDocs = {
   title: string
   kicker: string
   lead: string
+  fundingHeadline: string
+  fundingIntro: string
+  stageLabel: string
+  stageDescription: string
+  fundingCta: string
+  fundingSecondaryCta: string
+  fundingLibrary: string
+  productLibrary: string
+  evidenceLabel: string
+  fundingNote: string
   browse: string
   referenceTitle: string
   featuredCta: string

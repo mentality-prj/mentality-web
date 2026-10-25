@@ -1,7 +1,7 @@
 {
-  "title": "Dzvin.co — solutions for teams, individuals and research",
-  "kicker": "Product, workflows and outcomes",
-  "lead": "Dzvin.co helps HR and leaders move from fragmented questionnaires toward continuous review of team wellbeing patterns and a structured response to risk signals.",
+  "title": "Dzvin.co — investment & research funding dossier",
+  "kicker": "Funding dossier · in development",
+  "lead": "A human-centered mental wellbeing project exploring Decision Intelligence. Seeking funding to complete release engineering, independent validation and responsible pilots.",
   "browse": "Choose what to explore",
   "back": "All product documentation",
   "nav": "Dzvin.co product documentation",
@@ -11,6 +11,313 @@
   "faq": "FAQ",
   "privacy": "Privacy policy",
   "articles": [
+    {
+      "slug": "investment-thesis",
+      "category": "Investment case",
+      "title": "Why fund Dzvin.co?",
+      "summary": "The opportunity, project hypothesis and what the next tranche should achieve",
+      "sections": [
+        {
+          "title": "The project",
+          "paragraphs": [
+            "Dzvin.co combines three related experiences: a private personal wellbeing journey, permissioned team analytics, and a controlled research workspace.",
+            "Our research opportunity is applying Decision Intelligence to transform observations and risk signals into explainable, human-supervised next actions with stated uncertainty and feedback."
+          ]
+        },
+        {
+          "title": "Why the problem matters",
+          "paragraphs": [
+            "Standalone check-ins and one-off surveys can fragment observations, context and follow-up. A prediction alone does not tell a user or decision maker which safe action is appropriate.",
+            "Mental-health AI needs explicit attention to uncertain and incomplete data, human agency, privacy, bias and the actual outcome of decisions."
+          ]
+        },
+        {
+          "title": "Who it may serve",
+          "paragraphs": [
+            "Individuals who want to observe their personal trajectory; HR and managers who need authorized aggregate context rather than employee surveillance; researchers studying repeated measures and intervention processes.",
+            "These are potential beneficiary groups, not existing commercial customers or trial participants."
+          ]
+        },
+        {
+          "title": "Existing development evidence",
+          "paragraphs": [
+            "The software repositories contain user-facing interfaces, backend risk/decision-support modules, research-workspace components, tests and methodological specifications.",
+            "These are engineering artifacts, not proof of scalable deployment, validated benefits or revenue."
+          ]
+        },
+        {
+          "title": "Purpose of funding",
+          "paragraphs": [
+            "Complete release/security integration, turn research hypotheses into reproducible protocols, enable responsibly recruited pilots, study usefulness and uncertainty, and prepare a controlled product launch.",
+            "Financing should buy a documented reduction in technical, scientific and product uncertainty through specific milestones."
+          ]
+        },
+        {
+          "title": "Potential sustainability",
+          "paragraphs": [
+            "Hypotheses include future B2B service contracts, funded research partnerships and a separately sustainable personal experience.",
+            "No sales, pricing validation, customer growth, TAM or ROI is claimed as measured evidence."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "scientific-novelty",
+      "category": "Scientific case",
+      "title": "Decision Intelligence in mental wellbeing",
+      "summary": "QDIP as a research-enabling decision framework, scientific hypotheses and validation criteria",
+      "sections": [
+        {
+          "title": "From prediction to a decision",
+          "paragraphs": [
+            "A risk model estimates an outcome. Decision Intelligence asks what action could be appropriate, given evidence, alternatives, constraints, uncertainty and human choice.",
+            "This is a research direction for Dzvin, not an autonomously validated clinical decision system."
+          ]
+        },
+        {
+          "title": "Role of QDIP",
+          "paragraphs": [
+            "QDIP is a distinct Decision Intelligence technology track exploring hybrid rule/model signals, policy governance, explanation, audit and monitoring.",
+            "Dzvin is an application context for testing those ideas in wellbeing. A QDIP component's presence does not prove fully qualified production integration into Dzvin."
+          ]
+        },
+        {
+          "title": "Hypothesis 1: temporal change",
+          "paragraphs": [
+            "Personal trajectories and changing baselines may provide richer signals than a one-off score when data are intermittent.",
+            "Evaluation: simple baseline comparison, false alarms, detection delay, missing-data robustness."
+          ]
+        },
+        {
+          "title": "Hypothesis 2: uncertainty and abstention",
+          "paragraphs": [
+            "When observations are sparse or noisy, the system should express uncertainty and be able to withhold a risky recommendation.",
+            "Evaluation: calibration, selective risk, abstention frequency and robustness on incomplete time series."
+          ]
+        },
+        {
+          "title": "Hypothesis 3: explainable action selection",
+          "paragraphs": [
+            "Explore a transparent path from observations to alternative actions, constraints, an explanation, user choice and feedback.",
+            "Evaluation: rule-only versus ML-only versus hybrid baselines, audit completeness, explanation comprehension and user override."
+          ]
+        },
+        {
+          "title": "Hypothesis 4: actionable benefit",
+          "paragraphs": [
+            "Test whether decision-aware, user-controlled support improves an agreed proximal outcome relative to fixed suggestions.",
+            "Start with feasibility work. Randomized or micro-randomized evaluation requires adequate protocol, ethics and participant protections. No study outcome is claimed."
+          ]
+        },
+        {
+          "title": "What is genuinely novel?",
+          "paragraphs": [
+            "Adaptive interventions and Bayesian methods already exist. We do not claim inventing decision science, causal inference or mental-health personalization.",
+            "Potential contribution lies in the domain-specific, testable combination of policies, uncertainty, explanations, feedback and human control. Novelty remains subject to prior-art assessment and experimental evidence."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "development-progress",
+      "category": "Current status",
+      "title": "Development progress and limits",
+      "summary": "Real engineering artifacts versus open release and validation gates",
+      "sections": [
+        {
+          "title": "Current stage — October 25, 2026",
+          "paragraphs": [
+            "Dzvin is an in-development software prototype with a published documentation site and code for personal, organizational and research journeys.",
+            "There are no commercial customers or measured field outcomes. A passing website build does not prove every authenticated workflow is live."
+          ]
+        },
+        {
+          "title": "Personal product",
+          "paragraphs": [
+            "The web code includes check-ins, journal, exercises, personal progress, goals and questionnaires. The product roadmap calls for a connected check-in → user-chosen support → feedback → history journey.",
+            "Production readiness still requires fully verified auth, privacy, real API and browser end-to-end flows."
+          ]
+        },
+        {
+          "title": "Organizations",
+          "paragraphs": [
+            "Company administration, groups, permissions, analytics and manager decision support have frontend implementations.",
+            "Multi-tenant authorization, backend migrations, privileged access checks and real operator E2E are launch gates, not completed customer deployments."
+          ]
+        },
+        {
+          "title": "Research workspace",
+          "paragraphs": [
+            "There are project, membership, cohort, inspection, dataset, export-request and audit UI/API artifacts.",
+            "External study partners, ethics processes, real datasets and qualified research workflows remain pending."
+          ]
+        },
+        {
+          "title": "Decision Intelligence integration",
+          "paragraphs": [
+            "Research documentation covers adaptive risk, explanation, policy control and scientific evaluation plans. Backend decision-support components exist.",
+            "Scientific advantage and integrated clinical/operational effectiveness have not been established in real settings."
+          ]
+        },
+        {
+          "title": "What qualifies as complete",
+          "paragraphs": [
+            "A feature must pass the relevant authorization, privacy, end-to-end, operational and auditability checks in the target environment.",
+            "A milestone is evidence-based; a visible component or compiled source is not automatically launch-ready."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "funding-roadmap",
+      "category": "Roadmap",
+      "title": "Roadmap from prototype to launch",
+      "summary": "Milestones, acceptance gates and observable deliverables",
+      "sections": [
+        {
+          "title": "Phase 1 — secure integration",
+          "paragraphs": [
+            "Qualify frontend, NestJS, QDIP boundaries, identity, tenant isolation and rollback.",
+            "Exit: reproducible builds, authorized real API flows, security negatives and QA integration evidence."
+          ]
+        },
+        {
+          "title": "Phase 2 — research design",
+          "paragraphs": [
+            "Define hypotheses, prediction baselines, abstention criteria, harm safeguards, metrics, consent and data protocol.",
+            "Exit: registered evaluation protocol, reproducible synthetic baseline comparisons, risk and ethical review."
+          ]
+        },
+        {
+          "title": "Phase 3 — human feasibility",
+          "paragraphs": [
+            "Recruit appropriately consented participants/partners and evaluate usability, acceptability and data quality in a bounded study.",
+            "Exit: feasible workflow and transparent findings; any required ethics approval obtained before real participant research."
+          ]
+        },
+        {
+          "title": "Phase 4 — DI evaluation",
+          "paragraphs": [
+            "Compare policy approaches using suitable data and preregistered metrics for calibration, harms, explanation and decision usefulness.",
+            "Exit: auditable report including confidence intervals, limitations and negative findings."
+          ]
+        },
+        {
+          "title": "Phase 5 — controlled launch",
+          "paragraphs": [
+            "Prepare production monitoring, support, data policy, deployment gates and a sustainable operating model.",
+            "Exit: go/no-go review, production E2E and credible operating plan. Dates depend on budget and partnership commitments."
+          ]
+        },
+        {
+          "title": "How to interpret this roadmap",
+          "paragraphs": [
+            "Phases are milestone order, not committed calendar dates. Starting/ending TRL, headcount, time estimates and costs should be call-specific and evidence-backed.",
+            "Only mark a phase done when its explicit acceptance evidence is available."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "validation-plan",
+      "category": "Research plan",
+      "title": "How the science will be tested",
+      "summary": "Technical qualification, user feasibility and decision-level evaluation",
+      "sections": [
+        {
+          "title": "Engineering evidence",
+          "paragraphs": [
+            "Verify authentication, tenant boundaries, real interfaces, resilience and operational rollback.",
+            "Artifacts: reproducible CI, runtime E2E, negative security cases and traceable logs."
+          ]
+        },
+        {
+          "title": "Ethics and data",
+          "paragraphs": [
+            "Begin with synthetic scenarios. For real data, establish consent, minimization, access boundaries and appropriate research approval.",
+            "Evaluate reidentification risk, bias and harmful overconfidence; aggregation alone is not anonymity."
+          ]
+        },
+        {
+          "title": "Scientific baselines",
+          "paragraphs": [
+            "Compare simple or static rule-based approaches with hybrid policies and explicit uncertainty.",
+            "Predefine calibration, Brier score, missing-data stability, selective risk, alerts, detection delay and decision utility where applicable."
+          ]
+        },
+        {
+          "title": "Human usefulness",
+          "paragraphs": [
+            "Study completion of the daily journey, comprehension of explanations, user autonomy and acceptability.",
+            "No improvement in mental-health outcomes, retention or ROI is asserted before observing and validating real data."
+          ]
+        },
+        {
+          "title": "Research quality",
+          "paragraphs": [
+            "Maintain protocols, reproducibility, model configurations, negative results and independent review.",
+            "Use established guidance such as TRIPOD+AI where prediction reporting applies; reporting guidelines do not substitute for clinical/ethics approval."
+          ]
+        },
+        {
+          "title": "Go/no-go",
+          "paragraphs": [
+            "Progress when engineering safety, data quality and pre-agreed decision value criteria are met. Stop or revise when access control fails, uncertainty is unsafe or no useful evidence emerges.",
+            "An inconclusive result should be reported, not rebranded as success."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "funding-request",
+      "category": "Funding ask",
+      "title": "Funding requirements and use of proceeds",
+      "summary": "Cost categories, gated tranches and sponsor outcomes — no invented numbers",
+      "sections": [
+        {
+          "title": "Why funding is sought",
+          "paragraphs": [
+            "To deliver a secure integrated software release, reproducible research, appropriately governed pilot studies and a responsible launch.",
+            "Amounts and financial terms have not been externally validated. Use the editable funding framework below instead of treating a fabricated estimate as an offer."
+          ]
+        },
+        {
+          "title": "Use of proceeds",
+          "paragraphs": [
+            "Engineering and integration; Decision Intelligence research; privacy/security/compliance; UX and participant research; infrastructure; project operations.",
+            "Link each funded cost line to a milestone deliverable and acceptance evidence."
+          ]
+        },
+        {
+          "title": "Milestone tranches",
+          "paragraphs": [
+            "A: technical release qualification and security. B: research protocol and bounded data collection. C: evaluation and launch readiness.",
+            "Tranche amounts and calendar commitments must be agreed against a genuine project budget and the chosen funding instrument."
+          ]
+        },
+        {
+          "title": "Accountability",
+          "paragraphs": [
+            "Funders should receive engineering acceptance evidence, preregistered evaluation, candid research findings, risk logs and a sustainability plan.",
+            "Funding, equity/IP terms and reporting obligations differ for grants, seed investment and research contracts."
+          ]
+        },
+        {
+          "title": "Partners sought",
+          "paragraphs": [
+            "Potential partners include research institutions, responsible pilot organizations, ethical/data-protection advisers, philanthropic or institutional funders and seed investors.",
+            "This is a partnership search, not a claim of signed letters or live customers."
+          ]
+        },
+        {
+          "title": "Next conversation",
+          "paragraphs": [
+            "A proposal needs the funder's instrument, expected scope, verified staffing and cost estimates, project milestones and explicit rights/conditions.",
+            "Contact the team through Dzvin.co with the subject of funding or research partnership."
+          ]
+        }
+      ]
+    },
     {
       "slug": "product-story",
       "category": "Positioning",
@@ -434,5 +741,15 @@
   ],
   "referenceTitle": "Feature reference",
   "featuredCta": "Request a demonstration",
-  "featuredNote": "For organizations: team-level signals, decision-support workflows and measurable evaluation. Separate personal and research experiences are also available."
+  "featuredNote": "For organizations: team-level signals, decision-support workflows and measurable evaluation. Separate personal and research experiences are also available.",
+  "fundingHeadline": "From wellbeing observations to decisions we can evaluate",
+  "fundingIntro": "Dzvin.co is developing personal wellbeing journeys, authorized team-level insights and a research program exploring Decision Intelligence in mental health. We aim to test whether explainable, uncertainty-aware signals can support appropriate human-controlled next steps.",
+  "stageLabel": "STAGE: SOFTWARE PROTOTYPE / PRE-LAUNCH",
+  "stageDescription": "In development. No commercial customers, completed customer pilots or validated clinical effects. Public software components and research artifacts exist; complete integrations, security gates and full live E2E remain to be qualified.",
+  "fundingCta": "Discuss funding",
+  "fundingSecondaryCta": "View investor deck",
+  "fundingLibrary": "Investment and grant dossier",
+  "productLibrary": "Appendix: product and user journeys",
+  "evidenceLabel": "Evidence and verification standards",
+  "fundingNote": "We seek support to reduce measurable development and research uncertainty, not to sell proven outcomes."
 }

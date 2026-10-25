@@ -1,9 +1,11 @@
+import { type FundingAudience, getFundingDeck } from './funding-decks'
+
 export type DeckLocale = 'uk' | 'en' | 'pl'
-export type DeckAudience = 'teams' | 'individuals' | 'research'
+export type DeckAudience = 'teams' | 'individuals' | 'research' | FundingAudience
 export type DeckSlide = { title: string; description: string; points: string[] }
 export type ProductDeck = { title: string; subtitle: string; slides: DeckSlide[] }
 
-const productDecks: Record<DeckLocale, Record<DeckAudience, ProductDeck>> = {
+const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'research', ProductDeck>> = {
   uk: {
     teams: {
       title: 'Dzvin.co для команд',
@@ -403,9 +405,10 @@ const productDecks: Record<DeckLocale, Record<DeckAudience, ProductDeck>> = {
   },
 }
 
-export const deckAudiences: DeckAudience[] = ['teams', 'individuals', 'research']
+export const deckAudiences: DeckAudience[] = ['investment', 'grant', 'teams', 'individuals', 'research']
 
 export function getProductDeck(locale: string, audience: DeckAudience): ProductDeck {
   const language: DeckLocale = locale === 'en' || locale === 'pl' ? locale : 'uk'
+  if (audience === 'investment' || audience === 'grant') return getFundingDeck(language, audience)
   return productDecks[language][audience]
 }

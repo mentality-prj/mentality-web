@@ -10,19 +10,22 @@ const labels = {
   uk: {
     search: 'Пошук за матеріалами',
     noResults: 'Нічого не знайдено',
-    product: 'Рішення, економіка та впровадження',
+    funding: 'Інвестиції, наука та запуск',
+    product: 'Продуктові сценарії (додаток)',
     reference: 'Довідкові матеріали',
   },
   en: {
     search: 'Search documentation',
     noResults: 'No matching pages',
-    product: 'Solutions, value and implementation',
+    funding: 'Investment, science and launch',
+    product: 'Product scenarios (appendix)',
     reference: 'Feature reference',
   },
   pl: {
     search: 'Przeszukaj dokumentację',
     noResults: 'Brak wyników',
-    product: 'Rozwiązania, wartość i wdrożenie',
+    funding: 'Finansowanie, nauka i uruchomienie',
+    product: 'Scenariusze produktu (dodatek)',
     reference: 'Poradniki funkcji',
   },
 }
@@ -33,10 +36,11 @@ export function DocsDirectory({ docs, locale }: { docs: PublicDocs; locale: stri
   const [search, setSearch] = useState('')
   const groups = useMemo(
     () => [
-      { label: t.product, articles: docs.articles.slice(0, 8) },
-      { label: t.reference, articles: docs.articles.slice(8) },
+      { label: t.funding, articles: docs.articles.slice(0, 6) },
+      { label: t.product, articles: docs.articles.slice(6, 14) },
+      { label: t.reference, articles: docs.articles.slice(14) },
     ],
-    [docs.articles, t.product, t.reference]
+    [docs.articles, t.funding, t.product, t.reference]
   )
   const normalized = search.trim().toLocaleLowerCase(lang)
   const found = groups.map((group) => ({
