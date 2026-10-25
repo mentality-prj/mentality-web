@@ -8,6 +8,8 @@ describe('Dzvin public docs design system guard', () => {
   const deck = read('app/[locale]/(public)/docs/decks/[audience]/page.tsx')
   const article = read('app/[locale]/(public)/docs/[slug]/page.tsx')
   const deckToolbar = read('app/[locale]/(public)/docs/decks/DeckToolbar.tsx')
+  const landingHeader = read('components/features/Landing/LandingHeader.tsx')
+  const landingDrawer = read('components/Layout/MobileNavDrawer/LandingMobileMenu.tsx')
 
   it('keeps the existing light documentation layout and brand components', () => {
     expect(landing).toContain('bg-[radial-gradient(circle_at_top_left')
@@ -32,6 +34,8 @@ describe('Dzvin public docs design system guard', () => {
     expect(deck).toContain('sm:p-8 lg:p-14')
     expect(deckToolbar).toContain('grid grid-cols-2')
     expect(deckToolbar).toContain('min-w-0 items-center justify-center')
+    expect(landingHeader).toContain('hidden lg:block')
+    expect(landingDrawer).toContain('lg:hidden')
   })
 
   it('preserves funding information and the original shared header', () => {
