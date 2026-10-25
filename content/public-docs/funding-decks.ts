@@ -40,7 +40,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
         {
           title: 'Ринок і конкурентне середовище',
-          description: 'Потреба в підтримці добробуту на роботі вимірювана; платоспроможний попит на Dzvin.co ще потребує перевірки.',
+          description:
+            'Потреба в підтримці добробуту на роботі вимірювана; платоспроможний попит на Dzvin.co ще потребує перевірки.',
           points: [
             'WHO (2026): 12 млрд втрачених робочих днів щороку через депресію і тривожність',
             'EU-OSHA (2025): 29% опитаних працівників ЄС мали пов’язані з роботою симптоми',
@@ -248,7 +249,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
         {
           title: 'Market need and alternatives',
-          description: 'Workplace wellbeing has a measurable burden; demand for Dzvin.co itself remains to be validated.',
+          description:
+            'Workplace wellbeing has a measurable burden; demand for Dzvin.co itself remains to be validated.',
           points: [
             'WHO (2026): 12 billion working days lost annually to depression and anxiety',
             'EU-OSHA (2025): 29% of surveyed EU workers reported work-related stress, depression or anxiety',
