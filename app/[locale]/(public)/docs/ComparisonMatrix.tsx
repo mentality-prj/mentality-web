@@ -41,7 +41,7 @@ const labels = {
       ],
       ['Research workflows', 'Survey-dependent', 'Product-dependent', 'Projects, cohorts, exports and audit'],
     ],
-    note: 'This compares functional categories with Dzvin.co's target scope; actual release maturity is documented in the evidence register.',
+    note: 'This compares functional categories with the Dzvin.co target scope; actual release maturity is documented in the evidence register.',
   },
   pl: {
     title: 'Porównanie podejść funkcjonalnych',
