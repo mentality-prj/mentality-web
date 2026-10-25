@@ -1,8 +1,8 @@
 {
-  "title": "Dokumentacja produktu Dzvin.co",
-  "kicker": "Dla marketingu i Product Ownerów",
-  "lead": "Pozycjonowanie, korzyści dla odbiorców, mapa funkcji, scenariusze demo i gotowa narracja prezentacji.",
-  "browse": "Materiały produktowe i prezentacyjne",
+  "title": "Dzvin.co — rozwiązania dla zespołów, osób i badań",
+  "kicker": "Produkt, procesy i rezultaty",
+  "lead": "Dzvin.co pomaga HR i liderom przejść od rozproszonych ankiet do regularnej analizy zmian w zespołach oraz uporządkowanej reakcji na sygnały ryzyka.",
+  "browse": "Wybierz interesujący obszar",
   "back": "Cała dokumentacja produktu",
   "nav": "Dokumentacja produktu Dzvin.co",
   "status": "Wersja: październik 2026",
@@ -14,60 +14,28 @@
     {
       "slug": "product-story",
       "category": "Pozycjonowanie",
-      "title": "Historia produktu Dzvin.co",
-      "summary": "Co oferujemy, jaki problem rozwiązujemy i dlaczego to więcej niż dziennik samopoczucia.",
+      "title": "Od sygnałów do działań zespołu",
+      "summary": "Jak Dzvin.co łączy trendy zespołowe z odpowiednią reakcją",
       "sections": [
         {
-          "title": "Pozycjonowanie w jednym zdaniu",
+          "title": "Lepszy obraz dobrostanu zespołów",
           "paragraphs": [
-            "Dzvin.co łączy osobiste obserwacje, analitykę zespołów i narzędzia badawcze, aby zamieniać zmiany samopoczucia w zrozumiałe sygnały i konkretne kolejne działania."
+            "Dzvin.co pomaga HR i liderom przejść od rozproszonych ankiet do regularnej analizy zmian w zespołach oraz uporządkowanej reakcji na sygnały ryzyka.",
+            "Główna oferta B2B łączy strukturę organizacji i uprawnienia, dozwolone widoki grupowe, trendy, zdarzenia ryzyka i działania menedżera. Osobne obszary wspierają osobiste obserwacje i programy badawcze."
           ]
         },
         {
-          "title": "Prezentacja w 30 sekund",
+          "title": "Gdy firma już prowadzi ankiety",
           "paragraphs": [
-            "Informacje o dobrostanie są często rozproszone między ankietami, dziennikami i raportami. Osoba nie widzi swojej trajektorii, menedżer reaguje zbyt późno, a badaczowi trudno powiązać pomiary z wynikami. Dzvin.co łączy te potrzeby: użytkownicy zapisują swoje odczucia, organizacje analizują dozwolone trendy grupowe, a badacze prowadzą programy i oceniają wyniki."
+            "Ankieta często kończy się raportem. Dzvin.co umożliwia analizę zmian sygnałów grupowych, przegląd ważnych zdarzeń i uporządkowanie dalszych działań.",
+            "To nie gwarantuje spadku wypalenia. Efekt należy ocenić w pilocie przez czas reakcji, ciągłość udziału i jakość procesu."
           ]
         },
         {
-          "title": "Problem klienta",
+          "title": "Obszar osobisty i badawczy",
           "paragraphs": [
-            "Jednorazowa samoocena pokazuje chwilę, ale nie trajektorię. Nawet powtarzane dane są mało użyteczne bez kolejnego kroku i możliwości sprawdzenia zmian.",
-            "Główna logika produktu to «obserwacja → trend → priorytet → działanie → ponowny pomiar». To opis procesu, a nie obietnica skuteczności każdej interwencji."
-          ]
-        },
-        {
-          "title": "Trzy obszary produktu",
-          "paragraphs": [
-            "Osobisty: codzienne obserwacje, historia, ćwiczenia, cele i kwestionariusze. Organizacyjny: role, grupy, analityka zespołów, zdarzenia ryzyka i działania menedżera. Badawczy: projekty, kohorty, inspekcja, materiały do raportów i kontrola dostępu.",
-            "Każdy obszar ma innego użytkownika, nabywcę i wynik. Prezentacja powinna dopasowywać historię do odbiorcy."
-          ]
-        },
-        {
-          "title": "Co wyróżnia narrację",
-          "paragraphs": [
-            "Nie zaczynaj od «mamy AI i wykresy». Zacznij od decyzji, którą odbiorca podejmuje dziś bez kontekstu: jaką praktykę wybrać, któremu zespołowi pomóc albo jak ocenić program?",
-            "Pokaż drogę od sygnału do zarządzanego działania. Nie trzeba ujawniać algorytmów, parametrów modeli ani rozwiązań wewnętrznych."
-          ]
-        },
-        {
-          "title": "Rezultat dla odbiorców",
-          "paragraphs": [
-            "Osoba widzi historię obserwacji i dostępne kolejne kroki. Menedżer widzi trendy zespołów i sygnały do analizy. Badacz ma uporządkowany proces od projektu programu do raportowania."
-          ]
-        },
-        {
-          "title": "Co można komunikować publicznie",
-          "paragraphs": [
-            "Opisuj widoczne moduły, rodzaje pomiarów, role, grupowanie danych i drogę od obserwacji do działania.",
-            "Nie deklaruj udowodnionego spadku wypalenia, gwarantowanej poprawy retencji, dokładności modeli ani ROI bez zweryfikowanych danych."
-          ]
-        },
-        {
-          "title": "Tekst gotowy na slajd",
-          "paragraphs": [
-            "Tytuł: «Od sygnałów samopoczucia do decyzji, które można ocenić». Podtytuł: «Jedna platforma dla osób, organizacji i programów badawczych».",
-            "Trzy punkty: «Spójne obserwacje», «Trendy i priorytety», «Działania i ocena zmian»."
+            "Codzienne samooceny, ćwiczenia i historia wspierają indywidualne użytkowanie. Projekty i kohorty wspierają badania i ocenę programów.",
+            "Warto wybrać obszar zgodny z rolą i celem organizacji."
           ]
         }
       ]
@@ -76,62 +44,34 @@
       "slug": "solutions",
       "category": "Odbiorcy",
       "title": "Dla kogo jest Dzvin.co",
-      "summary": "Potrzeby nabywców i użytkowników, konkretne scenariusze oraz język prezentacji.",
+      "summary": "Najpierw organizacje; dodatkowo zastosowania osobiste i badawcze",
       "sections": [
         {
-          "title": "Użytkownik indywidualny: potrzeba",
+          "title": "Rozwiązania dla różnych odbiorców",
           "paragraphs": [
-            "Osoba potrzebuje prostego sposobu dostrzegania zmian, porządkowania informacji i przechodzenia od pomiaru do dostępnego ćwiczenia.",
-            "Pokaż samoocenę, historię, ćwiczenia i cele. Rezultatem demo jest czytelny osobisty proces."
+            "Głównym odbiorcą komercyjnym są organizacje, które chcą systematyczniej pracować z dobrostanem zespołów. Przy decyzji o pilocie współpracują zwykle HR/People Operations, menedżerowie i osoby odpowiedzialne za budżet.",
+            "Osoby prywatne mają dostęp do samoocen, historii, praktyk i celów. Instytucje badawcze zarządzają projektami, kohortami, dostępem, danymi i wnioskami o eksport. Każdy obszar ma inne cele."
           ]
         },
         {
-          "title": "Użytkownik indywidualny: przykład",
+          "title": "HR i People Operations",
           "paragraphs": [
-            "Po wymagającym tygodniu użytkownik zapisuje stres, energię, koncentrację i nastrój, przegląda wcześniejsze wpisy, wybiera ćwiczenie i następnego dnia wykonuje kolejny pomiar.",
-            "To scenariusz ilustracyjny, a nie historia klienta ani dowód efektu ćwiczenia."
+            "Analiza trendów zespołów, rozpoznawanie możliwych źródeł obciążenia i ustalanie priorytetów wsparcia.",
+            "Oceniaj zakres pomiarów, czas do przeglądu sygnału i działania następcze, a nie tylko średni wynik."
           ]
         },
         {
-          "title": "Firma: nabywca i użytkownik",
+          "title": "Menedżerowie",
           "paragraphs": [
-            "Interesariuszami są zwykle HR, People Operations, liderzy zespołów i zarząd. Menedżer ma określone uprawnienia, a administrator odpowiada za strukturę i dostęp.",
-            "Nabywca pyta: «Gdzie narasta ryzyko i jak reagować wcześniej?». Menedżer pyta: «Której grupie lub sygnałowi przyjrzeć się dziś?»"
+            "Pracują z dozwolonymi grupami, trendami i zdarzeniami ryzyka.",
+            "Administratorzy odpowiadają za strukturę, członków i uprawnienia."
           ]
         },
         {
-          "title": "Firma: przykład",
+          "title": "Partnerzy badawczy",
           "paragraphs": [
-            "Po serii samoocen menedżer przegląda zagregowaną analitykę, zmienia okres i grupy, analizuje zdarzenia ryzyka, otwiera szczegóły i zapisuje odpowiednie działanie.",
-            "Demo pokazuje proces priorytetyzacji, a nie automatyczną ocenę pracowników."
-          ]
-        },
-        {
-          "title": "Badania: nabywca i użytkownik",
-          "paragraphs": [
-            "Odbiorcami są uczelnie, instytuty, kierownicy programów i partnerzy finansujący. Z narzędzi korzystają uprawnieni badacze i administratorzy projektów.",
-            "Pytanie: «Jak ujednolicić powtarzane pomiary, porównać kohorty, kontrolować dane i przygotować dowody programu?»"
-          ]
-        },
-        {
-          "title": "Badania: przykład",
-          "paragraphs": [
-            "Zespół tworzy projekt, ustala uczestników i kohortę, sprawdza dane historyczne i narzędzia inspekcji, składa wniosek o eksport i analizuje historię audytu.",
-            "Rezultatem jest przejrzysty proces badawczy, nie twierdzenie o potwierdzonym efekcie interwencji."
-          ]
-        },
-        {
-          "title": "Co łączy te obszary",
-          "paragraphs": [
-            "Osobiste interakcje pozwalają gromadzić powtarzane obserwacje. Warstwa organizacyjna analizuje dozwolone dane grupowe. Badania strukturyzują kohorty i wynik programu.",
-            "To jedna rodzina produktów, ale w ofercie rozdzielaj zakres, prawa dostępu, budżet i kryteria sukcesu."
-          ]
-        },
-        {
-          "title": "Pytania przed spotkaniem",
-          "paragraphs": [
-            "Określ odbiorcę, jego decyzję, źródło danych, oczekiwany wynik, dostęp i plan demonstracji. Menedżer kupujący analitykę nie potrzebuje prezentacji eksportu badawczego.",
-            "Zakończ pytaniem: «Jaką decyzję Państwa zespół chce podejmować szybciej lub z lepszym kontekstem?»"
+            "Zarządzają uczestnikami, kohortami, historią, inspekcją, eksportami i audytem.",
+            "Ocena programu wymaga protokołu i rzeczywistych danych, nie samych ekranów."
           ]
         }
       ]
@@ -139,70 +79,28 @@
     {
       "slug": "capability-map",
       "category": "Funkcje",
-      "title": "Mapa możliwości produktu",
-      "summary": "Rzeczywiste moduły, rezultaty użytkownika i dostępność poszczególnych obszarów.",
+      "title": "Możliwości Dzvin.co",
+      "summary": "Funkcje osobiste, firmowe i badawcze bez niepotwierdzonych obietnic",
       "sections": [
         {
-          "title": "Osobiste pomiary",
+          "title": "Co oferuje produkt",
           "paragraphs": [
-            "Podstawowa samoocena obejmuje stres, nastrój, energię i koncentrację. W strefie osobistej są też wpisy, ćwiczenia, krótkie kwestionariusze, cele i historia zmian.",
-            "Na slajd: «Spójne obserwacje zamiast pojedynczej ankiety». Demo: nowy wpis → historia → kolejny krok."
+            "Dla organizacji: grupy i podgrupy, zaproszenia, uprawnienia, filtry okresów i grup, zagregowane wskaźniki, zdarzenia ryzyka i działania następcze menedżerów.",
+            "Dla osób: pomiary stresu, nastroju, energii i koncentracji, wpisy, kwestionariusze, historia, ćwiczenia i cele. Dla nauki: projekty, uczestnicy, kohorty, dane historyczne, inspekcja, wnioski eksportowe i audyt."
           ]
         },
         {
-          "title": "Osobiste postępy",
+          "title": "Proces od sygnału do działania",
           "paragraphs": [
-            "Historia i statystyki pomagają analizować zmiany w czasie. Cele i krótkie praktyki łączą pomiar z możliwym działaniem.",
-            "Na slajd: «Nie tylko wynik dzisiaj, ale zmiana w czasie»."
+            "Menedżer ma podsumowanie, dozwolone trendy zespołu i listę zdarzeń. Można sprawdzić szczegóły, działania i zamknąć zdarzenie zgodnie z rolą.",
+            "To wsparcie decyzji podejmowanych przez człowieka, nie automatyczna ocena pracowników."
           ]
         },
         {
-          "title": "Struktura organizacji",
+          "title": "Zakres dostępności",
           "paragraphs": [
-            "Ekrany administracyjne obsługują grupy i podgrupy, pracowników, zaproszenia, role i dostęp menedżerów do konkretnych grup.",
-            "Na slajd: «Dane uporządkowane zgodnie ze strukturą firmy i uprawnieniami». Nie obiecuj anonimowości bez weryfikacji zasad raportu."
-          ]
-        },
-        {
-          "title": "Analityka zespołów",
-          "paragraphs": [
-            "Widoki firmowe prezentują zestawienia, trendy, rozkład ryzyka i podział na grupy. Uprawniony menedżer może zmieniać zakres dat i wybór zespołów.",
-            "Na slajd: «Zobacz, gdzie sytuacja się zmienia». Demo: zestawienie → okres → grupa."
-          ]
-        },
-        {
-          "title": "Proces wsparcia decyzji",
-          "paragraphs": [
-            "Osobny ekran zarządzania łączy podsumowanie z listą zdarzeń ryzyka. Interfejs pozwala otwierać szczegóły, pracować z działaniami i zamykać zdarzenia.",
-            "Na slajd: «Sygnał staje się zadaniem do obsłużenia». System nie zastępuje samodzielnej decyzji kadrowej."
-          ]
-        },
-        {
-          "title": "Projekty badawcze",
-          "paragraphs": [
-            "Research Workspace obejmuje listę projektów, tworzenie, członków, ustawienia kohort, materiały grantowe i dane historyczne.",
-            "Na slajd: «Uporządkowany program od przygotowania do analizy». Dostęp zależy od roli i konfiguracji."
-          ]
-        },
-        {
-          "title": "Inspekcja i raportowanie",
-          "paragraphs": [
-            "Obszar badawczy zawiera inspekcję modeli, wnioski o eksport i historię audytu. Ułatwia to kontrolę procesu i tworzenie materiałów raportowych.",
-            "Na slajd: «Od zbierania danych do wyników, które można sprawdzić». Nie pokazuj danych objętych ograniczeniami dostępu."
-          ]
-        },
-        {
-          "title": "Role i dostępność",
-          "paragraphs": [
-            "Aplikacja ma osobne doświadczenia dla osób, menedżerów, administratorów i badaczy. Opisanie funkcji nie oznacza, że każdy użytkownik ma do niej dostęp.",
-            "PO powinien określić warunki dostępu i środowisko testowe dla każdego demo."
-          ]
-        },
-        {
-          "title": "Status weryfikacji",
-          "paragraphs": [
-            "Widoczny ekran lub kontrakt API nie potwierdza jeszcze pełnego testu integracji, działania dla danego klienta ani jakości prognozy.",
-            "Rozdzielaj «widoczne w produkcie», «sprawdzone end-to-end» i «wynik potwierdzony pomiarem»."
+            "Nie wszystkie funkcje są dostępne dla każdego konta. Zależą od roli, danych i konfiguracji.",
+            "Konkretny scenariusz należy sprawdzić podczas demo przed pilotażem."
           ]
         }
       ]
@@ -210,49 +108,93 @@
     {
       "slug": "demo-scenarios",
       "category": "Demo",
-      "title": "Scenariusze demonstracyjne",
-      "summary": "Kolejność ekranów, narracja prowadzącego i rezultat, który ma zapamiętać odbiorca.",
+      "title": "Jak działa Dzvin.co",
+      "summary": "Trzy scenariusze, które można sprawdzić podczas demo",
       "sections": [
         {
-          "title": "Demo 1 — osobiste, 3–5 minut",
+          "title": "Trzy procesy produktowe",
           "paragraphs": [
-            "Zacznij od pytania: «Jak zobaczyć zmianę samopoczucia w ostatnich dniach?». Pokaż samoocenę, cztery wskaźniki, historię, dostępne ćwiczenie i kolejny wpis.",
-            "Ostatni ekran: historia. Komentarz: «Dane tworzą osobistą trajektorię zamiast znikać w oddzielnych formularzach»."
+            "Firma: menedżer otwiera dozwolony widok, wybiera okres i grupy, analizuje zmianę wskaźników, otwiera zdarzenie ryzyka i zapisuje następne działanie. To pokazuje proces operacyjny.",
+            "Osoba: samoocena → historia → ćwiczenie → kolejny pomiar. Badania: projekt → członkowie i kohorta → historia → inspekcja → wniosek o eksport → audyt. Dostęp zależy od roli."
           ]
         },
         {
-          "title": "Demo 2 — firma, 5–7 minut",
+          "title": "Prezentacja firmy",
           "paragraphs": [
-            "Zacznij od pytania HR: «Które zespoły potrzebują uwagi w tym tygodniu?». Pokaż grupy, dostęp menedżera, zestawienie, trendy i filtry okresów.",
-            "Otwórz listę zdarzeń ryzyka i przykładowe szczegóły. Wyjaśnij drogę od sygnału do działania. Korzystaj wyłącznie z dozwolonych danych testowych."
+            "Przegląd organizacji → filtry grup → trendy → zdarzenie ryzyka → szczegóły → działanie menedżera.",
+            "Używaj dozwolonych danych, nie ujawniaj historii pojedynczych pracowników."
           ]
         },
         {
-          "title": "Demo 3 — badania, 5–7 minut",
+          "title": "Prezentacja osobista",
           "paragraphs": [
-            "Zapytaj: «Jak prowadzić powtarzane pomiary w zarządzanym programie?». Pokaż projekty, uczestników, kohortę i historię obserwacji.",
-            "Na koniec pokaż inspekcję, wniosek o eksport i audyt. Główna historia to kontrola procesu i śledzenie działań."
+            "Samoocena → historia → ćwiczenie lub cel → kolejny pomiar.",
+            "Wartość polega na ciągłości obserwacji, a nie gwarancji rezultatu ćwiczenia."
           ]
         },
         {
-          "title": "Przygotowanie przed spotkaniem",
+          "title": "Prezentacja badań",
           "paragraphs": [
-            "Sprawdź rolę konta demonstracyjnego, przygotuj przykładowy projekt, grupy i wpisy bez prywatnych danych oraz zweryfikuj, czy ekrany zawierają wyniki.",
-            "Niedostępnej funkcji nie przedstawiaj jako działającej na żywo."
+            "Research Workspace → projekt → uczestnicy i kohorta → historia → inspekcja → wniosek o eksport → audyt.",
+            "Dostęp zależy od ról i uprawnień projektu."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "economics",
+      "category": "B2B value",
+      "title": "Wartość biznesowa",
+      "summary": "Kalkulator pilotażu z przejrzystymi założeniami",
+      "sections": [
+        {
+          "title": "Ocena wartości biznesowej bez wymyślonych oszczędności",
+          "paragraphs": [
+            "W pilocie firmowym znaczenie ma nie liczba wykresów, lecz to, czy wcześniejsza analiza i skoordynowane działanie przynoszą mierzalne rezultaty operacyjne.",
+            "Kalkulator scenariusza wykorzystuje wyłącznie założenia użytkownika: liczbę osób, koszt godziny, zmierzone odzyskane godziny, hipotetyczną cenę platformy i koszt wdrożenia. Nie jest to oficjalny cennik ani gwarancja zwrotu."
           ]
         },
         {
-          "title": "Od demo do slajdów",
+          "title": "Metryki pilotażu",
           "paragraphs": [
-            "Przy każdym ekranie zastosuj układ: «Sytuacja klienta → ekran → możliwa decyzja lub obserwacja». Podkreśl jedną ważną część widoku.",
-            "Zakończ konkretnym rezultatem: historią obserwacji, priorytetem zespołu albo materiałem badawczym."
+            "Porównaj czas analizy sygnału, udział zdarzeń z udokumentowanym działaniem, regularność i koszty administracyjne.",
+            "Do wyceny użyj porównywalnych okresów i faktycznych kosztów."
           ]
         },
         {
-          "title": "Pytania do przygotowania",
+          "title": "Koszty rozwiązania",
           "paragraphs": [
-            "«Skąd pochodzą dane?» — Z dobrowolnych wpisów, kwestionariuszy i właściwego procesu. «Kto ma do nich dostęp?» — Role i przydzielone uprawnienia.",
-            "«Jak potwierdzić skuteczność?» — Przedstaw zdefiniowany pomiar i zweryfikowany wynik, nie hipotetyczny procent."
+            "Uwzględnij licencje, wdrożenie, czas menedżerów i wsparcie. Warunki komercyjne ustala się osobno.",
+            "Kalkulator nie jest ofertą handlową."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "comparison",
+      "category": "Evaluation",
+      "title": "Porównanie podejść",
+      "summary": "Dzvin.co, pojedyncze ankiety i samodzielne dashboardy",
+      "sections": [
+        {
+          "title": "Różnice w podejściu",
+          "paragraphs": [
+            "Jednorazowa ankieta pokazuje stan na dany moment. Samodzielny dashboard może prezentować trendy bez procesu obsługi zdarzeń. Dzvin.co łączy powtarzane obserwacje, widoki grupowe i działania menedżera w opisanym produkcie.",
+            "To porównanie kategorii rozwiązań, nie ranking konkretnych konkurentów. Wybór należy sprawdzić na rzeczywistym procesie i wymaganiach organizacji."
+          ]
+        },
+        {
+          "title": "Kryteria porównania",
+          "paragraphs": [
+            "Porównaj częstotliwość pomiarów, trendy grupowe, uprawnienia, obsługę zdarzeń, badania i eksport.",
+            "Uczciwe porównanie wymaga tego samego scenariusza."
+          ]
+        },
+        {
+          "title": "Co sprawdzić na demo",
+          "paragraphs": [
+            "Czy menedżer widzi tylko swoje grupy? Czy można śledzić zdarzenie do działania? Jak obsługiwany jest brak danych? Jakie KPI można mierzyć?",
+            "To pytania dla nabywcy, nie deklaracje o konkretnych konkurentach."
           ]
         }
       ]
@@ -260,91 +202,28 @@
     {
       "slug": "presentation-kit",
       "category": "Prezentacje",
-      "title": "Gotowy scenariusz prezentacji Dzvin.co",
-      "summary": "Dziesięć slajdów, gotowe teksty, krótkie pitch'e i odpowiedzi na pytania klientów.",
+      "title": "Prezentacje Dzvin.co",
+      "summary": "Trzy prezentacje dla różnych odbiorców, gotowe do wydruku PDF",
       "sections": [
         {
-          "title": "Slajd 1 — obietnica",
+          "title": "Poznaj Dzvin.co w formie prezentacji",
           "paragraphs": [
-            "Tytuł: «Dzvin.co: od obserwacji do działania». Podtytuł: «Wsparcie osobiste, analityka zespołów i procesy badawcze na jednej platformie».",
-            "Wizualizacja: trzy połączone obszary — Osoba, Organizacja, Badania."
+            "Prezentacja firmowa prowadzi od sygnału przez kontekst zespołu i priorytet do działania i oceny. Prezentacja osobista wyjaśnia codzienne obserwacje, a naukowa — kontrolowany proces programu.",
+            "Trzy prezentacje są dostępne poniżej. Można je wyświetlać w przeglądarce lub zapisać jako PDF przez drukowanie. Nie zawierają zmyślonych wyników, klientów ani poufnych informacji technicznych."
           ]
         },
         {
-          "title": "Slajd 2 — problem",
+          "title": "Prezentacja firmowa",
           "paragraphs": [
-            "Tytuł: «Sygnałów jest wiele. Spójnego obrazu brakuje». Punkty: rozproszone pomiary, trudne porównywanie zmian, opóźniona reakcja, trudności w ocenie programu.",
-            "Wizualizacja: osobne źródła informacji bez następnej decyzji."
+            "Problem → sygnał zespołowy → działanie → pomiar → pilotaż. Każda prezentacja działa jako zestaw slajdów w przeglądarce.",
+            "Przez funkcję drukowania można zapisać zestaw jako PDF."
           ]
         },
         {
-          "title": "Slajd 3 — podejście",
+          "title": "Prezentacje osobiste i badawcze",
           "paragraphs": [
-            "Tytuł: «Jeden cykl: obserwuj → zrozum → ustal priorytet → działaj → sprawdź». Opowiedz o organizowaniu sygnałów i działań dla różnych ról.",
-            "Wizualizacja: pięć etapów procesu produktowego, bez schematu wewnętrznego algorytmu."
-          ]
-        },
-        {
-          "title": "Slajd 4 — użytkownik",
-          "paragraphs": [
-            "Tytuł: «Osobista trajektoria zamiast jednorazowej ankiety». Pokaż codzienne wpisy, historię, praktyki, cele i kwestionariusze.",
-            "Podpis: «Użytkownik zapisuje stan i wraca do jasnego kolejnego kroku»."
-          ]
-        },
-        {
-          "title": "Slajd 5 — firma",
-          "paragraphs": [
-            "Tytuł: «Sygnały zespołowe, na które można reagować». Pokaż grupy, trendy, rozkład ryzyka, zdarzenia i proces działania.",
-            "Podpis: «Kontekst grupy → priorytet → działanie»."
-          ]
-        },
-        {
-          "title": "Slajd 6 — badania",
-          "paragraphs": [
-            "Tytuł: «Od programu obserwacji do wyników, które można sprawdzić». Pokaż projekty, kohorty, historię, inspekcję, eksport i audyt.",
-            "Podpis: «Uporządkowany proces badawczy i materiały do raportowania»."
-          ]
-        },
-        {
-          "title": "Slajd 7 — odmienność",
-          "paragraphs": [
-            "Tytuł: «Więcej niż testy i wykresy». Trzy punkty: połączone procesy, obserwacja zmian w czasie, możliwość wrócenia do działania i oceny rezultatów.",
-            "Unikaj niepotwierdzonych superlatywów i porównań z konkurentami."
-          ]
-        },
-        {
-          "title": "Slajd 8 — wdrożenie",
-          "paragraphs": [
-            "Tytuł: «Zacznij od jednej decyzji, którą warto poprawić». Kroki: wybór grupy, zdefiniowanie pomiarów, uprawnień, pilota i kryteriów oceny.",
-            "Pokaż plan weryfikacji, nie wymyślone logotypy klientów."
-          ]
-        },
-        {
-          "title": "Slajd 9 — metryki",
-          "paragraphs": [
-            "Tytuł: «Wartość należy mierzyć». Przykłady: regularność uczestnictwa, kompletność danych, czas reakcji na sygnał, zmiany wskaźników grupowych i zgodność z protokołem badawczym.",
-            "Oddziel obserwowane użycie produktu od efektu biznesowego, który wymaga oceny."
-          ]
-        },
-        {
-          "title": "Slajd 10 — kolejny krok",
-          "paragraphs": [
-            "Tytuł: «Sprawdźmy Dzvin.co w Państwa procesie». Zaproponuj demo lub pilota ze zdefiniowaną grupą, dostępem i kryteriami sukcesu.",
-            "Pytanie końcowe: «Którą decyzję najtrudniej dziś podjąć bez spójnego obrazu?»"
-          ]
-        },
-        {
-          "title": "Krótkie warianty prezentacji",
-          "paragraphs": [
-            "Dla HR: «Dzvin.co pomaga rozumieć zmiany stanu zespołów i organizować reakcję na sygnały ryzyka». Dla osoby: «Dzvin.co zamienia codzienne wpisy w historię i konkretne kolejne kroki». Dla badaczy: «Dzvin.co porządkuje kohorty, obserwacje i ocenę rezultatów».",
-            "Każdy wariant połącz z odpowiednim ekranem produktu, nie ogólnym twierdzeniem o AI."
-          ]
-        },
-        {
-          "title": "Najważniejsze pytania",
-          "paragraphs": [
-            "Dlaczego nie zwykła ankieta? — Bo wpisy łączą się z historią, trendami i działaniami. Co widzi menedżer? — Dozwolone dane grupowe, raporty i zdarzenia ryzyka. Jak potwierdzić wartość? — Uzgodnić metrykę, okres i sposób oceny.",
-            "Na slajdach pokazuj osobę, która kupuje lub korzysta z wybranego obszaru produktu."
+            "Osobista: codzienne wpisy i praktyki. Badawcza: kohorty, dane, raportowanie i audyt.",
+            "Każda prezentacja dotyczy głównego scenariusza swojej grupy."
           ]
         }
       ]
@@ -352,70 +231,28 @@
     {
       "slug": "po-guide",
       "category": "Product Owner",
-      "title": "Przewodnik produktowy dla PO",
-      "summary": "Spójny opis wartości, zakresu funkcji, dowodów i kryteriów akceptacji.",
+      "title": "Pilotaż i wdrożenie",
+      "summary": "Jak ustalić kryteria oceny i sukcesu",
       "sections": [
         {
-          "title": "Oddziel problem, funkcję i wynik",
+          "title": "Pilotaż i kryteria sukcesu",
           "paragraphs": [
-            "Problem: lider nie widzi zmian w zespole. Funkcja: raport grupowy z filtrem dat. Wynik produktowy: menedżer wie, którą grupę sprawdzić i jakie działanie rozważyć.",
-            "Funkcja nie dowodzi automatycznie efektu biznesowego. Specyfikacja i prezentacja muszą to rozróżniać."
+            "Zacznij od jednego mierzalnego problemu, na przykład skrócenia czasu od sygnału zespołowego do jego analizy przez odpowiedzialną osobę. Przed wdrożeniem ustal grupę, uprawnienia, okres i sposób oceny.",
+            "Przydatne KPI to regularność udziału, kompletność danych, czas reakcji i obsługa zdarzeń. Dla osób — powtarzanie samoocen, dla nauki — ukończenie cykli zbierania i śledzenie danych. To propozycje miar, nie udowodnione wyniki."
           ]
         },
         {
-          "title": "Mapa ról",
+          "title": "Projekt pilotażu",
           "paragraphs": [
-            "Osoby korzystają z samoocen, historii, ćwiczeń i celów. Menedżerowie z dozwolonych grup, analityki i zdarzeń. Administratorzy tworzą strukturę i uprawnienia. Badacze pracują z projektami, kohortami, inspekcją i raportami.",
-            "Każda user story określa rolę, dozwolone dane, działanie i oczekiwany wynik na ekranie."
+            "Ustal osobę odpowiedzialną, grupę, okres, uprawnienia, sposób zbierania danych i punkt odniesienia.",
+            "Pilotaż powinien weryfikować konkretną hipotezę, nie tylko prezentować interfejs."
           ]
         },
         {
-          "title": "Akceptacja: ścieżka osobista",
+          "title": "Decyzja po pilotażu",
           "paragraphs": [
-            "Scenariusz: użytkownik zapisuje samoocenę, znajduje ją w historii i wraca do dostępnej praktyki lub celu.",
-            "Sprawdź zapis danych, znaczniki czasu, separację danych oraz obsługę pustych stanów i błędów."
-          ]
-        },
-        {
-          "title": "Akceptacja: ścieżka firmowa",
-          "paragraphs": [
-            "Scenariusz: menedżer otwiera dozwolone grupy, wybiera okres, analizuje trend i zdarzenie, zapisuje dopuszczalne działanie.",
-            "Sprawdź granice dostępu, brakujące dane, zmianę statusu zdarzeń i zachowanie dla pustych grup."
-          ]
-        },
-        {
-          "title": "Akceptacja: ścieżka badawcza",
-          "paragraphs": [
-            "Scenariusz: badacz otwiera projekt, pracuje z kohortą, przegląda historię i inspekcję, zleca eksport i sprawdza audyt.",
-            "Sprawdź uprawnienia, prawdziwe statusy, politykę eksportu i brak dostępu między projektami."
-          ]
-        },
-        {
-          "title": "Metryki pilota",
-          "paragraphs": [
-            "Osoby: powracające samooceny, regularność i korzystanie z praktyk. Firma: pokrycie obserwacji, czas przeglądu sygnału, udział obsłużonych zdarzeń. Badania: ukończenie fal zbierania danych, jakość danych, zgodność procedur i czas raportowania.",
-            "To proponowane KPI do pilota, nie wartości już osiągnięte przez Dzvin.co."
-          ]
-        },
-        {
-          "title": "Dowody na poparcie twierdzeń",
-          "paragraphs": [
-            "Silne twierdzenie wymaga dowodu: działającego demo, testu automatycznego, raportu z pilota albo niezależnej oceny. Bez dowodu przedstawiaj funkcję jako możliwość produktu.",
-            "Nie publikuj dokładności prognoz, oszczędności czasu, ROI ani efektów pracowniczych bez pomiarów."
-          ]
-        },
-        {
-          "title": "Gotowość demonstracji",
-          "paragraphs": [
-            "Marketing potrzebuje bezpiecznego zestawu demo z grupami, wpisami i zdarzeniami, bez prywatnych danych klientów. PO określa, które ekrany i scenariusze działają stabilnie.",
-            "Proces bez pełnego testu end-to-end nie może być przedstawiany jako zweryfikowany produkcyjnie."
-          ]
-        },
-        {
-          "title": "Od backlogu do slajdu",
-          "paragraphs": [
-            "Każdy slajd o funkcji powinien wskazywać problem klienta, scenariusz, rzeczywisty ekran, oczekiwaną korzyść i mierzalne kryterium sukcesu.",
-            "Ten łańcuch powinien być spójny w specyfikacji, prezentacji i zewnętrznym opisie produktu."
+            "Porównaj wyniki z ustalonymi kryteriami, ocen koszty i zakres dalszego wdrożenia.",
+            "Przy niewystarczających danych należy to wyraźnie wskazać."
           ]
         }
       ]
@@ -596,6 +433,6 @@
     }
   ],
   "referenceTitle": "Poradniki funkcji",
-  "featuredCta": "Otwórz scenariusz prezentacji",
-  "featuredNote": "Przygotowując prezentację, zacznij od historii produktu, wybierz odbiorcę, pokaż odpowiednie demo i zakończ kryteriami sukcesu."
+  "featuredCta": "Umów prezentację",
+  "featuredNote": "Dla organizacji: sygnały zespołowe, proces wspierania decyzji i mierzalna ocena. Dostępne są też obszary osobiste i badawcze."
 }
