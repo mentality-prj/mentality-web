@@ -28,12 +28,24 @@ describe('public product presentations', () => {
     }
   })
 
+  it('keeps investor decks market-grounded without a predetermined funding ticket', () => {
+    for (const locale of ['uk', 'en', 'pl'] as const) {
+      const deck = getProductDeck(locale, 'investment')
+      const copy = deck.slides.flatMap((slide) => [slide.title, slide.description, ...slide.points]).join(' ')
+      expect(copy).toContain('Headspace')
+      expect(copy).toContain('Unmind')
+      expect(copy).toContain('Wysa')
+      expect(copy).toContain('29%')
+      expect(copy).not.toMatch(/(?:бюджет програми|обсяг наступного траншу|milestone-linked budget|kosztorys transzy|ustalenie budżetu)/i)
+    }
+  })
+
   it('provides seven substantial slides for every audience in all locales', () => {
     for (const locale of ['uk', 'en', 'pl']) {
       for (const audience of deckAudiences) {
         const deck = getProductDeck(locale, audience)
         expect(deck.title.length).toBeGreaterThan(10)
-        expect(deck.slides).toHaveLength(audience === 'investment' || audience === 'grant' ? 10 : 7)
+        expect(deck.slides).toHaveLength(audience === 'investment' ? 11 : audience === 'grant' ? 10 : 7)
         for (const slide of deck.slides) {
           expect(slide.title.length).toBeGreaterThan(5)
           expect(slide.description.length).toBeGreaterThan(15)
