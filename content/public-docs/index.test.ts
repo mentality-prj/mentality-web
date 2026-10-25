@@ -136,6 +136,27 @@ describe('public investor documentation', () => {
     }
   })
 
+  it('keeps the investor market case source-linked and localized', () => {
+    for (const locale of ['uk', 'en', 'pl']) {
+      const thesis = getPublicDoc(locale, 'investment-thesis')
+      const market = getPublicDoc(locale, 'comparison')
+      const brief = getPublicDoc(locale, 'funding-brief')
+      expect(thesis?.sections).toHaveLength(9)
+      expect(market?.sections).toHaveLength(6)
+      expect(brief?.sections).toHaveLength(7)
+
+      const marketContent = market?.sections.flatMap((section) => section.paragraphs).join(' ') ?? ''
+      for (const marker of ['TAM', 'SAM', 'SOM', 'Headspace', 'Unmind', 'Wysa']) {
+        expect(marketContent).toContain(marker)
+      }
+      expect(marketContent).toMatch(/197[.,]7/)
+      expect(marketContent).toContain('29%')
+      expect(marketContent).toContain('https://www.who.int/news-room/fact-sheets/detail/mental-health-at-work')
+      expect(marketContent).toContain('https://ec.europa.eu/eurostat/')
+      expect(marketContent).toContain('https://osha.europa.eu/')
+    }
+  })
+
   it('rejects unknown documents', () => {
     expect(getPublicDoc('uk', '../internal')).toBeUndefined()
   })
