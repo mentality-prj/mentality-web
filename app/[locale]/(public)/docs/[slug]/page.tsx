@@ -157,11 +157,11 @@ export default async function DocArticlePage({ params }: Props) {
                 </div>
               </section>
             )}
-            <section className="mt-12 rounded-3xl bg-slate-950 p-6 text-white md:p-8">
+            <section className="mt-12 rounded-3xl border border-border bg-background-muted p-6 text-textcolor-primary md:p-8">
               <p className="text-xl font-bold leading-relaxed">{isFunding ? c.nextFunding : c.next}</p>
               <a
                 href={isFunding ? fundingUrl : demoUrl}
-                className="mt-5 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-violet-100"
+                className="mt-5 inline-flex items-center rounded-full bg-primary px-6 py-3 text-sm font-semibold text-primary-foreground hover:bg-primary-hover"
               >
                 {isFunding ? c.funding : c.demo}
               </a>
