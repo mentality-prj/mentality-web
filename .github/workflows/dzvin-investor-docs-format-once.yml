@@ -1,0 +1,36 @@
+name: One-shot investor dossier format
+on:
+  push:
+    branches:
+      - feat/dzvin-investor-funding-dossier-20261025
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/dzvin-investor-funding-dossier-20261025
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - name: Autoformat authored documents and code
+        run: |
+          yarn eslint --fix 'content/public-docs/index.ts' 'content/public-docs/index.test.ts' 'content/public-docs/decks.ts' 'content/public-docs/decks.test.ts' 'content/public-docs/funding-decks.ts' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/decks/[audience]/page.tsx' 'app/[locale]/(public)/docs/FundingBudgetPlanner.tsx' 'app/[locale]/(public)/docs/DossierEvidence.tsx' 'app/[locale]/(public)/contacts/page.tsx' 'components/features/Contact/ContactForm.tsx'
+          yarn prettier --write 'content/public-docs/uk.json' 'content/public-docs/en.json' 'content/public-docs/pl.json' 'content/public-docs/index.ts' 'content/public-docs/index.test.ts' 'content/public-docs/decks.ts' 'content/public-docs/decks.test.ts' 'content/public-docs/funding-decks.ts' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/decks/[audience]/page.tsx' 'app/[locale]/(public)/docs/FundingBudgetPlanner.tsx' 'app/[locale]/(public)/docs/DossierEvidence.tsx' 'app/[locale]/(public)/contacts/page.tsx' 'components/features/Contact/ContactForm.tsx' 'docs/PUBLIC_DOCS_PUBLISHING.md'
+      - name: Commit corrections and self-remove
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/dzvin-investor-docs-format-once.yml
+          git add 'content/public-docs/uk.json' 'content/public-docs/en.json' 'content/public-docs/pl.json' 'content/public-docs/index.ts' 'content/public-docs/index.test.ts' 'content/public-docs/decks.ts' 'content/public-docs/decks.test.ts' 'content/public-docs/funding-decks.ts' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/decks/[audience]/page.tsx' 'app/[locale]/(public)/docs/FundingBudgetPlanner.tsx' 'app/[locale]/(public)/docs/DossierEvidence.tsx' 'app/[locale]/(public)/contacts/page.tsx' 'components/features/Contact/ContactForm.tsx' 'docs/PUBLIC_DOCS_PUBLISHING.md'
+          if ! git diff --cached --quiet; then
+            git commit -m "style(docs): format investment dossier and slides"
+            git push origin HEAD:feat/dzvin-investor-funding-dossier-20261025
+          fi
