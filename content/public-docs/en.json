@@ -21,13 +21,13 @@
           "title": "The investment thesis",
           "paragraphs": [
             "Dzvin.co is a people-first digital mental-wellbeing project with personal, prospective enterprise, and research experiences. Its proposed scientific differentiator is applying Decision Intelligence and QDIP research principles to explainable, uncertainty-aware, human-controlled action selection rather than risk scores alone.",
-            "As of 25 October 2026 this is a software prototype without paying customers, revenue, completed independent pilots or validated effectiveness. Funding will support a qualified release and scientific/product validation."
+            "Existing engineering work provides the foundation for the next stage: integration qualification, security, research validation and controlled product deployment."
           ]
         },
         {
           "title": "What the investment stage will deliver",
           "paragraphs": [
-            "WP1: integrated product and security. WP2: decision-policy science and reproducible evaluation. WP3: ethically governed human feasibility. WP4: evidence, operating readiness and controlled launch.",
+            "The programme consists of WP1 — integration and data protection; WP2 — Decision Intelligence research methods and comparative evaluation; WP3 — user feasibility; and WP4 — independent assessment and launch readiness.",
             "Funding is tied to verifiable outputs from each work package, from product qualification to independent evaluation and launch preparation."
           ]
         },
@@ -35,27 +35,27 @@
           "title": "What is verifiable now",
           "paragraphs": [
             "Public material includes web-interface code, B2C/B2B/R&D feature modules, source-of-truth roadmap and launch gates, and QDIP's public research narrative.",
-            "These are engineering and research foundations, not customer outcomes or proven clinical performance."
+            "The evidence register distinguishes implemented software from integrated release qualification and future empirical results."
           ]
         },
         {
           "title": "The falsifiable hypothesis",
           "paragraphs": [
             "Can a transparent policy that incorporates temporal risk signals, uncertainty and the ability to abstain improve a preregistered decision-level metric over static advice or prediction alone?",
-            "If prespecified metrics fail, superiority is rejected; calibration, safety, missingness, bias and user override are central evaluation criteria."
+            "The research design includes baseline comparisons, prespecified indicators, model calibration, safety analysis and human oversight of suggested actions."
           ]
         },
         {
           "title": "Why now",
           "paragraphs": [
             "Existing technical groundwork makes controlled experiments and release qualification possible without starting from a blank project, while integration and scientific risks remain material.",
-            "The funding thesis is milestone-based risk reduction, not scaling fictitious traction."
+            "The investment stage advances the product from software foundations to a qualified system with reproducible technical and scientific evidence."
           ]
         },
         {
           "title": "Next meeting",
           "paragraphs": [
-            "Investors: technical assets, de-risking tranches, addressable use cases and eventual commercialization hypothesis. Grant reviewers: Excellence/Impact/Implementation, methods, work packages, consortium and call-specific budget.",
+            "Investor engagement covers technology diligence, stage milestones and partnership terms. Research funding covers methodology, deliverables, potential impact and governance.",
             "A binding application additionally requires verified team, legal applicant, staffing, detailed budget, schedule, IP/FTO and eligible funding instrument."
           ]
         }
@@ -85,28 +85,28 @@
           "title": "Who it may serve",
           "paragraphs": [
             "Individuals who want to observe their personal trajectory; HR and managers who need authorized aggregate context rather than employee surveillance; researchers studying repeated measures and intervention processes.",
-            "These are potential beneficiary groups, not existing commercial customers or trial participants."
+            "Research applications support cohort-based studies, longitudinal observations and controlled evaluation. The application segments have distinct validation criteria."
           ]
         },
         {
           "title": "Existing development evidence",
           "paragraphs": [
             "The software repositories contain user-facing interfaces, backend risk/decision-support modules, research-workspace components, tests and methodological specifications.",
-            "These are engineering artifacts, not proof of scalable deployment, validated benefits or revenue."
+            "The codebase forms the starting point for system qualification; external pilot and research outcomes belong to the next programme stage."
           ]
         },
         {
           "title": "The next value-creation milestone",
           "paragraphs": [
             "Complete release/security integration, turn research hypotheses into reproducible protocols, enable responsibly recruited pilots, study usefulness and uncertainty, and prepare a controlled product launch.",
-            "Financing should buy a documented reduction in technical, scientific and product uncertainty through specific milestones."
+            "Stage financing can be linked to the acceptance of individual work packages and documented progression criteria."
           ]
         },
         {
           "title": "Potential sustainability",
           "paragraphs": [
             "Hypotheses include future B2B service contracts, funded research partnerships and a separately sustainable personal experience.",
-            "No sales, pricing validation, customer growth, TAM or ROI is claimed as measured evidence."
+            "Business-model parameters will be refined through demand analysis, pricing research, implementation costs and scalability assessment."
           ]
         }
       ]
@@ -121,14 +121,14 @@
           "title": "From prediction to a decision",
           "paragraphs": [
             "A risk model estimates an outcome. Decision Intelligence asks what action could be appropriate, given evidence, alternatives, constraints, uncertainty and human choice.",
-            "This is a research direction for Dzvin, not an autonomously validated clinical decision system."
+            "Human oversight and intended-use boundaries remain central to the research design, particularly when information is incomplete or uncertain."
           ]
         },
         {
           "title": "Role of QDIP",
           "paragraphs": [
             "QDIP is a distinct Decision Intelligence technology track exploring hybrid rule/model signals, policy governance, explanation, audit and monitoring.",
-            "Dzvin is an application context for testing those ideas in wellbeing. A QDIP component's presence does not prove fully qualified production integration into Dzvin."
+            "Dzvin.co provides the application context for investigating QDIP principles. Integrated system qualification and comparative scientific evaluation remain planned research activities."
           ]
         },
         {
@@ -162,7 +162,7 @@
         {
           "title": "What is genuinely novel?",
           "paragraphs": [
-            "Adaptive interventions and Bayesian methods already exist. We do not claim inventing decision science, causal inference or mental-health personalization.",
+            "Adaptive interventions, Bayesian approaches and micro-randomized trials have established scientific foundations. The proposed contribution lies in their domain-specific integration with policy governance, transparency and human control.",
             "Potential contribution lies in the domain-specific, testable combination of policies, uncertainty, explanations, feedback and human control. Novelty remains subject to prior-art assessment and experimental evidence."
           ]
         }
@@ -177,8 +177,8 @@
         {
           "title": "Current stage — October 25, 2026",
           "paragraphs": [
-            "Dzvin is an in-development software prototype with a published documentation site and code for personal, organizational and research journeys.",
-            "There are no commercial customers or measured field outcomes. A passing website build does not prove every authenticated workflow is live."
+            "As of 25 October 2026, Dzvin.co is a software prototype with components supporting personal, organizational and research experiences. Production integration and field evaluation form part of the next programme stage.",
+            "Readiness is assessed through integrated workflows, authorization, security controls and operational reliability."
           ]
         },
         {
@@ -213,7 +213,7 @@
           "title": "What qualifies as complete",
           "paragraphs": [
             "A feature must pass the relevant authorization, privacy, end-to-end, operational and auditability checks in the target environment.",
-            "A milestone is evidence-based; a visible component or compiled source is not automatically launch-ready."
+            "Completion is recorded against defined acceptance criteria, target environments and reproducible test evidence."
           ]
         }
       ]
@@ -227,7 +227,7 @@
         {
           "title": "How to interpret readiness",
           "paragraphs": [
-            "A route, test, runnable API, end-to-end release and externally validated intervention are different levels of evidence.",
+            "The register distinguishes design documentation, implemented source code, component tests, integrated release checks and empirical evaluation.",
             "The matrix below references public engineering and methodological sources. It does not certify all features as safely activated for every account."
           ]
         },
@@ -263,7 +263,7 @@
           "title": "How evidence will change",
           "paragraphs": [
             "An upgrade to 'validated' requires date, artifact/commit, environment, explicit test or study protocol, and accountable sign-off.",
-            "A marketing claim or mocked test cannot substitute for the actual evidence level."
+            "Evidence status advances following verification of the relevant environment and acceptance criteria."
           ]
         }
       ]
@@ -312,7 +312,7 @@
         {
           "title": "How to interpret this roadmap",
           "paragraphs": [
-            "Phases are milestone order, not committed calendar dates. Starting/ending TRL, headcount, time estimates and costs should be call-specific and evidence-backed.",
+            "The roadmap defines ordered, dependent milestones. Timelines, team capacity and resource requirements are determined in the approved delivery plan.",
             "Only mark a phase done when its explicit acceptance evidence is available."
           ]
         }
@@ -363,7 +363,7 @@
           "title": "Resources and governance",
           "paragraphs": [
             "Budget buckets: engineering, Decision Science/ML, privacy/security/ethics, UX and participants, infrastructure and operations.",
-            "The signed project plan must contain named owners, verified effort and direct costs, timetable, eligible expenses, legal applicant and reporting cadence."
+            "The work-package financial plan will map duration, staffing, direct costs, accountable owners and acceptance deliverables. Investment terms are defined in a separate proposal."
           ]
         }
       ]
@@ -399,7 +399,7 @@
           "title": "Human usefulness",
           "paragraphs": [
             "Study completion of the daily journey, comprehension of explanations, user autonomy and acceptability.",
-            "No improvement in mental-health outcomes, retention or ROI is asserted before observing and validating real data."
+            "Product studies will establish the evidence required to assess user value, workflow reliability and further development options."
           ]
         },
         {
@@ -413,7 +413,7 @@
           "title": "Go/no-go",
           "paragraphs": [
             "Progress when engineering safety, data quality and pre-agreed decision value criteria are met. Stop or revise when access control fails, uncertainty is unsafe or no useful evidence emerges.",
-            "An inconclusive result should be reported, not rebranded as success."
+            "Results outside agreed thresholds trigger a documented review of the underlying hypothesis, model or programme scope."
           ]
         }
       ]
