@@ -1,0 +1,35 @@
+name: Investor evidence one-time formatting
+on:
+  push:
+    branches: [feat/dzvin-investor-evidence-dossier-20261025]
+permissions:
+  contents: write
+jobs:
+  formatter:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/dzvin-investor-evidence-dossier-20261025
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - name: Normalize imports and formatting
+        run: |
+          yarn eslint --fix 'content/public-docs/index.test.ts' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/DossierEvidence.tsx' 'app/[locale]/(public)/docs/InvestorEvidenceMatrix.tsx'
+          yarn prettier --write 'content/public-docs/uk.json' 'content/public-docs/en.json' 'content/public-docs/pl.json' 'content/public-docs/index.test.ts' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/DossierEvidence.tsx' 'app/[locale]/(public)/docs/InvestorEvidenceMatrix.tsx' 'messages/uk/pages/Services.json' 'messages/en/pages/Services.json' 'messages/pl/pages/Services.json'
+      - name: Commit and remove one-time workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/dzvin-investor-evidence-format-once.yml
+          git add 'content/public-docs/uk.json' 'content/public-docs/en.json' 'content/public-docs/pl.json' 'content/public-docs/index.test.ts' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/DossierEvidence.tsx' 'app/[locale]/(public)/docs/InvestorEvidenceMatrix.tsx' 'messages/uk/pages/Services.json' 'messages/en/pages/Services.json' 'messages/pl/pages/Services.json'
+          if ! git diff --cached --quiet; then
+            git commit -m "style(docs): normalize investor evidence and service copy"
+            git push origin HEAD:feat/dzvin-investor-evidence-dossier-20261025
+          fi
