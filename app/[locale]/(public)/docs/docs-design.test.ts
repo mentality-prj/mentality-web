@@ -28,8 +28,8 @@ describe('Dzvin public docs design system guard', () => {
   })
 
   it('keeps deck content readable at mobile portrait and landscape widths', () => {
-    expect(deck.match(/xl:aspect-\\[16\\/9\\]/g)).toHaveLength(2)
-    expect(deck).not.toMatch(/\\saspect-\\[16\\/9\\]/)
+    expect(deck.split('xl:aspect-[16/9]')).toHaveLength(3)
+    expect(deck).not.toContain(' aspect-[16/9]')
     expect(deck).toContain('gap-8 overflow-hidden')
     expect(deck).toContain('sm:p-8 lg:p-14')
     expect(deckToolbar).toContain('grid grid-cols-2')
