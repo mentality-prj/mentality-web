@@ -187,8 +187,12 @@ export default async function DocsIndexPage({ params }: Props) {
               </Link>
             </div>
             <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold text-indigo-100">
-              <Link href="/docs/funding-brief" className="underline underline-offset-4 hover:text-white">{t.brief}</Link>
-              <Link href="/docs/evidence-register" className="underline underline-offset-4 hover:text-white">{t.proof}</Link>
+              <Link href="/docs/funding-brief" className="underline underline-offset-4 hover:text-white">
+                {t.brief}
+              </Link>
+              <Link href="/docs/evidence-register" className="underline underline-offset-4 hover:text-white">
+                {t.proof}
+              </Link>
             </div>
             <p className="mt-6 text-xs leading-6 text-indigo-200">{docs.fundingNote}</p>
           </div>

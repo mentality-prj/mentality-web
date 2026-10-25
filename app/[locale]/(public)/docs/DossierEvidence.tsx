@@ -2,11 +2,23 @@ import { ExternalLink } from 'lucide-react'
 
 const sources = {
   research: [
-    {title:'QDIP scientific novelty: hypotheses and testability',url:'https://github.com/qdip-ai/qdip-docs/blob/main/docs/grant/04-scientific-novelty.md'},
-    {title:'Nahum-Shani & Murphy — adaptive interventions review (Annual Review of Psychology, 2026)',url:'https://pubmed.ncbi.nlm.nih.gov/40939059/'},
-    {title:'Nahum-Shani et al. — Just-in-Time Adaptive Interventions (2018)',url:'https://pubmed.ncbi.nlm.nih.gov/27663578/'},
-    {title:'TRIPOD+AI reporting statement (BMJ, 2024)',url:'https://pubmed.ncbi.nlm.nih.gov/38626948/'},
-    {title:'European Research Executive Agency — proposal criteria and guidance',url:'https://rea.ec.europa.eu/dos-and-donts-when-applying-funding_en'},
+    {
+      title: 'QDIP scientific novelty: hypotheses and testability',
+      url: 'https://github.com/qdip-ai/qdip-docs/blob/main/docs/grant/04-scientific-novelty.md',
+    },
+    {
+      title: 'Nahum-Shani & Murphy — adaptive interventions review (Annual Review of Psychology, 2026)',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/40939059/',
+    },
+    {
+      title: 'Nahum-Shani et al. — Just-in-Time Adaptive Interventions (2018)',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/27663578/',
+    },
+    { title: 'TRIPOD+AI reporting statement (BMJ, 2024)', url: 'https://pubmed.ncbi.nlm.nih.gov/38626948/' },
+    {
+      title: 'European Research Executive Agency — proposal criteria and guidance',
+      url: 'https://rea.ec.europa.eu/dos-and-donts-when-applying-funding_en',
+    },
   ],
   engineering: [
     {

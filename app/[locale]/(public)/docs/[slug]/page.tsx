@@ -7,8 +7,8 @@ import { Link } from '@/i18n/navigation'
 import { ComparisonMatrix } from '../ComparisonMatrix'
 import { DocsNavigation } from '../DocsNavigation'
 import { DossierEvidence } from '../DossierEvidence'
-import { InvestorEvidenceMatrix } from '../InvestorEvidenceMatrix'
 import { FundingBudgetPlanner } from '../FundingBudgetPlanner'
+import { InvestorEvidenceMatrix } from '../InvestorEvidenceMatrix'
 import { RoiScenarioCalculator } from '../RoiScenarioCalculator'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
