@@ -1,11 +1,11 @@
 {
-  "title": "Dzvin.co — investment & research funding dossier",
-  "kicker": "Funding dossier · in development",
-  "lead": "A human-centered mental wellbeing project exploring Decision Intelligence. Seeking funding to complete release engineering, independent validation and responsible pilots.",
-  "browse": "Choose what to explore",
-  "back": "All product documentation",
-  "nav": "Dzvin.co product documentation",
-  "status": "Edition: October 2026",
+  "title": "Dzvin.co | Product Strategy & Investment Dossier",
+  "kicker": "Dzvin.co · Project documentation",
+  "lead": "Product strategy, QDIP / Decision Intelligence research, engineering maturity and the programme leading to controlled launch.",
+  "browse": "Document library",
+  "back": "Dzvin.co documentation",
+  "nav": "Documentation sections",
+  "status": "Updated: 25 October 2026",
   "links": "Further resources",
   "services": "Services",
   "faq": "FAQ",
@@ -14,7 +14,7 @@
     {
       "slug": "funding-brief",
       "category": "Investment brief",
-      "title": "Dzvin.co in 3 minutes — funding brief",
+      "title": "Executive Investment Overview",
       "summary": "Problem, DI × mental-health thesis, existing assets, execution milestones and funding purpose",
       "sections": [
         {
@@ -64,7 +64,7 @@
     {
       "slug": "investment-thesis",
       "category": "Investment case",
-      "title": "Dzvin.co Investment Thesis",
+      "title": "Strategic Investment Rationale",
       "summary": "The opportunity, project hypothesis and what the next tranche should achieve",
       "sections": [
         {
@@ -114,7 +114,7 @@
     {
       "slug": "scientific-novelty",
       "category": "Scientific case",
-      "title": "Decision Intelligence in mental wellbeing",
+      "title": "Scientific Programme: Decision Intelligence in Mental Wellbeing",
       "summary": "QDIP as a research-enabling decision framework, scientific hypotheses and validation criteria",
       "sections": [
         {
@@ -171,7 +171,7 @@
     {
       "slug": "development-progress",
       "category": "Current status",
-      "title": "Development progress and limits",
+      "title": "Development Status and Engineering Readiness",
       "summary": "Real engineering artifacts versus open release and validation gates",
       "sections": [
         {
@@ -221,7 +221,7 @@
     {
       "slug": "evidence-register",
       "category": "Evidence & readiness",
-      "title": "Evidence register and development readiness",
+      "title": "Technology Assets and Evidence Register",
       "summary": "Separate software evidence from unverified use cases, research claims and launch gates",
       "sections": [
         {
@@ -271,7 +271,7 @@
     {
       "slug": "funding-roadmap",
       "category": "Roadmap",
-      "title": "Roadmap from prototype to launch",
+      "title": "Dzvin.co Development Roadmap",
       "summary": "Milestones, acceptance gates and observable deliverables",
       "sections": [
         {
@@ -321,7 +321,7 @@
     {
       "slug": "execution-plan",
       "category": "Implementation",
-      "title": "Work packages, milestone gates and funding tranches",
+      "title": "Implementation Programme WP1–WP4",
       "summary": "A verifiable execution plan connected to risks, deliverables and actual resource budgeting",
       "sections": [
         {
@@ -371,7 +371,7 @@
     {
       "slug": "validation-plan",
       "category": "Research plan",
-      "title": "How the science will be tested",
+      "title": "Technology and Scientific Validation Programme",
       "summary": "Technical qualification, user feasibility and decision-level evaluation",
       "sections": [
         {
@@ -471,7 +471,7 @@
     {
       "slug": "product-story",
       "category": "Positioning",
-      "title": "From signals to team action",
+      "title": "Dzvin.co Product Concept",
       "summary": "How Dzvin.co connects team-level patterns with a managed response",
       "sections": [
         {
@@ -500,7 +500,7 @@
     {
       "slug": "solutions",
       "category": "Audiences",
-      "title": "Who Dzvin.co serves",
+      "title": "Target Segments and Applications",
       "summary": "Organizations first, with separate personal and research use cases",
       "sections": [
         {
@@ -536,7 +536,7 @@
     {
       "slug": "capability-map",
       "category": "Capabilities",
-      "title": "What Dzvin.co can do",
+      "title": "Product Capability Architecture",
       "summary": "Personal, organizational and research capabilities without inflated claims",
       "sections": [
         {
@@ -565,7 +565,7 @@
     {
       "slug": "demo-scenarios",
       "category": "Live demos",
-      "title": "How Dzvin.co works",
+      "title": "Core User Journeys",
       "summary": "Three product journeys to verify during a demonstration",
       "sections": [
         {
@@ -601,7 +601,7 @@
     {
       "slug": "economics",
       "category": "B2B value",
-      "title": "Business value and costs",
+      "title": "Commercialization and Economic Model",
       "summary": "A transparent pilot scenario calculator, not a fabricated ROI estimate",
       "sections": [
         {
@@ -630,7 +630,7 @@
     {
       "slug": "comparison",
       "category": "Evaluation",
-      "title": "Comparing approaches",
+      "title": "Market Positioning",
       "summary": "Dzvin.co alongside one-off surveys and standalone dashboards",
       "sections": [
         {
@@ -659,7 +659,7 @@
     {
       "slug": "presentation-kit",
       "category": "Presentation toolkit",
-      "title": "Dzvin.co presentations",
+      "title": "Presentation Library",
       "summary": "Three finished audience-specific decks, printable to PDF",
       "sections": [
         {
@@ -688,7 +688,7 @@
     {
       "slug": "po-guide",
       "category": "For Product Owners",
-      "title": "Pilot and rollout",
+      "title": "Pilot Validation Strategy",
       "summary": "Define the evaluation design and success criteria",
       "sections": [
         {
@@ -717,7 +717,7 @@
     {
       "slug": "getting-started",
       "category": "Basics",
-      "title": "Getting started",
+      "title": "Personal Product Overview",
       "summary": "What the service does and how to begin",
       "sections": [
         {
@@ -746,7 +746,7 @@
     {
       "slug": "personal",
       "category": "Individuals",
-      "title": "Personal support",
+      "title": "Personal Workstream",
       "summary": "Daily check-ins, questionnaires and progress",
       "sections": [
         {
@@ -775,7 +775,7 @@
     {
       "slug": "organizations",
       "category": "Organizations",
-      "title": "Team insights",
+      "title": "Organizational Workstream",
       "summary": "Aggregated patterns and decision support",
       "sections": [
         {
@@ -804,7 +804,7 @@
     {
       "slug": "research",
       "category": "Research",
-      "title": "Research and validation",
+      "title": "Research Workstream",
       "summary": "Cohorts, repeated observations and evidence quality",
       "sections": [
         {
@@ -833,7 +833,7 @@
     {
       "slug": "privacy",
       "category": "Trust",
-      "title": "Privacy and data",
+      "title": "Data Governance and Privacy",
       "summary": "Data processing, access and user rights",
       "sections": [
         {
@@ -862,7 +862,7 @@
     {
       "slug": "limitations",
       "category": "Important",
-      "title": "Capabilities and limitations",
+      "title": "Scope, Limitations and Safety",
       "summary": "What indicators and predictions can and cannot establish",
       "sections": [
         {
@@ -889,17 +889,17 @@
       ]
     }
   ],
-  "referenceTitle": "Feature reference",
-  "featuredCta": "Discuss funding",
-  "featuredNote": "Dzvin.co is pre-launch. Funding is sought for qualified integration, reproducible research and a controlled launch.",
-  "fundingHeadline": "From wellbeing observations to decisions we can evaluate",
-  "fundingIntro": "Dzvin.co is developing personal wellbeing journeys, authorized team-level insights and a research program exploring Decision Intelligence in mental health. We aim to test whether explainable, uncertainty-aware signals can support appropriate human-controlled next steps.",
-  "stageLabel": "STAGE: SOFTWARE PROTOTYPE / PRE-LAUNCH",
-  "stageDescription": "In development. No commercial customers, completed customer pilots or validated clinical effects. Public software components and research artifacts exist; complete integrations, security gates and full live E2E remain to be qualified.",
-  "fundingCta": "Discuss funding",
-  "fundingSecondaryCta": "View investor deck",
-  "fundingLibrary": "Investment and grant dossier",
-  "productLibrary": "Appendix: product and user journeys",
-  "evidenceLabel": "Evidence and verification standards",
-  "fundingNote": "We seek support to reduce measurable development and research uncertainty, not to sell proven outcomes."
+  "referenceTitle": "Product reference and governance",
+  "featuredCta": "Investor presentation",
+  "featuredNote": "Current maturity and release criteria are documented in the evidence register and development roadmap.",
+  "fundingHeadline": "Dzvin.co: Decision Support Technology for Mental Wellbeing",
+  "fundingIntro": "An emerging platform connecting personal experiences, organizational capabilities and a Decision Intelligence research programme informed by QDIP.",
+  "stageLabel": "PRODUCT STAGE · DEVELOPMENT & INTEGRATION",
+  "stageDescription": "Software foundations exist across personal, organizational and research workstreams. The next gates cover integration, security, research evaluation and controlled launch readiness. External customer pilots and outcome studies have not yet been completed.",
+  "fundingCta": "Investment partnership",
+  "fundingSecondaryCta": "Investor presentation",
+  "fundingLibrary": "Strategy, technology and development programme",
+  "productLibrary": "Product concept and use cases",
+  "evidenceLabel": "Supporting evidence and readiness",
+  "fundingNote": "Engineering evidence, research hypotheses and planned studies are presented at distinct maturity levels."
 }
