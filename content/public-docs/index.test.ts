@@ -97,6 +97,18 @@ describe('public investor documentation', () => {
       expect(text).not.toMatch(banned)
     }
   })
+  it('does not mix Polish individual and organizational readiness statements', () => {
+    const personal = getPublicDoc('pl', 'evidence-register')?.sections[1]
+    expect(personal?.title).toBe('Moduł indywidualny')
+    expect(personal?.paragraphs.join(' ')).not.toMatch(/uruchomienie organizacyjne|izolacja firm/i)
+  })
+
+  it('prevents recurring Ukrainian editorial defects in investment documentation', () => {
+    const dossier = JSON.stringify(getPublicDocs('uk'))
+    expect(dossier).not.toMatch(/Komponentна|наступною контрольної|не вигадуємо|не заявляємо/i)
+    expect(dossier).not.toMatch(/(?:\bExit gate:|\bDeliverables:|\bsynthetic datasets|\brelease gates)/i)
+  })
+
   it('rejects unknown documents', () => {
     expect(getPublicDoc('uk', '../internal')).toBeUndefined()
   })
