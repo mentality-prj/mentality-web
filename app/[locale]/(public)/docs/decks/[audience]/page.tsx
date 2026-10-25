@@ -74,7 +74,7 @@ export default async function ProductDeckPage({ params }: Props) {
               <p className="mt-5 max-w-4xl text-base leading-relaxed text-slate-600 md:text-xl">{slide.description}</p>
             </div>
             <div className="grid gap-3 md:grid-cols-2 md:gap-5">
-              {slide.points.map((point, i) => (
+              {slide.points.map(point => (
                 <div key={point} className="flex items-start gap-3 rounded-2xl border border-violet-100 bg-violet-50/70 p-3 md:p-5">
                   <CheckCircle2 className="mt-1 h-5 w-5 shrink-0 text-violet-700" aria-hidden="true" />
                   <span className="text-sm font-semibold leading-relaxed text-slate-800 md:text-lg">{point}</span>
