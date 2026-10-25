@@ -12,9 +12,9 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Інвестиційна теза',
           description:
-            'Фінансування потрібне, щоб перетворити розроблений програмний прототип на перевірений продукт і дослідницький напрям.',
+            'Наступний етап створює основу для кваліфікованого продукту й науково перевіреної технології підтримки рішень.',
           points: [
-            'Людиноцентричний B2C · найвищий комерційний потенціал B2B · окремий R&D',
+            'Персональний продукт · корпоративні сценарії · дослідницький напрям',
             'QDIP/Decision Intelligence як перевірювана технологічна гіпотеза',
           ],
         },
@@ -50,29 +50,29 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Що вже розроблено',
           description:
-            'Підтверджені артефакти: вебкомпоненти, NestJS backend, дослідницькі матеріали QDIP та автоматизовані тести.',
+            'Наявні інженерні активи: вебкомпоненти, серверні модулі, дослідницькі матеріали QDIP і компонентні тести.',
           points: [
             'Наявні UI особистого, корпоративного й R&D контурів',
             'Backend-модулі ризику та підтримки рішень',
-            'Ще не підтверджені повні production E2E та ефект у клієнтів',
+            'Наступний етап: інтеграційна кваліфікація та незалежне оцінювання',
           ],
         },
         {
           title: 'Поточна стадія та інженерна готовність',
           description:
-            'Немає комерційних клієнтів, завершених досліджень ефективності чи підтвердженого product-market fit.',
+            'Проєкт на стадії розробки; повний продукт, зовнішні пілоти й емпіричні результати потребують подальшої перевірки.',
           points: [
             'Інженерна та безпекова інтеграція залишається завданням',
             'Дані та етичні протоколи для валідації — наступний етап',
-            'Всі claims відділено від очікуваних результатів',
+            'Критерії завершення визначено для кожного етапу',
           ],
         },
         {
           title: 'Маршрут до запуску',
           description: 'П’ять етапів із визначеними критеріями приймання та контрольними точками.',
           points: [
-            '1. Інтеграції та приватність → 2. Research protocol',
-            '3. Feasibility та UX → 4. Дослідження DI',
+            '1. Інтеграція та захист даних → 2. Методологія досліджень',
+            '3. Користувацька перевірка → 4. Оцінювання DI',
             '5. Контрольований запуск, go/no-go і стійкість',
           ],
         },
@@ -98,10 +98,10 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Модель інвестиційного партнерства',
-          description: 'Обговорімо формат фінансування, бюджет на віхи, права та дослідницьких партнерів.',
+          description: 'Партнерство передбачає погоджені контрольні точки, бюджет програми та умови управління результатами.',
           points: [
             'Погодити обсяг наступного траншу за реальними кошторисами',
-            'Визначити milestones, звітність і go/no-go',
+            'Визначити етапи, звітність і критерії продовження',
             'Почати інвестиційний due diligence',
           ],
         },
@@ -140,7 +140,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Методологія',
-          description: 'Поетапні synthetic benchmarks та, за умов етичного погодження, дослідження з людьми.',
+          description: 'Порівняльні випробування на синтетичних даних і дослідження з учасниками після необхідних погоджень.',
           points: [
             'Rule-only, ML-only та hybrid baseline',
             'Calibration, Brier, detection delay, selective risk',
@@ -149,7 +149,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Інженерний baseline',
-          description: 'Існують вебмодулі, backend-компоненти й формалізовані research-напрямки.',
+          description: 'Розроблено вебкомпоненти й серверні модулі, сформовано окремі дослідницькі напрями.',
           points: [
             'Особиста підтримка, команди, Research Workspace',
             'Прототип не дорівнює клінічній валідації',
@@ -167,18 +167,19 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Implementation: робочі пакети',
-          description: 'Робочі пакети прив’язані до deliverables та acceptance criteria.',
+          description: 'Чотири робочі пакети мають визначені результати та критерії приймання.',
           points: [
-            'WP1 Secure product integration',
-            'WP2 DI formalization and testing',
-            'WP3 Feasibility, evidence, reporting and launch',
+            'WP1 · Інтеграція та захист даних',
+            'WP2 · Дослідження та методологія DI',
+            'WP3 · Користувацька валідація',
+            'WP4 · Оцінювання та підготовка запуску',
           ],
         },
         {
           title: 'Ризики та етика',
-          description: 'Нестача даних, false positives, bias, приватність, шкода від хибних рекомендацій.',
+          description: 'Неповнота даних, помилкові сигнали, упередженість, приватність і безпека рекомендацій.',
           points: [
-            'Informed consent і role-scoped доступ',
+            'Інформована згода та рольовий доступ',
             'Право утриматися від рішення',
             'Go/no-go та публікація негативних результатів',
           ],
@@ -187,18 +188,18 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           title: 'Фінансова модель дослідницької програми',
           description: 'Сума й тривалість визначаються на основі команди, бюджету та правил конкретного конкурсу.',
           points: [
-            'Інженерія · R&D · ethics/security · інфраструктура',
+            'Інженерія · дослідження · етика · безпека · інфраструктура',
             'Витрати прив’язані до конкретних результатів',
-            'Не заявляємо чужі гранти або підписані партнерства',
+            'Бюджетна модель за пакетом робіт і критеріями програми',
           ],
         },
         {
-          title: 'Запрошення до співпраці',
+          title: 'Модель дослідницького партнерства',
           description: 'Програма передбачає партнерства для технологічного розвитку та незалежної наукової оцінки.',
           points: [
-            'Узгодити конкурс і eligibility',
-            'Підготувати консорціум, work packages, бюджет',
-            'Запустити відповідну due-diligence розмову',
+            'Визначити відповідну грантову програму',
+            'Узгодити партнерства, робочі пакети та бюджет',
+            'Погодити процедуру експертизи та звітності',
           ],
         },
       ],
@@ -351,10 +352,10 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Funding framework',
           description: "Budget and duration depend on actual costs and the target call's rules.",
-          points: ['Engineering, R&D, ethics, hosting', 'Milestone-based budgeting', 'No invented grant commitments'],
+          points: ['Engineering, R&D, ethics, hosting', 'Milestone-based budgeting', 'Call-specific eligible costs and governance'],
         },
         {
-          title: 'Collaboration request',
+          title: 'Research partnership',
           description: 'Seek qualified research/funding partners for an independently assessed study.',
           points: [
             'Identify suitable call and eligibility',
@@ -394,15 +395,15 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Co zbudowano',
           description: 'Istnieje kod aplikacji, moduły backendowe i materiały QDIP.',
-          points: ['Moduły B2C, B2B i R&D', 'Automatyczne testy', 'Brak pełnego E2E i wyników klientów'],
+          points: ['Moduły B2C, B2B i R&D', 'Automatyczne testy', 'Kolejny etap: integracja i weryfikacja pilotażowa'],
         },
         {
-          title: 'Rzeczywisty etap',
-          description: 'Brak klientów komercyjnych i potwierdzonej efektywności.',
+          title: 'Etap rozwoju i kwalifikacja techniczna',
+          description: 'Projekt na etapie rozwoju, przed niezależnymi pilotażami i walidacją wyników.',
           points: [
-            'Niedokończone integracje i bezpieczeństwo',
-            'Potrzebne protokoły i partnerzy',
-            'Brak uzasadnienia, by deklarować gotowy biznes',
+            'Kwalifikacja integracji i bezpieczeństwa',
+            'Metodyka badań i program partnerstw',
+            'Gotowość produktu określają kryteria techniczne i badawcze',
           ],
         },
         {
@@ -418,10 +419,10 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Przyszły model biznesowy',
           description: 'B2B, badania i produkt osobisty wymagają weryfikacji rynkowej.',
-          points: ['Bez deklarowanej sprzedaży', 'Ceny dopiero do ustalenia', 'Brak potwierdzonych unit economics'],
+          points: ['Potencjał B2B i współpracy badawczej', 'Badania gotowości do płacenia', 'Model kosztów wdrożenia i utrzymania'],
         },
         {
-          title: 'Zaproszenie inwestorskie',
+          title: 'Model partnerstwa inwestycyjnego',
           description: 'Ustalmy budżet, etapy, odpowiedzialność i rodzaj finansowania.',
           points: ['Kosztorys transzy', 'Warunki raportowania', 'Rozmowa due diligence'],
         },
@@ -459,7 +460,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Podstawa inżynierska',
           description: 'Istnieją moduły produktu i dokumentacja naukowa.',
-          points: ['Prototyp, nie dowód kliniczny', 'Otwarte warunki bezpieczeństwa', 'Brak wyników terenowych'],
+          points: ['Zakres gotowości technicznej prototypu', 'Otwarte warunki bezpieczeństwa', 'Badania z udziałem ludzi w kolejnym etapie'],
         },
         {
           title: 'Impact',
@@ -469,7 +470,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Implementation',
           description: 'Pakiety prac z kryteriami odbioru.',
-          points: ['WP1 Integracja i bezpieczeństwo', 'WP2 DI i benchmarki', 'WP3 Feasibility i raportowanie'],
+          points: ['WP1 Integracja i ochrona danych', 'WP2 Metodyka i ocena DI', 'WP3 Walidacja użytkowników', 'WP4 Dowody i gotowość do uruchomienia'],
         },
         {
           title: 'Ryzyka i etyka',
@@ -479,7 +480,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Finansowanie',
           description: 'Wartość i czas projektu wynikają z kosztorysu oraz zasad konkursu.',
-          points: ['Rozwój, R&D, etyka, hosting', 'Budżet według rezultatów', 'Brak wymyślonych umów'],
+          points: ['Rozwój, R&D, etyka, hosting', 'Budżet według rezultatów', 'Koszty kwalifikowalne i struktura partnerstwa'],
         },
         {
           title: 'Partnerstwo',
