@@ -48,7 +48,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         {
           title: 'Економічна модель',
           description: 'Фінансова модель включатиме результати оцінювання, витрати впровадження та підтримки.',
-          points: ['Встановіть базову точку', 'Заміряйте фактичну зміну', 'Розрахуйте можливу вартість змін'],
+          points: ['Визначення вихідних показників', 'Порівняльна оцінка за результатами пілоту', 'Моделювання витрат і потенційної цінності'],
         },
         {
           title: 'Наступний крок — цільовий пілот',
@@ -68,12 +68,12 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Коротка щоденна самооцінка',
-          description: 'Зберігайте спостереження в одному місці.',
+          description: 'Цільова модель поєднує регулярні спостереження в індивідуальній історії.',
           points: ['Чотири показники стану', 'Нотатки та опитувальники'],
         },
         {
           title: 'Особиста історія',
-          description: 'Переглядайте, як змінювалися власні записи.',
+          description: 'Історія спостережень підтримує аналіз змін у часі.',
           points: ['Послідовність відміток', 'Можливість помітити повторювані патерни'],
         },
         {
@@ -88,11 +88,11 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'На що звернути увагу',
-          description: 'Оцінюйте простоту використання та корисність власної історії.',
+          description: 'Дослідження користувацької придатності визначить зрозумілість історії та зручність повторної взаємодії.',
           points: ['Чи зручно повертатися?', 'Чи легко бачити зміни?'],
         },
         {
-          title: 'Відкрийте особисті сервіси',
+          title: 'Персональна програма розвитку',
           description: 'План розвитку включає цільові сценарії та їхню інтеграційну перевірку.',
           points: ['Щоденна самооцінка', 'Історія, практики й цілі'],
         },
@@ -124,7 +124,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Від даних до перевірки',
-          description: 'Критерії результату треба визначити до оцінювання програми.',
+          description: 'Критерії результативності визначаються до початку оцінювання дослідницької програми.',
           points: ['Методика вимірювання', 'Зіставні періоди', 'Результати без непідтверджених висновків'],
         },
         {
@@ -133,8 +133,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
           points: ['Керована структура', 'Дозволи та історія операцій'],
         },
         {
-          title: 'Обговорімо дослідницьку задачу',
-          description: 'Наступний етап передбачає технічну перевірку дослідницьких сценаріїв.',
+          title: 'Дослідницьке партнерство та валідація',
+          description: 'Наступний етап охоплює технічну кваліфікацію дослідницьких сценаріїв і розробку протоколів співпраці.',
           points: ['Склад учасників', 'Доступ і дані', 'Критерій оцінки'],
         },
       ],
@@ -151,8 +151,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
           points: ['One survey is a snapshot', 'Patterns and follow-up provide context'],
         },
         {
-          title: 'Built for HR and team leaders',
-          description: 'Repeated observations, group insight and risk-event handling in one product.',
+          title: 'Organizational capability roadmap',
+          description: 'The target organizational experience combines repeated observations, authorized group analytics and structured event review.',
           points: [
             'Organization structure and permissions',
             'Mood, stress, energy and focus trends',
@@ -182,12 +182,12 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         {
           title: 'Economic evaluation',
           description: 'The business model will incorporate empirical findings and delivery costs.',
-          points: ['Establish a baseline', 'Measure actual change', 'Assess value using your own costs'],
+          points: ['Baseline indicators and reference period', 'Pilot-based evaluation of observed changes', 'Delivery-cost and value-creation model'],
         },
         {
-          title: 'Start with one pilot',
+          title: 'Planned feasibility programme',
           description: 'The pilot programme will define a cohort, accountable owners and evaluation metrics.',
-          points: ['Demonstrate an authorized workflow', 'Agree success criteria', 'Evaluate the pilot'],
+          points: ['Technical qualification of an authorized workflow', 'Defined acceptance criteria', 'Evidence-based progression decision'],
         },
       ],
     },
@@ -202,12 +202,12 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'A simple check-in',
-          description: 'Keep everyday observations in one place.',
+          description: 'The target personal workflow consolidates repeated observations into a single history.',
           points: ['Four dimensions', 'Notes and questionnaires'],
         },
         {
           title: 'Personal history',
-          description: 'Look at how your earlier entries change over time.',
+          description: 'Longitudinal history supports contextual review of repeated observations.',
           points: ['Time-ordered observations', 'Notice recurring patterns'],
         },
         {
@@ -226,7 +226,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
           points: ['Can you return regularly?', 'Is it easy to understand change?'],
         },
         {
-          title: 'Explore Dzvin.co',
+          title: 'Personal product development programme',
           description: 'Review the target personal workflows and their validation criteria.',
           points: ['Daily check-ins', 'History, exercises and goals'],
         },
@@ -267,8 +267,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
           points: ['Defined access', 'Operational traceability'],
         },
         {
-          title: 'Discuss your study',
-          description: 'Arrange a relevant product demonstration.',
+          title: 'Research partnership framework',
+          description: 'Research workflows will undergo technical qualification before structured participant studies.',
           points: ['Participants and cohort', 'Access and data', 'Evaluation design'],
         },
       ],
@@ -305,17 +305,17 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Mierzenie wartości',
-          description: 'Wartość pilotażu trzeba sprawdzić, a nie obiecywać procentów.',
+          description: 'Program pilotażowy określi mierzalne wskaźniki przydatności i kosztów procesu.',
           points: ['Czas reakcji na sygnał', 'Regularność udziału', 'Obsłużone zdarzenia', 'Koszt procesu'],
         },
         {
           title: 'Ocena ekonomiczna',
-          description: 'Porównaj zaobserwowane zmiany z kosztami rozwiązania.',
-          points: ['Ustal punkt odniesienia', 'Zmierz wynik', 'Uwzględnij koszty licencji i wdrożenia'],
+          description: 'Model ekonomiczny uwzględni wyniki badań, koszt wdrożenia i koszty utrzymania.',
+          points: ['Definicja wskaźników bazowych', 'Pomiar zmian w badaniu pilotażowym', 'Analiza kosztów wdrożenia i utrzymania'],
         },
         {
           title: 'Pilotaż jako kolejny krok',
-          description: 'Wybierz zespół, osobę odpowiedzialną i kryterium sukcesu.',
+          description: 'Program pilotażowy określi zakres badania, odpowiedzialność i mierzalne kryteria oceny.',
           points: ['Demonstracja', 'Uzgodnione mierniki', 'Ocena pilotażu'],
         },
       ],
@@ -355,8 +355,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
           points: ['Czy łatwo wracać?', 'Czy zmiany są zrozumiałe?'],
         },
         {
-          title: 'Poznaj Dzvin.co',
-          description: 'Sprawdź dostępne narzędzia osobiste.',
+          title: 'Rozwój modułu indywidualnego',
+          description: 'Docelowa funkcjonalność osobista zostanie oceniona podczas kwalifikacji produktu.',
           points: ['Codzienne wpisy', 'Historia i ćwiczenia'],
         },
       ],
@@ -387,7 +387,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
         },
         {
           title: 'Od danych do oceny',
-          description: 'Ustal kryteria przed oceną programu.',
+          description: 'Kryteria badawcze zostaną określone przed oceną programu.',
           points: ['Metoda pomiaru', 'Porównywalne okresy', 'Ostrożne wnioski'],
         },
         {
@@ -396,8 +396,8 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
           points: ['Kontrola dostępu', 'Możliwość weryfikacji'],
         },
         {
-          title: 'Omówmy program',
-          description: 'Przygotujmy demo dopasowane do badania.',
+          title: 'Program badań i partnerstwa',
+          description: 'Program rozwoju przewiduje demonstrację techniczną i weryfikację scenariuszy badawczych.',
           points: ['Uczestnicy i kohorty', 'Dane i dostęp', 'Kryteria oceny'],
         },
       ],
