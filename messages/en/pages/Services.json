@@ -1,7 +1,7 @@
 {
   "hero": {
     "eyebrow": "Dzvin.co services",
-    "title": "Personal support, corporate analytics and scientific forecasting in one system",
+    "title": "Personal wellbeing, team workflows and Decision Intelligence research",
     "subtitle": "Dzvin.co is an in-development digital wellbeing platform with personal support tools, an emerging permissioned team-analytics experience and a Decision Intelligence in Mental Health research direction using QDIP. There are no completed customer pilots or validated effectiveness results yet; the next stage is designed to test these hypotheses.",
     "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
     "audiences": {
@@ -22,7 +22,7 @@
   "blueprint": {
     "eyebrow": "Service architecture",
     "title": "Three service tracks of one platform",
-    "subtitle": "The platform works as a personal service for users, an analytics service for companies, and a validation service for programs and research. Below is how its role changes across these three scenarios.",
+    "subtitle": "The project is developing three connected experiences: private personal support, permissioned organization workflows and a research environment. Their integrated launch has not yet been qualified.",
     "cards": {
       "personalFlow": {
         "title": "Personal support track",
@@ -58,7 +58,7 @@
       },
       "journeyTitle": "How the service works",
       "before": {
-        "title": "What it was before",
+        "title": "The problem we aim to address",
         "items": {
           "one": {
             "title": "Separate signals without a shared picture",
@@ -88,27 +88,27 @@
           "description": "Saved exercises, materials and state history stay available so people can repeat what has already produced a visible result."
         }
       },
-      "outcomesTitle": "What improved",
+      "outcomesTitle": "Target experience for validation",
       "after": {
         "items": {
           "one": {
-            "title": "State becomes clearer over time",
-            "description": "Instead of isolated episodes, there is a fuller picture of how well-being changes across days and weeks."
+            "title": "Review personal changes over time",
+            "description": "The intended timeline shows repeated observations when users contribute data. Whether this improves awareness still requires evaluation."
           },
           "two": {
-            "title": "The next step becomes concrete",
-            "description": "After assessment, there is not just abstract advice but a specific action that can be taken immediately."
+            "title": "Make a next step accessible",
+            "description": "The intended flow offers a clear optional practice following a check-in; its appropriateness and usefulness require user research."
           },
           "three": {
-            "title": "Support becomes cumulative",
-            "description": "Helpful practices and visible progress stop getting lost and start forming a path that is easier to continue."
+            "title": "Keep the support journey connected",
+            "description": "The product aims to link exercises and history. A measurable effect on wellbeing has not been established."
           }
         }
       },
       "outcomes": {
-        "one": "A better sense of your state and less confusion about what is happening to you.",
-        "two": "Simple daily steps that help you feel more grounded and calm.",
-        "three": "A clearer view of what works for you personally and how your state changes over time."
+        "one": "Review personal observations and discover possible patterns.",
+        "two": "Choose short, voluntary practices rather than having decisions imposed automatically.",
+        "three": "Follow your personal timeline; this approach still needs evidence of usefulness."
       },
       "chart": {
         "label": "Self-check score",
@@ -127,8 +127,8 @@
           "description": "The platform brings teams, roles, groups and access scopes into one managed layer so managers can see the right slice of the organization without permission chaos, manual reporting merges or endless clarification loops."
         },
         "analytics": {
-          "title": "State dynamics across teams and groups",
-          "description": "Instead of stitching together fragmented signals, managers get one analytical surface for stress, energy, focus and mood trends, making it easier to spot which teams need attention right now."
+          "title": "Team indicators from available observations",
+          "description": "The planned view aggregates permitted stress, mood, energy and focus signals. Freshness and completeness depend on actual participation and configuration; production performance and reliability remain to be qualified."
         },
         "decisionSupport": {
           "title": "Action priorities and support control",

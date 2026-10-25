@@ -1,23 +1,26 @@
 import { getPublicDoc, getPublicDocs, publicDocSlugs } from './index'
 
 const fundingSlugs = [
+  'funding-brief',
   'investment-thesis',
   'scientific-novelty',
   'development-progress',
+  'evidence-register',
   'funding-roadmap',
+  'execution-plan',
   'validation-plan',
   'funding-request',
 ]
 
 describe('public investor documentation', () => {
-  it('provides a consistent 20-chapter dossier across all languages', () => {
-    expect(new Set(publicDocSlugs).size).toBe(20)
+  it('provides a consistent 23-chapter dossier across all languages', () => {
+    expect(new Set(publicDocSlugs).size).toBe(23)
     for (const locale of ['uk', 'en', 'pl']) {
       const docs = getPublicDocs(locale)
       expect(docs).not.toHaveProperty('notice')
       expect(docs.articles.map((article) => article.slug)).toEqual(publicDocSlugs)
-      expect(docs.articles.slice(0, 6).map((article) => article.slug)).toEqual(fundingSlugs)
-      expect(docs.articles.slice(0, 6).every((article) => article.sections.length >= 6)).toBe(true)
+      expect(docs.articles.slice(0, 9).map((article) => article.slug)).toEqual(fundingSlugs)
+      expect(docs.articles.slice(0, 9).every((article) => article.sections.length >= 6)).toBe(true)
       expect(docs.articles.every((article) => article.sections.length >= 2)).toBe(true)
       expect(docs.stageDescription.length).toBeGreaterThan(60)
       expect(docs.fundingHeadline.length).toBeGreaterThan(15)
@@ -30,6 +33,17 @@ describe('public investor documentation', () => {
       const docs = getPublicDocs(locale)
       expect(JSON.stringify(docs)).not.toMatch(forbidden)
       expect(getPublicDoc(locale, 'scientific-novelty')?.sections.length).toBeGreaterThanOrEqual(6)
+    }
+  })
+  it('includes an investor one-pager, QDIP science and work-package gates in all languages', () => {
+    for (const locale of ['uk', 'en', 'pl']) {
+      const brief = getPublicDoc(locale, 'funding-brief')
+      const science = getPublicDoc(locale, 'scientific-novelty')
+      const plan = getPublicDoc(locale, 'execution-plan')
+      expect(brief?.sections.length).toBeGreaterThanOrEqual(6)
+      expect(science?.sections.some((section) => section.paragraphs.join(' ').includes('QDIP'))).toBe(true)
+      expect(plan?.sections.some((section) => section.title.includes('WP1'))).toBe(true)
+      expect(plan?.sections.some((section) => section.title.includes('WP4'))).toBe(true)
     }
   })
   it('rejects unknown documents', () => {

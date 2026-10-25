@@ -36,9 +36,9 @@ export function DocsDirectory({ docs, locale }: { docs: PublicDocs; locale: stri
   const [search, setSearch] = useState('')
   const groups = useMemo(
     () => [
-      { label: t.funding, articles: docs.articles.slice(0, 6) },
-      { label: t.product, articles: docs.articles.slice(6, 14) },
-      { label: t.reference, articles: docs.articles.slice(14) },
+      { label: t.funding, articles: docs.articles.slice(0, 9) },
+      { label: t.product, articles: docs.articles.slice(9, 17) },
+      { label: t.reference, articles: docs.articles.slice(17) },
     ],
     [docs.articles, t.funding, t.product, t.reference]
   )

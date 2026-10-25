@@ -3,21 +3,21 @@ import { ExternalLink } from 'lucide-react'
 const sources = {
   research: [
     {
-      title: 'QDIP: Scientific Novelty (public research narrative)',
+      title: 'QDIP scientific novelty: hypotheses and testability',
       url: 'https://github.com/qdip-ai/qdip-docs/blob/main/docs/grant/04-scientific-novelty.md',
     },
     {
-      title: 'Micro-randomized trials and adaptive interventions',
-      url: 'https://pmc.ncbi.nlm.nih.gov/articles/PMC9755932/',
-    },
-    { title: 'TRIPOD+AI reporting guideline (BMJ, 2024)', url: 'https://pubmed.ncbi.nlm.nih.gov/38626948/' },
-    {
-      title: 'AI in mental health: multidisciplinary research priorities (2026)',
-      url: 'https://doi.org/10.1016/S2215-0366(26)00127-6',
+      title: 'Nahum-Shani & Murphy — adaptive interventions review (Annual Review of Psychology, 2026)',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/40939059/',
     },
     {
-      title: 'Decision-grade precision psychiatry: prediction versus action (2026)',
-      url: 'https://doi.org/10.1038/s44277-026-00068-x',
+      title: 'Nahum-Shani et al. — Just-in-Time Adaptive Interventions (2018)',
+      url: 'https://pubmed.ncbi.nlm.nih.gov/27663578/',
+    },
+    { title: 'TRIPOD+AI reporting statement (BMJ, 2024)', url: 'https://pubmed.ncbi.nlm.nih.gov/38626948/' },
+    {
+      title: 'European Research Executive Agency — proposal criteria and guidance',
+      url: 'https://rea.ec.europa.eu/dos-and-donts-when-applying-funding_en',
     },
   ],
   engineering: [

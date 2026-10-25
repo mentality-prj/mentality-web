@@ -12,6 +12,56 @@
   "privacy": "Polityka prywatności",
   "articles": [
     {
+      "slug": "funding-brief",
+      "category": "Investment brief",
+      "title": "Dzvin.co w 3 minuty — opis dla finansujących",
+      "summary": "Problem, DI × mental health, prototyp, kamienie milowe i cel finansowania",
+      "sections": [
+        {
+          "title": "Teza inwestycyjna",
+          "paragraphs": [
+            "Dzvin.co to rozwijany projekt digital mental wellbeing: narzędzia dla osób, potencjalny produkt dla organizacji i obszar badań. Hipoteza naukowa to zastosowanie Decision Intelligence oraz QDIP do wyjaśnialnego, kontrolowanego przez człowieka wyboru działań przy niepewnych danych.",
+            "Na 25 października 2026 to prototyp bez płacących klientów, przychodów, zakończonych pilotaży i udowodnionej skuteczności. Finansowanie ma umożliwić bezpieczne wdrożenie i walidację."
+          ]
+        },
+        {
+          "title": "Cel finansowania",
+          "paragraphs": [
+            "WP1: integracja i bezpieczeństwo. WP2: metody badawcze DI i benchmarki. WP3: badania feasibility po spełnieniu wymagań etycznych. WP4: raport dowodów i kontrolowane uruchomienie.",
+            "Zatwierdzony harmonogram, liczba etatów i kwota finansowania wymagają rzeczywistego kosztorysu."
+          ]
+        },
+        {
+          "title": "Co już można sprawdzić",
+          "paragraphs": [
+            "Istnieją publiczne komponenty Web B2C/B2B/R&D, zadania roadmapy i bezpieczeństwa oraz publiczna dokumentacja QDIP.",
+            "To dowody pracy technicznej, nie wyniki kliniczne ani biznesowe."
+          ]
+        },
+        {
+          "title": "Hipoteza naukowa",
+          "paragraphs": [
+            "Czy przejrzysta polityka decyzji, łącząca sygnały w czasie, niepewność i możliwość powstrzymania się od rekomendacji, ma przewagę nad statycznymi poradami?",
+            "Porównanie wymaga z góry ustalonych wskaźników, oceny bezpieczeństwa, błędów i kontroli użytkownika. Wynik negatywny oznacza odrzucenie hipotezy."
+          ]
+        },
+        {
+          "title": "Dlaczego teraz",
+          "paragraphs": [
+            "Prace techniczne pozwalają zaplanować sprawdzalne badania i kwalifikację wdrożenia, ale ważne ryzyka integracyjne i naukowe pozostają.",
+            "Finansowanie ma zmniejszać te ryzyka w kolejnych etapach zamiast skalować nieudowodnione wyniki."
+          ]
+        },
+        {
+          "title": "Kolejna rozmowa",
+          "paragraphs": [
+            "Inwestorzy: aktywa techniczne, tranches, hipoteza biznesowa. Grantodawcy: Excellence/Impact/Implementation, metoda, pakiety, konsorcjum i budżet.",
+            "Do formalnego wniosku potrzebne są potwierdzone kompetencje zespołu, podmiot prawny, terminy, koszty, IP i wybrany instrument finansowania."
+          ]
+        }
+      ]
+    },
+    {
       "slug": "investment-thesis",
       "category": "Inwestycje",
       "title": "Dlaczego warto finansować Dzvin.co",
@@ -169,6 +219,56 @@
       ]
     },
     {
+      "slug": "evidence-register",
+      "category": "Evidence & readiness",
+      "title": "Rejestr dowodów i gotowości",
+      "summary": "Co potwierdza kod, a co nadal wymaga testów, pilotażu lub niezależnego badania",
+      "sections": [
+        {
+          "title": "Jak czytać status",
+          "paragraphs": [
+            "Kod, test, interfejs API, pełny E2E i naukowy wynik oznaczają inne poziomy dowodu.",
+            "Poniższa macierz zawiera publiczne źródła i statusy, nie oznacza aktywacji każdej funkcji w produkcji."
+          ]
+        },
+        {
+          "title": "B2C dla osób",
+          "paragraphs": [
+            "Kod zawiera moduły samooceny, historii, praktyk i dalszych działań.",
+            "Status: istnieją komponenty; pełny E2E z autoryzacją i backendem nadal wymaga kwalifikacji."
+          ]
+        },
+        {
+          "title": "B2B dla organizacji",
+          "paragraphs": [
+            "Kod zawiera zespoły, role, analitykę i wspomaganie decyzji, ale izolacja firm i uprawnienia pozostają bramkami wydania.",
+            "Status: częściowo wdrożone, nie potwierdzono klientów ani wpływu."
+          ]
+        },
+        {
+          "title": "R&D",
+          "paragraphs": [
+            "Research Workspace zawiera projekty, kohorty, dane, inspekcję, eksporty i audyt.",
+            "Status: baza techniczna i metodologiczna, bez niezależnego badania skuteczności."
+          ]
+        },
+        {
+          "title": "QDIP i Decision Intelligence",
+          "paragraphs": [
+            "Publiczna dokumentacja QDIP opisuje połączenie reguł, modeli, polityk, wyjaśnień i oceny ryzyka.",
+            "Status: fundamenty i hipotezy; przewaga naukowa w Dzvin wymaga badań."
+          ]
+        },
+        {
+          "title": "Aktualizacja dowodów",
+          "paragraphs": [
+            "Do statusu validated wymagane są data, commit, środowisko, protokół testu i akceptacja.",
+            "Testy z mockami i materiały marketingowe nie wystarczają."
+          ]
+        }
+      ]
+    },
+    {
       "slug": "funding-roadmap",
       "category": "Roadmapa",
       "title": "Od prototypu do uruchomienia",
@@ -214,6 +314,56 @@
           "paragraphs": [
             "To kolejność kamieni milowych, nie uzgodnione daty. TRL, liczebność zespołu i koszty wymagają dowodów i dopasowania do finansowania.",
             "Etap jest ukończony dopiero po osiągnięciu kryteriów."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "execution-plan",
+      "category": "Implementation",
+      "title": "Pakiety prac, etapy i transze finansowania",
+      "summary": "Powiązanie finansowania z rezultatami, ryzykiem i kryteriami zakończenia",
+      "sections": [
+        {
+          "title": "WP1 — integracja i bezpieczeństwo",
+          "paragraphs": [
+            "Weryfikacja Web ↔ NestJS ↔ QDIP, logowania, izolacji organizacji, uprawnień, E2E i rollbacku.",
+            "Warunek: powtarzalne testy, negatywne scenariusze bezpieczeństwa i zatwierdzenie go/no-go."
+          ]
+        },
+        {
+          "title": "WP2 — metodologia DI",
+          "paragraphs": [
+            "Definicja polityki decyzji, baseline, kalibracji, niepewności, testów brakujących danych i porównań hybrydowych.",
+            "Warunek: protokół, odtwarzalne benchmarki syntetyczne, analiza błędów i wyników negatywnych."
+          ]
+        },
+        {
+          "title": "WP3 — feasibility i etyka",
+          "paragraphs": [
+            "Przygotowanie zgody, minimalizacji danych, grupy badawczej i bezpiecznego badania z uczestnikami. Nie deklarujemy podpisanych partnerów.",
+            "Warunek: właściwe zgody, dane odpowiedniej jakości, raport UX i ograniczeń."
+          ]
+        },
+        {
+          "title": "WP4 — ocena i uruchomienie",
+          "paragraphs": [
+            "Ocena użyteczności decyzji, kontroli człowieka, przygotowanie niezależnego przeglądu i operacji.",
+            "Warunek: raport dowodów, go/no-go, plan utrzymania i ryzyk."
+          ]
+        },
+        {
+          "title": "Zależności",
+          "paragraphs": [
+            "WP1 to warunek wydania; WP2 może działać na danych syntetycznych. WP3 zależy od bezpieczeństwa i etyki, WP4 od jakości danych.",
+            "Niespełnienie warunku wymaga aktualizacji planu i budżetu."
+          ]
+        },
+        {
+          "title": "Budżet i zarządzanie",
+          "paragraphs": [
+            "Koszty: inżynieria, ML/Decision Science, bezpieczeństwo i etyka, UX/pilotaże, infrastruktura, operacje.",
+            "Formalny projekt potrzebuje odpowiedzialnych osób, roboczogodzin, kosztów, terminów i dopasowania do konkursu."
           ]
         }
       ]
@@ -740,8 +890,8 @@
     }
   ],
   "referenceTitle": "Poradniki funkcji",
-  "featuredCta": "Umów prezentację",
-  "featuredNote": "Dla organizacji: sygnały zespołowe, proces wspierania decyzji i mierzalna ocena. Dostępne są też obszary osobiste i badawcze.",
+  "featuredCta": "Porozmawiajmy o finansowaniu",
+  "featuredNote": "Dzvin.co jest przed uruchomieniem. Poszukujemy finansowania na integrację, badania i kontrolowany start.",
   "fundingHeadline": "Od obserwacji samopoczucia do decyzji, które można zweryfikować",
   "fundingIntro": "Dzvin.co rozwija osobiste narzędzia dobrostanu, analitykę zespołów i program badawczy Decision Intelligence w obszarze zdrowia psychicznego. Chcemy sprawdzić, czy przejrzyste sygnały z informacją o niepewności pomagają podejmować lepsze decyzje pod kontrolą człowieka.",
   "stageLabel": "ETAP: PROTOTYP / PRZED URUCHOMIENIEM",

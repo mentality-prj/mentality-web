@@ -8,6 +8,7 @@ import { ComparisonMatrix } from '../ComparisonMatrix'
 import { DocsNavigation } from '../DocsNavigation'
 import { DossierEvidence } from '../DossierEvidence'
 import { FundingBudgetPlanner } from '../FundingBudgetPlanner'
+import { InvestorEvidenceMatrix } from '../InvestorEvidenceMatrix'
 import { RoiScenarioCalculator } from '../RoiScenarioCalculator'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
@@ -80,7 +81,7 @@ export default async function DocArticlePage({ params }: Props) {
   }[lang]
   const segment = slug === 'research' ? 'research' : slug === 'personal' ? 'individuals' : 'teams'
   const demoUrl = `https://www.dzvin.co/${lang}/contacts?source=docs&intent=demo&segment=${segment}`
-  const isFunding = docs.articles.slice(0, 6).some((item) => item.slug === slug)
+  const isFunding = docs.articles.slice(0, 9).some((item) => item.slug === slug)
   const fundingUrl = `https://www.dzvin.co/${lang}/contacts?source=docs&intent=funding&segment=investment`
   return (
     <div className="min-h-[70vh] bg-[linear-gradient(180deg,#faf5ff_0%,#f8fafc_30%,white_100%)]">
@@ -117,11 +118,12 @@ export default async function DocArticlePage({ params }: Props) {
               ))}
             </div>
             {slug === 'funding-request' && <FundingBudgetPlanner locale={lang} />}
+            {slug === 'evidence-register' && <InvestorEvidenceMatrix locale={lang} />}
             {slug === 'scientific-novelty' && <DossierEvidence locale={lang} variant="research" />}
             {(slug === 'development-progress' || slug === 'validation-plan' || slug === 'funding-roadmap') && (
               <DossierEvidence locale={lang} variant="engineering" />
             )}
-            {slug === 'investment-thesis' && (
+            {(slug === 'investment-thesis' || slug === 'funding-brief') && (
               <div className="mt-10 grid gap-4 sm:grid-cols-2">
                 <Link
                   href="/docs/decks/investment"

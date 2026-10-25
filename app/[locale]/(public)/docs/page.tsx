@@ -21,6 +21,8 @@ type Props = { params: Promise<{ locale: string }> }
 const wording = {
   uk: {
     investment: 'Investor Deck',
+    brief: 'Інвестиційний огляд за 3 хвилини',
+    proof: 'Перевірити прогрес і докази',
     grant: 'Grant / R&D Deck',
     investorDescription: 'Інвестиційна логіка, розроблений прототип, шлях запуску та призначення фінансування.',
     grantDescription: 'Наукові гіпотези, методологія, Excellence / Impact / Implementation та ризики.',
@@ -48,6 +50,8 @@ const wording = {
   },
   en: {
     investment: 'Investor Deck',
+    brief: 'Three-minute investment brief',
+    proof: 'Explore verified evidence',
     grant: 'Research & Grant Deck',
     investorDescription: 'Investment thesis, existing prototype, launch roadmap and use of funds.',
     grantDescription: 'Research hypotheses, evaluation protocol, Excellence / Impact / Implementation and risks.',
@@ -75,6 +79,8 @@ const wording = {
   },
   pl: {
     investment: 'Prezentacja inwestorska',
+    brief: 'Opis inwestycji w 3 minuty',
+    proof: 'Dowody i status rozwoju',
     grant: 'Prezentacja grantowa',
     investorDescription: 'Teza inwestycyjna, prototyp, plan uruchomienia i cel finansowania.',
     grantDescription: 'Hipotezy, metodyka, Excellence / Impact / Implementation i ryzyka.',
@@ -180,6 +186,14 @@ export default async function DocsIndexPage({ params }: Props) {
                 {docs.fundingSecondaryCta}
               </Link>
             </div>
+            <div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold text-indigo-100">
+              <Link href="/docs/funding-brief" className="underline underline-offset-4 hover:text-white">
+                {t.brief}
+              </Link>
+              <Link href="/docs/evidence-register" className="underline underline-offset-4 hover:text-white">
+                {t.proof}
+              </Link>
+            </div>
             <p className="mt-6 text-xs leading-6 text-indigo-200">{docs.fundingNote}</p>
           </div>
         </header>
@@ -252,7 +266,7 @@ export default async function DocsIndexPage({ params }: Props) {
             href="/docs/funding-roadmap"
             className="mt-5 inline-flex items-center gap-2 text-sm font-bold text-indigo-800 hover:underline"
           >
-            {docs.articles[3].title}
+            {docs.articles[6].title}
             <ArrowRight className="h-4 w-4" aria-hidden="true" />
           </Link>
         </section>
