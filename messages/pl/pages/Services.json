@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "Usługi Dzvin.co",
     "title": "Wsparcie osobiste, analityka korporacyjna i prognozowanie naukowe w jednym systemie",
-    "subtitle": "Dzvin.co pomaga wykrywać stres, wypalenie i ryzyka behawioralne, zanim przełożą się na krytyczne konsekwencje. Platforma łączy osobiste monitorowanie stanu, analitykę stabilności zespołów oraz badawcze modele prognostyczne oparte na dynamice zachowań i niepewności.",
+    "subtitle": "Dzvin.co to rozwijana platforma digital wellbeing: osobiste narzędzia wsparcia, przygotowywana analityka zespołów z kontrolą dostępu oraz badawczy kierunek Decision Intelligence in Mental Health z wykorzystaniem QDIP. Nie mamy ukończonych pilotaży u klientów ani potwierdzonych wyników skuteczności; celem kolejnego etapu jest ich sprawdzenie.",
     "note": "Wszystkie wykresy poniżej są ilustracyjne: pokazują, jak istniejące moduły platformy mogą wizualizować dane, a nie rzeczywiste dane klientów.",
     "audiences": {
       "b2c": {
@@ -119,7 +119,7 @@
     "b2b": {
       "tag": "Korporacyjny",
       "title": "Dla firm",
-      "description": "Warstwa B2B zamienia sygnały stanu zespołu w system wczesnej reakcji dla zarządzania: liderzy i HR dostają zagregowany obraz ryzyk, widzą, gdzie zespoły tracą energię, i mogą działać zanim problem przełoży się na wypalenie, rotację albo spadek wyników.",
+      "description": "Warstwa B2B powstaje do analizy dozwolonych zagregowanych trendów stresu, nastroju, energii i koncentracji, aby wspierać HR i kierowników w ustalaniu priorytetów. Jej przydatność wymaga testów bezpieczeństwa i niezależnej oceny.",
       "managerTitle": "Co widzi i kontroluje menedżer",
       "capabilities": {
         "governance": {
@@ -135,19 +135,19 @@
           "description": "System wskazuje krytyczne obszary ryzyka, pomaga ustalić, gdzie interwencja da największy efekt, i przenosi decyzje menedżerskie z poziomu intuicji na poziom danych."
         }
       },
-      "outcomesTitle": "Co to daje biznesowi",
+      "outcomesTitle": "Potencjalne korzyści do sprawdzenia",
       "businessImpact": {
         "one": {
-          "title": "Jedno pole zarządcze dla dobrostanu zespołu",
-          "description": "Liderzy otrzymują przejrzysty, zagregowany obraz stanu zespołu bez dostępu do prywatnych historii, dzięki czemu dobrostan staje się elementem zarządzania operacyjnego, a nie reakcją po fakcie."
+          "title": "Planowany proces wspierania zespołów",
+          "description": "Po kwalifikacji produktu uprawnione dane grupowe i dokumentowane działania mogą pomóc uporządkować wsparcie. Wyniki nie zostały jeszcze zmierzone."
         },
         "two": {
-          "title": "Szybsze decyzje z realnym efektem operacyjnym",
-          "description": "Kiedy ryzyko jest widoczne wcześniej, firma szybciej priorytetyzuje wsparcie, precyzyjniej kieruje uwagę menedżerów i ogranicza straty wynikające z wypalenia, rotacji oraz spadku produktywności."
+          "title": "Hipoteza szybszej analizy sygnałów",
+          "description": "Chcemy sprawdzić, czy powtarzane obserwacje i uporządkowany proces skracają czas przeglądu. Redukcji wypalenia czy rotacji nie udowodniono."
         },
         "three": {
-          "title": "Mocniejszy argument dla HR i kierownictwa",
-          "description": "Dynamika danych przenosi rozmowę z poziomu „dobrostan jest ważny” na poziom „tu biznes już traci zasoby i tu wsparcie daje mierzalny zwrot”, co ułatwia zdobycie poparcia po stronie leadership."
+          "title": "Podstawa przyszłych decyzji HR",
+          "description": "Planujemy analizować trendy i ustalone KPI bez przypisywania przyczynowości bez właściwego projektu badania."
         }
       },
       "outcomes": {
@@ -164,7 +164,7 @@
     "rd": {
       "tag": "Badawczy",
       "title": "Dla badaczy, instytutów i uczelni",
-      "description": "Warstwa R&D zamienia platformę w środowisko badawcze: standaryzowane samooceny, sygnały behawioralne, analiza kohort, walidacja prognoz i śledzenie wyników w jednym systemie.",
+      "description": "Obszar R&D powstaje dla projektów, kohort, powtarzanych obserwacji i przyszłej oceny hipotez predykcyjnych oraz Decision Intelligence. Przewaga naukowa i skuteczność nie zostały potwierdzone.",
       "technicalTitle": "Techniczny kontur badawczy",
       "capabilities": {
         "cohorts": {
@@ -173,7 +173,7 @@
         },
         "validation": {
           "title": "Walidacja prognoz",
-          "description": "Pętla prognoza → wynik pokazuje trafność modelu, dryf oraz zmianę po interwencji na poziomie kohorty lub programu."
+          "description": "Planowany cykl prognoza → obserwowany wynik ma umożliwiać ocenę kalibracji, dryfu i zmian po działaniu. Nie ma jeszcze niezależnych wyników badań."
         },
         "reporting": {
           "title": "Raportowanie wpływu",
@@ -233,7 +233,7 @@
           }
         }
       },
-      "outcomesTitle": "Co otrzymują badacze i instytucje",
+      "outcomesTitle": "Możliwości i hipotezy badawcze",
       "details": {
         "title": "Co wchodzi w cykl dowodowy",
         "items": {
