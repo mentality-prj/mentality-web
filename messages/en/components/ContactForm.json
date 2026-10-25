@@ -9,5 +9,9 @@
   "error": "Failed to send message",
   "errorValidateForm": "Please fill out the form",
   "errorValidateField": "This field is required.",
-  "errorValidateFieldEmail": "Invalid email address"
+  "errorValidateFieldEmail": "Invalid email address",
+  "errorValidateFieldName": "Name must contain at least 2 characters",
+  "errorValidateFieldMessage": "Message must contain at least 5 characters",
+  "errorCaptcha": "Spam protection could not be verified. Please try again.",
+  "errorUnavailable": "Your message could not be delivered. Please try again."
 }
