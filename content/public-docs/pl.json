@@ -21,13 +21,13 @@
           "title": "Teza inwestycyjna",
           "paragraphs": [
             "Dzvin.co to rozwijany projekt digital mental wellbeing: narzędzia dla osób, potencjalny produkt dla organizacji i obszar badań. Hipoteza naukowa to zastosowanie Decision Intelligence oraz QDIP do wyjaśnialnego, kontrolowanego przez człowieka wyboru działań przy niepewnych danych.",
-            "Na 25 października 2026 to prototyp bez płacących klientów, przychodów, zakończonych pilotaży i udowodnionej skuteczności. Finansowanie ma umożliwić bezpieczne wdrożenie i walidację."
+            "Istniejące prace inżynierskie stanowią podstawę kolejnego etapu: integracji, bezpieczeństwa, walidacji naukowej i kontrolowanego uruchomienia."
           ]
         },
         {
           "title": "Rezultaty etapu inwestycyjnego",
           "paragraphs": [
-            "WP1: integracja i bezpieczeństwo. WP2: metody badawcze DI i benchmarki. WP3: badania feasibility po spełnieniu wymagań etycznych. WP4: raport dowodów i kontrolowane uruchomienie.",
+            "Program obejmuje WP1 — integrację i ochronę danych; WP2 — metody badawcze Decision Intelligence; WP3 — badania użyteczności; WP4 — niezależną ocenę i gotowość do uruchomienia.",
             "Finansowanie będzie powiązane z weryfikowalnymi rezultatami pakietów prac: od kwalifikacji produktu po niezależną ocenę i przygotowanie uruchomienia."
           ]
         },
@@ -35,27 +35,27 @@
           "title": "Co już można sprawdzić",
           "paragraphs": [
             "Istnieją publiczne komponenty Web B2C/B2B/R&D, zadania roadmapy i bezpieczeństwa oraz publiczna dokumentacja QDIP.",
-            "To dowody pracy technicznej, nie wyniki kliniczne ani biznesowe."
+            "Rejestr dowodów rozróżnia wykonany kod, pełną kwalifikację systemu i przyszłe wyniki empiryczne."
           ]
         },
         {
           "title": "Hipoteza naukowa",
           "paragraphs": [
             "Czy przejrzysta polityka decyzji, łącząca sygnały w czasie, niepewność i możliwość powstrzymania się od rekomendacji, ma przewagę nad statycznymi poradami?",
-            "Porównanie wymaga z góry ustalonych wskaźników, oceny bezpieczeństwa, błędów i kontroli użytkownika. Wynik negatywny oznacza odrzucenie hipotezy."
+            "Projekt badawczy obejmuje porównania z modelami bazowymi, wcześniej określone wskaźniki, kalibrację, bezpieczeństwo i nadzór człowieka."
           ]
         },
         {
           "title": "Dlaczego teraz",
           "paragraphs": [
             "Prace techniczne pozwalają zaplanować sprawdzalne badania i kwalifikację wdrożenia, ale ważne ryzyka integracyjne i naukowe pozostają.",
-            "Finansowanie ma zmniejszać te ryzyka w kolejnych etapach zamiast skalować nieudowodnione wyniki."
+            "Etap inwestycyjny ma doprowadzić od istniejącego oprogramowania do zweryfikowanego systemu z powtarzalnymi dowodami technicznymi i naukowymi."
           ]
         },
         {
           "title": "Kolejna rozmowa",
           "paragraphs": [
-            "Inwestorzy: aktywa techniczne, tranches, hipoteza biznesowa. Grantodawcy: Excellence/Impact/Implementation, metoda, pakiety, konsorcjum i budżet.",
+            "Partnerstwo inwestycyjne obejmuje analizę technologii, etapy i warunki współpracy. Finansowanie badań obejmuje metodykę, wyniki, wpływ i nadzór.",
             "Do formalnego wniosku potrzebne są potwierdzone kompetencje zespołu, podmiot prawny, terminy, koszty, IP i wybrany instrument finansowania."
           ]
         }
@@ -85,28 +85,28 @@
           "title": "Potencjalni odbiorcy",
           "paragraphs": [
             "Osoby prywatne zyskują historię obserwacji; organizacje — dozwolony kontekst grupowy; naukowcy — ustrukturyzowany proces badań.",
-            "To przyszli odbiorcy, a nie obecni klienci ani uczestnicy ukończonych badań."
+            "Zastosowania badawcze obejmują kohorty, obserwacje podłużne i kontrolowaną ocenę hipotez. Segmenty mają odrębne kryteria walidacji."
           ]
         },
         {
           "title": "Dowody rozwoju",
           "paragraphs": [
             "Repozytoria zawierają interfejsy produktów, komponenty backendowe, testy i dokumentację metod badawczych.",
-            "Artefakty inżynierskie nie potwierdzają przychodów, efektywności klinicznej ani skali."
+            "Istniejący kod stanowi podstawę kwalifikacji technicznej; zewnętrzne wyniki pilotaży i badań należą do kolejnego etapu."
           ]
         },
         {
           "title": "Kolejny etap budowania wartości",
           "paragraphs": [
             "Dokończenie integracji i bezpieczeństwa, formalizacja badań, pilotaże ze zgodą uczestników, ocena użyteczności i przygotowanie kontrolowanego uruchomienia.",
-            "Finansowanie powinno zmniejszyć niepewność technologiczną, naukową i produktową przez konkretne kamienie milowe."
+            "Finansowanie etapowe można powiązać z odbiorem pakietów prac i udokumentowanymi kryteriami postępu."
           ]
         },
         {
           "title": "Dalsza trwałość",
           "paragraphs": [
             "Hipotezy biznesowe obejmują przyszłe umowy B2B, współpracę badawczą i osobny rozwój doświadczenia indywidualnego.",
-            "Nie deklarujemy sprzedaży, zweryfikowanych cen ani wyników rynkowych."
+            "Model biznesowy będzie oparty na badaniu popytu, cen, kosztów wdrożenia i potencjału skalowania."
           ]
         }
       ]
@@ -121,14 +121,14 @@
           "title": "Od predykcji do decyzji",
           "paragraphs": [
             "Model ryzyka odpowiada na pytanie, co może się wydarzyć. Decision Intelligence dodaje wybór odpowiedniego działania przy określonych założeniach i ograniczeniach.",
-            "Dzvin to kierunek badawczy, nie autonomiczny system diagnozy czy decyzji klinicznych."
+            "Nadzór człowieka i granice zastosowania stanowią integralną część metodyki, zwłaszcza przy niepełnych lub niepewnych danych."
           ]
         },
         {
           "title": "Rola QDIP",
           "paragraphs": [
             "QDIP to odrębny kierunek technologiczny łączący reguły i sygnały modelowe, polityki, wyjaśnienia, audyt i monitoring.",
-            "Dzvin ma być miejscem oceny tych zasad w wellbeing. Sam kod nie dowodzi pełnej integracji produkcyjnej."
+            "Dzvin.co jest obszarem zastosowania zasad QDIP. Ocena integracji i przewagi naukowej należy do planowanych badań."
           ]
         },
         {
@@ -162,7 +162,7 @@
         {
           "title": "Granice oryginalności",
           "paragraphs": [
-            "JITAI, modele Bayesowskie i uczenie maszynowe już istnieją. Nie przypisujemy sobie ich wynalezienia.",
+            "Interwencje adaptacyjne, podejścia bayesowskie i badania mikro-randomizowane mają istniejącą podstawę naukową. Potencjalną nowością jest ich zastosowanie wraz z politykami decyzji, wyjaśnialnością i kontrolą człowieka.",
             "Potencjalna nowość to weryfikowalne połączenie zasad decyzji, niepewności, wyjaśnień i kontroli w mental wellbeing. Nowość wymaga przeglądu stanu wiedzy i wyników badań."
           ]
         }
@@ -177,8 +177,8 @@
         {
           "title": "Stan na 25 października 2026",
           "paragraphs": [
-            "Dzvin to prototyp oprogramowania z publiczną dokumentacją i kodem interfejsów osobistych, firmowych i badawczych.",
-            "Nie ma klientów komercyjnych, ukończonych badań terenowych ani potwierdzonej efektywności."
+            "Na 25 października 2026 Dzvin.co to prototyp oprogramowania z komponentami indywidualnymi, organizacyjnymi i badawczymi. Integracja produkcyjna i zewnętrzna ocena należą do kolejnego etapu.",
+            "Gotowość określają pełne scenariusze, uprawnienia, bezpieczeństwo i niezawodność operacyjna."
           ]
         },
         {
@@ -213,7 +213,7 @@
           "title": "Kryterium zakończenia",
           "paragraphs": [
             "Gotowość wymaga testów dostępu, bezpieczeństwa, API, E2E i audytu w środowisku docelowym.",
-            "Kod i build nie są dowodem zakończonego wdrożenia."
+            "Zakończenie prac potwierdzają kryteria akceptacji, środowisko testowe i powtarzalne wyniki."
           ]
         }
       ]
@@ -227,7 +227,7 @@
         {
           "title": "Jak czytać status",
           "paragraphs": [
-            "Kod, test, interfejs API, pełny E2E i naukowy wynik oznaczają inne poziomy dowodu.",
+            "Rejestr oddziela dokumentację projektową, istniejący kod, testy komponentów, integrację i wyniki badań empirycznych.",
             "Poniższa macierz zawiera publiczne źródła i statusy, nie oznacza aktywacji każdej funkcji w produkcji."
           ]
         },
@@ -263,7 +263,7 @@
           "title": "Aktualizacja dowodów",
           "paragraphs": [
             "Do statusu validated wymagane są data, commit, środowisko, protokół testu i akceptacja.",
-            "Testy z mockami i materiały marketingowe nie wystarczają."
+            "Status dojrzałości zmienia się po sprawdzeniu środowiska i spełnieniu kryteriów akceptacji."
           ]
         }
       ]
@@ -312,7 +312,7 @@
         {
           "title": "Charakter roadmapy",
           "paragraphs": [
-            "To kolejność kamieni milowych, nie uzgodnione daty. TRL, liczebność zespołu i koszty wymagają dowodów i dopasowania do finansowania.",
+            "Roadmapa określa zależne etapy. Kalendarz, skład zespołu i zasoby stanowią część zatwierdzonego planu realizacji.",
             "Etap jest ukończony dopiero po osiągnięciu kryteriów."
           ]
         }
@@ -363,7 +363,7 @@
           "title": "Budżet i zarządzanie",
           "paragraphs": [
             "Koszty: inżynieria, ML/Decision Science, bezpieczeństwo i etyka, UX/pilotaże, infrastruktura, operacje.",
-            "Formalny projekt potrzebuje odpowiedzialnych osób, roboczogodzin, kosztów, terminów i dopasowania do konkursu."
+            "Model kosztów pakietów prac określi czas trwania, nakład pracy, koszty, osoby odpowiedzialne i rezultaty. Warunki inwestycji będą przedmiotem osobnej propozycji."
           ]
         }
       ]
@@ -399,7 +399,7 @@
           "title": "Użyteczność",
           "paragraphs": [
             "Ocena łatwości codziennych działań, zrozumiałości wyjaśnień i kontroli użytkownika.",
-            "Przed wynikami badań nie deklarujemy poprawy zdrowia, retencji ani ROI."
+            "Badania produktu stworzą podstawy do oceny wartości dla użytkowników, jakości procesów i możliwości dalszego rozwoju."
           ]
         },
         {
@@ -413,7 +413,7 @@
           "title": "Go/no-go",
           "paragraphs": [
             "Dalszy rozwój przy odpowiednim bezpieczeństwie, jakości danych i wynikach według ustalonych kryteriów.",
-            "Brak dowodów lub niebezpieczna pewność wymaga korekty bądź przerwania prac."
+            "Wyniki poza ustalonymi kryteriami prowadzą do udokumentowanego przeglądu hipotezy, modelu lub zakresu programu."
           ]
         }
       ]
