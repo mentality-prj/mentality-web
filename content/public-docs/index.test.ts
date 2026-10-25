@@ -126,7 +126,7 @@ describe('public investor documentation', () => {
       }
       expect(getPublicDoc(locale, 'presentation-kit')?.summary).toMatch(
         locale === 'uk'
-          ? /грантова презентації/
+          ? /грантових фондів/
           : locale === 'en'
             ? /research-funding presentations/
             : /funduszy badawczych/
