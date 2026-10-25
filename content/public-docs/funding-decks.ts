@@ -482,7 +482,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Model partnerstwa inwestycyjnego',
-          description: 'Dzvin.co jest otwarty na inwestycje prywatne i partnerstwa strategiczne o różnej skali, dopasowane do celów współpracy.',
+          description:
+            'Dzvin.co jest otwarty na inwestycje prywatne i partnerstwa strategiczne o różnej skali, dopasowane do celów współpracy.',
           points: [
             'Inwestycja, współpraca strategiczna lub wsparcie wybranego etapu',
             'Uzgodnione rezultaty i odpowiedzialność stron',
