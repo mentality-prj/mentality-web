@@ -3,7 +3,7 @@
 Public content lives **only** in `content/public-docs/{uk,en,pl}.json`, rendered at `/{locale}/docs` and `/{locale}/docs/{slug}`.
 
 - Publish manually authored, externally verified, user-visible behaviours only.
-- **Never** import or generate pages from QDIP source, internal architecture, issue trackers, prompts, confidential specifications, grant evidence or private API contracts.
+- **Never** import or automatically generate public pages from private QDIP runtime, private architecture, issue trackers, prompts, confidential specifications, nonpublic grant evidence or private API contracts. Publicly released scientific material may inform manually authored, independently reviewed high-level descriptions when accurately cited; no secrets or unpublished implementation may be exposed.
 - Do not publish credentials, hidden endpoints, model weights, customer details, internal performance/costs or unreleased features.
 - Require human IP, privacy, product and translation review before material external claims are introduced. Automated forbidden-term tests are not a substitute for human review.
 - Do not inject generic disclaimer banners or internal selling instructions into public content. State only relevant, specific product limitations and evidence boundaries where a claim needs context.
@@ -28,3 +28,13 @@ Public content lives **only** in `content/public-docs/{uk,en,pl}.json`, rendered
 - Demo CTAs link to the main site's existing contact form with whitelisted `source=docs&intent=demo&segment=...` attribution; the backend receives source information as part of the message.
 - The financial calculator uses explicitly entered assumptions, with no preselected positive effect or invented commercial price.
 - The SEO sitemap contains locale-aware docs and deck URLs; avoid exposing protected account routes as indexed pages.
+
+## Pre-launch funding dossier policy (2026-10-25)
+
+- Target audience: funders, investors, reviewers, scientific collaborators; separate investor and research-grant presentations from buyer product decks.
+- Dzvin is in development. There are no commercial customers, verified live pilots, or clinical outcome evidence. Never substitute CI, mock tests or deployed documentation for verified effectiveness.
+- QDIP is discussed as a separate research direction and potential DI-enabling technology. Scientific novelty is a falsifiable claim, not demonstrated superiority.
+- Stage statements should reference the dated product roadmap and release-gate issues, while links to public primary literature support the research context.
+- Fundraising budget remains unpriced by default. Include only confirmed amounts with provenance and a call-specific work plan; TRL and completion dates require specific evidence.
+- Keep internal PO/CMO objection handling, private costs, team biographies not approved for release, uncommitted partner names and proprietary implementation outside this public repository.
+- Investor/fund CTAs must use the approved contact path with whitelisted query parameters, never accept open redirect or raw message content from URL parameters.
