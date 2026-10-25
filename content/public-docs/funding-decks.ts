@@ -98,7 +98,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Модель інвестиційного партнерства',
-          description: 'Партнерство передбачає погоджені контрольні точки, бюджет програми та умови управління результатами.',
+          description:
+            'Партнерство передбачає погоджені контрольні точки, бюджет програми та умови управління результатами.',
           points: [
             'Погодити обсяг наступного траншу за реальними кошторисами',
             'Визначити етапи, звітність і критерії продовження',
@@ -140,7 +141,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Методологія',
-          description: 'Порівняльні випробування на синтетичних даних і дослідження з учасниками після необхідних погоджень.',
+          description:
+            'Порівняльні випробування на синтетичних даних і дослідження з учасниками після необхідних погоджень.',
           points: [
             'Rule-only, ML-only та hybrid baseline',
             'Calibration, Brier, detection delay, selective risk',
@@ -357,7 +359,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Funding framework',
           description: "Budget and duration depend on actual costs and the target call's rules.",
-          points: ['Engineering, R&D, ethics, hosting', 'Milestone-based budgeting', 'Call-specific eligible costs and governance'],
+          points: [
+            'Engineering, R&D, ethics, hosting',
+            'Milestone-based budgeting',
+            'Call-specific eligible costs and governance',
+          ],
         },
         {
           title: 'Research partnership',
@@ -424,7 +430,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Przyszły model biznesowy',
           description: 'B2B, badania i produkt osobisty wymagają weryfikacji rynkowej.',
-          points: ['Potencjał B2B i współpracy badawczej', 'Badania gotowości do płacenia', 'Model kosztów wdrożenia i utrzymania'],
+          points: [
+            'Potencjał B2B i współpracy badawczej',
+            'Badania gotowości do płacenia',
+            'Model kosztów wdrożenia i utrzymania',
+          ],
         },
         {
           title: 'Model partnerstwa inwestycyjnego',
@@ -465,7 +475,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Podstawa inżynierska',
           description: 'Istnieją moduły produktu i dokumentacja naukowa.',
-          points: ['Zakres gotowości technicznej prototypu', 'Otwarte warunki bezpieczeństwa', 'Badania z udziałem ludzi w kolejnym etapie'],
+          points: [
+            'Zakres gotowości technicznej prototypu',
+            'Otwarte warunki bezpieczeństwa',
+            'Badania z udziałem ludzi w kolejnym etapie',
+          ],
         },
         {
           title: 'Impact',
@@ -475,7 +489,12 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Implementation',
           description: 'Pakiety prac z kryteriami odbioru.',
-          points: ['WP1 Integracja i ochrona danych', 'WP2 Metodyka i ocena DI', 'WP3 Walidacja użytkowników', 'WP4 Dowody i gotowość do uruchomienia'],
+          points: [
+            'WP1 Integracja i ochrona danych',
+            'WP2 Metodyka i ocena DI',
+            'WP3 Walidacja użytkowników',
+            'WP4 Dowody i gotowość do uruchomienia',
+          ],
         },
         {
           title: 'Ryzyka i etyka',
@@ -485,7 +504,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Finansowanie',
           description: 'Wartość i czas projektu wynikają z kosztorysu oraz zasad konkursu.',
-          points: ['Rozwój, R&D, etyka, hosting', 'Budżet według rezultatów', 'Koszty kwalifikowalne i struktura partnerstwa'],
+          points: [
+            'Rozwój, R&D, etyka, hosting',
+            'Budżet według rezultatów',
+            'Koszty kwalifikowalne i struktura partnerstwa',
+          ],
         },
         {
           title: 'Partnerstwo',
