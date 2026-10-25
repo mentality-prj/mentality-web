@@ -35,6 +35,17 @@ describe('public investor documentation', () => {
       expect(getPublicDoc(locale, 'scientific-novelty')?.sections.length).toBeGreaterThanOrEqual(6)
     }
   })
+  it('includes an investor one-pager, QDIP science and work-package gates in all languages', () => {
+    for (const locale of ['uk', 'en', 'pl']) {
+      const brief = getPublicDoc(locale, 'funding-brief')
+      const science = getPublicDoc(locale, 'scientific-novelty')
+      const plan = getPublicDoc(locale, 'execution-plan')
+      expect(brief?.sections.length).toBeGreaterThanOrEqual(6)
+      expect(science?.sections.some((section) => section.paragraphs.join(' ').includes('QDIP'))).toBe(true)
+      expect(plan?.sections.some((section) => section.title.includes('WP1'))).toBe(true)
+      expect(plan?.sections.some((section) => section.title.includes('WP4'))).toBe(true)
+    }
+  })
   it('rejects unknown documents', () => {
     expect(getPublicDoc('uk', '../internal')).toBeUndefined()
   })
