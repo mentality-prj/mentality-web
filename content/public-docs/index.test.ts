@@ -81,12 +81,19 @@ describe('public investor documentation', () => {
     }
   })
   it('keeps internal editorial notes, fabricated returns and ROI calculators out of public documents', () => {
-    const banned = /(?:we don.t invent|ми не вигадуємо|nie wymyślamy|не є CRM|not a CRM|kalkulator nie jest|не комерційна оферта|traction|підставляйте свої дані)/i
+    const banned =
+      /(?:we don.t invent|ми не вигадуємо|nie wymyślamy|не є CRM|not a CRM|kalkulator nie jest|не комерційна оферта|traction|підставляйте свої дані)/i
     for (const locale of ['uk', 'en', 'pl']) {
       const docs = getPublicDocs(locale)
-      const text = docs.articles.map((article) =>
-        [article.title, article.summary, ...article.sections.flatMap((section) => [section.title, ...section.paragraphs])].join(' ')
-      ).join(' ')
+      const text = docs.articles
+        .map((article) =>
+          [
+            article.title,
+            article.summary,
+            ...article.sections.flatMap((section) => [section.title, ...section.paragraphs]),
+          ].join(' ')
+        )
+        .join(' ')
       expect(text).not.toMatch(banned)
     }
   })
