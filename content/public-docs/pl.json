@@ -707,24 +707,24 @@
       "summary": "Do czego służy serwis i jak zacząć",
       "sections": [
         {
-          "title": "Cel",
+          "title": "Przeznaczenie",
           "paragraphs": [
-            "Dzvin.co umożliwia rejestrowanie stresu, nastroju, energii i koncentracji, analizowanie zmian oraz poznawanie pomocnych praktyk.",
-            "Istnieją odrębne scenariusze dla osób, organizacji i programów badawczych."
+            "Moduł indywidualny Dzvin.co ma wspierać powtarzane obserwacje stresu, nastroju, energii i koncentracji.",
+            "Projektowany proces łączy samoocenę, osobistą historię i dobrowolne praktyki."
           ]
         },
         {
-          "title": "Jak zacząć",
+          "title": "Docelowy proces",
           "paragraphs": [
-            "Utwórz konto lub zaloguj się. Otwórz Mój dzień, wykonaj krótką samoocenę i sprawdź dostępne wskazówki.",
-            "Regularne pomiary mają większą wartość niż pojedynczy wynik."
+            "Planowana sekwencja obejmuje logowanie, krótką samoocenę, analizę historii i dobrowolny wybór działania.",
+            "Zintegrowane procesy uwierzytelniania i danych rzeczywistych pozostają elementem kwalifikacji technicznej."
           ]
         },
         {
-          "title": "Interpretacja",
+          "title": "Interpretacja obserwacji",
           "paragraphs": [
-            "Jedna samoocena opisuje moment, a nie całościowy stan zdrowia.",
-            "Niektóre funkcje zależą od roli i etapu wdrożenia."
+            "Pojedynczy wpis odzwierciedla subiektywny stan w danym momencie, a seria obserwacji może dostarczać szerszego kontekstu.",
+            "Samoobserwacja nie jest oceną kliniczną i nie stanowi dowodu przyczynowego."
           ]
         }
       ]
@@ -736,24 +736,24 @@
       "summary": "Codzienne pomiary, kwestionariusze i postępy",
       "sections": [
         {
-          "title": "Samoocena",
+          "title": "Model samoobserwacji",
           "paragraphs": [
-            "Podstawowy pomiar obejmuje stres, nastrój, energię i koncentrację w skali od 1 do 5.",
-            "Notatki i obserwacje pomagają rozumieć kontekst, ale nie dowodzą przyczyn zmian."
+            "Prototyp obejmuje cztery wskaźniki: stres, nastrój, energię i koncentrację.",
+            "Historia wpisów może porządkować osobiste doświadczenia z uwzględnieniem jakości danych."
           ]
         },
         {
-          "title": "Ćwiczenia",
+          "title": "Praktyki i cele",
           "paragraphs": [
-            "Po pomiarze mogą pojawić się wskazówki i ćwiczenia. Można też przeglądać historię i własne cele.",
-            "Porównuj okresy zamiast skupiać się na jednej liczbie."
+            "Docelowy produkt obejmuje dobrowolne ćwiczenia, cele i przegląd wcześniejszych obserwacji.",
+            "Użyteczność i odpowiedniość sugerowanych działań będzie sprawdzana w badaniach."
           ]
         },
         {
           "title": "Kwestionariusze",
           "paragraphs": [
-            "Krótkie kwestionariusze wspierają samoobserwację.",
-            "Nie są diagnozą ani zaleceniem leczenia."
+            "Kwestionariusze stanowią dodatkowe narzędzia do strukturyzowania obserwacji.",
+            "Ich przeznaczenie i interpretację określa metodyka, bez automatycznego diagnozowania."
           ]
         }
       ]
@@ -765,24 +765,24 @@
       "summary": "Zagregowane trendy i wspomaganie decyzji",
       "sections": [
         {
-          "title": "Dla organizacji",
+          "title": "Przeznaczenie",
           "paragraphs": [
-            "Moduł firmowy pomaga analizować trendy dobrostanu, stresu i energii w zespołach.",
-            "Raporty i dostęp zależą od uprawnień i konfiguracji firmy."
+            "Moduł organizacyjny ma zapewniać dostęp do uprawnionych trendów zespołowych i zarządzanego procesu przeglądu sygnałów.",
+            "Koncepcja obejmuje widoki grupowe, role, dynamikę i wspieranie decyzji."
           ]
         },
         {
-          "title": "Od sygnału do działania",
+          "title": "Nadzór człowieka",
           "paragraphs": [
-            "Sygnał ryzyka powinien prowadzić do sprawdzenia kontekstu, a nie automatycznej oceny pracownika.",
-            "Nie podejmuj decyzji kadrowych na podstawie jednego wskaźnika. Małe grupy mogą nie zapewniać anonimowości."
+            "Wskaźniki grupowe służą analizie kontekstu i planowaniu możliwych działań wspierających.",
+            "Decyzje kadrowe pozostają w gestii uprawnionych osób, bez automatyzacji na podstawie jednego wskaźnika."
           ]
         },
         {
-          "title": "Odpowiedzialność",
+          "title": "Ochrona danych",
           "paragraphs": [
-            "Organizacja odpowiada za właściwą podstawę prawną przetwarzania danych i poinformowanie pracowników.",
-            "Sama agregacja nie gwarantuje anonimowości."
+            "Model obejmuje minimalizację danych, kontrolę dostępu i ocenę ryzyka ponownej identyfikacji w małych grupach.",
+            "Uruchomienie wymaga podstawy prawnej, reguł organizacji i zakończonych testów bezpieczeństwa."
           ]
         }
       ]
@@ -794,24 +794,24 @@
       "summary": "Kohorty, obserwacje i jakość dowodów",
       "sections": [
         {
-          "title": "Zastosowania",
+          "title": "Zakres badań",
           "paragraphs": [
-            "Scenariusze badawcze obejmują porównywanie kohort, powtarzane pomiary i analizę wyników programów.",
-            "Dostęp do narzędzia nie oznacza niezależnej walidacji klinicznej każdego modelu."
+            "Research Workspace jest projektowany do pracy z projektami, kohortami, powtarzanymi pomiarami i kontrolowanym eksportem.",
+            "Zastosowanie naukowe wymaga metodyki, uprawnień i audytu operacji."
           ]
         },
         {
-          "title": "Rzetelność",
+          "title": "Jakość dowodów",
           "paragraphs": [
-            "Przed analizą określ próbę, metryki, okresy, sposób postępowania z brakującymi danymi i kryteria jakości.",
-            "Rozróżniaj korelację, prognozę i przyczynowość. Raportuj niepewność."
+            "Protokoły obejmują populację, wskaźniki, dostępność danych w czasie, braki i hipotezy badawcze.",
+            "Raportowanie rozróżnia prognozy, korelacje i wnioskowanie przyczynowe."
           ]
         },
         {
-          "title": "Dostęp",
+          "title": "Zasady badań",
           "paragraphs": [
-            "Warunki współpracy badawczej i publikacji wyników uzgadnia się osobno.",
-            "Należy uwzględnić wymagania etyczne i ochronę prywatności."
+            "Dostęp do danych podlega uprawnieniom, określonym celom i procedurom etycznym.",
+            "Powtarzalność wyników i możliwość audytu są oddzielnymi kryteriami gotowości."
           ]
         }
       ]
@@ -823,24 +823,24 @@
       "summary": "Przetwarzanie informacji i prawa użytkowników",
       "sections": [
         {
-          "title": "Twoje dane",
+          "title": "Zasady przetwarzania",
           "paragraphs": [
-            "Serwis może przetwarzać dane konta, dobrowolne samooceny i interakcje z aplikacją.",
-            "Dokładne kategorie, cele i podstawy przetwarzania określa aktualna Polityka prywatności."
+            "Koncepcja obejmuje dane konta, dobrowolne samooceny i interakcje przetwarzane w określonych celach.",
+            "Podstawę prawną, zakres danych i prawa osób określa aktualna Polityka prywatności."
           ]
         },
         {
-          "title": "Dostęp w firmie",
+          "title": "Granice dostępu",
           "paragraphs": [
-            "Raporty firmowe muszą respektować uprawnienia i zasady ochrony danych.",
-            "Nie wpisuj zbędnych danych wrażliwych ani nie udostępniaj haseł."
+            "Architektura przewiduje dostęp zależny od roli, organizacji i kontekstu badania.",
+            "Izolacja organizacji, ochrona małych grup i audyt wymagają potwierdzenia przed uruchomieniem."
           ]
         },
         {
-          "title": "Twoje prawa",
+          "title": "Prawa osób",
           "paragraphs": [
-            "O dostęp, sprostowanie lub usunięcie danych można wnioskować przez oficjalne kanały Dzvin.co.",
-            "Ten poradnik nie zastępuje Polityki prywatności ani Regulaminu."
+            "Wnioski dotyczące dostępu, sprostowania lub usunięcia danych są obsługiwane przez oficjalne kanały Dzvin.co.",
+            "Obowiązki określają właściwe przepisy i dokumenty polityki prywatności."
           ]
         }
       ]
@@ -852,24 +852,24 @@
       "summary": "Co można, a czego nie można wywnioskować z wyników",
       "sections": [
         {
-          "title": "Niepewność",
+          "title": "Granice interpretacji",
           "paragraphs": [
-            "Samooceny mogą być niepełne lub zależne od kontekstu. Prognozy i wskaźniki ryzyka nie gwarantują wyników.",
-            "Sugestie nie stanowią dowodu związku przyczynowego."
+            "Samooceny i wskaźniki pochodne zależą od kompletności, częstotliwości i kontekstu danych.",
+            "Wynik predykcyjny lub trend grupowy sam w sobie nie dowodzi związku przyczynowego."
           ]
         },
         {
-          "title": "Ograniczenia medyczne",
+          "title": "Zakres kliniczny",
           "paragraphs": [
-            "Dzvin.co nie jest służbą ratunkową, nie stawia diagnoz i nie zastępuje pomocy lekarskiej ani psychologicznej.",
-            "W nagłym zagrożeniu zdrowia lub życia skontaktuj się z lokalnymi służbami ratunkowymi."
+            "Dzvin.co rozwijany jest dla dobrostanu i badań, a nie do pomocy ratunkowej czy automatycznej diagnozy.",
+            "Ewentualne zastosowanie kliniczne wymagałoby osobnej oceny regulacyjnej i naukowej."
           ]
         },
         {
           "title": "Dostępność",
           "paragraphs": [
-            "Część raportów i modułów może być ograniczona uprawnieniami lub etapem rozwoju.",
-            "Sprawdź FAQ lub skontaktuj się z zespołem w sprawie aktualnej dostępności."
+            "Moduły mają różne uprawnienia, konfiguracje i etapy wdrożenia.",
+            "Uruchomienie następuje po kwalifikacji integracji, bezpieczeństwa i działania operacyjnego."
           ]
         }
       ]
