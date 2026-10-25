@@ -475,24 +475,24 @@
       "summary": "Jak Dzvin.co łączy trendy zespołowe z odpowiednią reakcją",
       "sections": [
         {
-          "title": "Lepszy obraz dobrostanu zespołów",
+          "title": "Strategia produktu",
           "paragraphs": [
-            "Dzvin.co pomaga HR i liderom przejść od rozproszonych ankiet do regularnej analizy zmian w zespołach oraz uporządkowanej reakcji na sygnały ryzyka.",
-            "Główna oferta B2B łączy strukturę organizacji i uprawnienia, dozwolone widoki grupowe, trendy, zdarzenia ryzyka i działania menedżera. Osobne obszary wspierają osobiste obserwacje i programy badawcze."
+            "Dzvin.co powstaje jako platforma łącząca obserwacje dobrostanu z kontekstem i procesami wsparcia w obszarze indywidualnym, organizacyjnym i badawczym.",
+            "Wspólnym założeniem jest przejście od sygnału do wyjaśnialnego działania pod kontrolą człowieka i oceny rezultatów."
           ]
         },
         {
-          "title": "Gdy firma już prowadzi ankiety",
+          "title": "Zastosowania organizacyjne",
           "paragraphs": [
-            "Ankieta często kończy się raportem. Dzvin.co umożliwia analizę zmian sygnałów grupowych, przegląd ważnych zdarzeń i uporządkowanie dalszych działań.",
-            "To nie gwarantuje spadku wypalenia. Efekt należy ocenić w pilocie przez czas reakcji, ciągłość udziału i jakość procesu."
+            "Docelowy model obejmuje dozwolone trendy grupowe i proces analizy sygnałów przez uprawnione osoby.",
+            "Uprawnienia, prywatność, gotowość operacyjna i wartość biznesowa wymagają osobnej walidacji."
           ]
         },
         {
-          "title": "Obszar osobisty i badawczy",
+          "title": "Połączenie z badaniami",
           "paragraphs": [
-            "Codzienne samooceny, ćwiczenia i historia wspierają indywidualne użytkowanie. Projekty i kohorty wspierają badania i ocenę programów.",
-            "Warto wybrać obszar zgodny z rolą i celem organizacji."
+            "Program badawczy sprawdza zasady łączenia reguł, sygnałów modelowych, niepewności i wyjaśnień.",
+            "QDIP jest kierunkiem technologicznym do oceny tych hipotez w dobrostanie psychicznym."
           ]
         }
       ]
@@ -504,31 +504,24 @@
       "summary": "Najpierw organizacje; dodatkowo zastosowania osobiste i badawcze",
       "sections": [
         {
-          "title": "Rozwiązania dla różnych odbiorców",
+          "title": "Segment indywidualny",
           "paragraphs": [
-            "Głównym odbiorcą komercyjnym są organizacje, które chcą systematyczniej pracować z dobrostanem zespołów. Przy decyzji o pilocie współpracują zwykle HR/People Operations, menedżerowie i osoby odpowiedzialne za budżet.",
-            "Osoby prywatne mają dostęp do samoocen, historii, praktyk i celów. Instytucje badawcze zarządzają projektami, kohortami, dostępem, danymi i wnioskami o eksport. Każdy obszar ma inne cele."
+            "Koncepcja indywidualna łączy regularną samoocenę, historię, cele i dobrowolne praktyki.",
+            "Celem jest uporządkowana obserwacja i samodzielny wybór działania, bez automatycznych ocen klinicznych."
           ]
         },
         {
-          "title": "HR i People Operations",
+          "title": "Segment organizacyjny",
           "paragraphs": [
-            "Analiza trendów zespołów, rozpoznawanie możliwych źródeł obciążenia i ustalanie priorytetów wsparcia.",
-            "Oceniaj zakres pomiarów, czas do przeglądu sygnału i działania następcze, a nie tylko średni wynik."
+            "Docelowy scenariusz obejmuje role, dozwolone wskaźniki grupowe i zarządzany proces wspierania zespołów.",
+            "Program rozwoju obejmuje testy uprawnień, jakości danych, użyteczności oraz wymagań komercyjnych."
           ]
         },
         {
-          "title": "Menedżerowie",
+          "title": "Segment badawczy",
           "paragraphs": [
-            "Pracują z dozwolonymi grupami, trendami i zdarzeniami ryzyka.",
-            "Administratorzy odpowiadają za strukturę, członków i uprawnienia."
-          ]
-        },
-        {
-          "title": "Partnerzy badawczy",
-          "paragraphs": [
-            "Zarządzają uczestnikami, kohortami, historią, inspekcją, eksportami i audytem.",
-            "Ocena programu wymaga protokołu i rzeczywistych danych, nie samych ekranów."
+            "Research Workspace przewiduje projekty, uczestników, kohorty, powtarzane obserwacje, kontrolowany dostęp i audyt.",
+            "Potencjalną korzyścią jest powtarzalna infrastruktura do badań nad modelami i politykami decyzji."
           ]
         }
       ]
@@ -540,24 +533,24 @@
       "summary": "Funkcje osobiste, firmowe i badawcze bez niepotwierdzonych obietnic",
       "sections": [
         {
-          "title": "Co oferuje produkt",
+          "title": "Moduł indywidualny",
           "paragraphs": [
-            "Dla organizacji: grupy i podgrupy, zaproszenia, uprawnienia, filtry okresów i grup, zagregowane wskaźniki, zdarzenia ryzyka i działania następcze menedżerów.",
-            "Dla osób: pomiary stresu, nastroju, energii i koncentracji, wpisy, kwestionariusze, historia, ćwiczenia i cele. Dla nauki: projekty, uczestnicy, kohorty, dane historyczne, inspekcja, wnioski eksportowe i audyt."
+            "Komponenty oprogramowania obejmują samoocenę, notatki, kwestionariusze, praktyki, cele i historię.",
+            "Pełne procesy E2E i stabilność integracji podlegają kwalifikacji przed uruchomieniem."
           ]
         },
         {
-          "title": "Proces od sygnału do działania",
+          "title": "Moduł organizacyjny",
           "paragraphs": [
-            "Menedżer ma podsumowanie, dozwolone trendy zespołu i listę zdarzeń. Można sprawdzić szczegóły, działania i zamknąć zdarzenie zgodnie z rolą.",
-            "To wsparcie decyzji podejmowanych przez człowieka, nie automatyczna ocena pracowników."
+            "Prototyp zawiera funkcje firm, grup, ról, trendów i obsługi zdarzeń.",
+            "Bezpieczne uruchomienie wymaga weryfikacji uprawnień, izolacji organizacji i zabezpieczeń operacyjnych."
           ]
         },
         {
-          "title": "Zakres dostępności",
+          "title": "Moduł badawczy",
           "paragraphs": [
-            "Nie wszystkie funkcje są dostępne dla każdego konta. Zależą od roli, danych i konfiguracji.",
-            "Konkretny scenariusz należy sprawdzić podczas demo przed pilotażem."
+            "Komponenty badawcze obejmują projekty, kohorty, inspekcję, wnioski o eksport i audyt.",
+            "Praktyczne badania wymagają protokołów, jakości danych i właściwych procedur etycznych."
           ]
         }
       ]
@@ -569,31 +562,24 @@
       "summary": "Trzy scenariusze, które można sprawdzić podczas demo",
       "sections": [
         {
-          "title": "Trzy procesy produktowe",
+          "title": "Scenariusz indywidualny",
           "paragraphs": [
-            "Firma: menedżer otwiera dozwolony widok, wybiera okres i grupy, analizuje zmianę wskaźników, otwiera zdarzenie ryzyka i zapisuje następne działanie. To pokazuje proces operacyjny.",
-            "Osoba: samoocena → historia → ćwiczenie → kolejny pomiar. Badania: projekt → członkowie i kohorta → historia → inspekcja → wniosek o eksport → audyt. Dostęp zależy od roli."
+            "Docelowa sekwencja: samoocena → historia → dobrowolna praktyka → kolejne obserwacje.",
+            "Testy potwierdzą przepływ danych, dostęp i funkcjonowanie pełnego procesu."
           ]
         },
         {
-          "title": "Prezentacja firmy",
+          "title": "Scenariusz organizacyjny",
           "paragraphs": [
-            "Przegląd organizacji → filtry grup → trendy → zdarzenie ryzyka → szczegóły → działanie menedżera.",
-            "Używaj dozwolonych danych, nie ujawniaj historii pojedynczych pracowników."
+            "Docelowa sekwencja: dozwolona grupa → trend → analiza zdarzenia → udokumentowane działanie.",
+            "Walidacja obejmuje role, izolację organizacji, dostępność danych i historię działań."
           ]
         },
         {
-          "title": "Prezentacja osobista",
+          "title": "Scenariusz badawczy",
           "paragraphs": [
-            "Samoocena → historia → ćwiczenie lub cel → kolejny pomiar.",
-            "Wartość polega na ciągłości obserwacji, a nie gwarancji rezultatu ćwiczenia."
-          ]
-        },
-        {
-          "title": "Prezentacja badań",
-          "paragraphs": [
-            "Research Workspace → projekt → uczestnicy i kohorta → historia → inspekcja → wniosek o eksport → audyt.",
-            "Dostęp zależy od ról i uprawnień projektu."
+            "Docelowa sekwencja: projekt → kohorta → historia danych → inspekcja → kontrolowany eksport → audyt.",
+            "Demonstracja korzysta z danych testowych; badania z uczestnikami wymagają osobnych zgód."
           ]
         }
       ]
@@ -605,24 +591,24 @@
       "summary": "Kalkulator pilotażu z przejrzystymi założeniami",
       "sections": [
         {
-          "title": "Ocena wartości biznesowej bez wymyślonych oszczędności",
+          "title": "Kierunki komercjalizacji",
           "paragraphs": [
-            "W pilocie firmowym znaczenie ma nie liczba wykresów, lecz to, czy wcześniejsza analiza i skoordynowane działanie przynoszą mierzalne rezultaty operacyjne.",
-            "Kalkulator scenariusza wykorzystuje wyłącznie założenia użytkownika: liczbę osób, koszt godziny, zmierzone odzyskane godziny, hipotetyczną cenę platformy i koszt wdrożenia. Nie jest to oficjalny cennik ani gwarancja zwrotu."
+            "Przyszły model może obejmować usługi dla organizacji, produkt osobisty i współpracę badawczą.",
+            "Priorytetem kolejnego etapu jest weryfikacja wartości dla segmentów i kosztów utrzymania, a nie prognozowanie sprzedaży bez danych."
           ]
         },
         {
-          "title": "Metryki pilotażu",
+          "title": "Ocena ekonomiczna",
           "paragraphs": [
-            "Porównaj czas analizy sygnału, udział zdarzeń z udokumentowanym działaniem, regularność i koszty administracyjne.",
-            "Do wyceny użyj porównywalnych okresów i faktycznych kosztów."
+            "W sektorze organizacyjnym analizowane będą koszty wdrożenia, aktywność użytkowników, obsługa zdarzeń i wykorzystanie zasobów.",
+            "Segment osobisty i badawczy wymagają osobnej oceny użyteczności, kosztów oraz zarządzania danymi."
           ]
         },
         {
-          "title": "Koszty rozwiązania",
+          "title": "Rozwój modelu finansowego",
           "paragraphs": [
-            "Uwzględnij licencje, wdrożenie, czas menedżerów i wsparcie. Warunki komercyjne ustala się osobno.",
-            "Kalkulator nie jest ofertą handlową."
+            "Założenia będą weryfikowane w wywiadach, badaniach technicznych i kontrolowanych pilotażach.",
+            "Model obejmie koszty pozyskania i obsługi, infrastrukturę, warianty cenowe i możliwości skalowania."
           ]
         }
       ]
@@ -634,24 +620,24 @@
       "summary": "Dzvin.co, pojedyncze ankiety i samodzielne dashboardy",
       "sections": [
         {
-          "title": "Różnice w podejściu",
+          "title": "Kategorie rozwiązań",
           "paragraphs": [
-            "Jednorazowa ankieta pokazuje stan na dany moment. Samodzielny dashboard może prezentować trendy bez procesu obsługi zdarzeń. Dzvin.co łączy powtarzane obserwacje, widoki grupowe i działania menedżera w opisanym produkcie.",
-            "To porównanie kategorii rozwiązań, nie ranking konkretnych konkurentów. Wybór należy sprawdzić na rzeczywistym procesie i wymaganiach organizacji."
+            "Ankiety dostarczają okresowych obserwacji; dashboardy porządkują dane; systemy wspierania decyzji dodają proces oceny i działania.",
+            "Dzvin.co rozwija koncepcję łączenia tych elementów z doświadczeniem indywidualnym i infrastrukturą badawczą."
           ]
         },
         {
-          "title": "Kryteria porównania",
+          "title": "Hipoteza wyróżnika",
           "paragraphs": [
-            "Porównaj częstotliwość pomiarów, trendy grupowe, uprawnienia, obsługę zdarzeń, badania i eksport.",
-            "Uczciwe porównanie wymaga tego samego scenariusza."
+            "Program badawczy łączy szeregi czasowe, reguły, niepewność modelu, wyjaśnienia i nadzór człowieka.",
+            "Przewaga technologiczna wymaga porównywalnych testów i niezależnych wyników."
           ]
         },
         {
-          "title": "Co sprawdzić na demo",
+          "title": "Kryteria rynkowe",
           "paragraphs": [
-            "Czy menedżer widzi tylko swoje grupy? Czy można śledzić zdarzenie do działania? Jak obsługiwany jest brak danych? Jakie KPI można mierzyć?",
-            "To pytania dla nabywcy, nie deklaracje o konkretnych konkurentach."
+            "Ocena obejmie funkcje, prywatność, koszt integracji, użyteczność i możliwość audytu decyzji.",
+            "Porównania powinny korzystać z tych samych kryteriów, źródeł i dat."
           ]
         }
       ]
@@ -663,24 +649,24 @@
       "summary": "Trzy prezentacje dla różnych odbiorców, gotowe do wydruku PDF",
       "sections": [
         {
-          "title": "Poznaj Dzvin.co w formie prezentacji",
+          "title": "Materiały inwestycyjne",
           "paragraphs": [
-            "Prezentacja firmowa prowadzi od sygnału przez kontekst zespołu i priorytet do działania i oceny. Prezentacja osobista wyjaśnia codzienne obserwacje, a naukowa — kontrolowany proces programu.",
-            "Trzy prezentacje są dostępne poniżej. Można je wyświetlać w przeglądarce lub zapisać jako PDF przez drukowanie. Nie zawierają zmyślonych wyników, klientów ani poufnych informacji technicznych."
+            "Prezentacja inwestorska opisuje strategię, technologię, postęp rozwoju, kamienie milowe i model współpracy.",
+            "Stanowi podstawę rozmów o finansowaniu i oceny technologii."
           ]
         },
         {
-          "title": "Prezentacja firmowa",
+          "title": "Materiały naukowo-grantowe",
           "paragraphs": [
-            "Problem → sygnał zespołowy → działanie → pomiar → pilotaż. Każda prezentacja działa jako zestaw slajdów w przeglądarce.",
-            "Przez funkcję drukowania można zapisać zestaw jako PDF."
+            "Prezentacja grantowa przedstawia hipotezy DI, rolę QDIP, rezultaty i metodę oceny.",
+            "Hipotezy naukowe są oddzielone od istniejącego kodu i przyszłych wyników badań."
           ]
         },
         {
-          "title": "Prezentacje osobiste i badawcze",
+          "title": "Materiały produktowe",
           "paragraphs": [
-            "Osobista: codzienne wpisy i praktyki. Badawcza: kohorty, dane, raportowanie i audyt.",
-            "Każda prezentacja dotyczy głównego scenariusza swojej grupy."
+            "Prezentacje indywidualne, organizacyjne i badawcze opisują docelowe funkcje i strategię walidacji.",
+            "Slajdy można wyświetlać online i zapisać w PDF za pomocą przeglądarki."
           ]
         }
       ]
@@ -692,24 +678,24 @@
       "summary": "Jak ustalić kryteria oceny i sukcesu",
       "sections": [
         {
-          "title": "Pilotaż i kryteria sukcesu",
+          "title": "Cel pilotażu",
           "paragraphs": [
-            "Zacznij od jednego mierzalnego problemu, na przykład skrócenia czasu od sygnału zespołowego do jego analizy przez odpowiedzialną osobę. Przed wdrożeniem ustal grupę, uprawnienia, okres i sposób oceny.",
-            "Przydatne KPI to regularność udziału, kompletność danych, czas reakcji i obsługa zdarzeń. Dla osób — powtarzanie samoocen, dla nauki — ukończenie cykli zbierania i śledzenie danych. To propozycje miar, nie udowodnione wyniki."
+            "Program pilotażowy ma ocenić procesy użytkowników, jakość danych, bezpieczeństwo i pierwsze hipotezy użyteczności.",
+            "Dobór uczestników, uprawnienia i metoda analizy muszą zostać określone przed zebraniem danych."
           ]
         },
         {
-          "title": "Projekt pilotażu",
+          "title": "Metodyka",
           "paragraphs": [
-            "Ustal osobę odpowiedzialną, grupę, okres, uprawnienia, sposób zbierania danych i punkt odniesienia.",
-            "Pilotaż powinien weryfikować konkretną hipotezę, nie tylko prezentować interfejs."
+            "Wskaźniki mogą obejmować ukończenie procesów, ponowne użycie, jakość danych, czas analizy sygnału i zrozumiałość wyjaśnień.",
+            "Badania QDIP stosują osobne protokoły kalibracji, fałszywych alarmów i użyteczności decyzji."
           ]
         },
         {
-          "title": "Decyzja po pilotażu",
+          "title": "Decyzja o dalszym rozwoju",
           "paragraphs": [
-            "Porównaj wyniki z ustalonymi kryteriami, ocen koszty i zakres dalszego wdrożenia.",
-            "Przy niewystarczających danych należy to wyraźnie wskazać."
+            "Wyniki zostaną porównane z wcześniej określonymi kryteriami i analizą ryzyka oraz kosztów.",
+            "Decyzja może oznaczać rozwój, korektę rozwiązania albo przegląd hipotezy."
           ]
         }
       ]
