@@ -77,8 +77,9 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'На що інвестиції',
-          description: 'Кошти потрібні на реалізацію конкретних milestone, а не на непідтверджений масштаб.',
+          title: 'Наступний інвестиційний етап',
+          description:
+            'Від інженерного прототипу — до перевіреного продукту, наукового оцінювання та підготовки запуску.',
           points: [
             'Інженерія та інтеграції; безпека',
             'Decision Intelligence R&D та дослідницькі протоколи',
@@ -265,8 +266,9 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Use of funds',
-          description: 'Finance engineering, research, safety and evidence generation.',
+          title: 'Next investment milestone',
+          description:
+            'From software groundwork to a qualified product, research evidence and controlled launch readiness.',
           points: ['Integration and security', 'Decision Intelligence R&D', 'Pilots, people and infrastructure'],
         },
         {
@@ -409,8 +411,8 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           points: ['Integracja → protokół → feasibility', 'Ocena DI → kontrolowane uruchomienie', 'Kryteria go/no-go'],
         },
         {
-          title: 'Na co środki',
-          description: 'Finansowanie rozwoju, badań i bezpieczeństwa.',
+          title: 'Kolejny etap inwestycyjny',
+          description: 'Od prototypu do kwalifikacji produktu, oceny naukowej i przygotowania uruchomienia.',
           points: ['Integracja i ochrona danych', 'Decision Intelligence R&D', 'Pilotaże i infrastruktura'],
         },
         {

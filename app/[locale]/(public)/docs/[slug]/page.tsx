@@ -7,7 +7,6 @@ import { Link } from '@/i18n/navigation'
 import { ComparisonMatrix } from '../ComparisonMatrix'
 import { DocsNavigation } from '../DocsNavigation'
 import { DossierEvidence } from '../DossierEvidence'
-import { FundingBudgetPlanner } from '../FundingBudgetPlanner'
 import { InvestorEvidenceMatrix } from '../InvestorEvidenceMatrix'
 import { RoiScenarioCalculator } from '../RoiScenarioCalculator'
 
@@ -117,7 +116,6 @@ export default async function DocArticlePage({ params }: Props) {
                 </section>
               ))}
             </div>
-            {slug === 'funding-request' && <FundingBudgetPlanner locale={lang} />}
             {slug === 'evidence-register' && <InvestorEvidenceMatrix locale={lang} />}
             {slug === 'scientific-novelty' && <DossierEvidence locale={lang} variant="research" />}
             {(slug === 'development-progress' || slug === 'validation-plan' || slug === 'funding-roadmap') && (

@@ -25,10 +25,10 @@
           ]
         },
         {
-          "title": "Cel finansowania",
+          "title": "Rezultaty etapu inwestycyjnego",
           "paragraphs": [
             "WP1: integracja i bezpieczeństwo. WP2: metody badawcze DI i benchmarki. WP3: badania feasibility po spełnieniu wymagań etycznych. WP4: raport dowodów i kontrolowane uruchomienie.",
-            "Zatwierdzony harmonogram, liczba etatów i kwota finansowania wymagają rzeczywistego kosztorysu."
+            "Finansowanie będzie powiązane z weryfikowalnymi rezultatami pakietów prac: od kwalifikacji produktu po niezależną ocenę i przygotowanie uruchomienia."
           ]
         },
         {
@@ -64,7 +64,7 @@
     {
       "slug": "investment-thesis",
       "category": "Inwestycje",
-      "title": "Dlaczego warto finansować Dzvin.co",
+      "title": "Potencjał inwestycyjny Dzvin.co",
       "summary": "Problem, potencjał, obecny etap i cel dalszego rozwoju",
       "sections": [
         {
@@ -96,7 +96,7 @@
           ]
         },
         {
-          "title": "Cel finansowania",
+          "title": "Kolejny etap budowania wartości",
           "paragraphs": [
             "Dokończenie integracji i bezpieczeństwa, formalizacja badań, pilotaże ze zgodą uczestników, ocena użyteczności i przygotowanie kontrolowanego uruchomienia.",
             "Finansowanie powinno zmniejszyć niepewność technologiczną, naukową i produktową przez konkretne kamienie milowe."
@@ -420,50 +420,50 @@
     },
     {
       "slug": "funding-request",
-      "category": "Finansowanie",
-      "title": "Na co potrzebujemy finansowania",
-      "summary": "Koszty, transze, partnerstwa i odpowiedzialność",
+      "category": "Szansa inwestycyjna",
+      "title": "Dzvin.co — możliwość inwestycyjna",
+      "summary": "Od rozwijanego prototypu do produktu przygotowanego do uruchomienia: technologia, etapy i możliwe kierunki wzrostu",
       "sections": [
         {
-          "title": "Cel",
+          "title": "Technologia i potencjał zastosowania",
           "paragraphs": [
-            "Zintegrować produkt, zakończyć bezpieczeństwo, przeprowadzić odtwarzalne badania i odpowiedzialne pilotaże.",
-            "Nie podajemy nieuzgodnionych kwot ani fikcyjnych inwestorów. Poniższy kalkulator pomaga zaplanować budżet."
+            "Dzvin.co łączy osobiste wsparcie dobrostanu, planowaną analitykę zespołów i przestrzeń badawczą. Kierunek QDIP / Decision Intelligence zakłada badanie wyjaśnialnego wyboru działań z uwzględnieniem kontekstu, niepewności i kontroli człowieka.",
+            "Podstawą projektu są istniejące komponenty inżynierskie i możliwość przekształcenia ich w zweryfikowany produkt dla kilku zastosowań. Przewaga technologiczna wymaga jeszcze badań."
           ]
         },
         {
-          "title": "Kategorie",
+          "title": "Logika inwestycji",
           "paragraphs": [
-            "Rozwój i integracja; badania DI; prywatność i bezpieczeństwo; UX i pilotaże; infrastruktura; zarządzanie.",
-            "Każdy koszt należy powiązać z mierzalnym rezultatem."
+            "Kolejny etap ma stworzyć produkt z audytowalną gotowością techniczną, przejrzystymi ryzykami i dowodami przydatności. Kapitał służy rozwojowi technologii i weryfikacji rynku, nie skalowaniu niepotwierdzonej sprzedaży.",
+            "Potencjalne drogi rozwoju to model B2B, produkt indywidualny i badania z partnerami naukowymi. Ich opłacalność pozostaje hipotezą do oceny."
           ]
         },
         {
-          "title": "Transze",
+          "title": "Rezultaty kolejnego etapu",
           "paragraphs": [
-            "A — integracje i bezpieczeństwo. B — protokół i zbieranie danych. C — ocena i gotowość do uruchomienia.",
-            "Kwoty i terminy wymagają prawdziwej kalkulacji i dopasowania do programu."
+            "Zintegrowany produkt z weryfikacją uprawnień, izolacji danych, rzeczywistych przepływów E2E i bezpieczeństwa operacyjnego; protokoły badań Decision Intelligence; kontrolowana ocena doświadczenia użytkowników.",
+            "Rezultatem mają być konkretne komponenty, powtarzalne testy, raport bezpieczeństwa, wyniki metodologiczne i decyzja o gotowości do uruchomienia, a nie z góry obiecane korzyści kliniczne lub finansowe."
           ]
         },
         {
-          "title": "Przejrzystość",
+          "title": "Program i kamienie milowe",
           "paragraphs": [
-            "Inwestor otrzyma potwierdzenie etapów, raporty, rejestr ryzyk i plan dalszego finansowania.",
-            "Warunki IP, udziałów i sprawozdawczości zależą od źródła finansowania."
+            "WP1: integracja i bezpieczeństwo. WP2: porównawcza ocena metod QDIP / DI i protokoły. WP3: badania użyteczności pod odpowiednim nadzorem etycznym. WP4: niezależna ocena i przygotowanie uruchomienia.",
+            "Każdy pakiet ma warunki odbioru oraz decyzję go/no-go. Zależności i dowody są opisane w planie wykonania i rejestrze dowodów."
           ]
         },
         {
-          "title": "Partnerstwa",
+          "title": "Model długoterminowego rozwoju",
           "paragraphs": [
-            "Poszukujemy inwestorów, instytucji naukowych, ekspertów etycznych i organizacji zainteresowanych przyszłym pilotażem.",
-            "Nie deklarujemy podpisanych umów ani klientów."
+            "Po walidacji technologii i popytu projekt może zweryfikować modele licencjonowania B2B, współpracy badawczej i osobistego serwisu.",
+            "Strategia komercyjna będzie wynikała z przyszłych badań potrzeb klientów, gotowości do płacenia, kosztów wdrożenia i jakości produktu."
           ]
         },
         {
-          "title": "Kontakt",
+          "title": "Formy współpracy",
           "paragraphs": [
-            "Do rozmowy potrzebny jest rodzaj finansowania, cel programu, plan etapów, zasoby i zweryfikowane koszty.",
-            "Skontaktuj się z zespołem Dzvin.co w sprawie finansowania lub współpracy badawczej."
+            "Dla inwestorów prywatnych: finansowanie kolejnego etapu rozwoju z mierzalnymi rezultatami i raportowaniem ryzyka. Dla fundacji: pakiety badawcze, metody oceny, potencjalny wpływ i przejrzyste deliverables.",
+            "Wysokość kapitału, szczegółowy budżet, harmonogram i warunki ustala się w indywidualnej propozycji. Dostępne są prezentacje, roadmapa i rejestr dowodów."
           ]
         }
       ]

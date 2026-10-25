@@ -25,10 +25,10 @@
           ]
         },
         {
-          "title": "What funding buys",
+          "title": "What the investment stage will deliver",
           "paragraphs": [
             "WP1: integrated product and security. WP2: decision-policy science and reproducible evaluation. WP3: ethically governed human feasibility. WP4: evidence, operating readiness and controlled launch.",
-            "The work-package framework exists; headcount, calendar, pricing and the actual funding amount require verified project-owner budgets."
+            "Funding is tied to verifiable outputs from each work package, from product qualification to independent evaluation and launch preparation."
           ]
         },
         {
@@ -64,7 +64,7 @@
     {
       "slug": "investment-thesis",
       "category": "Investment case",
-      "title": "Why fund Dzvin.co?",
+      "title": "Dzvin.co Investment Thesis",
       "summary": "The opportunity, project hypothesis and what the next tranche should achieve",
       "sections": [
         {
@@ -96,7 +96,7 @@
           ]
         },
         {
-          "title": "Purpose of funding",
+          "title": "The next value-creation milestone",
           "paragraphs": [
             "Complete release/security integration, turn research hypotheses into reproducible protocols, enable responsibly recruited pilots, study usefulness and uncertainty, and prepare a controlled product launch.",
             "Financing should buy a documented reduction in technical, scientific and product uncertainty through specific milestones."
@@ -420,50 +420,50 @@
     },
     {
       "slug": "funding-request",
-      "category": "Funding ask",
-      "title": "Funding requirements and use of proceeds",
-      "summary": "Cost categories, gated tranches and sponsor outcomes — no invented numbers",
+      "category": "Investment opportunity",
+      "title": "Dzvin.co Investment Opportunity",
+      "summary": "From an existing software prototype to a launch-qualified product: technology, milestone outcomes and growth options",
       "sections": [
         {
-          "title": "Why funding is sought",
+          "title": "A technology platform with an applied research opportunity",
           "paragraphs": [
-            "To deliver a secure integrated software release, reproducible research, appropriately governed pilot studies and a responsible launch.",
-            "Amounts and financial terms have not been externally validated. Use the editable funding framework below instead of treating a fabricated estimate as an offer."
+            "Dzvin.co brings together personal wellbeing support, planned organization-level insights and a research workspace. The QDIP / Decision Intelligence direction explores explainable next-action selection with context, explicit uncertainty and human control.",
+            "The opportunity builds on existing engineering assets and their potential to become a validated product across distinct use cases. Technical and scientific advantages remain to be tested."
           ]
         },
         {
-          "title": "Use of proceeds",
+          "title": "The investment thesis",
           "paragraphs": [
-            "Engineering and integration; Decision Intelligence research; privacy/security/compliance; UX and participant research; infrastructure; project operations.",
-            "Link each funded cost line to a milestone deliverable and acceptance evidence."
+            "The next development stage is designed to create an asset with auditable engineering readiness, explicit risk management and evidence of product feasibility. Funding supports technology development and market discovery rather than scaling unverified sales.",
+            "Possible future avenues include organizational subscriptions, a personal wellbeing product and research collaborations. Their commercial viability will be evaluated, not assumed."
           ]
         },
         {
-          "title": "Milestone tranches",
+          "title": "Milestone outcomes",
           "paragraphs": [
-            "A: technical release qualification and security. B: research protocol and bounded data collection. C: evaluation and launch readiness.",
-            "Tranche amounts and calendar commitments must be agreed against a genuine project budget and the chosen funding instrument."
+            "A qualified integrated product with verified roles, tenant boundaries, real end-to-end flows and operational safeguards; formal Decision Intelligence research protocols; controlled assessment of user workflows.",
+            "The intended outputs are software artifacts, reproducible tests, security findings, scientific reports and a documented launch-readiness decision—not preclaimed clinical or financial outcomes."
           ]
         },
         {
-          "title": "Accountability",
+          "title": "Execution and checkpoints",
           "paragraphs": [
-            "Funders should receive engineering acceptance evidence, preregistered evaluation, candid research findings, risk logs and a sustainability plan.",
-            "Funding, equity/IP terms and reporting obligations differ for grants, seed investment and research contracts."
+            "WP1: product integration and security. WP2: QDIP / DI research baselines, comparative protocols and metrics. WP3: human-centered usability and feasibility research under appropriate ethics controls. WP4: independent analysis and controlled launch preparation.",
+            "Each work package has acceptance criteria and go/no-go gates. Dependencies and evidence are documented in the execution plan and evidence register."
           ]
         },
         {
-          "title": "Partners sought",
+          "title": "Potential sustainability",
           "paragraphs": [
-            "Potential partners include research institutions, responsible pilot organizations, ethical/data-protection advisers, philanthropic or institutional funders and seed investors.",
-            "This is a partnership search, not a claim of signed letters or live customers."
+            "Following product and market validation, options to evaluate include enterprise licensing, funded research collaborations and further development of the personal experience.",
+            "Commercial planning will rely on evidence from future studies, willingness-to-pay research, operating costs, product quality and long-term support requirements."
           ]
         },
         {
-          "title": "Next conversation",
+          "title": "Investment and research partnerships",
           "paragraphs": [
-            "A proposal needs the funder's instrument, expected scope, verified staffing and cost estimates, project milestones and explicit rights/conditions.",
-            "Contact the team through Dzvin.co with the subject of funding or research partnership."
+            "For private investors: discuss funding the next technology milestone with measurable deliverables, risk governance and reporting. For foundations: defined research work packages, evaluation methods and prospective impact.",
+            "Capital amount, detailed budget, timetable and contractual terms are developed in a tailored investment or grant proposal. Investor and grant presentations, the roadmap and the evidence register are available for review."
           ]
         }
       ]
