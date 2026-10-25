@@ -3,10 +3,25 @@ const labels = {
     title: 'Порівняння підходів для оцінки закупівлі',
     headings: ['Критерій', 'Разове опитування', 'Окремий дашборд', 'Dzvin.co'],
     rows: [
-      ['Повторювані спостереження', 'Залежить від повторного запуску', 'Залежить від джерела даних', 'Особисті регулярні відмітки'],
-      ['Командні тренди', 'Порівняння хвиль вручну або у звіті', 'Залежить від конкретного продукту', 'Групові тренди й фільтри'],
+      [
+        'Повторювані спостереження',
+        'Залежить від повторного запуску',
+        'Залежить від джерела даних',
+        'Особисті регулярні відмітки',
+      ],
+      [
+        'Командні тренди',
+        'Порівняння хвиль вручну або у звіті',
+        'Залежить від конкретного продукту',
+        'Групові тренди й фільтри',
+      ],
       ['Права доступу', 'За налаштуваннями інструменту', 'За налаштуваннями інструменту', 'Ролі, групи та дозволи'],
-      ['Події та дії менеджера', 'Зазвичай поза анкетою', 'Залежить від конкретного продукту', 'Стрічка подій і workflow дій'],
+      [
+        'Події та дії менеджера',
+        'Зазвичай поза анкетою',
+        'Залежить від конкретного продукту',
+        'Стрічка подій і workflow дій',
+      ],
       ['Дослідницька робота', 'Залежить від анкети', 'Залежить від продукту', 'Проєкти, когорти, експорт і аудит'],
     ],
     note: 'Порівняння категорій і користувацьких сценаріїв; це не перевірений рейтинг конкретних конкурентів.',
@@ -18,7 +33,12 @@ const labels = {
       ['Repeated observations', 'Requires repeat fielding', 'Depends on source data', 'Personal ongoing check-ins'],
       ['Team trends', 'Comparing survey waves', 'Depends on the product', 'Group trends and filters'],
       ['Access controls', 'Depends on tool settings', 'Depends on tool settings', 'Roles, groups and access'],
-      ['Risk events and actions', 'Usually external to survey', 'Depends on the product', 'Event feed and action workflow'],
+      [
+        'Risk events and actions',
+        'Usually external to survey',
+        'Depends on the product',
+        'Event feed and action workflow',
+      ],
       ['Research workflows', 'Survey-dependent', 'Product-dependent', 'Projects, cohorts, exports and audit'],
     ],
     note: 'Category and workflow comparison, not an independently tested ranking of named vendors.',
@@ -42,16 +62,37 @@ export function ComparisonMatrix({ locale }: { locale: string }) {
   const t = labels[lang]
   return (
     <section className="mt-10" aria-labelledby="docs-compare-title">
-      <h2 id="docs-compare-title" className="text-2xl font-bold text-slate-900">{t.title}</h2>
+      <h2 id="docs-compare-title" className="text-2xl font-bold text-slate-900">
+        {t.title}
+      </h2>
       <div className="mt-5 overflow-x-auto rounded-2xl border border-slate-200">
-        <table className="min-w-[760px] w-full border-collapse text-left text-sm">
+        <table className="w-full min-w-[760px] border-collapse text-left text-sm">
           <thead className="bg-slate-100 text-slate-900">
-            <tr>{t.headings.map(x => <th key={x} scope="col" className="border-b border-slate-200 px-4 py-4 font-bold">{x}</th>)}</tr>
+            <tr>
+              {t.headings.map((x) => (
+                <th key={x} scope="col" className="border-b border-slate-200 px-4 py-4 font-bold">
+                  {x}
+                </th>
+              ))}
+            </tr>
           </thead>
           <tbody>
-            {t.rows.map(row => (
+            {t.rows.map((row) => (
               <tr key={row[0]} className="border-b border-slate-100 last:border-0">
-                {row.map((cell, i) => i === 0 ? <th key={i} scope="row" className="px-4 py-4 font-semibold text-slate-900">{cell}</th> : <td key={i} className={`px-4 py-4 leading-6 ${i === 3 ? 'bg-violet-50/60 font-medium text-violet-950' : 'text-slate-600'}`}>{cell}</td>)}
+                {row.map((cell, i) =>
+                  i === 0 ? (
+                    <th key={i} scope="row" className="px-4 py-4 font-semibold text-slate-900">
+                      {cell}
+                    </th>
+                  ) : (
+                    <td
+                      key={i}
+                      className={`px-4 py-4 leading-6 ${i === 3 ? 'bg-violet-50/60 font-medium text-violet-950' : 'text-slate-600'}`}
+                    >
+                      {cell}
+                    </td>
+                  )
+                )}
               </tr>
             ))}
           </tbody>

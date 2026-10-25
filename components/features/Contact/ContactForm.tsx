@@ -21,12 +21,25 @@ export const ContactForm = ({ source, segment }: { source?: 'docs'; segment?: st
   const t = useTranslations('components.ContactForm')
   const locale = useLocale()
   const topics = {
-    uk: { teams: 'Хочу обговорити демонстрацію Dzvin.co для компанії.', individuals: 'Хочу обговорити персональні можливості Dzvin.co.', research: 'Хочу обговорити дослідницьку програму Dzvin.co.' },
-    en: { teams: 'I would like a Dzvin.co demonstration for my organization.', individuals: 'I would like to learn about the personal product.', research: 'I would like to discuss a Dzvin.co research program.' },
-    pl: { teams: 'Chcę umówić prezentację Dzvin.co dla organizacji.', individuals: 'Chcę poznać ofertę dla osób.', research: 'Chcę omówić program badawczy Dzvin.co.' },
+    uk: {
+      teams: 'Хочу обговорити демонстрацію Dzvin.co для компанії.',
+      individuals: 'Хочу обговорити персональні можливості Dzvin.co.',
+      research: 'Хочу обговорити дослідницьку програму Dzvin.co.',
+    },
+    en: {
+      teams: 'I would like a Dzvin.co demonstration for my organization.',
+      individuals: 'I would like to learn about the personal product.',
+      research: 'I would like to discuss a Dzvin.co research program.',
+    },
+    pl: {
+      teams: 'Chcę umówić prezentację Dzvin.co dla organizacji.',
+      individuals: 'Chcę poznać ofertę dla osób.',
+      research: 'Chcę omówić program badawczy Dzvin.co.',
+    },
   }
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
-  const initialMessage = source === 'docs' ? topics[lang][segment as 'teams' | 'individuals' | 'research'] || topics[lang].teams : ''
+  const initialMessage =
+    source === 'docs' ? topics[lang][segment as 'teams' | 'individuals' | 'research'] || topics[lang].teams : ''
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -93,7 +106,10 @@ export const ContactForm = ({ source, segment }: { source?: 'docs'; segment?: st
       const res = await sendContactForm({
         name,
         email,
-        message: source === 'docs' ? `${message}\n\n[Source: docs.dzvin.co | Intent: demo | Segment: ${segment || 'teams'}]` : message,
+        message:
+          source === 'docs'
+            ? `${message}\n\n[Source: docs.dzvin.co | Intent: demo | Segment: ${segment || 'teams'}]`
+            : message,
         token,
       })
       if (!res.ok) throw new Error('Failed to send message')
@@ -115,7 +131,9 @@ export const ContactForm = ({ source, segment }: { source?: 'docs'; segment?: st
     <div className="mx-auto max-w-lg py-10">
       <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
       <h1 className="mb-6 text-2xl font-bold">{t('title')}</h1>
-      {source === 'docs' && <p className="mb-4 rounded-xl bg-violet-50 p-4 text-sm text-violet-900">{initialMessage}</p>}
+      {source === 'docs' && (
+        <p className="mb-4 rounded-xl bg-violet-50 p-4 text-sm text-violet-900">{initialMessage}</p>
+      )}
       <form onSubmit={handleSubmit} className="flex flex-col gap-sm" noValidate>
         <div className="flex flex-col gap-1">
           <Input

@@ -19,7 +19,7 @@ describe('public documentation', () => {
       ])
       expect(docs.articles.slice(0, 8).every((doc) => doc.sections.length >= 3)).toBe(true)
       expect(docs.articles.every((doc) => doc.sections.length >= 2)).toBe(true)
-      expect(docs.articles.slice(0, 8).every(doc => doc.sections.length >= 3)).toBe(true)
+      expect(docs.articles.slice(0, 8).every((doc) => doc.sections.length >= 3)).toBe(true)
       for (const slug of publicDocSlugs) expect(getPublicDoc(locale, slug)).toBeDefined()
     }
   })

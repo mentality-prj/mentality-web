@@ -39,9 +39,30 @@ export default async function DocArticlePage({ params }: Props) {
   if (!article) notFound()
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
   const c = {
-    uk: { demo: 'Замовити демонстрацію', presentations: 'Презентації продукту', teams: 'Для компаній', individuals: 'Для людей', research: 'Для досліджень', next: 'Підберемо сценарій перевірки Dzvin.co для вашої задачі.' },
-    en: { demo: 'Request a demonstration', presentations: 'Product presentations', teams: 'For organizations', individuals: 'For individuals', research: 'For research', next: 'Discuss a focused Dzvin.co demonstration for your workflow.' },
-    pl: { demo: 'Poproś o prezentację', presentations: 'Prezentacje produktu', teams: 'Dla firm', individuals: 'Dla osób', research: 'Dla badań', next: 'Omówmy demonstrację Dzvin.co dopasowaną do potrzeb.' },
+    uk: {
+      demo: 'Замовити демонстрацію',
+      presentations: 'Презентації продукту',
+      teams: 'Для компаній',
+      individuals: 'Для людей',
+      research: 'Для досліджень',
+      next: 'Підберемо сценарій перевірки Dzvin.co для вашої задачі.',
+    },
+    en: {
+      demo: 'Request a demonstration',
+      presentations: 'Product presentations',
+      teams: 'For organizations',
+      individuals: 'For individuals',
+      research: 'For research',
+      next: 'Discuss a focused Dzvin.co demonstration for your workflow.',
+    },
+    pl: {
+      demo: 'Poproś o prezentację',
+      presentations: 'Prezentacje produktu',
+      teams: 'Dla firm',
+      individuals: 'Dla osób',
+      research: 'Dla badań',
+      next: 'Omówmy demonstrację Dzvin.co dopasowaną do potrzeb.',
+    },
   }[lang]
   const segment = slug === 'research' ? 'research' : slug === 'personal' ? 'individuals' : 'teams'
   const demoUrl = `https://www.dzvin.co/${lang}/contacts?source=docs&intent=demo&segment=${segment}`
@@ -85,7 +106,7 @@ export default async function DocArticlePage({ params }: Props) {
               <section className="mt-10" aria-label={c.presentations}>
                 <h2 className="text-2xl font-bold text-slate-950">{c.presentations}</h2>
                 <div className="mt-4 grid gap-3 sm:grid-cols-3">
-                  {(['teams', 'individuals', 'research'] as const).map(audience => (
+                  {(['teams', 'individuals', 'research'] as const).map((audience) => (
                     <Link
                       key={audience}
                       href={`/docs/decks/${audience}`}
@@ -99,7 +120,12 @@ export default async function DocArticlePage({ params }: Props) {
             )}
             <section className="mt-12 rounded-3xl bg-slate-950 p-6 text-white md:p-8">
               <p className="text-xl font-bold leading-relaxed">{c.next}</p>
-              <a href={demoUrl} className="mt-5 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-violet-100">{c.demo}</a>
+              <a
+                href={demoUrl}
+                className="mt-5 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-violet-100"
+              >
+                {c.demo}
+              </a>
             </section>
             <nav aria-label={docs.links} className="mt-8 flex flex-wrap gap-6 text-sm font-semibold text-violet-800">
               <Link href={`https://www.dzvin.co/${locale}/services`} className="hover:underline">
