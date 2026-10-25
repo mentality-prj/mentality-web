@@ -146,10 +146,10 @@ export default async function DocArticlePage({ params }: Props) {
             <section className="mt-12 rounded-3xl bg-slate-950 p-6 text-white md:p-8">
               <p className="text-xl font-bold leading-relaxed">{isFunding ? c.nextFunding : c.next}</p>
               <a
-                href={demoUrl}
+                href={isFunding ? fundingUrl : demoUrl}
                 className="mt-5 inline-flex items-center rounded-full bg-white px-6 py-3 text-sm font-semibold text-slate-900 hover:bg-violet-100"
               >
-                {c.demo}
+                {isFunding ? c.funding : c.demo}
               </a>
             </section>
             <nav aria-label={docs.links} className="mt-8 flex flex-wrap gap-6 text-sm font-semibold text-violet-800">
