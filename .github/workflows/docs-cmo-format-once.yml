@@ -1,0 +1,36 @@
+name: One-shot Dzvin docs CMO formatting
+on:
+  push:
+    branches:
+      - feat/dzvin-cmo-documentation-rebuild-20261025
+permissions:
+  contents: write
+jobs:
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: feat/dzvin-cmo-documentation-rebuild-20261025
+          fetch-depth: 0
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: yarn
+      - run: yarn install --frozen-lockfile
+        env:
+          HUSKY: 0
+      - name: Fix source import order and formatting
+        run: |
+          yarn eslint --fix 'app/[locale]/(public)/contacts/page.tsx' 'components/features/Contact/ContactForm.tsx' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/ComparisonMatrix.tsx' 'app/[locale]/(public)/docs/RoiScenarioCalculator.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/decks/DeckToolbar.tsx' 'app/[locale]/(public)/docs/decks/[audience]/page.tsx' 'app/sitemap.ts' 'app/robots.ts' 'content/public-docs/decks.ts' 'content/public-docs/index.test.ts'
+          yarn prettier --write 'app/[locale]/(public)/contacts/page.tsx' 'components/features/Contact/ContactForm.tsx' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/ComparisonMatrix.tsx' 'app/[locale]/(public)/docs/RoiScenarioCalculator.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/decks/DeckToolbar.tsx' 'app/[locale]/(public)/docs/decks/[audience]/page.tsx' 'app/[locale]/(public)/docs/decks/deck.css' 'app/sitemap.ts' 'app/robots.ts' 'content/public-docs/decks.ts' 'content/public-docs/index.test.ts' 'docs/PUBLIC_DOCS_PUBLISHING.md'
+      - name: Commit formatting and remove one-shot workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git rm -f .github/workflows/docs-cmo-format-once.yml
+          git add 'app/[locale]/(public)/contacts/page.tsx' 'components/features/Contact/ContactForm.tsx' 'app/[locale]/(public)/docs/DocsDirectory.tsx' 'app/[locale]/(public)/docs/ComparisonMatrix.tsx' 'app/[locale]/(public)/docs/RoiScenarioCalculator.tsx' 'app/[locale]/(public)/docs/DocsNavigation.tsx' 'app/[locale]/(public)/docs/page.tsx' 'app/[locale]/(public)/docs/[slug]/page.tsx' 'app/[locale]/(public)/docs/decks/DeckToolbar.tsx' 'app/[locale]/(public)/docs/decks/[audience]/page.tsx' 'app/[locale]/(public)/docs/decks/deck.css' 'app/sitemap.ts' 'app/robots.ts' 'content/public-docs/decks.ts' 'content/public-docs/index.test.ts' 'docs/PUBLIC_DOCS_PUBLISHING.md'
+          if ! git diff --cached --quiet; then
+            git commit -m "style(docs): format CMO documentation implementation"
+            git push origin HEAD:feat/dzvin-cmo-documentation-rebuild-20261025
+          fi
