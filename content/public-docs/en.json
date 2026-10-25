@@ -235,14 +235,14 @@
           "title": "Personal Workstream",
           "paragraphs": [
             "The web repository contains personal check-in, history, exercise and self-support components and related roadmap tasks.",
-            "Status: code artifacts available; a full live identity/backend/browser E2E is not independently certified by this dossier."
+            "Status: software components implemented; authentication, service integration and end-to-end qualification remain distinct acceptance criteria."
           ]
         },
         {
           "title": "Organizational Workstream",
           "paragraphs": [
             "There are company routes, roles, team analytics and manager decision-support code, but secure multi-tenant access and data migration remain launch gates.",
-            "Status: partially implemented, guarded activation, no verified enterprise customers or field impact."
+            "Status: organizational components implemented; tenant isolation, authorization and secure end-to-end scenarios remain subject to qualification."
           ]
         },
         {
@@ -341,7 +341,7 @@
         {
           "title": "WP3 · User Validation",
           "paragraphs": [
-            "Define consent, minimization, study population, user experience protocol and appropriately controlled real-world feasibility. No recruitment partner is represented as already signed.",
+            "Develop an appropriate feasibility protocol, consent and data-minimization measures, population criteria and research partnerships as part of the work package.",
             "Exit: approved ethics/legal framework, responsibly gathered data, qualitative UX findings and non-inflated outcome reporting."
           ]
         },
@@ -356,7 +356,7 @@
           "title": "Dependencies and Milestones",
           "paragraphs": [
             "WP1 is a release prerequisite; WP2 can run in parallel using synthetic data. WP3 cannot collect real data before required safety/ethics conditions; WP4 requires appropriate evidence quality.",
-            "Unmet gates trigger a scope/financing review, not a success claim."
+            "Unmet acceptance criteria trigger a documented review of scope, schedule, resources and the associated investment milestones."
           ]
         },
         {
@@ -434,7 +434,7 @@
         {
           "title": "Investment Rationale",
           "paragraphs": [
-            "The next development stage is designed to create an asset with auditable engineering readiness, explicit risk management and evidence of product feasibility. Funding supports technology development and market discovery rather than scaling unverified sales.",
+            "The next stage prioritizes secure integration, user validation and a reproducible evaluation of research hypotheses. The investment programme links resources to tangible milestone deliverables.",
             "Possible future avenues include organizational subscriptions, a personal wellbeing product and research collaborations. Their commercial viability will be evaluated, not assumed."
           ]
         },
@@ -442,7 +442,7 @@
           "title": "Next-Stage Outcomes",
           "paragraphs": [
             "A qualified integrated product with verified roles, tenant boundaries, real end-to-end flows and operational safeguards; formal Decision Intelligence research protocols; controlled assessment of user workflows.",
-            "The intended outputs are software artifacts, reproducible tests, security findings, scientific reports and a documented launch-readiness decision—not preclaimed clinical or financial outcomes."
+            "Expected outputs include qualified technical components, reproducible tests, security findings, research reports and a documented progression decision."
           ]
         },
         {

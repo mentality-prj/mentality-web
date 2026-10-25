@@ -235,14 +235,14 @@
           "title": "Moduł indywidualny",
           "paragraphs": [
             "Kod zawiera moduły samooceny, historii, praktyk i dalszych działań.",
-            "Status: częściowa realizacja oprogramowania; uruchomienie organizacyjne zależy od dalszych testów uprawnień, izolacji i integracji."
+            "Status: istniejące komponenty oprogramowania. Pełne działanie z systemem tożsamości i usługami backendowymi wymaga odrębnej kwalifikacji."
           ]
         },
         {
           "title": "Moduł organizacyjny",
           "paragraphs": [
             "Kod zawiera zespoły, role, analitykę i wspomaganie decyzji, ale izolacja firm i uprawnienia pozostają bramkami wydania.",
-            "Status: częściowo wdrożone, nie potwierdzono klientów ani wpływu."
+            "Status: zrealizowane moduły; bezpieczne wdrożenie dla organizacji wymaga potwierdzenia ról, izolacji danych i testów integracyjnych."
           ]
         },
         {
@@ -262,7 +262,7 @@
         {
           "title": "Zarządzanie statusem",
           "paragraphs": [
-            "Do statusu validated wymagane są data, commit, środowisko, protokół testu i akceptacja.",
+            "Zmiana statusu wymaga daty, odniesienia do konkretnego artefaktu, środowiska, protokołu testu i zatwierdzenia przez osobę odpowiedzialną.",
             "Status dojrzałości zmienia się po sprawdzeniu środowiska i spełnieniu kryteriów akceptacji."
           ]
         }
@@ -434,7 +434,7 @@
         {
           "title": "Logika inwestycji",
           "paragraphs": [
-            "Kolejny etap ma stworzyć produkt z audytowalną gotowością techniczną, przejrzystymi ryzykami i dowodami przydatności. Kapitał służy rozwojowi technologii i weryfikacji rynku, nie skalowaniu niepotwierdzonej sprzedaży.",
+            "Kolejny etap koncentruje się na kwalifikacji integracji, bezpieczeństwie, walidacji użytkowników i badaniu hipotez technologicznych. Program inwestycyjny wiąże zasoby z mierzalnymi rezultatami.",
             "Potencjalne drogi rozwoju to model B2B, produkt indywidualny i badania z partnerami naukowymi. Ich opłacalność pozostaje hipotezą do oceny."
           ]
         },
@@ -442,7 +442,7 @@
           "title": "Rezultaty kolejnego etapu",
           "paragraphs": [
             "Zintegrowany produkt z weryfikacją uprawnień, izolacji danych, rzeczywistych przepływów E2E i bezpieczeństwa operacyjnego; protokoły badań Decision Intelligence; kontrolowana ocena doświadczenia użytkowników.",
-            "Rezultatem mają być konkretne komponenty, powtarzalne testy, raport bezpieczeństwa, wyniki metodologiczne i decyzja o gotowości do uruchomienia, a nie z góry obiecane korzyści kliniczne lub finansowe."
+            "Rezultatami etapu będą sprawdzone komponenty, powtarzalne testy, raport bezpieczeństwa, materiały badawcze i udokumentowana decyzja o gotowości do kolejnej fazy."
           ]
         },
         {

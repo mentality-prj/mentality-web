@@ -2,14 +2,14 @@ import { ArrowUpRight, CheckCircle2, Clock3, FlaskConical, ShieldAlert } from 'l
 
 const translations = {
   uk: {
-    title: 'Матриця доказів: що існує, що перевіряємо',
-    columns: ['Напрям', 'Підтверджений артефакт', 'Залишається перевірити'],
+    title: 'Матриця інженерних доказів і контрольних точок',
+    columns: ['Напрям', 'Підтверджений артефакт', 'Наступний критерій приймання'],
     subtitle:
-      'Джерела — публічні GitHub-артефакти й відповідні release gates. Позначення «код існує» не означає завершену перевірку у production.',
+      'Матриця відокремлює програмні артефакти від результатів інтеграційних перевірок та незалежної валідації.',
     entries: [
       {
         name: 'B2C · щоденна підтримка',
-        stage: 'Код і тести',
+        stage: 'Програмні компоненти',
         proof: 'Маршрути чекінів, щоденника, практик і історії у Web.',
         missing: 'Наскрізна авторизація, реальні API, браузерний E2E.',
         url: 'https://github.com/mentality-prj/mentality-web/issues/482',
@@ -17,7 +17,7 @@ const translations = {
       },
       {
         name: 'B2B · команди',
-        stage: 'Код + release gate',
+        stage: 'Прототип · критерії запуску',
         proof: 'Маршрути компаній, менеджерська аналітика, компоненти decision support.',
         missing: 'Tenant isolation, RBAC, backend migrations та захищений E2E.',
         url: 'https://github.com/mentality-prj/mentality-web/issues/445',
@@ -25,7 +25,7 @@ const translations = {
       },
       {
         name: 'R&D · Research Workspace',
-        stage: 'UI + протоколи',
+        stage: 'Дослідницькі компоненти',
         proof: 'Дослідницькі проєкти, когорти, експорт, аудит і документація модулів.',
         missing: 'Етичні погодження, партнери, якісні дані й зовнішня валідація.',
         url: 'https://github.com/mentality-prj/mentality-web/tree/production/components/features/Research',
@@ -41,7 +41,7 @@ const translations = {
       },
       {
         name: 'Готовність до запуску',
-        stage: 'Відкритий gate',
+        stage: 'Кваліфікація триває',
         proof: 'Документація опублікована; окремі компоненти проходили CI.',
         missing: 'Повна release-матриця, security approval, незалежний live E2E.',
         url: 'https://github.com/mentality-prj/mentality-web/issues/445',
@@ -51,8 +51,8 @@ const translations = {
     foot: 'Стан описано станом на 25 жовтня 2026. Підвищення статусу потребує перевірки конкретного середовища, тесту та підтвердження відповідального.',
   },
   en: {
-    title: 'Evidence matrix: built versus still unproven',
-    columns: ['Area', 'Existing evidence', 'Required next validation'],
+    title: 'Engineering Evidence and Qualification Matrix',
+    columns: ['Area', 'Existing evidence', 'Next acceptance criterion'],
     subtitle: 'Public source artifacts and release gates. Existing code does not mean production qualification.',
     entries: [
       {
@@ -65,7 +65,7 @@ const translations = {
       },
       {
         name: 'B2B · organizations',
-        stage: 'Code + launch gate',
+        stage: 'Prototype · launch criteria',
         proof: 'Company routes, group analytics and decision-support components.',
         missing: 'Tenant isolation, RBAC, backend migrations and secured E2E.',
         url: 'https://github.com/mentality-prj/mentality-web/issues/445',
@@ -89,7 +89,7 @@ const translations = {
       },
       {
         name: 'Launch readiness',
-        stage: 'Gate open',
+        stage: 'Qualification pending',
         proof: 'Documentation deployed and selected CI-covered components.',
         missing: 'Complete security, integrated release and independent live E2E.',
         url: 'https://github.com/mentality-prj/mentality-web/issues/445',
@@ -99,8 +99,8 @@ const translations = {
     foot: 'Status dated October 25, 2026. Upgrading a claim requires test scope, environment and accountable sign-off.',
   },
   pl: {
-    title: 'Macierz dowodów: co istnieje, co wymaga sprawdzenia',
-    columns: ['Obszar', 'Obecne dowody', 'Co wymaga walidacji'],
+    title: 'Macierz dowodów technicznych i gotowości',
+    columns: ['Obszar', 'Obecne dowody', 'Kolejne kryterium akceptacji'],
     subtitle: 'Publiczne repozytoria i warunki wydania. Istniejący kod nie oznacza gotowości produkcyjnej.',
     entries: [
       {
@@ -113,7 +113,7 @@ const translations = {
       },
       {
         name: 'B2B · organizacje',
-        stage: 'Kod + warunek wydania',
+        stage: 'Prototyp · kryteria uruchomienia',
         proof: 'Grupy, analityka i moduły wspomagania decyzji.',
         missing: 'Izolacja firm, RBAC, migracje i bezpieczne E2E.',
         url: 'https://github.com/mentality-prj/mentality-web/issues/445',
@@ -137,7 +137,7 @@ const translations = {
       },
       {
         name: 'Gotowość do startu',
-        stage: 'Otwarte warunki',
+        stage: 'Trwa kwalifikacja',
         proof: 'Dokumentacja i wybrane komponenty przechodzą CI.',
         missing: 'Bezpieczeństwo, integracja i niezależny E2E.',
         url: 'https://github.com/mentality-prj/mentality-web/issues/445',

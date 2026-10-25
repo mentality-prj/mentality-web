@@ -1,6 +1,17 @@
 import { deckAudiences, getProductDeck } from './decks'
 
 describe('public product presentations', () => {
+  it('keeps grant work packages aligned with the four-package investment programme', () => {
+    for (const locale of ['uk', 'en', 'pl'] as const) {
+      const grant = getProductDeck(locale, 'grant')
+      const workPackageSlide = grant.slides.find((slide) => slide.points.some((point) => point.startsWith('WP1')))
+      expect(workPackageSlide).toBeDefined()
+      for (const number of [1, 2, 3, 4]) {
+        expect(workPackageSlide?.points.some((point) => point.startsWith(`WP${number}`))).toBe(true)
+      }
+    }
+  })
+
   it('provides seven substantial slides for every audience in all locales', () => {
     for (const locale of ['uk', 'en', 'pl']) {
       for (const audience of deckAudiences) {
