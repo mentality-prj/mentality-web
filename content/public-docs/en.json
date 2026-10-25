@@ -475,24 +475,24 @@
       "summary": "How Dzvin.co connects team-level patterns with a managed response",
       "sections": [
         {
-          "title": "A clearer picture of team wellbeing",
+          "title": "Product strategy",
           "paragraphs": [
-            "Dzvin.co helps HR and leaders move from fragmented questionnaires toward continuous review of team wellbeing patterns and a structured response to risk signals.",
-            "Its core B2B offer combines organization structure and permissions, permitted group views, trends, risk events and manager workflows. Separate personal and research experiences support ongoing observations and structured study programs."
+            "Dzvin.co is being developed as a platform connecting wellbeing observations with context and follow-up processes across personal, organizational and research workstreams.",
+            "The common principle is to move from an isolated signal to an explainable, human-controlled option and its subsequent evaluation."
           ]
         },
         {
-          "title": "When an organization already runs surveys",
+          "title": "Organizational application",
           "paragraphs": [
-            "A survey often ends at a report. Dzvin.co focuses on ongoing context: how group-level signals change, which events require review and what happens next.",
-            "This does not guarantee a reduction in burnout. Assess pilot outcomes such as time to review, participation consistency and workflow quality."
+            "The target design provides authorized group-level trends and a structured process for responsible staff to review signals.",
+            "Permissions, privacy safeguards, enterprise readiness and operational value remain subject to dedicated validation."
           ]
         },
         {
-          "title": "Personal and research experiences",
+          "title": "Research connection",
           "paragraphs": [
-            "Individual check-ins, practices and history form the personal journey. Research projects and cohorts support structured program evaluations.",
-            "Evaluate the experience that fits your role and current business challenge."
+            "The research programme examines how policy rules, model signals, uncertainty and explanations can improve informed action selection.",
+            "QDIP is considered a technology direction for evaluating this hypothesis within mental wellbeing."
           ]
         }
       ]
@@ -504,31 +504,24 @@
       "summary": "Organizations first, with separate personal and research use cases",
       "sections": [
         {
-          "title": "Built for distinct audiences",
+          "title": "Personal segment",
           "paragraphs": [
-            "The main commercial audience is an organization seeking a more systematic approach to team wellbeing. HR and People Operations typically work with line managers and budget owners when considering a pilot.",
-            "Individuals can use check-ins, history, practices and goals. Research organizations can manage projects, cohorts, access, historic records and export requests. These are different use cases with different success measures."
+            "The personal workstream combines repeated self-reports, longitudinal history, goals and optional practices.",
+            "Its intended purpose is structured reflection and self-directed action, not automated clinical assessment."
           ]
         },
         {
-          "title": "HR and People Operations",
+          "title": "Organizational segment",
           "paragraphs": [
-            "Understand team-level trends, investigate potential sources of pressure and set appropriate support priorities.",
-            "Evaluate observation coverage, time to review a signal and workflow follow-through, not just a single average score."
+            "The target experience includes organizational roles, group indicators and a controlled team-support process.",
+            "Development priorities cover permissions, data quality, user feasibility and prospective commercial requirements."
           ]
         },
         {
-          "title": "Team leaders",
+          "title": "Research segment",
           "paragraphs": [
-            "Work with permitted groups, review patterns and inspect specific risk events.",
-            "Administrators manage structure, membership and access rights. Available information is role-dependent."
-          ]
-        },
-        {
-          "title": "Research partners",
-          "paragraphs": [
-            "Manage cohorts and participants, historical observations, inspection, exports and audit history.",
-            "Program evaluations need a defined protocol and actual evidence beyond dashboard availability."
+            "Research Workspace is designed around projects, participants, cohorts, repeated measurements, controlled data access and audit.",
+            "The potential value is a reproducible environment for comparing decision policies and analytical models."
           ]
         }
       ]
@@ -540,24 +533,24 @@
       "summary": "Personal, organizational and research capabilities without inflated claims",
       "sections": [
         {
-          "title": "What the product offers",
+          "title": "Personal capabilities",
           "paragraphs": [
-            "For organizations: teams and subgroups, invitations, role-scoped views, period and group filters, aggregated indicators, risk-event feeds and manager follow-up actions.",
-            "For individuals: stress, mood, energy and focus check-ins, records, questionnaires, history, practices and goals. For research: projects, participants, cohorts, historical datasets, inspection, export requests and audit trail."
+            "Software components cover check-ins, notes, questionnaires, practices, goals and history.",
+            "Connected end-to-end journeys and integration stability remain part of release qualification."
           ]
         },
         {
-          "title": "The team workflow",
+          "title": "Organizational capabilities",
           "paragraphs": [
-            "An authorized manager sees summary data, permitted team trends and a feed of risk events. Events support details, follow-up and resolution according to permissions.",
-            "This is decision support for responsible people, not independent automated personnel decisions."
+            "The prototype contains routes and components for companies, groups, permissions, trends and event review.",
+            "Verified authorization, tenant isolation and operational safeguards are required before organizational deployment."
           ]
         },
         {
-          "title": "Boundaries and availability",
+          "title": "Research capabilities",
           "paragraphs": [
-            "The experience varies by role, data and project settings. A listed feature is not necessarily enabled for every account.",
-            "Validate any particular end-to-end scenario in an appropriate demo environment before rollout."
+            "Research components address projects, cohorts, inspection, export requests and audit trails.",
+            "Research use requires approved protocols, data-quality governance and applicable ethical review."
           ]
         }
       ]
@@ -569,31 +562,24 @@
       "summary": "Three product journeys to verify during a demonstration",
       "sections": [
         {
-          "title": "Three real product journeys",
+          "title": "Personal user journey",
           "paragraphs": [
-            "Organization: a manager opens their permitted view, selects a period and groups, reviews changing metrics, opens a risk event and records the next action. This demonstrates an operational workflow.",
-            "Individual: check-in → history → practice → another check-in. Research: project → membership and cohort → history → inspection → export request → audit. Screen access depends on account role."
+            "Target sequence: check-in → history → optional practice → subsequent observation.",
+            "Qualification examines consistent data flow, permissions and user interaction across the full journey."
           ]
         },
         {
-          "title": "Organization walkthrough",
+          "title": "Organizational journey",
           "paragraphs": [
-            "Company overview → group filters → trend → risk event → context → manager follow-up.",
-            "The demonstration should use authorized data and avoid revealing identifiable employee histories."
+            "Target sequence: authorized group → time-series trend → event review → documented follow-up action.",
+            "Validation covers role boundaries, organization isolation, data availability and traceable actions."
           ]
         },
         {
-          "title": "Individual walkthrough",
+          "title": "Research journey",
           "paragraphs": [
-            "Daily check-in → history → exercise or goal → repeat observation.",
-            "Value is continuity; an exercise's effect is not guaranteed."
-          ]
-        },
-        {
-          "title": "Research walkthrough",
-          "paragraphs": [
-            "Research Workspace → project → membership and cohort → historic data → inspection → export request → audit.",
-            "Availability depends on research roles and program permissions."
+            "Target sequence: research project → cohort → data history → inspection → controlled export → audit.",
+            "Technical demonstrations use test data; participant research requires separate protocols and approvals."
           ]
         }
       ]
@@ -605,24 +591,24 @@
       "summary": "A transparent pilot scenario calculator, not a fabricated ROI estimate",
       "sections": [
         {
-          "title": "Assess business value without invented savings",
+          "title": "Commercialization avenues",
           "paragraphs": [
-            "For an organizational pilot the question is not how many charts exist, but whether timely review and coordinated follow-up lead to a measurable operational outcome.",
-            "The scenario calculator below relies on user-entered assumptions only: participants, hourly cost, observed hours recovered, illustrative platform spend and setup cost. It is not an official price or a guaranteed return forecast."
+            "The future model may include contracted enterprise services, a personal experience and research partnerships.",
+            "Next-stage priorities are segment-value discovery and the economics of operating the product, rather than unsupported revenue forecasts."
           ]
         },
         {
-          "title": "Metrics for a pilot",
+          "title": "Economic evaluation framework",
           "paragraphs": [
-            "Compare before and after: time to review a signal, rate of events with a documented follow-up, repeated participation and process administration costs.",
-            "Use comparable baselines and actual company costs when translating outcomes into money."
+            "Enterprise research will examine implementation effort, usage, event-handling processes and operational cost drivers.",
+            "Personal and research segments require separate assessments of feasibility, engagement, servicing cost and data governance."
           ]
         },
         {
-          "title": "Cost components",
+          "title": "Financial-model development",
           "paragraphs": [
-            "Consider licenses, setup, managers' time and support. Commercial terms and scope should be agreed separately.",
-            "The calculator is for scenario assessment, not a quote."
+            "Commercial assumptions will be refined through stakeholder interviews, integration studies and appropriately structured pilots.",
+            "The model will account for acquisition, support and infrastructure costs, possible pricing options and deployment scenarios."
           ]
         }
       ]
@@ -634,24 +620,24 @@
       "summary": "Dzvin.co alongside one-off surveys and standalone dashboards",
       "sections": [
         {
-          "title": "How the approach differs",
+          "title": "Solution categories",
           "paragraphs": [
-            "A one-off survey produces a snapshot. A standalone corporate dashboard may surface trends without an event-handling workflow. Dzvin.co connects repeated observations, group-level views and a manager workflow in its documented product surface.",
-            "This is a category comparison, not a measured ranking of named competitors. Evaluate any alternative against your organization's exact requirements and a live workflow."
+            "Standalone surveys collect periodic feedback; dashboards summarize data; decision-support tools add structured evaluation and follow-up actions.",
+            "Dzvin.co explores integrating these layers with personal journeys and research infrastructure."
           ]
         },
         {
-          "title": "Evaluation criteria",
+          "title": "Differentiation hypothesis",
           "paragraphs": [
-            "Compare observation frequency, group-level insight, access rules, event workflows, research capability and export availability.",
-            "A meaningful comparison needs the same real workflow across solutions."
+            "The research programme combines longitudinal signals, policy constraints, model uncertainty, explanations and human oversight.",
+            "Any advantage over alternative approaches requires comparable evaluation and independent evidence."
           ]
         },
         {
-          "title": "Questions for a demo",
+          "title": "Market assessment framework",
           "paragraphs": [
-            "Can a manager see only permitted groups? Can an event be followed through to action? What happens when data is missing? Which pilot metrics are available?",
-            "These are evaluation questions, not claims about named competitors."
+            "The analysis will cover functional scope, privacy, integration effort, user feasibility and decision auditability.",
+            "Comparisons will use consistent criteria, traceable sources and dated assessments."
           ]
         }
       ]
@@ -663,24 +649,24 @@
       "summary": "Three finished audience-specific decks, printable to PDF",
       "sections": [
         {
-          "title": "Explore Dzvin.co through presentations",
+          "title": "Investment materials",
           "paragraphs": [
-            "The organization deck follows signal → team context → priority → action → review. The individual deck follows the daily observation journey. The research deck explains a controlled program workflow.",
-            "Open one of the three decks below. Present directly in a browser or save to PDF using the print control. No fabricated customers, success percentages or confidential engineering claims are included."
+            "The investor presentation covers strategic rationale, technical foundations, development progress, milestones and partnership structure.",
+            "It supports early funding discussions and technology due diligence."
           ]
         },
         {
-          "title": "Organization deck",
+          "title": "Research funding materials",
           "paragraphs": [
-            "Business problem → team signal → managed response → measurement → pilot. Each deck is a browser-based slide presentation.",
-            "Use the print control to save the slides as a PDF if needed."
+            "The grant presentation outlines DI hypotheses, the QDIP research direction, expected deliverables and the validation programme.",
+            "Research claims are distinguished from implemented components and pending empirical outcomes."
           ]
         },
         {
-          "title": "Individual and research decks",
+          "title": "Product presentations",
           "paragraphs": [
-            "Personal: regular observations and accessible next steps. Research: cohorts, records, reporting and traceability.",
-            "Each presentation leads with the primary customer journey for that audience."
+            "Personal, organizational and research decks outline target capabilities and the planned approach to validating them.",
+            "Presentations can be viewed online or saved as PDF through browser print functionality."
           ]
         }
       ]
@@ -692,24 +678,24 @@
       "summary": "Define the evaluation design and success criteria",
       "sections": [
         {
-          "title": "Pilot design and success criteria",
+          "title": "Pilot programme objectives",
           "paragraphs": [
-            "Begin with one measurable challenge: for example, reducing the time between a team-level signal and a responsible person's review. Agree on the cohort, access, observation window and evaluation criteria before rollout.",
-            "Useful pilot indicators include repeated participation, data completeness, time to review and event handling. For individuals, track repeated check-ins; for research, collection wave completion and traceability. These are suggested metrics, not proven Dzvin.co outcomes."
+            "The pilot programme is designed to evaluate key journeys, data quality, operational security and initial usefulness hypotheses.",
+            "Participant selection, permissions, inclusion criteria and methods are defined before real-data collection."
           ]
         },
         {
-          "title": "Pilot design",
+          "title": "Evaluation methodology",
           "paragraphs": [
-            "Choose an owner, sample, observation window, permissions and measurement approach. Record a baseline before starting.",
-            "A pilot should test a concrete workflow hypothesis, not just show screens."
+            "Candidate metrics cover journey completion, repeat use, data quality, permitted-signal review time and explanation comprehension.",
+            "The QDIP research stream uses separate protocols for calibration, false alerts and decision-level utility."
           ]
         },
         {
-          "title": "Decision after a pilot",
+          "title": "Progression decision",
           "paragraphs": [
-            "Compare outcomes with agreed criteria, assess the cost of rollout and decide the appropriate scope.",
-            "If evidence is incomplete, reflect that in the conclusion."
+            "Observed results are evaluated against preregistered acceptance criteria, risk thresholds and implementation costs.",
+            "The programme decision may support expansion, targeted remediation or revision of the associated hypothesis."
           ]
         }
       ]
