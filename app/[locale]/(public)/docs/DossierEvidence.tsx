@@ -40,15 +40,15 @@ const sources = {
 const titles = {
   uk: {
     title: 'Першоджерела та перевірка тверджень',
-    note: 'Ці джерела підтверджують науковий контекст і наявність інженерних артефактів, але не доводять ефективності Dzvin.co в реальних умовах.',
+    note: 'Джерела документують наукову основу та стан інженерної реалізації. Оцінювання практичних результатів передбачене окремою дослідницькою програмою.',
   },
   en: {
     title: 'Evidence and source documents',
-    note: 'These sources establish scientific context and engineering work, not real-world effectiveness of Dzvin.co.',
+    note: 'These references document scientific foundations and engineering assets; field evaluation forms a separate research milestone.',
   },
   pl: {
     title: 'Źródła i weryfikacja',
-    note: 'Źródła potwierdzają kontekst naukowy i postęp inżynierski, ale nie dowodzą skuteczności Dzvin.co w praktyce.',
+    note: 'Źródła dokumentują podstawy naukowe i prace inżynierskie. Ocena rezultatów terenowych stanowi odrębny etap badań.',
   },
 }
 
