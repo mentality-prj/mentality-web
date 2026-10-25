@@ -10,23 +10,23 @@ const labels = {
   uk: {
     search: 'Пошук за матеріалами',
     noResults: 'Нічого не знайдено',
-    funding: 'Інвестиції, наука та запуск',
-    product: 'Продуктові сценарії (додаток)',
-    reference: 'Довідкові матеріали',
+    funding: 'Стратегія, дослідження та програма розвитку',
+    product: 'Продуктова концепція та застосування',
+    reference: 'Функціональні та нормативні матеріали',
   },
   en: {
     search: 'Search documentation',
     noResults: 'No matching pages',
-    funding: 'Investment, science and launch',
-    product: 'Product scenarios (appendix)',
-    reference: 'Feature reference',
+    funding: 'Strategy, research and development programme',
+    product: 'Product concept and applications',
+    reference: 'Product reference and governance',
   },
   pl: {
     search: 'Przeszukaj dokumentację',
     noResults: 'Brak wyników',
-    funding: 'Finansowanie, nauka i uruchomienie',
-    product: 'Scenariusze produktu (dodatek)',
-    reference: 'Poradniki funkcji',
+    funding: 'Strategia, badania i program rozwoju',
+    product: 'Koncepcja produktu i zastosowania',
+    reference: 'Dokumentacja funkcjonalna i zasady',
   },
 }
 

@@ -1,11 +1,11 @@
 {
-  "title": "Dzvin.co — investment & research funding dossier",
-  "kicker": "Funding dossier · in development",
-  "lead": "A human-centered mental wellbeing project exploring Decision Intelligence. Seeking funding to complete release engineering, independent validation and responsible pilots.",
-  "browse": "Choose what to explore",
-  "back": "All product documentation",
-  "nav": "Dzvin.co product documentation",
-  "status": "Edition: October 2026",
+  "title": "Dzvin.co | Product Strategy & Investment Dossier",
+  "kicker": "Dzvin.co · Project documentation",
+  "lead": "Product strategy, QDIP / Decision Intelligence research, engineering maturity and the programme leading to controlled launch.",
+  "browse": "Document library",
+  "back": "Dzvin.co documentation",
+  "nav": "Documentation sections",
+  "status": "Updated: 25 October 2026",
   "links": "Further resources",
   "services": "Services",
   "faq": "FAQ",
@@ -14,48 +14,48 @@
     {
       "slug": "funding-brief",
       "category": "Investment brief",
-      "title": "Dzvin.co in 3 minutes — funding brief",
+      "title": "Executive Investment Overview",
       "summary": "Problem, DI × mental-health thesis, existing assets, execution milestones and funding purpose",
       "sections": [
         {
-          "title": "The investment thesis",
+          "title": "Investment Thesis",
           "paragraphs": [
             "Dzvin.co is a people-first digital mental-wellbeing project with personal, prospective enterprise, and research experiences. Its proposed scientific differentiator is applying Decision Intelligence and QDIP research principles to explainable, uncertainty-aware, human-controlled action selection rather than risk scores alone.",
-            "As of 25 October 2026 this is a software prototype without paying customers, revenue, completed independent pilots or validated effectiveness. Funding will support a qualified release and scientific/product validation."
+            "Existing engineering work provides the foundation for the next stage: integration qualification, security, research validation and controlled product deployment."
           ]
         },
         {
-          "title": "What the investment stage will deliver",
+          "title": "Value Creation Programme",
           "paragraphs": [
-            "WP1: integrated product and security. WP2: decision-policy science and reproducible evaluation. WP3: ethically governed human feasibility. WP4: evidence, operating readiness and controlled launch.",
+            "The programme consists of WP1 — integration and data protection; WP2 — Decision Intelligence research methods and comparative evaluation; WP3 — user feasibility; and WP4 — independent assessment and launch readiness.",
             "Funding is tied to verifiable outputs from each work package, from product qualification to independent evaluation and launch preparation."
           ]
         },
         {
-          "title": "What is verifiable now",
+          "title": "Existing Technology Base",
           "paragraphs": [
             "Public material includes web-interface code, B2C/B2B/R&D feature modules, source-of-truth roadmap and launch gates, and QDIP's public research narrative.",
-            "These are engineering and research foundations, not customer outcomes or proven clinical performance."
+            "The evidence register distinguishes implemented software from integrated release qualification and future empirical results."
           ]
         },
         {
-          "title": "The falsifiable hypothesis",
+          "title": "Core Research Question",
           "paragraphs": [
             "Can a transparent policy that incorporates temporal risk signals, uncertainty and the ability to abstain improve a preregistered decision-level metric over static advice or prediction alone?",
-            "If prespecified metrics fail, superiority is rejected; calibration, safety, missingness, bias and user override are central evaluation criteria."
+            "The research design includes baseline comparisons, prespecified indicators, model calibration, safety analysis and human oversight of suggested actions."
           ]
         },
         {
-          "title": "Why now",
+          "title": "Strategic Rationale",
           "paragraphs": [
             "Existing technical groundwork makes controlled experiments and release qualification possible without starting from a blank project, while integration and scientific risks remain material.",
-            "The funding thesis is milestone-based risk reduction, not scaling fictitious traction."
+            "The investment stage advances the product from software foundations to a qualified system with reproducible technical and scientific evidence."
           ]
         },
         {
-          "title": "Next meeting",
+          "title": "Partnership Model",
           "paragraphs": [
-            "Investors: technical assets, de-risking tranches, addressable use cases and eventual commercialization hypothesis. Grant reviewers: Excellence/Impact/Implementation, methods, work packages, consortium and call-specific budget.",
+            "Investor engagement covers technology diligence, stage milestones and partnership terms. Research funding covers methodology, deliverables, potential impact and governance.",
             "A binding application additionally requires verified team, legal applicant, staffing, detailed budget, schedule, IP/FTO and eligible funding instrument."
           ]
         }
@@ -64,49 +64,49 @@
     {
       "slug": "investment-thesis",
       "category": "Investment case",
-      "title": "Dzvin.co Investment Thesis",
+      "title": "Strategic Investment Rationale",
       "summary": "The opportunity, project hypothesis and what the next tranche should achieve",
       "sections": [
         {
-          "title": "The project",
+          "title": "Product Strategy",
           "paragraphs": [
             "Dzvin.co combines three related experiences: a private personal wellbeing journey, permissioned team analytics, and a controlled research workspace.",
             "Our research opportunity is applying Decision Intelligence to transform observations and risk signals into explainable, human-supervised next actions with stated uncertainty and feedback."
           ]
         },
         {
-          "title": "Why the problem matters",
+          "title": "Unmet Need",
           "paragraphs": [
             "Standalone check-ins and one-off surveys can fragment observations, context and follow-up. A prediction alone does not tell a user or decision maker which safe action is appropriate.",
             "Mental-health AI needs explicit attention to uncertain and incomplete data, human agency, privacy, bias and the actual outcome of decisions."
           ]
         },
         {
-          "title": "Who it may serve",
+          "title": "Target Segments",
           "paragraphs": [
             "Individuals who want to observe their personal trajectory; HR and managers who need authorized aggregate context rather than employee surveillance; researchers studying repeated measures and intervention processes.",
-            "These are potential beneficiary groups, not existing commercial customers or trial participants."
+            "Research applications support cohort-based studies, longitudinal observations and controlled evaluation. The application segments have distinct validation criteria."
           ]
         },
         {
-          "title": "Existing development evidence",
+          "title": "Technology Assets",
           "paragraphs": [
             "The software repositories contain user-facing interfaces, backend risk/decision-support modules, research-workspace components, tests and methodological specifications.",
-            "These are engineering artifacts, not proof of scalable deployment, validated benefits or revenue."
+            "The codebase forms the starting point for system qualification; external pilot and research outcomes belong to the next programme stage."
           ]
         },
         {
-          "title": "The next value-creation milestone",
+          "title": "Next-Stage Outcomes",
           "paragraphs": [
             "Complete release/security integration, turn research hypotheses into reproducible protocols, enable responsibly recruited pilots, study usefulness and uncertainty, and prepare a controlled product launch.",
-            "Financing should buy a documented reduction in technical, scientific and product uncertainty through specific milestones."
+            "Stage financing can be linked to the acceptance of individual work packages and documented progression criteria."
           ]
         },
         {
-          "title": "Potential sustainability",
+          "title": "Long-Term Business Model",
           "paragraphs": [
             "Hypotheses include future B2B service contracts, funded research partnerships and a separately sustainable personal experience.",
-            "No sales, pricing validation, customer growth, TAM or ROI is claimed as measured evidence."
+            "Business-model parameters will be refined through demand analysis, pricing research, implementation costs and scalability assessment."
           ]
         }
       ]
@@ -114,55 +114,55 @@
     {
       "slug": "scientific-novelty",
       "category": "Scientific case",
-      "title": "Decision Intelligence in mental wellbeing",
+      "title": "Scientific Programme: Decision Intelligence in Mental Wellbeing",
       "summary": "QDIP as a research-enabling decision framework, scientific hypotheses and validation criteria",
       "sections": [
         {
-          "title": "From prediction to a decision",
+          "title": "From Prediction to Informed Action",
           "paragraphs": [
             "A risk model estimates an outcome. Decision Intelligence asks what action could be appropriate, given evidence, alternatives, constraints, uncertainty and human choice.",
-            "This is a research direction for Dzvin, not an autonomously validated clinical decision system."
+            "Human oversight and intended-use boundaries remain central to the research design, particularly when information is incomplete or uncertain."
           ]
         },
         {
-          "title": "Role of QDIP",
+          "title": "QDIP Technology Direction",
           "paragraphs": [
             "QDIP is a distinct Decision Intelligence technology track exploring hybrid rule/model signals, policy governance, explanation, audit and monitoring.",
-            "Dzvin is an application context for testing those ideas in wellbeing. A QDIP component's presence does not prove fully qualified production integration into Dzvin."
+            "Dzvin.co provides the application context for investigating QDIP principles. Integrated system qualification and comparative scientific evaluation remain planned research activities."
           ]
         },
         {
-          "title": "Hypothesis 1: temporal change",
+          "title": "Hypothesis 1 · Longitudinal Dynamics",
           "paragraphs": [
             "Personal trajectories and changing baselines may provide richer signals than a one-off score when data are intermittent.",
             "Evaluation: simple baseline comparison, false alarms, detection delay, missing-data robustness."
           ]
         },
         {
-          "title": "Hypothesis 2: uncertainty and abstention",
+          "title": "Hypothesis 2 · Uncertainty",
           "paragraphs": [
-            "When observations are sparse or noisy, the system should express uncertainty and be able to withhold a risky recommendation.",
+            "The research will examine uncertainty-aware policies that can abstain from making recommendations when observations are sparse or unreliable.",
             "Evaluation: calibration, selective risk, abstention frequency and robustness on incomplete time series."
           ]
         },
         {
-          "title": "Hypothesis 3: explainable action selection",
+          "title": "Hypothesis 3 · Explainable Decisions",
           "paragraphs": [
             "Explore a transparent path from observations to alternative actions, constraints, an explanation, user choice and feedback.",
             "Evaluation: rule-only versus ML-only versus hybrid baselines, audit completeness, explanation comprehension and user override."
           ]
         },
         {
-          "title": "Hypothesis 4: actionable benefit",
+          "title": "Hypothesis 4 · Action Utility",
           "paragraphs": [
             "Test whether decision-aware, user-controlled support improves an agreed proximal outcome relative to fixed suggestions.",
             "Start with feasibility work. Randomized or micro-randomized evaluation requires adequate protocol, ethics and participant protections. No study outcome is claimed."
           ]
         },
         {
-          "title": "What is genuinely novel?",
+          "title": "Scientific Positioning and Novelty",
           "paragraphs": [
-            "Adaptive interventions and Bayesian methods already exist. We do not claim inventing decision science, causal inference or mental-health personalization.",
+            "Adaptive interventions, Bayesian approaches and micro-randomized trials have established scientific foundations. The proposed contribution lies in their domain-specific integration with policy governance, transparency and human control.",
             "Potential contribution lies in the domain-specific, testable combination of policies, uncertainty, explanations, feedback and human control. Novelty remains subject to prior-art assessment and experimental evidence."
           ]
         }
@@ -171,49 +171,49 @@
     {
       "slug": "development-progress",
       "category": "Current status",
-      "title": "Development progress and limits",
+      "title": "Development Status and Engineering Readiness",
       "summary": "Real engineering artifacts versus open release and validation gates",
       "sections": [
         {
-          "title": "Current stage — October 25, 2026",
+          "title": "Technology Status · 25 October 2026",
           "paragraphs": [
-            "Dzvin is an in-development software prototype with a published documentation site and code for personal, organizational and research journeys.",
-            "There are no commercial customers or measured field outcomes. A passing website build does not prove every authenticated workflow is live."
+            "As of 25 October 2026, Dzvin.co is a software prototype with components supporting personal, organizational and research experiences. Production integration and field evaluation form part of the next programme stage.",
+            "Readiness is assessed through integrated workflows, authorization, security controls and operational reliability."
           ]
         },
         {
-          "title": "Personal product",
+          "title": "Personal Product",
           "paragraphs": [
             "The web code includes check-ins, journal, exercises, personal progress, goals and questionnaires. The product roadmap calls for a connected check-in → user-chosen support → feedback → history journey.",
             "Production readiness still requires fully verified auth, privacy, real API and browser end-to-end flows."
           ]
         },
         {
-          "title": "Organizations",
+          "title": "Organizational Product",
           "paragraphs": [
             "Company administration, groups, permissions, analytics and manager decision support have frontend implementations.",
             "Multi-tenant authorization, backend migrations, privileged access checks and real operator E2E are launch gates, not completed customer deployments."
           ]
         },
         {
-          "title": "Research workspace",
+          "title": "Research Infrastructure",
           "paragraphs": [
             "There are project, membership, cohort, inspection, dataset, export-request and audit UI/API artifacts.",
             "External study partners, ethics processes, real datasets and qualified research workflows remain pending."
           ]
         },
         {
-          "title": "Decision Intelligence integration",
+          "title": "Decision Intelligence Integration",
           "paragraphs": [
             "Research documentation covers adaptive risk, explanation, policy control and scientific evaluation plans. Backend decision-support components exist.",
             "Scientific advantage and integrated clinical/operational effectiveness have not been established in real settings."
           ]
         },
         {
-          "title": "What qualifies as complete",
+          "title": "Engineering Acceptance Criteria",
           "paragraphs": [
-            "A feature must pass the relevant authorization, privacy, end-to-end, operational and auditability checks in the target environment.",
-            "A milestone is evidence-based; a visible component or compiled source is not automatically launch-ready."
+            "Engineering acceptance covers authorization, privacy, end-to-end reliability, operational readiness and traceable test evidence.",
+            "Completion is recorded against defined acceptance criteria, target environments and reproducible test evidence."
           ]
         }
       ]
@@ -221,32 +221,32 @@
     {
       "slug": "evidence-register",
       "category": "Evidence & readiness",
-      "title": "Evidence register and development readiness",
+      "title": "Technology Assets and Evidence Register",
       "summary": "Separate software evidence from unverified use cases, research claims and launch gates",
       "sections": [
         {
-          "title": "How to interpret readiness",
+          "title": "Evidence Maturity Levels",
           "paragraphs": [
-            "A route, test, runnable API, end-to-end release and externally validated intervention are different levels of evidence.",
+            "The register distinguishes design documentation, implemented source code, component tests, integrated release checks and empirical evaluation.",
             "The matrix below references public engineering and methodological sources. It does not certify all features as safely activated for every account."
           ]
         },
         {
-          "title": "B2C personal",
+          "title": "Personal Workstream",
           "paragraphs": [
             "The web repository contains personal check-in, history, exercise and self-support components and related roadmap tasks.",
             "Status: code artifacts available; a full live identity/backend/browser E2E is not independently certified by this dossier."
           ]
         },
         {
-          "title": "B2B organizations",
+          "title": "Organizational Workstream",
           "paragraphs": [
             "There are company routes, roles, team analytics and manager decision-support code, but secure multi-tenant access and data migration remain launch gates.",
             "Status: partially implemented, guarded activation, no verified enterprise customers or field impact."
           ]
         },
         {
-          "title": "R&D research",
+          "title": "Research Workstream",
           "paragraphs": [
             "Research Workspace covers projects, cohorts, inspection, datasets, export requests and audit; formal methodology work is documented.",
             "Status: software/research baseline, not external validation or completed ethics-reviewed trial."
@@ -260,10 +260,10 @@
           ]
         },
         {
-          "title": "How evidence will change",
+          "title": "Evidence Governance",
           "paragraphs": [
             "An upgrade to 'validated' requires date, artifact/commit, environment, explicit test or study protocol, and accountable sign-off.",
-            "A marketing claim or mocked test cannot substitute for the actual evidence level."
+            "Evidence status advances following verification of the relevant environment and acceptance criteria."
           ]
         }
       ]
@@ -271,48 +271,48 @@
     {
       "slug": "funding-roadmap",
       "category": "Roadmap",
-      "title": "Roadmap from prototype to launch",
+      "title": "Dzvin.co Development Roadmap",
       "summary": "Milestones, acceptance gates and observable deliverables",
       "sections": [
         {
-          "title": "Phase 1 — secure integration",
+          "title": "Phase 1 · Integration Readiness",
           "paragraphs": [
             "Qualify frontend, NestJS, QDIP boundaries, identity, tenant isolation and rollback.",
             "Exit: reproducible builds, authorized real API flows, security negatives and QA integration evidence."
           ]
         },
         {
-          "title": "Phase 2 — research design",
+          "title": "Phase 2 · Research Methodology",
           "paragraphs": [
             "Define hypotheses, prediction baselines, abstention criteria, harm safeguards, metrics, consent and data protocol.",
             "Exit: registered evaluation protocol, reproducible synthetic baseline comparisons, risk and ethical review."
           ]
         },
         {
-          "title": "Phase 3 — human feasibility",
+          "title": "Phase 3 · Feasibility Evaluation",
           "paragraphs": [
             "Recruit appropriately consented participants/partners and evaluate usability, acceptability and data quality in a bounded study.",
             "Exit: feasible workflow and transparent findings; any required ethics approval obtained before real participant research."
           ]
         },
         {
-          "title": "Phase 4 — DI evaluation",
+          "title": "Phase 4 · Decision Intelligence Evaluation",
           "paragraphs": [
             "Compare policy approaches using suitable data and preregistered metrics for calibration, harms, explanation and decision usefulness.",
             "Exit: auditable report including confidence intervals, limitations and negative findings."
           ]
         },
         {
-          "title": "Phase 5 — controlled launch",
+          "title": "Phase 5 · Controlled Launch",
           "paragraphs": [
             "Prepare production monitoring, support, data policy, deployment gates and a sustainable operating model.",
             "Exit: go/no-go review, production E2E and credible operating plan. Dates depend on budget and partnership commitments."
           ]
         },
         {
-          "title": "How to interpret this roadmap",
+          "title": "Planning Framework",
           "paragraphs": [
-            "Phases are milestone order, not committed calendar dates. Starting/ending TRL, headcount, time estimates and costs should be call-specific and evidence-backed.",
+            "The roadmap defines ordered, dependent milestones. Timelines, team capacity and resource requirements are determined in the approved delivery plan.",
             "Only mark a phase done when its explicit acceptance evidence is available."
           ]
         }
@@ -321,49 +321,49 @@
     {
       "slug": "execution-plan",
       "category": "Implementation",
-      "title": "Work packages, milestone gates and funding tranches",
+      "title": "Implementation Programme WP1–WP4",
       "summary": "A verifiable execution plan connected to risks, deliverables and actual resource budgeting",
       "sections": [
         {
-          "title": "WP1 — secure integrated product",
+          "title": "WP1 · Integration and Data Protection",
           "paragraphs": [
             "Complete Web ↔ NestJS ↔ QDIP contracts, identity, company isolation, permissions, real end-to-end tests and rollback.",
             "Exit: repeatable CI and QA E2E, negative security cases, approved go/no-go and a controlled deployment record."
           ]
         },
         {
-          "title": "WP2 — Decision Intelligence methods",
+          "title": "WP2 · Decision Intelligence Research",
           "paragraphs": [
             "Formalize decision policies and baselines, calibration and abstention, missingness tests, rule/model/hybrid comparisons and the statistical plan.",
             "Exit: preregistered research protocol, reproducible synthetic benchmarks and an uncertainty/bias report, including failed hypotheses."
           ]
         },
         {
-          "title": "WP3 — human feasibility and ethics",
+          "title": "WP3 · User Validation",
           "paragraphs": [
             "Define consent, minimization, study population, user experience protocol and appropriately controlled real-world feasibility. No recruitment partner is represented as already signed.",
             "Exit: approved ethics/legal framework, responsibly gathered data, qualitative UX findings and non-inflated outcome reporting."
           ]
         },
         {
-          "title": "WP4 — evidence and controlled launch",
+          "title": "WP4 · Evaluation and Launch",
           "paragraphs": [
             "If suitable data are available, evaluate decision usefulness and human control; prepare independent review, monitoring, support and the sustainability model.",
             "Exit: auditable results, documented go/no-go, operational checklist, refreshed risk and financial register."
           ]
         },
         {
-          "title": "Dependencies",
+          "title": "Dependencies and Milestones",
           "paragraphs": [
             "WP1 is a release prerequisite; WP2 can run in parallel using synthetic data. WP3 cannot collect real data before required safety/ethics conditions; WP4 requires appropriate evidence quality.",
             "Unmet gates trigger a scope/financing review, not a success claim."
           ]
         },
         {
-          "title": "Resources and governance",
+          "title": "Resource Governance and Reporting",
           "paragraphs": [
             "Budget buckets: engineering, Decision Science/ML, privacy/security/ethics, UX and participants, infrastructure and operations.",
-            "The signed project plan must contain named owners, verified effort and direct costs, timetable, eligible expenses, legal applicant and reporting cadence."
+            "The work-package financial plan will map duration, staffing, direct costs, accountable owners and acceptance deliverables. Investment terms are defined in a separate proposal."
           ]
         }
       ]
@@ -371,49 +371,49 @@
     {
       "slug": "validation-plan",
       "category": "Research plan",
-      "title": "How the science will be tested",
+      "title": "Technology and Scientific Validation Programme",
       "summary": "Technical qualification, user feasibility and decision-level evaluation",
       "sections": [
         {
-          "title": "Engineering evidence",
+          "title": "Engineering Verification",
           "paragraphs": [
             "Verify authentication, tenant boundaries, real interfaces, resilience and operational rollback.",
             "Artifacts: reproducible CI, runtime E2E, negative security cases and traceable logs."
           ]
         },
         {
-          "title": "Ethics and data",
+          "title": "Ethics and Data Governance",
           "paragraphs": [
             "Begin with synthetic scenarios. For real data, establish consent, minimization, access boundaries and appropriate research approval.",
             "Evaluate reidentification risk, bias and harmful overconfidence; aggregation alone is not anonymity."
           ]
         },
         {
-          "title": "Scientific baselines",
+          "title": "Comparative Research",
           "paragraphs": [
             "Compare simple or static rule-based approaches with hybrid policies and explicit uncertainty.",
             "Predefine calibration, Brier score, missing-data stability, selective risk, alerts, detection delay and decision utility where applicable."
           ]
         },
         {
-          "title": "Human usefulness",
+          "title": "User Validation",
           "paragraphs": [
             "Study completion of the daily journey, comprehension of explanations, user autonomy and acceptability.",
-            "No improvement in mental-health outcomes, retention or ROI is asserted before observing and validating real data."
+            "Product studies will establish the evidence required to assess user value, workflow reliability and further development options."
           ]
         },
         {
-          "title": "Research quality",
+          "title": "Research Reproducibility",
           "paragraphs": [
             "Maintain protocols, reproducibility, model configurations, negative results and independent review.",
-            "Use established guidance such as TRIPOD+AI where prediction reporting applies; reporting guidelines do not substitute for clinical/ethics approval."
+            "Applicable reporting standards, including TRIPOD+AI for prediction models, support transparency alongside separate ethics and governance approvals."
           ]
         },
         {
-          "title": "Go/no-go",
+          "title": "Programme Progression Criteria",
           "paragraphs": [
             "Progress when engineering safety, data quality and pre-agreed decision value criteria are met. Stop or revise when access control fails, uncertainty is unsafe or no useful evidence emerges.",
-            "An inconclusive result should be reported, not rebranded as success."
+            "Results outside agreed thresholds trigger a documented review of the underlying hypothesis, model or programme scope."
           ]
         }
       ]
@@ -425,42 +425,42 @@
       "summary": "From an existing software prototype to a launch-qualified product: technology, milestone outcomes and growth options",
       "sections": [
         {
-          "title": "A technology platform with an applied research opportunity",
+          "title": "Technology Opportunity",
           "paragraphs": [
             "Dzvin.co brings together personal wellbeing support, planned organization-level insights and a research workspace. The QDIP / Decision Intelligence direction explores explainable next-action selection with context, explicit uncertainty and human control.",
             "The opportunity builds on existing engineering assets and their potential to become a validated product across distinct use cases. Technical and scientific advantages remain to be tested."
           ]
         },
         {
-          "title": "The investment thesis",
+          "title": "Investment Rationale",
           "paragraphs": [
             "The next development stage is designed to create an asset with auditable engineering readiness, explicit risk management and evidence of product feasibility. Funding supports technology development and market discovery rather than scaling unverified sales.",
             "Possible future avenues include organizational subscriptions, a personal wellbeing product and research collaborations. Their commercial viability will be evaluated, not assumed."
           ]
         },
         {
-          "title": "Milestone outcomes",
+          "title": "Next-Stage Outcomes",
           "paragraphs": [
             "A qualified integrated product with verified roles, tenant boundaries, real end-to-end flows and operational safeguards; formal Decision Intelligence research protocols; controlled assessment of user workflows.",
             "The intended outputs are software artifacts, reproducible tests, security findings, scientific reports and a documented launch-readiness decision—not preclaimed clinical or financial outcomes."
           ]
         },
         {
-          "title": "Execution and checkpoints",
+          "title": "Execution Programme",
           "paragraphs": [
             "WP1: product integration and security. WP2: QDIP / DI research baselines, comparative protocols and metrics. WP3: human-centered usability and feasibility research under appropriate ethics controls. WP4: independent analysis and controlled launch preparation.",
             "Each work package has acceptance criteria and go/no-go gates. Dependencies and evidence are documented in the execution plan and evidence register."
           ]
         },
         {
-          "title": "Potential sustainability",
+          "title": "Sustainability Model",
           "paragraphs": [
             "Following product and market validation, options to evaluate include enterprise licensing, funded research collaborations and further development of the personal experience.",
             "Commercial planning will rely on evidence from future studies, willingness-to-pay research, operating costs, product quality and long-term support requirements."
           ]
         },
         {
-          "title": "Investment and research partnerships",
+          "title": "Investment and Research Partnerships",
           "paragraphs": [
             "For private investors: discuss funding the next technology milestone with measurable deliverables, risk governance and reporting. For foundations: defined research work packages, evaluation methods and prospective impact.",
             "Capital amount, detailed budget, timetable and contractual terms are developed in a tailored investment or grant proposal. Investor and grant presentations, the roadmap and the evidence register are available for review."
@@ -471,28 +471,28 @@
     {
       "slug": "product-story",
       "category": "Positioning",
-      "title": "From signals to team action",
+      "title": "Dzvin.co Product Concept",
       "summary": "How Dzvin.co connects team-level patterns with a managed response",
       "sections": [
         {
-          "title": "A clearer picture of team wellbeing",
+          "title": "Product strategy",
           "paragraphs": [
-            "Dzvin.co helps HR and leaders move from fragmented questionnaires toward continuous review of team wellbeing patterns and a structured response to risk signals.",
-            "Its core B2B offer combines organization structure and permissions, permitted group views, trends, risk events and manager workflows. Separate personal and research experiences support ongoing observations and structured study programs."
+            "Dzvin.co is being developed as a platform connecting wellbeing observations with context and follow-up processes across personal, organizational and research workstreams.",
+            "The common principle is to move from an isolated signal to an explainable, human-controlled option and its subsequent evaluation."
           ]
         },
         {
-          "title": "When an organization already runs surveys",
+          "title": "Organizational application",
           "paragraphs": [
-            "A survey often ends at a report. Dzvin.co focuses on ongoing context: how group-level signals change, which events require review and what happens next.",
-            "This does not guarantee a reduction in burnout. Assess pilot outcomes such as time to review, participation consistency and workflow quality."
+            "The target design provides authorized group-level trends and a structured process for responsible staff to review signals.",
+            "Permissions, privacy safeguards, enterprise readiness and operational value remain subject to dedicated validation."
           ]
         },
         {
-          "title": "Personal and research experiences",
+          "title": "Research connection",
           "paragraphs": [
-            "Individual check-ins, practices and history form the personal journey. Research projects and cohorts support structured program evaluations.",
-            "Evaluate the experience that fits your role and current business challenge."
+            "The research programme examines how policy rules, model signals, uncertainty and explanations can improve informed action selection.",
+            "QDIP is considered a technology direction for evaluating this hypothesis within mental wellbeing."
           ]
         }
       ]
@@ -500,35 +500,28 @@
     {
       "slug": "solutions",
       "category": "Audiences",
-      "title": "Who Dzvin.co serves",
+      "title": "Target Segments and Applications",
       "summary": "Organizations first, with separate personal and research use cases",
       "sections": [
         {
-          "title": "Built for distinct audiences",
+          "title": "Personal segment",
           "paragraphs": [
-            "The main commercial audience is an organization seeking a more systematic approach to team wellbeing. HR and People Operations typically work with line managers and budget owners when considering a pilot.",
-            "Individuals can use check-ins, history, practices and goals. Research organizations can manage projects, cohorts, access, historic records and export requests. These are different use cases with different success measures."
+            "The personal workstream combines repeated self-reports, longitudinal history, goals and optional practices.",
+            "Its intended purpose is structured reflection and self-directed action, not automated clinical assessment."
           ]
         },
         {
-          "title": "HR and People Operations",
+          "title": "Organizational segment",
           "paragraphs": [
-            "Understand team-level trends, investigate potential sources of pressure and set appropriate support priorities.",
-            "Evaluate observation coverage, time to review a signal and workflow follow-through, not just a single average score."
+            "The target experience includes organizational roles, group indicators and a controlled team-support process.",
+            "Development priorities cover permissions, data quality, user feasibility and prospective commercial requirements."
           ]
         },
         {
-          "title": "Team leaders",
+          "title": "Research segment",
           "paragraphs": [
-            "Work with permitted groups, review patterns and inspect specific risk events.",
-            "Administrators manage structure, membership and access rights. Available information is role-dependent."
-          ]
-        },
-        {
-          "title": "Research partners",
-          "paragraphs": [
-            "Manage cohorts and participants, historical observations, inspection, exports and audit history.",
-            "Program evaluations need a defined protocol and actual evidence beyond dashboard availability."
+            "Research Workspace is designed around projects, participants, cohorts, repeated measurements, controlled data access and audit.",
+            "The potential value is a reproducible environment for comparing decision policies and analytical models."
           ]
         }
       ]
@@ -536,28 +529,28 @@
     {
       "slug": "capability-map",
       "category": "Capabilities",
-      "title": "What Dzvin.co can do",
+      "title": "Product Capability Architecture",
       "summary": "Personal, organizational and research capabilities without inflated claims",
       "sections": [
         {
-          "title": "What the product offers",
+          "title": "Personal capabilities",
           "paragraphs": [
-            "For organizations: teams and subgroups, invitations, role-scoped views, period and group filters, aggregated indicators, risk-event feeds and manager follow-up actions.",
-            "For individuals: stress, mood, energy and focus check-ins, records, questionnaires, history, practices and goals. For research: projects, participants, cohorts, historical datasets, inspection, export requests and audit trail."
+            "Software components cover check-ins, notes, questionnaires, practices, goals and history.",
+            "Connected end-to-end journeys and integration stability remain part of release qualification."
           ]
         },
         {
-          "title": "The team workflow",
+          "title": "Organizational capabilities",
           "paragraphs": [
-            "An authorized manager sees summary data, permitted team trends and a feed of risk events. Events support details, follow-up and resolution according to permissions.",
-            "This is decision support for responsible people, not independent automated personnel decisions."
+            "The prototype contains routes and components for companies, groups, permissions, trends and event review.",
+            "Verified authorization, tenant isolation and operational safeguards are required before organizational deployment."
           ]
         },
         {
-          "title": "Boundaries and availability",
+          "title": "Research capabilities",
           "paragraphs": [
-            "The experience varies by role, data and project settings. A listed feature is not necessarily enabled for every account.",
-            "Validate any particular end-to-end scenario in an appropriate demo environment before rollout."
+            "Research components address projects, cohorts, inspection, export requests and audit trails.",
+            "Research use requires approved protocols, data-quality governance and applicable ethical review."
           ]
         }
       ]
@@ -565,35 +558,28 @@
     {
       "slug": "demo-scenarios",
       "category": "Live demos",
-      "title": "How Dzvin.co works",
+      "title": "Core User Journeys",
       "summary": "Three product journeys to verify during a demonstration",
       "sections": [
         {
-          "title": "Three real product journeys",
+          "title": "Personal user journey",
           "paragraphs": [
-            "Organization: a manager opens their permitted view, selects a period and groups, reviews changing metrics, opens a risk event and records the next action. This demonstrates an operational workflow.",
-            "Individual: check-in → history → practice → another check-in. Research: project → membership and cohort → history → inspection → export request → audit. Screen access depends on account role."
+            "Target sequence: check-in → history → optional practice → subsequent observation.",
+            "Qualification examines consistent data flow, permissions and user interaction across the full journey."
           ]
         },
         {
-          "title": "Organization walkthrough",
+          "title": "Organizational journey",
           "paragraphs": [
-            "Company overview → group filters → trend → risk event → context → manager follow-up.",
-            "The demonstration should use authorized data and avoid revealing identifiable employee histories."
+            "Target sequence: authorized group → time-series trend → event review → documented follow-up action.",
+            "Validation covers role boundaries, organization isolation, data availability and traceable actions."
           ]
         },
         {
-          "title": "Individual walkthrough",
+          "title": "Research journey",
           "paragraphs": [
-            "Daily check-in → history → exercise or goal → repeat observation.",
-            "Value is continuity; an exercise's effect is not guaranteed."
-          ]
-        },
-        {
-          "title": "Research walkthrough",
-          "paragraphs": [
-            "Research Workspace → project → membership and cohort → historic data → inspection → export request → audit.",
-            "Availability depends on research roles and program permissions."
+            "Target sequence: research project → cohort → data history → inspection → controlled export → audit.",
+            "Technical demonstrations use test data; participant research requires separate protocols and approvals."
           ]
         }
       ]
@@ -601,28 +587,28 @@
     {
       "slug": "economics",
       "category": "B2B value",
-      "title": "Business value and costs",
+      "title": "Commercialization and Economic Model",
       "summary": "A transparent pilot scenario calculator, not a fabricated ROI estimate",
       "sections": [
         {
-          "title": "Assess business value without invented savings",
+          "title": "Commercialization avenues",
           "paragraphs": [
-            "For an organizational pilot the question is not how many charts exist, but whether timely review and coordinated follow-up lead to a measurable operational outcome.",
-            "The scenario calculator below relies on user-entered assumptions only: participants, hourly cost, observed hours recovered, illustrative platform spend and setup cost. It is not an official price or a guaranteed return forecast."
+            "The future model may include contracted enterprise services, a personal experience and research partnerships.",
+            "Next-stage priorities are segment-value discovery and the economics of operating the product, rather than unsupported revenue forecasts."
           ]
         },
         {
-          "title": "Metrics for a pilot",
+          "title": "Economic evaluation framework",
           "paragraphs": [
-            "Compare before and after: time to review a signal, rate of events with a documented follow-up, repeated participation and process administration costs.",
-            "Use comparable baselines and actual company costs when translating outcomes into money."
+            "Enterprise research will examine implementation effort, usage, event-handling processes and operational cost drivers.",
+            "Personal and research segments require separate assessments of feasibility, engagement, servicing cost and data governance."
           ]
         },
         {
-          "title": "Cost components",
+          "title": "Financial-model development",
           "paragraphs": [
-            "Consider licenses, setup, managers' time and support. Commercial terms and scope should be agreed separately.",
-            "The calculator is for scenario assessment, not a quote."
+            "Commercial assumptions will be refined through stakeholder interviews, integration studies and appropriately structured pilots.",
+            "The model will account for acquisition, support and infrastructure costs, possible pricing options and deployment scenarios."
           ]
         }
       ]
@@ -630,28 +616,28 @@
     {
       "slug": "comparison",
       "category": "Evaluation",
-      "title": "Comparing approaches",
+      "title": "Market Positioning",
       "summary": "Dzvin.co alongside one-off surveys and standalone dashboards",
       "sections": [
         {
-          "title": "How the approach differs",
+          "title": "Solution categories",
           "paragraphs": [
-            "A one-off survey produces a snapshot. A standalone corporate dashboard may surface trends without an event-handling workflow. Dzvin.co connects repeated observations, group-level views and a manager workflow in its documented product surface.",
-            "This is a category comparison, not a measured ranking of named competitors. Evaluate any alternative against your organization's exact requirements and a live workflow."
+            "Standalone surveys collect periodic feedback; dashboards summarize data; decision-support tools add structured evaluation and follow-up actions.",
+            "Dzvin.co explores integrating these layers with personal journeys and research infrastructure."
           ]
         },
         {
-          "title": "Evaluation criteria",
+          "title": "Differentiation hypothesis",
           "paragraphs": [
-            "Compare observation frequency, group-level insight, access rules, event workflows, research capability and export availability.",
-            "A meaningful comparison needs the same real workflow across solutions."
+            "The research programme combines longitudinal signals, policy constraints, model uncertainty, explanations and human oversight.",
+            "Any advantage over alternative approaches requires comparable evaluation and independent evidence."
           ]
         },
         {
-          "title": "Questions for a demo",
+          "title": "Market assessment framework",
           "paragraphs": [
-            "Can a manager see only permitted groups? Can an event be followed through to action? What happens when data is missing? Which pilot metrics are available?",
-            "These are evaluation questions, not claims about named competitors."
+            "The analysis will cover functional scope, privacy, integration effort, user feasibility and decision auditability.",
+            "Comparisons will use consistent criteria, traceable sources and dated assessments."
           ]
         }
       ]
@@ -659,28 +645,28 @@
     {
       "slug": "presentation-kit",
       "category": "Presentation toolkit",
-      "title": "Dzvin.co presentations",
+      "title": "Presentation Library",
       "summary": "Three finished audience-specific decks, printable to PDF",
       "sections": [
         {
-          "title": "Explore Dzvin.co through presentations",
+          "title": "Investment materials",
           "paragraphs": [
-            "The organization deck follows signal → team context → priority → action → review. The individual deck follows the daily observation journey. The research deck explains a controlled program workflow.",
-            "Open one of the three decks below. Present directly in a browser or save to PDF using the print control. No fabricated customers, success percentages or confidential engineering claims are included."
+            "The investor presentation covers strategic rationale, technical foundations, development progress, milestones and partnership structure.",
+            "It supports early funding discussions and technology due diligence."
           ]
         },
         {
-          "title": "Organization deck",
+          "title": "Research funding materials",
           "paragraphs": [
-            "Business problem → team signal → managed response → measurement → pilot. Each deck is a browser-based slide presentation.",
-            "Use the print control to save the slides as a PDF if needed."
+            "The grant presentation outlines DI hypotheses, the QDIP research direction, expected deliverables and the validation programme.",
+            "Research claims are distinguished from implemented components and pending empirical outcomes."
           ]
         },
         {
-          "title": "Individual and research decks",
+          "title": "Product presentations",
           "paragraphs": [
-            "Personal: regular observations and accessible next steps. Research: cohorts, records, reporting and traceability.",
-            "Each presentation leads with the primary customer journey for that audience."
+            "Personal, organizational and research decks outline target capabilities and the planned approach to validating them.",
+            "Presentations can be viewed online or saved as PDF through browser print functionality."
           ]
         }
       ]
@@ -688,28 +674,28 @@
     {
       "slug": "po-guide",
       "category": "For Product Owners",
-      "title": "Pilot and rollout",
+      "title": "Pilot Validation Strategy",
       "summary": "Define the evaluation design and success criteria",
       "sections": [
         {
-          "title": "Pilot design and success criteria",
+          "title": "Pilot programme objectives",
           "paragraphs": [
-            "Begin with one measurable challenge: for example, reducing the time between a team-level signal and a responsible person's review. Agree on the cohort, access, observation window and evaluation criteria before rollout.",
-            "Useful pilot indicators include repeated participation, data completeness, time to review and event handling. For individuals, track repeated check-ins; for research, collection wave completion and traceability. These are suggested metrics, not proven Dzvin.co outcomes."
+            "The pilot programme is designed to evaluate key journeys, data quality, operational security and initial usefulness hypotheses.",
+            "Participant selection, permissions, inclusion criteria and methods are defined before real-data collection."
           ]
         },
         {
-          "title": "Pilot design",
+          "title": "Evaluation methodology",
           "paragraphs": [
-            "Choose an owner, sample, observation window, permissions and measurement approach. Record a baseline before starting.",
-            "A pilot should test a concrete workflow hypothesis, not just show screens."
+            "Candidate metrics cover journey completion, repeat use, data quality, permitted-signal review time and explanation comprehension.",
+            "The QDIP research stream uses separate protocols for calibration, false alerts and decision-level utility."
           ]
         },
         {
-          "title": "Decision after a pilot",
+          "title": "Progression decision",
           "paragraphs": [
-            "Compare outcomes with agreed criteria, assess the cost of rollout and decide the appropriate scope.",
-            "If evidence is incomplete, reflect that in the conclusion."
+            "Observed results are evaluated against preregistered acceptance criteria, risk thresholds and implementation costs.",
+            "The programme decision may support expansion, targeted remediation or revision of the associated hypothesis."
           ]
         }
       ]
@@ -717,28 +703,28 @@
     {
       "slug": "getting-started",
       "category": "Basics",
-      "title": "Getting started",
+      "title": "Personal Product Overview",
       "summary": "What the service does and how to begin",
       "sections": [
         {
-          "title": "Purpose",
+          "title": "Product purpose",
           "paragraphs": [
-            "Dzvin.co helps people record stress, mood, energy and focus, review trends and find potentially useful wellbeing activities.",
-            "There are separate experiences for individuals, organizations and research programs."
+            "The personal workstream is designed to support repeated observations of stress, mood, energy and focus.",
+            "The proposed journey connects check-ins, personal history and optional wellbeing activities."
           ]
         },
         {
-          "title": "First steps",
+          "title": "Target user journey",
           "paragraphs": [
-            "Create an account or sign in. Open My Day, complete a short self-check and review the available guidance.",
-            "Check in consistently. Trends matter more than a single daily score."
+            "The intended sequence comprises identity verification, a brief self-report, longitudinal history and an optional next action.",
+            "Integrated authentication and real-data workflows remain subject to release qualification."
           ]
         },
         {
-          "title": "Interpreting results",
+          "title": "Interpreting observations",
           "paragraphs": [
-            "A single response reflects one moment, not your overall health.",
-            "Some functionality is limited by role or release stage."
+            "A single observation reflects a subjective state at a given moment; longitudinal review may provide additional context.",
+            "Self-reports are not equivalent to clinical assessment and cannot establish causation."
           ]
         }
       ]
@@ -746,28 +732,28 @@
     {
       "slug": "personal",
       "category": "Individuals",
-      "title": "Personal support",
+      "title": "Personal Workstream",
       "summary": "Daily check-ins, questionnaires and progress",
       "sections": [
         {
-          "title": "Daily checks",
+          "title": "Self-observation model",
           "paragraphs": [
-            "The standard check-in covers stress, mood, energy and focus on a 1–5 scale.",
-            "Notes and repeated observations offer context, but cannot establish causation."
+            "The prototype includes four core indicators: stress, mood, energy and focus.",
+            "Repeated entries provide a personal timeline, with interpretation dependent on context and data quality."
           ]
         },
         {
-          "title": "Suggestions and exercises",
+          "title": "Activities and goals",
           "paragraphs": [
-            "Relevant exercises and suggestions may follow a check-in. Personal features also support viewing history and goals.",
-            "Compare periods rather than trying to optimize one number."
+            "The target experience includes voluntary practices, personal goals and the ability to revisit observations.",
+            "User acceptability and appropriateness of suggested actions will be assessed in the validation programme."
           ]
         },
         {
           "title": "Questionnaires",
           "paragraphs": [
-            "Short psychological questionnaires may help with self-reflection.",
-            "They do not establish a diagnosis or prescribe treatment."
+            "Structured questionnaires are considered supporting instruments for repeated observations.",
+            "Their intended use and interpretation are governed by the relevant methodology rather than automated diagnosis."
           ]
         }
       ]
@@ -775,28 +761,28 @@
     {
       "slug": "organizations",
       "category": "Organizations",
-      "title": "Team insights",
+      "title": "Organizational Workstream",
       "summary": "Aggregated patterns and decision support",
       "sections": [
         {
-          "title": "Organizational use",
+          "title": "Organizational purpose",
           "paragraphs": [
-            "The team experience helps analyze group-level changes in stress, energy and wellbeing.",
-            "Available reports and access depend on user permissions and organization settings."
+            "The organizational workstream is being developed around permissioned team-level trends and managed response processes.",
+            "Proposed capabilities cover group views, role-scoped access and structured decision support."
           ]
         },
         {
-          "title": "Acting on signals",
+          "title": "Management oversight",
           "paragraphs": [
-            "A risk signal should prompt further contextual review, not an automated judgement about an employee.",
-            "Do not make personnel decisions from one aggregate metric. Small groups may still permit re-identification."
+            "Group indicators are intended to support contextual review and prioritization of wellbeing initiatives.",
+            "Employment and other sensitive decisions remain with authorized people; the system is not intended for automated judgments based on a single score."
           ]
         },
         {
-          "title": "Responsibilities",
+          "title": "Data protection",
           "paragraphs": [
-            "Organizations remain responsible for appropriate legal grounds for processing and transparent staff communication.",
-            "Aggregation alone does not ensure anonymity."
+            "The model emphasizes data minimization, access segmentation and assessment of small-group reidentification risks.",
+            "Operational use will depend on legal basis, organizational policies and successful security qualification."
           ]
         }
       ]
@@ -804,28 +790,28 @@
     {
       "slug": "research",
       "category": "Research",
-      "title": "Research and validation",
+      "title": "Research Workstream",
       "summary": "Cohorts, repeated observations and evidence quality",
       "sections": [
         {
-          "title": "Research workflows",
+          "title": "Research scope",
           "paragraphs": [
-            "Research scenarios include cohort comparisons, repeated measurements and program outcome reviews.",
-            "Access to a feature does not imply independent clinical validation of every model."
+            "Research Workspace is designed around projects, cohorts, repeated measures, controlled exports and audit.",
+            "Scientific use requires a defined protocol, appropriately scoped permissions and traceable workflows."
           ]
         },
         {
           "title": "Evidence quality",
           "paragraphs": [
-            "Specify samples, metrics, windows, missing-data handling and quality criteria before analysis.",
-            "Separate correlation, prediction and causal effects. Report uncertainty."
+            "Evaluation protocols cover population, metrics, temporal availability, missing values and prespecified hypotheses.",
+            "Research reporting distinguishes predictive performance, association and causal inference."
           ]
         },
         {
-          "title": "Access",
+          "title": "Research governance",
           "paragraphs": [
-            "Research partnerships, data scope and publishing terms are agreed separately.",
-            "Ethics and privacy requirements remain applicable."
+            "Data access is governed by legitimate research purpose, permissions and applicable ethics review.",
+            "Reproducibility and operational auditability are independent research acceptance criteria."
           ]
         }
       ]
@@ -833,28 +819,28 @@
     {
       "slug": "privacy",
       "category": "Trust",
-      "title": "Privacy and data",
+      "title": "Data Governance and Privacy",
       "summary": "Data processing, access and user rights",
       "sections": [
         {
-          "title": "Your data",
+          "title": "Data handling principles",
           "paragraphs": [
-            "The service may process account information, voluntary assessments and product interactions.",
-            "The current Privacy Policy defines the precise categories, purposes and legal basis."
+            "The product concept includes account data, voluntary self-reports and interaction records processed for specified purposes.",
+            "Processing grounds, data categories and data-subject rights are described in the current Privacy Policy."
           ]
         },
         {
-          "title": "Workplace access",
+          "title": "Organizational access boundaries",
           "paragraphs": [
-            "Organizational reports must respect permissions and applicable privacy rules.",
-            "Avoid entering unnecessary sensitive details and never share account credentials."
+            "Role-based and organization-scoped access is part of the intended architecture.",
+            "Tenant isolation, small-group privacy and access auditing remain mandatory qualification criteria."
           ]
         },
         {
-          "title": "Your rights",
+          "title": "Individual rights",
           "paragraphs": [
-            "Use official Dzvin.co contacts to request access, correction or deletion of personal data.",
-            "This guide does not replace the Privacy Policy or Terms of Service."
+            "Requests concerning access, rectification or deletion are managed through Dzvin.co's official contact channels.",
+            "Specific obligations are defined by applicable law and the governing privacy documents."
           ]
         }
       ]
@@ -862,44 +848,44 @@
     {
       "slug": "limitations",
       "category": "Important",
-      "title": "Capabilities and limitations",
+      "title": "Scope, Limitations and Safety",
       "summary": "What indicators and predictions can and cannot establish",
       "sections": [
         {
-          "title": "Uncertainty",
+          "title": "Interpretation boundaries",
           "paragraphs": [
-            "Self-reports may be incomplete, biased or context-dependent. Forecasts and risk indicators do not guarantee outcomes.",
-            "Recommendations are not proof of causal effects."
+            "Self-reports and derived signals depend on the completeness, frequency and context of observations.",
+            "A prediction or aggregated trend does not itself establish a causal effect."
           ]
         },
         {
-          "title": "Medical boundary",
+          "title": "Clinical scope",
           "paragraphs": [
-            "Dzvin.co is not an emergency service. It does not diagnose conditions or replace medical or psychological care.",
-            "For an immediate safety or health emergency, contact local emergency services."
+            "Dzvin.co is being developed for wellbeing support and research, not emergency care or automated diagnosis.",
+            "Any future clinical use would require separate intended-use, regulatory and evidence assessments."
           ]
         },
         {
-          "title": "Availability",
+          "title": "Release availability",
           "paragraphs": [
-            "Some reports and modules may be role-restricted or not generally available while the product evolves.",
-            "For current availability, consult the FAQ or support team."
+            "Workstreams have distinct permissions, data configurations and deployment stages.",
+            "Availability is determined by the completion of integration, security and operational acceptance gates."
           ]
         }
       ]
     }
   ],
-  "referenceTitle": "Feature reference",
-  "featuredCta": "Discuss funding",
-  "featuredNote": "Dzvin.co is pre-launch. Funding is sought for qualified integration, reproducible research and a controlled launch.",
-  "fundingHeadline": "From wellbeing observations to decisions we can evaluate",
-  "fundingIntro": "Dzvin.co is developing personal wellbeing journeys, authorized team-level insights and a research program exploring Decision Intelligence in mental health. We aim to test whether explainable, uncertainty-aware signals can support appropriate human-controlled next steps.",
-  "stageLabel": "STAGE: SOFTWARE PROTOTYPE / PRE-LAUNCH",
-  "stageDescription": "In development. No commercial customers, completed customer pilots or validated clinical effects. Public software components and research artifacts exist; complete integrations, security gates and full live E2E remain to be qualified.",
-  "fundingCta": "Discuss funding",
-  "fundingSecondaryCta": "View investor deck",
-  "fundingLibrary": "Investment and grant dossier",
-  "productLibrary": "Appendix: product and user journeys",
-  "evidenceLabel": "Evidence and verification standards",
-  "fundingNote": "We seek support to reduce measurable development and research uncertainty, not to sell proven outcomes."
+  "referenceTitle": "Product reference and governance",
+  "featuredCta": "Investor presentation",
+  "featuredNote": "Current maturity and release criteria are documented in the evidence register and development roadmap.",
+  "fundingHeadline": "Dzvin.co: Decision Support Technology for Mental Wellbeing",
+  "fundingIntro": "An emerging platform connecting personal experiences, organizational capabilities and a Decision Intelligence research programme informed by QDIP.",
+  "stageLabel": "PRODUCT STAGE · DEVELOPMENT & INTEGRATION",
+  "stageDescription": "Software foundations exist across personal, organizational and research workstreams. The next gates cover integration, security, research evaluation and controlled launch readiness. External customer pilots and outcome studies have not yet been completed.",
+  "fundingCta": "Investment partnership",
+  "fundingSecondaryCta": "Investor presentation",
+  "fundingLibrary": "Strategy, technology and development programme",
+  "productLibrary": "Product concept and use cases",
+  "evidenceLabel": "Supporting evidence and readiness",
+  "fundingNote": "Engineering evidence, research hypotheses and planned studies are presented at distinct maturity levels."
 }

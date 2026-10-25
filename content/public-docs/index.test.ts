@@ -62,6 +62,41 @@ describe('public investor documentation', () => {
       )
     }
   })
+  it('keeps enterprise project documentation consistent across all locales', () => {
+    const expectedTitles = {
+      uk: 'Інвестиційна можливість Dzvin.co',
+      en: 'Dzvin.co Investment Opportunity',
+      pl: 'Dzvin.co — możliwość inwestycyjna',
+    }
+    for (const locale of ['uk', 'en', 'pl'] as const) {
+      const docs = getPublicDocs(locale)
+      expect(docs.articles).toHaveLength(23)
+      expect(getPublicDoc(locale, 'funding-request')?.title).toBe(expectedTitles[locale])
+      expect(getPublicDoc(locale, 'scientific-novelty')?.sections.length).toBeGreaterThanOrEqual(7)
+      expect(getPublicDoc(locale, 'economics')?.sections).toHaveLength(3)
+      for (const article of docs.articles) {
+        expect(article.summary.length).toBeGreaterThan(25)
+        expect(article.sections.every((section) => section.paragraphs.length >= 2)).toBe(true)
+      }
+    }
+  })
+  it('keeps internal editorial notes, fabricated returns and ROI calculators out of public documents', () => {
+    const banned =
+      /(?:we don.t invent|ми не вигадуємо|nie wymyślamy|не є CRM|not a CRM|kalkulator nie jest|не комерційна оферта|traction|підставляйте свої дані)/i
+    for (const locale of ['uk', 'en', 'pl']) {
+      const docs = getPublicDocs(locale)
+      const text = docs.articles
+        .map((article) =>
+          [
+            article.title,
+            article.summary,
+            ...article.sections.flatMap((section) => [section.title, ...section.paragraphs]),
+          ].join(' ')
+        )
+        .join(' ')
+      expect(text).not.toMatch(banned)
+    }
+  })
   it('rejects unknown documents', () => {
     expect(getPublicDoc('uk', '../internal')).toBeUndefined()
   })

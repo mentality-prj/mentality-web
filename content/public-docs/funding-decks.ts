@@ -58,7 +58,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Чому це зараз pre-launch',
+          title: 'Поточна стадія та інженерна готовність',
           description:
             'Немає комерційних клієнтів, завершених досліджень ефективності чи підтвердженого product-market fit.',
           points: [
@@ -69,7 +69,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Маршрут до запуску',
-          description: 'П’ять доказових етапів з gate-критеріями, без вигаданих дат.',
+          description: 'П’ять етапів із визначеними критеріями приймання та контрольними точками.',
           points: [
             '1. Інтеграції та приватність → 2. Research protocol',
             '3. Feasibility та UX → 4. Дослідження DI',
@@ -87,7 +87,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Бізнес-модель як гіпотеза',
+          title: 'Стратегія комерціалізації',
           description:
             'Після валідації можна перевіряти B2B-ліцензії, партнерські дослідницькі програми та розвиток персонального продукту.',
           points: [
@@ -97,7 +97,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Запит до партнера',
+          title: 'Модель інвестиційного партнерства',
           description: 'Обговорімо формат фінансування, бюджет на віхи, права та дослідницьких партнерів.',
           points: [
             'Погодити обсяг наступного траншу за реальними кошторисами',
@@ -184,7 +184,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Фінансова логіка',
+          title: 'Фінансова модель дослідницької програми',
           description: 'Сума й тривалість визначаються на основі команди, бюджету та правил конкретного конкурсу.',
           points: [
             'Інженерія · R&D · ethics/security · інфраструктура',
@@ -194,7 +194,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Запрошення до співпраці',
-          description: 'Шукаємо фінансування та наукових партнерів для незалежної перевірки інновації.',
+          description: 'Програма передбачає партнерства для технологічного розвитку та незалежної наукової оцінки.',
           points: [
             'Узгодити конкурс і eligibility',
             'Підготувати консорціум, work packages, бюджет',
@@ -247,7 +247,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Pre-launch reality',
+          title: 'Current development stage',
           description:
             'There are no commercial customers, completed effectiveness studies or established product-market fit.',
           points: [
@@ -258,7 +258,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Path to launch',
-          description: 'Five evidence-gated milestones rather than invented delivery dates.',
+          description: 'Five evidence-gated phases with explicit milestones and acceptance criteria.',
           points: [
             'Integration → protocol → feasibility',
             'DI evaluation → controlled launch',
@@ -272,7 +272,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           points: ['Integration and security', 'Decision Intelligence R&D', 'Pilots, people and infrastructure'],
         },
         {
-          title: 'Business hypotheses',
+          title: 'Commercialization strategy',
           description:
             'Future B2B contracts, funded research and personal product growth are possibilities to evaluate.',
           points: [
@@ -282,7 +282,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-          title: 'Partner invitation',
+          title: 'Investment partnership model',
           description: 'Discuss milestones, budget, governance and the suitable financing instrument.',
           points: ['Agree a costed tranche', 'Define reporting and go/no-go', 'Begin investor diligence'],
         },
