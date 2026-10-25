@@ -38,7 +38,6 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-        {
           title: 'Ринок і конкурентне середовище',
           description:
             'Потреба в підтримці добробуту на роботі вимірювана; платоспроможний попит на Dzvin.co ще потребує перевірки.',
@@ -247,7 +246,6 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
-        {
           title: 'Market need and alternatives',
           description:
             'Workplace wellbeing has a measurable burden; demand for Dzvin.co itself remains to be validated.',
@@ -431,7 +429,6 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           description: 'Trzy obszary z odrębnymi modelami dalszego rozwoju.',
           points: ['Osoby: obserwacja i wsparcie', 'Firmy: dozwolona analityka grup', 'Nauka: kohorty i badania'],
         },
-        {
         {
           title: 'Potrzeba rynku i alternatywy',
           description: 'Problemy dobrostanu w pracy są mierzalne; popyt na Dzvin.co wymaga odrębnej walidacji.',
