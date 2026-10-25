@@ -84,10 +84,10 @@ export default async function ProductDeckPage({ params }: Props) {
             <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
           </a>
         </div>
-        <section className="dzvin-slide dzvin-slide-cover relative flex aspect-[16/9] flex-col justify-between overflow-hidden rounded-3xl border border-border bg-background-muted p-8 text-textcolor-primary shadow-sm md:p-14">
+        <section className="dzvin-slide dzvin-slide-cover relative flex flex-col justify-between gap-8 overflow-hidden rounded-3xl border border-border bg-background-muted p-5 text-textcolor-primary shadow-sm sm:p-8 lg:p-14 xl:aspect-[16/9] xl:gap-0">
           <div className="relative z-10 flex items-center justify-between gap-4">
             <span className="font-semibold tracking-[0.25em] text-primary">DZVIN.CO</span>
-            <span className="text-xs font-semibold uppercase tracking-wider text-textcolor-secondary">
+            <span className="min-w-0 text-right text-xs font-semibold uppercase tracking-wider text-textcolor-secondary">
               {isFunding ? c.fundingLabel : c.label}
             </span>
           </div>
@@ -95,10 +95,10 @@ export default async function ProductDeckPage({ params }: Props) {
             <p className="mb-4 text-sm font-semibold uppercase tracking-[0.2em] text-primary">
               {isFunding ? c.fundingLabel : c.label}
             </p>
-            <h1 className="text-3xl font-bold leading-tight tracking-tight text-textcolor-primary md:text-6xl">
+            <h1 className="text-3xl font-bold leading-tight tracking-tight text-textcolor-primary lg:text-6xl">
               {deck.title}
             </h1>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-textcolor-secondary md:text-2xl">
+            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-textcolor-secondary lg:text-2xl">
               {deck.subtitle}
             </p>
           </div>
@@ -111,7 +111,7 @@ export default async function ProductDeckPage({ params }: Props) {
         {deck.slides.map((slide, index) => (
           <section
             key={slide.title}
-            className="dzvin-slide flex aspect-[16/9] flex-col justify-between overflow-hidden rounded-3xl border border-slate-200 bg-white p-8 shadow-xl md:p-14"
+            className="dzvin-slide flex flex-col justify-between gap-8 overflow-hidden rounded-3xl border border-slate-200 bg-white p-5 shadow-xl sm:p-8 lg:p-14 xl:aspect-[16/9] xl:gap-0"
             aria-label={`${c.page} ${index + 2}: ${slide.title}`}
           >
             <div>
@@ -121,10 +121,10 @@ export default async function ProductDeckPage({ params }: Props) {
                   {String(index + 2).padStart(2, '0')} / {String(deck.slides.length + 1).padStart(2, '0')}
                 </span>
               </div>
-              <h2 className="max-w-4xl text-2xl font-bold leading-tight tracking-tight text-slate-950 md:text-5xl">
+              <h2 className="max-w-4xl text-2xl font-bold leading-tight tracking-tight text-slate-950 lg:text-5xl">
                 {slide.title}
               </h2>
-              <p className="mt-5 max-w-4xl text-base leading-relaxed text-slate-600 md:text-xl">{slide.description}</p>
+              <p className="mt-5 max-w-4xl text-base leading-relaxed text-slate-600 lg:text-xl">{slide.description}</p>
             </div>
             <div className="grid gap-3 md:grid-cols-2 md:gap-5">
               {slide.points.map((point) => (
