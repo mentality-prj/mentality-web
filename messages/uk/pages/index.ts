@@ -3,6 +3,7 @@ import Admin from './Admin.json'
 import AffirmationsPage from './AffirmationsPage.json'
 import AnxietyCheck from './AnxietyCheck.json'
 import Auth from './Auth.json'
+import Business from './Business.json'
 import Callback from './Callback.json'
 import Company from './Company.json'
 import CookiesPolicy from './CookiesPolicy.json'
@@ -12,6 +13,7 @@ import FAQ from './FAQ.json'
 import Guide from './Guide.json'
 import K10 from './K10.json'
 import Landing from './Landing.json'
+import LeadPipeline from './LeadPipeline.json'
 import Meditation from './Meditation.json'
 import MentalCheck from './MentalCheck.json'
 import MentalGames from './MentalGames.json'
@@ -22,6 +24,7 @@ import PrivacyPolicy from './PrivacyPolicy.json'
 import Profile from './Profile.json'
 import PsychologicalTests from './PsychologicalTests.json'
 import Research from './Research.json'
+import ResearchPartners from './ResearchPartners.json'
 import ServerError from './ServerError.json'
 import Services from './Services.json'
 import Settings from './Settings.json'
@@ -32,6 +35,7 @@ export const pages = {
   Admin,
   AffirmationsPage,
   Auth,
+  Business,
   Callback,
   Company,
   AnxietyCheck,
@@ -42,6 +46,7 @@ export const pages = {
   Guide,
   K10,
   Landing,
+  LeadPipeline,
   Meditation,
   MentalCheck,
   MoodTracker,
@@ -51,6 +56,7 @@ export const pages = {
   PrivacyPolicy,
   PsychologicalTests,
   Research,
+  ResearchPartners,
   MentalGames,
   Services,
   Settings,

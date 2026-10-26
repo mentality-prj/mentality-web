@@ -56,8 +56,9 @@ describe('transparent, non-predictive next action', () => {
       action: 'breathing',
       href: '/guide/breathing',
     })
-    expect(chooseMoodNextStep({ ...base, stressLevel: 99, moodLevel: undefined, energyLevel: NaN, focusLevel: 0 }))
-      .toEqual({ observation: 'general', action: 'breathing', href: '/guide/breathing' })
+    expect(
+      chooseMoodNextStep({ ...base, stressLevel: 99, moodLevel: undefined, energyLevel: NaN, focusLevel: 0 })
+    ).toEqual({ observation: 'general', action: 'breathing', href: '/guide/breathing' })
     expect(chooseMoodNextStep({ ...base, stressLevel: 4.5, moodLevel: 0 }).observation).toBe('general')
   })
 

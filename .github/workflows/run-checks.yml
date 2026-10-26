@@ -5,6 +5,8 @@ on:
     branches:
       - dev
       - production
+      - 'release/**'
+      - 'integration/**'
 
 jobs:
   check-file-changes:
@@ -79,9 +81,32 @@ jobs:
         run: yarn prettier
       - name: Unit tests
         run: yarn test --runInBand --watch=false
+      - name: Design system and P0 safety audit
+        run: node scripts/audit-design-system.mjs
       - name: Unified API transport policy
         run: node --test scripts/api-boundary.test.mjs
       - name: Smoke harness tests
         run: node --test scripts/e2e-smoke.test.mjs
       - name: Next production build
+        run: yarn build
+
+  release-build:
+    needs: check-file-changes
+    if: needs.check-file-changes.outputs.changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+          cache: yarn
+      - name: Install locked dependencies
+        env:
+          HUSKY: '0'
+        run: yarn install --frozen-lockfile
+      - name: Generate Next.js route types
+        run: yarn next typegen
+      - name: Independently compile the production app
         run: yarn build

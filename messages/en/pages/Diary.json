@@ -1,4 +1,6 @@
 {
   "title": "Diary",
-  "subtitle": "Keep a journal of your thoughts"
+  "subtitle": "Keep a journal of your thoughts",
+  "historyError": "Couldn't load your diary history. This doesn't mean your entries are gone.",
+  "retryHistory": "Try loading again"
 }

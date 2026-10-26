@@ -64,8 +64,18 @@ export function useAddNewNote({ availableTags = [], onSave, onClose }: Params) {
 
       notifySuccess(t('saveSuccess'))
       resetForm()
-      if (onSave) onSave()
-      if (onClose) onClose()
+      // The write succeeded. A failed router refresh or close callback must not
+      // be treated as a failed save or invite a duplicate diary submission.
+      try {
+        onSave?.()
+        onClose?.()
+      } catch {
+        // The saved record remains authoritative; it will appear on a later refresh.
+      }
+    } catch {
+      // An unexpected transport rejection must preserve the typed note and
+      // selected tags, and let the user retry after connectivity returns.
+      notifyError(t('saveError'))
     } finally {
       setIsSubmitting(false)
     }

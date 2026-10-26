@@ -34,11 +34,10 @@ describe('My Progress personal activity feedback', () => {
     expect(screen.getByRole('heading', { name: 'categories.focus' })).toBeInTheDocument()
     expect(screen.getByText('helpful')).toBeInTheDocument()
     expect(screen.getByText('notHelpful')).toBeInTheDocument()
-    const links = screen.getAllByRole('link', { name: 'changeAction' })
-    expect(links).toHaveLength(2)
-    expect(links[0]).toHaveAttribute('href', '/guide/meditations')
-    expect(links[1]).toHaveAttribute('href', '/mental-games/attention-sprint')
+    expect(screen.getByRole('link', { name: 'repeatAction' })).toHaveAttribute('href', '/guide/meditations')
+    expect(screen.getByRole('link', { name: 'changeAction' })).toHaveAttribute('href', '/mental-games/attention-sprint')
     expect(screen.queryByText('categories.breathing')).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'returnToMyDay' })).toHaveAttribute('href', '/my-day')
     expect(screen.getByText('limitNote')).toBeInTheDocument()
   })
 
@@ -48,6 +47,7 @@ describe('My Progress personal activity feedback', () => {
     expect(screen.queryByText('notHelpful')).not.toBeInTheDocument()
     expect(screen.getByRole('link', { name: 'browseAction' })).toHaveAttribute('href', '/guide/breathing')
     expect(screen.queryByRole('alert')).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'returnToMyDay' })).toHaveAttribute('href', '/my-day')
   })
 
   it('distinguishes an unavailable backend from empty or saved feedback', async () => {
@@ -56,6 +56,7 @@ describe('My Progress personal activity feedback', () => {
     expect(screen.queryByText('empty')).not.toBeInTheDocument()
     expect(screen.queryByRole('link', { name: 'browseAction' })).not.toBeInTheDocument()
     expect(screen.queryByText('helpful')).not.toBeInTheDocument()
+    expect(screen.getByRole('link', { name: 'returnToMyDay' })).toHaveAttribute('href', '/my-day')
   })
 
   it('renders the four existing activity routes without adding IDs or new APIs', async () => {
@@ -70,9 +71,11 @@ describe('My Progress personal activity feedback', () => {
         failed: false,
       })
     )
-    expect(screen.getAllByRole('link', { name: 'changeAction' }).map((link) => link.getAttribute('href'))).toEqual([
+    expect(screen.getAllByRole('link', { name: 'repeatAction' }).map((link) => link.getAttribute('href'))).toEqual([
       '/guide/breathing',
       '/guide/calming',
+    ])
+    expect(screen.getAllByRole('link', { name: 'changeAction' }).map((link) => link.getAttribute('href'))).toEqual([
       '/guide/meditations',
       '/mental-games/attention-sprint',
     ])

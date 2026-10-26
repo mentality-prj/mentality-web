@@ -1,7 +1,9 @@
 import { getTranslations } from 'next-intl/server'
 
 import AddNewNoteSection from '@/components/features/Diary/AddNewNoteSection/AddNewNoteSection'
+import { DiaryHistoryError } from '@/components/features/Diary/DiaryHistoryError'
 import UserNotes from '@/components/features/Diary/UserNotes/UserNotes'
+import { SafetyResources } from '@/components/features/Guide/SafetyResources'
 import { PageTitle } from '@/ds/components/PageTitle'
 import { getServerSession } from '@/lib/get-server-session'
 import { getUserDiaries } from '@/requests/diary'
@@ -14,6 +16,7 @@ export default async function DiaryPage() {
   return (
     <div className="flex flex-col gap-md">
       <PageTitle title={t('pages.Diary.title')} subtitle={t('pages.Diary.subtitle')} />
+      <SafetyResources showDiaryPrivacy />
       <div className="grid grid-cols-1 gap-default laptop:grid-cols-2">
         <AddNewNoteSection />
         {/* TODO: fix calendar */}
@@ -30,7 +33,7 @@ export default async function DiaryPage() {
           inactiveLabel={t('components.Calendar.daysWithoutActivity', { type: 'myThoughts' })}
         /> */}
       </div>
-      <UserNotes notes={response.data ?? []} />
+      {'error' in response ? <DiaryHistoryError /> : <UserNotes notes={response.data ?? []} />}
     </div>
   )
 }

@@ -2,12 +2,89 @@ import { logger } from '@/lib/logger'
 import { CustomSession } from '@/types/auth'
 
 /** Public NestJS endpoints use the same same-origin BFF, never a browser-to-NestJS URL. */
-export async function publicApiRequest<T extends object>(path: '/contact', payload: T): Promise<Response> {
+export async function publicApiRequest<T extends object>(
+  path: '/contact' | '/contact/business' | '/contact/research',
+  payload: T
+): Promise<Response> {
   return fetch(`/api/backend${path}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(payload),
     cache: 'no-store',
+  })
+}
+
+/** Exact same-origin BFF transports for operator-only lead management.
+ * These do not grant access: NestJS verifies Mongo role + explicit allowlist.
+ * No client bearer, company ID, user activity or personal journal is attached.
+ */
+export type OperatorLeadStage = 'inquiry' | 'qualified' | 'demo' | 'pilot' | 'decision' | 'won' | 'lost' | 'closed'
+
+export function listOperatorLeads(category: 'business' | 'research', dueOnly = false): Promise<Response> {
+  const due = dueOnly ? '&due=true' : ''
+  return fetch(`/api/backend/contact/internal/leads?category=${category}&limit=25${due}`, {
+    cache: 'no-store',
+  })
+}
+
+export function getOperatorLeadSummary(category: 'business' | 'research'): Promise<Response> {
+  return fetch(`/api/backend/contact/internal/leads/summary?category=${category}`, {
+    cache: 'no-store',
+  })
+}
+
+export function getOperatorLead(id: string): Promise<Response> {
+  if (!/^[a-fA-F0-9]{24}$/.test(id)) throw new Error('Invalid lead ID')
+  return fetch(`/api/backend/contact/internal/leads/${id}`, { cache: 'no-store' })
+}
+
+export function advanceOperatorLeadStage(
+  id: string,
+  expectedStage: OperatorLeadStage,
+  nextStage: OperatorLeadStage
+): Promise<Response> {
+  if (!/^[a-fA-F0-9]{24}$/.test(id)) throw new Error('Invalid lead ID')
+  return fetch(`/api/backend/contact/internal/leads/${id}/stage`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
+    body: JSON.stringify({ expectedStage, nextStage }),
+  })
+}
+
+export type LeadNextAction = 'reply' | 'schedule_demo' | 'prepare_pilot' | 'review_decision'
+
+export function planOperatorLeadFollowUp(
+  id: string,
+  expectedStage: OperatorLeadStage,
+  expectedRevision: number,
+  followUpOn: string | null,
+  nextAction: LeadNextAction | null
+): Promise<Response> {
+  if (!/^[a-fA-F0-9]{24}$/.test(id)) throw new Error('Invalid lead ID')
+  return fetch(`/api/backend/contact/internal/leads/${id}/follow-up`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
+    body: JSON.stringify({ expectedStage, expectedRevision, followUpOn, nextAction }),
+  })
+}
+
+/** Records only the human operator's declared result. It does not send mail. */
+export function completeOperatorLeadFollowUp(
+  id: string,
+  expectedStage: OperatorLeadStage,
+  expectedRevision: number,
+  outcome: 'contacted' | 'no_response',
+  followUpOn: string | null = null,
+  nextAction: LeadNextAction | null = null
+): Promise<Response> {
+  if (!/^[a-fA-F0-9]{24}$/.test(id)) throw new Error('Invalid lead ID')
+  return fetch(`/api/backend/contact/internal/leads/${id}/follow-up/complete`, {
+    method: 'PATCH',
+    headers: { 'Content-Type': 'application/json' },
+    cache: 'no-store',
+    body: JSON.stringify({ expectedStage, expectedRevision, outcome, followUpOn, nextAction }),
   })
 }
 

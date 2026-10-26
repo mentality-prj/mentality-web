@@ -102,12 +102,15 @@
     "afterLogin": "Dostępne po zalogowaniu",
     "open": "Otwórz",
     "closing": "Twoje informacje o samopoczuciu i wpisy pozostają w osobistej przestrzeni.",
-    "signup": "Zacznij za darmo"
+    "signup": "Zacznij za darmo",
+    "progressTitle": "Zauważaj, co było pomocne właśnie dla Ciebie",
+    "progressDescription": "Po ćwiczeniu możesz dobrowolnie ocenić, czy Ci pomogło. Twoje ostatnie oceny są widoczne w Moich postępach i można je zmienić lub usunąć.",
+    "progressCta": "Zobacz moje postępy"
   },
   "Platform": {
     "eyebrow": "Dzvin · dla ludzi",
-    "title": "Nie musisz trzymać wszystkiego w głowie.",
-    "subtitle": "Czasem chcesz zapisać swoje myśli. Innym razem po prostu zaznaczyć, jak się czujesz. Dzvin zachowuje te chwile w osobistej historii, do której możesz wrócić.",
+    "title": "Poznaj siebie lepiej. Dzień po dniu.",
+    "subtitle": "Zapisuj samopoczucie, zachowuj myśli i wybieraj krótkie ćwiczenia we własnym tempie. Jeśli chcesz, oceniaj aktywności i wracaj do swojej historii i postępów.",
     "primaryCta": "Wypróbuj Dzvin",
     "secondaryCta": "Poznaj Dzvin",
     "capabilitiesHeading": "Co obejmuje rozwiązanie dla firm",
@@ -140,20 +143,20 @@
     "description": "Osobisty Dzvin pozostaje pod Twoją kontrolą. Firmy i badacze mają odrębne narzędzia.",
     "b2b": {
       "label": "Dla firm · B2B",
-      "title": "Wspieranie zespołów zamiast nadzoru nad ludźmi",
-      "description": "Narzędzia dla HR i kierownictwa: grupy, role i zagregowane wskaźniki zespołów. Prywatne wpisy pracowników pozostają prywatne.",
+      "title": "Wsparcie pracowników i rozwój zespołów",
+      "description": "Indywidualne wsparcie dla pracowników. Dla firm rozwijamy odrębne narzędzia i uprawnione dane zbiorcze bez dostępu do prywatnych dzienników.",
       "features": {
         "teams": "Struktura organizacji i role",
         "analytics": "Zagregowane dane zespołowe",
         "decisions": "Kontekst do decyzji o wsparciu"
       },
-      "cta": "Porozmawiaj o wdrożeniu",
+      "cta": "Porozmawiajmy o pilotażu",
       "detailsCta": "Możliwości dla firm"
     },
     "b2c": {
       "label": "Dla Ciebie · B2C",
       "title": "Twój osobisty Dzvin",
-      "description": "Notatki, zapisy samopoczucia i ćwiczenia, do których wrócisz, kiedy zechcesz.",
+      "description": "Zapisy samopoczucia, prywatny dziennik, ćwiczenia i dobrowolne oceny — aby wracać do tego, co sam uznajesz za pomocne.",
       "features": {
         "checkins": "Dostrzegaj zmiany w samopoczuciu",
         "diary": "Zapisuj myśli w prywatnym dzienniku",
@@ -163,14 +166,24 @@
     },
     "rd": {
       "label": "Dla badań · R&D",
-      "title": "Dane do sprawdzania hipotez",
-      "description": "Projekty badawcze, kohorty i narzędzia do pracy z wynikami.",
+      "title": "Wspólne badania dobrostanu",
+      "description": "Zapraszamy uczelnie i zespoły badawcze do wspólnego projektowania protokołów, kohort i ewaluacji. Predykcja pozostaje kierunkiem badań.",
       "features": {
-        "cohorts": "Kohorty i projekty badawcze",
-        "validation": "Porównywanie obserwacji",
-        "reports": "Audyty i raportowanie badań"
+        "cohorts": "Kohorty i protokoły",
+        "validation": "Plany ewaluacji",
+        "reports": "Raportowanie i odtwarzalność"
       },
-      "cta": "Możliwości R&D"
+      "cta": "Zaproponuj badania"
     }
+  },
+  "BusinessInvitation": {
+    "eyebrow": "Dla firm",
+    "title": "Wsparcie ludzi pomaga budować silniejsze zespoły",
+    "description": "Zapewnij pracownikom indywidualne wsparcie i omów możliwości organizacyjne przydatne dla Twojego zespołu. Zacznijmy od pilotażu.",
+    "cta": "Porozmawiajmy o pilotażu"
+  },
+  "seo": {
+    "title": "Dzvin — osobiste wsparcie we własnym tempie",
+    "description": "Monitoruj samopoczucie, prowadź prywatny dziennik, próbuj krótkich ćwiczeń i oceniaj je dobrowolnie. Dzvin dla ludzi, firm i badań."
   }
 }

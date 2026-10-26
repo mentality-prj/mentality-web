@@ -59,6 +59,15 @@ describe('same-origin backend BFF', () => {
     expect(getValidatedBackendPath(['contact'], '', 'POST')).toBe('contact')
     expect(getValidatedBackendPath(['contact'], '', 'GET')).toBeNull()
     expect(getValidatedBackendPath(['contact', 'anything'], '', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'business'], '', 'POST')).toBe('contact/business')
+    expect(getValidatedBackendPath(['contact', 'research'], '', 'POST')).toBe('contact/research')
+    expect(getValidatedBackendPath(['contact', 'research'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'research'], '?company=1', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'research', 'members'], '', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['Contact', 'research'], '', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'business'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'business'], '?debug=1', 'POST')).toBeNull()
+    expect(getValidatedBackendPath(['contact', 'business', 'other'], '', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['contact'], '?admin=1', 'POST')).toBeNull()
     expect(getValidatedBackendPath(['Contact'], '', 'POST')).toBeNull()
 
@@ -80,6 +89,192 @@ describe('same-origin backend BFF', () => {
     const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
     expect(headers.get('authorization')).toBeNull()
     expect(headers.get('cookie')).toBeNull()
+  })
+
+  it('routes business submissions only to the explicit anonymous endpoint without a bearer', async () => {
+    global.fetch = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), {
+        status: 201,
+        headers: { 'content-type': 'application/json' },
+      })
+    ) as unknown as typeof fetch
+
+    const res = await POST(
+      req('/api/backend/contact/business', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ companyName: 'Example Co', interest: 'pilot', token: 'captcha' }),
+      }),
+      ctx(['contact', 'business'])
+    )
+    expect(res.status).toBe(201)
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://backend.example/api/contact/business',
+      expect.objectContaining({ method: 'POST', redirect: 'manual' })
+    )
+    const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
+    expect(headers.get('Authorization')).toBeNull()
+    expect(headers.get('Cookie')).toBeNull()
+
+    const blocked = await POST(
+      req('/api/backend/contact/business?admin=1', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example' },
+        body: '{}',
+      }),
+      ctx(['contact', 'business'])
+    )
+    expect(blocked.status).toBe(400)
+  })
+
+  it('rejects cross-site anonymous business leads before backend forwarding', async () => {
+    global.fetch = jest.fn() as unknown as typeof fetch
+    const res = await POST(
+      req('/api/backend/contact/business', {
+        method: 'POST',
+        headers: { origin: 'https://attacker.invalid', 'content-type': 'application/json' },
+        body: '{}',
+      }),
+      ctx(['contact', 'business'])
+    )
+    expect(res.status).toBe(403)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('sends anonymous research partner leads to the exact public endpoint only', async () => {
+    global.fetch = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), {
+        status: 201,
+        headers: { 'content-type': 'application/json' },
+      })
+    ) as unknown as typeof fetch
+
+    const res = await POST(
+      req('/api/backend/contact/research', {
+        method: 'POST',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ institutionName: 'University', researchTopic: 'Wellbeing', token: 'captcha' }),
+      }),
+      ctx(['contact', 'research'])
+    )
+    expect(res.status).toBe(201)
+    expect(sessionMock).not.toHaveBeenCalled()
+    expect(global.fetch).toHaveBeenCalledWith(
+      'https://backend.example/api/contact/research',
+      expect.objectContaining({ method: 'POST', redirect: 'manual', cache: 'no-store' })
+    )
+    const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
+    expect(headers.get('Authorization')).toBeNull()
+    expect(headers.get('Cookie')).toBeNull()
+
+    const refused = await POST(
+      req('/api/backend/contact/research', {
+        method: 'POST',
+        headers: { origin: 'https://outside.example' },
+        body: '{}',
+      }),
+      ctx(['contact', 'research'])
+    )
+    expect(refused.status).toBe(403)
+  })
+
+  it('restricts internal contact leads to exact authenticated routes', async () => {
+    const prefix = ['contact', 'internal', 'leads']
+    const id = '507f1f77bcf86cd799439011'
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business')).toBe(
+      'contact/internal/leads/summary?category=business'
+    )
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=research')).toBe(
+      'contact/internal/leads/summary?category=research'
+    )
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=general')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business&extra=1')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business&category=research')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, 'summary'], '?category=business', 'PATCH')).toBeNull()
+
+    expect(getValidatedBackendPath(prefix, '?category=business&due=true&limit=25')).toBe(
+      'contact/internal/leads?category=business&due=true&limit=25'
+    )
+    expect(getValidatedBackendPath(prefix, '?category=business&due=false')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=business&due=true&due=true')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=business&limit=25')).toBe(
+      'contact/internal/leads?category=business&limit=25'
+    )
+    expect(getValidatedBackendPath(prefix, '?category=research&stage=qualified')).toBe(
+      'contact/internal/leads?category=research&stage=qualified'
+    )
+    expect(getValidatedBackendPath(prefix, '')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=general')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=business&category=research')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=business&secret=1')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=business&limit=99')).toBeNull()
+    expect(getValidatedBackendPath(prefix, '?category=business', 'POST')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id], '')).toBe('contact/internal/leads/' + id)
+    expect(getValidatedBackendPath([...prefix, id, 'stage'], '', 'PATCH')).toBe(
+      'contact/internal/leads/' + id + '/stage'
+    )
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up', 'complete'], '', 'PATCH')).toBe(
+      'contact/internal/leads/' + id + '/follow-up/complete'
+    )
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up', 'complete'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up', 'complete'], '?action=1', 'PATCH')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up'], '', 'PATCH')).toBe(
+      'contact/internal/leads/' + id + '/follow-up'
+    )
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id, 'follow-up'], '?replay=1', 'PATCH')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id, 'stage'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, 'malformed'], '', 'GET')).toBeNull()
+    expect(getValidatedBackendPath([...prefix, id, 'contacts'], '', 'PATCH')).toBeNull()
+
+    const denied = await GET(req('/api/backend/contact/internal/leads?category=business'), ctx(prefix))
+    expect(denied.status).toBe(401)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('keeps internal lead GET and PATCH bearer-authenticated and same-origin', async () => {
+    sessionMock.mockResolvedValue({
+      user: { id: 'operator', name: 'Operator', email: 'operator@example.com' },
+      OAuthToken: 'verified-server-bearer',
+    })
+    global.fetch = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify([]), {
+        status: 200,
+        headers: { 'content-type': 'application/json' },
+      })
+    ) as unknown as typeof fetch
+
+    const list = await GET(
+      req('/api/backend/contact/internal/leads?category=business&limit=25'),
+      ctx(['contact', 'internal', 'leads'])
+    )
+    expect(list.status).toBe(200)
+    const headers = (global.fetch as jest.Mock).mock.calls[0][1].headers as Headers
+    expect(headers.get('Authorization')).toBe('Bearer verified-server-bearer')
+
+    const blocked = await PATCH(
+      req('/api/backend/contact/internal/leads/507f1f77bcf86cd799439011/stage', {
+        method: 'PATCH',
+        headers: { origin: 'https://malicious.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ expectedStage: 'inquiry', nextStage: 'qualified' }),
+      }),
+      ctx(['contact', 'internal', 'leads', '507f1f77bcf86cd799439011', 'stage'])
+    )
+    expect(blocked.status).toBe(403)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+
+    const accepted = await PATCH(
+      req('/api/backend/contact/internal/leads/507f1f77bcf86cd799439011/stage', {
+        method: 'PATCH',
+        headers: { origin: 'https://dzvin.example', 'content-type': 'application/json' },
+        body: JSON.stringify({ expectedStage: 'inquiry', nextStage: 'qualified' }),
+      }),
+      ctx(['contact', 'internal', 'leads', '507f1f77bcf86cd799439011', 'stage'])
+    )
+    expect(accepted.status).toBe(200)
+    const patchHeaders = (global.fetch as jest.Mock).mock.calls[1][1].headers as Headers
+    expect(patchHeaders.get('Authorization')).toBe('Bearer verified-server-bearer')
   })
 
   it('blocks cross-origin and oversized anonymous contact submissions before proxying', async () => {
