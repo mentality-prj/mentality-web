@@ -30,6 +30,7 @@ jest.mock('@/requests/auth', () => ({
   exchangeAuthTokens: jest.fn(),
   fetchAuthenticatedUser: jest.fn(),
   fetchStoredAuthTokens: jest.fn(),
+  SessionVerificationUnavailableError: class SessionVerificationUnavailableError extends Error {},
 }))
 
 const metadata = { expiresAt: Math.floor(Date.now() / 1000) + 3600, hasRefreshToken: true }
