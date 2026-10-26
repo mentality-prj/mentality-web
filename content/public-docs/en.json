@@ -25,6 +25,13 @@
           ]
         },
         {
+          "title": "Market Entry and Timing",
+          "paragraphs": [
+            "Workplace mental wellbeing has a documented social and economic burden: WHO estimates 12 billion working days lost annually to depression and anxiety, and EU-OSHA reports that 29% of surveyed EU workers experienced work-related stress, depression or anxiety in 2025. These are contextual indicators, not a monetized market estimate.",
+            "The commercial entry hypothesis is a privacy-governed B2B workflow for Polish technology and knowledge-work organizations, with HR/People stakeholders assessing authorized aggregate trends and coordinating accountable follow-up. Market sizing, competitive alternatives and the required validation steps are documented in Market Positioning."
+          ]
+        },
+        {
           "title": "Value Creation Programme",
           "paragraphs": [
             "The programme consists of WP1 — integration and data protection; WP2 — Decision Intelligence research methods and comparative evaluation; WP3 — user feasibility; and WP4 — independent assessment and launch readiness.",
@@ -55,8 +62,8 @@
         {
           "title": "Partnership Model",
           "paragraphs": [
-            "Investor engagement covers technology diligence, stage milestones and partnership terms. Research funding covers methodology, deliverables, potential impact and governance.",
-            "For a specific investment or grant process, the programme documentation will include the responsible legal entity, delivery team, resource plan, budget, intellectual-property position and proposed partnership terms."
+            "Dzvin.co is open to private investment, strategic partnerships and support for distinct development milestones. The form of collaboration is agreed with each partner based on the technology goals and mutual responsibilities.",
+            "Investment discussions address mutual rights, technology diligence, defined results and partnership terms. Research grant applications include the formal work plan and eligible budget required by the particular funding programme."
           ]
         }
       ]
@@ -65,7 +72,7 @@
       "slug": "investment-thesis",
       "category": "Investment strategy",
       "title": "Strategic Investment Rationale",
-      "summary": "Strategic context, target segments, existing technology assets and the model for long-term value creation.",
+      "summary": "Investment case for Dzvin.co: the buyer problem, entry segment, scalable product hypothesis, technology assets and evidence-gated development programme.",
       "sections": [
         {
           "title": "Product Strategy",
@@ -78,7 +85,15 @@
           "title": "Unmet Need",
           "paragraphs": [
             "Standalone check-ins and one-off surveys can fragment observations, context and follow-up. A prediction alone does not tell a user or decision maker which safe action is appropriate.",
-            "Mental-health AI needs explicit attention to uncertain and incomplete data, human agency, privacy, bias and the actual outcome of decisions."
+            "Mental-health AI needs explicit attention to uncertain and incomplete data, human agency, privacy, bias and the actual outcome of decisions.",
+            "The WHO estimates that depression and anxiety together cause 12 billion lost working days and US$1 trillion in lost productivity globally each year (Mental health at work, 15 September 2026). This measures the wider burden, not a revenue opportunity or an outcome Dzvin.co has achieved."
+          ]
+        },
+        {
+          "title": "Why Now",
+          "paragraphs": [
+            "The EU-OSHA OSH Pulse 2025 survey found that 29% of EU workers reported stress, depression or anxiety caused or worsened by work within the previous 12 months. Employers have a measurable workforce problem, while individual apps and periodic surveys do not necessarily give responsible teams a repeatable follow-up process.",
+            "Organizations are evaluating digital support amid stronger expectations for privacy, auditability and human control. Dzvin.co's opportunity is to test whether a single consent-aware path from recurring observations to reviewed action is more useful than disconnected point tools—not to claim that the opportunity is already proven."
           ]
         },
         {
@@ -86,6 +101,13 @@
           "paragraphs": [
             "Individuals who want to observe their personal trajectory; HR and managers who need authorized aggregate context rather than employee surveillance; researchers studying repeated measures and intervention processes.",
             "Research applications support cohort-based studies, longitudinal observations and controlled evaluation. The application segments have distinct validation criteria."
+          ]
+        },
+        {
+          "title": "Initial Buyer and Market Entry",
+          "paragraphs": [
+            "The proposed B2B entry segment is Poland-based technology, knowledge-work and distributed teams. Prospective buyers are HR/People and organizational wellbeing leads, with security and data-protection stakeholders participating in approval. This is a customer-discovery priority, not an established paying segment.",
+            "The proposed first commercial unit is an organization-level, permissioned service evaluated through controlled pilots. The personal product has a separate voluntary adoption path; research institutions are potential project partners rather than counted as enterprise subscriptions."
           ]
         },
         {
@@ -99,7 +121,14 @@
           "title": "Next-Stage Outcomes",
           "paragraphs": [
             "Complete release/security integration, turn research hypotheses into reproducible protocols, enable responsibly recruited pilots, study usefulness and uncertainty, and prepare a controlled product launch.",
-            "Stage financing can be linked to the acceptance of individual work packages and documented progression criteria."
+            "Investment may support the full programme or individual milestones; progress is evaluated against the work-package deliverables and documented progression criteria."
+          ]
+        },
+        {
+          "title": "Scalability and Investment Logic",
+          "paragraphs": [
+            "The intended reusable software foundation spans personal check-ins, authorized organizational trends and research-grade evaluation. A common platform could lower incremental deployment effort, but multi-tenant isolation, support cost and repeatable onboarding must pass engineering and pilot acceptance tests.",
+            "The investable milestone is a qualified workflow with observable uptake, governed access, measurable follow-up and a documented willingness to pay. Funding progress should be evaluated by the WP1–WP4 delivery gates and customer validation, not by code completion alone."
           ]
         },
         {
@@ -363,7 +392,7 @@
           "title": "Resource Governance and Reporting",
           "paragraphs": [
             "Budget buckets: engineering, Decision Science/ML, privacy/security/ethics, UX and participants, infrastructure and operations.",
-            "The work-package financial plan will map duration, staffing, direct costs, accountable owners and acceptance deliverables. Investment terms are defined in a separate proposal."
+            "Resources are planned by work package in line with technical requirements, available capacity and partner commitments. Accountable owners and acceptance deliverables remain explicit regardless of the funding arrangement."
           ]
         }
       ]
@@ -462,8 +491,8 @@
         {
           "title": "Investment and Research Partnerships",
           "paragraphs": [
-            "For private investors: discuss funding the next technology milestone with measurable deliverables, risk governance and reporting. For foundations: defined research work packages, evaluation methods and prospective impact.",
-            "Capital amount, detailed budget, timetable and contractual terms are developed in a tailored investment or grant proposal. Investor and grant presentations, the roadmap and the evidence register are available for review."
+            "Potential arrangements include private investment, strategic collaboration and support for individual product or research milestones, with clear deliverables and accountability. Grant applications follow the eligibility, methodology and reporting conditions of their respective programmes.",
+            "The scope of participation, transaction structure and collaboration terms are agreed individually. Investor and research presentations, the roadmap and the evidence register are available for substantive review."
           ]
         }
       ]
@@ -617,27 +646,49 @@
       "slug": "comparison",
       "category": "Market positioning",
       "title": "Market Positioning",
-      "summary": "Functional positioning against other solution categories and a framework for comparative evaluation.",
+      "summary": "Evidence-led market context, TAM/SAM/SOM methodology, target buyers, named competitive alternatives and an explicit differentiation test.",
       "sections": [
         {
-          "title": "Solution categories",
+          "title": "Market Need and Evidence",
           "paragraphs": [
-            "Standalone surveys collect periodic feedback; dashboards summarize data; decision-support tools add structured evaluation and follow-up actions.",
-            "Dzvin.co explores integrating these layers with personal journeys and research infrastructure."
+            "WHO reports an estimated 12 billion lost working days and US$1 trillion in global annual productivity losses associated with depression and anxiety (2026). EU-OSHA reports that 29% of EU workers surveyed in 2025 experienced work-caused or work-worsened stress, depression or anxiety in the preceding year. These figures establish context, not Dzvin.co revenue, effectiveness or purchase intent.",
+            "Eurostat reported 197.7 million employed EU residents aged 20–64 in 2025. This is a macro workforce reference only: it includes people outside our proposed buyers, and must not be presented as the number of paying seats."
           ]
         },
         {
-          "title": "Differentiation hypothesis",
+          "title": "Commercial Beachhead",
           "paragraphs": [
-            "The research programme combines longitudinal signals, policy constraints, model uncertainty, explanations and human oversight.",
-            "Any advantage over alternative approaches requires comparable evaluation and independent evidence."
+            "The initial market-discovery focus is organizations in Poland with knowledge-intensive, technology and distributed teams, where repeat check-ins, accountable follow-up and strong separation of individual and management access can be assessed in a pilot.",
+            "A potential budget sponsor is an HR/People, wellbeing or occupational health function. Employee participation, consent, procurement, local privacy requirements and implementation costs determine practical eligibility. Expansion into other EU markets or sectors follows evidence rather than an assumed universal sales motion."
           ]
         },
         {
-          "title": "Market assessment framework",
+          "title": "TAM, SAM and SOM: Sizing Method",
           "paragraphs": [
-            "The analysis will cover functional scope, privacy, integration effort, user feasibility and decision auditability.",
-            "Comparisons will use consistent criteria, traceable sources and dated assessments."
+            "TAM is the theoretical annual spending for the defined buyer and service category, not all EU mental-health expenditure. Calculate it from eligible employers, reachable employee seats and evidence-supported annual contract value. The Eurostat 197.7 million workforce figure is only an upper-context denominator, not a monetized TAM.",
+            "SAM narrows that opportunity to organizations Dzvin.co could legally, technically and commercially serve in an initial geography and segment, after filters for company size, procurement, privacy and integration readiness. Separate B2C and research-partner models must not be added to B2B seat counts without removing overlap.",
+            "SOM must be built bottom-up from the attainable prospect pipeline, pilot-to-contract conversion, contract sizes, annual value and delivery capacity over a specified horizon. Those inputs need customer interviews, procurement evidence and pilot outcomes before defensible currency figures can be published."
+          ]
+        },
+        {
+          "title": "Competitive Alternatives",
+          "paragraphs": [
+            "Headspace offers mindfulness, AI-enabled guidance and employer mental-health services; Unmind combines workplace content, coaching, AI support and organizational insights; Wysa offers an AI-led employee support experience and organizational reporting. These are relevant alternatives for buyers allocating workplace wellbeing budgets, not generic survey tools.",
+            "Dzvin.co's proposed research-led distinction is a traceable path from repeated observations through uncertainty-aware, human-reviewed decisions to subsequent evaluation, supported by a separate research workspace. This is a product hypothesis; no superiority in outcomes, clinical effect, price or coverage is claimed."
+          ]
+        },
+        {
+          "title": "Comparative Diligence Criteria",
+          "paragraphs": [
+            "Assess the same buyer workflows across providers: eligible population, longitudinal signals, consent and role boundaries, escalation or action review, uncertainty handling, audit trail, research reproducibility, rollout cost and actual end-user participation.",
+            "Use dated primary product documentation and a reproducible test protocol. The next stage should turn the comparison from architectural positioning into matched demonstrations, customer interviews and independently interpretable evidence."
+          ]
+        },
+        {
+          "title": "Primary Sources (reviewed 25 October 2026)",
+          "paragraphs": [
+            "WHO, Mental health at work (15 September 2026): https://www.who.int/news-room/fact-sheets/detail/mental-health-at-work ; Eurostat, EU employment in 2025 (17 April 2026): https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20260417-1 ; EU-OSHA, OSH Pulse 2025 summary (10 October 2025): https://osha.europa.eu/en/highlights/world-mental-health-day-29-eu-workers-suffer-stress-depression-or-anxiety",
+            "Official product references: Headspace https://organizations.headspace.com/headspace ; Unmind https://unmind.com/unmind-full-platform ; Wysa https://www.wysa.com/for-employers . Product descriptions may change and require revalidation before comparative claims are used in fundraising."
           ]
         }
       ]

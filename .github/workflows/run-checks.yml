@@ -25,6 +25,7 @@ jobs:
               - 'components/**'
               - 'features/**'
               - 'DOCS/**'
+              - 'content/**'
               - 'context/**'
               - 'hooks/**'
               - 'requests/**'

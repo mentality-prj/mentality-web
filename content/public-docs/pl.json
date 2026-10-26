@@ -25,6 +25,13 @@
           ]
         },
         {
+          "title": "Wejście na rynek i kontekst czasowy",
+          "paragraphs": [
+            "Dobrostan psychiczny w pracy wiąże się z mierzalnymi kosztami: WHO szacuje 12 mld dni pracy traconych rocznie przez depresję i lęk, a EU-OSHA informuje, że 29% ankietowanych pracowników UE w 2025 r. doświadczało stresu, depresji lub lęku związanego z pracą. To kontekst, nie wycena dostępnego rynku.",
+            "Początkowa hipoteza komercyjna to kontrolowana pod względem uprawnień usługa B2B dla polskich firm technologicznych i zespołów opartych na wiedzy, w której HR/People analizuje uprawnione trendy grupowe i koordynuje odpowiedzialne działania. Metoda szacowania rynku, alternatywy konkurencyjne i plan walidacji znajdują się w dokumencie „Pozycjonowanie rynkowe”."
+          ]
+        },
+        {
           "title": "Program tworzenia wartości",
           "paragraphs": [
             "Program obejmuje WP1 — integrację i ochronę danych; WP2 — metody badawcze Decision Intelligence; WP3 — badania użyteczności; WP4 — niezależną ocenę i gotowość do uruchomienia.",
@@ -55,8 +62,8 @@
         {
           "title": "Model partnerstwa",
           "paragraphs": [
-            "Partnerstwo inwestycyjne obejmuje analizę technologii, etapy i warunki współpracy. Finansowanie badań obejmuje metodykę, wyniki, wpływ i nadzór.",
-            "Do formalnego wniosku potrzebne są potwierdzone kompetencje zespołu, podmiot prawny, terminy, koszty, IP i wybrany instrument finansowania."
+            "Dzvin.co jest otwarty na inwestycje prywatne, partnerstwa strategiczne i wsparcie poszczególnych etapów rozwoju. Formę współpracy uzgadnia się indywidualnie na podstawie celów technologicznych i odpowiedzialności stron.",
+            "Rozmowy inwestycyjne obejmują prawa stron, weryfikację technologii, planowane rezultaty i warunki współpracy. Wnioski grantowe zawierają wymagany przez konkretny program plan prac i kwalifikowany kosztorys."
           ]
         }
       ]
@@ -65,7 +72,7 @@
       "slug": "investment-thesis",
       "category": "Strategia inwestycyjna",
       "title": "Strategiczne uzasadnienie inwestycji",
-      "summary": "Kontekst strategiczny, segmenty docelowe, aktywa technologiczne i model tworzenia długoterminowej wartości.",
+      "summary": "Teza inwestycyjna Dzvin.co: problem nabywcy, rynek początkowy, hipoteza skalowania, zasoby technologiczne i program rozwoju oparty na kryteriach weryfikacji.",
       "sections": [
         {
           "title": "Strategia produktu",
@@ -78,7 +85,15 @@
           "title": "Niezaspokojona potrzeba",
           "paragraphs": [
             "Pojedyncze ankiety i osobne dzienniki nie tworzą ciągłego obrazu i procesu działania. Samo przewidywanie ryzyka nie rozstrzyga, jakie działanie jest stosowne.",
-            "W zastosowaniach sztucznej inteligencji dotyczących dobrostanu psychicznego zasadnicze znaczenie mają ochrona danych, niepewność modeli, zgoda użytkowników i bezpieczeństwo proponowanych działań."
+            "W zastosowaniach sztucznej inteligencji dotyczących dobrostanu psychicznego zasadnicze znaczenie mają ochrona danych, niepewność modeli, zgoda użytkowników i bezpieczeństwo proponowanych działań.",
+            "Według WHO depresja i zaburzenia lękowe powodują globalnie około 12 mld utraconych dni pracy i 1 bln USD strat produktywności rocznie (Mental health at work, 15 września 2026 r.). To skala problemu społecznego, nie prognoza przychodów Dzvin.co ani potwierdzony efekt produktu."
+          ]
+        },
+        {
+          "title": "Dlaczego teraz",
+          "paragraphs": [
+            "Według badania EU-OSHA OSH Pulse 2025, 29% ankietowanych pracowników UE doświadczyło stresu, depresji lub lęku spowodowanych albo nasilonych przez pracę w ciągu ostatnich 12 miesięcy. Pracodawcy mierzą się z realnym problemem, a odrębne aplikacje i okresowe ankiety nie muszą zapewniać powtarzalnego procesu odpowiedzialnych działań.",
+            "Rośnie znaczenie prywatności, rozliczalności i nadzoru człowieka nad systemami cyfrowymi. Szansa Dzvin.co polega na sprawdzeniu wartości jednego procesu — od powtarzanych obserwacji do działania nadzorowanego przez człowieka z poszanowaniem uprawnień — a nie na deklaracji już udowodnionej przewagi."
           ]
         },
         {
@@ -86,6 +101,13 @@
           "paragraphs": [
             "Osoby prywatne zyskują historię obserwacji; organizacje — dozwolony kontekst grupowy; naukowcy — ustrukturyzowany proces badań.",
             "Zastosowania badawcze obejmują kohorty, obserwacje podłużne i kontrolowaną ocenę hipotez. Segmenty mają odrębne kryteria walidacji."
+          ]
+        },
+        {
+          "title": "Pierwszy nabywca i wejście na rynek",
+          "paragraphs": [
+            "Wstępny segment badania popytu B2B stanowią polskie firmy technologiczne oraz zespoły oparte na pracy wiedzy i pracy rozproszonej. Potencjalnymi nabywcami są liderzy HR/People i programów dobrostanu, przy udziale specjalistów ds. bezpieczeństwa i ochrony danych. To priorytet weryfikacji, nie potwierdzony segment płacących klientów.",
+            "Początkowym produktem komercyjnym byłaby usługa dla organizacji z dostępem opartym na uprawnieniach, oceniana w kontrolowanych pilotażach. Produkt indywidualny ma odrębny model dobrowolnego korzystania, a instytucje badawcze są potencjalnymi partnerami projektowymi, nie abonentami B2B."
           ]
         },
         {
@@ -99,7 +121,14 @@
           "title": "Rezultaty kolejnej fazy",
           "paragraphs": [
             "Dokończenie integracji i bezpieczeństwa, formalizacja badań, pilotaże ze zgodą uczestników, ocena użyteczności i przygotowanie kontrolowanego uruchomienia.",
-            "Finansowanie etapowe można powiązać z odbiorem pakietów prac i udokumentowanymi kryteriami postępu."
+            "Inwestycja może wspierać cały program lub wybrane etapy; postęp ocenia się na podstawie rezultatów pakietów prac i udokumentowanych kryteriów."
+          ]
+        },
+        {
+          "title": "Skalowalność i logika inwestycji",
+          "paragraphs": [
+            "Wspólna baza oprogramowania obejmuje obserwacje indywidualne, dozwolone trendy zespołowe i narzędzia oceny badawczej. Ponowne wykorzystanie platformy może ograniczać koszty kolejnych wdrożeń, ale wymaga sprawdzenia separacji organizacji, kosztów obsługi i powtarzalności wdrożenia.",
+            "Kluczowy rezultat inwestycyjny to zweryfikowany proces z mierzalnym zaangażowaniem, kontrolowanym dostępem, udokumentowanymi działaniami i potwierdzoną gotowością do zapłaty. Postęp finansowania powinien zależeć od wyników WP1–WP4 i walidacji rynku, a nie samego ukończenia kodu."
           ]
         },
         {
@@ -462,8 +491,8 @@
         {
           "title": "Partnerstwa inwestycyjne i badawcze",
           "paragraphs": [
-            "Dla inwestorów prywatnych: finansowanie kolejnego etapu rozwoju z mierzalnymi rezultatami i raportowaniem ryzyka. Dla fundacji: pakiety badawcze, metody oceny, potencjalny wpływ i przejrzyste deliverables.",
-            "Wysokość kapitału, szczegółowy budżet, harmonogram i warunki ustala się w indywidualnej propozycji. Dostępne są prezentacje, roadmapa i rejestr dowodów."
+            "Możliwe formy współpracy obejmują inwestycje prywatne, partnerstwa strategiczne i wsparcie wybranych etapów prac produktowych lub badawczych, z określonymi rezultatami i odpowiedzialnością. Wnioski grantowe są przygotowywane zgodnie z zasadami danego konkursu.",
+            "Zakres udziału, strukturę transakcji i zasady współpracy uzgadnia się indywidualnie. Do analizy dostępne są prezentacje, harmonogram rozwoju i rejestr dowodów."
           ]
         }
       ]
@@ -617,27 +646,49 @@
       "slug": "comparison",
       "category": "Pozycjonowanie rynkowe",
       "title": "Pozycjonowanie rynkowe",
-      "summary": "Porównanie kategorii rozwiązań i spójne kryteria oceny funkcjonalnej.",
+      "summary": "Źródła danych o rynku, metoda TAM/SAM/SOM, nabywcy, konkretne alternatywy konkurencyjne i kryteria weryfikacji przewagi Dzvin.co.",
       "sections": [
         {
-          "title": "Kategorie rozwiązań",
+          "title": "Potrzeba rynkowa i dane źródłowe",
           "paragraphs": [
-            "Ankiety dostarczają okresowych obserwacji; dashboardy porządkują dane; systemy wspierania decyzji dodają proces oceny i działania.",
-            "Dzvin.co rozwija koncepcję łączenia tych elementów z doświadczeniem indywidualnym i infrastrukturą badawczą."
+            "WHO szacuje globalnie 12 mld utraconych dni pracy oraz 1 bln USD rocznych strat produktywności związanych z depresją i lękiem (2026). EU-OSHA podaje, że 29% pracowników UE ankietowanych w 2025 r. doświadczyło stresu, depresji lub lęku spowodowanych albo nasilonych przez pracę. Dane opisują problem, nie przychody Dzvin.co, skuteczność czy zamiar zakupu.",
+            "Według Eurostatu w 2025 r. w UE pracowało 197,7 mln osób w wieku 20–64 lat. To punkt odniesienia do skali rynku pracy, a nie liczba płatnych stanowisk: obejmuje także osoby poza docelową grupą nabywców."
           ]
         },
         {
-          "title": "Hipoteza wyróżnika",
+          "title": "Początkowy segment komercyjny",
           "paragraphs": [
-            "Program badawczy łączy szeregi czasowe, reguły, niepewność modelu, wyjaśnienia i nadzór człowieka.",
-            "Przewaga technologiczna wymaga porównywalnych testów i niezależnych wyników."
+            "Pierwszym obszarem badania popytu są organizacje w Polsce z zespołami technologicznymi, opartymi na wiedzy i rozproszonymi, gdzie można sprawdzić powtarzane samooceny, odpowiedzialne działania i wyraźny podział dostępu pracownika oraz kierownictwa.",
+            "Potencjalnym właścicielem budżetu jest HR/People, program dobrostanu lub funkcja BHP. Dobrowolność udziału, zgody, proces zakupowy, lokalne wymogi ochrony danych i koszty integracji określają realną dostępność segmentu. Ekspansja do innych krajów UE powinna wynikać z dowodów."
           ]
         },
         {
-          "title": "Kryteria rynkowe",
+          "title": "TAM, SAM i SOM: metodologia",
           "paragraphs": [
-            "Ocena obejmie funkcje, prywatność, koszt integracji, użyteczność i możliwość audytu decyzji.",
-            "Porównania powinny korzystać z tych samych kryteriów, źródeł i dat."
+            "TAM to teoretyczna roczna wartość wydatków w jasno zdefiniowanej kategorii usługi dla pracodawców, a nie cały rynek zdrowia psychicznego. Należy ją obliczać na podstawie liczby kwalifikujących się pracodawców, możliwych do objęcia pracowników i udokumentowanej rocznej wartości kontraktu. Dane Eurostatu o 197,7 mln pracujących służą jedynie jako kontekst, a nie wycena TAM.",
+            "SAM ogranicza tę pulę do firm, które Dzvin.co może obsłużyć prawnie, technicznie i komercyjnie na początkowych rynkach, z uwzględnieniem wielkości, zakupów, prywatności i gotowości integracyjnej. Modelu B2C i partnerstw badawczych nie wolno dodawać do miejsc B2B bez eliminacji podwójnego liczenia.",
+            "SOM należy oszacować oddolnie z osiągalnej bazy potencjalnych nabywców, konwersji pilotaży, wielkości kontraktów, wartości rocznej i zdolności wdrożeniowych w określonym horyzoncie. Kwoty wymagają wywiadów z klientami, danych zakupowych i wyników pilotaży."
+          ]
+        },
+        {
+          "title": "Alternatywy konkurencyjne",
+          "paragraphs": [
+            "Headspace oferuje mindfulness, narzędzia AI i wsparcie zdrowia psychicznego dla pracodawców; Unmind łączy treści edukacyjne, coaching, wsparcie AI i analitykę organizacyjną; Wysa zapewnia konwersacyjne wsparcie AI i raportowanie dla firm. Są to rzeczywiste alternatywy w budżecie dobrostanu pracowników, nie wyłącznie narzędzia ankietowe.",
+            "Hipoteza wyróżnika Dzvin.co zakłada identyfikowalną ścieżkę od powtarzanych obserwacji przez ocenę niepewności i nadzór człowieka do weryfikacji wyników oraz osobne środowisko badawcze. Nie jest to dowód przewagi w skuteczności, wynikach klinicznych, cenie ani zasięgu."
+          ]
+        },
+        {
+          "title": "Kryteria porównania",
+          "paragraphs": [
+            "Należy porównywać te same procesy nabywcy: populację docelową, obserwacje w czasie, zgodę i uprawnienia, przegląd zdarzeń i działań, obsługę niepewności, audyt, odtwarzalność badań, koszty wdrożenia i faktyczne korzystanie.",
+            "Analiza powinna opierać się na datowanej dokumentacji producentów i odtwarzalnym protokole. Kolejnym krokiem będą porównywalne demonstracje, wywiady z kupującymi i niezależnie interpretowane wyniki."
+          ]
+        },
+        {
+          "title": "Źródła pierwotne (sprawdzono 25 października 2026 r.)",
+          "paragraphs": [
+            "WHO, Mental health at work (15.09.2026): https://www.who.int/news-room/fact-sheets/detail/mental-health-at-work ; Eurostat, zatrudnienie w UE w 2025 r. (17.04.2026): https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20260417-1 ; EU-OSHA, OSH Pulse 2025 (10.10.2025): https://osha.europa.eu/en/highlights/world-mental-health-day-29-eu-workers-suffer-stress-depression-or-anxiety",
+            "Oficjalne materiały produktowe: Headspace https://organizations.headspace.com/headspace ; Unmind https://unmind.com/unmind-full-platform ; Wysa https://www.wysa.com/for-employers . Opisy produktów należy aktualizować przed wykorzystaniem w kolejnej prezentacji dla inwestorów."
           ]
         }
       ]

@@ -38,6 +38,16 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
+          title: 'Ринок і конкурентне середовище',
+          description:
+            'Потреба в підтримці добробуту на роботі вимірювана; платоспроможний попит на Dzvin.co ще потребує перевірки.',
+          points: [
+            'WHO (2026): 12 млрд втрачених робочих днів щороку через депресію і тривожність',
+            'EU-OSHA (2025): 29% опитаних працівників ЄС мали пов’язані з роботою симптоми',
+            'Headspace, Unmind, Wysa — реальні альтернативи; Польща — початкова гіпотеза B2B виходу',
+          ],
+        },
+        {
           title: 'Чому Decision Intelligence',
           description:
             'Мета — не просто прогнозувати ризик, а досліджувати пояснюваний вибір доречної дії з контролем людини.',
@@ -99,11 +109,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Модель інвестиційного партнерства',
           description:
-            'Партнерство передбачає погоджені контрольні точки, бюджет програми та умови управління результатами.',
+            'Dzvin.co відкритий до приватних інвестицій і стратегічної співпраці різного масштабу; параметри визначаються за цілями партнерства.',
           points: [
-            'Погодити обсяг наступного траншу за реальними кошторисами',
-            'Визначити етапи, звітність і критерії продовження',
-            'Погодити порядок технологічної та фінансової експертизи',
+            'Приватні інвестиції, стратегічне партнерство або підтримка окремих етапів',
+            'Узгоджені результати й відповідальність сторін',
+            'Технологічна та бізнес-експертиза за потреби',
           ],
         },
       ],
@@ -236,6 +246,16 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           ],
         },
         {
+          title: 'Market need and alternatives',
+          description:
+            'Workplace wellbeing has a measurable burden; demand for Dzvin.co itself remains to be validated.',
+          points: [
+            'WHO (2026): 12 billion working days lost annually to depression and anxiety',
+            'EU-OSHA (2025): 29% of surveyed EU workers reported work-related stress, depression or anxiety',
+            'Headspace, Unmind and Wysa are relevant alternatives; Poland is the proposed initial B2B market',
+          ],
+        },
+        {
           title: 'Why Decision Intelligence',
           description: 'Study not only what might happen, but which next step is explainable and appropriate.',
           points: ['Trends and context', 'Policy constraints and uncertainty', 'Explanation → human choice → feedback'],
@@ -287,11 +307,11 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Investment partnership model',
           description:
-            'Partnership structure connects the delivery programme, investment milestones, governance and accountability.',
+            'Dzvin.co welcomes private investment and strategic collaborations of different scopes, tailored to the goals of each partnership.',
           points: [
-            'Establish a milestone-linked budget and delivery plan',
-            'Define reporting and go/no-go',
-            'Define the technical and financial due-diligence process',
+            'Investment, strategic collaboration or support for a defined milestone',
+            'Agreed deliverables and clear accountability',
+            'Technology and business diligence as appropriate',
           ],
         },
       ],
@@ -410,6 +430,15 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           points: ['Osoby: obserwacja i wsparcie', 'Firmy: dozwolona analityka grup', 'Nauka: kohorty i badania'],
         },
         {
+          title: 'Potrzeba rynku i alternatywy',
+          description: 'Problemy dobrostanu w pracy są mierzalne; popyt na Dzvin.co wymaga odrębnej walidacji.',
+          points: [
+            'WHO (2026): 12 mld utraconych dni pracy rocznie z powodu depresji i lęku',
+            'EU-OSHA (2025): 29% badanych pracowników UE zgłasza stres, depresję lub lęk związany z pracą',
+            'Headspace, Unmind i Wysa to alternatywy; Polska jest początkowym rynkiem testowym B2B',
+          ],
+        },
+        {
           title: 'Dlaczego DI',
           description: 'Nie tylko przewidywanie, lecz wyjaśnione działanie w granicach danych.',
           points: ['Trendy i kontekst', 'Zasady i niepewność', 'Wyjaśnienie → wybór użytkownika → informacja zwrotna'],
@@ -453,8 +482,13 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Model partnerstwa inwestycyjnego',
-          description: 'Partnerstwo obejmuje ustalenie budżetu, etapów, odpowiedzialności i formy finansowania.',
-          points: ['Kosztorys transzy', 'Warunki raportowania', 'Proces oceny technologicznej i finansowej'],
+          description:
+            'Dzvin.co jest otwarty na inwestycje prywatne i partnerstwa strategiczne o różnej skali, dopasowane do celów współpracy.',
+          points: [
+            'Inwestycja, współpraca strategiczna lub wsparcie wybranego etapu',
+            'Uzgodnione rezultaty i odpowiedzialność stron',
+            'Ocena technologiczna i biznesowa stosownie do potrzeb',
+          ],
         },
       ],
     },
