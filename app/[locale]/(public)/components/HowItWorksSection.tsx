@@ -35,13 +35,13 @@ export function HowItWorksSection() {
       <li key={stepKey}>
         <div
           className={`flex items-center gap-sm rounded-[24px] px-5 max-md:flex-wrap md:items-start ${
-            isActive ? 'bg-white/70 py-5 shadow-[0_12px_36px_rgba(15,23,42,0.12)] backdrop-blur-sm' : ''
+            isActive ? 'bg-white/70 py-5 shadow-[0_12px_36px_rgba(93,78,210,0.12)] backdrop-blur-sm' : ''
           }`}
         >
           <span
             className={`flex h-9 w-9 shrink-0 items-center justify-center rounded-full text-sm font-semibold ${
               isActive
-                ? 'bg-[#2563eb] text-white shadow-[0_10px_20px_rgba(37,99,235,0.35)]'
+                ? 'bg-[linear-gradient(110deg,#7545dd,#4368e6)] text-white shadow-[0_10px_20px_rgba(93,78,210,0.28)]'
                 : 'border border-[var(--outline-tertiary)] bg-white text-textcolor-secondary'
             }`}
           >
@@ -59,9 +59,9 @@ export function HowItWorksSection() {
   })
 
   return (
-    <section className="mb-7 w-full tablet:mb-14">
+    <section className="w-full bg-[linear-gradient(180deg,#f7fbff_0%,#fff_100%)] py-8 tablet:py-14">
       <div className="container-max-width mx-auto grid grid-cols-1 gap-5 px-4 tablet:gap-10 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
-        <div className="rounded-[40px] bg-background-muted p-6 md:p-8 lg:p-10">
+        <div className="rounded-[32px] border border-[#e1d1f7] bg-[linear-gradient(145deg,#f9f2ff,#eef4ff)] p-6 md:p-8 lg:p-10">
           <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>
           <p className="mt-1 text-sm text-textcolor-secondary">{t(stepsSectionConfig.subtitleKey)}</p>
           <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>

@@ -29,38 +29,38 @@
     }
   },
   "Services": {
-    "title": "Drobne chwile troski o siebie\nkażdego dnia",
+    "title": "Małe kroki,\nktóre dodają spokoju",
     "cards": {
       "intro": {
-        "text": "Nie musisz wszystkiego analizować. Czasem wystarczy nazwać swój stan, zapisać myśli lub zrobić krótką przerwę."
+        "text": "Wsparcie nie musi być skomplikowane. Chwila ciszy, kilka słów w dzienniku lub prosty wpis o nastroju to już troska o siebie."
       },
       "predictionEngine": {
-        "title": "Twoja historia",
-        "text": "Przeglądaj wcześniejsze wpisy o nastroju i obserwuj zmiany, bez ocen i rywalizacji."
+        "title": "Dostrzegaj dobre chwile",
+        "text": "Twoje wpisy tworzą osobistą historię, dzięki której łatwiej zobaczyć, co Cię wspiera i co już się udaje."
       },
       "scenarioSimulation": {
-        "title": "Oddech i wyciszenie",
-        "text": "Wybierz proste ćwiczenie z poradnika, gdy chcesz zmniejszyć napięcie."
+        "title": "Chwila na wydech",
+        "text": "Proste ćwiczenia oddechowe i uważności, które pomagają zrobić przerwę i poczuć więcej spokoju."
       },
       "cohortEvidence": {
         "title": "Miejsce na myśli",
-        "text": "Zachowuj myśli w dzienniku i wracaj do nich, kiedy będziesz gotowy."
+        "text": "Zapisz, co masz na sercu — bez ocen i zasad. Dziennik poczeka, aż będziesz gotowy."
       }
     }
   },
   "HowItWorks": {
     "title": "Jak to działa",
-    "subtitle": "Bez obowiązkowych testów i pośpiechu",
+    "subtitle": "Prosto, bez ankiet i pośpiechu",
     "steps": {
-      "register": "Zaloguj się — stwórz osobistą przestrzeń na swoje wpisy.",
-      "choose": "Wybierz działanie — zapisz nastrój, otwórz dziennik lub ćwiczenie.",
+      "register": "Stwórz swoją przestrzeń — zaloguj się, a Twoje wpisy zostaną dla Ciebie zapisane.",
+      "choose": "Wybierz to, czego potrzebujesz teraz — zapisz nastrój, napisz w dzienniku lub wypróbuj ćwiczenie.",
       "receive": "Wracaj, kiedy chcesz — przeglądaj historię i wybieraj mały kolejny krok."
     },
     "cta": "Zacznij za darmo"
   },
   "ReduceStress": {
     "title": "Wsparcie w Twoim tempie",
-    "subtitle": "Krótka przerwa lub wpis w dzienniku mogą być pomocne. Sam decydujesz, co jest odpowiednie dzisiaj."
+    "subtitle": "Nawet krótka przerwa lub kilka linijek w dzienniku to troska o siebie. Sam decydujesz, co jest odpowiednie dzisiaj."
   },
   "Footer": {
     "copyright": "© {year} {company}. Wszelkie prawa zastrzeżone.",

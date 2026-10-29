@@ -11,7 +11,7 @@ export function HighlightInfoCard({ title, subtitle, imageSrc, imageAlt }: Highl
   return (
     <article className="flex w-full flex-col gap-default">
       <div>
-        <h1 className="landing-h1">{title}</h1>
+        <h2 className="landing-h2">{title}</h2>
         <p className="mt-4 max-w-md text-base leading-relaxed text-textcolor-secondary">{subtitle}</p>
       </div>
       <div className="relative aspect-[5/3] w-full overflow-hidden rounded-[28px]">

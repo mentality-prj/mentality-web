@@ -29,38 +29,38 @@
     }
   },
   "Services": {
-    "title": "Small moments of self-care\nevery day",
+    "title": "Small steps\nthat bring calm",
     "cards": {
       "intro": {
-        "text": "You don't need to analyze everything. Sometimes naming how you feel, writing it down or taking a short pause is enough for now."
+        "text": "Support doesn't have to be complicated. A quiet minute, a few words in your journal or a simple mood check-in is already a way of caring for yourself."
       },
       "predictionEngine": {
-        "title": "Your history",
-        "text": "Look back at your own mood check-ins and notice changes over time, without scores or competition."
+        "title": "Notice what goes well",
+        "text": "Your check-ins form a personal history, so it's easier to see what supports you and what is already working."
       },
       "scenarioSimulation": {
-        "title": "Breathing and calming",
-        "text": "Choose a simple exercise from the guide when you want to ease tension."
+        "title": "A minute to breathe out",
+        "text": "Simple breathing and attention exercises to help you pause and feel a little calmer."
       },
       "cohortEvidence": {
-        "title": "A space to write",
-        "text": "Keep thoughts in your journal and return to them whenever you're ready."
+        "title": "A place for your thoughts",
+        "text": "Write down what's on your mind, with no scores and no rules. Your journal waits until you're ready."
       }
     }
   },
   "HowItWorks": {
     "title": "How it works",
-    "subtitle": "No mandatory tests, no rush",
+    "subtitle": "Simple, with no questionnaires and no rush",
     "steps": {
-      "register": "Sign in — create a personal space for your entries.",
-      "choose": "Choose what helps — check in, write in your journal or try an exercise.",
-      "receive": "Come back when useful — review your history and choose one manageable next step."
+      "register": "Create your space — sign in and your check-ins and entries are saved for you.",
+      "choose": "Pick what you need right now — check in, write in your journal or try an exercise.",
+      "receive": "Come back whenever you like — review your history and choose a small next step."
     },
     "cta": "Start for free"
   },
   "ReduceStress": {
-    "title": "Support on your terms",
-    "subtitle": "A short pause or journal entry can be a useful step. You decide what feels right today."
+    "title": "Support at your own pace",
+    "subtitle": "Even a short pause or a few lines in your journal is a way of caring for yourself. You decide what feels right today."
   },
   "Footer": {
     "copyright": "© {year} {company}. All rights reserved.",
