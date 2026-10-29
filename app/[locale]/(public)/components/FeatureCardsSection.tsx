@@ -1,40 +1,44 @@
 'use client'
 
-import { Activity, ArrowUpRight, BookOpenText, Wind } from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
+import { GlassMedallion } from './glass/GlassMedallion'
 import { landingContainer, landingH2, landingPrimaryCta } from './landingStyles'
 
 const choices = [
   {
     key: 'mood',
-    icon: Activity,
+    glyph: 'pulse',
+    tone: 'mint',
+    decor: '-right-10 top-16 rotate-[-14deg]',
     href: Routes.MOODTRACKER,
     titleKey: 'Next.mood.title',
     descriptionKey: 'Next.mood.description',
     theme: 'border-[#bce5db] bg-[linear-gradient(145deg,#f0fdf8,#ddf7ed)]',
-    iconTheme: 'bg-[#d0f5e7] text-[#16806c]',
   },
   {
     key: 'diary',
-    icon: BookOpenText,
+    glyph: 'journal',
+    tone: 'sky',
+    decor: '-bottom-14 right-24 rotate-[11deg]',
     href: Routes.DIARY,
     titleKey: 'Next.diary.title',
     descriptionKey: 'Next.diary.description',
     theme: 'border-[#c8e4f6] bg-[linear-gradient(145deg,#f0faff,#e1f2ff)]',
-    iconTheme: 'bg-[#d5ecfc] text-[#367fbd]',
   },
   {
     key: 'practice',
-    icon: Wind,
+    glyph: 'breath',
+    tone: 'lilac',
+    decor: '-bottom-12 -right-6 rotate-[24deg]',
     href: Routes.GUIDE + '/breathing',
     titleKey: 'Next.practice.title',
     descriptionKey: 'Next.practice.description',
     theme: 'border-[#e1d1f7] bg-[linear-gradient(145deg,#f9f2ff,#eee3ff)]',
-    iconTheme: 'bg-[#e8dafb] text-[#8050b5]',
   },
 ] as const
 
@@ -51,18 +55,22 @@ export function FeatureCardsSection({ isAuthenticated = false }: { isAuthenticat
           <p className="mt-2 text-sm text-textcolor-secondary">{t('Next.subtitle')}</p>
         </div>
         <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
-          {choices.map(({ key, icon: Icon, href, titleKey, descriptionKey, theme, iconTheme }) => {
+          {choices.map(({ key, glyph, tone, decor, href, titleKey, descriptionKey, theme }) => {
             const target = isAuthenticated ? href : key === 'practice' ? '#try-now' : Routes.AUTH
             return (
               <Link
                 key={key}
                 href={target}
-                className={`group flex min-h-36 flex-col rounded-[24px] border p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 ${theme}`}
+                className={`group relative isolate flex min-h-36 flex-col overflow-hidden rounded-[24px] border p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 ${theme}`}
               >
+                <GlassMedallion
+                  glyph={glyph}
+                  tone={tone}
+                  size={120}
+                  className={`pointer-events-none absolute -z-10 opacity-50 transition-transform duration-700 group-hover:scale-105 ${decor}`}
+                />
                 <div className="mb-4 flex items-center justify-between">
-                  <span className={`flex h-11 w-11 items-center justify-center rounded-2xl ${iconTheme}`}>
-                    <Icon aria-hidden size={24} strokeWidth={1.6} />
-                  </span>
+                  <GlassMedallion glyph={glyph} tone={tone} size={46} />
                   <ArrowUpRight aria-hidden size={18} className="text-textcolor-secondary" />
                 </div>
                 <h3 className="text-lg font-semibold text-textcolor-primary">{t(titleKey)}</h3>

@@ -1,157 +1,139 @@
 'use client'
 
-import { type CSSProperties, type ReactNode, useCallback, useRef, useState } from 'react'
-import { BookOpenText, CloudRain, Heart, Sun, Wind } from 'lucide-react'
+import { type CSSProperties, type PointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { GlassMedallion } from './glass/GlassMedallion'
+import { type WaterColors, WaterSurface, type WaterSurfaceHandle } from './water/WaterSurface'
+
 /**
- * "Resonance" — Dzvin means a bell. Soft rings spread from the hero card in a
- * slow breathing rhythm; the mood slider re-tints the whole hero and sends a
- * ripple. Nothing is stored: this is a local, decorative demo.
+ * "Resonance" — Dzvin means a bell. The hero is a calm water surface: drops
+ * fall behind the check-in card in a slow breathing rhythm, the mood slider
+ * re-tints the water and sends a ripple, a tap on the background drops one
+ * where you touched. Nothing is stored: this is a local, decorative demo.
  */
 
-type Rgb = [number, number, number]
-const hex = (value: string): Rgb => [1, 3, 5].map((i) => parseInt(value.slice(i, i + 2), 16)) as Rgb
-const PALETTES: Record<'low' | 'mid' | 'high', [Rgb, Rgb, Rgb]> = {
-  low: [hex('#a9c4f5'), hex('#c3b5f0'), hex('#b3dfe9')],
-  mid: [hex('#ffb9a9'), hex('#cca7ff'), hex('#8fe8d7')],
-  high: [hex('#ffcf8a'), hex('#ffb3c7'), hex('#b9f0c6')],
+type Trio = [string, string, string]
+const PALETTES: Record<'low' | 'mid' | 'high', Trio> = {
+  low: ['#9db4ea', '#e4ecfb', '#f8fbff'],
+  mid: ['#c6b2f1', '#fbe3f0', '#fff3e9'],
+  high: ['#f3b58e', '#ffe4d4', '#fffaf0'],
 }
 
-const mix = (a: Rgb, b: Rgb, t: number) => `rgb(${a.map((v, i) => Math.round(v + (b[i] - v) * t)).join(' ')})`
+const channel = (hex: string, i: number) => parseInt(hex.slice(1 + i * 2, 3 + i * 2), 16)
+const mixHex = (a: string, b: string, t: number) =>
+  '#' +
+  [0, 1, 2]
+    .map((i) =>
+      Math.round(channel(a, i) + (channel(b, i) - channel(a, i)) * t)
+        .toString(16)
+        .padStart(2, '0')
+    )
+    .join('')
 
-export function moodPalette(mood: number): [string, string, string] {
+export function moodWater(mood: number): WaterColors {
   const clamped = Math.max(0, Math.min(100, mood))
   const [from, to, t] =
     clamped <= 50 ? [PALETTES.low, PALETTES.mid, clamped / 50] : [PALETTES.mid, PALETTES.high, (clamped - 50) / 50]
-  return [0, 1, 2].map((i) => mix(from[i], to[i], t)) as [string, string, string]
+  return { deep: mixHex(from[0], to[0], t), mid: mixHex(from[1], to[1], t), light: mixHex(from[2], to[2], t) }
 }
 
-const RINGS = [0, 1, 2, 3, 4]
+const TRACK = `linear-gradient(90deg, ${PALETTES.low[0]}, ${PALETTES.mid[0]} 50%, ${PALETTES.high[0]})`
 
 export function MoodResonance({ children, className }: { children: ReactNode; className?: string }) {
   const t = useTranslations('pages.Landing.Platform.visual')
   const [mood, setMood] = useState(55)
-  const [pulses, setPulses] = useState<number[]>([])
-  const lastPulse = useRef(0)
-  const [c1, c2, c3] = moodPalette(mood)
+  const [source, setSource] = useState({ x: 0.72, y: 0.5 })
+  const water = useRef<WaterSurfaceHandle>(null)
+  const layer = useRef<HTMLDivElement>(null)
+  const card = useRef<HTMLDivElement>(null)
+  const lastDrop = useRef(0)
+  const colors = useMemo(() => moodWater(mood), [mood])
 
-  const onMood = useCallback((value: number) => {
-    setMood(value)
-    const now = Date.now()
-    if (now - lastPulse.current < 280) return
-    lastPulse.current = now
-    setPulses((current) => [...current.slice(-3), now])
-    window.setTimeout(() => setPulses((current) => current.filter((id) => id !== now)), 1700)
+  useEffect(() => {
+    const locate = () => {
+      const area = layer.current?.getBoundingClientRect()
+      const box = card.current?.getBoundingClientRect()
+      if (!area || !box || !area.width || !area.height) return
+      setSource({
+        x: (box.left + box.width / 2 - area.left) / area.width,
+        y: (box.top + box.height / 2 - area.top) / area.height,
+      })
+    }
+    locate()
+    window.addEventListener('resize', locate)
+    return () => window.removeEventListener('resize', locate)
   }, [])
 
-  const style = { '--r1': c1, '--r2': c2, '--r3': c3 } as CSSProperties
+  const onMood = (value: number) => {
+    setMood(value)
+    const now = Date.now()
+    if (now - lastDrop.current < 450) return
+    lastDrop.current = now
+    water.current?.drop(source.x, source.y, 0.95)
+  }
 
-  const card = (
-    <div className="relative mx-auto w-full max-w-[520px] py-4" style={style}>
-      <svg
-        aria-hidden="true"
-        viewBox="-400 -400 800 800"
-        className="pointer-events-none absolute left-1/2 top-1/2 -z-10 h-[190%] w-[190%] -translate-x-1/2 -translate-y-1/2 overflow-visible"
-      >
-        {RINGS.map((ring) => (
-          <circle
-            key={ring}
-            r="200"
-            fill="none"
-            strokeWidth="1.5"
-            className="dzvin-ring transition-[stroke] duration-700"
-            style={{ stroke: 'var(--r2)', animationDelay: `${ring * -1.6}s` }}
-          />
-        ))}
-        {pulses.map((id) => (
-          <circle
-            key={id}
-            r="200"
-            fill="none"
-            strokeWidth="3"
-            className="dzvin-pulse"
-            style={{ stroke: 'var(--r1)' }}
-          />
-        ))}
-      </svg>
-      <div className="relative overflow-hidden rounded-[32px] border border-white/90 bg-white/90 p-5 shadow-[0_35px_75px_rgba(93,78,136,0.18)] backdrop-blur-sm tablet:p-7">
-        <div className="mb-5 flex items-center">
-          <div className="flex h-11 w-11 items-center justify-center rounded-2xl bg-[#f5e2fc] text-[#8f53a7]">
-            <Heart aria-hidden size={23} strokeWidth={1.8} />
-          </div>
-        </div>
-        <h2 className="text-[1.45rem] font-semibold leading-tight tracking-tight text-[#393451] tablet:text-[1.65rem]">
-          {t('title')}
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-[#756d84]">{t('subtitle')}</p>
-
-        <div
-          className="mt-6 rounded-[22px] p-4 transition-[background] duration-700"
-          style={{
-            background: `linear-gradient(120deg, color-mix(in srgb, var(--r1) 28%, white), color-mix(in srgb, var(--r2) 24%, white))`,
-          }}
-        >
-          <label htmlFor="dzvin-mood" className="mb-3 block text-sm font-semibold text-[#5b4a6e]">
-            {t('checkin')}
-          </label>
-          <div className="flex items-center gap-3">
-            <CloudRain aria-hidden size={22} strokeWidth={1.7} className="shrink-0 text-[#6577a8]" />
-            <input
-              id="dzvin-mood"
-              type="range"
-              min={0}
-              max={100}
-              value={mood}
-              onChange={(event) => onMood(Number(event.target.value))}
-              aria-valuetext={mood < 34 ? t('moodLow') : mood > 66 ? t('moodHigh') : t('moodMid')}
-              className="dzvin-mood-range h-11 flex-1 cursor-pointer"
-              style={{ '--track': `linear-gradient(90deg, ${PALETTES_CSS})` } as CSSProperties}
-            />
-            <Sun aria-hidden size={22} strokeWidth={1.7} className="shrink-0 text-[#c27a2c]" />
-          </div>
-          <div className="mt-1 flex justify-between text-xs text-[#6f6680]">
-            <span>{t('moodLow')}</span>
-            <span>{t('moodHigh')}</span>
-          </div>
-        </div>
-        <div className="mt-3 grid grid-cols-2 gap-3">
-          <div className="rounded-[20px] border border-[#ebdfed] bg-[#faf6fd] p-4">
-            <BookOpenText aria-hidden size={22} strokeWidth={1.7} className="text-[#8b69aa]" />
-            <p className="mt-3 text-sm font-semibold text-[#5a4b69]">{t('journal')}</p>
-          </div>
-          <div className="rounded-[20px] border border-[#d4ebe3] bg-[#edf9f4] p-4">
-            <Wind aria-hidden size={22} strokeWidth={1.7} className="text-[#328d78]" />
-            <p className="mt-3 text-sm font-semibold text-[#426b61]">{t('practice')}</p>
-          </div>
-        </div>
-        <p className="mt-4 text-xs text-[#8a8297]">{t('moodHint')}</p>
-      </div>
-    </div>
-  )
+  const onPress = (event: PointerEvent<HTMLDivElement>) => {
+    if ((event.target as HTMLElement).closest('a, button, input, label')) return
+    const area = layer.current?.getBoundingClientRect()
+    if (!area) return
+    water.current?.drop((event.clientX - area.left) / area.width, (event.clientY - area.top) / area.height, 0.9)
+  }
 
   return (
     <>
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden" style={style}>
-        <div
-          className="absolute -left-24 -top-40 h-[430px] w-[520px] rounded-full opacity-70 blur-[95px] transition-colors duration-700"
-          style={{ backgroundColor: 'var(--r1)' }}
-        />
-        <div
-          className="absolute -bottom-52 left-[22%] h-[440px] w-[540px] rounded-full opacity-60 blur-[95px] transition-colors duration-700"
-          style={{ backgroundColor: 'var(--r2)' }}
-        />
-        <div
-          className="absolute -right-32 top-[10%] h-[540px] w-[480px] rounded-full opacity-60 blur-[95px] transition-colors duration-700"
-          style={{ backgroundColor: 'var(--r3)' }}
-        />
+      <div ref={layer} className="pointer-events-none absolute inset-0">
+        <WaterSurface ref={water} colors={colors} source={source} every={5} className="h-full w-full" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.18)_45%,rgba(255,255,255,0)_70%)]" />
       </div>
-      <div className={className}>
+      <div className={className} onPointerDown={onPress}>
         {children}
-        {card}
+        <div ref={card} className="relative mx-auto w-full max-w-[500px]">
+          <div className="relative overflow-hidden rounded-[32px] border border-white/80 bg-white/70 p-5 shadow-[0_30px_80px_-20px_rgba(70,60,130,0.35)] backdrop-blur-xl tablet:p-7">
+            <GlassMedallion glyph="heart" tone="rose" size={46} />
+            <h2 className="mt-5 text-[1.45rem] font-semibold leading-tight tracking-tight text-[#302a4f] tablet:text-[1.65rem]">
+              {t('title')}
+            </h2>
+            <p className="mt-2 text-sm leading-relaxed text-[#6b6480]">{t('subtitle')}</p>
+
+            <div className="mt-6 rounded-[22px] border border-white/80 bg-white/60 p-4">
+              <label htmlFor="dzvin-mood" className="mb-3 block text-sm font-semibold text-[#4a3f63]">
+                {t('checkin')}
+              </label>
+              <div className="flex items-center gap-3">
+                <GlassMedallion glyph="rain" tone="sky" size={34} />
+                <input
+                  id="dzvin-mood"
+                  type="range"
+                  min={0}
+                  max={100}
+                  value={mood}
+                  onChange={(event) => onMood(Number(event.target.value))}
+                  aria-valuetext={mood < 34 ? t('moodLow') : mood > 66 ? t('moodHigh') : t('moodMid')}
+                  className="dzvin-mood-range h-11 flex-1 cursor-pointer"
+                  style={{ '--track': TRACK, '--r2': colors.deep } as CSSProperties}
+                />
+                <GlassMedallion glyph="sun" tone="sun" size={34} />
+              </div>
+              <div className="mt-1 flex justify-between px-1 text-xs text-[#6b6480]">
+                <span>{t('moodLow')}</span>
+                <span>{t('moodHigh')}</span>
+              </div>
+            </div>
+            <div className="mt-3 grid grid-cols-2 gap-3">
+              <div className="flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
+                <GlassMedallion glyph="journal" tone="lilac" size={36} />
+                <p className="text-sm font-semibold text-[#4a3f63]">{t('journal')}</p>
+              </div>
+              <div className="flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
+                <GlassMedallion glyph="breath" tone="mint" size={36} />
+                <p className="text-sm font-semibold text-[#3f5f58]">{t('practice')}</p>
+              </div>
+            </div>
+            <p className="mt-4 text-xs text-[#7d7690]">{t('moodHint')}</p>
+          </div>
+        </div>
       </div>
     </>
   )
 }
-
-const PALETTES_CSS = '#a9c4f5, #cca7ff 50%, #ffcf8a'
