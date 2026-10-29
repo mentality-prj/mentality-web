@@ -185,16 +185,5 @@
   "seo": {
     "title": "Dzvin — personal support at your own pace",
     "description": "Track your mood, keep a private journal and try short practices at your own pace. Dzvin for people, organizations and research."
-  },
-  "Legacy": {
-    "Hero": {
-      "title": "A better understanding of how you feel — at your own pace.",
-      "subtitle": "Dzvin.co helps you track mood, stress and energy, keep a private diary and choose short practices that support your well-being.",
-      "cta": "Try for free",
-      "card": {
-        "title": "For personal support\nand teams",
-        "cta": "Learn more"
-      }
-    }
   }
 }
