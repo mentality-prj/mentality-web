@@ -7,8 +7,12 @@ import { publicPageMetadata } from '@/lib/seo/publicPageMetadata'
 import { BusinessInvitationSection } from './components/BusinessInvitationSection'
 import { FeatureCardsSection } from './components/FeatureCardsSection'
 import { HeroSection } from './components/HeroSection'
+import { HowItWorksSection } from './components/HowItWorksSection'
+import { LegacyFeatureCardsSection } from './components/LegacyFeatureCardsSection'
+import { LegacyHeroSection } from './components/LegacyHeroSection'
 import { PlatformHeroSection } from './components/PlatformHeroSection'
 import { PlatformProductsSection } from './components/PlatformProductsSection'
+import { ServicesSection } from './components/ServicesSection'
 
 export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
   const { locale } = await params
@@ -27,6 +31,10 @@ export default async function LandingPage() {
       <HeroSection isAuthenticated={isAuthenticated} />
       <FeatureCardsSection isAuthenticated={isAuthenticated} />
       <BusinessInvitationSection />
+      <LegacyHeroSection />
+      <LegacyFeatureCardsSection />
+      <ServicesSection />
+      <HowItWorksSection />
     </>
   )
 }

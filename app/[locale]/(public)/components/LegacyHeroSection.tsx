@@ -1,0 +1,89 @@
+'use client'
+import { useLayoutEffect, useRef } from 'react'
+import { ArrowUpRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+
+import AvatarStack from '@/components/shared/AvatarStack'
+import { Routes } from '@/constants/routes'
+import { Link } from '@/i18n/navigation'
+import { Button } from '@/ui/button'
+
+/** Original dzvin.co hero design (logo-anchored rings, volume CTA), kept below the people-first hero. */
+export function LegacyHeroSection() {
+  const t = useTranslations('pages.Landing.Legacy')
+
+  const avatars = ['/avatars/avatar1.png', '/avatars/avatar2.png', '/avatars/avatar3.png']
+  const heroRef = useRef<HTMLElement | null>(null)
+
+  useLayoutEffect(() => {
+    const heroEl = heroRef.current
+    const logoEl = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
+    if (!heroEl || !logoEl) return
+    const DECORATIVE_INSET_RATIO = 0.28
+
+    const updateGradientAnchor = () => {
+      const heroRect = heroEl.getBoundingClientRect()
+      const logoRect = logoEl.getBoundingClientRect()
+      const pseudoLeft = heroRect.left - heroRect.width * DECORATIVE_INSET_RATIO
+      const anchorX = logoRect.left + logoRect.width / 2 - pseudoLeft
+      heroEl.style.setProperty('--hero-gradient-x', `${anchorX}px`)
+      const pseudoTop = heroRect.top - heroRect.height * DECORATIVE_INSET_RATIO
+      const anchorY = Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)
+      heroEl.style.setProperty('--hero-gradient-y', `${anchorY}px`)
+      heroEl.dataset.heroRingsReady = 'true'
+    }
+
+    updateGradientAnchor()
+    window.addEventListener('resize', updateGradientAnchor)
+
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateGradientAnchor) : null
+    observer?.observe(logoEl)
+
+    return () => {
+      window.removeEventListener('resize', updateGradientAnchor)
+      observer?.disconnect()
+    }
+  }, [])
+
+  return (
+    <section
+      ref={heroRef}
+      data-hero-rings-ready="false"
+      className="hero-zen mb-8 w-full py-8 tablet:mb-10 tablet:py-10 sm:py-12 md:py-16"
+    >
+      <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8">
+        <div className="grid grid-cols-1 items-center gap-default md:grid-cols-2 md:gap-x-md">
+          <div className="flex max-w-[720px] flex-col gap-default md:max-lg:contents">
+            <h2 className="landing-h1 md:max-lg:col-span-2">{t('Hero.title')}</h2>
+            <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
+          </div>
+          <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
+            <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
+              <div className="flex items-center justify-between gap-sm">
+                <h3 className="text-title line-clamp-2 w-full whitespace-pre-line pr-2 text-base leading-[120%]">
+                  {t('Hero.card.title')}
+                </h3>
+                <Link
+                  href={Routes.SERVICES}
+                  aria-label={t('Hero.card.cta')}
+                  className="flex h-9 w-9 flex-none items-center justify-center rounded-full border border-[var(--outline-secondary)]"
+                >
+                  <ArrowUpRight size={24} className="text-[var(--text-muted)]" />
+                </Link>
+              </div>
+              <div className="mt-4 border-t border-[var(--outline-secondary)]" />
+              <div className="mt-4 flex items-center justify-between">
+                <AvatarStack images={avatars} />
+              </div>
+            </div>
+          </div>
+          <div className="mx-auto flex justify-start tablet:mx-0">
+            <Button asChild variant="volume" size="large">
+              <Link href={Routes.AUTH}>{t('Hero.cta')}</Link>
+            </Button>
+          </div>
+        </div>
+      </div>
+    </section>
+  )
+}

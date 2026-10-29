@@ -185,5 +185,16 @@
   "seo": {
     "title": "Dzvin — osobiste wsparcie we własnym tempie",
     "description": "Notuj samopoczucie, prowadź prywatny dziennik i próbuj krótkich ćwiczeń we własnym tempie. Dzvin dla ludzi, firm i badań."
+  },
+  "Legacy": {
+    "Hero": {
+      "title": "Lepsze zrozumienie swojego samopoczucia — we własnym tempie.",
+      "subtitle": "Dzvin.co pomaga notować nastrój, stres i energię, prowadzić prywatny dziennik i wybierać krótkie praktyki wspierające samopoczucie.",
+      "cta": "Wypróbuj za darmo",
+      "card": {
+        "title": "Dla wsparcia osobistego\ni zespołów",
+        "cta": "Dowiedz się więcej"
+      }
+    }
   }
 }
