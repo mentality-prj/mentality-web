@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { moodPalette,MoodResonance } from './MoodResonance'
+import { moodPalette, MoodResonance } from './MoodResonance'
 
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
