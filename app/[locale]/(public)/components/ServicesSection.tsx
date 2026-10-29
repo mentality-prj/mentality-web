@@ -1,16 +1,39 @@
-import type { ComponentType } from 'react'
 import { useTranslations } from 'next-intl'
 
-import { BreathIllustration, HistoryIllustration, JournalIllustration } from './LandingIllustrations'
+import { GlassMedallion, type GlassTone } from './glass/GlassMedallion'
+import type { GlyphName } from './glass/glyphs'
+import { type WaterColors, WaterSurface } from './water/WaterSurface'
 import { landingContainer, landingH2 } from './landingStyles'
 
 const serviceCards: {
   key: 'cohortEvidence' | 'scenarioSimulation' | 'predictionEngine'
-  Illustration: ComponentType<{ className?: string }>
+  glyph: GlyphName
+  tone: GlassTone
+  water: WaterColors
+  /** Where the pebble rests on the water (percent of the tile). */
+  at: { x: number; y: number; rotate: number }
 }[] = [
-  { key: 'cohortEvidence', Illustration: JournalIllustration },
-  { key: 'scenarioSimulation', Illustration: BreathIllustration },
-  { key: 'predictionEngine', Illustration: HistoryIllustration },
+  {
+    key: 'cohortEvidence',
+    glyph: 'journal',
+    tone: 'sky',
+    water: { deep: '#8fb7ea', mid: '#e3eefc', light: '#ffffff' },
+    at: { x: 34, y: 58, rotate: -9 },
+  },
+  {
+    key: 'scenarioSimulation',
+    glyph: 'breath',
+    tone: 'mint',
+    water: { deep: '#78c9bb', mid: '#dcf5ef', light: '#ffffff' },
+    at: { x: 58, y: 42, rotate: 6 },
+  },
+  {
+    key: 'predictionEngine',
+    glyph: 'rise',
+    tone: 'peach',
+    water: { deep: '#efae95', mid: '#fde6dc', light: '#fffaf3' },
+    at: { x: 66, y: 62, rotate: 14 },
+  },
 ]
 
 export function ServicesSection() {
@@ -28,10 +51,23 @@ export function ServicesSection() {
           </p>
         </div>
         <div className="mt-10 grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 md:mt-14 lg:grid-cols-3">
-          {serviceCards.map(({ key, Illustration }) => (
-            <article key={key} className="flex flex-col">
-              <div className="aspect-[4/3] w-full overflow-hidden rounded-[24px] border border-[#ece6f6]">
-                <Illustration />
+          {serviceCards.map(({ key, glyph, tone, water, at }) => (
+            <article key={key} className="group flex flex-col">
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] shadow-[0_24px_50px_-28px_rgba(60,60,120,0.45)]">
+                <WaterSurface
+                  colors={water}
+                  source={{ x: at.x / 100, y: at.y / 100 }}
+                  every={3.2}
+                  still
+                  className="absolute inset-0"
+                />
+                <GlassMedallion
+                  glyph={glyph}
+                  tone={tone}
+                  size={84}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 transition-transform duration-700 group-hover:-translate-y-[56%]"
+                  style={{ left: `${at.x}%`, top: `${at.y}%`, rotate: `${at.rotate}deg` }}
+                />
               </div>
               <h3 className="mt-5 text-lg font-semibold text-[#302a4f]">{t(`Services.cards.${key}.title`)}</h3>
               <p className="mt-2 text-sm leading-relaxed text-[#575570] tablet:text-base">

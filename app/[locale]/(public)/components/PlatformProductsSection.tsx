@@ -1,18 +1,11 @@
-import {
-  Activity,
-  ArrowUpRight,
-  BarChart3,
-  BookOpenText,
-  BriefcaseBusiness,
-  FlaskConical,
-  ShieldCheck,
-  Wind,
-} from 'lucide-react'
+import { ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
+import { GlassMedallion, type GlassTone } from './glass/GlassMedallion'
+import type { GlyphName } from './glass/glyphs'
 import { BUSINESS_CONTACT_HREF, RESEARCH_CONTACT_HREF } from './landingContactLinks'
 import { landingContainer, landingH2 } from './landingStyles'
 
@@ -21,7 +14,9 @@ export function PlatformProductsSection() {
   const products = [
     {
       key: 'b2c',
-      Icon: Activity,
+      glyph: 'heart' as GlyphName,
+      tone: 'rose' as GlassTone,
+      decor: '-bottom-10 -right-10 rotate-[-16deg]',
       label: t('b2c.label'),
       title: t('b2c.title'),
       description: t('b2c.description'),
@@ -31,18 +26,23 @@ export function PlatformProductsSection() {
         'lg:col-span-5 border-[#ead3de] bg-[linear-gradient(145deg,#fff4eb_0%,#fbeafa_55%,#e8f8f3_100%)] text-[#513e5d] shadow-[0_20px_45px_rgba(171,105,146,0.12)]',
       labelClass: 'bg-white/75 text-[#96627e] border-white/90',
       descriptionClass: 'text-[#6b5b71]',
-      featureClass: 'bg-white/65 text-[#6d5274]',
       linkClass: 'text-[#8b48a4]',
-      iconClass: 'text-[#c587a4]',
       features: [
-        { key: 'checkins', Icon: Activity, text: t('b2c.features.checkins') },
-        { key: 'diary', Icon: BookOpenText, text: t('b2c.features.diary') },
-        { key: 'exercises', Icon: Wind, text: t('b2c.features.exercises') },
+        { key: 'checkins', glyph: 'pulse' as GlyphName, tone: 'rose' as GlassTone, text: t('b2c.features.checkins') },
+        { key: 'diary', glyph: 'journal' as GlyphName, tone: 'rose' as GlassTone, text: t('b2c.features.diary') },
+        {
+          key: 'exercises',
+          glyph: 'breath' as GlyphName,
+          tone: 'rose' as GlassTone,
+          text: t('b2c.features.exercises'),
+        },
       ],
     },
     {
       key: 'b2b',
-      Icon: BriefcaseBusiness,
+      glyph: 'people' as GlyphName,
+      tone: 'sky' as GlassTone,
+      decor: '-right-14 top-24 rotate-[12deg]',
       label: t('b2b.label'),
       title: t('b2b.title'),
       description: t('b2b.description'),
@@ -52,18 +52,23 @@ export function PlatformProductsSection() {
         'lg:col-span-4 border-[#cad9fa] bg-[linear-gradient(145deg,#e7f3ff_0%,#d9e8fc_58%,#e8e4fc_100%)] text-[#2d426f] shadow-[0_20px_45px_rgba(85,120,182,0.12)]',
       labelClass: 'bg-white/70 text-[#4a70a5] border-white/90',
       descriptionClass: 'text-[#536888]',
-      featureClass: 'bg-white/70 text-[#4c68a0]',
       linkClass: 'text-[#3154a4]',
-      iconClass: 'text-[#7396cb]',
       features: [
-        { key: 'teams', Icon: ShieldCheck, text: t('b2b.features.teams') },
-        { key: 'analytics', Icon: BarChart3, text: t('b2b.features.analytics') },
-        { key: 'decisions', Icon: BriefcaseBusiness, text: t('b2b.features.decisions') },
+        { key: 'teams', glyph: 'shield' as GlyphName, tone: 'sky' as GlassTone, text: t('b2b.features.teams') },
+        { key: 'analytics', glyph: 'chart' as GlyphName, tone: 'sky' as GlassTone, text: t('b2b.features.analytics') },
+        {
+          key: 'decisions',
+          glyph: 'briefcase' as GlyphName,
+          tone: 'sky' as GlassTone,
+          text: t('b2b.features.decisions'),
+        },
       ],
     },
     {
       key: 'rd',
-      Icon: FlaskConical,
+      glyph: 'flask' as GlyphName,
+      tone: 'lilac' as GlassTone,
+      decor: '-bottom-16 right-12 rotate-[24deg]',
       label: t('rd.label'),
       title: t('rd.title'),
       description: t('rd.description'),
@@ -73,13 +78,16 @@ export function PlatformProductsSection() {
         'md:col-span-2 lg:col-span-3 border-[#e2d5f3] bg-[linear-gradient(145deg,#f5eaff_0%,#ede8ff_60%,#faf1fc_100%)] text-[#55466a] shadow-[0_20px_45px_rgba(128,91,169,0.1)]',
       labelClass: 'bg-white/70 text-[#80639e] border-white/90',
       descriptionClass: 'text-[#756584]',
-      featureClass: 'bg-white/65 text-[#775c96]',
       linkClass: 'text-[#7650a2]',
-      iconClass: 'text-[#a18ac4]',
       features: [
-        { key: 'cohorts', Icon: FlaskConical, text: t('rd.features.cohorts') },
-        { key: 'validation', Icon: BarChart3, text: t('rd.features.validation') },
-        { key: 'reports', Icon: BookOpenText, text: t('rd.features.reports') },
+        { key: 'cohorts', glyph: 'flask' as GlyphName, tone: 'lilac' as GlassTone, text: t('rd.features.cohorts') },
+        {
+          key: 'validation',
+          glyph: 'chart' as GlyphName,
+          tone: 'lilac' as GlassTone,
+          text: t('rd.features.validation'),
+        },
+        { key: 'reports', glyph: 'report' as GlyphName, tone: 'lilac' as GlassTone, text: t('rd.features.reports') },
       ],
     },
   ] as const
@@ -98,7 +106,9 @@ export function PlatformProductsSection() {
           {products.map(
             ({
               key,
-              Icon,
+              glyph,
+              tone,
+              decor,
               label,
               title,
               description,
@@ -108,24 +118,23 @@ export function PlatformProductsSection() {
               className,
               labelClass,
               descriptionClass,
-              featureClass,
               linkClass,
-              iconClass,
             }) => (
               <article
                 key={key}
                 className={`group relative isolate flex min-h-[340px] flex-col overflow-hidden rounded-[30px] border p-6 transition-transform duration-300 hover:-translate-y-1 tablet:p-7 ${className}`}
               >
-                <Icon
-                  aria-hidden
-                  strokeWidth={1}
-                  className={`pointer-events-none absolute -right-6 top-14 h-36 w-36 rotate-[-13deg] opacity-20 ${iconClass}`}
+                <GlassMedallion
+                  glyph={glyph}
+                  tone={tone}
+                  size={150}
+                  className={`pointer-events-none absolute -z-10 opacity-60 transition-transform duration-700 group-hover:scale-105 ${decor}`}
                 />
                 <div className="relative mb-7">
                   <span
-                    className={`inline-flex items-center gap-2 rounded-full border px-3 py-1.5 text-xs font-semibold ${labelClass}`}
+                    className={`inline-flex items-center gap-2 rounded-full border py-1 pl-1 pr-3 text-xs font-semibold ${labelClass}`}
                   >
-                    <Icon aria-hidden size={17} strokeWidth={1.7} />
+                    <GlassMedallion glyph={glyph} tone={tone} size={22} />
                     {label}
                   </span>
                 </div>
@@ -136,11 +145,9 @@ export function PlatformProductsSection() {
                 <p className={`relative mt-3 max-w-md text-sm leading-[1.7] ${descriptionClass}`}>{description}</p>
 
                 <ul className="relative my-6 space-y-3">
-                  {features.map(({ key: featureKey, Icon: FeatureIcon, text }) => (
+                  {features.map(({ key: featureKey, glyph: featureGlyph, tone: featureTone, text }) => (
                     <li key={featureKey} className="flex items-start gap-3 text-sm leading-relaxed">
-                      <span className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-xl ${featureClass}`}>
-                        <FeatureIcon aria-hidden size={17} strokeWidth={1.7} />
-                      </span>
+                      <GlassMedallion glyph={featureGlyph} tone={featureTone} size={30} />
                       <span className="pt-1">{text}</span>
                     </li>
                   ))}

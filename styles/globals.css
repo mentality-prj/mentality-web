@@ -796,63 +796,7 @@ main:has([data-protected-route-loading]) > footer {
   display: none;
 }
 
-/* Landing "resonance": bell-like rings breathing out from the hero card */
-@keyframes dzvin-ring {
-  0% {
-    transform: scale(0.55);
-    opacity: 0;
-  }
-  25% {
-    opacity: 0.7;
-  }
-  100% {
-    transform: scale(1.9);
-    opacity: 0;
-  }
-}
-@keyframes dzvin-pulse {
-  0% {
-    transform: scale(0.6);
-    opacity: 0.9;
-  }
-  100% {
-    transform: scale(1.7);
-    opacity: 0;
-  }
-}
-.dzvin-ring {
-  opacity: 0;
-  transform-box: view-box;
-  transform-origin: center;
-  animation: dzvin-ring 8s cubic-bezier(0.22, 0.61, 0.36, 1) infinite;
-}
-.dzvin-pulse {
-  transform-box: view-box;
-  transform-origin: center;
-  animation: dzvin-pulse 1.6s ease-out forwards;
-}
-@media (prefers-reduced-motion: reduce) {
-  .dzvin-ring,
-  .dzvin-pulse {
-    animation: none;
-  }
-  .dzvin-ring {
-    opacity: 0.35;
-  }
-  .dzvin-ring:nth-child(1) {
-    transform: scale(0.7);
-  }
-  .dzvin-ring:nth-child(2) {
-    transform: scale(1);
-  }
-  .dzvin-ring:nth-child(3) {
-    transform: scale(1.3);
-  }
-  .dzvin-ring:nth-child(n + 4),
-  .dzvin-pulse {
-    display: none;
-  }
-}
+/* Landing mood slider */
 .dzvin-mood-range {
   appearance: none;
   background: transparent;

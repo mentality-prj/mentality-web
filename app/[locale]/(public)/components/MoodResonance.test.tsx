@@ -1,17 +1,17 @@
 import { fireEvent, render, screen } from '@testing-library/react'
 
-import { moodPalette, MoodResonance } from './MoodResonance'
+import { MoodResonance, moodWater } from './MoodResonance'
 
 jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }))
 
 describe('MoodResonance', () => {
-  it('maps mood to a calm-to-warm palette', () => {
-    expect(moodPalette(0)[0]).toBe('rgb(169 196 245)')
-    expect(moodPalette(50)[1]).toBe('rgb(204 167 255)')
-    expect(moodPalette(100)[0]).toBe('rgb(255 207 138)')
-    expect(moodPalette(-20)).toEqual(moodPalette(0))
+  it('maps mood to calm-blue, lilac and warm water', () => {
+    expect(moodWater(0).deep).toBe('#9db4ea')
+    expect(moodWater(50).deep).toBe('#c6b2f1')
+    expect(moodWater(100).deep).toBe('#f3b58e')
+    expect(moodWater(-20)).toEqual(moodWater(0))
   })
 
   it('renders an accessible mood slider that re-tints the hero', () => {
@@ -26,7 +26,6 @@ describe('MoodResonance', () => {
 
     fireEvent.change(slider, { target: { value: '100' } })
     expect(slider).toHaveAttribute('aria-valuetext', 'moodHigh')
-    const card = slider.closest('[style*="--r1"]') as HTMLElement
-    expect(card.style.getPropertyValue('--r1')).toBe('rgb(255 207 138)')
+    expect(slider).toHaveStyle({ '--r2': '#f3b58e' })
   })
 })
