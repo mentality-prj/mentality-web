@@ -6,6 +6,8 @@ import { useTranslations } from 'next-intl'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
+import { landingContainer, landingH2, landingPrimaryCta } from './landingStyles'
+
 const choices = [
   {
     key: 'mood',
@@ -40,10 +42,10 @@ export function FeatureCardsSection({ isAuthenticated = false }: { isAuthenticat
   const t = useTranslations('pages.Landing')
 
   return (
-    <section aria-labelledby="next-action-heading" className="bg-[linear-gradient(180deg,#f7fbff_0%,#fff_100%)]">
-      <div className="container-max-width mx-auto px-4 py-10 tablet:px-6 tablet:py-14 md:px-8 lg:px-10">
-        <div className="mb-6">
-          <h2 id="next-action-heading" className="text-2xl font-semibold text-textcolor-primary tablet:text-3xl">
+    <section aria-labelledby="next-action-heading" className="bg-white">
+      <div className={landingContainer}>
+        <div className="mb-8">
+          <h2 id="next-action-heading" className={landingH2}>
             {t('Next.heading')}
           </h2>
           <p className="mt-2 text-sm text-textcolor-secondary">{t('Next.subtitle')}</p>
@@ -84,12 +86,9 @@ export function FeatureCardsSection({ isAuthenticated = false }: { isAuthenticat
             </Link>
           )}
         </div>
-        <div className="mt-7 flex flex-col items-start justify-between gap-4 border-t border-[var(--outline-secondary)] pt-6 sm:flex-row sm:items-center">
+        <div className="mt-7 flex flex-col items-start justify-between gap-4 border-t border-[#ece6f6] pt-6 sm:flex-row sm:items-center">
           <p className="max-w-lg text-sm text-textcolor-secondary">{t('Next.closing')}</p>
-          <Link
-            href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}
-            className="inline-flex min-h-12 w-full items-center justify-center rounded-full bg-[linear-gradient(110deg,#7545dd,#4368e6)] px-6 py-3 text-sm font-semibold text-white shadow-[0_10px_26px_rgba(93,78,210,0.16)] sm:w-auto"
-          >
+          <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH} className={`${landingPrimaryCta} w-full sm:w-auto`}>
             {isAuthenticated ? t('Hero.returnCta') : t('Next.signup')}
           </Link>
         </div>

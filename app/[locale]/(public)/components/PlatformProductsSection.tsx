@@ -14,6 +14,7 @@ import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
 import { BUSINESS_CONTACT_HREF, RESEARCH_CONTACT_HREF } from './landingContactLinks'
+import { landingContainer, landingH2 } from './landingStyles'
 
 export function PlatformProductsSection() {
   const t = useTranslations('pages.Landing.Products')
@@ -84,17 +85,10 @@ export function PlatformProductsSection() {
   ] as const
 
   return (
-    <section
-      id="products"
-      aria-labelledby="products-heading"
-      className="scroll-mt-5 bg-[linear-gradient(180deg,#fff8f9_0%,#fff_55%,#f7f5ff_100%)]"
-    >
-      <div className="container-max-width mx-auto px-4 py-12 tablet:px-6 tablet:py-16 md:px-8 md:py-20 lg:px-10">
+    <section id="products" aria-labelledby="products-heading" className="scroll-mt-5 bg-white">
+      <div className={landingContainer}>
         <div className="mb-8 max-w-2xl">
-          <h2
-            id="products-heading"
-            className="text-[1.75rem] font-semibold leading-tight text-[#383053] tablet:text-[2.35rem]"
-          >
+          <h2 id="products-heading" className={landingH2}>
             {t('heading')}
           </h2>
           <p className="mt-3 text-base leading-relaxed text-[#6a6077]">{t('description')}</p>
