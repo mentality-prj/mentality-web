@@ -56,4 +56,16 @@ describe('ContactForm mobile readiness', () => {
     expect(field.className).toContain('resize-y')
     expect(screen.getByRole('button', { name: 'send' })).toBeDisabled()
   })
+
+  it('prefills a pilot or research request when arriving from the landing page', () => {
+    const { unmount } = render(<ContactForm source="landing" segment="teams" intent="demo" />)
+    expect((screen.getByPlaceholderText('message') as HTMLTextAreaElement).value).toBe(
+      'Хочу обговорити демонстрацію Dzvin.co для компанії.'
+    )
+    unmount()
+    render(<ContactForm source="landing" segment="research" intent="demo" />)
+    expect((screen.getByPlaceholderText('message') as HTMLTextAreaElement).value).toBe(
+      'Хочу обговорити дослідницьку програму Dzvin.co.'
+    )
+  })
 })

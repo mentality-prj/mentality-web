@@ -11,7 +11,7 @@
       },
       "b2b": {
         "title": "Korporacyjny",
-        "subtitle": "Struktura firmy, analityka zespołów i wsparcie decyzyjne dla menedżerów."
+        "subtitle": "Wsparcie pracowników i pilotażowe formaty z zagregowanymi danymi zespołów."
       },
       "rd": {
         "title": "Badawczy",
@@ -26,13 +26,13 @@
     "cards": {
       "personalFlow": {
         "title": "Osobista ścieżka wsparcia",
-        "description": "Dla osoby korzystającej z platformy usługa łączy codzienne obserwacje, ćwiczenia i dopasowane rekomendacje w jeden spójny ciąg działań.",
+        "description": "Dla osoby usługa łączy codzienne notowania, dziennik i ćwiczenia w jedną przestrzeń, do której łatwo wrócić.",
         "focus": "Priorytet: ciągłe wsparcie osobiste, krótkie pętle informacji zwrotnej i widoczny postęp."
       },
       "corporateFlow": {
-        "title": "Korporacyjna ścieżka operacyjna",
-        "description": "Dla firm usługa łączy role, grupy, analitykę zespołów i sygnały ryzyka w jeden zarządzalny model operacyjny.",
-        "focus": "Priorytet: zagregowany obraz zespołów, kontrola dostępu i terminowe działania menedżerskie."
+        "title": "Pilotaż dla firm",
+        "description": "Dla firm rozwijamy role, grupy i zagregowane wskaźniki zespołów — bez dostępu do osobistych wpisów pracowników.",
+        "focus": "Priorytet: wsparcie pracowników, dane zagregowane i jasne granice dostępu."
       },
       "researchFlow": {
         "title": "Badawcza ścieżka walidacji",
@@ -48,12 +48,12 @@
       "description": "Usługa osobista zbiera sygnały stanu, podpowiada proste praktyki i pomaga zobaczyć, co naprawdę wspiera dobrostan psychiczny w codziennym rytmie.",
       "serviceSummaryItems": {
         "tracking": "Zbiera sygnały stanu w jedną sekwencję.",
-        "support": "Od razu podpowiada właściwą praktykę po samoocenie.",
+        "support": "Daje dostęp do krótkich praktyk w przewodniku, kiedy są potrzebne.",
         "consistency": "Zachowuje historię zmian, aby łatwo wracać do skutecznych schematów."
       },
       "resultSummaryItems": {
         "one": "Stan staje się bardziej czytelny w czasie.",
-        "two": "Kolejny krok jest widoczny od razu po ocenie.",
+        "two": "Krótka praktyka jest dostępna w kilku kliknięciach.",
         "three": "Wsparcie układa się w ścieżkę, którą łatwo kontynuować każdego dnia."
       },
       "journeyTitle": "Jak działa usługa",
@@ -80,8 +80,8 @@
           "description": "Nastrój, krótkie notatki i ankiety są zbierane w jedną sekwencję, która pokazuje częstotliwość zmian, powtarzalne bodźce i dynamikę kolejnych dni."
         },
         "support": {
-          "title": "Praktyka pojawia się od razu po ocenie",
-          "description": "Po samoocenie usługa od razu otwiera oddech, medytację, ćwiczenie albo krótką wskazówkę powiązaną z aktualnym stanem."
+          "title": "Praktyki zawsze pod ręką",
+          "description": "Oddech, uspokojenie, medytacje i porady są zebrane w przewodniku — sam wybierasz, co wypróbować teraz."
         },
         "consistency": {
           "title": "Skuteczne schematy łatwo powtórzyć",
@@ -120,7 +120,7 @@
       "tag": "Korporacyjny",
       "title": "Dla firm",
       "description": "Warstwa B2B powstaje do analizy dozwolonych zagregowanych trendów stresu, nastroju, energii i koncentracji, aby wspierać HR i kierowników w ustalaniu priorytetów. Jej przydatność wymaga testów bezpieczeństwa i niezależnej oceny.",
-      "managerTitle": "Co widzi i kontroluje menedżer",
+      "managerTitle": "Co planujemy dla firm",
       "capabilities": {
         "governance": {
           "title": "Struktura organizacji, role i odpowiedzialności",
@@ -131,8 +131,8 @@
           "description": "Projektowany widok łączy dozwolone grupowe wskaźniki stresu, nastroju, energii i koncentracji. Aktualność zależy od danych i konfiguracji; działanie wymaga testów."
         },
         "decisionSupport": {
-          "title": "Priorytety działań i kontroli wsparcia",
-          "description": "System wskazuje krytyczne obszary ryzyka, pomaga ustalić, gdzie interwencja da największy efekt, i przenosi decyzje menedżerskie z poziomu intuicji na poziom danych."
+          "title": "Kontekst do rozmów o wsparciu",
+          "description": "Zagregowane trendy mają pomagać HR i liderom omawiać priorytety wsparcia zespołów. System nie wyciąga automatycznych wniosków o poszczególnych osobach; wartość tego podejścia wymaga jeszcze sprawdzenia w pilotażach."
         }
       },
       "outcomesTitle": "Potencjalne korzyści do sprawdzenia",
@@ -151,14 +151,14 @@
         }
       },
       "outcomes": {
-        "one": "Jedno pole zarządcze dla dobrostanu zespołu bez ujawniania prywatnych historii.",
-        "two": "Szybsze decyzje o wsparciu, priorytetach menedżerskich i zespołach wymagających uwagi.",
-        "three": "Argumenty dla HR i liderów oparte na dynamice danych, a nie wyłącznie na intuicji."
+        "one": "Cel: zagregowany obraz dobrostanu zespołów bez ujawniania osobistych historii.",
+        "two": "Cel: uporządkowany proces omawiania wsparcia zespołów.",
+        "three": "Cel: weryfikowalne wskaźniki dla HR i liderów, uzgodnione przed startem pilotażu."
       },
       "chart": {
         "label": "Średni wynik stresu",
-        "title": "Trajektoria ryzyka zespołu",
-        "stubTitle": "Ilustracyjna trajektoria ryzyka zespołu"
+        "title": "Trajektoria samooceny zespołu",
+        "stubTitle": "Ilustracyjna trajektoria samooceny zespołu"
       }
     },
     "rd": {
@@ -193,8 +193,8 @@
               "description": "Segmentujemy uczestników według wzorców stanu, ryzyka, odpowiedzi na interwencję i okien obserwacji."
             },
             "three": {
-              "title": "Walidujemy prognozy wobec wyników",
-              "description": "Pokazujemy, gdzie model był trafny, gdzie pojawił się dryf i jaki efekt rzeczywiście wystąpił po interwencji."
+              "title": "Planujemy ocenę hipotez",
+              "description": "Razem z partnerami z góry ustalamy, jak będą testowane hipotezy i które wyniki uznamy za istotne. Niezależnych wyników jeszcze nie ma."
             }
           }
         },
@@ -206,8 +206,8 @@
               "description": "Ta sama logika pomiaru działa w codziennym produkcie i w warstwie badawczej, więc dane nie rozpadają się między środowiskami."
             },
             "two": {
-              "title": "Widoczny dryf i trafność",
-              "description": "Zespół może śledzić, jak zmienia się jakość prognozy w czasie i czy model zachowuje ważność na nowych próbach."
+              "title": "Przejrzysta metodologia",
+              "description": "Protokoły, próby i kryteria oceny ustalamy przed zbieraniem danych, aby wyniki można było odtworzyć i niezależnie zweryfikować."
             },
             "three": {
               "title": "Dowody do publikacji i grantów",
@@ -220,11 +220,11 @@
           "items": {
             "one": {
               "title": "Skracamy czas do działającego projektu",
-              "description": "Zespół nie zaczyna od zera: cyfrowa pętla zbierania danych, analizy kohort i rejestracji wyniku już istnieje."
+              "description": "Zespół nie zaczyna od zera: istnieje działające narzędzie cyfrowe do codziennej samooceny i dziennika, które można dostosować do uzgodnionego protokołu."
             },
             "two": {
               "title": "Dajemy strukturę dla raportów i artykułów",
-              "description": "Badacze dostają więcej niż surowe sygnały i mogą pracować na strukturze wspierającej analizę, wnioski oraz rozliczalne raportowanie."
+              "description": "Badacze otrzymują spójną strukturę danych od uczestników, którzy wyrazili osobną zgodę, do analizy i rozliczalnego raportowania."
             },
             "three": {
               "title": "Wzmacniamy argumentację grantową",
@@ -243,7 +243,7 @@
           },
           "two": {
             "title": "Hipoteza sprawdzana wynikiem",
-            "description": "Pętla prognoza → wynik pokazuje trafność modelu, dryf i realny efekt interwencji zamiast pozostawiania programu na poziomie pośredniego sygnału."
+            "description": "Hipotezy są testowane wobec z góry określonych wyników na osobnych, zatwierdzonych danych — bez wniosków, których nie wspiera projekt badania."
           },
           "three": {
             "title": "Rozliczalny pakiet dowodów",

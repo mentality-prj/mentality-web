@@ -1,62 +1,66 @@
 {
   "Hero": {
-    "title": "A better understanding of mental state, grounded in data.",
-    "subtitle": "Dzvin.co helps track changes in mental state, analyze behavioral patterns, and assess which actions may have a positive impact on well-being.",
-    "cta": "Try for free",
-    "testimonial": {
-      "title": "For personal support\nand teams",
-      "cta": "Learn more",
-      "metric": "725+",
-      "primary": "Reviews"
-    }
+    "title": "Try personal Dzvin",
+    "subtitle": "A 30-second breathing exercise without signing in. Create an account when you want to save check-ins or journal entries.",
+    "cta": "Create an account",
+    "returnCta": "My Day",
+    "path": {
+      "heading": "Your pace, your support",
+      "mood": "Notice your mood, stress and energy whenever you choose.",
+      "diary": "Write down your thoughts in a personal journal.",
+      "support": "Open a breathing or calming exercise without completing a questionnaire."
+    },
+    "returnTitle": "Your personal Dzvin",
+    "returnSubtitle": "Return to your entries or try a short exercise.",
+    "tryCta": "Try 30 seconds"
   },
   "Features": {
     "interactivity": {
-      "title": "State Change Analysis",
-      "subtitle": "The system analyzes behavioral patterns and helps identify trends and factors that may affect well-being."
+      "title": "Mood check-ins",
+      "subtitle": "Capture how you feel now. Look back when you want to see what has changed."
     },
     "support": {
-      "title": "Data-Driven Recommendations",
-      "subtitle": "Recommendations are formed using anonymized patterns and outcomes from people with similar scenarios."
+      "title": "Personal journal",
+      "subtitle": "Thoughts worth keeping. Private journal entries you can revisit on your terms."
     },
     "ai": {
-      "title": "Clear Explanations",
-      "subtitle": "You can see why the system suggests specific recommendations and which steps may support your well-being."
+      "title": "Practical next steps",
+      "subtitle": "Breathing, calming and focus exercises — short practices without unnecessary steps."
     }
   },
   "Services": {
-    "title": "From data to clear\nand practical insights",
+    "title": "Small moments of self-care\nevery day",
     "cards": {
       "intro": {
-        "text": "Dzvin.co combines behavioral pattern analysis, state change assessment, and data-driven recommendations."
+        "text": "You don't need to analyze everything. Sometimes naming how you feel, writing it down or taking a short pause is enough for now."
       },
       "predictionEngine": {
-        "title": "Pattern Analysis",
-        "text": "The system analyzes changes in state and helps identify factors that may affect well-being."
+        "title": "Your history",
+        "text": "Look back at your own mood check-ins and notice changes over time, without scores or competition."
       },
       "scenarioSimulation": {
-        "title": "Assessment of Possible Changes",
-        "text": "Compare different approaches and observe how changes in habits or workload may be associated with changes in state."
+        "title": "Breathing and calming",
+        "text": "Choose a simple exercise from the guide when you want to ease tension."
       },
       "cohortEvidence": {
-        "title": "Context Through Data",
-        "text": "Anonymous comparison with similar patterns helps you better understand your own experience and the dynamics of your state."
+        "title": "A space to write",
+        "text": "Keep thoughts in your journal and return to them whenever you're ready."
       }
     }
   },
   "HowItWorks": {
     "title": "How it works",
-    "subtitle": "For personal use and teams",
+    "subtitle": "No mandatory tests, no rush",
     "steps": {
-      "register": "Start with a short questionnaire — it helps build a baseline profile and understand your current state.",
-      "choose": "Get analytics and recommendations — the system shows trends, related factors, and possible directions for support.",
-      "receive": "Track changes over time — after each interaction, the system refines its assessment of your state and adapts recommendations."
+      "register": "Sign in — create a personal space for your entries.",
+      "choose": "Choose what helps — check in, write in your journal or try an exercise.",
+      "receive": "Come back when useful — review your history and choose one manageable next step."
     },
-    "cta": "Start now"
+    "cta": "Start for free"
   },
   "ReduceStress": {
-    "title": "Support when you need it",
-    "subtitle": "Dzvin.co helps you better understand your state, notice changes, and find practical steps to support your well-being."
+    "title": "Support on your terms",
+    "subtitle": "A short pause or journal entry can be a useful step. You decide what feels right today."
   },
   "Footer": {
     "copyright": "© {year} {company}. All rights reserved.",
@@ -64,5 +68,122 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
     "cookies": "Cookie Policy"
+  },
+  "Preview": {
+    "heading": "Breathing exercise",
+    "duration": "30 seconds · three cycles",
+    "withoutAccount": "No sign-in",
+    "ready": "Ready",
+    "inhale": "Breathe in",
+    "exhale": "Breathe out",
+    "done": "Complete",
+    "start": "Start",
+    "stop": "Stop",
+    "restart": "Try again",
+    "next": "Continue in Dzvin",
+    "progress": "Exercise progress",
+    "private": "Runs in your browser. Nothing is saved."
+  },
+  "Next": {
+    "heading": "What you can do next",
+    "subtitle": "Choose any starting point.",
+    "mood": {
+      "title": "Mood check-in",
+      "description": "Record mood, stress, energy and focus and revisit the changes."
+    },
+    "diary": {
+      "title": "Private journal",
+      "description": "Keep your thoughts and return to your entries whenever you wish."
+    },
+    "practice": {
+      "title": "More exercises",
+      "description": "Breathing, calming and focus — choose what you want to try."
+    },
+    "afterLogin": "Available after sign-in",
+    "open": "Open",
+    "closing": "Your check-ins and journal entries are kept in your personal space.",
+    "signup": "Start for free",
+    "progressTitle": "Notice changes over time",
+    "progressDescription": "My Progress keeps your check-in statistics, personal goals and achievements — no streaks and no penalties for missed days.",
+    "progressCta": "See My Progress"
+  },
+  "Platform": {
+    "eyebrow": "Dzvin · for people",
+    "title": "Understand yourself better. Day by day.",
+    "subtitle": "Check in with how you feel, save your thoughts and choose short activities at your own pace. Come back to your history and progress whenever you like.",
+    "primaryCta": "Try Dzvin for yourself",
+    "secondaryCta": "Explore Dzvin",
+    "capabilitiesHeading": "What the business offering covers",
+    "capabilities": {
+      "organization": {
+        "title": "Teams and structure",
+        "description": "Departments, groups and roles within one organizational context."
+      },
+      "analytics": {
+        "title": "Aggregated insights",
+        "description": "Self-reported trends at the team level, not access to private journals."
+      },
+      "access": {
+        "title": "Roles and access boundaries",
+        "description": "Company information scoped to each user's permissions."
+      }
+    },
+    "returnCta": "Open My Day",
+    "businessCta": "For organizations",
+    "visual": {
+      "title": "How was your day?",
+      "subtitle": "You can begin with a single check-in.",
+      "checkin": "Mood check-in",
+      "journal": "Personal journal",
+      "practice": "Take a short pause"
+    }
+  },
+  "Products": {
+    "heading": "For yourself, for teams, for research",
+    "description": "Personal Dzvin is yours to use on your terms. Organizations and researchers have distinct tools.",
+    "b2b": {
+      "label": "For organizations · B2B",
+      "title": "Employee support and team development",
+      "description": "Personal self-support for employees. For organizations, we are developing separate tools and permission-limited aggregates, without access to private journals.",
+      "features": {
+        "teams": "Organization structure and roles",
+        "analytics": "Aggregated team-level insights",
+        "decisions": "Context for better support decisions"
+      },
+      "cta": "Discuss a pilot",
+      "detailsCta": "Explore business capabilities"
+    },
+    "b2c": {
+      "label": "For you · B2C",
+      "title": "Your personal Dzvin",
+      "description": "Mood check-ins, a private journal, exercises and personal goals, so you can return to what you personally find useful.",
+      "features": {
+        "checkins": "Notice changes in how you feel",
+        "diary": "Keep thoughts in a private journal",
+        "exercises": "Choose short exercises at your own pace"
+      },
+      "cta": "Try Dzvin"
+    },
+    "rd": {
+      "label": "For research · R&D",
+      "title": "Collaborative wellbeing research",
+      "description": "We invite universities and research teams to design protocols, cohorts and evaluation together. Prediction remains a research direction, not an established result.",
+      "features": {
+        "cohorts": "Cohorts and protocols",
+        "validation": "Evaluation plans",
+        "reports": "Reporting and reproducibility"
+      },
+      "cta": "Propose research"
+    }
+  },
+  "BusinessInvitation": {
+    "eyebrow": "For companies",
+    "title": "Supporting people is part of building stronger teams",
+    "description": "Offer employees personal self-support and explore which organizational features could help your team. Start by discussing a scoped pilot.",
+    "cta": "Discuss a business pilot"
+  },
+  "seo": {
+    "title": "Dzvin — personal support at your own pace",
+    "description": "Track your mood, keep a private journal and try short practices at your own pace. Dzvin for people, organizations and research."
   }
 }

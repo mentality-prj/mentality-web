@@ -21,7 +21,7 @@ export const ContactForm = ({
   source,
   segment,
   intent,
-}: { source?: 'docs'; segment?: string; intent?: 'funding' | 'demo' } = {}) => {
+}: { source?: 'docs' | 'landing'; segment?: string; intent?: 'funding' | 'demo' } = {}) => {
   const t = useTranslations('components.ContactForm')
   const locale = useLocale()
   const topics = {
@@ -60,12 +60,11 @@ export const ContactForm = ({
     },
   }
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'
-  const initialMessage =
-    source === 'docs'
-      ? intent === 'funding'
-        ? fundingTopics[lang][segment === 'grant' ? 'grant' : 'investment']
-        : topics[lang][segment as 'teams' | 'individuals' | 'research'] || topics[lang].teams
-      : ''
+  const initialMessage = source
+    ? intent === 'funding'
+      ? fundingTopics[lang][segment === 'grant' ? 'grant' : 'investment']
+      : topics[lang][segment as 'teams' | 'individuals' | 'research'] || topics[lang].teams
+    : ''
 
   const [name, setName] = useState('')
   const [email, setEmail] = useState('')
@@ -138,10 +137,9 @@ export const ContactForm = ({
       const res = await sendContactForm({
         name,
         email,
-        message:
-          source === 'docs'
-            ? `${message}\n\n[Source: docs.dzvin.co | Intent: ${intent === 'funding' ? 'funding' : 'demo'} | Segment: ${segment || (intent === 'funding' ? 'investment' : 'teams')}]`
-            : message,
+        message: source
+          ? `${message}\n\n[Source: ${source === 'docs' ? 'docs.dzvin.co' : 'dzvin.co landing'} | Intent: ${intent === 'funding' ? 'funding' : 'demo'} | Segment: ${segment || (intent === 'funding' ? 'investment' : 'teams')}]`
+          : message,
         token,
       })
       if (!res.ok) {
@@ -167,9 +165,7 @@ export const ContactForm = ({
     <div className="mx-auto max-w-lg py-10">
       <Script src={`https://www.google.com/recaptcha/api.js?render=${process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY}`} />
       <h1 className="mb-6 text-2xl font-bold">{t('title')}</h1>
-      {source === 'docs' && (
-        <p className="mb-4 rounded-md bg-violet-50 p-4 text-sm text-violet-900">{initialMessage}</p>
-      )}
+      {source && <p className="mb-4 rounded-md bg-violet-50 p-4 text-sm text-violet-900">{initialMessage}</p>}
       <form onSubmit={handleSubmit} className="flex flex-col gap-sm" noValidate>
         <div className="flex flex-col gap-1">
           <Input

@@ -11,7 +11,7 @@
       },
       "b2b": {
         "title": "Corporate",
-        "subtitle": "Company structure, team analytics and decision support for managers."
+        "subtitle": "Employee support and pilot formats with aggregated team data."
       },
       "rd": {
         "title": "Research",
@@ -26,13 +26,13 @@
     "cards": {
       "personalFlow": {
         "title": "Personal support track",
-        "description": "For individuals, the service combines daily observations, exercises and tailored recommendations into one coherent action path.",
+        "description": "For individuals, the service brings daily check-ins, a diary and exercises into one space that is easy to return to.",
         "focus": "Focus: continuous personal support, short feedback loops and visible progress."
       },
       "corporateFlow": {
-        "title": "Corporate operations track",
-        "description": "For companies, the service combines roles, groups, team analytics and risk signals into one manageable operating model.",
-        "focus": "Focus: aggregated team visibility, scoped access and timely management action."
+        "title": "Company pilot",
+        "description": "For companies, roles, groups and aggregated team indicators are in development — without access to employees' personal records.",
+        "focus": "Focus: employee support, aggregated data and clear access boundaries."
       },
       "researchFlow": {
         "title": "Research validation track",
@@ -48,12 +48,12 @@
       "description": "The personal service gathers state signals, offers simple practices and helps reveal what actually supports mental well-being in everyday use.",
       "serviceSummaryItems": {
         "tracking": "Brings state signals into one sequence.",
-        "support": "Suggests a relevant practice right after self-check.",
+        "support": "Gives access to short practices in the guide whenever you need them.",
         "consistency": "Keeps change history easy to revisit."
       },
       "resultSummaryItems": {
         "one": "State becomes easier to understand over time.",
-        "two": "The next step is clear right after assessment.",
+        "two": "A short practice is only a few taps away.",
         "three": "Support turns into a path that is easy to continue every day."
       },
       "journeyTitle": "How the service works",
@@ -80,8 +80,8 @@
           "description": "Mood, short notes and questionnaires are gathered into one sequence that shows frequency of change, recurring triggers and movement across days."
         },
         "support": {
-          "title": "A practice appears right after assessment",
-          "description": "After a self-check, the service immediately opens breathing, meditation, an exercise or short guidance connected to the current state."
+          "title": "Practices always at hand",
+          "description": "Breathing, calming, meditations and tips are collected in the guide — you choose what to try right now."
         },
         "consistency": {
           "title": "Effective routines are easy to repeat",
@@ -120,7 +120,7 @@
       "tag": "Corporate",
       "title": "For companies",
       "description": "The B2B experience is being developed to show permissioned aggregate trends in stress, mood, energy and focus, supporting HR and managers in reviewing team-support priorities. Its practical benefit remains a hypothesis requiring security qualification and independent evaluation.",
-      "managerTitle": "What a manager sees and controls",
+      "managerTitle": "What is planned for companies",
       "capabilities": {
         "governance": {
           "title": "Org structure, roles and accountability zones",
@@ -131,8 +131,8 @@
           "description": "The planned view aggregates permitted stress, mood, energy and focus signals. Freshness and completeness depend on actual participation and configuration; production performance and reliability remain to be qualified."
         },
         "decisionSupport": {
-          "title": "Action priorities and support control",
-          "description": "The system highlights critical risk zones, helps identify where intervention will have the biggest payoff, and moves management action from intuition-led to evidence-led."
+          "title": "Context for support conversations",
+          "description": "Aggregated trends are intended to help HR and leaders discuss team support priorities. The system draws no automatic conclusions about individual people; the value of this approach still needs to be tested in pilots."
         }
       },
       "outcomesTitle": "Potential value to evaluate",
@@ -151,14 +151,14 @@
         }
       },
       "outcomes": {
-        "one": "One management view of team well-being without exposing personal histories.",
-        "two": "Faster decisions about support, manager priorities and focus teams.",
-        "three": "Arguments for HR and leadership backed by data dynamics, not just intuition."
+        "one": "Goal: an aggregated view of team well-being without exposing personal histories.",
+        "two": "Goal: a structured process for discussing team support.",
+        "three": "Goal: verifiable indicators for HR and leaders, agreed before the pilot starts."
       },
       "chart": {
         "label": "Average stress score",
-        "title": "Team risk trajectory",
-        "stubTitle": "Illustrative team risk trajectory"
+        "title": "Team self-assessment trajectory",
+        "stubTitle": "Illustrative team self-assessment trajectory"
       }
     },
     "rd": {
@@ -193,8 +193,8 @@
               "description": "Participants can be segmented by state patterns, risk, intervention response and observation windows."
             },
             "three": {
-              "title": "Validate predictions against outcomes",
-              "description": "We show where the model was accurate, where drift appeared and what effect was actually observed after intervention."
+              "title": "We plan hypothesis evaluation",
+              "description": "Together with partners we define in advance how hypotheses will be tested and which results count as meaningful. There are no independent results yet."
             }
           }
         },
@@ -206,8 +206,8 @@
               "description": "The same measurement logic works in the everyday product and in the research layer, so data does not break across environments."
             },
             "two": {
-              "title": "Visible drift and accuracy",
-              "description": "Teams can monitor how prediction quality changes over time and whether a model stays valid on new samples."
+              "title": "Transparent methodology",
+              "description": "Protocols, samples and evaluation criteria are fixed before data collection so results can be reproduced and independently verified."
             },
             "three": {
               "title": "Evidence for papers and grants",
@@ -220,11 +220,11 @@
           "items": {
             "one": {
               "title": "Reduce time to a working study design",
-              "description": "Teams do not start from zero: the digital loop for data collection, cohort analysis and outcome capture is already in place."
+              "description": "Teams do not start from zero: a working digital tool for daily self-assessments and a diary already exists and can be adapted to an agreed protocol."
             },
             "two": {
               "title": "Provide structure for reports and papers",
-              "description": "Researchers get more than raw signals and can work with a structure that supports analysis, conclusions and accountable reporting."
+              "description": "Researchers get a consistent data structure from participants who gave separate consent, for analysis and accountable reporting."
             },
             "three": {
               "title": "Strengthen grant reasoning",
@@ -243,7 +243,7 @@
           },
           "two": {
             "title": "Hypotheses checked against outcomes",
-            "description": "The prediction-to-outcome loop shows model accuracy, drift and intervention effect instead of leaving the program at an intermediate signal."
+            "description": "Hypotheses are tested against predefined outcomes on separate, approved data — without conclusions the study design does not support."
           },
           "three": {
             "title": "An accountable evidence package",
