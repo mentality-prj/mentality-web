@@ -135,7 +135,11 @@
       "subtitle": "You can begin with a single check-in.",
       "checkin": "Mood check-in",
       "journal": "Personal journal",
-      "practice": "Take a short pause"
+      "practice": "Take a short pause",
+      "moodLow": "Heavy",
+      "moodMid": "In between",
+      "moodHigh": "Light",
+      "moodHint": "Move the slider — this is just a demo, nothing is saved."
     }
   },
   "Products": {

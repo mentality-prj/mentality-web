@@ -2,9 +2,9 @@ import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
-import { Button } from '@/ui/button'
 
 import { HighlightInfoCard } from './HighlightInfoCard'
+import { landingContainer, landingH2, landingPrimaryCta } from './landingStyles'
 
 const stepsKeys = ['register', 'choose', 'receive'] as const
 
@@ -19,8 +19,6 @@ const highlightCards = [
   {
     titleKey: 'ReduceStress.title',
     subtitleKey: 'ReduceStress.subtitle',
-    imageSrc: '/services/consultation.png',
-    imageAltKey: 'ReduceStress.title',
   },
 ] as const
 
@@ -29,7 +27,10 @@ export function HowItWorksSection() {
 
   const howItWorksSteps = stepsSectionConfig.steps.map((stepKey, index) => {
     const rawText = t(`HowItWorks.steps.${stepKey}`)
-    const [stepTitle, stepDescription] = rawText.split(' — ')
+    const [stepTitle, rawDescription] = rawText.split(' — ')
+    const stepDescription = rawDescription
+      ? rawDescription.charAt(0).toUpperCase() + rawDescription.slice(1)
+      : undefined
     const isActive = index === 0
     return (
       <li key={stepKey}>
@@ -48,7 +49,9 @@ export function HowItWorksSection() {
             {index + 1}
           </span>
           <div className="max-md:contents md:space-y-1">
-            <h4 className="text-title text-lg leading-[130%] max-md:flex-1">{stepTitle ?? rawText}</h4>
+            <h3 className="text-lg font-semibold leading-[130%] text-[#302a4f] max-md:flex-1">
+              {stepTitle ?? rawText}
+            </h3>
             {stepDescription && (
               <p className="text-sm leading-relaxed text-textcolor-secondary max-md:basis-full">{stepDescription}</p>
             )}
@@ -59,32 +62,25 @@ export function HowItWorksSection() {
   })
 
   return (
-    <section className="w-full bg-[linear-gradient(180deg,#f7fbff_0%,#fff_100%)] py-8 tablet:py-14">
-      <div className="container-max-width mx-auto grid grid-cols-1 gap-5 px-4 tablet:gap-10 tablet:px-6 md:grid-cols-[1.1fr_0.9fr] md:px-8 lg:px-10">
+    <section className="w-full bg-[#f8f6ff]">
+      <div
+        className={`${landingContainer} grid grid-cols-1 gap-8 tablet:gap-10 md:grid-cols-[1.1fr_0.9fr] md:items-center`}
+      >
         <div className="rounded-[32px] border border-[#e1d1f7] bg-[linear-gradient(145deg,#f9f2ff,#eef4ff)] p-6 md:p-8 lg:p-10">
-          <h2 className="landing-h2">{t(stepsSectionConfig.titleKey)}</h2>
+          <h2 className={landingH2}>{t(stepsSectionConfig.titleKey)}</h2>
           <p className="mt-1 text-sm text-textcolor-secondary">{t(stepsSectionConfig.subtitleKey)}</p>
           <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
           <div className="mt-6 flex justify-center tablet:block lg:mt-8">
-            <Button asChild variant="volume" size="large">
-              <Link href={Routes.AUTH}>{t(stepsSectionConfig.ctaKey)}</Link>
-            </Button>
+            <Link href={Routes.AUTH} className={landingPrimaryCta}>
+              {t(stepsSectionConfig.ctaKey)}
+            </Link>
           </div>
         </div>
         <div className="flex flex-col gap-10 md:items-start md:justify-between">
           {highlightCards.map((card) => {
             const title = t(card.titleKey)
             const subtitle = t(card.subtitleKey)
-            const imageAlt = t(card.imageAltKey)
-            return (
-              <HighlightInfoCard
-                key={card.titleKey}
-                title={title}
-                subtitle={subtitle}
-                imageSrc={card.imageSrc}
-                imageAlt={imageAlt}
-              />
-            )
+            return <HighlightInfoCard key={card.titleKey} title={title} subtitle={subtitle} />
           })}
         </div>
       </div>

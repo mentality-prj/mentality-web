@@ -135,7 +135,11 @@
       "subtitle": "Możesz zacząć od jednej notatki.",
       "checkin": "Zapis samopoczucia",
       "journal": "Osobisty dziennik",
-      "practice": "Krótka przerwa"
+      "practice": "Krótka przerwa",
+      "moodLow": "Ciężko",
+      "moodMid": "Pośrodku",
+      "moodHigh": "Lekko",
+      "moodHint": "Przesuń suwak — to tylko demo, nic nie jest zapisywane."
     }
   },
   "Products": {
