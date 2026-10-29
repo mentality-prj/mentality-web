@@ -27,7 +27,7 @@ describe('ServicesSection', () => {
     expect(heading.textContent).toContain('\n')
   })
 
-  it('renders the intro and three water tiles without stock photos', () => {
+  it('renders the intro and three illustrated tiles without stock photos', () => {
     const { container } = render(<ServicesSection />)
 
     expect(screen.getByText('Intro text')).toBeInTheDocument()
@@ -35,7 +35,7 @@ describe('ServicesSection', () => {
     for (const title of ['Journal', 'Breathing', 'History']) {
       expect(screen.getByRole('heading', { name: title, level: 3 })).toBeInTheDocument()
     }
-    expect(container.querySelectorAll('canvas')).toHaveLength(3)
+    expect(container.querySelectorAll('svg')).toHaveLength(3)
     expect(container.querySelector('img')).toBeNull()
   })
 })

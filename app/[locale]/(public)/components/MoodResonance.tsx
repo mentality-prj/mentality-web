@@ -1,16 +1,24 @@
 'use client'
 
-import { type CSSProperties, type PointerEvent, type ReactNode, useEffect, useMemo, useRef, useState } from 'react'
+import {
+  type CSSProperties,
+  type PointerEvent,
+  type ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react'
 import { useTranslations } from 'next-intl'
 
-import { GlassMedallion } from './glass/GlassMedallion'
+import { DoodleIcon } from './doodle/DoodleIcon'
 import { type WaterColors, WaterSurface, type WaterSurfaceHandle } from './water/WaterSurface'
 
 /**
- * "Resonance" — Dzvin means a bell. The hero is a calm water surface: drops
- * fall behind the check-in card in a slow breathing rhythm, the mood slider
- * re-tints the water and sends a ripple, a tap on the background drops one
- * where you touched. Nothing is stored: this is a local, decorative demo.
+ * "Resonance" — Dzvin means a bell. The hero keeps the original hero-zen water
+ * (rings from the logo); on top, the mood slider nudges its hue and sends a
+ * ripple from the card, and a tap on the background drops one where you touched. Nothing is stored: this is a local, decorative demo.
  */
 
 type Trio = [string, string, string]
@@ -38,6 +46,9 @@ export function moodWater(mood: number): WaterColors {
   return { deep: mixHex(from[0], to[0], t), mid: mixHex(from[1], to[1], t), light: mixHex(from[2], to[2], t) }
 }
 
+/** Ripple tint matched to the hero-zen turquoise. */
+const HERO_WATER = { deep: '#5fb3c4', mid: '#dff4f7', light: '#ffffff' }
+
 const TRACK = `linear-gradient(90deg, ${PALETTES.low[0]}, ${PALETTES.mid[0]} 50%, ${PALETTES.high[0]})`
 
 export function MoodResonance({ children, className }: { children: ReactNode; className?: string }) {
@@ -49,6 +60,37 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
   const card = useRef<HTMLDivElement>(null)
   const lastDrop = useRef(0)
   const colors = useMemo(() => moodWater(mood), [mood])
+  // The water keeps its original turquoise; mood only nudges the hue (cool when heavy, warm when light).
+  const tint = mood < 50 ? '#7f9be6' : '#f0a77e'
+  const tintStrength = (Math.abs(mood - 50) / 50) * 0.35
+
+  // Anchor the hero-zen rings under the header logo, exactly like the original design.
+  useLayoutEffect(() => {
+    const hero = layer.current?.parentElement
+    const logo = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
+    if (!hero || !logo) return
+    const INSET = 0.28
+    const anchor = () => {
+      const heroRect = hero.getBoundingClientRect()
+      const logoRect = logo.getBoundingClientRect()
+      const pseudoLeft = heroRect.left - heroRect.width * INSET
+      const pseudoTop = heroRect.top - heroRect.height * INSET
+      hero.style.setProperty('--hero-gradient-x', `${logoRect.left + logoRect.width / 2 - pseudoLeft}px`)
+      hero.style.setProperty(
+        '--hero-gradient-y',
+        `${Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)}px`
+      )
+      hero.dataset.heroRingsReady = 'true'
+    }
+    anchor()
+    window.addEventListener('resize', anchor)
+    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(anchor) : null
+    observer?.observe(logo)
+    return () => {
+      window.removeEventListener('resize', anchor)
+      observer?.disconnect()
+    }
+  }, [])
 
   useEffect(() => {
     const locate = () => {
@@ -82,15 +124,23 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
 
   return (
     <>
-      <div ref={layer} className="pointer-events-none absolute inset-0">
-        <WaterSurface ref={water} colors={colors} source={source} every={5} className="h-full w-full" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.55)_0%,rgba(255,255,255,0.18)_45%,rgba(255,255,255,0)_70%)]" />
+      <div
+        ref={layer}
+        className="pointer-events-none inset-0"
+        // .hero-zen > * forces position: relative; the ripple layer must stay absolute.
+        style={{ position: 'absolute', zIndex: 1 }}
+      >
+        <div
+          className="absolute inset-0 transition-[background-color,opacity] duration-700"
+          style={{ backgroundColor: tint, opacity: tintStrength, mixBlendMode: 'color' }}
+        />
+        <WaterSurface ref={water} colors={HERO_WATER} source={source} still overlay className="h-full w-full" />
       </div>
-      <div className={className} onPointerDown={onPress}>
+      <div className={`relative z-[2] ${className ?? ''}`} onPointerDown={onPress}>
         {children}
         <div ref={card} className="relative mx-auto w-full max-w-[500px]">
           <div className="relative overflow-hidden rounded-[32px] border border-white/80 bg-white/70 p-5 shadow-[0_30px_80px_-20px_rgba(70,60,130,0.35)] backdrop-blur-xl tablet:p-7">
-            <GlassMedallion glyph="heart" tone="rose" size={46} />
+            <DoodleIcon name="heart" tone="rose" size={60} />
             <h2 className="mt-5 text-[1.45rem] font-semibold leading-tight tracking-tight text-[#302a4f] tablet:text-[1.65rem]">
               {t('title')}
             </h2>
@@ -101,7 +151,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
                 {t('checkin')}
               </label>
               <div className="flex items-center gap-3">
-                <GlassMedallion glyph="rain" tone="sky" size={34} />
+                <DoodleIcon name="rain" tone="sky" size={42} />
                 <input
                   id="dzvin-mood"
                   type="range"
@@ -113,7 +163,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
                   className="dzvin-mood-range h-11 flex-1 cursor-pointer"
                   style={{ '--track': TRACK, '--r2': colors.deep } as CSSProperties}
                 />
-                <GlassMedallion glyph="sun" tone="sun" size={34} />
+                <DoodleIcon name="sun" tone="sand" size={42} />
               </div>
               <div className="mt-1 flex justify-between px-1 text-xs text-[#6b6480]">
                 <span>{t('moodLow')}</span>
@@ -122,11 +172,11 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
             </div>
             <div className="mt-3 grid grid-cols-2 gap-3">
               <div className="flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
-                <GlassMedallion glyph="journal" tone="lilac" size={36} />
+                <DoodleIcon name="journal" tone="lilac" size={48} />
                 <p className="text-sm font-semibold text-[#4a3f63]">{t('journal')}</p>
               </div>
               <div className="flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
-                <GlassMedallion glyph="breath" tone="mint" size={36} />
+                <DoodleIcon name="wind" tone="mint" size={48} />
                 <p className="text-sm font-semibold text-[#3f5f58]">{t('practice')}</p>
               </div>
             </div>

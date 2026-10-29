@@ -1,38 +1,32 @@
 import { useTranslations } from 'next-intl'
 
-import { GlassMedallion, type GlassTone } from './glass/GlassMedallion'
-import type { GlyphName } from './glass/glyphs'
-import { type WaterColors, WaterSurface } from './water/WaterSurface'
+import { DoodleIcon, type DoodleName, type DoodleTone } from './doodle/DoodleIcon'
 import { landingContainer, landingH2 } from './landingStyles'
 
 const serviceCards: {
   key: 'cohortEvidence' | 'scenarioSimulation' | 'predictionEngine'
-  glyph: GlyphName
-  tone: GlassTone
-  water: WaterColors
-  /** Where the pebble rests on the water (percent of the tile). */
+  glyph: DoodleName
+  tone: DoodleTone
+  /** Disc offset and tilt, so the three tiles don't repeat one layout. */
   at: { x: number; y: number; rotate: number }
 }[] = [
   {
     key: 'cohortEvidence',
     glyph: 'journal',
     tone: 'sky',
-    water: { deep: '#8fb7ea', mid: '#e3eefc', light: '#ffffff' },
-    at: { x: 34, y: 58, rotate: -9 },
+    at: { x: 44, y: 54, rotate: -8 },
   },
   {
     key: 'scenarioSimulation',
     glyph: 'breath',
     tone: 'mint',
-    water: { deep: '#78c9bb', mid: '#dcf5ef', light: '#ffffff' },
-    at: { x: 58, y: 42, rotate: 6 },
+    at: { x: 54, y: 46, rotate: 5 },
   },
   {
     key: 'predictionEngine',
     glyph: 'rise',
     tone: 'peach',
-    water: { deep: '#efae95', mid: '#fde6dc', light: '#fffaf3' },
-    at: { x: 66, y: 62, rotate: 14 },
+    at: { x: 52, y: 55, rotate: -4 },
   },
 ]
 
@@ -51,21 +45,23 @@ export function ServicesSection() {
           </p>
         </div>
         <div className="mt-10 grid grid-cols-1 gap-x-5 gap-y-10 sm:grid-cols-2 md:mt-14 lg:grid-cols-3">
-          {serviceCards.map(({ key, glyph, tone, water, at }) => (
+          {serviceCards.map(({ key, glyph, tone, at }) => (
             <article key={key} className="group flex flex-col">
-              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] shadow-[0_24px_50px_-28px_rgba(60,60,120,0.45)]">
-                <WaterSurface
-                  colors={water}
-                  source={{ x: at.x / 100, y: at.y / 100 }}
-                  every={3.2}
-                  still
-                  className="absolute inset-0"
+              <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[28px] border border-[#efe9e2] bg-[#fbf9f6]">
+                <span aria-hidden="true" className="absolute left-[12%] top-[16%] h-2 w-2 rounded-full bg-[#d9d2e6]" />
+                <span
+                  aria-hidden="true"
+                  className="absolute bottom-[18%] right-[14%] h-3 w-3 rounded-full bg-[#e7ddd2]"
                 />
-                <GlassMedallion
-                  glyph={glyph}
+                <span
+                  aria-hidden="true"
+                  className="absolute right-[22%] top-[12%] h-1.5 w-1.5 rounded-full bg-[#d9d2e6]"
+                />
+                <DoodleIcon
+                  name={glyph}
                   tone={tone}
-                  size={84}
-                  className="absolute -translate-x-1/2 -translate-y-1/2 transition-transform duration-700 group-hover:-translate-y-[56%]"
+                  size={196}
+                  className="absolute -translate-x-1/2 -translate-y-1/2 transition-transform duration-700 group-hover:scale-[1.03]"
                   style={{ left: `${at.x}%`, top: `${at.y}%`, rotate: `${at.rotate}deg` }}
                 />
               </div>

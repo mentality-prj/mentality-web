@@ -6,13 +6,13 @@ import { useTranslations } from 'next-intl'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
-import { GlassMedallion } from './glass/GlassMedallion'
+import { DoodleIcon } from './doodle/DoodleIcon'
 import { landingContainer, landingH2, landingPrimaryCta } from './landingStyles'
 
 const choices = [
   {
     key: 'mood',
-    glyph: 'pulse',
+    glyph: 'mood',
     tone: 'mint',
     decor: '-right-10 top-16 rotate-[-14deg]',
     href: Routes.MOODTRACKER,
@@ -32,7 +32,7 @@ const choices = [
   },
   {
     key: 'practice',
-    glyph: 'breath',
+    glyph: 'wind',
     tone: 'lilac',
     decor: '-bottom-12 -right-6 rotate-[24deg]',
     href: Routes.GUIDE + '/breathing',
@@ -63,14 +63,20 @@ export function FeatureCardsSection({ isAuthenticated = false }: { isAuthenticat
                 href={target}
                 className={`group relative isolate flex min-h-36 flex-col overflow-hidden rounded-[24px] border p-5 transition-transform hover:-translate-y-0.5 focus-visible:outline-2 focus-visible:outline-offset-2 ${theme}`}
               >
-                <GlassMedallion
-                  glyph={glyph}
+                <DoodleIcon
+                  name={glyph}
                   tone={tone}
-                  size={120}
-                  className={`pointer-events-none absolute -z-10 opacity-50 transition-transform duration-700 group-hover:scale-105 ${decor}`}
+                  size={136}
+                  plain
+                  className={`pointer-events-none absolute -z-10 opacity-30 transition-transform duration-700 group-hover:scale-105 ${decor}`}
                 />
                 <div className="mb-4 flex items-center justify-between">
-                  <GlassMedallion glyph={glyph} tone={tone} size={46} />
+                  <DoodleIcon
+                    name={glyph}
+                    tone="paper"
+                    size={88}
+                    className="shadow-[0_8px_24px_-12px_rgba(60,50,110,0.35)]"
+                  />
                   <ArrowUpRight aria-hidden size={18} className="text-textcolor-secondary" />
                 </div>
                 <h3 className="text-lg font-semibold text-textcolor-primary">{t(titleKey)}</h3>

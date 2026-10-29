@@ -3,7 +3,7 @@ import { useTranslations } from 'next-intl'
 
 import { Link } from '@/i18n/navigation'
 
-import { GlassMedallion } from './glass/GlassMedallion'
+import { DoodleIcon } from './doodle/DoodleIcon'
 import { BUSINESS_CONTACT_HREF } from './landingContactLinks'
 import { landingContainer, landingH2, landingPrimaryCta } from './landingStyles'
 
@@ -17,7 +17,7 @@ export function BusinessInvitationSection() {
         <div className="flex flex-col items-start gap-5 rounded-[28px] border border-[#e4def3] bg-white p-6 tablet:p-8 md:flex-row md:items-center md:justify-between">
           <div className="max-w-2xl">
             <p className="inline-flex items-center gap-2 text-xs font-semibold text-[#586aa0]">
-              <GlassMedallion glyph="building" tone="sky" size={26} />
+              <DoodleIcon name="building" tone="sky" size={40} />
               {t('eyebrow')}
             </p>
             <h2 id="business-invitation-heading" className={`mt-3 ${landingH2}`}>
