@@ -29,6 +29,7 @@ uniform vec3 uDeep;
 uniform vec3 uMid;
 uniform vec3 uLight;
 uniform float uCalm;
+uniform float uOverlay;
 
 float height(vec2 p) {
   float aspect = uRes.x / uRes.y;
@@ -79,6 +80,14 @@ void main() {
   col = mix(col, mix(uLight, vec3(1.0), 0.5), clamp(slope * 9.0, 0.0, 0.28));
   col = mix(col, vec3(1.0), clamp(h * 1.8, 0.0, 0.35));
   col = mix(col, uDeep * 0.82, clamp(-h * 1.2, 0.0, 0.22));
+  if (uOverlay > 0.5) {
+    // Drops only, over an existing background: bright crests, soft troughs, clear elsewhere.
+    float crest = clamp(h * 2.2 + spec * 1.2 + slope * 6.0, 0.0, 0.75);
+    float trough = clamp(-h * 1.6, 0.0, 0.35);
+    vec3 tint = mix(vec3(1.0), uDeep * 0.6, trough / max(crest + trough, 0.001));
+    gl_FragColor = vec4(tint, max(crest, trough));
+    return;
+  }
   gl_FragColor = vec4(col, 1.0);
 }
 `
@@ -103,9 +112,10 @@ export class WaterRenderer {
 
   constructor(
     private canvas: HTMLCanvasElement,
-    palette: WaterPalette
+    palette: WaterPalette,
+    private overlay = false
   ) {
-    const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false, alpha: false })
+    const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false, alpha: overlay })
     if (!gl) throw new Error('webgl unavailable')
     this.gl = gl
     this.palette = palette
@@ -121,7 +131,7 @@ export class WaterRenderer {
     const loc = gl.getAttribLocation(program, 'aPos')
     gl.enableVertexAttribArray(loc)
     gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0)
-    for (const name of ['uRes', 'uTime', 'uDrops', 'uDeep', 'uMid', 'uLight', 'uCalm']) {
+    for (const name of ['uRes', 'uTime', 'uDrops', 'uDeep', 'uMid', 'uLight', 'uCalm', 'uOverlay']) {
       this.uniforms[name] = gl.getUniformLocation(program, name)
     }
   }
@@ -155,7 +165,12 @@ export class WaterRenderer {
     gl.uniform3fv(uniforms.uDeep, palette.deep)
     gl.uniform3fv(uniforms.uMid, palette.mid)
     gl.uniform3fv(uniforms.uLight, palette.light)
-    gl.uniform1f(uniforms.uCalm, this.calm)
+    gl.uniform1f(uniforms.uCalm, this.overlay ? 0 : this.calm)
+    gl.uniform1f(uniforms.uOverlay, this.overlay ? 1 : 0)
+    if (this.overlay) {
+      gl.clearColor(0, 0, 0, 0)
+      gl.clear(gl.COLOR_BUFFER_BIT)
+    }
     gl.drawArrays(gl.TRIANGLES, 0, 3)
   }
 

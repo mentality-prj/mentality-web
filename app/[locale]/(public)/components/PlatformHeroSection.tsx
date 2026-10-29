@@ -4,7 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
-import { GlassMedallion } from './glass/GlassMedallion'
+import { DoodleIcon } from './doodle/DoodleIcon'
 import { BUSINESS_CONTACT_HREF } from './landingContactLinks'
 import { landingPrimaryCta, landingSecondaryCta } from './landingStyles'
 import { MoodResonance } from './MoodResonance'
@@ -17,11 +17,11 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
   const t = useTranslations('pages.Landing.Platform')
 
   return (
-    <section aria-labelledby="platform-heading" className="relative isolate overflow-hidden bg-[#fff3e9]">
+    <section aria-labelledby="platform-heading" data-hero-rings-ready="false" className="hero-zen isolate">
       <MoodResonance className="container-max-width relative mx-auto grid items-center gap-9 px-4 pb-12 pt-10 tablet:px-6 tablet:pb-16 tablet:pt-14 md:grid-cols-[minmax(0,1fr)_minmax(0,0.95fr)] md:gap-14 md:px-8 md:py-20 lg:px-10">
         <div className="flex flex-col items-start gap-5">
           <span className="inline-flex items-center gap-2 rounded-full border border-white/80 bg-white/70 py-1.5 pl-1.5 pr-4 text-xs font-semibold tracking-wide text-[#795179] shadow-sm backdrop-blur-sm">
-            <GlassMedallion glyph="heart" tone="rose" size={22} />
+            <DoodleIcon name="heart" tone="rose" size={28} />
             {t('eyebrow')}
           </span>
           <h1 id="platform-heading" className="landing-h1 max-w-[43rem] text-[#302a4f]">

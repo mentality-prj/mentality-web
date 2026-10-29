@@ -4,8 +4,7 @@ import { useTranslations } from 'next-intl'
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
 
-import { GlassMedallion, type GlassTone } from './glass/GlassMedallion'
-import type { GlyphName } from './glass/glyphs'
+import { DoodleIcon, type DoodleName, type DoodleTone } from './doodle/DoodleIcon'
 import { BUSINESS_CONTACT_HREF, RESEARCH_CONTACT_HREF } from './landingContactLinks'
 import { landingContainer, landingH2 } from './landingStyles'
 
@@ -14,8 +13,8 @@ export function PlatformProductsSection() {
   const products = [
     {
       key: 'b2c',
-      glyph: 'heart' as GlyphName,
-      tone: 'rose' as GlassTone,
+      glyph: 'heart' as DoodleName,
+      tone: 'rose' as DoodleTone,
       decor: '-bottom-10 -right-10 rotate-[-16deg]',
       label: t('b2c.label'),
       title: t('b2c.title'),
@@ -28,20 +27,20 @@ export function PlatformProductsSection() {
       descriptionClass: 'text-[#6b5b71]',
       linkClass: 'text-[#8b48a4]',
       features: [
-        { key: 'checkins', glyph: 'pulse' as GlyphName, tone: 'rose' as GlassTone, text: t('b2c.features.checkins') },
-        { key: 'diary', glyph: 'journal' as GlyphName, tone: 'rose' as GlassTone, text: t('b2c.features.diary') },
+        { key: 'checkins', glyph: 'mood' as DoodleName, tone: 'rose' as DoodleTone, text: t('b2c.features.checkins') },
+        { key: 'diary', glyph: 'journal' as DoodleName, tone: 'rose' as DoodleTone, text: t('b2c.features.diary') },
         {
           key: 'exercises',
-          glyph: 'breath' as GlyphName,
-          tone: 'rose' as GlassTone,
+          glyph: 'breath' as DoodleName,
+          tone: 'rose' as DoodleTone,
           text: t('b2c.features.exercises'),
         },
       ],
     },
     {
       key: 'b2b',
-      glyph: 'people' as GlyphName,
-      tone: 'sky' as GlassTone,
+      glyph: 'people' as DoodleName,
+      tone: 'sky' as DoodleTone,
       decor: '-right-14 top-24 rotate-[12deg]',
       label: t('b2b.label'),
       title: t('b2b.title'),
@@ -54,20 +53,25 @@ export function PlatformProductsSection() {
       descriptionClass: 'text-[#536888]',
       linkClass: 'text-[#3154a4]',
       features: [
-        { key: 'teams', glyph: 'shield' as GlyphName, tone: 'sky' as GlassTone, text: t('b2b.features.teams') },
-        { key: 'analytics', glyph: 'chart' as GlyphName, tone: 'sky' as GlassTone, text: t('b2b.features.analytics') },
+        { key: 'teams', glyph: 'shield' as DoodleName, tone: 'sky' as DoodleTone, text: t('b2b.features.teams') },
+        {
+          key: 'analytics',
+          glyph: 'chart' as DoodleName,
+          tone: 'sky' as DoodleTone,
+          text: t('b2b.features.analytics'),
+        },
         {
           key: 'decisions',
-          glyph: 'briefcase' as GlyphName,
-          tone: 'sky' as GlassTone,
+          glyph: 'briefcase' as DoodleName,
+          tone: 'sky' as DoodleTone,
           text: t('b2b.features.decisions'),
         },
       ],
     },
     {
       key: 'rd',
-      glyph: 'flask' as GlyphName,
-      tone: 'lilac' as GlassTone,
+      glyph: 'flask' as DoodleName,
+      tone: 'lilac' as DoodleTone,
       decor: '-bottom-16 right-12 rotate-[24deg]',
       label: t('rd.label'),
       title: t('rd.title'),
@@ -80,14 +84,14 @@ export function PlatformProductsSection() {
       descriptionClass: 'text-[#756584]',
       linkClass: 'text-[#7650a2]',
       features: [
-        { key: 'cohorts', glyph: 'flask' as GlyphName, tone: 'lilac' as GlassTone, text: t('rd.features.cohorts') },
+        { key: 'cohorts', glyph: 'flask' as DoodleName, tone: 'lilac' as DoodleTone, text: t('rd.features.cohorts') },
         {
           key: 'validation',
-          glyph: 'chart' as GlyphName,
-          tone: 'lilac' as GlassTone,
+          glyph: 'chart' as DoodleName,
+          tone: 'lilac' as DoodleTone,
           text: t('rd.features.validation'),
         },
-        { key: 'reports', glyph: 'report' as GlyphName, tone: 'lilac' as GlassTone, text: t('rd.features.reports') },
+        { key: 'reports', glyph: 'report' as DoodleName, tone: 'lilac' as DoodleTone, text: t('rd.features.reports') },
       ],
     },
   ] as const
@@ -124,17 +128,18 @@ export function PlatformProductsSection() {
                 key={key}
                 className={`group relative isolate flex min-h-[340px] flex-col overflow-hidden rounded-[30px] border p-6 transition-transform duration-300 hover:-translate-y-1 tablet:p-7 ${className}`}
               >
-                <GlassMedallion
-                  glyph={glyph}
+                <DoodleIcon
+                  name={glyph}
                   tone={tone}
-                  size={150}
-                  className={`pointer-events-none absolute -z-10 opacity-60 transition-transform duration-700 group-hover:scale-105 ${decor}`}
+                  size={180}
+                  plain
+                  className={`pointer-events-none absolute -z-10 opacity-25 transition-transform duration-700 group-hover:scale-105 ${decor}`}
                 />
                 <div className="relative mb-7">
                   <span
                     className={`inline-flex items-center gap-2 rounded-full border py-1 pl-1 pr-3 text-xs font-semibold ${labelClass}`}
                   >
-                    <GlassMedallion glyph={glyph} tone={tone} size={22} />
+                    <DoodleIcon name={glyph} tone={tone} size={28} />
                     {label}
                   </span>
                 </div>
@@ -145,9 +150,9 @@ export function PlatformProductsSection() {
                 <p className={`relative mt-3 max-w-md text-sm leading-[1.7] ${descriptionClass}`}>{description}</p>
 
                 <ul className="relative my-6 space-y-3">
-                  {features.map(({ key: featureKey, glyph: featureGlyph, tone: featureTone, text }) => (
+                  {features.map(({ key: featureKey, glyph: featureGlyph, text }) => (
                     <li key={featureKey} className="flex items-start gap-3 text-sm leading-relaxed">
-                      <GlassMedallion glyph={featureGlyph} tone={featureTone} size={30} />
+                      <DoodleIcon name={featureGlyph} tone="paper" size={44} />
                       <span className="pt-1">{text}</span>
                     </li>
                   ))}

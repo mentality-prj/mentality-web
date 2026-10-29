@@ -1,13 +1,10 @@
-import { GlassMedallion } from './glass/GlassMedallion'
-import { WaterSurface } from './water/WaterSurface'
+import { DoodleIcon } from './doodle/DoodleIcon'
 import { landingH2 } from './landingStyles'
 
 interface HighlightInfoCardProps {
   title: string
   subtitle: string
 }
-
-const DUSK = { deep: '#a995e6', mid: '#efe6fd', light: '#fff6f1' }
 
 export function HighlightInfoCard({ title, subtitle }: HighlightInfoCardProps) {
   return (
@@ -16,13 +13,14 @@ export function HighlightInfoCard({ title, subtitle }: HighlightInfoCardProps) {
         <h2 className={landingH2}>{title}</h2>
         <p className="mt-4 max-w-md text-base leading-[1.75] text-[#575570]">{subtitle}</p>
       </div>
-      <div className="relative aspect-[5/3] w-full overflow-hidden rounded-[28px] shadow-[0_30px_60px_-30px_rgba(80,60,150,0.5)]">
-        <WaterSurface colors={DUSK} source={{ x: 0.5, y: 0.52 }} every={4} interactive className="absolute inset-0" />
-        <GlassMedallion
-          glyph="bell"
+      <div className="relative aspect-[5/3] w-full overflow-hidden rounded-[28px] border border-[#efe9e2] bg-[#fbf9f6]">
+        <span aria-hidden="true" className="absolute left-[18%] top-[22%] h-2.5 w-2.5 rounded-full bg-[#d9d2e6]" />
+        <span aria-hidden="true" className="absolute bottom-[20%] right-[20%] h-3 w-3 rounded-full bg-[#e7ddd2]" />
+        <DoodleIcon
+          name="bell"
           tone="lilac"
-          size={104}
-          className="absolute left-1/2 top-[52%] -translate-x-1/2 -translate-y-1/2"
+          size={220}
+          className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 rotate-[-6deg]"
         />
       </div>
     </article>

@@ -22,6 +22,8 @@ type Props = {
   still?: boolean
   /** A pointer press on the surface drops a ripple there. */
   interactive?: boolean
+  /** Render only the ripples (transparent elsewhere) over an existing background. */
+  overlay?: boolean
 }
 
 const toPalette = ({ deep, mid, light }: WaterColors): WaterPalette => ({
@@ -36,7 +38,7 @@ const toPalette = ({ deep, mid, light }: WaterColors): WaterPalette => ({
  * honours prefers-reduced-motion with a single frozen frame.
  */
 export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function WaterSurface(
-  { colors, className, source = { x: 0.5, y: 0.5 }, every = 0, still = false, interactive = false },
+  { colors, className, source = { x: 0.5, y: 0.5 }, every = 0, still = false, interactive = false, overlay = false },
   ref
 ) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -63,7 +65,7 @@ export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function Water
     if (!canvas) return
     let renderer: WaterRenderer
     try {
-      renderer = new WaterRenderer(canvas, targetRef.current)
+      renderer = new WaterRenderer(canvas, targetRef.current, overlay)
     } catch {
       canvas.style.display = 'none'
       return
@@ -76,7 +78,7 @@ export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function Water
       renderer.drop(x, 1 - y, 0.9, now - 2.4)
       renderer.drop(x, 1 - y, 0.8, now - 0.9)
     }
-    seed(reduced ? 3.3 : renderer.time)
+    if (!overlay) seed(reduced ? 3.3 : renderer.time)
 
     let frame = 0
     let visible = false
@@ -123,7 +125,7 @@ export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function Water
       visible = entry.isIntersecting
       if (visible && still && performance.now() >= activeUntil) {
         frozenAt = renderer.time
-        seed(frozenAt)
+        if (!overlay) seed(frozenAt)
         draw(frozenAt)
       } else if (visible) kick()
     })
@@ -158,13 +160,17 @@ export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function Water
       renderer.dispose()
       rendererRef.current = null
     }
-  }, [every, still, interactive])
+  }, [every, still, interactive, overlay])
 
   return (
     <div
       aria-hidden="true"
       className={`overflow-hidden ${className ?? ''}`}
-      style={{ background: `linear-gradient(180deg, ${colors.light} 0%, ${colors.mid} 55%, ${colors.deep} 100%)` }}
+      style={
+        overlay
+          ? undefined
+          : { background: `linear-gradient(180deg, ${colors.light} 0%, ${colors.mid} 55%, ${colors.deep} 100%)` }
+      }
     >
       <canvas ref={canvasRef} className="block h-full w-full" />
     </div>
