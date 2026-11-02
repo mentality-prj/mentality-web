@@ -2,12 +2,12 @@
 
 ## Exact immutable references
 
-| Artifact | Revision | Evidence |
-| --- | --- | --- |
-| Production Git branch | `50a3530a8cc18fa3aab8852a382ef97beebbc65e` | release merge #591 |
-| Dev before reconciliation | `35a923364d370cc9e11c64ae2a53175c043dfc31` | production is 1 commit ahead, file diff empty |
-| Current production Vercel deployment | `dpl_HEXPTb7ofycE36faRsEEwfAio6F2` | Vercel state READY on release SHA |
-| Previous production deployment | `dpl_D9RR2QsnBfAAdDDTBgtnP9NUQTao` | Vercel state READY, previous SHA `c21324acfcecbf788ecc35425d5d8869c80cecc0` |
+| Artifact                             | Revision                                   | Evidence                                                                    |
+| ------------------------------------ | ------------------------------------------ | --------------------------------------------------------------------------- |
+| Production Git branch                | `50a3530a8cc18fa3aab8852a382ef97beebbc65e` | release merge #591                                                          |
+| Dev before reconciliation            | `35a923364d370cc9e11c64ae2a53175c043dfc31` | production is 1 commit ahead, file diff empty                               |
+| Current production Vercel deployment | `dpl_HEXPTb7ofycE36faRsEEwfAio6F2`         | Vercel state READY on release SHA                                           |
+| Previous production deployment       | `dpl_D9RR2QsnBfAAdDDTBgtnP9NUQTao`         | Vercel state READY, previous SHA `c21324acfcecbf788ecc35425d5d8869c80cecc0` |
 
 Reconciliation **preserves** the production-only release merge commit. The release merge contains no new file changes relative to dev; dropping it or force-resetting production is unnecessary. The PR introducing this document merges production ancestry into dev and adds only this runbook.
 
