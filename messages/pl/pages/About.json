@@ -1,93 +1,93 @@
 {
   "title": "O Dzvin.co",
-  "intro": "Dzvin.co to oparta na dowodach platforma analizy stanu psychicznego, która łączy narzędzia psychometryczne, sygnały behawioralne i modele predykcyjne, aby wcześnie wykrywać ryzyka i wspierać podejmowanie decyzji.",
-  "introExtended": "Platforma pracuje na codziennych sygnałach stanu — stresie, nastroju, energii i koncentracji — oraz wynikach testów psychometrycznych, aby śledzić dynamikę zmian, identyfikować czynniki wpływu oraz budować zarówno osobiste, jak i zespołowe scenariusze działania. Na tej podstawie dostarcza rekomendacje dla użytkowników, sygnały analityczne dla zespołów i pętlę walidacji, która sprawdza jakość modeli na rzeczywistych wynikach.",
+  "intro": "Dzvin.co to ukraiński serwis osobistego samowsparcia: krótkie notowania samopoczucia, prywatny dziennik i proste ćwiczenia wybierane we własnym tempie.",
+  "introExtended": "Serwis jest na wczesnym etapie (beta). Obecnie dostępne są codzienne notowania stresu, nastroju, energii i koncentracji, prywatny dziennik, ćwiczenia oddechowe i uspokajające, medytacje i porady oraz osobiste postępy i cele. Dla firm i zespołów badawczych osobno rozwijamy formaty pilotażowe z jasnymi granicami dostępu. Dzvin.co nie stawia diagnoz i nie zastępuje specjalisty.",
   "Evolution": {
-    "title": "Od obserwacji do prognozy",
-    "description": "Większość rozwiązań w obszarze zdrowia psychicznego opisuje jedynie bieżący stan. Dzvin.co przechodzi od obserwacji do prognozy, a od prognozy do weryfikowalnej decyzji.",
+    "title": "Od jednego notowania do wykonalnego kroku",
+    "description": "Dzvin.co nie prognozuje Twojego stanu i go nie ocenia. Pomaga zauważyć, jak się czujesz, wybrać krótką praktykę i wracać do własnej historii we własnym tempie.",
     "stepDescriptions": {
-      "happened": "System wychwytuje sygnały behawioralne, zmiany rytmu i dynamikę stanu bez sprowadzania wszystkiego do jednego wyniku.",
-      "means": "Każdy sygnał jest interpretowany w kontekście użytkownika, wzorców kohortowych i środowiska organizacyjnego.",
-      "next": "Model ocenia trajektorie zmian stanu i wskazuje scenariusze, które są najbardziej prawdopodobne.",
-      "action": "Platforma porównuje scenariusze działań i pomaga zrozumieć, które interwencje mogą zmienić oczekiwany wynik.",
-      "evidence": "Rzeczywiste wyniki wracają do systemu, aby weryfikować wnioski i zwiększać wiarygodność modeli."
+      "happened": "Notujesz stres, nastrój, energię lub koncentrację albo piszesz w dzienniku — kiedy chcesz.",
+      "means": "Serwis pokazuje, co zanotowałeś dzisiaj, bez diagnoz, rankingów i porównań z innymi ludźmi.",
+      "next": "W przewodniku wybierasz krótką praktykę: oddech, uspokojenie, medytację lub poradę.",
+      "action": "Ty decydujesz: wykonać ćwiczenie, wybrać inne lub po prostu wrócić później.",
+      "evidence": "„Moje postępy” pokazują statystyki notowań, cele i osiągnięcia — bez serii i bez kar za pominięte dni."
     },
     "context": {
-      "eyebrow": "Logika platformy",
-      "title": "Zamknięta pętla analizy, prognozy i weryfikacji",
-      "description": "Każdy etap opiera się na poprzednim: sygnał otrzymuje kontekst, prognoza przechodzi w działanie, a działanie w zweryfikowany wynik.",
+      "eyebrow": "Jak to działa",
+      "title": "Twój rytm, Twój wybór",
+      "description": "Każdy krok jest nieobowiązkowy: zacznij od notowania, wpisu w dzienniku lub krótkiego ćwiczenia.",
       "items": {
         "signal": {
-          "title": "Sygnały",
-          "description": "Dane behawioralne, psychometryczne i kontekstowe są traktowane jako jeden system powiązanych czynników."
+          "title": "Notowanie",
+          "description": "Kilka ocen w skali 1–5 lub swobodny wpis w dzienniku."
         },
         "prediction": {
-          "title": "Prognozowanie",
-          "description": "Model ocenia dynamikę zmian i wskazuje scenariusze najbardziej prawdopodobne zarówno bez interwencji, jak i po niej."
+          "title": "Praktyka",
+          "description": "Krótkie ćwiczenie z przewodnika, które wybierasz sam — nie prognoza ani wniosek o Twoim stanie."
         },
         "validation": {
-          "title": "Walidacja",
-          "description": "Rzeczywiste wyniki wracają do systemu, aby weryfikować wnioski i zwiększać wiarygodność modeli."
+          "title": "Twoja historia",
+          "description": "Wpisy i statystyki, do których możesz wracać, aby zauważać zmiany w czasie."
         }
       }
     },
     "steps": {
-      "happened": "Co się zmienia",
-      "means": "Co to oznacza",
-      "next": "Co będzie dalej",
-      "action": "Co może zmienić wynik",
-      "evidence": "Co potwierdzają dane"
+      "happened": "Co zauważasz",
+      "means": "Co widać dzisiaj",
+      "next": "Co możesz spróbować",
+      "action": "Twój wybór",
+      "evidence": "Co zmienia się w czasie"
     }
   },
   "ForWhom": {
     "title": "Dla kogo",
     "business": {
       "highlightValue": "B2B",
-      "highlightLabel": "warstwa organizacyjna",
-      "title": "Dla biznesu",
-      "description": "Daje liderom i HR wczesne sygnały ryzyka, dynamikę zespołu i mocniejszą podstawę do decyzji dotyczących dobrostanu, produktywności i retencji."
+      "highlightLabel": "pilotaż dla firm",
+      "title": "Dla firm",
+      "description": "Osobiste samowsparcie dla pracowników i pilotażowe formaty organizacyjne oparte na danych zagregowanych. Pracodawca nie ma dostępu do prywatnych dzienników ani notowań. Funkcje firmowe nie zostały jeszcze uruchomione — pilotaże omawiamy indywidualnie."
     },
     "user": {
       "highlightValue": "B2C",
-      "highlightLabel": "warstwa osobista",
-      "title": "Dla użytkownika",
-      "description": "Pomaga dostrzegać własne wzorce, lepiej rozumieć zmiany stanu i otrzymywać rekomendacje osadzone w realnym kontekście życia."
+      "highlightLabel": "przestrzeń osobista",
+      "title": "Dla siebie",
+      "description": "Notowania samopoczucia, prywatny dziennik, krótkie ćwiczenia i osobiste postępy — bez obowiązkowych testów, serii i presji."
     },
     "research": {
       "highlightValue": "R&D",
-      "highlightLabel": "warstwa walidacji",
-      "title": "Dla naukowców i instytutów badawczych",
-      "description": "Tworzy środowisko do pracy z anonimizowanymi danymi behawioralnymi, testowania hipotez i oceny jakości modeli na poziomie populacji."
+      "highlightLabel": "partnerstwo badawcze",
+      "title": "Dla badaczy",
+      "description": "Jesteśmy otwarci na wspólne protokoły badawcze z uczelniami i instytutami. Każde badanie wymaga osobnej zgody uczestników i akceptacji komisji etycznej."
     }
   },
   "Architecture": {
-    "title": "Architektura platformy",
-    "overviewTitle": "Trzy warstwy jednego systemu",
-    "overviewDescription": "Platforma jest zbudowana jako rdzeń analityczny, warstwa użytkownika i warstwa walidacji, które razem działają jako jeden system wspierania decyzji.",
-    "overviewDescriptionLead": "Rdzeń analityczny, warstwa użytkownika i warstwa walidacji działają jako jeden system wspierania decyzji.",
-    "overviewDescriptionFollowup": "Razem łączą personalizację dla użytkownika, sygnały dla zespołów i naukową weryfikację jakości modeli.",
-    "interactionHint": "Wybierz warstwę z tagów albo kliknij kartę po prawej, aby rozwinąć jej rolę bardziej szczegółowo.",
-    "nextAction": "Następna warstwa",
+    "title": "Jak zorganizowany jest Dzvin.co",
+    "overviewTitle": "Trzy odrębne kierunki",
+    "overviewDescription": "Serwis osobisty, pilotaże dla firm i kierunek badawczy rozwijają się osobno, każdy z własnymi granicami dostępu do danych.",
+    "overviewDescriptionLead": "Serwis osobisty, pilotaże dla firm i kierunek badawczy rozwijają się osobno, każdy z własnymi granicami dostępu do danych.",
+    "overviewDescriptionFollowup": "Osobiste wpisy należą do użytkownika i nie są przekazywane firmom ani badaczom bez osobnej, wyraźnej zgody.",
+    "interactionHint": "Wybierz kierunek z tagów lub kliknij kartę po prawej, aby dowiedzieć się więcej.",
+    "nextAction": "Następny kierunek",
     "core": {
-      "title": "Rdzeń analityczno-predykcyjny",
-      "description": "Łączy sygnały behawioralne, wyniki psychometryczne i logikę predykcyjną, aby oceniać dynamikę stanu oraz wzorce ryzyka."
+      "title": "Kierunek badawczy",
+      "description": "Badamy, jak metody wspierania decyzji platformy QDIP mogłyby pomagać w wyborze odpowiednich działań. To badania, a nie funkcja dostępna dla użytkowników."
     },
     "b2c": {
-      "title": "Warstwa dla użytkowników",
-      "description": "Zamienia złożoną analitykę w zrozumiałe check-iny, osobiste insighty, rekomendacje i scenariusze działania."
+      "title": "Przestrzeń osobista",
+      "description": "Notowania samopoczucia, dziennik, ćwiczenia, cele i postępy — dostępne teraz w wersji beta."
     },
     "loop": {
-      "title": "System weryfikacji wyników",
-      "description": "Zwraca rzeczywiste wyniki do systemu, testuje jakość prognoz i buduje zaufanie do modelu."
+      "title": "Granice danych",
+      "description": "Logowanie przez zabezpieczone konto i dostęp do osobistych wpisów tylko dla ich właściciela."
     }
   },
   "Value": {
-    "title": "Kluczowa wartość",
-    "description": "Wartość platformy nie polega wyłącznie na obserwowaniu stanu, lecz na zamianie sygnałów w wyjaśnialne i weryfikowalne decyzje.",
+    "title": "Co jest dla nas ważne",
+    "description": "Budujemy serwis, który wspiera, a nie ocenia, i uczciwie mówimy, co już działa, a co jest jeszcze w fazie rozwoju.",
     "points": {
-      "cohort": "Pracuje nie tylko na pojedynczych sygnałach, lecz także na wzorcach kohortowych i behawioralnych.",
-      "explainable": "Dostarcza rekomendacje z wyjaśnieniem czynników i kontekstu, a nie jako czarna skrzynka.",
-      "outcome": "Sprawdza, co działa w praktyce, i doprecyzowuje modele na podstawie nowych wyników."
+      "cohort": "Osobiste wpisy pozostają osobiste: bez porównań z innymi ludźmi i bez dostępu pracodawcy.",
+      "explainable": "Każdy krok jest nieobowiązkowy: bez obowiązkowych testów, serii i presji — decyzja zawsze należy do Ciebie.",
+      "outcome": "Serwis nie stawia diagnoz i nie obiecuje efektów klinicznych. W kryzysie skontaktuj się ze specjalistą lub służbami ratunkowymi."
     }
   }
 }

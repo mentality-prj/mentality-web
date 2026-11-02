@@ -3,9 +3,11 @@
 **Canonical branch:** `dev`. This is a local context entry point, not a new architecture.
 
 ## Local rules
+
 Read `README.md`, existing design system and roadmap #482. Maintain B2C, B2B, R&D positions with factual investor claims; do not redesign approved branding. Production deploys from a distinct `production` branch: compare exact deployment SHA. Respect privacy and business tenant auth; no raw cross-app data to Yara.
 
 ## Shared delivery contract
+
 Read the private QDIP [engineering handover](https://github.com/qdip-ai/qdip-core/blob/dev/docs/handover/README.md) and its DECISIONS_AND_RULES.md, HISTORY.md, OPERATIONS.md and PRODUCT_STATUS.md with authenticated GitHub access. This link is not a copy of the files and does not grant access. Current source, issues, PRs and deployed runtime override dated summaries.
 
 - Execute the literal user request; root cause first, minimal scoped patch. No hacks, duplicated UI or surprise design changes.

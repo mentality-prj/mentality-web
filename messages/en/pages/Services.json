@@ -1,8 +1,8 @@
 {
   "hero": {
     "eyebrow": "Dzvin.co services",
-    "title": "Personal support, corporate analytics and scientific forecasting in one system",
-    "subtitle": "Dzvin.co helps identify stress, burnout and behavioral risk before they escalate into critical outcomes. The platform combines personal state tracking, team stability analytics, and research-grade forecasting models built on behavioral dynamics and uncertainty.",
+    "title": "Personal wellbeing, team workflows and Decision Intelligence research",
+    "subtitle": "Dzvin.co is an in-development digital wellbeing platform with personal support tools, an emerging permissioned team-analytics experience and a Decision Intelligence in Mental Health research direction using QDIP. There are no completed customer pilots or validated effectiveness results yet; the next stage is designed to test these hypotheses.",
     "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
     "audiences": {
       "b2c": {
@@ -11,7 +11,7 @@
       },
       "b2b": {
         "title": "Corporate",
-        "subtitle": "Company structure, team analytics and decision support for managers."
+        "subtitle": "Employee support and pilot formats with aggregated team data."
       },
       "rd": {
         "title": "Research",
@@ -22,17 +22,17 @@
   "blueprint": {
     "eyebrow": "Service architecture",
     "title": "Three service tracks of one platform",
-    "subtitle": "The platform works as a personal service for users, an analytics service for companies, and a validation service for programs and research. Below is how its role changes across these three scenarios.",
+    "subtitle": "The project is developing three connected experiences: private personal support, permissioned organization workflows and a research environment. Their integrated launch has not yet been qualified.",
     "cards": {
       "personalFlow": {
         "title": "Personal support track",
-        "description": "For individuals, the service combines daily observations, exercises and tailored recommendations into one coherent action path.",
+        "description": "For individuals, the service brings daily check-ins, a diary and exercises into one space that is easy to return to.",
         "focus": "Focus: continuous personal support, short feedback loops and visible progress."
       },
       "corporateFlow": {
-        "title": "Corporate operations track",
-        "description": "For companies, the service combines roles, groups, team analytics and risk signals into one manageable operating model.",
-        "focus": "Focus: aggregated team visibility, scoped access and timely management action."
+        "title": "Company pilot",
+        "description": "For companies, roles, groups and aggregated team indicators are in development — without access to employees' personal records.",
+        "focus": "Focus: employee support, aggregated data and clear access boundaries."
       },
       "researchFlow": {
         "title": "Research validation track",
@@ -48,17 +48,17 @@
       "description": "The personal service gathers state signals, offers simple practices and helps reveal what actually supports mental well-being in everyday use.",
       "serviceSummaryItems": {
         "tracking": "Brings state signals into one sequence.",
-        "support": "Suggests a relevant practice right after self-check.",
+        "support": "Gives access to short practices in the guide whenever you need them.",
         "consistency": "Keeps change history easy to revisit."
       },
       "resultSummaryItems": {
         "one": "State becomes easier to understand over time.",
-        "two": "The next step is clear right after assessment.",
+        "two": "A short practice is only a few taps away.",
         "three": "Support turns into a path that is easy to continue every day."
       },
       "journeyTitle": "How the service works",
       "before": {
-        "title": "What it was before",
+        "title": "The problem we aim to address",
         "items": {
           "one": {
             "title": "Separate signals without a shared picture",
@@ -80,35 +80,35 @@
           "description": "Mood, short notes and questionnaires are gathered into one sequence that shows frequency of change, recurring triggers and movement across days."
         },
         "support": {
-          "title": "A practice appears right after assessment",
-          "description": "After a self-check, the service immediately opens breathing, meditation, an exercise or short guidance connected to the current state."
+          "title": "Practices always at hand",
+          "description": "Breathing, calming, meditations and tips are collected in the guide — you choose what to try right now."
         },
         "consistency": {
           "title": "Effective routines are easy to repeat",
           "description": "Saved exercises, materials and state history stay available so people can repeat what has already produced a visible result."
         }
       },
-      "outcomesTitle": "What improved",
+      "outcomesTitle": "Target experience for validation",
       "after": {
         "items": {
           "one": {
-            "title": "State becomes clearer over time",
-            "description": "Instead of isolated episodes, there is a fuller picture of how well-being changes across days and weeks."
+            "title": "Review personal changes over time",
+            "description": "The intended timeline shows repeated observations when users contribute data. Whether this improves awareness still requires evaluation."
           },
           "two": {
-            "title": "The next step becomes concrete",
-            "description": "After assessment, there is not just abstract advice but a specific action that can be taken immediately."
+            "title": "Make a next step accessible",
+            "description": "The intended flow offers a clear optional practice following a check-in; its appropriateness and usefulness require user research."
           },
           "three": {
-            "title": "Support becomes cumulative",
-            "description": "Helpful practices and visible progress stop getting lost and start forming a path that is easier to continue."
+            "title": "Keep the support journey connected",
+            "description": "The product aims to link exercises and history. A measurable effect on wellbeing has not been established."
           }
         }
       },
       "outcomes": {
-        "one": "A better sense of your state and less confusion about what is happening to you.",
-        "two": "Simple daily steps that help you feel more grounded and calm.",
-        "three": "A clearer view of what works for you personally and how your state changes over time."
+        "one": "Review personal observations and discover possible patterns.",
+        "two": "Choose short, voluntary practices rather than having decisions imposed automatically.",
+        "three": "Follow your personal timeline; this approach still needs evidence of usefulness."
       },
       "chart": {
         "label": "Self-check score",
@@ -119,52 +119,52 @@
     "b2b": {
       "tag": "Corporate",
       "title": "For companies",
-      "description": "The B2B layer turns team state signals into an early-response operating system: leaders and HR get an aggregated risk view, see where teams are losing energy, and can act before the issue becomes burnout, attrition or a visible performance drag.",
-      "managerTitle": "What a manager sees and controls",
+      "description": "The B2B experience is being developed to show permissioned aggregate trends in stress, mood, energy and focus, supporting HR and managers in reviewing team-support priorities. Its practical benefit remains a hypothesis requiring security qualification and independent evaluation.",
+      "managerTitle": "What is planned for companies",
       "capabilities": {
         "governance": {
           "title": "Org structure, roles and accountability zones",
           "description": "The platform brings teams, roles, groups and access scopes into one managed layer so managers can see the right slice of the organization without permission chaos, manual reporting merges or endless clarification loops."
         },
         "analytics": {
-          "title": "State dynamics across teams and groups",
-          "description": "Instead of stitching together fragmented signals, managers get one analytical surface for stress, energy, focus and mood trends, making it easier to spot which teams need attention right now."
+          "title": "Team indicators from available observations",
+          "description": "The planned view aggregates permitted stress, mood, energy and focus signals. Freshness and completeness depend on actual participation and configuration; production performance and reliability remain to be qualified."
         },
         "decisionSupport": {
-          "title": "Action priorities and support control",
-          "description": "The system highlights critical risk zones, helps identify where intervention will have the biggest payoff, and moves management action from intuition-led to evidence-led."
+          "title": "Context for support conversations",
+          "description": "Aggregated trends are intended to help HR and leaders discuss team support priorities. The system draws no automatic conclusions about individual people; the value of this approach still needs to be tested in pilots."
         }
       },
-      "outcomesTitle": "What this gives the business",
+      "outcomesTitle": "Potential value to evaluate",
       "businessImpact": {
         "one": {
-          "title": "One management surface for team well-being",
-          "description": "Leadership gets a transparent aggregated view of team state without exposing private stories, which makes well-being manageable as an operating discipline rather than a reactive afterthought."
+          "title": "Planned team-support workflow",
+          "description": "Once qualified, role-scoped group signals and documented follow-up may help teams organize wellbeing support. Measured outcomes are not yet available."
         },
         "two": {
-          "title": "Faster decisions with measurable operational payoff",
-          "description": "When risk becomes visible earlier, companies can prioritize support faster, direct manager attention with more precision, and reduce losses from burnout, attrition and performance decline."
+          "title": "Hypothesis: more timely signal review",
+          "description": "We plan to evaluate whether repeated observations and a managed workflow improve time to review. Reduced burnout and attrition have not been demonstrated."
         },
         "three": {
-          "title": "A stronger case for HR and executive buy-in",
-          "description": "Data dynamics move the conversation from ‘well-being matters’ to ‘here is where the business is already losing capacity and where support creates measurable return’, making leadership alignment easier to secure."
+          "title": "Evidence to inform HR decisions",
+          "description": "The research plan includes evaluating trends and agreed KPIs while avoiding causal claims without a suitable study design."
         }
       },
       "outcomes": {
-        "one": "One management view of team well-being without exposing personal histories.",
-        "two": "Faster decisions about support, manager priorities and focus teams.",
-        "three": "Arguments for HR and leadership backed by data dynamics, not just intuition."
+        "one": "Goal: an aggregated view of team well-being without exposing personal histories.",
+        "two": "Goal: a structured process for discussing team support.",
+        "three": "Goal: verifiable indicators for HR and leaders, agreed before the pilot starts."
       },
       "chart": {
         "label": "Average stress score",
-        "title": "Team risk trajectory",
-        "stubTitle": "Illustrative team risk trajectory"
+        "title": "Team self-assessment trajectory",
+        "stubTitle": "Illustrative team self-assessment trajectory"
       }
     },
     "rd": {
       "tag": "Research",
       "title": "For researchers, institutes and universities",
-      "description": "The R&D layer turns the platform into a research environment: standardized self-checks, behavioral signals, cohort analysis, prediction validation and outcome tracking in one system.",
+      "description": "The R&D workspace is being developed for research projects, cohorts, repeated observations and future evaluation of predictive and Decision Intelligence hypotheses. No scientific superiority or intervention effect has been established.",
       "technicalTitle": "The technical research layer",
       "capabilities": {
         "cohorts": {
@@ -173,7 +173,7 @@
         },
         "validation": {
           "title": "Validate predictions",
-          "description": "The prediction-to-outcome loop shows model accuracy, drift and change after intervention at the cohort or program level."
+          "description": "The proposed forecast-to-observation loop is intended to support evaluation of calibration, drift and changes after action. Independent research outcomes are not yet available."
         },
         "reporting": {
           "title": "Report impact",
@@ -193,8 +193,8 @@
               "description": "Participants can be segmented by state patterns, risk, intervention response and observation windows."
             },
             "three": {
-              "title": "Validate predictions against outcomes",
-              "description": "We show where the model was accurate, where drift appeared and what effect was actually observed after intervention."
+              "title": "We plan hypothesis evaluation",
+              "description": "Together with partners we define in advance how hypotheses will be tested and which results count as meaningful. There are no independent results yet."
             }
           }
         },
@@ -206,8 +206,8 @@
               "description": "The same measurement logic works in the everyday product and in the research layer, so data does not break across environments."
             },
             "two": {
-              "title": "Visible drift and accuracy",
-              "description": "Teams can monitor how prediction quality changes over time and whether a model stays valid on new samples."
+              "title": "Transparent methodology",
+              "description": "Protocols, samples and evaluation criteria are fixed before data collection so results can be reproduced and independently verified."
             },
             "three": {
               "title": "Evidence for papers and grants",
@@ -220,11 +220,11 @@
           "items": {
             "one": {
               "title": "Reduce time to a working study design",
-              "description": "Teams do not start from zero: the digital loop for data collection, cohort analysis and outcome capture is already in place."
+              "description": "Teams do not start from zero: a working digital tool for daily self-assessments and a diary already exists and can be adapted to an agreed protocol."
             },
             "two": {
               "title": "Provide structure for reports and papers",
-              "description": "Researchers get more than raw signals and can work with a structure that supports analysis, conclusions and accountable reporting."
+              "description": "Researchers get a consistent data structure from participants who gave separate consent, for analysis and accountable reporting."
             },
             "three": {
               "title": "Strengthen grant reasoning",
@@ -233,7 +233,7 @@
           }
         }
       },
-      "outcomesTitle": "What researchers and institutions get",
+      "outcomesTitle": "Research capabilities and hypotheses",
       "details": {
         "title": "What enters the evidence cycle",
         "items": {
@@ -243,7 +243,7 @@
           },
           "two": {
             "title": "Hypotheses checked against outcomes",
-            "description": "The prediction-to-outcome loop shows model accuracy, drift and intervention effect instead of leaving the program at an intermediate signal."
+            "description": "Hypotheses are tested against predefined outcomes on separate, approved data — without conclusions the study design does not support."
           },
           "three": {
             "title": "An accountable evidence package",

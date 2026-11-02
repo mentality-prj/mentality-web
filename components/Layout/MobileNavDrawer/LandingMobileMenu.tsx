@@ -34,13 +34,13 @@ export default function LandingMobileMenu() {
         type="button"
         aria-label={t('openNavigation')}
         onClick={() => setOpen(true)}
-        className="flex items-center justify-center text-textcolor-secondary md:hidden"
+        className="flex items-center justify-center text-textcolor-secondary lg:hidden"
       >
         <LucideMenu size={22} />
       </button>
 
       {/* Backdrop */}
-      {open && <div className="fixed inset-0 z-40 bg-black/40 md:hidden" aria-hidden onClick={() => setOpen(false)} />}
+      {open && <div className="fixed inset-0 z-40 bg-black/40 lg:hidden" aria-hidden onClick={() => setOpen(false)} />}
 
       {/* Drawer */}
       <div
@@ -49,7 +49,7 @@ export default function LandingMobileMenu() {
         aria-modal="true"
         aria-label={t('openNavigation')}
         aria-hidden={!open}
-        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-hidden bg-white shadow-xl transition-transform duration-300 ease-in-out md:hidden ${
+        className={`fixed inset-y-0 left-0 z-50 flex w-72 flex-col overflow-hidden bg-white shadow-xl transition-transform duration-300 ease-in-out lg:hidden ${
           open ? 'translate-x-0' : '-translate-x-full'
         }`}
       >

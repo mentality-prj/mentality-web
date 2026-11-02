@@ -127,4 +127,10 @@ describe('DailyHabitsCard: no-pressure daily routine', () => {
     expect(refresh).toHaveBeenCalled()
     expect(chooseDailyHabit).not.toHaveBeenCalled()
   })
+
+  it('offers a retry that refreshes server data after a failed load', () => {
+    render(<DailyHabitsCard {...base} failed />)
+    fireEvent.click(screen.getByRole('button', { name: 'retry' }))
+    expect(refresh).toHaveBeenCalledTimes(1)
+  })
 })

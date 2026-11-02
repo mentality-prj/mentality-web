@@ -6,6 +6,7 @@ import {
   exchangeAuthTokens,
   fetchAuthenticatedUser,
   fetchStoredAuthTokens,
+  SessionVerificationUnavailableError,
 } from '@/requests/auth'
 
 import { ZitadelAuthProvider } from './zitadel'
@@ -30,6 +31,7 @@ jest.mock('@/requests/auth', () => ({
   exchangeAuthTokens: jest.fn(),
   fetchAuthenticatedUser: jest.fn(),
   fetchStoredAuthTokens: jest.fn(),
+  SessionVerificationUnavailableError: class SessionVerificationUnavailableError extends Error {},
 }))
 
 const metadata = { expiresAt: Math.floor(Date.now() / 1000) + 3600, hasRefreshToken: true }
@@ -77,9 +79,19 @@ describe('token-opaque Zitadel provider', () => {
     ;(exchangeAuthTokens as jest.Mock).mockResolvedValueOnce({ data: callbackMetadata })
     ;(fetchStoredAuthTokens as jest.Mock).mockResolvedValue(callbackMetadata)
     ;(fetchAuthenticatedUser as jest.Mock).mockResolvedValue(null)
-    expect(await provider.handleCallback('code', 'correct')).toBeNull()
+    await expect(provider.handleCallback('code', 'correct')).rejects.toThrow('Unable to validate the session')
     expect(deleteStoredAuthTokensIfUnchanged).toHaveBeenCalledWith(callbackMetadata)
     expect(deleteStoredAuthTokens).not.toHaveBeenCalled()
+  })
+
+  it('surfaces a temporarily unavailable verification so the callback can retry without reusing the code', async () => {
+    sessionStorage.setItem('oauth_state', 'correct')
+    sessionStorage.setItem('pkce_verifier', 'verifier')
+    ;(exchangeAuthTokens as jest.Mock).mockResolvedValueOnce({ data: metadata })
+    ;(fetchAuthenticatedUser as jest.Mock).mockRejectedValueOnce(new SessionVerificationUnavailableError())
+    await expect(provider.handleCallback('code', 'correct')).rejects.toBeInstanceOf(SessionVerificationUnavailableError)
+    expect(deleteStoredAuthTokensIfUnchanged).not.toHaveBeenCalled()
+    expect(exchangeAuthTokens).toHaveBeenCalledTimes(1)
   })
 
   it('deduplicates concurrent refresh calls within one tab', async () => {
