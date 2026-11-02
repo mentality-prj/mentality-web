@@ -1,5 +1,8 @@
 {
   "title": "We use cookies",
+  "short": "We use cookies for sign-in, language preferences and anonymous analytics.",
+  "policy": "Cookie policy",
+  "details": "Details",
   "description": "To improve the site and remember your settings we use the following types of cookies:",
   "accept": "Accept",
   "cookies": {
