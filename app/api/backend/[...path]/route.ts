@@ -26,7 +26,13 @@ function isAllowedMutation(request: NextRequest): boolean {
   const origin = request.headers.get('origin')
   if (!origin) return false
   try {
-    return new URL(origin).origin === request.nextUrl.origin
+    const parsed = new URL(origin)
+    if (parsed.origin === request.nextUrl.origin) return true
+    return (
+      request.headers.get('sec-fetch-site') === 'same-origin' &&
+      request.headers.get('host') === parsed.host &&
+      request.headers.get('x-forwarded-proto') === parsed.protocol.slice(0, -1)
+    )
   } catch {
     return false
   }
