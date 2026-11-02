@@ -24,15 +24,15 @@ export default function CookieConsent() {
     }
   }, [])
 
-  function accept() {
+  function setConsent(value: '0' | '1') {
     try {
       // set cookie for one year
       const maxAge = 60 * 60 * 24 * 365 // seconds
       const secure = typeof window !== 'undefined' && window.location.protocol === 'https:' ? '; Secure' : ''
-      document.cookie = `${COOKIE_NAME}=${encodeURIComponent('1')}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`
+      document.cookie = `${COOKIE_NAME}=${value}; Path=/; Max-Age=${maxAge}; SameSite=Lax${secure}`
       // fallback to localStorage for older browsers
       try {
-        localStorage.setItem(COOKIE_NAME, '1')
+        localStorage.setItem(COOKIE_NAME, value)
       } catch (e) {
         logger.error('CookieConsent: localStorage fallback failed', e as Error)
       }
@@ -72,9 +72,14 @@ export default function CookieConsent() {
             </ul>
           </details>
         </div>
-        <Button onClick={accept} className="w-full shrink-0 sm:w-auto">
-          {t('accept')}
-        </Button>
+        <div className="flex w-full shrink-0 flex-col gap-2 sm:w-auto sm:flex-row">
+          <Button variant="secondary" onClick={() => setConsent('0')} className="w-full sm:w-auto">
+            {t('reject')}
+          </Button>
+          <Button onClick={() => setConsent('1')} className="w-full sm:w-auto">
+            {t('accept')}
+          </Button>
+        </div>
       </div>
     </div>
   )

@@ -29,6 +29,20 @@ describe('CookieConsent', () => {
     expect(document.cookie).toContain('cookie_consent=1')
   })
 
+  it('allows rejecting optional cookies and persists the choice', () => {
+    render(<CookieConsent />)
+    fireEvent.click(screen.getByRole('button', { name: 'reject' }))
+    expect(screen.queryByRole('region', { name: 'title' })).not.toBeInTheDocument()
+    expect(document.cookie).toContain('cookie_consent=0')
+    expect(localStorage.getItem('cookie_consent')).toBe('0')
+  })
+
+  it('stays hidden once optional cookies were rejected', () => {
+    document.cookie = 'cookie_consent=0; Path=/'
+    render(<CookieConsent />)
+    expect(screen.queryByRole('region', { name: 'title' })).not.toBeInTheDocument()
+  })
+
   it('stays hidden once consent was given', () => {
     document.cookie = 'cookie_consent=1; Path=/'
     render(<CookieConsent />)

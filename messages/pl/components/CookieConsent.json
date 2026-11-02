@@ -18,5 +18,6 @@
       "name": "Preferencje",
       "description": "Przechowuje ustawienia języka i inne preferencje interfejsu"
     }
-  }
+  },
+  "reject": "Odrzuć"
 }
