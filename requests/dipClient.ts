@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 
 import { getServerSession } from '@/lib/auth/server'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { APIUrl } from '@/requests/config'
 import type {
   DipApiKey,
@@ -80,6 +81,8 @@ async function nestAdminRequest<T>(
   method: Method = 'GET',
   payload?: Record<string, unknown>
 ): Promise<BackendResult<T>> {
+  // Server actions may bypass the BFF: apply B2C launch isolation here too.
+  if (isB2COnlyRelease()) return { ok: false, status: 503 }
   const base = getNestUrl()
   if (!base || !isAllowedDipRoute(path, method)) return { ok: false, status: 503 }
   // The NestJS controller independently requires Mongo admin and the exact

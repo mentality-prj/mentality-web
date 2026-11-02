@@ -30,7 +30,7 @@ export default async function LandingPage() {
       <FeatureCardsSection isAuthenticated={isAuthenticated} />
       <BusinessInvitationSection />
       <ServicesSection />
-      <HowItWorksSection />
+      <HowItWorksSection isAuthenticated={isAuthenticated} />
     </>
   )
 }

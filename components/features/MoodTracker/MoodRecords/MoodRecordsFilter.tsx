@@ -16,16 +16,18 @@ type Props = {
   availableTags: UserTag[]
 }
 
+const initialFilters: Parameters<typeof useMoodRecordsFilter>[0] = {
+  order: SORT_ORDER.NEWEST,
+  tags: [],
+  moodLevel: [],
+  stressLevel: [],
+  energyLevel: [],
+  focusLevel: [],
+  weekdays: [],
+}
+
 export function MoodRecordsFilter({ availableTags }: Props) {
-  const { filters, setFilters, reset } = useMoodRecordsFilter({
-    order: SORT_ORDER.NEWEST,
-    tags: [],
-    moodLevel: '',
-    stressLevel: '',
-    energyLevel: '',
-    focusLevel: '',
-    weekdays: [],
-  })
+  const { filters, setFilters, reset } = useMoodRecordsFilter(initialFilters)
 
   const { order: sort, tags, weekdays } = filters
   const t = useTranslations('components.Filter')

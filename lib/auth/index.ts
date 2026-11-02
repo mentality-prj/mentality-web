@@ -22,6 +22,7 @@ export const authService = {
   },
 
   login: () => provider.login(),
+  reauthenticateForErasure: () => provider.reauthenticateForErasure(),
   handleCallback: (code: string, state: string) => provider.handleCallback(code, state),
   refreshTokens: () => provider.refreshTokens(),
   logout: () => provider.logout(),
@@ -30,6 +31,8 @@ export const authService = {
   getSession: () => provider.getSession(),
   getStoredTokens: () => provider.getStoredTokens(),
   clearTokens: () => provider.clearTokens(),
+  clearTokensIfUnchanged: (observed: import('@/types/auth').BrowserAuthSession) =>
+    provider.clearTokensIfUnchanged(observed),
 
   /** Issuer URL for CSP headers (used by middleware) */
   getIssuerUrl: () => provider.getIssuerUrl(),

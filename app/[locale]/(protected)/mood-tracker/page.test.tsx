@@ -2,18 +2,32 @@ import { render, screen } from '@testing-library/react'
 import { getTranslations } from 'next-intl/server'
 
 import MoodTrackerPage from '@/app/[locale]/(protected)/mood-tracker/page'
-import { buildDailySummaries, buildMoodMarksData } from '@/helpers/mood.helpers'
+import { buildDailySummaries, buildMoodMarksData, isSubmittedToday } from '@/helpers/mood.helpers'
 import { getServerSession } from '@/lib/get-server-session'
+import { getUserTimeZone } from '@/lib/userTimeZone'
 import { getLastMoodRecords, getMoodRecords } from '@/requests/moodRecord'
+import { getMoodStatistics } from '@/requests/userStatistics'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
 jest.mock('@/requests/moodRecord', () => ({ getLastMoodRecords: jest.fn(), getMoodRecords: jest.fn() }))
+jest.mock('@/requests/userStatistics', () => ({ getMoodStatistics: jest.fn() }))
 jest.mock('next-intl/server')
 jest.mock('@/helpers/mood.helpers', () => ({
   buildMoodMarksData: jest.fn().mockReturnValue({}),
   buildDailySummaries: jest.fn().mockReturnValue([]),
+  isSubmittedToday: jest.fn().mockReturnValue(false),
+}))
+
+jest.mock('@/components/features/Guide/QuickSupportCard', () => ({
+  QuickSupportCard: () => <div data-testid="quick-support" />,
+}))
+jest.mock('@/components/features/Guide/MoodNextStepCard', () => ({
+  MoodNextStepCard: ({ record }: { record: MoodRecordEntity }) => (
+    <div data-testid="mood-next-step">{record.stressLevel}</div>
+  ),
 }))
 
 jest.mock('@/components/features/MoodTracker/MoodRecords/MoodRecords', () => ({
@@ -32,6 +46,11 @@ jest.mock('@/components/features/MoodTracker/TenDaysSummary/TenDaysSummary', () 
 
 jest.mock('@/components/features/MoodTracker/WellbeingSummary/WellbeingSummary', () => ({
   WellbeingSummary: () => <div data-testid="wellbeing-summary" />,
+}))
+jest.mock('@/components/features/MoodTracker/MoodProgressSummary/MoodProgressSummary', () => ({
+  MoodProgressSummary: ({ failed }: { failed?: boolean }) => (
+    <div data-testid="mood-progress">{failed ? 'error' : 'ready'}</div>
+  ),
 }))
 
 jest.mock('@/ds/components/PageTitle', () => ({
@@ -57,18 +76,26 @@ const mockRecords: MoodRecordEntity[] = [
 beforeEach(() => {
   jest.clearAllMocks()
   ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
   ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ data: mockRecords })
   ;(getMoodRecords as jest.Mock).mockResolvedValue({
     data: { moodNotes: mockRecords, total: mockRecords.length },
   })
+  ;(getMoodStatistics as jest.Mock).mockResolvedValue({ data: { totalRecords: 2, trend30d: [] } })
 })
 
 describe('MoodTracker page', () => {
   it('calls getLastMoodRecords with days: 10', async () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
-    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10 })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, { days: 10, timeZone: 'Europe/Warsaw' })
+    expect(getLastMoodRecords).toHaveBeenCalledWith(mockSession, {
+      days: 1,
+      limit: 1,
+      timeZone: 'Europe/Warsaw',
+      dailyOnly: true,
+    })
   })
 
   it('renders page title and subtitle', async () => {
@@ -84,6 +111,55 @@ describe('MoodTracker page', () => {
     expect(screen.getByTestId('new-mood-note-section')).toBeInTheDocument()
   })
 
+  it('loads existing user mood statistics and renders progress without new endpoints', async () => {
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(getMoodStatistics).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
+    expect(screen.getByTestId('mood-progress')).toHaveTextContent('ready')
+  })
+
+  it('shows an explicit progress error state if the existing statistics request fails', async () => {
+    ;(getMoodStatistics as jest.Mock).mockResolvedValue({ error: 'Backend unavailable' })
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(screen.getByTestId('mood-progress')).toHaveTextContent('error')
+  })
+
+  it('offers immediate support without requiring a mood submission', async () => {
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
+  })
+
+  it('shows a contextual next step only when the server has a current-day mood record', async () => {
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+    expect(screen.getByTestId('mood-next-step')).toHaveTextContent('2')
+    expect(screen.queryByTestId('quick-support')).not.toBeInTheDocument()
+  })
+
+  it("does not use a quick or stress event as today's full check-in recommendation", async () => {
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
+    ;(getLastMoodRecords as jest.Mock).mockImplementation(async (_session, params) =>
+      params?.dailyOnly ? { data: [] } : { data: mockRecords }
+    )
+
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(screen.queryByTestId('mood-next-step')).not.toBeInTheDocument()
+    // Historical summaries still include all check-ins and micro-events.
+    expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords, 'Europe/Warsaw')
+  })
+
+  it('does not infer a daily check-in when the user time zone is unknown', async () => {
+    ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
+    ;(isSubmittedToday as jest.Mock).mockReturnValue(true)
+
+    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
+
+    expect(screen.getByTestId('quick-support')).toBeInTheDocument()
+    expect(getLastMoodRecords).toHaveBeenCalledTimes(1)
+  })
+
   it('renders TenDaysSummary', async () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
@@ -96,34 +172,25 @@ describe('MoodTracker page', () => {
     expect(screen.getByTestId('mood-records')).toHaveTextContent('2 records')
   })
 
-  it('passes empty records to MoodRecords when API returns an error', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({
-      error: 'Forbidden',
-      message: 'No access',
-      status: 403,
-    })
-    ;(getMoodRecords as jest.Mock).mockResolvedValue({
-      data: { moodNotes: [], total: 0 },
-    })
+  it('does not present a failed history request as an empty diary', async () => {
+    ;(getMoodRecords as jest.Mock).mockResolvedValue({ error: 'Backend unavailable', status: 503 })
 
-    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
-
-    expect(screen.getByTestId('mood-records')).toHaveTextContent('0 records')
+    await expect(MoodTrackerPage({ searchParams: Promise.resolve({}) })).rejects.toThrow('Unable to load mood records')
+    expect(buildMoodMarksData).not.toHaveBeenCalled()
   })
 
   it('calls buildMoodMarksData and buildDailySummaries with records', async () => {
     render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
 
     expect(buildMoodMarksData).toHaveBeenCalledWith(mockRecords)
-    expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords)
+    expect(buildDailySummaries).toHaveBeenCalledWith(mockRecords, 'Europe/Warsaw')
   })
 
-  it('passes empty array to helpers when API returns an error', async () => {
-    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'error' })
+  it('does not present a failed summary request as valid zero-valued statistics', async () => {
+    ;(getLastMoodRecords as jest.Mock).mockResolvedValue({ error: 'Backend unavailable' })
 
-    render(await MoodTrackerPage({ searchParams: Promise.resolve({}) }))
-
-    expect(buildMoodMarksData).toHaveBeenCalledWith([])
-    expect(buildDailySummaries).toHaveBeenCalledWith([])
+    await expect(MoodTrackerPage({ searchParams: Promise.resolve({}) })).rejects.toThrow('Unable to load mood summary')
+    expect(buildMoodMarksData).not.toHaveBeenCalled()
+    expect(buildDailySummaries).not.toHaveBeenCalled()
   })
 })

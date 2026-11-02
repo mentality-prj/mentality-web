@@ -6,7 +6,7 @@ import { useTranslations } from 'next-intl'
 import Card from '@/components/shared/Cards/Card'
 import { Sort } from '@/components/shared/Sort/Sort'
 import { filterOptions } from '@/constants/filter'
-import { SortOrder } from '@/types/sort'
+import { SORT_ORDER, SortOrder } from '@/types/sort'
 
 import { ClearFiltersButton } from './ClearFiltersButton'
 import { FilterOptionGroup } from './FilterOptionsGroup'
@@ -44,6 +44,11 @@ export const Filter = <TFilters extends { order: SortOrder }>({
 }: FilterProps<TFilters>) => {
   const { filters, setFilters, reset } = useFilters()
   const { order: sort, ...otherFilters } = filters
+  const hasSelections = Object.values(otherFilters).some((value) => {
+    if (Array.isArray(value)) return value.length > 0
+    return value != null && value !== ''
+  })
+  const hasActiveFilters = sort !== SORT_ORDER.NEWEST || hasSelections
 
   const t = useTranslations('components.Filter')
 
@@ -54,22 +59,17 @@ export const Filter = <TFilters extends { order: SortOrder }>({
       {(Object.keys(otherFilters) as (keyof typeof filterOptions)[])
         .filter((k) => k in filterOptions)
         .map((k) => {
-          const value = otherFilters[k as keyof typeof otherFilters] as string
+          const value = otherFilters[k as keyof typeof otherFilters] as string | string[]
           const options = filterOptions[`${k}`]
+          const onChange = (v: string | string[]) => setFilters((prev) => ({ ...prev, [k]: v }))
 
           return (
             <FilterSection key={k} title={t(`by_${k}`)}>
-              <FilterOptionGroup
-                value={value}
-                options={options}
-                filterKey={k as 'tags' | 'categories' | 'moodLevel' | 'stressLevel' | 'week'}
-                onChange={(v) =>
-                  setFilters((prev) => ({
-                    ...prev,
-                    [k]: v,
-                  }))
-                }
-              />
+              {Array.isArray(value) ? (
+                <FilterOptionGroup multiple value={value} options={options} filterKey={k} onChange={onChange} />
+              ) : (
+                <FilterOptionGroup value={value} options={options} filterKey={k} onChange={onChange} />
+              )}
             </FilterSection>
           )
         })}
@@ -88,7 +88,7 @@ export const Filter = <TFilters extends { order: SortOrder }>({
             />
           )
         }
-        tools={customTools || <ClearFiltersButton reset={reset} />}
+        tools={customTools || <ClearFiltersButton reset={reset} disabled={!hasActiveFilters} />}
       >
         <div className="mt-6 flex flex-col gap-sm">{filterContent}</div>
       </Card>
@@ -103,7 +103,7 @@ export const Filter = <TFilters extends { order: SortOrder }>({
           value={sort}
           onValueChange={(value) => setFilters((prev) => ({ ...prev, order: value }))}
         />
-        <ClearFiltersButton reset={reset} />
+        <ClearFiltersButton reset={reset} disabled={!hasActiveFilters} />
       </div>
       {filterContent}
     </div>

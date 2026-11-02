@@ -216,6 +216,8 @@ async function resolveServerSession(
       return fallbackSession
     }
 
+    // Network failures, timeout and malformed upstream responses must not be
+    // mapped to a permanent 401 in the browser session endpoint.
     throw new Error('Temporary session validation failure')
   } finally {
     clearTimeout(timeoutId)
@@ -292,14 +294,16 @@ export async function getServerSessionStrict(): Promise<CustomSession | null> {
   }
 }
 
-/** Legacy SSR callers retain their fail-closed nullable contract; the browser
- * session endpoint uses the strict variant to preserve temporary 503 errors. */
+/** Legacy SSR behavior: renderers may treat an unavailable backend as no
+ * session. The browser's /api/auth/session uses the strict variant so that a
+ * temporary outage becomes 503 instead of erroneously clearing credentials.
+ */
 export async function getServerSession(): Promise<CustomSession | null> {
   try {
     return await getServerSessionStrict()
-  } catch (error) {
-    logger.warn('[SERVER_SESSION] Deferred validation', {
-      error: error instanceof Error ? error.message : String(error),
+  } catch (err) {
+    logger.warn('[SERVER_SESSION] Deferred session validation', {
+      error: err instanceof Error ? err.message : String(err),
     })
     return null
   }

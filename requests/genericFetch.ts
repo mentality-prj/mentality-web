@@ -6,13 +6,35 @@ import { Roles } from '@/types/security'
 
 type Result<T> = { data?: T; headers?: Headers } | { error: string; status?: number }
 
+export type ApiResponseDecoder<T> = (value: unknown) => { success: true; data: T } | { success: false; error?: string }
+
+type RequestOptions<T> = {
+  method?: string
+  body?: Record<string, unknown> | FormData
+  /** Optional runtime validation. Legacy callers are unchanged until migrated. */
+  decodeResponse?: ApiResponseDecoder<T>
+}
+
+type DecodedRequestOptions<T> = RequestOptions<T> & { decodeResponse: ApiResponseDecoder<T> }
+type DecodedResult<T> = { data: T; headers?: Headers } | { error: string; status?: number }
+
 /**
  * Perform an authenticated API request and normalize the result to { data } | { error }
  */
+export function performAuthRequest<T>(
+  session: CustomSession | null,
+  url: string,
+  options: DecodedRequestOptions<T>
+): Promise<DecodedResult<T>>
+export function performAuthRequest<T = unknown>(
+  session: CustomSession | null,
+  url: string,
+  options?: RequestOptions<T>
+): Promise<Result<T>>
 export async function performAuthRequest<T = unknown>(
   session: CustomSession | null,
   url: string,
-  options?: { method?: string; body?: Record<string, unknown> | FormData }
+  options?: RequestOptions<T>
 ): Promise<Result<T>> {
   // apiRequestWithAuth expects ApiRequestOptions with method keys in uppercase
   const allowedMethods = ['GET', 'POST', 'PUT', 'PATCH', 'DELETE'] as const
@@ -47,7 +69,24 @@ export async function performAuthRequest<T = unknown>(
     return { error: message }
   }
 
-  return { data: data as T, headers }
+  if (options?.decodeResponse) {
+    try {
+      const decoded = options.decodeResponse(data)
+      if (!decoded.success) {
+        logger.error('Invalid API response contract', { url, method })
+        return { error: decoded.error || 'Invalid API response from backend', status: 502 }
+      }
+
+      return { data: decoded.data, headers }
+    } catch {
+      logger.error('API response decoder failed', { url, method })
+      return { error: 'Invalid API response from backend', status: 502 }
+    }
+  }
+
+  // Backward-compatible unvalidated path. Incrementally move callers to
+  // decodeResponse rather than asserting a generic type on this raw JSON.
+  return { data, headers }
 }
 
 /**
@@ -56,7 +95,7 @@ export async function performAuthRequest<T = unknown>(
 export async function performAdminRequest<T = unknown>(
   session: CustomSession | null,
   url: string,
-  options?: { method?: string; body?: Record<string, unknown> | FormData }
+  options?: RequestOptions<T>
 ): Promise<Result<T>> {
   if (!session?.user || session.user.role !== Roles.ADMIN) {
     logger.warn('Unauthorized admin attempt', { userId: session?.user?.email, role: session?.user?.role, url })
@@ -76,7 +115,7 @@ export async function performCompanyAdminRequest<T = unknown>(
   session: CustomSession | null,
   companyId: string,
   url: string,
-  options?: { method?: string; body?: Record<string, unknown> | FormData }
+  options?: RequestOptions<T>
 ): Promise<Result<T>> {
   if (
     !session?.user ||

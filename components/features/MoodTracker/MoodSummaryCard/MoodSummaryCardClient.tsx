@@ -20,6 +20,9 @@ interface MoodSummaryCardClientProps {
   subtitle?: ReactNode
   counts?: { mood: string; count: number }[]
   availableTags?: UserTag[]
+  timeZone?: string | null
+  initialLastSubmittedAt?: string | null
+  historyVerified?: boolean
 }
 
 const MoodSummaryCardClient = ({
@@ -27,6 +30,9 @@ const MoodSummaryCardClient = ({
   subtitle,
   counts = [],
   availableTags = [],
+  timeZone,
+  initialLastSubmittedAt,
+  historyVerified = true,
 }: MoodSummaryCardClientProps) => {
   const tm = useTranslations('components.Mood')
   const router = useRouter()
@@ -45,6 +51,9 @@ const MoodSummaryCardClient = ({
                 router.refresh()
               }}
               availableTags={availableTags}
+              timeZone={timeZone}
+              initialLastSubmittedAt={initialLastSubmittedAt}
+              historyVerified={historyVerified}
             />
           </div>
         </>

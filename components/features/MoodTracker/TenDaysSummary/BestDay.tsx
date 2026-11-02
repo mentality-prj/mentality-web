@@ -10,12 +10,14 @@ import { levelToMoodKey } from '@/mappers/mood.mappers'
 import { MoodRecordEntity } from '@/types/api-responses'
 import { DaySummary } from '@/types/daySummary'
 import { SupportedLanguage } from '@/types/languages'
+import { getLocalDayKey } from '@/utils/timeZone'
 
 interface BestDayProps {
   summaries?: DaySummary[]
   records?: MoodRecordEntity[]
+  timeZone?: string
 }
-export const BestDay = async ({ records }: BestDayProps) => {
+export const BestDay = async ({ records, timeZone }: BestDayProps) => {
   const t = await getTranslations('components.BestDay')
   const tm = await getTranslations('components.Mood')
   const ts = await getTranslations('components.StressLevelScale')
@@ -30,7 +32,8 @@ export const BestDay = async ({ records }: BestDayProps) => {
 
     records.forEach((record) => {
       if (record.createdAt && typeof record.moodLevel === 'number') {
-        const date = new Date(record.createdAt).toISOString().slice(0, 10)
+        const date = getLocalDayKey(new Date(record.createdAt), timeZone)
+        if (!date) return
         if (!dailyData[date as string]) {
           dailyData[date as string] = []
         }
@@ -64,12 +67,13 @@ export const BestDay = async ({ records }: BestDayProps) => {
   const locale = (await getLocale()) as SupportedLanguage
 
   function splitDate(dateStr: string, locale: SupportedLanguage) {
-    const date = new Date(dateStr)
+    const date = new Date(`${dateStr}T12:00:00.000Z`)
 
-    const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long' })
+    const weekdayFormatter = new Intl.DateTimeFormat(locale, { weekday: 'long', timeZone: 'UTC' })
     const dayMonthFormatter = new Intl.DateTimeFormat(locale, {
       day: 'numeric',
       month: 'long',
+      timeZone: 'UTC',
     })
 
     const weekday = weekdayFormatter.format(date)

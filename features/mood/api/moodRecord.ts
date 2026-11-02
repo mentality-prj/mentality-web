@@ -1,19 +1,29 @@
 import { MOOD_RECORD_ENDPOINTS } from '@/constants/endpoints'
+import { type ApiResultPromise, forwardApiFailure } from '@/lib/api-result'
 import { extractPaginationTotal } from '@/lib/http'
 import { logger } from '@/lib/logger'
 import { APIUrl } from '@/requests/config'
 import { performAuthRequest } from '@/requests/genericFetch'
 import { CreateMoodRecordDto, MoodRecordEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
+import { SortOrder } from '@/types/sort'
 
-export async function createMoodRecord(session: CustomSession | null, dto: CreateMoodRecordDto) {
-  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}`, {
+import { decodeMoodRecordListResponse, decodeMoodRecordResponse } from './moodRecord.contract'
+
+export async function createMoodRecord(
+  session: CustomSession | null,
+  dto: CreateMoodRecordDto,
+  timeZone?: string
+): ApiResultPromise<MoodRecordEntity> {
+  const query = timeZone ? `?timeZone=${encodeURIComponent(timeZone)}` : ''
+  const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query}`, {
     method: 'POST',
     body: dto,
+    decodeResponse: decodeMoodRecordResponse,
   })
   if ('error' in res) {
     logger.error('Failed to create mood record', { error: res.error })
-    return { error: res.error }
+    return forwardApiFailure(res)
   }
   return { data: res.data }
 }
@@ -23,6 +33,7 @@ export async function getMoodRecords(
   params?: {
     page?: number
     limit?: number
+    order?: SortOrder
     moodMin?: number
     moodMax?: number
     stressMin?: number
@@ -31,16 +42,22 @@ export async function getMoodRecords(
     energyMax?: number
     focusMin?: number
     focusMax?: number
+    moodLevels?: number[]
+    stressLevels?: number[]
+    energyLevels?: number[]
+    focusLevels?: number[]
     tags?: string[]
     weekdays?: number[]
+    timeZone?: string
   }
-) {
+): ApiResultPromise<{ moodNotes: MoodRecordEntity[]; total: number }> {
   const query = new URLSearchParams()
 
-  if (!params) params = {}
+  const filters = params ?? {}
 
-  if (typeof params?.page === 'number') query.set('page', String(params.page))
-  if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+  if (typeof filters.page === 'number') query.set('page', String(filters.page))
+  if (typeof filters.limit === 'number') query.set('limit', String(filters.limit))
+  if (filters.order) query.set('order', filters.order)
 
   const ranges = [
     ['moodMin', 'moodMax'],
@@ -50,36 +67,55 @@ export async function getMoodRecords(
   ] as const
 
   ranges.forEach(([minKey, maxKey]) => {
-    if (typeof params![`${minKey}`] === 'number') query.set(minKey, String(params![`${minKey}`]))
-    if (typeof params![`${maxKey}`] === 'number') query.set(maxKey, String(params![`${maxKey}`]))
+    if (typeof filters[minKey] === 'number') query.set(minKey, String(filters[minKey]))
+    if (typeof filters[maxKey] === 'number') query.set(maxKey, String(filters[maxKey]))
   })
 
-  params.tags?.forEach((tag) => query.append('tags', tag))
-  params.weekdays?.forEach((day) => query.append('weekdays', String(day)))
+  const levels = ['moodLevels', 'stressLevels', 'energyLevels', 'focusLevels'] as const
+  levels.forEach((key) => {
+    filters[key]?.forEach((value) => query.append(key, String(value)))
+  })
+
+  filters.tags?.forEach((tag) => query.append('tags', tag))
+  filters.weekdays?.forEach((day) => query.append('weekdays', String(day)))
+  if (filters.weekdays?.length && filters.timeZone) query.set('timeZone', filters.timeZone)
 
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.BASE}${query.toString() ? `?${query.toString()}` : ''}`
-  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
-  if ('error' in res) return { error: res.error }
-  const moodNotes: MoodRecordEntity[] = Array.isArray(res.data) ? res.data : []
-  const total = extractPaginationTotal(res.headers, moodNotes.length)
-  return { data: { moodNotes, total } }
+  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, {
+    method: 'GET',
+    decodeResponse: decodeMoodRecordListResponse,
+  })
+  if ('error' in res) return forwardApiFailure(res)
+  const total = extractPaginationTotal(res.headers, res.data.length)
+  return { data: { moodNotes: res.data, total } }
 }
 
-export async function getLastMoodRecords(session: CustomSession | null, params?: { limit?: number; days?: number }) {
+export async function getLastMoodRecords(
+  session: CustomSession | null,
+  params?: { limit?: number; days?: number; timeZone?: string; dailyOnly?: boolean }
+): ApiResultPromise<MoodRecordEntity[]> {
   const query = new URLSearchParams()
   // If days is provided (>0) use it; otherwise fall back to limit for backward compatibility
   if (typeof params?.days === 'number' && params.days > 0) query.set('days', String(params.days))
   else if (typeof params?.limit === 'number') query.set('limit', String(params.limit))
+  if (typeof params?.days === 'number' && params.days > 0 && params.timeZone) {
+    query.set('timeZone', params.timeZone)
+  }
+  if (params?.dailyOnly) query.set('dailyOnly', 'true')
   const url = `${APIUrl}${MOOD_RECORD_ENDPOINTS.LAST}${query.toString() ? `?${query.toString()}` : ''}`
-  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, { method: 'GET' })
-  if ('error' in res) return { error: res.error }
+  const res = await performAuthRequest<MoodRecordEntity[]>(session, url, {
+    method: 'GET',
+    decodeResponse: decodeMoodRecordListResponse,
+  })
+  if ('error' in res) return forwardApiFailure(res)
   return { data: res.data }
 }
 
-export async function getMoodRecordById(session: CustomSession | null, id: string) {
+export async function getMoodRecordById(session: CustomSession | null, id: string): ApiResultPromise<MoodRecordEntity> {
   const res = await performAuthRequest<MoodRecordEntity>(session, `${APIUrl}${MOOD_RECORD_ENDPOINTS.byId(id)}`, {
     method: 'GET',
+    decodeResponse: decodeMoodRecordResponse,
   })
-  if ('error' in res) return { error: res.error }
+  if ('error' in res) return forwardApiFailure(res)
   return { data: res.data }
 }

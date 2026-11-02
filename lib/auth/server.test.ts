@@ -174,6 +174,22 @@ describe('server auth session helpers', () => {
     delete process.env.ALLOW_UNVERIFIED_JWT_SESSION_FALLBACK
   })
 
+  it('propagates a temporary 503 in strict browser-session validation', async () => {
+    setTokenCookie()
+    fetchMock.mockResolvedValue({ ok: false, status: 503 })
+
+    const { getServerSessionStrict } = await import('./server')
+    await expect(getServerSessionStrict()).rejects.toThrow('Temporary session validation failure')
+  })
+
+  it('propagates network errors from strict validation instead of reporting bad credentials', async () => {
+    setTokenCookie()
+    fetchMock.mockRejectedValue(new Error('backend offline'))
+
+    const { getServerSessionStrict } = await import('./server')
+    await expect(getServerSessionStrict()).rejects.toThrow('Temporary session validation failure')
+  })
+
   it('returns null when backend rejects the token', async () => {
     setTokenCookie()
     fetchMock.mockResolvedValue({ ok: false, status: 401 })

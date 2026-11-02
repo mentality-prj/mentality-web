@@ -45,20 +45,73 @@ describe('token-opaque browser session endpoint', () => {
     mockCookie()
     const result = await GET()
     expect(result.status).toBe(401)
-    expect(result.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
+    expect(result.cookies.get(ACTIVE_COMPANY_COOKIE)).toBeUndefined()
   })
 
-  it('clears the previous company selection for an invalid token cookie', async () => {
+  it('does not clear refreshed cookies in an invalid-token GET response', async () => {
     mockCookie('invalid-json')
     const response = await GET()
     expect(response.status).toBe(401)
-    expect(response.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
-    expect(response.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBe('')
+    expect(response.cookies.get(ACTIVE_COMPANY_COOKIE)).toBeUndefined()
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
   })
 
   it('rejects arbitrary client attempts to write JWT cookies', async () => {
     mockCookie()
     expect((await POST()).status).toBe(405)
+  })
+
+  it('rejects stale conditional deletion when another tab rotated the session', async () => {
+    const revision = 'aaaaaaaa-aaaa-4aaa-aaaa-aaaaaaaaaaaa'
+    const request = req('https://dzvin.example')
+    request.headers.set('x-session-revision', revision)
+    request.cookies.set(
+      AUTH_TOKEN_COOKIE,
+      JSON.stringify({
+        accessToken: 'access',
+        idToken: 'id',
+        refreshToken: 'refresh',
+        expiresAt: Math.floor(Date.now() / 1000) + 3600,
+        sessionRevision: 'bbbbbbbb-bbbb-4bbb-bbbb-bbbbbbbbbbbb',
+      })
+    )
+
+    const response = await DELETE(request)
+    expect(response.status).toBe(409)
+    expect(response.headers.get('cache-control')).toBe('no-store')
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
+  })
+
+  it('conditionally deletes the exact matching session revision', async () => {
+    const revision = 'cccccccc-cccc-4ccc-cccc-cccccccccccc'
+    const request = req('https://dzvin.example')
+    request.headers.set('x-session-revision', revision)
+    request.cookies.set(
+      AUTH_TOKEN_COOKIE,
+      JSON.stringify({
+        accessToken: 'access',
+        idToken: 'id',
+        refreshToken: 'refresh',
+        expiresAt: Math.floor(Date.now() / 1000) + 3600,
+        sessionRevision: revision,
+      })
+    )
+
+    const response = await DELETE(request)
+    expect(response.status).toBe(200)
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBe('')
+  })
+
+  it('fails closed for legacy cookies on conditional deletion', async () => {
+    const request = req('https://dzvin.example')
+    request.headers.set('x-session-revision', 'dddddddd-dddd-4ddd-dddd-dddddddddddd')
+    request.cookies.set(
+      AUTH_TOKEN_COOKIE,
+      JSON.stringify({ accessToken: 'legacy', idToken: 'id', expiresAt: Math.floor(Date.now() / 1000) + 300 })
+    )
+    const response = await DELETE(request)
+    expect(response.status).toBe(409)
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
   })
 
   it('blocks cross-origin logout and accepts same-origin logout', async () => {

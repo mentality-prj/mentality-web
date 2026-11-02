@@ -11,6 +11,7 @@ export async function GET(): Promise<NextResponse> {
     response.headers.set('Cache-Control', 'no-store')
     return response
   } catch {
+    // Distinguish temporary backend/IdP unavailability from invalid credentials.
     const response = NextResponse.json({ error: 'Session validation temporarily unavailable' }, { status: 503 })
     response.headers.set('Cache-Control', 'no-store')
     return response

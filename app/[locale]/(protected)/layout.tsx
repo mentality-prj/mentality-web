@@ -6,6 +6,7 @@ import { Header } from '@/components/Layout/Header'
 import { mainVariants } from '@/components/Layout/mainVariants'
 import ProtectedLayoutSegmentGate from '@/components/Layout/ProtectedLayoutSegmentGate'
 import Sidebar from '@/components/Layout/Sidebar/Sidebar'
+import { TimeZoneSync } from '@/components/Layout/TimeZoneSync'
 import { getUserSidebarMenu } from '@/constants/menu'
 import { Routes } from '@/constants/routes'
 import { requireServerSession } from '@/lib/auth/server'
@@ -59,10 +60,13 @@ export default async function ProtectedLayout({
   )
 
   return (
-    <ProtectedLayoutSegmentGate
-      detachedPrefix={Routes.RESEARCH}
-      detachedContent={children}
-      defaultContent={defaultContent}
-    />
+    <>
+      <TimeZoneSync />
+      <ProtectedLayoutSegmentGate
+        detachedPrefix={Routes.RESEARCH}
+        detachedContent={children}
+        defaultContent={defaultContent}
+      />
+    </>
   )
 }

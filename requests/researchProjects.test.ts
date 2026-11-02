@@ -1,3 +1,4 @@
+import { apiRequestWithAuth } from '@/helpers/api-request-with-auth'
 import { getCompanies, getMyCompany } from '@/requests/companies'
 import { performAuthRequest } from '@/requests/genericFetch'
 import {
@@ -21,9 +22,11 @@ import {
 } from '@/requests/researchProjects'
 import { CustomSession } from '@/types/auth'
 
-jest.mock('@/requests/genericFetch', () => ({
-  performAuthRequest: jest.fn(),
-}))
+jest.mock('@/helpers/api-request-with-auth')
+jest.mock('@/requests/genericFetch', () => {
+  const actual = jest.requireActual('@/requests/genericFetch')
+  return { ...actual, performAuthRequest: jest.fn(actual.performAuthRequest) }
+})
 
 jest.mock('@/requests/companies', () => ({
   getCompanies: jest.fn(),
@@ -163,11 +166,13 @@ function createProjectPayload() {
 
 describe('researchProjects requests', () => {
   const mockedPerformAuthRequest = performAuthRequest as jest.Mock
+  const mockedApiRequestWithAuth = apiRequestWithAuth as jest.Mock
   const mockedGetCompanies = getCompanies as jest.Mock
   const mockedGetMyCompany = getMyCompany as jest.Mock
 
   beforeEach(() => {
-    mockedPerformAuthRequest.mockReset()
+    mockedPerformAuthRequest.mockClear()
+    mockedApiRequestWithAuth.mockReset()
     mockedGetCompanies.mockReset()
     mockedGetMyCompany.mockReset()
     mockedGetCompanies.mockResolvedValue({ data: [] })
@@ -175,14 +180,14 @@ describe('researchProjects requests', () => {
   })
 
   it('gets projects from research/v1 and normalizes project data', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({ data: { items: [createProjectPayload()] } })
+    mockedApiRequestWithAuth.mockResolvedValue({ data: { items: [createProjectPayload()] } })
 
     const result = await getResearchProjects(mockSession)
 
     expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
       mockSession,
       'http://localhost:3200/api/research/v1/projects',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(result).toEqual(
       expect.objectContaining({
@@ -210,8 +215,72 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('distinguishes empty project lists from malformed success payloads', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { items: [] } })
+
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({ data: [] })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: {} })
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({
+      error: 'Invalid research projects response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { items: [{ id: 'project-1' }, {}] } })
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({
+      error: 'Invalid research projects response from backend',
+      status: 502,
+    })
+  })
+
+  it('rejects malformed project success payloads on single-project reads and writes', async () => {
+    mockedApiRequestWithAuth.mockResolvedValue({ data: { id: null, _id: 'fallback-id' } })
+
+    const invalid = { error: 'Invalid research project response from backend', status: 502 }
+    await expect(getResearchProjectById(mockSession, 'project-1')).resolves.toEqual(invalid)
+
+    await expect(
+      createResearchProject(mockSession, {
+        companyId: 'company-1',
+        name: 'Study',
+        description: '',
+        objective: '',
+        status: 'draft',
+        approvalStatus: 'draft',
+        exportPolicy: 'review_required',
+        pseudonymizationMode: 'required',
+        principalInvestigatorId: 'pi-1',
+        retentionUntil: null,
+        consentMode: 'company_boundary_only',
+      })
+    ).resolves.toEqual(invalid)
+
+    await expect(updateResearchProject(mockSession, 'project-1', { name: 'Updated study' })).resolves.toEqual(invalid)
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: null })
+    await expect(getResearchProjectById(mockSession, 'project-1')).resolves.toEqual(invalid)
+  })
+
+  it('rejects successful grant creation without a stable backend ID', async () => {
+    mockedApiRequestWithAuth.mockResolvedValue({ data: { title: 'Unnamed grant' } })
+
+    const result = await createResearchProjectGrant(mockSession, 'project-1', {
+      allowedContracts: ['standard-dpa'],
+      allowedFields: ['sleepScore'],
+      allowedTargets: ['subject'],
+      groupIds: [],
+      userSelectionMode: 'all',
+      pseudonymizationMode: 'required',
+      from: null,
+      to: null,
+      exportAllowed: false,
+    })
+
+    expect(result).toEqual({ error: 'Invalid research grant response from backend', status: 502 })
+  })
+
   it('gets a single project by id and preserves metadata defaults', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         ...createProjectPayload(),
         metadata: {
@@ -227,7 +296,7 @@ describe('researchProjects requests', () => {
     expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(result).toEqual(
       expect.objectContaining({
@@ -245,6 +314,22 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('passes a typed project decoder to the authenticated transport', async () => {
+    mockedApiRequestWithAuth.mockResolvedValue({ data: createProjectPayload() })
+
+    await getResearchProjectById(mockSession, 'project-1')
+
+    const options = mockedPerformAuthRequest.mock.calls[0][2]
+    expect(options.decodeResponse(createProjectPayload())).toEqual({
+      success: true,
+      data: createProjectPayload(),
+    })
+    expect(options.decodeResponse({ id: null, _id: 'fallback-id' })).toEqual({
+      success: false,
+      error: 'Invalid research project response from backend',
+    })
+  })
+
   it('grants full project management permissions to system admins', async () => {
     const adminSession: CustomSession = {
       ...mockSession,
@@ -254,7 +339,7 @@ describe('researchProjects requests', () => {
       },
     }
 
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         ...createProjectPayload(),
         role: 'scientist',
@@ -293,7 +378,7 @@ describe('researchProjects requests', () => {
   })
 
   it('creates and updates projects through research/v1 endpoints', async () => {
-    mockedPerformAuthRequest.mockResolvedValueOnce({ data: createProjectPayload() }).mockResolvedValueOnce({
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: createProjectPayload() }).mockResolvedValueOnce({
       data: {
         ...createProjectPayload(),
         name: 'Sleep Resilience Updated',
@@ -338,6 +423,7 @@ describe('researchProjects requests', () => {
           retentionUntil: null,
           consentMode: 'company_boundary_only',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(mockedPerformAuthRequest).toHaveBeenNthCalledWith(
@@ -350,6 +436,7 @@ describe('researchProjects requests', () => {
           name: 'Sleep Resilience Updated',
           exportPolicy: 'allowed',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(createResult).toEqual(expect.objectContaining({ data: expect.objectContaining({ id: 'project-1' }) }))
@@ -359,7 +446,7 @@ describe('researchProjects requests', () => {
   })
 
   it('gets members, adds a member, and removes a member through dedicated member endpoints', async () => {
-    mockedPerformAuthRequest
+    mockedApiRequestWithAuth
       .mockResolvedValueOnce({
         data: {
           members: [
@@ -384,7 +471,7 @@ describe('researchProjects requests', () => {
           grants: [],
         },
       })
-      .mockResolvedValueOnce({ data: {} })
+      .mockResolvedValueOnce({ data: undefined })
 
     const listResult = await getResearchProjectMembers(mockSession, 'project-1')
     const addResult = await addResearchProjectMember(mockSession, 'project-1', {
@@ -397,7 +484,7 @@ describe('researchProjects requests', () => {
       1,
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1/members',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(mockedPerformAuthRequest).toHaveBeenNthCalledWith(
       2,
@@ -406,6 +493,7 @@ describe('researchProjects requests', () => {
       {
         method: 'POST',
         body: { userId: 'reviewer-1', role: 'reviewer' },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(mockedPerformAuthRequest).toHaveBeenNthCalledWith(
@@ -414,6 +502,7 @@ describe('researchProjects requests', () => {
       'http://localhost:3200/api/research/v1/projects/project-1/members/reviewer-1',
       {
         method: 'DELETE',
+        decodeResponse: expect.any(Function),
       }
     )
     expect(listResult).toEqual(
@@ -423,8 +512,27 @@ describe('researchProjects requests', () => {
     expect(removeResult).toEqual({ data: { ok: true } })
   })
 
+  it('rejects invalid Research member deletion bodies without masking upstream errors', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { ok: false } })
+    await expect(removeResearchProjectMember(mockSession, 'project-1', 'reviewer-1')).resolves.toEqual({
+      error: 'Invalid research member removal response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ error: { message: 'Forbidden', status: 403 } })
+    await expect(removeResearchProjectMember(mockSession, 'project-1', 'reviewer-1')).resolves.toEqual({
+      error: 'Forbidden',
+      status: 403,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: null })
+    await expect(removeResearchProjectMember(mockSession, 'project-1', 'reviewer-1')).resolves.toEqual({
+      data: { ok: true },
+    })
+  })
+
   it('normalizes member identity from nested user payloads', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         members: [
           {
@@ -458,7 +566,7 @@ describe('researchProjects requests', () => {
   })
 
   it('gets and updates cohort through the cohorts endpoint', async () => {
-    mockedPerformAuthRequest
+    mockedApiRequestWithAuth
       .mockResolvedValueOnce({
         data: {
           groupIds: ['group-1'],
@@ -490,7 +598,7 @@ describe('researchProjects requests', () => {
       1,
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1/cohorts',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(mockedPerformAuthRequest).toHaveBeenNthCalledWith(
       2,
@@ -504,6 +612,7 @@ describe('researchProjects requests', () => {
           from: '2026-01-01',
           to: '2026-04-30',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(cohortResult).toEqual(
@@ -519,7 +628,7 @@ describe('researchProjects requests', () => {
   })
 
   it('gets grants and creates a grant through the grants endpoint', async () => {
-    mockedPerformAuthRequest
+    mockedApiRequestWithAuth
       .mockResolvedValueOnce({
         data: {
           items: [
@@ -573,7 +682,7 @@ describe('researchProjects requests', () => {
   })
 
   it('builds ML inspection query params and normalizes payload metadata', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         target: 'cohort',
         targetId: 'group-1',
@@ -596,7 +705,7 @@ describe('researchProjects requests', () => {
     expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1/ml/inspection?target=cohort&targetId=group-1&modelVersion=v3.2.1',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(result).toEqual(
       expect.objectContaining({
@@ -610,8 +719,27 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('rejects malformed ML inspection success as 502 while preserving null and upstream 403', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { target: 42 } })
+    await expect(getResearchProjectMLInspection(mockSession, 'project-1', { target: 'cohort' })).resolves.toEqual({
+      error: 'Invalid research ML inspection response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: null })
+    await expect(getResearchProjectMLInspection(mockSession, 'project-1', { target: 'cohort' })).resolves.toEqual({
+      data: null,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ error: { message: 'Forbidden', status: 403 } })
+    await expect(getResearchProjectMLInspection(mockSession, 'project-1', { target: 'cohort' })).resolves.toEqual({
+      error: 'Forbidden',
+      status: 403,
+    })
+  })
+
   it('gets the history dataset and normalizes dynamic columns', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         total: 2,
         items: [
@@ -646,7 +774,7 @@ describe('researchProjects requests', () => {
     expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
       mockSession,
       'http://localhost:3200/api/research/v1/projects/project-1/datasets/history?from=2026-01-01&to=2026-02-28&limit=20',
-      undefined
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
     )
     expect(result).toEqual(
       expect.objectContaining({
@@ -660,7 +788,7 @@ describe('researchProjects requests', () => {
   })
 
   it('requests exports and normalizes ready responses', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         status: 'ready',
         format: 'csv',
@@ -688,6 +816,7 @@ describe('researchProjects requests', () => {
           requestedFields: ['sleepScore'],
           reason: 'Data review',
         },
+        decodeResponse: expect.any(Function),
       }
     )
     expect(result).toEqual(
@@ -701,8 +830,49 @@ describe('researchProjects requests', () => {
     )
   })
 
+  it('rejects malformed success payloads for cohort, history and export without changing 403 behavior', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { groupIds: 'not-an-array' } })
+    await expect(getResearchProjectCohort(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research cohort response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { items: [{ id: 'a' }, null] } })
+    await expect(getResearchProjectHistoryDataset(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research history dataset response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { status: 'ready' } })
+    await expect(
+      requestResearchProjectExport(mockSession, 'project-1', {
+        format: 'csv',
+        requestedFields: ['stressScore'],
+        reason: 'Review',
+      })
+    ).resolves.toEqual({ error: 'Invalid research export response from backend', status: 502 })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      error: { message: 'Forbidden', status: 403 },
+    })
+    await expect(getResearchProjectCohort(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Forbidden',
+      status: 403,
+    })
+  })
+
+  it('keeps an absent cohort as null and an empty history as a legitimate result', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: [] })
+    await expect(getResearchProjectCohort(mockSession, 'project-1')).resolves.toEqual({ data: null })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { items: [], total: 0 } })
+    await expect(getResearchProjectHistoryDataset(mockSession, 'project-1')).resolves.toEqual({
+      data: { items: [], columns: [], total: 0 },
+    })
+  })
+
   it('gets audit events and flattens metadata payloads', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         events: [
           {
@@ -736,14 +906,59 @@ describe('researchProjects requests', () => {
     )
   })
 
-  it('maps 403 workspace access to a denied state and derives capabilities from successful responses', async () => {
-    mockedPerformAuthRequest.mockResolvedValueOnce({ error: 'Forbidden', status: 403 }).mockResolvedValueOnce({
-      data: {
-        capabilities: ['scientist', 'research_admin', 'ignored-role'],
-        canCreateProject: false,
-        items: [createProjectPayload()],
-      },
+  it('validates workspace access at the transport boundary before computing permissions', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      data: { capabilities: ['scientist'], companies: [{ id: 'company-1' }] },
     })
+
+    const access = await getResearchWorkspaceAccess(mockSession)
+    expect(access).toHaveProperty('data.hasAccess', true)
+    expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      'http://localhost:3200/api/research/v1/projects',
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
+    )
+  })
+
+  it('coalesces concurrent workspace requests but does not cache completed results', async () => {
+    let releaseResponse: ((value: unknown) => void) | undefined
+    mockedApiRequestWithAuth.mockImplementationOnce(
+      () =>
+        new Promise((resolve) => {
+          releaseResponse = resolve
+        })
+    )
+
+    const first = getResearchWorkspaceAccess(mockSession)
+    const second = getResearchWorkspaceAccess(mockSession)
+    expect(mockedApiRequestWithAuth).toHaveBeenCalledTimes(1)
+
+    if (!releaseResponse) throw new Error('Expected the workspace request to start')
+    releaseResponse({ data: { capabilities: ['scientist'] } })
+
+    const [firstResult, secondResult] = await Promise.all([first, second])
+    expect(firstResult).toEqual(secondResult)
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      data: { capabilities: ['research_admin'] },
+    })
+    const thirdResult = await getResearchWorkspaceAccess(mockSession)
+    expect(thirdResult).toHaveProperty('data.canCreateProjects', true)
+    expect(mockedApiRequestWithAuth).toHaveBeenCalledTimes(2)
+  })
+
+  it('maps 403 workspace access to a denied state and derives capabilities from successful responses', async () => {
+    mockedApiRequestWithAuth
+      .mockResolvedValueOnce({
+        error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
+      })
+      .mockResolvedValueOnce({
+        data: {
+          capabilities: ['scientist', 'research_admin', 'ignored-role'],
+          canCreateProject: false,
+          items: [createProjectPayload()],
+        },
+      })
 
     const deniedResult = await getResearchWorkspaceAccess(mockSession)
     const accessResult = await getResearchWorkspaceAccess(mockSession)
@@ -773,7 +988,7 @@ describe('researchProjects requests', () => {
   })
 
   it('resolves workspace company names when the research payload only exposes company ids', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         capabilities: ['scientist'],
         canCreateProject: false,
@@ -815,13 +1030,17 @@ describe('researchProjects requests', () => {
       },
     }
 
-    mockedPerformAuthRequest.mockResolvedValueOnce({ error: 'Forbidden', status: 403 }).mockResolvedValueOnce({
-      data: {
-        capabilities: [],
-        canCreateProject: false,
-        items: [createProjectPayload()],
-      },
-    })
+    mockedApiRequestWithAuth
+      .mockResolvedValueOnce({
+        error: { name: 'Forbidden', message: 'Forbidden', status: 403 },
+      })
+      .mockResolvedValueOnce({
+        data: {
+          capabilities: [],
+          canCreateProject: false,
+          items: [createProjectPayload()],
+        },
+      })
 
     const deniedAdminResult = await getResearchWorkspaceAccess(adminSession)
     const grantedAdminResult = await getResearchWorkspaceAccess(adminSession)
@@ -849,7 +1068,7 @@ describe('researchProjects requests', () => {
   })
 
   it('grants readonly workspace access when backend exposes a public demo project without research capabilities', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
+    mockedApiRequestWithAuth.mockResolvedValue({
       data: {
         capabilities: [],
         canCreateProject: false,
@@ -878,10 +1097,105 @@ describe('researchProjects requests', () => {
     )
   })
 
-  it('preserves company boundary 403 as an error instead of masking it as denied access', async () => {
-    mockedPerformAuthRequest.mockResolvedValue({
-      error: 'Company boundary для research layer не визначено',
+  it('rejects malformed members and grants instead of silently dropping entries', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { members: [{ userId: 'user-1' }, {}] } })
+
+    await expect(getResearchProjectMembers(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research members response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { items: [{ id: 'grant-1' }, {}] } })
+    await expect(getResearchProjectGrants(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research grants response from backend',
+      status: 502,
+    })
+  })
+
+  it('decodes audit collections at the transport boundary without dropping malformed entries', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { events: [] } })
+    await expect(getResearchProjectAudit(mockSession, 'project-1')).resolves.toEqual({ data: [] })
+    expect(mockedPerformAuthRequest).toHaveBeenCalledWith(
+      mockSession,
+      'http://localhost:3200/api/research/v1/projects/project-1/audit',
+      expect.objectContaining({ decodeResponse: expect.any(Function) })
+    )
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { events: [{ eventType: 'missing-id' }] } })
+    await expect(getResearchProjectAudit(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research audit response from backend',
+      status: 502,
+    })
+  })
+
+  it('rejects malformed member creation without returning a phantom member', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: {} })
+
+    await expect(
+      addResearchProjectMember(mockSession, 'project-1', { userId: 'reviewer-1', role: 'reviewer' })
+    ).resolves.toEqual({ error: 'Failed to normalize project member', status: 502 })
+  })
+
+  it('preserves upstream authorization failures for write responses', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({
+      error: { name: 'Forbidden', message: 'Cannot update project', status: 403 },
+    })
+
+    await expect(updateResearchProject(mockSession, 'project-1', { name: 'Denied' })).resolves.toEqual({
+      error: 'Cannot update project',
       status: 403,
+    })
+  })
+
+  it('rejects malformed audit history instead of reporting an empty audit', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { events: 'invalid' } })
+
+    await expect(getResearchProjectAudit(mockSession, 'project-1')).resolves.toEqual({
+      error: 'Invalid research audit response from backend',
+      status: 502,
+    })
+  })
+
+  it('does not grant research workspace access for a malformed successful response', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: {} })
+
+    await expect(getResearchWorkspaceAccess(mockSession)).resolves.toEqual({
+      error: 'Invalid research workspace response from backend',
+      status: 502,
+    })
+
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { capabilities: ['scientist'], canCreateProject: false } })
+    const access = await getResearchWorkspaceAccess(mockSession)
+    expect(access).toHaveProperty('data.hasAccess', true)
+  })
+
+  it('rejects invalid workspace company metadata before returning access', async () => {
+    mockedApiRequestWithAuth.mockResolvedValueOnce({ data: { companies: [null, {}] } })
+
+    await expect(getResearchWorkspaceAccess(mockSession)).resolves.toEqual({
+      error: 'Invalid research workspace response from backend',
+      status: 502,
+    })
+  })
+
+  it('preserves upstream 503 for research requests', async () => {
+    mockedApiRequestWithAuth.mockResolvedValue({
+      error: { name: 'ServiceUnavailable', message: 'Service unavailable', status: 503 },
+    })
+
+    await expect(getResearchProjects(mockSession)).resolves.toEqual({
+      error: 'Service unavailable',
+      status: 503,
+    })
+  })
+
+  it('preserves company boundary 403 as an error instead of masking it as denied access', async () => {
+    mockedApiRequestWithAuth.mockResolvedValue({
+      error: {
+        name: 'Forbidden',
+        message: 'Company boundary для research layer не визначено',
+        status: 403,
+      },
     })
 
     await expect(getResearchWorkspaceAccess(mockSession)).resolves.toEqual({

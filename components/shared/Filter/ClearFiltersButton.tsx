@@ -5,12 +5,13 @@ import { Button } from '@/ui/button'
 
 interface ClearFiltersButtonProps {
   reset: () => void
+  disabled?: boolean
 }
 
-export const ClearFiltersButton = ({ reset }: ClearFiltersButtonProps) => {
+export const ClearFiltersButton = ({ reset, disabled = false }: ClearFiltersButtonProps) => {
   const t = useTranslations('components.Filter')
   return (
-    <Button variant="secondary" onClick={reset} size="small" className="pr-4">
+    <Button type="button" variant="secondary" onClick={reset} size="small" disabled={disabled} className="pr-4">
       <Eraser />
       {t('clear')}
     </Button>

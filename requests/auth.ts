@@ -108,9 +108,31 @@ export async function exchangeAuthTokens(
   return { data: result.data }
 }
 
+export type AccountErasureAvailability = {
+  available: boolean
+  status: 'not_requested' | 'erasure_in_progress'
+  scope: 'dzvin_app_only'
+}
+
+/** The only browser transport for the app-scoped erasure BFF. No tokens in JS. */
+export function fetchAccountErasureAvailability(): Promise<RawJsonRequestResult<AccountErasureAvailability>> {
+  return rawJsonRequest<AccountErasureAvailability>('/api/privacy/account-erasure', { method: 'GET' })
+}
+
+export function submitAccountErasureRequest(): Promise<RawJsonRequestResult<{ status: 'erasure_in_progress' }>> {
+  return rawJsonRequest<{ status: 'erasure_in_progress' }>('/api/privacy/account-erasure', {
+    method: 'POST',
+    body: { confirmation: 'DELETE MY ACCOUNT' },
+  })
+}
+
 export async function fetchStoredAuthTokens(): Promise<BrowserAuthSession | null> {
   const result = await rawJsonRequest<BrowserAuthSession | null>('/api/auth/token', { method: 'GET' })
-  return 'error' in result ? null : result.data
+  if ('error' in result) {
+    if (result.status === 401) return null
+    throw new Error('Session metadata temporarily unavailable')
+  }
+  return result.data
 }
 
 /** Only verified user attributes reach browser state; never JWTs. */
@@ -121,6 +143,22 @@ export async function fetchAuthenticatedUser(): Promise<CustomUser | null> {
     throw new SessionVerificationUnavailableError()
   }
   return result.data
+}
+
+/** Conditional deletion is the only cleanup path for automatic refresh failures.
+ * Legacy cookies without an opaque revision cannot be safely deleted by stale tabs.
+ */
+export async function deleteStoredAuthTokensIfUnchanged(observed: BrowserAuthSession): Promise<boolean> {
+  if (!observed.sessionRevision) return false
+  const result = await rawJsonRequest<{ ok: boolean }>('/api/auth/token', {
+    method: 'DELETE',
+    headers: { 'x-session-revision': observed.sessionRevision },
+  })
+  if ('error' in result) {
+    if (result.status === 409 || result.status === 401) return false
+    throw new Error('Session cleanup temporarily unavailable')
+  }
+  return result.data.ok === true
 }
 
 export async function deleteStoredAuthTokens(): Promise<void> {

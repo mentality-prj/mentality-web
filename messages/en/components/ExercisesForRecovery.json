@@ -1,9 +1,51 @@
 {
   "title": "Exercises for recovery",
-  "meditation": { "title": "Meditation", "desc": "Calm your mind and restore balance in just a few minutes." },
-  "breathing": { "title": "Breathing exercises", "desc": "Try techniques to reduce stress and improve focus." },
+  "meditation": {
+    "title": "Meditation",
+    "desc": "Calm your mind and restore balance in just a few minutes."
+  },
+  "breathing": {
+    "title": "Breathing exercises",
+    "desc": "Try techniques to reduce stress and improve focus."
+  },
   "calming": {
     "title": "Calm me now",
     "desc": "Quick tips to help you deal with anxiety right here and now."
+  },
+  "quickSupport": {
+    "title": "Need a moment?",
+    "description": "You can start with one small action right now — no questionnaire or score needed.",
+    "groundingPrompt": "Notice your feet resting on the ground. Look around and quietly name three things you can see. Breathe at a pace that feels comfortable.",
+    "breathingAction": "Breathing exercises",
+    "calmingAction": "Calming exercises",
+    "optionalNote": "This is an optional self-support exercise, not a diagnosis or prediction."
+  },
+  "nextStep": {
+    "title": "What could you try next?",
+    "observations": {
+      "stress": "You reported stress at {level} out of 5 in your check-in.",
+      "mood": "You rated your mood {level} out of 5.",
+      "general": "You checked in with your mood. If you wish, you can choose one small action."
+    },
+    "suggestions": {
+      "breathing": "You could try a short breathing exercise at a comfortable pace. It's an option, not a requirement.",
+      "calming": "If you'd like a pause, you can choose one of the calming exercises. It's entirely optional."
+    },
+    "actions": {
+      "breathing": "Open breathing exercises",
+      "calming": "Open calming exercises"
+    },
+    "limitNote": "This suggestion follows a simple rule based on one self-reported check-in. It is not a forecast, diagnosis, or risk assessment. We cannot know which action will help you."
+  },
+  "safety": {
+    "label": "Safety and support",
+    "diaryPrivacy": "Your diary may contain sensitive information. Before saving, choose what you want to share with the service.",
+    "privacyLink": "How your data is handled",
+    "emergencySummary": "Need urgent help?",
+    "emergencyIntro": "If there is immediate danger to life or a risk of harming yourself or someone else, contact emergency services now.",
+    "phoneAction": "Call 112",
+    "phoneCoverage": "112 operates in Ukraine and across the EU. Elsewhere, call your local emergency service.",
+    "otherSupport": "If there is no immediate danger, consider contacting someone you trust or a qualified professional.",
+    "limitation": "Dzvin is a self-support tool, not a crisis response service or a substitute for medical care."
   }
 }

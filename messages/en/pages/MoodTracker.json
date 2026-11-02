@@ -14,5 +14,29 @@
       "energy": "Energy",
       "focus": "Focus"
     }
+  },
+  "progress": {
+    "heading": "Wellbeing progress",
+    "subtitle": "How your check-ins have changed over the last 30 days",
+    "stressTitle": "Stress score",
+    "stressSubtitle": "Average self-rating across the last 7 calendar days (0 = lowest, 100 = highest)",
+    "observedDays": "Days with check-ins: {count}",
+    "stressChange": "Stress versus previous week",
+    "moodChange": "Mood versus previous week",
+    "currentStreak": "Current streak, days",
+    "longestStreak": "Longest streak, days",
+    "mood": "Mood",
+    "stress": "Stress",
+    "chartAccessible": "Daily average mood and stress ratings for the past 30 days on a scale of 1 to 5",
+    "notEnough": "Not enough data to compare",
+    "noChange": "No change",
+    "improved": "Improved by {amount} pts",
+    "increased": "Worsened by {amount} pts",
+    "empty": "Add mood check-ins to see your progress.",
+    "loadError": "Unable to load your statistics. Try refreshing the page.",
+    "disclaimer": "A reflection of your self-reported ratings, not a medical assessment or diagnosis. A higher score means more stress.",
+    "dateNote": "Compares the last 7 days with the preceding 7, using days with check-ins (at least 2 each week). Daily aggregates currently use UTC.",
+    "dateNoteLocal": "Compares the most recent 7 calendar days with the previous 7 (at least 2 observed days per week). All dates and streaks use your time zone.",
+    "dateColumn": "Date"
   }
 }

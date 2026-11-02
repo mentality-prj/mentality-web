@@ -4,12 +4,14 @@ import { getTranslations } from 'next-intl/server'
 import { MoodStoryCard } from '@/components/features/MoodTracker/MoodStoryCard/MoodStoryCard'
 import { resolveActionRoute } from '@/helpers/moodStory.helpers'
 import { getServerSession } from '@/lib/get-server-session'
-import { getLatestMoodStory } from '@/requests/moodStory'
+import { getUserTimeZone } from '@/lib/userTimeZone'
+import { getTodayMoodStory } from '@/requests/moodStory'
 import { MoodStoryScreenEntity } from '@/types/api-responses'
 import { CustomSession } from '@/types/auth'
 
 jest.mock('@/lib/get-server-session', () => ({ getServerSession: jest.fn() }))
-jest.mock('@/requests/moodStory', () => ({ getLatestMoodStory: jest.fn() }))
+jest.mock('@/lib/userTimeZone', () => ({ getUserTimeZone: jest.fn() }))
+jest.mock('@/requests/moodStory', () => ({ getTodayMoodStory: jest.fn() }))
 jest.mock('next-intl/server')
 
 jest.mock('@/components/shared/Cards/Card', () => ({
@@ -62,13 +64,14 @@ const mockScreens: MoodStoryScreenEntity[] = [
 beforeEach(() => {
   jest.clearAllMocks()
   ;(getServerSession as jest.Mock).mockResolvedValue(mockSession)
+  ;(getUserTimeZone as jest.Mock).mockResolvedValue('Europe/Warsaw')
   ;(getTranslations as jest.Mock).mockResolvedValue((key: string) => key)
 })
 
 describe('MoodStoryCard', () => {
   describe('when API returns a 404 error (story not yet generated)', () => {
     it('renders StoryNotReady inside a Card', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ error: 'Not Found', status: 404 })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Not Found', status: 404 })
 
       render(await MoodStoryCard())
 
@@ -78,7 +81,7 @@ describe('MoodStoryCard', () => {
     })
 
     it('renders the card title', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ error: 'Not Found', status: 404 })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Not Found', status: 404 })
 
       render(await MoodStoryCard())
 
@@ -88,7 +91,7 @@ describe('MoodStoryCard', () => {
 
   describe('when API returns a non-404 error', () => {
     it('renders StoryError inside a Card for a 500 error', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ error: 'Internal Server Error', status: 500 })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Internal Server Error', status: 500 })
 
       render(await MoodStoryCard())
 
@@ -98,7 +101,7 @@ describe('MoodStoryCard', () => {
     })
 
     it('renders StoryError inside a Card when error has no status', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ error: 'Network error' })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Network error' })
 
       render(await MoodStoryCard())
 
@@ -107,7 +110,7 @@ describe('MoodStoryCard', () => {
     })
 
     it('renders the card title on error', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ error: 'Internal Server Error', status: 500 })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Internal Server Error', status: 500 })
 
       render(await MoodStoryCard())
 
@@ -117,7 +120,7 @@ describe('MoodStoryCard', () => {
 
   describe('when API returns an empty screens array', () => {
     it('renders StoryNotReady inside a Card', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ data: { screens: [] } })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: [] } })
 
       render(await MoodStoryCard())
 
@@ -126,7 +129,7 @@ describe('MoodStoryCard', () => {
     })
 
     it('renders the card title', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ data: { screens: [] } })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: [] } })
 
       render(await MoodStoryCard())
 
@@ -136,7 +139,7 @@ describe('MoodStoryCard', () => {
 
   describe('when API returns screens', () => {
     it('renders MoodStoryNavigator with the screens', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
 
       render(await MoodStoryCard())
 
@@ -145,7 +148,7 @@ describe('MoodStoryCard', () => {
     })
 
     it('does not render StoryNotReady or StoryError', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
 
       render(await MoodStoryCard())
 
@@ -154,7 +157,7 @@ describe('MoodStoryCard', () => {
     })
 
     it('does not render a Card wrapper (navigator renders its own card)', async () => {
-      ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
+      ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
 
       render(await MoodStoryCard())
 
@@ -162,21 +165,28 @@ describe('MoodStoryCard', () => {
     })
   })
 
-  it('calls getLatestMoodStory with the authenticated session', async () => {
-    ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
+  it('calls getTodayMoodStory with the authenticated session', async () => {
+    ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
 
     render(await MoodStoryCard())
 
-    expect(getLatestMoodStory).toHaveBeenCalledWith(mockSession)
+    expect(getTodayMoodStory).toHaveBeenCalledWith(mockSession, 'Europe/Warsaw')
   })
 
-  it('calls getLatestMoodStory with null when there is no session', async () => {
+  it('forwards a missing zone without inventing UTC', async () => {
+    ;(getUserTimeZone as jest.Mock).mockResolvedValue(null)
+    ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ data: { screens: mockScreens } })
+    render(await MoodStoryCard())
+    expect(getTodayMoodStory).toHaveBeenCalledWith(mockSession, null)
+  })
+
+  it('calls getTodayMoodStory with null when there is no session', async () => {
     ;(getServerSession as jest.Mock).mockResolvedValue(null)
-    ;(getLatestMoodStory as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
+    ;(getTodayMoodStory as jest.Mock).mockResolvedValue({ error: 'Unauthorized', status: 401 })
 
     render(await MoodStoryCard())
 
-    expect(getLatestMoodStory).toHaveBeenCalledWith(null)
+    expect(getTodayMoodStory).toHaveBeenCalledWith(null, 'Europe/Warsaw')
   })
 })
 

@@ -37,6 +37,7 @@ function createRequest(pathname: string, body: unknown, headers?: Record<string,
     method: 'POST',
     headers: new Headers({
       'content-type': 'application/json',
+      origin: 'http://localhost:3000',
       ...headers,
     }),
     body: JSON.stringify(body),
@@ -120,6 +121,7 @@ describe('/api/auth/exchange route', () => {
       expiresAt: expect.any(Number),
       hasRefreshToken: true,
       userRole: 'admin',
+      sessionRevision: expect.any(String),
     })
     const storedCookie = response.cookies.get(AUTH_TOKEN_COOKIE)?.value
 
@@ -130,7 +132,78 @@ describe('/api/auth/exchange route', () => {
       refreshToken: 'stored-refresh-token',
       expiresAt: expect.any(Number),
       userRole: 'admin',
+      sessionRevision: expect.any(String),
     })
+  })
+
+  it('coalesces simultaneous server refresh requests with the same HttpOnly cookie', async () => {
+    const oldCookie = JSON.stringify({
+      accessToken: 'server-old-access',
+      idToken: 'server-existing-id',
+      refreshToken: 'unique-coalesced-rotation-token',
+      expiresAt: Math.floor(Date.now() / 1000) - 5,
+    })
+    cookiesMock.mockReturnValue(createCookieStore(oldCookie) as never)
+    let releaseProvider: (() => void) | undefined
+    let signalStarted: (() => void) | undefined
+    const started = new Promise<void>((resolve) => {
+      signalStarted = resolve
+    })
+    ;(global.fetch as jest.Mock).mockImplementation(
+      () =>
+        new Promise((resolve) => {
+          signalStarted?.()
+          releaseProvider = () =>
+            resolve(
+              new Response(
+                JSON.stringify({
+                  access_token: 'server-new-access',
+                  refresh_token: 'server-new-refresh',
+                  expires_in: 1800,
+                }),
+                { status: 200 }
+              )
+            )
+        })
+    )
+
+    const request = () => createRequest('/api/auth/exchange', { grantType: 'refresh_token' })
+    const first = POST(request())
+    const second = POST(request())
+    // WebCrypto SHA-256 resolves asynchronously; wait for the fetch mock's
+    // actual entry signal rather than polling microtasks or fixed delays.
+    await started
+    expect(releaseProvider).toBeDefined()
+    releaseProvider?.()
+
+    const [firstResponse, secondResponse] = await Promise.all([first, second])
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+    expect(firstResponse.status).toBe(200)
+    expect(secondResponse.status).toBe(200)
+    expect(firstResponse.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBe(
+      secondResponse.cookies.get(AUTH_TOKEN_COOKIE)?.value
+    )
+    expect(JSON.parse(firstResponse.cookies.get(AUTH_TOKEN_COOKIE)?.value ?? '{}')).toMatchObject({
+      accessToken: 'server-new-access',
+      refreshToken: 'server-new-refresh',
+    })
+    expect(JSON.stringify(await secondResponse.json())).not.toContain('server-new-refresh')
+  })
+
+  it('preserves the provider rate limit as retryable HTTP 429 without returning provider internals', async () => {
+    cookiesMock.mockReturnValue(createCookieStore() as never)
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(JSON.stringify({ error: 'slow_down', secret: 'never-reflect' }), { status: 429 })
+    )
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'auth-code',
+        codeVerifier: 'verifier',
+      })
+    )
+    expect(response.status).toBe(429)
+    expect(await response.json()).toEqual({ error: 'Identity provider request failed' })
   })
 
   it('returns 400 for invalid JSON bodies', async () => {
@@ -187,6 +260,198 @@ describe('/api/auth/exchange route', () => {
       expect(JSON.stringify(await response.json())).not.toMatch(/access_token|id_token|refresh_token/)
     } finally {
       process.env.NEXT_PUBLIC_BASE_URL = previousBase
+    }
+  })
+
+  it('rejects missing Origin, including a browser-like request, without an IdP call', async () => {
+    const response = await POST(
+      new NextRequest('http://localhost:3000/api/auth/exchange', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json', 'sec-fetch-site': 'same-origin' },
+        body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
+      })
+    )
+    expect(response.status).toBe(403)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('rejects a forged cross-site fetch context even with a matching Origin', async () => {
+    const response = await POST(
+      createRequest('/api/auth/exchange', { grantType: 'refresh_token' }, { 'sec-fetch-site': 'cross-site' })
+    )
+    expect(response.status).toBe(403)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('does not reflect secrets in identity provider failures', async () => {
+    ;(global.fetch as jest.Mock).mockResolvedValue({
+      ok: false,
+      status: 400,
+      text: () => Promise.resolve(JSON.stringify({ error: 'invalid_grant', client_secret: 'do-not-leak' })),
+    })
+    const response = await POST(
+      createRequest('/api/auth/exchange', { grantType: 'authorization_code', code: 'bad', codeVerifier: 'verifier' })
+    )
+    expect(response.status).toBe(400)
+    expect(await response.json()).toEqual({ error: 'Identity provider request failed' })
+  })
+
+  it('does not reflect internal exception details', async () => {
+    ;(global.fetch as jest.Mock).mockRejectedValue(new Error('sensitive-upstream-internal-url'))
+    const response = await POST(
+      createRequest('/api/auth/exchange', { grantType: 'authorization_code', code: 'bad', codeVerifier: 'verifier' })
+    )
+    expect(response.status).toBe(502)
+    expect(JSON.stringify(await response.json())).not.toContain('sensitive-upstream')
+  })
+
+  it('rejects an oversized request body before contacting Zitadel', async () => {
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'x'.repeat(9_000),
+        codeVerifier: 'verifier',
+      })
+    )
+    expect(response.status).toBe(413)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
+  it('accepts a streamed upstream token response of exactly 32 KiB', async () => {
+    const basePayload = { access_token: 'server-access', id_token: 'server-id', expires_in: 3600, padding: '' }
+    const baseLength = JSON.stringify(basePayload).length
+    const payload = JSON.stringify({ ...basePayload, padding: 'x'.repeat(32_768 - baseLength) })
+    const bytes = new TextEncoder().encode(payload)
+    expect(bytes.byteLength).toBe(32_768)
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(
+        new ReadableStream<Uint8Array>({
+          start(controller) {
+            controller.enqueue(bytes.slice(0, 9_000))
+            controller.enqueue(bytes.slice(9_000, 24_000))
+            controller.enqueue(bytes.slice(24_000))
+            controller.close()
+          },
+        }),
+        { status: 200 }
+      )
+    )
+
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'code',
+        codeVerifier: 'verifier',
+      })
+    )
+
+    expect(response.status).toBe(200)
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)?.value).toBeTruthy()
+    expect(JSON.stringify(await response.json())).not.toContain('server-access')
+  })
+
+  it('rejects an oversized multi-chunk upstream response and cancels its stream', async () => {
+    let cancelled = false
+    const bytes = new TextEncoder().encode('x'.repeat(32_769))
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(
+        new ReadableStream<Uint8Array>({
+          start(controller) {
+            controller.enqueue(bytes.slice(0, 12_000))
+            controller.enqueue(bytes.slice(12_000, 29_000))
+            controller.enqueue(bytes.slice(29_000))
+          },
+          cancel() {
+            cancelled = true
+          },
+        }),
+        { status: 200 }
+      )
+    )
+
+    const response = await POST(
+      createRequest('/api/auth/exchange', {
+        grantType: 'authorization_code',
+        code: 'code',
+        codeVerifier: 'verifier',
+      })
+    )
+
+    expect(response.status).toBe(502)
+    expect(response.headers.get('cache-control')).toBe('no-store')
+    expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
+    expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
+    expect(cancelled).toBe(true)
+  })
+
+  it('returns a generic 504 if the token request times out before response headers', async () => {
+    const timeout = new AbortController()
+    const signalSpy = jest.spyOn(AbortSignal, 'timeout').mockReturnValue(timeout.signal)
+    try {
+      ;(global.fetch as jest.Mock).mockImplementation(
+        (_url: string, init: RequestInit) =>
+          new Promise<Response>((_resolve, reject) => {
+            const signal = init.signal as AbortSignal
+            const abortFetch = () => reject(new DOMException('Request aborted', 'AbortError'))
+            if (signal.aborted) abortFetch()
+            else signal.addEventListener('abort', abortFetch, { once: true })
+          })
+      )
+
+      const result = POST(
+        createRequest('/api/auth/exchange', {
+          grantType: 'authorization_code',
+          code: 'code',
+          codeVerifier: 'verifier',
+        })
+      )
+      setTimeout(() => timeout.abort(new DOMException('Request timed out', 'TimeoutError')), 0)
+
+      const response = await result
+      expect(signalSpy).toHaveBeenCalledWith(8_000)
+      expect(response.status).toBe(504)
+      expect(response.headers.get('cache-control')).toBe('no-store')
+      expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
+      expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
+    } finally {
+      signalSpy.mockRestore()
+    }
+  })
+
+  it('returns 504 if the upstream response body stalls after successful headers', async () => {
+    const timeout = new AbortController()
+    const signalSpy = jest.spyOn(AbortSignal, 'timeout').mockReturnValue(timeout.signal)
+    try {
+      ;(global.fetch as jest.Mock).mockImplementation(async (_url: string, init: RequestInit) => {
+        const signal = init.signal as AbortSignal
+        return new Response(
+          new ReadableStream<Uint8Array>({
+            start(stream) {
+              const abortRead = () => stream.error(new DOMException('Stream aborted', 'AbortError'))
+              if (signal.aborted) abortRead()
+              else signal.addEventListener('abort', abortRead, { once: true })
+            },
+          }),
+          { status: 200 }
+        )
+      })
+
+      const result = POST(
+        createRequest('/api/auth/exchange', {
+          grantType: 'authorization_code',
+          code: 'code',
+          codeVerifier: 'verifier',
+        })
+      )
+      setTimeout(() => timeout.abort(new DOMException('Request timed out', 'TimeoutError')), 0)
+
+      const response = await result
+      expect(response.status).toBe(504)
+      expect(response.headers.get('cache-control')).toBe('no-store')
+      expect(await response.json()).toEqual({ error: 'Identity provider temporarily unavailable' })
+      expect(response.cookies.get(AUTH_TOKEN_COOKIE)).toBeUndefined()
+    } finally {
+      signalSpy.mockRestore()
     }
   })
 

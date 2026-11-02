@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { ACTIVE_COMPANY_COOKIE } from '@/lib/auth/companyContext'
 import { AUTH_COOKIE_MAX_AGE, AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
+import { coalesceRefreshExchange } from '@/lib/auth/serverRefreshFlight'
 import { parseStoredAuthTokensCookie, type StoredAuthTokens } from '@/lib/auth/storedTokens'
 
 type TokenEndpointResponse = {
@@ -18,17 +19,55 @@ function jsonNoStore(body: unknown, init?: ResponseInit) {
   return response
 }
 
-function isSameOriginOrServerRequest(request: NextRequest): boolean {
-  const origin = request.headers.get('origin')
-  if (!origin) {
-    return true
-  }
+const MAX_EXCHANGE_BODY_BYTES = 8_192
+const MAX_TOKEN_RESPONSE_BYTES = 32_768
+const TOKEN_TIMEOUT_MS = 8_000
 
+// Every caller, including the internal proxy refresh, must supply the exact
+// target origin. Missing Origin is not a trusted server-to-server signal.
+function isSameOriginRequest(request: NextRequest): boolean {
+  const origin = request.headers.get('origin')
+  const fetchSite = request.headers.get('sec-fetch-site')
+  if (!origin || (fetchSite && fetchSite !== 'same-origin')) return false
   try {
     return new URL(origin).origin === request.nextUrl.origin
   } catch {
     return false
   }
+}
+
+async function readLimitedText(source: NextRequest | Response, maxBytes: number): Promise<string> {
+  const reader = source.body?.getReader()
+  if (!reader) {
+    const text = await source.text()
+    if (new TextEncoder().encode(text).byteLength > maxBytes) throw new RangeError('Payload too large')
+    return text
+  }
+
+  const parts: Uint8Array[] = []
+  let size = 0
+  try {
+    while (true) {
+      const { done, value } = await reader.read()
+      if (done) break
+      if (value.byteLength > maxBytes - size) {
+        await reader.cancel().catch(() => undefined)
+        throw new RangeError('Payload too large')
+      }
+      parts.push(value)
+      size += value.byteLength
+    }
+  } finally {
+    reader.releaseLock()
+  }
+
+  const bytes = new Uint8Array(size)
+  let offset = 0
+  for (const part of parts) {
+    bytes.set(part, offset)
+    offset += part.byteLength
+  }
+  return new TextDecoder().decode(bytes)
 }
 
 function normalizeTokenEndpointResponse(payload: unknown): TokenEndpointResponse | null {
@@ -61,14 +100,14 @@ function normalizeTokenEndpointResponse(payload: unknown): TokenEndpointResponse
 }
 
 async function readJsonPayload(response: Response): Promise<unknown> {
-  const text = await response.text()
-  if (!text) {
-    return null
-  }
-
+  // Stream/transport failures must propagate to the outer handler. In particular,
+  // a body that stalls after successful response headers can still time out.
+  const text = await readLimitedText(response, MAX_TOKEN_RESPONSE_BYTES)
+  if (!text) return null
   try {
     return JSON.parse(text)
   } catch {
+    // Only malformed JSON is treated as an invalid provider payload.
     return null
   }
 }
@@ -95,8 +134,8 @@ export async function POST(request: NextRequest) {
     return jsonNoStore({ error: 'Server misconfiguration: missing Zitadel environment variables' }, { status: 500 })
   }
 
-  // CSRF: reject cross-origin browser requests (server-to-server calls like middleware won't send Origin)
-  if (!isSameOriginOrServerRequest(request)) {
+  // CSRF: reject requests without trusted same-origin provenance (including internal refresh).
+  if (!isSameOriginRequest(request)) {
     return jsonNoStore({ error: 'Forbidden' }, { status: 403 })
   }
 
@@ -107,12 +146,19 @@ export async function POST(request: NextRequest) {
   }
 
   try {
-    body = (await request.json()) as {
+    const contentLength = Number(request.headers.get('content-length'))
+    if (contentLength > MAX_EXCHANGE_BODY_BYTES) {
+      return jsonNoStore({ error: 'Payload too large' }, { status: 413 })
+    }
+    body = JSON.parse(await readLimitedText(request, MAX_EXCHANGE_BODY_BYTES)) as {
       code?: string
       codeVerifier?: string
       grantType?: 'authorization_code' | 'refresh_token'
     }
-  } catch {
+  } catch (error) {
+    if (error instanceof RangeError) {
+      return jsonNoStore({ error: 'Payload too large' }, { status: 413 })
+    }
     return jsonNoStore({ error: 'Invalid JSON' }, { status: 400 })
   }
 
@@ -153,19 +199,44 @@ export async function POST(request: NextRequest) {
       return jsonNoStore({ error: 'Invalid grantType' }, { status: 400 })
     }
 
-    const tokenResponse = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-      body: params,
-    })
+    const callProvider = async () => {
+      const tokenSignal = AbortSignal.timeout(TOKEN_TIMEOUT_MS)
+      try {
+        const response = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: params,
+          redirect: 'manual',
+          cache: 'no-store',
+          signal: tokenSignal,
+        })
+        const payload = await readJsonPayload(response)
+        return {
+          ok: response.ok,
+          status: response.status,
+          payload,
+          issuedAt: Math.floor(Date.now() / 1000),
+          sessionRevision: crypto.randomUUID(),
+        }
+      } catch (error) {
+        // A body stream can throw AbortError although the deadline elapsed.
+        const reason = tokenSignal?.aborted ? tokenSignal.reason : null
+        if (reason instanceof Error && reason.name === 'TimeoutError') throw reason
+        throw error
+      }
+    }
 
-    const payload = await readJsonPayload(tokenResponse)
+    const exchangeResult =
+      grantType === 'refresh_token' && storedTokens?.refreshToken
+        ? await coalesceRefreshExchange(storedTokens.refreshToken, callProvider)
+        : await callProvider()
+    const payload = exchangeResult.payload
 
-    if (!tokenResponse.ok) {
-      return jsonNoStore(
-        payload && typeof payload === 'object' ? payload : { error: 'Identity provider request failed' },
-        { status: tokenResponse.status }
-      )
+    if (!exchangeResult.ok) {
+      // Never reflect identity-provider JSON (including diagnostic secrets).
+      const status =
+        exchangeResult.status === 429 ? 429 : exchangeResult.status >= 300 && exchangeResult.status < 500 ? 400 : 502
+      return jsonNoStore({ error: 'Identity provider request failed' }, { status })
     }
 
     const data = normalizeTokenEndpointResponse(payload)
@@ -190,7 +261,8 @@ export async function POST(request: NextRequest) {
         accessToken: data.access_token,
         idToken,
         refreshToken: data.refresh_token ?? currentStoredTokens.refreshToken,
-        expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+        sessionRevision: exchangeResult.sessionRevision,
+        expiresAt: exchangeResult.issuedAt + data.expires_in,
       }
 
       const serialized = JSON.stringify(updatedTokens)
@@ -202,6 +274,7 @@ export async function POST(request: NextRequest) {
         expiresAt: updatedTokens.expiresAt,
         hasRefreshToken: Boolean(updatedTokens.refreshToken),
         userRole: updatedTokens.userRole,
+        sessionRevision: updatedTokens.sessionRevision,
       }
       return setAuthCookie(jsonNoStore(safeData), serialized)
     }
@@ -216,7 +289,8 @@ export async function POST(request: NextRequest) {
       accessToken: data.access_token,
       idToken: data.id_token,
       refreshToken: data.refresh_token,
-      expiresAt: Math.floor(Date.now() / 1000) + data.expires_in,
+      sessionRevision: exchangeResult.sessionRevision,
+      expiresAt: exchangeResult.issuedAt + data.expires_in,
     }
 
     const serialized = JSON.stringify(cookieTokens)
@@ -227,15 +301,15 @@ export async function POST(request: NextRequest) {
     const safeData = {
       expiresAt: cookieTokens.expiresAt,
       hasRefreshToken: Boolean(cookieTokens.refreshToken),
+      sessionRevision: cookieTokens.sessionRevision,
     }
     const response = setAuthCookie(jsonNoStore(safeData), serialized)
     // A new login must not inherit the previous account's selected tenant.
     response.cookies.delete(ACTIVE_COMPANY_COOKIE)
     return response
   } catch (error) {
-    return jsonNoStore(
-      { error: 'Internal error', message: error instanceof Error ? error.message : String(error) },
-      { status: 500 }
-    )
+    // callProvider normalizes stream AbortError to the deadline's TimeoutError.
+    const timedOut = error instanceof Error && error.name === 'TimeoutError'
+    return jsonNoStore({ error: 'Identity provider temporarily unavailable' }, { status: timedOut ? 504 : 502 })
   }
 }

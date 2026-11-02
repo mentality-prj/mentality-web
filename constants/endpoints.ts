@@ -1,5 +1,6 @@
 export const B2C_MOOD_STORY_ENDPOINTS = Object.freeze({
   LATEST: '/mood-story/latest',
+  TODAY: '/mood-story/today',
   REGENERATE: '/mood-story/regenerate',
 })
 

@@ -1,7 +1,8 @@
 'use client'
 
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { Check, CircleCheck, Footprints, MonitorOff, NotebookPen, Plus, RotateCcw, Wind } from 'lucide-react'
+import { useRouter } from 'next/navigation'
 import { useTranslations } from 'next-intl'
 
 import { useAuth } from '@/context/AuthProvider'
@@ -13,10 +14,16 @@ import {
   DAILY_HABIT_KINDS,
   type DailyHabitKind,
   type DailyHabitToday,
-  getDailyHabits,
   removeDailyHabit,
 } from '@/requests/dailyHabits'
-import { getLocalDayKey, getVerifiedBrowserTimeZone } from '@/utils/timeZone'
+import { getLocalDayKey } from '@/utils/timeZone'
+
+type Props = {
+  initialHabits: DailyHabitToday[]
+  timeZone: string | null
+  initialDayKey: string | null
+  failed: boolean
+}
 
 const HABIT_ICONS = {
   breathing: Wind,
@@ -31,61 +38,25 @@ const RELATED_PAGES: Partial<Record<DailyHabitKind, string>> = {
 }
 
 /**
- * Optional personal activities: load using verified browser local day and existing
- * authenticated BFF. Update visible state only after a validated API response.
+ * User-owned, voluntarily selected daily actions. Nothing happens on visiting
+ * an exercise or leaving My Day; every daily check requires an explicit tap.
  */
-export function DailyHabitsCard() {
+export function DailyHabitsCard({ initialHabits, timeZone, initialDayKey, failed }: Props) {
   const t = useTranslations('components.DailyCard.habits')
-  const { session, status } = useAuth()
-  const [habits, setHabits] = useState<DailyHabitToday[]>([])
-  const [timeZone, setTimeZone] = useState<string | null>(null)
-  const [dayKey, setDayKey] = useState<string | null>(null)
-  const [loading, setLoading] = useState(true)
-  const [failed, setFailed] = useState(false)
+  const { session } = useAuth()
+  const router = useRouter()
+  const [habits, setHabits] = useState<DailyHabitToday[]>(initialHabits)
   const [busy, setBusy] = useState<DailyHabitKind | null>(null)
   const requestPending = useRef(false)
   const [notice, setNotice] = useState<'saved' | 'failed' | 'login' | null>(null)
 
-  const reload = useCallback(async () => {
-    if (requestPending.current || status === 'loading') return
-    const zone = getVerifiedBrowserTimeZone()
-    const today = getLocalDayKey(new Date(), zone)
-    setTimeZone(zone)
-    setDayKey(today)
-    setNotice(null)
-    if (!zone || !today || !session?.user) {
-      setHabits([])
-      setFailed(false)
-      setLoading(false)
-      return
-    }
-    setLoading(true)
-    try {
-      const result = await getDailyHabits(session, zone)
-      if ('error' in result) {
-        setFailed(true)
-      } else {
-        setHabits(result.data)
-        setFailed(false)
-      }
-    } catch {
-      setFailed(true)
-    } finally {
-      setLoading(false)
-    }
-  }, [session, status])
-
+  // On returning to an open PWA after midnight, refresh server-computed dates.
   useEffect(() => {
-    void reload()
-  }, [reload])
-
-  // Recheck the actual local date after returning to a long-running PWA tab.
-  useEffect(() => {
+    if (!timeZone || !initialDayKey) return
     const refreshIfNewDay = () => {
-      if (document.visibilityState === 'hidden' || requestPending.current) return
-      const nowZone = getVerifiedBrowserTimeZone()
-      const nowDay = getLocalDayKey(new Date(), nowZone)
-      if (nowZone !== timeZone || nowDay !== dayKey) void reload()
+      if (document.visibilityState === 'hidden') return
+      const current = getLocalDayKey(new Date(), timeZone)
+      if (current && current !== initialDayKey) router.refresh()
     }
     window.addEventListener('focus', refreshIfNewDay)
     document.addEventListener('visibilitychange', refreshIfNewDay)
@@ -93,14 +64,12 @@ export function DailyHabitsCard() {
       window.removeEventListener('focus', refreshIfNewDay)
       document.removeEventListener('visibilitychange', refreshIfNewDay)
     }
-  }, [dayKey, reload, timeZone])
+  }, [initialDayKey, router, timeZone])
 
   const change = async (kind: DailyHabitKind, action: 'select' | 'check' | 'undo' | 'remove') => {
-    if (requestPending.current || loading || failed) return
-    const freshZone = getVerifiedBrowserTimeZone()
-    const freshDay = getLocalDayKey(new Date(), freshZone)
-    if (!freshDay || freshZone !== timeZone || freshDay !== dayKey) {
-      void reload()
+    if (requestPending.current || failed || !timeZone || !initialDayKey) return
+    if (getLocalDayKey(new Date(), timeZone) !== initialDayKey) {
+      router.refresh()
       return
     }
     if (!session?.user) {
@@ -112,27 +81,28 @@ export function DailyHabitsCard() {
     setBusy(kind)
     setNotice(null)
     try {
-      if (action === 'remove') {
-        const removed = await removeDailyHabit(session, kind)
-        if ('error' in removed) {
-          setNotice('failed')
-          return
-        }
-        setHabits((previous) => previous.filter((entry) => entry.kind !== kind))
-        setNotice('saved')
-        return
-      }
-
-      const result =
+      const response =
         action === 'select'
-          ? await chooseDailyHabit(session, kind, freshZone)
-          : await checkDailyHabit(session, kind, action === 'check', freshZone)
-      if ('error' in result) {
+          ? await chooseDailyHabit(session, kind, timeZone)
+          : action === 'remove'
+            ? await removeDailyHabit(session, kind)
+            : await checkDailyHabit(session, kind, action === 'check', timeZone)
+
+      if ('error' in response) {
         setNotice('failed')
         return
       }
-      const next: DailyHabitToday = { kind, doneToday: result.data.doneToday }
-      setHabits((previous) => [...previous.filter((entry) => entry.kind !== kind), next])
+      if (action === 'remove') {
+        setHabits((previous) => previous.filter((habit) => habit.kind !== kind))
+      } else {
+        if (!response.data || !('doneToday' in response.data) || typeof response.data.doneToday !== 'boolean') {
+          setNotice('failed')
+          return
+        }
+        // Preserve other selected actions and trust only backend-acknowledged state.
+        const updated: DailyHabitToday = { kind, doneToday: response.data.doneToday }
+        setHabits((previous) => [...previous.filter((habit) => habit.kind !== kind), updated])
+      }
       setNotice('saved')
     } catch {
       setNotice('failed')
@@ -155,11 +125,7 @@ export function DailyHabitsCard() {
             </h2>
             <p className="max-w-[58ch] text-[13px] leading-5 text-textcolor-secondary sm:text-sm">{t('description')}</p>
           </div>
-          {loading ? (
-            <p role="status" className="text-sm text-textcolor-secondary">
-              {t('loading')}
-            </p>
-          ) : !timeZone || !dayKey ? (
+          {!timeZone || !initialDayKey ? (
             <p role="status" className="text-sm text-textcolor-secondary">
               {t('unknownDay')}
             </p>
@@ -170,7 +136,7 @@ export function DailyHabitsCard() {
               </p>
               <button
                 type="button"
-                onClick={() => void reload()}
+                onClick={() => router.refresh()}
                 className="inline-flex min-h-11 items-center rounded-[10px] px-3 text-sm font-semibold text-primary hover:bg-secondary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
               >
                 {t('retry')}

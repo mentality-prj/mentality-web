@@ -2,10 +2,11 @@ import { getTranslations } from 'next-intl/server'
 
 import { STRESSES } from '@/constants/stress'
 import { DaySummary } from '@/types/daySummary'
+import { getRecentLocalDayKeys } from '@/utils/timeZone'
 
-type Props = { summaries?: DaySummary[]; locale?: string }
+type Props = { summaries?: DaySummary[]; locale?: string; timeZone?: string }
 
-export async function StressLevelChart({ summaries, locale }: Props) {
+export async function StressLevelChart({ summaries, locale, timeZone }: Props) {
   const t = await getTranslations('components.StressLevel')
 
   const map: Record<string, number> = {}
@@ -15,17 +16,7 @@ export async function StressLevelChart({ summaries, locale }: Props) {
     }
   }
 
-  const today = new Date()
-  const dates = Array.from({ length: 10 }, (_, i) => {
-    const d = new Date(today)
-    d.setDate(today.getDate() - (9 - i))
-    return d
-  })
-
-  const data = dates.map((d) => {
-    const iso = d.toISOString().slice(0, 10)
-    return { date: iso, stress: map[iso as string] ?? null }
-  })
+  const data = getRecentLocalDayKeys(10, timeZone ?? null).map((date) => ({ date, stress: map[date] ?? null }))
 
   const width = 600
   const height = 250
@@ -166,7 +157,10 @@ export async function StressLevelChart({ summaries, locale }: Props) {
             fontSize={20}
             className="text-muted-foreground"
           >
-            {new Date(p.date).toLocaleDateString(locale || undefined, { weekday: 'short' })}
+            {new Date(`${p.date}T12:00:00.000Z`).toLocaleDateString(locale || undefined, {
+              weekday: 'short',
+              timeZone: 'UTC',
+            })}
           </text>
         ))}
       </svg>

@@ -17,6 +17,8 @@ jest.mock('@/components/features/Landing', () => ({
   LandingFooter: () => <div data-testid="landing-footer" />,
 }))
 
+jest.mock('@/components/Layout/TimeZoneSync', () => ({ TimeZoneSync: () => null }))
+
 jest.mock('@/components/Layout/Header', () => ({
   Header: () => <div data-testid="header" />,
 }))

@@ -7,6 +7,7 @@ import { Logo } from '@/components/Layout/Header'
 import AdminMobileNavDrawer from '@/components/Layout/MobileNavDrawer/AdminMobileNavDrawer'
 import { Sidebar } from '@/components/Layout/Sidebar'
 import { adminSidebarMenu } from '@/constants/menu'
+import { isB2COnlyRelease } from '@/lib/b2cReleasePolicy'
 import { getServerSession } from '@/lib/get-server-session'
 
 export default async function AdminLayout({
@@ -17,6 +18,7 @@ export default async function AdminLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  if (isB2COnlyRelease()) redirect(`/${locale}`)
   const session = await getServerSession()
   if (!session || !session.user || session.user.role !== 'admin') {
     redirect(`/${locale}/auth`)

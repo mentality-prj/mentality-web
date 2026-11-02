@@ -1,28 +1,23 @@
-import { FilterValue } from '@/context/moodRecordsFilterContext'
 import { energyKeyToLevel } from '@/mappers/energy.mappers'
 import { focusKeyToLevel } from '@/mappers/focus.mappers'
 import { moodKeyToLevel } from '@/mappers/mood.mappers'
 import { stressLevelToNumber } from '@/mappers/stress.mappers'
-import { mapWeekToNumbers, WeekValueType } from '@/mappers/weekdays.mapper'
+import { mapWeekToNumbers } from '@/mappers/weekdays.mapper'
+import { FilterType } from '@/types/filter'
 import { SortOrder } from '@/types/sort'
 
-export type MapFiltersToApi = {
-  order: SortOrder
-  tags: string[]
-  moodLevel: FilterValue<'moodLevel'>
-  stressLevel: FilterValue<'stressLevel'>
-  energyLevel: FilterValue<'energyLevel'>
-  focusLevel: FilterValue<'focusLevel'>
-  weekdays: WeekValueType[]
-}
+export type MapFiltersToApi = Required<FilterType> & { order: SortOrder }
 
 export function mapFiltersToApi(filters: MapFiltersToApi) {
+  const toLevels = (values: string[], map: (value: string) => number | undefined): number[] =>
+    values.map(map).filter((level): level is number => level !== undefined)
+
   return {
     ...filters,
-    moodLevel: filters.moodLevel ? moodKeyToLevel(filters.moodLevel) : undefined,
-    stressLevel: filters.stressLevel ? stressLevelToNumber(filters.stressLevel) : undefined,
-    energyLevel: filters.energyLevel ? energyKeyToLevel(filters.energyLevel) : undefined,
-    focusLevel: filters.focusLevel ? focusKeyToLevel(filters.focusLevel) : undefined,
-    weekdays: filters.weekdays ? mapWeekToNumbers(filters.weekdays) : undefined,
+    moodLevel: toLevels(filters.moodLevel, moodKeyToLevel),
+    stressLevel: filters.stressLevel.map(stressLevelToNumber),
+    energyLevel: toLevels(filters.energyLevel, energyKeyToLevel),
+    focusLevel: toLevels(filters.focusLevel, focusKeyToLevel),
+    weekdays: mapWeekToNumbers(filters.weekdays),
   }
 }

@@ -15,6 +15,9 @@ export interface IAuthProvider {
   /** Redirect user to the provider's login page */
   login(): Promise<void>
 
+  /** Force fresh Zitadel authentication before any irreversible B2C erasure request. */
+  reauthenticateForErasure(): Promise<void>
+
   /** Handle the OAuth callback — exchange code for tokens, validate with backend */
   handleCallback(code: string, state: string): Promise<{ user: CustomUser; tokens: BrowserAuthSession } | null>
 
@@ -39,6 +42,9 @@ export interface IAuthProvider {
 
   /** Clear stored tokens */
   clearTokens(): Promise<void>
+
+  /** Delete only if the server-authored cookie revision still matches. */
+  clearTokensIfUnchanged(observed: BrowserAuthSession): Promise<boolean>
 
   /** Get the provider's issuer URL (for CSP headers in middleware) */
   getIssuerUrl(): string

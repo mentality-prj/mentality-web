@@ -14,8 +14,17 @@
     "notAuthenticated": "You need to be logged in to archive a note",
     "archiveError": "Failed to archive note",
     "archiveSuccess": "Note archived successfully",
-    "archive": "Archive"
+    "archive": "Archive",
+    "delete": "Delete entry",
+    "deleteConfirm": "Delete this diary entry? This action cannot be undone.",
+    "deleteError": "Unable to delete diary entry",
+    "deleteSuccess": "Diary entry deleted"
   },
   "Empty": "You have no notes yet",
-  "HistoryTitle": "Notes history"
+  "HistoryTitle": "Notes history",
+  "backToMyDay": "Back to My Day",
+  "NoMatchingNotes": "No notes match the selected filters",
+  "historyLoadError": "Unable to load your diary history. Refresh the page and try again.",
+  "exportAction": "Export all diary entries (JSON)",
+  "exportError": "Unable to export diary"
 }
