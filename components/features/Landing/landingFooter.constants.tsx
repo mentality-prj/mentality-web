@@ -11,12 +11,10 @@ export const LANDING_FOOTER_SOCIAL_LINKS = [
   },
 ] as const
 
+/** Resonance motif: faint bell-like rings rising from the bottom centre. */
 const LANDING_FOOTER_GRADIENT_STYLE: CSSProperties = {
   backgroundImage:
-    'linear-gradient(135deg, rgba(106, 94, 255, 0.2) 0%, rgba(106, 94, 255, 0.2) 24%, transparent 24%), linear-gradient(215deg, rgba(31, 210, 192, 0.2) 10%, rgba(31, 210, 192, 0.2) 36%, transparent 36%), linear-gradient(335deg, rgba(255, 103, 128, 0.2) 18%, rgba(255, 103, 128, 0.2) 44%, transparent 44%), linear-gradient(25deg, rgba(255, 111, 216, 0.2) 28%, rgba(255, 111, 216, 0.2) 56%, transparent 56%), linear-gradient(295deg, rgba(126, 255, 150, 0.2) 20%, rgba(126, 255, 150, 0.2) 42%, transparent 42%), linear-gradient(55deg, rgba(94, 216, 255, 0.2) 26%, rgba(94, 216, 255, 0.2) 54%, transparent 54%), linear-gradient(275deg, rgba(255, 166, 249, 0.2) 34%, rgba(255, 166, 249, 0.2) 58%, transparent 58%)',
-  backgroundSize: '160% 160%',
-  backgroundRepeat: 'no-repeat',
-  backgroundPosition: 'calc(50% - 10px) 50%',
+    'radial-gradient(ellipse 70% 120% at 50% 100%, transparent 0%, transparent 45%, #f4f0ff 75%), repeating-radial-gradient(circle at 50% 130%, rgba(107, 88, 217, 0.08) 0 1px, transparent 1px 40px), linear-gradient(180deg, #f8f6ff 0%, #efe9ff 100%)',
 }
 
 export function getLandingFooterLayout(type: LandingFooterType = 'default') {

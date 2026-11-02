@@ -5,6 +5,7 @@ import { Routes } from '@/constants/routes'
 import { routing } from '@/i18n/routing'
 import { AUTH_TOKEN_COOKIE } from '@/lib/auth/constants'
 import { parseStoredAuthTokensCookie } from '@/lib/auth/storedTokens'
+import { getDocsHostRoute } from '@/lib/docsHostRouting'
 import { APIUrl } from '@/requests/config'
 import type { SupportedLanguage } from '@/types/languages'
 
@@ -138,6 +139,21 @@ function applyRequestContextHeaders(response: NextResponse, pathname: string, re
 export async function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl
   const requestId = crypto.randomUUID()
+  const docsHostRoute = getDocsHostRoute(request.nextUrl.hostname, pathname, getPreferredLocale(request))
+  if (docsHostRoute) {
+    if (request.method !== 'GET' && request.method !== 'HEAD') {
+      return applySecurityHeaders(new NextResponse('Method Not Allowed', { status: 405 }))
+    }
+    if (docsHostRoute.action === 'not-found') {
+      return applySecurityHeaders(new NextResponse('Not Found', { status: 404 }))
+    }
+    if (docsHostRoute.action === 'redirect') {
+      const baseUrl = docsHostRoute.mainSite ? 'https://www.dzvin.co' : request.url
+      const destination = new URL(docsHostRoute.destination, baseUrl)
+      destination.search = request.nextUrl.search
+      return applySecurityHeaders(NextResponse.redirect(destination, 307))
+    }
+  }
   const isApiRoute = pathname === '/api' || pathname.startsWith('/api/')
   const isCallbackRoute = pathname === '/callback'
   // Protect mutating endpoints from excessively large request bodies by
@@ -220,6 +236,7 @@ export async function proxy(request: NextRequest) {
     Routes.MAIN,
     Routes.ABOUT,
     Routes.FAQ,
+    Routes.DOCS,
     Routes.CONTACTS,
     Routes.SERVICES,
     Routes.SERVERERROR,
@@ -232,6 +249,7 @@ export async function proxy(request: NextRequest) {
   const locale = localeInUrl || routing.defaultLocale
 
   const normalizedPath = pathname.replace(/^\/(en|uk|pl)(?=\/|$)/, '') || '/'
+  const isPublicDocsPage = normalizedPath === Routes.DOCS || normalizedPath.startsWith(Routes.DOCS + '/')
 
   const protectedRoutes = Object.fromEntries(
     Object.entries(Routes)
@@ -252,7 +270,7 @@ export async function proxy(request: NextRequest) {
   const isSessionRecoveryRoute = normalizedPath === '/refresh-session'
 
   // Check if token is expired
-  if (isAuthenticated && authTokens && !isServerErrorPage && !isSessionRecoveryRoute) {
+  if (isAuthenticated && authTokens && !isServerErrorPage && !isSessionRecoveryRoute && !isPublicDocsPage) {
     const isExpired = authTokens.expiresAt < Math.floor(Date.now() / 1000)
     if (isExpired && normalizedPath === Routes.AUTH) {
       // A different tab may already have rotated its cookie; do not write a

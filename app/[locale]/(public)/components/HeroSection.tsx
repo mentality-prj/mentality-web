@@ -1,95 +1,79 @@
 'use client'
-import { useLayoutEffect, useRef } from 'react'
+
+import { useCallback, useEffect, useRef, useState } from 'react'
+import { ArrowDown, ArrowUpRight } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
-import { Button } from '@/ui/button'
 
-const heroActions = [
-  { key: 'mood', href: Routes.MOODTRACKER },
-  { key: 'diary', href: Routes.DIARY },
-  { key: 'support', href: `${Routes.GUIDE}/breathing` },
-] as const
+import { WaterSurface, type WaterSurfaceHandle } from './water/WaterSurface'
+import { BreathingPreview } from './BreathingPreview'
+import { landingContainer, landingH2, landingPrimaryCta, landingSecondaryCta } from './landingStyles'
+
+const LAGOON = { deep: '#7cc3d2', mid: '#dcf2f5', light: '#ffffff' }
 
 export function HeroSection({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
   const t = useTranslations('pages.Landing')
-
-  const heroRef = useRef<HTMLElement | null>(null)
-
-  useLayoutEffect(() => {
-    const heroEl = heroRef.current
-    const logoEl = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
-    if (!heroEl || !logoEl) return
-    const DECORATIVE_INSET_RATIO = 0.28
-
-    const updateGradientAnchor = () => {
-      const heroRect = heroEl.getBoundingClientRect()
-      const logoRect = logoEl.getBoundingClientRect()
-      const pseudoLeft = heroRect.left - heroRect.width * DECORATIVE_INSET_RATIO
-      const anchorX = logoRect.left + logoRect.width / 2 - pseudoLeft
-      heroEl.style.setProperty('--hero-gradient-x', `${anchorX}px`)
-      const pseudoTop = heroRect.top - heroRect.height * DECORATIVE_INSET_RATIO
-      const anchorY = Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)
-      heroEl.style.setProperty('--hero-gradient-y', `${anchorY}px`)
-      heroEl.dataset.heroRingsReady = 'true'
+  const water = useRef<WaterSurfaceHandle>(null)
+  const layer = useRef<HTMLDivElement>(null)
+  const [source, setSource] = useState({ x: 0.72, y: 0.45 })
+  useEffect(() => {
+    const locate = () => {
+      const area = layer.current?.getBoundingClientRect()
+      const orb = layer.current?.parentElement?.querySelector('[data-breath-orb]')?.getBoundingClientRect()
+      if (!area?.width || !area.height || !orb) return
+      setSource({
+        x: (orb.left + orb.width / 2 - area.left) / area.width,
+        y: (orb.top + orb.height / 2 - area.top) / area.height,
+      })
     }
-
-    updateGradientAnchor()
-    window.addEventListener('resize', updateGradientAnchor)
-
-    const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(updateGradientAnchor) : null
-    observer?.observe(logoEl)
-
-    return () => {
-      window.removeEventListener('resize', updateGradientAnchor)
-      observer?.disconnect()
-    }
+    locate()
+    window.addEventListener('resize', locate)
+    return () => window.removeEventListener('resize', locate)
+  }, [])
+  const onBreath = useCallback((orb: DOMRect) => {
+    const area = layer.current?.getBoundingClientRect()
+    if (!area?.width || !area.height) return
+    water.current?.drop(
+      (orb.left + orb.width / 2 - area.left) / area.width,
+      (orb.top + orb.height / 2 - area.top) / area.height,
+      1
+    )
   }, [])
 
   return (
     <section
-      ref={heroRef}
-      data-hero-rings-ready="false"
-      className="hero-zen mb-8 w-full py-8 tablet:mb-10 tablet:py-10 sm:py-12 md:py-16"
+      id="b2c-experience"
+      aria-labelledby="b2c-experience-heading"
+      className="relative isolate scroll-mt-5 overflow-hidden"
     >
-      <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8">
-        <div className="grid grid-cols-1 items-center gap-default md:grid-cols-2 md:gap-x-md">
-          <div className="flex max-w-[720px] flex-col gap-default md:max-lg:contents">
-            <h1 className="landing-h1 md:max-lg:col-span-2">{t('Hero.title')}</h1>
-            <p className="text-textcolor-secondary">{t('Hero.subtitle')}</p>
-          </div>
-          <div className="flex justify-center tablet:justify-end md:row-span-2 md:max-lg:justify-start">
-            <div className="w-full max-w-[375px] rounded-[14px] bg-white p-4 shadow-sm md:p-8">
-              <h2 className="text-title text-xl">{t('Hero.path.heading')}</h2>
-              <div className="mt-4 border-t border-[var(--outline-secondary)]" />
-              <ol className="mt-4 list-inside list-decimal text-textcolor-secondary">
-                {heroActions.map(({ key, href }) => (
-                  <li key={key} className="mb-2">
-                    {isAuthenticated ? (
-                      <Link
-                        href={href}
-                        className="rounded-sm underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
-                      >
-                        {t(`Hero.path.${key}`)}
-                      </Link>
-                    ) : (
-                      t(`Hero.path.${key}`)
-                    )}
-                  </li>
-                ))}
-              </ol>
-              <p className="mt-4 text-sm text-textcolor-secondary">{t('Hero.path.note')}</p>
-            </div>
-          </div>
-          <div className="mx-auto flex justify-start tablet:mx-0">
-            <Button asChild variant="volume" size="large">
-              <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}>
-                {isAuthenticated ? t('Hero.returnCta') : t('Hero.cta')}
-              </Link>
-            </Button>
+      <div ref={layer} className="pointer-events-none absolute inset-0 -z-10">
+        <WaterSurface ref={water} colors={LAGOON} source={source} every={6} className="h-full w-full" />
+        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(255,255,255,0.6)_0%,rgba(255,255,255,0.15)_50%,rgba(255,255,255,0)_75%)]" />
+      </div>
+      <div
+        className={`${landingContainer} grid grid-cols-1 items-center gap-8 md:min-h-[620px] md:grid-cols-[minmax(0,0.9fr)_minmax(0,1.1fr)] md:gap-12`}
+      >
+        <div className="flex flex-col items-start gap-5">
+          <h2 id="b2c-experience-heading" className={landingH2}>
+            {isAuthenticated ? t('Hero.returnTitle') : t('Hero.title')}
+          </h2>
+          <p className="max-w-xl text-base leading-[1.75] text-[#3f5468] tablet:text-lg">
+            {isAuthenticated ? t('Hero.returnSubtitle') : t('Hero.subtitle')}
+          </p>
+          <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+            <a href="#try-now" className={landingPrimaryCta}>
+              {t('Hero.tryCta')}
+              <ArrowDown aria-hidden size={17} />
+            </a>
+            <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH} className={landingSecondaryCta}>
+              {isAuthenticated ? t('Hero.returnCta') : t('Hero.cta')}
+              <ArrowUpRight aria-hidden size={17} />
+            </Link>
           </div>
         </div>
+        <BreathingPreview isAuthenticated={isAuthenticated} onBreath={onBreath} />
       </div>
     </section>
   )

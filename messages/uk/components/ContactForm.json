@@ -9,5 +9,9 @@
   "error": "Не вдалося надіслати повідомлення",
   "errorValidateForm": "Будь ласка, заповніть форму",
   "errorValidateField": "Це поле є обов’язковим.",
-  "errorValidateFieldEmail": "Некоректна електронна адреса"
+  "errorValidateFieldEmail": "Некоректна електронна адреса",
+  "errorValidateFieldName": "Ім’я має містити щонайменше 2 символи",
+  "errorValidateFieldMessage": "Повідомлення має містити щонайменше 5 символів",
+  "errorCaptcha": "Не вдалося перевірити захист від спаму. Спробуйте ще раз.",
+  "errorUnavailable": "Зараз не вдалося доставити повідомлення. Спробуйте ще раз."
 }

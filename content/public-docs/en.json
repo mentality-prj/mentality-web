@@ -1,0 +1,942 @@
+{
+  "title": "Dzvin.co | Product Strategy & Investment Dossier",
+  "kicker": "Dzvin.co · Project documentation",
+  "lead": "Product strategy, QDIP / Decision Intelligence research, engineering maturity and the programme leading to controlled launch.",
+  "browse": "Document library",
+  "back": "Dzvin.co documentation",
+  "nav": "Documentation sections",
+  "status": "Updated: 25 October 2026",
+  "links": "Further resources",
+  "services": "Services",
+  "faq": "FAQ",
+  "privacy": "Privacy policy",
+  "articles": [
+    {
+      "slug": "funding-brief",
+      "category": "Investment strategy",
+      "title": "Executive Investment Overview",
+      "summary": "Investment rationale, Dzvin.co technology foundations, the QDIP research programme and next-stage deliverables.",
+      "sections": [
+        {
+          "title": "Investment Thesis",
+          "paragraphs": [
+            "Dzvin.co is a people-first digital mental-wellbeing project with personal, prospective enterprise, and research experiences. Its proposed scientific differentiator is applying Decision Intelligence and QDIP research principles to explainable, uncertainty-aware, human-controlled action selection rather than risk scores alone.",
+            "Existing engineering work provides the foundation for the next stage: integration qualification, security, research validation and controlled product deployment."
+          ]
+        },
+        {
+          "title": "Market Entry and Timing",
+          "paragraphs": [
+            "Workplace mental wellbeing has a documented social and economic burden: WHO estimates 12 billion working days lost annually to depression and anxiety, and EU-OSHA reports that 29% of surveyed EU workers experienced work-related stress, depression or anxiety in 2025. These are contextual indicators, not a monetized market estimate.",
+            "The commercial entry hypothesis is a privacy-governed B2B workflow for Polish technology and knowledge-work organizations, with HR/People stakeholders assessing authorized aggregate trends and coordinating accountable follow-up. Market sizing, competitive alternatives and the required validation steps are documented in Market Positioning."
+          ]
+        },
+        {
+          "title": "Value Creation Programme",
+          "paragraphs": [
+            "The programme consists of WP1 — integration and data protection; WP2 — Decision Intelligence research methods and comparative evaluation; WP3 — user feasibility; and WP4 — independent assessment and launch readiness.",
+            "Funding is tied to verifiable outputs from each work package, from product qualification to independent evaluation and launch preparation."
+          ]
+        },
+        {
+          "title": "Existing Technology Base",
+          "paragraphs": [
+            "Public material includes web-interface code, B2C/B2B/R&D feature modules, source-of-truth roadmap and launch gates, and QDIP's public research narrative.",
+            "The evidence register distinguishes implemented software from integrated release qualification and future empirical results."
+          ]
+        },
+        {
+          "title": "Core Research Question",
+          "paragraphs": [
+            "Can a transparent policy that incorporates temporal risk signals, uncertainty and the ability to abstain improve a preregistered decision-level metric over static advice or prediction alone?",
+            "The research design includes baseline comparisons, prespecified indicators, model calibration, safety analysis and human oversight of suggested actions."
+          ]
+        },
+        {
+          "title": "Strategic Rationale",
+          "paragraphs": [
+            "Existing technical groundwork makes controlled experiments and release qualification possible without starting from a blank project, while integration and scientific risks remain material.",
+            "The investment stage advances the product from software foundations to a qualified system with reproducible technical and scientific evidence."
+          ]
+        },
+        {
+          "title": "Partnership Model",
+          "paragraphs": [
+            "Dzvin.co is open to private investment, strategic partnerships and support for distinct development milestones. The form of collaboration is agreed with each partner based on the technology goals and mutual responsibilities.",
+            "Investment discussions address mutual rights, technology diligence, defined results and partnership terms. Research grant applications include the formal work plan and eligible budget required by the particular funding programme."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "investment-thesis",
+      "category": "Investment strategy",
+      "title": "Strategic Investment Rationale",
+      "summary": "Investment case for Dzvin.co: the buyer problem, entry segment, scalable product hypothesis, technology assets and evidence-gated development programme.",
+      "sections": [
+        {
+          "title": "Product Strategy",
+          "paragraphs": [
+            "Dzvin.co combines three related experiences: a private personal wellbeing journey, permissioned team analytics, and a controlled research workspace.",
+            "Our research opportunity is applying Decision Intelligence to transform observations and risk signals into explainable, human-supervised next actions with stated uncertainty and feedback."
+          ]
+        },
+        {
+          "title": "Unmet Need",
+          "paragraphs": [
+            "Standalone check-ins and one-off surveys can fragment observations, context and follow-up. A prediction alone does not tell a user or decision maker which safe action is appropriate.",
+            "Mental-health AI needs explicit attention to uncertain and incomplete data, human agency, privacy, bias and the actual outcome of decisions.",
+            "The WHO estimates that depression and anxiety together cause 12 billion lost working days and US$1 trillion in lost productivity globally each year (Mental health at work, 15 September 2026). This measures the wider burden, not a revenue opportunity or an outcome Dzvin.co has achieved."
+          ]
+        },
+        {
+          "title": "Why Now",
+          "paragraphs": [
+            "The EU-OSHA OSH Pulse 2025 survey found that 29% of EU workers reported stress, depression or anxiety caused or worsened by work within the previous 12 months. Employers have a measurable workforce problem, while individual apps and periodic surveys do not necessarily give responsible teams a repeatable follow-up process.",
+            "Organizations are evaluating digital support amid stronger expectations for privacy, auditability and human control. Dzvin.co's opportunity is to test whether a single consent-aware path from recurring observations to reviewed action is more useful than disconnected point tools—not to claim that the opportunity is already proven."
+          ]
+        },
+        {
+          "title": "Target Segments",
+          "paragraphs": [
+            "Individuals who want to observe their personal trajectory; HR and managers who need authorized aggregate context rather than employee surveillance; researchers studying repeated measures and intervention processes.",
+            "Research applications support cohort-based studies, longitudinal observations and controlled evaluation. The application segments have distinct validation criteria."
+          ]
+        },
+        {
+          "title": "Initial Buyer and Market Entry",
+          "paragraphs": [
+            "The proposed B2B entry segment is Poland-based technology, knowledge-work and distributed teams. Prospective buyers are HR/People and organizational wellbeing leads, with security and data-protection stakeholders participating in approval. This is a customer-discovery priority, not an established paying segment.",
+            "The proposed first commercial unit is an organization-level, permissioned service evaluated through controlled pilots. The personal product has a separate voluntary adoption path; research institutions are potential project partners rather than counted as enterprise subscriptions."
+          ]
+        },
+        {
+          "title": "Technology Assets",
+          "paragraphs": [
+            "The software repositories contain user-facing interfaces, backend risk/decision-support modules, research-workspace components, tests and methodological specifications.",
+            "The codebase forms the starting point for system qualification; external pilot and research outcomes belong to the next programme stage."
+          ]
+        },
+        {
+          "title": "Next-Stage Outcomes",
+          "paragraphs": [
+            "Complete release/security integration, turn research hypotheses into reproducible protocols, enable responsibly recruited pilots, study usefulness and uncertainty, and prepare a controlled product launch.",
+            "Investment may support the full programme or individual milestones; progress is evaluated against the work-package deliverables and documented progression criteria."
+          ]
+        },
+        {
+          "title": "Scalability and Investment Logic",
+          "paragraphs": [
+            "The intended reusable software foundation spans personal check-ins, authorized organizational trends and research-grade evaluation. A common platform could lower incremental deployment effort, but multi-tenant isolation, support cost and repeatable onboarding must pass engineering and pilot acceptance tests.",
+            "The investable milestone is a qualified workflow with observable uptake, governed access, measurable follow-up and a documented willingness to pay. Funding progress should be evaluated by the WP1–WP4 delivery gates and customer validation, not by code completion alone."
+          ]
+        },
+        {
+          "title": "Long-Term Business Model",
+          "paragraphs": [
+            "Hypotheses include future B2B service contracts, funded research partnerships and a separately sustainable personal experience.",
+            "Business-model parameters will be refined through demand analysis, pricing research, implementation costs and scalability assessment."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "scientific-novelty",
+      "category": "Scientific programme",
+      "title": "Scientific Programme: Decision Intelligence in Mental Wellbeing",
+      "summary": "Decision Intelligence research hypotheses, the architectural role of QDIP and the comparative evaluation framework.",
+      "sections": [
+        {
+          "title": "From Prediction to Informed Action",
+          "paragraphs": [
+            "A risk model estimates an outcome. Decision Intelligence asks what action could be appropriate, given evidence, alternatives, constraints, uncertainty and human choice.",
+            "Human oversight and intended-use boundaries remain central to the research design, particularly when information is incomplete or uncertain."
+          ]
+        },
+        {
+          "title": "QDIP Technology Direction",
+          "paragraphs": [
+            "QDIP is a distinct Decision Intelligence technology track exploring hybrid rule/model signals, policy governance, explanation, audit and monitoring.",
+            "Dzvin.co provides the application context for investigating QDIP principles. Integrated system qualification and comparative scientific evaluation remain planned research activities."
+          ]
+        },
+        {
+          "title": "Hypothesis 1 · Longitudinal Dynamics",
+          "paragraphs": [
+            "Personal trajectories and changing baselines may provide richer signals than a one-off score when data are intermittent.",
+            "Evaluation: simple baseline comparison, false alarms, detection delay, missing-data robustness."
+          ]
+        },
+        {
+          "title": "Hypothesis 2 · Uncertainty",
+          "paragraphs": [
+            "The research will examine uncertainty-aware policies that can abstain from making recommendations when observations are sparse or unreliable.",
+            "Evaluation: calibration, selective risk, abstention frequency and robustness on incomplete time series."
+          ]
+        },
+        {
+          "title": "Hypothesis 3 · Explainable Decisions",
+          "paragraphs": [
+            "Explore a transparent path from observations to alternative actions, constraints, an explanation, user choice and feedback.",
+            "Evaluation: rule-only versus ML-only versus hybrid baselines, audit completeness, explanation comprehension and user override."
+          ]
+        },
+        {
+          "title": "Hypothesis 4 · Action Utility",
+          "paragraphs": [
+            "Test whether decision-aware, user-controlled support improves an agreed proximal outcome relative to fixed suggestions.",
+            "The research sequence begins with feasibility work. Randomized or micro-randomized evaluation proceeds only within an approved protocol and appropriate participant protections."
+          ]
+        },
+        {
+          "title": "Scientific Positioning and Novelty",
+          "paragraphs": [
+            "Adaptive interventions, Bayesian approaches and micro-randomized trials have established scientific foundations. The proposed contribution lies in their domain-specific integration with policy governance, transparency and human control.",
+            "Potential contribution lies in the domain-specific, testable combination of policies, uncertainty, explanations, feedback and human control. Novelty remains subject to prior-art assessment and experimental evidence."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "development-progress",
+      "category": "Development readiness",
+      "title": "Development Status and Engineering Readiness",
+      "summary": "Existing engineering assets, integration maturity and technical criteria for controlled deployment.",
+      "sections": [
+        {
+          "title": "Technology Status · 25 October 2026",
+          "paragraphs": [
+            "As of 25 October 2026, Dzvin.co is a software prototype with components supporting personal, organizational and research experiences. Production integration and field evaluation form part of the next programme stage.",
+            "Readiness is assessed through integrated workflows, authorization, security controls and operational reliability."
+          ]
+        },
+        {
+          "title": "Personal Product",
+          "paragraphs": [
+            "The web code includes check-ins, journal, exercises, personal progress, goals and questionnaires. The product roadmap calls for a connected check-in → user-chosen support → feedback → history journey.",
+            "Production readiness still requires fully verified auth, privacy, real API and browser end-to-end flows."
+          ]
+        },
+        {
+          "title": "Organizational Product",
+          "paragraphs": [
+            "Company administration, groups, permissions, analytics and manager decision support have frontend implementations.",
+            "Enterprise release qualification covers tenant isolation, permission boundaries, database migrations and end-to-end testing of authorized operational workflows."
+          ]
+        },
+        {
+          "title": "Research Infrastructure",
+          "paragraphs": [
+            "There are project, membership, cohort, inspection, dataset, export-request and audit UI/API artifacts.",
+            "External study partners, ethics processes, real datasets and qualified research workflows remain pending."
+          ]
+        },
+        {
+          "title": "Decision Intelligence Integration",
+          "paragraphs": [
+            "Research documentation covers adaptive risk, explanation, policy control and scientific evaluation plans. Backend decision-support components exist.",
+            "Scientific advantage and integrated clinical/operational effectiveness have not been established in real settings."
+          ]
+        },
+        {
+          "title": "Engineering Acceptance Criteria",
+          "paragraphs": [
+            "Engineering acceptance covers authorization, privacy, end-to-end reliability, operational readiness and traceable test evidence.",
+            "Completion is recorded against defined acceptance criteria, target environments and reproducible test evidence."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "evidence-register",
+      "category": "Evidence register",
+      "title": "Technology Assets and Evidence Register",
+      "summary": "Source-linked engineering assets, test evidence and outstanding qualification milestones.",
+      "sections": [
+        {
+          "title": "Evidence Maturity Levels",
+          "paragraphs": [
+            "The register distinguishes design documentation, implemented source code, component tests, integrated release checks and empirical evaluation.",
+            "The matrix below references public engineering and methodological sources. It does not certify all features as safely activated for every account."
+          ]
+        },
+        {
+          "title": "Personal Workstream",
+          "paragraphs": [
+            "The web repository contains personal check-in, history, exercise and self-support components and related roadmap tasks.",
+            "Status: software components implemented; authentication, service integration and end-to-end qualification remain distinct acceptance criteria."
+          ]
+        },
+        {
+          "title": "Organizational Workstream",
+          "paragraphs": [
+            "There are company routes, roles, team analytics and manager decision-support code, but secure multi-tenant access and data migration remain launch gates.",
+            "Status: organizational components implemented; tenant isolation, authorization and secure end-to-end scenarios remain subject to qualification."
+          ]
+        },
+        {
+          "title": "Research Workstream",
+          "paragraphs": [
+            "Research Workspace covers projects, cohorts, inspection, datasets, export requests and audit; formal methodology work is documented.",
+            "Status: software/research baseline, not external validation or completed ethics-reviewed trial."
+          ]
+        },
+        {
+          "title": "QDIP / Decision Intelligence",
+          "paragraphs": [
+            "The public QDIP research narrative describes hybrid rules/models, policy governance, explanations, risk signals and evaluation.",
+            "Status: conceptual and engineering foundations; a statistically demonstrated advantage within Dzvin is pending."
+          ]
+        },
+        {
+          "title": "Evidence Governance",
+          "paragraphs": [
+            "An upgrade to 'validated' requires date, artifact/commit, environment, explicit test or study protocol, and accountable sign-off.",
+            "Evidence status advances following verification of the relevant environment and acceptance criteria."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "funding-roadmap",
+      "category": "Development programme",
+      "title": "Dzvin.co Development Roadmap",
+      "summary": "Ordered technology, research and operational phases with defined milestones and deliverables.",
+      "sections": [
+        {
+          "title": "Phase 1 · Integration Readiness",
+          "paragraphs": [
+            "Qualify frontend, NestJS, QDIP boundaries, identity, tenant isolation and rollback.",
+            "Exit: reproducible builds, authorized real API flows, security negatives and QA integration evidence."
+          ]
+        },
+        {
+          "title": "Phase 2 · Research Methodology",
+          "paragraphs": [
+            "Define hypotheses, prediction baselines, abstention criteria, harm safeguards, metrics, consent and data protocol.",
+            "Exit: registered evaluation protocol, reproducible synthetic baseline comparisons, risk and ethical review."
+          ]
+        },
+        {
+          "title": "Phase 3 · Feasibility Evaluation",
+          "paragraphs": [
+            "Recruit appropriately consented participants/partners and evaluate usability, acceptability and data quality in a bounded study.",
+            "Exit: feasible workflow and transparent findings; any required ethics approval obtained before real participant research."
+          ]
+        },
+        {
+          "title": "Phase 4 · Decision Intelligence Evaluation",
+          "paragraphs": [
+            "Compare policy approaches using suitable data and preregistered metrics for calibration, harms, explanation and decision usefulness.",
+            "Exit: auditable report including confidence intervals, limitations and negative findings."
+          ]
+        },
+        {
+          "title": "Phase 5 · Controlled Launch",
+          "paragraphs": [
+            "Prepare production monitoring, support, data policy, deployment gates and a sustainable operating model.",
+            "Exit: go/no-go review, production E2E and credible operating plan. Dates depend on budget and partnership commitments."
+          ]
+        },
+        {
+          "title": "Planning Framework",
+          "paragraphs": [
+            "The roadmap defines ordered, dependent milestones. Timelines, team capacity and resource requirements are determined in the approved delivery plan.",
+            "Only mark a phase done when its explicit acceptance evidence is available."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "execution-plan",
+      "category": "Development programme",
+      "title": "Implementation Programme WP1–WP4",
+      "summary": "Four work packages covering integration, DI research, user feasibility and launch qualification.",
+      "sections": [
+        {
+          "title": "WP1 · Integration and Data Protection",
+          "paragraphs": [
+            "Complete Web ↔ NestJS ↔ QDIP contracts, identity, company isolation, permissions, real end-to-end tests and rollback.",
+            "Exit: repeatable CI and QA E2E, negative security cases, approved go/no-go and a controlled deployment record."
+          ]
+        },
+        {
+          "title": "WP2 · Decision Intelligence Research",
+          "paragraphs": [
+            "Formalize decision policies and baselines, calibration and abstention, missingness tests, rule/model/hybrid comparisons and the statistical plan.",
+            "Exit: preregistered research protocol, reproducible synthetic benchmarks and an uncertainty/bias report, including failed hypotheses."
+          ]
+        },
+        {
+          "title": "WP3 · User Validation",
+          "paragraphs": [
+            "Develop an appropriate feasibility protocol, consent and data-minimization measures, population criteria and research partnerships as part of the work package.",
+            "Exit: approved ethics/legal framework, responsibly gathered data, qualitative UX findings and non-inflated outcome reporting."
+          ]
+        },
+        {
+          "title": "WP4 · Evaluation and Launch",
+          "paragraphs": [
+            "If suitable data are available, evaluate decision usefulness and human control; prepare independent review, monitoring, support and the sustainability model.",
+            "Exit: auditable results, documented go/no-go, operational checklist, refreshed risk and financial register."
+          ]
+        },
+        {
+          "title": "Dependencies and Milestones",
+          "paragraphs": [
+            "WP1 is a release prerequisite; WP2 can run in parallel using synthetic data. WP3 cannot collect real data before required safety/ethics conditions; WP4 requires appropriate evidence quality.",
+            "Unmet acceptance criteria trigger a documented review of scope, schedule, resources and the associated investment milestones."
+          ]
+        },
+        {
+          "title": "Resource Governance and Reporting",
+          "paragraphs": [
+            "Budget buckets: engineering, Decision Science/ML, privacy/security/ethics, UX and participants, infrastructure and operations.",
+            "Resources are planned by work package in line with technical requirements, available capacity and partner commitments. Accountable owners and acceptance deliverables remain explicit regardless of the funding arrangement."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "validation-plan",
+      "category": "Scientific validation",
+      "title": "Technology and Scientific Validation Programme",
+      "summary": "Methods for assessing system security, engineering quality, research hypotheses and user feasibility.",
+      "sections": [
+        {
+          "title": "Engineering Verification",
+          "paragraphs": [
+            "Verify authentication, tenant boundaries, real interfaces, resilience and operational rollback.",
+            "Artifacts: reproducible CI, runtime E2E, negative security cases and traceable logs."
+          ]
+        },
+        {
+          "title": "Ethics and Data Governance",
+          "paragraphs": [
+            "Begin with synthetic scenarios. For real data, establish consent, minimization, access boundaries and appropriate research approval.",
+            "Evaluate reidentification risk, bias and harmful overconfidence; aggregation alone is not anonymity."
+          ]
+        },
+        {
+          "title": "Comparative Research",
+          "paragraphs": [
+            "Compare simple or static rule-based approaches with hybrid policies and explicit uncertainty.",
+            "Predefine calibration, Brier score, missing-data stability, selective risk, alerts, detection delay and decision utility where applicable."
+          ]
+        },
+        {
+          "title": "User Validation",
+          "paragraphs": [
+            "Study completion of the daily journey, comprehension of explanations, user autonomy and acceptability.",
+            "Product studies will establish the evidence required to assess user value, workflow reliability and further development options."
+          ]
+        },
+        {
+          "title": "Research Reproducibility",
+          "paragraphs": [
+            "Maintain protocols, reproducibility, model configurations, negative results and independent review.",
+            "Applicable reporting standards, including TRIPOD+AI for prediction models, support transparency alongside separate ethics and governance approvals."
+          ]
+        },
+        {
+          "title": "Programme Progression Criteria",
+          "paragraphs": [
+            "Progress when engineering safety, data quality and pre-agreed decision value criteria are met. Stop or revise when access control fails, uncertainty is unsafe or no useful evidence emerges.",
+            "Results outside agreed thresholds trigger a documented review of the underlying hypothesis, model or programme scope."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "funding-request",
+      "category": "Investment partnership",
+      "title": "Dzvin.co Investment Opportunity",
+      "summary": "Technology opportunity, investment rationale, programme deliverables and partnership structure.",
+      "sections": [
+        {
+          "title": "Technology Opportunity",
+          "paragraphs": [
+            "Dzvin.co brings together personal wellbeing support, planned organization-level insights and a research workspace. The QDIP / Decision Intelligence direction explores explainable next-action selection with context, explicit uncertainty and human control.",
+            "The opportunity builds on existing engineering assets and their potential to become a validated product across distinct use cases. Technical and scientific advantages remain to be tested."
+          ]
+        },
+        {
+          "title": "Investment Rationale",
+          "paragraphs": [
+            "The next stage prioritizes secure integration, user validation and a reproducible evaluation of research hypotheses. The investment programme links resources to tangible milestone deliverables.",
+            "Possible future avenues include organizational subscriptions, a personal wellbeing product and research collaborations. Their commercial viability will be evaluated, not assumed."
+          ]
+        },
+        {
+          "title": "Next-Stage Outcomes",
+          "paragraphs": [
+            "A qualified integrated product with verified roles, tenant boundaries, real end-to-end flows and operational safeguards; formal Decision Intelligence research protocols; controlled assessment of user workflows.",
+            "Expected outputs include qualified technical components, reproducible tests, security findings, research reports and a documented progression decision."
+          ]
+        },
+        {
+          "title": "Execution Programme",
+          "paragraphs": [
+            "WP1: product integration and security. WP2: QDIP / DI research baselines, comparative protocols and metrics. WP3: human-centered usability and feasibility research under appropriate ethics controls. WP4: independent analysis and controlled launch preparation.",
+            "Each work package has acceptance criteria and go/no-go gates. Dependencies and evidence are documented in the execution plan and evidence register."
+          ]
+        },
+        {
+          "title": "Sustainability Model",
+          "paragraphs": [
+            "Following product and market validation, options to evaluate include enterprise licensing, funded research collaborations and further development of the personal experience.",
+            "Commercial planning will rely on evidence from future studies, willingness-to-pay research, operating costs, product quality and long-term support requirements."
+          ]
+        },
+        {
+          "title": "Investment and Research Partnerships",
+          "paragraphs": [
+            "Potential arrangements include private investment, strategic collaboration and support for individual product or research milestones, with clear deliverables and accountability. Grant applications follow the eligibility, methodology and reporting conditions of their respective programmes.",
+            "The scope of participation, transaction structure and collaboration terms are agreed individually. Investor and research presentations, the roadmap and the evidence register are available for substantive review."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "product-story",
+      "category": "Product strategy",
+      "title": "Dzvin.co Product Concept",
+      "summary": "A connected product strategy spanning personal wellbeing, organizations and research.",
+      "sections": [
+        {
+          "title": "Product strategy",
+          "paragraphs": [
+            "Dzvin.co is being developed as a platform connecting wellbeing observations with context and follow-up processes across personal, organizational and research workstreams.",
+            "The common principle is to move from an isolated signal to an explainable, human-controlled option and its subsequent evaluation."
+          ]
+        },
+        {
+          "title": "Organizational application",
+          "paragraphs": [
+            "The target design provides authorized group-level trends and a structured process for responsible staff to review signals.",
+            "Permissions, privacy safeguards, enterprise readiness and operational value remain subject to dedicated validation."
+          ]
+        },
+        {
+          "title": "Research connection",
+          "paragraphs": [
+            "The research programme examines how policy rules, model signals, uncertainty and explanations can improve informed action selection.",
+            "QDIP is considered a technology direction for evaluating this hypothesis within mental wellbeing."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "solutions",
+      "category": "Target segments",
+      "title": "Target Segments and Applications",
+      "summary": "Proposed applications for individuals, organizations and scientific research programmes.",
+      "sections": [
+        {
+          "title": "Personal segment",
+          "paragraphs": [
+            "The personal workstream combines repeated self-reports, longitudinal history, goals and optional practices.",
+            "Its intended purpose is structured reflection and self-directed action, not automated clinical assessment."
+          ]
+        },
+        {
+          "title": "Organizational segment",
+          "paragraphs": [
+            "The target experience includes organizational roles, group indicators and a controlled team-support process.",
+            "Development priorities cover permissions, data quality, user feasibility and prospective commercial requirements."
+          ]
+        },
+        {
+          "title": "Research segment",
+          "paragraphs": [
+            "Research Workspace is designed around projects, participants, cohorts, repeated measurements, controlled data access and audit.",
+            "The potential value is a reproducible environment for comparing decision policies and analytical models."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "capability-map",
+      "category": "Product architecture",
+      "title": "Product Capability Architecture",
+      "summary": "Functional capabilities across three workstreams and the criteria for system qualification.",
+      "sections": [
+        {
+          "title": "Personal capabilities",
+          "paragraphs": [
+            "Software components cover check-ins, notes, questionnaires, practices, goals and history.",
+            "Connected end-to-end journeys and integration stability remain part of release qualification."
+          ]
+        },
+        {
+          "title": "Organizational capabilities",
+          "paragraphs": [
+            "The prototype contains routes and components for companies, groups, permissions, trends and event review.",
+            "Verified authorization, tenant isolation and operational safeguards are required before organizational deployment."
+          ]
+        },
+        {
+          "title": "Research capabilities",
+          "paragraphs": [
+            "Research components address projects, cohorts, inspection, export requests and audit trails.",
+            "Research use requires approved protocols, data-quality governance and applicable ethical review."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "demo-scenarios",
+      "category": "User journeys",
+      "title": "Core User Journeys",
+      "summary": "Target end-to-end product workflows and their technical demonstration and validation criteria.",
+      "sections": [
+        {
+          "title": "Personal user journey",
+          "paragraphs": [
+            "Target sequence: check-in → history → optional practice → subsequent observation.",
+            "Qualification examines consistent data flow, permissions and user interaction across the full journey."
+          ]
+        },
+        {
+          "title": "Organizational journey",
+          "paragraphs": [
+            "Target sequence: authorized group → time-series trend → event review → documented follow-up action.",
+            "Validation covers role boundaries, organization isolation, data availability and traceable actions."
+          ]
+        },
+        {
+          "title": "Research journey",
+          "paragraphs": [
+            "Target sequence: research project → cohort → data history → inspection → controlled export → audit.",
+            "Technical demonstrations use test data; participant research requires separate protocols and approvals."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "economics",
+      "category": "Commercialization",
+      "title": "Commercialization and Economic Model",
+      "summary": "Potential business models, economic evaluation indicators and planned market discovery.",
+      "sections": [
+        {
+          "title": "Commercialization avenues",
+          "paragraphs": [
+            "The future model may include contracted enterprise services, a personal experience and research partnerships.",
+            "Next-stage priorities are segment-value discovery and the economics of operating the product, rather than unsupported revenue forecasts."
+          ]
+        },
+        {
+          "title": "Economic evaluation framework",
+          "paragraphs": [
+            "Enterprise research will examine implementation effort, usage, event-handling processes and operational cost drivers.",
+            "Personal and research segments require separate assessments of feasibility, engagement, servicing cost and data governance."
+          ]
+        },
+        {
+          "title": "Financial-model development",
+          "paragraphs": [
+            "Commercial assumptions will be refined through stakeholder interviews, integration studies and appropriately structured pilots.",
+            "The model will account for acquisition, support and infrastructure costs, possible pricing options and deployment scenarios."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "comparison",
+      "category": "Market positioning",
+      "title": "Market Positioning",
+      "summary": "Evidence-led market context, TAM/SAM/SOM methodology, target buyers, named competitive alternatives and an explicit differentiation test.",
+      "sections": [
+        {
+          "title": "Market Need and Evidence",
+          "paragraphs": [
+            "WHO reports an estimated 12 billion lost working days and US$1 trillion in global annual productivity losses associated with depression and anxiety (2026). EU-OSHA reports that 29% of EU workers surveyed in 2025 experienced work-caused or work-worsened stress, depression or anxiety in the preceding year. These figures establish context, not Dzvin.co revenue, effectiveness or purchase intent.",
+            "Eurostat reported 197.7 million employed EU residents aged 20–64 in 2025. This is a macro workforce reference only: it includes people outside our proposed buyers, and must not be presented as the number of paying seats."
+          ]
+        },
+        {
+          "title": "Commercial Beachhead",
+          "paragraphs": [
+            "The initial market-discovery focus is organizations in Poland with knowledge-intensive, technology and distributed teams, where repeat check-ins, accountable follow-up and strong separation of individual and management access can be assessed in a pilot.",
+            "A potential budget sponsor is an HR/People, wellbeing or occupational health function. Employee participation, consent, procurement, local privacy requirements and implementation costs determine practical eligibility. Expansion into other EU markets or sectors follows evidence rather than an assumed universal sales motion."
+          ]
+        },
+        {
+          "title": "TAM, SAM and SOM: Sizing Method",
+          "paragraphs": [
+            "TAM is the theoretical annual spending for the defined buyer and service category, not all EU mental-health expenditure. Calculate it from eligible employers, reachable employee seats and evidence-supported annual contract value. The Eurostat 197.7 million workforce figure is only an upper-context denominator, not a monetized TAM.",
+            "SAM narrows that opportunity to organizations Dzvin.co could legally, technically and commercially serve in an initial geography and segment, after filters for company size, procurement, privacy and integration readiness. Separate B2C and research-partner models must not be added to B2B seat counts without removing overlap.",
+            "SOM must be built bottom-up from the attainable prospect pipeline, pilot-to-contract conversion, contract sizes, annual value and delivery capacity over a specified horizon. Those inputs need customer interviews, procurement evidence and pilot outcomes before defensible currency figures can be published."
+          ]
+        },
+        {
+          "title": "Competitive Alternatives",
+          "paragraphs": [
+            "Headspace offers mindfulness, AI-enabled guidance and employer mental-health services; Unmind combines workplace content, coaching, AI support and organizational insights; Wysa offers an AI-led employee support experience and organizational reporting. These are relevant alternatives for buyers allocating workplace wellbeing budgets, not generic survey tools.",
+            "Dzvin.co's proposed research-led distinction is a traceable path from repeated observations through uncertainty-aware, human-reviewed decisions to subsequent evaluation, supported by a separate research workspace. This is a product hypothesis; no superiority in outcomes, clinical effect, price or coverage is claimed."
+          ]
+        },
+        {
+          "title": "Comparative Diligence Criteria",
+          "paragraphs": [
+            "Assess the same buyer workflows across providers: eligible population, longitudinal signals, consent and role boundaries, escalation or action review, uncertainty handling, audit trail, research reproducibility, rollout cost and actual end-user participation.",
+            "Use dated primary product documentation and a reproducible test protocol. The next stage should turn the comparison from architectural positioning into matched demonstrations, customer interviews and independently interpretable evidence."
+          ]
+        },
+        {
+          "title": "Primary Sources (reviewed 25 October 2026)",
+          "paragraphs": [
+            "WHO, Mental health at work (15 September 2026): https://www.who.int/news-room/fact-sheets/detail/mental-health-at-work ; Eurostat, EU employment in 2025 (17 April 2026): https://ec.europa.eu/eurostat/en/web/products-eurostat-news/w/ddn-20260417-1 ; EU-OSHA, OSH Pulse 2025 summary (10 October 2025): https://osha.europa.eu/en/highlights/world-mental-health-day-29-eu-workers-suffer-stress-depression-or-anxiety",
+            "Official product references: Headspace https://organizations.headspace.com/headspace ; Unmind https://unmind.com/unmind-full-platform ; Wysa https://www.wysa.com/for-employers . Product descriptions may change and require revalidation before comparative claims are used in fundraising."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "presentation-kit",
+      "category": "Presentation materials",
+      "title": "Presentation Library",
+      "summary": "Investor and research-funding presentations, plus three audience-specific product decks.",
+      "sections": [
+        {
+          "title": "Investment materials",
+          "paragraphs": [
+            "The investor presentation covers strategic rationale, technical foundations, development progress, milestones and partnership structure.",
+            "It supports early funding discussions and technology due diligence."
+          ]
+        },
+        {
+          "title": "Research funding materials",
+          "paragraphs": [
+            "The grant presentation outlines DI hypotheses, the QDIP research direction, expected deliverables and the validation programme.",
+            "Research claims are distinguished from implemented components and pending empirical outcomes."
+          ]
+        },
+        {
+          "title": "Product presentations",
+          "paragraphs": [
+            "Personal, organizational and research decks outline target capabilities and the planned approach to validating them.",
+            "Presentations can be viewed online or saved as PDF through browser print functionality."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "po-guide",
+      "category": "Research programme",
+      "title": "Pilot Validation Strategy",
+      "summary": "Proposed pilot protocol, quality indicators and decision criteria for subsequent development.",
+      "sections": [
+        {
+          "title": "Pilot programme objectives",
+          "paragraphs": [
+            "The pilot programme is designed to evaluate key journeys, data quality, operational security and initial usefulness hypotheses.",
+            "Participant selection, permissions, inclusion criteria and methods are defined before real-data collection."
+          ]
+        },
+        {
+          "title": "Evaluation methodology",
+          "paragraphs": [
+            "Candidate metrics cover journey completion, repeat use, data quality, permitted-signal review time and explanation comprehension.",
+            "The QDIP research stream uses separate protocols for calibration, false alerts and decision-level utility."
+          ]
+        },
+        {
+          "title": "Progression decision",
+          "paragraphs": [
+            "Observed results are evaluated against preregistered acceptance criteria, risk thresholds and implementation costs.",
+            "The programme decision may support expansion, targeted remediation or revision of the associated hypothesis."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "getting-started",
+      "category": "Personal product",
+      "title": "Personal Product Overview",
+      "summary": "Purpose, intended use and target interaction model of the personal wellbeing experience.",
+      "sections": [
+        {
+          "title": "Product purpose",
+          "paragraphs": [
+            "The personal workstream is designed to support repeated observations of stress, mood, energy and focus.",
+            "The proposed journey connects check-ins, personal history and optional wellbeing activities."
+          ]
+        },
+        {
+          "title": "Target user journey",
+          "paragraphs": [
+            "The intended sequence comprises identity verification, a brief self-report, longitudinal history and an optional next action.",
+            "Integrated authentication and real-data workflows remain subject to release qualification."
+          ]
+        },
+        {
+          "title": "Interpreting observations",
+          "paragraphs": [
+            "A single observation reflects a subjective state at a given moment; longitudinal review may provide additional context.",
+            "Self-reports are not equivalent to clinical assessment and cannot establish causation."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "personal",
+      "category": "Personal product",
+      "title": "Personal Workstream",
+      "summary": "Check-ins, observation history, questionnaires, goals and voluntary wellbeing practices.",
+      "sections": [
+        {
+          "title": "Self-observation model",
+          "paragraphs": [
+            "The prototype includes four core indicators: stress, mood, energy and focus.",
+            "Repeated entries provide a personal timeline, with interpretation dependent on context and data quality."
+          ]
+        },
+        {
+          "title": "Activities and goals",
+          "paragraphs": [
+            "The target experience includes voluntary practices, personal goals and the ability to revisit observations.",
+            "User acceptability and appropriateness of suggested actions will be assessed in the validation programme."
+          ]
+        },
+        {
+          "title": "Questionnaires",
+          "paragraphs": [
+            "Structured questionnaires are considered supporting instruments for repeated observations.",
+            "Their intended use and interpretation are governed by the relevant methodology rather than automated diagnosis."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "organizations",
+      "category": "Organizational product",
+      "title": "Organizational Workstream",
+      "summary": "Authorized group analytics, role-scoped access and team decision-support processes.",
+      "sections": [
+        {
+          "title": "Organizational purpose",
+          "paragraphs": [
+            "The organizational workstream is being developed around permissioned team-level trends and managed response processes.",
+            "Proposed capabilities cover group views, role-scoped access and structured decision support."
+          ]
+        },
+        {
+          "title": "Management oversight",
+          "paragraphs": [
+            "Group indicators are intended to support contextual review and prioritization of wellbeing initiatives.",
+            "Employment and other sensitive decisions remain with authorized people; the system is not intended for automated judgments based on a single score."
+          ]
+        },
+        {
+          "title": "Data protection",
+          "paragraphs": [
+            "The model emphasizes data minimization, access segmentation and assessment of small-group reidentification risks.",
+            "Operational use will depend on legal basis, organizational policies and successful security qualification."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "research",
+      "category": "Research infrastructure",
+      "title": "Research Workstream",
+      "summary": "Projects, cohorts, repeated measures, methodology, controlled data access and audit.",
+      "sections": [
+        {
+          "title": "Research scope",
+          "paragraphs": [
+            "Research Workspace is designed around projects, cohorts, repeated measures, controlled exports and audit.",
+            "Scientific use requires a defined protocol, appropriately scoped permissions and traceable workflows."
+          ]
+        },
+        {
+          "title": "Evidence quality",
+          "paragraphs": [
+            "Evaluation protocols cover population, metrics, temporal availability, missing values and prespecified hypotheses.",
+            "Research reporting distinguishes predictive performance, association and causal inference."
+          ]
+        },
+        {
+          "title": "Research governance",
+          "paragraphs": [
+            "Data access is governed by legitimate research purpose, permissions and applicable ethics review.",
+            "Reproducibility and operational auditability are independent research acceptance criteria."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "privacy",
+      "category": "Data governance",
+      "title": "Data Governance and Privacy",
+      "summary": "Architecture principles for privacy, access segregation and personal-data protection.",
+      "sections": [
+        {
+          "title": "Data handling principles",
+          "paragraphs": [
+            "The product concept includes account data, voluntary self-reports and interaction records processed for specified purposes.",
+            "Processing grounds, data categories and data-subject rights are described in the current Privacy Policy."
+          ]
+        },
+        {
+          "title": "Organizational access boundaries",
+          "paragraphs": [
+            "Role-based and organization-scoped access is part of the intended architecture.",
+            "Tenant isolation, small-group privacy and access auditing remain mandatory qualification criteria."
+          ]
+        },
+        {
+          "title": "Individual rights",
+          "paragraphs": [
+            "Requests concerning access, rectification or deletion are managed through Dzvin.co's official contact channels.",
+            "Specific obligations are defined by applicable law and the governing privacy documents."
+          ]
+        }
+      ]
+    },
+    {
+      "slug": "limitations",
+      "category": "Scope and safety",
+      "title": "Scope, Limitations and Safety",
+      "summary": "Intended use, interpretation limits and the conditions for responsible deployment.",
+      "sections": [
+        {
+          "title": "Interpretation boundaries",
+          "paragraphs": [
+            "Self-reports and derived signals depend on the completeness, frequency and context of observations.",
+            "A prediction or aggregated trend does not itself establish a causal effect."
+          ]
+        },
+        {
+          "title": "Clinical scope",
+          "paragraphs": [
+            "Dzvin.co is being developed for wellbeing support and research, not emergency care or automated diagnosis.",
+            "Any future clinical use would require separate intended-use, regulatory and evidence assessments."
+          ]
+        },
+        {
+          "title": "Release availability",
+          "paragraphs": [
+            "Workstreams have distinct permissions, data configurations and deployment stages.",
+            "Availability is determined by the completion of integration, security and operational acceptance gates."
+          ]
+        }
+      ]
+    }
+  ],
+  "referenceTitle": "Product reference and governance",
+  "featuredCta": "Investor presentation",
+  "featuredNote": "Current maturity and release criteria are documented in the evidence register and development roadmap.",
+  "fundingHeadline": "Dzvin.co: Decision Support Technology for Mental Wellbeing",
+  "fundingIntro": "An emerging platform connecting personal experiences, organizational capabilities and a Decision Intelligence research programme informed by QDIP.",
+  "stageLabel": "PRODUCT STAGE · DEVELOPMENT & INTEGRATION",
+  "stageDescription": "Software foundations exist across personal, organizational and research workstreams. The next gates cover integration, security, research evaluation and controlled launch readiness. External customer pilots and outcome studies have not yet been completed.",
+  "fundingCta": "Investment partnership",
+  "fundingSecondaryCta": "Investor presentation",
+  "fundingLibrary": "Strategy, technology and development programme",
+  "productLibrary": "Product concept and use cases",
+  "evidenceLabel": "Supporting evidence and readiness",
+  "fundingNote": "Engineering evidence, research hypotheses and planned studies are presented at distinct maturity levels."
+}

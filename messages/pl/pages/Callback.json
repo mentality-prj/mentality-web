@@ -4,5 +4,7 @@
   "authError": "Błąd uwierzytelniania",
   "missingParams": "Brak parametru code lub state",
   "unknownError": "Uwierzytelnianie nie powiodło się — nieznany błąd",
-  "backToSignIn": "Powrót do logowania"
+  "backToSignIn": "Powrót do logowania",
+  "sessionUnavailable": "Serwis chwilowo nie może zweryfikować sesji. Spróbuj ponownie bez ponownego logowania.",
+  "retrySession": "Ponów weryfikację sesji"
 }

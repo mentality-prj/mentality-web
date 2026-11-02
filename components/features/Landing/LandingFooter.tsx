@@ -8,6 +8,7 @@ import { getLandingFooterLayout, LANDING_FOOTER_SOCIAL_LINKS } from './landingFo
 
 export async function LandingFooter({ type, className }: { type?: 'small' | 'default'; className?: string }) {
   const t = await getTranslations('pages.Landing')
+  const tNav = await getTranslations('components.Navbar')
 
   const { paddingY, marginTop, background } = getLandingFooterLayout(type)
 
@@ -21,6 +22,7 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
           <FooterSocialMedia links={LANDING_FOOTER_SOCIAL_LINKS} />
           <div className="flex flex-col items-center gap-sm text-center">
             <FooterLinks
+              docsLabel={tNav('docs')}
               privacyLabel={t('Footer.privacy')}
               termsLabel={t('Footer.terms')}
               cookiesLabel={t('Footer.cookies')}
@@ -31,7 +33,7 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
           </div>
           <Link
             href="#"
-            className="shadow-light inline-flex items-center justify-center gap-xs rounded-full border border-[var(--outline-secondary)] px-6 py-2 text-sm font-semibold uppercase tracking-[0.1em] text-[var(--text-muted)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+            className="shadow-light inline-flex items-center justify-center gap-xs rounded-full border border-[var(--outline-secondary)] px-6 py-2 text-sm font-semibold text-[var(--text-muted)] transition-colors hover:border-[var(--primary)] hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
           >
             {t('Footer.backToTop')}
             <ArrowUp className="h-4 w-4" />

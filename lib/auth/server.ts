@@ -156,7 +156,7 @@ async function resolveServerSession(
   if (!tokens?.accessToken) return null
 
   const controller = new AbortController()
-  const timeoutId = setTimeout(() => controller.abort(), 5_000)
+  const timeoutId = setTimeout(() => controller.abort(), 8_000)
   try {
     const validate = (companyId: string | null) =>
       fetch(`${APIUrl}/auth/validate-token`, {
@@ -179,14 +179,16 @@ async function resolveServerSession(
 
     if (!response.ok) {
       logger.warn('[SERVER_SESSION] Backend validation failed', { status: response.status })
-      if (response.status === 429 || response.status >= 500) {
+      // Only an explicit authorization denial proves the session is invalid.
+      // A temporarily unavailable backend must not cause a logout.
+      if (response.status !== 401 && response.status !== 403) {
         throw new Error('Temporary session validation failure')
       }
       return null
     }
 
     const backendUser: UserAI = await response.json()
-    if (!backendUser?._id) return null
+    if (!backendUser?._id) throw new Error('Invalid session validation response')
 
     const user: CustomUser = {
       id: backendUser._id,
