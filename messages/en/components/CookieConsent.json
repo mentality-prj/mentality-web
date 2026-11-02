@@ -18,5 +18,6 @@
       "name": "Preferences",
       "description": "Stores language and other UI preferences"
     }
-  }
+  },
+  "reject": "Reject"
 }
