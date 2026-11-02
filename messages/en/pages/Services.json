@@ -123,8 +123,8 @@
       "managerTitle": "What is planned for companies",
       "capabilities": {
         "governance": {
-          "title": "Org structure, roles and accountability zones",
-          "description": "The platform brings teams, roles, groups and access scopes into one managed layer so managers can see the right slice of the organization without permission chaos, manual reporting merges or endless clarification loops."
+          "title": "Org structure, roles and access — in development",
+          "description": "We plan to bring teams, roles, groups and access scopes into one layer so a manager sees only the permitted slice of the organization. The access model is still undergoing security review and will be qualified in pilots."
         },
         "analytics": {
           "title": "Team indicators from available observations",

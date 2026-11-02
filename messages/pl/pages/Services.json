@@ -123,8 +123,8 @@
       "managerTitle": "Co planujemy dla firm",
       "capabilities": {
         "governance": {
-          "title": "Struktura organizacji, role i odpowiedzialności",
-          "description": "Platforma porządkuje zespoły, role, grupy i poziomy dostępu w jednej warstwie zarządczej, dzięki czemu menedżer widzi właściwy wycinek organizacji bez chaosu uprawnień, ręcznego scalania danych i niekończących się uzgodnień."
+          "title": "Struktura organizacji, role i dostęp — w przygotowaniu",
+          "description": "Planujemy połączyć zespoły, role, grupy i poziomy dostępu w jednej warstwie, aby menedżer widział tylko dozwolony wycinek organizacji. Model dostępu przechodzi jeszcze przegląd bezpieczeństwa i zostanie zweryfikowany w pilotażach."
         },
         "analytics": {
           "title": "Wskaźniki zespołu oparte na dostępnych obserwacjach",

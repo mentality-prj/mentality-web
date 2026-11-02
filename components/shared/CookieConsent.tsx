@@ -2,6 +2,8 @@
 import React, { useEffect, useState } from 'react'
 import { useTranslations } from 'next-intl'
 
+import { Routes } from '@/constants/routes'
+import { Link } from '@/i18n/navigation'
 import { logger } from '@/lib/logger'
 import { Button } from '@/ui/button'
 
@@ -43,34 +45,36 @@ export default function CookieConsent() {
   if (!visible) return null
 
   return (
-    <div className="fixed inset-x-0 bottom-0 z-50 w-full border p-4 shadow-lg backdrop-blur-sm md:p-6">
-      <div className="container-max-width mx-auto flex justify-center">
-        <div className="flex flex-col gap-xs md:flex-row md:items-start md:justify-between">
-          <div>
-            <h3 className="text-lg font-semibold">{t('title')}</h3>
-            <p className="mt-1 text-sm" style={{ color: 'hsl(var(--text-secondary))' }}>
-              {t('description')}
-            </p>
-            <ul className="mt-2 space-y-1 text-sm" style={{ color: 'hsl(var(--text-secondary))' }}>
-              <li className="flex gap-xs">
-                <strong className="min-w-[8rem]">{t('cookies.analytics.name')}:</strong>
-                <span className="flex-1">{t('cookies.analytics.description')}</span>
-              </li>
-              <li className="flex gap-xs">
-                <strong className="min-w-[8rem]">{t('cookies.authentication.name')}:</strong>
-                <span className="flex-1">{t('cookies.authentication.description')}</span>
-              </li>
-              <li className="flex gap-xs">
-                <strong className="min-w-[8rem]">{t('cookies.preferences.name')}:</strong>
-                <span className="flex-1">{t('cookies.preferences.description')}</span>
-              </li>
+    <div
+      role="region"
+      aria-label={t('title')}
+      className="fixed inset-x-3 bottom-3 z-50 mx-auto max-w-3xl rounded-2xl border border-[#e4def3] bg-white/95 p-4 shadow-[0_18px_48px_-18px_rgba(48,42,79,0.35)] backdrop-blur-md md:inset-x-6 md:p-5"
+    >
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between sm:gap-5">
+        <div className="min-w-0">
+          <p className="sr-only">{t('title')}</p>
+          <p className="text-xs leading-5 text-textcolor-secondary sm:text-sm">
+            {t('short')}{' '}
+            <Link href={Routes.COOKIES} className="font-medium text-primary underline underline-offset-2">
+              {t('policy')}
+            </Link>
+          </p>
+          <details className="mt-1 text-xs text-textcolor-secondary sm:text-sm">
+            <summary className="inline-flex min-h-8 cursor-pointer items-center font-medium text-textcolor-primary">
+              {t('details')}
+            </summary>
+            <ul className="mt-1 space-y-1">
+              {(['analytics', 'authentication', 'preferences'] as const).map((kind) => (
+                <li key={kind}>
+                  <strong>{t(`cookies.${kind}.name`)}:</strong> {t(`cookies.${kind}.description`)}
+                </li>
+              ))}
             </ul>
-          </div>
-
-          <div className="flex-shrink-0 self-end md:self-center">
-            <Button onClick={accept}>{t('accept')}</Button>
-          </div>
+          </details>
         </div>
+        <Button onClick={accept} className="w-full shrink-0 sm:w-auto">
+          {t('accept')}
+        </Button>
       </div>
     </div>
   )

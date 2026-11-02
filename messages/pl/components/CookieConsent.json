@@ -1,5 +1,8 @@
 {
   "title": "Używamy cookies",
+  "short": "Używamy plików cookie do logowania, ustawień języka i anonimowej analityki.",
+  "policy": "Polityka cookie",
+  "details": "Szczegóły",
   "description": "Aby poprawić działanie serwisu i zapamiętać Twoje ustawienia, używamy następujących typów plików cookie:",
   "accept": "Akceptuj",
   "cookies": {
