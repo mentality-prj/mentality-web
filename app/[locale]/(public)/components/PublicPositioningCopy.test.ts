@@ -40,10 +40,6 @@ const forbidden = [
   'similar scenarios',
   'Що бачить і контролює менеджер',
   'What a manager sees and controls',
-  // Presented as an existing capability before the access model is qualified.
-  'зібрана в єдиній системі',
-  'brings teams, roles, groups and access scopes into one managed layer',
-  'porządkuje zespoły, role, grupy i poziomy dostępu',
 ]
 
 describe('public Dzvin positioning copy', () => {

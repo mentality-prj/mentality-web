@@ -22,7 +22,7 @@ const highlightCards = [
   },
 ] as const
 
-export function HowItWorksSection({ isAuthenticated = false }: { isAuthenticated?: boolean }) {
+export function HowItWorksSection() {
   const t = useTranslations('pages.Landing')
 
   const howItWorksSteps = stepsSectionConfig.steps.map((stepKey, index) => {
@@ -71,8 +71,8 @@ export function HowItWorksSection({ isAuthenticated = false }: { isAuthenticated
           <p className="mt-1 text-sm text-textcolor-secondary">{t(stepsSectionConfig.subtitleKey)}</p>
           <ol className="mt-6 flex flex-col gap-default">{howItWorksSteps}</ol>
           <div className="mt-6 flex justify-center tablet:block lg:mt-8">
-            <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH} className={landingPrimaryCta}>
-              {isAuthenticated ? t('Hero.returnCta') : t(stepsSectionConfig.ctaKey)}
+            <Link href={Routes.AUTH} className={landingPrimaryCta}>
+              {t(stepsSectionConfig.ctaKey)}
             </Link>
           </div>
         </div>
