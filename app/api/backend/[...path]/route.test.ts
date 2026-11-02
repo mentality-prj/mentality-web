@@ -141,9 +141,9 @@ describe('same-origin backend BFF', () => {
   })
 
   it('accepts genuine same-origin POST behind a TLS-terminating proxy without accepting forged origins', async () => {
-    global.fetch = jest.fn().mockResolvedValue(
-      new Response(JSON.stringify({ success: true }), { status: 201 })
-    ) as unknown as typeof fetch
+    global.fetch = jest
+      .fn()
+      .mockResolvedValue(new Response(JSON.stringify({ success: true }), { status: 201 })) as unknown as typeof fetch
 
     const headers = {
       origin: 'https://qa.example',
