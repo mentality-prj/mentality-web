@@ -140,6 +140,47 @@ describe('same-origin backend BFF', () => {
     expect(sessionMock).not.toHaveBeenCalled()
   })
 
+  it('accepts genuine same-origin POST behind a TLS-terminating proxy without accepting forged origins', async () => {
+    global.fetch = jest.fn().mockResolvedValue(
+      new Response(JSON.stringify({ success: true }), { status: 201 })
+    ) as unknown as typeof fetch
+
+    const headers = {
+      origin: 'https://qa.example',
+      host: 'qa.example',
+      'x-forwarded-proto': 'https',
+      'sec-fetch-site': 'same-origin',
+    }
+    const valid = await POST(
+      new NextRequest('http://127.0.0.1:3000/api/backend/contact', {
+        method: 'POST',
+        headers,
+        body: '{}',
+      }),
+      ctx(['contact'])
+    )
+    expect(valid.status).toBe(201)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+
+    for (const overridden of [
+      { origin: 'https://attacker.invalid' },
+      { 'sec-fetch-site': 'cross-site' },
+      { host: 'other.example' },
+      { 'x-forwarded-proto': 'http' },
+    ]) {
+      const denied = await POST(
+        new NextRequest('http://127.0.0.1:3000/api/backend/contact', {
+          method: 'POST',
+          headers: { ...headers, ...overridden },
+          body: '{}',
+        }),
+        ctx(['contact'])
+      )
+      expect(denied.status).toBe(403)
+    }
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
   it('rejects requests without an authenticated backend session', async () => {
     const res = await GET(req('/api/backend/mood-record'), ctx(['mood-record']))
     expect(res.status).toBe(401)
