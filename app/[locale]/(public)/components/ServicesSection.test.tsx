@@ -27,7 +27,7 @@ describe('ServicesSection', () => {
     expect(heading.textContent).toContain('\n')
   })
 
-  it('renders the intro and three illustrated cards without stock photos', () => {
+  it('renders the intro and three illustrated tiles without stock photos', () => {
     const { container } = render(<ServicesSection />)
 
     expect(screen.getByText('Intro text')).toBeInTheDocument()
