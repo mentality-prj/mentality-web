@@ -7,7 +7,65 @@ jest.mock('next-intl', () => ({
   useTranslations: () => (key: string) => key,
 }))
 
+const mockDrop = jest.fn()
+jest.mock('./water/WaterSurface', () => {
+  const React = jest.requireActual<typeof import('react')>('react')
+  return {
+    WaterSurface: React.forwardRef(function MockWaterSurface(
+      _props: unknown,
+      ref: React.ForwardedRef<{ drop: (x: number, y: number, strength?: number) => void }>
+    ) {
+      React.useImperativeHandle(ref, () => ({ drop: mockDrop }))
+      return null
+    }),
+  }
+})
+
 describe('MoodResonance', () => {
+  afterEach(() => {
+    mockDrop.mockClear()
+    jest.restoreAllMocks()
+  })
+
+  it('starts a single logo-centered ripple on load and ignores pointer and slider changes', () => {
+    const logo = document.createElement('div')
+    logo.dataset.landingLogo = 'true'
+    document.body.appendChild(logo)
+    jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
+      const isLogo = this === logo
+      const left = isLogo ? 150 : 0
+      const top = isLogo ? 20 : 100
+      const width = isLogo ? 100 : 400
+      const height = isLogo ? 40 : 400
+      return {
+        x: left,
+        y: top,
+        left,
+        top,
+        width,
+        height,
+        right: left + width,
+        bottom: top + height,
+        toJSON: () => ({}),
+      }
+    })
+    try {
+      render(
+        <MoodResonance>
+          <p>hero copy</p>
+        </MoodResonance>
+      )
+      expect(mockDrop).toHaveBeenCalledTimes(1)
+      expect(mockDrop).toHaveBeenCalledWith(0.5, -0.15, 0.9)
+      fireEvent.pointerDown(screen.getByText('hero copy'), { clientX: 80, clientY: 240 })
+      fireEvent.change(screen.getByLabelText('checkin'), { target: { value: '80' } })
+      expect(mockDrop).toHaveBeenCalledTimes(1)
+      expect(screen.getByLabelText('checkin')).toHaveAttribute('aria-valuetext', 'moodHigh')
+    } finally {
+      logo.remove()
+    }
+  })
+
   it('maps mood to calm-blue, lilac and warm water', () => {
     expect(moodWater(0).deep).toBe('#9db4ea')
     expect(moodWater(50).deep).toBe('#c6b2f1')
