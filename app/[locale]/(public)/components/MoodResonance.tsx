@@ -109,9 +109,9 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
       <div className={`relative z-[2] ${className ?? ''}`}>
         {children}
         <div className="relative mx-auto w-full max-w-[500px]">
-          <div className="tablet:p-7 relative overflow-hidden rounded-[32px] border border-white/80 bg-white/70 p-5 shadow-[0_30px_80px_-20px_rgba(70,60,130,0.35)] backdrop-blur-xl">
+          <div className="relative overflow-hidden rounded-[32px] border border-white/80 bg-white/70 p-5 shadow-[0_30px_80px_-20px_rgba(70,60,130,0.35)] backdrop-blur-xl tablet:p-7">
             <DoodleIcon name="heart" tone="rose" size={60} />
-            <h2 className="tablet:text-[1.65rem] mt-5 text-[1.45rem] font-semibold leading-tight tracking-tight text-[#302a4f]">
+            <h2 className="mt-5 text-[1.45rem] font-semibold leading-tight tracking-tight text-[#302a4f] tablet:text-[1.65rem]">
               {t('title')}
             </h2>
             <p className="mt-2 text-sm leading-relaxed text-[#6b6480]">{t('subtitle')}</p>
