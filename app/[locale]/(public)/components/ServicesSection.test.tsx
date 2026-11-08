@@ -49,7 +49,7 @@ describe('ServicesSection', () => {
       expect(svg).not.toBeNull()
       expect(svg).toHaveAttribute('stroke', '#675978')
       expect(svg?.querySelector('filter, feTurbulence, feDisplacementMap')).toBeNull()
-      expect(svg?.parentElement?.style.rotate).toBe('')
+      expect(svg?.parentElement?.style.getPropertyValue('rotate')).toBe('')
     }
 
     const breathingIcon = icons[1]
