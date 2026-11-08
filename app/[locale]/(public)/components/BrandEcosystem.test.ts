@@ -21,7 +21,8 @@ describe('QDIP ecosystem brand attribution', () => {
     expect(about.Technology.description).toContain('QDIP')
     expect(about.Technology.description).toContain('Dzvin')
     expect(about.Technology.cta.length).toBeGreaterThan(0)
-    expect(JSON.stringify({ footer: landing.Footer.ecosystem, about: about.Technology })).not.toMatch(/Powered by QDIP/i)
+    const attribution = JSON.stringify({ footer: landing.Footer.ecosystem, about: about.Technology })
+    expect(attribution).not.toMatch(/Powered by QDIP/i)
   })
 
   it('links to the exact QDIP origin in both public surfaces', () => {
