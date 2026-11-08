@@ -41,7 +41,7 @@ export function PlatformProductsSection() {
       key: 'b2b',
       glyph: 'people' as DoodleName,
       tone: 'sky' as DoodleTone,
-      decor: '-right-14 top-24 rotate-[12deg]',
+      decor: 'right-6 top-16',
       label: t('b2b.label'),
       title: t('b2b.title'),
       description: t('b2b.description'),

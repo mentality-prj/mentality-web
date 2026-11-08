@@ -50,6 +50,10 @@ describe('Intent-based landing next actions', () => {
     expect(screen.getByRole('link', { name: /More exercises/ })).toHaveAttribute('href', '#try-now')
     expect(screen.getByRole('link', { name: 'Start for free' })).toHaveAttribute('href', '/auth')
     expect(screen.getByText('What helped you')).toBeInTheDocument()
+    const practice = screen.getByRole('link', { name: /More exercises/ })
+    expect(practice.querySelector('svg circle[cx="60"][cy="29"]')).not.toBeNull()
+    const journal = screen.getByRole('link', { name: /Private journal/ })
+    expect(journal.querySelector('svg path[d="M77 64l19-40 9 5-19 40-12 6 3-11Z"]')).not.toBeNull()
     expect(screen.queryByRole('link', { name: 'See My Progress' })).not.toBeInTheDocument()
     fireEvent.click(screen.getByRole('link', { name: /Mood check-in/ }))
     // This release has no OAuth return-intent consumer, so the landing must not persist navigation state.

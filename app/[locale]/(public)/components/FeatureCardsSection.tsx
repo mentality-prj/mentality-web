@@ -32,7 +32,7 @@ const choices = [
   },
   {
     key: 'practice',
-    glyph: 'wind',
+    glyph: 'meditation',
     tone: 'lilac',
     decor: '-bottom-12 -right-6 rotate-[24deg]',
     href: Routes.GUIDE + '/breathing',
