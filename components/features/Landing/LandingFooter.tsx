@@ -27,15 +27,14 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
               termsLabel={t('Footer.terms')}
               cookiesLabel={t('Footer.cookies')}
             />
-            <div className="shadow-light text-center text-sm">
-              {t('Footer.copyright', { year: new Date().getFullYear(), company: 'Dzvin.co' })}
+            <div className="shadow-light flex flex-col items-center gap-1 text-center text-sm">
               <Link
                 href="https://qdip.ai"
-                className="ml-2 inline-block text-[var(--text-muted)] transition-colors hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+                className="text-[var(--text-muted)] transition-colors hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
               >
-                <span aria-hidden="true">· </span>
                 {t('Footer.ecosystem')}
               </Link>
+              <span>{t('Footer.copyright', { year: new Date().getFullYear(), company: 'Dzvin.co' })}</span>
             </div>
           </div>
           <Link
