@@ -1,10 +1,6 @@
-import { type CSSProperties, type ReactNode, useId } from 'react'
+import { type CSSProperties, type ReactNode } from 'react'
 
-/**
- * Dzvin's hand-drawn line icons: a thin, slightly uneven ink line on a soft
- * pastel disc. Original drawings on a 120px grid; the "hand" filter adds a
- * gentle wobble so lines read as drawn rather than constructed.
- */
+/** Dzvin's clean line illustrations on soft pastel discs (120px viewBox). */
 export type DoodleName =
   | 'mood'
   | 'journal'
@@ -74,9 +70,6 @@ const DOODLES: Record<DoodleName, ReactNode> = {
       <path d="M18 46h48a12 12 0 1 0-12-12" />
       <path d="M18 62h66a14 14 0 1 1-14 14" />
       <path d="M18 78h28" />
-      <path d="M86 40c4-2 8-2 12 0M92 52c3-1 6-1 9 0" opacity=".6" />
-      <circle cx="34" cy="94" r="2" />
-      <circle cx="98" cy="96" r="2.5" />
     </>
   ),
   heart: (
@@ -93,8 +86,6 @@ const DOODLES: Record<DoodleName, ReactNode> = {
       <path d="M26 98V78h14v20M52 98V64h14v34M78 98V48h14v50" />
       <path d="M85 48c0-8 0-14-1-20" />
       <path d="M84 34c-8-2-12-8-12-14 8 0 12 6 12 14ZM85 30c6-4 12-4 16-1-3 6-10 7-16 1Z" />
-      <path d="M30 70l2 3M58 56l2 3" opacity=".6" />
-      <circle cx="104" cy="24" r="2" />
     </>
   ),
   people: (
@@ -192,7 +183,6 @@ type Props = {
 }
 
 export function DoodleIcon({ name, tone = 'lilac', size = 72, plain = false, className, style }: Props) {
-  const filterId = `dz-hand-${useId().replace(/:/g, '')}`
   const background = DOODLE_TONES[tone]
   // Keep the ink line ~1.6–2.2px on screen whatever the icon size.
   const drawn = plain ? size : size * 0.66
@@ -207,17 +197,13 @@ export function DoodleIcon({ name, tone = 'lilac', size = 72, plain = false, cla
       <svg
         viewBox="0 0 120 120"
         fill="none"
-        stroke="#2b2733"
+        stroke="#675978"
         strokeWidth={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
         style={{ width: plain ? '100%' : '66%', height: plain ? '100%' : '66%', ['--doodle-bg' as string]: background }}
       >
-        <filter id={filterId}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="1" seed="7" />
-          <feDisplacementMap in="SourceGraphic" scale="1.6" />
-        </filter>
-        <g filter={`url(#${filterId})`}>{DOODLES[name]}</g>
+        {DOODLES[name]}
       </svg>
     </span>
   )
