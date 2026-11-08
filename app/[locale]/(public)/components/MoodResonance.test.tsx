@@ -102,16 +102,14 @@ describe('Hero ring compositing', () => {
     expect(water).toContain('6500 / timeScale')
   })
 
-  it('preserves the turquoise ripple artwork without masked or filtered pseudo-layer compositing', () => {
+  it('removes the CSS concentric-ring layer while preserving the soft wash and on-load water ripple', () => {
     const css = readFileSync('styles/globals.css', 'utf8')
-    const readyAfter = css.match(/\.hero-zen\[data-hero-rings-ready='true'\]::after\s*\{([^}]*)\}/)?.[1]
-    const rings = [...css.matchAll(/\.hero-zen::after\s*\{([\s\S]*?)\n\}/g)]
-      .map((match) => match[1])
-      .find((rule) => rule.includes('radial-gradient('))
+    const hero = readFileSync('app/[locale]/(public)/components/MoodResonance.tsx', 'utf8')
 
-    expect(readyAfter).toContain('opacity: 1')
-    expect(readyAfter).not.toMatch(/\bfilter\s*:/)
-    expect(rings).toContain('radial-gradient(')
-    expect(rings).not.toMatch(/(?:-webkit-)?mask\s*:/)
+    expect(css).not.toContain('.hero-zen::after')
+    expect(css).not.toContain("]::after")
+    expect(css).toContain('.hero-zen::before {')
+    expect(hero).toContain('<WaterSurface ref={water}')
+    expect(hero).toContain('water.current?.drop(')
   })
 })
