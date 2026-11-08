@@ -9,7 +9,7 @@ describe('Dzvin public landing SEO', () => {
     const meta = publicPageMetadata({
       locale,
       path,
-      title: 'Human-centered Dzvin',
+      title: `Human-centered ${locale === 'uk' ? 'Дзвінко' : 'Dzvinco'}`,
       description: 'Daily self-support for people.',
     })
     expect(meta.metadataBase?.toString()).toBe('https://www.dzvin.co/')
@@ -22,9 +22,10 @@ describe('Dzvin public landing SEO', () => {
     })
     expect(meta.openGraph).toEqual(
       expect.objectContaining({
-        title: 'Human-centered Dzvin',
+        title: `Human-centered ${locale === 'uk' ? 'Дзвінко' : 'Dzvinco'}`,
         description: 'Daily self-support for people.',
         locale: og,
+        siteName: locale === 'uk' ? 'Дзвінко' : 'Dzvinco',
         url: 'https://www.dzvin.co' + expected,
       })
     )
@@ -34,7 +35,7 @@ describe('Dzvin public landing SEO', () => {
     const metadata = publicPageMetadata({
       locale: 'uk',
       path: '/',
-      title: 'Dzvin',
+      title: 'Дзвінко',
       description: 'Private self-support',
     })
     expect(JSON.stringify(metadata)).not.toContain('725+')

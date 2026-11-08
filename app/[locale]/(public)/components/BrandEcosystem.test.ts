@@ -17,11 +17,11 @@ describe('QDIP ecosystem brand attribution', () => {
     { locale: 'pl', about: plAbout, landing: plLanding },
   ])(
     '$locale uses the shared QDIP footer signature while About describes the actual integration',
-    ({ about, landing }) => {
+    ({ locale, about, landing }) => {
       expect(landing.Footer.ecosystem).toBe('QDIP at the Core')
       expect(about.Technology.title.length).toBeGreaterThan(0)
       expect(about.Technology.description).toContain('QDIP')
-      expect(about.Technology.description).toContain('Dzvin')
+      expect(about.Technology.description).toContain(locale === 'uk' ? 'Дзвінко' : 'Dzvinco')
       expect(about.Technology.cta.length).toBeGreaterThan(0)
       expect(JSON.stringify(about.Technology)).not.toMatch(/Powered by QDIP/i)
     }

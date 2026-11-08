@@ -1,3 +1,5 @@
+import { readFileSync, readdirSync } from 'node:fs'
+
 import enTitle from '@/messages/en/common/title.json'
 import enAbout from '@/messages/en/pages/About.json'
 import enFaq from '@/messages/en/pages/FAQ.json'
@@ -59,6 +61,19 @@ describe('public Dzvin positioning copy', () => {
   ])('$locale FAQ keeps the three audiences and a crisis answer', ({ faq }) => {
     expect(faq.sections.map((section) => section.id)).toEqual(['b2c', 'b2b', 'rd'])
     expect(JSON.stringify(faq.sections[0])).toContain('112')
+  })
+
+  it.each(['en', 'uk', 'pl'] as const)('%s displays the localized product name in all message catalogs and public docs', (locale) => {
+    const expected = locale === 'uk' ? 'Дзвінко' : 'Dzvinco'
+    const json = ['common', 'components', 'pages'].flatMap((directory) =>
+      readdirSync(`messages/${locale}/${directory}`)
+        .filter((file) => file.endsWith('.json'))
+        .map((file) => readFileSync(`messages/${locale}/${directory}/${file}`, 'utf8'))
+    )
+    json.push(readFileSync(`content/public-docs/${locale}.json`, 'utf8'))
+    const allText = json.join('\n')
+    expect(allText).toContain(expected)
+    expect(allText).not.toMatch(/Dzvin(?:\.co)?\b/)
   })
 
   it('keeps the same About structure across locales', () => {
