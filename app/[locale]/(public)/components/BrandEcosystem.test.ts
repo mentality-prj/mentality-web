@@ -17,7 +17,7 @@ describe('QDIP ecosystem brand attribution', () => {
     { locale: 'pl', about: plAbout, landing: plLanding },
   ])('$locale has accurate footer and About copy without a production integration claim', ({ about, landing }) => {
     expect(landing.Footer.ecosystem).toContain('QDIP')
-    expect(landing.Footer.ecosystem).toMatch(/(?:Ideas into Action|від ідей до дій|od pomysłów do działania)/)
+    expect(landing.Footer.ecosystem).toMatch(/(?:Decisions Made Real|рішення, втілені в життя|decyzje wcielone w życie)/)
     expect(about.Technology.title.length).toBeGreaterThan(0)
     expect(about.Technology.description).toContain('QDIP')
     expect(about.Technology.description).toContain('Dzvin')
