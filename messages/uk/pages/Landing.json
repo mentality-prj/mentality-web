@@ -64,11 +64,11 @@
   },
   "Footer": {
     "copyright": "© {year} {company}. Всі права захищені.",
-    "backToTop": "Нагору",
+    "backToTop": "Вгору",
     "privacy": "Політика конфіденційності",
     "terms": "Умови користування",
     "cookies": "Політика використання cookies",
-    "ecosystem": "Частина екосистеми QDIP"
+    "ecosystem": "Екосистема QDIP — від ідей до дій"
   },
   "Preview": {
     "heading": "Дихальна вправа",

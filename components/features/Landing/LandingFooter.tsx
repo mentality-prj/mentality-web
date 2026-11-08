@@ -29,13 +29,14 @@ export async function LandingFooter({ type, className }: { type?: 'small' | 'def
             />
             <div className="shadow-light text-center text-sm">
               {t('Footer.copyright', { year: new Date().getFullYear(), company: 'Dzvin.co' })}
+              <Link
+                href="https://qdip.ai"
+                className="ml-2 inline-block text-[var(--text-muted)] transition-colors hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+              >
+                <span aria-hidden="true">· </span>
+                {t('Footer.ecosystem')}
+              </Link>
             </div>
-            <Link
-              href="https://qdip.ai"
-              className="text-sm text-[var(--text-muted)] transition-colors hover:text-[var(--primary)] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
-            >
-              {t('Footer.ecosystem')}
-            </Link>
           </div>
           <Link
             href="#"
