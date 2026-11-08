@@ -196,6 +196,24 @@ export default function AboutPage() {
           <ArchitectureLayersShowcase />
         </div>
       </section>
+      <section aria-labelledby="technology-behind-dzvin" className="w-full">
+        <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+          <div className="landing-outline-panel rounded-[28px] p-6 md:p-8">
+            <h2 id="technology-behind-dzvin" className="landing-section-title">
+              {t('Technology.title')}
+            </h2>
+            <p className="mt-3 max-w-3xl text-sm leading-relaxed text-textcolor-secondary md:text-base">
+              {t('Technology.description')}
+            </p>
+            <a
+              href="https://qdip.ai"
+              className="mt-4 inline-flex items-center gap-2 text-sm font-semibold text-[var(--primary)] hover:underline focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[var(--primary)]"
+            >
+              {t('Technology.cta')} <ArrowRight aria-hidden="true" className="h-4 w-4" />
+            </a>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
