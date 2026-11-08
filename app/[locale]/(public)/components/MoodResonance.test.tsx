@@ -1,6 +1,5 @@
-import { readFileSync } from 'node:fs'
-
 import { fireEvent, render, screen } from '@testing-library/react'
+import { readFileSync } from 'node:fs'
 
 import { MoodResonance, moodWater } from './MoodResonance'
 
