@@ -107,7 +107,7 @@ describe('Hero ring compositing', () => {
     const hero = readFileSync('app/[locale]/(public)/components/MoodResonance.tsx', 'utf8')
 
     expect(css).not.toContain('.hero-zen::after')
-    expect(css).not.toContain("]::after")
+    expect(css).not.toContain(']::after')
     expect(css).toContain('.hero-zen::before {')
     expect(hero).toContain('<WaterSurface ref={water}')
     expect(hero).toContain('water.current?.drop(')
