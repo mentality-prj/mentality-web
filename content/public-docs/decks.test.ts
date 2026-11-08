@@ -1,6 +1,16 @@
 import { deckAudiences, getProductDeck } from './decks'
 
 describe('public product presentations', () => {
+  it.each(['uk', 'en', 'pl'] as const)('%s decks display the localized product name', (locale) => {
+    const expected = locale === 'uk' ? 'Дзвінко' : 'Dzvinco'
+    for (const audience of deckAudiences) {
+      const deck = getProductDeck(locale, audience)
+      const text = [deck.title, deck.subtitle, ...deck.slides.flatMap((s) => [s.title, s.description, ...s.points])].join(' ')
+      expect(text).toContain(expected)
+      expect(text).not.toMatch(/Dzvin(?:\.co)?\b/)
+    }
+  })
+
   it('keeps grant work packages aligned with the four-package investment programme', () => {
     for (const locale of ['uk', 'en', 'pl'] as const) {
       const grant = getProductDeck(locale, 'grant')
