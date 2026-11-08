@@ -13,7 +13,6 @@ describe('WaterSurface', () => {
     expect(renderer).not.toContain('float trough =')
   })
 
-
   it('falls back to a CSS gradient when WebGL is unavailable', () => {
     const { container } = render(<WaterSurface colors={{ deep: '#7cc3d2', mid: '#dcf2f5', light: '#ffffff' }} />)
     const host = container.firstElementChild as HTMLElement
