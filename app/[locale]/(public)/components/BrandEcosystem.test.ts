@@ -15,17 +15,13 @@ describe('QDIP ecosystem brand attribution', () => {
     { locale: 'en', about: enAbout, landing: enLanding },
     { locale: 'uk', about: ukAbout, landing: ukLanding },
     { locale: 'pl', about: plAbout, landing: plLanding },
-  ])('$locale has accurate footer and About copy without a production integration claim', ({ about, landing }) => {
-    expect(landing.Footer.ecosystem).toContain('QDIP')
-    expect(landing.Footer.ecosystem).toMatch(
-      /(?:Decisions Made Real|рішення, втілені в життя|decyzje wcielone w życie)/
-    )
+  ])('$locale uses the shared QDIP footer signature while About describes the actual integration', ({ about, landing }) => {
+    expect(landing.Footer.ecosystem).toBe('Powered by QDIP')
     expect(about.Technology.title.length).toBeGreaterThan(0)
     expect(about.Technology.description).toContain('QDIP')
     expect(about.Technology.description).toContain('Dzvin')
     expect(about.Technology.cta.length).toBeGreaterThan(0)
-    const attribution = JSON.stringify({ footer: landing.Footer.ecosystem, about: about.Technology })
-    expect(attribution).not.toMatch(/Powered by QDIP/i)
+    expect(JSON.stringify(about.Technology)).not.toMatch(/Powered by QDIP/i)
   })
 
   it('links to the exact QDIP origin in both public surfaces', () => {
