@@ -101,7 +101,6 @@ body {
 .hero-zen[data-hero-rings-ready='true']::after {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
-  filter: blur(0.35px) saturate(1.02) contrast(1.06);
 }
 
 .hero-zen::before {
@@ -230,20 +229,6 @@ body {
       transparent 100%
     );
   mix-blend-mode: normal;
-  mask: radial-gradient(
-    90% 90% at var(--hero-gradient-x) var(--hero-gradient-y),
-    rgba(0, 0, 0, 0.98) 0%,
-    rgba(0, 0, 0, 0.96) 54%,
-    rgba(0, 0, 0, 0.28) 84%,
-    rgba(0, 0, 0, 0) 100%
-  );
-  -webkit-mask: radial-gradient(
-    90% 90% at var(--hero-gradient-x) var(--hero-gradient-y),
-    rgba(0, 0, 0, 0.98) 0%,
-    rgba(0, 0, 0, 0.96) 54%,
-    rgba(0, 0, 0, 0.28) 84%,
-    rgba(0, 0, 0, 0) 100%
-  );
 }
 
 .hero-zen > * {

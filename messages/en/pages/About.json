@@ -89,5 +89,10 @@
       "explainable": "Every step is optional: no mandatory tests, streaks or pressure — the decision is always yours.",
       "outcome": "The service does not diagnose or promise clinical outcomes. In a crisis, contact a professional or emergency services."
     }
+  },
+  "Technology": {
+    "title": "Technology behind Dzvin",
+    "description": "Dzvin is an independent mental wellbeing application in the QDIP ecosystem. QDIP is a Decision Intelligence platform for developers. We are exploring decision-support integration; these capabilities are not yet available as a Dzvin production feature.",
+    "cta": "Learn about QDIP"
   }
 }

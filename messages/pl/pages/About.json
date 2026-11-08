@@ -89,5 +89,10 @@
       "explainable": "Każdy krok jest nieobowiązkowy: bez obowiązkowych testów, serii i presji — decyzja zawsze należy do Ciebie.",
       "outcome": "Serwis nie stawia diagnoz i nie obiecuje efektów klinicznych. W kryzysie skontaktuj się ze specjalistą lub służbami ratunkowymi."
     }
+  },
+  "Technology": {
+    "title": "Technologia stojąca za Dzvin",
+    "description": "Dzvin jest niezależną aplikacją wspierającą dobrostan psychiczny w ekosystemie QDIP. QDIP to platforma Decision Intelligence dla programistów. Badamy integrację funkcji wspomagania decyzji; nie są one obecnie dostępne jako funkcja Dzvin w środowisku produkcyjnym.",
+    "cta": "Poznaj QDIP"
   }
 }
