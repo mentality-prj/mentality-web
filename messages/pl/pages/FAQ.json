@@ -1,6 +1,6 @@
 {
   "title": "Najczęściej zadawane pytania",
-  "intro": "Odpowiedzi dla trzech grup: osób korzystających z Dzvin.co dla siebie, firm rozważających pilotaż oraz badaczy zainteresowanych partnerstwem.",
+  "intro": "Odpowiedzi dla trzech grup: osób korzystających z Dzvinco dla siebie, firm rozważających pilotaż oraz badaczy zainteresowanych partnerstwem.",
   "sectionQuestionsCount": "W tej sekcji: {count} pytań",
   "expandSection": "Kliknij, aby zobaczyć listę pytań",
   "collapseSection": "Kliknij, aby ukryć listę pytań",
@@ -12,7 +12,7 @@
       "description": "Jak działa przestrzeń osobista: notowania, dziennik, ćwiczenia, postępy i ochrona danych.",
       "items": [
         {
-          "question": "Co mogę robić w Dzvin.co?",
+          "question": "Co mogę robić w Dzvinco?",
           "answer": [
             "Notować poziom stresu, nastroju, energii i koncentracji, prowadzić prywatny dziennik, wybierać ćwiczenia oddechowe i uspokajające, medytacje i porady, ustalać osobiste cele i przeglądać swoje postępy. Wszystko we własnym tempie, bez obowiązkowych kroków."
           ]
@@ -33,14 +33,14 @@
         {
           "question": "Czy to diagnoza medyczna?",
           "answer": [
-            "Nie. Dzvin.co to serwis samowsparcia. Nie stawia diagnoz, nie prognozuje stanu i nie zastępuje lekarza ani psychoterapeuty.",
+            "Nie. Dzvinco to serwis samowsparcia. Nie stawia diagnoz, nie prognozuje stanu i nie zastępuje lekarza ani psychoterapeuty.",
             "Kwestionariusze psychologiczne w aplikacji służą samoobserwacji i nie są orzeczeniem medycznym."
           ]
         },
         {
           "question": "Co zrobić, jeśli teraz czuję się bardzo źle?",
           "answer": [
-            "Dzvin.co nie jest przeznaczony do sytuacji kryzysowych. Jeśli Twoje życie lub bezpieczeństwo jest zagrożone, natychmiast zadzwoń pod numer alarmowy 112 lub zwróć się do specjalisty albo zaufanej osoby."
+            "Dzvinco nie jest przeznaczony do sytuacji kryzysowych. Jeśli Twoje życie lub bezpieczeństwo jest zagrożone, natychmiast zadzwoń pod numer alarmowy 112 lub zwróć się do specjalisty albo zaufanej osoby."
           ]
         },
         {
@@ -70,9 +70,9 @@
       "description": "Co oferujemy organizacjom już teraz i jak działają granice dostępu do danych.",
       "items": [
         {
-          "question": "Co Dzvin.co może zaoferować firmie już teraz?",
+          "question": "Co Dzvinco może zaoferować firmie już teraz?",
           "answer": [
-            "Pracownicy mogą korzystać z osobistego samowsparcia Dzvin.co. Narzędzia firmowe z zagregowanymi wskaźnikami zespołów są w fazie rozwoju i nie zostały jeszcze uruchomione, dlatego współpracę z firmami zaczynamy od pilotażu, którego warunki ustalamy indywidualnie."
+            "Pracownicy mogą korzystać z osobistego samowsparcia Dzvinco. Narzędzia firmowe z zagregowanymi wskaźnikami zespołów są w fazie rozwoju i nie zostały jeszcze uruchomione, dlatego współpracę z firmami zaczynamy od pilotażu, którego warunki ustalamy indywidualnie."
           ]
         },
         {
@@ -84,7 +84,7 @@
         {
           "question": "Czy to narzędzie do monitorowania pracowników?",
           "answer": [
-            "Nie. Dzvin.co powstaje jako wsparcie dla ludzi, a nie kontrola. Nie oceniamy wydajności poszczególnych pracowników i nie przekazujemy kierownictwu wniosków o ich stanie psychicznym."
+            "Nie. Dzvinco powstaje jako wsparcie dla ludzi, a nie kontrola. Nie oceniamy wydajności poszczególnych pracowników i nie przekazujemy kierownictwu wniosków o ich stanie psychicznym."
           ]
         },
         {
@@ -125,7 +125,7 @@
           ]
         },
         {
-          "question": "Czy Dzvin.co prognozuje stan psychiczny?",
+          "question": "Czy Dzvinco prognozuje stan psychiczny?",
           "answer": [
             "Nie, produkt nie zawiera prognoz. Prognozowanie i ocena modeli to hipotezy badawcze wymagające weryfikacji na osobnych, zatwierdzonych danych. Niezależnych wyników takich badań jeszcze nie ma."
           ]
