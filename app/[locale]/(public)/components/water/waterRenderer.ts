@@ -83,9 +83,8 @@ void main() {
   if (uOverlay > 0.5) {
     // Drops only, over an existing background: bright crests, soft troughs, clear elsewhere.
     float crest = clamp(h * 2.2 + spec * 1.2 + slope * 6.0, 0.0, 0.75);
-    float trough = clamp(-h * 1.6, 0.0, 0.35);
-    vec3 tint = mix(vec3(1.0), uDeep * 0.6, trough / max(crest + trough, 0.001));
-    gl_FragColor = vec4(tint, max(crest, trough));
+    // Overlay ripples are highlights only: no dark troughs and premultiplied RGB.
+    gl_FragColor = vec4(vec3(crest), crest);
     return;
   }
   gl_FragColor = vec4(col, 1.0);
@@ -116,7 +115,7 @@ export class WaterRenderer {
     private overlay = false,
     private timeScale = 1
   ) {
-    const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false, alpha: overlay })
+    const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: overlay, alpha: overlay })
     if (!gl) throw new Error('webgl unavailable')
     this.gl = gl
     this.palette = palette
