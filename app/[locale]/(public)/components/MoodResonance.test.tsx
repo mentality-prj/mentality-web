@@ -35,7 +35,9 @@ describe('Hero ring compositing', () => {
   it('preserves the turquoise ripple artwork without masked or filtered pseudo-layer compositing', () => {
     const css = readFileSync('styles/globals.css', 'utf8')
     const readyAfter = css.match(/\.hero-zen\[data-hero-rings-ready='true'\]::after\s*\{([^}]*)\}/)?.[1]
-    const rings = css.match(/\.hero-zen::after\s*\{([\s\S]*?)\n\}/)?.[1]
+    const rings = [...css.matchAll(/\.hero-zen::after\s*\{([\s\S]*?)\n\}/g)]
+      .map((match) => match[1])
+      .find((rule) => rule.includes('radial-gradient('))
 
     expect(readyAfter).toContain('opacity: 1')
     expect(readyAfter).not.toMatch(/\bfilter\s*:/)
