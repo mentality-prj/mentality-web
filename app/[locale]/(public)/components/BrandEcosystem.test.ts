@@ -29,9 +29,9 @@ describe('QDIP ecosystem brand attribution', () => {
   it('links to the exact QDIP origin in both public surfaces', () => {
     expect(footerSource).toContain('href="https://qdip.ai"')
     expect(footerSource).toContain("{t('Footer.ecosystem')}")
-    const copyright = footerSource.indexOf("Footer.copyright")
-    const attribution = footerSource.indexOf("Footer.ecosystem")
-    const backToTop = footerSource.indexOf("Footer.backToTop")
+    const copyright = footerSource.indexOf('Footer.copyright')
+    const attribution = footerSource.indexOf('Footer.ecosystem')
+    const backToTop = footerSource.indexOf('Footer.backToTop')
     expect(copyright).toBeGreaterThan(-1)
     expect(attribution).toBeGreaterThan(copyright)
     expect(backToTop).toBeGreaterThan(attribution)
