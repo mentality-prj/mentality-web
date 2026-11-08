@@ -1,6 +1,6 @@
 {
   "title": "Frequently Asked Questions",
-  "intro": "Answers for three audiences: people who use Dzvin.co for themselves, companies considering a pilot, and researchers interested in a partnership.",
+  "intro": "Answers for three audiences: people who use Dzvinco for themselves, companies considering a pilot, and researchers interested in a partnership.",
   "sectionQuestionsCount": "This section contains {count} questions",
   "expandSection": "Click to view the list of questions",
   "collapseSection": "Click to hide the list of questions",
@@ -12,7 +12,7 @@
       "description": "How the personal space works: check-ins, diary, exercises, progress and data protection.",
       "items": [
         {
-          "question": "What can I do in Dzvin.co?",
+          "question": "What can I do in Dzvinco?",
           "answer": [
             "Track your stress, mood, energy and focus, keep a private diary, choose breathing and calming exercises, meditations and tips, set personal goals and review your progress. All at your own pace, with no mandatory steps."
           ]
@@ -33,14 +33,14 @@
         {
           "question": "Is this a medical diagnosis?",
           "answer": [
-            "No. Dzvin.co is a self-support service. It does not diagnose, does not predict your state and does not replace a doctor or psychotherapist.",
+            "No. Dzvinco is a self-support service. It does not diagnose, does not predict your state and does not replace a doctor or psychotherapist.",
             "The psychological questionnaires in the app are meant for self-observation and are not a medical conclusion."
           ]
         },
         {
           "question": "What should I do if I feel very bad right now?",
           "answer": [
-            "Dzvin.co is not designed for crisis situations. If your life or safety is at risk, call your local emergency number (112) immediately or reach out to a professional or someone you trust."
+            "Dzvinco is not designed for crisis situations. If your life or safety is at risk, call your local emergency number (112) immediately or reach out to a professional or someone you trust."
           ]
         },
         {
@@ -70,9 +70,9 @@
       "description": "What we offer organizations today and how data access boundaries work.",
       "items": [
         {
-          "question": "What can Dzvin.co offer a company today?",
+          "question": "What can Dzvinco offer a company today?",
           "answer": [
-            "Employees can use Dzvin.co personal self-support. Company tools with aggregated team indicators are in development and not launched yet, so we start working with companies through a pilot whose terms we agree individually."
+            "Employees can use Dzvinco personal self-support. Company tools with aggregated team indicators are in development and not launched yet, so we start working with companies through a pilot whose terms we agree individually."
           ]
         },
         {
@@ -84,7 +84,7 @@
         {
           "question": "Is this an employee monitoring tool?",
           "answer": [
-            "No. Dzvin.co is built to support people, not to control them. We do not assess individual employees' performance or report conclusions about their mental state to management."
+            "No. Dzvinco is built to support people, not to control them. We do not assess individual employees' performance or report conclusions about their mental state to management."
           ]
         },
         {
@@ -125,7 +125,7 @@
           ]
         },
         {
-          "question": "Does Dzvin.co predict mental state?",
+          "question": "Does Dzvinco predict mental state?",
           "answer": [
             "No, the product contains no forecasts. Prediction and model evaluation are research hypotheses that require testing on separate, approved data. There are no independent results from such studies yet."
           ]
