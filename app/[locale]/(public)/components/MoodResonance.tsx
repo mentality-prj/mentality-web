@@ -134,7 +134,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
           className="absolute inset-0 transition-[background-color,opacity] duration-700"
           style={{ backgroundColor: tint, opacity: tintStrength, mixBlendMode: 'color' }}
         />
-        <WaterSurface ref={water} colors={HERO_WATER} source={source} still overlay className="h-full w-full" />
+        <WaterSurface ref={water} colors={HERO_WATER} source={source} still overlay timeScale={0.5} className="h-full w-full" />
       </div>
       <div className={`relative z-[2] ${className ?? ''}`} onPointerDown={onPress}>
         {children}

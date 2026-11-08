@@ -1,6 +1,6 @@
 import { render } from '@testing-library/react'
 
-import { hexToRgb, mixRgb } from './waterRenderer'
+import { hexToRgb, mixRgb, WaterRenderer } from './waterRenderer'
 import { WaterSurface } from './WaterSurface'
 
 describe('WaterSurface', () => {
@@ -9,6 +9,14 @@ describe('WaterSurface', () => {
     const host = container.firstElementChild as HTMLElement
     expect(host).toHaveAttribute('aria-hidden', 'true')
     expect(container.querySelector('canvas')).toHaveStyle({ display: 'none' })
+  })
+
+  it('progresses water time at half speed without reducing the frame rate', () => {
+    const start = performance.now() - 3000
+    const regular = Object.assign(Object.create(WaterRenderer.prototype), { start, timeScale: 1 }) as WaterRenderer
+    const slower = Object.assign(Object.create(WaterRenderer.prototype), { start, timeScale: 0.5 }) as WaterRenderer
+
+    expect(slower.time).toBeCloseTo(regular.time * 0.5, 1)
   })
 
   it('converts and blends palette colours', () => {

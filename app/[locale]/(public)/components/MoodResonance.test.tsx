@@ -32,6 +32,18 @@ describe('MoodResonance', () => {
 })
 
 describe('Hero ring compositing', () => {
+  it('halves only the hero rings speed and preserves the ripple lifetime', () => {
+    const css = readFileSync('styles/globals.css', 'utf8')
+    const hero = readFileSync('app/[locale]/(public)/components/MoodResonance.tsx', 'utf8')
+    const water = readFileSync('app/[locale]/(public)/components/water/WaterSurface.tsx', 'utf8')
+
+    expect(css).toContain('opacity 1040ms')
+    expect(css).toContain('transform 2400ms')
+    expect(css).toContain('filter 1800ms')
+    expect(hero).toContain('timeScale={0.5}')
+    expect(water).toContain('6500 / timeScale')
+  })
+
   it('preserves the turquoise ripple artwork without masked or filtered pseudo-layer compositing', () => {
     const css = readFileSync('styles/globals.css', 'utf8')
     const readyAfter = css.match(/\.hero-zen\[data-hero-rings-ready='true'\]::after\s*\{([^}]*)\}/)?.[1]

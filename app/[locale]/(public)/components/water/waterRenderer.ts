@@ -113,7 +113,8 @@ export class WaterRenderer {
   constructor(
     private canvas: HTMLCanvasElement,
     palette: WaterPalette,
-    private overlay = false
+    private overlay = false,
+    private timeScale = 1
   ) {
     const gl = canvas.getContext('webgl', { antialias: false, premultipliedAlpha: false, alpha: overlay })
     if (!gl) throw new Error('webgl unavailable')
@@ -137,7 +138,7 @@ export class WaterRenderer {
   }
 
   get time() {
-    return (performance.now() - this.start) / 1000
+    return ((performance.now() - this.start) / 1000) * this.timeScale
   }
 
   /** x, y in 0..1 with y pointing up; strength ~0.3–1. */
