@@ -5,8 +5,8 @@ export type FundingAudience = 'investment' | 'grant'
 const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
   uk: {
     investment: {
-      title: 'Dzvin.co — інвестиційна презентація',
-      subtitle: 'Dzvin.co: технологічна основа, наукова програма Decision Intelligence та стратегія розвитку.',
+      title: 'Дзвінко — інвестиційна презентація',
+      subtitle: 'Дзвінко: технологічна основа, наукова програма Decision Intelligence та стратегія розвитку.',
       slides: [
         {
           title: 'Інвестиційна теза',
@@ -40,7 +40,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Ринок і конкурентне середовище',
           description:
-            'Потреба в підтримці добробуту на роботі вимірювана; платоспроможний попит на Dzvin.co ще потребує перевірки.',
+            'Потреба в підтримці добробуту на роботі вимірювана; платоспроможний попит на Дзвінко ще потребує перевірки.',
           points: [
             'WHO (2026): 12 млрд втрачених робочих днів щороку через депресію і тривожність',
             'EU-OSHA (2025): 29% опитаних працівників ЄС мали пов’язані з роботою симптоми',
@@ -109,7 +109,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Модель інвестиційного партнерства',
           description:
-            'Dzvin.co відкритий до приватних інвестицій і стратегічної співпраці різного масштабу; параметри визначаються за цілями партнерства.',
+            'Дзвінко відкритий до приватних інвестицій і стратегічної співпраці різного масштабу; параметри визначаються за цілями партнерства.',
           points: [
             'Приватні інвестиції, стратегічне партнерство або підтримка окремих етапів',
             'Узгоджені результати й відповідальність сторін',
@@ -119,7 +119,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
       ],
     },
     grant: {
-      title: 'Dzvin.co — науково-грантова презентація',
+      title: 'Дзвінко — науково-грантова презентація',
       subtitle:
         'Наукова новизна, очікуваний вплив і програма реалізації: Decision Intelligence у сфері психічного добробуту.',
       slides: [
@@ -127,7 +127,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
           title: 'Проєкт і дослідницька мета',
           description:
             'Побудувати й перевірити пояснювану та uncertainty-aware підтримку людських рішень у digital mental wellbeing.',
-          points: ['Прикладний продукт: Dzvin.co', 'Окремий decision-intelligence технологічний напрям: QDIP'],
+          points: ['Прикладний продукт: Дзвінко', 'Окремий decision-intelligence технологічний напрям: QDIP'],
         },
         {
           title: 'Науковий контекст',
@@ -219,9 +219,9 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
   },
   en: {
     investment: {
-      title: 'Dzvin.co — investor deck',
+      title: 'Dzvinco — investor deck',
       subtitle:
-        'Dzvin.co technology foundations, the Decision Intelligence research programme and development strategy.',
+        'Dzvinco technology foundations, the Decision Intelligence research programme and development strategy.',
       slides: [
         {
           title: 'Investment thesis',
@@ -248,7 +248,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Market need and alternatives',
           description:
-            'Workplace wellbeing has a measurable burden; demand for Dzvin.co itself remains to be validated.',
+            'Workplace wellbeing has a measurable burden; demand for Dzvinco itself remains to be validated.',
           points: [
             'WHO (2026): 12 billion working days lost annually to depression and anxiety',
             'EU-OSHA (2025): 29% of surveyed EU workers reported work-related stress, depression or anxiety',
@@ -307,7 +307,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Investment partnership model',
           description:
-            'Dzvin.co welcomes private investment and strategic collaborations of different scopes, tailored to the goals of each partnership.',
+            'Dzvinco welcomes private investment and strategic collaborations of different scopes, tailored to the goals of each partnership.',
           points: [
             'Investment, strategic collaboration or support for a defined milestone',
             'Agreed deliverables and clear accountability',
@@ -317,14 +317,14 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
       ],
     },
     grant: {
-      title: 'Dzvin.co — research funding deck',
+      title: 'Dzvinco — research funding deck',
       subtitle: 'Excellence · Impact · Implementation: a falsifiable DI in mental health research program.',
       slides: [
         {
           title: 'Project objective',
           description:
             'Develop and evaluate uncertainty-aware, explainable decision support for digital mental wellbeing.',
-          points: ['Dzvin.co applied domain', 'QDIP decision-intelligence research track'],
+          points: ['Dzvinco applied domain', 'QDIP decision-intelligence research track'],
         },
         {
           title: 'State of the art',
@@ -405,7 +405,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
   },
   pl: {
     investment: {
-      title: 'Dzvin.co — prezentacja inwestorska',
+      title: 'Dzvinco — prezentacja inwestorska',
       subtitle:
         'Prototyp mental wellbeing × Decision Intelligence: podstawa techniczna, hipotezy naukowe i plan uruchomienia.',
       slides: [
@@ -431,7 +431,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         },
         {
           title: 'Potrzeba rynku i alternatywy',
-          description: 'Problemy dobrostanu w pracy są mierzalne; popyt na Dzvin.co wymaga odrębnej walidacji.',
+          description: 'Problemy dobrostanu w pracy są mierzalne; popyt na Dzvinco wymaga odrębnej walidacji.',
           points: [
             'WHO (2026): 12 mld utraconych dni pracy rocznie z powodu depresji i lęku',
             'EU-OSHA (2025): 29% badanych pracowników UE zgłasza stres, depresję lub lęk związany z pracą',
@@ -483,7 +483,7 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
         {
           title: 'Model partnerstwa inwestycyjnego',
           description:
-            'Dzvin.co jest otwarty na inwestycje prywatne i partnerstwa strategiczne o różnej skali, dopasowane do celów współpracy.',
+            'Dzvinco jest otwarty na inwestycje prywatne i partnerstwa strategiczne o różnej skali, dopasowane do celów współpracy.',
           points: [
             'Inwestycja, współpraca strategiczna lub wsparcie wybranego etapu',
             'Uzgodnione rezultaty i odpowiedzialność stron',
@@ -493,13 +493,13 @@ const fundingDecks: Record<DeckLocale, Record<FundingAudience, ProductDeck>> = {
       ],
     },
     grant: {
-      title: 'Dzvin.co — prezentacja grantowa',
+      title: 'Dzvinco — prezentacja grantowa',
       subtitle: 'Nowość naukowa, potencjalny wpływ i plan realizacji badań Decision Intelligence.',
       slides: [
         {
           title: 'Cel projektu',
           description: 'Rozwój i ocena wyjaśnialnego wspierania decyzji w obszarze dobrostanu psychicznego.',
-          points: ['Dzvin.co jako produkt', 'QDIP jako kierunek technologiczny'],
+          points: ['Dzvinco jako produkt', 'QDIP jako kierunek technologiczny'],
         },
         {
           title: 'Stan wiedzy',

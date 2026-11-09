@@ -53,7 +53,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!deckAudiences.includes(audience as DeckAudience)) return {}
   const deck = getProductDeck(locale, audience as DeckAudience)
   return {
-    title: `${deck.title} | Dzvin.co`,
+    title: `${deck.title} | ${locale === 'uk' ? 'Дзвінко' : 'Dzvinco'}`,
     description: deck.subtitle,
     alternates: { canonical: `https://docs.dzvin.co/${locale}/docs/decks/${audience}` },
     openGraph: { title: deck.title, description: deck.subtitle, type: 'article' },
@@ -106,7 +106,7 @@ export default async function ProductDeckPage({ params }: Props) {
             aria-hidden="true"
             className="absolute -bottom-28 -right-24 h-96 w-96 rounded-full border-[54px] border-primary/10"
           />
-          <span className="relative z-10 text-sm text-primary">Dzvin.co · 2026</span>
+          <span className="relative z-10 text-sm text-primary">{locale === 'uk' ? 'Дзвінко' : 'Dzvinco'} · 2026</span>
         </section>
         {deck.slides.map((slide, index) => (
           <section

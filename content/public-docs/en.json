@@ -1,9 +1,9 @@
 {
-  "title": "Dzvin.co | Product Strategy & Investment Dossier",
-  "kicker": "Dzvin.co · Project documentation",
+  "title": "Dzvinco | Product Strategy & Investment Dossier",
+  "kicker": "Dzvinco · Project documentation",
   "lead": "Product strategy, QDIP / Decision Intelligence research, engineering maturity and the programme leading to controlled launch.",
   "browse": "Document library",
-  "back": "Dzvin.co documentation",
+  "back": "Dzvinco documentation",
   "nav": "Documentation sections",
   "status": "Updated: 25 October 2026",
   "links": "Further resources",
@@ -15,12 +15,12 @@
       "slug": "funding-brief",
       "category": "Investment strategy",
       "title": "Executive Investment Overview",
-      "summary": "Investment rationale, Dzvin.co technology foundations, the QDIP research programme and next-stage deliverables.",
+      "summary": "Investment rationale, Dzvinco technology foundations, the QDIP research programme and next-stage deliverables.",
       "sections": [
         {
           "title": "Investment Thesis",
           "paragraphs": [
-            "Dzvin.co is a people-first digital mental-wellbeing project with personal, prospective enterprise, and research experiences. Its proposed scientific differentiator is applying Decision Intelligence and QDIP research principles to explainable, uncertainty-aware, human-controlled action selection rather than risk scores alone.",
+            "Dzvinco is a people-first digital mental-wellbeing project with personal, prospective enterprise, and research experiences. Its proposed scientific differentiator is applying Decision Intelligence and QDIP research principles to explainable, uncertainty-aware, human-controlled action selection rather than risk scores alone.",
             "Existing engineering work provides the foundation for the next stage: integration qualification, security, research validation and controlled product deployment."
           ]
         },
@@ -62,7 +62,7 @@
         {
           "title": "Partnership Model",
           "paragraphs": [
-            "Dzvin.co is open to private investment, strategic partnerships and support for distinct development milestones. The form of collaboration is agreed with each partner based on the technology goals and mutual responsibilities.",
+            "Dzvinco is open to private investment, strategic partnerships and support for distinct development milestones. The form of collaboration is agreed with each partner based on the technology goals and mutual responsibilities.",
             "Investment discussions address mutual rights, technology diligence, defined results and partnership terms. Research grant applications include the formal work plan and eligible budget required by the particular funding programme."
           ]
         }
@@ -72,12 +72,12 @@
       "slug": "investment-thesis",
       "category": "Investment strategy",
       "title": "Strategic Investment Rationale",
-      "summary": "Investment case for Dzvin.co: the buyer problem, entry segment, scalable product hypothesis, technology assets and evidence-gated development programme.",
+      "summary": "Investment case for Dzvinco: the buyer problem, entry segment, scalable product hypothesis, technology assets and evidence-gated development programme.",
       "sections": [
         {
           "title": "Product Strategy",
           "paragraphs": [
-            "Dzvin.co combines three related experiences: a private personal wellbeing journey, permissioned team analytics, and a controlled research workspace.",
+            "Dzvinco combines three related experiences: a private personal wellbeing journey, permissioned team analytics, and a controlled research workspace.",
             "Our research opportunity is applying Decision Intelligence to transform observations and risk signals into explainable, human-supervised next actions with stated uncertainty and feedback."
           ]
         },
@@ -86,14 +86,14 @@
           "paragraphs": [
             "Standalone check-ins and one-off surveys can fragment observations, context and follow-up. A prediction alone does not tell a user or decision maker which safe action is appropriate.",
             "Mental-health AI needs explicit attention to uncertain and incomplete data, human agency, privacy, bias and the actual outcome of decisions.",
-            "The WHO estimates that depression and anxiety together cause 12 billion lost working days and US$1 trillion in lost productivity globally each year (Mental health at work, 15 September 2026). This measures the wider burden, not a revenue opportunity or an outcome Dzvin.co has achieved."
+            "The WHO estimates that depression and anxiety together cause 12 billion lost working days and US$1 trillion in lost productivity globally each year (Mental health at work, 15 September 2026). This measures the wider burden, not a revenue opportunity or an outcome Dzvinco has achieved."
           ]
         },
         {
           "title": "Why Now",
           "paragraphs": [
             "The EU-OSHA OSH Pulse 2025 survey found that 29% of EU workers reported stress, depression or anxiety caused or worsened by work within the previous 12 months. Employers have a measurable workforce problem, while individual apps and periodic surveys do not necessarily give responsible teams a repeatable follow-up process.",
-            "Organizations are evaluating digital support amid stronger expectations for privacy, auditability and human control. Dzvin.co's opportunity is to test whether a single consent-aware path from recurring observations to reviewed action is more useful than disconnected point tools—not to claim that the opportunity is already proven."
+            "Organizations are evaluating digital support amid stronger expectations for privacy, auditability and human control. Dzvinco's opportunity is to test whether a single consent-aware path from recurring observations to reviewed action is more useful than disconnected point tools—not to claim that the opportunity is already proven."
           ]
         },
         {
@@ -157,7 +157,7 @@
           "title": "QDIP Technology Direction",
           "paragraphs": [
             "QDIP is a distinct Decision Intelligence technology track exploring hybrid rule/model signals, policy governance, explanation, audit and monitoring.",
-            "Dzvin.co provides the application context for investigating QDIP principles. Integrated system qualification and comparative scientific evaluation remain planned research activities."
+            "Dzvinco provides the application context for investigating QDIP principles. Integrated system qualification and comparative scientific evaluation remain planned research activities."
           ]
         },
         {
@@ -206,7 +206,7 @@
         {
           "title": "Technology Status · 25 October 2026",
           "paragraphs": [
-            "As of 25 October 2026, Dzvin.co is a software prototype with components supporting personal, organizational and research experiences. Production integration and field evaluation form part of the next programme stage.",
+            "As of 25 October 2026, Dzvinco is a software prototype with components supporting personal, organizational and research experiences. Production integration and field evaluation form part of the next programme stage.",
             "Readiness is assessed through integrated workflows, authorization, security controls and operational reliability."
           ]
         },
@@ -285,7 +285,7 @@
           "title": "QDIP / Decision Intelligence",
           "paragraphs": [
             "The public QDIP research narrative describes hybrid rules/models, policy governance, explanations, risk signals and evaluation.",
-            "Status: conceptual and engineering foundations; a statistically demonstrated advantage within Dzvin is pending."
+            "Status: conceptual and engineering foundations; a statistically demonstrated advantage within Dzvinco is pending."
           ]
         },
         {
@@ -300,7 +300,7 @@
     {
       "slug": "funding-roadmap",
       "category": "Development programme",
-      "title": "Dzvin.co Development Roadmap",
+      "title": "Dzvinco Development Roadmap",
       "summary": "Ordered technology, research and operational phases with defined milestones and deliverables.",
       "sections": [
         {
@@ -450,13 +450,13 @@
     {
       "slug": "funding-request",
       "category": "Investment partnership",
-      "title": "Dzvin.co Investment Opportunity",
+      "title": "Dzvinco Investment Opportunity",
       "summary": "Technology opportunity, investment rationale, programme deliverables and partnership structure.",
       "sections": [
         {
           "title": "Technology Opportunity",
           "paragraphs": [
-            "Dzvin.co brings together personal wellbeing support, planned organization-level insights and a research workspace. The QDIP / Decision Intelligence direction explores explainable next-action selection with context, explicit uncertainty and human control.",
+            "Dzvinco brings together personal wellbeing support, planned organization-level insights and a research workspace. The QDIP / Decision Intelligence direction explores explainable next-action selection with context, explicit uncertainty and human control.",
             "The opportunity builds on existing engineering assets and their potential to become a validated product across distinct use cases. Technical and scientific advantages remain to be tested."
           ]
         },
@@ -500,13 +500,13 @@
     {
       "slug": "product-story",
       "category": "Product strategy",
-      "title": "Dzvin.co Product Concept",
+      "title": "Dzvinco Product Concept",
       "summary": "A connected product strategy spanning personal wellbeing, organizations and research.",
       "sections": [
         {
           "title": "Product strategy",
           "paragraphs": [
-            "Dzvin.co is being developed as a platform connecting wellbeing observations with context and follow-up processes across personal, organizational and research workstreams.",
+            "Dzvinco is being developed as a platform connecting wellbeing observations with context and follow-up processes across personal, organizational and research workstreams.",
             "The common principle is to move from an isolated signal to an explainable, human-controlled option and its subsequent evaluation."
           ]
         },
@@ -651,7 +651,7 @@
         {
           "title": "Market Need and Evidence",
           "paragraphs": [
-            "WHO reports an estimated 12 billion lost working days and US$1 trillion in global annual productivity losses associated with depression and anxiety (2026). EU-OSHA reports that 29% of EU workers surveyed in 2025 experienced work-caused or work-worsened stress, depression or anxiety in the preceding year. These figures establish context, not Dzvin.co revenue, effectiveness or purchase intent.",
+            "WHO reports an estimated 12 billion lost working days and US$1 trillion in global annual productivity losses associated with depression and anxiety (2026). EU-OSHA reports that 29% of EU workers surveyed in 2025 experienced work-caused or work-worsened stress, depression or anxiety in the preceding year. These figures establish context, not Dzvinco revenue, effectiveness or purchase intent.",
             "Eurostat reported 197.7 million employed EU residents aged 20–64 in 2025. This is a macro workforce reference only: it includes people outside our proposed buyers, and must not be presented as the number of paying seats."
           ]
         },
@@ -666,7 +666,7 @@
           "title": "TAM, SAM and SOM: Sizing Method",
           "paragraphs": [
             "TAM is the theoretical annual spending for the defined buyer and service category, not all EU mental-health expenditure. Calculate it from eligible employers, reachable employee seats and evidence-supported annual contract value. The Eurostat 197.7 million workforce figure is only an upper-context denominator, not a monetized TAM.",
-            "SAM narrows that opportunity to organizations Dzvin.co could legally, technically and commercially serve in an initial geography and segment, after filters for company size, procurement, privacy and integration readiness. Separate B2C and research-partner models must not be added to B2B seat counts without removing overlap.",
+            "SAM narrows that opportunity to organizations Dzvinco could legally, technically and commercially serve in an initial geography and segment, after filters for company size, procurement, privacy and integration readiness. Separate B2C and research-partner models must not be added to B2B seat counts without removing overlap.",
             "SOM must be built bottom-up from the attainable prospect pipeline, pilot-to-contract conversion, contract sizes, annual value and delivery capacity over a specified horizon. Those inputs need customer interviews, procurement evidence and pilot outcomes before defensible currency figures can be published."
           ]
         },
@@ -674,7 +674,7 @@
           "title": "Competitive Alternatives",
           "paragraphs": [
             "Headspace offers mindfulness, AI-enabled guidance and employer mental-health services; Unmind combines workplace content, coaching, AI support and organizational insights; Wysa offers an AI-led employee support experience and organizational reporting. These are relevant alternatives for buyers allocating workplace wellbeing budgets, not generic survey tools.",
-            "Dzvin.co's proposed research-led distinction is a traceable path from repeated observations through uncertainty-aware, human-reviewed decisions to subsequent evaluation, supported by a separate research workspace. This is a product hypothesis; no superiority in outcomes, clinical effect, price or coverage is claimed."
+            "Dzvinco's proposed research-led distinction is a traceable path from repeated observations through uncertainty-aware, human-reviewed decisions to subsequent evaluation, supported by a separate research workspace. This is a product hypothesis; no superiority in outcomes, clinical effect, price or coverage is claimed."
           ]
         },
         {
@@ -890,7 +890,7 @@
         {
           "title": "Individual rights",
           "paragraphs": [
-            "Requests concerning access, rectification or deletion are managed through Dzvin.co's official contact channels.",
+            "Requests concerning access, rectification or deletion are managed through Dzvinco's official contact channels.",
             "Specific obligations are defined by applicable law and the governing privacy documents."
           ]
         }
@@ -912,7 +912,7 @@
         {
           "title": "Clinical scope",
           "paragraphs": [
-            "Dzvin.co is being developed for wellbeing support and research, not emergency care or automated diagnosis.",
+            "Dzvinco is being developed for wellbeing support and research, not emergency care or automated diagnosis.",
             "Any future clinical use would require separate intended-use, regulatory and evidence assessments."
           ]
         },
@@ -929,7 +929,7 @@
   "referenceTitle": "Product reference and governance",
   "featuredCta": "Investor presentation",
   "featuredNote": "Current maturity and release criteria are documented in the evidence register and development roadmap.",
-  "fundingHeadline": "Dzvin.co: Decision Support Technology for Mental Wellbeing",
+  "fundingHeadline": "Dzvinco: Decision Support Technology for Mental Wellbeing",
   "fundingIntro": "An emerging platform connecting personal experiences, organizational capabilities and a Decision Intelligence research programme informed by QDIP.",
   "stageLabel": "PRODUCT STAGE · DEVELOPMENT & INTEGRATION",
   "stageDescription": "Software foundations exist across personal, organizational and research workstreams. The next gates cover integration, security, research evaluation and controlled launch readiness. External customer pilots and outcome studies have not yet been completed.",

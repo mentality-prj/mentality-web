@@ -10,6 +10,7 @@ describe('Dzvin public docs design system guard', () => {
   const deckToolbar = read('app/[locale]/(public)/docs/decks/DeckToolbar.tsx')
   const landingHeader = read('components/features/Landing/LandingHeader.tsx')
   const landingDrawer = read('components/Layout/MobileNavDrawer/LandingMobileMenu.tsx')
+  const evidence = read('app/[locale]/(public)/docs/DossierEvidence.tsx')
 
   it('keeps the existing light documentation layout and brand components', () => {
     expect(landing).toContain('bg-[radial-gradient(circle_at_top_left')
@@ -36,6 +37,11 @@ describe('Dzvin public docs design system guard', () => {
     expect(deckToolbar).toContain('min-w-0 items-center justify-center')
     expect(landingHeader).toContain('hidden lg:block')
     expect(landingDrawer).toContain('lg:hidden')
+  })
+
+  it('uses the localized name in visible evidence references without changing their URLs', () => {
+    expect(evidence).toContain("source.title.replace(/^Dzvinco/, 'Дзвінко')")
+    expect(evidence).toContain('https://github.com/mentality-prj/mentality-web/issues/482')
   })
 
   it('preserves funding information and the original shared header', () => {

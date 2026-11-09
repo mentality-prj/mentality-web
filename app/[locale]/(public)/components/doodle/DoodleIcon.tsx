@@ -1,15 +1,12 @@
-import { type CSSProperties, type ReactNode, useId } from 'react'
+import { type CSSProperties, type ReactNode } from 'react'
 
-/**
- * Dzvin's hand-drawn line icons: a thin, slightly uneven ink line on a soft
- * pastel disc. Original drawings on a 120px grid; the "hand" filter adds a
- * gentle wobble so lines read as drawn rather than constructed.
- */
+/** Dzvin's clean line illustrations on soft pastel discs (120px viewBox). */
 export type DoodleName =
   | 'mood'
   | 'journal'
   | 'breath'
   | 'wind'
+  | 'meditation'
   | 'heart'
   | 'rise'
   | 'people'
@@ -53,9 +50,9 @@ const DOODLES: Record<DoodleName, ReactNode> = {
       <path d="M20 34c12-5 26-4 40 4v60c-14-8-28-9-40-4V34Z" />
       <path d="M100 34c-12-5-26-4-40 4v60c14-8 28-9 40-4V34Z" />
       <path d="M28 48c8-2 16-1 24 3M28 58c8-2 16-1 24 3M28 68c8-2 16-1 20 2" />
-      <path d="M70 60c3-6 11-6 12 0 2-6 10-6 11 0-1 7-7 11-11.5 14C77 71 71 67 70 60Z" />
-      <path d="M86 20l12-12 6 6-12 12-8 2 2-8Z" />
-      <path d="M68 84l2 2M76 86l1 2M84 84l2 1" />
+      <path d="M91 27l10 6-21 42-10 10 2-14 19-44Z" />
+      <path d="M91 27l3-6a4 4 0 0 1 5-2l4 2a4 4 0 0 1 2 5l-4 7" />
+      <path d="M74 72l7 4M93 34l8 5M70 85l5-4" />
     </>
   ),
   breath: (
@@ -74,9 +71,15 @@ const DOODLES: Record<DoodleName, ReactNode> = {
       <path d="M18 46h48a12 12 0 1 0-12-12" />
       <path d="M18 62h66a14 14 0 1 1-14 14" />
       <path d="M18 78h28" />
-      <path d="M86 40c4-2 8-2 12 0M92 52c3-1 6-1 9 0" opacity=".6" />
-      <circle cx="34" cy="94" r="2" />
-      <circle cx="98" cy="96" r="2.5" />
+    </>
+  ),
+  meditation: (
+    <>
+      <circle cx="60" cy="29" r="11" />
+      <path d="M47 48c5-5 21-5 26 0l4 27H43l4-27Z" />
+      <path d="M45 54c-7 4-12 11-14 21l10 6M75 54c7 4 12 11 14 21l-10 6" />
+      <path d="M44 75c-15-4-25-2-31 11 10 11 30 15 47 3 17 12 37 8 47-3-6-13-16-15-31-11" />
+      <path d="M31 85l13-9 16 13 16-13 13 9" />
     </>
   ),
   heart: (
@@ -93,8 +96,6 @@ const DOODLES: Record<DoodleName, ReactNode> = {
       <path d="M26 98V78h14v20M52 98V64h14v34M78 98V48h14v50" />
       <path d="M85 48c0-8 0-14-1-20" />
       <path d="M84 34c-8-2-12-8-12-14 8 0 12 6 12 14ZM85 30c6-4 12-4 16-1-3 6-10 7-16 1Z" />
-      <path d="M30 70l2 3M58 56l2 3" opacity=".6" />
-      <circle cx="104" cy="24" r="2" />
     </>
   ),
   people: (
@@ -165,10 +166,12 @@ const DOODLES: Record<DoodleName, ReactNode> = {
   ),
   bell: (
     <>
-      <path d="M60 18v8" />
-      <path d="M38 82V58c0-13 9-24 22-24s22 11 22 24v24l8 8H30l8-8Z" />
-      <path d="M52 98c2 4 5 6 8 6s6-2 8-6" />
-      <path d="M22 50c-4 6-4 14 0 20M98 50c4 6 4 14 0 20M14 44c-7 10-7 22 0 32M106 44c7 10 7 22 0 32" opacity=".7" />
+      <path d="M60 19v9" />
+      <path d="M60 28c-15 0-25 12-25 29v9c0 6-4 13-9 19h68c-5-6-9-13-9-19v-9c0-17-10-29-25-29Z" />
+      <path d="M30 85h60" />
+      <path d="M50 94c2 7 6 10 10 10s8-3 10-10" />
+      <path d="M60 54c-3-5-12-4-12 3 0 6 12 14 12 14s12-8 12-14c0-7-9-8-12-3Z" />
+      <path d="M24 36l-7-5M96 36l7-5" opacity=".7" />
     </>
   ),
   building: (
@@ -192,7 +195,6 @@ type Props = {
 }
 
 export function DoodleIcon({ name, tone = 'lilac', size = 72, plain = false, className, style }: Props) {
-  const filterId = `dz-hand-${useId().replace(/:/g, '')}`
   const background = DOODLE_TONES[tone]
   // Keep the ink line ~1.6–2.2px on screen whatever the icon size.
   const drawn = plain ? size : size * 0.66
@@ -207,17 +209,13 @@ export function DoodleIcon({ name, tone = 'lilac', size = 72, plain = false, cla
       <svg
         viewBox="0 0 120 120"
         fill="none"
-        stroke="#2b2733"
+        stroke="#675978"
         strokeWidth={stroke}
         strokeLinecap="round"
         strokeLinejoin="round"
         style={{ width: plain ? '100%' : '66%', height: plain ? '100%' : '66%', ['--doodle-bg' as string]: background }}
       >
-        <filter id={filterId}>
-          <feTurbulence type="fractalNoise" baseFrequency="0.018" numOctaves="1" seed="7" />
-          <feDisplacementMap in="SourceGraphic" scale="1.6" />
-        </filter>
-        <g filter={`url(#${filterId})`}>{DOODLES[name]}</g>
+        {DOODLES[name]}
       </svg>
     </span>
   )

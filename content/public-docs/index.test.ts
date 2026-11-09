@@ -48,9 +48,9 @@ describe('public investor documentation', () => {
   })
   it('presents a fundable opportunity instead of asking visitors to construct our budget', () => {
     const titles = {
-      uk: 'Інвестиційна можливість Dzvin.co',
-      en: 'Dzvin.co Investment Opportunity',
-      pl: 'Dzvin.co — możliwość inwestycyjna',
+      uk: 'Інвестиційна можливість Дзвінко',
+      en: 'Dzvinco Investment Opportunity',
+      pl: 'Dzvinco — możliwość inwestycyjna',
     }
     for (const locale of ['uk', 'en', 'pl'] as const) {
       const article = getPublicDoc(locale, 'funding-request')
@@ -64,9 +64,9 @@ describe('public investor documentation', () => {
   })
   it('keeps enterprise project documentation consistent across all locales', () => {
     const expectedTitles = {
-      uk: 'Інвестиційна можливість Dzvin.co',
-      en: 'Dzvin.co Investment Opportunity',
-      pl: 'Dzvin.co — możliwość inwestycyjna',
+      uk: 'Інвестиційна можливість Дзвінко',
+      en: 'Dzvinco Investment Opportunity',
+      pl: 'Dzvinco — możliwość inwestycyjna',
     }
     for (const locale of ['uk', 'en', 'pl'] as const) {
       const docs = getPublicDocs(locale)

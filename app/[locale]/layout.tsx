@@ -16,7 +16,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'common.title' })
   return {
-    title: t('AppTitle', { default: 'Dzvin.co' }),
+    title: t('AppTitle', { default: locale === 'uk' ? 'Дзвінко' : 'Dzvinco' }),
     manifest: '/favicons/site.webmanifest',
     icons: {
       apple: '/favicons/apple-touch-icon.png',

@@ -22,14 +22,14 @@ const sources = {
   ],
   engineering: [
     {
-      title: 'Dzvin: canonical product roadmap (GitHub #482)',
+      title: 'Dzvinco: canonical product roadmap (GitHub #482)',
       url: 'https://github.com/mentality-prj/mentality-web/issues/482',
     },
     {
-      title: 'Dzvin: production readiness and release gates (#445)',
+      title: 'Dzvinco: production readiness and release gates (#445)',
       url: 'https://github.com/mentality-prj/mentality-web/issues/445',
     },
-    { title: 'Dzvin Web: published code and tests', url: 'https://github.com/mentality-prj/mentality-web' },
+    { title: 'Dzvinco Web: published code and tests', url: 'https://github.com/mentality-prj/mentality-web' },
     {
       title: 'QDIP: public scientific hypothesis documentation',
       url: 'https://github.com/qdip-ai/qdip-docs/blob/main/docs/grant/04-scientific-novelty.md',
@@ -68,7 +68,7 @@ export function DossierEvidence({ locale, variant }: { locale: string; variant: 
               className="inline-flex items-start gap-2 text-sm font-semibold leading-6 text-indigo-700 hover:underline"
             >
               <ExternalLink className="mt-1 h-4 w-4 shrink-0" aria-hidden="true" />
-              {source.title}
+              {lang === 'uk' ? source.title.replace(/^Dzvinco/, 'Дзвінко') : source.title}
             </a>
           </li>
         ))}
