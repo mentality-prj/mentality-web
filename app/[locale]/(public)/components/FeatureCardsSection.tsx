@@ -89,10 +89,7 @@ export function FeatureCardsSection({ isAuthenticated = false }: { isAuthenticat
           })}
         </div>
         <div className="mt-6 flex justify-end">
-          <Link
-            href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}
-            className={`${landingPrimaryCta} w-full sm:w-auto`}
-          >
+          <Link href={isAuthenticated ? Routes.MYDAY : Routes.AUTH} className={`${landingPrimaryCta} w-full sm:w-auto`}>
             {isAuthenticated ? t('Hero.returnCta') : t('Next.signup')}
           </Link>
         </div>
