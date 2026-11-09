@@ -66,6 +66,16 @@ describe('MoodResonance', () => {
     }
   })
 
+  it('keeps demo action cards in one column when the hero is narrow', () => {
+    render(
+      <MoodResonance>
+        <p>hero copy</p>
+      </MoodResonance>
+    )
+    const cards = screen.getByText('journal').parentElement?.parentElement
+    expect(cards).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-1', 'lg:grid-cols-2')
+  })
+
   it('maps mood to calm-blue, lilac and warm water', () => {
     expect(moodWater(0).deep).toBe('#9db4ea')
     expect(moodWater(50).deep).toBe('#c6b2f1')
