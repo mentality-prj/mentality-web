@@ -66,14 +66,14 @@ describe('MoodResonance', () => {
     }
   })
 
-  it('keeps demo action cards in one column when the hero is narrow', () => {
+  it('shows one practice hint without duplicating the actionable diary card', () => {
     render(
       <MoodResonance>
         <p>hero copy</p>
       </MoodResonance>
     )
-    const cards = screen.getByText('journal').parentElement?.parentElement
-    expect(cards).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-1', 'lg:grid-cols-2')
+    expect(screen.queryByText('journal')).not.toBeInTheDocument()
+    expect(screen.getByText('practice').parentElement).toHaveClass('mt-3', 'flex')
   })
 
   it('maps mood to calm-blue, lilac and warm water', () => {
