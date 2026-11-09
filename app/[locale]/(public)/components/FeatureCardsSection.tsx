@@ -88,26 +88,10 @@ export function FeatureCardsSection({ isAuthenticated = false }: { isAuthenticat
             )
           })}
         </div>
-        <div className="mt-6 rounded-2xl border border-[#dce7f5] bg-white/85 px-5 py-4">
-          <h3 className="text-base font-semibold text-[#323653]">{t('Next.progressTitle')}</h3>
-          <p className="mt-1 text-sm leading-relaxed text-[#5c627a]">{t('Next.progressDescription')}</p>
-          {isAuthenticated && (
-            <Link
-              href={Routes.MYPROGRESS}
-              className="mt-3 inline-flex min-h-11 items-center text-sm font-semibold text-primary underline underline-offset-4 focus-visible:outline-2 focus-visible:outline-offset-2"
-            >
-              {t('Next.progressCta')}
-            </Link>
-          )}
-        </div>
-        <div className="mt-6 flex flex-col gap-4 rounded-[24px] border border-[#e2daf2] bg-[#f8f6ff] p-5 tablet:p-6 sm:flex-row sm:items-center sm:justify-between">
-          <div className="flex items-center gap-3">
-            <DoodleIcon name="journal" tone="lilac" size={44} />
-            <p className="max-w-lg text-sm leading-relaxed text-[#575570] tablet:text-base">{t('Next.closing')}</p>
-          </div>
+        <div className="mt-6 flex justify-end">
           <Link
             href={isAuthenticated ? Routes.MYDAY : Routes.AUTH}
-            className={`${landingPrimaryCta} w-full shrink-0 sm:w-auto`}
+            className={`${landingPrimaryCta} w-full sm:w-auto`}
           >
             {isAuthenticated ? t('Hero.returnCta') : t('Next.signup')}
           </Link>
