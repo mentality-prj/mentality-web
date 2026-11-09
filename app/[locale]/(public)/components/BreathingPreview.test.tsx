@@ -13,7 +13,7 @@ const translations: Record<string, string> = {
   start: 'Start',
   stop: 'Stop',
   restart: 'Try again',
-  next: 'Continue in Dzvin',
+  next: 'Continue in Dzvinco',
   progress: 'Exercise progress',
   private: 'Nothing is saved.',
 }
@@ -38,7 +38,7 @@ describe('Public breathing preview', () => {
     expect(screen.getByText('Breathe in')).toBeInTheDocument()
     fireEvent.click(screen.getByRole('button', { name: 'Stop' }))
     expect(screen.getByRole('button', { name: 'Start' })).toBeInTheDocument()
-    expect(screen.queryByRole('link', { name: 'Continue in Dzvin' })).not.toBeInTheDocument()
+    expect(screen.queryByRole('link', { name: 'Continue in Dzvinco' })).not.toBeInTheDocument()
   })
 
   it('runs three 4-second inhale / 6-second exhale cycles then offers signup', () => {
@@ -56,7 +56,7 @@ describe('Public breathing preview', () => {
     })
     expect(screen.getByText('Complete')).toBeInTheDocument()
     expect(screen.getByRole('progressbar')).toHaveAttribute('aria-valuenow', '30')
-    expect(screen.getByRole('link', { name: 'Continue in Dzvin' })).toHaveAttribute('href', '/auth')
+    expect(screen.getByRole('link', { name: 'Continue in Dzvinco' })).toHaveAttribute('href', '/auth')
     expect(screen.getByRole('button', { name: 'Try again' })).toBeInTheDocument()
   })
 
@@ -68,6 +68,6 @@ describe('Public breathing preview', () => {
     act(() => {
       jest.advanceTimersByTime(30_000)
     })
-    expect(screen.getByRole('link', { name: 'Continue in Dzvin' })).toHaveAttribute('href', '/my-day')
+    expect(screen.getByRole('link', { name: 'Continue in Dzvinco' })).toHaveAttribute('href', '/my-day')
   })
 })

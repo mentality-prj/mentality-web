@@ -8,7 +8,7 @@ export type ProductDeck = { title: string; subtitle: string; slides: DeckSlide[]
 const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'research', ProductDeck>> = {
   uk: {
     teams: {
-      title: 'Dzvin.co для команд',
+      title: 'Дзвінко для команд',
       subtitle: 'Від командних сигналів до відповідальної дії',
       slides: [
         {
@@ -26,7 +26,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
           ],
         },
         {
-          title: 'Як менеджер працює з Dzvin.co',
+          title: 'Як менеджер працює з Дзвінко',
           description: 'Від загальної картини до конкретного сигналу та подальшої дії.',
           points: [
             '1. Обрати період і дозволені групи',
@@ -62,7 +62,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
       ],
     },
     individuals: {
-      title: 'Dzvin.co для людини',
+      title: 'Дзвінко для людини',
       subtitle: 'Помічайте зміни, а не лише сьогоднішній стан',
       slides: [
         {
@@ -104,7 +104,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
       ],
     },
     research: {
-      title: 'Dzvin.co для досліджень',
+      title: 'Дзвінко для досліджень',
       subtitle: 'Керований дослідницький процес і прозорі результати',
       slides: [
         {
@@ -148,7 +148,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
   },
   en: {
     teams: {
-      title: 'Dzvin.co for organizations',
+      title: 'Dzvinco for organizations',
       subtitle: 'From team signals to accountable action',
       slides: [
         {
@@ -207,7 +207,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
       ],
     },
     individuals: {
-      title: 'Dzvin.co for individuals',
+      title: 'Dzvinco for individuals',
       subtitle: "Understand changes, not just today's score",
       slides: [
         {
@@ -248,7 +248,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
       ],
     },
     research: {
-      title: 'Dzvin.co for research',
+      title: 'Dzvinco for research',
       subtitle: 'Structured programs and traceable observations',
       slides: [
         {
@@ -291,7 +291,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
   },
   pl: {
     teams: {
-      title: 'Dzvin.co dla organizacji',
+      title: 'Dzvinco dla organizacji',
       subtitle: 'Od sygnałów zespołu do odpowiedzialnych działań',
       slides: [
         {
@@ -340,7 +340,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
       ],
     },
     individuals: {
-      title: 'Dzvin.co dla osób',
+      title: 'Dzvinco dla osób',
       subtitle: 'Dostrzegaj zmiany, nie tylko dzisiejszy wynik',
       slides: [
         {
@@ -381,7 +381,7 @@ const productDecks: Record<DeckLocale, Record<'teams' | 'individuals' | 'researc
       ],
     },
     research: {
-      title: 'Dzvin.co dla badań',
+      title: 'Dzvinco dla badań',
       subtitle: 'Uporządkowane programy i śledzenie wyników',
       slides: [
         {

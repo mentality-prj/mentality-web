@@ -5,7 +5,7 @@ import { useMemo, useState } from 'react'
 const copy = {
   uk: {
     title: 'Перевірте економічний сценарій на власних припущеннях',
-    lead: 'Калькулятор не використовує ціни Dzvin.co або обіцяні результати. Змініть значення на власні показники та використовуйте висновок лише як гіпотезу для пілоту.',
+    lead: 'Калькулятор не використовує ціни Дзвінко або обіцяні результати. Змініть значення на власні показники та використовуйте висновок лише як гіпотезу для пілоту.',
     people: 'Кількість учасників',
     hourly: 'Вартість робочої години (PLN)',
     recovered: 'Фактично відновлені години на учасника за місяць',
@@ -18,11 +18,11 @@ const copy = {
     breakeven: 'Поріг окупності, год/особу/міс',
     empty: 'Вкажіть припущення щодо вартості сервісу',
     caveat:
-      'У розрахунку йдеться про сценарій за заданих припущень, а не про підтверджений результат Dzvin.co. Фактичний ефект, ціну, обсяг використання та метод вимірювання слід узгодити під час пілоту.',
+      'У розрахунку йдеться про сценарій за заданих припущень, а не про підтверджений результат Дзвінко. Фактичний ефект, ціну, обсяг використання та метод вимірювання слід узгодити під час пілоту.',
   },
   en: {
     title: 'Model business value using your own assumptions',
-    lead: 'This calculator includes no official Dzvin.co pricing or promised performance. Enter your figures and use the outcome only as a pilot hypothesis.',
+    lead: 'This calculator includes no official Dzvinco pricing or promised performance. Enter your figures and use the outcome only as a pilot hypothesis.',
     people: 'Participants',
     hourly: 'Hourly labor cost (PLN)',
     recovered: 'Hours actually recovered per person per month',
@@ -35,11 +35,11 @@ const copy = {
     breakeven: 'Break-even hours/person/month',
     empty: 'Enter assumed platform costs',
     caveat:
-      'The result is a scenario calculation, not a verified Dzvin.co outcome. Actual impact, pricing, participation and measurement should be agreed during a pilot.',
+      'The result is a scenario calculation, not a verified Dzvinco outcome. Actual impact, pricing, participation and measurement should be agreed during a pilot.',
   },
   pl: {
     title: 'Sprawdź scenariusz na własnych założeniach',
-    lead: 'Kalkulator nie zawiera oficjalnego cennika Dzvin.co ani obietnicy efektów. Wprowadź własne dane i potraktuj wynik jako hipotezę do pilotażu.',
+    lead: 'Kalkulator nie zawiera oficjalnego cennika Dzvinco ani obietnicy efektów. Wprowadź własne dane i potraktuj wynik jako hipotezę do pilotażu.',
     people: 'Liczba uczestników',
     hourly: 'Koszt godziny pracy (PLN)',
     recovered: 'Godziny faktycznie odzyskane na osobę miesięcznie',
@@ -52,7 +52,7 @@ const copy = {
     breakeven: 'Próg rentowności, godz./os./mies.',
     empty: 'Wprowadź założony koszt platformy',
     caveat:
-      'Wynik jest scenariuszem, nie potwierdzonym efektem Dzvin.co. Rzeczywiste rezultaty, ceny, udział i metodę pomiaru należy uzgodnić w pilocie.',
+      'Wynik jest scenariuszem, nie potwierdzonym efektem Dzvinco. Rzeczywiste rezultaty, ceny, udział i metodę pomiaru należy uzgodnić w pilocie.',
   },
 }
 

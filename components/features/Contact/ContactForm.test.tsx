@@ -60,12 +60,12 @@ describe('ContactForm mobile readiness', () => {
   it('prefills a pilot or research request when arriving from the landing page', () => {
     const { unmount } = render(<ContactForm source="landing" segment="teams" intent="demo" />)
     expect((screen.getByPlaceholderText('message') as HTMLTextAreaElement).value).toBe(
-      'Хочу обговорити демонстрацію Dzvin.co для компанії.'
+      'Хочу обговорити демонстрацію Дзвінко для компанії.'
     )
     unmount()
     render(<ContactForm source="landing" segment="research" intent="demo" />)
     expect((screen.getByPlaceholderText('message') as HTMLTextAreaElement).value).toBe(
-      'Хочу обговорити дослідницьку програму Dzvin.co.'
+      'Хочу обговорити дослідницьку програму Дзвінко.'
     )
   })
 })

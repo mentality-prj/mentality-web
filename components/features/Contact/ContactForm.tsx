@@ -26,37 +26,37 @@ export const ContactForm = ({
   const locale = useLocale()
   const topics = {
     uk: {
-      teams: 'Хочу обговорити демонстрацію Dzvin.co для компанії.',
-      individuals: 'Хочу обговорити персональні можливості Dzvin.co.',
-      research: 'Хочу обговорити дослідницьку програму Dzvin.co.',
+      teams: 'Хочу обговорити демонстрацію Дзвінко для компанії.',
+      individuals: 'Хочу обговорити персональні можливості Дзвінко.',
+      research: 'Хочу обговорити дослідницьку програму Дзвінко.',
     },
     en: {
-      teams: 'I would like a Dzvin.co demonstration for my organization.',
+      teams: 'I would like a Dzvinco demonstration for my organization.',
       individuals: 'I would like to learn about the personal product.',
-      research: 'I would like to discuss a Dzvin.co research program.',
+      research: 'I would like to discuss a Dzvinco research program.',
     },
     pl: {
-      teams: 'Chcę umówić prezentację Dzvin.co dla organizacji.',
+      teams: 'Chcę umówić prezentację Dzvinco dla organizacji.',
       individuals: 'Chcę poznać ofertę dla osób.',
-      research: 'Chcę omówić program badawczy Dzvin.co.',
+      research: 'Chcę omówić program badawczy Dzvinco.',
     },
   }
 
   const fundingTopics = {
     uk: {
       investment:
-        'Хочу обговорити інвестування у запуск Dzvin.co: стадія розробки, QDIP/Decision Intelligence, бюджет і milestones.',
+        'Хочу обговорити інвестування у запуск Дзвінко: стадія розробки, QDIP/Decision Intelligence, бюджет і milestones.',
       grant:
-        'Хочу обговорити грантове фінансування дослідження Decision Intelligence in mental health на базі Dzvin.co.',
+        'Хочу обговорити грантове фінансування дослідження Decision Intelligence in mental health на базі Дзвінко.',
     },
     en: {
       investment:
-        'I would like to discuss financing the development and launch of Dzvin.co, including milestones and the QDIP research track.',
-      grant: 'I would like to discuss research/grant funding for Decision Intelligence in mental health with Dzvin.co.',
+        'I would like to discuss financing the development and launch of Dzvinco, including milestones and the QDIP research track.',
+      grant: 'I would like to discuss research/grant funding for Decision Intelligence in mental health with Dzvinco.',
     },
     pl: {
-      investment: 'Chcę omówić finansowanie rozwoju i uruchomienia Dzvin.co, etapy i kierunek badań QDIP.',
-      grant: 'Chcę omówić dofinansowanie badań Decision Intelligence in mental health w Dzvin.co.',
+      investment: 'Chcę omówić finansowanie rozwoju i uruchomienia Dzvinco, etapy i kierunek badań QDIP.',
+      grant: 'Chcę omówić dofinansowanie badań Decision Intelligence in mental health w Dzvinco.',
     },
   }
   const lang = locale === 'en' || locale === 'pl' ? locale : 'uk'

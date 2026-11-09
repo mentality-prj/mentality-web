@@ -1,10 +1,10 @@
 {
-  "title": "About Dzvin.co",
-  "intro": "Dzvin.co is a Ukrainian personal self-support service: quick state check-ins, a private diary and short exercises you can choose at your own pace.",
-  "introExtended": "The service is at an early stage (beta). Available today: daily check-ins for stress, mood, energy and focus, a private diary, breathing and calming exercises, meditations and tips, plus personal progress and goals. For companies and research teams we are developing separate pilot formats with clear access boundaries. Dzvin.co does not diagnose and does not replace a professional.",
+  "title": "About Dzvinco",
+  "intro": "Dzvinco is a Ukrainian personal self-support service: quick state check-ins, a private diary and short exercises you can choose at your own pace.",
+  "introExtended": "The service is at an early stage (beta). Available today: daily check-ins for stress, mood, energy and focus, a private diary, breathing and calming exercises, meditations and tips, plus personal progress and goals. For companies and research teams we are developing separate pilot formats with clear access boundaries. Dzvinco does not diagnose and does not replace a professional.",
   "Evolution": {
     "title": "From a single check-in to a manageable next step",
-    "description": "Dzvin.co does not predict your state or judge it. It helps you notice how you feel, pick a short practice and come back to your own history at your own pace.",
+    "description": "Dzvinco does not predict your state or judge it. It helps you notice how you feel, pick a short practice and come back to your own history at your own pace.",
     "stepDescriptions": {
       "happened": "You rate stress, mood, energy or focus, or write a diary entry — whenever it suits you.",
       "means": "The service shows what you recorded today, with no diagnoses, rankings or comparison with other people.",
@@ -61,7 +61,7 @@
     }
   },
   "Architecture": {
-    "title": "How Dzvin.co is organized",
+    "title": "How Dzvinco is organized",
     "overviewTitle": "Three separate tracks",
     "overviewDescription": "The personal service, company pilots and the research track are developed separately, each with its own data access boundaries.",
     "overviewDescriptionLead": "The personal service, company pilots and the research track are developed separately, each with its own data access boundaries.",
@@ -91,8 +91,8 @@
     }
   },
   "Technology": {
-    "title": "Technology behind Dzvin",
-    "description": "Dzvin is an independent mental wellbeing application in the QDIP ecosystem. QDIP is a Decision Intelligence platform for developers. We are exploring decision-support integration; these capabilities are not yet available as a Dzvin production feature.",
+    "title": "Technology behind Dzvinco",
+    "description": "Dzvinco is an independent mental wellbeing application in the QDIP ecosystem. QDIP is a Decision Intelligence platform for developers. We are exploring decision-support integration; these capabilities are not yet available as a Dzvinco production feature.",
     "cta": "Learn about QDIP"
   }
 }

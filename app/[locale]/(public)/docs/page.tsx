@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const docs = getPublicDocs(locale)
   return {
-    title: `${docs.title} | Dzvin.co`,
+    title: `${docs.title} | ${locale === 'uk' ? 'Дзвінко' : 'Dzvinco'}`,
     description: docs.lead,
     alternates: {
       canonical: `https://docs.dzvin.co/${locale}/docs`,
