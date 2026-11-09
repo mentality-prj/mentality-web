@@ -63,18 +63,21 @@ describe('public Dzvin positioning copy', () => {
     expect(JSON.stringify(faq.sections[0])).toContain('112')
   })
 
-  it.each(['en', 'uk', 'pl'] as const)('%s displays the localized product name in all message catalogs and public docs', (locale) => {
-    const expected = locale === 'uk' ? 'Дзвінко' : 'Dzvinco'
-    const json = ['common', 'components', 'pages'].flatMap((directory) =>
-      readdirSync(`messages/${locale}/${directory}`)
-        .filter((file) => file.endsWith('.json'))
-        .map((file) => readFileSync(`messages/${locale}/${directory}/${file}`, 'utf8'))
-    )
-    json.push(readFileSync(`content/public-docs/${locale}.json`, 'utf8'))
-    const allText = json.join('\n')
-    expect(allText).toContain(expected)
-    expect(allText).not.toMatch(/Dzvin(?:\.co)?\b/)
-  })
+  it.each(['en', 'uk', 'pl'] as const)(
+    '%s displays the localized product name in all message catalogs and public docs',
+    (locale) => {
+      const expected = locale === 'uk' ? 'Дзвінко' : 'Dzvinco'
+      const json = ['common', 'components', 'pages'].flatMap((directory) =>
+        readdirSync(`messages/${locale}/${directory}`)
+          .filter((file) => file.endsWith('.json'))
+          .map((file) => readFileSync(`messages/${locale}/${directory}/${file}`, 'utf8'))
+      )
+      json.push(readFileSync(`content/public-docs/${locale}.json`, 'utf8'))
+      const allText = json.join('\n')
+      expect(allText).toContain(expected)
+      expect(allText).not.toMatch(/Dzvin(?:\.co)?\b/)
+    }
+  )
 
   it('keeps the same About structure across locales', () => {
     const keys = (value: unknown, prefix = ''): string[] =>

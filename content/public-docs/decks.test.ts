@@ -5,7 +5,11 @@ describe('public product presentations', () => {
     const expected = locale === 'uk' ? 'Дзвінко' : 'Dzvinco'
     for (const audience of deckAudiences) {
       const deck = getProductDeck(locale, audience)
-      const text = [deck.title, deck.subtitle, ...deck.slides.flatMap((s) => [s.title, s.description, ...s.points])].join(' ')
+      const text = [
+        deck.title,
+        deck.subtitle,
+        ...deck.slides.flatMap((s) => [s.title, s.description, ...s.points]),
+      ].join(' ')
       expect(text).toContain(expected)
       expect(text).not.toMatch(/Dzvin(?:\.co)?\b/)
     }
