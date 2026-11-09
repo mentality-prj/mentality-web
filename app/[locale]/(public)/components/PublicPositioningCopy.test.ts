@@ -1,4 +1,4 @@
-import { readFileSync, readdirSync } from 'node:fs'
+import { readdirSync, readFileSync } from 'node:fs'
 
 import enTitle from '@/messages/en/common/title.json'
 import enAbout from '@/messages/en/pages/About.json'
