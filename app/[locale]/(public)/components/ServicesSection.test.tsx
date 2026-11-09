@@ -38,4 +38,23 @@ describe('ServicesSection', () => {
     expect(container.querySelectorAll('svg')).toHaveLength(3)
     expect(container.querySelector('img')).toBeNull()
   })
+
+  it('renders clean, soft-color SVG icons without displacement, tilt, or facial artifacts', () => {
+    const { container } = render(<ServicesSection />)
+    const cards = [...container.querySelectorAll('article')]
+    const icons = cards.map((card) => card.querySelector('svg'))
+
+    expect(icons).toHaveLength(3)
+    for (const svg of icons) {
+      expect(svg).not.toBeNull()
+      expect(svg).toHaveAttribute('stroke', '#675978')
+      expect(svg?.querySelector('filter, feTurbulence, feDisplacementMap')).toBeNull()
+      expect(svg?.parentElement?.style.getPropertyValue('rotate')).toBe('')
+    }
+
+    const breathingIcon = icons[1]
+    expect(breathingIcon?.querySelector('ellipse')).toBeNull()
+    expect(breathingIcon?.querySelector('circle')).toBeNull()
+    expect(breathingIcon?.querySelectorAll('path')).toHaveLength(3)
+  })
 })

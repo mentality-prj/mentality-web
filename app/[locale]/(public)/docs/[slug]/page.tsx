@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const article = getPublicDoc(locale, slug)
   if (!article) return {}
   return {
-    title: `${article.title} | Dzvin.co`,
+    title: `${article.title} | ${locale === 'uk' ? 'Дзвінко' : 'Dzvinco'}`,
     description: article.summary,
     openGraph: { title: article.title, description: article.summary, type: 'article' },
     alternates: {
@@ -45,12 +45,12 @@ export default async function DocArticlePage({ params }: Props) {
       funding: 'Інвестиційне партнерство',
       investDeck: 'Інвестиційна презентація',
       grantDeck: 'Грантова презентація',
-      nextFunding: 'Матеріали для обговорення інвестиційної програми та наступного етапу розвитку Dzvin.co.',
+      nextFunding: 'Матеріали для обговорення інвестиційної програми та наступного етапу розвитку Дзвінко.',
       presentations: 'Презентації продукту',
       teams: 'Для компаній',
       individuals: 'Для людей',
       research: 'Для досліджень',
-      next: 'Доступні продуктові презентації та огляд цільових сценаріїв Dzvin.co.',
+      next: 'Доступні продуктові презентації та огляд цільових сценаріїв Дзвінко.',
     },
     en: {
       demo: 'Technical demonstration',
@@ -62,19 +62,19 @@ export default async function DocArticlePage({ params }: Props) {
       teams: 'For organizations',
       individuals: 'For individuals',
       research: 'For research',
-      next: 'Review the product presentations and target Dzvin.co user journeys.',
+      next: 'Review the product presentations and target Dzvinco user journeys.',
     },
     pl: {
       demo: 'Demonstracja techniczna',
       funding: 'Partnerstwo inwestycyjne',
       investDeck: 'Prezentacja inwestorska',
       grantDeck: 'Prezentacja grantowa',
-      nextFunding: 'Materiały do oceny programu inwestycyjnego i kolejnego etapu rozwoju Dzvin.co.',
+      nextFunding: 'Materiały do oceny programu inwestycyjnego i kolejnego etapu rozwoju Dzvinco.',
       presentations: 'Prezentacje produktu',
       teams: 'Dla firm',
       individuals: 'Dla osób',
       research: 'Dla badań',
-      next: 'Prezentacje i docelowe scenariusze użytkowania Dzvin.co.',
+      next: 'Prezentacje i docelowe scenariusze użytkowania Dzvinco.',
     },
   }[lang]
   const segment = slug === 'research' ? 'research' : slug === 'personal' ? 'individuals' : 'teams'

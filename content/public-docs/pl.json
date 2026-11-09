@@ -1,9 +1,9 @@
 {
-  "title": "Dzvin.co | Strategia produktu i dossier inwestycyjne",
-  "kicker": "Dzvin.co · Dokumentacja projektu",
+  "title": "Dzvinco | Strategia produktu i dossier inwestycyjne",
+  "kicker": "Dzvinco · Dokumentacja projektu",
   "lead": "Strategia produktu, kierunek QDIP / Decision Intelligence, postęp inżynierski i program rozwoju prowadzący do kontrolowanego uruchomienia.",
   "browse": "Biblioteka dokumentów",
-  "back": "Dokumentacja Dzvin.co",
+  "back": "Dokumentacja Dzvinco",
   "nav": "Sekcje dokumentacji",
   "status": "Aktualizacja: 25 października 2026 r.",
   "links": "Przydatne linki",
@@ -15,12 +15,12 @@
       "slug": "funding-brief",
       "category": "Strategia inwestycyjna",
       "title": "Podsumowanie inwestycyjne",
-      "summary": "Koncepcja inwestycyjna, fundamenty technologiczne Dzvin.co, program badań QDIP i rezultaty kolejnego etapu.",
+      "summary": "Koncepcja inwestycyjna, fundamenty technologiczne Dzvinco, program badań QDIP i rezultaty kolejnego etapu.",
       "sections": [
         {
           "title": "Teza inwestycyjna",
           "paragraphs": [
-            "Dzvin.co to rozwijana platforma wspierania dobrostanu psychicznego, obejmująca funkcje indywidualne, organizacyjne i badawcze. Program naukowy analizuje wykorzystanie Decision Intelligence i QDIP do wyjaśnialnego wyboru działań przy niepewnych danych, pod kontrolą człowieka.",
+            "Dzvinco to rozwijana platforma wspierania dobrostanu psychicznego, obejmująca funkcje indywidualne, organizacyjne i badawcze. Program naukowy analizuje wykorzystanie Decision Intelligence i QDIP do wyjaśnialnego wyboru działań przy niepewnych danych, pod kontrolą człowieka.",
             "Istniejące prace inżynierskie stanowią podstawę kolejnego etapu: integracji, bezpieczeństwa, walidacji naukowej i kontrolowanego uruchomienia."
           ]
         },
@@ -62,7 +62,7 @@
         {
           "title": "Model partnerstwa",
           "paragraphs": [
-            "Dzvin.co jest otwarty na inwestycje prywatne, partnerstwa strategiczne i wsparcie poszczególnych etapów rozwoju. Formę współpracy uzgadnia się indywidualnie na podstawie celów technologicznych i odpowiedzialności stron.",
+            "Dzvinco jest otwarty na inwestycje prywatne, partnerstwa strategiczne i wsparcie poszczególnych etapów rozwoju. Formę współpracy uzgadnia się indywidualnie na podstawie celów technologicznych i odpowiedzialności stron.",
             "Rozmowy inwestycyjne obejmują prawa stron, weryfikację technologii, planowane rezultaty i warunki współpracy. Wnioski grantowe zawierają wymagany przez konkretny program plan prac i kwalifikowany kosztorys."
           ]
         }
@@ -72,12 +72,12 @@
       "slug": "investment-thesis",
       "category": "Strategia inwestycyjna",
       "title": "Strategiczne uzasadnienie inwestycji",
-      "summary": "Teza inwestycyjna Dzvin.co: problem nabywcy, rynek początkowy, hipoteza skalowania, zasoby technologiczne i program rozwoju oparty na kryteriach weryfikacji.",
+      "summary": "Teza inwestycyjna Dzvinco: problem nabywcy, rynek początkowy, hipoteza skalowania, zasoby technologiczne i program rozwoju oparty na kryteriach weryfikacji.",
       "sections": [
         {
           "title": "Strategia produktu",
           "paragraphs": [
-            "Dzvin.co łączy trzy doświadczenia: prywatne narzędzia osobiste, dozwoloną analitykę grupową i kontrolowany obszar badań.",
+            "Dzvinco łączy trzy doświadczenia: prywatne narzędzia osobiste, dozwoloną analitykę grupową i kontrolowany obszar badań.",
             "Kierunek naukowy to Decision Intelligence: przejście od sygnału ryzyka do wyjaśnionych działań z niepewnością, kontrolą człowieka i późniejszą weryfikacją."
           ]
         },
@@ -86,14 +86,14 @@
           "paragraphs": [
             "Pojedyncze ankiety i osobne dzienniki nie tworzą ciągłego obrazu i procesu działania. Samo przewidywanie ryzyka nie rozstrzyga, jakie działanie jest stosowne.",
             "W zastosowaniach sztucznej inteligencji dotyczących dobrostanu psychicznego zasadnicze znaczenie mają ochrona danych, niepewność modeli, zgoda użytkowników i bezpieczeństwo proponowanych działań.",
-            "Według WHO depresja i zaburzenia lękowe powodują globalnie około 12 mld utraconych dni pracy i 1 bln USD strat produktywności rocznie (Mental health at work, 15 września 2026 r.). To skala problemu społecznego, nie prognoza przychodów Dzvin.co ani potwierdzony efekt produktu."
+            "Według WHO depresja i zaburzenia lękowe powodują globalnie około 12 mld utraconych dni pracy i 1 bln USD strat produktywności rocznie (Mental health at work, 15 września 2026 r.). To skala problemu społecznego, nie prognoza przychodów Dzvinco ani potwierdzony efekt produktu."
           ]
         },
         {
           "title": "Dlaczego teraz",
           "paragraphs": [
             "Według badania EU-OSHA OSH Pulse 2025, 29% ankietowanych pracowników UE doświadczyło stresu, depresji lub lęku spowodowanych albo nasilonych przez pracę w ciągu ostatnich 12 miesięcy. Pracodawcy mierzą się z realnym problemem, a odrębne aplikacje i okresowe ankiety nie muszą zapewniać powtarzalnego procesu odpowiedzialnych działań.",
-            "Rośnie znaczenie prywatności, rozliczalności i nadzoru człowieka nad systemami cyfrowymi. Szansa Dzvin.co polega na sprawdzeniu wartości jednego procesu — od powtarzanych obserwacji do działania nadzorowanego przez człowieka z poszanowaniem uprawnień — a nie na deklaracji już udowodnionej przewagi."
+            "Rośnie znaczenie prywatności, rozliczalności i nadzoru człowieka nad systemami cyfrowymi. Szansa Dzvinco polega na sprawdzeniu wartości jednego procesu — od powtarzanych obserwacji do działania nadzorowanego przez człowieka z poszanowaniem uprawnień — a nie na deklaracji już udowodnionej przewagi."
           ]
         },
         {
@@ -157,7 +157,7 @@
           "title": "QDIP jako kierunek technologiczny",
           "paragraphs": [
             "QDIP to odrębny kierunek technologiczny łączący reguły i sygnały modelowe, polityki, wyjaśnienia, audyt i monitoring.",
-            "Dzvin.co jest obszarem zastosowania zasad QDIP. Ocena integracji i przewagi naukowej należy do planowanych badań."
+            "Dzvinco jest obszarem zastosowania zasad QDIP. Ocena integracji i przewagi naukowej należy do planowanych badań."
           ]
         },
         {
@@ -206,7 +206,7 @@
         {
           "title": "Status techniczny · 25 października 2026 r.",
           "paragraphs": [
-            "Na 25 października 2026 Dzvin.co to prototyp oprogramowania z komponentami indywidualnymi, organizacyjnymi i badawczymi. Integracja produkcyjna i zewnętrzna ocena należą do kolejnego etapu.",
+            "Na 25 października 2026 Dzvinco to prototyp oprogramowania z komponentami indywidualnymi, organizacyjnymi i badawczymi. Integracja produkcyjna i zewnętrzna ocena należą do kolejnego etapu.",
             "Gotowość określają pełne scenariusze, uprawnienia, bezpieczeństwo i niezawodność operacyjna."
           ]
         },
@@ -235,7 +235,7 @@
           "title": "Integracja Decision Intelligence",
           "paragraphs": [
             "Istnieją materiały o ryzyku adaptacyjnym, politykach, wyjaśnieniach i metodyce; kod backendowy zawiera moduły wsparcia decyzji.",
-            "Istniejąca podstawa QDIP i materiały badawcze definiują punkt wyjścia do oceny zintegrowanych polityk decyzji w Dzvin.co."
+            "Istniejąca podstawa QDIP i materiały badawcze definiują punkt wyjścia do oceny zintegrowanych polityk decyzji w Dzvinco."
           ]
         },
         {
@@ -285,7 +285,7 @@
           "title": "QDIP / Decision Intelligence",
           "paragraphs": [
             "Publiczna dokumentacja QDIP opisuje połączenie reguł, modeli, polityk, wyjaśnień i oceny ryzyka.",
-            "Status: fundamenty i hipotezy; przewaga naukowa w Dzvin wymaga badań."
+            "Status: fundamenty i hipotezy; przewaga naukowa w Dzvinco wymaga badań."
           ]
         },
         {
@@ -300,7 +300,7 @@
     {
       "slug": "funding-roadmap",
       "category": "Program rozwoju",
-      "title": "Roadmapa rozwoju Dzvin.co",
+      "title": "Roadmapa rozwoju Dzvinco",
       "summary": "Kolejne etapy technologiczne, badawcze i operacyjne wraz z rezultatami i kamieniami milowymi.",
       "sections": [
         {
@@ -450,13 +450,13 @@
     {
       "slug": "funding-request",
       "category": "Partnerstwo inwestycyjne",
-      "title": "Dzvin.co — możliwość inwestycyjna",
+      "title": "Dzvinco — możliwość inwestycyjna",
       "summary": "Potencjał technologiczny, uzasadnienie inwestycji, rezultaty programu i model współpracy.",
       "sections": [
         {
           "title": "Potencjał technologiczny",
           "paragraphs": [
-            "Dzvin.co łączy osobiste wsparcie dobrostanu, planowaną analitykę zespołów i przestrzeń badawczą. Kierunek QDIP / Decision Intelligence zakłada badanie wyjaśnialnego wyboru działań z uwzględnieniem kontekstu, niepewności i kontroli człowieka.",
+            "Dzvinco łączy osobiste wsparcie dobrostanu, planowaną analitykę zespołów i przestrzeń badawczą. Kierunek QDIP / Decision Intelligence zakłada badanie wyjaśnialnego wyboru działań z uwzględnieniem kontekstu, niepewności i kontroli człowieka.",
             "Podstawą projektu są istniejące komponenty inżynierskie i możliwość przekształcenia ich w zweryfikowany produkt dla kilku zastosowań. Przewaga technologiczna wymaga jeszcze badań."
           ]
         },
@@ -500,13 +500,13 @@
     {
       "slug": "product-story",
       "category": "Strategia produktu",
-      "title": "Koncepcja produktu Dzvin.co",
+      "title": "Koncepcja produktu Dzvinco",
       "summary": "Spójna koncepcja produktu dla użytkowników indywidualnych, organizacji i badań.",
       "sections": [
         {
           "title": "Strategia produktu",
           "paragraphs": [
-            "Dzvin.co powstaje jako platforma łącząca obserwacje dobrostanu z kontekstem i procesami wsparcia w obszarze indywidualnym, organizacyjnym i badawczym.",
+            "Dzvinco powstaje jako platforma łącząca obserwacje dobrostanu z kontekstem i procesami wsparcia w obszarze indywidualnym, organizacyjnym i badawczym.",
             "Wspólnym założeniem jest przejście od sygnału do wyjaśnialnego działania pod kontrolą człowieka i oceny rezultatów."
           ]
         },
@@ -646,12 +646,12 @@
       "slug": "comparison",
       "category": "Pozycjonowanie rynkowe",
       "title": "Pozycjonowanie rynkowe",
-      "summary": "Źródła danych o rynku, metoda TAM/SAM/SOM, nabywcy, konkretne alternatywy konkurencyjne i kryteria weryfikacji przewagi Dzvin.co.",
+      "summary": "Źródła danych o rynku, metoda TAM/SAM/SOM, nabywcy, konkretne alternatywy konkurencyjne i kryteria weryfikacji przewagi Dzvinco.",
       "sections": [
         {
           "title": "Potrzeba rynkowa i dane źródłowe",
           "paragraphs": [
-            "WHO szacuje globalnie 12 mld utraconych dni pracy oraz 1 bln USD rocznych strat produktywności związanych z depresją i lękiem (2026). EU-OSHA podaje, że 29% pracowników UE ankietowanych w 2025 r. doświadczyło stresu, depresji lub lęku spowodowanych albo nasilonych przez pracę. Dane opisują problem, nie przychody Dzvin.co, skuteczność czy zamiar zakupu.",
+            "WHO szacuje globalnie 12 mld utraconych dni pracy oraz 1 bln USD rocznych strat produktywności związanych z depresją i lękiem (2026). EU-OSHA podaje, że 29% pracowników UE ankietowanych w 2025 r. doświadczyło stresu, depresji lub lęku spowodowanych albo nasilonych przez pracę. Dane opisują problem, nie przychody Dzvinco, skuteczność czy zamiar zakupu.",
             "Według Eurostatu w 2025 r. w UE pracowało 197,7 mln osób w wieku 20–64 lat. To punkt odniesienia do skali rynku pracy, a nie liczba płatnych stanowisk: obejmuje także osoby poza docelową grupą nabywców."
           ]
         },
@@ -666,7 +666,7 @@
           "title": "TAM, SAM i SOM: metodologia",
           "paragraphs": [
             "TAM to teoretyczna roczna wartość wydatków w jasno zdefiniowanej kategorii usługi dla pracodawców, a nie cały rynek zdrowia psychicznego. Należy ją obliczać na podstawie liczby kwalifikujących się pracodawców, możliwych do objęcia pracowników i udokumentowanej rocznej wartości kontraktu. Dane Eurostatu o 197,7 mln pracujących służą jedynie jako kontekst, a nie wycena TAM.",
-            "SAM ogranicza tę pulę do firm, które Dzvin.co może obsłużyć prawnie, technicznie i komercyjnie na początkowych rynkach, z uwzględnieniem wielkości, zakupów, prywatności i gotowości integracyjnej. Modelu B2C i partnerstw badawczych nie wolno dodawać do miejsc B2B bez eliminacji podwójnego liczenia.",
+            "SAM ogranicza tę pulę do firm, które Dzvinco może obsłużyć prawnie, technicznie i komercyjnie na początkowych rynkach, z uwzględnieniem wielkości, zakupów, prywatności i gotowości integracyjnej. Modelu B2C i partnerstw badawczych nie wolno dodawać do miejsc B2B bez eliminacji podwójnego liczenia.",
             "SOM należy oszacować oddolnie z osiągalnej bazy potencjalnych nabywców, konwersji pilotaży, wielkości kontraktów, wartości rocznej i zdolności wdrożeniowych w określonym horyzoncie. Kwoty wymagają wywiadów z klientami, danych zakupowych i wyników pilotaży."
           ]
         },
@@ -674,7 +674,7 @@
           "title": "Alternatywy konkurencyjne",
           "paragraphs": [
             "Headspace oferuje mindfulness, narzędzia AI i wsparcie zdrowia psychicznego dla pracodawców; Unmind łączy treści edukacyjne, coaching, wsparcie AI i analitykę organizacyjną; Wysa zapewnia konwersacyjne wsparcie AI i raportowanie dla firm. Są to rzeczywiste alternatywy w budżecie dobrostanu pracowników, nie wyłącznie narzędzia ankietowe.",
-            "Hipoteza wyróżnika Dzvin.co zakłada identyfikowalną ścieżkę od powtarzanych obserwacji przez ocenę niepewności i nadzór człowieka do weryfikacji wyników oraz osobne środowisko badawcze. Nie jest to dowód przewagi w skuteczności, wynikach klinicznych, cenie ani zasięgu."
+            "Hipoteza wyróżnika Dzvinco zakłada identyfikowalną ścieżkę od powtarzanych obserwacji przez ocenę niepewności i nadzór człowieka do weryfikacji wyników oraz osobne środowisko badawcze. Nie jest to dowód przewagi w skuteczności, wynikach klinicznych, cenie ani zasięgu."
           ]
         },
         {
@@ -760,7 +760,7 @@
         {
           "title": "Przeznaczenie",
           "paragraphs": [
-            "Moduł indywidualny Dzvin.co ma wspierać powtarzane obserwacje stresu, nastroju, energii i koncentracji.",
+            "Moduł indywidualny Dzvinco ma wspierać powtarzane obserwacje stresu, nastroju, energii i koncentracji.",
             "Projektowany proces łączy samoocenę, osobistą historię i dobrowolne praktyki."
           ]
         },
@@ -890,7 +890,7 @@
         {
           "title": "Prawa osób",
           "paragraphs": [
-            "Wnioski dotyczące dostępu, sprostowania lub usunięcia danych są obsługiwane przez oficjalne kanały Dzvin.co.",
+            "Wnioski dotyczące dostępu, sprostowania lub usunięcia danych są obsługiwane przez oficjalne kanały Dzvinco.",
             "Obowiązki określają właściwe przepisy i dokumenty polityki prywatności."
           ]
         }
@@ -912,7 +912,7 @@
         {
           "title": "Zakres kliniczny",
           "paragraphs": [
-            "Dzvin.co rozwijany jest dla dobrostanu i badań, a nie do pomocy ratunkowej czy automatycznej diagnozy.",
+            "Dzvinco rozwijany jest dla dobrostanu i badań, a nie do pomocy ratunkowej czy automatycznej diagnozy.",
             "Ewentualne zastosowanie kliniczne wymagałoby osobnej oceny regulacyjnej i naukowej."
           ]
         },
@@ -929,7 +929,7 @@
   "referenceTitle": "Dokumentacja funkcjonalna i zasady",
   "featuredCta": "Prezentacja inwestorska",
   "featuredNote": "Aktualny stan i następne etapy opisano w rejestrze dowodów i roadmapie.",
-  "fundingHeadline": "Dzvin.co: technologia wspierania decyzji w dobrostanie psychicznym",
+  "fundingHeadline": "Dzvinco: technologia wspierania decyzji w dobrostanie psychicznym",
   "fundingIntro": "Rozwijana platforma łącząca scenariusze indywidualne, narzędzia organizacyjne i badania Decision Intelligence oparte na kierunku technologicznym QDIP.",
   "stageLabel": "ETAP PRODUKTU · ROZWÓJ I INTEGRACJA",
   "stageDescription": "Powstały podstawowe komponenty indywidualne, organizacyjne i badawcze. Kolejne etapy obejmują integrację, bezpieczeństwo, ocenę naukową i przygotowanie kontrolowanego uruchomienia. Zewnętrzne pilotaże i badania efektów nie zostały jeszcze zakończone.",

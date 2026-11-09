@@ -7,26 +7,26 @@ const serviceCards: {
   key: 'cohortEvidence' | 'scenarioSimulation' | 'predictionEngine'
   glyph: DoodleName
   tone: DoodleTone
-  /** Disc offset and tilt, so the three tiles don't repeat one layout. */
-  at: { x: number; y: number; rotate: number }
+  /** Disc offsets retain the existing tile composition without skewing the illustrations. */
+  at: { x: number; y: number }
 }[] = [
   {
     key: 'cohortEvidence',
     glyph: 'journal',
     tone: 'sky',
-    at: { x: 44, y: 54, rotate: -8 },
+    at: { x: 44, y: 54 },
   },
   {
     key: 'scenarioSimulation',
-    glyph: 'breath',
+    glyph: 'wind',
     tone: 'mint',
-    at: { x: 54, y: 46, rotate: 5 },
+    at: { x: 54, y: 46 },
   },
   {
     key: 'predictionEngine',
     glyph: 'rise',
     tone: 'peach',
-    at: { x: 52, y: 55, rotate: -4 },
+    at: { x: 52, y: 55 },
   },
 ]
 
@@ -62,7 +62,7 @@ export function ServicesSection() {
                   tone={tone}
                   size={196}
                   className="absolute -translate-x-1/2 -translate-y-1/2 transition-transform duration-700 group-hover:scale-[1.03]"
-                  style={{ left: `${at.x}%`, top: `${at.y}%`, rotate: `${at.rotate}deg` }}
+                  style={{ left: `${at.x}%`, top: `${at.y}%` }}
                 />
               </div>
               <h3 className="mt-5 text-lg font-semibold text-[#302a4f]">{t(`Services.cards.${key}.title`)}</h3>

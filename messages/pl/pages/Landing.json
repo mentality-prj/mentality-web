@@ -1,6 +1,6 @@
 {
   "Hero": {
-    "title": "Wypróbuj osobisty Dzvin",
+    "title": "Wypróbuj osobisty Dzvinco",
     "subtitle": "30 sekund ćwiczenia oddechowego bez logowania. Konto pozwala zachować informacje o samopoczuciu i wpisy.",
     "cta": "Utwórz konto",
     "returnCta": "Mój dzień",
@@ -10,7 +10,7 @@
       "diary": "Zapisuj swoje myśli w osobistym dzienniku.",
       "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety."
     },
-    "returnTitle": "Twój osobisty Dzvin",
+    "returnTitle": "Twój osobisty Dzvinco",
     "returnSubtitle": "Wróć do swoich wpisów lub spróbuj krótkiego ćwiczenia.",
     "tryCta": "Wypróbuj 30 sekund"
   },
@@ -68,7 +68,7 @@
     "privacy": "Polityka prywatności",
     "terms": "Warunki korzystania",
     "cookies": "Polityka cookies",
-    "ecosystem": "Część ekosystemu QDIP"
+    "ecosystem": "QDIP at the Core"
   },
   "Preview": {
     "heading": "Ćwiczenie oddechowe",
@@ -81,7 +81,7 @@
     "start": "Rozpocznij",
     "stop": "Zatrzymaj",
     "restart": "Powtórz",
-    "next": "Przejdź do Dzvin",
+    "next": "Przejdź do Dzvinco",
     "progress": "Postęp ćwiczenia",
     "private": "Ćwiczenie działa w przeglądarce. Nic nie jest zapisywane."
   },
@@ -109,11 +109,11 @@
     "progressCta": "Zobacz moje postępy"
   },
   "Platform": {
-    "eyebrow": "Dzvin · dla ludzi",
+    "eyebrow": "Dzvinco · dla ludzi",
     "title": "Poznaj siebie lepiej. Dzień po dniu.",
     "subtitle": "Zapisuj samopoczucie, zachowuj myśli i wybieraj krótkie ćwiczenia we własnym tempie. Wracaj do swojej historii i postępów, kiedy chcesz.",
-    "primaryCta": "Wypróbuj Dzvin",
-    "secondaryCta": "Poznaj Dzvin",
+    "primaryCta": "Wypróbuj Dzvinco",
+    "secondaryCta": "Poznaj Dzvinco",
     "capabilitiesHeading": "Co obejmuje rozwiązanie dla firm",
     "capabilities": {
       "organization": {
@@ -145,7 +145,7 @@
   },
   "Products": {
     "heading": "Dla siebie, dla zespołów, dla badań",
-    "description": "Osobisty Dzvin pozostaje pod Twoją kontrolą. Firmy i badacze mają odrębne narzędzia.",
+    "description": "Osobisty Dzvinco pozostaje pod Twoją kontrolą. Firmy i badacze mają odrębne narzędzia.",
     "b2b": {
       "label": "Dla firm · B2B",
       "title": "Wsparcie pracowników i rozwój zespołów",
@@ -160,14 +160,14 @@
     },
     "b2c": {
       "label": "Dla Ciebie · B2C",
-      "title": "Twój osobisty Dzvin",
+      "title": "Twój osobisty Dzvinco",
       "description": "Notowania samopoczucia, prywatny dziennik, ćwiczenia i osobiste cele — aby wracać do tego, co sam uznajesz za pomocne.",
       "features": {
         "checkins": "Dostrzegaj zmiany w samopoczuciu",
         "diary": "Zapisuj myśli w prywatnym dzienniku",
         "exercises": "Wybieraj krótkie ćwiczenia bez pośpiechu"
       },
-      "cta": "Wypróbuj Dzvin"
+      "cta": "Wypróbuj Dzvinco"
     },
     "rd": {
       "label": "Dla badań · R&D",
@@ -188,7 +188,7 @@
     "cta": "Porozmawiajmy o pilotażu"
   },
   "seo": {
-    "title": "Dzvin — osobiste wsparcie we własnym tempie",
-    "description": "Notuj samopoczucie, prowadź prywatny dziennik i próbuj krótkich ćwiczeń we własnym tempie. Dzvin dla ludzi, firm i badań."
+    "title": "Dzvinco — osobiste wsparcie we własnym tempie",
+    "description": "Notuj samopoczucie, prowadź prywatny dziennik i próbuj krótkich ćwiczeń we własnym tempie. Dzvinco dla ludzi, firm i badań."
   }
 }

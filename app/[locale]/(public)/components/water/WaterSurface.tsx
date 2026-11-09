@@ -24,6 +24,8 @@ type Props = {
   interactive?: boolean
   /** Render only the ripples (transparent elsewhere) over an existing background. */
   overlay?: boolean
+  /** Changes ripple progression without changing the rendering frame rate. */
+  timeScale?: number
 }
 
 const toPalette = ({ deep, mid, light }: WaterColors): WaterPalette => ({
@@ -38,7 +40,16 @@ const toPalette = ({ deep, mid, light }: WaterColors): WaterPalette => ({
  * honours prefers-reduced-motion with a single frozen frame.
  */
 export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function WaterSurface(
-  { colors, className, source = { x: 0.5, y: 0.5 }, every = 0, still = false, interactive = false, overlay = false },
+  {
+    colors,
+    className,
+    source = { x: 0.5, y: 0.5 },
+    every = 0,
+    still = false,
+    interactive = false,
+    overlay = false,
+    timeScale = 1,
+  },
   ref
 ) {
   const canvasRef = useRef<HTMLCanvasElement>(null)
@@ -65,7 +76,7 @@ export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function Water
     if (!canvas) return
     let renderer: WaterRenderer
     try {
-      renderer = new WaterRenderer(canvas, targetRef.current, overlay)
+      renderer = new WaterRenderer(canvas, targetRef.current, overlay, timeScale)
     } catch {
       canvas.style.display = 'none'
       return
@@ -110,7 +121,7 @@ export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function Water
       else frozenAt = now
     }
 
-    const kick = (ms = 6500) => {
+    const kick = (ms = 6500 / timeScale) => {
       activeUntil = Math.max(activeUntil, performance.now() + ms)
       if (reduced) {
         renderer.palette = targetRef.current
@@ -160,7 +171,7 @@ export const WaterSurface = forwardRef<WaterSurfaceHandle, Props>(function Water
       renderer.dispose()
       rendererRef.current = null
     }
-  }, [every, still, interactive, overlay])
+  }, [every, still, interactive, overlay, timeScale])
 
   return (
     <div

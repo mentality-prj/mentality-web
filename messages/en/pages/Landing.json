@@ -1,6 +1,6 @@
 {
   "Hero": {
-    "title": "Try personal Dzvin",
+    "title": "Try personal Dzvinco",
     "subtitle": "A 30-second breathing exercise without signing in. Create an account when you want to save check-ins or journal entries.",
     "cta": "Create an account",
     "returnCta": "My Day",
@@ -10,7 +10,7 @@
       "diary": "Write down your thoughts in a personal journal.",
       "support": "Open a breathing or calming exercise without completing a questionnaire."
     },
-    "returnTitle": "Your personal Dzvin",
+    "returnTitle": "Your personal Dzvinco",
     "returnSubtitle": "Return to your entries or try a short exercise.",
     "tryCta": "Try 30 seconds"
   },
@@ -68,7 +68,7 @@
     "privacy": "Privacy Policy",
     "terms": "Terms of Use",
     "cookies": "Cookie Policy",
-    "ecosystem": "Part of the QDIP ecosystem"
+    "ecosystem": "QDIP at the Core"
   },
   "Preview": {
     "heading": "Breathing exercise",
@@ -81,7 +81,7 @@
     "start": "Start",
     "stop": "Stop",
     "restart": "Try again",
-    "next": "Continue in Dzvin",
+    "next": "Continue in Dzvinco",
     "progress": "Exercise progress",
     "private": "Runs in your browser. Nothing is saved."
   },
@@ -109,11 +109,11 @@
     "progressCta": "See My Progress"
   },
   "Platform": {
-    "eyebrow": "Dzvin · for people",
+    "eyebrow": "Dzvinco · for people",
     "title": "Understand yourself better. Day by day.",
     "subtitle": "Check in with how you feel, save your thoughts and choose short activities at your own pace. Come back to your history and progress whenever you like.",
-    "primaryCta": "Try Dzvin for yourself",
-    "secondaryCta": "Explore Dzvin",
+    "primaryCta": "Try Dzvinco for yourself",
+    "secondaryCta": "Explore Dzvinco",
     "capabilitiesHeading": "What the business offering covers",
     "capabilities": {
       "organization": {
@@ -145,7 +145,7 @@
   },
   "Products": {
     "heading": "For yourself, for teams, for research",
-    "description": "Personal Dzvin is yours to use on your terms. Organizations and researchers have distinct tools.",
+    "description": "Personal Dzvinco is yours to use on your terms. Organizations and researchers have distinct tools.",
     "b2b": {
       "label": "For organizations · B2B",
       "title": "Employee support and team development",
@@ -160,14 +160,14 @@
     },
     "b2c": {
       "label": "For you · B2C",
-      "title": "Your personal Dzvin",
+      "title": "Your personal Dzvinco",
       "description": "Mood check-ins, a private journal, exercises and personal goals, so you can return to what you personally find useful.",
       "features": {
         "checkins": "Notice changes in how you feel",
         "diary": "Keep thoughts in a private journal",
         "exercises": "Choose short exercises at your own pace"
       },
-      "cta": "Try Dzvin"
+      "cta": "Try Dzvinco"
     },
     "rd": {
       "label": "For research · R&D",
@@ -188,7 +188,7 @@
     "cta": "Discuss a business pilot"
   },
   "seo": {
-    "title": "Dzvin — personal support at your own pace",
-    "description": "Track your mood, keep a private journal and try short practices at your own pace. Dzvin for people, organizations and research."
+    "title": "Dzvinco — personal support at your own pace",
+    "description": "Track your mood, keep a private journal and try short practices at your own pace. Dzvinco for people, organizations and research."
   }
 }

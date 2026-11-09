@@ -42,7 +42,7 @@ export function publicPageMetadata({
     },
     openGraph: {
       type: 'website',
-      siteName: 'Dzvin',
+      siteName: selectedLocale === 'uk' ? 'Дзвінко' : 'Dzvinco',
       title,
       description,
       url: canonicalUrl,

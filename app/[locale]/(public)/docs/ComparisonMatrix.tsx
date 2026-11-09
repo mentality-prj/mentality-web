@@ -1,7 +1,7 @@
 const labels = {
   uk: {
     title: 'Порівняння функціональних підходів',
-    headings: ['Критерій', 'Разове опитування', 'Окремий дашборд', 'Цільова концепція Dzvin.co'],
+    headings: ['Критерій', 'Разове опитування', 'Окремий дашборд', 'Цільова концепція Дзвінко'],
     rows: [
       [
         'Повторювані спостереження',
@@ -24,11 +24,11 @@ const labels = {
       ],
       ['Дослідницька робота', 'Залежить від анкети', 'Залежить від продукту', 'Проєкти, когорти, експорт і аудит'],
     ],
-    note: 'Порівнюються типові функціональні підходи та запланований обсяг Dzvin.co. Фактична доступність модулів визначається реєстром готовності.',
+    note: 'Порівнюються типові функціональні підходи та запланований обсяг Дзвінко. Фактична доступність модулів визначається реєстром готовності.',
   },
   en: {
     title: 'Functional approach comparison',
-    headings: ['Criterion', 'One-off survey', 'Standalone dashboard', 'Dzvin.co target concept'],
+    headings: ['Criterion', 'One-off survey', 'Standalone dashboard', 'Dzvinco target concept'],
     rows: [
       ['Repeated observations', 'Requires repeat fielding', 'Depends on source data', 'Personal ongoing check-ins'],
       ['Team trends', 'Comparing survey waves', 'Depends on the product', 'Group trends and filters'],
@@ -41,11 +41,11 @@ const labels = {
       ],
       ['Research workflows', 'Survey-dependent', 'Product-dependent', 'Projects, cohorts, exports and audit'],
     ],
-    note: 'This compares functional categories with the Dzvin.co target scope; actual release maturity is documented in the evidence register.',
+    note: 'This compares functional categories with the Dzvinco target scope; actual release maturity is documented in the evidence register.',
   },
   pl: {
     title: 'Porównanie podejść funkcjonalnych',
-    headings: ['Kryterium', 'Jednorazowa ankieta', 'Osobny dashboard', 'Docelowy Dzvin.co'],
+    headings: ['Kryterium', 'Jednorazowa ankieta', 'Osobny dashboard', 'Docelowy Dzvinco'],
     rows: [
       ['Powtarzane pomiary', 'Wymaga kolejnych ankiet', 'Zależy od źródła danych', 'Regularne samooceny'],
       ['Trendy zespołów', 'Porównanie fal ankiet', 'Zależy od produktu', 'Trendy grupowe i filtry'],
@@ -53,7 +53,7 @@ const labels = {
       ['Zdarzenia i działania', 'Zwykle poza ankietą', 'Zależy od produktu', 'Zdarzenia i proces działania'],
       ['Obsługa badań', 'Zależy od ankiety', 'Zależy od produktu', 'Projekty, kohorty, eksport i audyt'],
     ],
-    note: 'Porównanie kategorii i docelowych funkcji Dzvin.co. Aktualną gotowość opisuje rejestr dowodów.',
+    note: 'Porównanie kategorii i docelowych funkcji Dzvinco. Aktualną gotowość opisuje rejestr dowodów.',
   },
 }
 
