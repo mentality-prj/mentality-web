@@ -56,7 +56,7 @@ describe('MoodResonance', () => {
         </MoodResonance>
       )
       expect(mockDrop).toHaveBeenCalledTimes(1)
-      expect(mockDrop).toHaveBeenCalledWith(0.5, -0.15, 0.9)
+      expect(mockDrop).toHaveBeenCalledWith(0.5, 0.03, 0.9)
       fireEvent.pointerDown(screen.getByText('hero copy'), { clientX: 80, clientY: 240 })
       fireEvent.change(screen.getByLabelText('checkin'), { target: { value: '80' } })
       expect(mockDrop).toHaveBeenCalledTimes(1)
@@ -66,14 +66,14 @@ describe('MoodResonance', () => {
     }
   })
 
-  it('keeps demo action cards in one column when the hero is narrow', () => {
+  it('shows one practice hint without duplicating the actionable diary card', () => {
     render(
       <MoodResonance>
         <p>hero copy</p>
       </MoodResonance>
     )
-    const cards = screen.getByText('journal').parentElement?.parentElement
-    expect(cards).toHaveClass('grid-cols-1', 'sm:grid-cols-2', 'md:grid-cols-1', 'lg:grid-cols-2')
+    expect(screen.queryByText('journal')).not.toBeInTheDocument()
+    expect(screen.getByText('practice').parentElement).toHaveClass('mt-3', 'flex')
   })
 
   it('maps mood to calm-blue, lilac and warm water', () => {
@@ -109,6 +109,7 @@ describe('Hero ring compositing', () => {
     expect(css).toContain('transform 2400ms')
     expect(css).toContain('filter 1800ms')
     expect(hero).toContain('timeScale={0.5}')
+    expect(hero).toContain('every={8}')
     expect(water).toContain('6500 / timeScale')
   })
 
@@ -119,7 +120,7 @@ describe('Hero ring compositing', () => {
     expect(css).not.toContain('.hero-zen::after')
     expect(css).not.toContain(']::after')
     expect(css).toContain('.hero-zen::before {')
-    expect(hero).toContain('<WaterSurface ref={water}')
+    expect(hero).toMatch(/<WaterSurface\s+ref=\{water\}/)
     expect(hero).toContain('water.current?.drop(')
   })
 })

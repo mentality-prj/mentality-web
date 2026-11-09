@@ -45,6 +45,7 @@ const TRACK = `linear-gradient(90deg, ${PALETTES.low[0]}, ${PALETTES.mid[0]} 50%
 export function MoodResonance({ children, className }: { children: ReactNode; className?: string }) {
   const t = useTranslations('pages.Landing.Platform.visual')
   const [mood, setMood] = useState(55)
+  const [source, setSource] = useState({ x: 0.18, y: 0.03 })
   const water = useRef<WaterSurfaceHandle>(null)
   const layer = useRef<HTMLDivElement>(null)
   const colors = useMemo(() => moodWater(mood), [mood])
@@ -68,6 +69,11 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
         '--hero-gradient-y',
         `${Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)}px`
       )
+      const area = layer.current?.getBoundingClientRect()
+      if (area?.width && area.height) {
+        const x = Math.max(0, Math.min(1, (logoRect.left + logoRect.width / 2 - area.left) / area.width))
+        setSource((prev) => (Math.abs(prev.x - x) < 0.001 ? prev : { x, y: 0.03 }))
+      }
       hero.dataset.heroRingsReady = 'true'
     }
     anchor()
@@ -87,7 +93,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
     const rect = logo.getBoundingClientRect()
     water.current?.drop(
       (rect.left + rect.width / 2 - area.left) / area.width,
-      (rect.top + rect.height / 2 - area.top) / area.height,
+      Math.max(0.03, (rect.top + rect.height / 2 - area.top) / area.height),
       0.9
     )
   }, [])
@@ -104,7 +110,15 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
           className="absolute inset-0 transition-[background-color,opacity] duration-700"
           style={{ backgroundColor: tint, opacity: tintStrength, mixBlendMode: 'color' }}
         />
-        <WaterSurface ref={water} colors={HERO_WATER} still overlay timeScale={0.5} className="h-full w-full" />
+        <WaterSurface
+          ref={water}
+          colors={HERO_WATER}
+          source={source}
+          every={8}
+          overlay
+          timeScale={0.5}
+          className="h-full w-full"
+        />
       </div>
       <div className={`relative z-[2] ${className ?? ''}`}>
         {children}
@@ -140,15 +154,9 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
                 <span>{t('moodHigh')}</span>
               </div>
             </div>
-            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
-              <div className="flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
-                <DoodleIcon name="journal" tone="lilac" size={48} />
-                <p className="text-sm font-semibold text-[#4a3f63]">{t('journal')}</p>
-              </div>
-              <div className="flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
-                <DoodleIcon name="wind" tone="mint" size={48} />
-                <p className="text-sm font-semibold text-[#3f5f58]">{t('practice')}</p>
-              </div>
+            <div className="mt-3 flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
+              <DoodleIcon name="wind" tone="mint" size={48} />
+              <p className="text-sm font-semibold text-[#3f5f58]">{t('practice')}</p>
             </div>
             <p className="mt-4 text-xs text-[#7d7690]">{t('moodHint')}</p>
           </div>

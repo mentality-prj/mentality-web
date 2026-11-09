@@ -28,6 +28,9 @@ describe('Dzvin people-first platform landing', () => {
       'href',
       '/contacts?source=landing&intent=demo&segment=teams'
     )
+    expect(
+      screen.getByRole('link', { name: /pages.Landing.Platform.businessCta/ }).querySelectorAll('svg')
+    ).toHaveLength(2)
     expect(container.querySelectorAll('h1')).toHaveLength(1)
     expect(screen.queryByText('DZVIN / B2B')).not.toBeInTheDocument()
   })

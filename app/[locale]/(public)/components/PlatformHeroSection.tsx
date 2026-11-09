@@ -1,4 +1,4 @@
-import { ArrowDownRight, ArrowUpRight } from 'lucide-react'
+import { ArrowDownRight, ArrowUpRight, Building2 } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
@@ -39,8 +39,9 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
           </div>
           <Link
             href={BUSINESS_CONTACT_HREF}
-            className="mt-1 inline-flex min-h-10 items-center gap-2 text-sm font-medium text-[#5e5580] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
+            className="ml-[10px] mt-1 inline-flex min-h-10 items-center gap-1 text-base font-semibold text-[#40355e] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
           >
+            <Building2 aria-hidden size={16} />
             {t('businessCta')}
             <ArrowUpRight aria-hidden size={16} />
           </Link>
