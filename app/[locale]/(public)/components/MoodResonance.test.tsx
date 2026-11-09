@@ -120,7 +120,7 @@ describe('Hero ring compositing', () => {
     expect(css).not.toContain('.hero-zen::after')
     expect(css).not.toContain(']::after')
     expect(css).toContain('.hero-zen::before {')
-    expect(hero).toContain('<WaterSurface ref={water}')
+    expect(hero).toMatch(/<WaterSurface\s+ref=\{water\}/)
     expect(hero).toContain('water.current?.drop(')
   })
 })
