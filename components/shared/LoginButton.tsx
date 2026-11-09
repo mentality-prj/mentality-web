@@ -3,21 +3,17 @@ import { useTranslations } from 'next-intl'
 
 import { Routes } from '@/constants/routes'
 import { Link } from '@/i18n/navigation'
-import { Button } from '@/ui/button'
 
 export function LoginButton({ title }: { title?: string }) {
   const t = useTranslations('components.Navbar')
   return (
-    <Button
-      asChild
+    <Link
+      href={Routes.AUTH}
       aria-label={title ? t(title) : t('login')}
-      variant="volume"
-      className="max-tablet:h-9 max-tablet:w-9 max-tablet:p-0"
+      className="inline-flex min-h-10 min-w-10 items-center justify-center text-base font-normal text-[var(--title-color)] hover:underline focus-visible:outline-2 focus-visible:outline-offset-2 tablet:px-2"
     >
-      <Link href={Routes.AUTH}>
-        <LogIn className="tablet:hidden" size={20} />
-        <span className="hidden tablet:block">{title ? t(title) : t('login')}</span>
-      </Link>
-    </Button>
+      <LogIn className="tablet:hidden" size={20} />
+      <span className="hidden tablet:block">{title ? t(title) : t('login')}</span>
+    </Link>
   )
 }
