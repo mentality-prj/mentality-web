@@ -140,7 +140,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
                 <span>{t('moodHigh')}</span>
               </div>
             </div>
-            <div className="mt-3 grid grid-cols-2 gap-3">
+            <div className="mt-3 grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-1 lg:grid-cols-2">
               <div className="flex items-center gap-3 rounded-[20px] border border-white/80 bg-white/60 p-3.5">
                 <DoodleIcon name="journal" tone="lilac" size={48} />
                 <p className="text-sm font-semibold text-[#4a3f63]">{t('journal')}</p>
