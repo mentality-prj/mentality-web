@@ -24,4 +24,29 @@ export function PlatformHeroSection({ isAuthenticated = false }: { isAuthenticat
             <DoodleIcon name="heart" tone="rose" size={28} />
             {t('eyebrow')}
           </span>
-          <h1 id="¶»§q«^
+          <h1 id="platform-heading" className="landing-h1 max-w-[43rem] text-[#302a4f]">
+            {t('title')}
+          </h1>
+          <p className="max-w-[38rem] text-base leading-[1.75] text-[#575570] tablet:text-lg">{t('subtitle')}</p>
+          <div className="mt-2 flex w-full flex-col gap-3 sm:w-auto sm:flex-row">
+            <Link href={isAuthenticated ? Routes.MYDAY : '#b2c-experience'} className={landingPrimaryCta}>
+              {isAuthenticated ? t('returnCta') : t('primaryCta')}
+              <ArrowDownRight aria-hidden size={18} />
+            </Link>
+            <a href="#products" className={landingSecondaryCta}>
+              {t('secondaryCta')}
+            </a>
+          </div>
+          <Link
+            href={BUSINESS_CONTACT_HREF}
+            className="ml-[10px] mt-1 inline-flex min-h-10 items-center gap-1 text-base font-semibold text-[#40355e] underline-offset-4 hover:underline focus-visible:outline-2 focus-visible:outline-offset-2"
+          >
+            <Building2 aria-hidden size={16} />
+            {t('businessCta')}
+            <ArrowUpRight aria-hidden size={16} />
+          </Link>
+        </div>
+      </MoodResonance>
+    </section>
+  )
+}
