@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "Usługi Dzvinco",
     "title": "Dobrostan osobisty, procesy zespołowe i badania Decision Intelligence",
-    "subtitle": "Dzvinco to rozwijana platforma digital wellbeing: osobiste narzędzia wsparcia, przygotowywana analityka zespołów z kontrolą dostępu oraz badawczy kierunek Decision Intelligence in Mental Health z wykorzystaniem QDIP. Nie mamy ukończonych pilotaży u klientów ani potwierdzonych wyników skuteczności; celem kolejnego etapu jest ich sprawdzenie.",
+    "subtitle": "Dzvinco to rozwijana platforma digital wellbeing: osobiste narzędzia wsparcia, przygotowywana analityka zespołów z kontrolą dostępu oraz badawczy kierunek Decision Intelligence in Mental Health z wykorzystaniem QDIP.",
     "note": "Wszystkie wykresy poniżej są ilustracyjne: pokazują, jak istniejące moduły platformy mogą wizualizować dane, a nie rzeczywiste dane klientów.",
     "audiences": {
       "b2c": {
@@ -22,7 +22,7 @@
   "blueprint": {
     "eyebrow": "Architektura usługi",
     "title": "Trzy ścieżki usługowe jednej platformy",
-    "subtitle": "Projekt rozwija trzy powiązane obszary: osobiste wsparcie, scenariusze organizacyjne z kontrolą dostępu oraz przestrzeń badań. Zintegrowane uruchomienie wymaga dalszej weryfikacji.",
+    "subtitle": "Projekt rozwija trzy powiązane obszary: osobiste wsparcie, scenariusze organizacyjne z kontrolą dostępu oraz przestrzeń badań.",
     "cards": {
       "personalFlow": {
         "title": "Osobista ścieżka wsparcia",
@@ -101,7 +101,7 @@
           },
           "three": {
             "title": "Połączone obserwacje i praktyki",
-            "description": "Celem jest wspólny dziennik i zestaw ćwiczeń. Wpływ na samopoczucie nie został jeszcze zweryfikowany."
+            "description": "Celem jest wspólny dziennik i zestaw ćwiczeń."
           }
         }
       },
@@ -143,7 +143,7 @@
         },
         "two": {
           "title": "Hipoteza szybszej analizy sygnałów",
-          "description": "Chcemy sprawdzić, czy powtarzane obserwacje i uporządkowany proces skracają czas przeglądu. Redukcji wypalenia czy rotacji nie udowodniono."
+          "description": "Chcemy sprawdzić, czy powtarzane obserwacje i uporządkowany proces skracają czas przeglądu."
         },
         "three": {
           "title": "Podstawa przyszłych decyzji HR",
@@ -173,7 +173,7 @@
         },
         "validation": {
           "title": "Walidacja prognoz",
-          "description": "Planowany cykl prognoza → obserwowany wynik ma umożliwiać ocenę kalibracji, dryfu i zmian po działaniu. Nie ma jeszcze niezależnych wyników badań."
+          "description": "Planowany cykl prognoza → obserwowany wynik ma umożliwiać ocenę kalibracji, dryfu i zmian po działaniu."
         },
         "reporting": {
           "title": "Raportowanie wpływu",
@@ -194,7 +194,7 @@
             },
             "three": {
               "title": "Planujemy ocenę hipotez",
-              "description": "Razem z partnerami z góry ustalamy, jak będą testowane hipotezy i które wyniki uznamy za istotne. Niezależnych wyników jeszcze nie ma."
+              "description": "Razem z partnerami z góry ustalamy, jak będą testowane hipotezy i które wyniki uznamy za istotne."
             }
           }
         },

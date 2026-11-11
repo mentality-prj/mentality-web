@@ -2,7 +2,7 @@
   "hero": {
     "eyebrow": "Dzvinco services",
     "title": "Personal wellbeing, team workflows and Decision Intelligence research",
-    "subtitle": "Dzvinco is an in-development digital wellbeing platform with personal support tools, an emerging permissioned team-analytics experience and a Decision Intelligence in Mental Health research direction using QDIP. There are no completed customer pilots or validated effectiveness results yet; the next stage is designed to test these hypotheses.",
+    "subtitle": "Dzvinco is an in-development digital wellbeing platform with personal support tools, an emerging permissioned team-analytics experience and a Decision Intelligence in Mental Health research direction using QDIP.",
     "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
     "audiences": {
       "b2c": {
@@ -22,7 +22,7 @@
   "blueprint": {
     "eyebrow": "Service architecture",
     "title": "Three service tracks of one platform",
-    "subtitle": "The project is developing three connected experiences: private personal support, permissioned organization workflows and a research environment. Their integrated launch has not yet been qualified.",
+    "subtitle": "The project is developing three connected experiences: private personal support, permissioned organization workflows and a research environment.",
     "cards": {
       "personalFlow": {
         "title": "Personal support track",
@@ -101,7 +101,7 @@
           },
           "three": {
             "title": "Keep the support journey connected",
-            "description": "The product aims to link exercises and history. A measurable effect on wellbeing has not been established."
+            "description": "The product aims to link exercises and history."
           }
         }
       },
@@ -143,7 +143,7 @@
         },
         "two": {
           "title": "Hypothesis: more timely signal review",
-          "description": "We plan to evaluate whether repeated observations and a managed workflow improve time to review. Reduced burnout and attrition have not been demonstrated."
+          "description": "We plan to evaluate whether repeated observations and a managed workflow improve time to review."
         },
         "three": {
           "title": "Evidence to inform HR decisions",
@@ -173,7 +173,7 @@
         },
         "validation": {
           "title": "Validate predictions",
-          "description": "The proposed forecast-to-observation loop is intended to support evaluation of calibration, drift and changes after action. Independent research outcomes are not yet available."
+          "description": "The proposed forecast-to-observation loop is intended to support evaluation of calibration, drift and changes after action."
         },
         "reporting": {
           "title": "Report impact",
@@ -194,7 +194,7 @@
             },
             "three": {
               "title": "We plan hypothesis evaluation",
-              "description": "Together with partners we define in advance how hypotheses will be tested and which results count as meaningful. There are no independent results yet."
+              "description": "Together with partners we define in advance how hypotheses will be tested and which results count as meaningful."
             }
           }
         },
