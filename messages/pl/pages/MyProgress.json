@@ -1,13 +1,13 @@
 {
   "title": "Mój postęp",
-  "subtitle": "Osiągnięcia, statystyki i cele osobiste — wszystko w jednym miejscu, aby zobaczyć swój postęp 💛",
+  "subtitle": "Każdy mały krok ma swoją historię. Zobacz, ile już udało Ci się zrobić dla siebie.",
   "achievements": {
     "title": "Moje osiągnięcia",
     "heading": "Małe kroki, które warto zauważyć",
-    "description": "Zobacz, co udało Ci się zrobić dla siebie: zapisy nastroju, wpisy w dzienniku i ukończone cele osobiste.",
+    "description": "Przypomnij sobie chwile troski o siebie: zapisany nastrój, myśl w dzienniku lub osiągnięty osobisty cel.",
     "noPressure": "Przerwy nie zerują postępów. Nie ma tu serii, kar ani porównań z innymi.",
     "activityCount": "Łącznie: {count}",
-    "noMilestonesYet": "Zacznij, kiedy zechcesz. Nawet jeden mały krok ma znaczenie.",
+    "noMilestonesYet": "Twoja historia dopiero się zaczyna. Nawet jeden mały krok zasługuje na uwagę.",
     "loadError": "Nie udało się teraz wczytać tych danych. Odśwież stronę później.",
     "liveSummaryNote": "To podsumowanie obecnych wpisów, a nie trwały rejestr odznak. Usunięte dane nie są już liczone.",
     "mood": {
@@ -41,8 +41,8 @@
     "title": "Moje statystyki"
   },
   "overview": {
-    "historyHeading": "Twoje zapiski",
-    "historyDescription": "Wracaj do swoich myśli i zapisów nastroju, kiedy uznasz to za pomocne.",
+    "historyHeading": "Twoje chwile, Twoja historia",
+    "historyDescription": "Tutaj są Twoje nastroje i myśli. Wracaj do nich, by zobaczyć przebytą drogę.",
     "moodTitle": "Historia nastroju",
     "moodDescription": "Przeglądaj wpisy i zmiany nastroju w czasie.",
     "moodLink": "Zobacz wpisy nastroju",

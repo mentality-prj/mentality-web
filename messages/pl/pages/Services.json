@@ -1,13 +1,13 @@
 {
   "hero": {
     "eyebrow": "Usługi Dzvinco",
-    "title": "Dobrostan osobisty, procesy zespołowe i badania Decision Intelligence",
-    "subtitle": "Dzvinco to rozwijana platforma digital wellbeing: osobiste narzędzia wsparcia, przygotowywana analityka zespołów z kontrolą dostępu oraz badawczy kierunek Decision Intelligence in Mental Health z wykorzystaniem QDIP.",
+    "title": "Na chwile, gdy wsparcie ma znaczenie. Dla ludzi, którym zależy.",
+    "subtitle": "Dzvinco zaczyna się od prostej myśli: każdy zasługuje na przestrzeń, w której jego samopoczucie ma znaczenie. Dla siebie — małe kroki ku równowadze, dla zespołów — więcej troski, dla badaczy — poszukiwanie tego, co pomaga.",
     "note": "Wszystkie wykresy poniżej są ilustracyjne: pokazują, jak istniejące moduły platformy mogą wizualizować dane, a nie rzeczywiste dane klientów.",
     "audiences": {
       "b2c": {
         "title": "Osobisty",
-        "subtitle": "Samoocena, codzienne praktyki i osobista trajektoria stanu."
+        "subtitle": "Twoje emocje, myśli i chwile spokoju — w jednej osobistej przestrzeni."
       },
       "b2b": {
         "title": "Korporacyjny",
@@ -44,21 +44,21 @@
   "sections": {
     "b2c": {
       "tag": "Osobisty",
-      "title": "Dla ludzi",
-      "description": "Usługa osobista zbiera sygnały stanu, podpowiada proste praktyki i pomaga zobaczyć, co naprawdę wspiera dobrostan psychiczny w codziennym rytmie.",
+      "title": "Dla Ciebie, gdy potrzebujesz oddechu",
+      "description": "Nie musisz radzić sobie ze wszystkim naraz. W Dzvinco możesz nazwać swój nastrój, zapisać myśli i znaleźć krótkie ćwiczenie na chwilę wytchnienia.",
       "serviceSummaryItems": {
-        "tracking": "Zbiera sygnały stanu w jedną sekwencję.",
-        "support": "Daje dostęp do krótkich praktyk w przewodniku, kiedy są potrzebne.",
-        "consistency": "Zachowuje historię zmian, aby łatwo wracać do skutecznych schematów."
+        "tracking": "Zauważaj swoje emocje i wracaj do nich, kiedy zechcesz.",
+        "support": "Podaruj sobie kilka minut na oddech, wyciszenie lub ciszę.",
+        "consistency": "Zachowuj własną historię, bez pośpiechu i porównywania się z innymi."
       },
       "resultSummaryItems": {
-        "one": "Stan staje się bardziej czytelny w czasie.",
-        "two": "Krótka praktyka jest dostępna w kilku kliknięciach.",
-        "three": "Wsparcie układa się w ścieżkę, którą łatwo kontynuować każdego dnia."
+        "one": "Łatwiej zauważyć, jak zmieniają się Twoje dni.",
+        "two": "Chwila wytchnienia jest zawsze pod ręką.",
+        "three": "Możesz wrócić do chwil, które były ważne właśnie dla Ciebie."
       },
-      "journeyTitle": "Jak działa usługa",
+      "journeyTitle": "Od emocji do małego kroku",
       "before": {
-        "title": "Problem, który chcemy rozwiązać",
+        "title": "Dlaczego czasem trudno zadbać o siebie",
         "items": {
           "one": {
             "title": "Oddzielne sygnały bez wspólnego obrazu",
@@ -76,15 +76,15 @@
       },
       "capabilities": {
         "tracking": {
-          "title": "Stan jest zbierany w jednym miejscu",
+          "title": "Twoje emocje zasługują na uwagę",
           "description": "Nastrój, krótkie notatki i ankiety są zbierane w jedną sekwencję, która pokazuje częstotliwość zmian, powtarzalne bodźce i dynamikę kolejnych dni."
         },
         "support": {
-          "title": "Praktyki zawsze pod ręką",
+          "title": "Chwila spokoju jest blisko",
           "description": "Oddech, uspokojenie, medytacje i porady są zebrane w przewodniku — sam wybierasz, co wypróbować teraz."
         },
         "consistency": {
-          "title": "Skuteczne schematy łatwo powtórzyć",
+          "title": "Twoja historia pozostaje z Tobą",
           "description": "Zapisane ćwiczenia, materiały i historia zmian pozostają dostępne, dzięki czemu łatwo powtórzyć to, co już wcześniej przyniosło widoczny efekt."
         }
       },
@@ -92,11 +92,11 @@
       "after": {
         "items": {
           "one": {
-            "title": "Historia pozwala obserwować zmiany",
+            "title": "Dostrzegaj swoją własną historię",
             "description": "Planowany widok porządkuje kolejne wpisy użytkownika. Czy pomaga zrozumieć stan, trzeba zbadać."
           },
           "two": {
-            "title": "Dostępny kolejny krok",
+            "title": "Znajdź jeden mały krok na dziś",
             "description": "Projekt przewiduje opcjonalną praktykę po samoocenie; przydatność tego procesu będzie przedmiotem UX badań."
           },
           "three": {

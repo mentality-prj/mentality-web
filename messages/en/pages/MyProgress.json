@@ -1,13 +1,13 @@
 {
   "title": "My progress",
-  "subtitle": "Achievements, statistics and personal goals — all in one place to see your progress 💛",
+  "subtitle": "Every small step has a story. See how much you've already done for yourself.",
   "achievements": {
     "title": "My achievements",
     "heading": "Small steps worth noticing",
-    "description": "See the things you've chosen to do for yourself: mood check-ins, diary entries and completed personal goals.",
+    "description": "Look back at the moments you chose to care for yourself: a mood check-in, a journal entry, or a personal goal reached.",
     "noPressure": "Missing a day never resets your progress. No streaks, penalties or comparisons with others.",
     "activityCount": "Total: {count}",
-    "noMilestonesYet": "Start whenever you're ready. One small step matters.",
+    "noMilestonesYet": "Your story is just beginning. Even one small step deserves recognition.",
     "loadError": "We couldn't load these records right now. Please refresh the page later.",
     "liveSummaryNote": "This is a snapshot of your current personal records, not a permanent badge ledger. Deleted records are no longer counted.",
     "mood": {
@@ -41,8 +41,8 @@
     "title": "My statistics"
   },
   "overview": {
-    "historyHeading": "Your reflections",
-    "historyDescription": "Revisit your thoughts and mood check-ins whenever it helps.",
+    "historyHeading": "Your moments, your story",
+    "historyDescription": "Your moods and thoughts live here. Revisit them to see how far you've come.",
     "moodTitle": "Mood history",
     "moodDescription": "Review your check-ins and how they change over time.",
     "moodLink": "View mood entries",

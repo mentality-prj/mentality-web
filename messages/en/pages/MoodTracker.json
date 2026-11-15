@@ -1,8 +1,8 @@
 {
-  "title": "Mood tracker",
-  "subtitle": "Track your mood and stress level changes",
+  "title": "My mood",
+  "subtitle": "How has your inner world been feeling? Notice your mood and stress at your own pace.",
   "wellbeing": {
-    "title": "Wellbeing overview",
+    "title": "How you've been feeling lately",
     "subtitle": "Your self-reported mood, stress, energy and focus over the last 10 days",
     "scoreAccessible": "Wellbeing indicator: {score} out of 100",
     "entries": "Based on {count, plural, one {# mood entry} other {# mood entries}}",
@@ -16,7 +16,7 @@
     }
   },
   "progress": {
-    "heading": "Wellbeing progress",
+    "heading": "Your story over time",
     "subtitle": "How your check-ins have changed over the last 30 days",
     "stressTitle": "Stress score",
     "stressSubtitle": "Average self-rating across the last 7 calendar days (0 = lowest, 100 = highest)",
