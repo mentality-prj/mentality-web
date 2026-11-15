@@ -1,6 +1,6 @@
 {
   "title": "Najczęściej zadawane pytania",
-  "intro": "Odpowiedzi dla trzech grup: osób korzystających z Dzvinco dla siebie, firm rozważających pilotaż oraz badaczy zainteresowanych partnerstwem.",
+  "intro": "Gdy chodzi o samopoczucie, zaufanie ma znaczenie. Tutaj odpowiadamy na pytania o Twoją przestrzeń w Dzvinco, wsparcie zespołów i współpracę.",
   "sectionQuestionsCount": "W tej sekcji: {count} pytań",
   "expandSection": "Kliknij, aby zobaczyć listę pytań",
   "collapseSection": "Kliknij, aby ukryć listę pytań",
@@ -8,13 +8,13 @@
     {
       "id": "b2c",
       "label": "Użytkownik (B2C)",
-      "title": "Proste odpowiedzi na co dzień",
-      "description": "Jak działa przestrzeń osobista: notowania, dziennik, ćwiczenia, postępy i ochrona danych.",
+      "title": "Odpowiedzi, które pomogą Ci poczuć się pewniej",
+      "description": "Jak zacząć, gdzie trafiają Twoje myśli i jak wybrać wsparcie odpowiednie dla siebie.",
       "items": [
         {
           "question": "Co mogę robić w Dzvinco?",
           "answer": [
-            "Notować poziom stresu, nastroju, energii i koncentracji, prowadzić prywatny dziennik, wybierać ćwiczenia oddechowe i uspokajające, medytacje i porady, ustalać osobiste cele i przeglądać swoje postępy. Wszystko we własnym tempie, bez obowiązkowych kroków."
+            "Dzvinco daje miejsce Twoim emocjom: zapisuj nastrój, stres, energię i koncentrację, prowadź prywatny dziennik, wybieraj ćwiczenia oddechowe, wyciszające i medytacje. Wyznaczaj własne cele i zauważaj małe zwycięstwa — we własnym tempie."
           ]
         },
         {

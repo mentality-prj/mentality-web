@@ -1,6 +1,6 @@
 {
   "title": "Frequently Asked Questions",
-  "intro": "Answers for three audiences: people who use Dzvinco for themselves, companies considering a pilot, and researchers interested in a partnership.",
+  "intro": "When it comes to wellbeing, trust matters. Here are answers about your personal space in Dzvinco, support for teams, and ways to collaborate.",
   "sectionQuestionsCount": "This section contains {count} questions",
   "expandSection": "Click to view the list of questions",
   "collapseSection": "Click to hide the list of questions",
@@ -8,13 +8,13 @@
     {
       "id": "b2c",
       "label": "Consumer (B2C)",
-      "title": "Straightforward answers for everyday use",
-      "description": "How the personal space works: check-ins, diary, exercises, progress and data protection.",
+      "title": "Answers to help you feel at ease",
+      "description": "How to begin, where your thoughts are kept, and how to choose support that feels right for you.",
       "items": [
         {
           "question": "What can I do in Dzvinco?",
           "answer": [
-            "Track your stress, mood, energy and focus, keep a private diary, choose breathing and calming exercises, meditations and tips, set personal goals and review your progress. All at your own pace, with no mandatory steps."
+            "Dzvinco gives your feelings a place: check in with your mood, stress, energy, and focus; write in your private journal; explore breathing, calming, and meditation practices. Set personal goals and notice your small wins — at your own pace."
           ]
         },
         {

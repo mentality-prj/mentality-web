@@ -14,12 +14,12 @@
     },
     "context": {
       "eyebrow": "Jak to działa",
-      "title": "Twój rytm, Twój wybór",
-      "description": "Każdy krok jest nieobowiązkowy: zacznij od notowania, wpisu w dzienniku lub krótkiego ćwiczenia.",
+      "title": "Znajdź swój kolejny mały krok",
+      "description": "Dziś możesz po prostu się zatrzymać i wsłuchać w siebie. Jutro wrócić do notatki lub spróbować ćwiczenia. Twoje tempo jest w porządku.",
       "items": {
         "signal": {
           "title": "Notowanie",
-          "description": "Kilka ocen w skali 1–5 lub swobodny wpis w dzienniku."
+          "description": "Nazwij nastrój kilkoma dotknięciami albo powierz myśli dziennikowi."
         },
         "prediction": {
           "title": "Praktyka",
@@ -27,7 +27,7 @@
         },
         "validation": {
           "title": "Twoja historia",
-          "description": "Wpisy i statystyki, do których możesz wracać, aby zauważać zmiany w czasie."
+          "description": "Wróć do swoich notatek i zauważ chwile, które chcesz zachować w pamięci."
         }
       }
     },
@@ -75,7 +75,7 @@
       "highlightValue": "B2C",
       "highlightLabel": "przestrzeń osobista",
       "title": "Dla siebie",
-      "description": "Notowania samopoczucia, prywatny dziennik, krótkie ćwiczenia i osobiste postępy — bez obowiązkowych testów, serii i presji."
+      "description": "Miejsce, w którym Twoje uczucia mają znaczenie: zapisy nastroju, prywatne myśli, krótkie ćwiczenia i małe osobiste zwycięstwa."
     },
     "research": {
       "highlightValue": "R&D",
@@ -94,7 +94,7 @@
     "nextAction": "Następny kierunek",
     "core": {
       "title": "Kierunek badawczy",
-      "description": "Dzvinco korzysta z Decision Intelligence od qdip.ai: metody wspierania decyzji pomagają wybierać trafne działania."
+      "description": "Za Dzvinco stoi podejście Decision Intelligence od QDIP.ai: pomaga dostrzegać zależności, porównywać możliwe kroki i lepiej rozumieć złożone decyzje."
     },
     "b2c": {
       "title": "Przestrzeń osobista",
@@ -115,8 +115,8 @@
     }
   },
   "Technology": {
-    "title": "Technologia stojąca za Dzvinco",
-    "description": "Dzvinco to samodzielna aplikacja dla dobrostanu psychicznego w ekosystemie QDIP. QDIP to platforma Decision Intelligence dla programistów. Dzvinco korzysta z Decision Intelligence od qdip.ai.",
+    "title": "Technologia, która służy ludziom",
+    "description": "Dzvinco łączy ludzkie podejście do wsparcia z Decision Intelligence od QDIP.ai. Tam, gdzie osobiste notatki pokazują, jak minął dzień, technologia wspierania decyzji pomaga zrozumieć kontekst i możliwe kolejne kroki. W centrum zawsze pozostaje człowiek i jego wybór.",
     "cta": "Poznaj QDIP"
   }
 }
