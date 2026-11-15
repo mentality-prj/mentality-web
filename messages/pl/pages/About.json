@@ -1,33 +1,33 @@
 {
   "title": "O Dzvinco",
-  "intro": "Dzvinco to ukraiński serwis osobistego samowsparcia: krótkie notowania samopoczucia, prywatny dziennik i proste ćwiczenia wybierane we własnym tempie.",
-  "introExtended": "Serwis jest na wczesnym etapie (beta). Obecnie dostępne są codzienne notowania stresu, nastroju, energii i koncentracji, prywatny dziennik, ćwiczenia oddechowe i uspokajające, medytacje i porady oraz osobiste postępy i cele. Dla firm i zespołów badawczych osobno rozwijamy formaty pilotażowe z jasnymi granicami dostępu. Dzvinco nie stawia diagnoz i nie zastępuje specjalisty.",
+  "intro": "Dzvinco to przestrzeń, w której możesz wsłuchać się w siebie. Zauważaj swój nastrój, zapisuj myśli w prywatnym dzienniku i znajdź chwilę spokoju nawet w zabieganym dniu.",
+  "introExtended": "Czasem wystarczy krótka przerwa. Weź kilka spokojnych oddechów, zapisz to, co Ci leży na sercu, albo wybierz ćwiczenie odpowiednie na tę chwilę. Wracaj do historii swoich nastrojów, doceniaj małe zwycięstwa i realizuj własne cele we własnym tempie.",
   "Evolution": {
     "title": "Od jednego notowania do wykonalnego kroku",
-    "description": "Dzvinco nie prognozuje Twojego stanu i go nie ocenia. Pomaga zauważyć, jak się czujesz, wybrać krótką praktykę i wracać do własnej historii we własnym tempie.",
+    "description": "Zacznij od jednego notowania. Wybierz krótką praktykę, która pasuje teraz, i obserwuj, jak zmienia się Twój stan w czasie — we własnym tempie.",
     "stepDescriptions": {
       "happened": "Notujesz stres, nastrój, energię lub koncentrację albo piszesz w dzienniku — kiedy chcesz.",
-      "means": "Serwis pokazuje, co zanotowałeś dzisiaj, bez diagnoz, rankingów i porównań z innymi ludźmi.",
+      "means": "Dzvinco łączy Twoje zapisy w przejrzysty obraz dnia, by łatwiej było zauważyć własne emocje.",
       "next": "W przewodniku wybierasz krótką praktykę: oddech, uspokojenie, medytację lub poradę.",
       "action": "Ty decydujesz: wykonać ćwiczenie, wybrać inne lub po prostu wrócić później.",
-      "evidence": "„Moje postępy” pokazują statystyki notowań, cele i osiągnięcia — bez serii i bez kar za pominięte dni."
+      "evidence": "W Moich postępach znajdziesz historię nastrojów, osobistych celów i ważnych chwil."
     },
     "context": {
       "eyebrow": "Jak to działa",
-      "title": "Twój rytm, Twój wybór",
-      "description": "Każdy krok jest nieobowiązkowy: zacznij od notowania, wpisu w dzienniku lub krótkiego ćwiczenia.",
+      "title": "Znajdź swój kolejny mały krok",
+      "description": "Dziś możesz po prostu się zatrzymać i wsłuchać w siebie. Jutro wrócić do notatki lub spróbować ćwiczenia. Twoje tempo jest w porządku.",
       "items": {
         "signal": {
           "title": "Notowanie",
-          "description": "Kilka ocen w skali 1–5 lub swobodny wpis w dzienniku."
+          "description": "Nazwij nastrój kilkoma dotknięciami albo powierz myśli dziennikowi."
         },
         "prediction": {
           "title": "Praktyka",
-          "description": "Krótkie ćwiczenie z przewodnika, które wybierasz sam — nie prognoza ani wniosek o Twoim stanie."
+          "description": "Krótkie ćwiczenie z poradnika: oddech, wyciszenie, medytacja lub wskazówka. Wybierasz to, co pasuje teraz."
         },
         "validation": {
           "title": "Twoja historia",
-          "description": "Wpisy i statystyki, do których możesz wracać, aby zauważać zmiany w czasie."
+          "description": "Wróć do swoich notatek i zauważ chwile, które chcesz zachować w pamięci."
         }
       }
     },
@@ -45,19 +45,19 @@
       "highlightValue": "B2B",
       "highlightLabel": "pilotaż dla firm",
       "title": "Dla firm",
-      "description": "Osobiste samowsparcie dla pracowników i pilotażowe formaty organizacyjne oparte na danych zagregowanych. Pracodawca nie ma dostępu do prywatnych dzienników ani notowań. Funkcje firmowe nie zostały jeszcze uruchomione — pilotaże omawiamy indywidualnie."
+      "description": "Osobiste wsparcie dla pracowników i formaty pilotażowe dla organizacji z danymi zagregowanymi. Pracodawca nie widzi prywatnych dzienników ani notowań. Zapraszamy firmy do pilotażu — napisz do nas."
     },
     "user": {
       "highlightValue": "B2C",
       "highlightLabel": "przestrzeń osobista",
       "title": "Dla siebie",
-      "description": "Notowania samopoczucia, prywatny dziennik, krótkie ćwiczenia i osobiste postępy — bez obowiązkowych testów, serii i presji."
+      "description": "Miejsce, w którym Twoje uczucia mają znaczenie: zapisy nastroju, prywatne myśli, krótkie ćwiczenia i małe osobiste zwycięstwa."
     },
     "research": {
       "highlightValue": "R&D",
       "highlightLabel": "partnerstwo badawcze",
       "title": "Dla badaczy",
-      "description": "Jesteśmy otwarci na wspólne protokoły badawcze z uczelniami i instytutami. Każde badanie wymaga osobnej zgody uczestników i akceptacji komisji etycznej."
+      "description": "Szukamy partnerów na uczelniach i w instytutach do wspólnych badań. Każde badanie — tylko za odrębną zgodą uczestników i po zatwierdzeniu etycznym."
     }
   },
   "Architecture": {
@@ -70,11 +70,11 @@
     "nextAction": "Następny kierunek",
     "core": {
       "title": "Kierunek badawczy",
-      "description": "Badamy, jak metody wspierania decyzji platformy QDIP mogłyby pomagać w wyborze odpowiednich działań. To badania, a nie funkcja dostępna dla użytkowników."
+      "description": "Za Dzvinco stoi podejście Decision Intelligence od QDIP.ai: pomaga dostrzegać zależności, porównywać możliwe kroki i lepiej rozumieć złożone decyzje."
     },
     "b2c": {
       "title": "Przestrzeń osobista",
-      "description": "Notowania samopoczucia, dziennik, ćwiczenia, cele i postępy — dostępne teraz w wersji beta."
+      "description": "Notowania, dziennik, ćwiczenia, cele i postępy — dostępne już teraz. Zacznij dziś."
     },
     "loop": {
       "title": "Granice danych",
@@ -82,17 +82,17 @@
     }
   },
   "Value": {
-    "title": "Co jest dla nas ważne",
-    "description": "Budujemy serwis, który wspiera, a nie ocenia, i uczciwie mówimy, co już działa, a co jest jeszcze w fazie rozwoju.",
+    "title": "Dlaczego Dzvinco",
+    "description": "Troska o siebie zaczyna się od uważności. Tutaj możesz być ze sobą szczery, zachować to, co ważne, i znaleźć siłę na kolejny mały krok.",
     "points": {
-      "cohort": "Osobiste wpisy pozostają osobiste: bez porównań z innymi ludźmi i bez dostępu pracodawcy.",
-      "explainable": "Każdy krok jest nieobowiązkowy: bez obowiązkowych testów, serii i presji — decyzja zawsze należy do Ciebie.",
-      "outcome": "Serwis nie stawia diagnoz i nie obiecuje efektów klinicznych. W kryzysie skontaktuj się ze specjalistą lub służbami ratunkowymi."
+      "cohort": "Twoje zapisy są tylko Twoje: bez porównań z innymi i bez dostępu dla pracodawcy.",
+      "explainable": "Wybierz to, czego dziś potrzebujesz: zapisz myśl, przyjrzyj się nastrojowi albo spróbuj krótkiego ćwiczenia.",
+      "outcome": "Dzvinco pomaga zauważać własne samopoczucie, znaleźć chwilę wytchnienia i wracać do tego, co daje poczucie równowagi."
     }
   },
   "Technology": {
-    "title": "Technologia stojąca za Dzvinco",
-    "description": "Dzvinco jest niezależną aplikacją wspierającą dobrostan psychiczny w ekosystemie QDIP. QDIP to platforma Decision Intelligence dla programistów. Badamy integrację funkcji wspomagania decyzji; nie są one obecnie dostępne jako funkcja Dzvinco w środowisku produkcyjnym.",
+    "title": "Technologia, która służy ludziom",
+    "description": "Dzvinco łączy ludzkie podejście do wsparcia z Decision Intelligence od QDIP.ai. Tam, gdzie osobiste notatki pokazują, jak minął dzień, technologia wspierania decyzji pomaga zrozumieć kontekst i możliwe kolejne kroki. W centrum zawsze pozostaje człowiek i jego wybór.",
     "cta": "Poznaj QDIP"
   }
 }

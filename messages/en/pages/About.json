@@ -1,33 +1,33 @@
 {
   "title": "About Dzvinco",
-  "intro": "Dzvinco is a Ukrainian personal self-support service: quick state check-ins, a private diary and short exercises you can choose at your own pace.",
-  "introExtended": "The service is at an early stage (beta). Available today: daily check-ins for stress, mood, energy and focus, a private diary, breathing and calming exercises, meditations and tips, plus personal progress and goals. For companies and research teams we are developing separate pilot formats with clear access boundaries. Dzvinco does not diagnose and does not replace a professional.",
+  "intro": "Dzvinco is a space to reconnect with yourself. Notice how you feel, give your thoughts a home in a private journal, and find little moments of calm even on busy days.",
+  "introExtended": "Sometimes all you need is a small pause. Take a few gentle breaths, write down what's on your mind, or choose a practice that feels right today. Revisit your mood story, celebrate small wins, and move towards personal goals at your own pace.",
   "Evolution": {
     "title": "From a single check-in to a manageable next step",
-    "description": "Dzvinco does not predict your state or judge it. It helps you notice how you feel, pick a short practice and come back to your own history at your own pace.",
+    "description": "Start with a single check-in. Pick a short practice that fits right now and watch how your state changes over time — at your own pace.",
     "stepDescriptions": {
       "happened": "You rate stress, mood, energy or focus, or write a diary entry — whenever it suits you.",
-      "means": "The service shows what you recorded today, with no diagnoses, rankings or comparison with other people.",
+      "means": "Dzvinco brings your check-ins together in a clear picture of your day, helping you notice how you have been feeling.",
       "next": "In the guide you choose a short practice: breathing, calming, a meditation or a tip.",
       "action": "You decide: do the exercise, pick another one or simply come back later.",
-      "evidence": "My Progress shows your check-in statistics, goals and achievements — no streaks and no penalties for missed days."
+      "evidence": "In My Progress, follow your own story of moods, personal goals, and meaningful moments."
     },
     "context": {
       "eyebrow": "How it works",
-      "title": "Your rhythm, your choice",
-      "description": "Every step is optional: start with a check-in, a diary entry or a short exercise.",
+      "title": "Find your next small step",
+      "description": "Today you might just pause and listen to yourself. Tomorrow, revisit a note or try a practice. Your own pace is enough.",
       "items": {
         "signal": {
           "title": "Check-in",
-          "description": "A few ratings on a 1–5 scale or a free-form diary entry."
+          "description": "Name your mood in a few taps or let your thoughts find a home in your journal."
         },
         "prediction": {
           "title": "Practice",
-          "description": "A short exercise from the guide that you choose yourself — not a forecast or a conclusion about your state."
+          "description": "A short exercise from the library: breathing, calming, a meditation or a tip. You choose what fits right now."
         },
         "validation": {
           "title": "Your history",
-          "description": "Entries and statistics you can return to in order to notice changes over time."
+          "description": "Look back at your notes and notice the moments you want to remember."
         }
       }
     },
@@ -45,19 +45,19 @@
       "highlightValue": "B2B",
       "highlightLabel": "company pilot",
       "title": "For companies",
-      "description": "Personal self-support for employees and pilot organizational formats based on aggregated data. Employers have no access to private diaries or check-ins. Company features are not launched yet — we discuss pilots individually."
+      "description": "Personal self-support for employees and pilot formats for organizations with aggregated data. Employers cannot see private journals or check-ins. Companies are invited to join a pilot — get in touch."
     },
     "user": {
       "highlightValue": "B2C",
       "highlightLabel": "personal space",
       "title": "For yourself",
-      "description": "State check-ins, a private diary, short exercises and personal progress — no mandatory tests, streaks or pressure."
+      "description": "A place where your feelings matter: mood check-ins, private thoughts, short practices, and small personal wins."
     },
     "research": {
       "highlightValue": "R&D",
       "highlightLabel": "research partnership",
       "title": "For researchers",
-      "description": "Open to joint research protocols with universities and institutes. Any study requires separate participant consent and ethics approval."
+      "description": "We are looking for university and institute partners for joint research. Any study happens only with separate participant consent and ethics approval."
     }
   },
   "Architecture": {
@@ -70,11 +70,11 @@
     "nextAction": "Next track",
     "core": {
       "title": "Research track",
-      "description": "We are researching how QDIP decision-support methods could help choose appropriate actions. This is research, not a feature available to users."
+      "description": "Behind Dzvinco is QDIP.ai's Decision Intelligence approach: connecting context, comparing possible next steps, and making complex choices easier to understand."
     },
     "b2c": {
       "title": "Personal space",
-      "description": "State check-ins, diary, exercises, goals and progress — available now in beta."
+      "description": "Check-ins, journal, exercises, goals and progress — available right now. Start today."
     },
     "loop": {
       "title": "Data boundaries",
@@ -82,17 +82,17 @@
     }
   },
   "Value": {
-    "title": "What matters to us",
-    "description": "We are building a service that supports rather than evaluates, and we are honest about what already works and what is still in development.",
+    "title": "Why Dzvinco",
+    "description": "Caring for yourself starts with paying attention. Here you can be honest with yourself, keep what matters close, and find strength for your next small step.",
     "points": {
-      "cohort": "Personal records stay personal: no comparison with other people and no employer access.",
-      "explainable": "Every step is optional: no mandatory tests, streaks or pressure — the decision is always yours.",
-      "outcome": "The service does not diagnose or promise clinical outcomes. In a crisis, contact a professional or emergency services."
+      "cohort": "Your records are yours alone: no comparison with others and no access for your employer.",
+      "explainable": "Choose what you need today: write a thought, check in with your mood, or try a short exercise.",
+      "outcome": "Dzvinco helps you tune in to how you feel, find small moments to pause, and return to what gives you a sense of balance."
     }
   },
   "Technology": {
-    "title": "Technology behind Dzvinco",
-    "description": "Dzvinco is an independent mental wellbeing application in the QDIP ecosystem. QDIP is a Decision Intelligence platform for developers. We are exploring decision-support integration; these capabilities are not yet available as a Dzvinco production feature.",
+    "title": "Technology with people at its heart",
+    "description": "Dzvinco brings human-centred support together with Decision Intelligence from QDIP.ai. Where personal notes capture how a day felt, decision-support technology helps make sense of context and possible next steps. People and their choices remain at the centre.",
     "cta": "Learn about QDIP"
   }
 }
