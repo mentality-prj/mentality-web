@@ -1,38 +1,38 @@
 {
   "Hero": {
-    "title": "Try personal Dzvinco",
-    "subtitle": "A 30-second breathing exercise without signing in. Create an account when you want to save check-ins or journal entries.",
+    "title": "This moment is yours.",
+    "subtitle": "Start with 30 seconds of gentle breathing. Whenever you want to let your thoughts out or understand your mood, your personal space in Dzvinco is here.",
     "cta": "Create an account",
     "returnCta": "My Day",
     "path": {
-      "heading": "Your pace, your support",
-      "mood": "Notice your mood, stress and energy whenever you choose.",
-      "diary": "Write down your thoughts in a personal journal.",
-      "support": "Open a breathing or calming exercise without completing a questionnaire."
+      "heading": "There's room for the real you",
+      "mood": "Name what you're feeling. Even one small check-in can help you tune in to yourself.",
+      "diary": "Give your thoughts a place to land — in a journal that's yours alone.",
+      "support": "Find a short practice whenever you need to slow down and feel a little steadier."
     },
-    "returnTitle": "Your personal Dzvinco",
-    "returnSubtitle": "Return to your entries or try a short exercise.",
+    "returnTitle": "It's good to have you back.",
+    "returnSubtitle": "How are you feeling today? Write a thought, revisit your story, or simply take a moment to breathe.",
     "tryCta": "Try 30 seconds"
   },
   "Features": {
     "interactivity": {
       "title": "Mood check-ins",
-      "subtitle": "Capture how you feel now. Look back when you want to see what has changed."
+      "subtitle": "You don't need the perfect words. Just notice how you feel today and look back whenever you wish."
     },
     "support": {
       "title": "Personal journal",
-      "subtitle": "Thoughts worth keeping. Private journal entries you can revisit on your terms."
+      "subtitle": "Sometimes writing it down makes things feel lighter. A quiet space for thoughts you want to keep to yourself."
     },
     "ai": {
       "title": "Practical next steps",
-      "subtitle": "Breathing, calming and focus exercises — short practices without unnecessary steps."
+      "subtitle": "A few breaths, a quiet pause, or a mindful moment. Choose what feels manageable today."
     }
   },
   "Services": {
     "title": "Small steps\nthat bring calm",
     "cards": {
       "intro": {
-        "text": "Support doesn't have to be complicated. A quiet minute, a few words in your journal or a simple mood check-in is already a way of caring for yourself."
+        "text": "Caring for yourself shouldn't be another task on your list. Sometimes a breath, a thought on paper, or simply noticing how you feel is enough for now."
       },
       "predictionEngine": {
         "title": "Notice what goes well",
@@ -50,17 +50,17 @@
   },
   "HowItWorks": {
     "title": "How it works",
-    "subtitle": "Simple, with no questionnaires and no rush",
+    "subtitle": "It starts with you and how you feel.",
     "steps": {
-      "register": "Create your space — sign in and your check-ins and entries are saved for you.",
-      "choose": "Pick what you need right now — check in, write in your journal or try an exercise.",
-      "receive": "Come back whenever you like — review your history and choose a small next step."
+      "register": "Make a little space for yourself — your notes and check-ins will be here whenever you want to return.",
+      "choose": "Check in with yourself — note your mood, write down what's on your mind, or choose a short exercise.",
+      "receive": "Come back whenever you need — your story can help you notice changes and choose your next small step."
     },
     "cta": "Start for free"
   },
   "ReduceStress": {
     "title": "Support at your own pace",
-    "subtitle": "Even a short pause or a few lines in your journal is a way of caring for yourself. You decide what feels right today."
+    "subtitle": "Not every day has to be productive. Sometimes the kindest thing you can do is slow down, reconnect, and take a small pause."
   },
   "Footer": {
     "copyright": "© {year} {company}. All rights reserved.",
@@ -86,32 +86,32 @@
     "private": "Runs in your browser. Nothing is saved."
   },
   "Next": {
-    "heading": "What you can do next",
-    "subtitle": "Choose any starting point.",
+    "heading": "What would feel good for you right now?",
+    "subtitle": "One small step is enough to begin.",
     "mood": {
       "title": "Mood check-in",
-      "description": "Record mood, stress, energy and focus and revisit the changes."
+      "description": "Pause and name your mood. Over time, you'll be able to see your own story unfold."
     },
     "diary": {
       "title": "Private journal",
-      "description": "Keep your thoughts and return to your entries whenever you wish."
+      "description": "Put what's on your mind into words. No need to impress anyone or get it just right."
     },
     "practice": {
       "title": "More exercises",
-      "description": "Breathing, calming and focus — choose what you want to try."
+      "description": "Return to your breath, try a calming practice, or simply enjoy a quiet moment."
     },
     "afterLogin": "Available after sign-in",
     "open": "Open",
     "closing": "Your check-ins and journal entries are kept in your personal space.",
     "signup": "Start for free",
     "progressTitle": "Notice changes over time",
-    "progressDescription": "My Progress keeps your check-in statistics, personal goals and achievements — no streaks and no penalties for missed days.",
+    "progressDescription": "Your small steps become your own story. Revisit your moods, goals, and moments worth remembering.",
     "progressCta": "See My Progress"
   },
   "Platform": {
     "eyebrow": "Dzvinco · for people",
-    "title": "Understand yourself better. Day by day.",
-    "subtitle": "Check in with how you feel, save your thoughts and choose short activities at your own pace. Come back to your history and progress whenever you like.",
+    "title": "Some days, you just need room to breathe.",
+    "subtitle": "Dzvinco is a space to reconnect with yourself. Check in with how your day feels, put your thoughts into words, and find a quiet moment at your own pace.",
     "primaryCta": "Try Dzvinco for yourself",
     "secondaryCta": "Explore Dzvinco",
     "capabilitiesHeading": "What the business offering covers",
@@ -133,7 +133,7 @@
     "businessCta": "For organizations",
     "visual": {
       "title": "How was your day?",
-      "subtitle": "You can begin with a single check-in.",
+      "subtitle": "You don't need to explain everything. Start with how you feel.",
       "checkin": "Mood check-in",
       "journal": "Personal journal",
       "practice": "Take a short pause",
@@ -161,7 +161,7 @@
     "b2c": {
       "label": "For you · B2C",
       "title": "Your personal Dzvinco",
-      "description": "Mood check-ins, a private journal, exercises and personal goals, so you can return to what you personally find useful.",
+      "description": "Your feelings, thoughts, and small wins deserve attention. Keep them in your own space and return whenever you need a moment for yourself.",
       "features": {
         "checkins": "Notice changes in how you feel",
         "diary": "Keep thoughts in a private journal",
@@ -184,11 +184,11 @@
   "BusinessInvitation": {
     "eyebrow": "For companies",
     "title": "Supporting people is part of building stronger teams",
-    "description": "Offer employees personal self-support and explore which organizational features could help your team. Start by discussing a scoped pilot.",
+    "description": "Every team is made of people with worries, hopes, and difficult days. Let's talk about giving them more space to care for themselves — while respecting what stays private.",
     "cta": "Discuss a business pilot"
   },
   "seo": {
-    "title": "Dzvinco — personal support at your own pace",
-    "description": "Track your mood, keep a private journal and try short practices at your own pace. Dzvinco for people, organizations and research."
+    "title": "Dzvinco — a little space to reconnect with yourself",
+    "description": "Give yourself a quiet moment. Dzvinco helps you notice your mood, journal your thoughts, and choose small practices at your own pace."
   }
 }

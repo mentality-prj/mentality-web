@@ -1,13 +1,13 @@
 {
   "hero": {
     "eyebrow": "Dzvinco services",
-    "title": "Personal wellbeing, team workflows and Decision Intelligence research",
-    "subtitle": "Dzvinco is an in-development digital wellbeing platform with personal support tools, an emerging permissioned team-analytics experience and a Decision Intelligence in Mental Health research direction using QDIP.",
+    "title": "For the moments when support matters. For the people who care.",
+    "subtitle": "Dzvinco starts with a simple idea: everyone deserves a space where how they feel matters. For yourself, small steps towards balance; for teams, more thoughtful support; for researchers, better questions about what helps.",
     "note": "All charts below are illustrative examples based on existing product capabilities, not live customer data.",
     "audiences": {
       "b2c": {
         "title": "Personal",
-        "subtitle": "Self-checks, daily exercises and a personal trajectory."
+        "subtitle": "Your feelings, thoughts, and moments of calm — in one personal space."
       },
       "b2b": {
         "title": "Corporate",
@@ -44,21 +44,21 @@
   "sections": {
     "b2c": {
       "tag": "Personal",
-      "title": "For individuals",
-      "description": "The personal service gathers state signals, offers simple practices and helps reveal what actually supports mental well-being in everyday use.",
+      "title": "For you, when you need room to breathe",
+      "description": "You don't have to handle everything at once. In Dzvinco, you can name your mood, put thoughts into words, and find a small practice for a pause in your day.",
       "serviceSummaryItems": {
-        "tracking": "Brings state signals into one sequence.",
-        "support": "Gives access to short practices in the guide whenever you need them.",
-        "consistency": "Keeps change history easy to revisit."
+        "tracking": "Notice your feelings and revisit them when you're ready.",
+        "support": "Give yourself a few minutes for breathing, calm, or quiet.",
+        "consistency": "Keep your own story, without rushing or comparing yourself with others."
       },
       "resultSummaryItems": {
-        "one": "State becomes easier to understand over time.",
-        "two": "A short practice is only a few taps away.",
-        "three": "Support turns into a path that is easy to continue every day."
+        "one": "It's easier to notice how your days change.",
+        "two": "A small pause is always within reach.",
+        "three": "Revisit the moments that mattered to you."
       },
-      "journeyTitle": "How the service works",
+      "journeyTitle": "From a feeling to a small step",
       "before": {
-        "title": "The problem we aim to address",
+        "title": "Why caring for yourself can feel hard",
         "items": {
           "one": {
             "title": "Separate signals without a shared picture",
@@ -76,15 +76,15 @@
       },
       "capabilities": {
         "tracking": {
-          "title": "State is captured in one place",
+          "title": "Your feelings deserve attention",
           "description": "Mood, short notes and questionnaires are gathered into one sequence that shows frequency of change, recurring triggers and movement across days."
         },
         "support": {
-          "title": "Practices always at hand",
+          "title": "A moment of calm, close by",
           "description": "Breathing, calming, meditations and tips are collected in the guide — you choose what to try right now."
         },
         "consistency": {
-          "title": "Effective routines are easy to repeat",
+          "title": "Your story stays with you",
           "description": "Saved exercises, materials and state history stay available so people can repeat what has already produced a visible result."
         }
       },
@@ -92,11 +92,11 @@
       "after": {
         "items": {
           "one": {
-            "title": "Review personal changes over time",
+            "title": "Notice your own story",
             "description": "The intended timeline shows repeated observations when users contribute data. Whether this improves awareness still requires evaluation."
           },
           "two": {
-            "title": "Make a next step accessible",
+            "title": "Find one manageable step for today",
             "description": "The intended flow offers a clear optional practice following a check-in; its appropriateness and usefulness require user research."
           },
           "three": {

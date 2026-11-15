@@ -1,38 +1,38 @@
 {
   "Hero": {
-    "title": "Wypróbuj osobisty Dzvinco",
-    "subtitle": "30 sekund ćwiczenia oddechowego bez logowania. Konto pozwala zachować informacje o samopoczuciu i wpisy.",
+    "title": "Ta chwila jest dla Ciebie.",
+    "subtitle": "Zacznij od 30 sekund spokojnego oddechu. A gdy zechcesz wyrzucić z siebie myśli lub lepiej zrozumieć nastrój, w Dzvinco czeka Twoja własna przestrzeń.",
     "cta": "Utwórz konto",
     "returnCta": "Mój dzień",
     "path": {
-      "heading": "Twoje tempo, Twoje wsparcie",
-      "mood": "Obserwuj nastrój, stres i energię, kiedy masz na to ochotę.",
-      "diary": "Zapisuj swoje myśli w osobistym dzienniku.",
-      "support": "Wypróbuj ćwiczenie oddechowe lub uspokajające bez obowiązkowej ankiety."
+      "heading": "Tu możesz być sobą",
+      "mood": "Nazwij to, co czujesz. Nawet krótki zapis może pomóc Ci lepiej wsłuchać się w siebie.",
+      "diary": "Daj swoim myślom miejsce — w dzienniku, który należy tylko do Ciebie.",
+      "support": "Wybierz krótkie ćwiczenie, gdy potrzebujesz zwolnić i odzyskać równowagę."
     },
-    "returnTitle": "Twój osobisty Dzvinco",
-    "returnSubtitle": "Wróć do swoich wpisów lub spróbuj krótkiego ćwiczenia.",
+    "returnTitle": "Dobrze, że znów tu jesteś.",
+    "returnSubtitle": "Jak się dziś czujesz? Zapisz myśl, wróć do swojej historii albo po prostu weź kilka spokojnych oddechów.",
     "tryCta": "Wypróbuj 30 sekund"
   },
   "Features": {
     "interactivity": {
       "title": "Codzienny nastrój",
-      "subtitle": "Zapisz, jak się teraz czujesz. Wróć do swoich wpisów, by zobaczyć, co się zmieniło."
+      "subtitle": "Nie musisz szukać idealnych słów. Zaznacz, jak się dziś czujesz, i wracaj do swoich odczuć, kiedy chcesz."
     },
     "support": {
       "title": "Osobisty dziennik",
-      "subtitle": "Myśli warte zachowania. Prywatne notatki, do których możesz wrócić we własnym tempie."
+      "subtitle": "Czasem lżej robi się już wtedy, gdy można wszystko zapisać. To Twoje spokojne miejsce na myśli tylko dla siebie."
     },
     "ai": {
       "title": "Proste kolejne kroki",
-      "subtitle": "Ćwiczenia oddechowe, wyciszające i na koncentrację — krótka praktyka bez zbędnych kroków."
+      "subtitle": "Kilka oddechów, chwila ciszy albo ćwiczenie uważności. Wybierz to, na co dziś masz siłę."
     }
   },
   "Services": {
     "title": "Małe kroki,\nktóre dodają spokoju",
     "cards": {
       "intro": {
-        "text": "Wsparcie nie musi być skomplikowane. Chwila ciszy, kilka słów w dzienniku lub prosty wpis o nastroju to już troska o siebie."
+        "text": "Troska o siebie nie powinna być kolejnym zadaniem na liście. Czasem wystarczy oddech, zapisana myśl albo chwila, by zauważyć, jak się czujesz."
       },
       "predictionEngine": {
         "title": "Dostrzegaj dobre chwile",
@@ -50,17 +50,17 @@
   },
   "HowItWorks": {
     "title": "Jak to działa",
-    "subtitle": "Prosto, bez ankiet i pośpiechu",
+    "subtitle": "Wszystko zaczyna się od Ciebie i Twoich uczuć.",
     "steps": {
-      "register": "Stwórz swoją przestrzeń — zaloguj się, a Twoje wpisy zostaną dla Ciebie zapisane.",
-      "choose": "Wybierz to, czego potrzebujesz teraz — zapisz nastrój, napisz w dzienniku lub wypróbuj ćwiczenie.",
-      "receive": "Wracaj, kiedy chcesz — przeglądaj historię i wybieraj mały kolejny krok."
+      "register": "Stwórz własną spokojną przestrzeń — Twoje notatki i zapisy będą tu, gdy zechcesz do nich wrócić.",
+      "choose": "Wsłuchaj się w siebie — zaznacz nastrój, zapisz to, co Cię porusza, albo wybierz krótkie ćwiczenie.",
+      "receive": "Wracaj, kiedy potrzebujesz — Twoja historia pomoże Ci dostrzec zmiany i wybrać kolejny mały krok."
     },
     "cta": "Zacznij za darmo"
   },
   "ReduceStress": {
     "title": "Wsparcie w Twoim tempie",
-    "subtitle": "Nawet krótka przerwa lub kilka linijek w dzienniku to troska o siebie. Sam decydujesz, co jest odpowiednie dzisiaj."
+    "subtitle": "Nie każdy dzień musi być produktywny. Czasem najważniejsze to zwolnić, odzyskać kontakt ze sobą i pozwolić sobie na małą przerwę."
   },
   "Footer": {
     "copyright": "© {year} {company}. Wszelkie prawa zastrzeżone.",
@@ -86,32 +86,32 @@
     "private": "Ćwiczenie działa w przeglądarce. Nic nie jest zapisywane."
   },
   "Next": {
-    "heading": "Co możesz zrobić dalej",
-    "subtitle": "Wybierz dowolny punkt wyjścia.",
+    "heading": "Czego teraz najbardziej potrzebujesz?",
+    "subtitle": "Na początek wystarczy jeden mały krok.",
     "mood": {
       "title": "Zapisz samopoczucie",
-      "description": "Zapisuj nastrój, stres, energię i koncentrację, a potem obserwuj zmiany."
+      "description": "Zatrzymaj się na chwilę i nazwij swój nastrój. Z czasem zobaczysz historię swoich zmian."
     },
     "diary": {
       "title": "Osobisty dziennik",
-      "description": "Zachowuj myśli i wracaj do wpisów, kiedy chcesz."
+      "description": "Zapisz to, co nosisz w sobie. Nie musisz nikomu imponować ani dobierać idealnych słów."
     },
     "practice": {
       "title": "Więcej ćwiczeń",
-      "description": "Oddech, wyciszenie i koncentracja — wybierz, czego chcesz spróbować."
+      "description": "Skup się na oddechu, spróbuj ćwiczenia wyciszającego albo po prostu pobądź chwilę w ciszy."
     },
     "afterLogin": "Dostępne po zalogowaniu",
     "open": "Otwórz",
     "closing": "Twoje informacje o samopoczuciu i wpisy pozostają w osobistej przestrzeni.",
     "signup": "Zacznij za darmo",
     "progressTitle": "Zauważaj zmiany w czasie",
-    "progressDescription": "W „Moich postępach” znajdziesz statystyki notowań, osobiste cele i osiągnięcia — bez serii i bez kar za pominięte dni.",
+    "progressDescription": "Twoje małe kroki tworzą własną historię. Wracaj do nastrojów, celów i chwil, które chcesz zapamiętać.",
     "progressCta": "Zobacz moje postępy"
   },
   "Platform": {
     "eyebrow": "Dzvinco · dla ludzi",
-    "title": "Poznaj siebie lepiej. Dzień po dniu.",
-    "subtitle": "Zapisuj samopoczucie, zachowuj myśli i wybieraj krótkie ćwiczenia we własnym tempie. Wracaj do swojej historii i postępów, kiedy chcesz.",
+    "title": "Są dni, kiedy po prostu potrzebujesz oddechu.",
+    "subtitle": "Dzvinco to przestrzeń, w której możesz wsłuchać się w siebie. Zatrzymaj się przy swoich emocjach, zapisz myśli i znajdź chwilę spokoju we własnym tempie.",
     "primaryCta": "Wypróbuj Dzvinco",
     "secondaryCta": "Poznaj Dzvinco",
     "capabilitiesHeading": "Co obejmuje rozwiązanie dla firm",
@@ -133,7 +133,7 @@
     "businessCta": "Dla firm",
     "visual": {
       "title": "Jak minął dzień?",
-      "subtitle": "Możesz zacząć od jednej notatki.",
+      "subtitle": "Nie musisz wszystkiego tłumaczyć. Zacznij od tego, co czujesz.",
       "checkin": "Zapis samopoczucia",
       "journal": "Osobisty dziennik",
       "practice": "Krótka przerwa",
@@ -161,7 +161,7 @@
     "b2c": {
       "label": "Dla Ciebie · B2C",
       "title": "Twój osobisty Dzvinco",
-      "description": "Notowania samopoczucia, prywatny dziennik, ćwiczenia i osobiste cele — aby wracać do tego, co sam uznajesz za pomocne.",
+      "description": "Twoje emocje, myśli i małe zwycięstwa zasługują na uwagę. Zachowuj je we własnej przestrzeni i wracaj, gdy potrzebujesz chwili dla siebie.",
       "features": {
         "checkins": "Dostrzegaj zmiany w samopoczuciu",
         "diary": "Zapisuj myśli w prywatnym dzienniku",
@@ -184,11 +184,11 @@
   "BusinessInvitation": {
     "eyebrow": "Dla firm",
     "title": "Wsparcie ludzi pomaga budować silniejsze zespoły",
-    "description": "Zapewnij pracownikom indywidualne wsparcie i omów możliwości organizacyjne przydatne dla Twojego zespołu. Zacznijmy od pilotażu.",
+    "description": "Za każdym zespołem stoją ludzie z troskami, nadziejami i trudniejszymi dniami. Porozmawiajmy o tym, jak lepiej wspierać ich dobrostan, szanując prywatność.",
     "cta": "Porozmawiajmy o pilotażu"
   },
   "seo": {
-    "title": "Dzvinco — osobiste wsparcie we własnym tempie",
-    "description": "Notuj samopoczucie, prowadź prywatny dziennik i próbuj krótkich ćwiczeń we własnym tempie. Dzvinco dla ludzi, firm i badań."
+    "title": "Dzvinco — przestrzeń, w której wsłuchasz się w siebie",
+    "description": "Podaruj sobie chwilę spokoju. W Dzvinco możesz obserwować nastrój, zapisywać myśli i wybierać krótkie ćwiczenia we własnym tempie."
   }
 }
