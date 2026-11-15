@@ -12,12 +12,15 @@ import {
 import { useTranslations } from 'next-intl'
 
 import { ArchitectureLayersShowcase } from '@/app/[locale]/(public)/components/ArchitectureLayersShowcase'
+import { landingPrimaryCta, landingSecondaryCta } from '@/app/[locale]/(public)/components/landingStyles'
 import { IconFeatureList, type IconFeatureListItem } from '@/components/shared/Content/IconFeatureList'
 import { IconStatementList, type IconStatementListItem } from '@/components/shared/Content/IconStatementList'
 import { ImpactMetricCard } from '@/components/shared/Content/ImpactMetricCard'
 import { MosaicGrid, MosaicGridItem } from '@/components/shared/Content/MosaicGrid'
 import { NumberedFeatureList, type NumberedFeatureListItem } from '@/components/shared/Content/NumberedFeatureList'
+import { Routes } from '@/constants/routes'
 import { PageTitle } from '@/ds/components/PageTitle'
+import { Link } from '@/i18n/navigation'
 import { cn } from '@/lib/utils'
 
 const forWhomConfig = [
@@ -206,6 +209,27 @@ export default function AboutPage() {
               </li>
             ))}
           </ul>
+        </div>
+      </section>
+      <section aria-labelledby="about-start-title" className="w-full">
+        <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+          <div className="landing-outline-panel flex flex-col items-start gap-5 rounded-[28px] p-6 md:p-10">
+            <h2 id="about-start-title" className="landing-section-title">
+              {t('Start.title')}
+            </h2>
+            <p className="max-w-3xl text-sm leading-relaxed text-textcolor-secondary md:text-base">
+              {t('Start.description')}
+            </p>
+            <div className="flex w-full flex-col gap-3 sm:w-auto sm:flex-row sm:items-center">
+              <Link href={Routes.AUTH} className={landingPrimaryCta}>
+                {t('Start.primary')}
+                <ArrowRight aria-hidden="true" className="h-4 w-4" />
+              </Link>
+              <Link href="/#try-now" className={landingSecondaryCta}>
+                {t('Start.secondary')}
+              </Link>
+            </div>
+          </div>
         </div>
       </section>
       <section aria-labelledby="for-whom-title" className="w-full">

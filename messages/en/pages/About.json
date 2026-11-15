@@ -1,13 +1,13 @@
 {
   "title": "About Dzvinco",
-  "intro": "Dzvinco is a Ukrainian personal self-support service: quick state check-ins, a private diary and short exercises you can choose at your own pace.",
-  "introExtended": "The service is at an early stage (beta). Available today: daily check-ins for stress, mood, energy and focus, a private diary, breathing and calming exercises, meditations and tips, plus personal progress and goals. For companies and research teams we are developing separate pilot formats with clear access boundaries. Dzvinco does not diagnose and does not replace a professional.",
+  "intro": "Dzvinco is a Ukrainian service for caring for yourself every day. Log your mood in seconds, write your thoughts in a private journal, try a breathing exercise — and gradually see what truly supports you.",
+  "introExtended": "Everything you need is already here: stress, mood, energy and focus check-ins, a personal journal, breathing, calming exercises, meditations, tips, plus progress and goals. No questionnaires, no pressure — at your own pace. We have just launched, so you join among the first, and your feedback shapes what Dzvinco becomes next. Pilot programs are open for teams and researchers.",
   "Evolution": {
     "title": "From a single check-in to a manageable next step",
-    "description": "Dzvinco does not predict your state or judge it. It helps you notice how you feel, pick a short practice and come back to your own history at your own pace.",
+    "description": "Start with a single check-in. Pick a short practice that fits right now and watch how your state changes over time — at your own pace.",
     "stepDescriptions": {
       "happened": "You rate stress, mood, energy or focus, or write a diary entry — whenever it suits you.",
-      "means": "The service shows what you recorded today, with no diagnoses, rankings or comparison with other people.",
+      "means": "Dzvinco shows your day at a glance: what you logged today — with no rankings and no comparison with other people.",
       "next": "In the guide you choose a short practice: breathing, calming, a meditation or a tip.",
       "action": "You decide: do the exercise, pick another one or simply come back later.",
       "evidence": "My Progress shows your check-in statistics, goals and achievements — no streaks and no penalties for missed days."
@@ -23,7 +23,7 @@
         },
         "prediction": {
           "title": "Practice",
-          "description": "A short exercise from the guide that you choose yourself — not a forecast or a conclusion about your state."
+          "description": "A short exercise from the library: breathing, calming, a meditation or a tip. You choose what fits right now."
         },
         "validation": {
           "title": "Your history",
@@ -40,22 +40,28 @@
     }
   },
   "Insights": {
-    "title": "What you see in My Progress",
-    "description": "A calm view of your own check-ins, goals and achievements — no streaks, no scores and no penalties for missed days.",
+    "title": "See how you change",
+    "description": "My Progress turns your check-ins into a clear picture: statistics, goals and achievements — no streaks and no penalties for missed days.",
     "items": {
       "dynamics": {
         "title": "How things change",
-        "description": "Your stress, mood, energy and focus check-ins build into a history that shows how you feel over time."
+        "description": "Watch how your stress, mood, energy and focus shift over time — and notice what helps."
       },
       "records": {
-        "title": "Based on your own records",
-        "description": "Statistics, goals and achievements rely only on what you have logged yourself — no guesses and no comparison with other people."
+        "title": "Only your data",
+        "description": "Statistics, goals and achievements are built on your own check-ins — with no comparison to others."
       },
       "explanations": {
         "title": "Clear explanations",
-        "description": "Every figure is explained in plain language: what it means and what it does not — with no diagnoses or clinical conclusions."
+        "description": "Every figure in plain language: what it means for you."
       }
     }
+  },
+  "Start": {
+    "title": "Start with your first check-in",
+    "description": "Create your space — and your check-ins, journal and progress will always be with you. Or try a 30-second exercise first, no sign-in needed.",
+    "primary": "Start for free",
+    "secondary": "Try 30 seconds"
   },
   "ForWhom": {
     "title": "Who it's for",
@@ -63,7 +69,7 @@
       "highlightValue": "B2B",
       "highlightLabel": "company pilot",
       "title": "For companies",
-      "description": "Personal self-support for employees and pilot organizational formats based on aggregated data. Employers have no access to private diaries or check-ins. Company features are not launched yet — we discuss pilots individually."
+      "description": "Personal self-support for employees and pilot formats for organizations with aggregated data. Employers cannot see private journals or check-ins. Companies are invited to join a pilot — get in touch."
     },
     "user": {
       "highlightValue": "B2C",
@@ -75,7 +81,7 @@
       "highlightValue": "R&D",
       "highlightLabel": "research partnership",
       "title": "For researchers",
-      "description": "Open to joint research protocols with universities and institutes. Any study requires separate participant consent and ethics approval."
+      "description": "We are looking for university and institute partners for joint research. Any study happens only with separate participant consent and ethics approval."
     }
   },
   "Architecture": {
@@ -92,7 +98,7 @@
     },
     "b2c": {
       "title": "Personal space",
-      "description": "State check-ins, diary, exercises, goals and progress — available now in beta."
+      "description": "Check-ins, journal, exercises, goals and progress — available right now. Start today."
     },
     "loop": {
       "title": "Data boundaries",
@@ -100,12 +106,12 @@
     }
   },
   "Value": {
-    "title": "What matters to us",
-    "description": "We are building a service that supports rather than evaluates, and we are honest about what already works and what is still in development.",
+    "title": "Why Dzvinco",
+    "description": "Support without scores, comparisons or rush. You decide what to log, what to write and what to keep just for yourself.",
     "points": {
-      "cohort": "Personal records stay personal: no comparison with other people and no employer access.",
-      "explainable": "Every step is optional: no mandatory tests, streaks or pressure — the decision is always yours.",
-      "outcome": "The service does not diagnose or promise clinical outcomes. In a crisis, contact a professional or emergency services."
+      "cohort": "Your records are yours alone: no comparison with others and no access for your employer.",
+      "explainable": "No mandatory tests, streaks or guilt trips. Start wherever you like, stop whenever you like.",
+      "outcome": "Dzvinco is about caring for yourself day to day, not about diagnoses. If you need professional help or are in crisis, contact a specialist or emergency services."
     }
   },
   "Technology": {
