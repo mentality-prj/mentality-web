@@ -1,13 +1,13 @@
 {
   "title": "O Dzvinco",
-  "intro": "Dzvinco to ukraiński serwis osobistego samowsparcia: krótkie notowania samopoczucia, prywatny dziennik i proste ćwiczenia wybierane we własnym tempie.",
-  "introExtended": "Serwis jest na wczesnym etapie (beta). Obecnie dostępne są codzienne notowania stresu, nastroju, energii i koncentracji, prywatny dziennik, ćwiczenia oddechowe i uspokajające, medytacje i porady oraz osobiste postępy i cele. Dla firm i zespołów badawczych osobno rozwijamy formaty pilotażowe z jasnymi granicami dostępu. Dzvinco nie stawia diagnoz i nie zastępuje specjalisty.",
+  "intro": "Dzvinco to ukraiński serwis do codziennej troski o siebie. Zanotuj nastrój w kilka sekund, zapisz myśli w prywatnym dzienniku, zrób ćwiczenie oddechowe — i stopniowo zobacz, co naprawdę Cię wspiera.",
+  "introExtended": "Wszystko, czego potrzebujesz, jest już tutaj: notowania stresu, nastroju, energii i skupienia, osobisty dziennik, oddech, ćwiczenia wyciszające, medytacje, wskazówki oraz postępy i cele. Bez ankiet i presji — we własnym tempie. Dopiero ruszyliśmy, więc dołączasz jako jedna z pierwszych osób, a Twoje opinie kształtują, jakie Dzvinco będzie dalej. Dla zespołów i badaczy otwarte są programy pilotażowe.",
   "Evolution": {
     "title": "Od jednego notowania do wykonalnego kroku",
-    "description": "Dzvinco nie prognozuje Twojego stanu i go nie ocenia. Pomaga zauważyć, jak się czujesz, wybrać krótką praktykę i wracać do własnej historii we własnym tempie.",
+    "description": "Zacznij od jednego notowania. Wybierz krótką praktykę, która pasuje teraz, i obserwuj, jak zmienia się Twój stan w czasie — we własnym tempie.",
     "stepDescriptions": {
       "happened": "Notujesz stres, nastrój, energię lub koncentrację albo piszesz w dzienniku — kiedy chcesz.",
-      "means": "Serwis pokazuje, co zanotowałeś dzisiaj, bez diagnoz, rankingów i porównań z innymi ludźmi.",
+      "means": "Dzvinco pokazuje Twój dzień w pigułce: co zanotowano dziś — bez rankingów i porównań z innymi osobami.",
       "next": "W przewodniku wybierasz krótką praktykę: oddech, uspokojenie, medytację lub poradę.",
       "action": "Ty decydujesz: wykonać ćwiczenie, wybrać inne lub po prostu wrócić później.",
       "evidence": "„Moje postępy” pokazują statystyki notowań, cele i osiągnięcia — bez serii i bez kar za pominięte dni."
@@ -23,7 +23,7 @@
         },
         "prediction": {
           "title": "Praktyka",
-          "description": "Krótkie ćwiczenie z przewodnika, które wybierasz sam — nie prognoza ani wniosek o Twoim stanie."
+          "description": "Krótkie ćwiczenie z poradnika: oddech, wyciszenie, medytacja lub wskazówka. Wybierasz to, co pasuje teraz."
         },
         "validation": {
           "title": "Twoja historia",
@@ -40,22 +40,28 @@
     }
   },
   "Insights": {
-    "title": "Co widzisz w „Moich postępach”",
-    "description": "Spokojny wgląd we własne notowania, cele i osiągnięcia — bez serii, ocen i kar za pominięte dni.",
+    "title": "Zobacz, jak się zmieniasz",
+    "description": "„Moje postępy” zamieniają Twoje notowania w czytelny obraz: statystyki, cele i osiągnięcia — bez serii i kar za pominięte dni.",
     "items": {
       "dynamics": {
         "title": "Zmiany w czasie",
-        "description": "Notowania stresu, nastroju, energii i skupienia układają się w historię, która pokazuje, jak się czujesz na przestrzeni czasu."
+        "description": "Obserwuj, jak z czasem zmieniają się Twój stres, nastrój, energia i skupienie — i zauważaj, co pomaga."
       },
       "records": {
-        "title": "Oparte na Twoich zapisach",
-        "description": "Statystyki, cele i osiągnięcia opierają się wyłącznie na tym, co sam(a) zanotujesz — bez domysłów i porównań z innymi."
+        "title": "Tylko Twoje dane",
+        "description": "Statystyki, cele i osiągnięcia opierają się na Twoich notowaniach — bez porównań z innymi."
       },
       "explanations": {
         "title": "Zrozumiałe wyjaśnienia",
-        "description": "Każdy wskaźnik jest opisany prostym językiem: co oznacza, a czego nie oznacza — bez diagnoz i wniosków klinicznych."
+        "description": "Każdy wskaźnik prostym językiem: co oznacza właśnie dla Ciebie."
       }
     }
+  },
+  "Start": {
+    "title": "Zacznij od pierwszego notowania",
+    "description": "Załóż swoją przestrzeń — a notowania, dziennik i postępy zawsze będą z Tobą. Albo najpierw wypróbuj 30-sekundowe ćwiczenie bez logowania.",
+    "primary": "Zacznij za darmo",
+    "secondary": "Wypróbuj 30 sekund"
   },
   "ForWhom": {
     "title": "Dla kogo",
@@ -63,7 +69,7 @@
       "highlightValue": "B2B",
       "highlightLabel": "pilotaż dla firm",
       "title": "Dla firm",
-      "description": "Osobiste samowsparcie dla pracowników i pilotażowe formaty organizacyjne oparte na danych zagregowanych. Pracodawca nie ma dostępu do prywatnych dzienników ani notowań. Funkcje firmowe nie zostały jeszcze uruchomione — pilotaże omawiamy indywidualnie."
+      "description": "Osobiste wsparcie dla pracowników i formaty pilotażowe dla organizacji z danymi zagregowanymi. Pracodawca nie widzi prywatnych dzienników ani notowań. Zapraszamy firmy do pilotażu — napisz do nas."
     },
     "user": {
       "highlightValue": "B2C",
@@ -75,7 +81,7 @@
       "highlightValue": "R&D",
       "highlightLabel": "partnerstwo badawcze",
       "title": "Dla badaczy",
-      "description": "Jesteśmy otwarci na wspólne protokoły badawcze z uczelniami i instytutami. Każde badanie wymaga osobnej zgody uczestników i akceptacji komisji etycznej."
+      "description": "Szukamy partnerów na uczelniach i w instytutach do wspólnych badań. Każde badanie — tylko za odrębną zgodą uczestników i po zatwierdzeniu etycznym."
     }
   },
   "Architecture": {
@@ -92,7 +98,7 @@
     },
     "b2c": {
       "title": "Przestrzeń osobista",
-      "description": "Notowania samopoczucia, dziennik, ćwiczenia, cele i postępy — dostępne teraz w wersji beta."
+      "description": "Notowania, dziennik, ćwiczenia, cele i postępy — dostępne już teraz. Zacznij dziś."
     },
     "loop": {
       "title": "Granice danych",
@@ -100,12 +106,12 @@
     }
   },
   "Value": {
-    "title": "Co jest dla nas ważne",
-    "description": "Budujemy serwis, który wspiera, a nie ocenia, i uczciwie mówimy, co już działa, a co jest jeszcze w fazie rozwoju.",
+    "title": "Dlaczego Dzvinco",
+    "description": "Wsparcie bez ocen, porównań i pośpiechu. To Ty decydujesz, co notować, co zapisywać i co zachować tylko dla siebie.",
     "points": {
-      "cohort": "Osobiste wpisy pozostają osobiste: bez porównań z innymi ludźmi i bez dostępu pracodawcy.",
-      "explainable": "Każdy krok jest nieobowiązkowy: bez obowiązkowych testów, serii i presji — decyzja zawsze należy do Ciebie.",
-      "outcome": "Serwis nie stawia diagnoz i nie obiecuje efektów klinicznych. W kryzysie skontaktuj się ze specjalistą lub służbami ratunkowymi."
+      "cohort": "Twoje zapisy są tylko Twoje: bez porównań z innymi i bez dostępu dla pracodawcy.",
+      "explainable": "Bez obowiązkowych testów, serii i wyrzutów sumienia. Zacznij od czego chcesz, zakończ kiedy chcesz.",
+      "outcome": "Dzvinco to codzienna troska o siebie, a nie diagnozy. Gdy potrzebujesz fachowej pomocy lub jesteś w kryzysie — zwróć się do specjalisty lub służb ratunkowych."
     }
   },
   "Technology": {
