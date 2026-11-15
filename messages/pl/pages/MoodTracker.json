@@ -1,8 +1,8 @@
 {
-  "title": "Śledzenie nastroju",
-  "subtitle": "Śledź zmiany swojego nastroju i poziomu stresu",
+  "title": "Mój nastrój",
+  "subtitle": "Jak zmienia się Twój wewnętrzny świat? Obserwuj nastrój i stres we własnym tempie.",
   "wellbeing": {
-    "title": "Przegląd samopoczucia",
+    "title": "Jak się ostatnio czujesz",
     "subtitle": "Twoje oceny nastroju, stresu, energii i koncentracji z ostatnich 10 dni",
     "scoreAccessible": "Wskaźnik samopoczucia: {score} na 100",
     "entries": "Na podstawie {count, plural, one {# wpisu} few {# wpisów} many {# wpisów} other {# wpisów}} nastroju",
@@ -16,7 +16,7 @@
     }
   },
   "progress": {
-    "heading": "Postępy samopoczucia",
+    "heading": "Twoja historia zmian",
     "subtitle": "Zmiany w Twoich wpisach z ostatnich 30 dni",
     "stressTitle": "Wskaźnik stresu",
     "stressSubtitle": "Średnia samoocena z ostatnich 7 dni kalendarzowych (0 = najniższy, 100 = najwyższy)",
