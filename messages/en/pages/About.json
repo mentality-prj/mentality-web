@@ -39,6 +39,24 @@
       "evidence": "What changes over time"
     }
   },
+  "Insights": {
+    "title": "What you see in My Progress",
+    "description": "A calm view of your own check-ins, goals and achievements — no streaks, no scores and no penalties for missed days.",
+    "items": {
+      "dynamics": {
+        "title": "How things change",
+        "description": "Your stress, mood, energy and focus check-ins build into a history that shows how you feel over time."
+      },
+      "records": {
+        "title": "Based on your own records",
+        "description": "Statistics, goals and achievements rely only on what you have logged yourself — no guesses and no comparison with other people."
+      },
+      "explanations": {
+        "title": "Clear explanations",
+        "description": "Every figure is explained in plain language: what it means and what it does not — with no diagnoses or clinical conclusions."
+      }
+    }
+  },
   "ForWhom": {
     "title": "Who it's for",
     "business": {
@@ -70,7 +88,7 @@
     "nextAction": "Next track",
     "core": {
       "title": "Research track",
-      "description": "We are researching how QDIP decision-support methods could help choose appropriate actions. This is research, not a feature available to users."
+      "description": "Dzvinco uses Decision Intelligence from qdip.ai: decision-support methods help choose fitting actions."
     },
     "b2c": {
       "title": "Personal space",
@@ -92,7 +110,7 @@
   },
   "Technology": {
     "title": "Technology behind Dzvinco",
-    "description": "Dzvinco is an independent mental wellbeing application in the QDIP ecosystem. QDIP is a Decision Intelligence platform for developers. We are exploring decision-support integration; these capabilities are not yet available as a Dzvinco production feature.",
+    "description": "Dzvinco is a standalone mental wellbeing app in the QDIP ecosystem. QDIP is a Decision Intelligence platform for developers. Dzvinco uses Decision Intelligence from qdip.ai.",
     "cta": "Learn about QDIP"
   }
 }

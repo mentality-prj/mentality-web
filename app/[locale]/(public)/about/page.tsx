@@ -53,6 +53,8 @@ const valueIcons: Record<'cohort' | 'explainable' | 'outcome', LucideIcon> = {
   outcome: Workflow,
 }
 
+const insightKeys = ['dynamics', 'records', 'explanations'] as const
+
 export default function AboutPage() {
   const t = useTranslations('pages.About')
   const evolutionStepKeys = ['happened', 'means', 'next', 'action', 'evidence'] as const
@@ -167,6 +169,43 @@ export default function AboutPage() {
               </div>
             </MosaicGridItem>
           </MosaicGrid>
+        </div>
+      </section>
+      <section aria-labelledby="progress-insights-title" className="w-full">
+        <div className="container-max-width mx-auto px-4 tablet:px-6 md:px-8 lg:px-10">
+          <div className="mb-6 max-w-4xl md:mb-8">
+            <h2 id="progress-insights-title" className="landing-section-title">
+              {t('Insights.title')}
+            </h2>
+            <p className="mt-2 max-w-3xl text-sm leading-relaxed text-textcolor-secondary md:text-base">
+              {t('Insights.description')}
+            </p>
+          </div>
+
+          <ul className="grid gap-5 md:grid-cols-3 xl:gap-8">
+            {insightKeys.map((key) => (
+              <li key={key} className="landing-glass-panel flex flex-col rounded-[28px] p-6 md:p-8">
+                <span
+                  aria-hidden="true"
+                  className="block h-16 w-16 bg-current text-[#2f668f]"
+                  style={{
+                    maskImage: `url(/icons/about/${key}.svg)`,
+                    WebkitMaskImage: `url(/icons/about/${key}.svg)`,
+                    maskRepeat: 'no-repeat',
+                    WebkitMaskRepeat: 'no-repeat',
+                    maskPosition: 'center',
+                    WebkitMaskPosition: 'center',
+                    maskSize: 'contain',
+                    WebkitMaskSize: 'contain',
+                  }}
+                />
+                <h3 className="landing-card-title mt-5">{t(`Insights.items.${key}.title`)}</h3>
+                <p className="mt-3 text-sm leading-relaxed text-textcolor-secondary md:text-base">
+                  {t(`Insights.items.${key}.description`)}
+                </p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
       <section aria-labelledby="for-whom-title" className="w-full">
