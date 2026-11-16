@@ -58,7 +58,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
     const hero = layer.current?.parentElement
     const logo = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
     const dot = logo?.querySelector<HTMLElement>('[data-landing-logo-dot="true"]')
-    if (!hero || !dot) return
+    if (!hero || !logo || !dot) return
     const INSET = 0.28
     const anchor = () => {
       const heroRect = hero.getBoundingClientRect()
