@@ -1,16 +1,16 @@
 {
   "title": "O Dzvinco",
-  "intro": "Dzvinco to ukraiński serwis do codziennej troski o siebie. Zanotuj nastrój w kilka sekund, zapisz myśli w prywatnym dzienniku, zrób ćwiczenie oddechowe — i stopniowo zobacz, co naprawdę Cię wspiera.",
-  "introExtended": "Wszystko, czego potrzebujesz, jest już tutaj: notowania stresu, nastroju, energii i skupienia, osobisty dziennik, oddech, ćwiczenia wyciszające, medytacje, wskazówki oraz postępy i cele. Bez ankiet i presji — we własnym tempie. Dopiero ruszyliśmy, więc dołączasz jako jedna z pierwszych osób, a Twoje opinie kształtują, jakie Dzvinco będzie dalej. Dla zespołów i badaczy otwarte są programy pilotażowe.",
+  "intro": "Dzvinco to przestrzeń, w której możesz wsłuchać się w siebie. Zauważaj swój nastrój, zapisuj myśli w prywatnym dzienniku i znajdź chwilę spokoju nawet w zabieganym dniu.",
+  "introExtended": "Czasem wystarczy krótka przerwa. Weź kilka spokojnych oddechów, zapisz to, co Ci leży na sercu, albo wybierz ćwiczenie odpowiednie na tę chwilę. Wracaj do historii swoich nastrojów, doceniaj małe zwycięstwa i realizuj własne cele we własnym tempie.",
   "Evolution": {
     "title": "Od jednego notowania do wykonalnego kroku",
     "description": "Zacznij od jednego notowania. Wybierz krótką praktykę, która pasuje teraz, i obserwuj, jak zmienia się Twój stan w czasie — we własnym tempie.",
     "stepDescriptions": {
       "happened": "Notujesz stres, nastrój, energię lub koncentrację albo piszesz w dzienniku — kiedy chcesz.",
-      "means": "Dzvinco pokazuje Twój dzień w pigułce: co zanotowano dziś — bez rankingów i porównań z innymi osobami.",
+      "means": "Dzvinco łączy Twoje zapisy w przejrzysty obraz dnia, by łatwiej było zauważyć własne emocje.",
       "next": "W przewodniku wybierasz krótką praktykę: oddech, uspokojenie, medytację lub poradę.",
       "action": "Ty decydujesz: wykonać ćwiczenie, wybrać inne lub po prostu wrócić później.",
-      "evidence": "„Moje postępy” pokazują statystyki notowań, cele i osiągnięcia — bez serii i bez kar za pominięte dni."
+      "evidence": "W Moich postępach znajdziesz historię nastrojów, osobistych celów i ważnych chwil."
     },
     "context": {
       "eyebrow": "Jak to działa",
@@ -41,7 +41,7 @@
   },
   "Insights": {
     "title": "Zobacz, jak się zmieniasz",
-    "description": "„Moje postępy” zamieniają Twoje notowania w czytelny obraz: statystyki, cele i osiągnięcia — bez serii i kar za pominięte dni.",
+    "description": "Każdy zapis to część Twojej historii. Dostrzegaj zmiany, przypominaj sobie małe zwycięstwa i odkrywaj, co daje Ci oparcie.",
     "items": {
       "dynamics": {
         "title": "Zmiany w czasie",
@@ -107,11 +107,11 @@
   },
   "Value": {
     "title": "Dlaczego Dzvinco",
-    "description": "Wsparcie bez ocen, porównań i pośpiechu. To Ty decydujesz, co notować, co zapisywać i co zachować tylko dla siebie.",
+    "description": "Troska o siebie zaczyna się od uważności. Tutaj możesz być ze sobą szczery, zachować to, co ważne, i znaleźć siłę na kolejny mały krok.",
     "points": {
       "cohort": "Twoje zapisy są tylko Twoje: bez porównań z innymi i bez dostępu dla pracodawcy.",
-      "explainable": "Bez obowiązkowych testów, serii i wyrzutów sumienia. Zacznij od czego chcesz, zakończ kiedy chcesz.",
-      "outcome": "Dzvinco to codzienna troska o siebie, a nie diagnozy. Gdy potrzebujesz fachowej pomocy lub jesteś w kryzysie — zwróć się do specjalisty lub służb ratunkowych."
+      "explainable": "Wybierz to, czego dziś potrzebujesz: zapisz myśl, przyjrzyj się nastrojowi albo spróbuj krótkiego ćwiczenia.",
+      "outcome": "Dzvinco pomaga zauważać własne samopoczucie, znaleźć chwilę wytchnienia i wracać do tego, co daje poczucie równowagi."
     }
   },
   "Technology": {

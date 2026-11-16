@@ -1,16 +1,16 @@
 {
   "title": "About Dzvinco",
-  "intro": "Dzvinco is a Ukrainian service for caring for yourself every day. Log your mood in seconds, write your thoughts in a private journal, try a breathing exercise — and gradually see what truly supports you.",
-  "introExtended": "Everything you need is already here: stress, mood, energy and focus check-ins, a personal journal, breathing, calming exercises, meditations, tips, plus progress and goals. No questionnaires, no pressure — at your own pace. We have just launched, so you join among the first, and your feedback shapes what Dzvinco becomes next. Pilot programs are open for teams and researchers.",
+  "intro": "Dzvinco is a space to reconnect with yourself. Notice how you feel, give your thoughts a home in a private journal, and find little moments of calm even on busy days.",
+  "introExtended": "Sometimes all you need is a small pause. Take a few gentle breaths, write down what's on your mind, or choose a practice that feels right today. Revisit your mood story, celebrate small wins, and move towards personal goals at your own pace.",
   "Evolution": {
     "title": "From a single check-in to a manageable next step",
     "description": "Start with a single check-in. Pick a short practice that fits right now and watch how your state changes over time — at your own pace.",
     "stepDescriptions": {
       "happened": "You rate stress, mood, energy or focus, or write a diary entry — whenever it suits you.",
-      "means": "Dzvinco shows your day at a glance: what you logged today — with no rankings and no comparison with other people.",
+      "means": "Dzvinco brings your check-ins together in a clear picture of your day, helping you notice how you have been feeling.",
       "next": "In the guide you choose a short practice: breathing, calming, a meditation or a tip.",
       "action": "You decide: do the exercise, pick another one or simply come back later.",
-      "evidence": "My Progress shows your check-in statistics, goals and achievements — no streaks and no penalties for missed days."
+      "evidence": "In My Progress, follow your own story of moods, personal goals, and meaningful moments."
     },
     "context": {
       "eyebrow": "How it works",
@@ -41,7 +41,7 @@
   },
   "Insights": {
     "title": "See how you change",
-    "description": "My Progress turns your check-ins into a clear picture: statistics, goals and achievements — no streaks and no penalties for missed days.",
+    "description": "Every entry is part of your story. Notice changes, remember small victories, and find what helps you feel more grounded.",
     "items": {
       "dynamics": {
         "title": "How things change",
@@ -107,11 +107,11 @@
   },
   "Value": {
     "title": "Why Dzvinco",
-    "description": "Support without scores, comparisons or rush. You decide what to log, what to write and what to keep just for yourself.",
+    "description": "Caring for yourself starts with paying attention. Here you can be honest with yourself, keep what matters close, and find strength for your next small step.",
     "points": {
       "cohort": "Your records are yours alone: no comparison with others and no access for your employer.",
-      "explainable": "No mandatory tests, streaks or guilt trips. Start wherever you like, stop whenever you like.",
-      "outcome": "Dzvinco is about caring for yourself day to day, not about diagnoses. If you need professional help or are in crisis, contact a specialist or emergency services."
+      "explainable": "Choose what you need today: write a thought, check in with your mood, or try a short exercise.",
+      "outcome": "Dzvinco helps you tune in to how you feel, find small moments to pause, and return to what gives you a sense of balance."
     }
   },
   "Technology": {
