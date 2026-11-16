@@ -73,9 +73,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
       if (area?.width && area.height) {
         const x = (dotX - area.left) / area.width
         const y = (dotY - area.top) / area.height
-        setSource((prev) =>
-          Math.abs(prev.x - x) < 0.001 && Math.abs(prev.y - y) < 0.001 ? prev : { x, y }
-        )
+        setSource((prev) => (Math.abs(prev.x - x) < 0.001 && Math.abs(prev.y - y) < 0.001 ? prev : { x, y }))
       }
       hero.dataset.heroRingsReady = 'true'
     }
