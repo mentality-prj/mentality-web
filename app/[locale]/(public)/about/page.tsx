@@ -188,21 +188,23 @@ export default function AboutPage() {
           <ul className="grid gap-5 md:grid-cols-3 xl:gap-8">
             {insightKeys.map((key) => (
               <li key={key} className="landing-glass-panel flex flex-col rounded-[28px] p-6 md:p-8">
-                <span
-                  aria-hidden="true"
-                  className="block h-16 w-16 bg-current text-[#2f668f]"
-                  style={{
-                    maskImage: `url(/icons/about/${key}.svg)`,
-                    WebkitMaskImage: `url(/icons/about/${key}.svg)`,
-                    maskRepeat: 'no-repeat',
-                    WebkitMaskRepeat: 'no-repeat',
-                    maskPosition: 'center',
-                    WebkitMaskPosition: 'center',
-                    maskSize: 'contain',
-                    WebkitMaskSize: 'contain',
-                  }}
-                />
-                <h3 className="landing-card-title mt-5">{t(`Insights.items.${key}.title`)}</h3>
+                <div className="flex items-center gap-4 md:block">
+                  <span
+                    aria-hidden="true"
+                    className="block h-16 w-16 shrink-0 bg-current text-primary"
+                    style={{
+                      maskImage: `url(/icons/about/${key}.svg)`,
+                      WebkitMaskImage: `url(/icons/about/${key}.svg)`,
+                      maskRepeat: 'no-repeat',
+                      WebkitMaskRepeat: 'no-repeat',
+                      maskPosition: 'center',
+                      WebkitMaskPosition: 'center',
+                      maskSize: 'contain',
+                      WebkitMaskSize: 'contain',
+                    }}
+                  />
+                  <h3 className="landing-card-title md:mt-5">{t(`Insights.items.${key}.title`)}</h3>
+                </div>
                 <p className="mt-3 text-sm leading-relaxed text-textcolor-secondary md:text-base">
                   {t(`Insights.items.${key}.description`)}
                 </p>
