@@ -66,9 +66,7 @@ describe('MoodResonance', () => {
       expect(container.style.getPropertyValue('--hero-gradient-y')).toBe('56px')
       expect(mockDrop).toHaveBeenCalledTimes(1)
       expect(mockDrop).toHaveBeenCalledWith(0.56, -0.14, 0.9)
-      expect(mockWaterProps).toHaveBeenLastCalledWith(
-        expect.objectContaining({ source: { x: 0.56, y: -0.14 } })
-      )
+      expect(mockWaterProps).toHaveBeenLastCalledWith(expect.objectContaining({ source: { x: 0.56, y: -0.14 } }))
       fireEvent.pointerDown(screen.getByText('hero copy'), { clientX: 80, clientY: 240 })
       fireEvent.change(screen.getByLabelText('checkin'), { target: { value: '80' } })
       expect(mockDrop).toHaveBeenCalledTimes(1)
