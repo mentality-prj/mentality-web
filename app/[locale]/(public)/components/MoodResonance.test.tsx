@@ -8,13 +8,15 @@ jest.mock('next-intl', () => ({
 }))
 
 const mockDrop = jest.fn()
+const mockWaterProps = jest.fn()
 jest.mock('./water/WaterSurface', () => {
   const React = jest.requireActual<typeof import('react')>('react')
   return {
     WaterSurface: React.forwardRef(function MockWaterSurface(
-      _props: unknown,
+      props: { source?: { x: number; y: number } },
       ref: React.ForwardedRef<{ drop: (x: number, y: number, strength?: number) => void }>
     ) {
+      mockWaterProps(props)
       React.useImperativeHandle(ref, () => ({ drop: mockDrop }))
       return null
     }),
@@ -24,19 +26,24 @@ jest.mock('./water/WaterSurface', () => {
 describe('MoodResonance', () => {
   afterEach(() => {
     mockDrop.mockClear()
+    mockWaterProps.mockClear()
     jest.restoreAllMocks()
   })
 
   it('starts a single logo-centered ripple on load and ignores pointer and slider changes', () => {
     const logo = document.createElement('div')
     logo.dataset.landingLogo = 'true'
+    const dot = document.createElement('span')
+    dot.dataset.landingLogoDot = 'true'
+    logo.appendChild(dot)
     document.body.appendChild(logo)
     jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
       const isLogo = this === logo
-      const left = isLogo ? 150 : 0
-      const top = isLogo ? 20 : 100
-      const width = isLogo ? 100 : 400
-      const height = isLogo ? 40 : 400
+      const isDot = this === dot
+      const left = isDot ? 220 : isLogo ? 150 : 0
+      const top = isDot ? 40 : isLogo ? 20 : 100
+      const width = isDot ? 8 : isLogo ? 100 : 400
+      const height = isDot ? 8 : isLogo ? 40 : 400
       return {
         x: left,
         y: top,
@@ -50,13 +57,16 @@ describe('MoodResonance', () => {
       }
     })
     try {
-      render(
+      const { container } = render(
         <MoodResonance>
           <p>hero copy</p>
         </MoodResonance>
       )
+      expect(container.style.getPropertyValue('--hero-gradient-x')).toBe('336px')
+      expect(parseFloat(container.style.getPropertyValue('--hero-gradient-y'))).toBeCloseTo(56)
       expect(mockDrop).toHaveBeenCalledTimes(1)
-      expect(mockDrop).toHaveBeenCalledWith(0.5, 0.03, 0.9)
+      expect(mockDrop).toHaveBeenCalledWith(0.56, -0.14, 0.9)
+      expect(mockWaterProps).toHaveBeenLastCalledWith(expect.objectContaining({ source: { x: 0.56, y: -0.14 } }))
       fireEvent.pointerDown(screen.getByText('hero copy'), { clientX: 80, clientY: 240 })
       fireEvent.change(screen.getByLabelText('checkin'), { target: { value: '80' } })
       expect(mockDrop).toHaveBeenCalledTimes(1)

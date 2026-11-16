@@ -45,7 +45,7 @@ const TRACK = `linear-gradient(90deg, ${PALETTES.low[0]}, ${PALETTES.mid[0]} 50%
 export function MoodResonance({ children, className }: { children: ReactNode; className?: string }) {
   const t = useTranslations('pages.Landing.Platform.visual')
   const [mood, setMood] = useState(55)
-  const [source, setSource] = useState({ x: 0.18, y: 0.03 })
+  const [source, setSource] = useState({ x: 0.18, y: 0 })
   const water = useRef<WaterSurfaceHandle>(null)
   const layer = useRef<HTMLDivElement>(null)
   const colors = useMemo(() => moodWater(mood), [mood])
@@ -57,22 +57,23 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
   useLayoutEffect(() => {
     const hero = layer.current?.parentElement
     const logo = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
-    if (!hero || !logo) return
+    const dot = logo?.querySelector<HTMLElement>('[data-landing-logo-dot="true"]')
+    if (!hero || !logo || !dot) return
     const INSET = 0.28
     const anchor = () => {
       const heroRect = hero.getBoundingClientRect()
-      const logoRect = logo.getBoundingClientRect()
+      const dotRect = dot.getBoundingClientRect()
+      const dotX = dotRect.left + dotRect.width / 2
+      const dotY = dotRect.top + dotRect.height / 2
       const pseudoLeft = heroRect.left - heroRect.width * INSET
       const pseudoTop = heroRect.top - heroRect.height * INSET
-      hero.style.setProperty('--hero-gradient-x', `${logoRect.left + logoRect.width / 2 - pseudoLeft}px`)
-      hero.style.setProperty(
-        '--hero-gradient-y',
-        `${Math.max(logoRect.top + logoRect.height / 2 - pseudoTop, heroRect.height * 0.18)}px`
-      )
+      hero.style.setProperty('--hero-gradient-x', `${dotX - pseudoLeft}px`)
+      hero.style.setProperty('--hero-gradient-y', `${dotY - pseudoTop}px`)
       const area = layer.current?.getBoundingClientRect()
       if (area?.width && area.height) {
-        const x = Math.max(0, Math.min(1, (logoRect.left + logoRect.width / 2 - area.left) / area.width))
-        setSource((prev) => (Math.abs(prev.x - x) < 0.001 ? prev : { x, y: 0.03 }))
+        const x = (dotX - area.left) / area.width
+        const y = (dotY - area.top) / area.height
+        setSource((prev) => (Math.abs(prev.x - x) < 0.001 && Math.abs(prev.y - y) < 0.001 ? prev : { x, y }))
       }
       hero.dataset.heroRingsReady = 'true'
     }
@@ -80,6 +81,7 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
     window.addEventListener('resize', anchor)
     const observer = typeof ResizeObserver !== 'undefined' ? new ResizeObserver(anchor) : null
     observer?.observe(logo)
+    observer?.observe(dot)
     return () => {
       window.removeEventListener('resize', anchor)
       observer?.disconnect()
@@ -88,12 +90,12 @@ export function MoodResonance({ children, className }: { children: ReactNode; cl
 
   useEffect(() => {
     const area = layer.current?.getBoundingClientRect()
-    const logo = document.querySelector<HTMLElement>('[data-landing-logo="true"]')
-    if (!area || !logo || !area.width || !area.height) return
-    const rect = logo.getBoundingClientRect()
+    const dot = document.querySelector<HTMLElement>('[data-landing-logo-dot="true"]')
+    if (!area || !dot || !area.width || !area.height) return
+    const rect = dot.getBoundingClientRect()
     water.current?.drop(
       (rect.left + rect.width / 2 - area.left) / area.width,
-      Math.max(0.03, (rect.top + rect.height / 2 - area.top) / area.height),
+      (rect.top + rect.height / 2 - area.top) / area.height,
       0.9
     )
   }, [])
