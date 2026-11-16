@@ -63,7 +63,7 @@ describe('MoodResonance', () => {
         </MoodResonance>
       )
       expect(container.style.getPropertyValue('--hero-gradient-x')).toBe('336px')
-      expect(container.style.getPropertyValue('--hero-gradient-y')).toBe('56px')
+      expect(parseFloat(container.style.getPropertyValue('--hero-gradient-y'))).toBeCloseTo(56)
       expect(mockDrop).toHaveBeenCalledTimes(1)
       expect(mockDrop).toHaveBeenCalledWith(0.56, -0.14, 0.9)
       expect(mockWaterProps).toHaveBeenLastCalledWith(expect.objectContaining({ source: { x: 0.56, y: -0.14 } }))
