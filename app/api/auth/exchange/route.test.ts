@@ -123,6 +123,17 @@ describe('/api/auth/exchange route', () => {
       userRole: 'admin',
       sessionRevision: expect.any(String),
     })
+    const refreshRequest = (global.fetch as jest.Mock).mock.calls[0][1] as RequestInit
+    const refreshBody = refreshRequest.body as URLSearchParams
+    expect(refreshRequest.headers).toMatchObject({
+      'Content-Type': 'application/x-www-form-urlencoded',
+      Authorization: `Basic ${btoa('client-id:secret')}`,
+    })
+    expect(refreshBody.get('grant_type')).toBe('refresh_token')
+    expect(refreshBody.get('refresh_token')).toBe('stored-refresh-token')
+    expect(refreshBody.has('client_id')).toBe(false)
+    expect(refreshBody.has('client_secret')).toBe(false)
+
     const storedCookie = response.cookies.get(AUTH_TOKEN_COOKIE)?.value
 
     expect(storedCookie).toBeTruthy()
@@ -256,10 +267,52 @@ describe('/api/auth/exchange route', () => {
       expect(response.cookies.get(ACTIVE_COMPANY_COOKIE)?.value).toBe('')
       const requestOptions = (global.fetch as jest.Mock).mock.calls[0][1] as RequestInit
       const parameters = requestOptions.body as URLSearchParams
+      expect(requestOptions.headers).toMatchObject({
+        'Content-Type': 'application/x-www-form-urlencoded',
+        Authorization: `Basic ${btoa('client-id:secret')}`,
+      })
+      expect(parameters.get('grant_type')).toBe('authorization_code')
+      expect(parameters.get('code_verifier')).toBe('verifier')
+      expect(parameters.has('client_id')).toBe(false)
+      expect(parameters.has('client_secret')).toBe(false)
       expect(parameters.get('redirect_uri')).toBe('http://localhost:3000/callback')
       expect(JSON.stringify(await response.json())).not.toMatch(/access_token|id_token|refresh_token/)
     } finally {
       process.env.NEXT_PUBLIC_BASE_URL = previousBase
+    }
+  })
+
+  it('form-encodes Basic credentials containing reserved and Unicode characters', async () => {
+    const savedId = process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID
+    const savedSecret = process.env.ZITADEL_CLIENT_SECRET
+    process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = 'id:with+reserved'
+    process.env.ZITADEL_CLIENT_SECRET = 'séc+ret:with space'
+    try {
+      cookiesMock.mockReturnValue(createCookieStore() as never)
+      ;(global.fetch as jest.Mock).mockResolvedValue(
+        new Response(JSON.stringify({ access_token: 'new-access', id_token: 'new-id', expires_in: 3600 }), {
+          status: 200,
+        })
+      )
+      const response = await POST(
+        createRequest('/api/auth/exchange', {
+          grantType: 'authorization_code',
+          code: 'auth-code',
+          codeVerifier: 'verifier',
+        })
+      )
+      expect(response.status).toBe(200)
+      const options = (global.fetch as jest.Mock).mock.calls[0][1] as RequestInit
+      const encodedId = new URLSearchParams({ value: 'id:with+reserved' }).toString().slice('value='.length)
+      const encodedSecret = new URLSearchParams({ value: 'séc+ret:with space' }).toString().slice('value='.length)
+      expect(options.headers).toMatchObject({ Authorization: `Basic ${btoa(`${encodedId}:${encodedSecret}`)}` })
+      const body = options.body as URLSearchParams
+      expect(body.has('client_id')).toBe(false)
+      expect(body.has('client_secret')).toBe(false)
+      expect(JSON.stringify(await response.json())).not.toMatch(/new-access|new-id|séc/)
+    } finally {
+      process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID = savedId
+      process.env.ZITADEL_CLIENT_SECRET = savedSecret
     }
   })
 
