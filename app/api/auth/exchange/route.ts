@@ -171,10 +171,12 @@ export async function POST(request: NextRequest) {
 
     let storedTokens: StoredAuthTokens | null = null
 
-    const params = new URLSearchParams({
-      client_id: CLIENT_ID,
-      client_secret: CLIENT_SECRET,
-    })
+    // RFC 6749 client_secret_basic: credentials belong only in Authorization,
+    // never in the form body (for both authorization_code and refresh_token).
+    const encodedId = new URLSearchParams({ value: CLIENT_ID }).toString().slice('value='.length)
+    const encodedSecret = new URLSearchParams({ value: CLIENT_SECRET }).toString().slice('value='.length)
+    const authorization = `Basic ${btoa(`${encodedId}:${encodedSecret}`)}`
+    const params = new URLSearchParams()
 
     if (grantType === 'authorization_code') {
       if (!code || !codeVerifier) {
@@ -204,7 +206,10 @@ export async function POST(request: NextRequest) {
       try {
         const response = await fetch(`${ZITADEL_ISSUER}/oauth/v2/token`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          headers: {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            Authorization: authorization,
+          },
           body: params,
           redirect: 'manual',
           cache: 'no-store',
