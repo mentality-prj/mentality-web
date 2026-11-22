@@ -316,6 +316,42 @@ describe('/api/auth/exchange route', () => {
     }
   })
 
+  it('accepts same-origin HTTPS behind a Railway internal request URL', async () => {
+    cookiesMock.mockReturnValue(createCookieStore() as never)
+    ;(global.fetch as jest.Mock).mockResolvedValue(
+      new Response(JSON.stringify({
+        access_token: 'access', id_token: 'id', expires_in: 3600,
+      }), { status: 200 })
+    )
+    const response = await POST(new NextRequest('http://internal.railway:3000/api/auth/exchange', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        origin: 'https://dzvin.co',
+        host: 'dzvin.co',
+        'sec-fetch-site': 'same-origin',
+      },
+      body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
+    }))
+    expect(response.status).toBe(200)
+    expect(global.fetch).toHaveBeenCalledTimes(1)
+  })
+
+  it('rejects mismatched Origin and Host before contacting Zitadel', async () => {
+    const response = await POST(new NextRequest('http://internal.railway:3000/api/auth/exchange', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+        origin: 'https://attacker.example',
+        host: 'dzvin.co',
+        'sec-fetch-site': 'same-origin',
+      },
+      body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
+    }))
+    expect(response.status).toBe(403)
+    expect(global.fetch).not.toHaveBeenCalled()
+  })
+
   it('rejects missing Origin, including a browser-like request, without an IdP call', async () => {
     const response = await POST(
       new NextRequest('http://localhost:3000/api/auth/exchange', {
