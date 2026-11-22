@@ -321,31 +321,35 @@ describe('/api/auth/exchange route', () => {
     ;(global.fetch as jest.Mock).mockResolvedValue(
       new Response(JSON.stringify({ access_token: 'access', id_token: 'id', expires_in: 3600 }), { status: 200 })
     )
-    const response = await POST(new NextRequest('http://internal.railway:3000/api/auth/exchange', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        origin: 'https://dzvin.co',
-        host: 'dzvin.co',
-        'sec-fetch-site': 'same-origin',
-      },
-      body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
-    }))
+    const response = await POST(
+      new NextRequest('http://internal.railway:3000/api/auth/exchange', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          origin: 'https://dzvin.co',
+          host: 'dzvin.co',
+          'sec-fetch-site': 'same-origin',
+        },
+        body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
+      })
+    )
     expect(response.status).toBe(200)
     expect(global.fetch).toHaveBeenCalledTimes(1)
   })
 
   it('rejects mismatched Origin and Host before contacting Zitadel', async () => {
-    const response = await POST(new NextRequest('http://internal.railway:3000/api/auth/exchange', {
-      method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-        origin: 'https://attacker.example',
-        host: 'dzvin.co',
-        'sec-fetch-site': 'same-origin',
-      },
-      body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
-    }))
+    const response = await POST(
+      new NextRequest('http://internal.railway:3000/api/auth/exchange', {
+        method: 'POST',
+        headers: {
+          'content-type': 'application/json',
+          origin: 'https://attacker.example',
+          host: 'dzvin.co',
+          'sec-fetch-site': 'same-origin',
+        },
+        body: JSON.stringify({ grantType: 'authorization_code', code: 'code', codeVerifier: 'verifier' }),
+      })
+    )
     expect(response.status).toBe(403)
     expect(global.fetch).not.toHaveBeenCalled()
   })
