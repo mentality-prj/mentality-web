@@ -30,7 +30,14 @@ function isSameOriginRequest(request: NextRequest): boolean {
   const fetchSite = request.headers.get('sec-fetch-site')
   if (!origin || (fetchSite && fetchSite !== 'same-origin')) return false
   try {
-    return new URL(origin).origin === request.nextUrl.origin
+    const callerOrigin = new URL(origin)
+    // Railway/Next.js can expose an internal request URL behind its TLS proxy.
+    // Compare against the incoming Host, not the framework's reconstructed URL.
+    // sec-fetch-site still rejects browser cross-site submissions.
+    const host = request.headers.get('host')
+    if (!host || !/^https?:$/.test(callerOrigin.protocol)) return false
+    return callerOrigin.host.toLowerCase() === host.toLowerCase() &&
+      (callerOrigin.protocol === 'https:' || request.nextUrl.hostname === 'localhost')
   } catch {
     return false
   }
