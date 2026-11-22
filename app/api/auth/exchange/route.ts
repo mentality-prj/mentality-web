@@ -36,8 +36,10 @@ function isSameOriginRequest(request: NextRequest): boolean {
     // sec-fetch-site still rejects browser cross-site submissions.
     const host = request.headers.get('host')
     if (!host || !/^https?:$/.test(callerOrigin.protocol)) return false
-    return callerOrigin.host.toLowerCase() === host.toLowerCase() &&
+    return (
+      callerOrigin.host.toLowerCase() === host.toLowerCase() &&
       (callerOrigin.protocol === 'https:' || callerOrigin.hostname === 'localhost')
+    )
   } catch {
     return false
   }
