@@ -18,7 +18,10 @@ function isValidCompany(value: unknown): boolean {
   return object.success && hasFirstValidId(object.data, ['id', '_id', 'companyId'])
 }
 
-const companyList = z.array(z.unknown()).max(MAX_API_ARRAY_ITEMS).refine((values) => values.every(isValidCompany))
+const companyList = z
+  .array(z.unknown())
+  .max(MAX_API_ARRAY_ITEMS)
+  .refine((values) => values.every(isValidCompany))
 
 const projectKeys = ['items', 'projects', 'data'] as const
 
