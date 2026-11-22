@@ -1,3 +1,5 @@
+import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
+
 import { decodeRiskEventFeed } from './riskFeed.contract'
 
 describe('risk feed response contract', () => {
@@ -13,6 +15,12 @@ describe('risk feed response contract', () => {
     for (const value of invalid) {
       expect(decodeRiskEventFeed(value)).toBeNull()
     }
+  })
+
+  it('rejects oversized API event collections', () => {
+    const oversized = Array.from({ length: MAX_API_ARRAY_ITEMS + 1 }, () => ({ id: 'risk-1' }))
+    expect(decodeRiskEventFeed(oversized)).toBeNull()
+    expect(decodeRiskEventFeed({ items: oversized })).toBeNull()
   })
 
   it('rejects events with missing identifiers and titles', () => {

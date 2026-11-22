@@ -1,3 +1,5 @@
+import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
+
 import {
   decodeResearchCollection,
   decodeResearchEntity,
@@ -47,6 +49,14 @@ describe('Research API list contracts', () => {
       name: 'Study',
     })
     expect(decodeResearchEntity({ _id: 'project-2' })).toEqual({ _id: 'project-2' })
+  })
+
+  it('rejects oversized project lists and workspace company collections', () => {
+    const oversized = Array.from({ length: MAX_API_ARRAY_ITEMS + 1 }, (_, index) => ({
+      id: `entity-${index}`,
+    }))
+    expect(decodeResearchCollection({ items: oversized }, ['items'])).toBeNull()
+    expect(decodeResearchWorkspaceProjects({ companies: oversized })).toBeNull()
   })
 
   it('recognizes stable entity identities without generating random ids', () => {

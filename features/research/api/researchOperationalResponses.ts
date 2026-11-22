@@ -1,5 +1,6 @@
 import { z } from 'zod'
 
+import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
 import { decodeResearchCollection } from '@/features/research/api/researchCollection.contract'
 import {
   normalizeCohort,
@@ -19,10 +20,10 @@ const scalar = z.union([z.string(), z.number().finite(), z.boolean()])
 const optionalDate = scalar.nullable().optional()
 const cohortSchema = z
   .object({
-    groupIds: z.array(scalar).optional(),
-    groups: z.array(scalar).optional(),
-    resolvedGroupIds: z.array(scalar).optional(),
-    resolvedGroups: z.array(scalar).optional(),
+    groupIds: z.array(scalar).max(MAX_API_ARRAY_ITEMS).optional(),
+    groups: z.array(scalar).max(MAX_API_ARRAY_ITEMS).optional(),
+    resolvedGroupIds: z.array(scalar).max(MAX_API_ARRAY_ITEMS).optional(),
+    resolvedGroups: z.array(scalar).max(MAX_API_ARRAY_ITEMS).optional(),
     userSelectionMode: z.string().optional(),
     selectionMode: z.string().optional(),
     from: optionalDate,
@@ -40,9 +41,9 @@ const inspectionSchema = z
     modelVersion: z.string().nullable().optional(),
     contract: z.string().nullable().optional(),
     allowedContract: z.string().nullable().optional(),
-    governance: z.record(z.unknown()).nullable().optional(),
-    governanceMetadata: z.record(z.unknown()).nullable().optional(),
-    metadata: z.record(z.unknown()).nullable().optional(),
+    governance: z.record(z.string(), z.unknown()).nullable().optional(),
+    governanceMetadata: z.record(z.string(), z.unknown()).nullable().optional(),
+    metadata: z.record(z.string(), z.unknown()).nullable().optional(),
   })
   .passthrough()
 

@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
+
 // Decode the NestJS reporting feed at the API boundary. A malformed upstream
 // response must not masquerade as an empty feed (including individual events).
 const namedRiskEvent = z
@@ -14,7 +16,7 @@ const namedRiskEvent = z
     message: 'Risk event must carry an identifier or a title',
   })
 
-const riskEventList = z.array(namedRiskEvent)
+const riskEventList = z.array(namedRiskEvent).max(MAX_API_ARRAY_ITEMS)
 const riskEventFeed = z.union([riskEventList, z.object({ items: riskEventList }).passthrough()])
 
 export function decodeRiskEventFeed(value: unknown): Record<string, unknown>[] | null {

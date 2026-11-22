@@ -1,3 +1,5 @@
+import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
+
 import {
   createResearchExportDecoder,
   createResearchInspectionDecoder,
@@ -27,6 +29,14 @@ describe('Research operational HTTP response contracts', () => {
         error: 'Invalid research cohort response from backend',
       })
     }
+  })
+
+  it('rejects oversized cohort group collections', () => {
+    const groups = Array.from({ length: MAX_API_ARRAY_ITEMS + 1 }, (_, index) => `team-${index}`)
+    expect(decodeResearchCohortResponse({ groups })).toEqual({
+      success: false,
+      error: 'Invalid research cohort response from backend',
+    })
   })
 
   it('decodes both single cohort objects and one-element GET arrays', () => {
