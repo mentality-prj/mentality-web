@@ -319,9 +319,7 @@ describe('/api/auth/exchange route', () => {
   it('accepts same-origin HTTPS behind a Railway internal request URL', async () => {
     cookiesMock.mockReturnValue(createCookieStore() as never)
     ;(global.fetch as jest.Mock).mockResolvedValue(
-      new Response(JSON.stringify({
-        access_token: 'access', id_token: 'id', expires_in: 3600,
-      }), { status: 200 })
+      new Response(JSON.stringify({ access_token: 'access', id_token: 'id', expires_in: 3600 }), { status: 200 })
     )
     const response = await POST(new NextRequest('http://internal.railway:3000/api/auth/exchange', {
       method: 'POST',
