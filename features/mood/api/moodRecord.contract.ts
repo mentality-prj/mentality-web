@@ -1,7 +1,6 @@
 import { z } from 'zod'
 
 import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
-
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 // Decode untrusted NestJS JSON once at the feature boundary. A malformed
