@@ -1,7 +1,6 @@
 import { z } from 'zod'
 
 import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
-
 import { decodeResearchCollection } from '@/features/research/api/researchCollection.contract'
 import {
   normalizeCohort,
