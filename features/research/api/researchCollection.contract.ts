@@ -1,7 +1,9 @@
 import { z } from 'zod'
 
-const collectionItem = z.record(z.unknown())
-const collectionSchema = z.array(collectionItem)
+import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
+
+const collectionItem = z.record(z.string(), z.unknown())
+const collectionSchema = z.array(collectionItem).max(MAX_API_ARRAY_ITEMS)
 const entityId = z.union([z.string().trim().min(1), z.number().finite()])
 
 function hasFirstValidId(record: Record<string, unknown>, keys: readonly string[]): boolean {
@@ -16,14 +18,14 @@ function isValidCompany(value: unknown): boolean {
   return object.success && hasFirstValidId(object.data, ['id', '_id', 'companyId'])
 }
 
-const companyList = z.array(z.unknown()).refine((values) => values.every(isValidCompany))
+const companyList = z.array(z.unknown()).max(MAX_API_ARRAY_ITEMS).refine((values) => values.every(isValidCompany))
 
 const projectKeys = ['items', 'projects', 'data'] as const
 
 const workspaceMetadataSchema = z
   .object({
-    capabilities: z.array(z.string()).optional(),
-    workspaceCapabilities: z.array(z.string()).optional(),
+    capabilities: z.array(z.string()).max(MAX_API_ARRAY_ITEMS).optional(),
+    workspaceCapabilities: z.array(z.string()).max(MAX_API_ARRAY_ITEMS).optional(),
     canCreateProject: z.boolean().optional(),
     createProjectAllowed: z.boolean().optional(),
     companies: companyList.optional(),

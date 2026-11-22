@@ -1,5 +1,7 @@
 import { z } from 'zod'
 
+import { MAX_API_ARRAY_ITEMS } from '@/constants/apiValidation'
+
 import type { MoodRecordEntity } from '@/types/api-responses'
 
 // Decode untrusted NestJS JSON once at the feature boundary. A malformed
@@ -16,12 +18,12 @@ const moodRecordSchema = z
     stressLevel: moodScale,
     energyLevel: moodScale,
     focusLevel: moodScale,
-    tags: z.array(z.string()).optional(),
+    tags: z.array(z.string()).max(MAX_API_ARRAY_ITEMS).optional(),
     createdAt: validTimestamp.optional(),
   })
   .passthrough()
 
-const moodRecordListSchema = z.array(moodRecordSchema)
+const moodRecordListSchema = z.array(moodRecordSchema).max(MAX_API_ARRAY_ITEMS)
 
 export function decodeMoodRecord(value: unknown): MoodRecordEntity | null {
   const result = moodRecordSchema.safeParse(value)
