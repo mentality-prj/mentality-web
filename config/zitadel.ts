@@ -18,7 +18,8 @@ export const zitadelConfig = {
   postLogoutRedirectUri: BASE_URL || '/',
 
   /** OIDC scopes */
-  scopes: ['openid', 'profile', 'email', 'offline_access'],
+  // Canonical QDIP organization for shared Zitadel registration across products.
+  scopes: ['openid', 'profile', 'email', 'offline_access', 'urn:zitadel:iam:org:id:400021806318146947'],
 
   /** JWKS endpoint for token verification */
   get jwksUri() {
