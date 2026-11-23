@@ -38,6 +38,7 @@ function createRequest(pathname: string, body: unknown, headers?: Record<string,
     headers: new Headers({
       'content-type': 'application/json',
       origin: 'http://localhost:3000',
+      host: 'localhost:3000',
       ...headers,
     }),
     body: JSON.stringify(body),
@@ -226,6 +227,7 @@ describe('/api/auth/exchange route', () => {
         headers: new Headers({
           'content-type': 'application/json',
           origin: 'http://localhost:3000',
+          host: 'localhost:3000',
         }),
         body: '{bad-json',
       })
