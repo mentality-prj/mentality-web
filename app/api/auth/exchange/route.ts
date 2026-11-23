@@ -30,7 +30,16 @@ function isSameOriginRequest(request: NextRequest): boolean {
   const fetchSite = request.headers.get('sec-fetch-site')
   if (!origin || (fetchSite && fetchSite !== 'same-origin')) return false
   try {
-    return new URL(origin).origin === request.nextUrl.origin
+    const callerOrigin = new URL(origin)
+    // Railway/Next.js can expose an internal request URL behind its TLS proxy.
+    // Compare against the incoming Host, not the framework's reconstructed URL.
+    // sec-fetch-site still rejects browser cross-site submissions.
+    const host = request.headers.get('host')
+    if (!host || !/^https?:$/.test(callerOrigin.protocol)) return false
+    return (
+      callerOrigin.host.toLowerCase() === host.toLowerCase() &&
+      (callerOrigin.protocol === 'https:' || callerOrigin.hostname === 'localhost')
+    )
   } catch {
     return false
   }
@@ -128,7 +137,7 @@ export async function POST(request: NextRequest) {
   const ZITADEL_ISSUER = process.env.NEXT_PUBLIC_ZITADEL_ISSUER
   const CLIENT_ID = process.env.NEXT_PUBLIC_ZITADEL_CLIENT_ID ?? process.env.ZITADEL_CLIENT_ID
   const CLIENT_SECRET = process.env.ZITADEL_CLIENT_SECRET
-  const REDIRECT_URI = new URL('/callback', request.nextUrl.origin).toString()
+  const REDIRECT_URI = new URL('/callback', request.headers.get('origin') ?? request.nextUrl.origin).toString()
 
   if (!ZITADEL_ISSUER || !CLIENT_ID || !CLIENT_SECRET || !REDIRECT_URI.startsWith('http')) {
     return jsonNoStore({ error: 'Server misconfiguration: missing Zitadel environment variables' }, { status: 500 })
